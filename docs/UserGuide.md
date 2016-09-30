@@ -11,18 +11,20 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the 'releases' tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+   Click [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) to download the latest Java version.
+   
+1. Download the latest `tars.jar` from the 'releases' tab. [*No releases available yet*]
+2. Copy the file to the folder you want to use as the home folder for your TARS App.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   > *Image not available yet*
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`ls`** : lists all tasks
+   * **`add`**` add -n Complete CS2103 Quiz 3 -dt 23/09/2016 -p H, -t Quiz, CS2103` : 
+     adds a task `Complete CS2103 Quiz 3` to the TARS list.
+   * **`del`**` 3` : deletes the 3rd task shown in the TARS list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
