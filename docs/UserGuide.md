@@ -141,7 +141,6 @@ Mark Undone | `mark -ud <INDEX>[ , <INDEX>, <INDEX>, ...]`
 Reserve | `rsv -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
 Reserve [Delete]| `rsv -d <INDEX>`
 Reserve [Edit] | `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME`
-Select | `select INDEX`
 Tag [Delete] | `tag -d <INDEX>`
 Tag [Edit] | `tag -e <INDEX> <TAG> `
 Tag [Find] | `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>]`
