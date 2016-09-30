@@ -1,20 +1,11 @@
-[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
+# TARS: Task And Remember Stuff - A Productivity Tool by CS2103AUG2016-F10-C1
 
-# Address Book (Level 4)
+*Screenshot of GUI not available yet*
 
-<img src="docs/images/Ui.png" width="600"><br>
-
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
-  a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as 
-  the main programming language. 
-* It is **written in OOP fashion**. It provides a **reasonably well-written** code example that is 
-  **significantly bigger** (around 6 KLoC)than what students usually write in beginner-level SE modules. 
-* What's different from [level 3](https://github.com/se-edu/addressbook-level3):
-    * A more sophisticated GUI that includes a list panel and an in-built Browser.
-    * More test cases, including automated GUI testing.
-    * Support for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
+* This is a desktop To-Do List application. It has a GUI but most of the user interactions happen using 
+  a CLI (Command Line Interface). 
+* This application is a CS2103 project and is still undergoing development.
+* There are no releases available as of yet.
 
   
 #### Site Map
@@ -26,7 +17,9 @@
 
 #### Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent 
+* This application was built on a CS2103 sample application, [AddressBook-Level 4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4) designed and built by Assoc. Prof Damith C. Rajapakse and his teaching team 
+* This application was designed and built under the guidance and advice of our module tutor, [Candiie](https://github.com/Candiie)
+* Some parts of this application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 
 
