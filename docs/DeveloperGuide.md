@@ -251,11 +251,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new task (with deadlines) and events (with start and end timings) | keep track of it and complete it in the future
+`* * *` | user | delete a task | remove tasks that I no longer need to do
+`* * *` | user | edit a task | change the details of the tasks
+`* * *` | user | view tasks | decide on the follow-up action for each task
+`* * *` | user | clear all the data | remove all my information
+`* *` | user | prioritize my task | do the more important ones first
+`* *` | user | search for a task by keywords | view the details of task and complete it
+`* *` | user | undo a command | revert back to the previous state
+`* *` | user | add recurring tasks | save time entering the same task over multiple dates
+`* *` | user | choose my data storage location | have the flexibility to use the program on multiple computers as they can read from the same file stored on the cloud e.g. Google Drive
+`* *` | user | add a tag on tasks | categorize my task
+`* *` | user | edit a tag | rename the tag without the need to delete and add it again
+`* *` | user | view tasks by tags/priority/date | group my tasks based on a field of my choice
+`* *` | user | reserve dates for a task/event | block out time slots and add them upon confirmation of the time and date details
+`*` | user | have flexibility in entering commands | type in commands without having to remember the exact format
+`*` | user | user a keyboard shortcut to launch the program | launch the program quickly
+`*` | user | have suggestions on free slots | decide when to add a new task or shift current tasks
 
 {More to be added}
 
@@ -300,10 +312,6 @@ Use case ends.
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
-
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
 
