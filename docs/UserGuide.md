@@ -118,10 +118,33 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)> -r <NUM_TIMES> <FREQUENCY>`
+Change Storage Location | `cd <FILE_PATH>`
 Clear | `clear`
-Delete | `delete INDEX`
+Confirm | `confirm <INDEX_TASK> <INDEX_TIMESLOT>`
+Delete | `del <INDEX> [, <INDEX>, <INDEX>, …]`
+Delete [by Date] | `del -dt [<START_DATE> to <END_DATE>] <INDEX>[, <INDEX>, <INDEX>,...]`
+Delete [by Priority] | `del -p [PRIORITY] <INDEX> [, <INDEX>, <INDEX>, …]`
+Delete [by Tags] | `del -t <TAG>[ , <TAG>, <TAG>] <INDEX>[, <INDEX>, <INDEX>,...]`
+Edit | `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)>`
+Edit [Append] | `edit <INDEX> -ap <TO APPEND>`
+Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
+List | `ls`
+List All | `ls -all`
+List [Date] | `ls -dt [<START_DATE> to <END_DATE>]`
+List [Priority] | `ls -p [PRIORITY]`
+List [Tags] | `ls -t <TAG>[ , <TAG>, <TAG>]`
+Mark Done | `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...]`
+Mark Undone | `mark -ud <INDEX>[ , <INDEX>, <INDEX>, ...]`
+Reserve | `rsv -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
+Reserve [Delete]| `rsv -d <INDEX>`
+Reserve [Edit] | `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME`
 Select | `select INDEX`
+Tag [Delete] | `tag -d <INDEX>`
+Tag [Edit] | `tag -e <INDEX> <TAG> `
+Tag [Find] | `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>]`
+Tag [List] | `tag -ls`
+Undo | `undo`
+
