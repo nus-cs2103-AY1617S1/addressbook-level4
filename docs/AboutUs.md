@@ -10,19 +10,19 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Calvin Yang Jiawei](http://github.com/origiri) <br>
-**Role**: Developer
+**Role**: Developer <br>
 Responsibilities: Integration
 
 -----
 
 #### [Chia Wei Kang](http://github.com/weikangchia) <br>
-**Role**: Developer
+**Role**: Developer <br>
 Responsibilities: Testing
 
 -----
 
 #### [Foo En Teng Joel](http://github.com/jaeoheeail) <br>
-**Role**: Developer
+**Role**: Developer <br>
 Responsibilities: Documentation
 
  -----
