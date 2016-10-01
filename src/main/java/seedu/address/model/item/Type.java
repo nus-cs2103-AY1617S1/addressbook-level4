@@ -13,7 +13,7 @@ public class Type {
     public static final String EVENT_WORD = "event";
     
     public static final String MESSAGE_TYPE_CONSTRAINTS = "Item types should only be 'task', 'deadline' or 'event'.";
-    public static final String TYPE_VALIDATION_REGEX = "\\b("+ TASK_WORD + "|" + DEADLINE_WORD + "|" + EVENT_WORD + ")\\b";
+    public static final String TYPE_VALIDATION_REGEX = "\\d+";
 
     public final String value;
 
