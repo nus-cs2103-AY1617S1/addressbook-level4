@@ -32,8 +32,8 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setType(new Type(phone));
+    public PersonBuilder withType(String type) throws IllegalValueException {
+        this.person.setType(new Type(type));
         return this;
     }
 

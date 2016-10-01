@@ -17,7 +17,7 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String type;
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
@@ -39,7 +39,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyPerson source) {
         name = source.getName().fullName;
-        phone = source.getType().value;
+        type = source.getType().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged = new ArrayList<>();
@@ -59,7 +59,7 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Type type = new Type(this.phone);
+        final Type type = new Type(this.type);
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);

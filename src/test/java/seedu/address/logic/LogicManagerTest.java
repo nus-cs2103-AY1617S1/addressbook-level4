@@ -152,8 +152,6 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
                 "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
@@ -162,13 +160,13 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] " + Type.TASK_WORD + " e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Type.MESSAGE_TYPE_CONSTRAINTS);
+                "add Valid Name not_task e/valid@e.mail a/valid, address", Type.MESSAGE_TYPE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name " + Type.TASK_WORD + " e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name " + Type.TASK_WORD + " e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -384,7 +382,7 @@ public class LogicManagerTest {
 
         Item adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Type privateType = new Type("111111");
+            Type privateType = new Type(Type.TASK_WORD);
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
@@ -403,7 +401,7 @@ public class LogicManagerTest {
         Item generateItem(int seed) throws Exception {
             return new Item(
                     new Name("Item " + seed),
-                    new Type("" + Math.abs(seed)),
+                    new Type(Type.TASK_WORD),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -417,7 +415,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getType());
+            cmd.append(" " + p.getType());
             cmd.append(" e/").append(p.getEmail());
             cmd.append(" a/").append(p.getAddress());
 
@@ -502,7 +500,7 @@ public class LogicManagerTest {
         Item generateItemWithName(String name) throws Exception {
             return new Item(
                     new Name(name),
-                    new Type("1"),
+                    new Type(Type.TASK_WORD),
                     new Email("1@email"),
                     new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))
