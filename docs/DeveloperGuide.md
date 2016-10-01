@@ -280,7 +280,7 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User submits a show usage command
-2. AddressBook shows a list of usage intructions<br>
+2. TARS shows a list of usage intructions<br>
 Use case ends.
 
 #### Use case: Add task
