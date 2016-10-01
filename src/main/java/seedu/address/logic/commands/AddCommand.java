@@ -38,8 +38,8 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Person(
                 new Name(name),
-                new Phone(phone),
-                new Email(email),
+                new StartTime(phone),
+                new EndTime(email),
                 new Address(address),
                 new UniqueTagList(tagSet)
         );
@@ -51,7 +51,7 @@ public class AddCommand extends Command {
         try {
             model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniquePersonList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicatePersonException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
 

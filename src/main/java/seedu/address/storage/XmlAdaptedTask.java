@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Person.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
@@ -29,7 +29,7 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedTask() {}
 
 
     /**
@@ -37,7 +37,7 @@ public class XmlAdaptedPerson {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(ReadOnlyPerson source) {
+    public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -59,10 +59,10 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
+        final StartTime startTime = new StartTime(this.phone);
+        final EndTime endTime = new EndTime(this.email);
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, startTime, endTime, address, tags);
     }
 }

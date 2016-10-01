@@ -6,11 +6,11 @@ import seedu.address.model.tag.UniqueTagList;
  * A read-only immutable interface for a Person in the addressbook.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyPerson {
+public interface ReadOnlyTask {
 
     Name getName();
-    Phone getPhone();
-    Email getEmail();
+    StartTime getPhone();
+    EndTime getEmail();
     Address getAddress();
 
     /**
@@ -22,7 +22,7 @@ public interface ReadOnlyPerson {
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyPerson other) {
+    default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards

@@ -9,11 +9,11 @@ import java.util.Objects;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Person implements ReadOnlyPerson {
+public class Person implements ReadOnlyTask {
 
     private Name name;
-    private Phone phone;
-    private Email email;
+    private StartTime startTime;
+    private EndTime endTime;
     private Address address;
 
     private UniqueTagList tags;
@@ -21,11 +21,11 @@ public class Person implements ReadOnlyPerson {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+    public Person(Name name, StartTime startTime, EndTime endTime, Address address, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startTime, endTime, address, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.address = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -33,7 +33,7 @@ public class Person implements ReadOnlyPerson {
     /**
      * Copy constructor.
      */
-    public Person(ReadOnlyPerson source) {
+    public Person(ReadOnlyTask source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
     }
 
@@ -43,13 +43,13 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public StartTime getPhone() {
+        return startTime;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public EndTime getEmail() {
+        return endTime;
     }
 
     @Override
@@ -72,14 +72,14 @@ public class Person implements ReadOnlyPerson {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyPerson // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyPerson) other));
+                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, startTime, endTime, address, tags);
     }
 
     @Override
