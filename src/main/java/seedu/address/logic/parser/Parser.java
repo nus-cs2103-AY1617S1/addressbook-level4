@@ -52,7 +52,7 @@ public class Parser {
         switch (commandWord) {
 
         case AddFloatingCommand.COMMAND_WORD:
-            return prepareAdd(arguments);
+            return prepareAddFloating(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -86,7 +86,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
+    private Command prepareAddFloating(String args){
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
