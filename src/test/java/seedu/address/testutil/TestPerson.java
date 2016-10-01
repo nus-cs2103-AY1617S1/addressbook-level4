@@ -67,7 +67,7 @@ public class TestPerson implements ReadOnlyPerson {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getItemType().value + " ");
-        sb.append("p/" + this.getName().value + " ");
+        sb.append("n/" + this.getName().value + " ");
         sb.append("e/" + this.getEmail().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
