@@ -8,8 +8,11 @@ Schindler's
 
 ### Roles and responsibilities
 **President: Vincent**
+
 **Testing: Karen**
+
 **Integration: Anthony**
+
 **Scheduling and Tracking: Joe**
 
 
@@ -39,70 +42,92 @@ Schindler's
 ## Use Cases
 
 **Use case: Create a floating task**
+
 Actors: User
+
 MSS
+
 1. User request to create a new entry without specifying the start and/or end date and deadline
 2. TodoList add that particular floating task into database and save it
 
   Use Case Ends
 
 **Use case: Create an event**
+
 Actors: User
+
 MSS
+
 1. User request to create a new entry while specifying the start and/or end date but not deadline
 2. TodoList add that particular floating task into database and save it
 
   Use Case Ends
 
 **Use Case: Create a deadline**
+
 Actors: User
+
 MSS
+
 1. User request to create a new entry while specifying the deadline but no start and/or end date
 2. TodoList add that particular deadline into database and save it
 
   Use Case Ends
 
 **Use Case: Delete an entry**
+
 Actors: User
+
 MSS
+
 1. User requests to delete an entry with a specified id
 2. TodoList deletes the entry
 
   Use Case Ends
 
-Extensions
+*Extensions*
 
->1.a. Entry with the specified id does not exist
->>1a1. TodoList warns the user the entry with the specified id does not exist
->>  Use Case Ends
+1a. Entry with the specified id does not exist
+> 1a1. TodoList warns the user the entry with the specified id does not exist
+> 
+> Use Case Ends
 
 **Use Case: List all entries**
+
 Actors: User
+
 MSS
+
 1. User requests to list all entries
 2. TodoList shows a list of entries, sorted by date (oldest first)
 
   Use Case Ends
 
 **Use Case: List entries with filters**
+
 Actors: User
+
 MSS
+
 1. User requests to list entries with some filters
 2. TodoList shows a list of entries that satisfies the filters, sorted by date (oldest first)
 
   Use Case Ends
 
 **Use Case: Add tags to a list of entries**
+
 Actors: User
+
 MSS
+
 1. User requests to list a filtered list of entries
 2. User requests to add tags to the listed entries
 
   Use Case Ends
 
+*Extensions*
 
-Extensions
-
->2.a. User attempts to add an invalid tag
->>2.a.1. TodoList tells the user that the tag name is invalid
-  Use Case Ends
+2a. User attempts to add an invalid tag
+>2a1. TodoList tells the user that the tag name is invalid
+>
+>Use Case Ends
