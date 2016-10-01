@@ -70,20 +70,20 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyTaskList> taskListOptional;
+        ReadOnlyTaskList initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if(!addressBookOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty AddressBook");
+            taskListOptional = storage.readAddressBook();
+            if(!taskListOptional.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty TaskList");
             }
-            initialData = addressBookOptional.orElse(new AddressBook());
+            initialData = taskListOptional.orElse(new TaskList());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty TaskList");
+            initialData = new TaskList();
         } catch (FileNotFoundException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskList");
+            initialData = new TaskList();
         }
 
         return new ModelManager(initialData, userPrefs);
