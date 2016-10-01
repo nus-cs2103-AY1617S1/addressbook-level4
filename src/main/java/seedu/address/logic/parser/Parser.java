@@ -51,7 +51,7 @@ public class Parser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
+        case AddFloatingCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
         case SelectCommand.COMMAND_WORD:
@@ -90,14 +90,11 @@ public class Parser {
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFloatingCommand.MESSAGE_USAGE));
         }
         try {
-            return new AddCommand(
+            return new AddFloatingCommand(
                     matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
