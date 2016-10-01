@@ -40,7 +40,7 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Item(
                 new ItemType(itemType),
-                new Phone(phone),
+                new Name(phone),
                 new Email(email),
                 new Address(address),
                 new UniqueTagList(tagSet)

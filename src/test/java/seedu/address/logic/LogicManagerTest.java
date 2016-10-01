@@ -164,7 +164,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", ItemType.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid ItemType p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid ItemType p/not_numbers e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid ItemType p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
@@ -384,13 +384,13 @@ public class LogicManagerTest {
 
         Item adam() throws Exception {
             ItemType itemType = new ItemType("Adam Brown");
-            Phone privatePhone = new Phone("111111");
+            Name privateName = new Name("111111");
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Item(itemType, privatePhone, email, privateAddress, tags);
+            return new Item(itemType, privateName, email, privateAddress, tags);
         }
 
         /**
@@ -403,7 +403,7 @@ public class LogicManagerTest {
         Item generateItem(int seed) throws Exception {
             return new Item(
                     new ItemType("Item " + seed),
-                    new Phone("" + Math.abs(seed)),
+                    new Name("" + Math.abs(seed)),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -417,7 +417,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getItemType().toString());
-            cmd.append(" p/").append(p.getPhone());
+            cmd.append(" p/").append(p.getName());
             cmd.append(" e/").append(p.getEmail());
             cmd.append(" a/").append(p.getAddress());
 
@@ -502,7 +502,7 @@ public class LogicManagerTest {
         Item generateItemWithName(String name) throws Exception {
             return new Item(
                     new ItemType(name),
-                    new Phone("1"),
+                    new Name("1"),
                     new Email("1@email"),
                     new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))

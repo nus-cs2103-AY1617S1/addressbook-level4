@@ -28,7 +28,7 @@ public class Parser {
 
     private static final Pattern ITEM_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<itemType>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
+                    + " p/(?<name>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -95,7 +95,7 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("itemType"),
-                    matcher.group("phone"),
+                    matcher.group("name"),
                     matcher.group("email"),
                     matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))

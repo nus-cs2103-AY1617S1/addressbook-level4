@@ -39,7 +39,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyPerson source) {
         name = source.getItemType().value;
-        phone = source.getPhone().value;
+        phone = source.getName().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged = new ArrayList<>();
@@ -59,10 +59,10 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
         final ItemType itemType = new ItemType(this.name);
-        final Phone phone = new Phone(this.phone);
+        final Name name = new Name(this.phone);
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Item(itemType, phone, email, address, tags);
+        return new Item(itemType, name, email, address, tags);
     }
 }
