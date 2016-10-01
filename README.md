@@ -1,4 +1,5 @@
-# TARS: Task And Remember Stuff - A Productivity Tool by CS2103AUG2016-F10-C1
+# TARS: Task And Remember Stuff 
+### A Productivity Tool by CS2103AUG2016-F10-C1
 
 *Screenshot of GUI not available yet*
 
@@ -17,8 +18,8 @@
 
 #### Acknowledgements
 
-* This application was built on a CS2103 sample application, [AddressBook-Level 4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4) designed and built by *Assoc. Prof Damith C. Rajapakse* and his teaching team 
-* This application was designed and built under the guidance and advice of our module tutor, [Candiie](https://github.com/Candiie)
+* This application was adapted from a CS2103 sample application, [AddressBook-Level 4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4) designed and built by *Assoc. Prof Damith C. Rajapakse* and his teaching team. 
+* This application was designed and built under the guidance and advice of our module tutor, *[Candiie](https://github.com/Candiie)*.
 * Some parts of this application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 
