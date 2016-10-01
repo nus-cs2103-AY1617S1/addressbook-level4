@@ -3,8 +3,8 @@ package seedu.address.model.item;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Item's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Represents a Item's type in the task manager.
+ * Guarantees: immutable; is valid as declared in {@link #isValidType(String)}
  */
 public class Type {
 
@@ -12,30 +12,30 @@ public class Type {
     public static final String DEADLINE_WORD = "deadline";
     public static final String EVENT_WORD = "event";
     
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "Item phone numbers should only contain numbers";
-    public static final String PHONE_VALIDATION_REGEX = "\\d+";
+    public static final String MESSAGE_TYPE_CONSTRAINTS = "Item types should only be 'task', 'deadline' or 'event'.";
+    public static final String TYPE_VALIDATION_REGEX = "\\d+";
 
     public final String value;
 
     /**
-     * Validates given phone number.
+     * Validates given type.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException if given type string is invalid.
      */
-    public Type(String phone) throws IllegalValueException {
-        assert phone != null;
-        phone = phone.trim();
-        if (!isValidPhone(phone)) {
-            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
+    public Type(String type) throws IllegalValueException {
+        assert type != null;
+        type = type.trim();
+        if (!isValidType(type)) {
+            throw new IllegalValueException(MESSAGE_TYPE_CONSTRAINTS);
         }
-        this.value = phone;
+        this.value = type;
     }
 
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given string is a valid item type.
      */
-    public static boolean isValidPhone(String test) {
-        return test.matches(PHONE_VALIDATION_REGEX);
+    public static boolean isValidType(String test) {
+        return test.matches(TYPE_VALIDATION_REGEX);
     }
 
     @Override
