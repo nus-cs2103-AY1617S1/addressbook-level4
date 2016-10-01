@@ -57,7 +57,7 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return prepareAddFloating(arguments);
+            return prepareAddFloating(arguments); //for adding floating tasks
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
