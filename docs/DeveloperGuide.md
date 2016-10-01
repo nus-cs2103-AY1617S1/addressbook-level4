@@ -273,28 +273,35 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TARS` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Show usage
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User submits a show usage command
+2. AddressBook shows a list of usage intructions<br>
+Use case ends.
+
+#### Use case: Add task
+
+**MSS**
+
+1. User submits a new task
+2. TARS save the task <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. The format is invalid
 
-> Use case ends
+> 2a1. TARS shows an error message<br>
+  Use case resume at step 1
 
-3a. The given index is invalid
+2b. The end datetime is smaller than start datetime
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+> 2b1. TARS shows an error message<br>
+  Use case resume at step 1
 
 {More to be added}
 
