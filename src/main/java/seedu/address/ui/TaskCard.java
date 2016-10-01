@@ -8,7 +8,7 @@ import seedu.address.model.person.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "FloatingTaskListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -16,12 +16,6 @@ public class TaskCard extends UiPart{
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
     @FXML
     private Label tags;
 
