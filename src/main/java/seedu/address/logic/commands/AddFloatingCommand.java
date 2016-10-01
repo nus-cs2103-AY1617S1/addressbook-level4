@@ -23,7 +23,7 @@ public class AddFloatingCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New floating task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task list";
 
-    private final Task toAdd;
+    private final FloatingTask toAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -36,7 +36,7 @@ public class AddFloatingCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
+        this.toAdd = new FloatingTask(
                 new Name(name),
                 new UniqueTagList(tagSet)
         );

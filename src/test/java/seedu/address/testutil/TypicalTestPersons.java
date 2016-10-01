@@ -37,13 +37,13 @@ public class TypicalTestPersons {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addPerson(new Task(alice));
-            ab.addPerson(new Task(benson));
-            ab.addPerson(new Task(carl));
-            ab.addPerson(new Task(daniel));
-            ab.addPerson(new Task(elle));
-            ab.addPerson(new Task(fiona));
-            ab.addPerson(new Task(george));
+            ab.addPerson(new FloatingTask(alice));
+            ab.addPerson(new FloatingTask(benson));
+            ab.addPerson(new FloatingTask(carl));
+            ab.addPerson(new FloatingTask(daniel));
+            ab.addPerson(new FloatingTask(elle));
+            ab.addPerson(new FloatingTask(fiona));
+            ab.addPerson(new FloatingTask(george));
         } catch (UniquePersonList.DuplicatePersonException e) {
             assert false : "not possible";
         }

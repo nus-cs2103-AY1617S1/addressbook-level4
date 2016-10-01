@@ -12,10 +12,10 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see Task#equals(Object)
+ * @see FloatingTask#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<Task> {
+public class UniquePersonList implements Iterable<FloatingTask> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -32,7 +32,7 @@ public class UniquePersonList implements Iterable<Task> {
      */
     public static class PersonNotFoundException extends Exception {}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
@@ -42,7 +42,7 @@ public class UniquePersonList implements Iterable<Task> {
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ReadOnlyPerson toCheck) {
+    public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -52,7 +52,7 @@ public class UniquePersonList implements Iterable<Task> {
      *
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(Task toAdd) throws DuplicatePersonException {
+    public void add(FloatingTask toAdd) throws DuplicatePersonException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -65,7 +65,7 @@ public class UniquePersonList implements Iterable<Task> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public boolean remove(ReadOnlyTask toRemove) throws PersonNotFoundException {
         assert toRemove != null;
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
@@ -74,12 +74,12 @@ public class UniquePersonList implements Iterable<Task> {
         return personFoundAndDeleted;
     }
 
-    public ObservableList<Task> getInternalList() {
+    public ObservableList<FloatingTask> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Task> iterator() {
+    public Iterator<FloatingTask> iterator() {
         return internalList.iterator();
     }
 
