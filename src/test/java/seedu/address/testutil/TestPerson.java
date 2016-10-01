@@ -11,7 +11,7 @@ public class TestPerson implements ReadOnlyPerson {
     private Name name;
     private Address address;
     private Email email;
-    private Type type;
+    private Phone phone;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -30,8 +30,8 @@ public class TestPerson implements ReadOnlyPerson {
         this.email = email;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setPhone(Phone phone) {
+        this.phone = phone;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public Type getType() {
-        return type;
+    public Phone getPhone() {
+        return phone;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class TestPerson implements ReadOnlyPerson {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getType().value + " ");
+        sb.append("p/" + this.getPhone().value + " ");
         sb.append("e/" + this.getEmail().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
