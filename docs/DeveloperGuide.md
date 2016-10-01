@@ -253,14 +253,24 @@ b. Require developers to download those libraries manually (this creates extra w
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
 
-Priority | As a ... | I want to ... | So that I can...
--------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+Priority | As a ... | I want to ...           | So that I can... 
+-------- | :------- | :---------------------- | :--------------- 
+`* * *`  | new iser | see usage instructions  | use the app as intended
+`* * *`  | user     | add a new task | add something to my todo list without a time restrictions 
+`* * *`  | user     | add a new deadline          | add something to my todo list with a deadline 
+`* * *`  | user     | add a new event         | add something to my todo list with a start and end time 
+`* * *`  | user     | view all tasks/deadlines/events   | view my entire todo list
+`* * *`  | user     | view all undone tasks/deadlines/events | view items I need to work on
+`* * *`  | user     | edit a task/deadline/event       | change the details of a task/deadline/event
+`* * *`  | user     | mark a task/deadline as done| know that a task/deadline is completed
+`* * *`  | user     | delete a task/deadline/event     | remove an item that is no longer necessary 
+`* * *`  | user     | set a deadline for task | know when to finish the task by
+`* * *`  | user     | search tasks by name    | find the task that I need to do
+`* * *`  | user     | undo the last command   | undo an unintentional operation
+`* * *`  | user     | have multiple keywords for a command | be flexible about how I enter a command 
+`* * *`  | user     | specify the data storage location | use cloud syncing services and access my todo list on different devices
+`* *`    | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
+`* *`    | user     | integrate with Google Cal | export todo list to Google Cal
 
 {More to be added}
 
