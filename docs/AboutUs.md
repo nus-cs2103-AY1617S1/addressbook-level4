@@ -2,7 +2,34 @@
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-## Project Team
+## taskmanager Project Team
+
+#### [Tan Min Rong Samson](http://github.com/samsontmr)
+Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines <br>
+Responsibilities: Logic
+
+-----
+
+#### [Harsh Gadodia](http://github.com/harshgadodia)
+Role: Testing / Documentation <br> 
+Responsibilities: UI
+
+-----
+
+#### [Patrick Cho](http://github.com/patrickcho168) 
+Role: Integration / Git Expert <br>
+Responsibilities: Model
+
+-----
+
+#### [Yeo Kai Yan](http://github.com/kaiyanyeo)
+Role: Code Quality / Eclipse Expert <br>
+Responsibilities: Storage
+
+-----
+
+
+## addressbook Project Team
 
 #### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
 <img src="images/DamithRajapakse.jpg" width="150"><br>
