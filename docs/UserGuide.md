@@ -20,9 +20,9 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`add`**` Assignment 2 TASK_DEADLINE TASK_REMINDER PRIORITY NOTES...` : 
+     adds a task named `Assignment 2` to the Task Manager, with high priority.
+   * **`delete`**` 3` : deletes the 3rd task / event shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -36,84 +36,128 @@
 > * The order of parameters is fixed.
 
 #### Viewing help : `help`
-Format: `help`
+Format : `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding a person : `add`
+Adds a person to the Task Manager<br>
+Format : `add TASK_NAME d/TASK_DEADLINE r/TASK_REMINDER p/PRIORITY n/NOTES…` <br>
+        `add EVENT_NAME d/EVENT_DATE t/xxxx-yyyy r/EVENT_REMINDER p/PRIORITY n/NOTES` 
 
-> Persons can have any number of tags (including 0)
+> Task and event are differentiated by the input of time tag. Each activity can have any number of notes (including 0). Each note is limited to 140 characters.
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
-
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
-
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `add Upload CS3230 Programming Assignment 2 d/16-10-16 r/false p/low n/Upload it onto Coursemology Portal`
+* `add Dinner With Family d/21-11-16 t/1800-2000 r/true p/high n/Wear formal`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+#### Listing all events and tasks : `list all`
+Shows a list of all persons in the task manager.<br>
+Format : `list all`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+#### Listing all events : `list events`
+Shows a list of all events in the task manager for the day sorted according to the start date and time.<br>
+Format : `list events`
+
+#### Listing all tasks : `list tasks`
+Shows a list of all tasks in the task manager sorted according to their priority.<br>
+Format : `list tasks`
+
+#### Listing all events and tasks of the specified date : `list day/week/month/date`
+Shows a list of all tasks and events in the task manager for the day/week/month/date sorted according to priority.<br>
+Format : `list day/week/month/date`
+
+#### Listing all events and tasks of the specified range of dates : `list day to day`
+Shows a list of all tasks and events in the task manager for the range of days sorted according to date.<br>
+Format : `list day to day`
+
+Examples:
+* `list 10-10-16 to 20-10-16
+
+#### Listing all block-out dates : `list blocks`
+Shows a list of all blocked events and their respective timeslot in the task manager sorted according to priority.<br>
+Format : `list block`
+
+#### Finding all tasks or events containing any keyword in their name : `find task/event`
+Finds all tasks whose names contain any of the given keywords.<br>
+Format : `list KEYWORD [MORE_KEYWORDS]`
+>* The search is not case sensitive. e.g. `sleep` will match `Sleep`
+>* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+>* Only the name of task is searched.
+>* Only full words will be matched e.g. `sleep` will not match `sleeping`
+>* Task name matching at least one keyword will be returned (i.e `OR` search). e.g. `sleep` will match `sleep for 8 hours`
+
+Examples
+* find `Sleep`
+* Displays : sleep for 8 hours
+* find Go to gym
+* Displays: any task having the keywords go, to, gym
+
+#### Deleting a task / event : `delete`
+Deletes the specified task/event  from the task manager. Irreversible.<br>
+Format : `delete INDEX`
+
+>Deletes the task/event at the specified `INDEX`. The index refers to the index number shown beside it.
+
+The index must be a positive integer 1,2,3,...
+
+Examples:
+* delete 2
+* deletes the 2nd task/event in the task manager.
+
+#### Updating a task : `edit`
+Updates a specified task from the task manager.
+<br>
+Format : `edit INDEX`
+> Edits the task at the specified `INDEX`. The index refers to the index number shown beside the task. The order of the tag to edit is not important.
+
+> The index must be a positive integer 1,2,3, ...
+
+Examples :
+* `edit 3`
+* `d/dd-mm-yy p/low`
+* `edit 2`
+* `r/false d/dd-mm-yy`
+* `edit 5`
+* `t/2030-2200`
+
+#### Blocking out dates : `block`
+Block a date and time for uncertain task.<br>
+Format : `block EVENT_NAME DATE TIME, DATE TIME, ...`
+
+> BLOCK THE `DATE` and `TIME` of specified event. There can be multiple block `DATE` and `TIME` in a block command. If timeslot is taken, system will inform user with a error message.
+
+Examples:
+* `block Dinner with Friends d/20-02-16 t/2000-2200, d/21-02-16 t/2000-2200
+
+#### Confirm block event : `confirm`
+Confirm an event, and removing other block-outs of the event.<br>
+Format : `confirm EVENT_INDEX.TIMESLOT_INDEX`
+
+> Confirms the event at the specified `INDEX.INDEX` This refers to the `INDEX.INDEX` shown beside the event.
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
-
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
-
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+* confirm 1.a
+* confirm 2.c
 
 #### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+Clear all entries from the task manager.<br>
+Format : `clear`
+
+#### Modifying the storage path : `modify storage path`
+Modify the storage path that stores all the data.
+Format : `modify storage path STORAGE_LOCATION`
 
 #### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
+Exits the program.
+Format : `exit`
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+Address book data are saved in the hard disk automatically after any command that changes the data.
+There is no need to save manually.<br>
+
+
 
 ## FAQ
 
@@ -125,10 +169,13 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add TASK_NAME d/DEADLINE_TASK r/TASK_REMINDER p/PRIORITY n/NOTES...`
+Block | `block TASK_NAME d/DATE t/1111-2222, [MORE_DATE MORE_TIME]
+Confirm Blocked Event | `confirm EVENT_INDEX.TIMESLOT_INDEX`
 Clear | `clear`
 Delete | `delete INDEX`
+Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
-Select | `select INDEX`
+Modify Storage Path | `modify storage path STORAGE_LOCATION`
