@@ -34,6 +34,12 @@ public class AddCommand extends Command {
      */
     public AddCommand(String itemType, String name, String email, String address, Set<String> tags)
             throws IllegalValueException {
+        if (email == null) {
+            email = "PLACE@HOLDER";
+        }
+        if (address == null) {
+            address = "PLACEHOLDER";
+        }
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
