@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.item;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -8,7 +8,7 @@ public class Type {
     public static final String DEADLINE_WORD = "deadline";
     public static final String EVENT_WORD = "event";
     
-    public static final String MESSAGE_TYPE_CONSTRAINTS = "Entry types should only be 'task', 'deadline' or 'event'.";
+    public static final String MESSAGE_TYPE_CONSTRAINTS = "Item types should only be 'task', 'deadline' or 'event'.";
     public static final String TYPE_VALIDATION_REGEX = "\b(task|deadline|event)\b";
 
     public final String value;
@@ -28,7 +28,7 @@ public class Type {
     }
 
     /**
-     * Returns true if a given string is a valid entry type.
+     * Returns true if a given string is a valid item type.
      */
     public static boolean isValidType(String test) {
         return test.matches(TYPE_VALIDATION_REGEX);

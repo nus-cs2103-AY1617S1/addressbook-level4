@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.item;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 

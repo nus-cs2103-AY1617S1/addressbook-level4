@@ -7,8 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.item.Person;
+import seedu.address.model.item.ReadOnlyPerson;
 import seedu.address.testutil.TestUtil;
 
 import java.util.List;
