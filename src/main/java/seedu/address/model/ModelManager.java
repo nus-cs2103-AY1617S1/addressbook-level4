@@ -4,12 +4,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.model.person.Task;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.model.person.UniqueTaskList;
-import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;

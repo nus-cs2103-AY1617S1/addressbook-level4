@@ -15,9 +15,9 @@ import seedu.address.model.TaskList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.*;
 import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
