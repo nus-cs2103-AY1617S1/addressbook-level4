@@ -3,6 +3,8 @@ User guide
 
 ## Getting Started
 
+![mockup](images/mockup.png)
+
 Our to-do application primarily takes in input using a command line interface. It supports the basic creation, reading, updating and deletion of entries. You may add entries with or without deadlines. These are known as tasks. Entries with a start and/or end time are known as events.
 
 To start, try adding a new task:
