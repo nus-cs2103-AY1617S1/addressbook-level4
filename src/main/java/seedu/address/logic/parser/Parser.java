@@ -53,6 +53,9 @@ public class Parser {
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
+        
+        case ChangeDirectoryCommand.COMMAND_WORD:
+        	return new ChangeDirectoryCommand(arguments.trim());
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);

@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds a person to the address book.
+ * Adds a floating task to the task list.
  */
 public class AddFloatingCommand extends Command {
 
