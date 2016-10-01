@@ -129,7 +129,7 @@ Format : `block EVENT_NAME DATE TIME, DATE TIME, ...`
 > BLOCK THE `DATE` and `TIME` of specified event. There can be multiple block `DATE` and `TIME` in a block command. If timeslot is taken, system will inform user with a error message.
 
 Examples:
-* `block Dinner with Friends d/20-02-16 t/2000-2200, d/21-02-16 t/2000-2200
+* `block Dinner with Friends d/20-02-16 t/2000-2200, d/21-02-16 t/2000-2200`
 
 #### Confirm block event : `confirm`
 Confirm an event, and removing other block-outs of the event.<br>
@@ -170,7 +170,7 @@ There is no need to save manually.<br>
 Command | Format  
 -------- | :-------- 
 Add | `add TASK_NAME d/DEADLINE_TASK r/TASK_REMINDER p/PRIORITY n/NOTES...`
-Block | `block TASK_NAME d/DATE t/1111-2222, [MORE_DATE MORE_TIME]
+Block | `block TASK_NAME d/DATE t/1111-2222, [MORE_DATE MORE_TIME]`
 Confirm Blocked Event | `confirm EVENT_INDEX.TIMESLOT_INDEX`
 Clear | `clear`
 Delete | `delete INDEX`
