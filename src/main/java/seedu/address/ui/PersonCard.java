@@ -41,7 +41,7 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(person.getItemType().value);
         id.setText(displayedIndex + ". ");
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
