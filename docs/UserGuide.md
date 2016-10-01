@@ -31,81 +31,99 @@
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
+> * Items in `SQUARE_BRACKETS` are optional parameters.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+> * Flexible ordering of parameters.
 
 #### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding a task : `add`
+Adds a task to the list. Note: the `add` keyword is optional (i.e. 'add' is implied for an entry with no keyword).<br>
+Format: `[add] TASKNAME [at/from TIMEDATE] [to/by TIMEDATE]` 
 
-> Persons can have any number of tags (including 0)
+> At least one of the two timedates must be included.
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `add Buy eggs at 5pm 13/09/2016`
+* `meeting from 13/09 5pm to 13/09 7pm`
+* `pay bills by 13/09 5pm`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+#### Adding a note: `note`
+Adds a note to the list. A note has neither start nor end time.<br>
+Format: `note TASKNAME`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Examples:
+* `note do laundry`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+#### Displaying tasks : `display`
+Displays tasks and their indexes in the specified timeframe.<br>
+Format: `display TYPE [PERIOD]`
+
+> TYPE format: all, floating, incomplete, overdue.
+> PERIOD format: today, tomorrow, week, month, year, or the DATE
+
+#### Searching for tasks : `find`
+Lists tasks whose names match the given input.<br>
+Format: `find SEARCHSTRING`
+
+> * The search is case insensitive. e.g `buy` will match `Buy`
+> * Wildcards can be indicated with the asterisk `*` e.g. `B*s` will match `Buy eggs`
 > * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+> * Only full words will be matched e.g. `Buy` will not match `Buys`
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `find b*y`<br>
+  Returns `buy` but not `buy eggs`
+* `find b*y*`<br>
+  Returns `buy eggs` but not `must buy eggs`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+#### Deleting a task : `delete`
+Deletes the specified task.<br>
+Format: `delete INDEX/TASKNAME`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Deletes the task at the specified index
+> If taskname is entered, tasks are sought out in the same way the `find` command does. Matching names are then displayed for the user to choose from
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+Examples:
+* `delete 1`
+  Deletes task at index 1
+* `delete b*y*`
+  Lists tasks matching `b*y*` for the user to choose from
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+#### Updating a task : `update`
+Update the date/time for a task<br>
+Format: `update INDEX/TASKNAME [at/from STARTTIMEDATE] [to/by ENDTIMEDATE]`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Replaces the start and end times of the task at the specified index
+> If taskname is entered, tasks are sought out in the same way the `find` command does. Matching names are then displayed for the user to choose from
+> Omitting STARTTIMEDATE will remove STARTTIMEDATE from the task
+> Omitting ENDTIMEDATE will remove ENDTIMEDATE from the task
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+Examples:
+* `update 1 at 13/09/2016 5pm`
+  `Meeting from 13/09/2016 4pm to 13/09/2016 6pm` will be replaced with `Meeting at 13/09/2016 5pm`
+* `update b*y* from 13/09/2016 4pm to 13/09/2016 6pm`
+  Lists tasks matching `b*y*` for the user to choose from
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+#### Marking a task as complete : `complete`
+Marks a task as complete.<br>
+Format: `complete INDEX/TASKNAME`
+
+> Marks the task at the specified index as complete
+> If taskname is entered, tasks are sought out in the same way the `find` command does. Matching names are then displayed for the user to choose from
+
+Examples:
+* `complete 1`
+  Marks task at index 1 as complete
+* `complete b*y*`
+  Lists tasks matching `b*y*` for the user to choose from
+
+#### Setting the storage location: `setstorage`
+Sets the data storage location <br>
+Format: `setstorage FILEPATH`
 
 #### Exiting the program : `exit`
 Exits the program.<br>
