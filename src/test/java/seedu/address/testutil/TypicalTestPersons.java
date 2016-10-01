@@ -37,14 +37,14 @@ public class TypicalTestPersons {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addPerson(new FloatingTask(alice));
-            ab.addPerson(new FloatingTask(benson));
-            ab.addPerson(new FloatingTask(carl));
-            ab.addPerson(new FloatingTask(daniel));
-            ab.addPerson(new FloatingTask(elle));
-            ab.addPerson(new FloatingTask(fiona));
-            ab.addPerson(new FloatingTask(george));
-        } catch (UniquePersonList.DuplicatePersonException e) {
+            ab.addTask(new FloatingTask(alice));
+            ab.addTask(new FloatingTask(benson));
+            ab.addTask(new FloatingTask(carl));
+            ab.addTask(new FloatingTask(daniel));
+            ab.addTask(new FloatingTask(elle));
+            ab.addTask(new FloatingTask(fiona));
+            ab.addTask(new FloatingTask(george));
+        } catch (UniqueTaskList.DuplicatePersonException e) {
             assert false : "not possible";
         }
     }

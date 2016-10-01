@@ -15,7 +15,7 @@ import java.util.*;
  * @see FloatingTask#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<FloatingTask> {
+public class UniqueTaskList implements Iterable<FloatingTask> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -37,7 +37,7 @@ public class UniquePersonList implements Iterable<FloatingTask> {
     /**
      * Constructs empty PersonList.
      */
-    public UniquePersonList() {}
+    public UniqueTaskList() {}
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -86,9 +86,9 @@ public class UniquePersonList implements Iterable<FloatingTask> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
+                || (other instanceof UniqueTaskList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniquePersonList) other).internalList));
+                ((UniqueTaskList) other).internalList));
     }
 
     @Override

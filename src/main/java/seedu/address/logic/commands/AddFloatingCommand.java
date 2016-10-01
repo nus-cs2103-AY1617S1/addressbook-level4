@@ -21,7 +21,7 @@ public class AddFloatingCommand extends Command {
             + " take trash t/high priority";
 
     public static final String MESSAGE_SUCCESS = "New floating task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task list";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
 
     private final FloatingTask toAdd;
 
@@ -46,10 +46,10 @@ public class AddFloatingCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addPerson(toAdd);
+            model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniquePersonList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+        } catch (UniqueTaskList.DuplicatePersonException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }
