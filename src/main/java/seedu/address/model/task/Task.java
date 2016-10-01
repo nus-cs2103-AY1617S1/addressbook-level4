@@ -31,6 +31,19 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
+     * Constructor for floating task
+     * Every field must be present and not null.
+     */
+    public Task(Name name, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name,tags);
+        this.name = name;
+        this.phone = null;
+        this.email = null;
+        this.address = null;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+
+    /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
