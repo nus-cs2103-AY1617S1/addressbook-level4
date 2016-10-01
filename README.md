@@ -1,5 +1,5 @@
 # TARS: Task And Remember Stuff 
-### A Productivity Tool by CS2103AUG2016-F10-C1
+### *A Productivity Tool by CS2103AUG2016-F10-C1*
 
 *Screenshot of GUI not available yet*
 
