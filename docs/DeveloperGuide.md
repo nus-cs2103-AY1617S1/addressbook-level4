@@ -249,7 +249,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 
 Priority | As a ... | I want to ... | So that I can...
--------- | :-------- | :--------- | :-----------
+-------- | :---------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a new task (with deadlines) and events (with start and end timings) | keep track of it and complete it in the future
 `* * *` | user | delete a task | remove tasks that I no longer need to do
@@ -266,7 +266,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | view tasks by tags/priority/date | group my tasks based on a field of my choice
 `* *` | user | reserve dates for a task/event | block out time slots and add them upon confirmation of the time and date details
 `*` | user | have flexibility in entering commands | type in commands without having to remember the exact format
-`*` | user | user a keyboard shortcut to launch the program | launch the program quickly
+`*` | user | use a keyboard shortcut to launch the program | launch the program quickly
 `*` | user | have suggestions on free slots | decide when to add a new task or shift current tasks
 
 {More to be added}
