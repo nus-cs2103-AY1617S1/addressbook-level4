@@ -34,16 +34,16 @@ public class TypicalTestPersons {
         }
     }
 
-    public static void loadAddressBookWithSampleData(TaskList ab) {
+    public static void loadTaskListWithSampleData(TaskList tl) {
 
         try {
-            ab.addPerson(new Person(alice));
-            ab.addPerson(new Person(benson));
-            ab.addPerson(new Person(carl));
-            ab.addPerson(new Person(daniel));
-            ab.addPerson(new Person(elle));
-            ab.addPerson(new Person(fiona));
-            ab.addPerson(new Person(george));
+            tl.addPerson(new Person(alice));
+            tl.addPerson(new Person(benson));
+            tl.addPerson(new Person(carl));
+            tl.addPerson(new Person(daniel));
+            tl.addPerson(new Person(elle));
+            tl.addPerson(new Person(fiona));
+            tl.addPerson(new Person(george));
         } catch (UniquePersonList.DuplicatePersonException e) {
             assert false : "not possible";
         }
@@ -53,9 +53,9 @@ public class TypicalTestPersons {
         return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public TaskList getTypicalAddressBook(){
-        TaskList ab = new TaskList();
-        loadAddressBookWithSampleData(ab);
-        return ab;
+    public TaskList getTypicalTaskList(){
+        TaskList tl = new TaskList();
+        loadTaskListWithSampleData(tl);
+        return tl;
     }
 }

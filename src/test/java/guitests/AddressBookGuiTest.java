@@ -77,7 +77,7 @@ public abstract class AddressBookGuiTest {
      */
     protected TaskList getInitialData() {
         TaskList ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+        TypicalTestPersons.loadTaskListWithSampleData(ab);
         return ab;
     }
 

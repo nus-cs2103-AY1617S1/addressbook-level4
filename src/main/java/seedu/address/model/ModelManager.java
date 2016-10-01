@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskList addressBook;
+    private final TaskList taskList;
     private final FilteredList<Person> filteredPersons;
 
     /**
@@ -35,8 +35,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new TaskList(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        taskList = new TaskList(src);
+        filteredPersons = new FilteredList<>(taskList.getPersons());
     }
 
     public ModelManager() {
@@ -44,35 +44,35 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
-        addressBook = new TaskList(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        taskList = new TaskList(initialData);
+        filteredPersons = new FilteredList<>(taskList.getPersons());
     }
 
     @Override
     public void resetData(ReadOnlyTaskList newData) {
-        addressBook.resetData(newData);
+        taskList.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyTaskList getAddressBook() {
-        return addressBook;
+    public ReadOnlyTaskList getTaskList() {
+        return taskList;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+        raise(new AddressBookChangedEvent(taskList));
     }
 
     @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+        taskList.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+        taskList.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }

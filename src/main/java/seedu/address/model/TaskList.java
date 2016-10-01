@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the task-list level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TaskList implements ReadOnlyTaskList {
@@ -27,20 +27,20 @@ public class TaskList implements ReadOnlyTaskList {
     public TaskList() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this tasklist
      */
     public TaskList(ReadOnlyTaskList toBeCopied) {
         this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this tasklist
      */
     public TaskList(UniquePersonList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskList getEmptyAddressBook() {
+    public static ReadOnlyTaskList getEmptyTaskList() {
         return new TaskList();
     }
 
