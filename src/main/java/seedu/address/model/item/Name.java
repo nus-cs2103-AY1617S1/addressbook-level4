@@ -3,12 +3,12 @@ package seedu.address.model.item;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Item's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Item names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;

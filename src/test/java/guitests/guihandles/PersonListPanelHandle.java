@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
-import seedu.address.model.item.Person;
+import seedu.address.model.item.Item;
 import seedu.address.model.item.ReadOnlyPerson;
 import seedu.address.testutil.TestUtil;
 
@@ -147,7 +147,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public PersonCardHandle getPersonCardHandle(int index) {
-        return getPersonCardHandle(new Person(getListView().getItems().get(index)));
+        return getPersonCardHandle(new Item(getListView().getItems().get(index)));
     }
 
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {

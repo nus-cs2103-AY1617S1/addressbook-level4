@@ -3,12 +3,12 @@ package seedu.address.model.item;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Item's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
+    public static final String MESSAGE_PHONE_CONSTRAINTS = "Item phone numbers should only contain numbers";
     public static final String PHONE_VALIDATION_REGEX = "\\d+";
 
     public final String value;
