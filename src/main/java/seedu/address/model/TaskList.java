@@ -3,7 +3,7 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
  */
 public class TaskList implements ReadOnlyTaskList {
 
-    private final UniquePersonList persons;
+    private final UniqueTaskList persons;
     private final UniqueTagList tags;
 
     {
-        persons = new UniquePersonList();
+        persons = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
@@ -36,7 +36,7 @@ public class TaskList implements ReadOnlyTaskList {
     /**
      * Tasks and Tags are copied into this tasklist
      */
-    public TaskList(UniquePersonList persons, UniqueTagList tags) {
+    public TaskList(UniqueTaskList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
@@ -74,9 +74,9 @@ public class TaskList implements ReadOnlyTaskList {
      * Also checks the new person's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the person to point to those in {@link #tags}.
      *
-     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
      */
-    public void addPerson(Task p) throws UniquePersonList.DuplicatePersonException {
+    public void addPerson(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         persons.add(p);
     }
@@ -104,11 +104,11 @@ public class TaskList implements ReadOnlyTaskList {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {
+    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (persons.remove(key)) {
             return true;
         } else {
-            throw new UniquePersonList.PersonNotFoundException();
+            throw new UniqueTaskList.TaskNotFoundException();
         }
     }
 
@@ -137,7 +137,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
+    public UniqueTaskList getUniquePersonList() {
         return this.persons;
     }
 

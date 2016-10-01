@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.TaskList;
 import seedu.address.model.person.Task;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniqueTaskList;
 
 /**
  * A utility class to help with building TaskList objects.
@@ -19,7 +19,7 @@ public class TaskListBuilder {
         this.taskList = taskList;
     }
 
-    public TaskListBuilder withPerson(Task person) throws UniquePersonList.DuplicatePersonException {
+    public TaskListBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
         taskList.addPerson(person);
         return this;
     }
