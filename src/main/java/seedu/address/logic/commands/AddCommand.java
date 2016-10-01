@@ -15,10 +15,12 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task, deadline or event to the task manager. \n"
+            + "Task Parameters: " + Type.TASK_WORD + " n/NAME \n"
+            + "Deadline Parameters: " + Type.DEADLINE_WORD + " n/NAME d/[DATE] t/[TIME] \n"
+            + "Event Parameters: " + Type.EVENT_WORD + " n/NAME sd/[DATE] st/[TIME] ed/[DATE] et/[TIME] \n"
+            + "Example (Task): " + COMMAND_WORD +  " " + Type.TASK_WORD 
+            + " Win Facebook hackathon";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
