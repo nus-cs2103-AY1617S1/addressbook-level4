@@ -210,6 +210,11 @@ Use the `tab` key to autocomplete using the suggestion.
 Changes are automatically saved after each command that changes the data.
 No manual saving required.
 
+#### Multiple Storage Files
+Multiple storage files are allowed for you to store different schedules 
+on different files. The file name must be passed into the program arguments 
+when running the program.
+
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
