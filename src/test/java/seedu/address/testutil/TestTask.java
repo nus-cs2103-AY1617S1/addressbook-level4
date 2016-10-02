@@ -9,9 +9,6 @@ import seedu.address.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -22,36 +19,9 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setEmail(Email email) {
-        this.email = email;
-    }
-
-    public void setPhone(Phone phone) {
-        this.phone = phone;
-    }
-
     @Override
     public Name getName() {
         return name;
-    }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
     }
 
     @Override
@@ -67,9 +37,6 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

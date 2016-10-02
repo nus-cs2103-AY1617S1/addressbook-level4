@@ -46,20 +46,20 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public String getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public String getTaskListFilePath() {
+        return addressBookStorage.getTaskListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyTaskList> readAddressBook() throws DataConversionException, FileNotFoundException {
-        logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, FileNotFoundException {
+        logger.fine("Attempting to read data from file: " + addressBookStorage.getTaskListFilePath());
 
-        return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return addressBookStorage.readTaskList(addressBookStorage.getTaskListFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskList addressBook) throws IOException {
-        addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveTaskList(ReadOnlyTaskList addressBook) throws IOException {
+        addressBookStorage.saveTaskList(addressBook, addressBookStorage.getTaskListFilePath());
     }
 
 
@@ -68,7 +68,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveTaskList(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
