@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**` Meeting with John h/14:00 d/05-09-2016 p/5 r/no i/Meeting with John regarding sales` : 
+   * **`add`**` Meeting with John h/14:00 d/05-09-2016 l/2 p/5 a/no r/no i/Meeting with John regarding sales` : 
      adds a task named `Meeting with John` to the task list.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
@@ -145,8 +145,8 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_NAME h/24HR_TIME d/DATE p/PRIORITY r/RECURRING_TASK i/ADDITIONAL_INFORMATION [t/TAG]...`
-Edit | `edit INDEX name/TASK_NAME h/24HR_TIME d/DATE p/PRIORITY r/RECURRING_TASK i/ADDITIONAL_INFORMATION [t/TAG]...`
+Add | `add TASK_NAME h/24HR_TIME d/DATE l/DURATION_IN_HOURS p/PRIORITY a/AUTO_SCHEDULE r/RECURRING_TASK i/ADDITIONAL_INFORMATION [t/TAG]...`
+Edit | `edit INDEX name/TASK_NAME h/24HR_TIME d/DATE l/DURATION_IN_HOURS p/PRIORITY a/AUTO_SCHEDULE r/RECURRING_TASK i/ADDITIONAL_INFORMATION [t/TAG]...`
 Clear | `clear`
 Delete | `delete INDEX`
 Done | `done INDEX`
