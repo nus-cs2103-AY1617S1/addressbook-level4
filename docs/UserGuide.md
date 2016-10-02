@@ -11,18 +11,18 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+1. Download the latest `tasc.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your TaSc.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`list`** : lists all uncompleted tasks and upcoming events
+   * **`new`**` "Do Research" by 21 Sep 5pm` : 
+     adds a new task named "Do Research" with the deadline on 21 September, 5pm
+   * **`complete`**` 3` : marks the 3rd task shown in the current list as complete
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -35,100 +35,201 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+> **Tasks**<br>
+> A task will have a name, and also have a:
+> * a deadline, and/or
+> * starting time and ending time in which we want to complete the task on.
+
+> **Events**<br>
+> Events act as tasks in our program. Simply enter the starting and ending time
+> and omit the deadline.
+
 #### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
 
-> Persons can have any number of tags (including 0)
+#### Create a new task/event: `new`
+Adds a new task or event to the task list.<br>
+Format: `new NAME [by DEADLINE] [from START_TIME to END_TIME] [tag TAG]...`
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+> Creates a new task with the name given. The particulars of the task may vary:
+>	* If it is a normal task, a deadline should be set.
+>	* If it is an event, the start time and end time should be set.
+> You can assign tags to it to classify them by category or by priority 
+> (up to your own discretion)
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
+Examples:
+* `new "Hello World!"`
+* `new "Submit Report" by 21 Sep 5pm.`
+* `new "Meeting" from 21 Sep 3pm to 5pm`
+* `new "Check sufficient toilet rolls" by 21 Sep 5pm, tag "Important"`
+
+#### List uncompleted tasks by earliest deadline, and upcoming events: `list`
+To find out which tasks you will have to do next, and any upcoming events.<br>
 Format: `list`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+> Note: The sorting and types of tasks cannot be changed. For any filter 
+> customization, or searching, use SimpleSearch (see below)
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+#### Change the details of a task/event: `update`
+Updates a task or event.<br>
+Format: `update INDEX [NEW_NAME] [by NEW_DEADLINE] [from START_TIME to END_TIME] [tag TAG]`
 
+> Updates a task with the given new information.<br>
+> The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...<br>
+>
+> To remove any details for the task, prefix the name of the argument 
+> with 'remove'.<br>
+> For example: `update 1 removeby` will remove the deadline.
+  
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `list`<br>
+  `update 1 "Submit Proposal" by 23 Sep 3pm.`<br>
+  Update the details of the first task in the list.
+* `update 2 from 23 Sep 3pm to 5pm`
+* `update 1 by 20 Sep 5pm, tag “Not that important”
+* `update 3 removetag "Important"
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+#### Delete a task/event: `delete`
+To delete a task/event.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Delete a task/event.<br>
+> The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...<br>
 
-Examples: 
+Examples:
 * `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
   `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  Delete the first task in the list.
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+#### Mark a task as complete: `complete`
+To mark a task as completed.<br>
+Format: `complete INDEX`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> When you are done with the task, you can mark it as complete instead
+> of deleting it.<br>
+> The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...<br>
 
-Examples: 
+Example:
 * `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+  `complete 1`<br>
+  Mark the first task in the list as complete.
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+#### Undo the last action: `undo`
+To undo any last action that modifies the task database (e.g. deleting task).<br>
+Format: `undo [last STEPS]`
 
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
+> You can undo multiple steps by specifying the number of steps to undo.
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+Example:
+* `undo`<br>
+  Undo the most recent action.
+* `undo last 5`<br>
+  Undo the last 5 actions.
+
+#### Show all tasks/events with specified conditions: `show`
+To show a list of all tasks/events.<br>
+Format: `show [TYPE] [START_TIME] [END_TIME] [tag TAG]... [SORTING_ORDER]`
+
+> Types include "Events", "Tasks", "Completed Tasks", "Free Time".
+> Sorting order includes "earliest first", "latest first" for date and time, 
+> "a-z", "z-a" for descriptions
+> * Defaults to earliest first for later dates, and latest first for past dates
+
+Examples:
+* `show events by 18 Sep`
+* `show completed tasks, tag "Important", earliest first`
+* `show free time from 20 Sep 10am to 8pm`
+
+#### Finding tasks/events which match keywords: `find`
+To find tasks/events when provided with vague descriptive keywords.<br>
+Format: `find KEYWORD...`
+
+> Keywords are used to match description, status, tags and dates in full 
+> or part thereof.<br>
+> If a keyword/phrase is enclosed in quotation marks (""), only exact match is used.
+>	* All matches are always case-insensitive.
+> Results are shown in “intelligent order”, by factors such as closest match
+> and its date and time.
+
+Examples:
+* `find completed meetings John`
+* `find "V0.0 deliverables"`
+
+#### Show only results with specified tag(s) and date: `only`
+To narrow down on tasks/events with specified tag(s) and date from 
+the previous results.<br>
+
+Format: `only [TYPE] [TAG]... [TIME]`
+
+> Can only be used when the output window is showing a list of tasks/events. 
+>	* Matching results will be kept on the output window at their respective
+>     positions, while other tasks/events are hidden.
+>	* If the type of task/event is not specified, all types are included.
+>	* If tag is not specified, all tasks/events are included.
+
+Examples:
+* `only CS2103 Important`
+* `only Important Meeting on 24 Sep`
+* `only completed tasks CS2103 from 18 Sep 8am`
+* `only Meeting by 11pm`
+
+#### Hide results with specified tag(s): `hide`
+To hide tasks/events with specified tag(s) from the previous results.<br>
+Format: `hide [TYPE] [TAG]...`
+
+> Can only be used when the output window is showing a list of tasks/events. 
+>	* Matching tasks/events will be hidden from the previous results.
+
+Examples:
+* `hide completed events, CS2010`
+* `hide CS2103 MA1521 CS2010`
+
+#### Clearing all entries: `clear`
+Remove all tasks from the data storage file.<br>
+
+Format: `clear`
+
+> Since this is a potentially destructive action, a confirmation would be shown 
+> before the tasks are removed.
+
+#### Relocate the data storage location: `relocate`
+Designate a new data storage location.<br>
+
+Format: `relocate PATH`
+
+#### Autocomplete and suggestions
+Suggested command keywords, dates, sorting order, and tags are shown as you type.
+Use the `tab` key to autocomplete using the suggestion.
+
+#### Saving the Data
+Changes are automatically saved after each command that changes the data.
+No manual saving required.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous TaSc folder.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
-Select | `select INDEX`
+New | `new NAME [by DEADLINE] [from START_TIME to END_TIME] [tag TAG]...`
+List | `list`
+Update | `update INDEX [NEW_NAME] [by NEW_DEADLINE] [from START_TIME to END_TIME] [tag TAG]`
+Delete | `delete INDEX`
+Complete | `complete INDEX`
+Undo | `undo [last STEPS]`
+Show | `show [TYPE] [START_TIME] [END_TIME] [tag TAG]... [SORTING_ORDER]`
+Find | `find KEYWORD...`
+Show Only | `only [TYPE] [TAG]... [TIME]`
+Hide | `hide [TYPE] [TAG]...`
+Clear | `clear`
+Relocate | `relocate PATH`
