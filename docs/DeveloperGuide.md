@@ -446,9 +446,18 @@ Use case ends
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+2. Should work on a desktop without network/Internet connection.
+3. Should work stand-alone.
+4. Should not use relational databases.
+5. Should work without requiring an installer.
+6. Should be able to hold up to 1000 events.
+7. Should come with automated unit tests and open source code.
+8. Should favor DOS style commands over Unix-style commands.
+9. Should react to every command within 0.5 seconds.
+10. Should automatically remove tasks that are 3 months old.
+11. Should be able to create tasks as far into the future as the user requires.
+12. Should have intuitive commands for users.
+13. Should store data in a human editable file
 
 {More to be added}
 
