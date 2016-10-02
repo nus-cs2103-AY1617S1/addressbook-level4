@@ -152,8 +152,7 @@ Delete | `delete INDEX`
 Done | `done INDEX`
 Task | `task ds/START_DATE de/END_DATE s/SORT_BY_ATTRIBUTE d/SHOW_DONE_TASKS`
 Reschedule | `reschedule INDEX i/TIME_INTERVAL`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-Search | `search KEYWORDS s/SCOPE`
+Find | `find KEYWORD [MORE_KEYWORDS] s/SCOPE`
 List | `list`
 Help | `help`
 Select | `select INDEX`
