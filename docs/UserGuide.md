@@ -160,4 +160,3 @@ Undo | `undo`
 Help | `help`
 Clear | `clear`
 Exit | `exit`
-Select | `select INDEX`
