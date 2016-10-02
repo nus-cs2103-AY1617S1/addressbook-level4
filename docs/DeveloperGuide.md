@@ -271,26 +271,175 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Create new todo task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+1. User creates new task with only name
+2. Program saves the task with given name as a todo
+Use case ends
 
 **Extensions**
 
-2a. The list is empty
+1a. Name is invalid
+
+> 1a1. Program returns error message, saying that name given is invalid<br>
+  Use case resumes at step 1
+
+#### Use case: Create new deadline task
+
+**MSS**
+
+1. User creates new task with name, date and time
+2. Program saves the task with given name, date and time as a deadline<br>
+Use case ends
+
+**Extensions**
+
+1a. Name is invalid
+
+> 1a1. Program returns error message, saying that name given is invalid<br>
+  Use case resumes at step 1
+
+1b. The date/time given is invalid
+
+> 1b1. Program returns error message, saying that date/time given is invalid<br>
+  Use case resumes at step 1
+	
+1c. The date/time entered is already over
+
+> 1c1. Program returns error message, saying that deadline entered is already over<br>
+  Use case resumes at step 1
+
+#### Use case: Create new event task
+
+**MSS**
+
+1. User creates new task with name, date, start and end time
+2. Program saves the task with given name, date, start and end time as an event<br>
+Use case ends
+
+**Extensions**
+
+1a. Name is invalid
+
+> 1a1. Program returns error message, saying that name given is invalid<br>
+  Use case resumes at step 1
+
+1b. The date/time given is invalid
+
+> 1b1. Program returns error message, saying that date/time given is invalid<br>
+  Use case resumes at step 1
+	
+1c. The date/time entered is already over
+
+> 1c1. Program returns error message, saying that deadline entered is already over<br>
+  Use case resumes at step 1
+
+1d. The start time is later then end time
+
+> 1d1. Program returns error message, saying that the start time cannot be later then the end time<br>
+  Use case resumes at step 1
+
+### Use case: View all tasks at specified date
+
+**MSS**
+
+1. User requests to view all tasks at a specified date
+2. Program shows the list tasks for the specified date<br>
+Use case ends
+
+**Extensions**
+
+1a. Date is invalid
+
+> 1a1. Program returns errors message, saying that date given is invalid<br>
+  Use case resumes at step 1
+
+2a. There are no tasks for the specified date
+
+> 1a1. Program returns a message, saying that there are no tasks for the specified date<br>
+  Use case ends.
+
+#### Use case: Edit details of a task
+
+**MSS**
+
+1. User requests to view tasks (Use case: view all tasks at specified date)
+2. User edits the details of a task (selected using the index)
+3. Program saves changes and shows the updated list tasks for the specified date<br>
+Use case ends
+
+**Extension**
+
+1a. There are no tasks for the specified date
 
 > Use case ends
 
-3a. The given index is invalid
+2a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 2a1. Program returns error message, saying that index is invalid<br>
   Use case resumes at step 2
+
+3a. Changes made are invalid
+
+> 3a1. Program returns error message (similar to error messages when creating a new task), depending on type of error<br>
+  Use case resumes at step 2
+
+#### Use case: Delete a task
+
+**MSS**
+
+1. User requests to view tasks (Use case: view all tasks at specified date)
+2. User requests to delete a task from the list
+3. Program removes the task from storage<br>
+Use case ends
+
+**Extension**
+
+1a. There are no tasks for the specified date
+
+> Use case ends.
+
+2a. The given index is invalid
+
+> 2a1. Program returns error message, saying that index is invalid<br>
+  Use case resumes at step 2.
+
+#### Use case: Mark a task when done
+
+**MSS**
+
+1. User requests to view tasks (Use case: view all tasks at specified date)
+2. User requests to mark a task from the list as `Done`
+3. Program tags the task as `Done`<br>
+Use case ends
+
+**Extension**
+
+1a. There are no tasks for the specified date
+
+> Use case ends.
+
+2a. The given index is invalid
+
+> 2a1. Program returns error message, saying that index is invalid<br>
+  Use case resumes at step 2
+
+#### Use case: Undo previous action
+
+**MSS**
+
+1. User requests to undo previous action
+2. Program restores the previous version<br>
+Use case ends
+
+**Extension**
+
+1a. There are no actions to undo.
+
+> 1a1. Program returns error message, saying that no action was executed since startup of task manager<br>
+  Use case ends.
 
 {More to be added}
 
