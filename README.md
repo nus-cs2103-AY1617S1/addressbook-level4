@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-W10-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W10-C4/main)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W10-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W10-C4/main?branch=master)
 
-# Address Book (Level 4)
+# Uncle Jim's Discount To-do List App
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/mockupV0_0.png" width="600"><br>
 
 * This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
