@@ -468,45 +468,45 @@ Use case ends
 
 **Pros**
 
-> Can be accessed from almost any device (online/offline)<br>
-  Intuitive (Clicking Interface)<br>
-  Sync calendars with different people<br>
-  Layers for calendar<br>
-  Able to locate common free slots for multiple people<br>
-  Able to automatically detect events from gmail<br>
-  Able to use natural language as input<br>
-  Can undo last action<br>
-  Can add recurring reminders<br>
-  Reminders will add to today if they are written for dates that have already passed
+> * Can be accessed from almost any device (online/offline)
+* Intuitive (Clicking Interface)
+* Sync calendars with different people
+* Layers for calendar
+* Able to locate common free slots for multiple people
+* Able to automatically detect events from gmail
+* Able to use natural language as input
+* Can undo last action
+* Can add recurring reminders
+* Reminders will add to today if they are written for dates that have already passed
 
 **Cons**
 
-> Unable to label events with different categories<br>
-  Has many functionalities, but they are difficult to find<br>
-  Text is truncated on the calendar<br>
-  Only can mark reminders as done
+* Unable to label events with different categories
+* Has many functionalities, but they are difficult to find
+* Text is truncated on the calendar
+* Only can mark reminders as done
 
 
 #### Jun An: `Wunderlist`
 
 **Pros**
 
-> Cross-platform support: Windows, OS, Android, IOS<br>
-  Easy task management including due dates, reminders, star, and list groups<br>
-  Email and printing for tasks list<br>
-  Cloud sharing tasks lists<br>
-  Group all related lists into folders<br>
-  Filter to see all tasks starred, completed and tasks due within a period<br>
-  Able to add anything from web straight to the list<br>
-  Add notes to tasks for extra details<br>
-  Set on notifications (eg. Email, in-app) for due dates
+> * Cross-platform support: Windows, OS, Android, IOS
+* Easy task management including due dates, reminders, star, and list groups
+* Email and printing for tasks list
+* Cloud sharing tasks lists
+* Group all related lists into folders
+* Filter to see all tasks starred, completed and tasks due within a period
+* Able to add anything from web straight to the list
+* Add notes to tasks for extra details
+* Set on notifications (eg. Email, in-app) for due dates
   
 **Cons**
 
-> No repeat options for task<br>
-  No options for subtasks or subcontexts<br>
-  No undo function<br>
-  Limited functionalities(eg. Limited number of tasks and limited file sizes) for free versions, requires subscription fee to unlock all functionalities
+> * No repeat options for task
+* No options for subtasks or subcontexts
+* No undo function
+* Limited functionalities(eg. Limited number of tasks and limited file sizes) for free versions, requires subscription fee to unlock all functionalities
 
 
 	
@@ -515,38 +515,38 @@ Use case ends
 
 **Pros**
 
-> Has many filters to choose from: project, context, priority, keyword, etc, so it is easy to narrow down a long list based on what you want to look for<br>
-  Automatic and fast syncing with Dropbox, so user can conveniently access the list at any place that has an internet connection
-  Can be used on a command line interface e.g. terminal<br>
-  Can be used on virtually any platform and edited using any text editor.<br>
-  Saves the list as a file in its original, human-readable format, so that even when the application is deleted or uninstalled, the file left behind retains the same readable format when opened by a text editor.<br>
-  Sorts tasks based on 5 priority labels by default (alphabets A - E, where A corresponds to the highest priority), with non-prioritised tasks listed at the bottom.<br>
-  Has a simple and minimalistic interface 
+> * Has many filters to choose from: project, context, priority, keyword, etc, so it is easy to narrow down a long list based on what you want to look for
+* Automatic and fast syncing with Dropbox, so user can conveniently access the list at any place that has an internet connection
+* Can be used on a command line interface e.g. terminal
+* Can be used on virtually any platform and edited using any text editor.
+* Saves the list as a file in its original, human-readable format, so that even when the application is deleted or uninstalled, the file left behind retains the same readable format when opened by a text editor.
+* Sorts tasks based on 5 priority labels by default (alphabets A - E, where A corresponds to the highest priority), with non-prioritised tasks listed at the bottom.
+* Has a simple and minimalistic interface 
 
 **Cons**
 
-> Requires user to manually edit one of the downloaded files “todo.cfg” in order to specify the directory in which the user wishes the save the file when used on a desktop.<br>
-  No support for routine tasks.<br>
-  No support for subtasks under main tasks.<br>
-  No undo function.
+> * Requires user to manually edit one of the downloaded files “todo.cfg” in order to specify the directory in which the user wishes the save the file when used on a desktop.
+* No support for routine tasks.
+* No support for subtasks under main tasks.
+* No undo function.
 	
 
 #### Jia Wern: `iCal`
 
 **Pros**
 
-> Events can be added very easily by clicking in the corresponding timeslot<br>
-  Duration of events can be changed easily by dragging the borders of the event<br>
-  There is flexibility in terms of being able to set a task to be a recurring task, setting an event to be an entire day and even setting alarms/reminders for the event<br>
-  Events can be categorized and each category is distinctly colour coded.<br>
-  Works across all platforms (desktop, tablet, phone)<br>
-  Events can be searched.<br>
-  Users can undo their previous action
+> * Events can be added very easily by clicking in the corresponding timeslot
+* Duration of events can be changed easily by dragging the borders of the event
+* There is flexibility in terms of being able to set a task to be a recurring task, setting an event to be an entire day and even setting alarms/reminders for the event
+* Events can be categorized and each category is distinctly colour coded.
+* Works across all platforms (desktop, tablet, phone)
+* Events can be searched.
+* Users can undo their previous action
 
 **Cons**
 
-> Details have to be filled individually into the respective categories. There is no option to type everything in one line and the relevant sections will be filled up automatically.<br>
-  There is no way to mark an item as done<br>
-  There is no automatic way to block of timings. An actual event has to be created and deleted should the event is not happening anymore.
+> * Details have to be filled individually into the respective categories. There is no option to type everything in one line and the relevant sections will be filled up automatically.
+* There is no way to mark an item as done
+* There is no automatic way to block of timings. An actual event has to be created and deleted should the event is not happening anymore.
 
 
