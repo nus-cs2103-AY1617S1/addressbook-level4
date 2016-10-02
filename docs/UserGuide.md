@@ -59,7 +59,7 @@ Examples:
 * `note Do laundry`
 
 #### Displaying tasks : `display`
-Displays tasks and their indexes in the specified timeframe. Note: The `PERIOD` is optional.<br>
+Displays tasks and their indexes in the specified timeframe.<br>
 Format: `display TYPE [PERIOD]`
 
 > TYPE format: all, floating, incomplete, overdue.<br>
