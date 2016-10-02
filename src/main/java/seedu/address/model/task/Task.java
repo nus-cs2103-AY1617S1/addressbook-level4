@@ -42,9 +42,10 @@ public class Task implements ReadOnlyTask {
 
     /**
      * Copy constructor.
+     * Edited for floating task
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getTags());
     }
 
     @Override
