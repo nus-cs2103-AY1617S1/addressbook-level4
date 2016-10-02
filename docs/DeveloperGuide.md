@@ -256,11 +256,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add new floating tasks | keep track of tasks that have no date and time
+`* * *` | user | add new deadlines | keep track of deadlines
+`* * *` | user | add new events | keep track of events
+`* * *` | user | view all tasks today | keep track of my agenda for today
+`* * *` | user | view all tasks for a specific date | keep track of my tasks
+`* * *` | user | edit a task |  update the details of specific tasks
+`* * *` | user | edit deadline/event timeslot |  to track the changes in my schedule accordingly
+`* * *` | user | delete a task | remove a task that is no longer required to be done
+`* * *` | user | mark a task as done | keep track of what I have completed
+`* * *` | user | undo a the latest action | undo accidental mistakes
+`* * *` | user | mark a task as done | to remember what I have completed
+`* * *` | user | store all tasks in a file | share and sync the file on different computers
+`* *` | user | enter commands in any format | insert tasks more intuitively according to my own style
 
 {More to be added}
 
