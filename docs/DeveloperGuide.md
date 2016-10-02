@@ -275,11 +275,11 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TARS` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: UC01 - Show usage
+#### Use case: UC01 - View help
 
 **MSS**
 
-1. User requests to show usage
+1. User requests to view help
 2. TARS shows a list of usage intructions<br>
 Use case ends.
 
