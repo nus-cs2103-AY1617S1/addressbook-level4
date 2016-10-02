@@ -127,7 +127,6 @@ Format: `undo`
 Examples:
 *  `undo`
 
-
 #### Clearing all entries : `clear`
 Clears all entries from the address book.<br>
 Format: `clear`  
