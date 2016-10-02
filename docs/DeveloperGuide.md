@@ -275,19 +275,19 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TARS` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Show usage
+#### Use case: UC01 - Show usage
 
 **MSS**
 
-1. User submits a show usage command
+1. User requests to show usage
 2. TARS shows a list of usage intructions<br>
 Use case ends.
 
-#### Use case: Add task
+#### Use case: UC02- Add task
 
 **MSS**
 
-1. User submits a new task
+1. User requests to submit a new task
 2. TARS save the task <br>
 Use case ends.
 
@@ -296,12 +296,140 @@ Use case ends.
 2a. The format is invalid
 
 > 2a1. TARS shows an error message<br>
-  Use case resume at step 1
+  Use case resumes at step 1
 
 2b. The end datetime is smaller than start datetime
 
 > 2b1. TARS shows an error message<br>
-  Use case resume at step 1
+  Use case resumes at step 1
+  
+#### Use case: UC03- Delete task
+
+**MSS**
+
+1. User requests to list tasks
+2. TARS shows a list of tasks
+3. User requets to delete a specific task in the list
+4. TARS deletes the task<br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TARS shows an error message<br>
+  Use case resumes at step 2
+  
+#### Use case: UC04 - Edit task
+
+**MSS**
+
+1. User requests to list tasks
+2. TARS shows a list of tasks
+3. User requests to edit a specific task in the list
+4. TARS updates the task<br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TARS shows an error message<br>
+  Use case resumes at step 2
+  
+3b. The format is invalid
+
+> 3b1. TARS shows an error message<br>
+  Use case resumes at step 2
+  
+#### Use case: UC05 - Edit task by appending details
+
+**MSS**
+
+1. User requests to list tasks
+2. TARS shows a list of tasks
+3. User requests to edit a specific task in the list by appending details
+4. TARS updates the task<br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TARS shows an error message<br>
+  Use case resumes at step 2
+  
+3b. The format is invalid
+
+> 3b1. TARS shows an error message<br>
+  Use case resumes at step 2
+  
+#### Use case: UC06 - Edit tag name
+  
+**MSS**
+
+1. User requests to list tags
+2. TARS shows a list of tags
+3. User requests to edit a specific tag in the list
+4. TARS updates the tag<br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TARS shows an error message<br>
+  Use case resumes at step 2
+  
+3b. The format is invalid
+
+> 3b1. TARS shows an error message<br>
+  Use case resumes at step 2
+  
+#### Use case: UC07 - Delete tag
+
+**MSS**
+
+1. User requests to list tags
+2. TARS shows a list of tags
+3. User requets to delete a specific tag in the list
+4. TARS deletes the tag<br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TARS shows an error message<br>
+  Use case resumes at step 2
+  
+#### Use case: UC08 - List tags
+
+**MSS**
+
+1. User requests to list tags
+2. TARS shows a list of tags<br>
+Use case ends.
 
 {More to be added}
 
