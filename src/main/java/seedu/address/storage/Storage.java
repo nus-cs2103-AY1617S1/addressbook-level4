@@ -28,12 +28,12 @@ public interface Storage extends TaskListStorage, UserPrefsStorage {
     Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, FileNotFoundException;
 
     @Override
-    void saveTaskList(ReadOnlyTaskList addressBook) throws IOException;
+    void saveTaskList(ReadOnlyTaskList taskList) throws IOException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
+     * Saves the current version of the Task List to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleTaskListChangedEvent(AddressBookChangedEvent tlce);
 }
