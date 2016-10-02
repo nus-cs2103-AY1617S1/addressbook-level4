@@ -468,7 +468,7 @@ Use case ends
 
 **Pros**
 
-> * Can be accessed from almost any device (online/offline)
+* Can be accessed from almost any device (online/offline)
 * Intuitive (Clicking Interface)
 * Sync calendars with different people
 * Layers for calendar
@@ -491,7 +491,7 @@ Use case ends
 
 **Pros**
 
-> * Cross-platform support: Windows, OS, Android, IOS
+* Cross-platform support: Windows, OS, Android, IOS
 * Easy task management including due dates, reminders, star, and list groups
 * Email and printing for tasks list
 * Cloud sharing tasks lists
@@ -503,7 +503,7 @@ Use case ends
   
 **Cons**
 
-> * No repeat options for task
+* No repeat options for task
 * No options for subtasks or subcontexts
 * No undo function
 * Limited functionalities(eg. Limited number of tasks and limited file sizes) for free versions, requires subscription fee to unlock all functionalities
@@ -515,7 +515,7 @@ Use case ends
 
 **Pros**
 
-> * Has many filters to choose from: project, context, priority, keyword, etc, so it is easy to narrow down a long list based on what you want to look for
+* Has many filters to choose from: project, context, priority, keyword, etc, so it is easy to narrow down a long list based on what you want to look for
 * Automatic and fast syncing with Dropbox, so user can conveniently access the list at any place that has an internet connection
 * Can be used on a command line interface e.g. terminal
 * Can be used on virtually any platform and edited using any text editor.
@@ -525,7 +525,7 @@ Use case ends
 
 **Cons**
 
-> * Requires user to manually edit one of the downloaded files “todo.cfg” in order to specify the directory in which the user wishes the save the file when used on a desktop.
+* Requires user to manually edit one of the downloaded files “todo.cfg” in order to specify the directory in which the user wishes the save the file when used on a desktop.
 * No support for routine tasks.
 * No support for subtasks under main tasks.
 * No undo function.
@@ -535,7 +535,7 @@ Use case ends
 
 **Pros**
 
-> * Events can be added very easily by clicking in the corresponding timeslot
+* Events can be added very easily by clicking in the corresponding timeslot
 * Duration of events can be changed easily by dragging the borders of the event
 * There is flexibility in terms of being able to set a task to be a recurring task, setting an event to be an entire day and even setting alarms/reminders for the event
 * Events can be categorized and each category is distinctly colour coded.
@@ -545,7 +545,7 @@ Use case ends
 
 **Cons**
 
-> * Details have to be filled individually into the respective categories. There is no option to type everything in one line and the relevant sections will be filled up automatically.
+* Details have to be filled individually into the respective categories. There is no option to type everything in one line and the relevant sections will be filled up automatically.
 * There is no way to mark an item as done
 * There is no automatic way to block of timings. An actual event has to be created and deleted should the event is not happening anymore.
 
