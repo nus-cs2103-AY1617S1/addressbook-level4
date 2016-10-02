@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 
 /**
- * Lists all tasks in Tasc to the user.
+ * Lists all tasks in the task list to the user.
  */
 public class ListCommand extends Command {
 
