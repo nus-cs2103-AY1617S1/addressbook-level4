@@ -1,8 +1,8 @@
 package seedu.address.model;
 
 
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.todo.ReadOnlyToDo;
+import seedu.address.model.todo.UniqueToDoList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -11,16 +11,16 @@ import java.util.List;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyToDoList {
 
     UniqueTagList getUniqueTagList();
 
-    UniquePersonList getUniquePersonList();
+    UniqueToDoList getUniqueToDoList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of ToDos list
      */
-    List<ReadOnlyPerson> getPersonList();
+    List<ReadOnlyToDo> getToDoList();
 
     /**
      * Returns an unmodifiable view of tags list
