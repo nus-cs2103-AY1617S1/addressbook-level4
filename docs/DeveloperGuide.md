@@ -388,7 +388,7 @@ System prints message showing the updated entry.
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [Mainstream OS](#mainstream-os) as long as it has Java 7 or higher installed.
+1. Should work on any [Mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and [open source] (#open-source) code.
 4. Should favor DOS style commands over Unix-style commands.
