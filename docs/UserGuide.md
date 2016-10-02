@@ -61,9 +61,9 @@ Examples:
 * `add Do stuff h/1100 d/10102016 l/1hr p/high`
 * `add CS2101 Lecture h/1400 d/07102016 l/2hr r/1w p/low t/got-webcast`
 
-#### Listing tasks : `tasks`
+#### Listing tasks : `list`
 Shows a list of tasks in ToDoIt specified by the search terms.<br>
-Format: `tasks [ds/DATE_START] [ds/DATE_END] [s/SORT_BY] [d/]`
+Format: `list [ds/DATE_START] [ds/DATE_END] [s/SORT_BY] [d/]`
 
 > **Flags**
 > * `ds/` Date start: If a start date is specified, program will only display tasks after this date.
@@ -74,7 +74,7 @@ Format: `tasks [ds/DATE_START] [ds/DATE_END] [s/SORT_BY] [d/]`
 > Dates are in DDMMYY format.
 
 Examples: 
-* `tasks ds/02102016 de/09102016 s/date d/`
+* `list ds/02102016 de/09102016 s/date d/`
 
 #### Finding all task containing a keyword: `find`
 Finds tasks that contain any of the given keywords.<br>
@@ -111,6 +111,10 @@ Examples:
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` command.
 
+#### Clear all tasks : `clear`
+Deletes all tasks from the to do list. Irreversible.<br>
+Format: `clear`
+  
 #### Editing a task: `edit`
 Edits a task in the to do list.<br>
 Format: `edit INDEX [desc/DESCRIPTION] [h/TIME] [d/DATE] [l/LENGTH] [r/RECUR] [p/PRIORITY] [t/TAG]...` 
@@ -190,15 +194,13 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_NAME h/24HR_TIME d/DATE l/DURATION_IN_HOURS p/PRIORITY a/AUTO_SCHEDULE r/RECURRING_TASK i/ADDITIONAL_INFORMATION [t/TAG]...`
-Edit | `edit INDEX name/TASK_NAME h/24HR_TIME d/DATE l/DURATION_IN_HOURS p/PRIORITY a/AUTO_SCHEDULE r/RECURRING_TASK i/ADDITIONAL_INFORMATION [t/TAG]...`
+Add | `add DESCRIPTION [h/TIME d/DATE l/LENGTH] [r/RECUR] [p/PRIORITY] [a/] [t/TAG]...`
+Edit | `edit INDEX [desc/DESCRIPTION] [h/TIME] [d/DATE] [l/LENGTH] [r/RECUR] [p/PRIORITY] [t/TAG]...`
 Clear | `clear`
 Delete | `delete INDEX`
 Done | `done INDEX`
-Task | `task ds/START_DATE de/END_DATE s/SORT_BY_ATTRIBUTE d/SHOW_DONE_TASKS`
-Reschedule | `reschedule INDEX i/TIME_INTERVAL`
-Find | `find KEYWORD [MORE_KEYWORDS] s/SCOPE`
-List | `list`
+List | `list [ds/DATE_START] [ds/DATE_END] [s/SORT_BY] [d/]`
+Reschedule | `reschedule INDEX INTERVAL`
+Find | `find KEYWORD [MORE_KEYWORDS] [s/SCOPE]`
 Help | `help`
-Select | `select INDEX`
 Exit | `exit`
