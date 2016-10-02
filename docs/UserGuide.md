@@ -11,18 +11,18 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+1. Download the latest `ToDoIt.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your ToDoIt task file.
+3. Double-click the ToDoIt.jar to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`list`** : lists all tasks
+   * **`add`**` Meeting with John h/14:00 d/05-09-2016 l/2 p/5 a/no r/no i/Meeting with John regarding sales` : 
+     adds a task named `Meeting with John` to the task list.
+   * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -162,18 +162,43 @@ There is no need to save manually.
 
 ## FAQ
 
+**Q**: How do I access help?<br>
+**A**: Type "help" in the command line of the program and press 'enter' on keyboard.<br>
+       <br>
+       
+**Q**: Why does the program fail to start?<br>
+**A**: Ensure that your system meets the requirements stated in the quick start section
+	   and that the downloaded program file is not corrupted.<br>
+       <br>
+       
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Address Book folder.<br>
+       <br>
+       
+**Q**: How do I uninstall ToDoIt?<br>
+**A**: Just delete ToDoIt.jar to remove the program from your computer. 
+	   You can also delete the text that stores the task.<br>
+       <br>
+       
+**Q**: Do I require knowledge of command line to use this program?<br>
+**A**: No, there is no prior command line knowledge required to use ToDoIt.
+	   Instead, just follow the instructions given in the help. See access help faq.<br>
+       <br>
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add TASK_NAME h/24HR_TIME d/DATE l/DURATION_IN_HOURS p/PRIORITY a/AUTO_SCHEDULE r/RECURRING_TASK i/ADDITIONAL_INFORMATION [t/TAG]...`
+Edit | `edit INDEX name/TASK_NAME h/24HR_TIME d/DATE l/DURATION_IN_HOURS p/PRIORITY a/AUTO_SCHEDULE r/RECURRING_TASK i/ADDITIONAL_INFORMATION [t/TAG]...`
 Clear | `clear`
 Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
+Done | `done INDEX`
+Task | `task ds/START_DATE de/END_DATE s/SORT_BY_ATTRIBUTE d/SHOW_DONE_TASKS`
+Reschedule | `reschedule INDEX i/TIME_INTERVAL`
+Find | `find KEYWORD [MORE_KEYWORDS] s/SCOPE`
 List | `list`
 Help | `help`
 Select | `select INDEX`
+Exit | `exit`
