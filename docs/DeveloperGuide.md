@@ -252,65 +252,241 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+`* * *` | user | add events, tasks and deadlines | 
+`* * *` | user | mark a task as complete | 
+`* * *` | user | view events by category (overdue, today, tomorrow, next 7 days, floating, other tasks) or by date | keep track of upcoming events
+`* * *` | user | view incomplete tasks | decide the next task to do
+`* * *` | user | search events or tasks by keywords | view details of the event easily
+`* * *` | user | edit event details | keep my task list updated
+`* * *` | user | delete tasks | discard tasks that cannot be done
+`* * *` | user | sort the event by name, date or priority | easily view events that requires immediate attention
+`* * *` | user | add [floating tasks] (#floating-tasks) as notes | add tasks with no fixed date/time
+`* *` | busy user | mark tasks as priority | display them at the top of my tasks
+`* *` | busy user | search for empty slots | add tasks easily
+`* *` | user | block multiple slots for tasks | reserve multiple time slots where the exact timing of the task is not certain and release the extra slots when the time is finalized
+`* *` | user | undo and redo the changes made to my tasklist | Keep my tasklist in order
+`* *` | IT-savvy user | sync my tasks to my google calendar | have changes reflected in my various timekeeping applications
+`* *` | busy user | tag tasks | easily narrow down to a certain set of tasks
+`*` | user | Have recurring events | save the trouble of having to add a new task periodically. 
+`*` | user | look for empty slots | check my available time slots before adding a new task
+`*` | user | have auto-fill search | quickly search for relevant tasks 
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case UC01 - Add a task/event/deadline
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+Precondition: Parameters such as date, time and keywords entered should be valid.  
+
+Guarantees: 
+* Event or task or note added 
+
+1. User enters task name with an optional start date and time and an optional end date and time.
+2. User enters event name, start date and time followed by end date and time.
+3. User enters descriptions in the form of notes. 
+4. Task/event/note is added into the storage file. 
+5. System displays message conveying that the input task has been added.
+
+**Extensions**
+
+2a. Clash of timeslots
+> 2a1. System will identify the clash and will display to the user the list of actions to be taken.
+User can ignore collision or replace existing task with current task or reschedule task or cancel operation.
+
+
+#### Use case UC02 - View events
+
+**MSS**
+
+Precondition: Event/Task category entered should be valid
+
+1. User enters display command and event category.
+2. System shows list of events under the category entered.
+Use case ends.
+
+
+#### Use case UC03 - Delete task
+
+**MSS**
+
+Precondition: There has to be at least one task for the use to delete.
+
+Guarantees: 
+* Event will be deleted from the storage file. 
+
+1. User enters delete command and partial task name.
+2. System shows a list of indexed tasks matching the task name.
+3. User enters index number of task to be deleted.
+4. System deletes the task.
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. None of the existing tasks match the user input.
+> 2a1. Use case ends.
+ 
+3a. User cancels task deletion.
+> 3a1. Use case ends.
 
+3b. Entered index number is invalid.
+> 3b1. System shows an error message.
+Use case resumes at step 2.
+
+#### Use case UC04 - Search events
+
+**MSS**
+
+Precondition: Only events stored in the storage file can be searched.
+
+1. User enters a keyword or the task index.
+2. If task index was entered, go to Step 4. Else the system returns the user a list of all matching tasks.
+3. If a keyword was entered, the user selects a task from the list of matching tasks.
+4. The system displays the details of that task to the user.
+
+**Extensions**
+
+2a. The given index is invalid
+> 2a1. The system shows an error message <br>
+  Use case resumes at Step 1
+
+2a. The list is empty
+> Use case ends
+
+4a. User selects invalid task from the list
+> 4a1. The system shows an error message <br>
+   Use case resumes at Step 3
+
+#### Use case UC05 - Edit event details
+
+**MSS**
+
+Precondition: Event has to exist in the storage file to edit. 
+
+Guarantees:  
+* The corresponding event details will be updated to their new values. 
+
+The user searches for the event (UC04) to be updated. 
+System will display an indexed list of the event(s). 
+User enters index of event to be updated, field to be changed and the new value for the field.
+Updates get stored in the storage file. 
+System prints message showing the updated entry. 
+
+**Extensions**
+2a. The list is empty
 > Use case ends
 
 3a. The given index is invalid
-
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
-
-{More to be added}
+> 3a1. The system shows an error message <br>
+  Use case resumes at Step 2
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
+1. Should work on any [Mainstream OS](#mainstream-os) as long as it has Java 7 or higher installed.
+2. Should be able to hold up to 1000 tasks.
+3. Should come with automated unit tests and [open source] (#open-source) code.
 4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+5. Should not lose task/event details in the event that the App crashes.
+6. Should have fast response time, results added and retrieved in less than a second.
+7. Should not have bugs that interfere with the functionalities of the device.
+8. There should be back up of documentations and code.
+9. Should store data in encrypted form as a form of data security.
+10. Should not require an installer to run the application.
 
 ## Appendix D : Glossary
 
-##### Mainstream OS
+#### Mainstream OS
 
-> Windows, Linux, Unix, OS-X
+> Windows, Linux, Unix, OS-X.
 
-##### Private contact detail
+#### Floating tasks
 
-> A contact detail that is not meant to be shared with others
+> Tasks with no specific date/time which the user might need to take note of.
+
+#### Open source
+
+> Denotes software for which the original source code is made freely available, which may be redistributed and modified.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+#### Google Calendar (studied by Pankaj Bhootra)
 
+Strengths:
+
+1. User-friendly manner of adding new events and deadlines
+2. Acknowledges the important features required by the project (marking a task as ‘done’, searching for a task by keywords, support for recurring events, quick add feature, etc.)
+3. Automatic reminder feature for tasks
+4. Categorizes events as “today”, “this week” and “this month”, etc. which is in line with the project requirement
+5. Clear, concise, responsive and efficient UI
+
+Weaknesses:
+
+1. Does not provide support for floating tasks (need to provide a placeholder date/time while adding any task). Also not very good in recording tasks that need to be done before or after a specific date/time.
+2. Does not provide CLI (Command Line Interface) for managing tasks
+3. Too slow for users who retrieve/edit/store tasks frequently
+4. Unavailable in places with no internet connectivity
+5. Does not provide the feature to block multiple slots for unconfirmed tasks
+
+
+## Todoist (studied by R Dheeraj)
+
+Strengths:
+
+1. Use of natural language inputs to add events or tasks.
+   a> Use of hashtags to categorize the tasks into their respective archives/folders.
+   b> Input words such as everyday and every week can be used to set the timeframe for recurring events.
+2. There are color coded priority flags to help users decide on the priority of tasks.
+   a> Users can filter tasks based on the priority level and a listed of task will be displayed, sorted by date. 
+3. Tasks with no due dates can also be added and viewed. 
+4. Apart from filters, users have an option of sorting their tasks by name, priority and date. In the homepage, there will be all the tasks displayed and users can choose their sort options to have a quick view. 
+5. Upcoming tasks can also be filtered by their immediacy: today, next 7 days and next month. 
+6. Comments/tags can also be added to each tasks. Sometimes, event/task name alone will not be comprehensive. Therefore, users could include description of event/task in the form of comments/tags under each event. 
+7. A link with a list of all the shortcut keys for each function has been included. 
+
+Weaknesses:
+
+1. Reminder feature could only be utilized by premium members.
+2. Additional features such as backups and productivity trackers are only available in the premium version.
+
+
+#### Todo.txt (studied by Lester Tan)
+
+Strengths:
+
+1. Simple (CLI)
+2. UNIX-style input, for those used to UNIX
+3. Syncing between computer program and mobile application
+4. Open-source: allows user-written extensions to be integrated
+5. Ability to mark a task as a priority
+6. Allows a series of tasks in a project to be listed out
+7. Able to set tags (“contexts”) for easy reference
+
+Weaknesses:
+
+1. No GUI
+2. Fixed format for entering dates
+3. No feature to search for free slots
+
+
+## Fantastical (studied by Fionna Tong)
+
+Strengths:
+
+1. Powerful natural language used for adding events with or without date.
+2. Keeps the calendar view and list of upcoming events active.
+3. Full calendar window with options to view by day, week, month or year while adding events
+4. Automatically shows public holidays in the calendar for easier scheduling.
+5. Able to sync and integrate with existing calendars e.g. local, Google and Exchange - this allows Jim to access his calendar from both his work and personal laptops.
+6. Supports different calendar sets.
+
+Weaknesses:
+
+1. Does not help look for a free slot to schedule an event.
+2. Does not have a way to “block” multiple time slots for an event when the timing is uncertain, and release the blocked slots when the time is finalised.
+3. Allows scheduling for different events at the same time without prompting the user.
+4. No CLI.

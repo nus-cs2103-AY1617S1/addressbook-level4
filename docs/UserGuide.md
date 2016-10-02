@@ -143,12 +143,13 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Help | `help` 
-Add | `[add] TASKNAME [at/from TIMEDATE] [to/by TIMEDATE]`
-Display | `display TYPE [PERIOD]`
-Find | `find SEARCHSTRING`
-Delete | `delete INDEX/TASKNAME`
-Update | `update INDEX/TASKNAME [at/from STARTTIMEDATE] [to/by ENDTIMEDATE]`
-Complete | `complete INDEX/TASKNAME`
-Setstorage | `setstorage FILEPATH`
-Exit | `exit`
+help | `help` 
+add | `[add] TASKNAME [at/from TIMEDATE] [to/by TIMEDATE]`
+note | `note TASKNAME`
+display | `display TYPE [PERIOD]`
+find | `find SEARCHSTRING`
+delete | `delete INDEX/TASKNAME`
+update | `update INDEX/TASKNAME [at/from STARTTIMEDATE] [to/by ENDTIMEDATE]`
+complete | `complete INDEX/TASKNAME`
+setstorage | `setstorage FILEPATH`
+exit | `exit`
