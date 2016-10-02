@@ -45,15 +45,16 @@ Format: `help`
 Adds a task to the to do list.<br>
 Format: `add DESCRIPTION [h/TIME d/DATE l/LENGTH] [r/RECUR] [p/PRIORITY] [a/] [t/TAG]...` 
 
-> *Flags*
+> **Flags**
 > * `h/` Time: Time in 24 hour HHMM format
 > * `d/` Date: Date in DDMMYY format
 > * `l/` Length: Specifies the length of time. Defaults to 1 hour if time and date are specified, but length is not specified. Use a number followed by a time interval (min, hr, day, week, mo), e.g. 6d, 1w
 > * `r/` Recur: Specifies an interval for recurring task, if any. Use a number followed by a time interval (min, hr, day, week, mo), e.g. 6d, 1w
 > * `p/` Priority: Specifies the priority of a task (high/3/h, med/2/m, low/1/l)
-> * `a/` Autoschedule: If flag is specified, the task will be automatically scheduled to a free slot. If a time, date and length is specified, this flag is ignored.
-> A task can be dated (has time, date, length), or floating.
-> Both time and date must be specified (dated), or both left out (floating). Tasks with only time or date specified will give an error.
+> * `a/` Autoschedule: If flag is specified, the task will be automatically scheduled to a free slot. If a time, date and length is specified, this flag is ignored.<br> 
+> <br> 
+> A task can be dated (has time, date, length), or floating.<br> 
+> Both time and date must be specified (dated), or both left out (floating). Tasks with only time or date specified will give an error.<br> 
 > Tags specifies any tags that are associated with this task. Tasks can have any number of tags (including 0)
 
 Examples: 
@@ -64,11 +65,12 @@ Examples:
 Shows a list of tasks in ToDoIt specified by the search terms.<br>
 Format: `tasks [ds/DATE_START] [ds/DATE_END] [s/SORT_BY] [d/]`
 
-> *Flags*
+> **Flags**
 > * `ds/` Date start: If a start date is specified, program will only display tasks after this date.
 > * `de/` Date end: If an end date is specified, program will only display tasks before this date.
 > * `s/` Sort by: Sorts the tasks in the order specified (date, time, alpha, priority).
-> * `d/` Done tasks: If this flag is specified, tasks that are marked done will be shown.
+> * `d/` Done tasks: If this flag is specified, tasks that are marked done will be shown.<br> 
+> <br> 
 > Dates are in DDMMYY format.
 
 Examples: 
@@ -78,25 +80,26 @@ Examples:
 Finds tasks that contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS] [s/SCOPE]`
 
-> *Flags*
-> * `s/` Scope: The scope in which to search (all, desc, tags). Defaults to all.
-> The search is not case sensitive. e.g `stuff` will match `Stuff`
-> The order of the keywords does not matter. e.g. `Do stuff` will match `Stuff do`
-> Only full words will be matched e.g. `Work` will not match `Workout`
+> **Flags**
+> * `s/` Scope: The scope in which to search (all, desc, tags). Defaults to all.<br> 
+> <br> 
+> The search is not case sensitive. e.g `stuff` will match `Stuff`<br> 
+> The order of the keywords does not matter. e.g. `Do stuff` will match `Stuff do`<br> 
+> Only full words will be matched e.g. `Work` will not match `Workout`<br> 
 > Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Stuff` will match `Do stuff`
 
 Examples: 
-* `find work
+* `find work <br>
   Returns `Do work` but not `Do homework`
-* `find work s/tags
+* `find work s/tags <br>
   Returns tasks contained with the `work` tag.
 
 #### Deleting a task : `delete`
 Deletes the specified task from the to do list. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes the task at the specified `INDEX`. 
+> Deletes the task at the specified `INDEX`. <br>
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
@@ -112,10 +115,10 @@ Examples:
 Edits a task in the to do list.<br>
 Format: `edit INDEX [desc/DESCRIPTION] [h/TIME] [d/DATE] [l/LENGTH] [r/RECUR] [p/PRIORITY] [t/TAG]...` 
 
-> Edits the task at the specified `INDEX`. 
+> Edits the task at the specified `INDEX`. <br>
   The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-> Replaces the current task data with the specified task data. Irreversible.
+  The index **must be a positive integer** 1, 2, 3, ... <br>
+> Replaces the current task data with the specified task data. Irreversible. <br>
 > For more information regarding the parameters, refer to `add` commmand
 
 Examples: 
@@ -126,10 +129,10 @@ Examples:
 Reschedules a task in the to do list.<br>
 Format: `reschedule INDEX INTERVAL` 
 
-> Reschedules the task at the specified `INDEX`. 
+> Reschedules the task at the specified `INDEX`.  <br>
   The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-> For interval, use a number followed by a time interval (min, hr, day, week, mo), e.g. 6d, 1w.
+  The index **must be a positive integer** 1, 2, 3, ... <br>
+> For interval, use a number followed by a time interval (min, hr, day, week, mo), e.g. 6d, 1w. <br>
 > Negative numbers are not supported. To reschedule earlier, consider using edit instead.
  
 Examples: 
@@ -140,9 +143,9 @@ Examples:
 Marks the specified task from the to do list as done.<br>
 Format: `done INDEX`
 
-> Marks task at the specified `INDEX` as done. 
+> Marks task at the specified `INDEX` as done. <br>
   The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+  The index **must be a positive integer** 1, 2, 3, ...<br>
 > If the task is already done, marks the task as undone.
 
 #### Clearing all entries : `clear`
