@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.todo.storage;
 
 
 import org.junit.Rule;
@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.model.AddressBook;
 import seedu.todo.model.ReadOnlyAddressBook;
 import seedu.todo.model.person.Person;
 import seedu.todo.storage.XmlAddressBookStorage;
+import seedu.todo.testutil.TypicalTestPersons;
 
 import java.io.IOException;
 

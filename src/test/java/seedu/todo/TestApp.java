@@ -1,14 +1,14 @@
-package seedu.address;
+package seedu.todo;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.testutil.TestUtil;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.model.ReadOnlyAddressBook;
 import seedu.todo.model.UserPrefs;
 import seedu.todo.storage.XmlSerializableAddressBook;
+import seedu.todo.testutil.TestUtil;
 
 import java.util.function.Supplier;
 

@@ -1,15 +1,15 @@
-package seedu.address.commons.util;
+package seedu.todo.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.TestUtil;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.commons.util.XmlUtil;
 import seedu.todo.model.AddressBook;
 import seedu.todo.storage.XmlSerializableAddressBook;
+import seedu.todo.testutil.AddressBookBuilder;
+import seedu.todo.testutil.TestUtil;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;

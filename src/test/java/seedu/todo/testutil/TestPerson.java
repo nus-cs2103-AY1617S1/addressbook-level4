@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.todo.testutil;
 
 import seedu.todo.model.person.*;
 import seedu.todo.model.tag.UniqueTagList;
