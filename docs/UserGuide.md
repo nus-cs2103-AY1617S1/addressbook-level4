@@ -145,10 +145,11 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add TASK_NAME t/24HR_TIME d/DATE i/ADDITIONAL_INFORMATION a/ADDRESS [t/TAG]...`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
 Select | `select INDEX`
+Exit | `exit`
