@@ -44,33 +44,38 @@ Format: `help`
 Adds a task to the list. Note: the `add` keyword is optional (i.e. 'add' is implied for an entry with no keyword).<br>
 Format: `[add] TASKNAME [at/from TIMEDATE] [to/by TIMEDATE]` 
 
-> At least one of the two timedates must be included.
+> At least one of the two TIMEDATE's must be included.
 
 Examples: 
 * `add Buy eggs at 5pm 13/09/2016`
-* `meeting from 13/09 5pm to 13/09 7pm`
-* `pay bills by 13/09 5pm`
+* `Meeting from 13/09/2016 5pm to 13/09/2016 7pm`
+* `Pay bills by 13/09/2016 5pm`
 
 #### Adding a note: `note`
 Adds a note to the list. A note has neither start nor end time.<br>
 Format: `note TASKNAME`
 
 Examples:
-* `note do laundry`
+* `note Do laundry`
 
 #### Displaying tasks : `display`
-Displays tasks and their indexes in the specified timeframe.<br>
+Displays tasks and their indexes in the specified timeframe. Note: The `PERIOD` is optional.<br>
 Format: `display TYPE [PERIOD]`
 
-> TYPE format: all, floating, incomplete, overdue.
+> TYPE format: all, floating, incomplete, overdue.<br>
 > PERIOD format: today, tomorrow, week, month, year, or the DATE
+
+Examples:
+* `display floating 13/09/2016`
+* `display all tomorrow`
+* `display overdue`
 
 #### Searching for tasks : `find`
 Lists tasks whose names match the given input.<br>
 Format: `find SEARCHSTRING`
 
 > * The search is case insensitive. e.g `buy` will match `Buy`
-> * Wildcards can be indicated with the asterisk `*` e.g. `B*s` will match `Buy eggs`
+> * Wild cards can be indicated with the asterisk `*` e.g. `B*s` will match `Buy eggs`
 > * Only the name is searched.
 > * Only full words will be matched e.g. `Buy` will not match `Buys`
 
