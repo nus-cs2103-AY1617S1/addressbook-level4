@@ -20,7 +20,7 @@ import seedu.address.model.TaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableTaskList;
 
 import java.io.File;
 import java.io.IOException;
@@ -138,8 +138,8 @@ public class TestUtil {
         return new TaskList(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskList generateSampleStorageAddressBook() {
+        return new XmlSerializableTaskList(generateEmptyAddressBook());
     }
 
     /**

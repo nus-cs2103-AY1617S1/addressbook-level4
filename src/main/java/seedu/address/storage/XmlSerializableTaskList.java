@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
  * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyTaskList {
+public class XmlSerializableTaskList implements ReadOnlyTaskList {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedTask> persons;
     @XmlElement
     private List<Tag> tags;
 
@@ -33,13 +33,13 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskList {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableTaskList() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyTaskList src) {
-        persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+    public XmlSerializableTaskList(ReadOnlyTaskList src) {
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -56,7 +56,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskList {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedTask p : persons) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
