@@ -117,9 +117,29 @@ There is no need to save manually.
 
 ## FAQ
 
+**Q**: How do I access help?<br>
+**A**: Type "help" in the command line of the program and press 'enter' on keyboard.<br>
+       <br>
+       
+**Q**: Why does the program fail to start?<br>
+**A**: Ensure that your system meets the requirements stated in the quick start section
+	   and that the downloaded program file is not corrupted.<br>
+       <br>
+       
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Address Book folder.<br>
+       <br>
+       
+**Q**: How do I uninstall ToDoIt?<br>
+**A**: Just delete ToDoIt.jar to remove the program from your computer. 
+	   You can also delete the text that stores the task.<br>
+       <br>
+       
+**Q**: Do I require knowledge of command line to use this program?<br>
+**A**: No, there is no prior command line knowledge required to use ToDoIt.
+	   Instead, just follow the instructions given in the help. See access help faq.<br>
+       <br>
        
 ## Command Summary
 
