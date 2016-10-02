@@ -34,74 +34,99 @@
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
+=======
 
 #### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
 
-> Persons can have any number of tags (including 0)
+#### Create a new task: `todo`, `deadline` or `event`
+Adds a new task to the tasks list or a new event to the event calendar.<br>
+Todo format: `todo NAME`<br>
+Deadline format: `deadline NAME DATE END_TIME`<br>
+Event format: `event NAME DATE START_TIME END_TIME`
+
+> Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional. Order of parameters are not fixed.
+
+> Tasks are split into 3 categories: todo, deadline, event.
+> todo: Tasks that have no specific date/time to be completed by.
+> deadline: Tasks that have a specific date/time they must be completed by.
+> event: Tasks that have specific start and end date/time.
+
+> DATE can accept different formats. 1 Jan 2015, 010115, 01/01/2015 are all acceptable to represent 1 Jan 2015.
+
+> START_TIME and END_TIME can accept different formats. 3pm, 15:00, 1500 are all acceptable to represent 3pm.
+
+Examples:
+* `todo read book`<br>
+  Adds a todo task with NAME as `read book`
+* `deadline math homework 1 Jan 2015 2pm`<br>
+  Adds a deadline task with NAME as `math homework`, DATE as `1 Jan 2015`, END_TIME as `1500`
+* `event meeting 1 Jan 2015 21:00 00:00`<br>
+  Adds an event task with NAME as `meeting`, DATE as `1 Jan 2015`, START_TIME as `2100`, END_TIME as `0000`
+
+#### View all tasks: `view`
+View all tasks for the specified date.<br>
+Format: `view [DATE]`
+
+> All tasks for the specified DATE will be displayed. If no date is specified, all tasks for today will be displayed.
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `view`
+* `view 1 Jan 2015`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+#### Edit task details: `edit`
+Edit a task or event already inside the task manager/ event calendar using the index of the task.<br>
+Format: `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+> Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional. Order of parameters are not fixed.
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+> Format depends on the type of task being edited. When only 1 TIME is provided, it is treated as END_TIME for both deadline and event.
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+Examples:
+* `view`<br>
+  `edit 3 Do math homework 3pm`<br>
+  Edit the 3rd task today. Changes the NAME to `Do math homework` and END_TIME to `1500`<br>
+  `edit 2 22:00 00:00`<br>
+  Edit the 2nd task today. Changes the START_TIME to `2200` and END_TIME to `0000`
+
+#### Delete task: `delete`
+Delete a task inside the task list or an event inside the calendar.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Delete a task at the specified INDEX. The INDEX refers to the index number shown in the most recent listing
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
+Examples:
+* `view`<br>
   `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  Delete the 1st task today as shown by the `view` command
+* `view 1 Jan 2015`<br>
+  `delete 2`<br>
+  Delete the 2nd task on 1 Jan 2015 as shown by the `view` command
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+#### Mark task as done: `done`
+Mark a task in the task list as done.<br>
+Format: `done INDEX`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Marks a task at the specified INDEX as completed. The INDEX refers to the index number shown in the most recent listing
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+Examples:
+* `view`<br>
+  `done 1`<br>
+	Marks the 1st task today as shown by the `view` command as completed
+
+#### Undo previous action: `undo`
+Undo the last completed action.<br>
+Format: `undo`
+
+> The previous version will be restored.
+> User can keep retyping undo to undo multiple actions.
+
+Examples:
+*  `undo`
+
 
 #### Clearing all entries : `clear`
 Clears all entries from the address book.<br>
