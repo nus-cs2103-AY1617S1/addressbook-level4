@@ -140,10 +140,15 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
+Todo | `add NAME`
+Deadline | `add NAME DATE END_TIME`
+Event | `add NAME DATE START_TIME END_TIME`
+View | `view [DATE]`
+Edit | `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
+Done | `done INDEX`
+Undo | `undo`
 Help | `help`
+Clear | `clear`
+Exit | `exit`
 Select | `select INDEX`
