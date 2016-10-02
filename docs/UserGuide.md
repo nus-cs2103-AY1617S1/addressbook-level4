@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**` Meeting with John t/14:00 d/Meeting with John regarding sales a/John street, block 123, #01-01` : 
+   * **`add`**` Meeting with John t/14:00 d/05-09-2016 i/Meeting with John regarding sales a/John street, block 123, #01-01` : 
      adds a task named `Meeting with John` to the task list.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
