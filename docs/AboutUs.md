@@ -4,49 +4,35 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Ngin Yun Chuan](https://github.com/nginyc) <br>
+<img src="images/NginYunChuan.JPG" width="150"><br>
+Role: Team lead <br>  
+Responsibilities: Logic
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
+#### [Conan Kian Jia Ren](https://github.com/ckjr)
+<img src="images/ConanKianJiaRen.JPG" width="150"><br>
+Role: UI designer <br>  
 Responsibilities: UI
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+#### [Sheng Xuan](https://github.com/Sheng-Xuan) 
+<img src="images/ShengXuan.JPG" width="150"><br>
+Role: Integration <br>  
+Responsibilities: Storage
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
 
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
+#### [Song Zhiwen](https://github.com/zzzzwen) 
+<img src="images/SongZhiwen.JPG" width="150"><br>
+ Role: Testing and code quality <br>  
+ Responsibilities: Model
  
  -----
 
 # Contributors
 
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+We welcome contributions.
