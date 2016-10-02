@@ -255,62 +255,382 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | New user | See usage instructions | Refer to instructions when I forget how to use the App
+`* * *` | New user | Create a new data file to store my tasks | Store my schedule for future reference
+`* * *` | User | List all the tasks that are incomplete, in order of deadline | See the next task that needs to be completed
+`* * *` | User | Create a new task with a start time and end time | Create an event for my calendar
+`* * *` | User | Create a new task with the deadline (but no time slot) | Create a task that needs to be completed on my calendar
+`* * *` | User | Create a new tag | Label tasks with my new tags
+`* * *` | User | Add location to a task | Make my event happen on a location
+`* * *` | User | Update a task with completely different information from the original one | Correct the information of my task
+`* * *` | User | Update a task with new information pieces | Correct the information of my task
+`* * *` | User | Delete a task | Remove outdated tasks or events.
+`* * *` | User | Mark a task as completed | Manage and view my tasks more effectively
+`* * *` | User | Show all tasks/events | See my completed task/event and also know what is upcoming
+`* * *` | User | Search tasks/events by providing keywords | Locate a task/event easily
+`* * *` | User | Load previously written data | Refer to previously created schedule
+`* * *` | User | Save changes to my schedule | Be able update schedule and refer to updated schedule
+`* * *` | User | Clear the data storage file | Remove unwanted schedule to free up disk space, be able to redo schedule from scratch
+`* * *` | User | Choose which folder to save schedule file | Have control over file locations, easier to find file in computer, can store in folder controlled by cloud syncing service
+`* * *` | User | Store my schedule offline | Be able to access schedule even without internet connection
+`* *` | User | Create a new task with recurring deadlines | Create multiple instances of tasks that is repeatable (e.g. Finish quiz every Sunday)
+`* *` | User | Delete a specific information piece in my task/event | Remove unnecessary information from my tasks
+`* *` | User | Show only tasks/events with specified tag(s) and date | See only the related tasks/events from the list of tasks/events
+`* *` | User | Hide tasks/events with specified tag(s) | Hide tasks/events which I do not care about
+`*` | User | Convert an email to a task | Create a task based on email that I have received
+`*` | User | Recover my deleted task(s) | Recover the tasks and events that are mistakenly deleted
+`*` | User | See all free time within a time range | Easily schedule other tasks/events into a free time
+`*` | User | See keyword and tag suggestions as I type | Save time by typing the correct command which yields the results I want
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TaSc` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+### Use case: Create new event
 
-**MSS**
+**MSS:**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+1. User creates new task with start and end time.
+2. Program saves the task with given start and end time.
+Use case ends
 
-**Extensions**
+**Extensions:**
 
-2a. The list is empty
-
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. AddressBook shows an error message <br>
+1a. The start time / end time given is invalid
+> 1a1. Program returns error message, saying that time given is invalid<br>
+> 1a2. Program prompts for re-type of task details.<br>
+> 1a3. User retypes the start time / end time<br>
   Use case resumes at step 2
 
-{More to be added}
+1b. The start time is later than the end time
+> 1b1. Program returns error message, saying that the start time starts later than the end time<br>
+> 1b2. Program gives two options: Swap time around, or re-type task details.<br>
+>     * 1b2i. User request swap time around.<br>
+>           * Program swap time around<br>
+>           * Use case ends
+>     * 1b2ii. User intends to retype timing<br>
+>           * Use case resumes at 1a3.
+
+#### Use case: Create new tag
+
+**MSS:**
+
+1. User requests to create a new tag.
+2. Program saves the tag to storage.
+Use case ends
+
+**Extensions:**
+
+1a. Tag given is empty
+> 1a1. Program returns error message, saying that tag is invalid<br>
+  Use case resumes at step 1
+
+1b. Tag given already exist
+> 1b1. Program returns error message, saying that tag already exist<br>
+  Use case resumes at step 1
+
+#### Use case: List uncompleted tasks
+
+**MSS:**
+
+1. User requests to list uncompleted tasks.
+2. Program lists uncompleted tasks, by order of tasks with earliest deadline.
+Use case ends
+
+**Extensions:**
+
+> 1a. The list is empty<br>
+  Use case ends
+
+#### Use case: Completely update a task
+
+**MSS:**
+
+1. User requests to change all the information of a task to a new information set.
+2. Program replaces all the old information with the new information.
+Use case ends
+
+**Extensions:**
+
+1a. The requested task name does not exist
+> 1a1. Program returns error message, saying that the task does not exist.<br>
+> 1a2. Program prompts whether to add the task with information provided.<br>
+> 1a3i. User inputs `Y`.<br>
+>       * 1a3i1. program adds the new task.
+>           * Use case ends.
+> 1a3ii. User inputs `N`<br>
+> Use case ends.<br>
+
+#### Use case: Partially update and/or add new information to a task
+
+**MSS:**
+
+1. User requests to change part of the information of a task and/or add new information to a task
+2. Program replaces old information requested for changing with new information provided and/or add new information to the task
+Use case ends.
+
+**Extensions:**
+
+1a. The requested task name does not exist
+> 1a1. Program returns error message, saying that the task does not exist.<br>
+> 1a2. Program prompts whether to add the task with information provided.<br>
+> 1a3i. User inputs `Y`.
+>       * 1a3i1. program adds the new task.
+>           * Use case ends.
+> 1a3ii. User inputs `N`<br>
+> Use case ends.
+
+#### Use case: Delete a task
+
+**MSS:**
+
+1. User requests to delete a task.
+2. Program removes the task from storage.
+Use case ends
+
+**Extensions:**
+
+1a. The requested task name does not exist
+> 1a1. Program returns error message, saying that the task does not exist.<br>
+  Use case ends.
+
+#### Use case: Mark a task as completed
+
+**MSS:**
+
+1. User requests to mark a task as completed.
+2. Program adds a property ‘completed’ to the task requested.
+Use case ends
+
+**Extensions:**
+
+1a. The requested task name does not exist
+> 1a1. Program returns error message, saying that the task does not exist.<br>
+  Use case ends.
+
+1b. The requested task has already been marked as completed
+> 1b1. Program returns error message, saying that the task is already completed.<br>
+  Use case ends.
+
+#### Use case: Show all tasks/events with some specified conditions
+
+**MSS:**
+
+1. User requests to show all tasks/events with some specified conditions.
+2. Program retrieves and lists the tasks/events which matches all the conditions in the specified order.
+Use case ends
+
+**Extensions:**
+
+1a. The list of tasks/events which matches all the conditions is empty
+> 1a1. Program shows a no result message<br>
+> Use case ends
+
+#### Use case: Find tasks/events by providing some keywords
+
+**MSS:**
+
+1. User requests to find tasks/events by providing some keywords.
+2. Program retrieves and lists the found tasks/events.
+Use case ends
+
+**Extensions:**
+
+1a. No task/event is found
+
+> 1a1. Program shows a no result message<br>
+  Use case ends
+
+#### Use case: Delete schedule data
+
+**MSS:**
+
+1. User requests to delete data
+2. Program confirms deletion with user
+3. Program deletes schedule.
+Use case ends
+
+**Extensions:**
+
+2a. User cancels the deletion
+
+> File not deleted<br>
+  Use case ends
+
+#### Use case: Designate data storage location
+
+**MSS:**
+
+1. User requests to designate data storage location
+2. User chooses new location to save data
+3. Program changes data storage location
+4. If schedule data existed in previous data storage location, program copies data to new location
+5. If schedule data existed in previous data storage location, program deletes data at previous location
+Use case ends
+
+**Extensions:**
+
+*a. User cancels the operation
+
+> Data storage location not changed <br>
+  Use case ends
+
+2a. Location is not valid/ Not allowed to access location
+
+> 2a1. Program shows error message<br>
+  Use case resumes at step 2
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+1. The application should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
+2. The application s hould come with automated unit tests and open source code.
+3. The application should be able to handle at least 500 tasks.
+    * Assume for each day in the calendar, you have 5 tasks per day, and you store tasks up to 3 months. 30*5*3 = 450 ~= 500.
+4. The application should be able to display the result of the query in less than 5 seconds.
+5. The application should run primarily on commandline-like interface.
+6. The application should be able to work offline.
+7. The application should work on a computer running Windows 7 or later with Java 8 installed.
+8. The application should ship with regression testing available.
+9. The application should be able to handle both tasks and events as the same concept.
+10. The source code should be well-documented and ready to be continued by someone else.
+11. The application should allow users to undo up to at least 10 most recent commands.
+12. The application should be usable straight away, without requiring any installation.
+13. The application should allow users to change the stored data location.
+14. Version control should be used during development of product.
+15. The application should provide help when the user enters an invalid command.
+16. The data storage file should be in a human-editable format.
 
 ## Appendix D : Glossary
 
-##### Mainstream OS
+**Command:** A keyword that the program understands, to allow user to tell the program to execute a certain action.
 
-> Windows, Linux, Unix, OS-X
+**Data Storage File:** A database that contains all our tasks.
 
-##### Private contact detail
+**Human Editable Format:** The task list is stored in a way such that you can literally open the file and edit in Notepad if you want (data can be preserved even if the program no longer exist in the future).
 
-> A contact detail that is not meant to be shared with others
+**Local Storage:** A database stored on the user’s computer system so that it does not require an Internet connection to function.
+
+**Query:** An attempt by the user to ask something from the program.
+
+**Regression Testing:** A tool to ensure correct implementation of the program, and to detect possible bugs that might resurface when making changes to the code.
+
+**Source Code:** The underlying framework that the program is built from.
+
+**Task:** Either (a) something that needs to be done, or (b) an event.
+
+**Tag:** Classification of a task (can also be used for prioritizing tasks)
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+This section indicates the strengths and weaknesses of our competitors’ products with regards to their capability in catering to Jim’s requirements.
 
+#### Google Calendar
+
+Strengths:
+
+* Wide keyboard support
+    * Q: Quick Add which resembles natural language
+    * Ctrl+Z: undo
+    * Esc: Back
+    * A/M/W/D: Switch to Agenda/Month/Week/Daily view
+    * J/K: Next/Previous in view
+    * T: Today
+    * /: Search
+    * Arrow Keys + Enter: Expand event details
+    * Arrow Keys + E: Show event details
+* Integrated with Gmail, one-click to add event from inbox
+* Offline support with Chrome
+* Mini-calendar at sidebar
+* Multiple calendars (can show/hide all)
+* Email/Chrome/mobile notifications
+* Syncs to cloud when online
+* Has “Find a time” feature
+* Supports recurring events
+* Drag and drop event from one day to another
+* Import/Export iCal/CSV calendar if offline
+
+Weaknesses:
+
+* Only color tags
+* Keyboard shortcuts “has to be discovered”
+* Unable to delete/edit event using one command
+* Event time must be specific
+* No tasks view with priority/deadlines
+* Unable to “reserve” multiple slots
+* Unable to mark event as”done”, “canceled”, etc.
+
+
+#### Todoist
+
+Strengths:
+
+* “One shot approach” - Can enter tasks and details in one typed in command
+* Typed in command resembles natural language
+* Supports recurring tasks
+* Allows postponement of tasks
+* Allows entering tasks that need to be done before a specific date/time, or after a specific date/time, and items without specific times.
+* Sync Online, but can be used offline too
+* Multiplatform (Android, IOS, Windows, OSX, Browser extensions - Chrome, Firefox, Safari)
+* Can set priorities for tasks
+
+Weaknesses:
+
+* Does not help find suitable slot to schedule task
+* Marking item as done simply deletes it
+* Cannot “block” or “release” multiple slots when timing is uncertain
+* Mouse input required for most actions. Only inputting task is based on keyboard input. Rescheduling and deleting tasks require mouse clicks
+
+#### Microsoft Outlook
+
+Strengths:
+
+* Can flag emails as task (i.e. Emails can be turned into tasks)
+* Keyboard shortcuts discovery simple (press Alt, they will show you the letters to press)
+* Allow tasks without specific time
+* Can still work without internet, will sync back to the online server when internet connection is restored.
+* Can block multiple slots as having multiple appointments in a time slot is allowed (However it is not built-in feature, have to manually use tags).
+* Task can be sorted in due date (to allow us to know which task needs to be completed first)
+* Tasks can be recurring in nature (lecture quiz task only needs to be created one time, a reminder will pop up every week)
+* Tasks can be marked as done.
+* Tasks can be set to different priorities (high/medium/low)
+* You can indicate the amount of work done for the task (0% complete? 5% complete?)
+* Tasks can be set with a reminder
+
+Weaknesses:
+
+* Tasks from emails cannot be renamed.
+* Cannot allocate task to a certain time slot in the calendar
+* Keyboard shortcuts does not always make sense (sometimes it is the first letter of the name, sometimes it is the second letter, etc)
+* Keyboard shortcuts too long winded sometimes
+* Tasks only appear as a list in ‘Daliy Task List’ if you force it to appear in calendar view
+* No sense of context awareness at all, no GCal’s quick add (if you type “Eat Cheese in NUS at 9am”, it does not specify the location at NUS and the time is not set to 9am)
+* No way to find suitable slots painlessly (no “Find a Time” feature).
+* A lot of mouse action required (while keyboard shortcuts, exist they are not designed with keyboard shortcuts in mind, but rather with a mouse user).
+* Only one reminder can be created for each task
+
+#### iCalendar
+
+Strengths:
+
+* User can view upcoming tasks easily. Both on Mac and iOS(Siri)
+* Add tasks with natural language input
+* A very complete command list provided for users(Keyboard shortcut), and easily to remember
+* Event has many properties, e.g. All day or not, tag, location, date, time, description, alert before event, description, repeat, even attachment
+* Can choose specific functions for tags, e.g. whether to sync, universal alert time
+* Specify location on map
+* Invitation function
+* Sharing with friends via email, iMessage
+* Importing events from other calendar apps
+* Add event from email, and even from date/time expressions in some other chatting apps
+* Festivals and holidays are already stored, according to user’s location(country).
+* Can set whether private
+* Informs on the dates of friends’ birthdays and any important dates(Found in Facebook, Apple ID, etc).
+
+Weaknesses:
+
+* User has to specify the time period.
+* Events/tasks cannot be marked as done
+* Problem in importing from other app: sometimes will create several tasks of exact properties(duplicates).
+* No feature for reserving time blocks
+* No priority/importance feature
