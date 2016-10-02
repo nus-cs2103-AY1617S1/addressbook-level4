@@ -378,6 +378,7 @@ Updates get stored in the storage file.
 System prints message showing the updated entry. 
 
 **Extensions**
+
 2a. The list is empty
 > Use case ends
 
@@ -419,9 +420,9 @@ System prints message showing the updated entry.
 Strengths:
 
 1. User-friendly manner of adding new events and deadlines
-2. Acknowledges the important features required by the project (marking a task as ‘done’, searching for a task by keywords, support for recurring events, quick add feature, etc.)
+2. Acknowledges the important features required by the project (marking a task as 'done', searching for a task by keywords, support for recurring events, quick add feature, etc.)
 3. Automatic reminder feature for tasks
-4. Categorizes events as “today”, “this week” and “this month”, etc. which is in line with the project requirement
+4. Categorizes events as "today", "this week" and "this month", etc. which is in line with the project requirement
 5. Clear, concise, responsive and efficient UI
 
 Weaknesses:
@@ -433,7 +434,7 @@ Weaknesses:
 5. Does not provide the feature to block multiple slots for unconfirmed tasks
 
 
-## Todoist (studied by R Dheeraj)
+#### Todoist (studied by R Dheeraj)
 
 Strengths:
 
@@ -464,7 +465,7 @@ Strengths:
 4. Open-source: allows user-written extensions to be integrated
 5. Ability to mark a task as a priority
 6. Allows a series of tasks in a project to be listed out
-7. Able to set tags (“contexts”) for easy reference
+7. Able to set tags ("contexts") for easy reference
 
 Weaknesses:
 
@@ -473,7 +474,7 @@ Weaknesses:
 3. No feature to search for free slots
 
 
-## Fantastical (studied by Fionna Tong)
+#### Fantastical (studied by Fionna Tong)
 
 Strengths:
 
@@ -487,6 +488,6 @@ Strengths:
 Weaknesses:
 
 1. Does not help look for a free slot to schedule an event.
-2. Does not have a way to “block” multiple time slots for an event when the timing is uncertain, and release the blocked slots when the time is finalised.
+2. Does not have a way to "block" multiple time slots for an event when the timing is uncertain, and release the blocked slots when the time is finalised.
 3. Allows scheduling for different events at the same time without prompting the user.
 4. No CLI.
