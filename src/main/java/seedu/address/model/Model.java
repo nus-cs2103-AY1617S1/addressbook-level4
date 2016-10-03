@@ -1,9 +1,9 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.todo.ToDo;
 import seedu.address.model.todo.ReadOnlyToDo;
-import seedu.address.model.todo.UniqueToDoList;
 
 import java.util.Set;
 
@@ -11,25 +11,25 @@ import java.util.Set;
  * The API of the Model component.
  */
 public interface Model {
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyToDoList newData);
+    /** Clears existing backing model and replaces with the provided new data */
+    void resetData(ReadOnlyToDoList newToDoList);
 
-    /** Returns the ToDoList */
+    /** Returns the to-do list */
     ReadOnlyToDoList getToDoList();
 
-    /** Deletes the given ToDo. */
-    void deleteToDo(ReadOnlyToDo target) throws UniqueToDoList.ToDoNotFoundException;
+    /** Deletes the given to-do */
+    void deleteToDo(ReadOnlyToDo toDo) throws IllegalValueException;
 
-    /** Adds the given ToDo */
-    void addToDo(ToDo toDo) throws UniqueToDoList.DuplicateToDoException;
+    /** Adds the given to-do */
+    void addToDo(ToDo toDo);
 
-    /** Returns the filtered ToDo list as an {@code UnmodifiableObservableList<ReadOnlyToDo>} */
+    /** Returns the filtered to-do list as an {@code UnmodifiableObservableList<ReadOnlyToDo>} */
     UnmodifiableObservableList<ReadOnlyToDo> getFilteredToDoList();
 
-    /** Updates the filter of the filtered ToDo list to show all ToDos */
+    /** Updates the filter of the filtered to-do list to show all to-dos */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered ToDo list to filter by the given keywords*/
+    /** Updates the filter of the filtered to-do list to filter by the given keywords */
     void updateFilteredToDoList(Set<String> keywords);
 
 }

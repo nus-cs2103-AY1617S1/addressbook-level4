@@ -1,16 +1,12 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-//import seedu.address.model.tag.Tag;
-//import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.ReadOnlyToDoList;
-import seedu.address.model.person.ReadOnlyToDo;
-import seedu.address.model.person.UniqueToDoList;
+import seedu.address.model.todo.ReadOnlyToDo;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +20,7 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
     private List<XmlAdaptedToDo> toDos;
 //    @XmlElement
 //    private List<Tag> tags;
+
 
     {
         toDos = new ArrayList<>();
@@ -53,19 +50,6 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
 //            return null;
 //        }
 //    }
-
-    @Override
-    public UniqueToDoList getUniqueToDoList() {
-        UniqueToDoList lists = new UniqueToDoList();
-        for (XmlAdaptedToDo p : toDos) {
-            try {
-                lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
-        }
-        return lists;
-    }
 
     @Override
     public List<ReadOnlyToDo> getToDoList() {

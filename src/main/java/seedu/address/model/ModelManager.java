@@ -3,54 +3,68 @@ package seedu.address.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.todo.ToDo;
 import seedu.address.model.todo.ReadOnlyToDo;
-import seedu.address.model.todo.UniqueToDoList;
-import seedu.address.model.todo.UniqueToDoList.ToDoNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the application's data
+ * All changes to any model should be synchronized
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final ToDoList toDoList;
     private final FilteredList<ToDo> filteredToDos;
+    private final UserPrefs userPrefs;
 
     /**
-     * Initializes a ModelManager with the given ToDoList
-     * ToDoList and its variables should not be null
+     * Initializes a ModelManager with the given to-do list
+     * Parameters should be non-null
+     * @param toDoList is copied during initialization
      */
-    public ModelManager(ToDoList src, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyToDoList toDoList, UserPrefs userPrefs) {
         super();
-        assert src != null;
+        assert toDoList != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with to-do list: " + toDoList + " and user prefs: " + userPrefs);
 
-        toDoList = new ToDoList(src);
-        filteredToDos = new FilteredList<>(toDoList.getToDos());
+        this.toDoList = new ToDoList(toDoList);
+        this.userPrefs = userPrefs;
+        filteredToDos = new FilteredList<>(this.toDoList.getToDos());
     }
 
     public ModelManager() {
         this(new ToDoList(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
-        toDoList = new ToDoList(initialData);
-        filteredToDos = new FilteredList<>(toDoList.getToDos());
+    //================================================================================
+    // CRUD to-do list operations
+    //================================================================================
+
+    @Override
+    public void resetData(ReadOnlyToDoList newToDoList) {
+        toDoList.resetData(newToDoList);
+        indicateToDoListChanged();
     }
 
     @Override
-    public void resetData(ReadOnlyToDoList newData) {
-        toDoList.resetData(newData);
+    public synchronized void deleteToDo(ReadOnlyToDo toDo) throws IllegalValueException {
+        toDoList.remove(toDo);
+        indicateToDoListChanged();
+    }
+
+    @Override
+    public synchronized void addToDo(ToDo toDo) {
+        toDoList.add(toDo);
+        updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
 
@@ -64,20 +78,9 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ToDoListChangedEvent(toDoList));
     }
 
-    @Override
-    public synchronized void deleteToDo(ReadOnlyToDo target) throws ToDoNotFoundException {
-        toDoList.removeToDo(target);
-        indicateToDoListChanged();
-    }
-
-    @Override
-    public synchronized void addToDo(ToDo toDo) throws UniqueToDoList.DuplicateToDoException {
-        toDoList.addToDo(toDo);
-        updateFilteredListToShowAll();
-        indicateToDoListChanged();
-    }
-
-    //=========== Filtered ToDo List Accessors ===============================================================
+    //================================================================================
+    // Filtering to-do list operations
+    //================================================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyToDo> getFilteredToDoList() {
@@ -98,7 +101,9 @@ public class ModelManager extends ComponentManager implements Model {
         filteredToDos.setPredicate(expression::satisfies);
     }
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+    //================================================================================
+    //  Inner classes/interfaces used for filtering
+    //================================================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyToDo toDo);
@@ -139,15 +144,14 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyToDo toDo) {
             return titleKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(toDo.getTitle().fullTitle, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(toDo.getTitle().title, keyword))
                     .findAny()
                     .isPresent();
         }
 
         @Override
         public String toString() {
-            return "Title=" + String.join(", ", titleKeyWords);
+            return "Title = " + String.join(", ", titleKeyWords);
         }
     }
-
 }

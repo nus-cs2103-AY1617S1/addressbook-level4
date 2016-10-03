@@ -6,14 +6,12 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a ToDo in the address book.
+ * Represents a to-do
  * Guarantees: details are present and not null, field values are validated.
  */
 public class ToDo implements ReadOnlyToDo {
 
     private Title title;
-
-    private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
@@ -21,7 +19,6 @@ public class ToDo implements ReadOnlyToDo {
     public ToDo(Title title) {
         assert !CollectionUtil.isAnyNull(title);
         this.title = title;
-//        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
     /**
@@ -37,18 +34,6 @@ public class ToDo implements ReadOnlyToDo {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-
-    /**
-     * Replaces this ToDo's tags with the tags in the argument tag list.
-     */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyToDo // instanceof handles nulls
@@ -57,13 +42,11 @@ public class ToDo implements ReadOnlyToDo {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, tags);
+        return Objects.hash(title);
     }
 
     @Override
     public String toString() {
         return getAsText();
     }
-
 }

@@ -9,20 +9,18 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyToDoList;
 import seedu.address.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of ToDoList data in local storage.
+ * Manages storage of data of to-do list in local storage
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ToDoListStorage toDoListStorage;
     private UserPrefsStorage userPrefsStorage;
-
 
     public StorageManager(ToDoListStorage toDoListStorage, UserPrefsStorage userPrefsStorage) {
         super();
@@ -34,7 +32,9 @@ public class StorageManager extends ComponentManager implements Storage {
         this(new XmlToDoListStorage(toDoListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
-    // ================ UserPrefs methods ==============================
+    //================================================================================
+    // CRUD user prefs operations
+    //================================================================================
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
@@ -46,8 +46,9 @@ public class StorageManager extends ComponentManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
-    // ================ ToDoList methods ==============================
+    //================================================================================
+    // CRUD to-do list operations
+    //================================================================================
 
     @Override
     public String getToDoListFilePath() {
@@ -82,10 +83,9 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleToDoListChangedEvent(ToDoListChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveToDoList(event.data);
+            saveToDoList(event.toDoList);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-
 }

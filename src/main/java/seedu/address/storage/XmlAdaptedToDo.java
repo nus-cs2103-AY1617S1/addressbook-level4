@@ -1,16 +1,14 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
-//import seedu.address.model.tag.Tag;
-//import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.todo.ReadOnlyToDo;
+import seedu.address.model.todo.Title;
+import seedu.address.model.todo.ToDo;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * JAXB-friendly version of the ToDo.
+ * JAXB-friendly version of the to-do
  */
 public class XmlAdaptedToDo {
 
@@ -31,14 +29,13 @@ public class XmlAdaptedToDo {
      */
     public XmlAdaptedToDo() {}
 
-
     /**
-     * Converts a given ToDo into this class for JAXB use.
+     * Converts a given to-do into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedToDo
+     * @param toDo future changes to this will not affect the created XmlAdaptedToDo
      */
-    public XmlAdaptedToDo(ReadOnlyToDo source) {
-        title = source.getTitle().fullTitle;
+    public XmlAdaptedToDo(ReadOnlyToDo toDo) {
+        title = toDo.getTitle().title;
 //        phone = source.getPhone().value;
 //        email = source.getEmail().value;
 //        address = source.getAddress().value;
@@ -49,7 +46,7 @@ public class XmlAdaptedToDo {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's ToDo object.
+     * Converts this jaxb-friendly adapted person object into the model's to-do
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */

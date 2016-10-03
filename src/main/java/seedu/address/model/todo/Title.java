@@ -1,55 +1,57 @@
 package seedu.address.model.todo;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents the title of a to-do
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Title {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Title names should be spaces or alphanumeric characters";
     public static final String TITLE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String fullTitle;
+    public final String title;
 
     /**
-     * Validates given name.
-     *
-     * @throws IllegalValueException if given name string is invalid.
+     * Constructor for a title
+     * Asserts title is not null
+     * @throws IllegalValueException if given title is invalid
      */
     public Title(String title) throws IllegalValueException {
         assert title != null;
+
         title = title.trim();
-        if (!isValidTitle(title)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+        if (!isValid(title)) {
+            throw new IllegalValueException(Messages.MESSAGE_TODO_TITLE_CONSTRAINTS);
         }
-        this.fullTitle = title;
+
+        this.title = title;
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid title
      */
-    public static boolean isValidTitle(String test) {
-        return test.matches(TITLE_VALIDATION_REGEX);
+    public static boolean isValid(String title) {
+        return title.matches(TITLE_VALIDATION_REGEX);
     }
 
 
     @Override
     public String toString() {
-        return fullTitle;
+        return title;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Title // instanceof handles nulls
-                && this.fullTitle.equals(((Title) other).fullTitle)); // state check
+                && title.equals(((Title) other).title)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullTitle.hashCode();
+        return title.hashCode();
     }
 
 }
