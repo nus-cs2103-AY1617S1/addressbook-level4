@@ -24,4 +24,4 @@ Responsibilities: Code Quality
 
 #### [Jun An](https://github.com/yamidark)<br>
 Role: Developer <br>  
-Responsibilities: Analyst
+Responsibilities: Testing
