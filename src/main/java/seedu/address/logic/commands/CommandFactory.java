@@ -28,7 +28,7 @@ public class CommandFactory {
         Optional<String> commandWord = parser.extractCommandWord();
 
         if (!commandWord.isPresent()) {
-            return new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            return new InvalidCommand(Messages.MESSAGE_MISSING_COMMAND_WORD);
         }
 
         switch (commandWord.get()) {
@@ -47,13 +47,13 @@ public class CommandFactory {
         // Try to find title
         Optional<String> title = parser.extractDescription();
         if (!title.isPresent()) {
-            return new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_TITLE);
         }
 
         try {
             return new AddCommand(title.get());
         } catch (IllegalValueException exception) {
-            return new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            return new InvalidCommand(Messages.MESSAGE_TODO_TITLE_CONSTRAINTS);
         }
     }
 
@@ -61,7 +61,7 @@ public class CommandFactory {
         // Try to find index
         Optional<Integer> index = parser.extractItemIndex();
         if (!index.isPresent()) {
-            return new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_ITEM_INDEX);
         }
 
         return new DeleteCommand(index.get());
@@ -69,6 +69,6 @@ public class CommandFactory {
 
     private Command buildFindCommand() {
         // TODO
-        return new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        return new InvalidCommand(Messages.MESSAGE_MISSING_COMMAND_WORD);
     }
 }

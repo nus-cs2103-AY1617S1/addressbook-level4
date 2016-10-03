@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +29,7 @@ public class Parser {
      * @return optional of description extracted from text, empty if not found
      */
     public Optional<String> extractDescription() {
-        final Matcher matcher = DESCRIPTION_PATTERN.matcher(text);
+        final Matcher matcher = DESCRIPTION_PATTERN.matcher(text.trim());
 
         if (matcher.matches()) {
             return Optional.of(matcher.group("description"));
@@ -45,7 +43,7 @@ public class Parser {
      * @return optional of command word extracted from text, empty if not found
      */
     public Optional<String> extractCommandWord() {
-        final Matcher matcher = COMMAND_WORD_PATTERN.matcher(text);
+        final Matcher matcher = COMMAND_WORD_PATTERN.matcher(text.trim());
 
         if (matcher.matches()) {
             text = matcher.group("tail"); // What's left after extracting
@@ -60,10 +58,10 @@ public class Parser {
      * @return optional of item index extracted from text, empty if not found
      */
     public Optional<Integer> extractItemIndex() {
-        final Matcher matcher = ITEM_INDEX_PATTERN.matcher(text);
+        final Matcher matcher = ITEM_INDEX_PATTERN.matcher(text.trim());
 
         if (matcher.matches()) {
-            text = matcher.group("tail");
+            text = matcher.group("tail"); // What's left after extracting
             String indexString = matcher.group("index");
 
             try {
