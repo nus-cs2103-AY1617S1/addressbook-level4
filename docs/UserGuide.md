@@ -66,11 +66,11 @@ Examples:
 Shows a list of all tasks in DoDo-Bird for a particular date.<br>
 Format: **`see`**`DATE`
 
-#### Finding tasks: `search task`
+#### Searching tasks: `search task`
 Finds tasks whose names contain any of the given keywords.<br>
 Format: `search -n KEYWORD [MORE_KEYWORDS]`
 
-> * The search is case insensitive. e.g `hans` will match `Hans`
+> * The search is case insensitive. e.g `meeting` will match `Meeting`, `Meeting` will match `meeting`.
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 > * Only the name is searched.
 > * Only full words will be matched e.g. `Han` will not match `Hans`
