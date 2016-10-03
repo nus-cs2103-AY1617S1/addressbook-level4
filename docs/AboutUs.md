@@ -4,7 +4,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
+
 <img src="images/DamithRajapakse.jpg" width="150"><br>
 **Role**: Project Advisor
 
