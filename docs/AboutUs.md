@@ -14,7 +14,6 @@ Responsibilities: Project coordination, Integration
 #### [Lim Wei Jie](http://github.com/1o0p3r)
 <img src="images/Weijie.jpg" width="150"><br>
 **Role**: Developer<br>
-
 Responsibilities: Testing of codes, Deliverables and deadlines
 
 -----
@@ -23,7 +22,6 @@ Responsibilities: Testing of codes, Deliverables and deadlines
 <img src="images/Drashti.jpg" width="150"><br>
 **Role**: Developer<br>
 Responsibilities: Documentation, Deliverables and deadlines
-
 
 -----
 
