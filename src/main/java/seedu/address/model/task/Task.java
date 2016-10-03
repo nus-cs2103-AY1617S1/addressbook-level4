@@ -12,26 +12,10 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
 
     private UniqueTagList tags;
 
     /**
-     * Every field must be present and not null.
-     */
-    public Task(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-
-    /**
-     * Constructor for floating task
      * Every field must be present and not null.
      */
     public Task(Name name, UniqueTagList tags) {
@@ -42,7 +26,6 @@ public class Task implements ReadOnlyTask {
 
     /**
      * Copy constructor.
-     * Edited for floating task
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTags());
@@ -54,27 +37,12 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
-    }
-
-    @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
@@ -90,7 +58,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, tags);
     }
 
     @Override

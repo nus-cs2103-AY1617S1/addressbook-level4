@@ -43,7 +43,7 @@ public class PersonCardHandle extends GuiHandle {
 
     //Edited for floating tasks
     public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName().fullName);
+        return getFullName().equals(person.getName().name);
     }
 
     @Override
