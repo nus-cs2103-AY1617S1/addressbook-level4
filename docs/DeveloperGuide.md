@@ -296,7 +296,7 @@ Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
-1. (Availability/Interoperability) Should work on any mainstream OS as long as it has Java 8 or higher installed.
+1. (Availability/Interoperability) Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
 2. (Capacity) Should be able to hold up to 1000 Tasks and Events
 3. (Usability) Should be able compile and run the binary.
 4. (Usability) Should favor Unix-style commands over DOS style commands.
