@@ -16,6 +16,7 @@ Responsibilities: Project coordination, Integration
 **Role**: Developer<br>
 Responsibilities: Testing of codes, Deliverables and deadlines
 
+
 -----
 
 #### [Patel Drashti](http://github.com/Drashti96)
