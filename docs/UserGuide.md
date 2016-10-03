@@ -59,6 +59,7 @@ Examples:
 
 * **`add task`**` -n Meet with professor -d CS1234`
 * **`add task`**` -n Meet with professor -d CS1234 -date 25/10/17 -timefrom 09:30 -timeend 17:00`
+* **`add task`**` -n Complete tutorial activites -d CS1234 -before 25/10/17 23:59 -after 18/10/17 12:00`
 
 
 #### Seeing tasks : `see`
