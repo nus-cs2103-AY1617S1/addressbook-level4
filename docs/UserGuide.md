@@ -284,7 +284,7 @@ Command | Format
 [Edit [Append]](#editing-a-task-by-appending-details-to-a-task--edit-ap) | `edit <INDEX> -ap <TO APPEND>`
 [Exit](#exiting-the-program--exit) | `exit`
 [Find](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
-[Help](displaying-a-list-of-available-commands--help) | `help`
+[Help](#displaying-a-list-of-available-commands--help) | `help`
 [List](#listing-tasks--ls) | `ls`
 [List All](#listing-tasks--ls) | `ls -all`
 [List [Date]](#listing-tasks--ls) | `ls -dt [<START_DATE> to <END_DATE>]`
