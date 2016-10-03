@@ -1,9 +1,10 @@
 ## Contents
 
-- [1. Quick Start](#1-quick-start)
-- [2. Features](#2-features)
-- [3. Command Summary](#3-command-summary)
+1. [Quick Start](#1-quick-start)
+2. [Features](#2-features)
+3. [Command Summary](#3-command-summary)
 
+<br>
 ## 1. Quick Start
 
 1. **Install Java 8 Update 60**<br>
