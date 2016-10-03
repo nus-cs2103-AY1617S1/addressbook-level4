@@ -5,6 +5,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.FloatingTask;
 import seedu.address.model.person.ReadOnlyTask;
@@ -76,6 +77,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    @Override
+	public void changeDirectory(String filePath) {
+		// TODO Auto-generated method stub
+		raise(new FilePathChangeEvent(filePath));
+	}
 
     //=========== Filtered Person List Accessors ===============================================================
 
@@ -149,5 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
+	
 
 }

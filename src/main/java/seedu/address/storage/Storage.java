@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -36,4 +37,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    
+    /**
+     * Changes the file path for current storage manager.
+     */
+    void handleFilePathChangeEvent(FilePathChangeEvent fpce);
 }
