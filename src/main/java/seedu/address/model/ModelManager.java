@@ -36,7 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         addressBook = new AddressBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredPersons = new FilteredList<>(addressBook.getTasks());
     }
 
     public ModelManager() {
@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredPersons = new FilteredList<>(addressBook.getTasks());
     }
 
     @Override
@@ -66,13 +66,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deletePerson(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removePerson(target);
+        addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addPerson(person);
+        addressBook.addTask(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
