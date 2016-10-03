@@ -69,14 +69,14 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTars> addressBookOptional;
+        Optional<ReadOnlyTars> tarsOptional;
         ReadOnlyTars initialData;
         try {
-            addressBookOptional = storage.readTars();
-            if(!addressBookOptional.isPresent()){
+            tarsOptional = storage.readTars();
+            if(!tarsOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty Tars");
             }
-            initialData = addressBookOptional.orElse(new Tars());
+            initialData = tarsOptional.orElse(new Tars());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Tars");
             initialData = new Tars();

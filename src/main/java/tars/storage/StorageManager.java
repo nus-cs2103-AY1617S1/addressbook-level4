@@ -21,13 +21,13 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private XmlTarsStorage addressBookStorage;
+    private XmlTarsStorage tarsStorage;
     private JsonUserPrefStorage userPrefStorage;
 
 
-    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
+    public StorageManager(String tarsFilePath, String userPrefsFilePath) {
         super();
-        this.addressBookStorage = new XmlTarsStorage(addressBookFilePath);
+        this.tarsStorage = new XmlTarsStorage(tarsFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
@@ -48,19 +48,19 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public String getTarsFilePath() {
-        return addressBookStorage.getTarsFilePath();
+        return tarsStorage.getTarsFilePath();
     }
 
     @Override
     public Optional<ReadOnlyTars> readTars() throws DataConversionException, FileNotFoundException {
-        logger.fine("Attempting to read data from file: " + addressBookStorage.getTarsFilePath());
+        logger.fine("Attempting to read data from file: " + tarsStorage.getTarsFilePath());
 
-        return addressBookStorage.readTars(addressBookStorage.getTarsFilePath());
+        return tarsStorage.readTars(tarsStorage.getTarsFilePath());
     }
 
     @Override
-    public void saveTars(ReadOnlyTars addressBook) throws IOException {
-        addressBookStorage.saveTars(addressBook, addressBookStorage.getTarsFilePath());
+    public void saveTars(ReadOnlyTars tars) throws IOException {
+        tarsStorage.saveTars(tars, tarsStorage.getTarsFilePath());
     }
 
 

@@ -28,7 +28,7 @@ public interface Storage extends TarsStorage, UserPrefsStorage {
     Optional<ReadOnlyTars> readTars() throws DataConversionException, FileNotFoundException;
 
     @Override
-    void saveTars(ReadOnlyTars addressBook) throws IOException;
+    void saveTars(ReadOnlyTars tars) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

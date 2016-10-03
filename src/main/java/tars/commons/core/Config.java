@@ -14,8 +14,8 @@ public class Config {
     private String appTitle = "Address App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/addressbook.xml";
-    private String addressBookName = "MyTars";
+    private String tarsFilePath = "data/addressbook.xml";
+    private String tarsName = "MyTars";
 
 
     public Config() {
@@ -46,19 +46,19 @@ public class Config {
     }
 
     public String getTarsFilePath() {
-        return addressBookFilePath;
+        return tarsFilePath;
     }
 
-    public void setTarsFilePath(String addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setTarsFilePath(String tarsFilePath) {
+        this.tarsFilePath = tarsFilePath;
     }
 
     public String getTarsName() {
-        return addressBookName;
+        return tarsName;
     }
 
-    public void setTarsName(String addressBookName) {
-        this.addressBookName = addressBookName;
+    public void setTarsName(String tarsName) {
+        this.tarsName = tarsName;
     }
 
 
@@ -76,13 +76,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(addressBookName, o.addressBookName);
+                && Objects.equals(tarsFilePath, o.tarsFilePath)
+                && Objects.equals(tarsName, o.tarsName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, addressBookFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, tarsFilePath, tarsName);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nTars name : " + addressBookName);
+        sb.append("\nLocal data file location : " + tarsFilePath);
+        sb.append("\nTars name : " + tarsName);
         return sb.toString();
     }
 

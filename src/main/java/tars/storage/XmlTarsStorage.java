@@ -36,29 +36,29 @@ public class XmlTarsStorage implements TarsStorage {
     public Optional<ReadOnlyTars> readTars(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
-        File addressBookFile = new File(filePath);
+        File tarsFile = new File(filePath);
 
-        if (!addressBookFile.exists()) {
-            logger.info("Tars file "  + addressBookFile + " not found");
+        if (!tarsFile.exists()) {
+            logger.info("Tars file "  + tarsFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyTars addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTars tarsOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(addressBookOptional);
+        return Optional.of(tarsOptional);
     }
 
     /**
      * Similar to {@link #saveTars(ReadOnlyTars)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveTars(ReadOnlyTars addressBook, String filePath) throws IOException {
-        assert addressBook != null;
+    public void saveTars(ReadOnlyTars tars, String filePath) throws IOException {
+        assert tars != null;
         assert filePath != null;
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableTars(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableTars(tars));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class XmlTarsStorage implements TarsStorage {
     }
 
     @Override
-    public void saveTars(ReadOnlyTars addressBook) throws IOException {
-        saveTars(addressBook, filePath);
+    public void saveTars(ReadOnlyTars tars) throws IOException {
+        saveTars(tars, filePath);
     }
 }

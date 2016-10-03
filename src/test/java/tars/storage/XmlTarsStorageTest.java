@@ -87,8 +87,8 @@ public class XmlTarsStorageTest {
         saveTars(null, "SomeFile.xml");
     }
 
-    private void saveTars(ReadOnlyTars addressBook, String filePath) throws IOException {
-        new XmlTarsStorage(filePath).saveTars(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void saveTars(ReadOnlyTars tars, String filePath) throws IOException {
+        new XmlTarsStorage(filePath).saveTars(tars, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

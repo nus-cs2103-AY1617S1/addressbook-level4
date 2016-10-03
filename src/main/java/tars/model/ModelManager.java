@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Tars addressBook;
+    private final Tars tars;
     private final FilteredList<Person> filteredPersons;
 
     /**
@@ -35,8 +35,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new Tars(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        tars = new Tars(src);
+        filteredPersons = new FilteredList<>(tars.getPersons());
     }
 
     public ModelManager() {
@@ -44,35 +44,35 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyTars initialData, UserPrefs userPrefs) {
-        addressBook = new Tars(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        tars = new Tars(initialData);
+        filteredPersons = new FilteredList<>(tars.getPersons());
     }
 
     @Override
     public void resetData(ReadOnlyTars newData) {
-        addressBook.resetData(newData);
+        tars.resetData(newData);
         indicateTarsChanged();
     }
 
     @Override
     public ReadOnlyTars getTars() {
-        return addressBook;
+        return tars;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTarsChanged() {
-        raise(new TarsChangedEvent(addressBook));
+        raise(new TarsChangedEvent(tars));
     }
 
     @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+        tars.removePerson(target);
         indicateTarsChanged();
     }
 
     @Override
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+        tars.addPerson(person);
         updateFilteredListToShowAll();
         indicateTarsChanged();
     }

@@ -26,9 +26,9 @@ public interface TarsStorage {
 
     /**
      * Saves the given {@link ReadOnlyTars} to the storage.
-     * @param addressBook cannot be null.
+     * @param tars cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTars(ReadOnlyTars addressBook) throws IOException;
+    void saveTars(ReadOnlyTars tars) throws IOException;
 
 }

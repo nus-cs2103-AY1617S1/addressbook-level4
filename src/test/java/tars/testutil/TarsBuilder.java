@@ -13,23 +13,23 @@ import tars.model.tag.Tag;
  */
 public class TarsBuilder {
 
-    private Tars addressBook;
+    private Tars tars;
 
-    public TarsBuilder(Tars addressBook){
-        this.addressBook = addressBook;
+    public TarsBuilder(Tars tars){
+        this.tars = tars;
     }
 
     public TarsBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+        tars.addPerson(person);
         return this;
     }
 
     public TarsBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+        tars.addTag(new Tag(tagName));
         return this;
     }
 
     public Tars build(){
-        return addressBook;
+        return tars;
     }
 }

@@ -49,7 +49,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void tarsReadSave() throws Exception {
         Tars original = new TypicalTestPersons().getTypicalTars();
         storageManager.saveTars(original);
         ReadOnlyTars retrieved = storageManager.readTars().get();

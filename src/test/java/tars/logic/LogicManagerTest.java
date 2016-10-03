@@ -446,34 +446,34 @@ public class LogicManagerTest {
          * Generates an Tars with auto-generated persons.
          */
         Tars generateTars(int numGenerated) throws Exception{
-            Tars addressBook = new Tars();
-            addToTars(addressBook, numGenerated);
-            return addressBook;
+            Tars tars = new Tars();
+            addToTars(tars, numGenerated);
+            return tars;
         }
 
         /**
          * Generates an Tars based on the list of Persons given.
          */
         Tars generateTars(List<Person> persons) throws Exception{
-            Tars addressBook = new Tars();
-            addToTars(addressBook, persons);
-            return addressBook;
+            Tars tars = new Tars();
+            addToTars(tars, persons);
+            return tars;
         }
 
         /**
          * Adds auto-generated Person objects to the given Tars
-         * @param addressBook The Tars to which the Persons will be added
+         * @param tars The Tars to which the Persons will be added
          */
-        void addToTars(Tars addressBook, int numGenerated) throws Exception{
-            addToTars(addressBook, generatePersonList(numGenerated));
+        void addToTars(Tars tars, int numGenerated) throws Exception{
+            addToTars(tars, generatePersonList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given Tars
          */
-        void addToTars(Tars addressBook, List<Person> personsToAdd) throws Exception{
+        void addToTars(Tars tars, List<Person> personsToAdd) throws Exception{
             for(Person p: personsToAdd){
-                addressBook.addPerson(p);
+                tars.addPerson(p);
             }
         }
 
