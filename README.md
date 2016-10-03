@@ -6,7 +6,7 @@
   a CLI (Command Line Interface).
 * It is a Java sample application intended for users who prefer to keep their email inbox clean and assign any 
   todo items somewhere else.  
-* What's different from Google Calender:
+* What's different from Google Calendar:
     * A desktop software that can be summoned quickly.
     * Good in capturing tasks that need to be done before a specific date/time, or after a specific date/time, and items without specific times.
     * Uses one shot command input rather than several clicks.
