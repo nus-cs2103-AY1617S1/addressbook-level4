@@ -4,44 +4,33 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
-
------
-
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+#### [Verbena Ong](http://github.com/Verbena) 
+<img src="images/.Verbenajpg" width="150"><br>
+**Role**: Team lead<br>  
+Responsibilities: Overall project coordination
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+### [Lim Wei Jie](http://github.com/1o0p3r)
+<img src="images/Weijie.jpg" width="150"><br>
+**Role**: Testing lead<br>
+Responsibilities: Performs testing on the project.
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+#### [Patel Drashti](http://github.com/Drashti96)
+<img src="images/Drashti.jpg" width="150"><br>
+**Role**: Documentation lead<br>  
+Responsibilities: Maintains quality and language.
+
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
+#### [Zachary Lim](http://github.com/zachylimwl)
+<img src="images/Zachary.jpg" width="150"><br>
+**Role**: Coding lead <br>  
+Responsibilities: Assures overall code quality.
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
  -----
 
 # Contributors
