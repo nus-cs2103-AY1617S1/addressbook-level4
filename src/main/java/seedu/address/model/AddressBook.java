@@ -30,7 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Persons and Tags are copied into this addressbook
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
@@ -137,7 +137,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         return this.persons;
     }
 
