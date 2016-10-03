@@ -293,7 +293,7 @@ Command | Format
 [Mark Done](#marking-tasks--mark) | `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Mark Undone](#marking-tasks--mark) | `mark -ud <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Reserve](#reserving-timeslots-for-a-task--rsv) | `rsv -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
-[Reserve [Delete]](#reserving-timeslots-for-a-task--rsv) | `rsv -d <INDEX>`
+[Reserve [Delete]](#deleting-a-task-with-reserved-timeslots--rsv-d) | `rsv -d <INDEX>`
 [Reserve [Edit]](#reserving-timeslots-for-a-task--rsv) | `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME`
 [Tag [Delete]](#deleting-a-tag--tag-d) | `tag -d <INDEX>`
 [Tag [Edit]](#editing-a-tags-name--tag-e) | `tag -e <INDEX> <TAG>`
