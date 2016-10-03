@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package tars.testutil;
 
 import tars.model.person.*;
 import tars.model.tag.UniqueTagList;

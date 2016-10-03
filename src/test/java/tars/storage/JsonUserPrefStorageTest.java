@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package tars.storage;
 
 
 import org.junit.Rule;

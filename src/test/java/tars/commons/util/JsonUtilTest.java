@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package tars.commons.util;
 
 /**
  * Tests JSON Read and Write

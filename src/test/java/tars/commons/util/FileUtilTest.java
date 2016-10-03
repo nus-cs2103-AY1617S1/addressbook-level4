@@ -1,12 +1,13 @@
-package seedu.address.commons.util;
+package tars.commons.util;
 
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import seedu.address.testutil.SerializableTestClass;
-import seedu.address.testutil.TestUtil;
+
 import tars.commons.util.FileUtil;
+import tars.testutil.SerializableTestClass;
+import tars.testutil.TestUtil;
 
 import java.io.File;
 import java.io.IOException;

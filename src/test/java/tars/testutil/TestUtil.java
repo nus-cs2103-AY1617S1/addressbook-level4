@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package tars.testutil;
 
 import com.google.common.io.Files;
 import guitests.guihandles.PersonCardHandle;
@@ -12,7 +12,8 @@ import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
+
+import tars.TestApp;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.FileUtil;
 import tars.commons.util.XmlUtil;

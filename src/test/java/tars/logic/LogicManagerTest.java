@@ -1,4 +1,4 @@
-package seedu.address.logic;
+package tars.logic;
 
 import com.google.common.eventbus.Subscribe;
 import org.junit.After;

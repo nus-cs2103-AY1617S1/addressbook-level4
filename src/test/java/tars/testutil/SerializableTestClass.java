@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package tars.testutil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -6,10 +6,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.testutil.TestUtil;
+import tars.TestApp;
 import tars.model.person.Person;
 import tars.model.person.ReadOnlyPerson;
+import tars.testutil.TestUtil;
 
 import java.util.List;
 import java.util.Optional;

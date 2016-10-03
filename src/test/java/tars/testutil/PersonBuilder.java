@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package tars.testutil;
 
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.person.*;

@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package tars.storage;
 
 
 import org.junit.Before;
@@ -6,11 +6,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
 import tars.model.AddressBook;
 import tars.model.ReadOnlyAddressBook;
 import tars.model.UserPrefs;
 import tars.storage.StorageManager;
+import tars.testutil.TypicalTestPersons;
 
 import static org.junit.Assert.assertEquals;
 

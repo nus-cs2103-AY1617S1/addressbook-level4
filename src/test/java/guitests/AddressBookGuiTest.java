@@ -8,12 +8,13 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestPersons;
+
+import tars.TestApp;
 import tars.commons.core.EventsCenter;
 import tars.model.AddressBook;
 import tars.model.person.ReadOnlyPerson;
+import tars.testutil.TestUtil;
+import tars.testutil.TypicalTestPersons;
 
 import java.util.concurrent.TimeoutException;
 

@@ -1,14 +1,14 @@
-package seedu.address;
+package tars;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.testutil.TestUtil;
 import tars.MainApp;
 import tars.commons.core.Config;
 import tars.commons.core.GuiSettings;
 import tars.model.ReadOnlyAddressBook;
 import tars.model.UserPrefs;
 import tars.storage.XmlSerializableAddressBook;
+import tars.testutil.TestUtil;
 
 import java.util.function.Supplier;
 
