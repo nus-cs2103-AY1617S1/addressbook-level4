@@ -26,7 +26,7 @@ Responsibilities: Documentation, Scheduling and tracking
 -----
 
 #### [Zachary Lim](http://github.com/zachylimwl)
-<img src="images/Zachary.jpg" width="150"><br>
+<img src="images/Zachary2.jpg" width="150"><br>
 **Role**: Developer<br>  
 Responsibilities: Coding lead, Eclipse expert 
 
