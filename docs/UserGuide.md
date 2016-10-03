@@ -19,6 +19,8 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
     See all tasks that are deadlines arranged earliest first.
     - `find lab homework, boy`
     See all tasks with keywords "lab homework" or "boy" in their names.
+
+<br>
 ## Features
 
 > **Command Format**
@@ -191,12 +193,12 @@ Exits the program. <br>
 Format: `exit`
 
 
-Command Summary
+##Command Summary
 
 | Command         | Format         |
 |-----------------|:-----------------|
 |add event          |`add event="NAME" (t="hh:mm-hh:mm" | t="hh:mmam-hh:mmpm") (d="dd-mm-yy" | d="dd-MMM-yy")`|
-|add deadline         |`add deadline="NAME" (t="hh:mm" | t="hh:mmpm") (d="dd-mm-yy" | d="dd-MMM-yy")`|
+|add deadline       |`add deadline="NAME" (t="hh:mm" | t="hh:mmpm") (d="dd-mm-yy" | d="dd-MMM-yy")`|
 |add float          |`add float="NAME"`|
 |list               |`list [d="dd-mm-yy"] [type="TASK_TYPE"] [done="true"|"false"] [t="dd-mm-yy"]`|
 |find               |`find "KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2", ["MORE_KEYPHRASES"...]`|
