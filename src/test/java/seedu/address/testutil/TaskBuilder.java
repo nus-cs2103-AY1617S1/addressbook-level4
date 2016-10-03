@@ -9,10 +9,10 @@ import seedu.address.model.task.*;
  */
 public class TaskBuilder {
 
-    private TestTask task;
+    private TestFloatingTask task;
 
     public TaskBuilder() {
-        this.task = new TestTask();
+        this.task = new TestFloatingTask();
     }
 
     public TaskBuilder withName(String name) throws IllegalValueException {
@@ -27,7 +27,7 @@ public class TaskBuilder {
         return this;
     }
 
-    public TestTask build() {
+    public TestFloatingTask build() {
         return this.task;
     }
 

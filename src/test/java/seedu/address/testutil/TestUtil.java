@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.FloatingTaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -16,11 +16,11 @@ import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.TaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableTaskList;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final FloatingTask[] samplePersonData = getSamplePersonData();
+    public static final FloatingTask[] sampleTaskData = getSampleTaskData();
 
-    private static FloatingTask[] getSamplePersonData() {
+    private static FloatingTask[] getSampleTaskData() {
         try {
             return new FloatingTask[]{
-                    new FloatingTask(new Name("Ali Muster"), new UniqueTagList()),
-                    new FloatingTask(new Name("Boris Mueller"), new UniqueTagList()),
-                    new FloatingTask(new Name("Carl Kurz"), new UniqueTagList()),
-                    new FloatingTask(new Name("Daniel Meier"), new UniqueTagList()),
-                    new FloatingTask(new Name("Elle Meyer"), new UniqueTagList()),
-                    new FloatingTask(new Name("Fiona Kunz"), new UniqueTagList()),
-                    new FloatingTask(new Name("George Best"), new UniqueTagList()),
-                    new FloatingTask(new Name("Hoon Meier"), new UniqueTagList()),
-                    new FloatingTask(new Name("Ida Mueller"), new UniqueTagList())
+                    new FloatingTask(new Name("take trash"), new UniqueTagList()),
+                    new FloatingTask(new Name("read book"), new UniqueTagList()),
+                    new FloatingTask(new Name("do homework"), new UniqueTagList()),
+                    new FloatingTask(new Name("read weblecture"), new UniqueTagList()),
+                    new FloatingTask(new Name("group meeting"), new UniqueTagList()),
+                    new FloatingTask(new Name("jogging"), new UniqueTagList()),
+                    new FloatingTask(new Name("visit George Best"), new UniqueTagList()),
+                    new FloatingTask(new Name("eat with Hoon Meier"), new UniqueTagList()),
+                    new FloatingTask(new Name("play with Ida Mueller"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -87,8 +87,8 @@ public class TestUtil {
     private static Tag[] getSampleTagData() {
         try {
             return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
+                    new Tag("notUrgent"),
+                    new Tag("weekly")
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,8 +97,8 @@ public class TestUtil {
         }
     }
 
-    public static List<FloatingTask> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
+    public static List<FloatingTask> generateSampleTaskData() {
+        return Arrays.asList(sampleTaskData);
     }
 
     /**
@@ -117,7 +117,7 @@ public class TestUtil {
     }
 
     public static void createDataFileWithSampleData(String filePath) {
-        createDataFileWithData(generateSampleStorageAddressBook(), filePath);
+        createDataFileWithData(generateSampleStorageTaskList(), filePath);
     }
 
     public static <T> void createDataFileWithData(T data, String filePath) {
@@ -134,12 +134,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
+    public static TaskList generateEmptyTaskList() {
+        return new TaskList(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskList generateSampleStorageTaskList() {
+        return new XmlSerializableTaskList(generateEmptyTaskList());
     }
 
     /**
@@ -273,49 +273,49 @@ public class TestUtil {
     }
 
     /**
-     * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
-     * @return The modified persons after removal of the subset from persons.
+     * Removes a subset from the list of tasks.
+     * @param tasks The list of tasks
+     * @param tasksToRemove The subset of tasks.
+     * @return The modified tasks after removal of the subset from tasks.
      */
-    public static TestTask[] removePersonsFromList(final TestTask[] persons, TestTask... personsToRemove) {
-        List<TestTask> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
+    public static TestFloatingTask[] removeTasksFromList(final TestFloatingTask[] tasks, TestFloatingTask... tasksToRemove) {
+        List<TestFloatingTask> listOfTasks = asList(tasks);
+        listOfTasks.removeAll(asList(tasksToRemove));
+        return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
     }
 
 
     /**
-     * Returns a copy of the list with the person at specified index removed.
+     * Returns a copy of the list with the task at specified index removed.
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestTask[] removePersonFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    public static TestFloatingTask[] removeTaskFromList(final TestFloatingTask[] list, int targetIndexInOneIndexedFormat) {
+        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
-     * Replaces persons[i] with a person.
-     * @param persons The array of persons.
-     * @param person The replacement person
-     * @param index The index of the person to be replaced.
+     * Replaces tasks[i] with a task.
+     * @param tasks The array of tasks.
+     * @param task The replacement task
+     * @param index The index of the task to be replaced.
      * @return
      */
-    public static TestTask[] replacePersonFromList(TestTask[] persons, TestTask person, int index) {
-        persons[index] = person;
-        return persons;
+    public static TestFloatingTask[] replaceTaskFromList(TestFloatingTask[] tasks, TestFloatingTask task, int index) {
+        tasks[index] = task;
+        return tasks;
     }
 
     /**
-     * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
-     * @return The modified array of persons.
+     * Appends tasks to the array of tasks.
+     * @param tasks A array of tasks.
+     * @param tasksToAdd The tasks that are to be appended behind the original array.
+     * @return The modified array of tasks.
      */
-    public static TestTask[] addPersonsToList(final TestTask[] persons, TestTask... personsToAdd) {
-        List<TestTask> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
+    public static TestFloatingTask[] addTasksToList(final TestFloatingTask[] tasks, TestFloatingTask... tasksToAdd) {
+        List<TestFloatingTask> listOfTasks = asList(tasks);
+        listOfTasks.addAll(asList(tasksToAdd));
+        return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -326,8 +326,8 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
-        return card.isSamePerson(person);
+    public static boolean compareCardAndTask(FloatingTaskCardHandle card, ReadOnlyTask task) {
+        return card.isSameTask(task);
     }
 
     public static Tag[] getTagList(String tags) {

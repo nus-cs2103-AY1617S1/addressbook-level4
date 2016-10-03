@@ -6,12 +6,12 @@ import seedu.address.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestFloatingTask extends FloatingTask implements ReadOnlyTask {
 
     private Name name;
     private UniqueTagList tags;
 
-    public TestTask() {
+    public TestFloatingTask() {
         tags = new UniqueTagList();
     }
 
@@ -34,7 +34,7 @@ public class TestTask implements ReadOnlyTask {
         return getAsText();
     }
 
-    public String getAddCommand() {
+    public String getAddFloatingCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));

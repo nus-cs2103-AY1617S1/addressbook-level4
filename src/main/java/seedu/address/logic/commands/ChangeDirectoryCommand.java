@@ -31,6 +31,8 @@ public class ChangeDirectoryCommand extends Command{
 	public CommandResult execute() {
 		// TODO Auto-generated method stub
 		try{
+			if(!filePath.endsWith(".xml"))
+				return new CommandResult(MESSAGE_CONVENSION_ERROR);
 			XmlTaskListStorage newFile = new XmlTaskListStorage(filePath);
 			newFile.saveTaskList(model.getTaskList(), filePath);
 			model.changeDirectory(filePath);

@@ -22,6 +22,8 @@ public class FloatingTask implements ReadOnlyTask {
         this.name = name;
         this.tags = tags;
     }
+    
+    public FloatingTask(){}
 
     /**
      * Copy constructor.
