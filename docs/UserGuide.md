@@ -281,7 +281,7 @@ Command | Format
 [Delete [by Priority]](#deleting-a-task--del) | `del -p [PRIORITY] <INDEX> [, <INDEX>, <INDEX>, …]`
 [Delete [by Tags]](#deleting-a-task--del) | `del -t <TAG>[ , <TAG>, <TAG>] <INDEX>[, <INDEX>, <INDEX>,...]`
 [Edit](#editing-a-task--edit) | `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)>`
-[Edit [Append]](#editing-a-task-by-appending-details-to-a-task--edit-ap) | `edit <INDEX> -ap <TO APPEND>`
+[Edit [Append]](#editing-a-task-by-appending-details-to-a-task--edit--ap) | `edit <INDEX> -ap <TO APPEND>`
 [Exit](#exiting-the-program--exit) | `exit`
 [Find](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
 [Help](#displaying-a-list-of-available-commands--help) | `help`
