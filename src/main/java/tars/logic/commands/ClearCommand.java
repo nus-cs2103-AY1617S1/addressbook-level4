@@ -1,6 +1,6 @@
 package tars.logic.commands;
 
-import tars.model.AddressBook;
+import tars.model.Tars;
 
 /**
  * Clears the address book.
@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(AddressBook.getEmptyAddressBook());
+        model.resetData(Tars.getEmptyTars());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

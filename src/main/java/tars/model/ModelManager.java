@@ -4,7 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
 import tars.commons.core.UnmodifiableObservableList;
-import tars.commons.events.model.AddressBookChangedEvent;
+import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.util.StringUtil;
 import tars.model.person.Person;
 import tars.model.person.ReadOnlyPerson;
@@ -21,60 +21,60 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final Tars addressBook;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given Tars
+     * Tars and its variables should not be null
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(Tars src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new AddressBook(src);
+        addressBook = new Tars(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Tars(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
+    public ModelManager(ReadOnlyTars initialData, UserPrefs userPrefs) {
+        addressBook = new Tars(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyTars newData) {
         addressBook.resetData(newData);
-        indicateAddressBookChanged();
+        indicateTarsChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyTars getTars() {
         return addressBook;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+    private void indicateTarsChanged() {
+        raise(new TarsChangedEvent(addressBook));
     }
 
     @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
         addressBook.removePerson(target);
-        indicateAddressBookChanged();
+        indicateTarsChanged();
     }
 
     @Override
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTarsChanged();
     }
 
     //=========== Filtered Person List Accessors ===============================================================

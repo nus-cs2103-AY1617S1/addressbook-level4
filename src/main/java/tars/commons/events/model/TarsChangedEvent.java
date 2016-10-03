@@ -1,14 +1,14 @@
 package tars.commons.events.model;
 
 import tars.commons.events.BaseEvent;
-import tars.model.ReadOnlyAddressBook;
+import tars.model.ReadOnlyTars;
 
-/** Indicates the AddressBook in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+/** Indicates the Tars in the model has changed*/
+public class TarsChangedEvent extends BaseEvent {
 
-    public final ReadOnlyAddressBook data;
+    public final ReadOnlyTars data;
 
-    public AddressBookChangedEvent(ReadOnlyAddressBook data){
+    public TarsChangedEvent(ReadOnlyTars data){
         this.data = data;
     }
 

@@ -17,11 +17,11 @@ import tars.TestApp;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.FileUtil;
 import tars.commons.util.XmlUtil;
-import tars.model.AddressBook;
+import tars.model.Tars;
 import tars.model.person.*;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
-import tars.storage.XmlSerializableAddressBook;
+import tars.storage.XmlSerializableTars;
 
 import java.io.File;
 import java.io.IOException;
@@ -118,7 +118,7 @@ public class TestUtil {
     }
 
     public static void createDataFileWithSampleData(String filePath) {
-        createDataFileWithData(generateSampleStorageAddressBook(), filePath);
+        createDataFileWithData(generateSampleStorageTars(), filePath);
     }
 
     public static <T> void createDataFileWithData(T data, String filePath) {
@@ -135,12 +135,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+    public static Tars generateEmptyTars() {
+        return new Tars(new UniquePersonList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTars generateSampleStorageTars() {
+        return new XmlSerializableTars(generateEmptyTars());
     }
 
     /**

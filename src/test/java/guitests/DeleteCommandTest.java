@@ -8,7 +8,7 @@ import tars.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static tars.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends TarsGuiTest {
 
     @Test
     public void delete() {

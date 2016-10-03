@@ -6,7 +6,7 @@ import tars.model.person.ReadOnlyPerson;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends TarsGuiTest {
 
 
     @Test

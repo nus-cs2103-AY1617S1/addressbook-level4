@@ -1,7 +1,7 @@
 package tars.storage;
 
 import tars.commons.exceptions.IllegalValueException;
-import tars.model.ReadOnlyAddressBook;
+import tars.model.ReadOnlyTars;
 import tars.model.person.ReadOnlyPerson;
 import tars.model.person.UniquePersonList;
 import tars.model.tag.Tag;
@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable Tars that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
+public class XmlSerializableTars implements ReadOnlyTars {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
@@ -33,12 +33,12 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableTars() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+    public XmlSerializableTars(ReadOnlyTars src) {
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }

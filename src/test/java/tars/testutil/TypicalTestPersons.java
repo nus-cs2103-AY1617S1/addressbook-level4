@@ -1,7 +1,7 @@
 package tars.testutil;
 
 import tars.commons.exceptions.IllegalValueException;
-import tars.model.AddressBook;
+import tars.model.Tars;
 import tars.model.person.*;
 
 /**
@@ -34,7 +34,7 @@ public class TypicalTestPersons {
         }
     }
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static void loadTarsWithSampleData(Tars ab) {
 
         try {
             ab.addPerson(new Person(alice));
@@ -53,9 +53,9 @@ public class TypicalTestPersons {
         return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
-        loadAddressBookWithSampleData(ab);
+    public Tars getTypicalTars(){
+        Tars ab = new Tars();
+        loadTarsWithSampleData(ab);
         return ab;
     }
 }

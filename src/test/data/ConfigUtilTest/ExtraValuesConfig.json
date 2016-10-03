@@ -3,6 +3,6 @@
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
   "addressBookFilePath" : "addressbook.xml",
-  "addressBookName" : "TypicalAddressBookName",
+  "addressBookName" : "TypicalTarsName",
   "extra" : "extra value"
 }

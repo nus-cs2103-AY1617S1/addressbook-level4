@@ -11,7 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import tars.TestApp;
 import tars.commons.core.EventsCenter;
-import tars.model.AddressBook;
+import tars.model.Tars;
 import tars.model.person.ReadOnlyPerson;
 import tars.testutil.TestUtil;
 import tars.testutil.TypicalTestPersons;
@@ -22,9 +22,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for Tars.
  */
-public abstract class AddressBookGuiTest {
+public abstract class TarsGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -76,9 +76,9 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+    protected Tars getInitialData() {
+        Tars ab = TestUtil.generateEmptyTars();
+        TypicalTestPersons.loadTarsWithSampleData(ab);
         return ab;
     }
 

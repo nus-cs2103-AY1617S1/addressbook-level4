@@ -10,7 +10,7 @@ import tars.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends TarsGuiTest {
 
     @Test
     public void add() {

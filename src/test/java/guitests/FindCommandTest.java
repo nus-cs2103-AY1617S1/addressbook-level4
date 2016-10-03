@@ -7,7 +7,7 @@ import tars.testutil.TestPerson;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends TarsGuiTest {
 
     @Test
     public void find_nonEmptyList() {
