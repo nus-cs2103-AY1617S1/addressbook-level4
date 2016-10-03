@@ -1,27 +1,27 @@
 # About Us
 
-We are CO2 Team 2, based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are students from the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
 
 #### Joycelyn Ng <br>
-Developer/ Team Lead
+Developer/ Team Lead <br>
 Responsibilities: Deliverables, Scheduling & Tracking
 
 -----
 
 #### Kabir Khandpur <br>
-Developer
+Developer <br>
 Responsibilities: Documentation & Integration
 
 -----
 
 #### Kelvin Ng Poh Ching <br>
-Developer
+Developer <br>
 Responsibilities: Code Quality & Testing
 
 -----
 
 #### Yu Jingchen <br>
-Developer  
+Developer <br>
 Responsibilities: User Interface
