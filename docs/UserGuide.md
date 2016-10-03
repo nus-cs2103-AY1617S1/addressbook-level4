@@ -2,10 +2,7 @@
 
 - [1. Quick Start](#1-quick-start)
 - [2. Features](#2-features)
-	+ [2.1. Viewing help](#viewing-help--help)
-	+ [2.2. Adding a task](#adding-a-task-add)
-	+ [2.3. Listing tasks](#listing-tasks-list)
-
+- [3. Command Summary](#3-command-summary)
 
 ## 1. Quick Start
 
@@ -52,7 +49,7 @@ Format: `help`
 
 
 <br>
-#### Adding a task: `add`
+#### 2.2. Adding a task: `add`
 Adds a task to the address book. Three different types of tasks are supported.<br>
 ##### Events
 Format: `add event="NAME" (t="hh:mm-hh:mm" | t="hh:mmam-hh:mmpm") (d="dd-mm-yy" | d="dd-MMM-yy")`
@@ -69,7 +66,7 @@ Examples:
 
 
 <br>
-#### 2.2. Listing tasks: `list`
+#### 2.3. Listing tasks: `list`
 Shows a numbered list of tasks, filtered by optional parameters.<br>
 Format: `list [d="dd-mm-yy"] [type="TASK_TYPE"] [done="true"|"false"] [t="dd-mm-yy"]`
 
@@ -80,7 +77,7 @@ Example:
 
 
 <br>
-#### 2.3. Finding all tasks containing any keyword in their name: `find`
+#### 2.4. Finding all tasks containing any keyword in their name: `find`
 Finds tasks in which the name contains any of the given keywords.<br>
 Format: `find "KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2" ["MORE_KEYPHRASES"...]`
 
@@ -99,7 +96,7 @@ Examples:
 
 
 <br>
-#### Deleting a task: `delete`
+#### 2.5. Deleting a task: `delete`
 Deletes the specified tasks from the task manager. <br>
 Format: `delete INDEX [MORE_INDICES...]`
 
@@ -117,7 +114,7 @@ Examples:
 
 
 <br>
-#### Marking a task as done: `done`
+#### 2.6. Marking a task as done: `done`
 Marks the specified tasks as done. <br>
 Format: `done INDEX [MORE_INDICES...]`
 
@@ -126,7 +123,7 @@ See 'Deleting a task'.
 
 
 <br>
-#### Updating a task: `update`
+#### 2.7. Updating a task: `update`
 Overwrites specified attributes of the specified task. <br>
 Format: `update INDEX [name="NEW_NAME"] [t="hh:mm"] [d="dd-mm-yy"] [done=true|false]`
 
@@ -137,7 +134,7 @@ Example:
 
 
 <br>
-#### Undoing the last operation: `undo`
+#### 2.8. Undoing the last operation: `undo`
 Takes the program to a state where the last operation performed did not occur. <br>
 Format: `undo`
 
@@ -147,13 +144,13 @@ Format: `undo`
 
 
 <br>
-#### Clearing all entries: `clear`
+#### 2.9. Clearing all entries: `clear`
 Clears all entries from the task manager. <br>
 Format: `clear`
 
 
 <br>
-#### Setting the data storage location: `set-storage`
+#### 2.10. Setting the data storage location: `set-storage`
 Saves all task data to the specified folder. <br>
 Format: `set-storage "FILEPATH"`
 
@@ -164,7 +161,7 @@ Example:
 
 
 <br>
-#### Setting an alias for existing commands: `add-alias`
+#### 2.11. Setting an alias for existing commands: `add-alias`
 Adds a new shortcut for existing commands. <br>
 Format: `add-alias "COMMAND_ALIAS"="COMMAND_PHRASE"`
 
@@ -180,13 +177,13 @@ Examples:
 
 
 <br>
-#### Listing aliases: `list-alias`
+#### 2.12. Listing aliases: `list-alias`
 Shows a numbered list of all configured aliases. <br>
 Format: `list-alias`
 
 
 <br>
-#### Deleting an alias: `delete-alias | remove-alias`
+#### 2.13. Deleting an alias: `delete-alias | remove-alias`
 Removes previously set aliases. <br>
 Format: `(delete-alias | remove-alias) INDEX [MORE_INDICES]`
 
@@ -197,12 +194,12 @@ Example:
 
 
 <br>
-#### Exiting the program: `exit`
+#### 2.14. Exiting the program: `exit`
 Exits the program. <br>
 Format: `exit`
 
 
-##Command Summary
+## 3. Command Summary
 
 | Command         | Format         |
 |-----------------|:-----------------|
