@@ -9,9 +9,6 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    Phone getPhone();
-    Email getEmail();
-    Address getAddress();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -35,12 +32,6 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

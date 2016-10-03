@@ -87,31 +87,6 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the add task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-    }
-
-    /**
-     * Parses arguments in the context of the add task command.
      * Supports floating tasks
      * @param args full command args string
      * @return the prepared command
