@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.person.*;
+import tars.model.person.*;
+import tars.model.tag.UniqueTagList;
 
 /**
  * A mutable person object. For testing only.

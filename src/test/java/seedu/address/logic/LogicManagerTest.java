@@ -6,19 +6,32 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.storage.StorageManager;
+
+import tars.logic.commands.*;
+import tars.commons.core.EventsCenter;
+import tars.commons.events.model.AddressBookChangedEvent;
+import tars.commons.events.ui.JumpToListRequestEvent;
+import tars.commons.events.ui.ShowHelpRequestEvent;
+import tars.logic.Logic;
+import tars.logic.LogicManager;
+import tars.logic.commands.AddCommand;
+import tars.logic.commands.ClearCommand;
+import tars.logic.commands.Command;
+import tars.logic.commands.CommandResult;
+import tars.logic.commands.DeleteCommand;
+import tars.logic.commands.ExitCommand;
+import tars.logic.commands.FindCommand;
+import tars.logic.commands.HelpCommand;
+import tars.logic.commands.ListCommand;
+import tars.logic.commands.SelectCommand;
+import tars.model.AddressBook;
+import tars.model.Model;
+import tars.model.ModelManager;
+import tars.model.ReadOnlyAddressBook;
+import tars.model.person.*;
+import tars.model.tag.Tag;
+import tars.model.tag.UniqueTagList;
+import tars.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +40,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.*;
+import static tars.commons.core.Messages.*;
 
 public class LogicManagerTest {
 
