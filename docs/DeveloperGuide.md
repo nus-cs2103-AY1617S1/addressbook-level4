@@ -261,16 +261,16 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | search tasks by keywords | locate details of tasks without having to go through the entire list
 `* * *` | user | update a task | account for the possibility of change
 `* *` | user | group tasks into similar categories | organise them well
-`* *` | user | view tasks by categories | 
+`* *` | user | view tasks by categories |
 `*` | user with many tasks in the address book | sort tasks by name | locate a task easily
 
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TODO APP` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Delete task
 
 **MSS**
 
@@ -296,10 +296,15 @@ Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+1. (Availability/Interoperability) Should work on any mainstream OS as long as it has Java 8 or higher installed.
+2. (Capacity) Should be able to hold up to 1000 Tasks and Events
+3. (Usability) Should be able compile and run the binary.
+4. (Usability) Should favor Unix-style commands over DOS style commands.
+5. (Maintainability) Should come with automated unit tests and open source code.
+6. (Performance) Any command should be able to respond within 3 seconds
+7. (Security/Data Integrity) Data should be encrypted
+8. (Reliability/Recoverability) Should be able to attempt to recover data for
+corrupted data files
 
 {More to be added}
 
@@ -308,10 +313,6 @@ Use case ends.
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
-
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
 
