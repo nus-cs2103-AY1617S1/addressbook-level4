@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E: Product Survey](#appendix-e-product-survey)
 
 
 ## Setting up
@@ -256,26 +256,36 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new task by specifying a task title only | record tasks that have self-explanatory titles or no deadlines
+`* * *` | user | edit a task | adapt to changes
+`* * *` | user | delete a task | remove tasks that I no longer need
+`* * *` | user | complete a task | hide it from the list of tasks
+`* * *` | user | find a task by title | locate details of tasks without having to go through the entire list
+`* * *` | user | find a task by category | locate details of tasks without having to go through the entire list
+`* * *` | user | find a task by deadline | locate details of tasks without having to go through the entire list
+`* * *` | user with many tasks | sort tasks by deadline | locate an urgent task easily
+`* * *` | user | have similar functional support for "variations" of tasks | manage events
+`* *` | user | select tasks from the list of tasks | conduct bulk actions on them conveniently
+`* *` | user | undo my action | return to the previous state(s) after I have done something undesirable
+`*` | user | redo my action | return to any state within the capacity of the log during the application session
+`*` | user | tab-complete my commands | type my commands more efficiently
+`*` | user | synchronise my local storage with cloud storage | update my tasks across devices
 
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TaskMan` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case 1: Delete task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to list tasks
+2. TaskMan shows a list of tasks
+3. User requests to delete a specific task in the list
+4. User confirms his request to delete the specific task in the list
+5. TaskMan deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -286,17 +296,98 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. TaskMan shows an error message <br>
   Use case resumes at step 2
+
+4a. User cancels his confirmation
+
+> Use case resumes at step 2
+
+#### Use case 2: Edit task
+
+**MSS**
+
+1. User requests to list tasks
+2. TaskMan shows a list of tasks
+3. User requests to edit a specific task in the list
+4. User confirms his request to edit the specific task in the list
+5. TaskMan edits task
+6. TaskMan shows modified task to indicate successful edit <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TaskMan shows an error message <br>
+  Use case resumes at step 2
+
+4a. User cancels his confirmation
+
+> Use case resumes at step 2
+
+#### Use case 3: List task
+
+**MSS**
+
+1. User requests to list tasks or categories
+2. TaskMan shows a list of tasks <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+2b. Invalid category
+
+> 2b1. TaskMan shows an error message <br>
+  Use case resumes at step 1
+
+#### Use case 4: Undo action
+
+**MSS**
+
+1. User requests to list actions applied in the session
+2. TaskMan shows a list of actions applied in the session
+3. User requests to undo all actions which were after a specified action by selecting that action
+4. User confirms his request to undo
+6. TaskMan undoes the action(s) <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TaskMan shows an error message <br>
+  Use case resumes at step 2
+
+5a. User cancels his confirmation
+
+> Use case resumes at step 2
 
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Data file(s) should be in human-readable format.
+6. Storage files are locked from external writing when the application is running.
+7. UI should be eye-friendly.
+8. Users should be visually informed when the application hangs.
+9. Each operation should not take more than a second to respond.
 
 {More to be added}
 
@@ -306,11 +397,63 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+### 1. [Todo.txt](http://todotxt.com/)
+#### Strengths
+1. CLI GTD tool
+2. Data stored as human-readable and editable text files
+3. Relatively flexible rules in data format in text files
+4. Some flexibility in commands (multiple titles, flexibility in formats)
+5. Able to set priorities, project
+6. Simple search function
+7. Able to update on phone and tablet through mobile application and synchronising with Dropbox
+
+#### Limitations
+1. Inconvenient to set up in Windows
+2. Inconvenient to start application
+3. Limited or no time and deadline support
+4. No undo functionality
+
+### 2. [TaskWarrior](https://taskwarrior.org/)
+#### Strengths
+1. CLI GTD tool
+2. No GUI but data is rendered clearly on CLI
+3. Flexibility in commands (can adapt to changes in some of the command sequences, and lots of optional option flags available)
+4. Data stored as human-readable text files
+5. Data may be exported or imported in JSON format
+6. Able to synchronise across devices via cloud storage
+
+#### Limitations
+7. Inconvenient to set up in Windows
+8. All commands must be prepended with "task" because TaskWarrior does not create a CLI environment for itself
+9. Commands always require Shift + Key (e.g. colons, plus signs and underscores) which slow down typing especially for keyboards without number pads
+
+### 3. [Google Keep](https://www.google.com/keep/)
+#### Strengths
+1. Cross platform
+2. Auto-completion for tags
+3. Supports Both Lists & Plain Text for Notes
+4. Support for Time & Location Alarms
+5. Support for appending images, audio recordings
+6. Support for creating drawings
+7. Supports search for entries
+8. Auto-synchronise
+
+#### Limitations
+1. No exporting allowed
+2. GUI only
+3. No Open API
+
+### 4. [Evernote](https://evernote.com/)
+#### Strengths
+1. Cross platform
+2. Widget for easy mobile viewing
+
+#### Limitations
+1. GUI only
+2. More of a note app than a GTD app
+3. Does not have support for various tasks (although it can be done manually to a certain extent)
+4. No friendly UI to display overview calendar
+5. Occasional conflict of data even when used only on one platform/device.
 
