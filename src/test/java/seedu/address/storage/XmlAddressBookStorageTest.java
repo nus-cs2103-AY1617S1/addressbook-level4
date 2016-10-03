@@ -33,7 +33,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyTaskList> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlTaskListStorage(filePath).readTaskList(addToTestDataPathIfNotNull(filePath));
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -63,18 +63,18 @@ public class XmlAddressBookStorageTest {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         TaskList original = td.getTypicalTaskList();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        XmlTaskListStorage xmlAddressBookStorage = new XmlTaskListStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyTaskList readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlAddressBookStorage.saveTaskList(original, filePath);
+        ReadOnlyTaskList readBack = xmlAddressBookStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(new Task(TypicalTestTasks.hoon));
         original.removePerson(new Task(TypicalTestTasks.alice));
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlAddressBookStorage.saveTaskList(original, filePath);
+        readBack = xmlAddressBookStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));
 
     }
@@ -86,7 +86,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private void saveAddressBook(ReadOnlyTaskList addressBook, String filePath) throws IOException {
-        new XmlAddressBookStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+        new XmlTaskListStorage(filePath).saveTaskList(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
