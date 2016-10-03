@@ -8,9 +8,7 @@
 * This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
 * It is a Java sample application intended for users who prefer to keep their email inbox clean and assign any 
-  todo items somewhere else. 
-* It is **written in OOP fashion**. It provides a **reasonably well-written** code example that is 
-  **significantly bigger** (around 6 KLoC)than what students usually write in beginner-level SE modules. 
+  todo items somewhere else.  
 * What's different from Google Calender:
     * A desktop software that can be summoned quickly.
     * Good in capturing tasks that need to be done before a specific date/time, or after a specific date/time, and items without specific times.
