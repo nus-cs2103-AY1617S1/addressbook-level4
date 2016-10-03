@@ -21,7 +21,7 @@ Responsibilities: Testing of codes, Deliverables and deadlines
 #### [Patel Drashti](http://github.com/Drashti96)
 <img src="images/Drashti.jpg" width="150"><br>
 **Role**: Developer<br>  
-Responsibilities: Documentation, Deliverables and deadlines
+Responsibilities: Documentation, Scheduling and tracking
 
 -----
 
