@@ -30,16 +30,16 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 <br>
 ## 2. Features
 
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Single quotes `' '` and doubel quotes `" "` are interchangeable. Each may be nested within the other.
-> * A pipe `|` between items indicates an either-or relationship between them.
-> * Only one item in curved brackets separated by a pipe `(item1 | item2)` may be used. All items within the brackets have equivalent functionality. They do _not_ indicate optionality.
-> * Items with `...` after them can have multiple instances.
-> * An example of the date format dd-mm-yy is 25-12-16. An example of dd-MMM-yy is 03-Mar-15.
-> * An example of the time format hh:mm is 18:30. An example of hh:mmpm is 06:30pm.
-> * The order of parameters is not fixed.
+**Command Format**
+- Words in `UPPER_CASE` are user inputs. <br>
+- Items in `SQUARE_BRACKETS` are optional. <br>
+- Single quotes `' '` and doubel quotes `" "` are interchangeable. Each may be nested within the other. <br>
+- A pipe `|` between items indicates an either-or relationship between them. <br>
+- Only one item in curved brackets separated by a pipe `(item1 | item2)` may be used. All items within the brackets have equivalent functionality. They do not indicate optionality. <br>
+- Items with `...` after them can have multiple instances. <br>
+- An example of the date format dd-mm-yy is 25-12-16. An example of dd-MMM-yy is 03-Mar-15. <br>
+- An example of the time format hh:mm is 18:30. An example of hh:mmpm is 06:30pm. <br>
+- The order of parameters is not fixed.
 
 
 <br>
