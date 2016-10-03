@@ -1,5 +1,7 @@
 package seedu.address.model.activity;
 
-public abstract class Activity {
+public class Activity {
+	
+	public Activity() {}
 
 }
