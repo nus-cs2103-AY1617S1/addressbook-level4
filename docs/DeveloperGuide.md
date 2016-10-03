@@ -256,19 +256,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
+`* * *` | user | add a new task or event with a given deadline or date and priority |
+`* * *` | user | add a floating task with no given deadline or date | work on long term tasks that have no given deadline.
+`* * *` | user | mark a task or event as completed |
+`* * *` | user | find a task or event by name | locate details of tasks/events without having to go through the entire list
+`* * *` | user | list upcoming tasks in sorted order | determine which tasks I should do next
+`* * *` | user | edit tasks | update tasks if things change.
+`* * *` | user | undo recent commands | revert tasks/events created by mistake.
+`* * *` | user | receive reminders for upcoming tasks | don't forget about tasks
+`* *` | user | add tasks through plain English | type more naturally than having to write in commands and flags.
+`* *` | user | view tasks in a calendar format | figure out what events/tasks I have upcoming more easily.
+`* *` | user | specify the location to place the data storage | do things with it, like sync it to my Dropbox.
+`* *` | user | bring up the program with a hotkey | pull it up quickly and conveniently when I need to add a task.
+`*` | user | view list or calendar in a pop out window | look at it more easily while working on other items.
 {More to be added}
 
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Mark Task completed.
 
 **MSS**
 
