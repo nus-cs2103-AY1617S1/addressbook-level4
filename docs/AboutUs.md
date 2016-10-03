@@ -7,25 +7,29 @@ We are a group of Computer Science students from the School of Computing, Nation
 #### [Jia Wern](https://github.com/l0g1cal)<br>
 
 * Role: Developer<br>
-* Responsibilities: Team Lead
+* Responsibilities: Team Lead<br>
+* In charge of: UI
 
 -----
 
 #### [Ian Teo](https://github.com/IanTeo)<br>
 
 * Role: Developer<br>
-* Responsibilities: Integration
+* Responsibilities: Integration<br>
+* In charge of: Storage
 
 -----
 
 #### [Rachel Yang](https://github.com/JJ-Rachel)<br>
 
 * Role: Developer<br>
-* Responsibilities: Code Quality
+* Responsibilities: Code Quality<br>
+* In charge of: Model
 
 -----
 
 #### [Jun An](https://github.com/yamidark)<br>
 
 * Role: Developer<br>
-* Responsibilities: Testing
+* Responsibilities: Testing<br>
+* In charge of: Logic
