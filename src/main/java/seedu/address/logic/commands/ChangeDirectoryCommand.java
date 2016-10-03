@@ -6,7 +6,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.XmlTaskListStorage;
 
 public class ChangeDirectoryCommand extends Command{
 	
@@ -31,11 +31,11 @@ public class ChangeDirectoryCommand extends Command{
 	public CommandResult execute() {
 		// TODO Auto-generated method stub
 		try{
-			XmlAddressBookStorage newFile = new XmlAddressBookStorage(filePath);
-			newFile.saveAddressBook(model.getAddressBook(), filePath);
+			XmlTaskListStorage newFile = new XmlTaskListStorage(filePath);
+			newFile.saveTaskList(model.getTaskList(), filePath);
 			model.changeDirectory(filePath);
 			Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
-			config.setAddressBookFilePath(filePath);
+			config.setTaskListFilePath(filePath);
 			ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
 			return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
 		}catch (DataConversionException dce){

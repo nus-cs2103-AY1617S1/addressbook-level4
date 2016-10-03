@@ -18,7 +18,7 @@ public class AddFloatingCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the task list. "
             + "Parameters: TASK_NAME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " take trash t/high priority";
+            + " take trash t/highPriority";
 
     public static final String MESSAGE_SUCCESS = "New floating task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
@@ -48,7 +48,7 @@ public class AddFloatingCommand extends Command {
         try {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
