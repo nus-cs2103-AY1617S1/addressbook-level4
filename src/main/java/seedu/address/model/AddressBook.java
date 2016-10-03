@@ -1,6 +1,9 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityList;
+import seedu.address.model.activity.FloatingActivity;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
@@ -16,11 +19,11 @@ import java.util.stream.Collectors;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final ActivityList activities;
     private final UniqueTagList tags;
 
     {
-        persons = new UniquePersonList();
+        activities = new ActivityList();
         tags = new UniqueTagList();
     }
 
@@ -30,14 +33,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Persons and Tags are copied into this addressbook
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getActivityList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(UniquePersonList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public AddressBook(ActivityList activities, UniqueTagList tags) {
+        resetData(activities.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyAddressBook getEmptyAddressBook() {
@@ -46,25 +49,25 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 //// list overwrite operations
 
-    public ObservableList<Person> getPersons() {
-        return persons.getInternalList();
+    public ObservableList<Activity> getPersons() {
+        return activities.getInternalList();
     }
 
-    public void setPersons(List<Person> persons) {
-        this.persons.getInternalList().setAll(persons);
+    public void setPersons(List<Activity> activities) {
+        this.activities.getInternalList().setAll(activities);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyPerson> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Person::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends Activity> newActivities, Collection<Tag> newTags) {
+        setPersons(new ArrayList(newActivities));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyAddressBook newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+//        resetData(newData.getPersonList(), newData.getTagList());
     }
 
 //// person-level operations
@@ -76,9 +79,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
-        syncTagsWithMasterList(p);
-        persons.add(p);
+    public void addActivity(Activity activity) {
+//        syncTagsWithMasterList(activity);
+        activities.add(activity);
     }
 
     /**
@@ -86,31 +89,31 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person person) {
-        final UniqueTagList personTags = person.getTags();
-        tags.mergeFrom(personTags);
+//    private void syncTagsWithMasterList(Activity activity) {
+//        final UniqueTagList personTags = activity.getTags();
+//        tags.mergeFrom(personTags);
+//
+//        // Create map with values = tag object references in the master list
+//        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+//        for (Tag tag : tags) {
+//            masterTagObjects.put(tag, tag);
+//        }
+//
+//        // Rebuild the list of person tags using references from the master list
+//        final Set<Tag> commonTagReferences = new HashSet<>();
+//        for (Tag tag : personTags) {
+//            commonTagReferences.add(masterTagObjects.get(tag));
+//        }
+//        activity.setTags(new UniqueTagList(commonTagReferences));
+//    }
 
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        person.setTags(new UniqueTagList(commonTagReferences));
-    }
-
-    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
-            throw new UniquePersonList.PersonNotFoundException();
-        }
-    }
+//    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
+//        if (persons.remove(key)) {
+//            return true;
+//        } else {
+//            throw new UniquePersonList.PersonNotFoundException();
+//        }
+//    }
 
 //// tag-level operations
 
@@ -122,13 +125,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return activities.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
-        return Collections.unmodifiableList(persons.getInternalList());
+    public List<Activity> getListActivity() {
+        return Collections.unmodifiableList(activities.getInternalList());
     }
 
     @Override
@@ -136,10 +139,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return Collections.unmodifiableList(tags.getInternalList());
     }
 
-    @Override
-    public UniquePersonList getUniquePersonList() {
-        return this.persons;
-    }
+//    @Override
+//    public UniquePersonList getUniquePersonList() {
+//        return this.activities;
+//    }
 
     @Override
     public UniqueTagList getUniqueTagList() {
@@ -151,13 +154,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
+                && this.activities.equals(((AddressBook) other).activities)
                 && this.tags.equals(((AddressBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(activities, tags);
     }
+
+	@Override
+	public ActivityList getActivityList() {
+		return activities;
+	}
 }
