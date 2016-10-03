@@ -3,15 +3,15 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a task's name in the task list.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String fullName;
+    public final String name;
 
     /**
      * Validates given name.
@@ -24,7 +24,7 @@ public class Name {
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = name;
+        this.name = name;
     }
 
     /**
@@ -37,19 +37,19 @@ public class Name {
 
     @Override
     public String toString() {
-        return fullName;
+        return name;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && this.fullName.equals(((Name) other).fullName)); // state check
+                && this.name.equals(((Name) other).name)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return name.hashCode();
     }
 
 }

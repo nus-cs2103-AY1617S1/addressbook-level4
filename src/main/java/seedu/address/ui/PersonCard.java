@@ -41,7 +41,7 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(person.getName().name);
         id.setText(displayedIndex + ". ");
         /* removed for floating tasks
         phone.setText(person.getPhone().value);

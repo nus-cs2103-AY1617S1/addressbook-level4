@@ -16,7 +16,6 @@ public class Task implements ReadOnlyTask {
     private UniqueTagList tags;
 
     /**
-     * Constructor for floating task
      * Every field must be present and not null.
      */
     public Task(Name name, UniqueTagList tags) {
@@ -27,7 +26,6 @@ public class Task implements ReadOnlyTask {
 
     /**
      * Copy constructor.
-     * Edited for floating task
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTags());
@@ -44,7 +42,7 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);

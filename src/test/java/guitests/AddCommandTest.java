@@ -15,23 +15,23 @@ public class AddCommandTest extends AddressBookGuiTest {
     public void add() {
         //add one person
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.hoon;
+        TestTask taskToAdd = td.attendWorkshop;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another person
-        taskToAdd = td.ida;
+        taskToAdd = td.updateGithubRepo;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate person
-        commandBox.runCommand(td.hoon.getAddCommand());
+        commandBox.runCommand(td.attendWorkshop.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.alice);
+        assertAddSuccess(td.submitPrototype);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
@@ -42,7 +42,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        PersonCardHandle addedCard = taskListPanel.navigateToPerson(taskToAdd.getName().fullName);
+        PersonCardHandle addedCard = taskListPanel.navigateToPerson(taskToAdd.getName().name);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person

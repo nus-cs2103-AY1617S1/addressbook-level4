@@ -9,23 +9,23 @@ import seedu.address.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask submitPrototype, submitProgressReport, developerMeeting, researchWhales, learnVim,
+            buyBirthdayGift, signUpForYoga, attendWorkshop, updateGithubRepo;
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline")
-                    .withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier")
-                    .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").build();
-            elle = new TaskBuilder().withName("Elle Meyer").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").build();
-            george = new TaskBuilder().withName("George Best").build();
+            submitPrototype =  new TaskBuilder().withName("Submit prototype")
+                    .withTags("urgent").build();
+            submitProgressReport = new TaskBuilder().withName("Submit progress report")
+                    .withTags("finance", "urgent").build();
+            developerMeeting = new TaskBuilder().withName("Attend developer meeting").build();
+            researchWhales = new TaskBuilder().withName("Research on whales").build();
+            learnVim = new TaskBuilder().withName("Learn Vim").build();
+            buyBirthdayGift = new TaskBuilder().withName("Buy birthday gift").build();
+            signUpForYoga = new TaskBuilder().withName("Sign up for yoga").build();
 
-            //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").build();
-            ida = new TaskBuilder().withName("Ida Mueller").build();
+            attendWorkshop = new TaskBuilder().withName("Attend workshop").build();
+            updateGithubRepo = new TaskBuilder().withName("Update GitHub repository").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -35,20 +35,20 @@ public class TypicalTestTasks {
     public static void loadTaskListWithSampleData(TaskList tl) {
 
         try {
-            tl.addPerson(new Task(alice));
-            tl.addPerson(new Task(benson));
-            tl.addPerson(new Task(carl));
-            tl.addPerson(new Task(daniel));
-            tl.addPerson(new Task(elle));
-            tl.addPerson(new Task(fiona));
-            tl.addPerson(new Task(george));
+            tl.addPerson(new Task(submitPrototype));
+            tl.addPerson(new Task(submitProgressReport));
+            tl.addPerson(new Task(developerMeeting));
+            tl.addPerson(new Task(researchWhales));
+            tl.addPerson(new Task(learnVim));
+            tl.addPerson(new Task(buyBirthdayGift));
+            tl.addPerson(new Task(signUpForYoga));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[]{submitPrototype, submitProgressReport, developerMeeting, researchWhales, learnVim, buyBirthdayGift, signUpForYoga};
     }
 
     public TaskList getTypicalTaskList(){

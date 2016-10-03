@@ -9,7 +9,7 @@ import seedu.address.model.TaskList;
 /**
  * A utility class to help with building TaskList objects.
  * Example usage: <br>
- *     {@code TaskList tl = new TaskListBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code TaskList tl = new TaskListBuilder().withTask("Eat lunch", "Meeting").withTag("Important").build();}
  */
 public class TaskListBuilder {
 
@@ -19,8 +19,8 @@ public class TaskListBuilder {
         this.taskList = taskList;
     }
 
-    public TaskListBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
-        taskList.addPerson(person);
+    public TaskListBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        taskList.addPerson(task);
         return this;
     }
 

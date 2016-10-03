@@ -295,7 +295,7 @@ public class LogicManagerTest {
         List<Task> threePersons = helper.generatePersonList(3);
 
         TaskList expectedAB = helper.generateAddressBook(threePersons);
-        expectedAB.removePerson(threePersons.get(1));
+        expectedAB.removeTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
