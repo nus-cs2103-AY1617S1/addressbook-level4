@@ -33,8 +33,7 @@
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
-=======
+> * The order of parameters is not fixed.
 
 #### Viewing help : `help`
 Format: `help`
@@ -46,8 +45,6 @@ Adds a new task to the tasks list or a new event to the event calendar.<br>
 Todo format: `todo NAME`<br>
 Deadline format: `deadline NAME DATE END_TIME`<br>
 Event format: `event NAME DATE START_TIME END_TIME`
-
-> Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional. Order of parameters are not fixed.
 
 > Tasks are split into 3 categories: todo, deadline, event.
 > todo: Tasks that have no specific date/time to be completed by.
@@ -80,8 +77,6 @@ Examples:
 #### Edit task details: `edit`
 Edit a task or event already inside the task manager/ event calendar using the index of the task.<br>
 Format: `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-
-> Words in UPPER_CASE are the parameters, items in SQUARE_BRACKETS are optional. Order of parameters are not fixed.
 
 > Format depends on the type of task being edited. When only 1 TIME is provided, it is treated as END_TIME for both deadline and event.
 
@@ -128,7 +123,7 @@ Examples:
 *  `undo`
 
 #### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+Clears all tasks from the task manager.<br>
 Format: `clear`  
 
 #### Exiting the program : `exit`
@@ -136,7 +131,7 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
