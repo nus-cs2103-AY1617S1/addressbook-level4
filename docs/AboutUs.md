@@ -30,7 +30,7 @@ Responsibilities: Documentation, Deliverables and deadlines
 **Role**: Developer<br>  
 Responsibilities: Coding lead, Eclipse expert 
 
- -----
+-----
 
 # Contributors
 
