@@ -1,52 +1,32 @@
-# About Us (TESTING)
+# About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
-
+#### [Tan Yu Peng](http://github.com/GitMeGet) <br>
+**Role**: Team Lead<br>
+Responsibilities: Deliverables and deadlines: Ensure project deliverables are done on time and in the right format.<br>
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
+#### [Tan Hong Yu](http://github.com/hongyuhy)
 <img src="images/JoshuaLee.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI
+Responsibilities: Testing: Ensures the testing of the project is done properly and on time.<br>
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
+#### [Tan Zhi Jie](http://github.com/zhijietan94) 
 <img src="images/LeowYijin.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: Code quality: Looks after code quality, ensures adherence to coding standards, etc.<br>
+				  Integration: In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.<br>
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
+#### [Jeremy Wong](http://github.com/snowfeline)
 <img src="images/MartinChoo.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Dev Ops
-
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
+Responsibilities: Documentation (short for ‘in charge of documentation’): Responsible for the quality of various project documents.<br>
  
  -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
