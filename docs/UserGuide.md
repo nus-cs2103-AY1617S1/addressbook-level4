@@ -272,7 +272,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-[Add](#adding-a-task-add)| `add -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)> -r <NUM_TIMES> <FREQUENCY>`
+[Add](#adding-a-task--add)| `add -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)> -r <NUM_TIMES> <FREQUENCY>`
 [Change Storage Location](#changing-data-storage-location-cd) | `cd <FILE_PATH>`
 [Clear](#clearing-the-data-storage-file-clear) | `clear`
 [Confirm](#confirming-a-reserved-timeslot-confirm) | `confirm <INDEX_TASK> <INDEX_TIMESLOT>`
