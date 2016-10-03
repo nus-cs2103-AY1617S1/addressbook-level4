@@ -1,9 +1,22 @@
 # User Guide
 
+* [Introduction](#introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+
+
+## Introduction
+
+Welcome user! This user guide will provide you with all essential information required for you to make full use of our task manager, TasKitty.
+
+TasKitty is a task manager that can help you manage events, deadlines that you have to meet, or simply tasks that you want to get done whenever you have free time.
+
+If you are a keyboard lover and dislike clicking, then TasKitty is the right task manager for you! It boasts an intuitive command line interface with minimal clicking required, and the commands you have to type in are short and sweet. 
+
+To get started, proceed to the Quick Start section below.
+
 
 ## Quick Start
 
