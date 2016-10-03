@@ -5,7 +5,7 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project Team
 
 #### [Verbena Ong](http://github.com/Verbena) 
-<img src="images/.Verbena.jpg" width="150"><br>
+<img src="images/Verbena.jpg" width="150"><br>
 **Role**: Team lead<br>  
 Responsibilities: Overall project coordination
 
