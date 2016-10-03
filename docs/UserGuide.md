@@ -37,7 +37,7 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a task: `add`
+#### Adding a task : `add`
 Adds a task to the To-Do List<br>
 Format: `add -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG>[, <TAG>, <TAG>,...] -r <NUM_TIMES> <FREQUENCY>` 
  
@@ -52,7 +52,7 @@ Examples:
 * `add -n Meet John Doe -dt 26/09/2016 0900 to 1030 -t CATCH UP`
 * `add -n Complete CS2103 Quiz -dt 23/09/2016 -p H, -t Quiz, CS2103, -r 13 EVERY WEEK`
 
-#### Reserving timeslots for a task: `rsv`
+#### Reserving timeslots for a task : `rsv`
 Reserves one or more timeslot for a task<br>
 Format: `-n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
 
@@ -63,7 +63,7 @@ Format: `-n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME>
 Examples:
 * `rsv -n Meet John Doe -dt 26/09/2016 0900 to 1030, 28/09/2016 1000 to 1130`
 
-#### Editing a reserved timeslot: `rsv -e`
+#### Editing a reserved timeslot : `rsv -e`
 Renames a task with reserved time slots or Adds/Deletes a reserved timeslot for a task <br>
 Format: `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME>`
 
@@ -79,7 +79,7 @@ Examples:
 * `rsv -e 2 -n Meet John Tan -dta 08/10/2016 1000 to 1200`
 * `rsv -e 1 -n -dta 09/10/2016 1100 to 1230 -dtr 05/10/2016 1000 to 1200`
 
-#### Deleting a task with reserved timeslots: `rsv -d`
+#### Deleting a task with reserved timeslots : `rsv -d`
 Deletes a task with all its reserved time slots <br>
 Format: `rsv -d <INDEX>`
 
@@ -90,7 +90,7 @@ Format: `rsv -d <INDEX>`
 Examples:
 * `rsv -d 5`
 
-#### Confirming a reserved timeslot: `confirm`
+#### Confirming a reserved timeslot : `confirm`
 Confirms a reserved timeslot for a particular tasks and removed all the other reserved time slots. <br>
 Format: `confirm <INDEX_TASK> <INDEX_TIMESLOT>`
 
@@ -102,7 +102,7 @@ Format: `confirm <INDEX_TASK> <INDEX_TIMESLOT>`
 Examples:
 * `confirm 3 2`
 
-#### Editing a task: `edit`
+#### Editing a task : `edit`
 Edits any component of a particular task <br>
 Format: `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)`
 
@@ -118,7 +118,7 @@ Format: `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRI
 Examples:
 * `edit 3 -n Meet John Tan -dt 08/10/2016 1000 to 1200 -p H -t friend`
 
-#### Editing a task by appending details to a task: `edit -ap`
+#### Editing a task by appending details to a task : `edit -ap`
 Edits a task by appending details to a particular task name <br>
 Format: `edit <INDEX> -ap <DETAILS_TO_APPEND_TO_TASK>`
 
@@ -131,7 +131,7 @@ Format: `edit <INDEX> -ap <DETAILS_TO_APPEND_TO_TASK>`
 Examples:
 * `edit 3 -ap At UTown` edits `3. Meet John Doe` to `3. Meet John Doe At UTown`
 
-#### Editing a tag's name: `tag -e`
+#### Editing a tag's name : `tag -e`
 Edits a tag’s name <br>
 Format: `tag -e <INDEX> <TAG>`
 
@@ -142,7 +142,7 @@ Format: `tag -e <INDEX> <TAG>`
 Examples:
 * `tag -e 5 Assignment`
 
-#### Deleting a tag: `tag -d`
+#### Deleting a tag : `tag -d`
 Deletes a particular tag <br>
 Format: `tag -d <INDEX>`
 
@@ -153,11 +153,11 @@ Format: `tag -d <INDEX>`
 Examples:
 * `tag -d 4` deletes the tag at Index 4
 
-#### Listing all tags: `tag -ls`
+#### Listing all tags : `tag -ls`
 Lists all tags in the To-Do List <br>
 Format: `tag -ls`
 
-#### Finding tags: `tag -f`
+#### Finding tags : `tag -f`
 Finds all tags by keywords (i.e. AND search) <br>
 Format: `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>, ...]`
 
@@ -167,7 +167,7 @@ Examples:
 * `tag -f assignment` returns all tags with the word “assignment” (e.g. CS2103 assignment, CS2010 assignment)
 * `tag -f cs2103 assignment` returns all tags with both the words “cs2103” and “assignment" (e.g. CS2103 assignment)
 
-#### Marking tasks: `mark`
+#### Marking tasks : `mark`
 Marks a particular task(s) with the status `done` or `undone` <br>
 Format: `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...] -ud <INDEX>[, <INDEX>, <INDEX>, …]`
 
@@ -182,7 +182,7 @@ Examples:
 * `mark -do 3, 5, 7`
 * `mark -ud 2, 3`
 
-#### Deleting a task: `del`
+#### Deleting a task : `del`
 Deletes a particular task, or a list of task based on a specific criteria (i.e. INDEX, done/undone status, date, tags, priority) <br>
 Formats: 
 * `del <INDEX> [, <INDEX>, <INDEX>, …]`
@@ -226,7 +226,7 @@ Examples:
 * `ls -p high`
 
 
-#### Finding tasks: `find`
+#### Finding tasks : `find`
 Finds all tasks containing a list of keywords (i.e. AND search).<br>
 Format: `find <KEYWORD>[, KEYWORD, KEYWORD]`
 
@@ -235,7 +235,7 @@ Format: `find <KEYWORD>[, KEYWORD, KEYWORD]`
 Examples: 
 * `find meet, John` returns all tasks containing the keywords “meet” and “John” (e.g. meet John Doe)
 
-#### Undoing a command: `undo`
+#### Undoing a command : `undo`
 Undo a command executed by the user. <br>
 Format: `undo` 
 
@@ -249,7 +249,7 @@ Format: `clear`
 Exits the program.<br>
 Format: `exit` 
 
-#### Changing data storage location: `cd`
+#### Changing data storage location : `cd`
 Changes the directory of which the data storage file is saved in. <br>
 Format: `cd <FILE_PATH>`
 
