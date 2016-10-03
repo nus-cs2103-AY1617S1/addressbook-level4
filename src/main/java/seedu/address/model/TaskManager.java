@@ -11,84 +11,84 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the task-manager level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
-    private final UniquePersonList persons;
+    private final UniquePersonList tasks;
     private final UniqueTagList tags;
 
     {
-        persons = new UniquePersonList();
+        tasks = new UniquePersonList();
         tags = new UniqueTagList();
     }
 
     public TaskManager() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this taskmanager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this taskmanager
      */
-    public TaskManager(UniquePersonList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public TaskManager(UniquePersonList tasks, UniqueTagList tags) {
+        resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskManager getEmptyAddressBook() {
+    public static ReadOnlyTaskManager getEmptyTaskManager() {
         return new TaskManager();
     }
 
 //// list overwrite operations
 
-    public ObservableList<Person> getPersons() {
-        return persons.getInternalList();
+    public ObservableList<Person> getTasks() {
+        return tasks.getInternalList();
     }
 
-    public void setPersons(List<Person> persons) {
-        this.persons.getInternalList().setAll(persons);
+    public void setTasks(List<Person> tasks) {
+        this.tasks.getInternalList().setAll(tasks);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyPerson> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Person::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyPerson> newTasks, Collection<Tag> newTags) {
+        setTasks(newTasks.stream().map(Person::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTagList());
     }
 
-//// person-level operations
+//// task-level operations
 
     /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds a task to the task manager.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
+    public void addTask(Person p) throws UniquePersonList.DuplicatePersonException {
         syncTagsWithMasterList(p);
-        persons.add(p);
+        tasks.add(p);
     }
 
     /**
-     * Ensures that every tag in this person:
+     * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person person) {
-        final UniqueTagList personTags = person.getTags();
-        tags.mergeFrom(personTags);
+    private void syncTagsWithMasterList(Person task) {
+        final UniqueTagList taskTags = task.getTags();
+        tags.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
@@ -96,16 +96,16 @@ public class TaskManager implements ReadOnlyTaskManager {
             masterTagObjects.put(tag, tag);
         }
 
-        // Rebuild the list of person tags using references from the master list
+        // Rebuild the list of task tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
+        for (Tag tag : taskTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
-        person.setTags(new UniqueTagList(commonTagReferences));
+        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
-        if (persons.remove(key)) {
+    public boolean removeTask(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
+        if (tasks.remove(key)) {
             return true;
         } else {
             throw new UniquePersonList.PersonNotFoundException();
@@ -122,13 +122,13 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
-        return Collections.unmodifiableList(persons.getInternalList());
+    public List<ReadOnlyPerson> getTaskList() {
+        return Collections.unmodifiableList(tasks.getInternalList());
     }
 
     @Override
@@ -137,8 +137,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
-        return this.persons;
+    public UniquePersonList getUniqueTaskList() {
+        return this.tasks;
     }
 
     @Override
@@ -151,13 +151,13 @@ public class TaskManager implements ReadOnlyTaskManager {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                && this.persons.equals(((TaskManager) other).persons)
+                && this.tasks.equals(((TaskManager) other).tasks)
                 && this.tags.equals(((TaskManager) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(tasks, tags);
     }
 }

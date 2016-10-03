@@ -178,13 +178,13 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
         TaskManager expectedAB = new TaskManager();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
 
     }
 
@@ -194,7 +194,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
         TaskManager expectedAB = new TaskManager();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
         model.addTask(toBeAdded); // person already in internal address book
@@ -204,7 +204,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_PERSON,
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
 
     }
 
@@ -214,7 +214,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskManager expectedAB = helper.generateAddressBook(2);
-        List<? extends ReadOnlyPerson> expectedList = expectedAB.getPersonList();
+        List<? extends ReadOnlyPerson> expectedList = expectedAB.getTaskList();
 
         // prepare address book state
         helper.addToModel(model, 2);
@@ -280,7 +280,7 @@ public class LogicManagerTest {
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
@@ -303,13 +303,13 @@ public class LogicManagerTest {
         List<Person> threePersons = helper.generatePersonList(3);
 
         TaskManager expectedAB = helper.generateAddressBook(threePersons);
-        expectedAB.removePerson(threePersons.get(1));
+        expectedAB.removeTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
     }
 
 
@@ -460,7 +460,7 @@ public class LogicManagerTest {
          */
         void addToAddressBook(TaskManager addressBook, List<Person> personsToAdd) throws Exception{
             for(Person p: personsToAdd){
-                addressBook.addPerson(p);
+                addressBook.addTask(p);
             }
         }
 

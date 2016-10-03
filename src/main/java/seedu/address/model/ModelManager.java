@@ -15,28 +15,28 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the task manager data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskManager addressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final TaskManager taskManager;
+    private final FilteredList<Person> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given TaskManager
+     * TaskManager and its variables should not be null
      */
     public ModelManager(TaskManager src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new TaskManager(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        taskManager = new TaskManager(src);
+        filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
     public ModelManager() {
@@ -44,58 +44,58 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
-        addressBook = new TaskManager(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        taskManager = new TaskManager(initialData);
+        filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
-        addressBook.resetData(newData);
-        indicateAddressBookChanged();
+        taskManager.resetData(newData);
+        indicateTaskManagerChanged();
     }
 
     @Override
     public ReadOnlyTaskManager getTaskManager() {
-        return addressBook;
+        return taskManager;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new TaskManagerChangedEvent(addressBook));
+    private void indicateTaskManagerChanged() {
+        raise(new TaskManagerChangedEvent(taskManager));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyPerson target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
-        indicateAddressBookChanged();
+        taskManager.removeTask(target);
+        indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+        taskManager.addTask(person);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskManagerChanged();
     }
 
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyPerson> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredTasks.setPredicate(null);
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+    private void updateFilteredTaskList(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
