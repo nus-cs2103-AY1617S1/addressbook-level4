@@ -18,7 +18,7 @@ public interface ReadOnlyAddressBook {
     UniqueTaskList getUniqueTaskList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getTaskList();
 
