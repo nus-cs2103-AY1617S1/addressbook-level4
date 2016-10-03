@@ -370,7 +370,7 @@ Use case ends
 
 **MSS**
 
-1. User requests to view tasks (Use case: view all tasks at specified date)
+1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
 2. User edits the details of a task (selected using the index)
 3. Program saves changes and shows the updated list tasks for the specified date<br>
 Use case ends
@@ -395,7 +395,7 @@ Use case ends
 
 **MSS**
 
-1. User requests to view tasks (Use case: view all tasks at specified date)
+1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
 2. User requests to delete a task from the list
 3. Program removes the task from storage<br>
 Use case ends
@@ -415,7 +415,7 @@ Use case ends
 
 **MSS**
 
-1. User requests to view tasks (Use case: view all tasks at specified date)
+1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
 2. User requests to mark a task from the list as `Done`
 3. Program tags the task as `Done`<br>
 Use case ends
