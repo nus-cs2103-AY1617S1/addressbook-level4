@@ -346,7 +346,7 @@ Use case ends
 > 1d1. Program returns error message, saying that the start time cannot be later then the end time<br>
   Use case resumes at step 1
 
-### Use case: View all tasks at specified date
+#### Use case: View all tasks at specified date
 
 **MSS**
 
