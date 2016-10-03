@@ -19,11 +19,11 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
-   * **`see`**` tomorrow`:  see all tasks for tomorrow
+   * **`see`**` tomorrow`:  see all tasks for tomorrow.
    * **`add task`**` -n Meet with professor -d CS1234 -date 10/10/17 -timefrom 09:30 -timeend 17:00` :
      adds a task named `Meet with Professor` to the tasks list.
-   * **`delete`**` 3` : deletes the task with ID #3
-   * **`exit`** : exits the app
+   * **`delete`**` 3` : deletes the task with ID #3.
+   * **`exit`** : exits the app.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
@@ -37,9 +37,9 @@
 
 > **Date and Time Format**
 > * **Date**
->   * 10/10/2017 or 10-10-2017
->   * 10 Oct 2017
->   * 10 October 2017
+>   * 25/10/2017 or 25-10-2017
+>   * 25 Oct 2017
+>   * 25 October 2017
 > * **Time**
 >   * 09:30
 >   * 09:30pm
@@ -51,17 +51,17 @@ Format: `help`
 
 #### Adding a task: `add task`
 Adds a task to DoDo-Bird<br>
-Format: `add task -n TaskName [-d a line of details] [-before 10/10/17[@09:30]]  [-after 09/10/17[@09:30]]`
+Format: `add task -n TaskName [-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]`
 
 > Date and Time formats follow the above guidelines.
 
 Examples:
 
 * **`add task`**` -n Meet with professor -d CS1234`
-* **`add task`**` -n Meet with professor -d CS1234 -date 10/10/17 -timefrom 09:30 -timeend 17:00`
+* **`add task`**` -n Meet with professor -d CS1234 -date 25/10/17 -timefrom 09:30 -timeend 17:00`
 
 
-#### See your tasks : `see`
+#### Seeing tasks : `see`
 Shows a list of all tasks in DoDo-Bird for a particular date.<br>
 Format: **`see`**`DATE`
 
@@ -141,6 +141,7 @@ Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
+List | `list`
+See | `see DATE`
 Select | `select INDEX`
