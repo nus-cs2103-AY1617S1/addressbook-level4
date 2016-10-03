@@ -7,7 +7,7 @@ import tars.model.person.UniquePersonList;
 import tars.model.tag.Tag;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building Tars objects.
  * Example usage: <br>
  *     {@code Tars ab = new TarsBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
