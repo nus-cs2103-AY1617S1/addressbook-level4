@@ -146,7 +146,7 @@ Command | Format
 -------- | :-------- 
 Add todo | `todo NAME`
 Add deadline | `deadline NAME DATE END_TIME`
-add event | `event NAME DATE START_TIME END_TIME`
+Add event | `event NAME DATE START_TIME END_TIME`
 View | `view [DATE]`
 Edit | `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 Delete | `delete INDEX`
