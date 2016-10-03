@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedTask {
+public class XmlAdaptedPerson {
 
     @XmlElement(required = true)
     private String name;
@@ -29,15 +29,15 @@ public class XmlAdaptedTask {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
+    public XmlAdaptedPerson() {}
 
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedTask
+     * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedTask(ReadOnlyTask source) {
+    public XmlAdaptedPerson(ReadOnlyTask source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
