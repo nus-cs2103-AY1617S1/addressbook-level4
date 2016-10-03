@@ -36,7 +36,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        logger.info("User command: " + commandText + "");
 
         Command command = commandFactory.build(commandText);
         command.setModel(model);

@@ -6,6 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.Parser;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Maps and builds commands from input strings
@@ -22,7 +23,7 @@ public class CommandFactory {
      * @return instance of a command based on {@param parsable}
      */
     public Command build(String inputString){
-        parser.setText(inputString);
+        parser.setInput(inputString);
 
         // Check if command word exists
         Optional<String> commandWord = parser.extractCommandWord();
@@ -38,6 +39,8 @@ public class CommandFactory {
                 return buildDeleteCommand();
             case FindCommand.COMMAND_WORD:
                 return buildFindCommand();
+            case ListCommand.COMMAND_WORD:
+                return buildListCommand();
             default:
                 return new InvalidCommand(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
@@ -45,7 +48,7 @@ public class CommandFactory {
 
     private Command buildAddCommand() {
         // Try to find title
-        Optional<String> title = parser.extractDescription();
+        Optional<String> title = parser.extractText();
         if (!title.isPresent()) {
             return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_TITLE);
         }
@@ -68,7 +71,16 @@ public class CommandFactory {
     }
 
     private Command buildFindCommand() {
-        // TODO
-        return new InvalidCommand(Messages.MESSAGE_MISSING_COMMAND_WORD);
+        // Try to find keywords
+        Set<String> words = parser.extractWords();
+        if (words.isEmpty()) {
+            return new InvalidCommand(Messages.MESSAGE_MISSING_FIND_WORDS);
+        }
+
+        return new FindCommand(words);
+    }
+
+    private Command buildListCommand() {
+        return new ListCommand();
     }
 }

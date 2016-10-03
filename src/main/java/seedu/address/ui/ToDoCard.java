@@ -13,23 +13,26 @@ public class ToDoCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
-    private Label title;
+    private Label titleLabel;
+    @FXML
+    private Label indexLabel;
 
     private ReadOnlyToDo toDo;
-    private int displayedIndex;
+    private int index;
 
     public ToDoCard(){ }
 
-    public static ToDoCard load(ReadOnlyToDo toDo, int displayedIndex){
+    public static ToDoCard load(ReadOnlyToDo toDo, int index){
         ToDoCard card = new ToDoCard();
         card.toDo = toDo;
-        card.displayedIndex = displayedIndex;
+        card.index = index;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        title.setText(toDo.getTitle().title);
+        titleLabel.setText(toDo.getTitle().title);
+        indexLabel.setText(String.valueOf(index));
     }
 
     public HBox getLayout() {

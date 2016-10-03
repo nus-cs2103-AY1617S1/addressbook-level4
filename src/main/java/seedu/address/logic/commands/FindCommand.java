@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
+
 import java.util.Set;
 
 /**
@@ -7,7 +9,6 @@ import java.util.Set;
  * Keyword matching is case sensitive.
  */
 public class FindCommand extends Command {
-
     public static final String COMMAND_WORD = "find";
 
     private final Set<String> keywords;
@@ -18,8 +19,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        // TODO
-        return null;
+        model.updateFilteredToDoList(keywords);
+        return new CommandResult(String.format(Messages.MESSAGE_FIND, model.getFilteredToDoList().size()));
     }
-
 }
