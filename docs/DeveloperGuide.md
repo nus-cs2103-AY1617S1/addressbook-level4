@@ -268,17 +268,16 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `TODO APP` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `DODO-BIRD` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Delete task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook delete
-s the person <br>
+1. User requests to list tasks
+2. DODO-BIRD shows a list of tasks
+3. User requests to delete a specific task in the list
+4. DODO-BIRD deletes the person <br>
 Use case ends.
 
 **Extensions**
@@ -289,8 +288,18 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. DODO-BIRD shows an error message <br>
   Use case resumes at step 2
+
+#### Use case: Search task by keyword
+
+**MSS**
+
+1. User enter command to search tasks by keyword
+2. DODO-BIRD returns a list of tasks which name contains those keywords.
+Use case ends.
+
+**Extensions**
 
 {More to be added}
 
