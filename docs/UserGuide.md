@@ -298,6 +298,6 @@ Command | Format
 [Tag [Delete]](#deleting-a-tag--tag--d) | `tag -d <INDEX>`
 [Tag [Edit]](#editing-a-tags-name--tag--e) | `tag -e <INDEX> <TAG>`
 [Tag [Find]](#finding-tags--tag--f) | `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>]`
-[Tag [List]](#listing-all-tags--tag---ls) | `tag -ls`
+[Tag [List]](#listing-all-tags--tag-ls) | `tag -ls`
 [Undo](#undoing-a-command--undo) | `undo`
 
