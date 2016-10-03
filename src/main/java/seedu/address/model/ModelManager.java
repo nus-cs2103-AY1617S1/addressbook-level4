@@ -55,7 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskManager getAddressBook() {
+    public ReadOnlyTaskManager getTaskManager() {
         return addressBook;
     }
 
