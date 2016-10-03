@@ -198,7 +198,7 @@ Example:
 Exits the program. <br>
 Format: `exit`
 
-
+<br>
 ## 3. Command Summary
 
 | Command         | Format         |
