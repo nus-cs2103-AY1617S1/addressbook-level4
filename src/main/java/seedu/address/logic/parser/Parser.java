@@ -33,6 +33,11 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+
+    private static final Pattern TASK_FLOAT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
     public Parser() {}
 
     /**
@@ -52,7 +57,7 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return prepareAdd(arguments);
+            return prepareAddFloating(arguments); //for adding floating tasks
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -104,6 +109,29 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+
+    /**
+     * Parses arguments in the context of the add task command.
+     * Supports floating tasks
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAddFloating(String args){
+        final Matcher matcher = TASK_FLOAT_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new AddCommand(
+                    matcher.group("name"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
