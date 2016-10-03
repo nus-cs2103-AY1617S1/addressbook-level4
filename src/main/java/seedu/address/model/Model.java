@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniqueTaskList;
 
@@ -21,7 +21,7 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Person person) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task person) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

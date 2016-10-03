@@ -6,7 +6,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
@@ -22,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<Person> filteredTasks;
+    private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -71,7 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Person person) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(person);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();

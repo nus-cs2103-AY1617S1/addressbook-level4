@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.tag.Tag;
@@ -46,11 +46,11 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 //// list overwrite operations
 
-    public ObservableList<Person> getTasks() {
+    public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
 
-    public void setTasks(List<Person> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -59,7 +59,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Person::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -76,7 +76,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      *
      * @throws UniqueTaskList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addTask(Person p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
@@ -86,7 +86,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person task) {
+    private void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 
