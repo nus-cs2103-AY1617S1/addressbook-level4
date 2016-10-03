@@ -5,8 +5,9 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project Team
 
 #### [Tan Yu Peng](http://github.com/GitMeGet) <br>
-**Role**: Team Lead<br>
+Role: Team Lead<br>
 Responsibilities: Deliverables and deadlines: Ensure project deliverables are done on time and in the right format.<br>
+
 -----
 
 #### [Tan Hong Yu](http://github.com/hongyuhy)
