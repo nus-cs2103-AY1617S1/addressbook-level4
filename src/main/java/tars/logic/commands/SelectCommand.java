@@ -7,7 +7,7 @@ import tars.commons.events.ui.JumpToListRequestEvent;
 import tars.model.person.ReadOnlyPerson;
 
 /**
- * Selects a person identified using it's last displayed index from the address book.
+ * Selects a person identified using it's last displayed index from tars.
  */
 public class SelectCommand extends Command {
 

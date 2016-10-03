@@ -3,7 +3,7 @@ package tars.logic.commands;
 import tars.model.Tars;
 
 /**
- * Clears the address book.
+ * Clears tars.
  */
 public class ClearCommand extends Command {
 

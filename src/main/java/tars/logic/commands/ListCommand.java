@@ -2,7 +2,7 @@ package tars.logic.commands;
 
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in tars to the user.
  */
 public class ListCommand extends Command {
 

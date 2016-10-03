@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of tars data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {

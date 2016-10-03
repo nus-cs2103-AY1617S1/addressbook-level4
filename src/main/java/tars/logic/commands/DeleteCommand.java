@@ -6,7 +6,7 @@ import tars.model.person.ReadOnlyPerson;
 import tars.model.person.UniquePersonList.PersonNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a person identified using it's last displayed index from tars.
  */
 public class DeleteCommand extends Command {
 

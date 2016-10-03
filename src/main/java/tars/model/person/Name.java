@@ -3,7 +3,7 @@ package tars.model.person;
 import tars.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Person's name in tars.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
