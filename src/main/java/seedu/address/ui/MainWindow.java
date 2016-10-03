@@ -187,7 +187,7 @@ public class MainWindow extends UiPart {
     }
 
     public void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
+        browserPanel.loadTaskPage(person);
     }
 
     public void releaseResources() {
