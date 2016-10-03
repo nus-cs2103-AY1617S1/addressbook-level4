@@ -91,7 +91,7 @@ public class FloatingTaskListPanelHandle extends GuiHandle {
         for (int i = 0; i < tasks.length; i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
-            guiRobot.sleep(200);
+            guiRobot.sleep(300);
             if (!TestUtil.compareCardAndTask(getFloatingTaskCardHandle(startPosition + i), tasks[i])) {
                 return false;
             }
@@ -101,7 +101,7 @@ public class FloatingTaskListPanelHandle extends GuiHandle {
 
 
     public FloatingTaskCardHandle navigateToTask(String name) {
-        guiRobot.sleep(1000); //Allow a bit of time for the list to be updated
+        guiRobot.sleep(700); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
@@ -121,7 +121,7 @@ public class FloatingTaskListPanelHandle extends GuiHandle {
             guiRobot.sleep(150);
             getListView().getSelectionModel().select(index);
         });
-        guiRobot.sleep(100);
+        guiRobot.sleep(150);
         return getFloatingTaskCardHandle(task);
     }
 
