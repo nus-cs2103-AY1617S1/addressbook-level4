@@ -46,10 +46,10 @@ Todo format: `todo NAME`<br>
 Deadline format: `deadline NAME DATE END_TIME`<br>
 Event format: `event NAME DATE START_TIME END_TIME`
 
-> Tasks are split into 3 categories: todo, deadline, event.
-> todo: Tasks that have no specific date/time to be completed by.
-> deadline: Tasks that have a specific date/time they must be completed by.
-> event: Tasks that have specific start and end date/time.
+> Tasks are split into 3 categories: todo, deadline, event<br>
+> todo: Tasks that have no specific date/time to be completed by<br>
+> deadline: Tasks that have a specific date/time they must be completed by<br>
+> event: Tasks that have specific start and end date/time
 
 > DATE can accept different formats. 1 Jan 2015, 010115, 01/01/2015 are all acceptable to represent 1 Jan 2015.
 
@@ -72,7 +72,6 @@ Format: `view [DATE]`
 Examples: 
 * `view`
 * `view 1 Jan 2015`
-
 
 #### Edit task details: `edit`
 Edit a task or event already inside the task manager/ event calendar using the index of the task.<br>
@@ -110,17 +109,14 @@ Format: `done INDEX`
 Examples:
 * `view`<br>
   `done 1`<br>
-	Marks the 1st task today as shown by the `view` command as completed
+  Marks the 1st task today as shown by the `view` command as completed
 
 #### Undo previous action: `undo`
 Undo the last completed action.<br>
 Format: `undo`
 
-> The previous version will be restored.
-> User can keep retyping undo to undo multiple actions.
-
-Examples:
-*  `undo`
+> The previous version will be restored
+> User can keep retyping undo to undo multiple actions
 
 #### Clearing all entries : `clear`
 Clears all tasks from the task manager.<br>
