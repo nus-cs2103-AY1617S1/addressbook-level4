@@ -284,7 +284,7 @@ Command | Format
 [Edit [Append]](#editing-a-task-by-appending-details-to-a-task-edit-ap) | `edit <INDEX> -ap <TO APPEND>`
 [Exit](#exiting-the-program-exit) | `exit`
 [Find](#finding-tasks-find) | `find KEYWORD [MORE_KEYWORDS]`
-[Help](displaying-a-list-of-available-commands-help) | `help`
+[Help](#displaying-a-list-of-available-commands-help) | `help`
 [List](#listing-tasks-ls) | `ls`
 [List All](#listing-tasks-ls) | `ls -all`
 [List [Date]](#listing-tasks-ls) | `ls -dt [<START_DATE> to <END_DATE>]`
@@ -295,7 +295,7 @@ Command | Format
 [Reserve](#reserving-timeslots-for-a-task-rsv) | `rsv -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
 [Reserve [Delete]](#reserving-timeslots-for-a-task-rsv) | `rsv -d <INDEX>`
 [Reserve [Edit]](#reserving-timeslots-for-a-task-rsv) | `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME`
-[Tag [Delete]](#deleting-a-tag-tag-d) | `tag -d <INDEX>`
+[Tag (Delete)](#deleting-a-tag-tag-d) | `tag -d <INDEX>`
 [Tag [Edit]](#editing-a-tags-name-tag-e) | `tag -e <INDEX> <TAG>`
 [Tag [Find]](#finding-tags-tag-f) | `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>]`
 [Tag [List]](#listing-all-tags-tag-ls) | `tag -ls`
