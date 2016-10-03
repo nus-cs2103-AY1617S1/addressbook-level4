@@ -250,19 +250,43 @@ b. Require developers to download those libraries manually (this creates extra w
 
 ## Appendix A : User Stories
 
-Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
+All user stories are likely to be implemented unless specified otherwise.
+* **[Epic]** As a **user**, I want to **get information about the commands**.
+	* As a **user**, I want to **list out all possible commands** so that **I know what are all the possible commands**.
+	* As a **user**, I want to **get specific information about each command** so that **I know how to use each command correctly**.
+* **[Epic]** As a **user**, I want to **add to-do items**.
+	* As a **user**, I want to **add tasks without specific date or times**.
+	* As a **user**, I want to **add tasks that have to be completed before a certain date** so that **I can keep track of my deadlines**.
+	* As a **user**, I want to **add events with start and end dates** so that **I can keep track of my event dates**.
+* **[Epic]** As a **user**, I want to **view a list of my existing to-do items**.
+	* As a **user**, I want to **view a list of my to-do items in chronological order by their date and times** so that **I can easily identify which items are more urgent**.
+	* As a **user**, I want to **view a list of to-do items that are not done**.
+	* As a **user**, I want to **view a list of to-do items that are done**.
+	* As a **user**, I want to **view a list of to-do items filtered by whether they are done, pending or overdue** so that **it is easier to keep track of my tasks and their respective statuses**. [Unlikely]
+* **[Epic]** As a **user**, I want to **edit my existing to-do items**.
+	* As a **user**, I want to **edit my existing to-do items directly** so that **I do not have to delete and add the to-do item again to modify it**.
+	* As a **user**, I want to **mark todo items as done** so that **I can indicate that the task has been completed**.
+* **[Epic]** As a **user**, I want to **delete to-do items**.
+	* As a **user**, I want to **delete a specific to-do item**.
+	* As a **user**, I want to **delete multiple to-do items at one go** so that **I can quickly delete a few wrongly added items** [Unlikely]
+* **[Epic]** As a **user**, I want to **undo my commands**.
+	* As a **user**, I want to **undo my most recent command** so that **I can revert the most recent command if it was wrongly issued**.
+	* As a **user**, I want to **redo my most recently undid command** so that I can revert the last undo command if it was wrongly issued. [Unlikely]
+	* As a **user**, I want to **undo any commands issued for the current session** so that **I can revert any wrongly issued commands from the current session.** [Unlikely]
+* As a **user**, I want to **find an item by searching for some keywords from the item description** so that **I can easily find my to-do items by just knowing the description**.
 
 
-Priority | As a ... | I want to ... | So that I can...
--------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+* As a **user**, I want to **specify a specific folder as the data storage location** so that **I can save the data file into any directory I want**.
 
-{More to be added}
+
+* As a **user**, I want to **assign tags to my tasks so as to categorize or label them**. [Unlikely]
+
+
+* As a **user**, I want to **manage my recurring tasks**. [Unlikely]
+
+
+* As a **user**, I want to **set reminders for my tasks**. [Unlikely]
+
 
 ## Appendix B : Use Cases
 
