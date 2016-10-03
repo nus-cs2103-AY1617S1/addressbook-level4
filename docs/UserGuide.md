@@ -139,7 +139,7 @@ Shows a list of all the tasks.<br>
 Format: `list`
 
 #### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+Clears all entries from the Task Manager.<br>
 Format: `clear`  
 
 #### Exiting the program : `exit`
