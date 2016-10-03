@@ -1,4 +1,13 @@
-## Quick Start
+## Contents
+
+- [1. Quick Start](#1-quick-start)
+- [2. Features](#2-features)
+	+ [2.1. Viewing help](#viewing-help--help)
+	+ [2.2. Adding a task](#adding-a-task-add)
+	+ [2.3. Listing tasks](#listing-tasks-list)
+
+
+## 1. Quick Start
 
 1. **Install Java 8 Update 60**<br>
 The latest version is available [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
@@ -21,7 +30,7 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
     See all tasks with keywords "lab homework" or "boy" in their names.
 
 <br>
-## Features
+## 2. Features
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
@@ -36,7 +45,7 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 
 
 <br>
-#### Viewing help : `help`
+#### 2.1. Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
@@ -60,7 +69,7 @@ Examples:
 
 
 <br>
-#### Listing tasks: `list`
+#### 2.2. Listing tasks: `list`
 Shows a numbered list of tasks, filtered by optional parameters.<br>
 Format: `list [d="dd-mm-yy"] [type="TASK_TYPE"] [done="true"|"false"] [t="dd-mm-yy"]`
 
@@ -71,7 +80,7 @@ Example:
 
 
 <br>
-#### Finding all tasks containing any keyword in their name: `find`
+#### 2.3. Finding all tasks containing any keyword in their name: `find`
 Finds tasks in which the name contains any of the given keywords.<br>
 Format: `find "KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2" ["MORE_KEYPHRASES"...]`
 
