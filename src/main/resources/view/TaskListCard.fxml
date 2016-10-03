@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="task_title_label" text="1. Task Title">
+         <font>
+            <Font name="Segoe UI Semibold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="task_date_label" text="by 21 October 2016, 12:30 PM">
+         <font>
+            <Font name="Segoe UI Italic" size="20.0" />
+         </font>
+      </Label>
+      <HBox fx:id="task_description_box">
+         <children>
+            <Label maxHeight="1.7976931348623157E308" minWidth="4.0" style="-fx-background-color: #00A4FF; -fx-background-radius: 100;" />
+            <Label fx:id="task_description_label" text="Task description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum massa quam, ullamcorper eu tellus a, consequat hendrerit tellus. Sed tempus nunc eget eros congue dapibus. Praesent pharetra blandit arcu, ut venenatis ex imperdiet egestas. Vestibulum malesuada, arcu ac varius auctor, lectus nibh vulputate ante, eget imperdiet felis sapien sed metus." wrapText="true">
+               <HBox.margin>
+                  <Insets left="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets bottom="8.0" top="8.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox>
+         <children>
+            <Label fx:id="task_type_label" style="-fx-background-color: #00A4FF; -fx-background-radius: 100;" text="Deadline" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semilight" size="18.0" />
+               </font>
+               <padding>
+                  <Insets left="8.0" right="8.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="task_tags_label" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Label1, Label2, Label3" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semilight" size="18.0" />
+               </font>
+               <padding>
+                  <Insets left="8.0" right="8.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="15.0" />
+   </padding>
+</VBox>
