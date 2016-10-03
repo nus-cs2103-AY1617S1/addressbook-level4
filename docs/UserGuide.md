@@ -1,4 +1,4 @@
-# User Guide
+﻿# User Guide
 
 * [Quick Start](#quick-start)
 * [Features](#features)
@@ -281,7 +281,7 @@ Command | Format
 [Delete [by Priority]](#deleting-a-task--del) | `del -p [PRIORITY] <INDEX> [, <INDEX>, <INDEX>, …]`
 [Delete [by Tags]](#deleting-a-task--del) | `del -t <TAG>[ , <TAG>, <TAG>] <INDEX>[, <INDEX>, <INDEX>,...]`
 [Edit](#editing-a-task--edit) | `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)>`
-[Edit [Append]](#editing-a-task-by-appending-details-to-a-task--edit-ap) | `edit <INDEX> -ap <TO APPEND>`
+[Edit [Append]](#editing-a-task-by-appending-details-to-a-task--edit--ap) | `edit <INDEX> -ap <TO APPEND>`
 [Exit](#exiting-the-program--exit) | `exit`
 [Find](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
 [Help](#displaying-a-list-of-available-commands--help) | `help`
@@ -293,11 +293,11 @@ Command | Format
 [Mark Done](#marking-tasks--mark) | `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Mark Undone](#marking-tasks--mark) | `mark -ud <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Reserve](#reserving-timeslots-for-a-task--rsv) | `rsv -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
-[Reserve [Delete]](#reserving-timeslots-for-a-task--rsv) | `rsv -d <INDEX>`
-[Reserve [Edit]](#reserving-timeslots-for-a-task--rsv) | `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME`
-[Tag [Delete]](#deleting-a-tag--tag-d) | `tag -d <INDEX>`
-[Tag [Edit]](#editing-a-tags-name--tag-e) | `tag -e <INDEX> <TAG>`
-[Tag [Find]](#finding-tags--tag-f) | `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>]`
-[Tag [List]](#listing-all-tags--tag-ls) | `tag -ls`
+[Reserve [Delete]](#deleting-a-task-with-reserved-timeslots--rsv--d) | `rsv -d <INDEX>`
+[Reserve [Edit]](#editing-a-reserved-timeslot--rsv--e) | `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME`
+[Tag [Delete]](#deleting-a-tag--tag--d) | `tag -d <INDEX>`
+[Tag [Edit]](#editing-a-tags-name--tag--e) | `tag -e <INDEX> <TAG>`
+[Tag [Find]](#finding-tags--tag--f) | `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>]`
+[Tag [List]](#listing-all-tags--tag--ls) | `tag -ls`
 [Undo](#undoing-a-command--undo) | `undo`
 
