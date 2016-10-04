@@ -4,7 +4,14 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Desmond Ang](https://github.com/KnewYouWereTrouble) <br>
+#### [Akshay Narayan](https://github.com/okkhoy)
+<img src="images/Akshay.jpg" width="150"><br>
+**Role**: Project Mentor <br>
+**Responsibilities**: Supervise and Advise
+
+-----
+
+#### [Desmond Ang](https://github.com/KnewYouWereTrouble)
 <img src="images/Desmond.jpg" width="150"><br>
 **Role**: Team Lead, Git Expert <br>
 **Responsibilities**: Deliverables and Deadlines
