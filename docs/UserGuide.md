@@ -206,3 +206,7 @@ Search  | `search KEYWORD`
 Reserve | `reserve DATE, TIME`
 Edit    | `edit INDEX FIELD NEW_INFORMATION`
 List    | `list DATE`
+Undo    | `Uno`
+Sort    | `sort CATEGORY`
+Help    | `help`
+Exit    | `exit`
