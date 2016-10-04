@@ -272,7 +272,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | Set priority level for a task | Easily identify a task that require immediate attention
 `* *` | user | Launch the application with a keyboard shortcut | Access the application without using the mouse
 `* *` | user | View the day’s tasks when the application is launched | Know which tasks to complete for the day without any additional input
-`*` | Sync my data to Google Calendar | sort persons by name | Sync my data across multiple desktops
+`*` | user | Sync my data to Google Calendar | Sync my data across multiple desktops
 `*` | user | Carry forward incomplete tasks to the following day | Be reminded to complete the task the following day without any input
 
 ## Appendix B : Use Cases
