@@ -10,7 +10,7 @@ import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.FileUtil;
 import seedu.task.model.AddressBook;
 import seedu.task.model.ReadOnlyAddressBook;
-import seedu.task.model.person.Person;
+import seedu.task.model.task.Task;
 import seedu.task.storage.XmlAddressBookStorage;
 import seedu.task.testutil.TypicalTestPersons;
 
@@ -73,8 +73,8 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Person(TypicalTestPersons.hoon));
-        original.removePerson(new Person(TypicalTestPersons.alice));
+        original.addPerson(new Task(TypicalTestPersons.hoon));
+        original.removePerson(new Task(TypicalTestPersons.alice));
         xmlAddressBookStorage.saveAddressBook(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));

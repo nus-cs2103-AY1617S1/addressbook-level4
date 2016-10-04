@@ -1,7 +1,7 @@
 package seedu.task.logic.commands;
 
-import seedu.task.model.person.ReadOnlyPerson;
-import seedu.task.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.UniqueTaskList.PersonNotFoundException;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
@@ -29,14 +29,14 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyPerson personToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.deletePerson(personToDelete);

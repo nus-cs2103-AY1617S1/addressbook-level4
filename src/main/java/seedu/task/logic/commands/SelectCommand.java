@@ -1,7 +1,7 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
-import seedu.task.model.person.ReadOnlyPerson;
+import seedu.task.model.task.ReadOnlyTask;
 import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
@@ -29,7 +29,7 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

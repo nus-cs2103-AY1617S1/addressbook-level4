@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.task.commons.util.FxViewUtil;
-import seedu.task.model.person.ReadOnlyPerson;
+import seedu.task.model.task.ReadOnlyTask;
 import seedu.taskcommons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -50,7 +50,7 @@ public class BrowserPanel extends UiPart{
         return browserPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
+    public void loadPersonPage(ReadOnlyTask person) {
         loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
     }
 

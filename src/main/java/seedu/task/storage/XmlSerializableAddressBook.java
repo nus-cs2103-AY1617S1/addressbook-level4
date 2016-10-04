@@ -2,10 +2,10 @@ package seedu.task.storage;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyAddressBook;
-import seedu.task.model.person.ReadOnlyPerson;
-import seedu.task.model.person.UniquePersonList;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.UniqueTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -54,8 +54,8 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
-        UniquePersonList lists = new UniquePersonList();
+    public UniqueTaskList getUniquePersonList() {
+        UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedPerson p : persons) {
             try {
                 lists.add(p.toModelType());
@@ -67,7 +67,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
+    public List<ReadOnlyTask> getPersonList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();
