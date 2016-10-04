@@ -99,7 +99,7 @@ public class TaskListCard extends UiPart{
     }
     
     /**
-     * Displays the tags with tag labels lexicographically.
+     * Displays the tags with tag labels sorted lexicographically.
      */
     private void displayTags(){
         //Obtain and verify that there are at most 5 tags.
