@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * An Immutable Tars that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "tars")
 public class XmlSerializableTars implements ReadOnlyTars {
 
     @XmlElement

@@ -8,11 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores tars data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given tars data to the specified file.
      */
     public static void saveDataToFile(File file, XmlSerializableTars tars)
             throws FileNotFoundException {

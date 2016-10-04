@@ -27,14 +27,14 @@ public class Tars implements ReadOnlyTars {
     public Tars() {}
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this tars
      */
     public Tars(ReadOnlyTars toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this tars
      */
     public Tars(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());

@@ -79,7 +79,7 @@ public class ConfigUtilTest {
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setTarsFilePath("addressbook.xml");
+        config.setTarsFilePath("tars.xml");
         config.setTarsName("TypicalTarsName");
         return config;
     }

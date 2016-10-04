@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "Address App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String tarsFilePath = "data/addressbook.xml";
+    private String tarsFilePath = "data/tars.xml";
     private String tarsName = "MyTars";
 
 
