@@ -31,6 +31,14 @@ Responsibilities: Dev Ops
 
 -----
 
+#### [Song Kai](https://github.com/elijahsk)
+<img src="images/SongKai.jpg" width="150"><br>
+Role: Developer <br>  
+Responsibilities: Model
+
+
+-----
+
 #### [Thien Nguyen](https://github.com/ndt93)
  Role: Developer <br>  
  Responsibilities: Threading
