@@ -8,7 +8,7 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public interface Entry {
 
-    Name getTitle();
+    Title getTitle();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

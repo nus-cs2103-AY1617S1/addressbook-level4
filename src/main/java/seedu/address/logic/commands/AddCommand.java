@@ -38,7 +38,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new FloatingTask(
-                new Name(title),
+                new Title(title),
                 new UniqueTagList(tagSet)
         );
     }

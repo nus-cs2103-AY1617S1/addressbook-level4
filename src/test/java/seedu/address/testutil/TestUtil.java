@@ -65,15 +65,15 @@ public class TestUtil {
     private static FloatingTask[] getSamplePersonData() {
         try {
             return new FloatingTask[]{
-                    new FloatingTask(new Name("Ali Muster"), new UniqueTagList()),
-                    new FloatingTask(new Name("Boris Mueller"), new UniqueTagList()),
-                    new FloatingTask(new Name("Carl Kurz"), new UniqueTagList()),
-                    new FloatingTask(new Name("Daniel Meier"), new UniqueTagList()),
-                    new FloatingTask(new Name("Elle Meyer"), new UniqueTagList()),
-                    new FloatingTask(new Name("Fiona Kunz"), new UniqueTagList()),
-                    new FloatingTask(new Name("George Best"), new UniqueTagList()),
-                    new FloatingTask(new Name("Hoon Meier"), new UniqueTagList()),
-                    new FloatingTask(new Name("Ida Mueller"), new UniqueTagList())
+                    new FloatingTask(new Title("Ali Muster"), new UniqueTagList()),
+                    new FloatingTask(new Title("Boris Mueller"), new UniqueTagList()),
+                    new FloatingTask(new Title("Carl Kurz"), new UniqueTagList()),
+                    new FloatingTask(new Title("Daniel Meier"), new UniqueTagList()),
+                    new FloatingTask(new Title("Elle Meyer"), new UniqueTagList()),
+                    new FloatingTask(new Title("Fiona Kunz"), new UniqueTagList()),
+                    new FloatingTask(new Title("George Best"), new UniqueTagList()),
+                    new FloatingTask(new Title("Hoon Meier"), new UniqueTagList()),
+                    new FloatingTask(new Title("Ida Mueller"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

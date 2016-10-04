@@ -162,7 +162,7 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Title.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
@@ -383,7 +383,7 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         FloatingTask adam() throws Exception {
-            Name name = new Name("Adam Brown");
+            Title name = new Title("Adam Brown");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -399,7 +399,7 @@ public class LogicManagerTest {
          */
         FloatingTask generatePerson(int seed) throws Exception {
             return new FloatingTask(
-                    new Name("Person " + seed),
+                    new Title("Person " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -492,7 +492,7 @@ public class LogicManagerTest {
          */
         FloatingTask generatePersonWithName(String title) throws Exception {
             return new FloatingTask(
-                    new Name(title),
+                    new Title(title),
                     new UniqueTagList(new Tag("tag"))
             );
         }

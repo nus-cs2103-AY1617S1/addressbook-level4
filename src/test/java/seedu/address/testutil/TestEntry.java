@@ -8,20 +8,20 @@ import seedu.address.model.person.*;
  */
 public class TestEntry implements Entry {
 
-    private Name title;
+    private Title title;
     private UniqueTagList tags;
 
     public TestEntry() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
+    public void setName(Title name) {
         this.title = name;
     }
 
 
     @Override
-    public Name getTitle() {
+    public Title getTitle() {
         return title;
     }
 
@@ -37,7 +37,7 @@ public class TestEntry implements Entry {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getTitle().fullName + " ");
+        sb.append("add " + this.getTitle().fullTitle + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

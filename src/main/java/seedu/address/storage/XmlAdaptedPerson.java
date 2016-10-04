@@ -32,7 +32,7 @@ public class XmlAdaptedPerson {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedPerson(Entry source) {
-        title = source.getTitle().fullName;
+        title = source.getTitle().fullTitle;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -49,7 +49,7 @@ public class XmlAdaptedPerson {
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
-        final Name title = new Name(this.title);
+        final Title title = new Title(this.title);
         final UniqueTagList tags = new UniqueTagList(personTags);
         return new FloatingTask(title, tags);
     }

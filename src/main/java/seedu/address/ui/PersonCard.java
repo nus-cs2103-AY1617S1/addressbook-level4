@@ -35,7 +35,7 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(entry.getTitle().fullName);
+        name.setText(entry.getTitle().fullTitle);
         id.setText(displayedIndex + ". ");
         tags.setText(entry.tagsString());
     }

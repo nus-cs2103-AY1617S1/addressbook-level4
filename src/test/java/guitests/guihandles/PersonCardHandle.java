@@ -42,7 +42,7 @@ public class PersonCardHandle extends GuiHandle {
     }
 
     public boolean isSameEntry(Entry entry){
-        return getFullName().equals(entry.getTitle().fullName);
+        return getFullName().equals(entry.getTitle().fullTitle);
     }
 
     @Override

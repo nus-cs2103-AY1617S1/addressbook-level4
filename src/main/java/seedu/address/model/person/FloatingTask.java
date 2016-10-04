@@ -11,14 +11,14 @@ import java.util.Objects;
  */
 public class FloatingTask implements Entry {
 
-    private Name title;
+    private Title title;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public FloatingTask(Name title, UniqueTagList tags) {
+    public FloatingTask(Title title, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(title, tags);
         this.title = title;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -32,7 +32,7 @@ public class FloatingTask implements Entry {
     }
 
     @Override
-    public Name getTitle() {
+    public Title getTitle() {
         return title;
     }
 
