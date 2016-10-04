@@ -262,7 +262,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | update a task | account for the possibility of change
 `* *` | user | group tasks into similar categories | organise them well
 `* *` | user | view tasks by categories |
-`*` | user with many tasks in the address book | sort tasks by name | locate a task easily
+`*` | user with many tasks in the to-do list | sort tasks by name | locate a task easily
 
 {More to be added}
 
@@ -277,12 +277,18 @@ Priority | As a ... | I want to ... | So that I can...
 1. User requests to list tasks
 2. DODO-BIRD shows a list of tasks
 3. User requests to delete a specific task in the list
-4. DODO-BIRD deletes the person <br>
+4. DODO-BIRD asks the user to confirm
+5. User confirms the deletion
+6. DODO-BIRD deletes the task <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. User does not confirm
+
+> Use case ends
+
+2b. The list is empty
 
 > Use case ends
 
