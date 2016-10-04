@@ -189,10 +189,10 @@ View | `view -OPTION`
 View | `view d/DATE`
 Edit | `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]`
 Delete | `delete TASK_ID`
-Block | 'block TASK_NAME d/START_DATE START_TIME - START_DATE START_TIME'
-Redo | 'redo'
-Undo | 'undo'
-Find | 'find [TASK_NAME] [d/DATE [TIME]] [t/TAG]'
-Clear | 'clear'
-Change directory | 'cd FILE_PATH'
-Exit | 'exit'
+Block | `block TASK_NAME d/START_DATE START_TIME - START_DATE START_TIME`
+Redo | `redo`
+Undo | `undo`
+Find | `find [TASK_NAME] [d/DATE [TIME]] [t/TAG]`
+Clear | `clear`
+Change directory | `cd FILE_PATH`
+Exit | `exit`
