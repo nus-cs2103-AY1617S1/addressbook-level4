@@ -31,3 +31,9 @@ Role: Developer <br>
 Responsibilities: Testing
 
 -----
+
+#### [Phang Chun Rong]
+<img src="images/Weijie.png" width="150"><br>
+Role: Project Mentor <br>  
+
+-----
