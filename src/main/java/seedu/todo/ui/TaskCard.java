@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
-import seedu.todo.model.task.ReadOnlyTask;
+import seedu.todo.model.task.ImmutableTask;
 
 /**
  * This class links up with TaskCard.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.  
@@ -40,14 +40,14 @@ public class TaskCard extends UiPart{
     };
     
     /*Variables*/
-    private ReadOnlyTask task;
+    private ImmutableTask task;
     private int displayedIndex;
 
     public TaskCard(){
 
     }
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+    public static TaskCard load(ImmutableTask task, int displayedIndex){
         TaskCard taskListCard = new TaskCard();
         taskListCard.task = task;
         taskListCard.displayedIndex = displayedIndex;

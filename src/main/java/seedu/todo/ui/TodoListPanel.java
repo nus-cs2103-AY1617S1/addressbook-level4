@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.SelectionChangedEvent;
-import seedu.todo.model.task.ReadOnlyTask;
+import seedu.todo.model.task.ImmutableTask;
 
 import java.util.logging.Logger;
 
@@ -30,7 +30,7 @@ public class TodoListPanel extends UiPart {
     
     /*Layout Declarations*/
     @FXML
-    private ListView<ReadOnlyTask> todoListView;
+    private ListView<ImmutableTask> todoListView;
 
     public TodoListPanel() {
         super();
@@ -52,7 +52,7 @@ public class TodoListPanel extends UiPart {
     }
     
     public static TodoListPanel load(Stage primaryStage, AnchorPane todoListPlaceholder, 
-            ObservableList<ReadOnlyTask> todoList) {
+            ObservableList<ImmutableTask> todoList) {
         
         TodoListPanel todoListPanel = 
                 UiPartLoader.loadUiPart(primaryStage, todoListPlaceholder, new TodoListPanel());
@@ -60,12 +60,12 @@ public class TodoListPanel extends UiPart {
         return todoListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> todoList) {
+    private void configure(ObservableList<ImmutableTask> todoList) {
         setConnections(todoList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> todoList) {
+    private void setConnections(ObservableList<ImmutableTask> todoList) {
         todoListView.setItems(todoList);
         todoListView.setCellFactory(listView -> new TodoListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -92,13 +92,13 @@ public class TodoListPanel extends UiPart {
         });
     }
 
-    class TodoListViewCell extends ListCell<ReadOnlyTask> {
+    class TodoListViewCell extends ListCell<ImmutableTask> {
 
         public TodoListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
+        protected void updateItem(ImmutableTask task, boolean empty) {
             super.updateItem(task, empty);
 
             if (empty || task == null) {
