@@ -1,134 +1,227 @@
 # User Guide
 
+Download the latest release below:
+
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+
 ## Quick Start
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
+1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.  
+   > This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
-
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+2. Download the latest `UJDTDL.jar` from the [releases](../../../releases) tab.
+3. Copy the file to the folder you want to use as the home folder for the application.
+4. Double-click the file to start the app. The GUI should appear in a few seconds. 
+5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.  
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+6. Some example commands you can try:
+   * **`list`** : lists all tasks
+   * **`add`**` Finish CS2103T homework -d next Friday` : 
+     adds a new task with the deadline set at next Friday
+   * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
-
+7. Refer to the [Features](#features) section below for details of each command.
 
 ## Features
 
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
 
-#### Viewing help : `help`
-Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+### Navigation
+
+When launched the application will have several views as shown 
+
+
+#### Command Format
+
+* Words in `UPPERCASE` are the parameters.
+* Items in `[SQUARE BRACKETS]` are optional.
+* To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. `-f`) for short flags and double dash for long flags (eg. `--all`)
+* Items with `...` after them can have multiple instances.
+* Most commands that updates a task require an `INDEX` parameter. This is number shown to the left of the task as shown in the screenshot below
+
+:::danger
+Insert image indicating where is the task index
+:::
+
+
+### Switch views : `view`
+Switch between different views.  
+Format: **`view`**` VIEW`
+
+You can also use the underlined character in the view's name as the shortcut when switching views. 
+
+Examples:
+
+**`view`**` COMPLETED`
+:::danger
+Screenshot of the top bar 
+:::
+
+### Viewing help : `help`
+Format: **`help`**
+
+Shows help window which gives list of commands and their actions.
+Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+### Adding a task or event: `add`
 
-> Persons can have any number of tags (including 0)
+Adds a new task or event.  
+Format: 
+
+**`add`**` TASK NAME [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]`
+**`add`**` EVENT NAME -d START END [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]`
+ 
+
+#### Parameters
+
+For tasks, only the name is required. Tasks will be turned into events automatically if two dates are specified under the `-d` flag. 
+
+* `TASK/EVENT NAME` - The name of the task or event
+* `-d DEADLINE` - Specify a deadline for the task 
+* `-d START END` - Specify the start and end time for the event 
+* `-m DESCRIPTION` - Add a longer description for the task or event
+* `-l LOCATION` - Where the event is held
+* `-r TIME PERIOD` - Create a recurring task. 
+* `-p` - Pins the task to the top of the list 
+* `-t TAG 1, TAG 2, ...` - Tags to search for the task at a later time
+
+Task or event titles should be kept short and concise. If you need to add more details, use `-m` to add a long description. Use `-l` to indicate the location where an event is happening. Time sensitive tasks can be marked with a deadline. Recurring tasks like 
+
+You can attach tags to an item with `-t` to organize your tasks and events. Tags are comma separated and case insensitive. You can also pin important items by adding `-p` so that they always appear on the top the list they appear in.
+
+All tasks are marked as pending (incomplete) when they are first entered. 
+
+#### Examples: 
+
+* **`add`**` Submit V.0.0 -d 5 Oct 2359 -t CS2103T, Week 8`
+* **`add`**` Destroy the Earth -m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!`
+* **`add`**` Music at the park -d 11 Dec 6pm to 8pm -l Botanic Gardens  -p`
+* **`add`**` CS2103T Tutorial -r every Wednesday -t Y2S1`
+
+### Deleting a task: `delete`
+Deletes the specified task from todo list.  
+Format: **`delete`**` INDEX`
+
+Deletes the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
+
+#### Examples: 
+
+* **`delete`**` 2`  
+  Deletes the 2nd task on the list 
+  
+* **`find`**` Y2S1`  
+  **`delete`**` 1`  
+  Deletes the 1st task in the results of the **`find`**` Y2S1` command.
+
+### Marking a task complete: `complete`
+
+Format:
+
+**`complete`**` INDEX`
+**`complete`**` --all`
+
+You can use this command to marks a task as completed. Completed task appear strukthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
+
+:::info
+Need a picture here to show how that looks like
+:::
+
+### Pinning a task: `pin`
+
+Format: 
+
+**`pin`**` INDEX`
+
+If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. 
+
+:::info
+Need a picture here to show how that looks like
+:::
+
+### Editing a task: `edit`
+Allows you to edit a specific task. 
+Format: 
+
+**`edit`**` INDEX [NAME] [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]`
+**`edit`**` INDEX [NAME] [-d START END] [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]`
+
+Use the `edit` command to make changes to the task specified by `INDEX`. The command accepts the same parameters as the `add` command. Any edit is immediately saved.
+
+### Finding tasks based on tags or name: `find`
+Finds tasks whose tags/name contain any of the given keywords.  
+Format: **`find`**` KEYWORD [MORE KEYWORDS]`
+
+The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and tasks matching at least one keyword will be returned.
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* **`find`**` John`  
+  Returns `Meet John for lunch`
+* **`find`**` Jo`  
+  Returns any task having title `Meet John for lunch`, `Jogging at the park`, or `Josting fights at the gym`
+* **`find`**` Jo Ja`  
+  Returns `Meet John for lunch`, `Meet Jane for lunch`, or `Jack and Jane's wedding`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+### Exiting the program : `exit`
+Exits the program.  
+Format: **`exit`**  
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+### Undoing an action: `undo`
+Undos most recent action.
+Format: **`undo`**
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+Note: Only applies to commands which have made changes to the todo list.
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+### Redoing an action: `redo`
+Redos most recent action which was undone.
+Format: **`redo`**
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+### Loading an existing data file : `load`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+Format: **`load`**` FILENAME`
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+Loads in another save file. You can use this to restore a backup or switch to different lists so you can for example have separate lists for school and home. Ensure that the file is converted into an `.xml` format for usage by the program.
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+Example:
+**`load`**` "myDiscountTodo.xml"`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+#### Autosave
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+Your todo list is saved automatically every time it is updated. There is no need to save manually.
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+### Changing the save location: `save`
 
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
+Format: **`save`**
+Todo list data are saved in a file called `discountTodo.xml` in the `data` folder. You can change the save file by specifying the file path as the first argument when running the program.
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
 
 ## FAQ
+- How do I back up my data?
+	As your data is saved to a `.xml` file that you specified, you can simply copy this file to a back up storage of your choice.
+- How do I sync my data with multiple devices?
+	Simply load the `.xml` file to a cloud sync service like Dropbox or Google Drive, and all updates will be reflected to all devices using the file.
+- 
+- How do I pay for this file
+	Donations can be made via PayPal or Kashmi. Cash donations are fine too.
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
-       
+###
+
 ## Command Summary
 
-Command | Format  
+Command  | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+Help     | **`help`**
+Add      | **`add`**` NAME [-d DEADLINE or START END] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]` 
+Delete   | **`delete`**` INDEX`
+Complete | **`complete`**` INDEX`
+Pin      | **`pin`**` INDEX`
+Edit     | **`edit`**` INDEX [NAME] [-d DEADLINE or START END] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]` 
+Find     | **`find`**` KEYWORD [MORE KEYWORDS...]`
+Undo     | **`undo`**
+Redo     | **`redo`**
+Load     | **`load`**` FILENAME`
+Save     | **`save`**
+View     | **`view`**` VIEW`
