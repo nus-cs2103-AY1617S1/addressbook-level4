@@ -38,9 +38,9 @@ Displays more ways(eg: shortcuts) to use the add command
 
 #### Adding a Task: `add`
 Adds a task to the task manager<br>
-Format : `add <task name>`
-   		 `add <task name> by <date/day>`
-   		 `add <task name> by <date/day> at <time>`
+Format : `add <task name>`<br>
+ 	 `add <task name> by <date/day>` <br>
+	 `add <task name> by <date/day> at <time>`<br>
 
 Date Format: dd/mm/yyyy
 Time Format: 12-hour clock ( Eg: 10am, 5pm, etc)
