@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 import seedu.todo.model.task.ReadOnlyTask;
 
-public interface ReadOnlyTodo {
+public interface ReadOnlyTodoList {
     /**
      * Get a list of tasks 
      */
