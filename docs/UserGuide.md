@@ -1,39 +1,34 @@
 # User Guide
 
-Download the latest release below:
-
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-
 ## Quick Start
 
 1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.  
    > This app will not work with earlier versions of Java 8.
-   
 2. Download the latest `UJDTDL.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for the application.
-4. Double-click the file to start the app. The GUI should appear in a few seconds. 
+4. Double-click the file to start the app. The GUI should appear in a few seconds.
+   > <img src="docs/images/mockupV0_0.png" width="700" alt="Example of UI once launched"><br /> 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.  
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   E.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 6. Some example commands you can try:
-   * **`list`** : lists all tasks
    * **`add`**` Finish CS2103T homework -d next Friday` : 
      adds a new task with the deadline set at next Friday
-   * **`delete`**` 3` : deletes the 3rd task shown in the current list
+   * **`delete`**` 3` : deletes the 3<sup>rd</sup> task shown in the current list
    * **`exit`** : exits the app
 7. Refer to the [Features](#features) section below for details of each command.
 
+
+
 ## Features
-
-
 
 ### Navigation
 
-When launched the application will have several views as shown 
-
+When launched the application will have several views as shown
 
 #### Command Format
 
@@ -42,11 +37,7 @@ When launched the application will have several views as shown
 * To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. `-f`) for short flags and double dash for long flags (eg. `--all`)
 * Items with `...` after them can have multiple instances.
 * Most commands that updates a task require an `INDEX` parameter. This is number shown to the left of the task as shown in the screenshot below
-
-:::danger
-Insert image indicating where is the task index
-:::
-
+ <img src="images/sketch_task_index.jpg" width="350" alt="Index Number Location"><br />
 
 ### Switch views : `view`
 Switch between different views.  
@@ -57,9 +48,7 @@ You can also use the underlined character in the view's name as the shortcut whe
 Examples:
 
 **`view`**` COMPLETED`
-:::danger
-Screenshot of the top bar 
-:::
+<img src="docs/images/sketch_task_view.jpg" width="700" alt="View of completed tasks"><br />
 
 ### Viewing help : `help`
 Format: **`help`**
@@ -89,18 +78,43 @@ For tasks, only the name is required. Tasks will be turned into events automatic
 * `-p` - Pins the task to the top of the list 
 * `-t TAG 1, TAG 2, ...` - Tags to search for the task at a later time
 
-Task or event titles should be kept short and concise. If you need to add more details, use `-m` to add a long description. Use `-l` to indicate the location where an event is happening. Time sensitive tasks can be marked with a deadline. Recurring tasks like 
+Below indicate common scenarios of when and how to use the flags. 
 
-You can attach tags to an item with `-t` to organize your tasks and events. Tags are comma separated and case insensitive. You can also pin important items by adding `-p` so that they always appear on the top the list they appear in.
+#### Adding an event
 
-All tasks are marked as pending (incomplete) when they are first entered. 
+Events normally will have include a start time, end time and a location and can be phrased as follows using the `-d` and `-l` flags.
 
-#### Examples: 
-
-* **`add`**` Submit V.0.0 -d 5 Oct 2359 -t CS2103T, Week 8`
-* **`add`**` Destroy the Earth -m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!`
+##### Example:
 * **`add`**` Music at the park -d 11 Dec 6pm to 8pm -l Botanic Gardens  -p`
-* **`add`**` CS2103T Tutorial -r every Wednesday -t Y2S1`
+
+#### Adding a deadline
+
+Deadlines normally only require one date and time.
+
+##### Example:
+* **`add`**` Submit V.0.0 -d 5 Oct 2359 -t CS2103T, Week 8`
+
+#### Adding a recurring task
+
+Recurring tasks only require the recurring time period. The task will be appear from the first occurrence of the specified day. If no date is specified, it will be added to today's list
+##### Examples:
+* **`add`**` CS2103T Tutorial -d 10am to 2pm -r every Wednesday -t Y2S1`
+
+
+#### Adding descriptions to a task
+
+Sometimes additional details can be added to the task using the `-m` flag
+
+##### Examples:
+* **`add`**` Destroy the Earth -m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!`
+
+#### Pinning a task
+
+Other than using the `pin` command, a task can straight away be pinned by adding the `-p` flag.
+##### Examples:
+* **`add`**`Li Kai at Friday Hacks! -d 21 Oct 1800 21 Oct 2000 -p`
+
+
 
 ### Deleting a task: `delete`
 Deletes the specified task from todo list.  
@@ -124,11 +138,9 @@ Format:
 **`complete`**` INDEX`
 **`complete`**` --all`
 
-You can use this command to marks a task as completed. Completed task appear strukthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
+You can use this command to mark a task as completed. Completed task appear struckthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
 
-:::info
-Need a picture here to show how that looks like
-:::
+<img src="images/sketch_task_completed.jpg" width="700" alt="Example of a Completed Task"><br />
 
 ### Pinning a task: `pin`
 
@@ -138,9 +150,8 @@ Format:
 
 If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. 
 
-:::info
-Need a picture here to show how that looks like
-:::
+<img src="images/sketch_task_pinned.jpg" width="700" alt="Pinned Task"><br />
+
 
 ### Editing a task: `edit`
 Allows you to edit a specific task. 
@@ -170,13 +181,13 @@ Exits the program.
 Format: **`exit`**  
 
 ### Undoing an action: `undo`
-Undos most recent action.
+Undo the most recent action.
 Format: **`undo`**
 
 Note: Only applies to commands which have made changes to the todo list.
 
 ### Redoing an action: `redo`
-Redos most recent action which was undone.
+Redo the most recent action which was undone.
 Format: **`redo`**
 
 ### Loading an existing data file : `load`
@@ -199,13 +210,14 @@ Todo list data are saved in a file called `discountTodo.xml` in the `data` folde
 
 
 ## FAQ
-- How do I back up my data?
-	As your data is saved to a `.xml` file that you specified, you can simply copy this file to a back up storage of your choice.
-- How do I sync my data with multiple devices?
-	Simply load the `.xml` file to a cloud sync service like Dropbox or Google Drive, and all updates will be reflected to all devices using the file.
-- 
-- How do I pay for this file
-	Donations can be made via PayPal or Kashmi. Cash donations are fine too.
+**Q**: Is my data secure?
+**A**: Your data is stored locally on your hard drive as an `.xml` file. So, your data is as secure as your hard drive. We do not have access to your to-do list. 
+**Q**: How do I back up my data?
+**A**: As your data is saved to a `.xml` file that you specified, you can simply copy this file to a back up storage of your choice.
+**Q**: How do I sync my data with multiple devices?
+**A**: Simply load the `.xml` file to a cloud sync service like Dropbox or Google Drive, and all updates will be reflected to all devices using the file.
+**Q**: How do I pay for this project?
+**A**: Donations can be made via PayPal or Kashmi. Cash donations are fine too. Basically if you wish to donate we will find a way for us to receive your money.
 
 ###
 
