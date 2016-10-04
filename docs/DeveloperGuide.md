@@ -331,13 +331,37 @@ Use case ends.
 
 ## Appendix D : Glossary
 
-##### Mainstream OS
+##### ‘Completed’ Task
 
-> Windows, Linux, Unix, OS-X
+> A task that has been marked as done.
 
-##### Private contact detail
+##### Deadline
 
-> A contact detail that is not meant to be shared with others
+> A task that has to be completed before a certain date or time.
+
+##### Event
+
+> A task that occurs over a period of time.
+
+##### Floating Task
+
+> A stand-alone task that does not need to be completed by a certain date or time.
+
+##### Human-Editable File
+
+> A file that can be easily read and edited by a human. For example: `.txt`
+
+##### ‘Overdue’ Task
+
+> A task which has not been completed within the expected time.
+
+##### ‘Pending’ Task
+
+> A task that has yet to be completed.
+
+##### Storage File Location
+
+> The directory in a computer where the application stores the data of to-do items.
 
 ## Appendix E : Product Survey
 
