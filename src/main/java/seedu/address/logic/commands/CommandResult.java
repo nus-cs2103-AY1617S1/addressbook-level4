@@ -5,11 +5,33 @@ package seedu.address.logic.commands;
  */
 public class CommandResult {
 
-    public final String feedbackToUser;
+    private final String feedback;
+    private boolean hasError;
 
-    public CommandResult(String feedbackToUser) {
-        assert feedbackToUser != null;
-        this.feedbackToUser = feedbackToUser;
+    /**
+     * Result of a command
+     * @param feedback feedback to be shown to user
+     * @param hasError if there was an error and command failed
+     */
+    public CommandResult(String feedback, boolean hasError) {
+        assert feedback != null;
+
+        this.feedback = feedback;
+        this.hasError = hasError;
     }
 
+    /**
+     * Result of successful command
+     */
+    public CommandResult(String feedback) {
+       this(feedback, false);
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public boolean hasError() {
+        return hasError;
+    }
 }

@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
+
 import java.util.Set;
 
 /**
@@ -7,13 +9,7 @@ import java.util.Set;
  * Keyword matching is case sensitive.
  */
 public class FindCommand extends Command {
-
     public static final String COMMAND_WORD = "find";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final Set<String> keywords;
 
@@ -23,8 +19,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredPersonList(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+        model.updateFilteredToDoList(keywords);
+        return new CommandResult(String.format(Messages.MESSAGE_FIND, model.getFilteredToDoList().size()));
     }
-
 }

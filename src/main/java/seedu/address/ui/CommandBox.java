@@ -77,8 +77,8 @@ public class CommandBox extends UiPart {
          */
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
-        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
-        logger.info("Result: " + mostRecentResult.feedbackToUser);
+        resultDisplay.postMessage(mostRecentResult.getFeedback());
+        logger.info("Result: " + mostRecentResult.getFeedback());
     }
 
 

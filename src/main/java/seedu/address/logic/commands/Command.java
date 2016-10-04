@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 
 /**
@@ -12,19 +11,8 @@ public abstract class Command {
     protected Model model;
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
-     *
-     * @param displaySize used to generate summary
-     * @return summary message for persons displayed
-     */
-    public static String getMessageForPersonListShownSummary(int displaySize) {
-        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displaySize);
-    }
-
-    /**
-     * Executes the command and returns the result message.
-     *
-     * @return feedback message of the operation result for display
+     * Executes the command
+     * @returns result of the command
      */
     public abstract CommandResult execute();
 
@@ -32,15 +20,11 @@ public abstract class Command {
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
+     * Asserts model to be non-null.
      */
-    public void setData(Model model) {
-        this.model = model;
-    }
+    public void setModel(Model model) {
+        assert model != null;
 
-    /**
-     * Raises an event to indicate an attempt to execute an incorrect command
-     */
-    protected void indicateAttemptToExecuteIncorrectCommand() {
-        EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+        this.model = model;
     }
 }

@@ -8,11 +8,18 @@ import seedu.address.logic.commands.Command;
  */
 public class IncorrectCommandAttemptedEvent extends BaseEvent {
 
-    public IncorrectCommandAttemptedEvent(Command command) {}
+    private String command;
+
+    public IncorrectCommandAttemptedEvent(String command) {
+        this.command = command;
+    }
+
+    public String getCommand() {
+        return command;
+    }
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName();
+        return this.getClass().getSimpleName() + " with command: " + command;
     }
-
 }

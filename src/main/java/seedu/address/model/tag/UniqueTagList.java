@@ -2,8 +2,8 @@ package seedu.address.model.tag;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
 
@@ -20,7 +20,7 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicateTagException extends DuplicateDataException {
+    public static class DuplicateTagException extends IllegalValueException {
         protected DuplicateTagException() {
             super("Operation would result in duplicate tags");
         }

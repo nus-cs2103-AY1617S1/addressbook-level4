@@ -20,7 +20,6 @@ import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -45,7 +44,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing To-Do List ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -70,23 +69,23 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyToDoList> toDoListOptional;
+        ReadOnlyToDoList initialToDoList;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if(!addressBookOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty AddressBook");
+            toDoListOptional = storage.readToDoList();
+            if(!toDoListOptional.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty to-do list");
             }
-            initialData = addressBookOptional.orElse(new AddressBook());
+            initialToDoList = toDoListOptional.orElse(new ToDoList());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty to-do list");
+            initialToDoList = new ToDoList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty to-do list");
+            initialToDoList = new ToDoList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialToDoList, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -104,7 +103,7 @@ public class MainApp extends Application {
             configFilePathUsed = configFilePath;
         }
 
-        logger.info("Using config file : " + configFilePathUsed);
+        logger.info("Using config file: " + configFilePathUsed);
 
         try {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
@@ -115,11 +114,11 @@ public class MainApp extends Application {
             initializedConfig = new Config();
         }
 
-        //Update config file in case it was missing to begin with or there are new/unused fields
+        // Update config file in case it was missing to begin with or there are new/unused fields
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            logger.warning("Failed to save config file: " + StringUtil.getDetails(e));
         }
         return initializedConfig;
     }
@@ -128,7 +127,7 @@ public class MainApp extends Application {
         assert config != null;
 
         String prefsFilePath = config.getUserPrefsFilePath();
-        logger.info("Using prefs file : " + prefsFilePath);
+        logger.info("Using prefs file: " + prefsFilePath);
 
         UserPrefs initializedPrefs;
         try {
@@ -139,7 +138,7 @@ public class MainApp extends Application {
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initializedPrefs = new UserPrefs();
         }
 
@@ -147,7 +146,7 @@ public class MainApp extends Application {
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            logger.warning("Failed to save config file: " + StringUtil.getDetails(e));
         }
 
         return initializedPrefs;

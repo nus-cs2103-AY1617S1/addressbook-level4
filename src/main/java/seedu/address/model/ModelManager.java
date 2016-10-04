@@ -3,105 +3,110 @@ package seedu.address.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.todo.ToDo;
+import seedu.address.model.todo.ReadOnlyToDo;
 
 import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the application's data
+ * All changes to any model should be synchronized
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final ToDoList toDoList;
+    private final FilteredList<ToDo> filteredToDos;
+    private final UserPrefs userPrefs;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given to-do list
+     * Parameters should be non-null
+     * @param toDoList is copied during initialization
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyToDoList toDoList, UserPrefs userPrefs) {
         super();
-        assert src != null;
+        assert toDoList != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with to-do list: " + toDoList + " and user prefs: " + userPrefs);
 
-        addressBook = new AddressBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        this.toDoList = new ToDoList(toDoList);
+        this.userPrefs = userPrefs;
+        filteredToDos = new FilteredList<>(this.toDoList.getToDos());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ToDoList(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+    //================================================================================
+    // CRUD to-do list operations
+    //================================================================================
+
+    @Override
+    public void resetData(ReadOnlyToDoList newToDoList) {
+        toDoList.resetData(newToDoList);
+        indicateToDoListChanged();
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public synchronized void deleteToDo(ReadOnlyToDo toDo) throws IllegalValueException {
+        toDoList.remove(toDo);
+        indicateToDoListChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public synchronized void addToDo(ToDo toDo) {
+        toDoList.add(toDo);
+        updateFilteredListToShowAll();
+        indicateToDoListChanged();
+    }
+
+    @Override
+    public ReadOnlyToDoList getToDoList() {
+        return toDoList;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+    private void indicateToDoListChanged() {
+        raise(new ToDoListChangedEvent(toDoList));
     }
 
-    @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
-        indicateAddressBookChanged();
-    }
+    //================================================================================
+    // Filtering to-do list operations
+    //================================================================================
 
     @Override
-    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
-        updateFilteredListToShowAll();
-        indicateAddressBookChanged();
-    }
-
-    //=========== Filtered Person List Accessors ===============================================================
-
-    @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+    public UnmodifiableObservableList<ReadOnlyToDo> getFilteredToDoList() {
+        return new UnmodifiableObservableList<>(filteredToDos);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredToDos.setPredicate(null);
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredToDoList(Set<String> keywords){
+        updateFilteredToDoList(new PredicateExpression(new TitleQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+    private void updateFilteredToDoList(Expression expression) {
+        filteredToDos.setPredicate(expression::satisfies);
     }
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+    //================================================================================
+    //  Inner classes/interfaces used for filtering
+    //================================================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
+        boolean satisfies(ReadOnlyToDo toDo);
         String toString();
     }
 
@@ -114,8 +119,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyPerson person) {
-            return qualifier.run(person);
+        public boolean satisfies(ReadOnlyToDo toDo) {
+            return qualifier.run(toDo);
         }
 
         @Override
@@ -125,29 +130,28 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyPerson person);
+        boolean run(ReadOnlyToDo toDo);
         String toString();
     }
 
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+    private class TitleQualifier implements Qualifier {
+        private Set<String> titleKeyWords;
 
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
+        TitleQualifier(Set<String> titleKeyWords) {
+            this.titleKeyWords = titleKeyWords;
         }
 
         @Override
-        public boolean run(ReadOnlyPerson person) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+        public boolean run(ReadOnlyToDo toDo) {
+            return titleKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(toDo.getTitle().title, keyword))
                     .findAny()
                     .isPresent();
         }
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
+            return "Title = " + String.join(", ", titleKeyWords);
         }
     }
-
 }
