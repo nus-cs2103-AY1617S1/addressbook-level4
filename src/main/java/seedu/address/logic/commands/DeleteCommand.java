@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
