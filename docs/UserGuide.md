@@ -29,8 +29,11 @@
 2. User Guide
 
 > 2.1 Getting Started
+
 > 2.2 Feature Details
+
 > 2.3 Troubleshoot
+
 > 2.4 Command Cheatsheet
 
 3. User Stories
