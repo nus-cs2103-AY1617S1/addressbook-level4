@@ -451,9 +451,9 @@ Use Case ends.
 
 **MSS**
 
-1. User clicks on ‘Settings’.
+1. User clicks on "Settings".
 2. System displays list of options available.
-3. User clicks on ‘Change Storage Location’.
+3. User clicks on "Change Storage Location".
 4. System displays File Chooser.
 5. User selects specific location to store data.
 6. System requests for confirmation.
@@ -487,7 +487,7 @@ Use Case ends.
 
 ## Appendix D : Glossary
 
-##### ‘Completed’ Task
+##### "Completed" Task
 
 > A task that has been marked as done.
 
@@ -507,11 +507,11 @@ Use Case ends.
 
 > A file that can be easily read and edited by a human. For example: `.txt`
 
-##### ‘Overdue’ Task
+##### "Overdue" Task
 
 > A task which has not been completed within the expected time.
 
-##### ‘Pending’ Task
+##### "Pending" Task
 
 > A task that has yet to be completed.
 
