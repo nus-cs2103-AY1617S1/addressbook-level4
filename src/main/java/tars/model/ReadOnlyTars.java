@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface ReadOnlyTars {
 
-    UniqueTagList getUniqueTagList();
+    //UniqueTagList getUniqueTagList();
 
     UniqueTaskList getUniqueTaskList();
 
@@ -25,6 +25,6 @@ public interface ReadOnlyTars {
     /**
      * Returns an unmodifiable view of tags list
      */
-    List<Tag> getTagList();
+    //List<Tag> getTagList();
 
 }

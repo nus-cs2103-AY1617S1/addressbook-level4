@@ -27,17 +27,17 @@ public class Tars implements ReadOnlyTars {
     public Tars() {}
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this tars
      */
     public Tars(ReadOnlyTars toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), null);
     }
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this tars
      */
     public Tars(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+        resetData(tasks.getInternalList(), null);
     }
 
     public static ReadOnlyTars getEmptyTars() {
@@ -55,16 +55,16 @@ public class Tars implements ReadOnlyTars {
     }
 
     public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
+//        this.tags.getInternalList().setAll(tags);
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-        setTags(newTags);
+//        setTags(newTags);
     }
 
     public void resetData(ReadOnlyTars newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList(), null);
     }
 
 //// task-level operations
@@ -131,20 +131,20 @@ public class Tars implements ReadOnlyTars {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
+//    @Override
+//    public List<Tag> getTagList() {
+//        return Collections.unmodifiableList(tags.getInternalList());
+//    }
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
     }
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
+//    @Override
+//    public UniqueTagList getUniqueTagList() {
+//        return this.tags;
+//    }
 
 
     @Override
