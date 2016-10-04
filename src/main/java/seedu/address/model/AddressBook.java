@@ -6,6 +6,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,10 +17,12 @@ import java.util.stream.Collectors;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private final UniqueTaskList tasks;
     private final UniquePersonList persons;
     private final UniqueTagList tags;
 
     {
+    	tasks = new UniqueTaskList();
         persons = new UniquePersonList();
         tags = new UniqueTagList();
     }
@@ -48,6 +51,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public ObservableList<Person> getPersons() {
         return persons.getInternalList();
+    }
+
+    public ObservableList<Task> getTasks() {
+        return tasks.getInternalList();
     }
 
     public void setPersons(List<Person> persons) {
