@@ -41,15 +41,15 @@ public class Task implements ReadOnlyTask {
         this.dateTime = dateTime;
         this.priority = priority;
         this.status = status;
-        this.tags = new UniqueTagList(tags); // protect internal tags from
-                                             // changes in the arg list
+//        this.tags = new UniqueTagList(tags); // protect internal tags from
+//                                             // changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDateTime(), source.getPriority(), source.getStatus(), source.getTags());
+        this(source.getName(), source.getDateTime(), source.getPriority(), source.getStatus(), null);
     }
 
     @Override
@@ -72,10 +72,10 @@ public class Task implements ReadOnlyTask {
         return priority;
     }
 
-    @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
+//    @Override
+//    public UniqueTagList getTags() {
+//        return new UniqueTagList(tags);
+//    }
 
     @Override
     public Phone getPhone() {

@@ -46,7 +46,7 @@ public class TaskCard extends UiPart{
         phone.setText(task.getPhone().value);
         address.setText(task.getAddress().value);
         email.setText(task.getEmail().value);
-        tags.setText(task.tagsString());
+      //  tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {
