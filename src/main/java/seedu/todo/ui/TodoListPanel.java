@@ -17,7 +17,7 @@ import seedu.todo.model.person.ReadOnlyPerson;
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of persons.
+ * A panel that holds all the tasks inflated from TaskCard.
  */
 public class TodoListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
