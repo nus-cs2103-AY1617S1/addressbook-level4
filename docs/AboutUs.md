@@ -6,47 +6,33 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
 <img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+**Role**: CS2103T Tutor, Project Advisor
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+#### [Zhang Yi Jiang](https://github.com/ZhangYiJiang)
+<img src="images/Yijiang.jpg" width="150"><br>
+**Role**: Lead Developer <br>
+**Responsibilities**: Parser, Logic and Integration
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+#### [Govind Venugopalan](https://github.com/cricketer94)
+<img src="images/Govind.jpg" width="150"><br>
+**Role**: Backend Developer <br>
+**Responsibilities**: Logic and Algorithms
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+#### [Li Kai](https://github.com/li-kai) 
+<img src="images/Likai.jpg" width="150"><br>
+**Role**: Backend Developer <br>
+**Responsibilities**: Database and Model Design
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
+#### [Wang Xien Dong](http://github.com/xdrawks)
+<img src="images/Xiendong.jpg" width="150"><br>
+**Role**: Frontend Developer <br>
+**Responsibilities**: User Interface
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
