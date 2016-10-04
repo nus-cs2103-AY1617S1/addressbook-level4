@@ -66,10 +66,11 @@ public class FloatingTask implements Entry {
         return getAsText();
     }
     
-    // TODO: Implement this
     @Override
     public boolean isSameStateAs(Entry other) {
-        return false;
+        return other == this // short circuit if same object
+                || (other != null // this is first to avoid NPE below
+                && other.getTitle().equals(this.getTitle())); 
     }
 
     @Override
