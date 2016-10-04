@@ -6,7 +6,8 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Bernard Koh](http://github.com/bernardified) <br>
 <img src="images/bernard.jpeg" width="150"><br>
-**Role**: Team Leader, Testing
+Role: Developer <br>  
+Responsibilities: Team Leader, Testing
 
 -----
 
