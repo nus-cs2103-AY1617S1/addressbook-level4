@@ -6,15 +6,19 @@
 * [Command Summary](#command-summary)
 
 ## About Us
+
 > **Bernard Koh**
 > * Team Leader
 > * Testing
+
 > **Liu Zhen Dong**
 > * Code Quality
 > * Time Keeper
+
 > **Leah Lim**
 > * Documentation
 > * GUI Design
+
 > **Li Wang Huan**
 > * Integration
 > * Eclipse Specialist
@@ -23,10 +27,12 @@
 ## Table of Content
 1. About GGist
 2. User Guide
+
 > 2.1 Getting Started
 > 2.2 Feature Details
 > 2.3 Troubleshoot
 > 2.4 Command Cheatsheet
+
 3. User Stories
 4. Use Cases
 5. Non-functional Requirements
@@ -109,7 +115,6 @@ Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 Examples: 
 * `add water the plants, 0800, high, daily`
 * `add facial appointment, jul 10, med, monthly`
-
 
 #### Listing all persons : `list`
 Shows a list of all persons in the address book.<br>
