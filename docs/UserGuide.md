@@ -136,7 +136,7 @@ Command Format: `tag list`
 
 Examples:
 * `tag list`<br>
-  V0.1  V0.2  V0.3  Apple  Pear  Orange
+  Outputs: V0.1  V0.2  V0.3  Apple  Pear  Orange
 
 #### Adding tags to tasks: `tag`
 Adds tags to the specified task from TaskMan<br>
@@ -144,7 +144,7 @@ Command Format: `tag INDEX [t/TAG]...`
 
 Examples:
 * `find CS2103T`
-  `tag 1 t/V0.1`
+  `tag 1 t/V0.1`<br>
   Tags the first task in the result(s) of `find CS2103T` with the tag V0.1.
 
 #### Removing tags from Tasks: `untag`
@@ -152,10 +152,10 @@ Removes tags from the specified task from TaskMan
 Command Format: `untag INDEX [t/TAG]...` or `untag all`
 Examples:
 * `find CS2103T`
-  `untag 1 t/V0.1`
+  `untag 1 t/V0.1`<br>
   Untags the tag V0.1 from the first task in the result(s) of `find CS2103T`.
 * `list`
-  `untag 1 all`
+  `untag 1 all`<br>
   Untags all tags from the the first task in list result(s).
 
 #### Editing tag name: `retag`
@@ -164,7 +164,7 @@ Command Format: `retag INDEX [t/TAG]... to [t/TAG]...`
 
 Examples:
 * `find t/CS2103T`
-  `retag 1 t/CS2103T t/V0.1 to t/CS2101 t/V0.0`
+  `retag 1 t/CS2103T t/V0.1 to t/CS2101 t/V0.0`<br>
   Renames the tag CS2103T and V0.1 from the 1st task in the result(s) of `find t/CS2103T` to CS2101 and V0.0
 
 #### Sorting tasks: `sort`
@@ -217,7 +217,7 @@ Examples:
 * `storageloc default`<br>
 	Sets the new save and load location to tasks.txt in the current application folder
 
-#### Saved data file format:
+#### Saved data file format
 Each Task is separated by newline.<br>
 `TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`<br>
 * DEADLINE/DATETIME: 'DD-MM-YYYY TTTT'
