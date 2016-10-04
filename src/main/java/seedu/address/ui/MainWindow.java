@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -186,8 +187,8 @@ public class MainWindow extends UiPart {
         return this.personListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
-        browserPanel.loadPersonPage(person);
+    public void loadPersonPage(Activity activity) {
+        browserPanel.loadPersonPage(activity);
     }
 
     public void releaseResources() {

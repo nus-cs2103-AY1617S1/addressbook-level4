@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
@@ -21,10 +22,10 @@ public interface Model {
     void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
 
     /** Adds the given person */
-    void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
+    void addPerson(Activity activity);
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
+    UnmodifiableObservableList<Activity> getFilteredPersonList();
 
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();

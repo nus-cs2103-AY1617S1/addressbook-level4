@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.commons.core.LogsCenter;
 
@@ -26,7 +27,7 @@ public class PersonListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyPerson> personListView;
+    private ListView<Activity> personListView;
 
     public PersonListPanel() {
         super();
@@ -48,20 +49,20 @@ public class PersonListPanel extends UiPart {
     }
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyPerson> personList) {
+                                       ObservableList<Activity> observableList) {
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList);
+        personListPanel.configure(observableList);
         return personListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyPerson> personList) {
-        setConnections(personList);
+    private void configure(ObservableList<Activity> observableList) {
+        setConnections(observableList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
-        personListView.setItems(personList);
+    private void setConnections(ObservableList<Activity> observableList) {
+        personListView.setItems(observableList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
@@ -87,20 +88,20 @@ public class PersonListPanel extends UiPart {
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+    class PersonListViewCell extends ListCell<Activity> {
 
         public PersonListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyPerson person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Activity activity, boolean empty) {
+            super.updateItem(activity, empty);
 
-            if (empty || person == null) {
+            if (empty || activity == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(PersonCard.load(activity, getIndex() + 1).getLayout());
             }
         }
     }

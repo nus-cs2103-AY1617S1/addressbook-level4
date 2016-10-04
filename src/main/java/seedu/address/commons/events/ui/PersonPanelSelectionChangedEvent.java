@@ -1,6 +1,7 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -9,10 +10,10 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class PersonPanelSelectionChangedEvent extends BaseEvent {
 
 
-    private final ReadOnlyPerson newSelection;
+    private final Activity newSelection;
 
-    public PersonPanelSelectionChangedEvent(ReadOnlyPerson newSelection){
-        this.newSelection = newSelection;
+    public PersonPanelSelectionChangedEvent(Activity newValue){
+        this.newSelection = newValue;
     }
 
     @Override
@@ -20,7 +21,7 @@ public class PersonPanelSelectionChangedEvent extends BaseEvent {
         return this.getClass().getSimpleName();
     }
 
-    public ReadOnlyPerson getNewSelection() {
+    public Activity getNewSelection() {
         return newSelection;
     }
 }

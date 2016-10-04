@@ -4,6 +4,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityList;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 
@@ -39,7 +41,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
      * Conversion
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(src.getListActivity().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -54,8 +56,8 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
-        UniquePersonList lists = new UniquePersonList();
+    public ActivityList getActivityList() {
+        ActivityList lists = new ActivityList();
         for (XmlAdaptedPerson p : persons) {
             try {
                 lists.add(p.toModelType());
@@ -67,7 +69,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
+    public List<Activity> getListActivity() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();

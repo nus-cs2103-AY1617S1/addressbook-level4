@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityList;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -15,12 +17,12 @@ public interface ReadOnlyAddressBook {
 
     UniqueTagList getUniqueTagList();
 
-    UniquePersonList getUniquePersonList();
+    ActivityList getActivityList();
 
     /**
      * Returns an unmodifiable view of persons list
      */
-    List<ReadOnlyPerson> getPersonList();
+    List<Activity> getListActivity();
 
     /**
      * Returns an unmodifiable view of tags list
