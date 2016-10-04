@@ -71,53 +71,57 @@ Finds tasks whose names contain any of the given keywords.<br>
 Format: `search -n KEYWORD [MORE_KEYWORDS]`
 
 > * The search is case insensitive. e.g `meeting` will match `Meeting`, `Meeting` will match `meeting`.
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+> * The order of the keywords does not matter. e.g. `Meet Professor` will match `Professor Meet`
+> * Only the taskname is searched.
+> * Only full words will be matched e.g. `Mee` will not match `Meeting`
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `Meeting` will match `Meeting Professor`
 
 Finds tasks before/after a time.<br>
-Format: `search -before/-after 10/10/17 [@09:30]`
+Format: `search -before/-after 25/10/17 [@09:30]`
 
 Examples:
 * `search Meeting`<br>
-* `search Meeting -after 10/10/17@09:30`<br>
-  
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+* `search Meeting -after 25/10/17@09:30`<br>
+
+#### Listing all tasks : `delete`
+List all unfinished tasks in the to-do list.<br>
+Format: `list`
+ 
+#### Deleting a task : `delete`
+Deletes the specified task from the to-do list. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`.
+> Deletes the task at the specified `INDEX`.
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br>
+  Deletes the 2nd task in the to-do list.
+* `find Tutorial`<br>
   `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  Deletes the 1st task in the results of the `find` command.
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
+#### Select a task : `select`
+Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`.
+> Selects the task and loads the Google search page the task at the specified `INDEX`.
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd person in the address book.
+  Selects the 2nd task in the to-do list.
 * `find Betsy` <br>
   `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+  Selects the 1st task in the results of the `find` command.
 
 #### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+Clears all entries from the to-do list.<br>
 Format: `clear`  
 
 #### Exiting the program : `exit`
@@ -125,7 +129,7 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+To-do list data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
@@ -138,7 +142,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add task -n TaskName [-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
