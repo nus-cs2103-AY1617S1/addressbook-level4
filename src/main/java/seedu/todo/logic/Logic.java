@@ -3,6 +3,7 @@ package seedu.todo.logic;
 import javafx.collections.ObservableList;
 import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.model.person.ReadOnlyPerson;
+import seedu.todo.model.task.ImmutableTask;
 
 /**
  * API of the Logic component
@@ -17,5 +18,7 @@ public interface Logic {
 
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyPerson> getFilteredPersonList();
+    
+    ObservableList<ImmutableTask> getObservableTaskList();
 
 }
