@@ -59,17 +59,17 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
      */
-    public boolean containsInOrder(int startPosition, Entry... persons) {
+    public boolean containsInOrder(int startPosition, Entry... entries) {
         List<Entry> personsInList = getListView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
-        if (startPosition + persons.length > personsInList.size()){
+        if (startPosition + entries.length > personsInList.size()){
             return false;
         }
 
         // Return false if any of the persons doesn't match
-        for (int i = 0; i < persons.length; i++) {
-            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)){
+        for (int i = 0; i < entries.length; i++) {
+            if (!personsInList.get(startPosition + i).getTitle().fullName.equals(entries[i].getTitle().fullName)){
                 return false;
             }
         }
@@ -100,14 +100,14 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
 
-    public PersonCardHandle navigateToPerson(String name) {
+    public PersonCardHandle navigateToPerson(String title) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<Entry> person = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
-        if (!person.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
+        final Optional<Entry> entry = getListView().getItems().stream().filter(p -> p.getTitle().fullName.equals(title)).findAny();
+        if (!entry.isPresent()) {
+            throw new IllegalStateException("Name not found: " + title);
         }
 
-        return navigateToPerson(person.get());
+        return navigateToPerson(entry.get());
     }
 
     /**
@@ -129,10 +129,10 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
      */
-    public int getPersonIndex(Entry targetPerson) {
+    public int getPersonIndex(Entry targetEntry) {
         List<Entry> personsInList = getListView().getItems();
         for (int i = 0; i < personsInList.size(); i++) {
-            if(personsInList.get(i).getName().equals(targetPerson.getName())){
+            if(personsInList.get(i).getTitle().equals(targetEntry.getTitle())){
                 return i;
             }
         }
@@ -153,7 +153,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public PersonCardHandle getPersonCardHandle(Entry person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new PersonCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
+                .filter(n -> new PersonCardHandle(guiRobot, primaryStage, n).isSameEntry(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
             return new PersonCardHandle(guiRobot, primaryStage, personCardNode.get());

@@ -16,16 +16,10 @@ public class PersonCard extends UiPart{
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
+   @FXML
     private Label tags;
 
-    private Entry person;
+    private Entry entry;
     private int displayedIndex;
 
     public PersonCard(){
@@ -34,19 +28,16 @@ public class PersonCard extends UiPart{
 
     public static PersonCard load(Entry person, int displayedIndex){
         PersonCard card = new PersonCard();
-        card.person = person;
+        card.entry = person;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(entry.getTitle().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        tags.setText(person.tagsString());
+        tags.setText(entry.tagsString());
     }
 
     public HBox getLayout() {
