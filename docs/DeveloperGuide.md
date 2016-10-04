@@ -42,6 +42,7 @@
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
+<br>
 ## Design
 
 ### Architecture
@@ -92,6 +93,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 The sections below give more details of each component.
 
+<br>
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
@@ -112,6 +114,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+<br>
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -127,6 +130,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
+<br>
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -140,6 +144,7 @@ The `Model`,
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+<br>
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -150,10 +155,12 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
 
+<br>
 ### Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+<br>
 ## Implementation
 
 ### Logging
@@ -180,7 +187,7 @@ and logging destinations.
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
-
+<br>
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
@@ -219,6 +226,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
+<br>
 ## Dev Ops
 
 ### Build Automation
@@ -248,7 +256,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-
+<br>
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -257,14 +265,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a task with a deadline | record tasks that need to be done by a deadline
+`* * *` | user | add a task without a deadline | have a general to-do list with not deadlines
+`* * *` | user | search for tasks using their descriptions | look up a task quickly
+`* * *` | user | delete a task | get rid of tasks that I no longer care to track
+`* * *` | user | update tasks | change details of a task if they change or if I added wrongly
+`* * *` | user | have multiple ways of executing a command | have flexibility
+`* * *` | user | view all the tasks that I have created on a GUI | have a good overall picture of the tasks
+`* * *` | user | specify the location of the file containing my task data | choose to store the data locally or in the cloud
+`* * *` | user who has just<br>executed a<br>wrong command | undo the command | easily rectify my mistakes
+`* *` | user | add recurring tasks | add the task once and not have to do it many times
+`* *` | user | set aliases for certain keywords | type commands faster
+`* *` | user | set a particular task as favorite | see the tasks that have a higher priority
+`* *` | user who uses<br>Google Calendar | sync the tasks between Google Calendar and the App | switch between the two freely
+`*` | user | autocomplete the commands that I am typing | type commands faster
 
-
-
+<br>
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
@@ -289,6 +305,7 @@ Use case ends.
 > TaskManager shows an error and prompts the user to delete a task.
 > Use Case ends.
 
+<br>
 #### Use case: Deleting a task
 
 **MSS**
@@ -310,6 +327,7 @@ Use case ends.
 > 3a1. TaskManager shows an error.
 > Use Case ends.
 
+<br>
 #### Use case: Undoing a command
 
 **MSS**
@@ -326,7 +344,7 @@ Use case ends.
 > 1a1. TaskManager shows an error.
 > Use Case ends.
 
-
+<br>
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -335,14 +353,14 @@ Use case ends.
 4. Should process a user's request within 3 seconds.
 5. Should be available 24/7.
 
-
+<br>
 ## Appendix D : Glossary
 
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
 
-
+<br>
 ## Appendix E : Product Survey
 
 Task Managers | Google Calender | Wunderlist | HabitRPG | Ours
