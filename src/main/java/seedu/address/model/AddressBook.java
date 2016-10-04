@@ -6,6 +6,10 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,10 +22,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
+    private final UniqueTaskList tasks; 
 
     {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
+        tasks = new UniqueTaskList(); 
     }
 
     public AddressBook() {}
@@ -45,9 +51,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
 //// list overwrite operations
-
     public ObservableList<Person> getPersons() {
         return persons.getInternalList();
+    }
+    public ObservableList<Task> getTasks() {
+        return tasks.getInternalList();
     }
 
     public void setPersons(List<Person> persons) {
@@ -112,6 +120,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
