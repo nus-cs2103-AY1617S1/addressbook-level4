@@ -84,14 +84,16 @@ Format: view -OPTION
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > OPTION currently supports f : floating
 
-Examples: * `view -f`
+Examples: 
+* `view -f`
 
 #### View non-floating task of the day : “view”
 Format: view d/DATE
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 
-Examples: * `view d/2409`
+Examples: 
+* `view d/2409`
 
 #### Edit tasks : “edit”
 Format: `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]...`
@@ -101,7 +103,8 @@ Format: `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_EN
 >  
 > Tasks can have any number of tags (including 0)
 
-Examples: * `edit 213 d/2709 1800 - 3009 1800  t/cs2101`
+Examples: 
+* `edit 213 d/2709 1800 - 3009 1800  t/cs2101`
 
 #### Delete tasks : “delete”
 Format: delete TASK_ID
@@ -124,14 +127,16 @@ Format: redo
 
 > Maximum 3 redo
 
-Examples: * `redo`
+Examples: 
+* `redo`
 
 #### Undo tasks : “undo”
 Format: undo
 
 > Maximum 3 undo
 
-Examples: * `undo`
+Examples: 
+* `undo`
 
 #### Find tasks : “find”
 Format: find [TASK_NAME] [d/DATE [TIME]] [t/TAG]
@@ -149,7 +154,7 @@ Format: clear
 > clears all the tasks
 
 Examples: 
-`clear`
+* `clear`
 
 #### Change directory: “Change directory”
 Format: cd FILE_PATH
@@ -157,7 +162,7 @@ Format: cd FILE_PATH
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 
 Examples: 
-cd C://user/saveFolder
+* "cd C://user/saveFolder"
 
 
 #### Exiting the program : `exit`
