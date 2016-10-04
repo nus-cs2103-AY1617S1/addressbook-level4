@@ -25,10 +25,8 @@ public class TodoListPanel extends UiPart {
     
     /*Variables*/
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
-
     
     /*Layout Declarations*/
     @FXML
