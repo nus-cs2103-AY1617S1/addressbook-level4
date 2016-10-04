@@ -31,7 +31,7 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     // TODO: Implement Add for other types of entry
-    public AddCommand(String title, String phone, String email, String address, Set<String> tags)
+    public AddCommand(String title, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
