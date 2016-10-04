@@ -261,6 +261,27 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | find a person by name | locate details of persons without having to go through the entire list
 `* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
 `*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* *` | user | undo my action | revert changes I made
+`* *` | user | edit a selected person | update the person's details
+`*` | user | clear my address book | start afresh
+`* * *` | user | add a task |
+`* * *` | user | edit a selected task |
+`* * *` | user | delete a selected task |
+`* *` | user | user with multiple tasks | search a task by name |
+`*` | user with multiple tasks | sort tasks by tags | differentiate the tasks I have
+`*` | user | clear all tasks |
+`* * *` | user | list tasks that are due chronologically | see what tasks I have yet to complete
+`* *` | user | list tasks that are due by priority | see what tasks I have yet to complete
+`*` | user | list tasks that are due by tags | see what tasks I have yet to complete
+`*` | user | set time alerts to tasks |
+`*` | user | archive tasks | look up on completed tasks for future reference
+`*` | user | have notifications on tasks | get alerted on due tasks
+`* * *` | user | add tags to a specific task |
+`* * *` | user | remove tags from a specific task |
+`* * *` | user | list all tags used |
+`*` | user | search a tag |
+`*` | user | see tasks on a calendar GUI |
+
 
 {More to be added}
 
