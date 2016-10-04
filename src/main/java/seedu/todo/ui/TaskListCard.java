@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
 import seedu.todo.model.task.ReadOnlyTask;
 
 /**
@@ -20,18 +21,21 @@ public class TaskListCard extends UiPart{
     @FXML
     private VBox taskCard;
     @FXML
+    private ImageView pinImage;
+    @FXML
     private Label titleLabel;
-    @FXML
-    private Label dateLabel;
-    @FXML
-    private Label descriptionLabel;
-    @FXML
-    private HBox descriptionBox;
     @FXML
     private Label typeLabel;
     @FXML
-    private Label tagsLabel;
-
+    private Label tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4;
+    @FXML
+    private Label descriptionLabel, dateLabel, locationLabel;
+    @FXML
+    private HBox descriptionBox, dateBox, locationBox;
+    
+    private Label[] tagLabels = {
+            tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4
+    };
     
     /*Variables*/
     private ReadOnlyTask task;
