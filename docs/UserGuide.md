@@ -12,7 +12,9 @@
 2. Download the latest `UJDTDL.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for the application.
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
-   > <img src="images\mockupV0_0.png" width="700" alt="Example of UI once launched"><br /> 
+
+    <img src="images\mockupV0_0.png" width="700" alt="Example of UI once launched"><br /> 
+    
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.  
    E.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 6. Some example commands you can try:
@@ -38,18 +40,20 @@ When launched the application will have several views as shown
 * Items with `...` after them can have multiple instances.
 * Most commands that updates a task require an `INDEX` parameter. This is number shown to the left of the task as shown in the screenshot below
 
- <img src="images\sketch_task_index.jpg" width="350" alt="Index Number Location"><br />
+ <img src="images/sketch_task_index.jpg" width="350" alt="Index Number Location"><br />
 
 ### Switch views : `view`
 Switch between different views.  
 Format: **`view`**` VIEW`
+
+<img src="images/sketch_task_view.jpg" width="700" alt="View of completed tasks"><br />
 
 You can also use the underlined character in the view's name as the shortcut when switching views. 
 
 #### Examples:
 
 **`view`**` COMPLETED`
-<img src="images\sketch_task_view.jpg" width="700" alt="View of completed tasks"><br />
+
 
 ### Viewing help : `help`
 Format: **`help`**
@@ -141,7 +145,7 @@ Format:
 
 You can use this command to mark a task as completed. Completed task appear struckthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
 
-<img src="images\sketch_task_completed.jpg" width="700" alt="Example of a Completed Task"><br />
+<img src="images/sketch_task_completed.jpg" width="700" alt="Example of a Completed Task"><br />
 
 ### Pinning a task: `pin`
 
@@ -151,7 +155,7 @@ Format:
 
 If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. 
 
-<img src="images\sketch_task_pinned.jpg" width="700" alt="Pinned Task"><br />
+<img src="images/sketch_task_pinned.jpg" width="700" alt="Pinned Task"><br />
 
 
 ### Editing a task: `edit`
