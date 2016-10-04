@@ -14,7 +14,7 @@
 1. Download the latest `happyjimtaskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   > <img src="images/Ui.JPG" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -84,14 +84,16 @@ Format: view -OPTION
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > OPTION currently supports f : floating
 
-Examples: * `view -f`
+Examples: 
+* `view -f`
 
 #### View non-floating task of the day : “view”
 Format: view d/DATE
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 
-Examples: * `view d/2409`
+Examples: 
+* `view d/2409`
 
 #### Edit tasks : “edit”
 Format: `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]...`
@@ -101,7 +103,8 @@ Format: `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_EN
 >  
 > Tasks can have any number of tags (including 0)
 
-Examples: * `edit 213 d/2709 1800 - 3009 1800  t/cs2101`
+Examples: 
+* `edit 213 d/2709 1800 - 3009 1800  t/cs2101`
 
 #### Delete tasks : “delete”
 Format: delete TASK_ID
@@ -124,14 +127,16 @@ Format: redo
 
 > Maximum 3 redo
 
-Examples: * `redo`
+Examples: 
+* `redo`
 
 #### Undo tasks : “undo”
 Format: undo
 
 > Maximum 3 undo
 
-Examples: * `undo`
+Examples: 
+* `undo`
 
 #### Find tasks : “find”
 Format: find [TASK_NAME] [d/DATE [TIME]] [t/TAG]
@@ -149,7 +154,7 @@ Format: clear
 > clears all the tasks
 
 Examples: 
-`clear`
+* `clear`
 
 #### Change directory: “Change directory”
 Format: cd FILE_PATH
@@ -157,7 +162,7 @@ Format: cd FILE_PATH
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 
 Examples: 
-cd C://user/saveFolder
+* `cd C://user/saveFolder`
 
 
 #### Exiting the program : `exit`
@@ -184,10 +189,10 @@ View | `view -OPTION`
 View | `view d/DATE`
 Edit | `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]`
 Delete | `delete TASK_ID`
-Block | 'block TASK_NAME d/START_DATE START_TIME - START_DATE START_TIME'
-Redo | 'redo'
-Undo | 'undo'
-Find | 'find [TASK_NAME] [d/DATE [TIME]] [t/TAG]'
-Clear | 'clear'
-Change directory | 'cd FILE_PATH'
-Exit | 'exit'
+Block | `block TASK_NAME d/START_DATE START_TIME - START_DATE START_TIME`
+Redo | `redo`
+Undo | `undo`
+Find | `find [TASK_NAME] [d/DATE [TIME]] [t/TAG]`
+Clear | `clear`
+Change directory | `cd FILE_PATH`
+Exit | `exit`
