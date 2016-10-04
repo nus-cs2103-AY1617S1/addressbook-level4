@@ -56,7 +56,8 @@ public interface Storage extends AddressBookStorage, TodoListStorage, UserPrefsS
      * Saves the current version of the ReadOnlyTodoList to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     * @throws IOException 
      */
-    void updateTodoListStorage(ReadOnlyTodoList todoList);
+    void updateTodoListStorage(ReadOnlyTodoList todoList) throws IOException;
 
 }
