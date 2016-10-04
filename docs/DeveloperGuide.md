@@ -5,29 +5,22 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
+* [Appendix E: Product Survey](#appendix-e-product-survey)
 
-
-## Setting up
+## Setting Up
 
 #### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later<br>
-
-    > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
-    
+1. **JDK `1.8.0_60`** or later (Will not work with earlier version of Java 8)
 2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
-
-#### Importing the project into Eclipse
+#### Importing the Project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
 1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
@@ -36,123 +29,96 @@
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
 4. Click `Browse`, then locate the project's directory
 5. Click `Finish`
-
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+    - If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+    - Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish (This is because Gradle downloads library files from servers during the project set up process).
+    - If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 ## Design
 
-### Architecture
+### Architecture Diagram
 
 <img src="images/Architecture.png" width="600"><br>
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+### Main
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+`MainApp` is the entry point of the application. It is responsible for:
 
-The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+- On application launch: Initializes the components in the correct sequence, and connect them up with each other
+- On application exit: Shuts down the components and invokes cleanup methods where necessary
 
-Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+The application consists 4 components:
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+* [**`UI`**](#ui-component): The UI of the application
+* [**`Logic`**](#logic-component): Executes commands from the UI, using the interfaces provided by `Model` and `Storage`
+* [**`Model`**](#model-component): Holds the data of the application in-memory
+* [**`Storage`**](#storage-component): Reads data from, and writes data to, the file system
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+Each of the 4 components defines a single interface and exposes its fuctionality using a concrete class implementing that interface:
 
-<img src="images\SDforDeletePerson.png" width="800">
+| Component     | Interface     | Class         |
+|---            |---            |---            |
+| UI            | UI            | UIManager     |
+| Logic         | Logic         | LogicManager  |
+| Model         | Model         | ModelManager  |
+| Storage       | Storage       | StorageManager|
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.
-
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
-
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
-  coupling between components.
-
-The sections below give more details of each component.
-
-### UI component
+### UI Component **_(OUTDATED)_**
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ToDoListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The `UI` component uses _JavaFX_ UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
- [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+The `UI` component:
 
-The `UI` component,
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+* Executes user commands using the `Logic` component
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change
+* Responds to events raised from various parts of the App and updates the UI accordingly
 
-### Logic component
+### Logic Component **_(OUTDATED)_**
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
-
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
-### Model component
+### Storage Component **_(OUTDATED)_**
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/StorageClassDiagram.png" width="800">
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+The `Storage` component:
 
-The `Model`,
+* can save `UserPref` objects in json format and read it back.
+* can save the Address Book data in xml format and read it back.
+
+### Model Component **_(OUTDATED)_**
+
+<img src="images/ModelClassDiagram.png" width="800">
+
+The `Model`:
+
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-### Storage component
+### Commons
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+The `Commons` package contains a collection of classes used by all components in the application.
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+Two of those classes play important roles at the architecture level:
 
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
-
-### Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+* `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : Used by components to write log messages to the application's log file.
 
 ## Implementation
 
@@ -161,46 +127,38 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See [Configuration](#configuration))
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file
 
-**Logging Levels**
+#### Logging Levels
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size
+* `SEVERE`: Critical problem detected which may possibly cause the termination of the application
+* `WARNING`: Can continue, but with caution
+* `INFO`: Information showing the noteworthy actions by the application
+* `FINE`: Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
-(default: `config.json`):
-
+Certain properties of the application can be controlled (e.g application name, logging level) through the configuration file (default: `config.json`).
 
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
 
-**In Eclipse**:
+### In Eclipse
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
   as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
-* To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
-  to run as a JUnit test.
+* To run all tests, right-click on the `src/test/java` folder and choose `Run as` > `JUnit Test`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.
 
-**Using Gradle**:
+### Using Gradle
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
-   These are in the `guitests` package.
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `guitests` package.
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
@@ -212,12 +170,10 @@ We have two types of tests:
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
   
-**Headless GUI Testing** :
-Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
- See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+### Headless GUI Testing
+Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+
+See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
 ## Dev Ops
 
@@ -227,13 +183,10 @@ See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automa
 
 ### Continuous Integration
 
-We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
+We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects. See [UsingTravis.md](UsingTravis.md) for more details.
 
 ### Making a Release
 
-Here are the steps to create a new release.
- 
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
@@ -241,76 +194,74 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+The project depends on the [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
+can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
-## Appendix A : User Stories
+1. Include those libraries in the repo (this bloats the repo size)
+2. Require developers to download those libraries manually (this creates extra work for developers)
 
-Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
+## Appendix A: User Stories
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add to-do items | start viewing and managing my to-do items
+`* * *` | user | delete to-do items | remove any outdated or invalid to-do items
+`* * *` | user | edit title of to-do items | correct any typos or update the details of to-do items over time
+`* * *` | user with many events | have multiple time slots for events | input for events which span multiple days 
+`* * *` | user with many events | edit time slot(s) of events | correct any typos or update events’ timings after they are postponed or  confirmed 
+`* * *` | user | view events and deadlines in chronological order, from the current day | figure out what events or deadlines are happening next  
+`* * *` | user | view a list of floating tasks and deadlines | figure out what I can do when I am free
+`* * *` | user | mark off floating tasks and deadlines | dismiss pending to-dos that I have done
+`* * *` | user | block off certain dates and times with an event | have some free time
+`* * *` | user with many to-do items | search for to-do items by their textual content | navigate through a long list of to-do items
+`* * *` | user | undo the most recent action | revert a mistake
+`* * *` | user with multiple devices | export or import to-do items to a specified folder | share the to-do list across multiple devices
+`* * *` | new user | view all possible command types | learn about the functionality of the application while using it
+`* * *` | new user | view the correct command syntax and sample commands after inputting a command wrongly | learn the correct command syntax while using it
+`* *` | user | set events as recurring | avoid having to enter identical events periodically
+`* *` | user with many to-do items | add tags to to-do items, and search to-do items by tags | quickly determine what kind of classification the to-do items are when I skim through the list
+`* *` | very active user | summon the application and have it ready for input immediately via a keyboard shortcut | quickly be able to add to or remove from my to-do list when I have to
+`*` | user with upcoming events that have uncertain timings | mark events as “unconfirmed”, and manage and view them as “pending time confirmation” | better track and manage events with uncertain timings that are pending confirmation
+`*` | new user | view syntax highlighting of the various fields of a command while inputting, in real time | be clear about how the application parses my to-do item’s fields and avoid unintended errors in input
+`*` | user | customize command keywords with my own aliases | use commands that are personally more intuitive and possibly spend less time typing by having own keywords
+`*` | user | be flexible in the order of keywords or fields in commands | be less rigid in typing commands and possibly spend less time typing
 
-{More to be added}
+Priorities:
 
-## Appendix B : Use Cases
+* `* * *` - High (Must have)
+* `* *` - Medium (Nice to have)
+* `*` - Low (Unlikely to have)
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+## Appendix B: Use Cases *_(TODO)_*
 
-#### Use case: Delete person
+## Appendix C: Non Functional Requirements
 
-**MSS**
+1. Should start-up in at most 3s
+2. Should process every command in at most 1s
+3. Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed
+4. Should be able to hold up to 1000 to-dos
+5. Should be able to hold up to 1000 tags per to-do
+6. Should come with automated unit tests
+7. Code should be open source
+8. Should favor DOS style commands over Unix-style commands
+9. Should not use more than 100MB of RAM
+10. Number of existing files that has to be edited to add new commands is at most 2 existing files (easy to add)
+11. New users should not take more than 1 hour to learn the commands and their syntax
+12. New users should not require reading of a guide to understand user interface
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+## Appendix D: Glossary
 
-**Extensions**
+- [**Mainstream OS**: Windows, Linux, Unix and OS-X](#mainstream-os)
+- **To-do item**: Event, deadline or floating task added by the user
 
-2a. The list is empty
+## Appendix E: Product Survey
 
-> Use case ends
+We tested a few existing to-do managers and analysed how much they would meet the needs of our target user Jim, a busy office worker who receives many to-dos by emails and prefers typing over using the mouse.
 
-3a. The given index is invalid
-
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
-
-{More to be added}
-
-## Appendix C : Non Functional Requirements
-
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
-
-## Appendix D : Glossary
-
-##### Mainstream OS
-
-> Windows, Linux, Unix, OS-X
-
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
-## Appendix E : Product Survey
-
-{TODO: Add a summary of competing products}
+Product (Reviewer) | Positive points | Negative points
+-------- | :--------- | :-----------
+Google Keep (Zhiwen) | + Simplicity (clear and simple UI) <br> + Easy access from anywhere <br> + Native sync and integration with Google <br> + Mark things done easily <br> + Support photos, audios and lists in content | - Unable to do text formatting <br> - Search function only supports titles <br> - Unable to prioritise activities
+Trello (Sheng Xuan) | + Multiple platform support (Web, mobile, desktop) <br> + Due date function, which is suitable for tasks with deadlines <br> + Search by keyword of a task <br> + Archive completed tasks <br> + Check list to track the progress of each task <br> + Attachment files to a task (ie. forms to reply in a email) | - At least 2 clicks (taps) are needed to add a new task <br> - Calendar view function is not free to use. In free version, no timeline can be shown, add events happen in specific dates are not supported <br> - Unable to undo
+Anydo (Conan) | + Able to push tasks to a later date <br> + Easily reorder tasks <br> + Easy to use interface (4 major groups) <br> + Can be used on mobile and on browser <br> + Supports double confirmation of deleting a task when complete <br> + Can add details in later | - No clear distinguishing of the 3 types of tasks <br> - No sense of timeline, just tasks to complete by the end of the day <br> - Deadlines are not shown unless the task is clicked <br> - No search function (however, you can Ctrl+F, though no content search) <br> - The other 2 group “Upcoming” and “Someday” is kind of ambiguous
+Google Calendar (Yun Chuan) | + Able to mark as done, and undo “done” <br> + Clean, simple interface which is not cluttered <br> + Autocomplete based on crowd-sourced or history (but doesn’t feel very “intelligent”) <br> + Push notifications for reminders/events <br> + Able to repeat events <br> + Both on mobile and on website, sync-ed <br> + “All-day” events <br> + “Schedule” view lists everything in chronological order, starting from today <br> + Able to “zoom in” (day view) and “zoom out” (month view) <br> + Split into: “events” and “reminders”, events have start to end time, reminders only have a reminder time | - Online, cannot export to data file <br> - Unable to mark deadlines accurately (not an “event”) <br> - Cannot search for todos <br> - Too many screens or user actions to add a task
 
