@@ -238,7 +238,7 @@ Priorities:
 
 1. Should start-up in at most 3s
 2. Should process every command in at most 1s
-3. Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed
+3. Should work on any mainstream OS as long as it has Java 8 or higher installed
 4. Should be able to hold up to 1000 to-dos
 5. Should be able to hold up to 1000 tags per to-do
 6. Should come with automated unit tests
@@ -251,7 +251,7 @@ Priorities:
 
 ## Appendix D: Glossary
 
-- [**Mainstream OS**: Windows, Linux, Unix and OS-X](#mainstream-os)
+- **Mainstream OS**: Windows, Linux, Unix and OS-X
 - **To-do item**: Event, deadline or floating task added by the user
 
 ## Appendix E: Product Survey
