@@ -79,6 +79,9 @@ Format: `list [TYPE] [START_TIME] [END_TIME] [tag TAG]... [SORTING_ORDER]`
 > If no parameters are specified, the command will show a list of uncompleted tasks
 > and upcoming events.
 
+> <img src="images/Ui-ListCommand.png" width="600">
+> <img src="images/Ui-List2Command.png" width="600">
+
 Examples:
 * `list`<br>
   If no parameters are specified, the command will show a list of uncompleted tasks
@@ -114,6 +117,8 @@ Format: `only [TYPE] [TAG]... [TIME]`
 >	* If the type of task/event is not specified, all types are included.
 >	* If tag is not specified, all tasks/events are included.
 
+> <img src="images/Ui-OnlyCommand.png" width="600">
+
 Examples:
 * `list`<br>
   `only CS2103 Important`
@@ -133,6 +138,8 @@ Format: `hide [TYPE] [TAG]...`
 
 > Can only be used when the output window is showing a list of tasks/events. 
 >	* Matching tasks/events will be hidden from the previous results.
+
+> <img src="images/Ui-HideCommand.png" width="600">
 
 Examples:
 * `list`<br>
@@ -182,6 +189,8 @@ Format: `complete INDEX`
 > of deleting it.<br>
 > The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, ...<br>
+
+> <img src="images/Ui-CompleteCommand.png" width="600">
 
 Example:
 * `list`<br>
