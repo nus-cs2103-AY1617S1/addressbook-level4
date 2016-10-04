@@ -31,7 +31,7 @@
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
+> * Items in `[SQUARE_BRACKETS]` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
@@ -47,7 +47,9 @@
 #### Viewing help : `help`
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+> If you enter an invalid command (e.g `abcd`), or enter invalid parameters
+> for commands, mini-help messages would be shown on the output box in the
+> program instead.
 
 #### Create a new task/event: `new`
 Adds a new task or event to the task list.<br>
@@ -65,12 +67,79 @@ Examples:
 * `new "Meeting" from 21 Sep 3pm to 5pm`
 * `new "Check sufficient toilet rolls" by 21 Sep 5pm, tag "Important"`
 
-#### List uncompleted tasks by earliest deadline, and upcoming events: `list`
-To find out which tasks you will have to do next, and any upcoming events.<br>
-Format: `list`
+#### Show all tasks/events with specified conditions: `list`
+To display a list of all tasks/events.<br>
+Format: `list [TYPE] [START_TIME] [END_TIME] [tag TAG]... [SORTING_ORDER]`
 
-> Note: The sorting and types of tasks cannot be changed. For any filter 
-> customization, or searching, use SimpleSearch (see below)
+> Types include "Events", "Tasks", "Completed Tasks", "Free Time".
+> Sorting order includes "earliest first", "latest first" for date and time, 
+> "a-z", "z-a" for descriptions
+> * Defaults to earliest first for later dates, and latest first for past dates
+>
+> If no parameters are specified, the command will show a list of uncompleted tasks
+> and upcoming events.
+
+Examples:
+* `list`<br>
+  If no parameters are specified, the command will show a list of uncompleted tasks
+  and upcoming events.
+* `list events by 18 Sep`
+* `list completed tasks, tag "Important", earliest first`
+* `list free time from 20 Sep 10am to 8pm`
+
+#### Finding tasks/events which match keywords: `find`
+To find tasks/events when provided with vague descriptive keywords.<br>
+Format: `find KEYWORD...`
+
+> Keywords are used to match description, status, tags and dates in full 
+> or part thereof.<br>
+> If a keyword/phrase is enclosed in quotation marks (""), only exact match is used.
+>	* All matches are always case-insensitive.
+> Results are shown in “intelligent order”, by factors such as closest match
+> and its date and time.
+
+Examples:
+* `find completed meetings John`
+* `find "V0.0 deliverables"`
+
+#### Narrow results with specified tag(s) and date: `only`
+To narrow down on tasks/events with specified tag(s) and date from 
+the previous results.<br>
+
+Format: `only [TYPE] [TAG]... [TIME]`
+
+> Can only be used when the output window is showing a list of tasks/events. 
+>	* Matching results will be kept on the output window at their respective
+>     positions, while other tasks/events are hidden.
+>	* If the type of task/event is not specified, all types are included.
+>	* If tag is not specified, all tasks/events are included.
+
+Examples:
+* `list`<br>
+  `only CS2103 Important`
+
+* `list`<br>
+  `only Important Meeting on 24 Sep`
+
+* `list`<br>
+  `only completed tasks CS2103 from 18 Sep 8am`
+
+* `list`<br>
+  `only Meeting by 11pm`
+
+#### Hide results with specified tag(s): `hide`
+To hide tasks/events with specified tag(s) from the previous results.<br>
+Format: `hide [TYPE] [TAG]...`
+
+> Can only be used when the output window is showing a list of tasks/events. 
+>	* Matching tasks/events will be hidden from the previous results.
+
+Examples:
+* `list`<br>
+  `hide completed events, CS2010`
+  
+* `list`<br>
+  `hide CS2103 MA1521 CS2010`
 
 #### Change the details of a task/event: `update`
 Updates a task or event.<br>
@@ -130,64 +199,6 @@ Example:
   Undo the most recent action.
 * `undo last 5`<br>
   Undo the last 5 actions.
-
-#### Show all tasks/events with specified conditions: `show`
-To show a list of all tasks/events.<br>
-Format: `show [TYPE] [START_TIME] [END_TIME] [tag TAG]... [SORTING_ORDER]`
-
-> Types include "Events", "Tasks", "Completed Tasks", "Free Time".
-> Sorting order includes "earliest first", "latest first" for date and time, 
-> "a-z", "z-a" for descriptions
-> * Defaults to earliest first for later dates, and latest first for past dates
-
-Examples:
-* `show events by 18 Sep`
-* `show completed tasks, tag "Important", earliest first`
-* `show free time from 20 Sep 10am to 8pm`
-
-#### Finding tasks/events which match keywords: `find`
-To find tasks/events when provided with vague descriptive keywords.<br>
-Format: `find KEYWORD...`
-
-> Keywords are used to match description, status, tags and dates in full 
-> or part thereof.<br>
-> If a keyword/phrase is enclosed in quotation marks (""), only exact match is used.
->	* All matches are always case-insensitive.
-> Results are shown in “intelligent order”, by factors such as closest match
-> and its date and time.
-
-Examples:
-* `find completed meetings John`
-* `find "V0.0 deliverables"`
-
-#### Show only results with specified tag(s) and date: `only`
-To narrow down on tasks/events with specified tag(s) and date from 
-the previous results.<br>
-
-Format: `only [TYPE] [TAG]... [TIME]`
-
-> Can only be used when the output window is showing a list of tasks/events. 
->	* Matching results will be kept on the output window at their respective
->     positions, while other tasks/events are hidden.
->	* If the type of task/event is not specified, all types are included.
->	* If tag is not specified, all tasks/events are included.
-
-Examples:
-* `only CS2103 Important`
-* `only Important Meeting on 24 Sep`
-* `only completed tasks CS2103 from 18 Sep 8am`
-* `only Meeting by 11pm`
-
-#### Hide results with specified tag(s): `hide`
-To hide tasks/events with specified tag(s) from the previous results.<br>
-Format: `hide [TYPE] [TAG]...`
-
-> Can only be used when the output window is showing a list of tasks/events. 
->	* Matching tasks/events will be hidden from the previous results.
-
-Examples:
-* `hide completed events, CS2010`
-* `hide CS2103 MA1521 CS2010`
 
 #### Clearing all entries: `clear`
 Remove all tasks from the data storage file.<br>
