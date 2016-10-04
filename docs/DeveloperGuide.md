@@ -1,4 +1,4 @@
-# Developer Guide 
+# Developer Guide
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -20,7 +20,7 @@
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -30,7 +30,7 @@
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -87,7 +87,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The sections below give more details of each component.
@@ -177,7 +177,7 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
 
@@ -199,26 +199,26 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
-  
+
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+
 ## Dev Ops
 
 ### Build Automation
@@ -233,12 +233,12 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 ### Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
-   
+
 ### Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the
@@ -261,6 +261,27 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | find a person by name | locate details of persons without having to go through the entire list
 `* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
 `*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* *` | user | undo my action | revert changes I made
+`* *` | user | edit a selected person | update the person's details
+`*` | user | clear my address book | start afresh
+`* * *` | user | add a task |
+`* * *` | user | edit a selected task |
+`* * *` | user | delete a selected task |
+`* *` | user | user with multiple tasks | search a task by name |
+`*` | user with multiple tasks | sort tasks by tags | differentiate the tasks I have
+`*` | user | clear all tasks |
+`* * *` | user | list tasks that are due chronologically | see what tasks I have yet to complete
+`* *` | user | list tasks that are due by priority | see what tasks I have yet to complete
+`*` | user | list tasks that are due by tags | see what tasks I have yet to complete
+`*` | user | set time alerts to tasks |
+`*` | user | archive tasks | look up on completed tasks for future reference
+`*` | user | have notifications on tasks | get alerted on due tasks
+`* * *` | user | add tags to a specific task |
+`* * *` | user | remove tags from a specific task |
+`* * *` | user | list all tags used |
+`*` | user | search a tag |
+`*` | user | see tasks on a calendar GUI |
+
 
 {More to be added}
 
@@ -314,3 +335,24 @@ Use case ends.
 
 {TODO: Add a summary of competing products}
 
+1. Google Keep
+   * Similar to sticky notes, events tracking, with sub-events
+   * Alarms, time tracking optional
+   * Tagging
+   * Checklist
+   * Archive
+2. Trello
+   * Similar to Google Keep
+   * Color-coded tagging
+   * Multiple boards to segregate events
+   * Collaboration with other users using dedicated boards
+3. Wunderlist
+   * Multiple boards
+   * Contacts incorporation
+   * Ability to dedicate certain tasks to users
+   * Templates
+4. Todoist
+   * Priority tasking
+   * Recurring dates
+   * Productivity charting
+   * Upcoming tasks
