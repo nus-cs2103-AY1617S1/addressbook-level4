@@ -90,7 +90,7 @@ Examples:
 Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX`
 
-> Selects the task and loads the Google search page of the task at the specified `INDEX`. 
+> Selects the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
@@ -99,8 +99,24 @@ Examples:
   `select 2`<br>
   Selects the 2nd task in the address book.
 * `find CS2103T` <br> 
-  `delete 1`<br>
+  `select 1`<br>
   Selects the 1st task in the results of the `find` command.
+
+#### Update a task : `update`
+Updates the status of the task.<br>
+Format: `update [TASK_NAME] STATUS`
+
+> Updates task to be completed (marked done) or uncompleted after selecting a task.
+
+Examples: 
+* `list`<br>
+  `update CS2103T Tutorial completed`<br>
+  Update task status of CS2103T Tutorial to 'completed'
+* `find CS2103T`<br>
+  `select 2`<br>
+  `update completed`<br>
+  Update task status of 2nd task in the results of CS2103T to 'completed'
+
 
 #### Undo a task : `undo`
 Undo the latest task added/deleted/updated. Irreversible.<br>
@@ -149,4 +165,4 @@ Help | `help`
 List | `list`
 Select | `select INDEX`
 Undo | `undo`
-
+Update | `update [TASK_NAME] STATUS`
