@@ -59,7 +59,7 @@ Examples:
 
 #### Priority tasks: `priority`
 Allows the user to set the priority of a task when creating it.<br>
-Format : `priority <priority number>
+Format : `priority <priority number>`
 
 > Priority 1 or 2 or 3 is based on how important the task is, with 3 being the highest priority and 1 being the lowest. It should always follow the add command.
 
