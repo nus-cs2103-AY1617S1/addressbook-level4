@@ -1,29 +1,18 @@
-[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
-
-# CommonDo V0.0
+# CommanDo V0.0
 
 <img src="docs/images/Ui.png" width="600"><br>
 
-* CommonDo is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
-  a CLI (Command Line Interface).
-* This software is developed for CS2103T group project.
+*CommanDo* is a to-do list manager for the desktop, carefully designed for those who type fast. To-do items are displayed on a graphical user interface (GUI), while you manage your to-do list by typing commands on a text input - just like in a Command Line Interface (CLI). 
 
+*CommanDo* is developed by group CS2103T-W13-C3 as the project for CS2103T.
   
-#### Site Map
+## Site Map
 * [User Guide](docs/UserGuide.md) 
 * [Developer Guide](docs/DeveloperGuide.md) 
-* [Learning Outcomes](docs/LearningOutcomes.md) 
 * [About Us](docs/AboutUs.md)
-* [Contact Us](docs/ContactUs.md)
 
+## Acknowledgements
 
-#### Acknowledgements
+* This application is built upon the codebase of [*AddressBook-level4*](https://github.com/nus-cs2103-AY1617S1/addressbook-level4).
 
-* This application is modified from AddressBook-level4.
-
-* Some parts of this sample application were inspired by the excellent 
-  [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
-
-
-#### Licence : [MIT](LICENSE)
+### Licence: [MIT](LICENSE)
