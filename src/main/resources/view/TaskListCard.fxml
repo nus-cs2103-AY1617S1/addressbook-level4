@@ -20,7 +20,7 @@
             </Label>
             <AnchorPane maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="taskPinImage" fitHeight="32.0" fitWidth="32.0" layoutX="514.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0">
+                  <ImageView fx:id="pinImage" fitHeight="32.0" fitWidth="32.0" layoutX="514.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0">
                      <image>
                         <Image url="@../images/gold_star.png" />
                      </image>
