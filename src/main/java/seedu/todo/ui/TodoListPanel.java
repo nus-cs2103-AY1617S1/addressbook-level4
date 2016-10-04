@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.todo.model.person.ReadOnlyPerson;
+import seedu.todo.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 
@@ -32,7 +32,7 @@ public class TodoListPanel extends UiPart {
     
     /*Layout Declarations*/
     @FXML
-    private ListView<ReadOnlyPerson> personListView;
+    private ListView<ReadOnlyTask> todoListView;
 
     public TodoListPanel() {
         super();
@@ -52,23 +52,24 @@ public class TodoListPanel extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
-
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyPerson> personList) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList);
-        return personListPanel;
+    
+    public static TodoListPanel load(Stage primaryStage, AnchorPane todoListPlaceholder, 
+            ObservableList<ReadOnlyTask> todoList) {
+        
+        TodoListPanel todoListPanel = 
+                UiPartLoader.loadUiPart(primaryStage, todoListPlaceholder, new TodoListPanel());
+        todoListPanel.configure(todoList);
+        return todoListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyPerson> personList) {
-        setConnections(personList);
+    private void configure(ObservableList<ReadOnlyTask> todoList) {
+        setConnections(todoList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+    private void setConnections(ObservableList<ReadOnlyTask> todoList) {
+        todoListView.setItems(todoList);
+        todoListView.setCellFactory(listView -> new TodoListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -88,25 +89,25 @@ public class TodoListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            todoListView.scrollTo(index);
+            todoListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+    class TodoListViewCell extends ListCell<ReadOnlyTask> {
 
-        public PersonListViewCell() {
+        public TodoListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyPerson person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ReadOnlyTask task, boolean empty) {
+            super.updateItem(task, empty);
 
-            if (empty || person == null) {
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }
