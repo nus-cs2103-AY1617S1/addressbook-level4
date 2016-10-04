@@ -160,25 +160,28 @@ Examples:
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+#### Undo : `undo`
+Reverts the most recent action.<br>
+Format: `undo`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+#### Edit a task : `edit`
+Edits task on the displayed list.<br>
+Format: `edit INDEX PARAMETER NEW_INFORMATION`
+
+LEAH PUT IMAGE!!!!!!!!!!!!
 
 Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+* `edit 1 date oct 11`
+* `list dec 30`<br>
+  `edit 5 task buy coconut`
+  
+To make one of the parameters (except the task name) empty, follow the format below:<br>
+Format: `edit INDEX PARAMETER clear`
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+Example: 
+* `edit 3 time 1400`
+
+
 
 #### Exiting the program : `exit`
 Exits the program.<br>
