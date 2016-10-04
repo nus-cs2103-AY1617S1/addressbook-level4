@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
 [![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
 
-# Address Book (Level 4)
+# GGist
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/GGistUiProto.png" width="600"><br>
 
 * This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
