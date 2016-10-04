@@ -123,9 +123,12 @@ There is no need to save manually.
        
 ## Command Summary
 
-The table below shows the overall list of commands used in the application.<br><br>
+The table below shows the overall list of commands used in the application.<br>
 Note the following conventions used:
-* [Optional Text here] = Optional inputs
+* Words in **`BOLD`** are the parameters.
+* Words in *`ITALICS`* represent different categories under the same command.
+* Items in `SQUARE_BRACKETS` are optional.
+* The order of parameters is fixed.
 
 Command (Shortcut) | Format  
 :-------- | :-------- 
