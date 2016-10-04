@@ -32,6 +32,6 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Wang Xien Dong](http://github.com/xdrawks)
 <img src="images/Xiendong.jpg" width="150"><br>
-**Role**: Frontend Developer 
-**Responsibilities**: User Interface<br>
+**Role**: Frontend Developer <br>
+**Responsibilities**: User Interface
 
