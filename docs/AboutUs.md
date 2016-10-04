@@ -39,7 +39,7 @@ Responsibilities: Dev Ops
 -----
 
 #### [Song Kai](https://github.com/elijahsk)
-<img src="images/SongKai.jpg" width="150"><br>
+<img src="images/SongKai.JPG" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Model
 
