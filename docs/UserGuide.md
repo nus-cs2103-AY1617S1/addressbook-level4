@@ -104,7 +104,7 @@ Examples:
 
 #### Update a task : `update`
 Updates the status of the task.<br>
-Format: `update [TASK_NAME] STATUS`
+Format: `update [TASK_NAME] STATUS` 
 
 > Updates task to be completed (marked done) or uncompleted after selecting a task.
 
@@ -134,6 +134,9 @@ Examples:
   `undo`<br>
   Undo latest delete command, re-instate task 1 from CS2103T.
 
+#### View all 'To Do' tasks : `todo`
+Shows a list of tasks yet to be 'completed' in the task manager.<br>
+Format: `todo`
 
 #### Clearing all entries : `clear`
 Clears all entries from the task manager.<br>
@@ -164,5 +167,6 @@ Find | `find KEYWORD [MORE_KEYWORDS]`
 Help | `help`
 List | `list`
 Select | `select INDEX`
+ToDo | `todo`
 Undo | `undo`
 Update | `update [TASK_NAME] STATUS`
