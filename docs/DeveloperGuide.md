@@ -273,11 +273,11 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | have multiple ways of executing a command | have flexibility
 `* * *` | user | view all the tasks that I have created on a GUI | have a good overall picture of the tasks
 `* * *` | user | specify the location of the file containing my task data | choose to store the data locally or in the cloud
-`* * *` | user who has just<br>executed a<br>wrong command | undo the command | easily rectify my mistakes
+`* * *` | user who has just executed a wrong command | undo the command | easily rectify my mistakes
 `* *` | user | add recurring tasks | add the task once and not have to do it many times
 `* *` | user | set aliases for certain keywords | type commands faster
 `* *` | user | set a particular task as favorite | see the tasks that have a higher priority
-`* *` | user who uses<br>Google Calendar | sync the tasks between Google Calendar and the App | switch between the two freely
+`* *` | user who uses Google Calendar | sync the tasks between Google Calendar and the App | switch between the two freely
 `*` | user | autocomplete the commands that I am typing | type commands faster
 
 <br>
