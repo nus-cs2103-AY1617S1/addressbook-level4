@@ -20,7 +20,7 @@
             </Label>
             <AnchorPane maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="514.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0">
+                  <ImageView fx:id="taskPinImage" fitHeight="32.0" fitWidth="32.0" layoutX="514.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0">
                      <image>
                         <Image url="@../images/gold_star.png" />
                      </image>
@@ -42,7 +42,7 @@
                   <Insets right="4.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="tagsLabel" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 0" textFill="WHITE">
+            <Label fx:id="tagLabel0" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 0" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="tagsLabel1" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 1" textFill="WHITE">
+            <Label fx:id="tagLabel1" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 1" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -64,7 +64,7 @@
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="tagsLabel2" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 2" textFill="WHITE">
+            <Label fx:id="tagLabel2" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 2" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -75,7 +75,7 @@
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="tagsLabel3" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 3" textFill="WHITE">
+            <Label fx:id="tagLabel3" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 3" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -86,7 +86,7 @@
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="tagsLabel4" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 4" textFill="WHITE">
+            <Label fx:id="tagLabel4" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 4" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -121,7 +121,7 @@
             <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
          </padding>
       </HBox>
-      <HBox>
+      <HBox fx:id="dateBox">
          <children>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -144,7 +144,7 @@
             <Insets bottom="2.0" />
          </VBox.margin>
       </HBox>
-      <HBox>
+      <HBox fx:id="locationBox">
          <children>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -154,7 +154,7 @@
                   <Insets right="8.0" />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="dateLabel1" maxHeight="1.7976931348623157E308" text="at Some Specific Location">
+            <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" text="at Some Specific Location">
                <font>
                   <Font name="Segoe UI Italic" size="16.0" />
                </font>
@@ -173,6 +173,6 @@
       <Insets />
    </opaqueInsets>
    <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="15.0" />
+      <Insets bottom="15.0" left="20.0" right="20.0" top="10.0" />
    </padding>
 </VBox>
