@@ -54,7 +54,7 @@ Format: `help`
 Adds a task to GGist<br>
 General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
-<img src="images/2ndimpt.png" width="600"><br>
+<img src="images/2ndimpt.png" width="500"><br>
 
 ###### With deadline
 Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
@@ -138,7 +138,7 @@ Format: `undo`
 Edits task on the displayed list.<br>
 Format: `edit INDEX PARAMETER NEW_INFORMATION`
 
-<img src="images/2ndimpt.jpeg" width="200"><br>
+<img src="images/2ndimpt.png" width="500"><br>
 
 Examples: 
 * `edit 1 date oct 11`
@@ -157,7 +157,7 @@ Sort all tasks according to the specified category.<br>
 Three categories: Alphabetical order, priority level, deadlines<br>
 Format: `sort CATEGORY`
 
-<img src="images/sortpic.png" width="200"><br>
+<img src="images/sortpic.png" width="500"><br>
 
 Example:<br>
 * `sort A`
