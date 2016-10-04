@@ -92,7 +92,7 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
-                    matcher.group("priority value"));
+                    matcher.group("priorityValue"));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
