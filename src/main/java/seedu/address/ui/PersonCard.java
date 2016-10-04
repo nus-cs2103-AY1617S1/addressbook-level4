@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Entry;
 
 public class PersonCard extends UiPart{
 
@@ -16,37 +16,28 @@ public class PersonCard extends UiPart{
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
+   @FXML
     private Label tags;
 
-    private ReadOnlyPerson person;
+    private Entry entry;
     private int displayedIndex;
 
     public PersonCard(){
 
     }
 
-    public static PersonCard load(ReadOnlyPerson person, int displayedIndex){
+    public static PersonCard load(Entry person, int displayedIndex){
         PersonCard card = new PersonCard();
-        card.person = person;
+        card.entry = person;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(entry.getTitle().fullTitle);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        tags.setText(person.tagsString());
+        tags.setText(entry.tagsString());
     }
 
     public HBox getLayout() {
