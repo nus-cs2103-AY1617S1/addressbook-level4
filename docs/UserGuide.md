@@ -7,9 +7,9 @@
 
 ## About Us
 
-> **Bernard Koh**
-> * Team Leader
-> * Testing
+**Bernard Koh**
+* Team Leader
+* Testing
 
 **Liu Zhen Dong**
 * Code Quality
@@ -84,7 +84,6 @@ Format: `help`
  
 #### Adding a task: `add`
 Adds a task to GGist<br>
-
 General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
 LEAH ADD IMAGE HERE!!!!!!!!!!!!
@@ -122,12 +121,15 @@ Examples:
 * `add facial appointment, jul 10, med, monthly`
 
 #### Listing all tasks : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+Shows a list of all tasks in a particular day.<br>
+Format: `list DATE`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+#### Search tasks by keywords: `search`
+Searches and lists all tasks that contain the specified keyword.<br>
+Format: `search KEYWORD`<br>
+Examples:<br>
+* `add buy milk, low`
+* `add buy present for brother's birthday`
 
 > * The search is case sensitive. e.g `hans` will not match `Hans`
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
