@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.FloatingTask;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.UniquePersonList;
 
@@ -21,7 +21,7 @@ public interface Model {
     void deletePerson(Entry target) throws UniquePersonList.PersonNotFoundException;
 
     /** Adds the given person */
-    void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
+    void addPerson(FloatingTask person) throws UniquePersonList.DuplicatePersonException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<Entry> getFilteredPersonList();

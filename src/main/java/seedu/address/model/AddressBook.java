@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.FloatingTask;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -46,11 +46,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 //// list overwrite operations
 
-    public ObservableList<Person> getPersons() {
+    public ObservableList<FloatingTask> getPersons() {
         return persons.getInternalList();
     }
 
-    public void setPersons(List<Person> persons) {
+    public void setPersons(List<FloatingTask> persons) {
         this.persons.getInternalList().setAll(persons);
     }
 
@@ -59,7 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void resetData(Collection<? extends Entry> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Person::new).collect(Collectors.toList()));
+        setPersons(newPersons.stream().map(FloatingTask::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -76,7 +76,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
+    public void addPerson(FloatingTask p) throws UniquePersonList.DuplicatePersonException {
         syncTagsWithMasterList(p);
         persons.add(p);
     }
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person person) {
+    private void syncTagsWithMasterList(FloatingTask person) {
         final UniqueTagList personTags = person.getTags();
         tags.mergeFrom(personTags);
 
