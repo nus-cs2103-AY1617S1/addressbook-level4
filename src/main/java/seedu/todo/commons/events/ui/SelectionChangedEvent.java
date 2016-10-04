@@ -4,7 +4,7 @@ import seedu.todo.commons.events.BaseEvent;
 import seedu.todo.model.task.ImmutableTask;
 
 /**
- * Represents a selection change in the To-do List Panel
+ * Represents a selection change in the To-do List Panel of an ImmutableTask.
  */
 public class SelectionChangedEvent extends BaseEvent {
 
