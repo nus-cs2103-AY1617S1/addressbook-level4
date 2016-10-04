@@ -1,16 +1,16 @@
 package seedu.todo.commons.events.ui;
 
 import seedu.todo.commons.events.BaseEvent;
-import seedu.todo.model.person.ReadOnlyPerson;
+import seedu.todo.model.task.ImmutableTask;
 
 /**
  * Represents a selection change in the To-do List Panel
  */
 public class SelectionChangedEvent extends BaseEvent {
 
-    private final ReadOnlyPerson newSelection;
+    private final ImmutableTask newSelection;
 
-    public SelectionChangedEvent(ReadOnlyPerson newSelection){
+    public SelectionChangedEvent(ImmutableTask newSelection){
         this.newSelection = newSelection;
     }
 
@@ -19,7 +19,7 @@ public class SelectionChangedEvent extends BaseEvent {
         return this.getClass().getSimpleName();
     }
 
-    public ReadOnlyPerson getNewSelection() {
+    public ImmutableTask getNewSelection() {
         return newSelection;
     }
 }
