@@ -8,7 +8,7 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    Name getName();
+    Title getName();
     Phone getPhone();
     Email getEmail();
     Address getAddress();

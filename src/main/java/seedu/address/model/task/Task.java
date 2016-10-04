@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
-    private Name name;
+    private Title title;
     private Phone phone;
     private Email email;
     private Address address;
@@ -21,9 +21,9 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
-        this.name = name;
+    public Task(Title title, Phone phone, Email email, Address address, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(title, phone, email, address, tags);
+        this.title = title;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -38,8 +38,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Name getName() {
-        return name;
+    public Title getName() {
+        return title;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(title, phone, email, address, tags);
     }
 
     @Override

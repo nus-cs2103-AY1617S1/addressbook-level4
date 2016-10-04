@@ -8,7 +8,7 @@ import seedu.address.model.task.*;
  */
 public class TestPerson implements ReadOnlyTask {
 
-    private Name name;
+    private Title title;
     private Address address;
     private Email email;
     private Phone phone;
@@ -18,8 +18,8 @@ public class TestPerson implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public void setName(Title title) {
+        this.title = title;
     }
 
     public void setAddress(Address address) {
@@ -35,8 +35,8 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Name getName() {
-        return name;
+    public Title getName() {
+        return title;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class TestPerson implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
+        sb.append("add " + this.getName().title + " ");
         sb.append("p/" + this.getPhone().value + " ");
         sb.append("e/" + this.getEmail().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
