@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -341,5 +341,85 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+The team has done a survey on existing products and analysed the strengths and weaknesses with respect to how well it can cater to our target audience.<br><br>
+
+**Product #1: Wunderlist**<br>
+Strengths:
+
+1. Supports adding of floating tasks and deadlines → One-shot approach for Jim (floating tasks)
+2. Supports editing and deleting of existing tasks → Jim is able to reschedule and discard todo items that cannot be completed
+3. Supports adding of deadlines and reminders → Reminder available for Jim whenever a deadline is approaching
+4. Supports searching and sorting of todo items → Ease of finding specific todo items
+5. Application displays todo items in a user-friendly manner
+6. Application is able to work offline → Jim doesn’t have to depend on internet access
+7. Able to create lists for specific todo items [Not sure if it’s required in Jim’s workflow]
+8. Able to set todo items on repeat (for routine purposes) [Not sure if it’s required in Jim’s workflow]
+
+Weakness:
+
+1. Doesn’t work with timeslots → Can’t work for events
+2. No categorisation of todo types (Events, Deadlines, Floating Tasks)
+3. Aside from entering floating tasks, everything else requires a few clicks to perform respective functions → Doesn’t fulfill Jim’s one-shot approach
+4. No “Undo” option → Once todo item created, need to manually edit/delete item
+5. Doesn’t store data into local storage files. Links with user account (online) instead → Online access still required if Jim works with different computers
+
+<br>
+
+**Product #2: Google Keep**<br>
+Strengths:
+
+1. Supports adding of checklist items → allows Jim to mark as done
+2. Supports time-based reminders → allows Jim to schedule reminders for his tasks deadlines.
+3. Supports searching of todo items by description and types → allows Jim to find a todo-item quickly
+4. Todo items are listed in a user-friendly manner → allows Jim to periodically review his todo items.
+5. Application still works without internet access → Allows Jim to access it even without internet connectivity.
+
+Weakness:
+
+1. Requires a few clicks to add a tasks followed by setting reminders → Does not cater to Jim’s one-shot preference.
+2. Only supports reminders, does not allow Jim to block out slots for items without specific times.
+3. Not calendar-centric → does not allow Jim to schedule tasks with specific start and end dates.
+
+<br>
+
+**Product #3: Todoist**<br>
+Strengths:
+
+1. Supports adding of tasks that can be marked as ‘done’ → allows Jim to mark completed tasks as done.
+2. Supports searching of tasks by its name and project → allows Jim to quickly find a task.
+3. Adding of task is done in a one-shot manner → allows Jim to avoid taking several clicks to add a task.
+4. Application can still work offline and only starts syncing with other devices when there is internet connection → Jim can access the application even without internet connectivity.
+5. Application has a desktop version → allows Jim to access the application quickly.
+6. Supports adding of tasks with no specific time tagged to it → allows Jim to add tasks that do not require a specific time to be completed.
+7. Allows easy and straightforward postponement of tasks → Jim can easily postpone tasks should the need arise
+
+
+Weakness:
+
+1. Does not allow for block scheduling of tasks (e.g. can only schedule tasks at 3pm and not 3 - 5pm) → Jim cannot schedule tasks in block timings.
+2. No easy way to look for a suitable slot to schedule an item → Jim has to go through all existing tasks to look for an empty slot to schedule a new task.
+3. Unable to block multiple slots for tasks with unconfirmed timings → hard for Jim to schedule tasks with unconfirmed timings.
+4. Data is synced with the cloud only when there is internet connectivity → Jim will have to require internet connectivity if he wants to use the application with all his existing tasks on another computer.
+
+<br>
+
+**Product #4: SolCalendar**<br>
+Strengths:
+
+1. Tasks can be marked as complete
+2. Appointments and tasks can be searched by their names → Allows Jim to quickly search for items in his schedule
+3. Application can still work offline → Jim can access the application even without internet connectivity
+4. Tasks can be added (without any due date)
+5. Allows easy and straightforward postponement of tasks → Jim can easily postpone tasks should the need arise
+6. Supports time-based reminders → Jim can schedule reminders for his deadlines
+7. To-do items are listed in a user-friendly manner → Jim can periodically review his to-do list
+8. Supports the editing and deleting of existing tasks → Jim is able to reschedule and remove any tasks
+9. Able to set todo items on repeat (for routine purposes)
+
+
+Weakness:
+
+1. Requires two clicks to add a task with its respective settings → Does not cater to Jim’s one-shot preference
+2. There is no undo option → A task has to be manually deleted upon creation
+3. It does not allow JIm to block out specific time slots (without full information)
 
