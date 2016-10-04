@@ -48,13 +48,12 @@ public class TaskListCard extends UiPart{
     @FXML
     public void initialize() {
         titleLabel.setText(String.valueOf(displayedIndex) + ". " + task.getTitle());
-        if (task.getDescription().isEmpty()) {
-            descriptionBox.setVisible(false);
+        if (task.getDescription().isPresent()) {
+            descriptionLabel.setText(task.getDescription().get());
         } else {
-            descriptionLabel.setText(task.getDescription());
+            descriptionBox.setVisible(false);
         }
-        typeLabel.setText( (task.isTask()) ? TASK_TYPE : EVENT_TYPE );
-        
+        typeLabel.setText( (task.isEvent()) ? EVENT_TYPE : TASK_TYPE );
     }
 
     public VBox getLayout() {
