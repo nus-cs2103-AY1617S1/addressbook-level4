@@ -1,31 +1,43 @@
 package seedu.todo.model.task;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-import com.google.common.collect.ImmutableSet;
-
+import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import seedu.todo.model.tag.Tag;
 
+/**
+ * Represents a single task
+ */
 public class Task implements ReadOnlyTask {
-    private String title; 
-    private String description; 
-    private String location;
-    private boolean pinned;
-    private boolean completed;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private Set<Tag> tags = new HashSet<>();
-    private UUID uuid;
+    private StringProperty title = new SimpleStringProperty(); 
+    private StringProperty description = new SimpleStringProperty(); 
+    private StringProperty location = new SimpleStringProperty();
     
+    private BooleanProperty pinned = new SimpleBooleanProperty();
+    private BooleanProperty completed = new SimpleBooleanProperty();
+    
+    private ObjectProperty<LocalDateTime> startTime = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDateTime> endTime = new SimpleObjectProperty<>();
+    
+    private ObjectProperty<Set<Tag>> tags = new SimpleObjectProperty<>(new HashSet<Tag>());
+    private UUID uuid;
+       
     /**
      * Creates a new task
      */
     public Task(String title) {
-        this.title = title;
+        this.setTitle(title);
         this.uuid = UUID.randomUUID();
     }
     
@@ -33,93 +45,92 @@ public class Task implements ReadOnlyTask {
      * Constructs a Task from a ReadOnlyTask
      */
     public Task(ReadOnlyTask task) {
-        this.title = task.getTitle();
-        this.description = task.getDescription().orElse(null);
-        this.location = task.getLocation().orElse(null);
-        this.startTime = task.getStartTime().orElse(null);
-        this.endTime = task.getEndTime().orElse(null);
-        this.completed = task.isCompleted();
-        this.pinned = task.isPinned();
+        this.setTitle(task.getTitle());
+        this.setDescription(task.getDescription().orElse(null));
+        this.setLocation(task.getLocation().orElse(null));
+        this.setStartTime(task.getStartTime().orElse(null));
+        this.setEndTime(task.getEndTime().orElse(null));
+        this.setCompleted(task.isCompleted());
+        this.setPinned(task.isPinned());
         this.uuid = task.getUUID();
-    }
-    
-    /**
-     * Converts the provided ReadOnlyTask into a Task
-     */
-    public static Task unwrap(ReadOnlyTask task) {
-        if (task instanceof Task) {
-            return (Task) task;
-        }
-        
-        return new Task(task);
     }
     
     @Override
     public String getTitle() {
-        return title;
+        return title.get();
     }
 
     @Override
     public Optional<String> getDescription() {
-        return Optional.of(description);
+        return Optional.of(description.get());
     }
 
     @Override
     public Optional<String> getLocation() {
-        return Optional.of(location);
+        return Optional.of(location.get());
     }
 
     @Override
     public Optional<LocalDateTime> getStartTime() {
-        return Optional.of(startTime);
+        return Optional.of(startTime.get());
     }
 
     @Override
     public Optional<LocalDateTime> getEndTime() {
-        return Optional.of(endTime);
+        return Optional.of(endTime.get());
     }
 
     @Override
     public boolean isPinned() {
-        return pinned;
+        return pinned.get();
     }
 
     @Override
     public boolean isCompleted() {
-        return completed;
+        return completed.get();
     }
 
     @Override
-    public ImmutableSet<Tag> getTags() {
-        return (ImmutableSet<Tag>) tags;
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags.get());
+    }
+    
+    public void setTitle(String title) {
+        this.title.set(title);
     }
 
     public void setPinned(boolean pinned) {
-        this.pinned = pinned;
+        this.pinned.set(pinned);
     }
 
     public void setCompleted(boolean completed) {
-        this.completed = completed;
+        this.completed.set(completed);
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description.set(description);
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        this.location.set(location);
     }
 
     public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
+        this.startTime.set(startTime);
     }
 
     public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+        this.endTime.set(endTime);
     }
 
     public void setTags(Set<Tag> tags) {
-        this.tags = tags;
+        this.tags.set(tags);
+    }
+    
+    public Observable[] getObservableProperties() {
+        return new Observable[] {
+            title, description, location, startTime, endTime, tags, completed, pinned,
+        };
     }
 
     @Override

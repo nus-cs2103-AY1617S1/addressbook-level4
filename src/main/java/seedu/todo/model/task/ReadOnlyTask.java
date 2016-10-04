@@ -2,6 +2,7 @@ package seedu.todo.model.task;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import com.google.common.collect.ImmutableSet;
@@ -27,7 +28,7 @@ public interface ReadOnlyTask {
         return this.getStartTime().isPresent();
     }
     
-    public ImmutableSet<Tag> getTags();
+    public Set<Tag> getTags();
     
     public UUID getUUID();
 }
