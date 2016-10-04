@@ -140,11 +140,11 @@ Examples:
 
 #### Adding tags to tasks: `tag`
 Adds tags to the specified task from TaskMan<br>
-Command Format: tag INDEX [t/TAG]...
+Command Format: `tag INDEX [t/TAG]...`
 
 Examples:
 * `find CS2103T`
-  tag 1 t/V0.1
+  `tag 1 t/V0.1`
   Tags the first task in the result(s) of `find CS2103T` with the tag V0.1.
 
 #### Removing tags from Tasks: `untag`
@@ -212,21 +212,21 @@ The filename **must end in .txt**.<br>
 Format: `storageloc [LOCATION]`
 
 Examples:
-* `storageloc C:/Users/Owner/Desktop/new_tasks.txt`
-	Set the new save and load location to C:/Users/Owner/Desktop/new_tasks.txt
-* `storageloc default`
-	Set the new save and load location to tasks.txt in the current application folder
+* `storageloc C:/Users/Owner/Desktop/new_tasks.txt`<br>
+	Sets the new save and load location to C:/Users/Owner/Desktop/new_tasks.txt
+* `storageloc default`<br>
+	Sets the new save and load location to tasks.txt in the current application folder
 
 #### Saved data file format:
 Each Task is separated by newline.<br>
-* `TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`
-> DEADLINE/DATETIME: 'DD-MM-YYYY TTTT'
-> FREQUENCY: 'Xd'
-> STATUS: '{y/n}'
+`TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`<br>
+* DEADLINE/DATETIME: 'DD-MM-YYYY TTTT'
+* FREQUENCY: 'Xd'
+* STATUS: '{y/n}'
 
 #### Adding tasks manually to data file
 Format:
-> `TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`
+`TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`<br>
 Format of each field should follow that of add command.<br>
 
 ## FAQ
@@ -238,10 +238,21 @@ Format of each field should follow that of add command.<br>
 
 Command | Format
 -------- | :--------
-Add | `add TITLE [d/DEADLINE] [start/DATETIME] [end/DATETIME] [r/FREQUENCY] [t/TAG]...`
+Add | `add TITLE [d/DEADLINE] [start/DATETIME] [end/DATETIME] [c/] [r/FREQUENCY] [t/TAG]...	`
 Clear | `clear`
-Delete | `delete INDEX`
+Complete | `complete`
+Delete | `delete INDEX` or `delete list`
+Edit | `edit TITLE [d/DEADLINE] [start/DATETIME] [end/DATETIME] [c/STATUS] [r/FREQUENCY] [t/TAG]...`
+Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
+History | `history`
+List | `list`
+Retag | `retag INDEX [t/TAG]... to [t/TAG]...`
 Select | `select INDEX`
+Sort | `sort ATTRIBUTE`
+Sotrageloc | `storageloc [LOCATION]` or `storageloc default`
+Tag List | `tag list`
+Tag | `tag INDEX [t/TAG]...`
+Undo | `undo`
+Untag | `untag INDEX [t/TAG]...` or `untag all`
