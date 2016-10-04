@@ -205,28 +205,28 @@ Command Format: `exit`
 TaskMan data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
-#### Setting the save and load location: 'sotrageloc'
+#### Setting the save and load location: `sotrageloc`
 Saves to the specified file name and location and sets the application to load from the specified location in the future.<br>
-TaskMan data are saved in a file called tasks.txt in the application folder.<br>
+TaskMan data are saved in a file called tasks.txt in the application folder by default.<br>
 The filename **must end in .txt**.<br>
-Format: 'storageloc [LOCATION]'
+Format: `storageloc [LOCATION]`
 
 Examples:
-* 'storageloc C:/Users/Owner/Desktop/new_tasks.txt'
+* `storageloc C:/Users/Owner/Desktop/new_tasks.txt`
 	Set the new save and load location to C:/Users/Owner/Desktop/new_tasks.txt
-* 'storageloc default'
+* `storageloc default`
 	Set the new save and load location to tasks.txt in the current application folder
 
 #### Saved data file format:
 Each Task is separated by newline.<br>
-* 'TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...'
+* `TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`
 > DEADLINE/DATETIME: 'DD-MM-YYYY TTTT'
 > FREQUENCY: 'Xd'
 > STATUS: '{y/n}'
 
 #### Adding tasks manually to data file
 Format:
-> 'TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...'
+> `TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`
 Format of each field should follow that of add command.<br>
 
 ## FAQ
