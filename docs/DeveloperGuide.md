@@ -248,6 +248,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -262,43 +263,78 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
 `*` | user with many persons in the address book | sort persons by name | locate a person easily
 
-{More to be added}
+
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Adding a task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User adds a floating task
+2. TaskManager adds the task
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. The format of the input is wrong
 
-> Use case ends
+> TaskManager shows an error and prompts the user again reiterating the correct command format
+> Use Case resumes at step 1.
+
+1b. The task limit has been reached
+
+> TaskManager shows an error and prompts the user to delete a task.
+> Use Case ends.
+
+#### Use case: Deleting a task
+
+**MSS**
+
+1. User requests to list tasks
+2. TaskManager shows a list of tasks
+3. User requests to delete a specific task in the list
+4. TaskManager deletes the task 
+Use case ends.
+
+**Extensions**
+
+1a. The list of tasks is empty
+
+> Use Case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+> 3a1. TaskManager shows an error.
+> Use Case ends.
 
-{More to be added}
+#### Use case: Undoing a command
+
+**MSS**
+
+1. User undos a command.
+2. TaskManager returns to state before command is executed.
+3. TaskManager displays that command that has been undone.
+Use case ends.
+
+**Extensions**
+
+1a. There is no command to be undone
+
+> 1a1. TaskManager shows an error.
+> Use Case ends.
+
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+4. Should process a user's request within 3 seconds.
+5. Should be available 24/7.
 
-{More to be added}
 
 ## Appendix D : Glossary
 
@@ -310,7 +346,17 @@ Use case ends.
 
 > A contact detail that is not meant to be shared with others
 
+
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+ | Google Calender | Wunderlist | HabitRPG | Ours
+-------- | :-------- 
+Basic task manager features (CRUD) | Available | Available | Available (limited) | Available
+Quick add | Available | Not available | Available | Available | Available
+Undo | Available | Available | Available | Available
+Internet connectivity required | Required | Required | Required | Not required
+Sync across multiple devices | Available | Available | Available | Available
+Extra features | Customizing reminders for tasks | Favoriting tasks <br> Tagging tasks | Tagging tasks | Favoriting tasks <br> Setting aliases
+
+Looking at the above feature comparisons, our product covers most of the basic features for a user to manage his/her tasks efficiently. While there are some features in competing products that we have not implemented, it is not a cause for concern. We are targeting a specific group of power users who wants to manage tasks quickly through the usage of a command-line interface.
 
