@@ -99,8 +99,25 @@ Examples:
   `select 2`<br>
   Selects the 2nd task in the address book.
 * `find CS2103T` <br> 
-  `select 1`<br>
+  `delete 1`<br>
   Selects the 1st task in the results of the `find` command.
+
+#### Undo a task : `undo`
+Undo the latest task added/deleted/updated. Irreversible.<br>
+Format: `undo`
+
+> Undos ONLY the latest task added/deleted/updated.
+	i.e You cannot undo tasks added 2 'adds' ago.
+
+Examples: 
+* `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2`<br>
+  `undo`<br>
+  Undo latest add command, remove 'Buy vegetables task'
+* `find CS2103T`<br> 
+  `delete 1`<br>
+  `undo`<br>
+  Undo latest delete command, re-instate task 1 from CS2103T.
+
 
 #### Clearing all entries : `clear`
 Clears all entries from the task manager.<br>
@@ -128,6 +145,8 @@ Add | `add TASK i/INFORMATION d/DATE s/START_TIME e/END_TIME t/LEVEL_OF_URGENCY_
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
+List | `list`
 Select | `select INDEX`
+Undo | `undo`
+
