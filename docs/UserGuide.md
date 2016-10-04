@@ -37,6 +37,7 @@ When launched the application will have several views as shown
 * To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. `-f`) for short flags and double dash for long flags (eg. `--all`)
 * Items with `...` after them can have multiple instances.
 * Most commands that updates a task require an `INDEX` parameter. This is number shown to the left of the task as shown in the screenshot below
+
  <img src="images\sketch_task_index.jpg" width="350" alt="Index Number Location"><br />
 
 ### Switch views : `view`
