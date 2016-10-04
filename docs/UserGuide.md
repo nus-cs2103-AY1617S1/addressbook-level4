@@ -1,41 +1,10 @@
 # User Guide
 
+* [About GGist](#about-ggist)
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
-* [Command Summary](#command-summary)
-
-## About Us
-
-**Bernard Koh**
-* Team Leader
-* Testing
-
-**Liu Zhen Dong**
-* Code Quality
-* Time Keeper
-
-**Leah Lim**
-* Documentation
-* GUI Design
-
-**Li Wang Huan**
-* Integration
-* Eclipse Specialist
-
-
-## Table of Content
-1. About GGist
-2. User Guide
-   * Getting Started
-   * Feature Details
-   * Troubleshoot
-   * Command Cheatsheet
-3. User Stories
-4. Use Cases
-5. Non-functional Requirements
-6. Glossary
-7. Product Survey
+* [Command Cheatsheet](#command-cheatsheet)
 
 ## About GGist
 
@@ -50,7 +19,7 @@ Are you ready to embrace a new way of living and have your life better organized
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
+   This application may not work with earlier versions of Java 8.
    
 1. Download the latest `GGist.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your GGist application.
@@ -195,7 +164,7 @@ There is no need to save manually.
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
        
-## Command Summary
+## Command Cheatsheet
 
 Command | Format  
 -------- | :-------- 
