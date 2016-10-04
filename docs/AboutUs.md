@@ -6,47 +6,31 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
 <img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+**Role**: CS2103T Tutor, Project Advisor
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+#### [Zhang Yi Jiang](https://github.com/ZhangYiJiang)
+ **Role**: Lead Developer <br>  
+ **Responsibilities**: Parser, Logic and Integration
+-----
+
+#### [Govind Venugopalan](https://github.com/cricketer94)
+<img src="images/Govind.jpg" width="150"><br>
+**Role**: Backend Developer <br>
+**Responsibilities**: Logic and Algorithms
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+#### [Li Kai](https://github.com/li-kai) 
+<img src="images/Likai.jpg" width="150"><br>
+**Role**: Backend Developer <br>
+**Responsibilities**: Database and Model Design
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
+#### [Wang Xien Dong](http://github.com/xdrawks)
 <img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+**Role**: Frontend Developer 
+**Responsibilities**: User Interface<br>
 
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
