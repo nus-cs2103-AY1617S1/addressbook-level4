@@ -21,8 +21,8 @@
 5. Some example commands you can try:
    * **`list`** : lists all tasks to do
    * **`add`** `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2` : 
-     adds a task named `to buy food` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+     adds a task named `Buy vegetables` to the Task Manager.
+   * **`delete`**`Buy vegetables` : deletes the 'Buy vegetables' task from the manager.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -40,8 +40,8 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
+#### Adding a task: `add`
+Adds a task to the task manager<br>
 Format: `add TASK i/INFORMATION d/DATE s/START_TIME e/END_TIME t/LEVEL_OF_URGENCY_TAG` 
 
 > Level of importance tags range from 1 to 5 (1-Very Low Urgency, 2-Low Urgency, 3-Neutral, 4-High Urgency, 5-Very High Urgency)
@@ -50,26 +50,25 @@ Examples:
 * `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2`
 * `add CS2013T Tutorial i/Prepare for week 8 Tutorial d/04102016 s/2200 e/2359 t/5`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
+#### Listing all tasks : `list`
+Shows a list of all tasks currently in the task manager.<br>
 Format: `list`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
+#### Finding all tasks containing any keyword in the task name: `find`
+Finds tasks which contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+> * The order of the keywords does not matter. e.g. `CS2103T Tutorial` will match `Tutorial CS2103T`
+> * Only the task name is searched.
+> * Only full words will be matched e.g. `CS2103T` will not match `CS2103`
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `CS2103T` will match `CS2103T Tutorial`
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `find CS2130T`<br>
+  Returns `CS2130T Tutorial` but not `CS2103 T`
+* `find CS2103T CS2101 CS3235`<br>
+  Returns Any tasks having keywords `CS2103T`, `CS2101`, or `CS3235`
 
 #### Deleting a person : `delete`
 Deletes the specified person from the address book. Irreversible.<br>
