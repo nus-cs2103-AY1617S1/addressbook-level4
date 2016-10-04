@@ -1,11 +1,11 @@
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import tars.commons.core.Messages;
 import tars.logic.commands.AddCommand;
-import tars.testutil.TestPerson;
+import tars.testutil.TestTask;
 import tars.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
@@ -15,15 +15,15 @@ public class AddCommandTest extends TarsGuiTest {
     @Test
     public void add() {
         //add one task
-        TestPerson[] currentList = td.getTypicalPersons();
-        TestPerson taskToAdd = td.hoon;
+        TestTask[] currentList = td.getTypicalTasks();
+        TestTask taskToAdd = td.hoon;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, taskToAdd);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
         taskToAdd = td.ida;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, taskToAdd);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
         commandBox.runCommand(td.hoon.getAddCommand());
@@ -39,15 +39,15 @@ public class AddCommandTest extends TarsGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestPerson taskToAdd, TestPerson... currentList) {
+    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        PersonCardHandle addedCard = taskListPanel.navigateToPerson(taskToAdd.getName().fullName);
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
-        TestPerson[] expectedList = TestUtil.addPersonsToList(currentList, taskToAdd);
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 

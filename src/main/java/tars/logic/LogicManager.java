@@ -7,7 +7,7 @@ import tars.logic.commands.Command;
 import tars.logic.commands.CommandResult;
 import tars.logic.parser.Parser;
 import tars.model.Model;
-import tars.model.task.ReadOnlyPerson;
+import tars.model.task.ReadOnlyTask;
 import tars.storage.Storage;
 
 import java.util.logging.Logger;
@@ -35,7 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return model.getFilteredTaskList();
     }
 }

@@ -10,7 +10,7 @@ import tars.model.Tars;
 import tars.model.ReadOnlyTars;
 import tars.model.UserPrefs;
 import tars.storage.StorageManager;
-import tars.testutil.TypicalTestPersons;
+import tars.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertEquals;
 
@@ -50,7 +50,7 @@ public class StorageManagerTest {
 
     @Test
     public void tarsReadSave() throws Exception {
-        Tars original = new TypicalTestPersons().getTypicalTars();
+        Tars original = new TypicalTestTasks().getTypicalTars();
         storageManager.saveTars(original);
         ReadOnlyTars retrieved = storageManager.readTars().get();
         assertEquals(original, new Tars(retrieved));

@@ -2,14 +2,14 @@ package tars.testutil;
 
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.Tars;
-import tars.model.task.Person;
-import tars.model.task.UniquePersonList;
+import tars.model.task.Task;
+import tars.model.task.UniqueTaskList;
 import tars.model.tag.Tag;
 
 /**
  * A utility class to help with building Tars objects.
  * Example usage: <br>
- *     {@code Tars ab = new TarsBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code Tars ab = new TarsBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
 public class TarsBuilder {
 
@@ -19,8 +19,8 @@ public class TarsBuilder {
         this.tars = tars;
     }
 
-    public TarsBuilder withPerson(Person task) throws UniquePersonList.DuplicatePersonException {
-        tars.addPerson(task);
+    public TarsBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        tars.addTask(task);
         return this;
     }
 

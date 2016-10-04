@@ -12,16 +12,16 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#equals(Object)
+ * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicatePersonException extends DuplicateDataException {
-        protected DuplicatePersonException() {
+    public static class DuplicateTaskException extends DuplicateDataException {
+        protected DuplicateTaskException() {
             super("Operation would result in duplicate tasks");
         }
     }
@@ -30,19 +30,19 @@ public class UniquePersonList implements Iterable<Person> {
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
-    public static class PersonNotFoundException extends Exception {}
+    public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
-     * Constructs empty PersonList.
+     * Constructs empty TaskList.
      */
-    public UniquePersonList() {}
+    public UniqueTaskList() {}
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(ReadOnlyPerson toCheck) {
+    public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -50,12 +50,12 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicatePersonException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Person toAdd) throws DuplicatePersonException {
+    public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
     }
@@ -63,32 +63,32 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Removes the equivalent task from the list.
      *
-     * @throws PersonNotFoundException if no such task could be found in the list.
+     * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
-            throw new PersonNotFoundException();
+            throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
     }
 
-    public ObservableList<Person> getInternalList() {
+    public ObservableList<Task> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Task> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
+                || (other instanceof UniqueTaskList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniquePersonList) other).internalList));
+                ((UniqueTaskList) other).internalList));
     }
 
     @Override

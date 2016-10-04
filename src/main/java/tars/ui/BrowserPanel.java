@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import tars.commons.core.LogsCenter;
 import tars.commons.util.FxViewUtil;
-import tars.model.task.ReadOnlyPerson;
+import tars.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 
@@ -50,7 +50,7 @@ public class BrowserPanel extends UiPart{
         return browserPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson task) {
+    public void loadTaskPage(ReadOnlyTask task) {
         loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
     }
 

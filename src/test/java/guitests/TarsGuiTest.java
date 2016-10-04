@@ -12,9 +12,9 @@ import org.testfx.api.FxToolkit;
 import tars.TestApp;
 import tars.commons.core.EventsCenter;
 import tars.model.Tars;
-import tars.model.task.ReadOnlyPerson;
+import tars.model.task.ReadOnlyTask;
 import tars.testutil.TestUtil;
-import tars.testutil.TypicalTestPersons;
+import tars.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -32,7 +32,7 @@ public abstract class TarsGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -40,7 +40,7 @@ public abstract class TarsGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle taskListPanel;
+    protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -60,7 +60,7 @@ public abstract class TarsGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            taskListPanel = mainGui.getPersonListPanel();
+            taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -78,7 +78,7 @@ public abstract class TarsGuiTest {
      */
     protected Tars getInitialData() {
         Tars ab = TestUtil.generateEmptyTars();
-        TypicalTestPersons.loadTarsWithSampleData(ab);
+        TypicalTestTasks.loadTarsWithSampleData(ab);
         return ab;
     }
 
@@ -98,8 +98,8 @@ public abstract class TarsGuiTest {
     /**
      * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(ReadOnlyPerson task, PersonCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, task));
+    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**

@@ -2,8 +2,8 @@ package tars.storage;
 
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.ReadOnlyTars;
-import tars.model.task.ReadOnlyPerson;
-import tars.model.task.UniquePersonList;
+import tars.model.task.ReadOnlyTask;
+import tars.model.task.UniqueTaskList;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class XmlSerializableTars implements ReadOnlyTars {
 
     @XmlElement
-    private List<XmlAdaptedPerson> tasks;
+    private List<XmlAdaptedTask> tasks;
     @XmlElement
     private List<Tag> tags;
 
@@ -39,7 +39,7 @@ public class XmlSerializableTars implements ReadOnlyTars {
      * Conversion
      */
     public XmlSerializableTars(ReadOnlyTars src) {
-        tasks.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -54,9 +54,9 @@ public class XmlSerializableTars implements ReadOnlyTars {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
-        UniquePersonList lists = new UniquePersonList();
-        for (XmlAdaptedPerson p : tasks) {
+    public UniqueTaskList getUniqueTaskList() {
+        UniqueTaskList lists = new UniqueTaskList();
+        for (XmlAdaptedTask p : tasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -67,7 +67,7 @@ public class XmlSerializableTars implements ReadOnlyTars {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
             try {
                 return p.toModelType();

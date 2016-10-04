@@ -55,7 +55,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableTars dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTars.class);
-        assertEquals(9, dataFromFile.getPersonList().size());
+        assertEquals(9, dataFromFile.getTaskList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
 
@@ -87,7 +87,7 @@ public class XmlUtilTest {
         //TODO: use equality instead of string comparisons
 
         TarsBuilder builder = new TarsBuilder(new Tars());
-        dataToWrite = new XmlSerializableTars(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
+        dataToWrite = new XmlSerializableTars(builder.withTask(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTars.class);

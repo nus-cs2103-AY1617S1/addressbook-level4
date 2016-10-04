@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
@@ -29,15 +29,15 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedTask() {}
 
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedPerson(ReadOnlyPerson source) {
+    public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -49,11 +49,11 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Person object.
+     * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
-    public Person toModelType() throws IllegalValueException {
+    public Task toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
@@ -63,6 +63,6 @@ public class XmlAdaptedPerson {
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Person(name, phone, email, address, tags);
+        return new Task(name, phone, email, address, tags);
     }
 }

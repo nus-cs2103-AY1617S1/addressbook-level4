@@ -12,7 +12,7 @@ import tars.commons.core.Config;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.storage.DataSavingExceptionEvent;
 import tars.commons.events.ui.JumpToListRequestEvent;
-import tars.commons.events.ui.PersonPanelSelectionChangedEvent;
+import tars.commons.events.ui.TaskPanelSelectionChangedEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
 import tars.commons.util.StringUtil;
 import tars.logic.Logic;
@@ -114,13 +114,13 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
+    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadPersonPage(event.getNewSelection());
+        mainWindow.loadTaskPage(event.getNewSelection());
     }
 
 }

@@ -3,7 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import tars.commons.core.Messages;
-import tars.testutil.TestPerson;
+import tars.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
@@ -31,7 +31,7 @@ public class FindCommandTest extends TarsGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestPerson... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");

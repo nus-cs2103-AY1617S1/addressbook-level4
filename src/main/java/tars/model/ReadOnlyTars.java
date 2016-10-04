@@ -1,8 +1,8 @@
 package tars.model;
 
 
-import tars.model.task.ReadOnlyPerson;
-import tars.model.task.UniquePersonList;
+import tars.model.task.ReadOnlyTask;
+import tars.model.task.UniqueTaskList;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 
@@ -15,12 +15,12 @@ public interface ReadOnlyTars {
 
     UniqueTagList getUniqueTagList();
 
-    UniquePersonList getUniquePersonList();
+    UniqueTaskList getUniqueTaskList();
 
     /**
      * Returns an unmodifiable view of tasks list
      */
-    List<ReadOnlyPerson> getPersonList();
+    List<ReadOnlyTask> getTaskList();
 
     /**
      * Returns an unmodifiable view of tags list

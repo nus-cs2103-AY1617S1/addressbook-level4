@@ -10,9 +10,9 @@ import tars.commons.exceptions.DataConversionException;
 import tars.commons.util.FileUtil;
 import tars.model.Tars;
 import tars.model.ReadOnlyTars;
-import tars.model.task.Person;
+import tars.model.task.Task;
 import tars.storage.XmlTarsStorage;
-import tars.testutil.TypicalTestPersons;
+import tars.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 
@@ -63,7 +63,7 @@ public class XmlTarsStorageTest {
     @Test
     public void readAndSaveTars_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempTars.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
+        TypicalTestTasks td = new TypicalTestTasks();
         Tars original = td.getTypicalTars();
         XmlTarsStorage xmlTarsStorage = new XmlTarsStorage(filePath);
 
@@ -73,8 +73,8 @@ public class XmlTarsStorageTest {
         assertEquals(original, new Tars(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Person(TypicalTestPersons.hoon));
-        original.removePerson(new Person(TypicalTestPersons.alice));
+        original.addTask(new Task(TypicalTestTasks.hoon));
+        original.removeTask(new Task(TypicalTestTasks.alice));
         xmlTarsStorage.saveTars(original, filePath);
         readBack = xmlTarsStorage.readTars(filePath).get();
         assertEquals(original, new Tars(readBack));

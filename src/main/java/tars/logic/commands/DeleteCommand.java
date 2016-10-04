@@ -2,8 +2,8 @@ package tars.logic.commands;
 
 import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
-import tars.model.task.ReadOnlyPerson;
-import tars.model.task.UniquePersonList.PersonNotFoundException;
+import tars.model.task.ReadOnlyTask;
+import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from tars.
@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
 
     public final int targetIndex;
 
@@ -29,18 +29,18 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyPerson taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deletePerson(taskToDelete);
-        } catch (PersonNotFoundException pnfe) {
+            model.deleteTask(taskToDelete);
+        } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 

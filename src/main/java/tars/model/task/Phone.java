@@ -3,12 +3,12 @@ package tars.model.task;
 import tars.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's phone number in tars.
+ * Represents a Task's phone number in tars.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
+    public static final String MESSAGE_PHONE_CONSTRAINTS = "Task phone numbers should only contain numbers";
     public static final String PHONE_VALIDATION_REGEX = "\\d+";
 
     public final String value;

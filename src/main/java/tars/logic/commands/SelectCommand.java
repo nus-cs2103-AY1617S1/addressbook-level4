@@ -4,7 +4,7 @@ import tars.commons.core.EventsCenter;
 import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.ui.JumpToListRequestEvent;
-import tars.model.task.ReadOnlyPerson;
+import tars.model.task.ReadOnlyTask;
 
 /**
  * Selects a task identified using it's last displayed index from tars.
@@ -20,7 +20,7 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
+    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Task: %1$s";
 
     public SelectCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -29,7 +29,7 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

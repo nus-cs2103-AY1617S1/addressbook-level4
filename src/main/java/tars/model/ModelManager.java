@@ -6,10 +6,10 @@ import tars.commons.core.LogsCenter;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.util.StringUtil;
-import tars.model.task.Person;
-import tars.model.task.ReadOnlyPerson;
-import tars.model.task.UniquePersonList;
-import tars.model.task.UniquePersonList.PersonNotFoundException;
+import tars.model.task.Task;
+import tars.model.task.ReadOnlyTask;
+import tars.model.task.UniqueTaskList;
+import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -22,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Tars tars;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given Tars
@@ -36,7 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         tars = new Tars(src);
-        filteredPersons = new FilteredList<>(tars.getPersons());
+        filteredTasks = new FilteredList<>(tars.getTasks());
     }
 
     public ModelManager() {
@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTars initialData, UserPrefs userPrefs) {
         tars = new Tars(initialData);
-        filteredPersons = new FilteredList<>(tars.getPersons());
+        filteredTasks = new FilteredList<>(tars.getTasks());
     }
 
     @Override
@@ -65,43 +65,43 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        tars.removePerson(target);
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        tars.removeTask(target);
         indicateTarsChanged();
     }
 
     @Override
-    public synchronized void addPerson(Person task) throws UniquePersonList.DuplicatePersonException {
-        tars.addPerson(task);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        tars.addTask(task);
         updateFilteredListToShowAll();
         indicateTarsChanged();
     }
 
-    //=========== Filtered Person List Accessors ===============================================================
+    //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredTasks.setPredicate(null);
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredTaskList(Set<String> keywords){
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+    private void updateFilteredTaskList(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyPerson task);
+        boolean satisfies(ReadOnlyTask task);
         String toString();
     }
 
@@ -114,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyPerson task) {
+        public boolean satisfies(ReadOnlyTask task) {
             return qualifier.run(task);
         }
 
@@ -125,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyPerson task);
+        boolean run(ReadOnlyTask task);
         String toString();
     }
 
@@ -137,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyPerson task) {
+        public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()
