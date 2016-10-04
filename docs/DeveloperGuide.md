@@ -342,15 +342,11 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
 
 ## Appendix E : Product Survey
 
- | Google Calender | Wunderlist | HabitRPG | Ours
--------- | :-------- 
+Task Managers | Google Calender | Wunderlist | HabitRPG | Ours
+-------- | :-------- | :-------- | :-------- | :-------- 
 Basic task manager features (CRUD) | Available | Available | Available (limited) | Available
 Quick add | Available | Not available | Available | Available | Available
 Undo | Available | Available | Available | Available
