@@ -66,7 +66,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples: 
 * `find CS2130T`<br>
-  Returns `CS2130T Tutorial` but not `CS2103 T`
+  Returns `CS2130T Tutorial` but not `CS2103 Tutorial`
 * `find CS2103T CS2101 CS3235`<br>
   Returns Any tasks having keywords `CS2103T`, `CS2101`, or `CS3235`
 
