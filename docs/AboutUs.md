@@ -24,6 +24,7 @@ Responsibilities: Integration, Parser
 -----
 
 #### [Kevin Ong](https://github.com/Kevin-Ong)
+<img src="images/KevinOng.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Logic, Storage
 
