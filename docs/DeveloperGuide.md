@@ -232,7 +232,55 @@ Priorities:
 * `* *` - Medium (Nice to have)
 * `*` - Low (Unlikely to have)
 
-## Appendix B: Use Cases *_(TODO)_*
+## Appendix B: Use Cases
+
+In all the listed use cases, the **System** is our application and the **Actor** is the user.
+
+### UC01 - Add to-do item
+
+MSS: 
+
+1. User types in an `add` command with details of the to-do item
+2. Application adds the to-do item to the current to-do list
+3. Application updates the GUI to reflect the changes
+
+Extensions:
+
+- 1a. Command was not properly formatted
+ 1. Application uses GUI to report details of the error in parsing command
+ 2. Application uses GUI to show correct `add` command syntax and a sample `add` command
+
+### UC02 - Delete to-do item
+
+MSS: 
+
+1. User types in an `delete` command with the screen index of the to-do item
+2. Application deletes the to-do item to the current to-do list
+3. Application updates the GUI to reflect the changes
+
+Extensions:
+
+- 1a. Command was not properly formatted
+ 1. Application uses GUI to report details of the error in parsing command
+ 2. Application uses GUI to show correct `delete` command syntax and a sample `delete` command
+   
+- 1b. Screen index is invalid
+ 1. Application uses GUI to report that screen index is invalid
+
+### UC03 - Find to-do items
+
+MSS: 
+
+1. User types in an `find` command with a list of words to search for
+2. Application searches through the to-do list and updates the GUI to show only the matched to-do items
+
+Extensions:
+
+- 1a. No words were given
+ 1. Application updates GUI to show all to-do items
+   
+- 2a. No to-do items matched
+ 1. Application uses GUI to report that no to-do items were matched
 
 ## Appendix C: Non Functional Requirements
 
@@ -247,12 +295,13 @@ Priorities:
 9. Should not use more than 100MB of RAM
 10. Number of existing files that has to be edited to add new commands is at most 2 existing files (easy to add)
 11. New users should not take more than 1 hour to learn the commands and their syntax
-12. New users should not require reading of a guide to understand user interface
+12. New users should not require reading of a guide to navigate GUI (excluding learning of commands) 
 
 ## Appendix D: Glossary
 
 - **Mainstream OS**: Windows, Linux, Unix and OS-X
 - **To-do item**: Event, deadline or floating task added by the user
+- **Screen index of to-do item**: The number visually tagged to a to-do item on screen (changes with how to-do items are listed)
 
 ## Appendix E: Product Survey
 
@@ -264,4 +313,3 @@ Google Keep (Zhiwen) | + Simplicity (clear and simple UI) <br> + Easy access fro
 Trello (Sheng Xuan) | + Multiple platform support (Web, mobile, desktop) <br> + Due date function, which is suitable for tasks with deadlines <br> + Search by keyword of a task <br> + Archive completed tasks <br> + Check list to track the progress of each task <br> + Attachment files to a task (ie. forms to reply in a email) | - At least 2 clicks (taps) are needed to add a new task <br> - Calendar view function is not free to use. In free version, no timeline can be shown, add events happen in specific dates are not supported <br> - Unable to undo
 Anydo (Conan) | + Able to push tasks to a later date <br> + Easily reorder tasks <br> + Easy to use interface (4 major groups) <br> + Can be used on mobile and on browser <br> + Supports double confirmation of deleting a task when complete <br> + Can add details in later | - No clear distinguishing of the 3 types of tasks <br> - No sense of timeline, just tasks to complete by the end of the day <br> - Deadlines are not shown unless the task is clicked <br> - No search function (however, you can Ctrl+F, though no content search) <br> - The other 2 group “Upcoming” and “Someday” is kind of ambiguous
 Google Calendar (Yun Chuan) | + Able to mark as done, and undo “done” <br> + Clean, simple interface which is not cluttered <br> + Autocomplete based on crowd-sourced or history (but doesn’t feel very “intelligent”) <br> + Push notifications for reminders/events <br> + Able to repeat events <br> + Both on mobile and on website, sync-ed <br> + “All-day” events <br> + “Schedule” view lists everything in chronological order, starting from today <br> + Able to “zoom in” (day view) and “zoom out” (month view) <br> + Split into: “events” and “reminders”, events have start to end time, reminders only have a reminder time | - Online, cannot export to data file <br> - Unable to mark deadlines accurately (not an “event”) <br> - Cannot search for todos <br> - Too many screens or user actions to add a task
-
