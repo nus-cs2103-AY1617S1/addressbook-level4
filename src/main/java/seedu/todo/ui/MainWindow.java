@@ -30,7 +30,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private TodoListPanel personListPanel;
+    private TodoListPanel todoListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -109,7 +109,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = TodoListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+        todoListPanel = TodoListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -183,7 +183,7 @@ public class MainWindow extends UiPart {
     }
 
     public TodoListPanel getPersonListPanel() {
-        return this.personListPanel;
+        return this.todoListPanel;
     }
 
     public void loadPersonPage(ReadOnlyPerson person) {
