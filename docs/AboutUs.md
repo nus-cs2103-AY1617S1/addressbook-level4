@@ -22,7 +22,7 @@ Responsibilities: Testing
 -----
 
 #### [Ong Yen Khai Anton](http://github.com/yijinl) 
-<img src="images/OngYenKhaiAnton.jpg" width="150"><br>
+<img src="images/OngYenKhaiAnton.JPG" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Documentation
 
