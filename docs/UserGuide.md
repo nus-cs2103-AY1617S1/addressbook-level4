@@ -52,15 +52,34 @@ Format: `help`
 #### Adding a task: `add task`
 Adds a task to DoDo-Bird<br>
 Format: `add task -n TaskName [-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]`
+		`add task -n TaskName [-d a line of details] [-datefrom DD/MM/YY] [-dateto DD/MM/YY] [-timeFrom hh:mm] [-timeEnd hh:mm]`
+		`add task -n TaskName [-d a line of details] [-date DD/MM/YY] [-timeFrom hh:mm] [-timeEnd hh:mm]`
+		`add task -n TaskName [-d a line of details] [-date DD/MM/YY] [--keyword]`
 
 > Date and Time formats follow the above guidelines.
 
 Examples:
 
 * **`add task`**` -n Meet with professor -d CS1234`
-* **`add task`**` -n Meet with professor -d CS1234 -date 25/10/17 -timefrom 09:30 -timeend 17:00`
 * **`add task`**` -n Complete tutorial activites -d CS1234 -before 25/10/17 23:59 -after 18/10/17 12:00`
+* **`add task`**` -n Complete Problem set 4 -d CS1234 -datefrom 14/10/17 -dateto 21/10/17`
+* **`add task`**` -n Meet with professor -d CS1234 -date 25/10/17 -timefrom 09:30 -timeend 17:00`
+* **`add task`**` -n Complete tutorial activites -d CS1234 -date 25/10/17 --wholeday
 
+#### Updating a task: `update task`
+Update an existing task inside DoDo-Bird<br>
+Format: `update task -n TaskName [-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]`
+		`update task -n TaskName [-d a line of details] [-datefrom DD/MM/YY] [-dateto DD/MM/YY] [-timeFrom hh:mm] [-timeEnd hh:mm]`
+		`update task -n TaskName [-d a line of details] [-date DD/MM/YY] [-timeFrom hh:mm] [-timeEnd hh:mm]`
+		`update task -n TaskName [-d a line of details] [-date DD/MM/YY] [--keyword]`
+
+> Date and Time formats follow the above guidelines.
+
+Examples:
+
+* **`update task`**` -n Complete Problem set 4 -d CS1234 -datefrom 14/10/17 -dateto 18/10/17`
+* **`update task`**` -n Complete tutorial activites -d CS1234 -before 25/10/17 17:00 -after 18/10/17 12:00`
+* **`update task`**` -n Complete tutorial activites -d CS1234 -date 25/10/17 --afternoon`
 
 #### Seeing tasks : `see`
 Shows a list of all tasks in DoDo-Bird for a particular date.<br>
@@ -70,6 +89,10 @@ Format: **`see`**`DATE`
 Finds tasks whose names contain any of the given keywords.<br>
 Format: `search -n KEYWORD [MORE_KEYWORDS]`
 
+Examples:
+* `search Meeting`<br>
+* `search Meeting Professor`<br>
+
 > * The search is case insensitive. e.g `meeting` will match `Meeting`, `Meeting` will match `meeting`.
 > * The order of the keywords does not matter. e.g. `Meet Professor` will match `Professor Meet`
 > * Only the taskname is searched.
@@ -78,18 +101,19 @@ Format: `search -n KEYWORD [MORE_KEYWORDS]`
     e.g. `Meeting` will match `Meeting Professor`
 
 Finds tasks before/after a time.<br>
-Format: `search -before/-after 25/10/17 [@09:30]`
+Format: `search -before DD/MM/YY [@hh:mm]`
+		`search -after DD/MM/YY [@hh:mm]`
 
 Examples:
-* `search Meeting`<br>
-* `search Meeting -after 25/10/17@09:30`<br>
+* `search -after 25/10/17@09:30`<br>
+* `search -after 25/10/17@09:30`<br>
 
 #### Listing all tasks : `delete`
-List all unfinished tasks in the to-do list.<br>
+List all unfinished tasks in the DoDo-Bird.<br>
 Format: `list`
  
 #### Deleting a task : `delete`
-Deletes the specified task from the to-do list. Irreversible.<br>
+Deletes the specified task from the DoDo-Bird. Irreversible.<br>
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`.
@@ -99,7 +123,7 @@ Format: `delete INDEX`
 Examples:
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd task in the to-do list.
+  Deletes the 2nd task in the DoDo-Bird.
 * `find Tutorial`<br>
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` command.
@@ -115,13 +139,13 @@ Format: `select INDEX`
 Examples:
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd task in the to-do list.
+  Selects the 2nd task in the DoDo-Bird.
 * `find Betsy` <br>
   `select 1`<br>
   Selects the 1st task in the results of the `find` command.
 
 #### Clearing all entries : `clear`
-Clears all entries from the to-do list.<br>
+Clears all entries from the DoDo-Bird.<br>
 Format: `clear`  
 
 #### Exiting the program : `exit`
@@ -142,7 +166,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Add | `add task -n TaskName [-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]`
+Add | `add task -n TaskName [relevant details]`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
@@ -150,3 +174,4 @@ Help | `help`
 List | `list`
 See | `see DATE`
 Select | `select INDEX`
+Update | `update task -n TaskName [relevant details]`
