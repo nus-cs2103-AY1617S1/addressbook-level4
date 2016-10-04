@@ -14,7 +14,7 @@
 1. Download the latest `DoDo-Bird.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your DoDo-Bird application.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
-   > **Insert Dewi's UI**
+   > ![GUI](./images/UpdatedUI_041016.png)
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -30,7 +30,6 @@
 ## Features
 
 > **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
@@ -40,6 +39,7 @@
 >   * 25/10/2017 or 25-10-2017
 >   * 25 Oct 2017
 >   * 25 October 2017
+>   * Tomorrow/Yesterday/Today
 > * **Time**
 >   * 09:30
 >   * 09:30pm
@@ -51,35 +51,33 @@ Format: `help`
 
 #### Adding a task: `add task`
 Adds a task to DoDo-Bird<br>
-Format: `add task -n TaskName [-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]`
-		`add task -n TaskName [-d a line of details] [-datefrom DD/MM/YY] [-dateto DD/MM/YY] [-timeFrom hh:mm] [-timeEnd hh:mm]`
-		`add task -n TaskName [-d a line of details] [-date DD/MM/YY] [-timeFrom hh:mm] [-timeEnd hh:mm]`
-		`add task -n TaskName [-d a line of details] [-date DD/MM/YY] [--keyword]`
+
+* `add task -n TASKNAME
+[-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]` <br>
+* `add task -n TASKNAME
+[-d a line of details] [-date DD/MM/YY]`
 
 > Date and Time formats follow the above guidelines.
 
 Examples:
 
 * **`add task`**` -n Meet with professor -d CS1234`
-* **`add task`**` -n Complete tutorial activites -d CS1234 -before 25/10/17 23:59 -after 18/10/17 12:00`
-* **`add task`**` -n Complete Problem set 4 -d CS1234 -datefrom 14/10/17 -dateto 21/10/17`
-* **`add task`**` -n Meet with professor -d CS1234 -date 25/10/17 -timefrom 09:30 -timeend 17:00`
-* **`add task`**` -n Complete tutorial activites -d CS1234 -date 25/10/17 --wholeday
+* **`add task`**` -n Complete tutorial activites -d CS1234 -before 25/10/17@23:59 -after 18/10/17@12:00`
+* **`add task`**` -n Meet with professor -d CS1234 -date 25/10/17`
 
 #### Updating a task: `update task`
 Update an existing task inside DoDo-Bird<br>
-Format: `update task -n TaskName [-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]`
-		`update task -n TaskName [-d a line of details] [-datefrom DD/MM/YY] [-dateto DD/MM/YY] [-timeFrom hh:mm] [-timeEnd hh:mm]`
-		`update task -n TaskName [-d a line of details] [-date DD/MM/YY] [-timeFrom hh:mm] [-timeEnd hh:mm]`
-		`update task -n TaskName [-d a line of details] [-date DD/MM/YY] [--keyword]`
+*
+`update task -n TaskName [-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]`
+
+
 
 > Date and Time formats follow the above guidelines.
 
 Examples:
 
 * **`update task`**` -n Complete Problem set 4 -d CS1234 -datefrom 14/10/17 -dateto 18/10/17`
-* **`update task`**` -n Complete tutorial activites -d CS1234 -before 25/10/17 17:00 -after 18/10/17 12:00`
-* **`update task`**` -n Complete tutorial activites -d CS1234 -date 25/10/17 --afternoon`
+* **`update task`**` -n Complete tutorial activites -d CS1234 -date 25/10/17`
 
 #### Seeing tasks : `see`
 Shows a list of all tasks in DoDo-Bird for a particular date.<br>
@@ -93,56 +91,33 @@ Examples:
 * `search Meeting`<br>
 * `search Meeting Professor`<br>
 
+> * Only the task name is searched.
 > * The search is case insensitive. e.g `meeting` will match `Meeting`, `Meeting` will match `meeting`.
 > * The order of the keywords does not matter. e.g. `Meet Professor` will match `Professor Meet`
-> * Only the taskname is searched.
-> * Only full words will be matched e.g. `Mee` will not match `Meeting`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Meeting` will match `Meeting Professor`
 
 Finds tasks before/after a time.<br>
-Format: `search -before DD/MM/YY [@hh:mm]`
-		`search -after DD/MM/YY [@hh:mm]`
+Format: `search -before DD/MM/YY[@hh:mm]`
+		`search -after DD/MM/YY[@hh:mm]`
 
 Examples:
-* `search -after 25/10/17@09:30`<br>
-* `search -after 25/10/17@09:30`<br>
+* `search -before 25/10/17@09:30`<br>
 
-#### Listing all tasks : `delete`
-List all unfinished tasks in the DoDo-Bird.<br>
-Format: `list`
- 
 #### Deleting a task : `delete`
-Deletes the specified task from the DoDo-Bird. Irreversible.<br>
-Format: `delete INDEX`
+Deletes the specified task from the DoDo-Bird.<br>
+Format: `delete ID`
 
-> Deletes the task at the specified `INDEX`.
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Deletes the task at the specified `ID`. The ID **must be a positive integer** 1, 2, 3, ...
 
 Examples:
-* `list`<br>
+* `search tomorrow`<br>
   `delete 2`<br>
-  Deletes the 2nd task in the DoDo-Bird.
-* `find Tutorial`<br>
+  Deletes the task with `ID #2` in the DoDo-Bird.
+* `search Tutorial`<br>
   `delete 1`<br>
-  Deletes the 1st task in the results of the `find` command.
+  Deletes the task with `ID #1` in the DoDo-Bird.
 
-#### Select a task : `select`
-Selects the task identified by the index number used in the last task listing.<br>
-Format: `select INDEX`
-
-> Selects the task and loads the Google search page the task at the specified `INDEX`.
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples:
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd task in the DoDo-Bird.
-* `find Betsy` <br>
-  `select 1`<br>
-  Selects the 1st task in the results of the `find` command.
 
 #### Clearing all entries : `clear`
 Clears all entries from the DoDo-Bird.<br>
@@ -160,18 +135,17 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous DoDo-Bird folder.
 
 ## Command Summary
 
 Command | Format  
 -------- | :--------
-Add | `add task -n TaskName [relevant details]`
+Add | `add task -n TaskName [parameters]`
 Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
+Delete | `delete ID`
+Search | `search KEYWORD [MORE_KEYWORDS]`
 Help | `help`
-List | `list`
 See | `see DATE`
-Select | `select INDEX`
-Update | `update task -n TaskName [relevant details]`
+Update | `update task -n TaskName [parameters]`
+Quitting | `exit`
