@@ -19,8 +19,8 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TodoListPanel.class);
+public class TodoListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -28,7 +28,7 @@ public class PersonListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyPerson> personListView;
 
-    public PersonListPanel() {
+    public TodoListPanel() {
         super();
     }
 
@@ -47,10 +47,10 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TodoListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
                                        ObservableList<ReadOnlyPerson> personList) {
-        TodoListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TodoListPanel());
+        PersonListPanel personListPanel =
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
         personListPanel.configure(personList);
         return personListPanel;
     }
