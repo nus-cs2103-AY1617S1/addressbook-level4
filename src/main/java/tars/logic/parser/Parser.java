@@ -44,7 +44,7 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("-n (?<name>[^/]+)"); // variable number of tags
+            Pattern.compile("(?<name>[^/]+)"); // variable number of tags
 
     public Parser() {}
 
