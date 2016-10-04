@@ -3,7 +3,6 @@
 * [About GGist](#about-ggist)
 * [Quick Start](#quick-start)
 * [Features](#features)
-* [FAQ](#faq)
 * [Command Cheatsheet](#command-cheatsheet)
 
 ## About GGist
@@ -93,13 +92,9 @@ Examples:
 Shows a list of all tasks in a particular day.<br>
 Format: `list DATE`
 
-#### Search tasks by keywords: `search`
+#### Searching tasks by keywords: `search`
 Searches and lists all tasks that contain the specified keyword.<br>
 Format: `search KEYWORD`<br>
-
-Examples:
-* `search buy milk`
-* `search oct 31`
 
 > * The search is not case sensitive.
 > * The order of the keywords does not matter. e.g. `buy milk oct 21` will match `oct 21 buy milk`
@@ -108,13 +103,13 @@ Examples:
 
 Examples: 
 * `search oct 1`<br>
-  Returns all tasks that have the date `oct 1`.
-* `search buy milk`<br>
-  Returns the specific task `buy milk` if it can be found.
+  Lists all tasks that have the date `oct 1`.
+* `search milk`<br>
+  Lists the all the tasks with names containing the word `milk` if any can be found.
   
 #### Deleting a person : `delete`
 Deletes the specified task from the list. Irreversible.<br>
-Format: `delete INDEX`
+Format: `delete INDEX...`
 
 > Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
@@ -122,16 +117,24 @@ Format: `delete INDEX`
 
 Examples: 
 * `delete 2`<br>
-  Deletes the 2nd task in the address book.
+  Deletes the task indexed number second in the current seen list.
 * `search buy milk`<br> 
   `delete 1`<br>
-  Deletes the 1st task in the results of the `search` command.
+  Deletes the task indexed first in the results of the `search` command.
 
+To delete more than one task, simply add in the other indexes separated with a comma. <br>
+
+Example:<br>
+* `delete 1, 2, 3`
+* `search oct 1`
+  `done 2, 3`
+  
+  
 #### Undo : `undo`
 Reverts the most recent action.<br>
 Format: `undo`
 
-#### Edit a task : `edit`
+#### Editing a task : `edit`
 Edits task on the displayed list.<br>
 Format: `edit INDEX PARAMETER NEW_INFORMATION`
 
@@ -146,8 +149,42 @@ To make one of the parameters (except the task name) empty, follow the format be
 Format: `edit INDEX PARAMETER clear`
 
 Example: 
-* `edit 3 time 1400`
+* `edit 3 time clear`
 
+
+#### Sorting all tasks : `sort`
+Sort all tasks according to the specified category.<br>
+Three categories: Alphabetical order, priority level, deadlines<br>
+Format: `sort CATEGORY`
+
+LEAH ADD PICTURE HERE!!!!!!!!!!!
+
+Example:<br>
+* `sort A`
+* `Sort D`
+
+#### Reserving a time slot : `reserve`
+Reserves a time slot and prevents you from scheduling conflicting tasks.<br>
+Format: `reserve DATE, TIME`
+
+Example:<br>
+* `reserve mon, 1200-2300`
+* `reserve oct 15, 1500-1500`
+
+#### Marking a task as complete : `done`
+Marks task on displayed list as complete. Does not remove it from the list. The completed tasks will be seen striked off.<br>
+Format: `done INDEX`
+
+Example:<br>
+* `done 1`
+* `search oct 1`
+  `done 2`
+ 
+To mark more than one task as complete, simply type in the other indexes separated with a comma. <br>
+Format: `done INDEX, ...`
+
+Example:<br>
+* `done 1, 2, 3`
 
 
 #### Exiting the program : `exit`
@@ -157,21 +194,15 @@ Format: `exit`
 #### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
-
-## FAQ
-
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
        
 ## Command Cheatsheet
 
 Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+--------| -------- 
+Add     | `add TASK, DATE, TIME, PRIORITY, FREQUENCY`
+Delete  | `delete INDEX`
+Done    | `done INDEX`
+Search  | `search KEYWORD`
+Reserve | `reserve DATE, TIME`
+Edit    | `edit INDEX FIELD NEW_INFORMATION`
+List    | `list DATE`
