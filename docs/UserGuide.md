@@ -5,24 +5,62 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+## About Us
+> **Bernard Koh**
+> * Team Leader
+> * Testing
+> **Liu Zhen Dong**
+> * Code Quality
+> * Time Keeper
+> **Leah Lim**
+> * Documentation
+> * GUI Design
+> **Li Wang Huan**
+> * Integration
+> * Eclipse Specialist
+
+
+## Table of Content
+1. About GGist
+2. User Guide
+> 2.1 Getting Started
+> 2.2 Feature Details
+> 2.3 Troubleshoot
+> 2.4 Command Cheatsheet
+3. User Stories
+4. Use Cases
+5. Non-functional Requirements
+6. Glossary
+7. Product Survey
+
+## About GGist
+
+Are you constantly overwhelmed by the number of things you have to do everyday or do you have a really hard time managing them? If you answer is yes, GGist is the perfect solution to your daily struggle. GGist is a one-stop user friendly desktop organiser designed to aid working professionals like you to better organize and prioritise your everyday tasks.
+
+Unlike most of the organisers in the market, GGist can be launched with a keyboard shortcut and accepts flexible natural language commands via keyboard. This makes it convenient for working professionals like you who can type fast, spend most of the time near a computer and prefer typing commands. 
+
+Are you ready to embrace a new way of living and have your life better organized? Let’s begin!
+
+
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+1. Download the latest `GGist.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your GGist application.
+3. Double-click on the .jar file. Press both "control" and "G" at the same time to start the app. The GUI should appear in a few seconds. 
    > <img src="images/GGistUiProto.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`list`**` 31 oct` : 
+     lists all the tasks on 31 oct in GGist.
+   * **`add`**` water the plants, jul 10, 1400` : 
+     adds a task `water the plants` with deadline 2pm on the 10th of July to GGist.
+   * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -40,15 +78,38 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding a task: `add`
+Adds a task to GGist<br>
+General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
-> Persons can have any number of tags (including 0)
+LEAH ADD IMAGE HERE!!!!!!!!!!!!
 
+###### With deadline:
+Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `add write diary, jul 10, 1300`
+* `add prepare presentation slides, mon, 1400, high`
+
+###### Without any deadline
+Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
+Examples: 
+* `add buy milk, low`
+* `add buy present for brother's birthday`
+
+###### With start and end time
+Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
+For this kind of task, the parameter TIME is in the format START-END.
+Examples: 
+* `add dad's birthday celebration, jul 10, 1900-2100, high`
+* `add company's D&D, sun, 1900-2200`
+
+###### Recurring
+To make tasks repeating, simply  add the FREQUENCY parameter at the back.
+Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
+Examples: 
+* `add water the plants, 0800, high, daily`
+* `add facial appointment, jul 10, med, monthly`
+
 
 #### Listing all persons : `list`
 Shows a list of all persons in the address book.<br>
