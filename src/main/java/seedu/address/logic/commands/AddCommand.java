@@ -18,7 +18,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the Lifekeeper. "
             + "Parameters: NAME p/DUEDATE e/PRIORITY a/REMINDER  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " CS2107 T7A1 p/06-10-2016 e/1 a/05-01-2016 t/CS t/groupwork";
+            + " CS2103 T7A1 p/06-10-2016 e/1 a/05-01-2016 t/CS t/groupwork";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Lifekeeper";
