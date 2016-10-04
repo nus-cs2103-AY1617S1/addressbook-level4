@@ -127,38 +127,36 @@ Format: `list DATE`
 #### Search tasks by keywords: `search`
 Searches and lists all tasks that contain the specified keyword.<br>
 Format: `search KEYWORD`<br>
-Examples:<br>
-* `add buy milk, low`
-* `add buy present for brother's birthday`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+Examples:
+* `search buy milk`
+* `search oct 31`
+
+> * The search is not case sensitive.
+> * The order of the keywords does not matter. e.g. `buy milk oct 21` will match `oct 21 buy milk`
+> * Only full words will be matched e.g. `buy milk` will not match `buy cow`
+> * Tasks matching keywords will be returned
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
-
+* `search oct 1`<br>
+  Returns all tasks that have the date `oct 1`.
+* `search buy milk`<br>
+  Returns the specific task `buy milk` if it can be found.
+  
 #### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+Deletes the specified task from the list. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
+> Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
+* `delete 2`<br>
+  Deletes the 2nd task in the address book.
+* `search buy milk`<br> 
   `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  Deletes the 1st task in the results of the `search` command.
 
 #### Undo : `undo`
 Reverts the most recent action.<br>
