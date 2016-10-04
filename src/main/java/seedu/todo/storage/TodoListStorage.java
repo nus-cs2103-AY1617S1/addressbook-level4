@@ -34,7 +34,7 @@ public interface TodoListStorage {
      * @param todoList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyTodoList todoList) throws IOException;
+    void saveTodoList(ReadOnlyTodoList todoList) throws IOException;
 
     /**
      * @see #saveTodoList(ReadOnlyTodoList)
