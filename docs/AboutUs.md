@@ -6,7 +6,8 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Bernard Koh](http://github.com/bernardified) <br>
 <img src="images/bernard.jpeg" width="150"><br>
-**Role**: Team Leader, Testing
+Role: Developer <br>  
+Responsibilities: Team Leader, Testing
 
 -----
 
@@ -29,20 +30,6 @@ Responsibilities: Code Quality, Time Keeper
 Role: Developer <br>  
 Responsibilities: Integration, Eclipse Specialist
 
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
 
 # Contributors
 
