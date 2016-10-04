@@ -9,14 +9,14 @@ import org.junit.Test;
 
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.task.ReadOnlyTask;
+import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 
 public class TodoTest {
     private TodoList todo;
-    private UnmodifiableObservableList<ReadOnlyTask> observableList;
+    private UnmodifiableObservableList<ImmutableTask> observableList;
     
-    private ReadOnlyTask getTask(int index) {
+    private ImmutableTask getTask(int index) {
         return todo.getTasks().get(index);
     }
     
@@ -46,7 +46,7 @@ public class TodoTest {
         String title = "New title";
         
         todo.add("Old Title");
-        ReadOnlyTask task = getTask(0);
+        ImmutableTask task = getTask(0);
         
         // Check that updating string fields work
         todo.update(task, t -> {
@@ -80,7 +80,7 @@ public class TodoTest {
         
         // Insert an item that comes before all others lexicographically
         todo.add("Task 0", p -> p.setEndTime(now.plusHours(3)));
-        ReadOnlyTask newTask = observableList.get(0);
+        ImmutableTask newTask = observableList.get(0);
         assertEquals("Task 0", observableList.get(0).getTitle());
         
         // Change its title and check that it has moved down
@@ -122,7 +122,7 @@ public class TodoTest {
         todo.add("Task 3");
         
         // Get the last item and pin it
-        ReadOnlyTask lastTask = observableList.get(2);
+        ImmutableTask lastTask = observableList.get(2);
         todo.update(lastTask, t -> t.setPinned(true));
         
         assertTrue(observableList.get(0).isPinned());

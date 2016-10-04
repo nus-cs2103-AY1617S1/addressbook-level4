@@ -5,11 +5,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-import com.google.common.collect.ImmutableSet;
-
 import seedu.todo.model.tag.Tag;
 
-public interface ReadOnlyTask {
+public interface ImmutableTask {
     public String getTitle();
     
     public Optional<String> getDescription();

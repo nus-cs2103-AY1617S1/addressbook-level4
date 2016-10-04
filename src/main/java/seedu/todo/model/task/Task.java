@@ -19,7 +19,7 @@ import seedu.todo.model.tag.Tag;
 /**
  * Represents a single task
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ImmutableTask {
     private StringProperty title = new SimpleStringProperty(); 
     private StringProperty description = new SimpleStringProperty(); 
     private StringProperty location = new SimpleStringProperty();
@@ -44,7 +44,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Constructs a Task from a ReadOnlyTask
      */
-    public Task(ReadOnlyTask task) {
+    public Task(ImmutableTask task) {
         this.setTitle(task.getTitle());
         this.setDescription(task.getDescription().orElse(null));
         this.setLocation(task.getLocation().orElse(null));
@@ -144,11 +144,11 @@ public class Task implements ReadOnlyTask {
             return true; 
         }
         
-        if (!(o instanceof ReadOnlyTask)) {
+        if (!(o instanceof ImmutableTask)) {
             return false;
         }
         
-        return uuid.equals(((ReadOnlyTask) o).getUUID());
+        return uuid.equals(((ImmutableTask) o).getUUID());
     }
     
     @Override

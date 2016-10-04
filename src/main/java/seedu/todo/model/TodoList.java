@@ -13,10 +13,10 @@ import javafx.collections.transformation.SortedList;
 
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.task.ReadOnlyTask;
+import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 
-public class TodoList implements ReadOnlyTodoList, TodoModel {
+public class TodoList implements ImmutableTodoList, TodoModel {
     private ObservableList<Task> tasks = FXCollections.observableArrayList(t -> t.getObservableProperties());
     private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
     private SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
@@ -39,14 +39,14 @@ public class TodoList implements ReadOnlyTodoList, TodoModel {
     }
 
     @Override
-    public void delete(ReadOnlyTask task) throws IllegalValueException {
+    public void delete(ImmutableTask task) throws IllegalValueException {
         if (!tasks.remove(task)) {
             throw new IllegalValueException("Task not found in todo list");
         } 
     }
 
     @Override
-    public void update(ReadOnlyTask key, Consumer<Task> update) throws IllegalValueException {
+    public void update(ImmutableTask key, Consumer<Task> update) throws IllegalValueException {
         int index = tasks.indexOf(key);
         
         if (index < 0) {
@@ -58,7 +58,7 @@ public class TodoList implements ReadOnlyTodoList, TodoModel {
     }
 
     @Override
-    public void view(Predicate<ReadOnlyTask> filter, Comparator<ReadOnlyTask> comparator) {
+    public void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> comparator) {
         filteredTasks.setPredicate(filter);
         
         sortedTasks.setComparator((a, b) -> {
@@ -68,12 +68,12 @@ public class TodoList implements ReadOnlyTodoList, TodoModel {
     }
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getObserveableList() {
+    public UnmodifiableObservableList<ImmutableTask> getObserveableList() {
         return new UnmodifiableObservableList<>(sortedTasks);
     }
 
     @Override
-    public List<ReadOnlyTask> getTasks() {
+    public List<ImmutableTask> getTasks() {
         return Collections.unmodifiableList(tasks);
     }
 }

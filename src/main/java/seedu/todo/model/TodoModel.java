@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.task.ReadOnlyTask;
+import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 
 /**
@@ -29,7 +29,7 @@ public interface TodoModel {
      * 
      * @throws IllegalValueException if the task does not exist
      */
-    public void delete(ReadOnlyTask task) throws IllegalValueException;
+    public void delete(ImmutableTask task) throws IllegalValueException;
     
     /**
      * Updates the provided task. Mutation of the Task object should only be done in the 
@@ -44,17 +44,17 @@ public interface TodoModel {
      * @throws IllegalValueException if the task does not exist or if the values set in the 
      * update predicate is invalid
      */
-    public void update(ReadOnlyTask task, Consumer<Task> update) throws IllegalValueException;
+    public void update(ImmutableTask task, Consumer<Task> update) throws IllegalValueException;
     
     /**
      * Update the filter predicate and sort comparator used to display the tasks. A null
      * value for either parameter resets it to the default value - showing everything for 
      * the filter and insertion order for sort. 
      */
-    public void view(Predicate<ReadOnlyTask> filter, Comparator<ReadOnlyTask> sort);
+    public void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort);
     
     /**
      * Get an observable list of tasks. Used mainly by the JavaFX UI. 
      */
-    public UnmodifiableObservableList<ReadOnlyTask> getObserveableList();
+    public UnmodifiableObservableList<ImmutableTask> getObserveableList();
 }
