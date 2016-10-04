@@ -451,23 +451,16 @@ Use Case ends.
 
 **MSS**
 
-1. User clicks on "Settings".
-2. System displays list of options available.
-3. User clicks on "Change Storage Location".
-4. System displays File Chooser.
-5. User selects specific location to store data.
-6. System requests for confirmation.
-7. User confirms request.
-8. System update storage file directory to selected location. <br/>
+1. User requests to change file directory.
+2. System requests for confirmation.
+3. User confirms request.
+4. User chooses file directory.
+5. System updates file directory. <br/>
 Use Case ends.
 
 **Extensions**
 
-7a. User cancels request.
-
-> Use Case ends.
-
-*a. At any time, user does not want to change storage file location.
+3a. User cancels request.
 
 > Use Case ends.
 
