@@ -14,9 +14,9 @@ public class Deadline {
     public final String value;
 
     /**
-     * Validates given phone number.
+     * Validates given deadline.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException if given deadline string is invalid.
      */
     public Deadline(String deadline) throws IllegalValueException {
         assert deadline != null;
@@ -28,7 +28,7 @@ public class Deadline {
     }
 
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given string is a valid task deadline.
      */
     public static boolean isValidDeadline(String test) {
         return test.matches(DEADLINE_VALIDATION_REGEX);
