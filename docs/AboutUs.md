@@ -4,43 +4,30 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Sriram Sami](http://github.com/frizensami)
+<img src="images/Sriram.jpg" width="150"><br>
+**Role**: Leader
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+#### [Nikhil Suresh](http://github.com/kneekill)
+<img src="images/Nikhil.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: UI
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Chew Zi Ling](http://github.com/ChewZL) 
+<img src="images/ZiLing.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: Storage
 
------
-
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
-
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
  -----
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
+#### [Tang Yew Siang](http://github.com/yewsiang) 
+<img src="images/YewSiang.jpg" width="150"><br>
  Role: Developer <br>  
- Responsibilities: UI
+ Responsibilities: Logic
  
  -----
 
