@@ -1,4 +1,4 @@
-package tars.model.person;
+package tars.model.task;
 
 import tars.commons.util.CollectionUtil;
 import tars.model.tag.UniqueTagList;
@@ -63,7 +63,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);

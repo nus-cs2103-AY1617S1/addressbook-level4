@@ -6,10 +6,10 @@ import tars.commons.core.LogsCenter;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.util.StringUtil;
-import tars.model.person.Person;
-import tars.model.person.ReadOnlyPerson;
-import tars.model.person.UniquePersonList;
-import tars.model.person.UniquePersonList.PersonNotFoundException;
+import tars.model.task.Person;
+import tars.model.task.ReadOnlyPerson;
+import tars.model.task.UniquePersonList;
+import tars.model.task.UniquePersonList.PersonNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -71,8 +71,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        tars.addPerson(person);
+    public synchronized void addPerson(Person task) throws UniquePersonList.DuplicatePersonException {
+        tars.addPerson(task);
         updateFilteredListToShowAll();
         indicateTarsChanged();
     }
@@ -101,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
+        boolean satisfies(ReadOnlyPerson task);
         String toString();
     }
 
@@ -114,8 +114,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyPerson person) {
-            return qualifier.run(person);
+        public boolean satisfies(ReadOnlyPerson task) {
+            return qualifier.run(task);
         }
 
         @Override
@@ -125,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyPerson person);
+        boolean run(ReadOnlyPerson task);
         String toString();
     }
 
@@ -137,9 +137,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyPerson person) {
+        public boolean run(ReadOnlyPerson task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()
                     .isPresent();
         }

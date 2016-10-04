@@ -2,7 +2,7 @@ package tars.testutil;
 
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.Tars;
-import tars.model.person.*;
+import tars.model.task.*;
 
 /**
  *

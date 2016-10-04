@@ -2,8 +2,8 @@ package tars.testutil;
 
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.Tars;
-import tars.model.person.Person;
-import tars.model.person.UniquePersonList;
+import tars.model.task.Person;
+import tars.model.task.UniquePersonList;
 import tars.model.tag.Tag;
 
 /**
@@ -19,8 +19,8 @@ public class TarsBuilder {
         this.tars = tars;
     }
 
-    public TarsBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        tars.addPerson(person);
+    public TarsBuilder withPerson(Person task) throws UniquePersonList.DuplicatePersonException {
+        tars.addPerson(task);
         return this;
     }
 

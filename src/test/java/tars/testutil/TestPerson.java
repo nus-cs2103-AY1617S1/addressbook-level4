@@ -1,10 +1,10 @@
 package tars.testutil;
 
-import tars.model.person.*;
+import tars.model.task.*;
 import tars.model.tag.UniqueTagList;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
 public class TestPerson implements ReadOnlyPerson {
 

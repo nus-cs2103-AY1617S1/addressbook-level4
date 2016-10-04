@@ -1,9 +1,9 @@
 package tars.model;
 
 import javafx.collections.ObservableList;
-import tars.model.person.Person;
-import tars.model.person.ReadOnlyPerson;
-import tars.model.person.UniquePersonList;
+import tars.model.task.Person;
+import tars.model.task.ReadOnlyPerson;
+import tars.model.task.UniquePersonList;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 
@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
  */
 public class Tars implements ReadOnlyTars {
 
-    private final UniquePersonList persons;
+    private final UniquePersonList tasks;
     private final UniqueTagList tags;
 
     {
-        persons = new UniquePersonList();
+        tasks = new UniquePersonList();
         tags = new UniqueTagList();
     }
 
@@ -36,8 +36,8 @@ public class Tars implements ReadOnlyTars {
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public Tars(UniquePersonList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public Tars(UniquePersonList tasks, UniqueTagList tags) {
+        resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyTars getEmptyTars() {
@@ -47,11 +47,11 @@ public class Tars implements ReadOnlyTars {
 //// list overwrite operations
 
     public ObservableList<Person> getPersons() {
-        return persons.getInternalList();
+        return tasks.getInternalList();
     }
 
-    public void setPersons(List<Person> persons) {
-        this.persons.getInternalList().setAll(persons);
+    public void setPersons(List<Person> tasks) {
+        this.tasks.getInternalList().setAll(tasks);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -67,28 +67,28 @@ public class Tars implements ReadOnlyTars {
         resetData(newData.getPersonList(), newData.getTagList());
     }
 
-//// person-level operations
+//// task-level operations
 
     /**
-     * Adds a person to tars.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds a task to tars.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
+     * @throws UniquePersonList.DuplicatePersonException if an equivalent task already exists.
      */
     public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
         syncTagsWithMasterList(p);
-        persons.add(p);
+        tasks.add(p);
     }
 
     /**
-     * Ensures that every tag in this person:
+     * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person person) {
-        final UniqueTagList personTags = person.getTags();
-        tags.mergeFrom(personTags);
+    private void syncTagsWithMasterList(Person task) {
+        final UniqueTagList taskTags = task.getTags();
+        tags.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
@@ -96,16 +96,16 @@ public class Tars implements ReadOnlyTars {
             masterTagObjects.put(tag, tag);
         }
 
-        // Rebuild the list of person tags using references from the master list
+        // Rebuild the list of task tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
+        for (Tag tag : taskTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
-        person.setTags(new UniqueTagList(commonTagReferences));
+        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
-        if (persons.remove(key)) {
+        if (tasks.remove(key)) {
             return true;
         } else {
             throw new UniquePersonList.PersonNotFoundException();
@@ -122,13 +122,13 @@ public class Tars implements ReadOnlyTars {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyPerson> getPersonList() {
-        return Collections.unmodifiableList(persons.getInternalList());
+        return Collections.unmodifiableList(tasks.getInternalList());
     }
 
     @Override
@@ -138,7 +138,7 @@ public class Tars implements ReadOnlyTars {
 
     @Override
     public UniquePersonList getUniquePersonList() {
-        return this.persons;
+        return this.tasks;
     }
 
     @Override
@@ -151,13 +151,13 @@ public class Tars implements ReadOnlyTars {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Tars // instanceof handles nulls
-                && this.persons.equals(((Tars) other).persons)
+                && this.tasks.equals(((Tars) other).tasks)
                 && this.tags.equals(((Tars) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(tasks, tags);
     }
 }

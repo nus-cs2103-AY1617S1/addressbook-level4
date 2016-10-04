@@ -1,7 +1,7 @@
 package tars.logic.commands;
 
 import tars.commons.exceptions.IllegalValueException;
-import tars.model.person.*;
+import tars.model.task.*;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 
@@ -9,19 +9,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds a person to tars.
+ * Adds a task to tars.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to tars. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to tars. "
             + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in tars";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in tars";
 
     private final Person toAdd;
 

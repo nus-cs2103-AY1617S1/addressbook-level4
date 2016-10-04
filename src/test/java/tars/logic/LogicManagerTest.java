@@ -28,7 +28,7 @@ import tars.model.Tars;
 import tars.model.Model;
 import tars.model.ModelManager;
 import tars.model.ReadOnlyTars;
-import tars.model.person.*;
+import tars.model.task.*;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.storage.StorageManager;
@@ -210,7 +210,7 @@ public class LogicManagerTest {
         expectedAB.addPerson(toBeAdded);
 
         // setup starting state
-        model.addPerson(toBeAdded); // person already in internal address book
+        model.addPerson(toBeAdded); // task already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -241,8 +241,8 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
@@ -254,21 +254,21 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Person> personList = helper.generatePersonList(2);
+        List<Person> taskList = helper.generatePersonList(2);
 
-        // set AB state to 2 persons
+        // set AB state to 2 tasks
         model.resetData(new Tars());
-        for (Person p : personList) {
+        for (Person p : taskList) {
             model.addPerson(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTars(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTars(), taskList);
     }
 
     @Test
@@ -407,11 +407,11 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a valid person using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Generates a valid task using the given seed.
+         * Running this function with the same parameter values guarantees the returned task will have the same state.
          * Each unique seed will generate a unique Person object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed used to generate the task data field values
          */
         Person generatePerson(int seed) throws Exception {
             return new Person(
@@ -423,7 +423,7 @@ public class LogicManagerTest {
             );
         }
 
-        /** Generates the correct add command based on the person given */
+        /** Generates the correct add command based on the task given */
         String generateAddCommand(Person p) {
             StringBuffer cmd = new StringBuffer();
 
@@ -443,7 +443,7 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an Tars with auto-generated persons.
+         * Generates an Tars with auto-generated tasks.
          */
         Tars generateTars(int numGenerated) throws Exception{
             Tars tars = new Tars();
@@ -454,9 +454,9 @@ public class LogicManagerTest {
         /**
          * Generates an Tars based on the list of Persons given.
          */
-        Tars generateTars(List<Person> persons) throws Exception{
+        Tars generateTars(List<Person> tasks) throws Exception{
             Tars tars = new Tars();
-            addToTars(tars, persons);
+            addToTars(tars, tasks);
             return tars;
         }
 
@@ -471,8 +471,8 @@ public class LogicManagerTest {
         /**
          * Adds the given list of Persons to the given Tars
          */
-        void addToTars(Tars tars, List<Person> personsToAdd) throws Exception{
-            for(Person p: personsToAdd){
+        void addToTars(Tars tars, List<Person> tasksToAdd) throws Exception{
+            for(Person p: tasksToAdd){
                 tars.addPerson(p);
             }
         }
@@ -488,8 +488,8 @@ public class LogicManagerTest {
         /**
          * Adds the given list of Persons to the given model
          */
-        void addToModel(Model model, List<Person> personsToAdd) throws Exception{
-            for(Person p: personsToAdd){
+        void addToModel(Model model, List<Person> tasksToAdd) throws Exception{
+            for(Person p: tasksToAdd){
                 model.addPerson(p);
             }
         }
@@ -498,15 +498,15 @@ public class LogicManagerTest {
          * Generates a list of Persons based on the flags.
          */
         List<Person> generatePersonList(int numGenerated) throws Exception{
-            List<Person> persons = new ArrayList<>();
+            List<Person> tasks = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
-                persons.add(generatePerson(i));
+                tasks.add(generatePerson(i));
             }
-            return persons;
+            return tasks;
         }
 
-        List<Person> generatePersonList(Person... persons) {
-            return Arrays.asList(persons);
+        List<Person> generatePersonList(Person... tasks) {
+            return Arrays.asList(tasks);
         }
 
         /**

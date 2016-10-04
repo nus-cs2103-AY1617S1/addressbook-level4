@@ -10,7 +10,7 @@ import tars.commons.exceptions.DataConversionException;
 import tars.commons.util.FileUtil;
 import tars.model.Tars;
 import tars.model.ReadOnlyTars;
-import tars.model.person.Person;
+import tars.model.task.Person;
 import tars.storage.XmlTarsStorage;
 import tars.testutil.TypicalTestPersons;
 

@@ -1,9 +1,9 @@
 package tars.model;
 
 import tars.commons.core.UnmodifiableObservableList;
-import tars.model.person.Person;
-import tars.model.person.ReadOnlyPerson;
-import tars.model.person.UniquePersonList;
+import tars.model.task.Person;
+import tars.model.task.ReadOnlyPerson;
+import tars.model.task.UniquePersonList;
 
 import java.util.Set;
 
@@ -17,19 +17,19 @@ public interface Model {
     /** Returns the Tars */
     ReadOnlyTars getTars();
 
-    /** Deletes the given person. */
+    /** Deletes the given task. */
     void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
 
-    /** Adds the given person */
-    void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
+    /** Adds the given task */
+    void addPerson(Person task) throws UniquePersonList.DuplicatePersonException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
 
 }

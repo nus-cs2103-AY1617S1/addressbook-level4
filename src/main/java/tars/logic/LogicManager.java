@@ -7,7 +7,7 @@ import tars.logic.commands.Command;
 import tars.logic.commands.CommandResult;
 import tars.logic.parser.Parser;
 import tars.model.Model;
-import tars.model.person.ReadOnlyPerson;
+import tars.model.task.ReadOnlyPerson;
 import tars.storage.Storage;
 
 import java.util.logging.Logger;

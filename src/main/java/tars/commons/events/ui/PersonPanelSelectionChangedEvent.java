@@ -1,7 +1,7 @@
 package tars.commons.events.ui;
 
 import tars.commons.events.BaseEvent;
-import tars.model.person.ReadOnlyPerson;
+import tars.model.task.ReadOnlyPerson;
 
 /**
  * Represents a selection change in the Person List Panel

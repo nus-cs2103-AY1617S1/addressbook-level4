@@ -1,7 +1,7 @@
 package tars.testutil;
 
 import tars.commons.exceptions.IllegalValueException;
-import tars.model.person.*;
+import tars.model.task.*;
 import tars.model.tag.Tag;
 
 /**
@@ -9,41 +9,41 @@ import tars.model.tag.Tag;
  */
 public class PersonBuilder {
 
-    private TestPerson person;
+    private TestPerson task;
 
     public PersonBuilder() {
-        this.person = new TestPerson();
+        this.task = new TestPerson();
     }
 
     public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+        this.task.setName(new Name(name));
         return this;
     }
 
     public PersonBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
-            person.getTags().add(new Tag(tag));
+            task.getTags().add(new Tag(tag));
         }
         return this;
     }
 
     public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Address(address));
+        this.task.setAddress(new Address(address));
         return this;
     }
 
     public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new Phone(phone));
+        this.task.setPhone(new Phone(phone));
         return this;
     }
 
     public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Email(email));
+        this.task.setEmail(new Email(email));
         return this;
     }
 
     public TestPerson build() {
-        return this.person;
+        return this.task;
     }
 
 }

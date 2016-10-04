@@ -13,7 +13,7 @@ import tars.commons.core.GuiSettings;
 import tars.commons.events.ui.ExitAppRequestEvent;
 import tars.logic.Logic;
 import tars.model.UserPrefs;
-import tars.model.person.ReadOnlyPerson;
+import tars.model.task.ReadOnlyPerson;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,7 +30,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private PersonListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -53,7 +53,7 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane taskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -109,7 +109,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+        taskListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTarsFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -128,7 +128,7 @@ public class MainWindow extends UiPart {
     }
 
     public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+        return taskListPanelPlaceholder;
     }
 
     public void hide() {
@@ -183,11 +183,11 @@ public class MainWindow extends UiPart {
     }
 
     public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
+        return this.taskListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
-        browserPanel.loadPersonPage(person);
+    public void loadPersonPage(ReadOnlyPerson task) {
+        browserPanel.loadPersonPage(task);
     }
 
     public void releaseResources() {

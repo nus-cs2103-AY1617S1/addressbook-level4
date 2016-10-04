@@ -12,12 +12,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.ui.PersonPanelSelectionChangedEvent;
-import tars.model.person.ReadOnlyPerson;
+import tars.model.task.ReadOnlyPerson;
 
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
 public class PersonListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
@@ -26,7 +26,7 @@ public class PersonListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyPerson> personListView;
+    private ListView<ReadOnlyPerson> taskListView;
 
     public PersonListPanel() {
         super();
@@ -47,22 +47,22 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyPerson> personList) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList);
-        return personListPanel;
+    public static PersonListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+                                       ObservableList<ReadOnlyPerson> taskList) {
+        PersonListPanel taskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new PersonListPanel());
+        taskListPanel.configure(taskList);
+        return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyPerson> personList) {
-        setConnections(personList);
+    private void configure(ObservableList<ReadOnlyPerson> taskList) {
+        setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+    private void setConnections(ObservableList<ReadOnlyPerson> taskList) {
+        taskListView.setItems(taskList);
+        taskListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -72,9 +72,9 @@ public class PersonListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new PersonPanelSelectionChangedEvent(newValue));
             }
         });
@@ -82,8 +82,8 @@ public class PersonListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            taskListView.scrollTo(index);
+            taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -93,14 +93,14 @@ public class PersonListPanel extends UiPart {
         }
 
         @Override
-        protected void updateItem(ReadOnlyPerson person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ReadOnlyPerson task, boolean empty) {
+            super.updateItem(task, empty);
 
-            if (empty || person == null) {
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(PersonCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }
