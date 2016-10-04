@@ -11,7 +11,7 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the 'releases' tab.
+1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
@@ -29,6 +29,12 @@
 
 ## Features
 
+> **Command Format**
+> * Words in `UPPER_CASE` are the parameters.
+> * Items in `SQUARE_BRACKETS` are optional.
+> * Items with `...` after them can have multiple instances.
+> * The order of parameters is fixed.
+
 #### Viewing help : `help`
 Format: `help`
 
@@ -37,10 +43,7 @@ Format: `help`
 #### Adding a person: `add`
 Adds a person to the address book<br>
 Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
- 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> items with `...` after them can have multiple instances. Order of parameters are fixed. 
-> 
+
 > Persons can have any number of tags (including 0)
 
 Examples: 
@@ -55,8 +58,12 @@ Format: `list`
 Finds persons whose names contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> The search is case sensitive, the order of the keywords does not matter, only the name is searched, 
-and persons matching at least one keyword will be returned (i.e. `OR` search).
+> * The search is case sensitive. e.g `hans` will not match `Hans`
+> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+> * Only the name is searched.
+> * Only full words will be matched e.g. `Han` will not match `Hans`
+> * Persons matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `Hans` will match `Hans Bo`
 
 Examples: 
 * `find John`<br>
@@ -112,7 +119,7 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your preious Address Book.
+       the file that contains the data of your previous Address Book folder.
        
 ## Command Summary
 
