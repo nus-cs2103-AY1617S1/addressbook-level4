@@ -4,14 +4,13 @@ import seedu.todo.commons.events.BaseEvent;
 import seedu.todo.model.person.ReadOnlyPerson;
 
 /**
- * Represents a selection change in the Person List Panel
+ * Represents a selection change in the To-do List Panel
  */
-public class TodoListPanelSelectionChangedEvent extends BaseEvent {
-
+public class SelectionChangedEvent extends BaseEvent {
 
     private final ReadOnlyPerson newSelection;
 
-    public TodoListPanelSelectionChangedEvent(ReadOnlyPerson newSelection){
+    public SelectionChangedEvent(ReadOnlyPerson newSelection){
         this.newSelection = newSelection;
     }
 
