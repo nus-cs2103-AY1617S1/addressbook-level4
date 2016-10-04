@@ -17,16 +17,13 @@ import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 
 public class TodoList implements ReadOnlyTodoList, TodoModel {
-    private ObservableList<Task> tasks;
-    private FilteredList<Task> filteredTasks;
-    private SortedList<Task> sortedTasks;
-    private SortedList<Task> pinnedTasks;
+    private ObservableList<Task> tasks = FXCollections.observableArrayList(t -> t.getObservableProperties());
+    private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
+    private SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
     
     public TodoList() {
-        tasks = FXCollections.observableArrayList(t -> t.getObservableProperties());
-        filteredTasks = new FilteredList<>(tasks, p -> true);
-        sortedTasks = new SortedList<>(filteredTasks);
-        // pinnedTasks = new SortedList<>(sortedTasks, (a, b) -> Boolean.compare(a.isPinned(), b.isPinned()));
+        // Set the default comparators
+        view(null, null);
     }
 
     @Override
@@ -63,15 +60,11 @@ public class TodoList implements ReadOnlyTodoList, TodoModel {
     @Override
     public void view(Predicate<ReadOnlyTask> filter, Comparator<ReadOnlyTask> comparator) {
         filteredTasks.setPredicate(filter);
-        if (comparator == null) {
-            sortedTasks.setComparator(comparator);
-        } else {
-            sortedTasks.setComparator((a, b) -> {
-                System.out.printf("a: %s %b / b: %s %b\n", a.getTitle(), a.isPinned(), b.getTitle(), b.isPinned());
-                int pin = Boolean.compare(b.isPinned(), a.isPinned());
-                return pin != 0 ? pin : comparator.compare(a, b);
-            });
-        }
+        
+        sortedTasks.setComparator((a, b) -> {
+            int pin = Boolean.compare(b.isPinned(), a.isPinned());
+            return pin != 0 || comparator == null ? pin : comparator.compare(a, b);
+        });
     }
 
     @Override

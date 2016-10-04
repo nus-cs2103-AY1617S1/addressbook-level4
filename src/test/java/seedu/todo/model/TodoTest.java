@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.time.LocalDateTime;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.todo.commons.core.UnmodifiableObservableList;
@@ -117,17 +116,15 @@ public class TodoTest {
     }
     
     @Test
-    @Ignore
     public void testPinning() throws IllegalValueException {
         todo.add("Task 1");
         todo.add("Task 2");
         todo.add("Task 3");
         
+        // Get the last item and pin it
         ReadOnlyTask lastTask = observableList.get(2);
-        System.out.println("Before change");
         todo.update(lastTask, t -> t.setPinned(true));
-
-        System.out.println("After change");
+        
         assertTrue(observableList.get(0).isPinned());
         assertEquals(lastTask.getTitle(), observableList.get(0).getTitle());
     }

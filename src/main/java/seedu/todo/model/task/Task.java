@@ -21,8 +21,8 @@ public class Task implements ReadOnlyTask {
     private StringProperty description = new SimpleStringProperty(); 
     private StringProperty location = new SimpleStringProperty();
     
-    private BooleanProperty pinned = new SimpleBooleanProperty(false);
-    private BooleanProperty completed = new SimpleBooleanProperty(false);
+    private BooleanProperty pinned = new SimpleBooleanProperty();
+    private BooleanProperty completed = new SimpleBooleanProperty();
     
     private ObjectProperty<LocalDateTime> startTime = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDateTime> endTime = new SimpleObjectProperty<>();
@@ -97,11 +97,12 @@ public class Task implements ReadOnlyTask {
     }
 
     public void setPinned(boolean pinned) {
+        System.out.printf("Setting pinned %b\n", pinned);
         this.pinned.set(pinned);
     }
 
     public void setCompleted(boolean completed) {
-        this.completed.set(completed);
+        this.completed.setValue(completed);
     }
 
     public void setDescription(String description) {
