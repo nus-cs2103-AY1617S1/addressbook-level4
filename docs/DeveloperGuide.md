@@ -388,7 +388,6 @@ Strengths:
 9. Able to set todo items on repeat (for routine purposes)
 
 
-
 Weakness:
 
 1. Requires two clicks to add a task with its respective settings → Does not cater to Jim’s one-shot preference
