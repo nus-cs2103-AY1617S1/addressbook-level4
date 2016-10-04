@@ -5,6 +5,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class FloatingTask extends Task {
     public static final String MESSAGE_VALUE_CONSTRAINTS = "Priority values should be between 1 to 10 inclusive";
     public static final String DEFAULT_PRIORITY_VALUE = "5";
+    public static final String VARIABLE_CONNECTOR = ". Rank: ";
     
     private final String priorityValue;
     
@@ -35,7 +36,7 @@ public class FloatingTask extends Task {
     
     @Override
     public String toString() {
-        return taskName + priorityValue;
+        return taskName + VARIABLE_CONNECTOR + priorityValue;
     }
 
     @Override
