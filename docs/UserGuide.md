@@ -1,5 +1,5 @@
 # User Guide
-Now that you know WhatNow is [about](../README.md), you can follow this guide to learn how to use WhatNow effectively.
+Are you feeling stressed or overwhelmed with the number of things you have to do? When you are drowning in the pool of to-dos, even mundane tasks like buying milk may bring tears to your eyes. Well you can hold back those precious tears because WhatNow will help you to manage all your tasks. Now that you know WhatNow is [about](../README.md), you can follow this guide to learn how to use WhatNow effectively. Welcome to WhatNow! 
 
 # Table of Contents
 * [Quick Start](#quick-start)
@@ -19,12 +19,12 @@ Now that you know WhatNow is [about](../README.md), you can follow this guide to
    > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   e.g. typing **`help`** then press <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all tasks
+   * **`list`** : lists all tasks in WhatNow
    * **`add`**` Buy groceries start 6pm` : adds a task called `Buy groceries` to WhatNow.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
-   * **`exit`** : exits the app
+   * **`exit`** : exits WhatNow
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 ## Features
@@ -36,20 +36,23 @@ Now that you know WhatNow is [about](../README.md), you can follow this guide to
 > * The order of parameters is fixed.
  
 #### Adding a task: `add`
-Adds a task to What Now
-Format: `add TASK_TYPE [on] DATE [from/by] [START_TIME] [to] [END_TIME] [every] [PERIOD] [low/medium/high]` 
+Adds a task to WhatNow
+Format: `add "TASK_NAME" [on] DATE [from/by] [START_TIME] [to] [END_TIME] [every] [PERIOD] [low/medium/high]` 
 
 Examples:
-* `add task Do CS2103T tutorial on 4 Oct 2016 from 10am to 11am every week`
-* `add event Watch Storks on 10th Sep from 1pm to 3pm` 
-* `add deadline CS2103 Project on 10th Nov high`
+* `add "Do CS2103T tutorial" on 4 Oct 2016 from 10am to 11am every week`
+* `add "Watch Storks movie" on 10/10 from 1pm to 3pm` 
+* `add "CS2103 Project" on 20/11/2016 high`
+* `add "Buy milk and eggs!"`
+>Tasks without a deadline specified will be added to Veto as a floating task and will be<br> displayed under the heading "Floating Tasks".
+
 
 #### Clearing all entries : `clear`
-Clears all entries from NowWhat.<br>
+Clears all entries from WhatNow.<br>
 Format: `clear`  
 
 #### Deleting a task : `delete`
-Deletes the specified task from the Now What. Reversible.<br>
+Deletes the unwanted task from the Now What. Reversible.<br>
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
@@ -158,7 +161,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_TYPE [on] DATE [from/by] [START_TIME] [to] [END_TIME] [every] [PERIOD] [low/medium/high]`
+Add | `add "TASK_NAME" [on] DATE [from/by] [START_TIME] [to] [END_TIME] [every] [PERIOD] [low/medium/high]`
 Clear | `clear`
 Delete | `delete INDEX`
 Exit | `exit`
