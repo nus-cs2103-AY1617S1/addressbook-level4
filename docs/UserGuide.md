@@ -12,7 +12,7 @@
 2. Download the latest `UJDTDL.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for the application.
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
-   > <img src="docs/images/mockupV0_0.png" width="700" alt="Example of UI once launched"><br /> 
+   > <img src="images\mockupV0_0.png" width="700" alt="Example of UI once launched"><br /> 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.  
    E.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 6. Some example commands you can try:
@@ -37,7 +37,7 @@ When launched the application will have several views as shown
 * To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. `-f`) for short flags and double dash for long flags (eg. `--all`)
 * Items with `...` after them can have multiple instances.
 * Most commands that updates a task require an `INDEX` parameter. This is number shown to the left of the task as shown in the screenshot below
- <img src="images/sketch_task_index.jpg" width="350" alt="Index Number Location"><br />
+ <img src="images\sketch_task_index.jpg" width="350" alt="Index Number Location"><br />
 
 ### Switch views : `view`
 Switch between different views.  
@@ -48,7 +48,7 @@ You can also use the underlined character in the view's name as the shortcut whe
 Examples:
 
 **`view`**` COMPLETED`
-<img src="docs/images/sketch_task_view.jpg" width="700" alt="View of completed tasks"><br />
+<img src="images/sketch_task_view.jpg" width="700" alt="View of completed tasks"><br />
 
 ### Viewing help : `help`
 Format: **`help`**
