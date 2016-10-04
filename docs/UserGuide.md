@@ -8,11 +8,13 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+<br>
 ## Introduction
 With many deadlines and tasks streaming in, you can be easily overwhelmed if you are not able to keep track of them effectively. While traditional task managers require you to interact through a graphical user interface, our task manager allows you to manage your tasks quickly through keyboard commands.
-<br>
+
 With our task manager, you can add, delete and edit tasks without a fuss. Through the usage of shortcuts, you will be able to enter your desired commands quickly. Best of all, it works with Google Calendar so any changes that you have made on either platform will be synchronized. Managing tasks has never been such a breeze.
 
+<br>
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
@@ -43,7 +45,6 @@ With our task manager, you can add, delete and edit tasks without a fuss. Throug
 > * Items surrounded by open(`(`) and closed(`)`) brackets are grouped together.
 > * The order of parameters is fixed.
 
-<br>
 #### Viewing help : `help`
 Format: `help`
 
@@ -94,9 +95,10 @@ Examples:
 #### Searching for tasks using keywords: `find`
 Finds tasks that contian any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
-Finds all the tasks with the keywords. <br>
-Only full words will be matched e.g. meeting will not match meetings
-Persons matching at least one keyword will be returned (i.e. OR search).
+
+> Finds all the tasks with the keywords. <br>
+> Only full words will be matched e.g. meeting will not match meetings
+> Persons matching at least one keyword will be returned (i.e. OR search).
 
 Examples:
 * `find meeting` <br>
@@ -108,7 +110,8 @@ Examples:
 #### Updating a task: `update`
 Updates the specified task.<br>
 Format: `update INDEX TASK/DATE/TIME/DEADLINE`
-Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3…
+
+> Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3…
 
 Examples:
 * `list`
@@ -122,7 +125,9 @@ Examples:
 #### Deleting a task: `delete`
 Deletes the specified task.<br>
 Format: `delete INDEX`
-Deletes the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… If the task selected is a recurring task, user will be prompted to delete all instances of the task or only the next instance of the task.
+
+> Deletes the task at the specific index. The index refers to the index shown in the most recent listing. 
+> The index must be a positive integer 1, 2, 3… If the task selected is a recurring task, user will be prompted to delete all instances of the task or only the next instance of the task.
 
 Examples:
 * `list`
@@ -136,8 +141,9 @@ Examples:
 #### Setting an alias: `alias`
 Sets a one-word alias for any sentence to be used as a command.<br>
 Format: `alias SHORTCUT [ANY_SENTENCE]`
->`ANY_SENTENCE` is tagged to `SHORTCUT` so that if `SHORTCUT` is used as the first command, `ANY_SENTENCE` will be inserted in it's place instead. 
->`SHORTCUT` can only consist of one word.
+
+> `ANY_SENTENCE` is tagged to `SHORTCUT` so that if `SHORTCUT` is used as the first command, `ANY_SENTENCE` will be inserted in it's place instead. 
+> `SHORTCUT` can only consist of one word.
 
 Examples:
 * `alias am add Meeting`
@@ -183,6 +189,7 @@ There is no need to save manually.
 Pressing <kbd>TAB</kbd> will autocomplete the first word by looking up all possible commands. <br>
 If there is only one possible command, the command will be autocompleted. <br>
 However, if there are multiple commands, they will be displayed. <br>
+
 Examples:
 * `al`<kbd>TAB</kbd><br>
   `alias` completed for you.
