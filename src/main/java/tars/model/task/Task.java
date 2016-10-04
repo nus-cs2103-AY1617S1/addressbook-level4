@@ -6,12 +6,16 @@ import tars.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Task in tars.
+ * Represents a Task in tars. 
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
+    private DateTime dateTime;
+    private Status status;
+    private Priority priority;
+
     private Phone phone;
     private Email email;
     private Address address;
@@ -27,19 +31,50 @@ public class Task implements ReadOnlyTask {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags); // protect internal tags from
+                                             // changes in the arg list
+    }
+
+    public Task(Name name, DateTime dateTime, Priority priority, Status status, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, dateTime, priority, tags);
+        this.name = name;
+        this.dateTime = dateTime;
+        this.priority = priority;
+        this.status = status;
+        this.tags = new UniqueTagList(tags); // protect internal tags from
+                                             // changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getDateTime(), source.getPriority(), source.getStatus(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
+    }
+
+    @Override
+    public DateTime getDateTime() {
+        return dateTime;
+    }
+
+    @Override
+    public Status getStatus() {
+        return status;
+    }
+
+    @Override
+    public Priority getPriority() {
+        return priority;
+    }
+
+    @Override
+    public UniqueTagList getTags() {
+        return new UniqueTagList(tags);
     }
 
     @Override
@@ -57,11 +92,6 @@ public class Task implements ReadOnlyTask {
         return address;
     }
 
-    @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
@@ -73,12 +103,13 @@ public class Task implements ReadOnlyTask {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                        && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(name, phone, email, address, tags);
     }
 
