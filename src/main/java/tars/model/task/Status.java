@@ -1,6 +1,6 @@
 package tars.model.task;
 
-/*
+/**
  * Represents a Task's status in tars.
  */
 public class Status {
