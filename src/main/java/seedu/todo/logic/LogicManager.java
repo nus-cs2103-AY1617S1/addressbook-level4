@@ -7,7 +7,10 @@ import seedu.todo.logic.commands.Command;
 import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.logic.parser.Parser;
 import seedu.todo.model.Model;
+import seedu.todo.model.TodoList;
+import seedu.todo.model.TodoModel;
 import seedu.todo.model.person.ReadOnlyPerson;
+import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.storage.Storage;
 
 import java.util.logging.Logger;
@@ -20,9 +23,11 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Parser parser;
+    private final TodoModel todoModel;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
+        this.todoModel = new TodoList();
         this.parser = new Parser();
     }
 
@@ -37,5 +42,10 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<ImmutableTask> getObservableTaskList() {
+        return todoModel.getObserveableList();
     }
 }
