@@ -49,13 +49,12 @@ Are you ready to embrace a new way of living and have your life better organized
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
-<img src="images/errormsg.png" width="300"><br>
  
 #### Adding a task: `add`
 Adds a task to GGist<br>
 General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
-<img src="images/2ndimpt.png" width="200"><br>
+<img src="images/2ndimpt.png" width="600"><br>
 
 ###### With deadline
 Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
