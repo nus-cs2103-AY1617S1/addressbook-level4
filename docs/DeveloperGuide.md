@@ -38,7 +38,7 @@
 5. Click `Finish`
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the setup to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
@@ -61,7 +61,7 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of that App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -79,7 +79,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `WhatNowChangedEvent` when the What Now data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -120,7 +120,7 @@ The `UI` component,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
@@ -135,7 +135,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the WhatNow data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -148,7 +148,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the WhatNow data in xml format and read it back.
 
 ### Common classes
 
@@ -241,7 +241,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, WhatNow depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -252,51 +252,139 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | new user | see user instructions | learn how to use the application
+`* * *` | new user | see user instructions | refer to instructions when I forget how to use the App
+`* * *` | user | add a new task | write down tasks that I have to do
+`* * *` | user | delete a task | remove completed tasks
+`* * *` | user | find a task by task name | locate the specific task without having to go through the entire list
+`* * *` | user | view all tasks | look at the list of all tasks to be done
+`* * *` | user | edit a task | change any task without removing the old task and creating a new one
+`* *` | user | add a recurring task | add a task once only without having to add it multiple times 
+`* *` | user | undo a command | change my mind without deleting and creating or changing anything
+`* *` | user | redo a command |  change my mind without deleting and creating or changing anything
+`* *` | user | choose the data file location | store the file on the cloud (For e.g. Dropbox) to sync the data across multiple computers or other preferable locations.
+`*` | user with many tasks in WhatNow | sort tasks by priority | locate the most important and immediate tasks easily
 
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+System: WhatNow
+Actor: User
 
-#### Use case: Delete person
 
+#### **Use case: Help**
 **MSS**
+User requests to see the list of available commands
+System show a list of available commands
+	Use case ends
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
-
+#### **Use case: Add task**
+**MSS**
+User requests to add a task into the system
+System adds this task into its list of tasks
+	Use case ends
 **Extensions**
+2a. The task is already existing
+	>2a1. System displays “task is already existing” message.
+	>Use case ends
+2b. The given syntax is invalid
+	>2b1. System displays “Invalid syntax” error message.
+	>2b2. ‘Help’ command is launched.
+	>2b3. System awaits user input.
+	>Use case ends
 
+#### **Use case: List task**
+**MSS**
+User requests to add an incoming into the system
+System adds this task into its list of tasks
+	Use case ends
+**Extensions**
+2a. The task is already existing
+	>2a1. System displays “task already exists” message.
+	>Use case ends
+2b. The given syntax is invalid
+	>2b1. System displays “Invalid syntax” error message.
+	>2b2. ‘Help’ command is launched.
+	>2b3. System awaits user input.
+	>Use case ends
+
+#### **Use case: Delete task**
+**MSS**
+User requests to list all the tasks
+System shows a list of task
+User requests to delete a specific task in the list
+System deletes the task
+	Use case ends
+**Extensions**
 2a. The list is empty
-
-> Use case ends
-
+	>Use case ends
 3a. The given index is invalid
+	>3a1. System displays an error message
+     >Use case ends at step 2
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+#### **Use case: Recurring task**
+**MSS**
+User adds a recurring task.
+System asks for date period and time. 
+User inputs date and time.
+System creates a recurring task.
+	Use case ends.
+
+#### **Use case: Undo**
+**MSS**
+User requests to revert back to the state the system was previously in.
+System reverts to the state before the user has entered a command
+**Extensions**
+2a. The user just launched the system and did not type a prior command.
+	>2a1. System displays “Nothing was undone” message
+	>Use case ends
+
+#### **Use case: Redo**
+**MSS**
+User requests to revert back to the state that the system was previously in during ‘undo’
+System reverts to the state of ‘redo’
+**Extensions**
+2a. User did not type an ‘undo’ command previously
+	>2a1. System displays “Nothing to redo” message
+	>Use case ends
+
+#### **Use case: Search for a task**
+**MSS**
+User requests to search a particular task. 
+System goes through every task to find the target task.
+System displays the task along with its details.
+**Extensions**
+1a. If no such task exists. 
+	>1a1.System will display “No such task.”
+            >Use case ends
+
+#### **Use case: Filter by priority**
+**MSS**
+User requests to list all tasks by priority
+System displays all tasks by the priority specified
+**Extensions**
+1a. There are no tasks of such priority. 
+	>1a1. System displays “No such task” message
+	>Use case ends
+
 
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+1. Should work on any mainstream OS that has Java 8 or higher installed.
+2. Should be able to contain up to 20000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+4. Should favour natural language commands than unix commands.
+5. Should have a response time of less than 1 second per command.
+6. Should have an organised display of information.
+7. Should backup data every quarterly. 
+8. Should autoarchive tasks that are more than a year old.
+9. Should be able to retrieve backup or archived data. 
+10. Should be secured. 
 
 {More to be added}
 
@@ -312,5 +400,50 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+**Google Calendar**
+Strengths:
+* Free
+* Automatic syncs to all devices
+* Reminders can be configured
+Weakness:
+* Cannot edit offline
+* Need to have a google account
+* Need to use a mouse to navigate most of the time
+
+**Todoist (Free version)**
+Strengths:
+* The interface is clean and simple. Easy to understand. Good for personal use.
+* Quick access to check on everyday's task
+* Quick add of task is particularly helpful for lazy users
+* Freedom of adding more category of task besides the default(E.g. Personal, Shopping, Work)
+* Allows user to have an immediate view of the task lying ahead on current day or week
+* Additional feature of showing productivity of user is useful to motivate user to be on the ball
+* Priority can be set for every task to help decision making in performing task
+* Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday"
+Weakness:
+* Free version may be limited as we are unable to add to labels to all tasks.
+* Reminders are not available in the free version.
+* Unable to add notes/details onto the specific task in free version.
+
+**Wunderlist**
+Strengths:
+* Good GUI. Pleasing to the eye. 
+* Ability to share events with others. (Family, Friends)
+* Reminders in place for upcoming tasks. [Alarms, email notification, notification light colour]
+* Smart Due Dates: Automatically detects words like “tomorrow” or “next week” and adds an event for that day.
+* Set priority for tasks.
+* Star To-dos: Moves starred tasks to the top of the list automatically.
+* Quick add notification
+* Different personalizable folders (Family, Private, School, Work, …).
+* Connects to Facebook and Google account.
+* Duplication of the list.
+* Completed to-do list hidden unless selected.
+Weakness:
+* Slow in updating changes
+
+**Remember The Milk**
+Strengths:
+
+Weakness:
+
 
