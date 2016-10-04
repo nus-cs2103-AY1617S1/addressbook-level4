@@ -1,6 +1,5 @@
 package tars.logic.parser;
 
-import tars.logic.commands.*;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.AddCommand;
@@ -35,16 +34,14 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("-n (?<name>[^/]+)"); // variable number of tags
+            Pattern.compile("(?<name>[^/]+)"
+                    + " (?<datetime>(-dt ([01]\\d|2[0-3])?[0-5]\\d (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4})"
+                    + "|(-dt ([01]\\d|2[0-3])?[0-5]\\d (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} "
+                    + "to ([01]\\d|2[0-3])?[0-5]\\d (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4})) "
+                    + "(?<priority>-p [hml])" 
+                    + "(?<tagArguments>(?: -t [^/]+)*)"); // variable number of tags
 
     public Parser() {}
 
@@ -106,7 +103,6 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            System.out.println("test");
             return new AddCommand(matcher.group("name"));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -123,7 +119,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" -t ", "").split(" -t "));
         return new HashSet<>(tagStrings);
     }
 
