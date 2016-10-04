@@ -4,6 +4,10 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
+#### [Alvian Prasetya](https://github.com/jasperlee27)
+<img src="images/Alvian.jpg" width="150"><br>
+Role: Project Mentor
+
 -----
 
 #### [Jasper Lee](https://github.com/jasperlee27)
