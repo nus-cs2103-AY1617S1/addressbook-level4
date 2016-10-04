@@ -45,7 +45,7 @@ Format: **`view`**` VIEW`
 
 You can also use the underlined character in the view's name as the shortcut when switching views. 
 
-Examples:
+#### Examples:
 
 **`view`**` COMPLETED`
 <img src="images\sketch_task_view.jpg" width="700" alt="View of completed tasks"><br />
@@ -61,7 +61,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 Adds a new task or event.  
 Format: 
 
-**`add`**` TASK NAME [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]`
+**`add`**` TASK NAME [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]`  
 **`add`**` EVENT NAME -d START END [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]`
  
 
@@ -85,20 +85,20 @@ Below indicate common scenarios of when and how to use the flags.
 Events normally will have include a start time, end time and a location and can be phrased as follows using the `-d` and `-l` flags.
 
 ##### Example:
-* **`add`**` Music at the park -d 11 Dec 6pm to 8pm -l Botanic Gardens  -p`
+**`add`**` Music at the park -d 11 Dec 6pm to 8pm -l Botanic Gardens  -p`
 
 #### Adding a deadline
 
 Deadlines normally only require one date and time.
 
 ##### Example:
-* **`add`**` Submit V.0.0 -d 5 Oct 2359 -t CS2103T, Week 8`
+**`add`**` Submit V.0.0 -d 5 Oct 2359 -t CS2103T, Week 8`
 
 #### Adding a recurring task
 
 Recurring tasks only require the recurring time period. The task will be appear from the first occurrence of the specified day. If no date is specified, it will be added to today's list
 ##### Examples:
-* **`add`**` CS2103T Tutorial -d 10am to 2pm -r every Wednesday -t Y2S1`
+**`add`**` CS2103T Tutorial -d 10am to 2pm -r every Wednesday -t Y2S1`
 
 
 #### Adding descriptions to a task
@@ -106,13 +106,13 @@ Recurring tasks only require the recurring time period. The task will be appear 
 Sometimes additional details can be added to the task using the `-m` flag
 
 ##### Examples:
-* **`add`**` Destroy the Earth -m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!`
+**`add`**` Destroy the Earth -m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!`
 
 #### Pinning a task
 
 Other than using the `pin` command, a task can straight away be pinned by adding the `-p` flag.
 ##### Examples:
-* **`add`**`Li Kai at Friday Hacks! -d 21 Oct 1800 21 Oct 2000 -p`
+**`add`**`Li Kai at Friday Hacks! -d 21 Oct 1800 21 Oct 2000 -p`
 
 
 
@@ -135,7 +135,7 @@ Deletes the task at the specified `INDEX`. The index refers to the index number 
 
 Format:
 
-**`complete`**` INDEX`
+**`complete`**` INDEX`  
 **`complete`**` --all`
 
 You can use this command to mark a task as completed. Completed task appear struckthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
@@ -157,7 +157,7 @@ If a particular task or event is important, you can pin it to the top of every l
 Allows you to edit a specific task. 
 Format: 
 
-**`edit`**` INDEX [NAME] [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]`
+**`edit`**` INDEX [NAME] [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]`  
 **`edit`**` INDEX [NAME] [-d START END] [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]`
 
 Use the `edit` command to make changes to the task specified by `INDEX`. The command accepts the same parameters as the `add` command. Any edit is immediately saved.
@@ -181,13 +181,13 @@ Exits the program.
 Format: **`exit`**  
 
 ### Undoing an action: `undo`
-Undo the most recent action.
+Undo the most recent action.  
 Format: **`undo`**
 
 Note: Only applies to commands which have made changes to the todo list.
 
 ### Redoing an action: `redo`
-Redo the most recent action which was undone.
+Redo the most recent action which was undone.  
 Format: **`redo`**
 
 ### Loading an existing data file : `load`
@@ -196,7 +196,7 @@ Format: **`load`**` FILENAME`
 
 Loads in another save file. You can use this to restore a backup or switch to different lists so you can for example have separate lists for school and home. Ensure that the file is converted into an `.xml` format for usage by the program.
 
-Example:
+#### Example:
 **`load`**` "myDiscountTodo.xml"`
 
 #### Autosave
@@ -210,13 +210,16 @@ Todo list data are saved in a file called `discountTodo.xml` in the `data` folde
 
 
 ## FAQ
-**Q**: Is my data secure?
+**Q**: Is my data secure?  
 **A**: Your data is stored locally on your hard drive as an `.xml` file. So, your data is as secure as your hard drive. We do not have access to your to-do list. 
-**Q**: How do I back up my data?
+
+**Q**: How do I back up my data?  
 **A**: As your data is saved to a `.xml` file that you specified, you can simply copy this file to a back up storage of your choice.
-**Q**: How do I sync my data with multiple devices?
+
+**Q**: How do I sync my data with multiple devices?  
 **A**: Simply load the `.xml` file to a cloud sync service like Dropbox or Google Drive, and all updates will be reflected to all devices using the file.
-**Q**: How do I pay for this project?
+
+**Q**: How do I pay for this project?  
 **A**: Donations can be made via PayPal or Kashmi. Cash donations are fine too. Basically if you wish to donate we will find a way for us to receive your money.
 
 ###
