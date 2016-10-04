@@ -1,5 +1,7 @@
 package seedu.todo.ui;
 
+import java.util.stream.Stream;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -94,5 +96,29 @@ public class TaskListCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    /**
+     * Displays the tags with tag labels lexicographically.
+     */
+    private void displayTags(){
+        //Obtain and verify that there are at most 5 tags.
+        int numberOfTags = task.getTags().size();
+        assert (numberOfTags <= 5);
+        
+        //Extract tag names, and sort the tags lexicographically.
+        Stream<String> tagsStream = task.getTags().stream()
+                .map(tag -> tag.tagName);
+        tagsStream.sorted();
+        String[] tags = (String[]) tagsStream.toArray();
+        
+        //Label or hide the tagLabels
+        for (int i = 0; i < 5; i++) {
+            if (i < numberOfTags) {
+                tagLabels[i].setText(tags[i]);
+            } else {
+                tagLabels[i].setVisible(false);
+            }
+        }
     }
 }
