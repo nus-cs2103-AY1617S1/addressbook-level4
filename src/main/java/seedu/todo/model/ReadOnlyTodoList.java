@@ -1,12 +1,12 @@
 package seedu.todo.model;
 
-import com.google.common.collect.ImmutableList;
+import java.util.List;
 
 import seedu.todo.model.task.ReadOnlyTask;
 
 public interface ReadOnlyTodoList {
     /**
-     * Get a list of tasks 
+     * Get an immutable list of tasks 
      */
-    public ImmutableList<ReadOnlyTask> getTasks();
+    public List<ReadOnlyTask> getTasks();
 }
