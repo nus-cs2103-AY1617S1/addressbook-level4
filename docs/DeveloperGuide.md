@@ -238,49 +238,51 @@ In all the listed use cases, the **System** is our application and the **Actor**
 
 ### UC01 - Add to-do item
 
-MSS: 
+MSS:<br><br>
+1. User types in an `add` command with details of the to-do item<br>
+2. Application adds the to-do item to the current to-do list<br>
+3. Application updates the GUI to reflect the changes<br>
+Use case ends
 
-1. User types in an `add` command with details of the to-do item
-2. Application adds the to-do item to the current to-do list
-3. Application updates the GUI to reflect the changes
-
-Extensions:
-
-- 1a. Command was not properly formatted
- 1. Application uses GUI to report details of the error in parsing command
- 2. Application uses GUI to show correct `add` command syntax and a sample `add` command
-
+Extensions:<br><br>
+1a. Command was not properly formatted<br>
+&nbsp;&nbsp;&nbsp; 1a1. Application uses GUI to report details of the error in parsing command<br>
+&nbsp;&nbsp;&nbsp; 1a2. Application uses GUI to show correct `add` command syntax and a sample `add` command<br>
+&nbsp;&nbsp;&nbsp; Use case ends
+ 
 ### UC02 - Delete to-do item
 
-MSS: 
+MSS:<br><br>
+1. User types in an `delete` command with the screen index of the to-do item<br>
+2. Application deletes the to-do item to the current to-do list<br>
+3. Application updates the GUI to reflect the changes<br>
+Use case ends
 
-1. User types in an `delete` command with the screen index of the to-do item
-2. Application deletes the to-do item to the current to-do list
-3. Application updates the GUI to reflect the changes
+Extensions:<br><br>
+1a. Command was not properly formatted<br>
+&nbsp;&nbsp;&nbsp; 1a1. Application uses GUI to report details of the error in parsing command<br>
+&nbsp;&nbsp;&nbsp; 1a2. Application uses GUI to show correct `delete` command syntax and a sample `delete` command<br>
+&nbsp;&nbsp;&nbsp; Use case ends
 
-Extensions:
-
-- 1a. Command was not properly formatted
- 1. Application uses GUI to report details of the error in parsing command
- 2. Application uses GUI to show correct `delete` command syntax and a sample `delete` command
-   
-- 1b. Screen index is invalid
- 1. Application uses GUI to report that screen index is invalid
+1b. Screen index is invalid<br>
+&nbsp;&nbsp;&nbsp; 1b1. Application uses GUI to report that screen index is invalid<br>
+&nbsp;&nbsp;&nbsp; Use case ends
 
 ### UC03 - Find to-do items
 
-MSS: 
+MSS:<br><br>
+1. User types in an `find` command with a list of words to search for<br>
+2. Application searches through the to-do list and updates the GUI to show only the matched to-do items<br>
+Use case ends
 
-1. User types in an `find` command with a list of words to search for
-2. Application searches through the to-do list and updates the GUI to show only the matched to-do items
+Extensions:<br><br>
+1a. No words were given<br>
+&nbsp;&nbsp;&nbsp; 1a1. Application updates GUI to show all to-do items<br>
+&nbsp;&nbsp;&nbsp; Use case ends
 
-Extensions:
-
-- 1a. No words were given
- 1. Application updates GUI to show all to-do items
-   
-- 2a. No to-do items matched
- 1. Application uses GUI to report that no to-do items were matched
+2a. No to-do items matched<br>
+&nbsp;&nbsp;&nbsp; 2a1. Application uses GUI to report that no to-do items were matched<br>
+&nbsp;&nbsp;&nbsp; Use case ends
 
 ## Appendix C: Non Functional Requirements
 
