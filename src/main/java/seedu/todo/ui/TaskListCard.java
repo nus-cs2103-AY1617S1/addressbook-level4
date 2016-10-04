@@ -54,13 +54,32 @@ public class TaskListCard extends UiPart{
 
     @FXML
     public void initialize() {
+        //Fill the details of the task into the views as required. 
         titleLabel.setText(String.valueOf(displayedIndex) + ". " + task.getTitle());
+        pinImage.setVisible(task.isPinned());
+        typeLabel.setText((task.isEvent()) ? EVENT_TYPE : TASK_TYPE);
+        displayTags();
+        
+        //Display task description when available
         if (task.getDescription().isPresent()) {
             descriptionLabel.setText(task.getDescription().get());
         } else {
             descriptionBox.setVisible(false);
         }
-        typeLabel.setText( (task.isEvent()) ? EVENT_TYPE : TASK_TYPE );
+        
+        //Display time when available
+        if (task.getStartTime().isPresent() || task.getEndTime().isPresent()) {
+            //TODO: Either start or end time are present.
+        } else {
+            dateBox.setVisible(false);
+        }
+        
+        //Display location when available
+        if (task.getLocation().isPresent()) {
+            locationLabel.setText(task.getLocation().get());
+        } else {
+            locationBox.setVisible(false);
+        }
     }
 
     public VBox getLayout() {
