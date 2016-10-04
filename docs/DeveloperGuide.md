@@ -268,18 +268,18 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `DODO-BIRD` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `DoDo-Bird` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Delete task
 
 **MSS**
 
 1. User requests to list tasks
-2. DODO-BIRD shows a list of tasks
+2. DoDo-Bird shows a list of tasks
 3. User requests to delete a specific task in the list
-4. DODO-BIRD asks the user to confirm
+4. DoDo-Bird asks the user to confirm
 5. User confirms the deletion
-6. DODO-BIRD deletes the task <br>
+6. DoDo-Bird deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -294,7 +294,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. DODO-BIRD shows an error message <br>
+> 3a1. DoDo-Bird shows an error message <br>
   Use case resumes at step 2
 
 #### Use case: Search task by keyword
@@ -302,7 +302,7 @@ Use case ends.
 **MSS**
 
 1. User enter command to search tasks by keyword
-2. DODO-BIRD returns a list of tasks which name contains those keywords.
+2. DoDo-Bird returns a list of tasks which name contains those keywords.
 Use case ends.
 
 **Extensions**
