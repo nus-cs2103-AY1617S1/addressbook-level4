@@ -23,8 +23,8 @@
 5. Some example commands you can try:
    * **`ls`** : lists all tasks
    * **`add`**` add -n Complete CS2103 Quiz 3 -dt 23/09/2016 -p H, -t Quiz, CS2103` : 
-     adds a task `Complete CS2103 Quiz 3` to the TARS list.
-   * **`del`**` 3` : deletes the 3rd task shown in the TARS list
+     adds a task `Complete CS2103 Quiz 3` to TARS.
+   * **`del`**` 3` : deletes the 3rd task shown in TARS.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -38,7 +38,7 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a task : `add`
-Adds a task to the To-Do List<br>
+Adds a task to TARS<br>
 Format: `add -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG>[, <TAG>, <TAG>,...] -r <NUM_TIMES> <FREQUENCY>` 
  
 > Words in `UPPER_CASE` are the parameters. Other than `<TASK>`, all parameters are optional. 
@@ -154,7 +154,7 @@ Examples:
 * `tag -d 4` deletes the tag at Index 4
 
 #### Listing all tags : `tag -ls`
-Lists all tags in the To-Do List <br>
+Lists all tags in TARS <br>
 Format: `tag -ls`
 
 #### Finding tags : `tag -f`
@@ -204,7 +204,7 @@ Examples:
 * `del -p high 3, 5, 6`
 
 #### Listing tasks : `ls`
-Lists all tasks in the To-Do List with available list filters.<br>
+Lists all tasks in TARS with available list filters.<br>
 Format: 
 * `ls`
 * `ls -all`
@@ -259,14 +259,14 @@ Examples:
 * `cd C:\Users\John_Doe\Documents`  
 
 #### Saving the data 
-To-Do List data are saved in the hard disk automatically after any command that changes the data.<br>
+TARS data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous To-Do List.
+       the file that contains the data of your previous TARS app.
        
 ## Command Summary
 
