@@ -22,10 +22,6 @@ public class Status {
         }
     }
 
-    public boolean isDone() {
-        return status;
-    }
-
     public void setDone() {
         this.status = true;
     }
