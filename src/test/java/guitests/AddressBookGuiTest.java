@@ -10,7 +10,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
 import seedu.task.TestApp;
-import seedu.task.model.AddressBook;
+import seedu.task.model.TaskBook;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestPersons;
@@ -76,8 +76,8 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
+    protected TaskBook getInitialData() {
+        TaskBook ab = TestUtil.generateEmptyAddressBook();
         TypicalTestPersons.loadAddressBookWithSampleData(ab);
         return ab;
     }

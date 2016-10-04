@@ -6,8 +6,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.task.model.AddressBook;
-import seedu.task.model.ReadOnlyAddressBook;
+import seedu.task.model.TaskBook;
+import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.UserPrefs;
 import seedu.task.storage.StorageManager;
 import seedu.task.testutil.TypicalTestPersons;
@@ -50,10 +50,10 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
+        TaskBook original = new TypicalTestPersons().getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        ReadOnlyTaskBook retrieved = storageManager.readAddressBook().get();
+        assertEquals(original, new TaskBook(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }
 
