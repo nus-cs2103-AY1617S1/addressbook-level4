@@ -6,12 +6,12 @@ import seedu.address.model.person.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestPerson implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
+    private Priority address;
+    private Reminder email;
+    private Deadline phone;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -22,15 +22,15 @@ public class TestPerson implements ReadOnlyPerson {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Priority address) {
         this.address = address;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(Reminder email) {
         this.email = email;
     }
 
-    public void setPhone(Phone phone) {
+    public void setPhone(Deadline phone) {
         this.phone = phone;
     }
 
@@ -40,17 +40,17 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public Phone getPhone() {
+    public Deadline getDeadline() {
         return phone;
     }
 
     @Override
-    public Email getEmail() {
+    public Reminder getReminder() {
         return email;
     }
 
     @Override
-    public Address getAddress() {
+    public Priority getPriority() {
         return address;
     }
 
@@ -67,9 +67,9 @@ public class TestPerson implements ReadOnlyPerson {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("p/" + this.getDeadline().value + " ");
+        sb.append("e/" + this.getReminder().value + " ");
+        sb.append("a/" + this.getPriority().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
