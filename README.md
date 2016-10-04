@@ -1,7 +1,7 @@
 # TARS: Task And Remember Stuff 
 ### *A Productivity Tool by CS2103AUG2016-F10-C1*
 
-*Screenshot of GUI not available yet*
+<img src="docs/images/tarsUi.png" width="600"><br>
 
 * This is a desktop To-Do List application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface). 
