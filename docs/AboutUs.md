@@ -4,49 +4,32 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
+#### [Damith C.Rajapakse](http://www.comp.nus.edu.sg/~damithch/) <br>
 <img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+**Role**: Project Tutor
+
+#### [Brandon Yeo Xiang Guang](https://github.com/brandonyeoxg) <br>
+<img src="images/BrandonYeoXiangGuang.jpg" width="150"><br>
+**Role**: Project Leader
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+#### [Duan Yi Chen](http://github.com/Yichen-D)
+<img src="images/DuanYiChen.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI
+Responsibilities: Testing
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Ong Yen Khai Anton](http://github.com/yijinl) 
+<img src="images/OngYenKhaiAnton.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: Documentation
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
+#### [Yang Zhuo Han](http://github.com/m133225)
 Role: Developer <br>  
-Responsibilities: Dev Ops
+Responsibilities: Code Quality & Integration
 
 -----
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
