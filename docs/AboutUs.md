@@ -5,27 +5,27 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project Team
 
 #### [Sriram Sami](http://github.com/frizensami)
-<img src="images/Sriram.jpg" width="150" height="150"><br>
+<img src="images/Sriram.jpg" width="150"><br>
 **Role**: Leader
 
 -----
 
 #### [Nikhil Suresh](http://github.com/kneekill)
-<img src="images/Nikhil.jpg" width="150" height="150"><br>
+<img src="images/Nikhil.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: UI
 
 -----
 
 #### [Chew Zi Ling](http://github.com/ChewZL) 
-<img src="images/ZiLing.jpg" width="150" height="150"><br>
+<img src="images/ZiLing.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Storage
 
  -----
 
 #### [Tang Yew Siang](http://github.com/yewsiang) 
-<img src="images/YewSiang.jpg" width="150" height="150"><br>
+<img src="images/YewSiang.jpg" width="150"><br>
  Role: Developer <br>  
  Responsibilities: Logic
  
@@ -33,7 +33,7 @@ Responsibilities: Storage
 
 ## Project Mentor
 #### [Alvian Prasetya](http://github.com/AlvianPrasetya) 
-<img src="images/Alvian.jpg" width="150" height="150"><br>
+<img src="images/Alvian.jpg" width="150"><br>
 
 # Contributors
 
