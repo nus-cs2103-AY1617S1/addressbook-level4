@@ -26,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final FilteredList<Task> filteredTasks;
     private final FilteredList<Person> filteredPersons;
 
     /**
@@ -41,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
     public ModelManager() {
@@ -50,6 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
     @Override
@@ -84,8 +87,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
