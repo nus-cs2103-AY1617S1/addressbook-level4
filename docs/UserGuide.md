@@ -157,7 +157,7 @@ Sort all tasks according to the specified category.<br>
 Three categories: Alphabetical order, priority level, deadlines<br>
 Format: `sort CATEGORY`
 
-<img src="images/sortpic.png" width="300"><br>
+<img src="images/sortpic.png" width="400"><br>
 
 Example:<br>
 * `sort A`
