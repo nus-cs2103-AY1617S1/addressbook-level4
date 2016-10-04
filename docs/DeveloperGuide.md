@@ -266,30 +266,186 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `To-do Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: [UC01] Add Task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+1. User enters command to add a new task.
+2. System adds new task. <br/>
+Use Case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. Incorrect command format.
 
-> Use case ends
+> 1ai. System displays an error message. <br/>
+	Use Case ends.
 
-3a. The given index is invalid
+#### Use case: [UC02] Edit Task
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+**Preconditions**
 
-{More to be added}
+Task exists in system
+
+**MSS**
+
+1. User enters command to edit a task.
+2. System edits task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+ 	Use Case ends.
+
+#### Use case: [UC03] Remove Single Task
+
+**Preconditions**
+
+Task exists in system
+
+**MSS**
+
+1. User enters command to remove a task.
+2. System edits task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+ 	Use Case ends.
+
+#### Use case: [UC04] Remove All Tasks
+
+**MSS**
+
+1. User enters command to remove all tasks.
+2. System requests to confirm command. 
+3. User confirms request. 
+4. System removes all tasks. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. There are no pending tasks.
+
+> 1ai. System displays "No Pending Tasks" message. <br>
+	Use Case ends.
+
+3a. User cancels request.
+
+> Use Case ends.
+
+#### Use case: [UC05] Mark Task as Done
+
+**Preconditions**
+
+Task exists in system and is of "Pending" status.
+
+**MSS**
+
+1. User enters command to mark task as done.
+2. System marks tasks as done. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+ 	Use Case ends.
+    
+
+#### Use case: [UC06] Find Task
+
+**Preconditions**
+
+Task exists in system.
+
+**MSS**
+
+1. User enters command to find a task.
+2. System displays tasks corresponding to search query. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. No tasks matches search query.
+
+> Use Case ends.
+
+#### Use case: [UC07] Undo Command
+
+**MSS**
+
+1. User enters undo command.
+2. System undo previous command. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. No commands to undo.
+
+> 1ai. System displays "Nothing to Undo" message. <br>
+	Use Case ends.
+
+#### Use case: [UC08] View Help
+
+**MSS**
+
+1. User enters help command.
+2. System displays list of commands available. <br/>
+Use Case ends.
+	
+#### Use case: [UC09] Change Storage File Location
+
+**MSS**
+
+1. User clicks on ‘Settings’.
+2. System displays list of options available.
+3. User clicks on ‘Change Storage Location’.
+4. System displays File Chooser.
+5. User selects specific location to store data.
+6. System requests for confirmation.
+7. User confirms request.
+8. System update storage file directory to selected location. <br/>
+Use Case ends.
+
+**Extensions**
+
+7a. User cancels request.
+
+> Use Case ends.
+
+*a. At any time, user does not want to change storage file location.
+
+> Use Case ends.
 
 ## Appendix C : Non Functional Requirements
 
