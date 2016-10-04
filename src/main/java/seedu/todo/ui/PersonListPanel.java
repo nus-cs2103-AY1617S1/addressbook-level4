@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.todo.commons.events.ui.TodoListPanelSelectionChangedEvent;
 import seedu.todo.model.person.ReadOnlyPerson;
 
 import java.util.logging.Logger;
@@ -75,7 +75,7 @@ public class PersonListPanel extends UiPart {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                raise(new PersonPanelSelectionChangedEvent(newValue));
+                raise(new TodoListPanelSelectionChangedEvent(newValue));
             }
         });
     }
