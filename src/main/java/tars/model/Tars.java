@@ -30,14 +30,14 @@ public class Tars implements ReadOnlyTars {
      * Tasks and Tags are copied into this tars
      */
     public Tars(ReadOnlyTars toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), null);
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Tasks and Tags are copied into this tars
      */
     public Tars(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), null);
+        resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyTars getEmptyTars() {
@@ -55,16 +55,16 @@ public class Tars implements ReadOnlyTars {
     }
 
     public void setTags(Collection<Tag> tags) {
-//        this.tags.getInternalList().setAll(tags);
+        this.tags.getInternalList().setAll(tags);
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-//        setTags(newTags);
+        setTags(newTags);
     }
 
     public void resetData(ReadOnlyTars newData) {
-        resetData(newData.getTaskList(), null);
+        resetData(newData.getTaskList(), newData.getTagList());
     }
 
 //// task-level operations
@@ -77,7 +77,7 @@ public class Tars implements ReadOnlyTars {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
-       // syncTagsWithMasterList(p);
+        syncTagsWithMasterList(p);
         tasks.add(p);
     }
 
@@ -86,23 +86,23 @@ public class Tars implements ReadOnlyTars {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-//    private void syncTagsWithMasterList(Task task) {
-//        final UniqueTagList taskTags = task.getTags();
-//        tags.mergeFrom(taskTags);
-//
-//        // Create map with values = tag object references in the master list
-//        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-//        for (Tag tag : tags) {
-//            masterTagObjects.put(tag, tag);
-//        }
-//
-//        // Rebuild the list of task tags using references from the master list
-//        final Set<Tag> commonTagReferences = new HashSet<>();
-//        for (Tag tag : taskTags) {
-//            commonTagReferences.add(masterTagObjects.get(tag));
-//        }
-//        task.setTags(new UniqueTagList(commonTagReferences));
-//    }
+    private void syncTagsWithMasterList(Task task) {
+        final UniqueTagList taskTags = task.getTags();
+        tags.mergeFrom(taskTags);
+
+        // Create map with values = tag object references in the master list
+        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+        for (Tag tag : tags) {
+            masterTagObjects.put(tag, tag);
+        }
+
+        // Rebuild the list of task tags using references from the master list
+        final Set<Tag> commonTagReferences = new HashSet<>();
+        for (Tag tag : taskTags) {
+            commonTagReferences.add(masterTagObjects.get(tag));
+        }
+        task.setTags(new UniqueTagList(commonTagReferences));
+    }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
@@ -131,21 +131,20 @@ public class Tars implements ReadOnlyTars {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 
-//    @Override
-//    public List<Tag> getTagList() {
-//        return Collections.unmodifiableList(tags.getInternalList());
-//    }
+    @Override
+    public List<Tag> getTagList() {
+        return Collections.unmodifiableList(tags.getInternalList());
+    }
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
     }
 
-//    @Override
-//    public UniqueTagList getUniqueTagList() {
-//        return this.tags;
-//    }
-
+    @Override
+    public UniqueTagList getUniqueTagList() {
+        return this.tags;
+    }
 
     @Override
     public boolean equals(Object other) {
