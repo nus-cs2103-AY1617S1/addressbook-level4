@@ -3,6 +3,7 @@ package seedu.todo.model;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
@@ -22,15 +23,22 @@ public class TodoList implements ReadOnlyTodoList, TodoModel {
     private SortedList<Task> pinnedTasks;
     
     public TodoList() {
-        tasks = FXCollections.observableArrayList();
+        tasks = FXCollections.observableArrayList(t -> t.getObservableProperties());
         filteredTasks = new FilteredList<>(tasks, p -> true);
         sortedTasks = new SortedList<>(filteredTasks);
-        pinnedTasks = new SortedList<>(sortedTasks, (a, b) -> Boolean.compare(a.isPinned(), b.isPinned()));
+        // pinnedTasks = new SortedList<>(sortedTasks, (a, b) -> Boolean.compare(a.isPinned(), b.isPinned()));
     }
 
     @Override
-    public void add(ReadOnlyTask task) {
-        tasks.add(Task.unwrap(task));
+    public void add(String title) {
+        tasks.add(new Task(title));
+    }
+    
+    @Override
+    public void add(String title, Consumer<Task> update) {
+        Task task = new Task(title);
+        update.accept(task);
+        tasks.add(task);
     }
 
     @Override
@@ -41,25 +49,34 @@ public class TodoList implements ReadOnlyTodoList, TodoModel {
     }
 
     @Override
-    public void update(ReadOnlyTask task) throws IllegalValueException {
-        int index = tasks.indexOf(task);
+    public void update(ReadOnlyTask key, Consumer<Task> update) throws IllegalValueException {
+        int index = tasks.indexOf(key);
         
-        if (index == -1) {
+        if (index < 0) {
             throw new IllegalValueException("Task not found in todo list");
         } else {
-            tasks.set(index, Task.unwrap(task));
+            Task task = tasks.get(index);
+            update.accept(task);
         }
     }
 
     @Override
     public void view(Predicate<ReadOnlyTask> filter, Comparator<ReadOnlyTask> comparator) {
         filteredTasks.setPredicate(filter);
-        sortedTasks.setComparator(comparator);
+        if (comparator == null) {
+            sortedTasks.setComparator(comparator);
+        } else {
+            sortedTasks.setComparator((a, b) -> {
+                System.out.printf("a: %s %b / b: %s %b\n", a.getTitle(), a.isPinned(), b.getTitle(), b.isPinned());
+                int pin = Boolean.compare(b.isPinned(), a.isPinned());
+                return pin != 0 ? pin : comparator.compare(a, b);
+            });
+        }
     }
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getObserveableList() {
-        return new UnmodifiableObservableList<>(pinnedTasks);
+        return new UnmodifiableObservableList<>(sortedTasks);
     }
 
     @Override
