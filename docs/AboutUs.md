@@ -33,7 +33,7 @@ Responsibilities: Testing
 -----
 
 #### Phang Chun Rong
-<img src="images/PhangChunRong.png" width="150"><br>
+<img src="images/PhangChunRong.jpg" width="150"><br>
 Role: Project Mentor <br>  
 
 -----
