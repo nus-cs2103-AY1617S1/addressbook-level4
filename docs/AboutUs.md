@@ -30,6 +30,7 @@ Responsibilities: Documentation
 
 #### [Yang Zhuo Han](http://github.com/m133225)
 Role: Developer <br>  
+<img src="images/YangZhuoHan.jpg" width="150"><br>
 Responsibilities: Code Quality & Integration
 
 -----
