@@ -103,8 +103,10 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            return new AddCommand(matcher.group("name"),
-                    matcher.group("priority").replace("-p ", ""));
+            return new AddCommand(
+                    matcher.group("name"),
+                    matcher.group("priority").replace("-p ", ""),
+                    getTagsFromArgs(matcher.group("tagArguments")));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
