@@ -13,6 +13,9 @@ public class TestTask implements ReadOnlyTask {
     private Email email;
     private Phone phone;
     private UniqueTagList tags;
+    private DateTime dateTime;
+    private Status status;
+    private Priority priority;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -52,6 +55,21 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Address getAddress() {
         return address;
+    }
+    
+    @Override
+    public DateTime getDateTime() {
+        return dateTime;
+    }
+
+    @Override
+    public Status getStatus() {
+        return status;
+    }
+
+    @Override
+    public Priority getPriority() {
+        return priority;
     }
 
     @Override
