@@ -1,21 +1,33 @@
 package seedu.todo.model.task;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-/**
- * A read-only immutable interface that models a task in the to-do list.
- */
+import com.google.common.collect.ImmutableSet;
+
+import seedu.todo.model.tag.Tag;
+
 public interface ReadOnlyTask {
+    public String getTitle();
     
-    String getTitle();
-    String getDescription();
-    LocalDateTime getDeadline();
-    List<String> getTags();
+    public Optional<String> getDescription();
     
-    /**
-     * Returns true if the object is a task, false if is an event.
-     */
-    boolean isTask();
+    public Optional<String> getLocation();
     
+    public Optional<LocalDateTime> getStartTime();
+
+    public Optional<LocalDateTime> getEndTime();
+    
+    public boolean isPinned();
+    
+    public boolean isCompleted();
+    
+    default public boolean isEvent() {
+        return this.getStartTime().isPresent();
+    }
+    
+    public ImmutableSet<Tag> getTags();
+    
+    public UUID getUUID();
 }
