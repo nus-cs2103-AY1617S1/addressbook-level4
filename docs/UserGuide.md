@@ -162,7 +162,7 @@ Format: cd FILE_PATH
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 
 Examples: 
-* "cd C://user/saveFolder"
+* `cd C://user/saveFolder`
 
 
 #### Exiting the program : `exit`
