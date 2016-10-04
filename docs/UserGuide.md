@@ -27,12 +27,10 @@
 ## Table of Content
 1. About GGist
 2. User Guide
-
-> * Getting Started
-> * Feature Details
-> * Troubleshoot
-> * Command Cheatsheet
-
+   * Getting Started
+   * Feature Details
+   * Troubleshoot
+   * Command Cheatsheet
 3. User Stories
 4. Use Cases
 5. Non-functional Requirements
