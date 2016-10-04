@@ -22,12 +22,12 @@ public class XmlSerializableTars implements ReadOnlyTars {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-//    @XmlElement
-//    private List<Tag> tags;
+    @XmlElement
+    private List<Tag> tags;
 
     {
         tasks = new ArrayList<>();
-        //tags = new ArrayList<>();
+        tags = new ArrayList<>();
     }
 
     /**
@@ -40,18 +40,18 @@ public class XmlSerializableTars implements ReadOnlyTars {
      */
     public XmlSerializableTars(ReadOnlyTars src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        //tags = src.getTagList();
+        tags = src.getTagList();
     }
 
-//    @Override
-//    public UniqueTagList getUniqueTagList() {
-//        try {
-//            return new UniqueTagList(tags);
-//        } catch (UniqueTagList.DuplicateTagException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    @Override
+    public UniqueTagList getUniqueTagList() {
+        try {
+            return new UniqueTagList(tags);
+        } catch (UniqueTagList.DuplicateTagException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
@@ -78,9 +78,9 @@ public class XmlSerializableTars implements ReadOnlyTars {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 
-//    @Override
-//    public List<Tag> getTagList() {
-//        return Collections.unmodifiableList(tags);
-//    }
+    @Override
+    public List<Tag> getTagList() {
+        return Collections.unmodifiableList(tags);
+    }
 
 }
