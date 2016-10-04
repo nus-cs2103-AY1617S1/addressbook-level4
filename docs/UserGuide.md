@@ -11,7 +11,7 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
+1. Download the latest `happyjimtaskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
@@ -19,10 +19,10 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`view`** : View floating task of the day
+   * **`add`**` Homework d/2409 1800 : 
+     adds a task named `Homework` to the Task List.
+   * **`delete`**` 212` : deletes the task with ID 212 shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -39,96 +39,155 @@
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
+
+Example:
+* `help` 
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding a floating task: `add`
+Adds a task to the todo list<br>
+Format:`add TASK_NAME [t/TAG]...` 
 
-> Persons can have any number of tags (including 0)
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+> items with `...` after them can have multiple instances. Order of parameters are fixed. 
+>  
+> Tasks can have any number of tags (including 0)
+
+Examples: <br>
+* `add Homework`<br>
+* `add Homework t/CS1231`
+
+#### Adding a task with deadline: “add”
+Format: `add TASK_NAME d/DATE TIME [t/TAG]...`
+
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+> items with `...` after them can have multiple instances. Order of parameters are fixed. 
+>  
+> Tasks can have any number of tags (including 0)
+
+Examples:
+* `add Homework d/2409 1800 t/CS1231`
+
+#### Adding a task with start time and end time: “add”
+Format: `add TASK_NAME d/DATE TIME - DATE TIME [t/TAG]`
+
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+> items with `...` after them can have multiple instances. Order of parameters are fixed. 
+>  
+> Tasks can have any number of tags (including 0)
+
+Examples:
+* `add Homework d/2409 2100 - 2509 1900 t/CS1231`
+
+#### View floating task of the day : “view”
+Format: view -OPTION
+
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+> OPTION currently supports f : floating
+
+Examples: * `view -f`
+
+#### View non-floating task of the day : “view”
+Format: view d/DATE
+
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
+
+Examples: * `view d/2409`
+
+#### Edit tasks : “edit”
+Format: `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]...`
+
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+> items with `...` after them can have multiple instances. Order of parameters are fixed. 
+>  
+> Tasks can have any number of tags (including 0)
+
+Examples: * `edit 213 d/2709 1800 - 3009 1800  t/cs2101`
+
+#### Delete tasks : “delete”
+Format: delete TASK_ID
+
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+
+Examples:
+* `Delete 212`
+
+#### Block out tasks : “block”
+Format: block TASK_NAME d/START_DATE START_TIME - START_DATE START_TIME
+
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+
+Examples:
+block cs2103t d/2409 1900 - 2409 2100
+
+#### Redo tasks : “redo”
+Format: redo
+
+> Maximum 3 redo
+
+Examples: * `redo`
+
+#### Undo tasks : “undo”
+Format: undo
+
+> Maximum 3 undo
+
+Examples: * `undo`
+
+#### Find tasks : “find”
+Format: find [TASK_NAME] [d/DATE [TIME]] [t/TAG]
+
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
+
+Examples: <br>
+* `find cs2103 d/2109 <br>`
+* `find d/2109 1800 t/gigi <br>`
+* `find cs2103 t/lolo`
+
+#### Undo tasks : “clear”
+Format: clear
+
+> clears all the tasks
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+`clear`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+#### Change directory: “Change directory”
+Format: cd FILE_PATH
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+cd C://user/saveFolder
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
-
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
-
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
-
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
-
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
 
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
-
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
+
+**Q**: How do i get started using the task manager?<br>
+**A**: Type 'help' or any incorrect command will bring you to the help screen.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+Add | `add TASK_NAME [t/TAG]`
+Add | `add TASK_NAME d/DATE TIME [t/TAG]`
+Add | `add TASK_NAME d/DATE TIME - DATE TIME [t/TAG]`
+View | `view -OPTION`
+View | `view d/DATE`
+Edit | `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]`
+Delete | `delete TASK_ID`
+Block | 'block TASK_NAME d/START_DATE START_TIME - START_DATE START_TIME'
+Redo | 'redo'
+Undo | 'undo'
+Find | 'find [TASK_NAME] [d/DATE [TIME]] [t/TAG]'
+Clear | 'clear'
+Change directory | 'cd FILE_PATH'
+Exit | 'exit'

@@ -2,20 +2,19 @@ package guitests;
 
 import org.junit.Test;
 import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
-
+import seedu.address.testutil.TestFloatingTask;
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends TaskListGuiTest {
 
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Mark"); //no results
-        assertFindResult("find Meier", td.benson, td.daniel); //multiple results
+        assertFindResult("find read", td.book, td.lecture); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Meier",td.daniel);
+        assertFindResult("find read",td.lecture);
     }
 
     @Test
@@ -30,10 +29,10 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
+    private void assertFindResult(String command, TestFloatingTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " persons listed!");
-        assertTrue(personListPanel.isListMatching(expectedHits));
+        assertResultMessage(expectedHits.length + " tasks listed!");
+        assertTrue(floatingTaskListPanel.isListMatching(expectedHits));
     }
 }
