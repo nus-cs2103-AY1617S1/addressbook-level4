@@ -123,12 +123,22 @@ There is no need to save manually.
        
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+The table below shows the overall list of commands used in the application.<br><br>
+Note the following conventions used:
+* [Optional Text here] = Optional inputs
+
+Command (Shortcut) | Format  
+:-------- | :-------- 
+Add Task `a` | `add `**`task_name`**  
+Add Deadline `a` | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
+Add Event `a` | `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`<br>OR<br>`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
+Edit Description `e` | `edit `**`task_number new_task_name`**
+Reschedule `r` | `reschedule `**`task_number`**` to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`
+Set Reminder `s` | `remind `**`task_number date time`**
+Remove `rm` | `remove `**`task_number`**
+Find `f` | `find [`**`search_query`**`] [`**`-p/-c/-o`**`]`
+Mark as Done `d` | `done `**`task_number`**
+Undo `u` | `undo`
 Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+Help `h` | `help`
+Exit | `exit`
