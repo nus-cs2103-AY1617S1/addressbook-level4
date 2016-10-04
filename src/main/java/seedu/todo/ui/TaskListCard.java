@@ -7,6 +7,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import seedu.todo.model.task.ReadOnlyTask;
 
+/**
+ * This class links up with TaskListCard.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.  
+ */
 public class TaskListCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
