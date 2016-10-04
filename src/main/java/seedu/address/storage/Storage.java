@@ -1,10 +1,10 @@
 package seedu.address.storage;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends TaskListStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -23,20 +23,20 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    String getAddressBookFilePath();
+    String getTaskListFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException;
+    Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, FileNotFoundException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveTaskList(ReadOnlyTaskList taskList) throws IOException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
+     * Saves the current version of the Task List to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleTaskListChangedEvent(TaskListChangedEvent abce);
     
     /**
      * Changes the file path for current storage manager.

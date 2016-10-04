@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tasklist>
+    <tasks>
+        <name>take trash</name>
+        <tagged>notUrgent</tagged>
+    </tasks>
+    <tasks>
+        <name>read book</name>
+        <tagged>textBook</tagged>
+        <tagged>weekly</tagged>
+    </tasks>
+    <tasks>
+        <name>do homework</name>
+    </tasks>
+    <tasks>
+        <name>read weblecture</name>
+    </tasks>
+    <tasks>
+        <name>group meeting</name>
+    </tasks>
+    <tasks>
+        <name>jogging</name>
+    </tasks>
+    <tasks>
+        <name>visit George Best</name>
+    </tasks>
+    <tags>
+        <tagName>notUrgent</tagName>
+    </tags>
+    <tags>
+        <tagName>textBook</tagName>
+    </tags>
+    <tags>
+        <tagName>weekly</tagName>
+    </tags>
+</tasklist>
