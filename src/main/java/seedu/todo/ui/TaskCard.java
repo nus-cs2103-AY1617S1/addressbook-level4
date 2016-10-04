@@ -11,11 +11,11 @@ import javafx.scene.image.ImageView;
 import seedu.todo.model.task.ReadOnlyTask;
 
 /**
- * This class links up with TaskListCard.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.  
+ * This class links up with TaskCard.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.  
  */
-public class TaskListCard extends UiPart{
+public class TaskCard extends UiPart{
     /*Constants*/
-    private static final String FXML = "TaskListCard.fxml";
+    private static final String FXML = "TaskCard.fxml";
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
     
@@ -43,12 +43,12 @@ public class TaskListCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public TaskListCard(){
+    public TaskCard(){
 
     }
 
-    public static TaskListCard load(ReadOnlyTask task, int displayedIndex){
-        TaskListCard taskListCard = new TaskListCard();
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+        TaskCard taskListCard = new TaskCard();
         taskListCard.task = task;
         taskListCard.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(taskListCard);
