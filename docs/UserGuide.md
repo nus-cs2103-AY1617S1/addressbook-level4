@@ -29,91 +29,123 @@
 
 ## Features
 
+Taskle makes it elegantly simple to manage your tasks. All of its features require only one single line of command making it very easy to use! Furthermore, it will be easy for you to keep track of your tasks with no hassle at all!
+
 > **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
+> * Words in **`BOLD`** are the parameters.
+> * Words in *`ITALICS`* represent different categories under the same command.
 > * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
-#### Viewing help : `help`
+<br>
+
+#### Adding a Task: `add`
+Adds a task into the to-do application. Tasks can be classified into 3 categories: *Floating Tasks* (Tasks with no deadlines), *Deadlines* and *Events*.<br><br>
+Format:  
+
+Type | Format  
+:-------- | :-------- 
+Floating Tasks | `add `**`task_name`**  
+Deadlines | `add `**`deadline_name`**` by `**`date`**`[`**`time`**`] [remind `**`date time`**`]`  
+Events | `add `**`event_name`**` on `**`date`**`[`**`time`**`] [remind `**`date time`**`]` <br> OR <br> `add `**`event_name`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`  
+
+Examples:
+* `add `**`Pay Bills`**
+* `add `**`Do CS2101 Assignment`**` by `**`12 Oct`**
+* `add `**`Business Trip`**` from `**`4 Oct`**` to `**`5 Oct`**` remind `**`3 Oct 2pm`**
+
+Note:  
+* When entering date and time, the following formats are allowed:
+	* 14 Jul, 14 July
+	* 9pm, 2100
+	* today, tmr
+
+* Words such as **by**, **on**, **from** and **to** are reserved for commands. When adding tasks, if the name consists of any of the reserved words, they should be enclosed within double quotation marks, (" "). For example:
+	* add "**Collect equipment from Mary**" **tmr**
+
+* When using reserved words **today** and **tmr**, it is alright to omit the word **on** (applicable for events). For example:
+	* add **Club Briefing tmr** &emsp; instead of:&emsp; add **Club Briefing on tmr**
+<br><br>	
+
+#### Editing a Task : `edit; reschedule; remind`
+Edits a task into the to-do application. There are 3 types of edits possible: *Edit Description*, *Reschedule* and *Remind*.<br><br>
+Format:
+
+Type | Format  
+:-------- | :-------- 
+Edit Description | `edit `**`task_number new_task_name`**  
+Reschedule | `reschedule `**`task_number`**` to `**`date`**`[`**`time`**`] [remind `**`date time`**`]`  
+Remind | `remind `**`task_number`**` on `**`date time`**
+
+Examples:
+* `edit `**`3 Pass money to Abel`**
+* `reschedule `**`Submit proposal `**` to `**`13 Oct 5pm`**
+* `remind `**`1 3 Oct 2pm`**
+
+Note:
+* Only one reminder is supported for each task. The date and time specified in the "Remind" command will replace any existing reminder. To remove a reminder completely, you will have to type "**null**" after typing the task number. For example:
+	* remind **3 null**
+	
+* Reminders need to have a **time** specified in order for us to know the exact time to remind you of your appointments.
+<br><br>
+
+#### Removing a Task: `remove`
+Removes a task from the to-do application.<br><br>
+Format: `remove `**`task_number`**
+
+Examples:
+* `remove `**`4`**
+<br><br>
+
+#### Finding a Task : `find`
+Finds a task in the to-do application, based on keywords.<br><br>
+Format: `find [`**`search_query`**`][`**`-p/-d-o`**`]`
+
+Examples:
+* `find `**`meeting`**
+* `find `**`submission -o`**
+
+Note:
+* After typing the words to search for, you can type any of the following keywords to search for specific types of events:
+	* **-p**: Tasks that are still pending.
+	* **-c**: Tasks that are marked as completed.
+	* **-o**: Tasks that are overdue (applicable for deadlines only)
+* To view all types of events, you can simply omit the above keywords. 
+* To display all tasks, simply type `find`
+* To display all the tasks of a specific type, simply omit the **search_query** parameter while including the keyword mentioned above. For example:
+	* `find `**`-p`**
+<br><br>
+
+#### Marking a Task as Done: `done`
+Undo previous that may have been entered incorrectly.<br><br>
+Format: `undo`
+<br><br>
+
+#### Undoing a Recent Command: `undo`
+Marks a task as done. This command is used when you are finished with the task.<br><br>
+Format: `undo`
+<br><br>
+
+#### Clearing all Tasks: `clear`
+Clears all tasks from the application.<br><br>
+Format: `clear`
+<br><br>
+
+#### Viewing Help: `help`
+Views help for commands
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+Note:
+* Help is also shown if you enter an incorrect command. For example:
+	* `abcd`
 
-> Persons can have any number of tags (including 0)
+<br><br>
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
-
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
-
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
-
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
-
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
-
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
-
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
-
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
-
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
-
-#### Exiting the program : `exit`
-Exits the program.<br>
+#### Exiting the Application: `exit`
+Exits the application.<br><br>
 Format: `exit`  
+<br><br>
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
 
 ## FAQ
 
