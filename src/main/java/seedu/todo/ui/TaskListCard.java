@@ -11,11 +11,12 @@ import seedu.todo.model.task.ReadOnlyTask;
  * This class links up with TaskListCard.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.  
  */
 public class TaskListCard extends UiPart{
-
+    /*Constants*/
     private static final String FXML = "TaskListCard.fxml";
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
-
+    
+    /*Layout Declarations*/
     @FXML
     private VBox taskCard;
     @FXML
@@ -31,6 +32,8 @@ public class TaskListCard extends UiPart{
     @FXML
     private Label tagsLabel;
 
+    
+    /*Variables*/
     private ReadOnlyTask task;
     private int displayedIndex;
 
