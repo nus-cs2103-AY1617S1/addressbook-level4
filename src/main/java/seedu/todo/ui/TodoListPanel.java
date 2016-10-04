@@ -20,11 +20,17 @@ import java.util.logging.Logger;
  * A panel that holds all the tasks inflated from TaskCard.
  */
 public class TodoListPanel extends UiPart {
+    /*Constants*/
+    private static final String FXML = "TodoListPanel.fxml";
+    
+    /*Variables*/
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
+    
+    /*Layout Declarations*/
     @FXML
     private ListView<ReadOnlyPerson> personListView;
 
