@@ -16,6 +16,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import seedu.todo.model.tag.Tag;
 
+/**
+ * Represents a single task
+ */
 public class Task implements ReadOnlyTask {
     private StringProperty title = new SimpleStringProperty(); 
     private StringProperty description = new SimpleStringProperty(); 
@@ -97,12 +100,11 @@ public class Task implements ReadOnlyTask {
     }
 
     public void setPinned(boolean pinned) {
-        System.out.printf("Setting pinned %b\n", pinned);
         this.pinned.set(pinned);
     }
 
     public void setCompleted(boolean completed) {
-        this.completed.setValue(completed);
+        this.completed.set(completed);
     }
 
     public void setDescription(String description) {
