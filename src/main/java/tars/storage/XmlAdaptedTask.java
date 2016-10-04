@@ -16,6 +16,8 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
+    @XmlElement
+    private String priority;
 //    @XmlElement(required = true)
 //    private String phone;
 //    @XmlElement(required = true)
@@ -23,8 +25,8 @@ public class XmlAdaptedTask {
 //    @XmlElement(required = true)
 //    private String address;
 
-//    @XmlElement
-//    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
@@ -39,13 +41,14 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().taskName;
+        priority = source.getPriority().toString();
 //        phone = source.getPhone().value;
 //        email = source.getEmail().value;
 //        address = source.getAddress().value;
-//        tagged = new ArrayList<>();
-//        for (Tag tag : source.getTags()) {
-//            tagged.add(new XmlAdaptedTag(tag));
-//        }
+        tagged = new ArrayList<>();
+        for (Tag tag : source.getTags()) {
+            tagged.add(new XmlAdaptedTag(tag));
+        }
     }
 
     /**
@@ -54,15 +57,16 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-//        final List<Tag> taskTags = new ArrayList<>();
-//        for (XmlAdaptedTag tag : tagged) {
-//            taskTags.add(tag.toModelType());
-//        }
+        final List<Tag> taskTags = new ArrayList<>();
+        for (XmlAdaptedTag tag : tagged) {
+            taskTags.add(tag.toModelType());
+        }
         final Name name = new Name(this.name);
+        final Priority priority = new Priority(this.priority);
 //        final Phone phone = new Phone(this.phone);
 //        final Email email = new Email(this.email);
 //        final Address address = new Address(this.address);
-//        final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, null, null, null, null);
+        final UniqueTagList tags = new UniqueTagList(taskTags);
+        return new Task(name, null, priority, null, tags);
     }
 }
