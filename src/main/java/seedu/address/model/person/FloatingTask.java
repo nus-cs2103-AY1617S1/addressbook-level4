@@ -72,11 +72,13 @@ public class FloatingTask implements Entry {
         return false;
     }
 
-    // TODO: Implement this
     @Override
     public String getAsText() {
-        // TODO Auto-generated method stub
-        return null;
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getTitle())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
     }
 
 }
