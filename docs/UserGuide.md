@@ -1,9 +1,22 @@
 # User Guide
 
+* [Introduction](#introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+
+
+## Introduction
+
+Welcome user! This user guide will provide you with all essential information required for you to make full use of our task manager, TasKitty.
+
+TasKitty is a task manager that can help you manage events, deadlines that you have to meet, or simply tasks that you want to get done whenever you have free time.
+
+If you are a keyboard lover and dislike clicking, then TasKitty is the right task manager for you! It boasts an intuitive command line interface with minimal clicking required, and the commands you have to type in are short and sweet. 
+
+To get started, proceed to the Quick Start section below.
+
 
 ## Quick Start
 
@@ -11,19 +24,20 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+1. Download the latest `TasKitty.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your TasKitty.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
+   * **`todo`**` read book` : adds a new task named `read book`. 
+   * **`deadline`**` math homework 1 Jan 2015 2pm` : adds a new task that has the deadline `1 Jan 2015 2pm`.
+   * **`view`** : lists all tasks for today.
+   * **`view`**` 1 Jan 2015` : lists all tasks for specific date.
+   * **`delete`**` 1` : deletes the 1st task shown in the current list of tasks.
+   * **`exit`** : exits the program.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
