@@ -21,7 +21,7 @@ public interface Model {
     void deletePerson(Entry target) throws UniquePersonList.PersonNotFoundException;
 
     /** Adds the given person */
-    void addPerson(FloatingTask person) throws UniquePersonList.DuplicatePersonException;
+    void addPerson(FloatingTask entry) throws UniquePersonList.DuplicatePersonException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<Entry> getFilteredPersonList();
