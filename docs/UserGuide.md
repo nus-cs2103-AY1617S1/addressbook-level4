@@ -144,8 +144,9 @@ Command | Format
 Add | `add task -n TaskName [parameters]`
 Clear | `clear`
 Delete | `delete ID`
-Search | `search KEYWORD [MORE_KEYWORDS]`
 Help | `help`
+Quitting | `exit`
+Search | `search KEYWORD [MORE_KEYWORDS]`
 See | `see DATE`
 Update | `update task -n TaskName [parameters]`
-Quitting | `exit`
+
