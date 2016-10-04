@@ -70,40 +70,40 @@ Examples:
 * `find CS2103T CS2101 CS3235`<br>
   Returns Any tasks having keywords `CS2103T`, `CS2101`, or `CS3235`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+#### Deleting a task : `delete`
+Deletes the specified task from the task manager. Irreversible.<br>
+Format: `delete TASK_NAME`
 
-> Deletes the person at the specified `INDEX`. 
+> Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
+  Deletes the 2nd task in the address book.
+* `find CS2103T`<br> 
   `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  Deletes the 1st task in the results of the `find` command.
 
 #### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
+Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
+> Selects the task and loads the Google search page of the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
+  Selects the 2nd task in the address book.
+* `find CS2103T` <br> 
   `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+  Selects the 1st task in the results of the `find` command.
 
 #### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+Clears all entries from the task manager.<br>
 Format: `clear`  
 
 #### Exiting the program : `exit`
@@ -111,14 +111,14 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Task Manager folder.
        
 ## Command Summary
 
