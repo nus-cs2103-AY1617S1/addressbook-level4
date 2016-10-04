@@ -11,19 +11,19 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+1. Download the latest `taskman.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your TaskMan.
+3. Double-click the file to start the app. The GUI should appear in a few seconds.
    > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
+   * **`list`**: lists all tasks
+   * **`add`**` CS2103T Tutorial d/wed 9.59am start/tue 11.59pm end/wed 4am` :
+     adds a task titled `CS2103T Tutorial` to TaskMan
+   * **`delete`**` 3`: deletes the 3rd task shown in the current list
+   * **`exit`**: exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
@@ -35,97 +35,186 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
-#### Viewing help : `help`
-Format: `help`
+#### Viewing help: `help`
+Command Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding a task: `add`
+Adds a task to TaskMan<br>
+Command Format: `add TITLE [d/DEADLINE] [start/DATETIME] [end/DATETIME] [c/] [r/FREQUENCY] [t/TAG]...`
 
-> Persons can have any number of tags (including 0)
+Parameter | Format
+-------- | :-------- 
+`DEADLINE` and `DATETIME` | `[next] ddd [hh[.mm]am/pm]`
+`FREQUENCY` | `X[d/w/m/y]` where X is a natural number, d is day, m is month, and y is year.
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+`start` and `end` are the dates and times the task is scheduled to be worked on. The presence of just `c/` will mark the task as completed.
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+> Tasks can have any number of tags. Tags may contain spaces and are case-insensitive (i.e. tags "school", "School", and "SCHOOL" should not co-exist).
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Examples:
+* `add CS2103T Tutorial d/wed 9.59am start/tue 11.59pm end/wed 4am`
+* `add CS2101 Tutorial d/next mon 11.59am start/sun 2am end/sun 6am t/CS2101 t/V0.0`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+#### Listing all tasks: `list`
+Shows a list of all tasks in TaskMan.<br>
+Command Format: `list`
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+#### Finding all tasks containing any keyword in their title: `find`
+Finds tasks whose titles contain any of the given keywords.<br>
+Command Format: `find KEYWORD [MORE_KEYWORDS]`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+> * The search is case-insensitive. e.g `cs3244` will match `CS3244`
+> * The order of the keywords does not matter. e.g. `CS3244 Homework` will match `Homework CS3244`
+> * Only the title is searched.
+> * Only full words will be matched e.g. `CS` will not match `CS3244`
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `CS3244` will match `CS3244 Homework`
 
-> Deletes the person at the specified `INDEX`. 
+Examples:
+* `find CS2103T`<br>
+  Returns `CS2103T Tutorial`
+* `find CS2101 CS3230 CS2103T`<br>
+  Returns any task having titles `CS2101`, `CS3230`, or `CS2103T`
+
+#### Completing a Task: `complete`
+Marks the specified task as completed.
+Command Format: `complete INDEX` or `complete list`
+
+#### Editing a task: `edit`
+Edits a task to TaskMan<br>
+Command Format: `edit TITLE [d/DEADLINE] [start/DATETIME] [end/DATETIME] [c/STATUS] [r/FREQUENCY] [t/TAG]...`
+
+Parameter | Format
+-------- | :-------- 
+`DEADLINE` and `DATETIME` | `[next] ddd [hh[.mm]am/pm]`
+`STATUS` | `y/n` where y denotes complete and n denotes incomplete
+`FREQUENCY` | `X[d/w/m/y]` where X is a natural number, d is day, m is month, and y is year.
+
+`start` and `end` are the dates and times the task is scheduled to be worked on. The presence of `c/` will mark the task as completed.
+
+Examples:
+* `edit CS2103T Tutorial start/mon 10pm end/tue 2am`
+* `edit CS2101 Tutorial d/thu 11.59am`
+
+#### Deleting a task: `delete`
+Deletes the specified task from TaskMan. Irreversible.<br>
+Command Format: `delete INDEX` or `delete list`
+
+> Deletes the task at the specified `INDEX` or `list`.
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
-Examples: 
+Examples:
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  Deletes the 2nd task in TaskMan.
+* `find CS2101`<br>
+  `delete list`<br>
+  Deletes all of the tasks in the result(s) of the `find` command.
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+#### Select a task: `select`
+Selects the task identified by the index number used in the last task listing.<br>
+Command Format: `select INDEX`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
+> Selects the task and loads the Google search page the task at the specified `INDEX`.
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
-Examples: 
+Examples:
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
+  Selects the 2nd task in TaskMan.
+* `find CS2101`<br>
   `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+  Selects the 1st task in the results of the `find` command.
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+#### Showing all tags: `tag`
+Shows all tags used by the user<br>
+Command Format: `tag list`
 
-#### Exiting the program : `exit`
+Examples:
+* `tag list`<br>
+  V0.1  V0.2  V0.3  Apple  Pear  Orange
+
+#### Adding tags to tasks: `tag`
+Adds tags to the specified task from TaskMan<br>
+Command Format: tag INDEX [t/TAG]...
+
+Examples:
+* `find CS2103T`
+  tag 1 t/V0.1
+  Tags the first task in the result(s) of `find CS2103T` with the tag V0.1.
+
+#### Removing tags from Tasks: `untag`
+Removes tags from the specified task from TaskMan
+Command Format: `untag INDEX [t/TAG]...` or `untag all`
+Examples:
+* `find CS2103T`
+  `untag 1 t/V0.1`
+  Untags the tag V0.1 from the first task in the result(s) of `find CS2103T`.
+* `list`
+  `untag 1 all`
+  Untags all tags from the the first task in list result(s).
+
+#### Editing tag name: `retag`
+Edits names of tag of specified Task from TaskMan.<br>
+Command Format: `retag INDEX [t/TAG]... to [t/TAG]...`
+
+Examples:
+* `find t/CS2103T`
+  `retag 1 t/CS2103T t/V0.1 to t/CS2101 t/V0.0`
+  Renames the tag CS2103T and V0.1 from the 1st task in the result(s) of `find t/CS2103T` to CS2101 and V0.0
+
+#### Sorting tasks: `sort`
+Sorts the recent listing of tasks according to the specified attribute. Default sort order is ascending.<br>
+Command Format: `sort ATTRIBUTE` [desc]
+
+`ATTRIBUTE` can be either deadline, start, end or title.
+
+Examples:
+* sort start desc
+
+#### Viewing command history: `history`
+List the latest 10 commands **which have made changes to the data** in reverse chronological order.<br>
+Command Format: `history`
+
+#### Undoing commands: `undo`
+Undo the last X commands in the command history. Irreversible. The command history stores a maximum of the 10 latest commands **which have made changes to the data**.<br>
+Command Format: `undo [number]` or `undo all`
+
+Examples:
+* `undo`<br>
+  Undo the latest command in TaskMan.
+* `undo 2`<br>
+  `undo 3`<br>
+  Undo the latest 5 commands in TaskMan.
+* `undo all`<br>
+  Undo the latest 10 commands in Taskman.
+
+#### Clearing all entries: `clear`
+Clears all entries from TaskMan.<br>
+Command Format: `clear`
+
+#### Exiting the program: `exit`
 Exits the program.<br>
-Format: `exit`  
+Command Format: `exit`
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+#### Saving the data
+TaskMan data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
-       
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TaskMan folder.
+
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Command | Format
+-------- | :--------
+Add | `add TITLE [d/DEADLINE] [start/DATETIME] [end/DATETIME] [r/FREQUENCY] [t/TAG]...`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
