@@ -293,12 +293,17 @@ Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+1. Should work on Windows 7 or later.
+2. Should work on a desktop without network/Internet connection.
+3. Should have minimal mouse-click actions.
+4. Should work stand-alone, not as a plugin to another software.
+5. Should store data locally into a human editable file.
+6. Should work without requiring an installer. 
+7. Should be able to hold up to 1000 todo items.
+8. Should come with automated unit tests and open source code.
+9. Should display command results within 100 millisecond.
+10. Should favor DOS style commands over Unix-style commands.
 
-{More to be added}
 
 ## Appendix D : Glossary
 
