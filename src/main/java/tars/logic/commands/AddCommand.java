@@ -16,7 +16,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to tars. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+            + "Parameters: NAME -dt DATETIME -p PRIORITY [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
 
@@ -50,13 +50,13 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name)
+    public AddCommand(String name, String priority)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         this.toAdd = new Task(
                 new Name(name),
                 null,
-                null,
+                new Priority(priority),
                 null,
                 new UniqueTagList(tagSet)
         );
