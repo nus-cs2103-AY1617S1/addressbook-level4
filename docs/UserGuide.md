@@ -11,17 +11,17 @@
 > * Team Leader
 > * Testing
 
-> **Liu Zhen Dong**
-> * Code Quality
-> * Time Keeper
+**Liu Zhen Dong**
+* Code Quality
+* Time Keeper
 
-> **Leah Lim**
-> * Documentation
-> * GUI Design
+**Leah Lim**
+* Documentation
+* GUI Design
 
-> **Li Wang Huan**
-> * Integration
-> * Eclipse Specialist
+**Li Wang Huan**
+* Integration
+* Eclipse Specialist
 
 
 ## Table of Content
@@ -84,37 +84,44 @@ Format: `help`
  
 #### Adding a task: `add`
 Adds a task to GGist<br>
+
 General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
 LEAH ADD IMAGE HERE!!!!!!!!!!!!
 
-###### With deadline:
+###### With deadline
 Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
+
 Examples: 
 * `add write diary, jul 10, 1300`
 * `add prepare presentation slides, mon, 1400, high`
 
 ###### Without any deadline
 Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
+
 Examples: 
 * `add buy milk, low`
 * `add buy present for brother's birthday`
 
 ###### With start and end time
 Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
+
 For this kind of task, the parameter TIME is in the format START-END.
+
 Examples: 
 * `add dad's birthday celebration, jul 10, 1900-2100, high`
 * `add company's D&D, sun, 1900-2200`
 
 ###### Recurring
 To make tasks repeating, simply  add the FREQUENCY parameter at the back.
+
 Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
+
 Examples: 
 * `add water the plants, 0800, high, daily`
 * `add facial appointment, jul 10, med, monthly`
 
-#### Listing all persons : `list`
+#### Listing all tasks : `list`
 Shows a list of all persons in the address book.<br>
 Format: `list`
 
