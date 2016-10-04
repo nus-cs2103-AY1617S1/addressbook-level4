@@ -5,27 +5,28 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project Team
 
 #### [Dylan Chew Zhi Jiang](https://github.com/zavfel) <br>
-<img src="images/Dyaln Chew.jpg" width="150"><br>
-**Role**: Developer
+<img src="images/DyalnChew.jpg" width="150"><br>
+Role: Developer <br>  
+Responsibilities: -
 
 -----
 
 #### [Wong Kang Fei](https://github.com/kfwong)
-<img src="images/Kang Fei.jpg" width="150"><br>
+<img src="images/KangFei.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: -
 
 -----
 
 #### [Lim Hui Qi](https://github.com/LuMiN0uSaRc) 
-<img src="images/Hui Qi.jpg" width="150"><br>
+<img src="images/HuiQi.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: -
 
 -----
 
 #### [Albert Yeoh Ji Bin](https://github.com/bertojo)
-<img src="images/Albert Yeoh.jpg" width="150"><br>
+<img src="images/AlbertYeoh.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: -
  
