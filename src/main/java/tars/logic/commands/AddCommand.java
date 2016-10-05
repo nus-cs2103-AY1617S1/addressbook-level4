@@ -5,6 +5,7 @@ import tars.model.task.*;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 
+import java.time.DateTimeException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,9 +34,10 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
+     * @throws DateTimeException if given dateTime string is invalid.
      */
     public AddCommand(String name, String[] dateTime, String priority, Set<String> tags)
-            throws IllegalValueException {
+            throws IllegalValueException, DateTimeException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
