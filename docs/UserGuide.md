@@ -19,8 +19,9 @@
    * **`list`** : lists all contacts
    * **`add`**` Go to shopping mall` : 
      adds a task with descipription `Go to shopping mall` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
+
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 ## Features
