@@ -4,13 +4,6 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Akshay Narayan](https://github.com/okkhoy)
-<img src="images/Akshay.jpg" width="150"><br>
-**Role**: Project Mentor <br>
-**Responsibilities**: Supervise and Advise
-
------
-
 #### [Desmond Ang](https://github.com/KnewYouWereTrouble)
 <img src="images/Desmond.jpg" width="150"><br>
 **Role**: Team Lead, Git Expert <br>
@@ -18,26 +11,26 @@ We are a team based in the [School of Computing, National University of Singapor
 
 -----
 
-#### [Dewi Tan Jia Hui](https://github.com/jessidew95) 
+#### [Dewi Tan Jia Hui](https://github.com/jessidew95)
 <img src="images/DewiTanJiaHui.jpg" width="150"><br>
-**Role**: Testing, Requirements Analyst, Developer <br> 
+**Role**: Testing, Requirements Analyst, Developer <br>
 **Responsibilities**: UI
 
 -----
 
 #### [Lang Yan Bin](https://github.com/langyanbin0314)
 <img src="images/LangYanBin.jpg" width="150"><br>
-**Role**: Integration, Developer <br> 
+**Role**: Integration, Developer <br>
 **Responsibilities**: Data
 
 -----
 
 #### [Chua Yu Peng](http://github.com/chuayupeng)
 <img src="images/ChuaYuPeng.jpg" width="150"><br>
-**Role**: Documentation, Eclipse Expert, Developer <br> 
+**Role**: Documentation, Eclipse Expert, Developer <br>
 **Responsibilities**: Dev Ops
 
- 
+
  -----
 
 # Contributors
