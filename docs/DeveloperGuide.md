@@ -276,17 +276,17 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a new floating task |
 `* * *` | user | add a new event |
 `* * *` | user | add a new deadline |
-`* * *` | user | delete a floating task | remove entries that I no longer need or completed
-`* * *` | user | delete an event | remove events that had passed or had been cancelled
-`* * *` | user | delete a dateline | remove deadlines that has passed or removed
-`* * *` | user | find a (an) event/deadline/floating task by name | locate details of the event/deadline/task without having to go through the entire list
-`* * *` | user | edit a (an) event/deadline/floating task | update it or correct any errors
-`* * *` | user | set priorities to a (an) event/deadlines/floating task | know which one should be completed first
+`* * *` | user | delete a floating task | remove an entry that I no longer need or have completed
+`* * *` | user | delete an event | remove an event that has passed or has been cancelled
+`* * *` | user | delete a deadline | remove a deadline that has passed or been removed
+`* * *` | user | find a(n) event/deadline/floating task by name | locate details of the event/deadline/task without having to go through the entire list
+`* * *` | user | edit a(n) event/deadline/floating task | update it or correct any errors
+`* * *` | user | set a(n) event/deadlines/floating task as a priority | know which one should be completed first
 `* * *` | user | view all tasks | plan ahead depending on availablity
-`* * *` | user | view all tasks on specified day/ days | plan ahead 
+`* * *` | user | view all tasks on specified day(s) | plan ahead 
 `* * *` | user | undo my last action | rectify any mistakes I made
 `* *` | user | be notified of upcoming events | remember important events
-`* *` | user | be warned of clasing events | avoid a clash in my schedule
+`* *` | user | be warned of clashing events | avoid a clash in my schedule
 `* *` | advanced user | use shorter version of a commands | type a command faster
 `*` | advanced user | switch between light/dark mode | Enhance visibility or save power
 `*` | user | know the weather forecast on days with events | be prepared in case of wet weather
@@ -294,7 +294,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `Molitio` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Molitio` and the **Actor** is the `User`, unless specified otherwise)
 
 #### Use case: Delete a floating task
 
@@ -364,16 +364,16 @@ Use case ends.
 
 ##### Floating task
 
-> A task that has no deadlines
+> A task that has no deadline
 
 ## Appendix E : Product Survey
 
 **Desktop Reminder**<br>
-Desktop reminder is a desktop application and can be run in offline mode. It has an alert system which will ring at a specified time (determined by user) to alert the user of upcoming tasks. However, the drawback of this application is that it does not minimize to the system tray when user clicked on the 'X' button but instead, gets minimized as a window which will hover on top of the taskbar.
+Desktop Reminder is a desktop application and can be run in offline mode. It has an alert system which will ring at a specified time (determined by user) to alert the user of upcoming tasks. However, the drawback of this application is that it does not minimize to the system tray when user clicked on the 'X' button but instead, gets minimized as a window which will hover on top of the taskbar.
 
 **Google Calendar and Google Task**<br>
 Google Calender displays the event and on the right side, Google Task shows the tasks which needs completion. This view enables user to see what task they have on which days easily. However, a drawback is that google task is rather simple and does not have a lot of features.
 
 **Remember The Milk**<br>
-Remember The Milk (RTM) allows users to categorize task which is useful if users want to group related task together. However, a drawback of RTM is that it does not allow users to input specific reminders before the events (eg. 10minutes before, 1 day before, etc) but only have a general reminder which will be through email to the person. Since there is a mobile app for this, the inability to generate mobile reminders (eg alarm or notification) is a potential hindrance especially to users who do not check their emails often.
+Remember The Milk (RTM) allows users to categorize task which is useful if users want to group related task together. However, a drawback of RTM is that it does not allow users to input specific reminders before the events (e.g. 10minutes before, 1 day before, etc) but only have a general reminder which will be through email to the person. Since there is a mobile app for this, the inability to generate mobile reminders (e.g. alarm or notification) is a potential hindrance especially to users who do not check their emails often.
 
