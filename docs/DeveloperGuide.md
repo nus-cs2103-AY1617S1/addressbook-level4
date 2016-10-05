@@ -300,9 +300,9 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Event
 
-> A contact detail that is not meant to be shared with others
+> An item in the to-do list, could be an event, a task or a reminder.
 
 ## Appendix E : Product Survey
 
