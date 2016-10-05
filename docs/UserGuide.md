@@ -20,14 +20,14 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`see`**` tomorrow`:  see all tasks for tomorrow.
-   * **`add task`**` Meet with professor; CS1234; from 10/10/17 09:30; till 17:00;` :
+   * **`add`**` Meet with professor; CS1234; from 10/10/17 09:30; till 17:00;` :
      adds a task named `Meet with Professor` to the tasks list.
    * **`delete`**` 3` : deletes the task with ID #3.
    * **`exit`** : exits the app.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
-## Features
+# Features
 
 > **Command Format**
 > * Items in `SQUARE_BRACKETS` are optional.
@@ -44,13 +44,13 @@
 >   * 09:30
 >   * 09:30pm
 
-#### Viewing help : `help`
+## Viewing help : `help`
 Shows the help page to user.<br>
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-#### Adding a task: `add`
+## Adding a task: `add`
 Adds a task to DoDo-Bird.<br>
 Format:
 
@@ -65,7 +65,7 @@ Examples:
 * **`add`**` Complete tutorial activites; CS1234; from 25/10/17 23:59; till 18/10/17 12:00;`
 * **`add`**` Meet with professor; CS1234; 25/10/17;`
 
-#### Seeing tasks : `see`
+## Seeing tasks : `see`
 Shows a list of all tasks in DoDo-Bird for a particular date.<br>
 Format: `see DATE`
 
@@ -77,7 +77,7 @@ Examples:
 * **`see`**` 18/10/17`
 * **`see`**` tomorrow`
 
-#### Searching tasks: `search`
+## Searching tasks: `search`
 Finds tasks whose names contain any of the given keywords or before/after a time.<br>
 Format:
 
@@ -97,7 +97,7 @@ Examples:
     e.g. `Meeting` will match `Meeting Professor`
 
 
-#### Marking tasks as done : `mark`
+## Marking tasks as done : `mark`
 Marking a task in DoDo-Bird as completed.<br>
 Format: `mark ID`
 
@@ -109,7 +109,7 @@ Examples:
   **`mark`**` 2`<br>
   Mark the task with `ID #2` in the DoDo-Bird as completed.
 
-#### Updating a task: `update`
+## Updating a task: `update`
 Update an existing task inside DoDo-Bird.<br>
 Format:
 
@@ -129,7 +129,7 @@ Examples:
   Update the task with `ID #3` in the DoDo-Bird.
 
 
-#### Deleting a task : `delete`
+## Deleting a task : `delete`
 Deletes the specified task from the DoDo-Bird.<br>
 Format: `delete ID`
 
@@ -144,17 +144,17 @@ Examples:
   **`delete`**` 1`<br>
   Deletes the task with `ID #1` in the DoDo-Bird.
 
-#### Undoing : `undo`
+## Undoing : `undo`
 Undo the last operation.<br>
 Format: `undo`
 
 > Only undo one operation at most.
 
-#### Clearing all entries : `clear`
+## Clearing all entries : `clear`
 Clears all entries from the DoDo-Bird.<br>
 Format: `clear`  
 
-#### Exiting the program : `exit`
+## Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
