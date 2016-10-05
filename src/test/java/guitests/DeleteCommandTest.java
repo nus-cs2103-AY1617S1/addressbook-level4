@@ -7,7 +7,7 @@ import seedu.taskman.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.taskman.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends TaskManGuiTest {
 
     @Test
     public void delete() {

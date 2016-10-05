@@ -7,7 +7,7 @@ import seedu.taskman.model.task.ReadOnlyTask;
 import seedu.taskman.commons.core.UnmodifiableObservableList;
 
 /**
- * Selects a task identified using it's last displayed index from the address book.
+ * Selects a task identified using it's last displayed index from the task man.
  */
 public class SelectCommand extends Command {
 

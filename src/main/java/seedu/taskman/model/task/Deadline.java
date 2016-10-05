@@ -3,7 +3,7 @@ package seedu.taskman.model.task;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's deadline in the address book.
+ * Represents a Task's deadline in the task man.
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  */
 public class Deadline {

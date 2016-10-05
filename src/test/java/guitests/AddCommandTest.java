@@ -9,7 +9,7 @@ import seedu.taskman.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends TaskManGuiTest {
 
     @Test
     public void add() {

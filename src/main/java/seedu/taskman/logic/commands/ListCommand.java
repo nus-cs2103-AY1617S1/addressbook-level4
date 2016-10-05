@@ -2,7 +2,7 @@ package seedu.taskman.logic.commands;
 
 
 /**
- * Lists all tasks in the address book to the user.
+ * Lists all tasks in the task diary to the user.
  */
 public class ListCommand extends Command {
 

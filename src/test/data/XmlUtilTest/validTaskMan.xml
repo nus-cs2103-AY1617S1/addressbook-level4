@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<taskMan>
     <tasks>
         <title>Hans Muster</title>
         <deadline isPrivate="false">9482424</deadline>
@@ -54,4 +54,4 @@
         <email isPrivate="false">hans@google.com</email>
         <address isPrivate="false">chicago ave</address>
     </tasks>
-</addressbook>
+</taskMan>

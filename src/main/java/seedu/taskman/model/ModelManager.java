@@ -3,78 +3,77 @@ package seedu.taskman.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.taskman.commons.core.LogsCenter;
 import seedu.taskman.commons.core.UnmodifiableObservableList;
+import seedu.taskman.commons.events.model.TaskManChangedEvent;
 import seedu.taskman.commons.util.StringUtil;
 import seedu.taskman.model.task.ReadOnlyTask;
 import seedu.taskman.model.task.Task;
 import seedu.taskman.model.task.UniqueTaskList;
 import seedu.taskman.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.taskman.commons.events.model.AddressBookChangedEvent;
 import seedu.taskman.commons.core.ComponentManager;
 
 import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the task man data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final TaskMan taskMan;
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given TaskMan
+     * TaskMan and its variables should not be null
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(TaskMan src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Task Man: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new AddressBook(src);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        taskMan = new TaskMan(src);
+        filteredTasks = new FilteredList<>(taskMan.getTasks());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new TaskMan(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
-    }
-
-    @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public ModelManager(ReadOnlyTaskMan initialData, UserPrefs userPrefs) {
+        taskMan = new TaskMan(initialData);
+        filteredTasks = new FilteredList<>(taskMan.getTasks());
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void resetData(ReadOnlyTaskMan newData) {
+        taskMan.resetData(newData);
+        indicateTaskManChanged();
+    }
+
+    public ReadOnlyTaskMan getTaskMan() {
+        return taskMan;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+    private void indicateTaskManChanged() {
+        raise(new TaskManChangedEvent(taskMan));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removeTask(target);
-        indicateAddressBookChanged();
+        taskMan.removeTask(target);
+        indicateTaskManChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(task);
+        taskMan.addTask(task);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskManChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================

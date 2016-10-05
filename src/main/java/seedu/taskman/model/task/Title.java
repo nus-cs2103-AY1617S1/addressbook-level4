@@ -3,7 +3,7 @@ package seedu.taskman.model.task;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's title in the address book.
+ * Represents a Task's title in the task man.
  * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
  */
 public class Title {

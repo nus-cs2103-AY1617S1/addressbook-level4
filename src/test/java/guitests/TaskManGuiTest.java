@@ -10,7 +10,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.taskman.TestApp;
 import seedu.taskman.commons.core.EventsCenter;
-import seedu.taskman.model.AddressBook;
+import seedu.taskman.model.TaskMan;
 import seedu.taskman.model.task.ReadOnlyTask;
 import seedu.taskman.testutil.TestUtil;
 import seedu.taskman.testutil.TypicalTestTasks;
@@ -21,9 +21,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for TaskMan.
  */
-public abstract class AddressBookGuiTest {
+public abstract class TaskManGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -75,9 +75,9 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestTasks.loadAddressBookWithSampleData(ab);
+    protected TaskMan getInitialData() {
+        TaskMan ab = TestUtil.generateEmptyTaskMan();
+        TypicalTestTasks.loadTaskManWithSampleData(ab);
         return ab;
     }
 
