@@ -126,6 +126,7 @@ Format: block TASK_NAME start/START_DATE START_TIME end/START_DATE START_TIME
 Examples:
 * `block cs2103t start/2409 1900 end/2409 2100`
 * `block cs2103t start/24sep 7pm end/24sep 9pm`
+
 #### Redo tasks : “redo”
 Format: r
 
@@ -143,15 +144,15 @@ Examples:
 * `u`
 
 #### Find tasks : “find”
-Format: find [TASK_NAME] [d/DATE [TIME]] [tag/TAG]
+Format: find [TASK_NAME] [date/DATE [TIME]] [tag/TAG]
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 
 Examples: <br>
 * `find cs2103 date/2109 <br>`
-* `find date/2109 1800 t/gigi <br>`
-* `find date/21sep 6pm t/gigi`
-* `find cs2103 t/lolo`
+* `find date/2109 1800 tag/gigi <br>`
+* `find date/21sep 6pm tag/gigi`
+* `find cs2103 tag/lolo`
 
 #### Undo tasks : “clear”
 Format: clear
@@ -187,17 +188,17 @@ Format: `exit`
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_NAME [t/TAG]`
-Add | `add TASK_NAME d/DATE TIME [t/TAG]`
-Add | `add TASK_NAME d/DATE TIME - DATE TIME [t/TAG]`
-View | `view -OPTION`
-View | `view d/DATE`
-Edit | `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]`
+Add | `add TASK_NAME [tag/TAG]`
+Add | `add TASK_NAME end/DATE TIME [tag/TAG]`
+Add | `add TASK_NAME start/DATE TIME end/DATE TIME [tag/TAG]`
+View | `view /OPTION`
+View | `view date/DATE`
+Edit | `edit TASK_ID [start/EDIT_START_DATE EDIT_START_TIME end/EDIT_END_DATE EDIT_END_TIME] [tag/EDIT_TAG]`
 Delete | `delete TASK_ID`
-Block | `block TASK_NAME d/START_DATE START_TIME - START_DATE START_TIME`
-Redo | `redo`
-Undo | `undo`
-Find | `find [TASK_NAME] [d/DATE [TIME]] [t/TAG]`
+Block | `block TASK_NAME start/START_DATE START_TIME end/START_DATE START_TIME`
+Redo | `r`
+Undo | `u`
+Find | `find [TASK_NAME] [date/DATE [TIME]] [tag/TAG]`
 Clear | `clear`
 Change directory | `cd FILE_PATH`
 Exit | `exit`
