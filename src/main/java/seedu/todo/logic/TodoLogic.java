@@ -4,8 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.BaseCommand;
 import seedu.todo.logic.parser.ParseResult;
-import seedu.todo.logic.parser.TodoParser;
-import seedu.todo.model.TodoList;
+import seedu.todo.logic.parser.ParserContract;
 import seedu.todo.model.TodoModel;
 import seedu.todo.model.task.ImmutableTask;
 
@@ -13,13 +12,19 @@ import seedu.todo.model.task.ImmutableTask;
  * Central controller for the application, abstracting application logic from the UI
  */
 public class TodoLogic {
+    private final ParserContract parser;
+    private final TodoModel model;
+    private final Dispatcher dispatcher;
     
-    private final TodoModel model = new TodoList();
-    private final TodoDispatcher dispatcher = new TodoDispatcher();
+    public TodoLogic(ParserContract parser, TodoModel model, Dispatcher dispatcher) {
+        this.parser = parser;
+        this.model = model;
+        this.dispatcher = dispatcher;
+    }
     
     public void execute(String input) throws IllegalValueException {
-        ParseResult parser = new TodoParser(input);
-        BaseCommand command = dispatcher.dispatch(parser);
+        ParseResult parseResult = parser.parse(input);
+        BaseCommand command = dispatcher.dispatch(parseResult);
         command.execute();
     }
     

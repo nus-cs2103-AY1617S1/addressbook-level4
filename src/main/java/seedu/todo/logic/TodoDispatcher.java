@@ -6,9 +6,9 @@ import seedu.todo.logic.commands.BaseCommand;
 import seedu.todo.logic.parser.ParseResult;
 
 /**
- * 
+ * Selects the correct command based on the parser results
  */
-public class TodoDispatcher {
+public class TodoDispatcher implements Dispatcher {
     public BaseCommand dispatch(ParseResult parser) throws IllegalValueException {
         BaseCommand command;
         
