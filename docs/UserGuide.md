@@ -22,7 +22,7 @@
    * **`list`** : lists all tasks
    * **`add`**` CS2103T tutorial work, 1100, tomorrow,t TUTORIAL` : 
      adds a task named `CS2103T tutorial work` to the To Do List.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
