@@ -7,9 +7,9 @@ import javafx.scene.layout.HBox;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.ReadOnlyPerson;
 
-public class PersonCard extends UiPart{
+public class ActivityCard extends UiPart{
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "ActivityListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -29,12 +29,12 @@ public class PersonCard extends UiPart{
     private Activity activity;
     private int displayedIndex;
 
-    public PersonCard(){
+    public ActivityCard(){
 
     }
 
-    public static PersonCard load(Activity activity, int displayedIndex){
-        PersonCard card = new PersonCard();
+    public static ActivityCard load(Activity activity, int displayedIndex){
+        ActivityCard card = new ActivityCard();
         card.activity = activity;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);

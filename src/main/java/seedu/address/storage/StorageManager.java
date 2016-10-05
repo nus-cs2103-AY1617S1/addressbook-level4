@@ -3,10 +3,10 @@ package seedu.address.storage;
 import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ActivityManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyActivityManager;
 import seedu.address.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -15,18 +15,18 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of ActivityManager data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private XmlAddressBookStorage addressBookStorage;
+    private XmlActivityManagerStorage addressBookStorage;
     private JsonUserPrefStorage userPrefStorage;
 
 
     public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
         super();
-        this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
+        this.addressBookStorage = new XmlActivityManagerStorage(addressBookFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
@@ -43,7 +43,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ ActivityManager methods ==============================
 
     @Override
     public String getAddressBookFilePath() {
@@ -51,21 +51,21 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyActivityManager> readAddressBook() throws DataConversionException, FileNotFoundException {
         logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
 
         return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveAddressBook(ReadOnlyActivityManager addressBook) throws IOException {
         addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleActivityManagerChangedEvent(ActivityManagerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAddressBook(event.data);
