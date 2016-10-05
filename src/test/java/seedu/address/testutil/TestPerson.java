@@ -6,12 +6,12 @@ import seedu.address.model.person.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestPerson implements ReadOnlyTask {
 
     private Name name;
     private Address address;
     private Email email;
-    private Phone phone;
+    private Date phone;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -30,7 +30,7 @@ public class TestPerson implements ReadOnlyPerson {
         this.email = email;
     }
 
-    public void setPhone(Phone phone) {
+    public void setPhone(Date phone) {
         this.phone = phone;
     }
 
@@ -40,7 +40,7 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public Phone getPhone() {
+    public Date getPhone() {
         return phone;
     }
 
