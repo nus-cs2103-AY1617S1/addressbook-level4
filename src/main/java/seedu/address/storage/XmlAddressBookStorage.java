@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access ActivityManager data stored as an xml file on the hard disk.
  */
 public class XmlAddressBookStorage implements AddressBookStorage {
 
@@ -39,7 +39,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         File addressBookFile = new File(filePath);
 
         if (!addressBookFile.exists()) {
-            logger.info("AddressBook file "  + addressBookFile + " not found");
+            logger.info("ActivityManager file "  + addressBookFile + " not found");
             return Optional.empty();
         }
 

@@ -22,58 +22,58 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ActivityManager activityManager;
     private final FilteredList<Activity> filteredActivities;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given ActivityManager
+     * ActivityManager and its variables should not be null
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(ActivityManager src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new AddressBook(src);
-        filteredActivities = new FilteredList<>(addressBook.getPersons());
+        activityManager = new ActivityManager(src);
+        filteredActivities = new FilteredList<>(activityManager.getPersons());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ActivityManager(), new UserPrefs());
     }
 
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
-        filteredActivities = new FilteredList<>(addressBook.getPersons());
+        activityManager = new ActivityManager(initialData);
+        filteredActivities = new FilteredList<>(activityManager.getPersons());
     }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
+        activityManager.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return activityManager;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+        raise(new AddressBookChangedEvent(activityManager));
     }
 
     @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-//        addressBook.removePerson(target);
+//        activityManager.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addPerson(Activity activity) {
-        addressBook.addActivity(activity);
+        activityManager.addActivity(activity);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }

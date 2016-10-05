@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ActivityManager;
 import seedu.address.model.person.*;
 
 /**
@@ -34,7 +34,7 @@ public class TypicalTestPersons {
         }
     }
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static void loadActivityManagerWithSampleData(ActivityManager ab) {
 
         try {
             ab.addPerson(new Person(alice));
@@ -53,9 +53,9 @@ public class TypicalTestPersons {
         return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
-        loadAddressBookWithSampleData(ab);
+    public ActivityManager getTypicalActivityManager(){
+        ActivityManager ab = new ActivityManager();
+        loadActivityManagerWithSampleData(ab);
         return ab;
     }
 }

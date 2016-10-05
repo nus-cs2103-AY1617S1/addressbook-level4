@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ActivityManager implements ReadOnlyAddressBook {
 
     private final ActivityList activities;
     private final UniqueTagList tags;
@@ -27,24 +27,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags = new UniqueTagList();
     }
 
-    public AddressBook() {}
+    public ActivityManager() {}
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ActivityManager(ReadOnlyAddressBook toBeCopied) {
         this(toBeCopied.getActivityList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(ActivityList activities, UniqueTagList tags) {
+    public ActivityManager(ActivityList activities, UniqueTagList tags) {
         resetData(activities.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyAddressBook getEmptyAddressBook() {
-        return new AddressBook();
+        return new ActivityManager();
     }
 
 //// list overwrite operations
@@ -153,9 +153,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.activities.equals(((AddressBook) other).activities)
-                && this.tags.equals(((AddressBook) other).tags));
+                || (other instanceof ActivityManager // instanceof handles nulls
+                && this.activities.equals(((ActivityManager) other).activities)
+                && this.tags.equals(((ActivityManager) other).tags));
     }
 
     @Override
