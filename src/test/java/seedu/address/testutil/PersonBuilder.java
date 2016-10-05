@@ -27,8 +27,8 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Address(address));
+    public PersonBuilder withUniqueID(int uniqueID) throws IllegalValueException {
+        this.person.setUniqueID(uniqueID);
         return this;
     }
 

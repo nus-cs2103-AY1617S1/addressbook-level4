@@ -11,22 +11,24 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
+	private static int currentID = 0;
+	
     private Name name;
     private StartTime startTime;
     private EndTime endTime;
-    private Address address;
+    private int uniqueID;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, StartTime startTime, EndTime endTime, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime, address, tags);
+    public Task(Name name, StartTime startTime, EndTime endTime, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startTime, endTime, tags);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.address = address;
+        this.uniqueID = currentID++;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,7 +36,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getTags());
     }
 
     @Override
@@ -53,8 +55,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public int getUniqueID() {
+        return uniqueID;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startTime, endTime, address, tags);
+        return Objects.hash(name, startTime, endTime, uniqueID, tags);
     }
 
     @Override
