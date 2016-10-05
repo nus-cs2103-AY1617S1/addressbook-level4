@@ -240,7 +240,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
   * Has smartphone notifications for tasks due today
   * Multiple display formats: today, next 7 days, by tags
 
- **Weaknesses**
+**Weaknesses**
   * Synced to the cloud. Users may have problems when there is no internet connection
 
 #### Centrallo
@@ -252,7 +252,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
   * Supports attachment of files (up to 25mb) to the notes
   * Offers 3 methods to sort the notes i.e. alphabetically, by created date and by updated date
 
- **Weaknesses**
+**Weaknesses**
   * Only can move 1 note/checklist at a time
   * Limitations of 100 notes in total for a free account
   * Requires internet connection to access (no offline version)
@@ -272,7 +272,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
   * Activity summary to allow Jim to know what he did earlier
   * Can share lists which Jim can tell his colleagues tasks he needs to do/the team needs to do
 
- **Weaknesses**
+**Weaknesses**
   * Too many options, too troublesome for Jim’s need to use single line command
   * Difficult to look for things Jim needs
   * No calendar view
