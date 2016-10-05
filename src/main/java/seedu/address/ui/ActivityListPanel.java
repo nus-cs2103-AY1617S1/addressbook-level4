@@ -20,16 +20,16 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+public class ActivityListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(ActivityListPanel.class);
+    private static final String FXML = "ActivityListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<Activity> personListView;
+    private ListView<Activity> activityListView;
 
-    public PersonListPanel() {
+    public ActivityListPanel() {
         super();
     }
 
@@ -48,12 +48,12 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+    public static ActivityListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
                                        ObservableList<Activity> observableList) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(observableList);
-        return personListPanel;
+        ActivityListPanel activityListPanel =
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new ActivityListPanel());
+        activityListPanel.configure(observableList);
+        return activityListPanel;
     }
 
     private void configure(ObservableList<Activity> observableList) {
@@ -62,8 +62,8 @@ public class PersonListPanel extends UiPart {
     }
 
     private void setConnections(ObservableList<Activity> observableList) {
-        personListView.setItems(observableList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        activityListView.setItems(observableList);
+        activityListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -73,7 +73,7 @@ public class PersonListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        activityListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
                 raise(new PersonPanelSelectionChangedEvent(newValue));
@@ -83,8 +83,8 @@ public class PersonListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            activityListView.scrollTo(index);
+            activityListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -101,7 +101,7 @@ public class PersonListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(activity, getIndex() + 1).getLayout());
+                setGraphic(ActivityCard.load(activity, getIndex() + 1).getLayout());
             }
         }
     }
