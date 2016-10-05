@@ -306,5 +306,18 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+#### Shi Ya - Google Calendar
+Pros:
+* Able to color-code different events
+* Able to set notifications
+* Able to set repeat
+* Able to add notes (i.e. location, remarks)
+* Able to sync on different devices
+* Able to share calendar
+* Able to undo last action <br>
+
+Cons:
+* Unable to check off completed event (only reminder can)
+* Event name gets truncated <br>
+
 
