@@ -50,7 +50,7 @@ There is no need to save manually.
  
 #### Adding a task: `add`
 Adds a task to Savvy Tasker.<br>
-Format: `add TASK [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [r/RECURRING_TYPE] [d/DESCRIPTION]` 
+Format: `add TASK [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [d/DESCRIPTION]` 
 
 > Tasks can have START_DATETIME and/or END_DATETIME or none.
 > For DATETIME the format is as follow: dd/mm/yyyy[Thh:MM{TZD]], hh:MM defaults to 00:00 if not specified. TZD defaults to +08:00
@@ -60,9 +60,15 @@ Examples:
 * `add Project Meeting s/05/10/2016T14:00+08:00 e/05/10/2016T18:00+08:00 r/once d/CS2103 Project Meeting`
 * `add Project Meeting s/05/10/2016T14:00 e/05/10/2016T18:00 r/once d/CS2103 Project Meeting`
 
-#### Listing all tasks : `list`
-Shows a list of all tasks in Savvy Tasker.<br>
+#### Listing all tasks according to due date, earliest first : `list`
+Shows a list of all tasks in Savvy Tasker, sorted according to END_DATETIME.<br>
+If no END_DATETIME specified, sorted to bottom of list.<br>
 Format: `list`
++
+#### Listing all tasks according to priority level, highest first : `listp`
+Shows a list of all tasks in Savvy Tasker, sorted according to priority level.<br>
+If priority level is not stated, sorted to bottom of list.<br>
+Format: `listp`
 
 #### Finding all task containing any keyword in its name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
@@ -115,7 +121,7 @@ Examples:
 
 #### Modifies a task : `modify`
 Marks the task identified by the index number used in the last task listing.<br>
-Format: `modify INDEX [t/TASK] [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [r/RECURRING_TYPE] [d/DESCRIPTION]`
+Format: `modify INDEX [t/TASK] [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [d/DESCRIPTION]`
 
 > Selects the task and modifies the task as done at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
@@ -172,14 +178,15 @@ Format: `clear`
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [r/RECURRING_TYPE] [d/DESCRIPTION]`
+Add | `add TASK [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [d/DESCRIPTION]`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
+Listp | 'listp'
 Help | `help`
 Select | `select INDEX`
-Modify | `modify INDEX [t/TASK] [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [r/RECURRING_TYPE] [d/DESCRIPTION]`
+Modify | `modify INDEX [t/TASK] [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [d/DESCRIPTION]`
 Mark | `mark INDEX`
 Unmark | `unmark INDEX`
 Undo | `undo`

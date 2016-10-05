@@ -275,14 +275,13 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | new user |  view more information about a particular command | learn how to use various commands
 `* * *` | user | add a new task | record tasks that need to be done ‘some day’
-`* * *` | user | find upcoming tasks | decide what needs to be done soon
 `* * *` | user | update a task description/due date/priority level | make modifications to tasks without having delete and re-add it
-`* * *` | user | delete a task / mark as done | get rid of tasks that I no longer care to track
-`* * *` | user | update a task priority level | 
-`* *` | user | find a task by priority level | only see the most important tasks
-`*` | user with many tasks | find tasks by prefix | locate a tasks / similar tasks in case I forget the exact task description I typed
-‘*’ | user with many tasks | sort tasks by priority level | decide what should be prioritized
-‘*’ | advanced user I can use shorter versions of a command | type a command faster
+`* * *` | user | mark completed tasks as done | remind myself that I have completed a task
+`* * *` | user | delete a task | get rid of tasks that I no longer care to track 
+`* * *` | user | sort tasks by due date | decide what needs to be done soon
+`* *` | user with many tasks | find tasks by prefix | locate a tasks / similar tasks in case I forget the exact task description I typed
+‘*’ | user with many tasks | sort tasks by priority level | see the most important tasks and prioritize accordingly
+‘*’ | advanced user | use shorter versions of a command | type a command faster
 
 {More to be added}
 
