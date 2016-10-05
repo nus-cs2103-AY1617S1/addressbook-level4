@@ -4,6 +4,7 @@ Priority | As a ... | I want to ... | So that I can...
 -------- | :--------| :------------ | :-----------
 `* * *`  | new user | see usage instructions | refer to instructions when I forget how to use the application
 `* * *`  | user | add a new task |
+`* * *`  | user | list tasks that fulfil specific parameters | filter tasks according to specific parameters 
 `* * *`  | user | delete a task | remove entries that are no longer relevant
 `* * *`  | user | find a task by name | locate details of tasks without having to go through the entire list
 `* * *` | user | undo an action |
