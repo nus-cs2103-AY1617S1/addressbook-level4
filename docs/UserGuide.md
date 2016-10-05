@@ -93,7 +93,7 @@ Format: `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...
 > and upcoming events.
 
 > <img src="images/Ui-ListCommand.png" width="600">
-> <img src="images/Ui-List2Command.png" width="600">
+> <img src="images/Ui-ListCommand2.png" width="600">
 
 Examples:
 * `list`<br>
