@@ -8,7 +8,7 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.groceryTask.getAddCommand());
+        commandBox.runCommand(td.benson.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

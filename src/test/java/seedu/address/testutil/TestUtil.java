@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster")),
-                    new Task(new Name("Boris Mueller")),
-                    new Task(new Name("Carl Kurz")),
-                    new Task(new Name("Daniel Meier")),
-                    new Task(new Name("Elle Meyer")),
-                    new Task(new Name("Fiona Kunz")),
-                    new Task(new Name("George Best")),
-                    new Task(new Name("Hoon Meier")),
-                    new Task(new Name("Ida Mueller"))
+                    new Task(new Name("Attend Meeting"), new UniqueTagList()),
+                    new Task(new Name("Buy Milk"), new UniqueTagList()),
+                    new Task(new Name("Create Plan"), new UniqueTagList()),
+                    new Task(new Name("Donate"), new UniqueTagList()),
+                    new Task(new Name("Event Planning"), new UniqueTagList()),
+                    new Task(new Name("Fetch Brother"), new UniqueTagList()),
+                    new Task(new Name("Go To Concert"), new UniqueTagList()),
+                    new Task(new Name("Help Friend"), new UniqueTagList()),
+                    new Task(new Name("Interview"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

@@ -13,23 +13,23 @@ import seedu.address.model.person.UniqueTaskList;
  */
 public class AddressBookBuilder {
 
-    private TaskManager addressBook;
+    private TaskManager taskManager;
 
     public AddressBookBuilder(TaskManager addressBook){
-        this.addressBook = addressBook;
+        this.taskManager = addressBook;
     }
 
-    public AddressBookBuilder withPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public AddressBookBuilder withPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
+        taskManager.addTask(task);
         return this;
     }
 
     public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+        taskManager.addTag(new Tag(tagName));
         return this;
     }
 
     public TaskManager build(){
-        return addressBook;
+        return taskManager;
     }
 }

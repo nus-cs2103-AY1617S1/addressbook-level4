@@ -7,11 +7,11 @@ import seedu.address.model.person.*;
 /**
  *
  */
-public class TypicalTestTask {
+public class TypicalTestTasks {
 
     public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestTask() {
+    public TypicalTestTasks() {
         try {
             alice =  new TaskBuilder().withName("Alice Pauline").build();
             benson = new TaskBuilder().withName("Benson Meier").build();
@@ -21,7 +21,7 @@ public class TypicalTestTask {
             fiona = new TaskBuilder().withName("Fiona Kunz").build();
             george = new TaskBuilder().withName("George Best").build();
 
-          //Manually added
+            //Manually added
             hoon = new TaskBuilder().withName("Hoon Meier").build();
             ida = new TaskBuilder().withName("Ida Mueller").build();
         } catch (IllegalValueException e) {
