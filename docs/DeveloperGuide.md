@@ -127,7 +127,7 @@ Use case ends.
 10.	User can use the default short-cuts or customize the short-cuts.
 
 ###Todoist
-####Todoist, like Any.do, is an online and mobile task manager application.
+####Todoist is an online and mobile task manager application.
 1.	User can add new projects (lists) of tasks, add new tasks to a selected project (list).
 2.	User can set due date/time as well as reminder before the due date/time.
 3.	User can add comments to a task.
