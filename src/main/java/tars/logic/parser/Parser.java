@@ -1,5 +1,6 @@
 package tars.logic.parser;
 
+import tars.commons.core.Messages;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.AddCommand;
@@ -16,6 +17,7 @@ import tars.logic.commands.SelectCommand;
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tars.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.time.DateTimeException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -109,6 +111,8 @@ public class Parser {
                     getTagsFromArgs(matcher.group("tagArguments")));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (DateTimeException dte) {
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
         }
     }
     
