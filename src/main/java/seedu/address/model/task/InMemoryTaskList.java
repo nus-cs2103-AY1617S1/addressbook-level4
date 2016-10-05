@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import java.util.Set;
+
 import seedu.address.commons.collections.UniqueItemCollection;
 
 /*
@@ -16,5 +18,20 @@ public interface InMemoryTaskList {
 	 * Removes a task from the current in-memory representation of the Task List
 	 */
 	void deleteTask(Task toRemove) throws UniqueItemCollection.ItemNotFoundException;
+	
+	/*
+	 * Adds a set of keywords to filter the task list by
+	 */
+	void filterTasks(Set<String> keywords);
+	
+	/*
+	 * Clears the filtering keywords applied to the tasks
+	 */
+	void clearTasksFilter() throws UniqueItemCollection.ItemNotFoundException;
+	
+	/*
+	 * Gets the current list of tasks with the filtering words applied
+	 */
+	UniqueItemCollection<Task> getCurrentFilteredTasks();
 	
 }
