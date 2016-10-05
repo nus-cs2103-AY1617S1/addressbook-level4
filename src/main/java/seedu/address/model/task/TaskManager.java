@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import java.util.Set;
+
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
@@ -19,5 +21,23 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	@Override
 	public synchronized void deleteTask(Task toRemove) throws ItemNotFoundException {
 		tasks.remove(toRemove);
+	}
+
+	@Override
+	public void filterTasks(Set<String> keywords) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearTasksFilter() throws ItemNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public UniqueItemCollection<Task> getCurrentFilteredTasks() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
