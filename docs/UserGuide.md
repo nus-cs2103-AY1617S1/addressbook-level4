@@ -55,7 +55,7 @@ Adds a task to the address book. Three different types of tasks are supported.<b
 Format: `add event "NAME" from hh:mm to hh:mm on dd-mm-yy`
 ##### Deadlines
 Format: `add deadline "NAME" by hh:mm on dd-mm-yy`
-##### Tasks to be done someday
+##### Tasks to be completed someday
 Format: `add someday "NAME"`
 
 Examples:
