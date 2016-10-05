@@ -26,24 +26,30 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getTaskName().equals(this.getTaskName()) // state checks here onwards
+                && other.getDate().equals(this.getDate())
+                && other.getStartTime().equals(this.getStartTime())
+                && other.getEndTime().equals(this.getEndTime())
+                && other.getPriority().equals(this.getPriority())
+                && other.getFrequency().equals(this.getFrequency()));
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the task as text, showing all contact details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+        builder.append(getTaskName())
+                .append(" Date: ")
+                .append(getDate())
+                .append(" Start Time: ")
+                .append(getStartTime())
+                .append(" End Time: ")
+                .append(getEndTime())
+                .append(" Priority: ")
+                .append(getPriority())
+                .append(" Frequency: ")
+                .append(getFrequency())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
