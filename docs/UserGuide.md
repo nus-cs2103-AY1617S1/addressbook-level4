@@ -96,6 +96,16 @@ Examples:
 * `view 1 Jan 2015`
 > <img src="images/UIviewDate.png" width="600">
 
+#### Find tasks: `find`
+Find tasks based on keywords.<br>
+Format: `find KEYWORDS`
+
+>Tasks that partly or completely match the keywords entered will be displayed.
+
+Examples:
+* `find homework`
+> <img src="images/UIfind.png" width="600">
+
 #### Edit task details: `edit`
 Edit a task or event already inside the task manager/ event calendar using the index of the task.<br>
 Format: `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
@@ -174,6 +184,7 @@ Add todo | `todo NAME`
 Add deadline | `deadline NAME DATE END_TIME`
 Add event | `event NAME DATE START_TIME END_TIME`
 View | `view [DATE]`
+Find | `find KEYWORDS`
 Edit | `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 Delete | `delete INDEX`
 Done | `done INDEX`
