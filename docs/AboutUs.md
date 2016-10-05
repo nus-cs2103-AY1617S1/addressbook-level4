@@ -8,7 +8,8 @@ We are a group of Computer Science students from the School of Computing, Nation
 
 <img src="images/JiaWern.png" width="150"><br>
 * Role: Developer<br>
-* Responsibilities: Team Lead
+* Responsibilities: Team Lead<br>
+* In charge of: UI
 
 -----
 
@@ -16,7 +17,8 @@ We are a group of Computer Science students from the School of Computing, Nation
 
 <img src="images/IanTeo.png" width="150"><br>
 * Role: Developer<br>
-* Responsibilities: Integration
+* Responsibilities: Integration<br>
+* In charge of: Storage
 
 -----
 
@@ -24,7 +26,8 @@ We are a group of Computer Science students from the School of Computing, Nation
 
 <img src="images/RachelYang.png" width="150"><br>
 * Role: Developer<br>
-* Responsibilities: Code Quality
+* Responsibilities: Code Quality<br>
+* In charge of: Model
 
 -----
 
@@ -32,4 +35,5 @@ We are a group of Computer Science students from the School of Computing, Nation
 
 <img src="images/JunAn.png" width="150"><br>
 * Role: Developer<br>
-* Responsibilities: Testing
+* Responsibilities: Testing<br>
+* In charge of: Logic
