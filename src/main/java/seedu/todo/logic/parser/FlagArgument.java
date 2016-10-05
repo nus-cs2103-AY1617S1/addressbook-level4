@@ -6,6 +6,7 @@ public class FlagArgument extends Argument<Boolean> {
 
     public FlagArgument(String name) {
         super(name);
+        this.value = false;
     }
 
     public FlagArgument(String name, boolean defaultValue) {
