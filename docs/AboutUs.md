@@ -6,7 +6,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 
 #### [Pankaj Bhootra](https://github.com/PankajB1997)
 
-<img src="images/PankajBhootra.jpg" width="150">
+<img src="images/PankajBhootra.JPG" width="150">
 
 1. *Team Lead* for the Project.
 2. Programming Experience: 4 years of Programming in Java, familiar with SQL and other languages such as C, C# and Python.
@@ -17,7 +17,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 
 #### [R Dheeraj](https://github.com/dheerajaraj)
 
-<img src="images/Ui.png" width="150">
+<img src="images/RDheeraj.jpg" width="150">
 
 1. Programming Experience: Java (through CS1020 and CS2103T), PHP (through Orbital), HTML (through Orbital) and MySQL (through Orbital).
 2. Roles and Responsibilities: Incharge of Input Parsing and Maintaining Code Quality.
@@ -27,7 +27,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 
 #### [Fionna Tong](https://github.com/fionnatong)
 
-<img src="images/FionnaTong.jpg" width="150">
+<img src="images/FionnaTong.jpeg" width="150">
 
 1. Programming Experience: Familiar with Java, Python, C and C++ languages, 4 years' experience in HTML and CSS
 2. Roles and Responsibilities: Incharge of UI and Testing.
