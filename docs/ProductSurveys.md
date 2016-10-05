@@ -29,7 +29,7 @@
 ###Pros
 
 1. Colour code for priority, not time
-2. Command allows for recurring days eg every day/every Tuesday/ holidays etc. https://support.todoist.com/hc/en-us/articles/205325931-Dates-and-Times
+2. Command allows for recurring days eg every day/every Tuesday/ holidays etc.
 3. User able to choose subcatergories like task today, task tomorrow but (involves 1 click)
 4. Task can divide to further catagories called projects like shopping , work personal, errands, or create your own(involves 1 click) >  for bigger projects subcategories can be created. Projects are shareable with others
 6. Filters > priority setting priority1, priority 2, assign to me or assign to others
