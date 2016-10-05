@@ -12,7 +12,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Zhang Yi Jiang](https://github.com/ZhangYiJiang)
 <img src="images/Yijiang.jpg" width="150"><br>
-**Role**: Lead Developer <br>  
+**Role**: Lead Developer <br>
 **Responsibilities**: Parser, Logic and Integration
 
 -----
