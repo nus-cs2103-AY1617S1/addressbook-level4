@@ -15,7 +15,7 @@ import java.util.*;
  * @see Person#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniqueTaskList implements Iterable<Person> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -37,12 +37,12 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Constructs empty PersonList.
      */
-    public UniquePersonList() {}
+    public UniqueTaskList() {}
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ReadOnlyPerson toCheck) {
+    public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -65,7 +65,7 @@ public class UniquePersonList implements Iterable<Person> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public boolean remove(ReadOnlyTask toRemove) throws PersonNotFoundException {
         assert toRemove != null;
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
@@ -86,9 +86,9 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
+                || (other instanceof UniqueTaskList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniquePersonList) other).internalList));
+                ((UniqueTaskList) other).internalList));
     }
 
     @Override
