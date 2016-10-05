@@ -1,9 +1,9 @@
 # Emeraldo
 
 ## GUI mockup
-* [Start Up Page](assets/start_up_page.png)
-* [Adding a Task 1](assets/add_1.png)
-* [Adding a Task 2](assets/add_2.png)
+* <img src="assets/start_up_page.png" width="400"><br>
+* <img src="assets/add_1.png" width="400"><br>
+* <img src="assets/add_2.png" width="400"><br>
 
 * This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
