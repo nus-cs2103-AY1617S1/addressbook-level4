@@ -31,18 +31,28 @@
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
-> * Items in `[SQUARE_BRACKETS]` are optional.
+> * The order of parameters does not matter.
+> * Items enclosed within `[ ]` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+> * The use of commas `,` and full stops `.` is optional and will not affect the command.
+> * Words not enclosed within `" "` are not case-sensitive.
+> * For parameters relating to days, they are context-sensitive. For example, specifying "Fri" sets the date parameter as the next Friday from *today*.
 
 > **Tasks**<br>
-> A task will have a name, and also have a:
-> * a deadline, and/or
-> * starting time and ending time in which we want to complete the task on.
+> A task will have a name, and may be categorized as follows:
+> * **Floating Task** has no additional details
+> * **Normal Task** has a deadline
+> * **Task with Allocated Timeslot** has a deadline, starting time and ending time
 
 > **Events**<br>
-> Events act as tasks in our program. Simply enter the starting and ending time
+> Tasks may act as events in our program. Simply enter the starting and ending time
 > and omit the deadline.
+
+> **Recurring tasks and events**
+> Tasks and events may be set to repeat daily/weekly/monthly,
+> recurring after its deadline or end time.
+
+>> Tasks or events which are exact duplicates are combined into one.
 
 #### Viewing help : `help`
 Format: `help`
@@ -51,36 +61,39 @@ Format: `help`
 > for commands, mini-help messages would be shown on the output box in the
 > program instead.
 
-#### Create a new task/event: `new`
+#### Create a new task/event: `add`
 Adds a new task or event to the task list.<br>
-Format: `new NAME [by DEADLINE] [from START_TIME to END_TIME] [tag TAG]...`
+Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
 
 > Creates a new task with the name given. The particulars of the task may vary:
 >	* If it is a normal task, a deadline should be set.
+>	* If it is a task with allocated timeslot, a deadline, start time and end time should be set.
 >	* If it is an event, the start time and end time should be set.
+> The repeat frequency can be `daily`, `weekly`, or `monthly`.
 > You can assign tags to it to classify them by category or by priority 
 > (up to your own discretion)
 
 Examples:
-* `new "Hello World!"`
-* `new "Submit Report" by 21 Sep 5pm.`
-* `new "Meeting" from 21 Sep 3pm to 5pm`
-* `new "Check sufficient toilet rolls" by 21 Sep 5pm, tag "Important"`
+* `add "Hello World!"`
+* `add "Meeting" from 21 Sep 3pm to 5pm`
+* `add "Check sufficient toilet rolls" by 21 Sep 5pm, tag "Important"`
+* `add "Lecture" from 7 Oct 2pm to 4pm, repeattime weekly, tag "Important"`
 
-#### Show all tasks/events with specified conditions: `list`
-To display a list of all tasks/events.<br>
-Format: `list [TYPE] [START_TIME] [END_TIME] [tag TAG]... [SORTING_ORDER]`
+#### List all tasks/events with specified conditions: `list`
+Displays a list of all tasks/events.<br>
 
-> Types include "Events", "Tasks", "Completed Tasks", "Free Time".
-> Sorting order includes "earliest first", "latest first" for date and time, 
-> "a-z", "z-a" for descriptions
+Format: `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [SORTING_ORDER]`
+
+> Type can be `events`, `tasks`, `completed tasks`, `completed events`, or `free time`.
+> Sorting order includes `earliest first`, `latest first` for date and time, 
+> and `a-z`, `z-a` for descriptions.
 > * Defaults to earliest first for later dates, and latest first for past dates
 >
 > If no parameters are specified, the command will show a list of uncompleted tasks
 > and upcoming events.
 
 > <img src="images/Ui-ListCommand.png" width="600">
-> <img src="images/Ui-List2Command.png" width="600">
+> <img src="images/Ui-ListCommand2.png" width="600">
 
 Examples:
 * `list`<br>
@@ -91,25 +104,25 @@ Examples:
 * `list free time from 20 Sep 10am to 8pm`
 
 #### Finding tasks/events which match keywords: `find`
-To find tasks/events when provided with vague descriptive keywords.<br>
+Lists related tasks/events when provided with vague descriptive keywords.<br>
 Format: `find KEYWORD...`
 
 > Keywords are used to match description, status, tags and dates in full 
 > or part thereof.<br>
-> If a keyword/phrase is enclosed in quotation marks (""), only exact match is used.
+> If a keyword/phrase is enclosed in quotation marks `" "`, only exact match is used.
 >	* All matches are always case-insensitive.
-> Results are shown in “intelligent order”, by factors such as closest match
+> Results are shown in "intelligent order", by factors such as closest match
 > and its date and time.
 
 Examples:
 * `find completed meetings John`
 * `find "V0.0 deliverables"`
 
-#### Narrow results with specified tag(s) and date: `only`
-To narrow down on tasks/events with specified tag(s) and date from 
-the previous results.<br>
+#### Show only listing results with specified tag(s) and date: `show`
+Shows only tasks/events with specified tag(s) and date from 
+the current listing results.<br>
 
-Format: `only [TYPE] [TAG]... [TIME]`
+Format: `show [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]`
 
 > Can only be used when the output window is showing a list of tasks/events. 
 >	* Matching results will be kept on the output window at their respective
@@ -121,20 +134,21 @@ Format: `only [TYPE] [TAG]... [TIME]`
 
 Examples:
 * `list`<br>
-  `only CS2103 Important`
+  `show tag "CS2103" "Important"`
 
 * `list`<br>
-  `only Important Meeting on 24 Sep`
+  `show events on 24 Sep, tag "Important"`
 
 * `list`<br>
-  `only completed tasks CS2103 from 18 Sep 8am`
+  `show completed tasks, tag "CS2103", from 18 Sep 8am`
 
 * `list`<br>
-  `only Meeting by 11pm`
+  `show tag "Meeting" by 11pm`
 
-#### Hide results with specified tag(s): `hide`
-To hide tasks/events with specified tag(s) from the previous results.<br>
-Format: `hide [TYPE] [TAG]...`
+#### Hide listing results with specified tag(s) and date: `hide`
+Hides tasks/events with specified tag(s) and date from the current listing results.<br>
+
+Format: `hide [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]`
 
 > Can only be used when the output window is showing a list of tasks/events. 
 >	* Matching tasks/events will be hidden from the previous results.
@@ -143,33 +157,34 @@ Format: `hide [TYPE] [TAG]...`
 
 Examples:
 * `list`<br>
-  `hide completed events, CS2010`
+  `hide completed events from 24 Sep, tag "CS2010"`
   
 * `list`<br>
-  `hide CS2103 MA1521 CS2010`
+  `hide tag "CS2103" "MA1521" "CS2010"`
 
 #### Change the details of a task/event: `update`
 Updates a task or event.<br>
-Format: `update INDEX [NEW_NAME] [by NEW_DEADLINE] [from START_TIME to END_TIME] [tag TAG]`
+Format: `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
 
-> Updates a task with the given new information.<br>
+> Updates the specified task with the given information.<br>
 > The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, ...<br>
+> The repeat frequency can be `daily`, `weekly`, or `monthly`.
 >
-> To remove any details for the task, prefix the name of the argument 
-> with 'remove'.<br>
+> To remove any details for the task, prefix the argument keyword with `remove`.<br>
 > For example: `update 1 removeby` will remove the deadline.
+>> `removetag` removes only the following tags enclosed in `" "`.
   
 Examples: 
 * `list`<br>
   `update 1 "Submit Proposal" by 23 Sep 3pm.`<br>
-  Update the details of the first task in the list.
+  Update the details of the first task in the list.<br>
 * `update 2 from 23 Sep 3pm to 5pm`
-* `update 1 by 20 Sep 5pm, tag “Not that important”
-* `update 3 removetag "Important"
+* `update 1 by 20 Sep 5pm, tag "Not that important"`
+* `update 3 removetag "Important"`
 
 #### Delete a task/event: `delete`
-To delete a task/event.<br>
+Deletes a task/event.<br>
 Format: `delete INDEX`
 
 > Delete a task/event.<br>
@@ -182,11 +197,14 @@ Examples:
   Delete the first task in the list.
 
 #### Mark a task as complete: `complete`
-To mark a task as completed.<br>
+Marks a task as completed.<br>
+
 Format: `complete INDEX`
 
 > When you are done with the task, you can mark it as complete instead
 > of deleting it.<br>
+>> Marking a task as completed will also hide it from the current listing results.<br>
+>
 > The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, ...<br>
 
@@ -210,7 +228,7 @@ Example:
   Undo the last 5 actions.
 
 #### Clearing all entries: `clear`
-Remove all tasks from the data storage file.<br>
+Removes all tasks from the data storage file.<br>
 
 Format: `clear`
 
@@ -218,7 +236,7 @@ Format: `clear`
 > before the tasks are removed.
 
 #### Relocate the data storage location: `relocate`
-Designate a new data storage location.<br>
+Designates a new data storage location.<br>
 
 Format: `relocate PATH`
 
@@ -246,12 +264,12 @@ when running the program.
 Command | Format  
 -------- | :-------- 
 Help | `help`
-New | `new NAME [by DEADLINE] [from START_TIME to END_TIME] [tag TAG]...`
-List | `list [TYPE] [START_TIME] [END_TIME] [tag TAG]... [SORTING_ORDER]`
+Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
+List | `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [SORTING_ORDER]`
 Find | `find KEYWORD...`
-Narrow | `only [TYPE] [TAG]... [TIME]`
-Hide | `hide [TYPE] [TAG]...`
-Update | `update INDEX [NEW_NAME] [by NEW_DEADLINE] [from START_TIME to END_TIME] [tag TAG]`
+Show | `show [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]]  [tag "TAG"...]`
+Hide | `hide [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]`
+Update | `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
 Delete | `delete INDEX`
 Complete | `complete INDEX`
 Undo | `undo [last STEPS]`
