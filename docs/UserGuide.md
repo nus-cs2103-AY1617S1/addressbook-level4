@@ -160,6 +160,16 @@ Examples:
 Undo the last action performed in the to-do list. Irreversible.<br>
 Format: **`undo`**
 
+### Setting the storage location : `setstorage`
+Sets the location of the storage file. <br>
+Format: **`setstorage`**` [filepath]`
+
+> The [filepath] provided can be both absolute or relative. Data file in current storage will be moved.
+
+Examples: 
+* **`setstorage`**` ../documents/todolist`.<br>
+* **`setstorage`**` C://user/documents/todolist`.<br>
+
 ### Clearing all entries : `clear`
 Clears all entries from the to-do list.<br>
 Format: `clear`  
