@@ -32,7 +32,7 @@ public class Parser {
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    private static final Pattern NOTE_ARGS_FORMAT = Pattern.compile("(?<name>.*)");
+    private static final Pattern NOTE_ARGS_FORMAT = Pattern.compile("(?<name>.+)");
 
     public Parser() {}
 
