@@ -206,7 +206,9 @@ Examples:
 <br>
 ## Google Integration
 
-At any time, add a Google account to sync tasks with by entering `sync` as a command and following the on-screen instructions. Once added, any present and future tasks will be synchronized bidirectionally and automatically with the given account’s Google Calendar. If the same task is edited locally and on Google Calendar, changes made on Google Calendar will be prioritized during synchronization.
+At any time, enter `sync` as a command and follow the on-screen instructions to begin automatically synchronizing your in-app tasks with Google Calendar.
+
+Any of your present and future tasks will be synchronized bidirectionally and automatically. If the same task is edited locally and on Google Calendar, changes made on Google Calendar will be prioritized during synchronization.
 
 <br>
 ## FAQ
