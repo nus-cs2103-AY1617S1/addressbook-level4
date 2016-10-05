@@ -17,6 +17,7 @@ import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
+import seedu.address.storage.task.TaskStorage;
 
 import java.util.logging.Logger;
 
@@ -29,7 +30,7 @@ public class LogicManager_Task extends ComponentManager implements Logic_Task {
     private final InMemoryTaskList model;
     private final TaskCommandsParser parser;
 
-    public LogicManager_Task(InMemoryTaskList model, Storage storage) {
+    public LogicManager_Task(InMemoryTaskList model, TaskStorage storage) {
         this.model = model;
         this.parser = new TaskCommandsParser();
     }

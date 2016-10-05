@@ -14,9 +14,13 @@ import seedu.address.model.UserPrefs;
 public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	private UniqueItemCollection<Task> tasks;
 
-	public TaskManager(UniqueItemCollection<Task> tasks, UserPrefs userPrefs) {
+	public TaskManager() {
 		// TODO: make use of loaded data
 		this.tasks = new UniqueItemCollection<Task>();
+	}
+	
+	public TaskManager(UniqueItemCollection<Task> tasks, UserPrefs userPrefs) {
+		this();
 	}
 	
 	@Override

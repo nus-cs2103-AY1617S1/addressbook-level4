@@ -16,7 +16,7 @@ import java.util.Optional;
 /**
  * API of the Storage component
  */
-public interface Storage extends TaskManagerStorage, UserPrefsStorage {
+public interface TaskStorage extends TaskManagerStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

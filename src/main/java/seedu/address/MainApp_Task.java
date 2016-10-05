@@ -21,6 +21,7 @@ import seedu.address.model.task.TaskManager;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.task.TaskStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager_Task;
 
@@ -40,7 +41,7 @@ public class MainApp_Task extends Application {
 
     protected Ui ui;
     protected Logic_Task logic;
-    protected Storage storage;
+    protected TaskStorage storage;
     protected InMemoryTaskList model;
     protected Config config;
     protected UserPrefs userPrefs;
@@ -53,7 +54,7 @@ public class MainApp_Task extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new TaskStorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -73,25 +74,27 @@ public class MainApp_Task extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private InMemoryTaskList initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+    private InMemoryTaskList initModelManager(TaskStorage storage, UserPrefs userPrefs) {
+        Optional<UniqueItemCollection<Task>> tasks;
+        UniqueItemCollection<Task> initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if(!addressBookOptional.isPresent()){
+            tasks = storage.readTaskManager();
+            if(!tasks.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
-            }
-            initialData = addressBookOptional.orElse(new AddressBook());
+                initialData = new UniqueItemCollection<Task>();
+            } else {
+            	initialData = tasks.get();
+            } 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new UniqueItemCollection<Task>();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new UniqueItemCollection<Task>();
         }
 
         // TODO: Actually pass in data to use
-        return new TaskManager(new UniqueItemCollection<Task>(), userPrefs);
+        return new TaskManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
