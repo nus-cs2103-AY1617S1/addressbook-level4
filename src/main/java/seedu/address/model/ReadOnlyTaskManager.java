@@ -9,7 +9,7 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.List;
 
 /**
- * Unmodifiable view of an task manager
+ * Unmodifiable view of a Task Manager
  */
 public interface ReadOnlyTaskManager {
 
