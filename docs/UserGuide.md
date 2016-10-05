@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`see`**` tomorrow`:  see all tasks for tomorrow.
-   * **`add task`**` -n Meet with professor -d CS1234 -date 10/10/17 -timefrom 09:30 -timeend 17:00` :
+   * **`add task`**` Meet with professor; CS1234; from 10/10/17 09:30; till 17:00;` :
      adds a task named `Meet with Professor` to the tasks list.
    * **`delete`**` 3` : deletes the task with ID #3.
    * **`exit`** : exits the app.
@@ -39,19 +39,19 @@
 >   * 25/10/2017 or 25-10-2017
 >   * 25 Oct 2017
 >   * 25 October 2017
->   * Tomorrow/Yesterday/Today
+>   * Tomorrow/Yesterday/Today/Next Monday
 > * **Time**
 >   * 09:30
 >   * 09:30pm
 
 #### Viewing help : `help`
-Shows the help page to user<br>
+Shows the help page to user.<br>
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 #### Adding a task: `add task`
-Adds a task to DoDo-Bird<br>
+Adds a task to DoDo-Bird.<br>
 Format:
 
 * `add TASKNAME; [a line of details;] [from DD/MM/YY [hh:mm];] [till DD/MM/YY [hh:mm];]` <br>
@@ -66,7 +66,7 @@ Examples:
 * **`add`**` Meet with professor; CS1234; 25/10/17;`
 
 #### Updating a task: `update task`
-Update an existing task inside DoDo-Bird<br>
+Update an existing task inside DoDo-Bird.<br>
 Format:
 
 * `update TASKNAME; [a line of details;] [from DD/MM/YY [hh:mm];] [till DD/MM/YY [hh:mm];]`
@@ -125,7 +125,7 @@ Examples:
   Deletes the task with `ID #1` in the DoDo-Bird.
 
 #### Undoing : `undo`
-Undoes the last operation
+Undoes the last operation.<br>
 Format: `undo`
 
 #### Clearing all entries : `clear`
