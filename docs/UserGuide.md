@@ -51,8 +51,8 @@ Example: Add complete report, 120916, 1900
 
 >Important: The date and end time are compulsory when adding an deadline
 
-####4.1.3 Add a todo
-Format: **Add** &lt;todo descrption&gt;
+####4.1.3 Add a to-do
+Format: **Add** &lt;to-do description&gt;
 
 <img src="images/Capture6.PNG" width="600"><br>
 
@@ -92,7 +92,7 @@ Format: Changes to task details [enter]
 
 Changes: **Report, 180916, 1900 #CS2103** [enter]
 
-This will edit the current deadline task from CS2103 report to Report with an additional tag called #CS2103.
+This will edit the current deadline task from complete report to Report with an additional tag called #CS2103.
 
 <img src="images/Capture11.PNG" width="600"><br>
 
@@ -110,7 +110,7 @@ Changes: go swimming, **140516, 1600** [enter]
 
 <img src="images/Capture15.PNG" width="600"><br>
 
-This will edit the current todo task into a deadline task with the deadline on **140516 at 1600H**.
+This will edit the current to-do task into a deadline task with the deadline on **140516 at 1600H**.
 
 ###4.3 Search Task by Partial Keyword
 
