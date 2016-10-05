@@ -6,31 +6,28 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Floating task in the task book.
+ * Represents a Task in the task book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Floating extends Task {
+public class Deadline extends Task {
 
     private Name name;
     private Description description;
-
+    private Duple end;
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
+     * 
+     * @param name Name of task
+     * 
      */
-    public Floating(Name name, Description description, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, description, tags);
+    public Deadline(Name name, Description description, Date endDate, Time endTime, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, description, endDate, endTime, tags);
         this.name = name;
         this.description = description;
+        this.end = new Duple(endDate, endTime);
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-
-    /**
-     * Copy constructor.
-     */
-    public Floating(ReadOnlyTask source) {
-        this(source.getName(), source.getDescription(), source.getTags());
     }
 
     @Override
@@ -41,6 +38,10 @@ public class Floating extends Task {
     @Override
     public Description getDescription() {
         return description;
+    }
+
+    public Duple getEnd() {
+        return end;
     }
 
     @Override
@@ -60,11 +61,11 @@ public class Floating extends Task {
         if (object == this) { // short circuit if same object
             return true;
         }
-        else if (!(object instanceof Floating)){
+        else if (!(object instanceof Deadline)){
             return false;
         }
         else {
-            Floating other = (Floating) object;
+            Deadline other = (Deadline) object;
             return (other.getName().equals(this.getName()) // state checks here onwards
                  && other.getDescription().equals(this.getDescription()));
         }
@@ -73,7 +74,7 @@ public class Floating extends Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, tags);
+        return Objects.hash(name, description, end, tags);
     }
 
     @Override
@@ -83,6 +84,8 @@ public class Floating extends Task {
 
     @Override
     public String getAsText() {
+        // TODO Auto-generated method stub
         return null;
     }
+
 }
