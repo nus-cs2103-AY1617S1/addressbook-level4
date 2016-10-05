@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.model.ActivityManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyActivityManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TypicalTestPersons;
 
@@ -50,7 +50,7 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         ActivityManager original = new TypicalTestPersons().getTypicalActivityManager();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
+        ReadOnlyActivityManager retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new ActivityManager(retrieved));
         //More extensive testing of ActivityManager saving/reading is done in XmlAddressBookStorageTest
     }

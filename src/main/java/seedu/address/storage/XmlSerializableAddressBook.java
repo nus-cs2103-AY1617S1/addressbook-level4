@@ -3,7 +3,7 @@ package seedu.address.storage;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyActivityManager;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ActivityList;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * An Immutable ActivityManager that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
+public class XmlSerializableAddressBook implements ReadOnlyActivityManager {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
@@ -40,7 +40,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+    public XmlSerializableAddressBook(ReadOnlyActivityManager src) {
         persons.addAll(src.getListActivity().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }

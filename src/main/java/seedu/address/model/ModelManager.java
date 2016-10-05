@@ -44,19 +44,19 @@ public class ModelManager extends ComponentManager implements Model {
         this(new ActivityManager(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyActivityManager initialData, UserPrefs userPrefs) {
         activityManager = new ActivityManager(initialData);
         filteredActivities = new FilteredList<>(activityManager.getPersons());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyActivityManager newData) {
         activityManager.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyActivityManager getAddressBook() {
         return activityManager;
     }
 

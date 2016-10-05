@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class ActivityManager implements ReadOnlyAddressBook {
+public class ActivityManager implements ReadOnlyActivityManager {
 
     private final ActivityList activities;
     private final UniqueTagList tags;
@@ -32,7 +32,7 @@ public class ActivityManager implements ReadOnlyAddressBook {
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public ActivityManager(ReadOnlyAddressBook toBeCopied) {
+    public ActivityManager(ReadOnlyActivityManager toBeCopied) {
         this(toBeCopied.getActivityList(), toBeCopied.getUniqueTagList());
     }
 
@@ -43,7 +43,7 @@ public class ActivityManager implements ReadOnlyAddressBook {
         resetData(activities.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
+    public static ReadOnlyActivityManager getEmptyAddressBook() {
         return new ActivityManager();
     }
 
@@ -66,7 +66,7 @@ public class ActivityManager implements ReadOnlyAddressBook {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyActivityManager newData) {
 //        resetData(newData.getPersonList(), newData.getTagList());
     }
 
