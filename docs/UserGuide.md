@@ -13,25 +13,30 @@
 
 
 ## Features
+> [Square brackets] indicate that a field is optional 
+> <Chevrons> indicate command parameters 
+
 1. Viewing Help: ` help `
 > Displays list of available commmands and descriptions 
 
 2. Adding a Task / Event: ` add `   
     <img src="images/add.png" width="600">
     - `add <name> [-due <date>] [#<cat>] [#<cat>] ...` 
-> If no date is specified, task will be set as a floating task  
+> If no date is specified, task will be set as a floating task   
 
-    - `add <name> [-on <date>] [-at <location>]...`  
+	- `add <name> [-on <date>] [-at <location>]...`  
 
     - `add <name> [-from <date><time> -to <date><time>] ...`
 > If no date is specified, date will be set to the current day, or the next day if set time has passed  
 > If no time is specified, start times will be set to 0000 and end times to 2359 
 
+	- `add <name> -every <day / week> ...` : sets task to be a recurring task
+	
 3. Editing: ` edit `    
 <img src="images/edit.png" width="600">
 
     - `edit <index> [-due <date>]` : edits task specified by index
-    - `edit #<oldCat> #<newCat>` : edits category name 
+    - `edit #<oldCat> [#<newCat>] [-c <colour>]` : edits category name and / or colour 
     
 4. Listing All Tasks: ` list `  
     <img src="images/list.png" width="600"><br>  
@@ -81,8 +86,8 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 | Command | Format |
 | ------- | ------ |
 | help | `help` |
-| add | `add <name> [-due <date>] [#<cat>] [#<cat>] ...` <br /> `add <name> [-on <date>] [-at <location>]...` <br />`add <name> [-from <date><time> -to <date><time>] ...` |
-| edit | `edit <index> [-due <date>]`<br />`edit #<oldCat> #<newCat>` |
+| add | `add <name> [-due <date>] [#<cat>] [#<cat>] ...` <br /> `add <name> [-on <date>] [-at <location>]...` <br />`add <name> [-from <date><time> -to <date><time>] ...` <br /> `add <name> -every <day / month> ...` |
+| edit | `edit <index> [-due <date>]`<br />`edit #<oldCat> [#<newCat>] [-c <colour>]` |
 | list | `list` <br /> `list <day / week>` <br /> `list float`<br />`list #<cat>`<br />`list done` |
 | done | `done <index>` |
 | find | `find <keyword>` <br /> `find #<keyword>` |
