@@ -1,11 +1,18 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,10 +23,12 @@ import java.util.stream.Collectors;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+	private final UniqueTaskList tasks;
     private final UniquePersonList persons;
     private final UniqueTagList tags;
 
     {
+    	tasks = new UniqueTaskList();
         persons = new UniquePersonList();
         tags = new UniqueTagList();
     }
@@ -45,9 +54,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
 //// list overwrite operations
-
     public ObservableList<Person> getPersons() {
         return persons.getInternalList();
+    }
+    public ObservableList<Task> getTasks() {
+        return tasks.getInternalList();
     }
 
     public void setPersons(List<Person> persons) {
@@ -67,27 +78,28 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(newData.getPersonList(), newData.getTagList());
     }
 
-//// person-level operations
+//// task and person-level operations
 
     /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds a task to the address book.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
-        syncTagsWithMasterList(p);
-        persons.add(p);
+    public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList(t);
+        tasks.add(t);
     }
+    
 
     /**
-     * Ensures that every tag in this person:
+     * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person person) {
-        final UniqueTagList personTags = person.getTags();
+    private void syncTagsWithMasterList(Task task) {
+        final UniqueTagList personTags = task.getTags();
         tags.mergeFrom(personTags);
 
         // Create map with values = tag object references in the master list
@@ -101,7 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         for (Tag tag : personTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
-        person.setTags(new UniqueTagList(commonTagReferences));
+        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
@@ -112,6 +124,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

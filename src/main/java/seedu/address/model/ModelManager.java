@@ -6,10 +6,16 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -22,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final FilteredList<Task> filteredTasks;
     private final FilteredList<Person> filteredPersons;
 
     /**
@@ -37,6 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
     public ModelManager() {
@@ -46,6 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
     @Override
@@ -63,16 +72,16 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
     }
-
+    
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -80,8 +89,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
@@ -90,11 +99,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredTaskList(Set<String> keywords){
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
+    private void updateFilteredTaskList(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
     }
 
