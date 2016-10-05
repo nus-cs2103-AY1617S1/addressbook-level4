@@ -68,9 +68,15 @@ Changes: read toto-chan, 140516, 1600 [enter]
 
 This will edit the current todo task into a deadline task with the deadline on 140516 at 1600H.
 
+#### Search Task by Partial Keyword
 
+The search by partial keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task have not been entered, an error message will be shown.
 
-
+Format: Search <keyword>
+Example: Search project
+         Search 050316
+         Search 2359
+         Search #CS2103
 
 
 
