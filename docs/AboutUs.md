@@ -5,7 +5,7 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project Team
 
 #### [Ng Huan Ran](https://github.com/shusiner) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
+<img src="images/NgHuanRan.jpg" width="150"><br>
 **Role**: Team Leader
 
 -----
