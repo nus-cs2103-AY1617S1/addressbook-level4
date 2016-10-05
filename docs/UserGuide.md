@@ -108,6 +108,8 @@ Command Bar: go swimming (Original task details are added to the end)
 
 Changes: go swimming, **140516, 1600** [enter]
 
+<img src="images/Capture15.PNG" width="600"><br>
+
 This will edit the current todo task into a deadline task with the deadline on **140516 at 1600H**.
 
 ###4.3 Search Task by Partial Keyword
@@ -116,17 +118,21 @@ The search by partial keyword command enables you to search for any events, dead
 
 Format: 
 
-Search &lt;keyword&gt;
+**Search** &lt;keyword&gt;
+
+<img src="images/Capture16.PNG" width="600"><br>
 
 Example: 
 
-Search project
+Search **siloso**
 
 Search 050316
 
 Search 2359
 
 Search #CS2103
+
+<img src="images/Capture17.PNG" width="600"><br>
 
 ###4.4 Marking Task as Complete 
 
