@@ -12,7 +12,7 @@
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `schema.jar` from the 'releases' tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+2. Copy the file to the folder you want to use as the home folder for your To Do List.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
@@ -35,7 +35,7 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a task: `add`
-Adds a person to the address book<br>
+Adds a task to the To Do List<br>
 Format: `add TASK, TIME, DATE,t TAG...` 
 Format: `do TASK, TIME, DATE,t TAG...` 
 
@@ -43,7 +43,7 @@ Format: `do TASK, TIME, DATE,t TAG...`
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
 > 
-> Persons can have any number of tags (including 0)
+> Tasks can have any number of tags (including 0)
 
 Examples: 
 * `add Dinner, 1900, 10/10/16,t Date`
@@ -67,7 +67,7 @@ Examples:
   Returns Any task having description `2010`.
 
 #### Deleting a task : `delete`
-Deletes the specified task from the address book. Irreversible.<br>
+Deletes the specified task from the To Do List. Irreversible.<br>
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
@@ -83,7 +83,7 @@ Examples:
   Deletes the 1st task in the results of the `find` command.
 
 #### Editing a task : `edit`
-Edits the task identified by the index number used in the last person listing.<br>
+Edits the task identified by the index number used in the last task listing.<br>
 Format: `edit INDEX DETAILS`
 
 > DETAILS can be the task itself, time, date or tag
@@ -91,7 +91,7 @@ Format: `edit INDEX DETAILS`
 Examples: 
 * `list`<br>
   `edit 2`<br>
-  Selects the 2nd task in the address book.
+  Selects the 2nd task in the To Do List.
 * `find CS5000` <br> 
   `edit 1`<br>
   Selects the 1st task in the results of the `find` command.
