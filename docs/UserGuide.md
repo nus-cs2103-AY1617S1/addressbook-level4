@@ -52,7 +52,8 @@ To get started, proceed to the Quick Start section below.
 #### Viewing help : `help`
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+> Help is also shown if you enter an incorrect command e.g. `abcd`<br>
+> <img src="images/UIhelp.png" width="600">
 
 #### Create a new task: `todo`, `deadline` or `event`
 Adds a new task to the tasks list or a new event to the event calendar.<br>
@@ -72,10 +73,15 @@ Event format: `event NAME DATE START_TIME END_TIME`
 Examples:
 * `todo read book`<br>
   Adds a todo task with NAME as `read book`
+  > <img src="images/UItodo.png" width="600">
+
 * `deadline math homework 1 Jan 2015 2pm`<br>
   Adds a deadline task with NAME as `math homework`, DATE as `1 Jan 2015`, END_TIME as `1500`
+  > <img src="images/UIdeadline.png" width="600">
+
 * `event meeting 1 Jan 2015 21:00 00:00`<br>
   Adds an event task with NAME as `meeting`, DATE as `1 Jan 2015`, START_TIME as `2100`, END_TIME as `0000`
+  > <img src="images/UIevent.png" width="600">
 
 #### View all tasks: `view`
 View all tasks for the specified date.<br>
@@ -85,7 +91,10 @@ Format: `view [DATE]`
 
 Examples: 
 * `view`
+> <img src="images/UIview.png" width="600">
+
 * `view 1 Jan 2015`
+> <img src="images/UIviewDate.png" width="600">
 
 #### Edit task details: `edit`
 Edit a task or event already inside the task manager/ event calendar using the index of the task.<br>
@@ -97,6 +106,8 @@ Examples:
 * `view`<br>
   `edit 3 Do math homework 3pm`<br>
   Edit the 3rd task today. Changes the NAME to `Do math homework` and END_TIME to `1500`<br>
+  > <img src="images/UIedit.png" width="600">
+
   `edit 2 22:00 00:00`<br>
   Edit the 2nd task today. Changes the START_TIME to `2200` and END_TIME to `0000`
 
@@ -110,6 +121,8 @@ Examples:
 * `view`<br>
   `delete 1`<br>
   Delete the 1st task today as shown by the `view` command
+  > <img src="images/Uidelete.png" width="600">
+
 * `view 1 Jan 2015`<br>
   `delete 2`<br>
   Delete the 2nd task on 1 Jan 2015 as shown by the `view` command
@@ -124,17 +137,20 @@ Examples:
 * `view`<br>
   `done 1`<br>
   Marks the 1st task today as shown by the `view` command as completed
+  > <img src="images/UIdone.png" width="600">
 
 #### Undo previous action: `undo`
 Undo the last completed action.<br>
 Format: `undo`
 
-> The previous version will be restored
-> User can keep retyping undo to undo multiple actions
+> The previous version will be restored<br>
+> User can keep retyping undo to undo multiple actions<br>
+> <img src="images/UIundo.png" width="600">
 
 #### Clearing all entries : `clear`
 Clears all tasks from the task manager.<br>
 Format: `clear`  
+> <img src="images/UIclear.png" width="600">
 
 #### Exiting the program : `exit`
 Exits the program.<br>
