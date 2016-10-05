@@ -41,7 +41,6 @@
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-<<<<<<< .merge_file_a13140
   
 #### Troubleshooting project setup
 
@@ -53,9 +52,6 @@
 **Problem: Eclipse reports some required libraries missing**
 * Reason: Required libraries may not have been downloaded during the project import. 
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
- 
-=======
->>>>>>> .merge_file_a06816
 
 ## Design
 
