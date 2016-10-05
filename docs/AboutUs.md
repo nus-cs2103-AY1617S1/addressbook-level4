@@ -6,6 +6,7 @@ We are a group of Computer Science students from the School of Computing, Nation
 
 #### [Jia Wern](https://github.com/l0g1cal)<br>
 
+<img src="images/JiaWern.png" width="150"><br>
 * Role: Developer<br>
 * Responsibilities: Team Lead
 
@@ -13,6 +14,7 @@ We are a group of Computer Science students from the School of Computing, Nation
 
 #### [Ian Teo](https://github.com/IanTeo)<br>
 
+<img src="images/IanTeo.png" width="150"><br>
 * Role: Developer<br>
 * Responsibilities: Integration
 
@@ -20,6 +22,7 @@ We are a group of Computer Science students from the School of Computing, Nation
 
 #### [Rachel Yang](https://github.com/JJ-Rachel)<br>
 
+<img src="images/RachelYang.png" width="150"><br>
 * Role: Developer<br>
 * Responsibilities: Code Quality
 
@@ -27,5 +30,6 @@ We are a group of Computer Science students from the School of Computing, Nation
 
 #### [Jun An](https://github.com/yamidark)<br>
 
+<img src="images/JunAn.png" width="150"><br>
 * Role: Developer<br>
 * Responsibilities: Testing
