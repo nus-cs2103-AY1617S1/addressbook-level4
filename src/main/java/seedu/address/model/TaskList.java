@@ -6,6 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicatePersonException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -102,6 +103,11 @@ public class TaskList implements ReadOnlyTaskList {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
         task.setTags(new UniqueTagList(commonTagReferences));
+    }
+    
+    public void addNote(Task p) {
+    	syncTagsWithMasterList(p);
+        persons.note(p);
     }
 
     public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
