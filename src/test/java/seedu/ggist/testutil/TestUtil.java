@@ -21,7 +21,7 @@ import seedu.ggist.model.TaskManager;
 import seedu.ggist.model.tag.Tag;
 import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;
-import seedu.ggist.storage.XmlSerializableAddressBook;
+import seedu.ggist.storage.XmlSerializableTaskManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -139,8 +139,8 @@ public class TestUtil {
         return new TaskManager(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskManager generateSampleStorageAddressBook() {
+        return new XmlSerializableTaskManager(generateEmptyAddressBook());
     }
 
     /**

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
@@ -30,19 +30,21 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedTask() {}
 
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedPerson(ReadOnlyTask source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+    public XmlAdaptedTask(ReadOnlyTask source) {
+        taskName = source.getTaskName().taskName;
+        date = source.getDate().value;
+        startTime = source.getStartTime().value;
+        endTime = source.getEndTime().value;
+        priority = source.getPriority().value;
+        frequency = source.getFrequency().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -55,15 +57,17 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            taskTags.add(tag.toModelType());
         }
-        final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
-        final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, phone, email, address, tags);
+        final TaskName taskName = new TaskName(this.taskName);
+        final Date date = new Date(this.date);
+        final Time startTime = new Time(this.startTime);
+        final Time endTime = new Time(this.endTime);
+        final Priority priority = new Priority(this.priority);
+        final Frequency frequency = new Frequency(this.frequency);
+        final UniqueTagList tags = new UniqueTagList(taskTags);
+        return new Task(taskName, date, startTime, endTime, priority, frequency, tags);
     }
 }
