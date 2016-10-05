@@ -28,7 +28,9 @@
 #### Acknowledgements
 
 * Some parts of this sample application were inspired by the excellent 
-  [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
+  [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*.
+  
+* Base code by SE-EDU initiative at https://github.com/se-edu/
 
 
-#### Licence : [MIT](LICENSE)
+#### License : [MIT](LICENSE)
