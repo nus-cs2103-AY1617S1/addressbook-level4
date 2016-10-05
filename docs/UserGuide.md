@@ -36,8 +36,8 @@ Format: `help`
  
 #### Adding a task: `add`
 Adds a task to the To Do List<br>
-Format: `add TASK, TIME, DATE,t TAG...` 
-Format: `do TASK, TIME, DATE,t TAG...` 
+Format: `add TASK, [TIME], [DATE],[t TAG...]`  <br>
+Format: `do TASK, [TIME], [DATE],[t TAG...]` 
 
  
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
@@ -48,17 +48,18 @@ Format: `do TASK, TIME, DATE,t TAG...`
 Examples: 
 * `add Dinner, 1900, 10/10/16,t Date`
 * `do CS2010 PS10, 1000, 11/10/16,t Assignment`
+* `add Pay school fees`
 
 #### Listing all tasks in current tab: `list`
 Shows a list of all tasks in the To Do List.<br>
 Format: `list`
-Format: `list TAB_NAME`
+Format: `list [TAB_NAME]`
 
 > TAB_NAME includes: <br>
 > 1. Home <br>
 > 2. Tasks <br>
 > 3. Events <br>
-> 4. Datelines <br>
+> 4. Deadlines <br>
 > 5. Archive <br>
 
 
@@ -73,7 +74,7 @@ Examples:
 * `find Dinner`<br>
   Returns `Dinner on 10/10/16 at 1900hrs (Date)`
 * `find 2010`<br>
-  Returns Any task having description `2010`.
+  Returns any task having description `2010`.
 
 #### Deleting a task : `delete`
 Deletes the specified task from the To Do List. Irreversible.<br>
@@ -121,18 +122,20 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your preious Schema.
+       the file that contains the data of your previous Schema.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK, TIME, DATE,t TAG...`
+Add | `add TASK, [TIME], [DATE],[t TAG...]`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list TAB_NAME`
+List | `list [TAB_NAME]`
 Help | `help`
 Edit | `edit INDEX DETAILS`
+Undo | `undo`
+Redo | `redo`
 Mark | `mark INDEX`
 Relocate | `relocate FILE_PATH`
