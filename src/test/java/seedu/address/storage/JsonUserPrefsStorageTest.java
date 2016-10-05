@@ -5,11 +5,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-
-import seedu.ggist.commons.exceptions.DataConversionException;
-import seedu.ggist.commons.util.FileUtil;
-import seedu.ggist.model.UserPrefs;
-import seedu.ggist.storage.JsonUserPrefsStorage;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.model.UserPrefs;
 
 import java.io.File;
 import java.io.IOException;

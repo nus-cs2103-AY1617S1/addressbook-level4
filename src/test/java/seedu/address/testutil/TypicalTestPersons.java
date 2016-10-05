@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.model.AddressBook;
-import seedu.ggist.model.task.*;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.AddressBook;
+import seedu.address.model.person.*;
 
 /**
  *
@@ -37,13 +37,13 @@ public class TypicalTestPersons {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addPerson(new Task(alice));
-            ab.addPerson(new Task(benson));
-            ab.addPerson(new Task(carl));
-            ab.addPerson(new Task(daniel));
-            ab.addPerson(new Task(elle));
-            ab.addPerson(new Task(fiona));
-            ab.addPerson(new Task(george));
+            ab.addPerson(new Person(alice));
+            ab.addPerson(new Person(benson));
+            ab.addPerson(new Person(carl));
+            ab.addPerson(new Person(daniel));
+            ab.addPerson(new Person(elle));
+            ab.addPerson(new Person(fiona));
+            ab.addPerson(new Person(george));
         } catch (UniquePersonList.DuplicatePersonException e) {
             assert false : "not possible";
         }
