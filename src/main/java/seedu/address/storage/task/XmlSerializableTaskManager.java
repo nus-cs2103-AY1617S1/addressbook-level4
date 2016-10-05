@@ -10,6 +10,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -40,29 +41,22 @@ public class XmlSerializableTaskManager extends UniqueItemCollection<Task>{
     public XmlSerializableTaskManager(UniqueItemCollection<Task> src) {
         tasks.addAll(src.getInternalList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
-
-    public UniqueItemCollection<Task> getUniqueTaskList() {
-        UniqueItemCollection<Task> lists = new UniqueItemCollection<Task>();
+    
+    /*
+     * This method is called after all the properties (except IDREF) are unmarshalled for this object, 
+     *  but before this object is set to the parent object. This allows us to set the correct internal
+     *  when loading from XML storage.
+     */
+    void afterUnmarshal(Unmarshaller unmarshaller, Object parent) {
         for (XmlAdaptedTask t : tasks) {
             try {
-                lists.add(t.toModelType());
+                this.add(t.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }
         }
-        return lists;
-    }
+    };
 
-    public List<Task> getTaskList() {
-        return tasks.stream().map(t -> {
-            try {
-                return t.toModelType();
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-                //TODO: better error handling
-                return null;
-            }
-        }).collect(Collectors.toCollection(ArrayList::new));
-    }
+
 
 }

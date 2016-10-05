@@ -17,4 +17,9 @@ public class Description {
 	public String getContent() {
 		return content;
 	}
+	
+	@Override
+	public String toString() {
+		return getContent();
+	}
 }

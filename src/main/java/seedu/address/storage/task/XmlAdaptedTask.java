@@ -18,7 +18,7 @@ import java.util.List;
 public class XmlAdaptedTask {
 
     @XmlElement(required = true)
-    private Description description;
+    private String description;
     
     /**
      * No-arg constructor for JAXB use.
@@ -32,7 +32,7 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedTask(Task source) {
-    	description = source.getDescription();
+    	description = source.getDescription().toString();
     }
 
     /**

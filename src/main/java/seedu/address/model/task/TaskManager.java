@@ -9,6 +9,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.UniquePersonList;
 
 /*
  * Manages a list of tasks 1and acts as a gateway for Commands to perform CRUD operations on the list
@@ -22,7 +23,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	}
 	
 	public TaskManager(UniqueItemCollection<Task> tasks, UserPrefs userPrefs) {
-		this();
+		this.tasks = tasks;
 	}
 	
 	@Override
@@ -59,4 +60,5 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		// TODO Auto-generated method stub
 		return tasks;
 	}
+	
 }
