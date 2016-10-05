@@ -53,9 +53,9 @@ Changes the data file storage location to C:\Users\Verbena\Dropbox\WhatNow
 Adds a task to WhatNow<br>
 Format: `add "DESCRIPTION" [on/by] [today/tomorrow/DAY/DATE] [from/at] [START_TIME] [to/till] [END_TIME] [every] [DAY/day/week/month/year] [low/medium/high]` 
 
->All task description should be written within double quotation marks. Eg Add “buy eggs”.
->The format for date must be *day month year* where year is optional. Eg: 10th Oct, 4 November, 11th August 2017. Not 12/12/12. 
->Time should be in the *12 hour format*. Eg: 10am, 6pm, 7.30pm. Not 7:30pm, 2359.
+>All task description should be written within double quotation marks. Eg Add “buy eggs”. <br>
+The format for date must be *day month year* where year is optional. Eg: 10th Oct, 4 November, 11th August 2017. Not 12/12/12. <br>
+Time should be in the *12 hour format*. Eg: 10am, 6pm, 7.30pm. Not 7:30pm, 2359.
 
 Examples:
 * `add "Do CS2103T tutorial" on 4 Oct 2016 from 10am to 11am every week`
@@ -89,7 +89,7 @@ Format: `list [date/time/priority] KEYWORD`
 Examples: 
 * `list`<br>
 Returns a list of all tasks. <br>
-> <img src="images/UI_Prototype/WhatNowUI-List.png" width="600">
+<img src="images/UI_Prototype/WhatNowUI-List-Colour.png" width="600">
 * `list completed`<br>
  Returns a list of all completed tasks. <br>
 * `list todo`<br>
@@ -109,17 +109,17 @@ Returns a list of all tasks scheduled for 3 November of the current year. <br>
 Deletes a task from WhatNow. Reversible.<br>
 Format: `delete INDEX`
 
-> Deletes the task at the specified `INDEX` from the displayed list as specified. 
+> Deletes the task at the specified `INDEX` from the displayed list as specified. <br>
   The index refers to the index number shown in the current listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `delete 4`<br>
   Deletes the 4th task from the displayed list in WhatNow. <br>
-  > <img src="images/UI_Prototype/WhatNowUI-DeleteTodo-Colour.png" width="600">
+  <img src="images/UI_Prototype/WhatNowUI-DeleteTodo-Colour.png" width="600">
 * `delete 2`<br>
   Deletes the 2nd todo task from the displayed list in WhatNow. <br>
-> <img src="images/UI_Prototype/WhatNowUI-DeleteSchedule-Colour.png" width="600">  <br>
+  <img src="images/UI_Prototype/WhatNowUI-DeleteSchedule-Colour.png" width="600">  <br>
 
 
 #### Updating a task : `update`
@@ -137,7 +137,7 @@ Examples:
    Selects the 4th todo task from the displayed list and changes the type of task from todo to scheduled. 
 * `update schedule 5 time 8:30pm`<br>
    Selects the 5th schedule task from the displayed list and changes the time to 8:30pm. <br>
-> <img src="images/UI_Prototype/WhatNowUI-UpdateSchedule-Colour.png" width="600"> 
+<img src="images/UI_Prototype/WhatNowUI-UpdateSchedule-Colour.png" width="600"> 
 
 
 #### Undoing the previous action : `undo`
@@ -147,7 +147,7 @@ Format: `undo`
 Examples: 
 * `undo`<br>
    Undo the previous action <br>
-> <img src="images/UI_Prototype/WhatNowUI-Undo-Colour.png" width="600">
+<img src="images/UI_Prototype/WhatNowUI-Undo-Colour.png" width="600">
 
 
 #### Redoing the previous action : `redo`
@@ -157,7 +157,7 @@ Format: `redo`
 Examples: 
 * `redo`<br>
    Redo the previous action <br>
-> <img src="images/UI_Prototype/WhatNowUI-Redo-Colour.png" width="600">
+<img src="images/UI_Prototype/WhatNowUI-Redo-Colour.png" width="600">
 
 
 #### Finding tasks containing any keyword in their description: `find`
@@ -178,7 +178,7 @@ Examples:
   Returns any tasks having the description `Read`, `books`, `lecture` or `notes`.
 * `find CS3235`<br>
   Returns any tasks having the description `CS3235`. <br>
-> <img src="images/UI_Prototype/WhatNowUI-Find-Colour.png" width="600">
+<img src="images/UI_Prototype/WhatNowUI-Find-Colour.png" width="600">
 
 
 #### Viewing help : `help`
