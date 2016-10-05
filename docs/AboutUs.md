@@ -31,7 +31,7 @@ Responsibilities: Logic, Storage
 -----
 
 #### [Hong Bangwu](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Testing/Model/EventsCentre
- 
- -----
+<img src="images/Bangwu.jpg" width="150"><br> 
+Role: Developer <br>   Responsibilities: Testing/Model/EventsCentre
+
+-----
