@@ -74,10 +74,10 @@ Adds a scheduled task “Charlie Puth concert” on 15th October at 6pm.
 * `add "Buy chocolate milk"`<br>
 Adds a todo task “Buy chocolate milk”.
 
->Tasks with date and time specified will be added to WhatNow as a schedule task and will be<br> displayed under the heading "Schedule".<br> 
+>Tasks with date and time specified will be added to WhatNow as a schedule task and will<br> be displayed under the heading "Schedule".<br> 
 > <img src="images/UI_Prototype/WhatNowUI-AddSchedule-Colour.png" width="600">
 
->Tasks without date and time specified will be added to WhatNow as a todo task and will be<br> displayed under the heading "Todo Tasks".
+>Tasks without date and time specified will be added to WhatNow as a todo task and will<br> be displayed under the heading "Todo Tasks".
 > <img src="images/UI_Prototype/WhatNowUI-AddTodo-Colour.png" width="600">
 
 
@@ -102,7 +102,7 @@ Returns a list of all tasks scheduled at 6pm. <br>
 * `list date 3 Nov`<br>
 Returns a list of all tasks scheduled for 3 November of the current year. <br>
 
->If you want to view any of the Todo tasks, Scheduled tasks or Completed tasks only, then you only need to type in “todo”, “schedule” or “completed” as the keyword after the command list. <br>
+>If you want to view any of the Todo tasks, Scheduled tasks or Completed tasks only, then you only<br> need to type in “todo”, “schedule” or “completed” as the keyword after the command list. <br>
 > <img src="images/UI_Prototype/WhatNowUI-ListCompleted-Colour.png" width="600">
 
 
