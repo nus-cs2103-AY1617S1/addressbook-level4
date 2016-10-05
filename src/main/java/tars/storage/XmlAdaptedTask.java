@@ -41,7 +41,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().taskName;
-        priority = source.getPriority().toString();
+        priority = source.getPriority().priorityLevel;
 //        phone = source.getPhone().value;
 //        email = source.getEmail().value;
 //        address = source.getAddress().value;
