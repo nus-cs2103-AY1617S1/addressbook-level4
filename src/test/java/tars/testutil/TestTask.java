@@ -9,9 +9,6 @@ import tars.model.tag.UniqueTagList;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
     private UniqueTagList tags;
     private DateTime dateTime;
     private Status status;
@@ -23,18 +20,6 @@ public class TestTask implements ReadOnlyTask {
 
     public void setName(Name name) {
         this.name = name;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setEmail(Email email) {
-        this.email = email;
-    }
-
-    public void setPhone(Phone phone) {
-        this.phone = phone;
     }
 
     @Override
