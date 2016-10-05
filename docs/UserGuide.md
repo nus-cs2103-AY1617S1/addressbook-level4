@@ -20,8 +20,8 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**` Project Meeting s/05/10/2016T14:00 e/05/10/2016T18:00 r/once d/CS2103 Project Meeting` : 
-     adds a task named `Project Meeting` to Savvy Tasker.
+   * **`add`**` Project Meeting s/05/10/2016T14:00 e/05/10/2016T18:00 r/daily n/2 c/CS2103` : 
+     adds a task named `Project Meeting` to Savvy Tasker for 2 days.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -50,15 +50,15 @@ There is no need to save manually.
  
 #### Adding a task: `add`
 Adds a task to Savvy Tasker.<br>
-Format: `add TASK [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [d/DESCRIPTION]` 
+Format: `add TASK [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY]` 
 
 > Tasks can have START_DATETIME and/or END_DATETIME or none.
 > For DATETIME the format is as follow: dd/mm/yyyy[Thh:MM{TZD]], hh:MM defaults to 00:00 if not specified. TZD defaults to +08:00
-> RECURRING_TYPE can be `once`, `daily`, `weekly` or `monthly`
+> RECURRING_TYPE can be `daily`, `weekly` or `monthly`, by default RECURRING_TYPE set as daily, NUMBER_OF_RECURRENCE set as 1
 
 Examples: 
-* `add Project Meeting s/05/10/2016T14:00+08:00 e/05/10/2016T18:00+08:00 r/once d/CS2103 Project Meeting`
-* `add Project Meeting s/05/10/2016T14:00 e/05/10/2016T18:00 r/once d/CS2103 Project Meeting`
+* `add Project Meeting s/05/10/2016T14:00+08:00 e/05/10/2016T18:00+08:00 r/daily n/2 c/CS2103`
+* `add Project Meeting s/05/10/2016T14:00 e/05/10/2016T18:00 c/CS2103`
 
 #### Listing all tasks according to due date, earliest first : `list`
 Shows a list of all tasks in Savvy Tasker, sorted according to END_DATETIME.<br>
@@ -69,6 +69,10 @@ Format: `list`
 Shows a list of all tasks in Savvy Tasker, sorted according to priority level.<br>
 If priority level is not stated, sorted to bottom of list.<br>
 Format: `listp`
+
+#### Listing all archived tasks according to date, most recent first : `lista`
+Shows a list of all archived tasks in Savvy Tasker, sorted according to date the task has been marked.<br>
+Format: `lista`
 
 #### Finding all task containing any keyword in its name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
@@ -168,6 +172,31 @@ Format: `undo`
 Clears all entries from the Savvy Task.<br>
 Format: `clear`  
 
+#### Replace a keyword : `replace`
+Replace a keyword with shorter version of keyword <br>
+Format: `replace k/KEYWORD s/SHORT_KEYWORD`
+
+> Subsequent user command of pjm, system will interpret it as Project Meeting
+
+Examples: 
+* `replace k/Project Meeting s/pjm`<br>
+  `add pjm s/05/10/2016T14:00+08:00 e/05/10/2016T18:00+08:00 r/daily n/2 c/CS2103`<br>
+  Add Project Meeting to task list
+  `replace k/RemoveReplace s/rmrp`<br>
+  `rmrp s/pjm`<br>
+  RemoveReplace of shorter version of pjm back to Project Meeting
+
+#### RemoveReplace of short keyword : `removeReplace SHORT_KEYWORD`
+RemoveReplace of shorter version of keyword <br>
+Format: `removeReplace s/SHORT_KEYWORD`
+
+> Subsequent user command of pjm, system will interpret it as Project Meeting
+
+Examples: 
+* `removeReplace s/pjm`<br>
+  `add Project Meeting s/05/10/2016T14:00+08:00 e/05/10/2016T18:00+08:00 r/daily n/2 c/CS2103`<br>
+  Add Project Meeting to task list
+
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
@@ -178,15 +207,18 @@ Format: `clear`
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [d/DESCRIPTION]`
+Add | `add TASK [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY]`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
-Listp | 'listp'
+Listp | `listp`
+Lista | `lista`
 Help | `help`
 Select | `select INDEX`
 Modify | `modify INDEX [t/TASK] [s/START_DATETIME] [e/END_DATETIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [d/DESCRIPTION]`
 Mark | `mark INDEX`
 Unmark | `unmark INDEX`
 Undo | `undo`
+Replace | `replace k/KEYWORD s/SHORT_KEYWORD`
+RemoveReplace | `removeReplace s/SHORT_KEYWORD`

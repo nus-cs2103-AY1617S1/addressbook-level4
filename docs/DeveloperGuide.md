@@ -5,10 +5,10 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A : User Stories](#appendix-a-user-stories)
+* [Appendix B : Use Cases](#appendix-b-use-cases)
+* [Appendix C : Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D : Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
@@ -274,29 +274,31 @@ Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | new user |  view more information about a particular command | learn how to use various commands
-`* * *` | user | add a new task | record tasks that need to be done ‘some day’
+`* * *` | user | add a new task | record tasks that need to be done some day
 `* * *` | user | update a task description/due date/priority level | make modifications to tasks without having delete and re-add it
 `* * *` | user | mark completed tasks as done | remind myself that I have completed a task
 `* * *` | user | delete a task | get rid of tasks that I no longer care to track 
 `* * *` | user | sort tasks by due date | decide what needs to be done soon
+`* * *` | user | view the list of ongoing tasks | decide what needs to be done
+`* * *` | user | view the list of archived tasks | see what has been done
 `* *` | user with many tasks | find tasks by prefix | locate a tasks / similar tasks in case I forget the exact task description I typed
-‘*’ | user with many tasks | sort tasks by priority level | see the most important tasks and prioritize accordingly
-‘*’ | advanced user | use shorter versions of a command | type a command faster
-
+`*` | user with many tasks | sort tasks by priority level | see the most important tasks and prioritize accordingly
+`*` | advanced user | replace keywords with shorter versions | type a command faster
+`*` | advanced user | remove replace of keywords with shorter versions | get rid of shorter version of certain keywords
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `SavvyTasker` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Delete person
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to list tasks
+2. SavvyTasker shows a list of tasks
+3. User requests to delete a specific task in the list
+4. SavvyTasker deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -307,7 +309,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. SavvyTasker shows an error message <br>
   Use case resumes at step 2
 
 {More to be added}
@@ -315,7 +317,7 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
