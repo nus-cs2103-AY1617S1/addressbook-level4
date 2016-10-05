@@ -52,7 +52,7 @@ public class BrowserPanel extends UiPart{
     }
 
     public void loadPersonPage(ReadOnlyFloatingTask person) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().replaceAll(" ", "+"));
+        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().name.replaceAll(" ", "+"));
     }
 
     public void loadPage(String url){
