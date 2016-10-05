@@ -41,22 +41,7 @@ public class TestTask implements ReadOnlyTask {
     public Name getName() {
         return name;
     }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
-    }
-    
+   
     @Override
     public DateTime getDateTime() {
         return dateTime;
