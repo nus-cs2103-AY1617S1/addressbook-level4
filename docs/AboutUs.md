@@ -3,49 +3,28 @@
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
+- Chen Tiankai
+  - Year 3 Mechanical Engineering Major
+  - Roles:
+  	- 'Commons' Component.
+    - Scheduling and tracking I/c: In charge of defining, assigning, and tracking project tasks.
+    - Deliverables and deadlines I/c: Ensure project deliverables are done on time and in the right format.  
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+- Phua Kian Ming
+  - Year 3 Mechanical Engineering Major
+  - Roles:
+  	- 'Logic' Component.
+  	- Documentation I/c: Responsible for the quality of various project documents.
+  	- Testing I/c: Ensures the testing of the project is done properly and on time.  
 
------
+- Poh Yee Heng Keith
+  - Year 3 Computer Engineering Major
+  - Roles:
+  	- 'Storage' Component
+  	- Code Quality I/c: Looks after code quality, ensures adherence to coding standards, etc.  
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
-
------
-
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
-
------
-
-#### [Martin Choo](http://github.com/m133225)
-Role: Developer <br>  
-Responsibilities: Dev Ops
-
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+- Xu Chen
+  - Year 2 Computer Science Major
+  - Roles:
+  	- 'UI' && 'Model' Component.
+  	- Integration I/c: In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.  
