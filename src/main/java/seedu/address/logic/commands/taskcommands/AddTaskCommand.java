@@ -8,6 +8,9 @@ import seedu.address.model.task.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Adds a task to TaskManager.
+ */
 public class AddTaskCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "add";

@@ -6,6 +6,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 
+/**
+ * Deletes a task identified using it's last displayed index from TaskManager.
+ */
 public class DeleteTaskCommand extends TaskCommand {
 
 	  public static final String COMMAND_WORD = "delete";

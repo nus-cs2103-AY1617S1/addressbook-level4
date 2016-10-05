@@ -6,17 +6,20 @@ import seedu.address.commons.events.ui.IncorrectTaskCommandAttemptedEvent;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.InMemoryTaskList;
 
+/**
+ * Represents a Task command with hidden internal logic and the ability to be executed.
+ */
 public abstract class TaskCommand {
 	protected InMemoryTaskList model;
 
 	
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
      *
      * @param displaySize used to generate summary
      * @return summary message for tasks displayed
      */
-    public static String getMessageForPersonListShownSummary(int displaySize) {
+    public static String getMessageForTaskListShownSummary(int displaySize) {
         return String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, displaySize);
     }
 	
