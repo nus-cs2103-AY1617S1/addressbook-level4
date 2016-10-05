@@ -42,8 +42,8 @@ Format: **`add`**` [event_name]`<br>
 The following parameters can be appended to the add command. <br>
 
 ###### Specifying time : `from ... to ...`
-Format: **`from`**` [datetime] `**`to`**` [datetime]`<br>
 This parameter is used to indicate the starting and ending datetime of an event.<br>
+Format: **`from`**` [datetime] `**`to`**` [datetime]`<br>
 > The date for from can be omitted if it is the same as the ending date.
 
 Examples:
@@ -51,8 +51,8 @@ Examples:
 * **`add`**` dinner with mom `**`from`**` 1900 `**`to`**` 2030 2/10/16`
 
 ###### Specifying time : `by`
+This parameter is used to indicate the deadline of an event.<br>
 Format: **`by`**` [datetime]`<br>
-This parameter is used to indicate the deadline of an event.
 
 Examples:
 * **`add`**` submit proposal `**`by`**` 2359 2/10/16`
@@ -64,40 +64,43 @@ Examples:
 > * hhmm dd mmm (e.g. 1730 12 oct)
 
 ###### Specifying location : `at`
+This parameter is used to indicate the venue of an event.<br>
 Format: **`at`**` [location]`<br>
-This parameter is used to indicate the venue of an event.
-
 Examples:
 * **`add`**` dinner with mom `**`at`**` home`
 
 ###### Specifying remarks : `remarks`
+This parameter is used to add remarks for the event.<br>
 Format: **`remarks`**` [remarks]`<br>
-This parameter is used to add remarks for the event.
 
 Examples:
 * **`add`**` dinner with mom `**`remarks`**` buy flowers`
 
+### Listing all events : `list`
+Shows a list of all events in the to-do list.<br>
+Format: **`list`**` [filter]`<br>
+> [filters] available: <br>
+> * today - shows the list of events for today's date
+> * week - shows the list of events for this week
+> * month - shows the list of events for the current month
+> * date (e.g. 12 Oct 2016) - shows the list of events for the specified date
 
+Examples:
+* **`list`**` today`
+* **`list`**` 12 Oct 2016`
 
-
-
-
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
-
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+#### Finding all events containing any keyword in the name: `find`
+Finds events whose names contain any of the given keywords.<br>
+Format: **`find`**` [keywords]`
 
 > The search is case sensitive, the order of the keywords does not matter, only the name is searched, 
-and persons matching at least one keyword will be returned (i.e. `OR` search).
+and events matching at least one keyword will be returned (i.e. `OR` search).
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `find mom`<br>
+  Returns `dinner with mom` but not `dinner with Mom`
+* `find mom dad sister`<br>
+  Returns Any event having names `mom`, `dad`, or `sister`
 
 #### Deleting a person : `delete`
 Deletes the specified person from the address book. Irreversible.<br>
