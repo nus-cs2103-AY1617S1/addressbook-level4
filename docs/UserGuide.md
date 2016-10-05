@@ -42,11 +42,11 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a event or task: `add`
-Add an event with a starting and ending date to the calendar<br>
-Format: `add EVENT_NAME s/START_DATE e/END_DATE [t/TAG] [p/PRIORITY_LEVEL]`
+Add an event with a starting and ending date to the calendar.<br>
+Format: `add EVENT_NAME s/START_DATE e/END_DATE [t/TAG]... [p/PRIORITY_LEVEL]`
 
-Add a task (with or without deadline) to the calendar<br>
-Format: `add TASK_NAME [d/DEADLINE] [t/TAG] [p/PRIORITY_LEVEL]`
+Add a task (with or without deadline) to the calendar.<br>
+Format: `add TASK_NAME [d/DEADLINE] [t/TAG]... [p/PRIORITY_LEVEL]`
 
 > Events and tasks can have any number of tags (including 0)
 
@@ -66,40 +66,40 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 > * The search is not case sensitive. e.g hans will match Hans
 > * The order of the keywords does not matter. e.g. `Project Deadline` will match `Deadline Project`
 > * Only the name is searched.
-> * Tasks or Events matching at least one keyword will be returned (i.e. `OR` search).
+> * Events or Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Project` will match `Project Deadline`
 
 Examples:
 * `find lecture`<br>
   Returns `CS2103 Lecture` and `lecture`
 * `find CS2103 Software Project`<br>
-  Returns Any event or task having names `CS2103`, `Software`, or `Project`
+  Returns any event or task having names `CS2103`, `Software`, or `Project`
 
 #### Deleting an event or task : `delete`
 Deletes the specified event or task from the list. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes a event or task at the specified `INDEX`.
+> Deletes an event or task at the specified `INDEX`.
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, …
 
-Delete the event or task with the exact name: `delete`
+Delete the event or task with the exact name: `delete`<br>
 Format: `delete EVENT_NAME/TASK_NAME`
 
-> Deletes the event or task with the specified `EVENT_NAME/TASK_NAME`
-  The task name or event name refers to the full name of the event or task that the user wants to delete.
+> Deletes the event or task with the specified `EVENT_NAME/TASK_NAME`<br>
+  The event name or task name refers to the full name of the event or task that the user wants to delete.
 
 Examples:
 * `list`<br>
   `delete 2`<br>
   Deletes the 2nd task or event in the list.
 * `delete Lecture`<br>
-  Deletes the task with name “Lecture”  in the results of the `find` command.
+  Deletes the task with name `Lecture`  in the results of the `find` command.
 
 ####Edit an event or task: `edit`
-Edit an existing event or task<br>
+Edit an existing event or task.<br>
 Format: `edit EVENT_NAME s/START_DATE e/END_DATE [t/TAG] [p/PRIORITY_LEVEL]`<br>
-`edit TASK_NAME [d/DEADLINE] [t/TAG] [p/PRIORITY_LEVEL]`
+  `edit TASK_NAME [d/DEADLINE] [t/TAG] [p/PRIORITY_LEVEL]`
 
 Example:
 
@@ -111,7 +111,7 @@ Example:
 Mark an event or task identified by the index number used in the last listing as done.<br>
 Format: `done INDEX`
 
-> Selects the event or task at the specified `INDEX` and mark it as done.
+> Selects the event or task at the specified `INDEX` and mark it as done.<br>
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, …<br>
   
@@ -139,17 +139,17 @@ Format: `change FILEPATH`
 
 Example: `change /Desktop/folder/`
 
-#### Undo operations:
+#### Undo operations: `undo`
 Undo the most recent action.<br>
 Format: `undo` 
 
-#### Filter events and tasks:
+#### Filter events and tasks: `filter`
 Filter list for attributes such as event or task, done or yet to be done, start time, deadline, tag, and priority level.<br>
 Format: `filter [n/EVENT/TASK] [s/START_DATE] [d/DEADLINE] [c/DONE/UNDONE] [t/TAG] [p/PRIORITY_LEVEL]` 
 
 Examples:
 * `filter n/event s/7/10/2016-14 t/CS2103 `
-  List events that are startfrom 7/10/2016-14 and have tag CS2103.
+  List events that start from 7/10/2016-14 and have tag CS2103.
 * `filter n/task c/undone p/3 `
   List tasks that are yet to be done and have priority 3.
 
