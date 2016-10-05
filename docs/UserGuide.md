@@ -176,6 +176,7 @@ Example : Help
 ###Command Summary
 
  No. | Command | Format 
+ -------- | :-------- | :--------- | :-----------
 1| Add | <ul><li>add [event_description, date, start_time, end_time]</li>
 <li>add deadline_description, date, end_time</li><li>add to-do_description</li>
 <li>add [event_description, date, start_time, end_time] #tag !</li></ul>
