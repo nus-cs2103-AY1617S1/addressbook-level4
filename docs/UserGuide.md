@@ -1,4 +1,4 @@
-# User Guide for JIMI
+# User Guide
 
 * [Quick Start](#quick-start)
 * [Command Summary](#command-summary)
@@ -40,7 +40,7 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of your input text is fixed. For instance, ‘add [DATE/TIME] by [TASK DETAILS]` is invalid.
 
-<br>
+
 Command | Format  
 -------- | :-------- 
 [Help](#help) | `help`
@@ -59,14 +59,17 @@ Command | Format
 
 ----------
 
-
 ## Features
+
+<br>
 
 #### <a id="help"></a>Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
- 
+
+<br><br>
+
 #### <a id="add"></a>Adding a task: `add`
 Adds a floating task to Jimi.<br>
 Format: `add TASK_DETAILS` 
@@ -77,12 +80,10 @@ Format: `add TASK_DETAILS`
 Examples: 
 * `add Buy groceries`
 
-
 Adds a task with a deadline to Jimi.<br>
 Format: `add TASK_DETAILS by DATE [at TIME]`
 
 > You can include time as an optional detail.
-
 
 Examples:
 * `add Get a haircut by Tuesday`
@@ -99,12 +100,16 @@ Examples:
 * `add Show up for dentist appointment on 8/7/2016, 5:00pm to 7:30pm`
 * `add Have school camp on 10 October to 18 October, 10am to 5pm`
 
+<br><br>
+
 #### <a id="com"></a>Complete a task: `complete`
 Mark a task as completed. 
 Format: `complete TASK_INDEX`
 
 > * Jimi will note the task as completed at the specified `TASK_INDEX`. 
 > * If you want to revert the task back as incomplete, use the `undo` command.
+
+<br><br>
 
 #### <a id="del"></a>Deleting a task: `delete`
 Deletes the specified task/ event from Jimi.<br>
@@ -124,6 +129,7 @@ Examples:
 > The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, …
 
+<br><br>
 
 #### <a id="edit"></a>Editing a detail: `edit`
 Edits the specified detail from the list of tasks. 
@@ -142,11 +148,13 @@ Examples:
 * `edit 2 /n buy food`
 * `edit 3 /sd mon`
 
+<br><br>
 
 #### <a id="undo"></a>Undo previous action: `undo`
 Undos the previous action done in the task manager. <br>
 Format: `undo`
 
+<br><br>
 
 #### <a id="find"></a>Find all tasks relevant to keywords you input: `find`
 Finds tasks which details contain any of the given keywords.<br>
@@ -162,7 +170,7 @@ Examples:
 * `find Remember`
 * `find Buy Get Do`
 
-
+<br><br>
 
 #### <a id="set"></a>Setting save directory : `setdir`
 Set a new save path for your all your tasks.
@@ -173,6 +181,8 @@ Format: `setdir NEW_DIRECTORY`
 Example:
 * `setdir C:\Users\jimmy\Desktop\my_tasks.txt`
 
+<br><br>
+
 #### <a id="clear"></a>Clearing all entries : `clear`
 Clears all entries from the task manager.<br>
 Format: `clear`  
@@ -180,15 +190,21 @@ Format: `clear`
 > * You will also receive a confirmation notice to confirm that you are sure about this action.
 > * This action is irreversible.
 
+<br><br>
+
 #### <a id="exit"></a>Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
 > Before exiting the program, ensure you have no unwanted actions that need to be reverted. Exiting the program will not save the actions you have done and the `undo` command will not be able to retrieve back your changes.
 
+<br><br>
+
 #### <a id="save"></a>Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
+<br><br>
 
 ## FAQ
 
