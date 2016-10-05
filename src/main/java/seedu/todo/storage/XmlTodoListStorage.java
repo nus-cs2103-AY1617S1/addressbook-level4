@@ -15,13 +15,13 @@ import seedu.todo.model.ReadOnlyTodoList;
 /**
  * A class to access TodoList data stored as an xml file on the hard disk.
  */
-public class XlmTodoListStorage implements TodoListStorage {
+public class XmlTodoListStorage implements TodoListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XlmTodoListStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlTodoListStorage.class);
 
     private String filePath;
 
-    public XlmTodoListStorage(String filePath){
+    public XmlTodoListStorage(String filePath){
         this.filePath = filePath;
     }
 
@@ -40,7 +40,7 @@ public class XlmTodoListStorage implements TodoListStorage {
             return Optional.empty();
         }
 
-        ReadOnlyTodoList TodoListOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTodoList TodoListOptional = XmlFileStorage.loadTodoListFromFile(new File(filePath));
 
         return Optional.of(TodoListOptional);
     }
@@ -52,7 +52,7 @@ public class XlmTodoListStorage implements TodoListStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableTodoList(TodoList));
+        XmlFileStorage.saveTodoListToFile(file, new XmlSerializableTodoList(TodoList));
     }
 
     @Override
