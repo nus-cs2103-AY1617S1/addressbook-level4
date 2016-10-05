@@ -10,10 +10,10 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks with names consisting of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Format: " + COMMAND_WORD + " [search_query] [ -p/-d/-o]"
+            + "Example: " + COMMAND_WORD + " meeting -o";
 
     private final Set<String> keywords;
 
@@ -23,8 +23,8 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredPersonList(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+        model.updateFilteredTaskList(keywords);
+        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
 }

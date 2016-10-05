@@ -13,7 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -109,7 +109,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -186,7 +186,7 @@ public class MainWindow extends UiPart {
         return this.personListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
+    public void loadPersonPage(ReadOnlyTask person) {
         browserPanel.loadPersonPage(person);
     }
 
