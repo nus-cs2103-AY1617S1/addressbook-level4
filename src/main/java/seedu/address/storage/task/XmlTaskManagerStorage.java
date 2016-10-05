@@ -32,7 +32,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #UniqueItemCollection<Task>}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -42,17 +42,17 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         File taskManagerFile = new File(filePath);
 
         if (!taskManagerFile.exists()) {
-            logger.info("AddressBook file "  + taskManagerFile + " not found");
+            logger.info("TaskManager file "  + taskManagerFile + " not found");
             return Optional.empty();
         }
-
+        
         UniqueItemCollection<Task> taskManagerOptional = XmlTaskFileStorage.loadDataFromSaveFile(new File(filePath));
 
         return Optional.of(taskManagerOptional);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}
+     * Similar to {@link #saveAddressBook(UniqueItemCollection<Task>)}
      * @param filePath location of the data. Cannot be null
      */
     public void saveTaskManager(UniqueItemCollection<Task> taskManager, String filePath) throws IOException {

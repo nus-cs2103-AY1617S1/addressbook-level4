@@ -22,6 +22,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.task.TaskStorage;
+import seedu.address.storage.task.TaskStorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager_Task;
 
@@ -80,7 +81,7 @@ public class MainApp_Task extends Application {
         try {
             tasks = storage.readTaskManager();
             if(!tasks.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty AddressBook");
+                logger.info("Data file not found. Will be starting with an empty TaskManager");
                 initialData = new UniqueItemCollection<Task>();
             } else {
             	initialData = tasks.get();
