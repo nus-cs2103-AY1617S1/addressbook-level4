@@ -122,7 +122,7 @@ Examples:
   **`delete`**` 1,4`<br>
   Deletes the 1st and 4th event in the results of the **`find`** command.
 
-### Edit an event : `edit`
+### Editing an event : `edit`
 Edits the event identified by the index number used in the last event listing.<br>
 Format: **`edit`**` [index] [details]`
 
@@ -139,7 +139,7 @@ Examples:
   **`edit`**` 1 `**`from`**` 1830 `**`to`**` 2000 25 oct 2016 `**`at`**` popeyes`<br>
   Edits the time and location parameter of the 1st event in the results of the **`find`** command.
 
-### Undo last action performed : `undo`
+### Undoing last action performed : `undo`
 Undo the last action performed in the to-do list. Irreversible.<br>
 Format: **`undo`**
 
