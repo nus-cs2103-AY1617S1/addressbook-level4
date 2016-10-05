@@ -159,7 +159,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Add | `add [TASK/EVENT] DESCRIPTION [-t TITLE] [due/at DATE TIME] [PRIORITY]\n` `DESCRIPTION [-t TITLE] [due/at DATE TIME] [PRIORITY]`
+Add | `add [TASK/EVENT] DESCRIPTION [-t TITLE] [due/at DATE TIME] [PRIORITY]` OR `DESCRIPTION [-t TITLE] [due/at DATE TIME] [PRIORITY]`
 Update | `update INDEX [DESCRIPTION] [-t TITLE] [due/at DATE TIME] [PRIORITY]`
 Clear | `clear`
 Complete | `complete INDEX [MORE_INDICES]`
