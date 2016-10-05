@@ -1,6 +1,7 @@
 package seedu.address.model.item;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.ReadOnlyPerson;
 
 public class FloatingTask implements ReadOnlyFloatingTask{
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
@@ -15,6 +16,14 @@ public class FloatingTask implements ReadOnlyFloatingTask{
     public FloatingTask(String taskName) throws IllegalValueException {
         this(taskName, DEFAULT_PRIORITY_VALUE);
     }    
+    
+    /**
+     * Copy constructor.
+     * @throws IllegalValueException 
+     */
+    public FloatingTask(ReadOnlyFloatingTask source) throws IllegalValueException {
+        this(source.getName(), source.getPriorityValue());
+    }
     
     /**
      * Validates given value.
