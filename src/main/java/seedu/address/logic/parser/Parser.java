@@ -32,6 +32,7 @@ public class Parser {
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern NOTE_ARGS_FORMAT = Pattern.compile("(?<name>.+)");
 
     public Parser() {}
 
@@ -128,7 +129,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareNote(String args) {
-    	final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+    	final Matcher matcher = NOTE_ARGS_FORMAT.matcher(args.trim());
         try {
             return new NoteCommand(matcher.group("name"));
         } catch (IllegalValueException ive) {
