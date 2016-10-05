@@ -15,7 +15,6 @@ Priority | As a ... | I want to ... | So that I can...
 ***  |  user  | be able to specify my storage folder | use cloud syncing services on it
 **  |  user  |  add tasks that is recurring  |  
 **  |  user  |  some variations in command keywords
-**  |  user  |  redo the most recent operations   |  redo wrong undos  
 **  |  user  |  set priorities  |  indicate tasks that are important
 *   |  user  | start the program with a shortcut/ key combination | save mouse clicks
 *   | user   | display completed tasks | know what I have done
