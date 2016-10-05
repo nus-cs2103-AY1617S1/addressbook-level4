@@ -37,7 +37,7 @@ public class XmlAdaptedPerson {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(ReadOnlyPerson source) {
+    public XmlAdaptedPerson(ReadOnlyDatedTask source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -53,16 +53,16 @@ public class XmlAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Person toModelType() throws IllegalValueException {
+    public DatedTask toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
+        final Description phone = new Description(this.phone);
+        final Date email = new Date(this.email);
+        final Time address = new Time(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Person(name, phone, email, address, tags);
+        return new DatedTask(name, phone, email, address, tags);
     }
 }

@@ -6,8 +6,8 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.DatedTask;
+import seedu.address.model.person.ReadOnlyDatedTask;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
@@ -22,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<DatedTask> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -65,13 +65,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+    public synchronized void deletePerson(ReadOnlyDatedTask target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
+    public synchronized void addPerson(DatedTask person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
+    public UnmodifiableObservableList<ReadOnlyDatedTask> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
@@ -101,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
+        boolean satisfies(ReadOnlyDatedTask person);
         String toString();
     }
 
@@ -114,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyPerson person) {
+        public boolean satisfies(ReadOnlyDatedTask person) {
             return qualifier.run(person);
         }
 
@@ -125,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyPerson person);
+        boolean run(ReadOnlyDatedTask person);
         String toString();
     }
 
@@ -137,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyPerson person) {
+        public boolean run(ReadOnlyDatedTask person) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
                     .findAny()
