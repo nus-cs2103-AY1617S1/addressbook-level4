@@ -42,9 +42,9 @@ Format: `help`
  
 #### Adding a task : `add`
 Adds a task to the list. Note: the `add` keyword is optional (i.e. 'add' is implied for an entry with no keyword).<br>
-Format: `[add] TASKNAME [at/from TIMEDATE] [to/by TIMEDATE]` 
+Format: `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE]` 
 
-> At least one of the two TIMEDATE's must be included.
+> At least one of the two TIMEDATE values must be included.
 
 Examples: 
 * `add Buy eggs at 5pm 13/09/2016`
@@ -135,21 +135,20 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+The task manager data is saved on the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous TaskLine folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TaskLine folder.
        
 ## Command Summary
 
 Command | Format  
 -------- | :--------
 help | `help` 
-add | `[add] TASKNAME [at/from TIMEDATE] [to/by TIMEDATE]`
+add | `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE]`
 note | `note TASKNAME`
 display | `display TYPE [PERIOD]`
 find | `find SEARCHSTRING`
