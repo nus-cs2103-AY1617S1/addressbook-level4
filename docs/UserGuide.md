@@ -20,7 +20,7 @@ Welcome to WhatNow!
 1. Download the latest `WhatNow.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your WhatNow.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/UI_Prototype/WhatNowUI-Welcome.png" width="600">
+   > <img src="images/UI_Prototype/WhatNowUI-Welcome-Colour.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** then press <kbd>Enter</kbd> will open the help window. 
@@ -38,7 +38,16 @@ Welcome to WhatNow!
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
- 
+
+#### Changing storage location : `change location`
+Changes the data file storage location. <br>
+Format: `change location to PATH`
+
+Examples:
+* `change location to C:\Users\Verbena\Dropbox\WhatNow`
+Changes the data file storage location to C:\Users\Verbena\Dropbox\WhatNow
+> <img src="images/UI_Prototype/WhatNowUI-ChangeLocation-Colour.png" width="600">
+
 
 #### Adding a task: `add`
 Adds a task to WhatNow<br>
@@ -65,15 +74,17 @@ Adds a scheduled task “Buy pizza” today at 7pm.
 Adds a scheduled task “Charlie Puth concert” on 15th October at 6pm.
 
 >Tasks with date and time specified will be added to WhatNow as a schedule task and will be displayed under the heading "Schedule".<br> 
-> <img src="images/UI_Prototype/WhatNowUI-AddSchedule.png" width="600">
+> <img src="images/UI_Prototype/WhatNowUI-AddSchedule-Colour.png" width="600">
 
 >Tasks without date and time specified will be added to WhatNow as a todo task and will be<br> displayed under the heading "Todo Tasks".
-> <img src="images/UI_Prototype/WhatNowUI-AddTodo.png" width="600">
+> <img src="images/UI_Prototype/WhatNowUI-AddTodo-Colour.png" width="600">
 
 
-#### Listing all task type, date, time and priority : `list`
+#### Listing all tasks: `list`
 Shows a list of all tasks that match task type, date, time and priority requested by user.<br>
-Format: `list [time/priority/date] KEYWORD`
+Format: `list [date/time/priority] KEYWORD`
+
+> Shows a list of all tasks that match the keyword for the task type, date, time and priority requested by user.
 
 Examples: 
 * `list`<br>
@@ -90,7 +101,8 @@ Returns a list of all tasks scheduled at 6pm. <br>
 * `list date 3 Nov`<br>
 Returns a list of all tasks scheduled for 3 November of the current year. <br>
 
->If you want to view any of the Todo tasks, Scheduled tasks or Completed tasks only, then you only need to type in “todo”, “schedule” or “completed” as the keyword after the word list.
+>If you want to view any of the Todo tasks, Scheduled tasks or Completed tasks only, then you only need to type in “todo”, “schedule” or “completed” as the keyword after the command list. <br>
+> <img src="images/UI_Prototype/WhatNowUI-ListCompleted-Colour.png" width="600">
 
 
 #### Deleting a task : `delete`
@@ -102,21 +114,19 @@ Format: `delete INDEX`
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `list`<br>
-  `delete 4`<br>
+* `delete 4`<br>
   Deletes the 4th task from the displayed list in WhatNow. <br>
-  > <img src="images/UI_Prototype/WhatNowUI-DeleteTodo.png" width="600">
-* `list todo`<br>
-  `delete 2`<br>
+  > <img src="images/UI_Prototype/WhatNowUI-DeleteTodo-Colour.png" width="600">
+* `delete 2`<br>
   Deletes the 2nd todo task from the displayed list in WhatNow. <br>
-> <img src="images/UI_Prototype/WhatNowUI-DeleteSchedule.png" width="600">  <br>
+> <img src="images/UI_Prototype/WhatNowUI-DeleteSchedule-Colour.png" width="600">  <br>
 
 
 #### Updating a task : `update`
 Updates a task from the list displayed<br>
-Format: `update todo/schedule INDEX description/date/start time/end time/status/priority  NEW_VALUE`
+Format: `update todo/schedule INDEX description/date/start/end/status/priority  NEW_VALUE`
 
-> Updates the description/date/start/end/time/status/priority of the task at the specified `INDEX` from todo tasks or schedule as specified. 
+> Updates the description/date/start/end/status/priority of the task at the specified `INDEX` from todo tasks or schedule as specified. 
   The index refers to the index number shown in the current listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
@@ -127,7 +137,7 @@ Examples:
    Selects the 4th todo task from the displayed list and changes the type of task from todo to scheduled. 
 * `update schedule 5 time 8:30pm`<br>
    Selects the 5th schedule task from the displayed list and changes the time to 8:30pm. <br>
-> <img src="images/UI_Prototype/WhatNowUI-UpdateSchedule.png" width="600"> 
+> <img src="images/UI_Prototype/WhatNowUI-UpdateSchedule-Colour.png" width="600"> 
 
 
 #### Undoing the previous action : `undo`
@@ -137,7 +147,7 @@ Format: `undo`
 Examples: 
 * `undo`<br>
    Undo the previous action <br>
-> <img src="images/UI_Prototype/WhatNowUI-Undo.png" width="600">
+> <img src="images/UI_Prototype/WhatNowUI-Undo-Colour.png" width="600">
 
 
 #### Redoing the previous action : `redo`
@@ -147,7 +157,7 @@ Format: `redo`
 Examples: 
 * `redo`<br>
    Redo the previous action <br>
-> <img src="images/UI_Prototype/WhatNowUI-Redo.png" width="600">
+> <img src="images/UI_Prototype/WhatNowUI-Redo-Colour.png" width="600">
 
 
 #### Finding tasks containing any keyword in their description: `find`
@@ -168,7 +178,7 @@ Examples:
   Returns any tasks having the description `Read`, `books`, `lecture` or `notes`.
 * `find CS3235`<br>
   Returns any tasks having the description `CS3235`. <br>
-> <img src="images/UI_Prototype/WhatNowUI-Find.png" width="600">
+> <img src="images/UI_Prototype/WhatNowUI-Find-Colour.png" width="600">
 
 
 #### Viewing help : `help`
@@ -176,7 +186,7 @@ Displays a list of all commands.
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd` <br>
-> <img src="images/UI_Prototype/WhatNowUI-Help.png" width="600">
+> <img src="images/UI_Prototype/WhatNowUI-Help-Colour.png" width="600">
 
 
 #### Saving the data 
@@ -212,4 +222,3 @@ List | `list [time/priority/date] KEYWORD`
 Redo | `redo`
 Update | `update todo/schedule INDEX [description/date/start time/end time/status/priority]  NEW_VALUE`
 Undo | `undo`
-
