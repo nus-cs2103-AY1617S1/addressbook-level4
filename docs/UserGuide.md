@@ -5,6 +5,14 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+## Introduction
+
+Do you feel bombarded with 'things to do' continuously? Do you keep forgetting stuff to do?
+Fear not, for you now have RubyTask! 
+A Getting Things Done (GTD) Tool created by TeamRuby, to help YOU get things done!
+Benefits of RubyTask: Command Line Interface, One-shot Approach, Internet-independent!
+
+
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
