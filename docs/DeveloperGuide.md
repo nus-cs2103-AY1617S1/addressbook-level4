@@ -87,6 +87,33 @@ Use case resumes at step 2.
 Repeat 1b1 - 1b2 until the user inputs a valid format for the Task.
 Use case resumes at step 2.
 
+#### Use Case : List
+
+**MSS**
+1. User enters list command followed by the addition filters of the listing.
+Use case ends.
+
+**Extensions**
+1a. The filter input by the User is not valid.
+	1a1. System prints out error message and requests for another input.
+Repeat step 1a1 until user inputs a valid filter for the list command.
+
+1b. User wishes the Task Manager to list all the tasks.
+	1b1. Task Manager shows a list of all the Tasks in the Task Manager.
+
+1c. User wishes the Task Manager to list only Tasks which has a time interval.
+	1c1. Task Manager shows a list of all the Tasks in the Task Manager with a time interval.
+
+1d. User wishes the Task Manager to list only Tasks which does not have a time interval.
+	1d1. Task Manager shows a list of all the Tasks in the Task Manager without a time interval.
+
+1e. User wishes the Task Manager to list all Tasks of a specified date.
+	1e1. Task Manager shows a list of all the Tasks in the Task Manager which has a deadline of the specified date.
+
+1f. User wishes the Task Manager to list all Tasks within a specified range of dates.
+	1f1. Task Manager shows a list of all the Tasks in the Task Manager which has deadlines that fall between the specified range of dates.
+
+
 #### Use Case: Find
 
 **MSS**
