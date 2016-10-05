@@ -14,7 +14,7 @@
 1. Download the latest `taskman.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your TaskMan.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
-   > <img src="images/Ui.png" width="600">
+   > <img src="images/ui_mockup1.png">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -56,6 +56,7 @@ Parameter | Format
 Examples:
 * `add CS2103T Tutorial d/wed 9.59am start/tue 11.59pm end/wed 4am`
 * `add CS2101 Tutorial d/next mon 11.59am start/sun 2am end/sun 6am t/CS2101 t/V0.0`
+* `add Take a shower d/thu 12am start/thu 12am end/12.30am r/1d t/Life`
 
 #### Listing all tasks: `list`
 Shows a list of all tasks in TaskMan.<br>
@@ -171,7 +172,7 @@ Examples:
 Sorts the recent listing of tasks according to the specified attribute. Default sort order is ascending.<br>
 Command Format: `sort ATTRIBUTE` [desc]
 
-`ATTRIBUTE` can be either deadline, start, end or title.
+`ATTRIBUTE` can be either `TITLE`, `DEADLINE`, `START`, or `END`.
 
 Examples:
 * sort start desc
@@ -193,9 +194,11 @@ Examples:
 * `undo all`<br>
   Undo the latest 10 commands in Taskman.
 
+<!--
 #### Clearing all entries: `clear`
 Clears all entries from TaskMan.<br>
 Command Format: `clear`
+-->
 
 #### Exiting the program: `exit`
 Exits the program.<br>
@@ -205,7 +208,7 @@ Command Format: `exit`
 TaskMan data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
-#### Setting the save and load location: `sotrageloc`
+#### Setting the save and load location: `storageloc`
 Saves to the specified file name and location and sets the application to load from the specified location in the future.<br>
 TaskMan data are saved in a file called tasks.txt in the application folder by default.<br>
 The filename **must end in .txt**.<br>
@@ -219,15 +222,18 @@ Examples:
 
 #### Saved data file format
 Each Task is separated by newline.<br>
-`TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`<br>
-* DEADLINE/DATETIME: 'DD-MM-YYYY TTTT'
-* FREQUENCY: 'Xd'
-* STATUS: '{y/n}'
+`TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`
+
+Parameter | Format
+-------- | :-------- 
+`DEADLINE` and `DATETIME` | `[next] ddd [hh[.mm]am/pm]`
+`STATUS` | `y/n` where y denotes complete and n denotes incomplete
+`FREQUENCY` | `X[d/w/m/y]` where X is a natural number, d is day, m is month, and y is year.
 
 #### Adding tasks manually to data file
-Format:
-`TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`<br>
-Format of each field should follow that of add command.<br>
+Format: `TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`<br>
+
+Format of each field should follow that of the `add` command.<br>
 
 ## FAQ
 
