@@ -8,18 +8,18 @@
 
 
 ##	About the Task Manager
-	This product is meant to address the concerns of users who wish to schedule their tasks using a simple and 	easy command-line interface.
+This product is meant to address the concerns of users who wish to schedule their tasks using a simple and 	easy command-line interface.
 
 ## Starting the program
 
 **Installation**
-1. Make  sure you have Java version e1.8.0_60f or later installed in your computer.
-2. Download the latest einsert filename heref from the [releases][../../../releases] tab.
+1. Make  sure you have Java version `1.8.0_60` or later installed in your computer.
+2. Download the latest Practical Task Manager from the [releases][../../../releases] tab.
 3. Copy the file to a suitable location on your computer. This location will serve as the home folder for the 	Task Manager.
 **Running the program**
 1. Double-click the file to start the application. The user interface below should appear in a few seconds.
  ><img src=himages/Ui.pngh width=h600h>
-2. Type a command in the command box and press <kbd>enter<kbd> to execute it. Depending on the command, the 	Task Manager will respond by displaying a message in the console window.
+2. Type a command in the command box and press <kbd>enter</kbd> to execute it. Depending on the command, the 	Task Manager will respond by displaying a message in the console window.
 3. Refer to the Features section below for details of each command.
 
 
@@ -131,8 +131,6 @@ Format: `exit`
 #### Saving the data 
 Task Manager data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
-
-#### Changing the save location
 
 ## FAQ
 
