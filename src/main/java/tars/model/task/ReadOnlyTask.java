@@ -18,8 +18,8 @@ public interface ReadOnlyTask {
 
     Name getName();
     DateTime getDateTime();
-    Status getStatus();
     Priority getPriority();
+    Status getStatus();
     
 
     /**
@@ -34,10 +34,10 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())); // state checks here onwards
-//                && other.getPhone().equals(this.getPhone())
-//                && other.getEmail().equals(this.getEmail())
-//                && other.getAddress().equals(this.getAddress()));
+                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getDateTime().equals(this.getDateTime())
+                && other.getPriority().equals(this.getPriority())
+                && other.getStatus().equals(this.getStatus()));
     }
 
     /**
