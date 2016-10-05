@@ -1,14 +1,14 @@
 package seedu.ggist.commons.events.model;
 
 import seedu.ggist.commons.events.BaseEvent;
-import seedu.ggist.model.ReadOnlyAddressBook;
+import seedu.ggist.model.ReadOnlyTaskManager;
 
-/** Indicates the AddressBook in the model has changed*/
+/** Indicates the TaskManager in the model has changed*/
 public class AddressBookChangedEvent extends BaseEvent {
 
-    public final ReadOnlyAddressBook data;
+    public final ReadOnlyTaskManager data;
 
-    public AddressBookChangedEvent(ReadOnlyAddressBook data){
+    public AddressBookChangedEvent(ReadOnlyTaskManager data){
         this.data = data;
     }
 

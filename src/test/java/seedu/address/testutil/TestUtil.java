@@ -16,7 +16,7 @@ import seedu.address.TestApp;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.FileUtil;
 import seedu.ggist.commons.util.XmlUtil;
-import seedu.ggist.model.AddressBook;
+import seedu.ggist.model.TaskManager;
 import seedu.ggist.model.tag.Tag;
 import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;
@@ -134,8 +134,8 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+    public static TaskManager generateEmptyAddressBook() {
+        return new TaskManager(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {

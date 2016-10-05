@@ -1,35 +1,35 @@
 package seedu.address.testutil;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.model.AddressBook;
+import seedu.ggist.model.TaskManager;
 import seedu.ggist.model.tag.Tag;
 import seedu.ggist.model.task.Task;
-import seedu.ggist.model.task.UniquePersonList;
+import seedu.ggist.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code TaskManager ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private TaskManager taskManager;
 
-    public AddressBookBuilder(AddressBook addressBook){
-        this.addressBook = addressBook;
+    public AddressBookBuilder(TaskManager taskManager){
+        this.taskManager = taskManager;
     }
 
-    public AddressBookBuilder withPerson(Task person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public AddressBookBuilder withPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
+        taskManager.addPerson(person);
         return this;
     }
 
     public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+        taskManager.addTag(new Tag(tagName));
         return this;
     }
 
-    public AddressBook build(){
-        return addressBook;
+    public TaskManager build(){
+        return taskManager;
     }
 }

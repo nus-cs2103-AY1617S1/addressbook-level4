@@ -6,7 +6,7 @@ import seedu.address.testutil.TestUtil;
 import seedu.ggist.MainApp;
 import seedu.ggist.commons.core.Config;
 import seedu.ggist.commons.core.GuiSettings;
-import seedu.ggist.model.ReadOnlyAddressBook;
+import seedu.ggist.model.ReadOnlyTaskManager;
 import seedu.ggist.model.UserPrefs;
 import seedu.ggist.storage.XmlSerializableAddressBook;
 
@@ -22,13 +22,13 @@ public class TestApp extends MainApp {
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyTaskManager> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyTaskManager> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;

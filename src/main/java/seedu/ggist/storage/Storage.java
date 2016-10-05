@@ -7,7 +7,7 @@ import java.util.Optional;
 import seedu.ggist.commons.events.model.AddressBookChangedEvent;
 import seedu.ggist.commons.events.storage.DataSavingExceptionEvent;
 import seedu.ggist.commons.exceptions.DataConversionException;
-import seedu.ggist.model.ReadOnlyAddressBook;
+import seedu.ggist.model.ReadOnlyTaskManager;
 import seedu.ggist.model.UserPrefs;
 
 /**
@@ -25,10 +25,10 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     String getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskManager> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyTaskManager addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

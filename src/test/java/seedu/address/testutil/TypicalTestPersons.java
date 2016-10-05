@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.model.AddressBook;
+import seedu.ggist.model.TaskManager;
 import seedu.ggist.model.task.*;
 
 /**
@@ -34,7 +34,7 @@ public class TypicalTestPersons {
         }
     }
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static void loadAddressBookWithSampleData(TaskManager ab) {
 
         try {
             ab.addPerson(new Task(alice));
@@ -44,7 +44,7 @@ public class TypicalTestPersons {
             ab.addPerson(new Task(elle));
             ab.addPerson(new Task(fiona));
             ab.addPerson(new Task(george));
-        } catch (UniquePersonList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicatePersonException e) {
             assert false : "not possible";
         }
     }
@@ -53,8 +53,8 @@ public class TypicalTestPersons {
         return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
+    public TaskManager getTypicalAddressBook(){
+        TaskManager ab = new TaskManager();
         loadAddressBookWithSampleData(ab);
         return ab;
     }
