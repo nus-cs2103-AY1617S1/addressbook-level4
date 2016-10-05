@@ -49,9 +49,18 @@ Examples:
 * `add Dinner, 1900, 10/10/16,t Date`
 * `do CS2010 PS10, 1000, 11/10/16,t Assignment`
 
-#### Listing all tasks : `list`
+#### Listing all tasks in current tab: `list`
 Shows a list of all tasks in the To Do List.<br>
 Format: `list`
+Format: `list TAB_NAME`
+
+> TAB_NAME includes: <br>
+> 1. Home <br>
+> 2. Tasks <br>
+> 3. Events <br>
+> 4. Datelines <br>
+> 5. Archive <br>
+
 
 #### Finding all tasks containing any keyword in their description: `find`
 Finds tasks whose description contain any of the given keywords.<br>
@@ -122,6 +131,8 @@ Add | `add TASK, TIME, DATE,t TAG...`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
+List | `list TAB_NAME`
 Help | `help`
 Edit | `edit INDEX DETAILS`
+Mark | `mark INDEX`
+Relocate | `relocate FILE_PATH`
