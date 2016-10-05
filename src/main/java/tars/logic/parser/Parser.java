@@ -36,10 +36,9 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<datetime>(-dt ([01]\\d|2[0-3])?[0-5]\\d (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4})"
-                    + "|(-dt ([01]\\d|2[0-3])?[0-5]\\d (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} "
-                    + "to ([01]\\d|2[0-3])?[0-5]\\d (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4})) "
+            Pattern.compile("(?<name>[^/]+) (?<datetime>(-dt (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} ([01]\\d|2[0-3])?[0-5]\\d)"
+                    + "|(-dt (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} ([01]\\d|2[0-3])?[0-5]\\d "
+                    + "to (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} ([01]\\d|2[0-3])?[0-5]\\d)) "
                     + "(?<priority>-p [hml])" 
                     + "(?<tagArguments>(?: -t [^/]+)*)"); // variable number of tags
 
