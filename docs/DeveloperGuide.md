@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -267,67 +267,349 @@ b. Require developers to download those libraries manually (this creates extra w
 
 ## Appendix A : User Stories
 
-Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
+All user stories are likely to be implemented unless specified otherwise.
+* **[Epic]** As a **user**, I want to **get information about the commands**.
+	* As a **user**, I want to **list out all possible commands** so that **I know what are all the possible commands**.
+	* As a **user**, I want to **get specific information about each command** so that **I know how to use each command correctly**.
+* **[Epic]** As a **user**, I want to **add to-do items**.
+	* As a **user**, I want to **add tasks without specific date or times**.
+	* As a **user**, I want to **add tasks that have to be completed before a certain date** so that **I can keep track of my deadlines**.
+	* As a **user**, I want to **add events with start and end dates** so that **I can keep track of my event dates**.
+* **[Epic]** As a **user**, I want to **view a list of my existing to-do items**.
+	* As a **user**, I want to **view a list of my to-do items in chronological order by their date and times** so that **I can easily identify which items are more urgent**.
+	* As a **user**, I want to **view a list of to-do items that are not done**.
+	* As a **user**, I want to **view a list of to-do items that are done**.
+	* As a **user**, I want to **view a list of to-do items filtered by whether they are done, pending or overdue** so that **it is easier to keep track of my tasks and their respective statuses**. [Unlikely]
+* **[Epic]** As a **user**, I want to **edit my existing to-do items**.
+	* As a **user**, I want to **edit my existing to-do items directly** so that **I do not have to delete and add the to-do item again to modify it**.
+	* As a **user**, I want to **mark todo items as done** so that **I can indicate that the task has been completed**.
+* **[Epic]** As a **user**, I want to **delete to-do items**.
+	* As a **user**, I want to **delete a specific to-do item**.
+	* As a **user**, I want to **delete multiple to-do items at one go** so that **I can quickly delete a few wrongly added items** [Unlikely]
+* **[Epic]** As a **user**, I want to **undo my commands**.
+	* As a **user**, I want to **undo my most recent command** so that **I can revert the most recent command if it was wrongly issued**.
+	* As a **user**, I want to **redo my most recently undid command** so that I can revert the last undo command if it was wrongly issued. [Unlikely]
+	* As a **user**, I want to **undo any commands issued for the current session** so that **I can revert any wrongly issued commands from the current session.** [Unlikely]
+* As a **user**, I want to **find an item by searching for some keywords from the item description** so that **I can easily find my to-do items by just knowing the description**.
 
 
-Priority | As a ... | I want to ... | So that I can...
--------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+* As a **user**, I want to **specify a specific folder as the data storage location** so that **I can save the data file into any directory I want**.
 
-{More to be added}
+
+* As a **user**, I want to **assign tags to my tasks so as to categorize or label them**. [Unlikely]
+
+
+* As a **user**, I want to **manage my recurring tasks**. [Unlikely]
+
+
+* As a **user**, I want to **set reminders for my tasks**. [Unlikely]
+
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `To-do Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: [UC01] Add Task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+1. User enters command to add a new task.
+2. System adds new task. <br/>
+Use Case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. Incorrect command format.
 
-> Use case ends
+> 1ai. System displays an error message. <br/>
+	Use Case ends.
 
-3a. The given index is invalid
+#### Use case: [UC02] Edit Task
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+**Preconditions**
 
-{More to be added}
+Task exists in system
+
+**MSS**
+
+1. User enters command to edit a task.
+2. System edits task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+ 	Use Case ends.
+
+#### Use case: [UC03] Remove Single Task
+
+**Preconditions**
+
+Task exists in system
+
+**MSS**
+
+1. User enters command to remove a task.
+2. System edits task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+ 	Use Case ends.
+
+#### Use case: [UC04] Remove All Tasks
+
+**MSS**
+
+1. User enters command to remove all tasks.
+2. System requests to confirm command. 
+3. User confirms request. 
+4. System removes all tasks. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. There are no pending tasks.
+
+> 1ai. System displays "No Pending Tasks" message. <br>
+	Use Case ends.
+
+3a. User cancels request.
+
+> Use Case ends.
+
+#### Use case: [UC05] Mark Task as Done
+
+**Preconditions**
+
+Task exists in system and is of "Pending" status.
+
+**MSS**
+
+1. User enters command to mark task as done.
+2. System marks tasks as done. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+ 	Use Case ends.
+    
+
+#### Use case: [UC06] Find Task
+
+**Preconditions**
+
+Task exists in system.
+
+**MSS**
+
+1. User enters command to find a task.
+2. System displays tasks corresponding to search query. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. No tasks matches search query.
+
+> Use Case ends.
+
+#### Use case: [UC07] Undo Command
+
+**MSS**
+
+1. User enters undo command.
+2. System undo previous command. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. No commands to undo.
+
+> 1ai. System displays "Nothing to Undo" message. <br>
+	Use Case ends.
+
+#### Use case: [UC08] View Help
+
+**MSS**
+
+1. User enters help command.
+2. System displays list of commands available. <br/>
+Use Case ends.
+	
+#### Use case: [UC09] Change Storage File Location
+
+**MSS**
+
+1. User requests to change file directory.
+2. System requests for confirmation.
+3. User confirms request.
+4. User chooses file directory.
+5. System updates file directory. <br/>
+Use Case ends.
+
+**Extensions**
+
+3a. User cancels request.
+
+> Use Case ends.
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+1. Should work on Windows 7 or later.
+2. Should work on a desktop without network/Internet connection.
+3. Should have minimal mouse-click actions.
+4. Should work stand-alone, not as a plugin to another software.
+5. Should store data locally into a human editable file.
+6. Should work without requiring an installer. 
+7. Should be able to hold up to 1000 todo items.
+8. Should come with automated unit tests and open source code.
+9. Should display command results within 100 millisecond.
+10. Should favor DOS style commands over Unix-style commands.
 
-{More to be added}
 
 ## Appendix D : Glossary
 
-##### Mainstream OS
+##### "Completed" Task
 
-> Windows, Linux, Unix, OS-X
+> A task that has been marked as done.
 
-##### Private contact detail
+##### Deadline
 
-> A contact detail that is not meant to be shared with others
+> A task that has to be completed before a certain date or time.
+
+##### Event
+
+> A task that occurs over a period of time.
+
+##### Floating Task
+
+> A stand-alone task that does not need to be completed by a certain date or time.
+
+##### Human-Editable File
+
+> A file that can be easily read and edited by a human. For example: `.txt`
+
+##### "Overdue" Task
+
+> A task which has not been completed within the expected time.
+
+##### "Pending" Task
+
+> A task that has yet to be completed.
+
+##### Storage File Location
+
+> The directory in a computer where the application stores the data of to-do items.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+The team has done a survey on existing products and analysed the strengths and weaknesses with respect to how well it can cater to our target audience.<br><br>
+
+**Product #1: Wunderlist**<br>
+Strengths:
+
+1. Supports adding of floating tasks and deadlines → One-shot approach for Jim (floating tasks)
+2. Supports editing and deleting of existing tasks → Jim is able to reschedule and discard todo items that cannot be completed
+3. Supports adding of deadlines and reminders → Reminder available for Jim whenever a deadline is approaching
+4. Supports searching and sorting of todo items → Ease of finding specific todo items
+5. Application displays todo items in a user-friendly manner
+6. Application is able to work offline → Jim doesn’t have to depend on internet access
+7. Able to create lists for specific todo items [Not sure if it’s required in Jim’s workflow]
+8. Able to set todo items on repeat (for routine purposes) [Not sure if it’s required in Jim’s workflow]
+
+Weakness:
+
+1. Doesn’t work with timeslots → Can’t work for events
+2. No categorisation of todo types (Events, Deadlines, Floating Tasks)
+3. Aside from entering floating tasks, everything else requires a few clicks to perform respective functions → Doesn’t fulfill Jim’s one-shot approach
+4. No “Undo” option → Once todo item created, need to manually edit/delete item
+5. Doesn’t store data into local storage files. Links with user account (online) instead → Online access still required if Jim works with different computers
+
+<br>
+
+**Product #2: Google Keep**<br>
+Strengths:
+
+1. Supports adding of checklist items → allows Jim to mark as done
+2. Supports time-based reminders → allows Jim to schedule reminders for his tasks deadlines.
+3. Supports searching of todo items by description and types → allows Jim to find a todo-item quickly
+4. Todo items are listed in a user-friendly manner → allows Jim to periodically review his todo items.
+5. Application still works without internet access → Allows Jim to access it even without internet connectivity.
+
+Weakness:
+
+1. Requires a few clicks to add a tasks followed by setting reminders → Does not cater to Jim’s one-shot preference.
+2. Only supports reminders, does not allow Jim to block out slots for items without specific times.
+3. Not calendar-centric → does not allow Jim to schedule tasks with specific start and end dates.
+
+<br>
+
+**Product #3: Todoist**<br>
+Strengths:
+
+1. Supports adding of tasks that can be marked as ‘done’ → allows Jim to mark completed tasks as done.
+2. Supports searching of tasks by its name and project → allows Jim to quickly find a task.
+3. Adding of task is done in a one-shot manner → allows Jim to avoid taking several clicks to add a task.
+4. Application can still work offline and only starts syncing with other devices when there is internet connection → Jim can access the application even without internet connectivity.
+5. Application has a desktop version → allows Jim to access the application quickly.
+6. Supports adding of tasks with no specific time tagged to it → allows Jim to add tasks that do not require a specific time to be completed.
+7. Allows easy and straightforward postponement of tasks → Jim can easily postpone tasks should the need arise
+
+
+Weakness:
+
+1. Does not allow for block scheduling of tasks (e.g. can only schedule tasks at 3pm and not 3 - 5pm) → Jim cannot schedule tasks in block timings.
+2. No easy way to look for a suitable slot to schedule an item → Jim has to go through all existing tasks to look for an empty slot to schedule a new task.
+3. Unable to block multiple slots for tasks with unconfirmed timings → hard for Jim to schedule tasks with unconfirmed timings.
+4. Data is synced with the cloud only when there is internet connectivity → Jim will have to require internet connectivity if he wants to use the application with all his existing tasks on another computer.
+
+<br>
+
+**Product #4: SolCalendar**<br>
+Strengths:
+
+1. Tasks can be marked as complete
+2. Appointments and tasks can be searched by their names → Allows Jim to quickly search for items in his schedule
+3. Application can still work offline → Jim can access the application even without internet connectivity
+4. Tasks can be added (without any due date)
+5. Allows easy and straightforward postponement of tasks → Jim can easily postpone tasks should the need arise
+6. Supports time-based reminders → Jim can schedule reminders for his deadlines
+7. To-do items are listed in a user-friendly manner → Jim can periodically review his to-do list
+8. Supports the editing and deleting of existing tasks → Jim is able to reschedule and remove any tasks
+9. Able to set todo items on repeat (for routine purposes)
+
+
+Weakness:
+
+1. Requires two clicks to add a task with its respective settings → Does not cater to Jim’s one-shot preference
+2. There is no undo option → A task has to be manually deleted upon creation
+3. It does not allow JIm to block out specific time slots (without full information)
 
