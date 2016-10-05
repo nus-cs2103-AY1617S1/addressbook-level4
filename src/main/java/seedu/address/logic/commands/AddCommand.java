@@ -13,15 +13,21 @@ import java.util.Set;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "Add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a to-do task to Simply. "
+            + "Parameters: Task details "
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " go swimming.\n" + COMMAND_WORD + ": Adds a deadline task to Simply. "
+            + "Parameters: Task details, date, end time "
+            + "Example: " + COMMAND_WORD
+            + " report, 120516, 1200.\n" + COMMAND_WORD + ": Adds a event task to Simply. "
+            + "Parameters: [Task details, date, start time, end time] "
+            + "Example:" + COMMAND_WORD
+            + " [siloso beach party, 120716, 1600, 2200]";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in Simply";
 
     private final Person toAdd;
 
