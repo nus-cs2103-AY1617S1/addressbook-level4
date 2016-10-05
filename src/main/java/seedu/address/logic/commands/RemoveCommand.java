@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.model.person.UniquePersonList.TaskNotFoundException;
+import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.

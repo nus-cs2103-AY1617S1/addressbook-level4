@@ -8,8 +8,8 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.TaskNotFoundException;
+import seedu.address.model.person.UniqueTaskList;
+import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -71,7 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task person) throws UniquePersonList.DuplicateTaskException {
+    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicateTaskException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
