@@ -68,8 +68,8 @@ Lists all the tasks in Lifekeeper
 * `list categories`
 List all the categories that have been created by the user in Lifekeeper
 
-#### Finding tasks by name, tag(s) or the range of due dates: `find`
-Finding all tasks containing any keyword in their name
+#### Finding tasks by name: `find`
+Finds and returns all tasks containing any keyword in their name
 * Finds tasks whose names contain any of the given keywords.<br>
 * Format: `find tasks KEYWORD [MORE_KEYWORDS]`
 
@@ -82,28 +82,6 @@ Finding all tasks containing any keyword in their name
 Examples: 
 * `find tasks Homework Assignment`<br>
   Returns Any tasks with words containing `Homework`, `homework`, `Assignment`, or `assignment` in their names.
-
-Finding all tasks containing a certain tag
-* Finds tasks which has tags of given keywords attached to it.<br>
-* Format: `find tags KEYWORD [MORE_KEYWORDS]`
-
-> * The search is not case sensitive. 
-> * Only full words will be matched.
-> * Only tags matching the EXACT keyword will be returned.
-
-Examples:
-* `find tags CS2103`<br>
-  Returns Any tasks containing the tag `CS2103` or `cs2103` but not `CS2103T` or `CS2103 Project`.
-
-Finding all tasks which has deadlines falling within certain dates
-* Finds tasks which has due dates falling between the specified range.<br>
-* Format: `find dates STARTING_DATE ENDING_DATE`
-
-> Date must be in the form `d MMM yyyy` or `d/MM/yyyy`
-
-Examples:
-`find dates 1 Oct 2016 31 Oct 2016`
-  Returns Any tasks which has due dates falling in between 1st October 2016 and 31st October 2016.
 
 #### Deleting a task: `delete`
 Deletes the selected task from Lifekeeper. Irreversible.<br>
