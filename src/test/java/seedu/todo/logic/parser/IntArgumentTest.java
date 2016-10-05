@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.logic.parser.Argument;
-import seedu.todo.logic.parser.IntArgument;
+import seedu.todo.logic.arguments.Argument;
+import seedu.todo.logic.arguments.IntArgument;
 
 public class IntArgumentTest {
     private Argument<Integer> argument;

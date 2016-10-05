@@ -1,4 +1,4 @@
-package seedu.todo.logic.parser;
+package seedu.todo.logic.arguments;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 

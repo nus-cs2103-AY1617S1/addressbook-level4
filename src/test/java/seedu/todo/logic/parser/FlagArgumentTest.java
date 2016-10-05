@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.logic.arguments.Argument;
+import seedu.todo.logic.arguments.FlagArgument;
 
 public class FlagArgumentTest {
     

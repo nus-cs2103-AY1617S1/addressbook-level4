@@ -1,9 +1,9 @@
 package seedu.todo.logic.commands;
 
-import seedu.todo.logic.parser.Parameter;
-import seedu.todo.logic.parser.Argument;
-import seedu.todo.logic.parser.FlagArgument;
-import seedu.todo.logic.parser.StringArgument;
+import seedu.todo.logic.arguments.Argument;
+import seedu.todo.logic.arguments.FlagArgument;
+import seedu.todo.logic.arguments.Parameter;
+import seedu.todo.logic.arguments.StringArgument;
 
 public class AddTodoCommand extends BaseCommand {
     

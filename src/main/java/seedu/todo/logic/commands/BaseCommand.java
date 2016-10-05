@@ -3,7 +3,7 @@ package seedu.todo.logic.commands;
 import java.util.Map.Entry;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.logic.parser.Parameter;
+import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.parser.ParseResult;
 
 public abstract class BaseCommand {

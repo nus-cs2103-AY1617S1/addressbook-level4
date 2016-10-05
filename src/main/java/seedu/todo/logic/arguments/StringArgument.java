@@ -1,22 +1,21 @@
-package seedu.todo.logic.parser;
+package seedu.todo.logic.arguments;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 
-public class FlagArgument extends Argument<Boolean> {
+public class StringArgument extends Argument<String> {
 
-    public FlagArgument(String name) {
+    public StringArgument(String name) {
         super(name);
-        this.value = false;
     }
-
-    public FlagArgument(String name, boolean defaultValue) {
+    
+    public StringArgument(String name, String defaultValue) {
         super(name, defaultValue);
     }
 
     @Override
     public void setValue(String input) throws IllegalValueException {
-        this.value = true;
+        this.value = input;
         super.setValue(input);
     }
-    
+
 }
