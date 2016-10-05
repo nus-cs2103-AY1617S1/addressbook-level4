@@ -314,8 +314,8 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+    public void execute_find_emptyArgsFormat() throws Exception {
+        String expectedMessage = FindCommand.MESSAGE_SUCCESS;
         assertCommandBehavior("find ", expectedMessage);
     }
 
