@@ -23,10 +23,6 @@ on the interface. The keyboard is his main tool.
 
 Jim wants to be able to work offline, and be able to follow the [Inbox Zero](http://whatis.techtarget.com/definition/inbox-zero)
 workflow.
-
-Jim is smart.
-
-Be like Jim.
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
