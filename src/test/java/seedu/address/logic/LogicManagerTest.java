@@ -150,21 +150,21 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "todo wrong args wrong args p/123", expectedMessage);
+                "add wrong args wrong args p/123", expectedMessage);
         assertCommandBehavior(
-                "todo Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "todo Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "todo Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "todo []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "todo Valid Name t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -404,7 +404,7 @@ public class LogicManagerTest {
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("todo ");
+            cmd.append("add ");
 
             cmd.append(p.getName().toString());
 
