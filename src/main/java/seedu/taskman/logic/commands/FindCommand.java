@@ -14,6 +14,8 @@ public class FindCommand extends Command {
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
+    
+    public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
     private final Set<String> keywords;
 
@@ -23,8 +25,13 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+        if (keywords.isEmpty()) {
+            model.updateFilteredListToShowAll();
+            return new CommandResult(MESSAGE_SUCCESS);
+        } else {
+            model.updateFilteredTaskList(keywords);
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+        }
     }
 
 }
