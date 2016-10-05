@@ -316,46 +316,7 @@ Use case ends.
 -------- | :-------- | :--------- | :-----------
 `Platforms` | All platforms | iOS, Android, Google Chrome | iPhone, iPad, Android, Windows, Kindle, Web
 `Price` | Free / Premium ($28.99/year) | Free / Premium ($45/year or $5 per month) | Free / Pro ($59.88/year)
-`Pros` | Good user interface
-
-Fastest task manager app
-
-Works offline
-
-Can set priorities by choosing from 1 to 4.
-Can drag and drop tasks
-
-Can create a “Project” with emojis in its name 
-
-Supports text formatting| Minimalistic design
-
-Can “Star” a task to mark it as high priority
-
-Runs at high speed
-
-Has in-built speech recognition
-Can drag and drop tasks
-
-Can swipe a task to the right to mark it as complete
-
-Can swipe a completed task to the left to add it again to the list.
-
-Can attach files from your Dropbox and Google Drive  | Simple-to-use 
-
-Can “Star” a task to set a priority to a task
-
-#Hashtags feature
-
-Can add comments and attachments 
-Supports email reminder
-
-Powerful search function
-
-Can restore deleted lists.
-
-Can manually create backups and import data from your backups.
-
-Can attach files from your Dropbox.
+`Pros` | Good user interface<br>Fastest task manager app Works offline<br> Can set priorities by choosing from 1 to 4. <br>Can drag and drop tasks <br>Can create a “Project” with emojis in its name  Supports text formatting| Minimalistic design Can “Star” a task to mark it as high priority Runs at high speed Has in-built speech recognition <br>Can drag and drop tasks <br>Can swipe a task to the right to mark it as complete<br> Can swipe a completed task to the left to add it again to the list. <br>Can attach files from your Dropbox and Google Drive  | Simple-to-use <br>Can “Star” a task to set a priority to a task Hashtags feature<br> Can add comments and attachments Supports email reminder Powerful search function Can restore deleted lists. <br>Can manually create backups and import data from your backups.<br> Can attach files from your Dropbox.
 `Cons` | user | find a person by name | locate details of persons without having to go through the entire list
 `* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
 `*` | user with many persons in the address book | sort persons by name | locate a person easily
