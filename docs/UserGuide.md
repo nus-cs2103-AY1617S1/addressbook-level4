@@ -72,17 +72,6 @@
     
 11. Exiting Program: ` exit ` 
 
-## User Stories
-
-| As a... | I want... | So that I...  | Conditions |
-|------|--------------|------------------|------------|
-| user | to Create/View/Update/Delete tasks | - | - |
-| user | to be able to view tasks easily | can focus on tasks | good user interface that doesn't clutter tasks |
-| user | intuitive commands | don't have to remember commands | - |
-| user | to mark tasks as done | can keep track of my progress | - |
-| user | undo any mistakes I have made | don't have to worry about making irreversible moves | - |
-| user | change storage location | can store tasks in a portable device | - |
-
 ## FAQ
 Q: How do I transfer my data to another Computer?
 
