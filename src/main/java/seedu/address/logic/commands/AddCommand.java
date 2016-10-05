@@ -26,7 +26,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
 
-    private final Task toAdd;
+    private final FloatingTask toAdd;
 
     /**
      * Convenience constructor using raw values.
