@@ -34,7 +34,7 @@ public class JsonUserPrefsStorageTest {
 
     private Optional<UserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
         String prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
-        return new JsonUserPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
+        return new JsonTaskPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class JsonUserPrefsStorageTest {
     }
 
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) throws IOException {
-        new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder)).saveUserPrefs(userPrefs);
+        new JsonTaskPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder)).saveUserPrefs(userPrefs);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class JsonUserPrefsStorageTest {
         original.setGuiSettings(1200, 200, 0, 2);
 
         String pefsFilePath = testFolder.getRoot() + File.separator + "TempPrefs.json";
-        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
+        JsonTaskPrefsStorage jsonUserPrefsStorage = new JsonTaskPrefsStorage(pefsFilePath);
 
         //Try writing when the file doesn't exist
         jsonUserPrefsStorage.saveUserPrefs(original);
