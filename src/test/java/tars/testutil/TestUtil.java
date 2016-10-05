@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Phone("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
+                    new Task(new Name("Task 1"), new DateTime("01/09/2016 1400" , "02/09/2016 1400"), new Priority("h"), new Status(false), new UniqueTagList()),
+                    new Task(new Name("Task 2"), new DateTime("02/09/2016 1400", "03/09/2016 1400"), new Priority("m"), new Status(false), new UniqueTagList()),
+                    new Task(new Name("Task 3"), new DateTime("03/09/2016 1400", "04/09/2016 1400"), new Priority("l"), new Status(false), new UniqueTagList()),
+                    new Task(new Name("Task 4"), new DateTime("04/09/2016 1400", "05/09/2016 1400"), new Priority("h"), new Status(false), new UniqueTagList()),
+                    new Task(new Name("Task 5"), new DateTime("05/09/2016 1400", "06/09/2016 1400"), new Priority("m"), new Status(false), new UniqueTagList()),
+                    new Task(new Name("Task 6"), new DateTime("06/09/2016 1400", "07/09/2016 1400"), new Priority("l"), new Status(false), new UniqueTagList()),
+                    new Task(new Name("Task 7"), new DateTime("07/09/2016 1400", "08/09/2016 1400"), new Priority("h"), new Status(false), new UniqueTagList()),
+                    new Task(new Name("Task 8"), new DateTime("08/09/2016 1400", "09/09/2016 1400"), new Priority("m"), new Status(false), new UniqueTagList()),
+                    new Task(new Name("Task 9"), new DateTime("09/09/2016 1400", "10/09/2016 1400"), new Priority("l"), new Status(false), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
