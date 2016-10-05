@@ -14,3 +14,7 @@ preferences.json
 classes/
 /data/
 /bin/
+docs/images/Thumbs.db
+src/test/data/ConfigUtilTest/SomeFile.json
+src/test/data/JsonUserPrefsStorageTest/SomeFile.json
+src/test/data/XmlAddressBookStorageTest/SomeFile.xml

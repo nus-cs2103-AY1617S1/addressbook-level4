@@ -15,6 +15,7 @@ It is a task management application with a single text box for all your commands
 Coupled with short and easy to remember commands, managing your tasks has never been this easy. 
 
 Stop waiting and make “Getting Started with Taskle” the last thing on your to-do list now!
+=======
 
 ## Quick Start
 
@@ -22,7 +23,7 @@ Stop waiting and make “Getting Started with Taskle” the last thing on your to-do
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
+1. Download the latest `Taskle.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
@@ -30,11 +31,12 @@ Stop waiting and make “Getting Started with Taskle” the last thing on your to-do
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
+   * **`add`**` task_name` : Adds task_name to the to-do list
+   * **`add`**` deadline_name by date [time] [remind date time]` : Adds deadline_name to the to-do list with a deadline and an accompanying reminder
+   * **`add`**` event_name on date [time] [remind date time]` OR **`add`**` event_name from date [time] to date [time] [remind date time]` : Either adds event_name to the to-do list with either a flexible or fixed timeline and an accompanying reminder
+   * **`remove`**` task_number` : Removes the task_number contact shown in the current to-do list
+   * **`clear`**` task_number` : Clears all tasks from the application
+   * **`exit`** : exits the appplication
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
