@@ -4,49 +4,40 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Phang Chun Rong](http://github.com/Crphang) <br>
+<img src="https://lh6.googleusercontent.com/IhbJWyYzzWDielmCorRRpu5B6suRJB0SZbod5UD1g8N6fwQZFMZbGHEwLZW2n8PMXUx4_qJY9Bhpbz2ctBLKG-ty-gKQMBVzw5lYs5HKsmdtQnE2bR_jdb-90J0h3uCHZZGbKLEW" width="150"><br>
+**Role**: Project Mentor
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+#### [Ang Ray Yan](http://github.com/4rr4y)
 Role: Developer <br>  
 Responsibilities: UI
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Amanda Choy](http://github.com/amandachoy)
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: Storage
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
+#### [Lam Chi Thanh](http://github.com/zevergreenz)
 Role: Developer <br>  
-Responsibilities: Dev Ops
+Responsibilities: Model
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
+#### [Lee Han Cheng](https://github.com/landuomu)
  Role: Developer <br>  
- Responsibilities: Threading
- 
+ Responsibilities: Logic
+
  -----
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
 
-# Contributors
+## Acknowledgements
+We would like to acknowledge the [developers](https://github.com/nus-cs2103-AY1617S1/addressbook-level4/blob/master/docs/AboutUs.md) of [Address Book Level 4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4) for providing the code base for developing this application.
 
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
+## Contact Us
 
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+Bug Reports / Suggestions: Do feel free to post in our issue tracker if you noticed any bugs or have suggestions on how to improve our application.
