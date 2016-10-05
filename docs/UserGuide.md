@@ -84,25 +84,21 @@ Shows a list of all tasks in DoDo-Bird for a particular date.<br>
 Format: **`see`**`DATE`
 
 #### Searching tasks: `search task`
-Finds tasks whose names contain any of the given keywords.<br>
+Finds tasks whose names contain any of the given keywords or before/after a time.<br>
 Format: `search -n KEYWORD [MORE_KEYWORDS]`
+		`search -before DD/MM/YY[@hh:mm]`
+		`search -after DD/MM/YY[@hh:mm]`
 
 Examples:
 * `search Meeting`<br>
 * `search Meeting Professor`<br>
+* `search -before 25/10/17@09:30`<br>
 
 > * Only the task name is searched.
 > * The search is case insensitive. e.g `meeting` will match `Meeting`, `Meeting` will match `meeting`.
 > * The order of the keywords does not matter. e.g. `Meet Professor` will match `Professor Meet`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Meeting` will match `Meeting Professor`
-
-Finds tasks before/after a time.<br>
-Format: `search -before DD/MM/YY[@hh:mm]`
-		`search -after DD/MM/YY[@hh:mm]`
-
-Examples:
-* `search -before 25/10/17@09:30`<br>
 
 #### Deleting a task : `delete`
 Deletes the specified task from the DoDo-Bird.<br>
@@ -118,6 +114,9 @@ Examples:
   `delete 1`<br>
   Deletes the task with `ID #1` in the DoDo-Bird.
 
+#### Undoing : `undo`
+Undoes the last operation
+Format: `undo`
 
 #### Clearing all entries : `clear`
 Clears all entries from the DoDo-Bird.<br>
@@ -148,5 +147,6 @@ Help | `help`
 Quitting | `exit`
 Search | `search KEYWORD [MORE_KEYWORDS]`
 See | `see DATE`
+Undo | `undo`
 Update | `update task -n TaskName [parameters]`
 
