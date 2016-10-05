@@ -122,14 +122,14 @@ Examples:
   **`delete`**` 1,4`<br>
   Deletes the 1st and 4th event in the results of the **`find`** command.
 
-#### Edit an event : `edit`
-Edits the event identified by the index number used in the last events listing.<br>
+### Edit an event : `edit`
+Edits the event identified by the index number used in the last event listing.<br>
 Format: **`edit`**` [index] [details]`
 
 > Edits the event specified based on the details given.<br>
 > [details] follows the format in **`add`** command. <br>
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * **`list`**<br>
