@@ -11,7 +11,8 @@ We are a team in the [CS 2103 Class](http://www.comp.nus.edu.sg/~cs2103/AY1617S1
 -----
 
 #### [Murray Chen](https://github.com/mchen14) <br>
-Role: Team Lead
+Role: Team Lead, Developer <br>
+Responsibilities: Code Quality
 
 -----
 

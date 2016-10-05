@@ -269,6 +269,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | specify the location to place the data storage | do things with it, like sync it to my Dropbox.
 `* *` | user | bring up the program with a hotkey | pull it up quickly and conveniently when I need to add a task.
 `*` | user | view list or calendar in a pop out window | look at it more easily while working on other items.
+
 {More to be added}
 
 ## Appendix B : Use Cases
@@ -278,11 +279,11 @@ Priority | As a ... | I want to ... | So that I can...
 #### Use case: Mark Task completed.
 
 **MSS**
-
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to view list of active tasks
+2. System shows list of tasks
+3. User requests to mark a task as completed from the list.
+4. System marks task as completed
+5. System removes task from list of active tasks. <br>
 Use case ends.
 
 **Extensions**
@@ -293,17 +294,45 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. JYM shows an error message <br>
   Use case resumes at step 2
 
+#### Use case: Update Task
+
+**MSS**
+1. User requests to view list of active tasks
+2. System shows list of tasks
+3. User requests to update a task with given description and/or deadline
+4. System updates task.
+Use case ends.
+
+**Extensions**
+
+2a. List is empty
+
+> Use case ends
+
+3a. Given index invalid
+
+> 3a1. JYM shows error message <br>
+  Use case resumes at step 2
+  
+3b. Invalid deadline supplied by user
+
+> 3b1. JYM returns error message <br>
+  Use case resumes at step 2
+  
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+1. Program should load within 5 seconds
+2. Storage file should be limited to 100MB default (can be changed by user)
+3. Should work on any mainstream OS
+4. Should hold up to 1000 tasks/events on the active task list at any time
+5. Comes with automated unit tests.
+6. Commands should be intuitive and easy to use.
+7. Interface is simple and easy to understand.
 
 {More to be added}
 
@@ -313,9 +342,25 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Task
 
-> A contact detail that is not meant to be shared with others
+> An activity that needs to be completed by a certain date or time. Contains
+a description, deadline, and priority.
+
+##### Event
+
+> An activity that happens within a set boundary of time, with a start and end time on a given date.
+Contains a description, event date and time, priority, and location.
+
+##### Floating Task
+
+> A task with no set deadline. 
+
+##### Active Task List
+
+> List of tasks that have yet to be marked complete and whose deadlines have not passed yet.
+
+
 
 ## Appendix E : Product Survey
 

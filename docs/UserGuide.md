@@ -14,7 +14,7 @@
 1. Download the latest '[insert program name here]' from the releases (../../../release) tab
 2. Copy the file to the folder you want to use as the home folder for your [program name]
 3. Double click the file to start the app. The GUI should appear in a few seconds.
-4. Type the command in the command box and press <kbd>Enter<kbd> to execute it.<br>
+4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
     e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
 
@@ -34,39 +34,41 @@ Refer to the [Features](#features) section below for details of each command.<br
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
-    #### Viewing help : `help`
-    format: `help`
+#### Viewing help : `help`
+Format: `help`
 
 #### Adding a task or event: `add`
 Adds a task or event to the task list.
-Format: `add [TASK/EVENT] DESCRIPTION [-t TITLE] [due/at DATE TIME]`
+Format: `add [TASK/EVENT] DESCRIPTION [-t TITLE] [due/at DATE TIME] [PRIORITY]`
 
 > If the flag -t is omitted, the task or event will have no title.
 > Adding tasks or events can also be done through simple English.
 > If no command keyword is specified, the app assumes the given command is to add, and will interpret the input as a task.
-
+> `priority` can have values of 1 through 10. If a number greater than 10 or lower than 1 is input, the value will simply be either 10 or 1, depending on which boundary is exceeded.
 Examples:
-* `add task do laundry at JULY 24 5 PM`
+* `add task do laundry at JULY 24 5 PM priority 3`
     Adds a task with the description `do laundry` and the deadline `5PM 07/24`
 * `write sql queries due tomorrow 9pm`
     Adds a task with the description `write sql queries` and the deadline `9PM [tomorrow]`, with tomorrow being whatever date the next day is.
-* `complete software engineering project -t CS2103PROJECT`
+* `complete software engineering project -t CS2103PROJECT priority 10`
     Adds a floating task with the description `complete software engineering project` and the title `CS2103PROJECT` with no deadline.
 
 
 #### Listing all tasks and events: `list`
 Shows a list of all the tasks and/or events in the program.
-Format: `list [TASK/EVENT]`
+Format: `list [TASK/EVENT] [COMPLETED/ALL]`
 
 > The list command alone lists all upcoming tasks and events.
 > When appended with task or event, the program will show only the requested input (tasks or events).
 > Can be combined with `view` to achieve a popup window of the task list.
+> If `completed` or `all` is appended to the end of the command, the list will only show either active or completed tasks/events.
+> By default list shows upcoming active tasks and events.
 
 #### List all tasks and events in calendar format: `calendar`
 Shows all the tasks and events in calendar format.
 Format: `calendar [TASK/EVENT]`
 
-> The calendar command alone shows all upcoming tasks and events.
+> The calendar command alone shows all tasks and events.
 > When appended with task or event, the program will show only the requested input (tasks or events).
 > Can be combined with `view` to achieve a popup window of the calendar
 
@@ -74,15 +76,16 @@ Format: `calendar [TASK/EVENT]`
 Puts the information into a separate window for easier viewing. Should mainly be used in conjunction with `list` and `calendar` commands.
 Format: `view [LIST/CALENDAR]`
 
-> Must be followed by either list or calendar--`view` cannot be called on its own.
+> Must be followed by either list or calendar-`view` cannot be called on its own.
+
 #### Finding all tasks and events with a given keyword in the description or title: `search`
 Searches for tasks and events whose descriptions or titles contain any of the given keywords or dates.
-Format: `search KEYWORD [MORE_KEYWORDS] [FLAGS]`
-Flags:  -s: all keywords must be matched
-        -d: search for date as well
-        -t: search tasks only
-        -e: search events only
-        -b: search in description body only
+Format: `search KEYWORD [MORE_KEYWORDS] [FLAGS]` <br>
+Flags:  -s: all keywords must be matched<br>
+        -d: search for date as well<br>
+        -t: search tasks only<br>
+        -e: search events only<br>
+        -b: search in description body only<br>
 
 > * Search is not case sensitive. e.g. `ChiCKEN` will match `cHIcken`
 > * Order of the keywords does not matter. e.g. `do this` will match `this do`
@@ -116,15 +119,15 @@ Marks the 1st two tasks as complete in the results of the search command
 
 #### Updating a task: `update`
 Updates a given task.
-Format: `update INDEX [DESCRIPTION] [-t TITLE] [due/at DATE TIME]`
+Format: `update INDEX [DESCRIPTION] [-t TITLE] [due/at DATE TIME] [PRIORITY]`
 
 > Updates the tasks at the specified `INDEX`.
 > Will update the task depending on what is supplied in the input. If no date or time is provided, the original task/event time will stay the same. Likewise with the description and title.
 
 Examples:
-* `update 2 due 09/08/2016 8PM`
+* `update 2 due 09/08/2016 8PM` <br>
     Updates the second task to have an updated deadline.
-* `update 1 Redo Mission class because failed code quality check due tomorrow 9pm`
+* `update 1 Redo Mission class because failed code quality check due tomorrow 9pm` <br>
     Updates the first task to have the updated description `Redo Mission class because failed code quality check` and the updated date `9PM [tomorrow]` with tomorrow being whatever date the next day is.
 
 #### Clearing all entries: `clear`
@@ -151,8 +154,9 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Add | `add [TASK/EVENT] DESCRIPTION [-t TITLE] [due/at DATE TIME]` OR `DESCRIPTION [-t TITLE] [due/at DATE TIME]`
-Update | `update INDEX [DESCRIPTION] [-t TITLE] [due/at DATE TIME]`
+Add | `add [TASK/EVENT] DESCRIPTION [-t TITLE] [due/at DATE TIME] [PRIORITY]` <br> 
+`DESCRIPTION [-t TITLE] [due/at DATE TIME] [PRIORITY]`
+Update | `update INDEX [DESCRIPTION] [-t TITLE] [due/at DATE TIME] [PRIORITY]`
 Clear | `clear`
 Complete | `complete INDEX [MORE_INDICES]`
 Search | `search KEYWORD [MORE_KEYWORDS] [FLAGS]`
