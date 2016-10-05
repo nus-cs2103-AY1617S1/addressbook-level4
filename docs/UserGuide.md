@@ -49,7 +49,8 @@
 > and omit the deadline.
 
 > **Recurring tasks and events**
-> Tasks and events may be set to repeat daily/weekly/monthly for its deadline, start time and end time.
+> Tasks and events may be set to repeat daily/weekly/monthly,
+> recurring after its deadline or end time.
 
 >> Tasks or events which are exact duplicates are combined into one.
 
