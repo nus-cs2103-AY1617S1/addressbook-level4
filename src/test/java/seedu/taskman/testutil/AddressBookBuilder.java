@@ -9,7 +9,7 @@ import seedu.taskman.model.AddressBook;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code AddressBook ab = new AddressBookBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
 public class AddressBookBuilder {
 
@@ -19,8 +19,8 @@ public class AddressBookBuilder {
         this.addressBook = addressBook;
     }
 
-    public AddressBookBuilder withPerson(Task task) throws UniqueTaskList.DuplicatePersonException {
-        addressBook.addPerson(task);
+    public AddressBookBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.addTask(task);
         return this;
     }
 

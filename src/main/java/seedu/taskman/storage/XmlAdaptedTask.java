@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String title;
@@ -29,15 +29,15 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedTask() {}
 
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedPerson(ReadOnlyTask source) {
+    public XmlAdaptedTask(ReadOnlyTask source) {
         title = source.getTitle().title;
         deadline = source.getDeadline().value;
         email = source.getEmail().value;
@@ -49,20 +49,20 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            taskTags.add(tag.toModelType());
         }
         final Title title = new Title(this.title);
         final Deadline deadline = new Deadline(this.deadline);
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
-        final UniqueTagList tags = new UniqueTagList(personTags);
+        final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(title, deadline, email, address, tags);
     }
 }

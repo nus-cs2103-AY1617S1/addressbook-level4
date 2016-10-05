@@ -12,7 +12,7 @@ import seedu.taskman.commons.core.Config;
 import seedu.taskman.commons.core.LogsCenter;
 import seedu.taskman.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskman.commons.events.ui.JumpToListRequestEvent;
-import seedu.taskman.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.taskman.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskman.commons.events.ui.ShowHelpRequestEvent;
 import seedu.taskman.commons.util.StringUtil;
 import seedu.taskman.logic.Logic;
@@ -114,13 +114,13 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
+    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadPersonPage(event.getNewSelection());
+        mainWindow.loadTaskPage(event.getNewSelection());
     }
 
 }

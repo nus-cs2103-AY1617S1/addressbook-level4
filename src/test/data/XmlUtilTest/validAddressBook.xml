@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <persons>
+    <tasks>
         <title>Hans Muster</title>
         <deadline isPrivate="false">9482424</deadline>
         <email isPrivate="false">hans@google.com</email>
         <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <title>Ruth Mueller</title>
         <deadline isPrivate="false">87249245</deadline>
         <email isPrivate="false">ruth@google.com</email>
         <address isPrivate="false">81th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <title>Heinz Kurz</title>
         <deadline isPrivate="false">95352563</deadline>
         <email isPrivate="false">heinz@yahoo.com</email>
         <address isPrivate="false">wall street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <title>Cornelia Meier</title>
         <deadline isPrivate="false">87652533</deadline>
         <email isPrivate="false">cornelia@google.com</email>
         <address isPrivate="false">10th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <title>Werner Meyer</title>
         <deadline isPrivate="false">9482224</deadline>
         <email isPrivate="false">werner@gmail.com</email>
         <address isPrivate="false">michegan ave</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <title>Lydia Kunz</title>
         <deadline isPrivate="false">9482427</deadline>
         <email isPrivate="false">lydia@gmail.com</email>
         <address isPrivate="false">little tokyo</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <title>Anna Best</title>
         <deadline isPrivate="false">9482442</deadline>
         <email isPrivate="false">anna@google.com</email>
         <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <title>Stefan Meier</title>
         <deadline isPrivate="false">8482424</deadline>
         <email isPrivate="false">stefan@mail.com</email>
         <address isPrivate="false">little india</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <title>Martin Mueller</title>
         <deadline isPrivate="false">8482131</deadline>
         <email isPrivate="false">hans@google.com</email>
         <address isPrivate="false">chicago ave</address>
-    </persons>
+    </tasks>
 </addressbook>
