@@ -12,9 +12,9 @@
     -   [Delete a Task](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#3-delete-a-task)
     -   [List Tasks](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#4-list-tasks)
     -   [Help Command](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#5-help-command)
-*   T-T Bot
-    -   Call the T-T Bot
-    -   Kill the T-T Bot
+*   [T-T Bot](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#t-t-bot)
+    -   [Call the T-T Bot](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#1call-the-t-t-bot)
+    -   [Kill the T-T Bot](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#2kill-the-t-t-bot)
 
 ## **About**
 
@@ -106,12 +106,12 @@ Enter `help` into the CLI to list out all the commands.<br> <br>
 ##**T-T Bot**
 T-T has it's very own playful T-T bot, to provide suggestions and help to you. Managing tasts was never this fun!<br>
 
-###1.Call the T-T Bot
+###1. Call the T-T Bot
 You can call your friendly T-T bot by typing `T-T` in your input window.
 The T-T bot will awaken and be at your service!
 ![T-T Bot] (images/bot_gif.gif)
 
-###2.Kill the T-T Bot
+###2. Kill the T-T Bot
 If you find the T-T Bot too distracting, you can kill it by typing `X-X` in the input window. The T-T Bot will go back to sleep.
 <br><br>
 
