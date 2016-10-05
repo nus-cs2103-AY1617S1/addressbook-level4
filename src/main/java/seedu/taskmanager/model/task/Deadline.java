@@ -8,7 +8,7 @@ import seedu.taskmanager.commons.exceptions.IllegalValueException;
  */
 public class Deadline {
 
-    public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Task deadline should only contain numbers";
+    public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Task deadline should be in dd-mm-yy or dd-mm-yyyy format";
     public static final String DEADLINE_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-2][0][0-9][0-9]$";
     public static final String DEADLINE_SECOND_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-9][0-9]$";     
 
