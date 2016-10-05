@@ -121,7 +121,7 @@ Examples:
 * `view`<br>
   `delete 1`<br>
   Delete the 1st task today as shown by the `view` command
-  > <img src="images/UIdelete.png" width="600">
+  > <img src="images/Uidelete.png" width="600">
 
 * `view 1 Jan 2015`<br>
   `delete 2`<br>
