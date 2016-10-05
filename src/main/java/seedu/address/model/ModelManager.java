@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.ActivityManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityList.ActivityNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
@@ -66,8 +67,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-//        activityManager.removePerson(target);
+    public synchronized void deletePerson(Activity target) throws ActivityNotFoundException {
+        activityManager.removeActivity(target);
         indicateAddressBookChanged();
     }
 
@@ -81,7 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<Activity> getFilteredPersonList() {
+    public UnmodifiableObservableList<Activity> getFilteredActivityList() {
         return new UnmodifiableObservableList<>(filteredActivities);
     }
 
@@ -91,18 +92,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredActivityList(Set<String> keywords){
+        updateFilteredActivityList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
-//        filteredActivities.setPredicate(expression::satisfies);
+    private void updateFilteredActivityList(Expression expression) {
+        filteredActivities.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
+        boolean satisfies(Activity activity);
         String toString();
     }
 
@@ -115,8 +116,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyPerson person) {
-            return qualifier.run(person);
+        public boolean satisfies(Activity activity) {
+            return qualifier.run(activity);
         }
 
         @Override
@@ -126,7 +127,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyPerson person);
+        boolean run(Activity activity);
         String toString();
     }
 
@@ -138,9 +139,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyPerson person) {
+        public boolean run(Activity activity) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(activity.name, keyword))
                     .findAny()
                     .isPresent();
         }

@@ -72,7 +72,7 @@ public class XmlAddressBookStorageTest {
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(new Person(TypicalTestPersons.hoon));
-        original.removePerson(new Person(TypicalTestPersons.alice));
+        original.removeActivity(new Person(TypicalTestPersons.alice));
         xmlActivityManagerStorage.saveAddressBook(original, filePath);
         readBack = xmlActivityManagerStorage.readAddressBook(filePath).get();
         assertEquals(original, new ActivityManager(readBack));
