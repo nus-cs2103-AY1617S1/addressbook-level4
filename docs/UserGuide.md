@@ -206,7 +206,7 @@ Multiple undo actions are supported.
 Defines an alternative short-hand command for an original command. Both original and new commands can be used.<br>
 Format: `alias ORIGINAL_COMMAND_NAME as NEW_COMMAND_NAME` 
 
-> NEW_COMMAND_NAME must be a single word. 
+> NEW_COMMAND_NAME must be a single word.<br>
 > ORIGINAL_COMMAND_NAME must be a command word that is specified in the help section
 
 Examples:
