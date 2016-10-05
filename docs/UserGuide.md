@@ -69,12 +69,12 @@ It is time to begin organizing and managing your schedule by adding tasks to the
 > add NAME, s/START_DATE, START_TIME, e/END_DATE, END_TIME, i/IMPORTANCE, [t/TAGS]...
 
 Parameters:
-NAME: Name of the task
-s/START_DATE: The date that the task will start on
-START_TIME: The time of the start of the task
-e/END_DATE: The date of the task that the task will end on
-END_TIME: The time of the end of the task
-i/IMPORTANCE: The priority of the task. Can be `green`, `yellow` or `red`
+NAME: Name of the task <br>
+s/START_DATE: The date that the task will start on <br>
+START_TIME: The time of the start of the task <br>
+e/END_DATE: The date of the task that the task will end on <br>
+END_TIME: The time of the end of the task <br>
+i/IMPORTANCE: The priority of the task. Can be `green`, `yellow` or `red` <br>
 t/TAGS: Tags that are assigned to the task
 
 > Tasks can have any number of tags (including 0)
@@ -112,8 +112,8 @@ By keying in the following, it will display a list of the tasks due before the i
 >     DD/MM/[YYYY]: YYYY refers to the year but it is optional, MM refers to month and DD refers to the  coming date in the most recent year
 
 Examples:
-* ‘list d/tomorrow’ shows every task from now to the end of tomorrow
-* ‘list d/01/01/2017 shows every task from now till the end of 1st January 2017
+* `list d/tomorrow` shows every task from now to the end of tomorrow
+* `list d/01/01/2017` shows every task from now till the end of 1st January 2017
 
 #### Listing tasks with a certain importance: `list i/[IMPORTANCE]
 Format: `list i/[IMPORTANT]`
@@ -157,12 +157,12 @@ This can be done by typing the following:
 > edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [et/END_TIME], [i/IMPORTANCE]
 
 Parameters:
-INDEX: the number that was linked to the task you wish to edit
-[n/NAME]: the name you wish to change to
-[s/START_DATE]: the start date you wish to change to
-[st/START_TIME]: the start time you wish to change to
-[e/END_DATE]: the end date you wish to change to
-[et/END_TIME]: the end time you wish to change to
+INDEX: the number that was linked to the task you wish to edit <br>
+[n/NAME]: the name you wish to change to <br>
+[s/START_DATE]: the start date you wish to change to <br>
+[st/START_TIME]: the start time you wish to change to <br>
+[e/END_DATE]: the end date you wish to change to <br>
+[et/END_TIME]: the end time you wish to change to <br>
 [i/IMPORTANCE]: the level of priority you wish to change to
 
 Other than the INDEX which is required, only one of the rest of the parameters in the square brackets is required in order for the Edit Command to work.
@@ -172,7 +172,7 @@ Examples
   `edit 2 s/tomorrow`<br>
   Changes the 2nd task in today’s list to start tomorrow
 
-\* `find meeting`<br> 
+* `find meeting`<br> 
   `edit 1 n/Business Lunch`<br>
   Changes the name of 1st task in the results of the `find` command to ‘Business Lunch’ 
 
@@ -194,7 +194,7 @@ Examples:
   `delete 2`<br>
   Deletes the 2nd task in today’s list.
 
-\* `find meeting`<br> 
+* `find meeting`<br> 
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` command for ‘meeting’.
 
@@ -216,7 +216,7 @@ Examples:
   `select 2`<br>
   Selects the 2nd task in the task list.
   
-\* `find project` 
+* `find project` 
   `select 1`<br>
   Selects the 1st task in the results of the `find` command.
 
