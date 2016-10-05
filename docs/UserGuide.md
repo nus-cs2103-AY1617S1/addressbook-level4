@@ -33,7 +33,6 @@
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
 #### Viewing help : `help`
@@ -73,6 +72,7 @@ Example:
 
 Format: `add NAME (at DATE START_TIME to [DATE] END TIME...)` 
 > Sometimes, we have an unconfirmed event slot. For example, the meeting your boss wants to hold might be on 2-3pm tomorrow, or the day after. 
+> Group the list of dates inside `()` and separate each date with `,`
 
 Example: 
 * `add Company meeting (at 22 Sep 2pm to 3pm, at 23 Sep 2pm to 3pm)`
@@ -94,9 +94,10 @@ Examples:
 Format: Replace `add` with  `edit INDEX (new OR SUB-INDEX)`
 >Note: If you want to confirm the time slot, use the `confirm` command instead.
 
-Examples:
+Example:
+> <img src="images/edit_tentative_ui.png" width="600">
+
 * `edit 12 1 (at 24 Sep 8pm to 9pm) 3 (at 25 Sep 8pm to 9pm)`
-* `edit 11 new (at 24 Sep 8pm to 9pm)`
 
 
 #### Confirming a tentative event: `confirm`
@@ -107,6 +108,8 @@ Confirm a tentative event in your task manager. Must have added a tentative even
 Format: `confirm INDEX SUBINDEX`
 
 Example:
+> <img src="images/confirm_ui.png" width="600">
+
 * `confirm 3 1`
 
 
@@ -115,11 +118,11 @@ Delete an item in your task manager This process is reversible with the `undo` c
 Format:
 `delete INDEX` `delete all`
 
-#### Undoing a command:
+#### Undoing a command: `undo`
 Format: `undo`
 
 
-#### Redoing a command: 
+#### Redoing a command: `redo`
 Format: `redo`
 
 #### Archiving an item: `done`
@@ -154,9 +157,9 @@ There is no need to save manually.
 Command | Format  
 -------- | :-------- 
 Add/Edit | `add`/`edit INDEX` `NAME by DUE_DATE DUE_TIME [repeat every RECURRING_INTERVAL]`
-`add`/`edit INDEX` `add NAME [rank PRIORITY]`
-`add`/`edit INDEX` `add NAME at DATE START_TIME to [DATE] END_TIME [repeat every RECURRING_INTERVAL]` 
-`add`/`edit INDEX (new OR SUB-INDEX)` `add NAME (at DATE START_TIME to [DATE] END TIME...)`
+Add/Edit | `add`/`edit INDEX` `add NAME [rank PRIORITY]`
+Add/Edit | `add`/`edit INDEX` `add NAME at DATE START_TIME to [DATE] END_TIME [repeat every RECURRING_INTERVAL]` 
+Add/Edit | `add`/`edit INDEX (new OR SUB-INDEX)` `add NAME (at DATE START_TIME to [DATE] END TIME...)`
 Confirm | `confirm INDEX SUBINDEX`
 Delete | `delete INDEX`
 Undo | `undo`
