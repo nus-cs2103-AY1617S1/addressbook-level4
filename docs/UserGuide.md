@@ -104,7 +104,7 @@ Examples:
 
 #### Update a task : `update`
 Updates the status of the task.<br>
-Format: `update [TASK_NAME] STATUS` 
+Format: `update [TASK_ID] STATUS` 
 
 > Updates task to be completed (marked done) or uncompleted after selecting a task.
 
@@ -113,8 +113,7 @@ Examples:
   `update CS2103T Tutorial completed`<br>
   Update task status of CS2103T Tutorial to 'completed'
 * `find CS2103T`<br>
-  `select 2`<br>
-  `update completed`<br>
+  `update 2 completed`<br>
   Update task status of 2nd task in the results of CS2103T to 'completed'
 
 
@@ -169,4 +168,4 @@ List | `list`
 Select | `select INDEX`
 ToDo | `todo`
 Undo | `undo`
-Update | `update [TASK_NAME] STATUS`
+Update | `update [TASK_ID] STATUS`
