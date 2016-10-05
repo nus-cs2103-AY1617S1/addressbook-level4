@@ -6,7 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
  * A read-only immutable interface for a Task in the taskbook.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyTask {
+public interface ReadOnlyDatedTask {
 
     Name getName();
     Description getDescription();
@@ -21,6 +21,11 @@ public interface ReadOnlyTask {
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
+
+    /**
+     * The returned TagList
+     */
+    Boolean isEqualTo(ReadOnlyDatedTask other);
 
     /**
      * Returns a string representation of this Task's tags

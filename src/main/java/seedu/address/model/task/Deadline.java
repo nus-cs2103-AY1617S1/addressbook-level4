@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a Task in the task book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Deadline extends Task {
+public class Deadline extends DatedTask {
 
     private Name name;
     private Description description;

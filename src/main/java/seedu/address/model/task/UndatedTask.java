@@ -3,10 +3,9 @@ package seedu.address.model.task;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * An abstract Task in the task book.
- * Guarantees: details are present and not null, field values are validated.
+ * An abstract UndatedTask in the task book.
  */
-public abstract class Task implements ReadOnlyTask {
+public abstract class UndatedTask implements ReadOnlyUndatedTask {
     
     public abstract Name getName();
 
@@ -33,4 +32,8 @@ public abstract class Task implements ReadOnlyTask {
     @Override
     public abstract String getAsText();
     
+    @Override
+    public Boolean isEqualTo(ReadOnlyUndatedTask other) {
+        return this.equals(other);
+    }
 }

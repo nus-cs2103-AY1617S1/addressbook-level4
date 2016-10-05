@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a Task in the task book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Event extends Task {
+public class Event extends DatedTask {
 
     private Name name;
     private Description description;
@@ -93,5 +93,4 @@ public class Event extends Task {
         // TODO Auto-generated method stub
         return null;
     }
-
 }

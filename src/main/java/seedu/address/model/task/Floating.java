@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a Floating task in the task book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Floating extends Task {
+public class Floating extends UndatedTask {
 
     private Name name;
     private Description description;
@@ -18,6 +18,10 @@ public class Floating extends Task {
 
     /**
      * Every field must be present and not null.
+     * 
+     * @param name task name
+     * @param description task description 
+     * @param tags list of tags associated with this task
      */
     public Floating(Name name, Description description, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, description, tags);
@@ -29,7 +33,7 @@ public class Floating extends Task {
     /**
      * Copy constructor.
      */
-    public Floating(ReadOnlyTask source) {
+    public Floating(ReadOnlyUndatedTask source) {
         this(source.getName(), source.getDescription(), source.getTags());
     }
 
