@@ -77,7 +77,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
     public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
-        syncTagsWithMasterList(p);
+       // syncTagsWithMasterList(p);
         persons.add(p);
     }
 
@@ -86,23 +86,23 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person person) {
-        final UniqueTagList personTags = person.getTags();
-        tags.mergeFrom(personTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        person.setTags(new UniqueTagList(commonTagReferences));
-    }
+//    private void syncTagsWithMasterList(Person person) {
+//        final UniqueTagList personTags = person.getTags();
+//        tags.mergeFrom(personTags);
+//
+//        // Create map with values = tag object references in the master list
+//        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+//        for (Tag tag : tags) {
+//            masterTagObjects.put(tag, tag);
+//        }
+//
+//        // Rebuild the list of person tags using references from the master list
+//        final Set<Tag> commonTagReferences = new HashSet<>();
+//        for (Tag tag : personTags) {
+//            commonTagReferences.add(masterTagObjects.get(tag));
+//        }
+//        person.setTags(new UniqueTagList(commonTagReferences));
+//    }
 
     public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
         if (persons.remove(key)) {
