@@ -1,4 +1,4 @@
-# Developer Guide 
+# Developer Guide
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -20,7 +20,7 @@
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -30,7 +30,7 @@
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -99,7 +99,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The sections below give more details of each component.
@@ -189,7 +189,7 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
 
@@ -211,26 +211,26 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
-  
+
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+
 ## Dev Ops
 
 ### Build Automation
@@ -245,12 +245,12 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 ### Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
-   
+
 ### Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the
@@ -268,47 +268,70 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new task |
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | search tasks by keywords | locate details of tasks without having to go through the entire list
+`* * *` | user | update a task | account for the possibility of change
+`* *` | user | group tasks into similar categories | organise them well
+`* *` | user | view tasks by categories |
+`*` | user with many tasks in the to-do list | sort tasks by name | locate a task easily
 
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `DoDo-Bird` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Delete task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to list tasks
+2. DoDo-Bird shows a list of tasks
+3. User requests to delete a specific task in the list
+4. DoDo-Bird asks the user to confirm
+5. User confirms the deletion
+6. DoDo-Bird deletes the task <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. User does not confirm
+
+> Use case ends
+
+2b. The list is empty
 
 > Use case ends
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. DoDo-Bird shows an error message <br>
   Use case resumes at step 2
+
+#### Use case: Search task by keyword
+
+**MSS**
+
+1. User enter command to search tasks by keyword
+2. DoDo-Bird returns a list of tasks which name contains those keywords.
+Use case ends.
+
+**Extensions**
 
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+1. (Availability/Interoperability) Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
+2. (Capacity) Should be able to hold up to 1000 Tasks and Events
+3. (Usability) Should be able compile and run the binary.
+4. (Usability) Should favor Unix-style commands over DOS style commands.
+5. (Maintainability) Should come with automated unit tests and open source code.
+6. (Performance) Any command should be able to respond within 3 seconds
+7. (Security/Data Integrity) Data should be encrypted
+8. (Reliability/Recoverability) Should be able to attempt to recover data for
+corrupted data files
 
 {More to be added}
 
@@ -318,11 +341,6 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
 ## Appendix E : Product Survey
 
 {TODO: Add a summary of competing products}
-

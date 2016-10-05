@@ -7,8 +7,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ToDoList;
+import seedu.address.model.ReadOnlyToDoList;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TypicalTestPersons;
 import seedu.address.testutil.EventsCollector;
@@ -55,11 +55,11 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
+        ToDoList original = new TypicalTestPersons().getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
-        //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
+        ReadOnlyToDoList retrieved = storageManager.readAddressBook().get();
+        assertEquals(original, new ToDoList(retrieved));
+        //More extensive testing of ToDoList saving/reading is done in XmlAddressBookStorageTest
     }
 
     @Test
@@ -72,7 +72,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
+        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new ToDoList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
@@ -87,7 +87,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+        public void saveAddressBook(ReadOnlyToDoList addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }
