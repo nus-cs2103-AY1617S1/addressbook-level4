@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskManager implements ReadOnlyAddressBook {
+public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList persons;
     private final UniqueTagList tags;
@@ -29,8 +29,8 @@ public class TaskManager implements ReadOnlyAddressBook {
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public TaskManager(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+    public TaskManager(ReadOnlyTaskManager toBeCopied) {
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
@@ -40,7 +40,7 @@ public class TaskManager implements ReadOnlyAddressBook {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyAddressBook getEmptyTaskManager() {
+    public static ReadOnlyTaskManager getEmptyTaskManager() {
         return new TaskManager();
     }
 
@@ -63,21 +63,20 @@ public class TaskManager implements ReadOnlyAddressBook {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyAddressBook newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+    public void resetData(ReadOnlyTaskManager newData) {
+        resetData(newData.getTaskList(), newData.getTagList());
     }
 
 //// person-level operations
 
     /**
-     * Adds a person to the address book.
+     * Adds a task to the Task Manager.
      * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addPerson(Task p) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
+    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         persons.add(p);
     }
 
@@ -127,7 +126,7 @@ public class TaskManager implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(persons.getInternalList());
     }
 
@@ -137,7 +136,7 @@ public class TaskManager implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         return this.persons;
     }
 
