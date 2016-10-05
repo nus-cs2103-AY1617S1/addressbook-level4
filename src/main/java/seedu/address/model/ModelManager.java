@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicatePersonException;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
@@ -73,6 +74,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addPerson(Task task) throws UniqueTaskList.DuplicatePersonException {
         taskList.addPerson(task);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+    
+    @Override
+    public synchronized void addNote(Task task) {
+        taskList.addNote(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
