@@ -8,7 +8,7 @@ import seedu.taskmanager.commons.core.Config;
 import seedu.taskmanager.commons.core.GuiSettings;
 import seedu.taskmanager.model.ReadOnlyTaskManager;
 import seedu.taskmanager.model.UserPrefs;
-import seedu.taskmanager.storage.XmlSerializableAddressBook;
+import seedu.taskmanager.storage.XmlSerializableTaskManager;
 
 import java.util.function.Supplier;
 
@@ -36,7 +36,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableTaskManager(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
