@@ -15,6 +15,7 @@ public class StringArgument extends Argument<String> {
     @Override
     public void setValue(String input) throws IllegalValueException {
         this.value = input;
+        super.setValue(input);
     }
 
 }

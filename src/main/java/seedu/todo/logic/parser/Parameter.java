@@ -11,5 +11,13 @@ public interface Parameter {
     
     public boolean isPositional();
     
+    public boolean isSet();
+    
+    public boolean isOptional();
+    
     public String getFlag();
+    
+    public String getName();
+    
+    public String getDescription();
 }

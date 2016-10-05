@@ -1,11 +1,13 @@
 package seedu.todo.logic.parser;
 
+import seedu.todo.commons.exceptions.IllegalValueException;
 
 abstract public class Argument<T> implements Parameter {
     private String name;
     private String description;
     private String flag;
     private boolean optional = true;
+    private boolean set = false;
     
     protected T value;
     protected T defaultValue;
@@ -19,14 +21,20 @@ abstract public class Argument<T> implements Parameter {
         this.value = defaultValue;
     }
     
+    @Override
+    public void setValue(String input) throws IllegalValueException {
+        set = true;
+    }
+    
     public T getValue() {
         return value;
     }
-
+    
+    @Override
     public String getName() {
         return name;
     }
-
+    
     public Argument<T> name(String name) {
         this.name = name;
         return this;
@@ -53,12 +61,17 @@ abstract public class Argument<T> implements Parameter {
     public boolean isOptional() {
         return optional;
     }
+    
+    public boolean isSet() {
+        return set;
+    }
 
     public Argument<T> required() {
         this.optional = false;
         return this;
     }
     
+    @Override
     public boolean isPositional() {
         return flag == null;
     }

@@ -16,6 +16,7 @@ public class IntArgument extends Argument<Integer> {
     public void setValue(String input) throws IllegalValueException {
         try {
             value = Integer.parseInt(input);
+            super.setValue(input);
         } catch (NumberFormatException e) {
             throw new IllegalValueException("The argument");
         }

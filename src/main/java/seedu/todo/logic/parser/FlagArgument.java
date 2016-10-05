@@ -16,6 +16,7 @@ public class FlagArgument extends Argument<Boolean> {
     @Override
     public void setValue(String input) throws IllegalValueException {
         this.value = true;
+        super.setValue(input);
     }
     
 }
