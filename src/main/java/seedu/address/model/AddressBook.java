@@ -3,9 +3,9 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.item.FloatingTask;
 import seedu.address.model.item.ReadOnlyFloatingTask;
+import seedu.address.model.item.UniqueFloatingTaskList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniqueFloatingTaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 

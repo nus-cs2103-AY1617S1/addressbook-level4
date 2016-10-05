@@ -18,7 +18,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.item.FloatingTask;
-import seedu.address.model.person.*;
+import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -66,15 +66,15 @@ public class TestUtil {
     private static FloatingTask[] getSampleFloatingTaskData() {
         try {
             return new FloatingTask[]{
-                    new FloatingTask(new String("Ali Muster"), new String("9482424")),
-                    new FloatingTask(new String("Boris Mueller"), new String("87249245")),
-                    new FloatingTask(new String("Carl Kurz"), new String("95352563")),
-                    new FloatingTask(new String("Daniel Meier"), new String("87652533")),
-                    new FloatingTask(new String("Elle Meyer"), new String("9482224")),
-                    new FloatingTask(new String("Fiona Kunz"), new String("9482427")),
-                    new FloatingTask(new String("George Best"), new String("9482442")),
-                    new FloatingTask(new String("Hoon Meier"), new String("8482424")),
-                    new FloatingTask(new String("Ida Mueller"), new String("8482131"))
+                    new FloatingTask(new Name("Ali Muster"), new Priority("9482424")),
+                    new FloatingTask(new Name("Boris Mueller"), new Priority("87249245")),
+                    new FloatingTask(new Name("Carl Kurz"), new Priority("95352563")),
+                    new FloatingTask(new Name("Daniel Meier"), new Priority("87652533")),
+                    new FloatingTask(new Name("Elle Meyer"), new Priority("9482224")),
+                    new FloatingTask(new Name("Fiona Kunz"), new Priority("9482427")),
+                    new FloatingTask(new Name("George Best"), new Priority("9482442")),
+                    new FloatingTask(new Name("Hoon Meier"), new Priority("8482424")),
+                    new FloatingTask(new Name("Ida Mueller"), new Priority("8482131"))
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -136,7 +136,7 @@ public class TestUtil {
     }
 
     public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniqueFloatingTaskList(), new UniqueTagList());
+        return new AddressBook(new UniqueFloatingTaskList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
@@ -327,7 +327,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
+    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyFloatingTask person) {
         return card.isSamePerson(person);
     }
 

@@ -1,10 +1,9 @@
-package seedu.address.model.person;
+package seedu.address.model.item;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.model.item.FloatingTask;
-import seedu.address.model.item.ReadOnlyFloatingTask;
+import seedu.address.model.person.Person;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;

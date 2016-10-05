@@ -9,7 +9,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 
 public class FloatingTaskCard extends UiPart{
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "FloatingTaskListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -44,6 +44,7 @@ public class FloatingTaskCard extends UiPart{
     public void initialize() {
         name.setText(person.getName().name);
         phone.setText(person.getPriorityValue().priorityValue);
+        id.setText(displayedIndex + "");
     }
 
     public HBox getLayout() {

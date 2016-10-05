@@ -5,7 +5,7 @@ import seedu.address.model.item.FloatingTask;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.Task;
-import seedu.address.model.person.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.address.model.item.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 
 import java.util.HashSet;
 import java.util.Set;
