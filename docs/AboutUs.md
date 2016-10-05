@@ -43,7 +43,6 @@ We are a group of highly motivated and hardworking students working on our CS210
 2. Roles and Responsibilities: Incharge of Storage and Integration.
 3. Tool Expert: Eclipse.
 
- -----
  
 ## Project Mentor
  
