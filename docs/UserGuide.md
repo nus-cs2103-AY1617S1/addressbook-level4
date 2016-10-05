@@ -42,7 +42,7 @@ Welcome to WhatNow!
 
 #### Adding a task: `add`
 Adds a task to WhatNow<br>
-Format: `add "DESCRIPTION" [on/by] [today/tomorrow/DAY/DATE] [from/at] [START_TIME] [to/till] [END_TIME] [every] [day/week/month/year] [low/medium/high]` 
+Format: `add "DESCRIPTION" [on/by] [today/tomorrow/DAY/DATE] [from/at] [START_TIME] [to/till] [END_TIME] [every] [DAY/day/week/month/year] [low/medium/high]` 
 
 >All task description should be written within double quotation marks. Eg Add “buy eggs”.
 >The format for date must be *day month year* where year is optional. Eg: 10th Oct, 4 November, 11th August 2017. Not 12/12/12. 
