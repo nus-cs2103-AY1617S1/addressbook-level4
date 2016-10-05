@@ -39,44 +39,45 @@ Welcome to WhatNow!
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+
 #### Changing storage location : `change location`
 Changes the data file storage location. <br>
 Format: `change location to PATH`
 
 Examples:
-* `change location to C:\Users\Verbena\Dropbox\WhatNow`
-Changes the data file storage location to C:\Users\Verbena\Dropbox\WhatNow
-> <img src="images/UI_Prototype/WhatNowUI-ChangeLocation-Colour.png" width="600">
+* `change location to C:\Users\Verbena\Dropbox\WhatNow`<br>
+Changes the data file storage location to C:\Users\Verbena\Dropbox\WhatNow<br>
+<img src="images/UI_Prototype/WhatNowUI-ChangeLocation-Colour.png" width="600">
 
 
 #### Adding a task: `add`
 Adds a task to WhatNow<br>
 Format: `add "DESCRIPTION" [on/by] [today/tomorrow/DAY/DATE] [from/at] [START_TIME] [to/till] [END_TIME] [every] [DAY/day/week/month/year] [low/medium/high]` 
 
->All task description should be written within double quotation marks. Eg Add “buy eggs”.
->The format for date must be *day month year* where year is optional. Eg: 10th Oct, 4 November, 11th August 2017. Not 12/12/12. 
->Time should be in the *12 hour format*. Eg: 10am, 6pm, 7.30pm. Not 7:30pm, 2359.
+>All task description should be written within double quotation marks. Eg Add “buy eggs”. <br>
+The format for date must be *day month year* where year is optional. Eg: 10th Oct, 4 November, 11th August 2017. Not 12/12/12. <br>
+Time should be in the *12 hour format*. Eg: 10am, 6pm, 7.30pm. Not 7:30pm, 2359.
 
 Examples:
-* `add "Do CS2103T tutorial" on 4 Oct 2016 from 10am to 11am every week`
+* `add "Do CS2103T tutorial" on 4 Oct 2016 from 10am to 11am every week`<br>
 Adds a recurring scheduled task “CS2103T tutorial” on the 4th October 2016 from 10am to 11am every week. 
-* `add "Watch Storks movie" on 10/10 from 1pm to 3pm` 
+* `add "Watch Storks movie" on 10/10 from 1pm to 3pm`<br>
 Adds a scheduled task “Watch Storks movie” on 10th October 2016 from 1pm to 3pm. 
-* `add "CS2103 Project" by 20/11/2016 high`
+* `add "CS2103 Project" by 20/11/2016 high`<br>
 Adds a scheduled task “CS2103 Project” of high priority on 20th November 2016. 
-* `add “CS2105 Tutorial” on Thursday at 11am till 12pm every week`
+* `add “CS2105 Tutorial” on Thursday at 11am till 12pm every week`<br>
 Adds a recurring scheduled task “CS2105 Tutorial” on Thursday from 11am to 12pm.
-* `add "Buy chocolate milk"`
-Adds a todo task “Buy chocolate milk”.
-* `add "Buy pizza" at 7pm`
+* `add "Buy pizza" at 7pm`<br>
 Adds a scheduled task “Buy pizza” today at 7pm. 
-* `add "Charlie Puth concert” on 15th Oct 6pm"`
+* `add "Charlie Puth concert” on 15th Oct 6pm"`<br>
 Adds a scheduled task “Charlie Puth concert” on 15th October at 6pm.
+* `add "Buy chocolate milk"`<br>
+Adds a todo task “Buy chocolate milk”.
 
->Tasks with date and time specified will be added to WhatNow as a schedule task and will be displayed under the heading "Schedule".<br> 
+>Tasks with date and time specified will be added to WhatNow as a schedule task and will<br> be displayed under the heading "Schedule".<br> 
 > <img src="images/UI_Prototype/WhatNowUI-AddSchedule-Colour.png" width="600">
 
->Tasks without date and time specified will be added to WhatNow as a todo task and will be<br> displayed under the heading "Todo Tasks".
+>Tasks without date and time specified will be added to WhatNow as a todo task and will<br> be displayed under the heading "Todo Tasks".
 > <img src="images/UI_Prototype/WhatNowUI-AddTodo-Colour.png" width="600">
 
 
@@ -89,7 +90,7 @@ Format: `list [date/time/priority] KEYWORD`
 Examples: 
 * `list`<br>
 Returns a list of all tasks. <br>
-> <img src="images/UI_Prototype/WhatNowUI-List.png" width="600">
+<img src="images/UI_Prototype/WhatNowUI-List-Colour.png" width="600">
 * `list completed`<br>
  Returns a list of all completed tasks. <br>
 * `list todo`<br>
@@ -101,25 +102,25 @@ Returns a list of all tasks scheduled at 6pm. <br>
 * `list date 3 Nov`<br>
 Returns a list of all tasks scheduled for 3 November of the current year. <br>
 
->If you want to view any of the Todo tasks, Scheduled tasks or Completed tasks only, then you only need to type in “todo”, “schedule” or “completed” as the keyword after the command list. <br>
+>If you want to view any of the Todo tasks, Scheduled tasks or Completed tasks only, then you only<br> need to type in “todo”, “schedule” or “completed” as the keyword after the command list. <br>
 > <img src="images/UI_Prototype/WhatNowUI-ListCompleted-Colour.png" width="600">
 
 
 #### Deleting a task : `delete`
 Deletes a task from WhatNow. Reversible.<br>
-Format: `delete INDEX`
+Format: `delete todo/schedule/completed INDEX`
 
-> Deletes the task at the specified `INDEX` from the displayed list as specified. 
+> Deletes the task at the specified `INDEX` from todo tasks, schedule or completed tasks as specified. <br>
   The index refers to the index number shown in the current listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `delete 4`<br>
-  Deletes the 4th task from the displayed list in WhatNow. <br>
-  > <img src="images/UI_Prototype/WhatNowUI-DeleteTodo-Colour.png" width="600">
-* `delete 2`<br>
-  Deletes the 2nd todo task from the displayed list in WhatNow. <br>
-> <img src="images/UI_Prototype/WhatNowUI-DeleteSchedule-Colour.png" width="600">  <br>
+* `delete todo 4`<br>
+  Deletes the 4th todo task from the displayed list in WhatNow. <br>
+  <img src="images/UI_Prototype/WhatNowUI-DeleteTodo-Colour.png" width="600">
+* `delete schedule 2`<br>
+  Deletes the 2nd schedule task from the displayed list in WhatNow. <br>
+  <img src="images/UI_Prototype/WhatNowUI-DeleteSchedule-Colour.png" width="600">
 
 
 #### Updating a task : `update`
@@ -137,7 +138,7 @@ Examples:
    Selects the 4th todo task from the displayed list and changes the type of task from todo to scheduled. 
 * `update schedule 5 time 8:30pm`<br>
    Selects the 5th schedule task from the displayed list and changes the time to 8:30pm. <br>
-> <img src="images/UI_Prototype/WhatNowUI-UpdateSchedule-Colour.png" width="600"> 
+<img src="images/UI_Prototype/WhatNowUI-UpdateSchedule-Colour.png" width="600"> 
 
 
 #### Undoing the previous action : `undo`
@@ -147,7 +148,7 @@ Format: `undo`
 Examples: 
 * `undo`<br>
    Undo the previous action <br>
-> <img src="images/UI_Prototype/WhatNowUI-Undo-Colour.png" width="600">
+<img src="images/UI_Prototype/WhatNowUI-Undo-Colour.png" width="600">
 
 
 #### Redoing the previous action : `redo`
@@ -157,7 +158,7 @@ Format: `redo`
 Examples: 
 * `redo`<br>
    Redo the previous action <br>
-> <img src="images/UI_Prototype/WhatNowUI-Redo-Colour.png" width="600">
+<img src="images/UI_Prototype/WhatNowUI-Redo-Colour.png" width="600">
 
 
 #### Finding tasks containing any keyword in their description: `find`
@@ -168,7 +169,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 > * The order of the keywords does not matter. e.g. `Read books` will match `books Read`
 > * Only the task description is searched.
 > * All task description containing the keyword will be matched .e.g. `Book` will match `Books`
-> * Tasks matching at least one keyword will be returned (i.e. `OR` and `AND` search).
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Read Study` will match `Read books`
 
 Examples: 
@@ -178,7 +179,7 @@ Examples:
   Returns any tasks having the description `Read`, `books`, `lecture` or `notes`.
 * `find CS3235`<br>
   Returns any tasks having the description `CS3235`. <br>
-> <img src="images/UI_Prototype/WhatNowUI-Find-Colour.png" width="600">
+<img src="images/UI_Prototype/WhatNowUI-Find-Colour.png" width="600">
 
 
 #### Viewing help : `help`
@@ -198,9 +199,11 @@ There is no need to save manually after you make any changes or additions.
 Clears all tasks from WhatNow.<br>
 Format: `clear`  
 
+
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
+
 
 ## FAQ
 
@@ -208,6 +211,7 @@ Format: `exit`
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous WhatNow folder.
        
+
 ## Command Summary
 
 Command | Format  
