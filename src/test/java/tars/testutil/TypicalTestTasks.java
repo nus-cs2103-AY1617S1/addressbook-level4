@@ -13,21 +13,21 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            taskA =  new TaskBuilder().withName("Task A").withDateTime("01/09/2016 1400 to 02/09/2016 1400")
+            taskA =  new TaskBuilder().withName("Task A").withDateTime("01/09/2016 1400" , "02/09/2016 1400")
                     .withPriority("h")
                     .withTags("test").build();
-            taskB = new TaskBuilder().withName("Task B").withDateTime("02/09/2016 1400 to 03/09/2016 1400")
+            taskB = new TaskBuilder().withName("Task B").withDateTime("02/09/2016 1400" , "03/09/2016 1400")
                     .withPriority("m")
                     .withTags("tars", "test").build();
-            taskC = new TaskBuilder().withName("Task C").withDateTime("03/09/2016 1400 to 04/09/2016 1400").withPriority("l").build();
-            taskD = new TaskBuilder().withName("Task D").withDateTime("04/09/2016 1400 to 05/09/2016 1400").withPriority("h").build();
-            taskE = new TaskBuilder().withName("Task E").withDateTime("05/09/2016 1400 to 06/09/2016 1400").withPriority("m").build();
-            taskF = new TaskBuilder().withName("Task F").withDateTime("06/09/2016 1400 to 07/09/2016 1400").withPriority("l").build();
-            taskG = new TaskBuilder().withName("Task G").withDateTime("07/09/2016 1400 to 08/09/2016 1400").withPriority("h").build();
+            taskC = new TaskBuilder().withName("Task C").withDateTime("03/09/2016 1400" , "04/09/2016 1400").withPriority("l").build();
+            taskD = new TaskBuilder().withName("Task D").withDateTime("04/09/2016 1400" , "05/09/2016 1400").withPriority("h").build();
+            taskE = new TaskBuilder().withName("Task E").withDateTime("05/09/2016 1400" , "06/09/2016 1400").withPriority("m").build();
+            taskF = new TaskBuilder().withName("Task F").withDateTime("06/09/2016 1400" , "07/09/2016 1400").withPriority("l").build();
+            taskG = new TaskBuilder().withName("Task G").withDateTime("07/09/2016 1400" , "08/09/2016 1400").withPriority("h").build();
 
             //Manually added
-            taskH = new TaskBuilder().withName("Task H").withDateTime("08/09/2016 1400 to 09/09/2016 1400").withPriority("m").build();
-            taskI = new TaskBuilder().withName("Task I").withDateTime("09/09/2016 1400 to 10/09/2016 1400").withPriority("l").build();
+            taskH = new TaskBuilder().withName("Task H").withDateTime("08/09/2016 1400" , "09/09/2016 1400").withPriority("m").build();
+            taskI = new TaskBuilder().withName("Task I").withDateTime("09/09/2016 1400" , "10/09/2016 1400").withPriority("l").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
