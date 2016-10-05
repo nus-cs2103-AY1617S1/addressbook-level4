@@ -1,29 +1,24 @@
 # User Guide
 
-* [Quick Start](#quick-start)
+* [Getting Started](#getting-started)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-## Quick Start
+## Getting Started
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+2. Download the latest `simply.jar` from the [releases](../../../releases) tab.
+3. Copy the file to the folder you want to use as the home folder for your Simply.
+4. Double-click the file to start the app. The GUI should appear in a few seconds. 
+  
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
+
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
