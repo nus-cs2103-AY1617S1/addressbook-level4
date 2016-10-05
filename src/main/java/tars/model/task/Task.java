@@ -16,10 +16,6 @@ public class Task implements ReadOnlyTask {
     private Status status;
     private Priority priority;
 
-    private Phone phone;
-    private Email email;
-    private Address address;
-
     private UniqueTagList tags;
 
     /**
@@ -67,20 +63,6 @@ public class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
 
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
-    }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
@@ -99,7 +81,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, dateTime, priority, status, tags);
     }
 
     @Override

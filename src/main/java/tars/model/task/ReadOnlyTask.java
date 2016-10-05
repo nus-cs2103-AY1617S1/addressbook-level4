@@ -17,9 +17,6 @@ public interface ReadOnlyTask {
     public static final String PRIORITY_L = "l";
 
     Name getName();
-    Phone getPhone();
-    Email getEmail();
-    Address getAddress();
     DateTime getDateTime();
     Status getStatus();
     Priority getPriority();
