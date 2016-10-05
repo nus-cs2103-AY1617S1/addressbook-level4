@@ -18,7 +18,7 @@ Responsibilities: Integration
 -----
 
 #### [Desmond Khoo](http://github.com/DesmondKhoo) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+<img src="images/DesmondKhoo.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Code Testing
 
