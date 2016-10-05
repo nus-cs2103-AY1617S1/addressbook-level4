@@ -26,6 +26,6 @@
 
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
-
+* We also acknowledge the original source of the code i.e. the SE-EDU initiative at https://github.com/se-edu/
 
 #### Licence : [MIT](LICENSE)
