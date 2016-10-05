@@ -6,7 +6,7 @@ We are C02 Team 2, from the [School of Computing, National University of Singapo
 
 #### Nirandika Wanigasekara <br>
 <img src="https://github.com/CS2103AUG2016-T10-C2/main/blob/master/docs/images/NirandikaWanigasekara.jpg?raw=true" width="150"> <br>
-Project Mentor
+Project Mentor <br>
 Responsibilities: Feedback & Guidance
 
 -----
@@ -14,7 +14,7 @@ Responsibilities: Feedback & Guidance
 #### Joycelyn Ng <br>
 <img src="https://github.com/CS2103AUG2016-T10-C2/main/blob/master/docs/images/JoycelynNg.jpg?raw=true" width="150"> <br>
 Team Lead <br>
-Responsibilties: Overall Project Coordination, Scheduling & Tracking
+Responsibilties: Project Coordination, Scheduling & Tracking
 
 -----
 
