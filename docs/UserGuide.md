@@ -134,6 +134,8 @@ Search #CS2103
 
 <img src="images/Capture17.PNG" width="600"><br>
 
+Only the tasks with the keyword are displayed.
+
 ###4.4 Marking Task as Complete 
 
 The marking task as complete command enables you to mark the task as complete and hide the task.
@@ -146,12 +148,16 @@ Complete &lt;index&gt;-&lt;index&gt;
 
 Complete &lt;index&gt;, &lt;index&gt;
     
+<img src="images/Capture18.PNG" width="600"><br>    
+    
 Example: 
 Complete T1
 
 Complete T1-T3
 
 Complete T1, T3
+
+<img src="images/Capture19.PNG" width="600"><br>
 
 >Note: if you want to select more than one task to complete, you can separated the task by a - to complete all tasks that are within the range. In addition, you also separate the task by a , to individually delete them.
 
@@ -161,17 +167,26 @@ The display command will display the completed tasks in their respective categor
 
 Format: Display
 
+<img src="images/Capture20.PNG" width="600"><br>
+
 Example: Display
+
+<img src="images/Capture21.PNG" width="600"><br>
 
 ###4.6 Undo the Most Recent Commands
 
 The undo command enables you to undo the most recent command that have been executed.
 
 Format: Undo &lt;number of operations&gt;
+
+<img src="images/Capture22.PNG" width="600"><br>
+
 Example: 
 Undo
 
 Undo 2
+
+<img src="images/Capture23.PNG" width="600"><br>
 
 >Note: The undo command can only undo a maximum of 5 commands that have been executed
 
@@ -186,12 +201,16 @@ Delete &lt;index&gt;-&lt;index&gt;
 
 Delete &lt;index&gt;, &lt;index&gt; 
 
+<img src="images/Capture24.PNG" width="600"><br>
+
 Example: 
 Delete T3
 
 Delete T1-T3
 
 Delete T1, T3
+
+<img src="images/Capture25.PNG" width="600"><br>
 
 >Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a -, Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a , Simply will delete the tasks entered individually. 
 
@@ -201,7 +220,7 @@ Delete T1, T3
 
 This command enables you to close the program.
 
-Format: Exit
+Format: **Exit**
 
 Example: Exit
 
@@ -209,9 +228,13 @@ Example: Exit
 
 The help command will display the commands and their functionalities.
 
-Format: Help
+Format: **Help**
+
+<img src="images/Capture26.PNG" width="600"><br>
 
 Example : Help
+
+<img src="images/Capture27.PNG" width="600"><br>
 
 ###Command Summary
 
