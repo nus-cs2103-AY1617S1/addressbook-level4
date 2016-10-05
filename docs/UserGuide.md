@@ -5,6 +5,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+<br>
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
@@ -14,14 +15,14 @@
 1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   > (TODO add GUI snap)
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
    
 5. Refer to the [Features](#features) section below for details of each command.<br>
 
-
+<br>
 ## Features
 
 > **Command Format**
@@ -30,13 +31,13 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
-
+<br>
 #### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
- 
+<br>
 #### Adding a person: `add`
 Adds a task to the task manager <br>
 Format: `add t/TASK_DESCRIPTION [st/START_TIME] [et/END_TIME] [d/DATE] [tg/TAGS]...`
@@ -50,14 +51,14 @@ Examples:
 * `add t/Do CS2103T Pre-tutorial et/7pm d/8 Oct 2016`
 * `add t/CS2103T Lecture st/2pm et/4pm d/7 Oct 2016 tg/Important`
 
-
+<br>
 #### Listing all tasks : `list`
 Shows a list of all tasks in the Task Manager.<br>
 Format: `list`
 
 > Tasks will be list in order of task, floating, event, and then by index.
 
-
+<br>
 #### Listing all tasks by categories : `listby`
 Shows a list of all tasks in the Task Manager according to a stated category
 Format: `listby CATEGORIES`
@@ -71,7 +72,7 @@ Examples:
 * `listby completed`
 * `listby USER-DEFINED TAGS`
 
-
+<br>
 #### Finding all tasks containing any keyword in their title: `find`
 Finds tasks whose titles contain any of the given keywords.
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -91,7 +92,7 @@ Examples:
 * `find dinner meeting project`<br>
   Returns any task having names `dinner`, `meeting`, or `project`
 
-  
+<br> 
 #### Deleting a task : `delete`
 Deletes the specified task from the Task Manager.<br>
 Format: `delete INDEX`
@@ -106,7 +107,7 @@ Examples:
   `delete 459`
   Delete task with index 459 in the list
 
-  
+<br> 
 #### Undo a command: `undo`
 Undo the previous action
 Format: `undo`
@@ -121,24 +122,24 @@ Examples:
   `undo`<br>
   Deletes task of “add do housework”
 
-  
+<br>  
 #### Mark task as complete : `completed`
 Marks a task as completed as a normal tag
 Format: `completed INDEX`
 
 > Task Manager will mark task as completed with a predefined tag “completed” 
 
-
+<br>
 #### Clearing all entries : `clear`
 Clears all entries from the Task Manager in the save data.<br>
 Format: `clear`  
 
-
+<br>
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
-
+<br>
 #### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
@@ -147,13 +148,14 @@ There is no need to save manually.
 >
 > When running the program inside Eclipse, you can set command line parameters before running the program.
 
-
+<br>
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Task Manager folder.
-       
+
+<br>       
 ## Command Summary
 
 Command | Format  
