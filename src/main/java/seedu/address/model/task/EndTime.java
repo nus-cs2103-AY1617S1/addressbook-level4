@@ -11,7 +11,7 @@ public class EndTime {
 
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
             "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    public static final String EMAIL_VALIDATION_REGEX = "[\\p{Alnum} ]";
 
     public final String value;
 
@@ -21,11 +21,14 @@ public class EndTime {
      * @throws IllegalValueException if given email address string is invalid.
      */
     public EndTime(String email) throws IllegalValueException {
-        assert email != null;
-        email = email.trim();
-//        if (!isValidEmail(email)) {
-//            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
-//        }
+
+        if (email != null) {
+        	email = email.trim();
+        }
+        if (email != null && !isValidEmail(email)) {
+            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
+        }
+
         this.value = email;
     }
 
