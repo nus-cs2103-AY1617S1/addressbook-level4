@@ -10,8 +10,6 @@ import java.util.regex.Pattern;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
-
 
 /**
  * Parses a input string into the command, positional argument and named arguments. 
@@ -71,7 +69,7 @@ public class TodoParser implements ParserContract {
     }
     
     @Override
-    public ParseResult parse(String input) throws IllegalValueException {
+    public ParseResult parse(String input) {
         List<String> tokens = tokenize(input);
         Map<String, String> named = new HashMap<>();
         
