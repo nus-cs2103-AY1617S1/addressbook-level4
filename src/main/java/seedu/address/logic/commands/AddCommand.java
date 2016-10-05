@@ -27,38 +27,38 @@ public class AddCommand extends Command {
             + " [siloso beach party, 120716, 1600, 2200]";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in Simply";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Simply";
 
-    private final Person toAdd;
+    private final Task toAdd;
 
     /**
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
+    public AddCommand(String name, String date, String start, String end)//, Set<String> tags)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd = new Person(
+//        final Set<Tag> tagSet = new HashSet<>();
+  //      for (String tagName : tags) {
+    //        tagSet.add(new Tag(tagName));
+      //  }
+        this.toAdd = new Task(
                 new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
-                new UniqueTagList(tagSet)
-        );
+                new Date(date),
+                new Start(start),
+                new End(end));//,
+       //         new UniqueTagList(tagSet)
+        //);
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addPerson(toAdd);
+            model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePersonList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }
