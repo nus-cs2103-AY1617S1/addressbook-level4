@@ -101,7 +101,7 @@ Examples:
 Deletes the specified tasks from the task manager. <br>
 Format: `delete INDEX [MORE_INDICES...]`
 
-> Deletes the person at the specified INDICES.
+> Deletes the task at the specified INDICES.
   The indices refers to the index numbers shown in the most recent listing.<br>
   The indices **must be positive integers** 1, 2, 3, ...
 
