@@ -13,54 +13,61 @@
 
 
 ## Features
-1. Viewing Help: ` help ` 
+1. Viewing Help: ` help `
 > Displays list of available commmands and descriptions 
 
-2. Adding a Task / Event: ` add `  
-<img src="images/add.png" width="600"><br>
-	- `add <name> [-due <date>] [#<cat>] [#<cat>] ...` 
+2. Adding a Task / Event: ` add `   
+    <img src="images/add.png" width="600">
+    - `add <name> [-due <date>] [#<cat>] [#<cat>] ...` 
 > If no date is specified, task will be set as a floating task  
 
     - `add <name> [-on <date>] [-at <location>]...`  
-	
-	- `add <name> [-from <date><time> -to <date><time>] ...`
+
+    - `add <name> [-from <date><time> -to <date><time>] ...`
 > If no date is specified, date will be set to the current day, or the next day if set time has passed  
 > If no time is specified, start times will be set to 0000 and end times to 2359 
 
-3. Editing: ` edit ` 
-<img src="images/edit.png" width="600"><br>
-	- `edit <index> [-due <date>]` : edits task specified by index
-	- `edit #<oldCat> #<newCat>` : edits category name 
+3. Editing: ` edit `    
+<img src="images/edit.png" width="600">
+
+    - `edit <index> [-due <date>]` : edits task specified by index
+    - `edit #<oldCat> #<newCat>` : edits category name 
     
 4. Listing All Tasks: ` list `
 <img src="images/list.png" width="600"><br>  
+
     - `list` :  lists all undone tasks sorted by by deadline  
     - `list <day / week>` : lists undone tasks with deadline in the current day / next 7 days  
     - `list float` : lists undone tasks with no deadline
     - `list #<cat>` : lists undone tasks in category
-	- `list done` : lists tasks done within the past 7 days  
+    - `list done` : lists tasks done within the past 7 days  
     
 5. Mark Task as Done: ` done `  
 <img src="images/done.png" width="600"><br>  
-	- `done <index>` : marks task specified by index as done 
+
+    - `done <index>` : marks task specified by index as done 
     
 6. Find: ` find `
 <img src="images/find.png" width="600"><br> 
-	- `find <keyword>` : returns list of tasks with names similar to keyword
-	- `find #<keyword>` : returns list of categories with names similar to keyword
+
+    - `find <keyword>` : returns list of tasks with names similar to keyword
+    - `find #<keyword>` : returns list of categories with names similar to keyword
 	
 7. Deleting a Task: ` del `   
 <img src="images/delete.png" width="600"><br> 
+
     - `del <index>` : deletes task spcified by index 
-	- `del #<cat>` : deletes category 
+    - `del #<cat>` : deletes category 
 
 8. Undo: ` undo ` 
 <img src="images/undo.png" width="600"><br> 
+
 9. Redo: ` redo `
 <img src="images/redo.png" width="600"><br> 
 
 10. Change Storage: ` save ` 
 <img src="images/save.png" width="600"><br> 
+
 	- `save <new path>` : changes the storage file to the file specified by new path 
     
 11. Exiting Program: ` exit ` 
