@@ -54,10 +54,10 @@ No tasks to display.
 
 | Command |Format |
 | --- | --- |
-|add|`add <task_name> [-st <start> -end <end> &#124; -d <deadline>] [-t <tags>]  [-r <recurrence>] [-desc <description>]`|
+|add|`add <task_name> [-st <start> -end <end> | -d <deadline>] [-t <tags>]  [-r <recurrence>] [-desc <description>]`|
 |list|`list [-f [start=<start_value>] [end=<end_value>] [deadline=<deadline_value>][tags=<comma_separated_tags>] [recurrence=<recurrence_value>] [desc=<description_value>]]`|
 |tag|`tag [-d] <task_id> <tag_name> [, <tag_name> …]`|
-|edit|`edit <task_id> [-st <start> -end <end> &#124; -d <deadline>] [-t <tags>]  [-r <recurrence>] [-desc <description>]`|
+|edit|`edit <task_id> [-st <start> -end <end> | -d <deadline>] [-t <tags>]  [-r <recurrence>] [-desc <description>]`|
 |delete|`delete <task_id>`|
 |mark|`mark [-d] <task_id>`|
 |show|`show <task_id>`|
