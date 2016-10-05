@@ -66,8 +66,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-//        activityManager.removePerson(target);
+    public synchronized void deletePerson(Activity target) { // throws ActivityNotFoundException {
+        activityManager.removeActivity(target);
         indicateAddressBookChanged();
     }
 

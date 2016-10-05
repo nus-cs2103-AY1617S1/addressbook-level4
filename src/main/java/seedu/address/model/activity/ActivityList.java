@@ -5,8 +5,10 @@ import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
+import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 public class ActivityList implements Iterable<Activity> {
 	
@@ -17,10 +19,25 @@ public class ActivityList implements Iterable<Activity> {
 
     /**
      * Adds a activity to the list.
+     * 
      */
     public void add(Activity toAdd){
         assert toAdd != null;
         internalList.add(toAdd);
+    }
+    
+    /**
+     * Removes the equivalent activity from the list.
+     *
+     * @throws ActivityNotFoundException if no such person could be found in the list.
+     */
+    public boolean remove(Activity toRemove) { //throws PersonNotFoundException {
+        assert toRemove != null;
+        final boolean activityFoundAndDeleted = internalList.remove(toRemove);
+//        if (!personFoundAndDeleted) {
+//            throw new PersonNotFoundException();
+//        }
+        return activityFoundAndDeleted;
     }
 	
     public ObservableList<Activity> getInternalList() {

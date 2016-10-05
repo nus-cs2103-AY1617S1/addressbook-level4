@@ -19,7 +19,7 @@ public interface Model {
     ReadOnlyActivityManager getAddressBook();
 
     /** Deletes the given person. */
-    void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
+    void deletePerson(Activity target);
 
     /** Adds the given person */
     void addPerson(Activity activity);

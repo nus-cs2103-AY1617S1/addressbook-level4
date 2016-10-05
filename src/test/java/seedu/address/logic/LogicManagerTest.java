@@ -303,7 +303,7 @@ public class LogicManagerTest {
         List<Person> threePersons = helper.generatePersonList(3);
 
         ActivityManager expectedAB = helper.generateActivityManager(threePersons);
-        expectedAB.removePerson(threePersons.get(1));
+        expectedAB.removeActivity(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
