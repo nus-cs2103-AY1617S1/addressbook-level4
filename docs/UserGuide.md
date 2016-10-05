@@ -132,3 +132,4 @@ Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
 Select | `select INDEX`
+View | `view`
