@@ -23,13 +23,13 @@ public interface Model {
     /** Adds the given person */
     void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyPerson> getFilteredTaskList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Updates the filter of the filtered task list to show all task */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
-    void updateFilteredPersonList(Set<String> keywords);
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredTaskList(Set<String> keywords);
 
 }
