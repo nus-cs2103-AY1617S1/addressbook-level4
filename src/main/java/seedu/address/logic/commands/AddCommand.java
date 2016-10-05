@@ -12,6 +12,10 @@ import java.util.Set;
  * Adds a task to the Task Manager.
  */
 public class AddCommand extends Command {
+    /** 
+     * stub unique tag list used for every add commands for now
+     */
+    UniqueTagList stubTagList = new UniqueTagList();
 
     public static final String COMMAND_WORD = "add";
 
@@ -33,7 +37,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name)
             throws IllegalValueException {
-        this.toAdd = new Task(new Name(name), null);
+        this.toAdd = new Task(new Name(name), stubTagList);
     }
 
     @Override
