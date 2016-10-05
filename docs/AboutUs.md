@@ -29,7 +29,9 @@ Responsibilities: Model
 
 Role: Developer <br>  
 Responsibilities: UI
- 
+
+-----
+
 ## Project Mentor
 
 #### Sam Yong
