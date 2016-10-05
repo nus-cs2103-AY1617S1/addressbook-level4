@@ -35,7 +35,7 @@
 * The command is case insensitive.
 * The order of parameters is fixed.
 * Words in `UPPER_CASE` are the parameters.
-* Words in `SQUARE_BRAKET` are optional.
+* Words in `SQUARE_BRACKET` are optional.
  
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
@@ -55,12 +55,14 @@ Examples:
 * `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
 
 #### Deleting a task : `delete`
-Deletes a specific task with the same input task name from the to-do list.<br>
-Format: `delete TASK_NAME`
+Deletes a specific task with the same input task name or index from the to-do list.<br>
+Format: `delete TASK_NAME` or `delete INDEX`
 
 Examples:
 * `delete meeting`<br>
   Deletes `meeting` task.
+* `delete 1`
+  Deletes the first task in the to-do list.
 
 #### Listing all persons : `list`
 Shows a list of tasks and events in the todo list.<br>
