@@ -62,7 +62,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 > * The order of the keywords does not matter. e.g. `Software Engineering` will match `Engineering Software`
 > * Only the name is searched.
 > * Only full words will be matched e.g. `CS2103` will not match `CS2103T`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Software` will match `Software Engineering`
 
 Examples: 
@@ -92,7 +92,7 @@ Examples:
 Description: Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX`
 
-> Selects the task and loads the Google search page the person at the specified `INDEX`. 
+> Selects the task and loads the Google search page the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
