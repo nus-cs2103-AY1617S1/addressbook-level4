@@ -1,6 +1,6 @@
 # About Us
 
-We are students from the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are C02 Team 2, from the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
 
