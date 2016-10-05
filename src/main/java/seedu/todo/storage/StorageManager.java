@@ -8,10 +8,9 @@ import seedu.todo.commons.events.model.AddressBookChangedEvent;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.model.ReadOnlyAddressBook;
-import seedu.todo.model.ReadOnlyTodoList;
+import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -90,6 +89,8 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+    
+    // ================ AddressBook methods ==============================
 
 	@Override
 	public String getTodoListFilePath() {
@@ -97,30 +98,29 @@ public class StorageManager extends ComponentManager implements Storage {
 	}
 
 	@Override
-	public Optional<ReadOnlyTodoList> readTodoList() throws DataConversionException, IOException {
+	public Optional<ImmutableTodoList> readTodoList() throws DataConversionException, IOException {
         return readTodoList(todoListStorage.getTodoListFilePath());
 	}
 
 	@Override
-	public Optional<ReadOnlyTodoList> readTodoList(String filePath) throws DataConversionException, IOException {
+	public Optional<ImmutableTodoList> readTodoList(String filePath) throws DataConversionException, IOException {
 		logger.fine("Attempting to read data from file: " + filePath);
         return todoListStorage.readTodoList(filePath);
 	}
 
 	@Override
-	public void saveTodoList(ReadOnlyTodoList todoList) throws IOException {
+	public void saveTodoList(ImmutableTodoList todoList) throws IOException {
 		todoListStorage.saveTodoList(todoList);		
 	}
 
 	@Override
-	public void saveTodoList(ReadOnlyTodoList todoList, String filePath) throws IOException {
+	public void saveTodoList(ImmutableTodoList todoList, String filePath) throws IOException {
 		logger.fine("Attempting to write to data file: " + filePath);
         todoListStorage.saveTodoList(todoList, filePath);
-		
 	}
 
 	@Override
-	public void updateTodoListStorage(ReadOnlyTodoList todoList) throws IOException {
+	public void updateTodoListStorage(ImmutableTodoList todoList) throws IOException {
 		todoListStorage.saveTodoList(todoList);
 	}
 

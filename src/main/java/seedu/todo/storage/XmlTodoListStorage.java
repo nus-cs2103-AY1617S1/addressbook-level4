@@ -9,8 +9,7 @@ import java.util.logging.Logger;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.FileUtil;
-import seedu.todo.model.ReadOnlyTodoList;
-import seedu.todo.model.ReadOnlyTodoList;
+import seedu.todo.model.ImmutableTodoList;
 
 /**
  * A class to access TodoList data stored as an xml file on the hard disk.
@@ -30,7 +29,7 @@ public class XmlTodoListStorage implements TodoListStorage {
 		return filePath;
 	}
 
-	public Optional<ReadOnlyTodoList> readTodoList(String filePath) throws DataConversionException, FileNotFoundException {
+	public Optional<ImmutableTodoList> readTodoList(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File TodoListFile = new File(filePath);
@@ -40,13 +39,13 @@ public class XmlTodoListStorage implements TodoListStorage {
             return Optional.empty();
         }
 
-        ReadOnlyTodoList TodoListOptional = XmlFileStorage.loadTodoListFromFile(new File(filePath));
+        ImmutableTodoList TodoListOptional = XmlFileStorage.loadTodoListFromFile(new File(filePath));
 
         return Optional.of(TodoListOptional);
     }
 
 	@Override
-    public void saveTodoList(ReadOnlyTodoList TodoList, String filePath) throws IOException {
+    public void saveTodoList(ImmutableTodoList TodoList, String filePath) throws IOException {
         assert TodoList != null;
         assert filePath != null;
 
@@ -56,12 +55,13 @@ public class XmlTodoListStorage implements TodoListStorage {
     }
 
     @Override
-    public Optional<ReadOnlyTodoList> readTodoList() throws DataConversionException, IOException {
+    public Optional<ImmutableTodoList> readTodoList() throws DataConversionException, IOException {
         return readTodoList(filePath);
     }
 
     @Override
-    public void saveTodoList(ReadOnlyTodoList TodoList) throws IOException {
+    public void saveTodoList(ImmutableTodoList TodoList) throws IOException {
         saveTodoList(TodoList, filePath);
     }
+
 }

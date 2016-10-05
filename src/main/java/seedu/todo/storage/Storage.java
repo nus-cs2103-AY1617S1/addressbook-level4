@@ -7,7 +7,7 @@ import seedu.todo.commons.events.model.AddressBookChangedEvent;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.model.ReadOnlyAddressBook;
-import seedu.todo.model.ReadOnlyTodoList;
+import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.UserPrefs;
 
 /**
@@ -41,24 +41,24 @@ public interface Storage extends AddressBookStorage, TodoListStorage, UserPrefsS
     String getTodoListFilePath();
 
     @Override
-    Optional<ReadOnlyTodoList> readTodoList() throws DataConversionException, IOException;
+    Optional<ImmutableTodoList> readTodoList() throws DataConversionException, IOException;
 
     @Override
-    Optional<ReadOnlyTodoList> readTodoList(String filePath) throws DataConversionException, IOException;
+    Optional<ImmutableTodoList> readTodoList(String filePath) throws DataConversionException, IOException;
 
     @Override
-    void saveTodoList(ReadOnlyTodoList todoList) throws IOException;
+    void saveTodoList(ImmutableTodoList todoList) throws IOException;
 
     @Override
-    void saveTodoList(ReadOnlyTodoList todoList, String filePath) throws IOException;
+    void saveTodoList(ImmutableTodoList todoList, String filePath) throws IOException;
 
     /**
-     * Saves the current version of the ReadOnlyTodoList to the hard disk.
+     * Saves the current version of the ImmutableTodoList to the hard disk.
      * Creates the data file if it is missing. Raises
-     * {@link DataSavingExceptionEvent} if there was an error during saving.
+     * {@link IOException} if there was an error during saving.
      * 
      * @throws IOException
      */
-    void updateTodoListStorage(ReadOnlyTodoList todoList) throws IOException;
+    void updateTodoListStorage(ImmutableTodoList todoList) throws IOException;
 
 }
