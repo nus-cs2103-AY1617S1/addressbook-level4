@@ -28,4 +28,29 @@
 
 ##Wunderlist
 
+###Pros
+
+1. It is available across windows, mac, android and ios.
+2. Easy search function
+3. Free for non-premium users
+4. Nice interface
+5. Intuitive options and menu selections that is not complicated
+6. Customizable backgrounds to your own liking
+7. Able to accept recurring events
+8. Can set reminders and notifications
+9. Can share between people
+10. Multiple task lists
+11. Short cuts to starred task, overdues and today task
+12. Cloud syncing
+
+
+###Cons
+
+1. There is no options for subtasks.
+2. No start dates for events
+3. Need to pay for premium
+4. Excel files cannot be uploaded
+5. Have to do organization of tasks, events or other stuff by ourselves, they do not group them up for us.
+6. Does not sync with google
+
 ##Trello
