@@ -106,7 +106,7 @@ Examples:
   Selects the 1st task in the results of the `find` command and edit the date from 1110 to 2010.
 
 ### Deleting a task : `delete`
-Deletes the specified task from the To Do List. Irreversible.<br>
+Deletes the specified task from the To Do List.<br>
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`.
@@ -168,19 +168,19 @@ Example:
   All tasks in deadlines are cleared
 
 ### Clearing all entries: `clearall`
-### Clears all tasks available from Schema
+Clears all tasks available from Schema  
 Format: `clearall`
 
 Example:
-* `clearall`
+* `clearall`  
   All tasks in Schema are cleared
   
 ### Relocate database : `relocate`
-Relocates the destination that data is saved
+Relocates the destination that data is saved  
 Format: `relocate FILEPATH`
 
 Example:
-* `relocate ~/document/schema`
+* `relocate ~/document/schema`  
   data has been relocated to ~/document/schema
 
 ### Exiting the program : `exit`
