@@ -68,17 +68,82 @@ Changes: read toto-chan, 140516, 1600 [enter]
 
 This will edit the current todo task into a deadline task with the deadline on 140516 at 1600H.
 
-#### Search Task by Partial Keyword
+###4.3 Search Task by Partial Keyword
 
 The search by partial keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task have not been entered, an error message will be shown.
 
 Format: Search <keyword>
-Example: Search project
-         Search 050316
-         Search 2359
-         Search #CS2103
+Example: 
+Search project
+Search 050316
+Search 2359
+Search #CS2103
 
+###4.4 Marking Task as Complete 
 
+The marking task as complete command enables you to mark the task as complete and hide the task.
+
+Format: 
+Complete <index>
+Complete <index>-<index>
+Complete <index>, <index>
+    
+Example: 
+Complete T1
+Complete T1-T3
+Complete T1, T3
+
+>Note: if you want to select more than one task to complete, you can separated the task by a - to complete all tasks that are within the range. In addition, you also separate the task by a , to individually delete them.
+
+###4.5 Display completed task
+
+The display command will display the completed tasks in their respective categories.
+
+Format: Display
+Example: Display
+
+###4.6 Undo the Most Recent Commands
+
+The undo command enables you to undo the most recent command that have been executed.
+
+Format: Undo <number of operations>
+Example: 
+Undo
+Undo 2
+
+>Note: The undo command can only undo a maximum of 5 commands that have been executed
+
+###4.7 Deleting task
+
+The delete command enables you to delete the tasks that you no longer need.
+
+Format: 
+Delete <index>
+Delete <index>-<index>
+Delete <index>, <index> 
+
+Example: 
+Delete T3
+Delete T1-T3
+Delete T1, T3
+
+>Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a -, Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a , Simply will delete the tasks entered individually. 
+
+>Note: If no number is being adding, the default number of times the command will undo is 1.
+
+###4.8 Exiting the program
+
+This command enables you to close the program.
+
+Format: Exit
+Example: Exit
+
+###4.9 Help
+
+The help command will display the commands and their functionalities.
+
+Format: Help
+Example : Help
 
 
 
