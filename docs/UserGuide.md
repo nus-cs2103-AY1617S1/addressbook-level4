@@ -1,5 +1,5 @@
  
-![T-T](images/Logo.png =100x20)
+![T-T]{width:20%}(images/Logo.png)
 
 # **USER GUIDE** 
 ---
