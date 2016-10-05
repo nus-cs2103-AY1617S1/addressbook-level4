@@ -1,4 +1,4 @@
-package seedu.address.logic;
+package seedu.ggist.logic;
 
 import com.google.common.eventbus.Subscribe;
 

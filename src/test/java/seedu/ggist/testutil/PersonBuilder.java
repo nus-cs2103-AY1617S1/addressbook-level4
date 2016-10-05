@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.ggist.testutil;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.tag.Tag;

@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.ggist.testutil;
 
 import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;

@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.ggist.testutil;
 
 import com.google.common.io.Files;
 import guitests.guihandles.PersonCardHandle;
@@ -12,7 +12,8 @@ import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
+
+import seedu.ggist.TestApp;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.FileUtil;
 import seedu.ggist.commons.util.XmlUtil;

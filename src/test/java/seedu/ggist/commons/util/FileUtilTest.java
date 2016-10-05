@@ -1,12 +1,13 @@
-package seedu.address.commons.util;
+package seedu.ggist.commons.util;
 
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import seedu.address.testutil.SerializableTestClass;
-import seedu.address.testutil.TestUtil;
+
 import seedu.ggist.commons.util.FileUtil;
+import seedu.ggist.testutil.SerializableTestClass;
+import seedu.ggist.testutil.TestUtil;
 
 import java.io.File;
 import java.io.IOException;

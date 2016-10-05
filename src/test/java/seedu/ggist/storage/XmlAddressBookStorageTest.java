@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.ggist.storage;
 
 
 import org.junit.Rule;
@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.ggist.commons.exceptions.DataConversionException;
 import seedu.ggist.commons.util.FileUtil;
 import seedu.ggist.model.TaskManager;
 import seedu.ggist.model.ReadOnlyTaskManager;
 import seedu.ggist.model.task.Task;
 import seedu.ggist.storage.XmlAddressBookStorage;
+import seedu.ggist.testutil.TypicalTestPersons;
 
 import java.io.IOException;
 

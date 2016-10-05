@@ -1,15 +1,15 @@
-package seedu.address.commons.util;
+package seedu.ggist.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.TestUtil;
 import seedu.ggist.commons.util.FileUtil;
 import seedu.ggist.commons.util.XmlUtil;
 import seedu.ggist.model.TaskManager;
 import seedu.ggist.storage.XmlSerializableAddressBook;
+import seedu.ggist.testutil.AddressBookBuilder;
+import seedu.ggist.testutil.TestUtil;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;

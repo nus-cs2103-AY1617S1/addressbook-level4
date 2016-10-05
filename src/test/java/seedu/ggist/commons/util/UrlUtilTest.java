@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.ggist.commons.util;
 
 import org.junit.Test;
 

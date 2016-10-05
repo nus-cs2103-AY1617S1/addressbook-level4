@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.ggist.testutil;
 
 import com.google.common.eventbus.Subscribe;
 

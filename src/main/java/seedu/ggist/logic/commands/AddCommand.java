@@ -21,7 +21,8 @@ public class AddCommand extends Command {
             + "add buy milk, oct 13, 1800, high";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-
+    public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";
+    
     private final Task toAdd;
 
     /**
@@ -49,8 +50,12 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        try {
+            model.addTask(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        }
 
     }
 

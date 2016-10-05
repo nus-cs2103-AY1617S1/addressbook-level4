@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.ggist.storage;
 
 
 import org.junit.Before;
@@ -6,7 +6,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
 import seedu.ggist.commons.events.storage.DataSavingExceptionEvent;
 import seedu.ggist.model.TaskManager;
@@ -16,7 +15,8 @@ import seedu.ggist.storage.JsonUserPrefsStorage;
 import seedu.ggist.storage.Storage;
 import seedu.ggist.storage.StorageManager;
 import seedu.ggist.storage.XmlAddressBookStorage;
-import seedu.address.testutil.EventsCollector;
+import seedu.ggist.testutil.EventsCollector;
+import seedu.ggist.testutil.TypicalTestPersons;
 
 import java.io.IOException;
 

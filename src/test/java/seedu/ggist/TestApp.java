@@ -1,14 +1,14 @@
-package seedu.address;
+package seedu.ggist;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.testutil.TestUtil;
 import seedu.ggist.MainApp;
 import seedu.ggist.commons.core.Config;
 import seedu.ggist.commons.core.GuiSettings;
 import seedu.ggist.model.ReadOnlyTaskManager;
 import seedu.ggist.model.UserPrefs;
 import seedu.ggist.storage.XmlSerializableAddressBook;
+import seedu.ggist.testutil.TestUtil;
 
 import java.util.function.Supplier;
 
