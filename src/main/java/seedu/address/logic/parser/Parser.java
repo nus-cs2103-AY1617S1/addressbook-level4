@@ -71,6 +71,9 @@ public class Parser {
             
         case PreviousCommand.COMMAND_WORD:
             return new PreviousCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

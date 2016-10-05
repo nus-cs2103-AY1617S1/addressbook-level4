@@ -1,11 +1,13 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * The API of the Model component.
@@ -22,6 +24,9 @@ public interface Model {
 
     /** Adds the given person */
     void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
+    
+    /** Returns the stack of command history */
+    Stack<Command> getCommandHistory();
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
