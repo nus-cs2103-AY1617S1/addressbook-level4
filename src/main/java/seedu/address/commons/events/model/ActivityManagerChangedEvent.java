@@ -4,11 +4,11 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyActivityManager;
 
 /** Indicates the ActivityManager in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+public class ActivityManagerChangedEvent extends BaseEvent {
 
     public final ReadOnlyActivityManager data;
 
-    public AddressBookChangedEvent(ReadOnlyActivityManager data){
+    public ActivityManagerChangedEvent(ReadOnlyActivityManager data){
         this.data = data;
     }
 
