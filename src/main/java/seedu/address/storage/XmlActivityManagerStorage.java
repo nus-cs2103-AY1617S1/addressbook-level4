@@ -14,13 +14,13 @@ import java.util.logging.Logger;
 /**
  * A class to access ActivityManager data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements ActivityManagerStorage {
+public class XmlActivityManagerStorage implements ActivityManagerStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlActivityManagerStorage.class);
 
     private String filePath;
 
-    public XmlAddressBookStorage(String filePath){
+    public XmlActivityManagerStorage(String filePath){
         this.filePath = filePath;
     }
 

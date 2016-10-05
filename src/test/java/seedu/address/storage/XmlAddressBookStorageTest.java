@@ -33,7 +33,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyActivityManager> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlActivityManagerStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -63,18 +63,18 @@ public class XmlAddressBookStorageTest {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTestPersons td = new TypicalTestPersons();
         ActivityManager original = td.getTypicalActivityManager();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        XmlActivityManagerStorage xmlActivityManagerStorage = new XmlActivityManagerStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyActivityManager readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlActivityManagerStorage.saveAddressBook(original, filePath);
+        ReadOnlyActivityManager readBack = xmlActivityManagerStorage.readAddressBook(filePath).get();
         assertEquals(original, new ActivityManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(new Person(TypicalTestPersons.hoon));
         original.removePerson(new Person(TypicalTestPersons.alice));
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlActivityManagerStorage.saveAddressBook(original, filePath);
+        readBack = xmlActivityManagerStorage.readAddressBook(filePath).get();
         assertEquals(original, new ActivityManager(readBack));
 
     }
@@ -86,7 +86,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private void saveAddressBook(ReadOnlyActivityManager addressBook, String filePath) throws IOException {
-        new XmlAddressBookStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+        new XmlActivityManagerStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

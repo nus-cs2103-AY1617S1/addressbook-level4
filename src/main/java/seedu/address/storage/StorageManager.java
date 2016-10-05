@@ -20,13 +20,13 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private XmlAddressBookStorage addressBookStorage;
+    private XmlActivityManagerStorage addressBookStorage;
     private JsonUserPrefStorage userPrefStorage;
 
 
     public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
         super();
-        this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
+        this.addressBookStorage = new XmlActivityManagerStorage(addressBookFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
