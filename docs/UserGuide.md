@@ -40,21 +40,21 @@ Format: `add "TASK", at/TIME, on/DATE [t/TAG...]`
 #### Adds a task with deadline to Schema  
 Format: `complete "TASK" by/TIME on/DATE [t/TAG...]`  
 #### Adds a floating task to Schema  
-Format: `do "TASK" [t/ TAG...]` 
+Format: `do "TASK" [t/TAG...]` 
 
  
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+> Words in `UPPER_CASE` are the parameters, items in `[SQUARE_BRACKETS]` are optional, 
 > items with `...` after them can have multiple instances. 
 >
-> task will be added to the categories (event, deadlines, floating task) according to the keywords (`add`, `complete`, `do`)
+> task will be added to the categories (event, deadlines, floating task) according to the keywords (`add`, `complete`, `do`).
 > 
-> DATE is in DDMM format
+> DATE is in DDMM format.
 >
-> Parameters can be in any order 
+> Parameters can be in any order. 
 >
-> Separate different tags with ,
+> Separate different tags with ','.
 >
-> There are no limit to the number of tags a task can have (including 0)
+> There are no limit to the number of tags a task can have (including 0).
 
 Examples: <br>
 * Adding an event
@@ -69,12 +69,12 @@ Shows a list of all tasks in the To Do List.<br>
 Format: `list`
 Format: `list [TAB_NAME]`
 
-> TAB_NAME includes: <br>
-> 1. Home <br>
-> 2. Tasks <br>
-> 3. Events <br>
-> 4. Deadlines <br>
-> 5. Archive <br>
+> TAB_NAME includes:
+> 1. Home
+> 2. Tasks 
+> 3. Events
+> 4. Deadlines
+> 5. Archive 
 
 #### Finding all tasks containing any keyword in their description: `find`
 Finds tasks whose description contain any of the given keywords.<br>
@@ -93,9 +93,9 @@ Examples:
 Edits the task identified by the index number used in the last task listing.  
 Format: `edit INDEX [TASK] [at/TIME] [on/DATE] [t/TAGS...]`
 
-> at least one optional argument is required
+> at least one optional argument is required.
 >
-> can edit only one of the field for the task
+> can edit only one of the field for the task.
 
 Examples: 
 * `list`<br>
@@ -109,9 +109,11 @@ Examples:
 Deletes the specified task from the To Do List. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Deletes the task at the specified `INDEX`.
+> 
+> The index refers to the index number shown in the most recent listing.
+>
+> The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
@@ -124,30 +126,30 @@ Examples:
 ### Undo a command : `undo`
 Format: `undo`
 
-> undo is not a command, so you can not undo a 'undo'. See `redo`
+> undo is not a command, so you can not undo a 'undo'. See `redo`.
 >
-> can only undo commands that make changes to database
+> can only undo commands that make changes to database.
 
 Example:
-* `undo`
+* `undo`  
   COMMAND removed
 
-### Undo a command : `redo`
+### Redo a command : `redo`
 Format: `redo`
 
-> can only redo commands that make changes to database
+> can only redo commands that make changes to database.
 >
-> only available when undo has been used before
+> only available when undo has been used before.
 
 Example:
-* `redo`
+* `redo`  
   COMMAND repeated
 
 ### Completing tasks : `mark`
 Marks the task identified by the index number used in the last task listing as completed and put in the archived tab.  
 Format: `mark INDEX`
 
-> can only mark task that are not complete yet
+> can only mark task that are not complete yet.
 
 Examples: 
 * `list`  
@@ -159,7 +161,7 @@ Examples:
 
 ### Clearing of entries : `clear`
 Clears all tasks in the current tab.<br>
-Format: `clear [TAB]`
+Format: `clear [TAB_NAME]`
 
 Example:
 * `clear deadlines`
@@ -182,11 +184,11 @@ Example:
   data has been relocated to ~/document/schema
 
 ### Exiting the program : `exit`
-Exits the program.<br>
+Exits the program.  
 Format: `exit`  
 
 Example:
-* `exit`
+* `exit`  
   Exiting Schema...
 
 ### Saving the data 
@@ -208,7 +210,9 @@ There is no need to save manually.
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | `add TASK, [on/TIME], [by/DATE],[t/TAG...]`
+Add | `add "TASK" [at/TIME] [on/DATE] [t/TAG...]`
+Complete | `complete "TASK" [by/time] [on/DATE] [t/TAG...]`
+Do | `do "TASK" [t/TAG...]`
 List | `list [TAB_NAME]`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 Edit | `edit INDEX DETAILS`
@@ -217,6 +221,6 @@ Undo | `undo`
 Redo | `redo`
 Mark | `mark INDEX`
 Clear | `clear [TAB_NAME]`
-Clearall | `clearall`
+Clear all | `clearall`
 Relocate | `relocate FILE_PATH`
 Exit | `exit`
