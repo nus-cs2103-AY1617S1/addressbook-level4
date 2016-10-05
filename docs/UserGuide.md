@@ -1,4 +1,25 @@
 # User Guide
+* [Quick Start](#quick-start)
+* [Features](#features)
+* [Command Summary](#command-summary)
+
+## Quick Start
+
+0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+   > Having any Java 8 version is not enough. <br>
+   This app will not work with earlier versions of Java 8.
+1. Download the latest `Agendum.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your Address Book.
+3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will list some information about commands. 
+5. Some example commands you can try:
+   * **`list`** : lists all contacts
+   * **`add`**` Go to shopping mall` : 
+     adds a task with descipription `Go to shopping mall` to the Address Book.
+   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`exit`** : exits the app
+6. Refer to the [Features](#features) section below for details of each command.<br>
 
 ## Features
 
