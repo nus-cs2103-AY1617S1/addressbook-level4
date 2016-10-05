@@ -66,7 +66,7 @@ Shows a list of all tasks including all completed and uncompleted tasks.
 Format: `list all` 
 
 #### Finding all tasks containing any keyword in their name: `find` 
-Finds tasks that contain any of the given keywords.  
+Finds tasks that contain any of the given keywords.<br>
 Format: `find KEYWORD``...`
 
   > * The search is not case sensitive. e.g `assignment` will match `Assignment` 
@@ -141,7 +141,7 @@ Examples:
 - Sets the start time as 7pm, the end time as 9.30pm and the date as 1 October for task 3 on the list.
 
 #### Marking a task as completed : `mark` 
-Marks the specified task in the task list
+Marks the specified task in the task list.<br>
 Format: `mark INDEX...` 
 
 > Mark the task(s) at the specified `INDEX(es)`. The index refers to the index number shown in the most recent listing.
