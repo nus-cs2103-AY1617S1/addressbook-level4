@@ -1,4 +1,6 @@
  
+![Logo](docs/images/Logo.png)
+Format: ![Alt Text]("T-T")
 # **USER GUIDE** 
 ---
 ##**Contents**
