@@ -7,7 +7,7 @@ public abstract class Task {
 	/*
 	 * All tasks are required to minimally have a description
 	 */
-	private Description description;
+	protected Description description;
 	
 	public Task() {
 		this(new Description());
@@ -20,5 +20,10 @@ public abstract class Task {
 	public Description getDescription() {
 		return description;
 	}	
+	
+	@Override
+	public String toString() {
+		return description.toString();
+	}
 	
 }

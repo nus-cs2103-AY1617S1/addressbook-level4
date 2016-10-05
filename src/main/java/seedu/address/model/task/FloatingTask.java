@@ -7,9 +7,15 @@ public class FloatingTask extends Task implements FavoritableTask {
 
 	private boolean isFavorite = false;
 	
+
 	public FloatingTask(Description description) {
 		super(description);
 	}
+
+	public FloatingTask(String descriptionText) {
+		this(new Description(descriptionText));
+	}
+	
 	
 	@Override
 	public void setIsFavorite(boolean isFavorite) {

@@ -8,11 +8,15 @@ import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundExcept
 import seedu.address.commons.core.ComponentManager;
 
 /*
- * Manages a list of tasks and acts as a gateway for Commands to perform CRUD operations on the list
+ * Manages a list of tasks 1and acts as a gateway for Commands to perform CRUD operations on the list
  */
 public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	private UniqueItemCollection<Task> tasks;
 
+	public TaskManager() {
+		tasks = new UniqueItemCollection<Task>();
+	}
+	
 	@Override
 	public synchronized void addTask(Task toAdd) throws DuplicateItemException {
 		tasks.add(toAdd);
@@ -38,6 +42,6 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	@Override
 	public UniqueItemCollection<Task> getCurrentFilteredTasks() {
 		// TODO Auto-generated method stub
-		return null;
+		return tasks;
 	}
 }
