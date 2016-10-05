@@ -15,7 +15,6 @@ It is a task management application with a single text box for all your commands
 Coupled with short and easy to remember commands, managing your tasks has never been this easy. 
 
 Stop waiting and make “Getting Started with Taskle” the last thing on your to-do list now!
-=======
 
 ## Quick Start
 
