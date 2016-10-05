@@ -8,6 +8,8 @@ We are a team of four computer engineering students based in the [School of Comp
 
 <img src="images/CIMG2539.JPG" width="100"><br>
 
+-----
+
 #### Lim Wei Ming Ronald
 **Role**: Team Leader
 
