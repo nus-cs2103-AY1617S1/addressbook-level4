@@ -93,8 +93,8 @@ Examples:
 Adds an event to Jimi.<br>
 Format: `add EVENT_DETAILS on DATE [to END_DATE, START TIME to END_TIME]`
 
-> If the event is more than a day long, you can include the end date as well.
-> You may define the start and end time of the event as well if you wish.
+> * If the event is more than a day long, you may include the end date. <br>
+> * You may define the start and end time of the event if you wish.
 
 Examples:
 * `add Attend Timmy’s orchestra on 5th July`
