@@ -30,29 +30,29 @@
 ## Features
 
 ### Viewing help : `help`
-Format: `help`
-
+Format: **`help`**
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 ### Adding an event : `add`
-Format: **`add`**` [event_name]`<br>
 Adds an event to the to do list.<br>
-> Persons can have any number of optional paremeters (including 0)
+Format: **`add`**` [event_name]`<br>
+> An event can have any number of optional parameters (including 0)
  
 ##### Optional parameters
 The following parameters can be appended to the add command. <br>
 
-###### Specifying time :
+###### Specifying time : `from ... to ...`
 Format: **`from`**` [datetime] `**`to`**` [datetime]`<br>
 This parameter is used to indicate the starting and ending datetime of an event.<br>
-> The date for from can be omitted if it is the same at the ending date.
+> The date for from can be omitted if it is the same as the ending date.
 
 Examples:
 * **`add`**` dinner with mom `**`from`**` 1900 02/10/16 `**`to`**` 2030 02/10/16`
 * **`add`**` dinner with mom `**`from`**` 1900 `**`to`**` 2030 2/10/16`
 
+###### Specifying time : `by`
 Format: **`by`**` [datetime]`<br>
-This parameter is used to indicates the deadline of an event.
+This parameter is used to indicate the deadline of an event.
 
 Examples:
 * **`add`**` submit proposal `**`by`**` 2359 2/10/16`
@@ -63,14 +63,14 @@ Examples:
 > * hhmm dd mmm yyyy (e.g. 1730 12 oct 2016)
 > * hhmm dd mmm (e.g. 1730 12 oct)
 
-###### Specifying location :
+###### Specifying location : `at`
 Format: **`at`**` [location]`<br>
 This parameter is used to indicate the venue of an event.
 
 Examples:
 * **`add`**` dinner with mom `**`at`**` home`
 
-###### Specifying remarks :
+###### Specifying remarks : `remarks`
 Format: **`remarks`**` [remarks]`<br>
 This parameter is used to add remarks for the event.
 
