@@ -13,15 +13,19 @@ import java.util.Set;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+	public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to tars. "
             + "Parameters: NAME -dt DATETIME -p PRIORITY [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " cs2103 project meeting -dt 1400 5/9/2016 to 2200 5/9/2015 -p h -t project";
+            + " cs2103 project meeting -dt 5/9/2016 1400 to 5/9/2015 2200 -p h -t project";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK= "This task already exists in tars";
+    
+    private static final int DATETIME_INDEX_OF_ENDDATE = 1;
+	private static final int DATETIME_INDEX_OF_STARTDATE = 0;
+	private static final int DATETIME_INDEX_OF_DEADLINE = 0;
 
     private final Task toAdd;
     
@@ -39,7 +43,7 @@ public class AddCommand extends Command {
         if (dateTime.length == 1) {
             this.toAdd = new Task(
                     new Name(name),
-                    new DateTime(null, dateTime[0]),
+                    new DateTime(null, dateTime[DATETIME_INDEX_OF_DEADLINE]),
                     new Priority(priority),
                     new Status(),
                     new UniqueTagList(tagSet)
@@ -47,7 +51,7 @@ public class AddCommand extends Command {
         } else {
             this.toAdd = new Task(
                     new Name(name),
-                    new DateTime(dateTime[0], dateTime[1]),
+                    new DateTime(dateTime[DATETIME_INDEX_OF_STARTDATE], dateTime[DATETIME_INDEX_OF_ENDDATE]),
                     new Priority(priority),
                     new Status(),
                     new UniqueTagList(tagSet)
