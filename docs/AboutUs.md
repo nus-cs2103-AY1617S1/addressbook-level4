@@ -33,7 +33,7 @@ We are a group of Computer Science students from the School of Computing, Nation
 
 #### [Jun An](https://github.com/yamidark)<br>
 
-<img src="images/JunAn.png" width="150"><br>
+<img src="images/TanJunAn.png" width="150"><br>
 * Role: Developer<br>
 * Responsibilities: Testing<br>
 * In charge of: Logic
