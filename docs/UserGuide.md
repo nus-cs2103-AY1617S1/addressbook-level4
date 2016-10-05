@@ -103,7 +103,7 @@ Format: `find KEYWORDS`
 >Tasks that partly or completely match the keywords entered will be displayed.
 
 Examples:
-* `find homework`
+* `find homework`<br>
 > <img src="images/UIfind.png" width="600">
 
 #### Edit task details: `edit`
