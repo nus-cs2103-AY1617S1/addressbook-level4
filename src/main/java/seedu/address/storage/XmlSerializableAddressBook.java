@@ -4,8 +4,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.item.ReadOnlyFloatingTask;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,7 +39,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
      * Conversion
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(src.getFloatingTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -55,8 +55,8 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
-        UniquePersonList lists = new UniquePersonList();
+    public UniqueFloatingTaskList getUniqueFloatingTaskList() {
+        UniqueFloatingTaskList lists = new UniqueFloatingTaskList();
         for (XmlAdaptedPerson p : persons) {
             try {
                 lists.add(p.toModelType());
@@ -68,7 +68,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
+    public List<ReadOnlyFloatingTask> getFloatingTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();
