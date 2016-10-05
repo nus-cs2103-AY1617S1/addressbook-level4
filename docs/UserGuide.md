@@ -31,7 +31,11 @@ There are three variations to the add command. You are able to choose a task to 
 ####4.1.1 Add an event
 Format : **Add** [&lt;event description&gt;, &lt;date(DDMMYY)&gt;, &lt;start time&gt;, &lt;end time&gt;]
 
+<img src="images/Capture2.PNG" width="600"><br>
+
 Example: Add [Siloso beach event, 121216, 1600, 2200]
+
+<img src="images/Capture3.PNG" width="600"><br>
 
 >Note: The start time and end time is optional when adding an event. 
 Important: The square brackets are compulsory when adding an event.
@@ -39,41 +43,64 @@ Important: The square brackets are compulsory when adding an event.
 ####4.1.2 Add a deadline
 Format: **Add** &lt;deadline description&gt;, &lt;date(DDMMYY)&gt;, &lt;end time&gt;
 
+<img src="images/Capture4.PNG" width="600"><br>
+
 Example: Add complete report, 120916, 1900
+
+<img src="images/Capture5.PNG" width="600"><br>
 
 >Important: The date and end time are compulsory when adding an deadline
 
 ####4.1.3 Add a todo
 Format: **Add** &lt;todo descrption&gt;
 
+<img src="images/Capture6.PNG" width="600"><br>
+
 Example: Add go swimming
 
+<img src="images/Capture7.PNG" width="600"><br>
+
 >Note: To do tasks do not have a date or time.
+
+<img src="images/tags1.PNG" width="600"><br>
+
+>Note: To add a tag, simply add a # followed by the tag name. 
+To add a priority, simply add a ! at the back of the task.
+
+<img src="images/tags2.PNG" width="600"><br>
 
 ###4.2 Editing a task
 
 The edit task function enables you to update the task description which includes start time, end time, tags and priority and category. By typing the command and the task index followed by [enter], Simply will output the task details into the command bar for editing. After editing and pressing [enter], Simply will make the necessary changes to the task.
 
 
-Step 1. Format: Edit &lt;index&gt; [enter]
+Format: Edit &lt;index&gt; [enter]
 
-Shown in the Command Bar: Index task details 
-
-Step 2. Format: Changes to task details [enter]
+<img src="images/Capture8.PNG" width="600"><br>
 
 Example: Edit D1 [enter]
 
-Command bar: CS2103 Report, 130516, 1200 (Original task details)
+Command Bar: Index task details are added to the back of the edit command
 
-Changes:Report, 140516, 1200 #CS2103 [enter]
+<img src="images/Capture9.PNG" width="600"><br>
+
+Command bar: complete report, 120916, 1900 (Original task details are added to the end)
+
+Format: Changes to task details [enter]
+
+img src="images/Capture10.PNG" width="600"><br>
+
+Changes: **Report, 180916, 1900 #CS2103** [enter]
 
 This will edit the current deadline task from CS2103 report to Report with an additional tag called #CS2103.
 
+img src="images/Capture11.PNG" width="600"><br>
+
 Example: Edit T1 [enter]
 
-Command Bar: read toto-chan (Original task details)
+Command Bar: go swimming (Original task details are added to the end)
 
-Changes: read toto-chan, 140516, 1600 [enter]
+Changes: go swimming, **140516, 1600** [enter]
 
 This will edit the current todo task into a deadline task with the deadline on 140516 at 1600H.
 
