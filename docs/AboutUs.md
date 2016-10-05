@@ -4,29 +4,29 @@ We are a team of students studying CS2103 based in the [School of Computing, Nat
 
 ## Project Team
 
-#### [Advay Pal](http://www.comp.nus.edu.sg/~damithch)
-<img src="images/DamithRajapakse.jpg" width="150"><br>
+#### [Advay Pal](https://github.com/advaypal)
+<img src="images/AdvayPal.jpg" width="150"><br>
 Role: Team Lead
-Responsibilities: Testing
+Responsibilities: Testing,storage
 
 -----
 
-#### [Abdul Haliq](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+#### [Abdul Haliq](https://github.com/AHaliq)
+<img src="images/AbdulHaliq.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI, Scheduling and tracking
+Responsibilities: UI, scheduling and tracking
 
 -----
 
-#### [Syed Abdullah](http://github.com/yijinl)
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Syed Abdullah](https://github.com/Skaty)
+<img src="images/SyedAbdullah.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Code quality,Integration
+Responsibilities: Code quality,integration,logic
 
 -----
 
-#### [Tsang Cheuk Ling](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
+#### [Tsang Cheuk Ling](https://github.com/SukiTsang)
+<img src="images/SukiTsang.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Documentation, deliverables and deadlines
 
@@ -35,6 +35,7 @@ Responsibilities: Documentation, deliverables and deadlines
 # Project Mentor
 
 #### Cheng Hang
-<img src="images/MartinChoo.jpg" width="150"><br>
+<img src="images/ChengHang.jpg" width="150"><br>
+
 
 
