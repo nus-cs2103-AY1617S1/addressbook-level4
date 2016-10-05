@@ -66,31 +66,37 @@
 
 #### High Priority `* * *`
 
-As a new user, I want to **see usage instructions** so that I can **refer to instructions when i use the Task Manager.**<br>
-As a new user, I want to **view more information about a particular command** so that I can **learn how to use various commands.**<br>
-As a user, I want to **add a task by specifying a task description and the date and time**, so that I can **record tasks that need to be done by that date and time.**<br>
-As a user, I want to **add a scheduled event by specifying the event name and duration and location**, so that I can **record events that I need to attend.**<br>
-As a user, I want to **add a task by specifying a task description only**, so that I can **record tasks that need to be done ‘some day’.**<br>
-As a user, I want to **delete a task** so that I can **remove entries that I no longer need.**<br>
-As a user, I want to **list all tasks** so that I can **see my tasks in a glance.**<br>
-As a user, I want to **edit the task descriptions, date and time** so that I can **update the details of my tasks.**<br>
+As a ... | I want to... | so that ...
+---------|--------------|------------
+new user | see usage instructions | I can refer to instructions when i use the Task Manager.<br>
+As a new user | view more information about a particular command | I can learn how to use various commands.<br>
+user | add a task by specifying a task description and the date and time | I can record tasks that need to be done by that date and time.<br>
+user | add a scheduled event by specifying the event name and duration and location | I can record events that I need to attend.<br>
+user | add a task by specifying a task description only | I can record tasks that need to be done ‘some day’.<br>
+user | delete a task | I can remove entries that I no longer need.<br>
+user | list all tasks | I can see my tasks in a glance.<br>
+user | edit the task descriptions | date and time | I can update the details of my tasks.<br>
 
 #### Medium Priority `* *`
 
-As a user, I want to **undo my previous actions** so that I can **revert any mistakes made.**<br>
-As a user, I want to **sort the tasks by the date and time** so that I can **see my tasks according to their urgency.**<br>
-As a user, I want to **search for my tasks using some keywords** so that I can **easily view tasks based on the specified keywords.**<br>
-As a user, I want to **mark tasks as completed or uncompleted** so that I can **keep track of my tasks progress.**<br>
-As a user, I want to **specify a folder for data storage location** so that I can **store the data file in a local folder controlled by a cloud syncing service.**<br>
+As a ... | I want to... | so that ...
+---------|--------------|------------
+user | undo my previous actions | I can revert any mistakes made.<br>
+user | sort the tasks by the date and time | I can see my tasks according to their urgency.<br>
+user | search for my tasks using some keywords | I can easily view tasks based on the specified keywords.<br>
+user | mark tasks as completed or uncompleted | I can keep track of my tasks progress.<br>
+user | specify a folder for data storage location | I can store the data file in a local folder controlled by a cloud syncing service.<br>
 
 #### Low Priority `*`
 
-As a user, I want to **add tags to my task** so that I can **categorise my tasks.**<br>
-As a user, I want to **input my dates and days in any format that I want**, so that **it is easier for my usage.**<br>
-As a user, I want to **implement recurring tasks** so that **I don’t have to add the task every week.**<br>
-As an advanced user, I want to **use shorter versions of the commands** so that I can **type the commands faster.**<br>
-As a busy user, I want to **know what I can do next** so that I can **fill up my free time slots.**<br>
-As a busy user, I want to **reserve time slots for one or more tasks that may not be confirmed** so that I **know which to prioritise**
+As a ... | I want to... | so that ...
+---------|--------------|------------
+user | add tags to my task | I can categorise my tasks.<br>
+user | input my dates and days in any format that I want | | it is easier for my usage.<br>
+user | implement recurring tasks | I don’t have to add the task every week.<br>
+advanced user | use shorter versions of the commands | I can type the commands faster.<br>
+busy user | know what I can do next | I can fill up my free time slots.<br>
+busy user | reserve time slots for one or more tasks that may not be confirmed | I know which to prioritise
 
 
 <br>
