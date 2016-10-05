@@ -24,6 +24,9 @@ public class TodoParserTest {
         
         p = parser.parse("hello world");
         assertEquals("hello", p.getComand());
+        
+        p = parser.parse("  hello ");
+        assertEquals("hello", p.getComand());
     }
     
     @Test
@@ -34,6 +37,9 @@ public class TodoParserTest {
         assertEquals("world", p.getPositionalArgument().get());
         
         p = parser.parse("hello one two three");
+        assertEquals("one two three", p.getPositionalArgument().get());
+        
+        p = parser.parse("hello   one   two  three  ");
         assertEquals("one two three", p.getPositionalArgument().get());
     }
     
@@ -46,6 +52,10 @@ public class TodoParserTest {
         assertTrue(p.getNamedArguments().containsKey("f"));
         
         p = parser.parse("hello -f Hello");
+        assertEquals(1, p.getNamedArguments().size());
+        assertEquals("Hello", p.getNamedArguments().get("f"));
+        
+        p = parser.parse("hello  -f   Hello ");
         assertEquals(1, p.getNamedArguments().size());
         assertEquals("Hello", p.getNamedArguments().get("f"));
         
@@ -66,6 +76,10 @@ public class TodoParserTest {
         
         p = parser.parse("hello");
         assertFalse(p.getPositionalArgument().isPresent());
+        assertEquals(0, p.getNamedArguments().size());
+        
+        p = parser.parse("hello -");
+        assertTrue(p.getPositionalArgument().isPresent());
         assertEquals(0, p.getNamedArguments().size());
         
         p = parser.parse("hello --");
