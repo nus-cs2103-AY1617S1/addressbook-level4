@@ -44,7 +44,7 @@ public class NoteCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         model.addNote(toNote);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toNote));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toNote.getName()));
 
     }
 
