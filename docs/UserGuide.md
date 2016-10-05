@@ -32,8 +32,8 @@ To get started, proceed to the Quick Start section below.
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`todo`**` read book` : adds a new task named `read book`. 
-   * **`deadline`**` math homework 1 Jan 2015 2pm` : adds a new task that has the deadline `1 Jan 2015 2pm`.
+   * **`add`**` read book` : adds a new task named `read book`. 
+   * **`add`**` math homework 1 Jan 2015 2pm` : adds a new task that has the deadline `1 Jan 2015 2pm`.
    * **`view`** : lists all tasks for today.
    * **`view`**` 1 Jan 2015` : lists all tasks for specific date.
    * **`delete`**` 1` : deletes the 1st task shown in the current list of tasks.
@@ -55,11 +55,11 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`<br>
 > <img src="images/UIhelp.png" width="600">
 
-#### Create a new task: `todo`, `deadline` or `event`
+#### Create a new task: `add`
 Adds a new task to the tasks list or a new event to the event calendar.<br>
-Todo format: `todo NAME`<br>
-Deadline format: `deadline NAME DATE END_TIME`<br>
-Event format: `event NAME DATE START_TIME END_TIME`
+Todo format: `add NAME`<br>
+Deadline format: `add NAME DATE END_TIME`<br>
+Event format: `add NAME DATE START_TIME END_TIME`
 
 > Tasks are split into 3 categories: todo, deadline, event<br>
 > todo: Tasks that have no specific date/time to be completed by<br>
@@ -71,15 +71,15 @@ Event format: `event NAME DATE START_TIME END_TIME`
 > START_TIME and END_TIME can accept different formats. 3pm, 15:00, 1500 are all acceptable to represent 3pm.
 
 Examples:
-* `todo read book`<br>
+* `add read book`<br>
   Adds a todo task with NAME as `read book`
   > <img src="images/UItodo.png" width="600">
 
-* `deadline math homework 1 Jan 2015 2pm`<br>
+* `add math homework 1 Jan 2015 2pm`<br>
   Adds a deadline task with NAME as `math homework`, DATE as `1 Jan 2015`, END_TIME as `1500`
   > <img src="images/UIdeadline.png" width="600">
 
-* `event meeting 1 Jan 2015 21:00 00:00`<br>
+* `add meeting 1 Jan 2015 21:00 00:00`<br>
   Adds an event task with NAME as `meeting`, DATE as `1 Jan 2015`, START_TIME as `2100`, END_TIME as `0000`
   > <img src="images/UIevent.png" width="600">
 
@@ -100,7 +100,7 @@ Examples:
 Find tasks based on keywords.<br>
 Format: `find KEYWORDS`
 
->Tasks that partly or completely match the keywords entered will be displayed.
+> Tasks that partly or completely match the keywords entered will be displayed.
 
 Examples:
 * `find homework`<br>
@@ -180,9 +180,9 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add todo | `todo NAME`
-Add deadline | `deadline NAME DATE END_TIME`
-Add event | `event NAME DATE START_TIME END_TIME`
+Add todo | `add NAME`
+Add deadline | `add NAME DATE END_TIME`
+Add event | `add NAME DATE START_TIME END_TIME`
 View | `view [DATE]`
 Find | `find KEYWORDS`
 Edit | `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
