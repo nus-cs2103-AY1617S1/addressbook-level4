@@ -73,6 +73,7 @@ public class TodoParser implements ParserContract {
     @Override
     public ParseResult parse(String input) throws IllegalValueException {
         List<String> tokens = tokenize(input);
+        Map<String, String> named = new HashMap<>();
         
         // Pull out the command, exit if there's no more things to parse
         String command = tokens.remove(0).toLowerCase();
@@ -84,8 +85,12 @@ public class TodoParser implements ParserContract {
         }
         String positional = sj.toString();
         
+        // If there are no more tokens return immediately
+        if (tokens.isEmpty()) {
+            return new TodoResult(command, positional, named);
+        }
+        
         // Parse out named arguments
-        Map<String, String> named = new HashMap<>();
         String flag = tokens.remove(0);
         sj = new StringJoiner(" ");
         while (!tokens.isEmpty()) {
