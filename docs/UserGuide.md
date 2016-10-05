@@ -14,7 +14,7 @@
 1. Download the latest `lifekeeper.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Lifekeeper.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   > <img src="images/UIprototype.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -199,14 +199,14 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add task TASK_NAME d/DUE_DATE p/PRIORITY_LEVEL r/REMINDER [t/TAG]...` 
-          `add category CATEGORY_NAME`
+Add | `add TASK_NAME d/DUE_DATE p/PRIORITY_LEVEL r/REMINDER [t/TAG]...` 
+AddCat |`addcat CATEGORY_NAME`
 Edit | `edit [TASK_NAME] [c/CATEGORY] [d/DUE_DATE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...`
 Clear | `clear`
 Delete | `delete [INDEX]...`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list tasks`
-         `list categories`
+List | `list`
+ListCat | `listcat`
 Select | ‘select INDEX’
 Done | `done`
 Help | `help`
