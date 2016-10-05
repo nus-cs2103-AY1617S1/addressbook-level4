@@ -108,18 +108,18 @@ Returns a list of all tasks scheduled for 3 November of the current year. <br>
 
 #### Deleting a task : `delete`
 Deletes a task from WhatNow. Reversible.<br>
-Format: `delete INDEX`
+Format: `delete todo/schedule/completed INDEX`
 
-> Deletes the task at the specified `INDEX` from the displayed list as specified. <br>
+> Deletes the task at the specified `INDEX` from todo tasks, schedule or completed tasks as specified. <br>
   The index refers to the index number shown in the current listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `delete 4`<br>
-  Deletes the 4th task from the displayed list in WhatNow. <br>
+* `delete todo 4`<br>
+  Deletes the 4th todo task from the displayed list in WhatNow. <br>
   <img src="images/UI_Prototype/WhatNowUI-DeleteTodo-Colour.png" width="600">
-* `delete 2`<br>
-  Deletes the 2nd todo task from the displayed list in WhatNow. <br>
+* `delete schedule 2`<br>
+  Deletes the 2nd schedule task from the displayed list in WhatNow. <br>
   <img src="images/UI_Prototype/WhatNowUI-DeleteSchedule-Colour.png" width="600">
 
 
@@ -169,7 +169,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 > * The order of the keywords does not matter. e.g. `Read books` will match `books Read`
 > * Only the task description is searched.
 > * All task description containing the keyword will be matched .e.g. `Book` will match `Books`
-> * Tasks matching at least one keyword will be returned (i.e. `OR` and `AND` search).
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Read Study` will match `Read books`
 
 Examples: 
