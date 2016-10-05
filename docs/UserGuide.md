@@ -34,17 +34,22 @@
 > * The order of parameters does not matter.
 > * Items enclosed within `[ ]` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The use of punctuations are up to discretion, except `" "` which is mandatory when required.
+> * The use of commas `,` and full stops `.` are optional and will not affect the command.
 > * Words not enclosed within `" "` are not case-sensitive.
+> * For parameters relating to days, they are context-sensitive. For example, specifying "Fri" sets the date parameter as the next Friday from *today*.
 
 > **Tasks**<br>
-> A task will have a name, and may have a:
-> * a deadline, and/or
-> * starting time and ending time in which we want to complete the task on.
+> A task will have a name, and may be categorized as follows:
+> * **Floating Task** has no additional details
+> * **Normal Task** has a deadline
+> * **Task with Allocated Timeslot** has a deadline, starting time and ending time
 
 > **Events**<br>
 > Tasks may act as events in our program. Simply enter the starting and ending time
 > and omit the deadline.
+
+> **Recurring tasks and events**
+> Tasks and events may be set to repeat daily/weekly/monthly for its deadline, start time and end time.
 
 >> Tasks or events which are exact duplicates are combined into one.
 
@@ -57,19 +62,21 @@ Format: `help`
 
 #### Create a new task/event: `add`
 Adds a new task or event to the task list.<br>
-Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [tag "TAG"...]`
+Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
 
 > Creates a new task with the name given. The particulars of the task may vary:
->	* If it is a task, a deadline should be set.
+>	* If it is a normal task, a deadline should be set.
+>	* If it is a task with allocated timeslot, a deadline, start time and end time should be set.
 >	* If it is an event, the start time and end time should be set.
+> The repeat frequency can be `daily`, `weekly`, or `monthly`.
 > You can assign tags to it to classify them by category or by priority 
 > (up to your own discretion)
 
 Examples:
 * `add "Hello World!"`
-* `add "Submit Report" by 21 Sep 5pm.`
 * `add "Meeting" from 21 Sep 3pm to 5pm`
 * `add "Check sufficient toilet rolls" by 21 Sep 5pm, tag "Important"`
+* `add "Lecture" from 7 Oct 2pm to 4pm, repeattime weekly, tag "Important"`
 
 #### List all tasks/events with specified conditions: `list`
 Displays a list of all tasks/events.<br>
@@ -81,7 +88,7 @@ Format: `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...
 > and `a-z`, `z-a` for descriptions.
 > * Defaults to earliest first for later dates, and latest first for past dates
 >
-> If no parameter is specified, the command will show a list of uncompleted tasks
+> If no parameters are specified, the command will show a list of uncompleted tasks
 > and upcoming events.
 
 > <img src="images/Ui-ListCommand.png" width="600">
@@ -156,11 +163,12 @@ Examples:
 
 #### Change the details of a task/event: `update`
 Updates a task or event.<br>
-Format: `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [tag "TAG"...]`
+Format: `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
 
-> Updates a task with the given new information.<br>
+> Updates the specified task with the given information.<br>
 > The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, ...<br>
+> The repeat frequency can be `daily`, `weekly`, or `monthly`.
 >
 > To remove any details for the task, prefix the argument keyword with `remove`.<br>
 > For example: `update 1 removeby` will remove the deadline.
@@ -255,12 +263,12 @@ when running the program.
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [tag "TAG"...]`
+Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
 List | `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [SORTING_ORDER]`
 Find | `find KEYWORD...`
 Show | `show [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]]  [tag "TAG"...]`
 Hide | `hide [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]`
-Update | `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [tag "TAG"...]`
+Update | `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
 Delete | `delete INDEX`
 Complete | `complete INDEX`
 Undo | `undo [last STEPS]`
