@@ -15,25 +15,37 @@ public class DateTime {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+    public String startDateString;
+    public String endDateString;
+
     /**
-     * Validates given task datetime.
+     * Default constructor
+     */
+    public DateTime() {}
+
+    /**
+     * Validates given task dateTime.
      *
      * @throws DateTimeParseException
-     *             if given datetime string is invalid.
+     *             if given dateTime string is invalid.
      * @throws IllegalDateException
      *             end date occurring before start date.
      */
     public DateTime(String startDate, String endDate) throws DateTimeParseException, IllegalDateException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        if (startDate != null) {
-            this.startDate = LocalDateTime.parse(startDate, formatter);
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
         this.endDate = LocalDateTime.parse(endDate, formatter);
+        this.endDateString = endDate;
 
-        if (this.endDate.isBefore(this.startDate)) {
-            throw new IllegalDateException("End date should be after start date.");
+        if (startDate != null) {
+            this.startDate = LocalDateTime.parse(startDate, formatter);
+            this.startDateString = startDate;
+            if (this.endDate.isBefore(this.startDate)) {
+                throw new IllegalDateException("End date should be after start date.");
+            }
         }
+
+
     }
 
     public void setStartDate(LocalDateTime startDate) {
@@ -42,6 +54,15 @@ public class DateTime {
 
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        if (this.startDate == null) {
+            return endDateString;
+        } else {
+            return startDateString + " to " + endDateString;
+        }
     }
 
     /**
