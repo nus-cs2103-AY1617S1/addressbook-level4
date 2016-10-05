@@ -18,13 +18,8 @@
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+   
+5. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
@@ -35,100 +30,145 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+
 #### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
+ 
 #### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+Adds a task to the task manager <br>
+Format: `add t/TASK_DESCRIPTION [st/START_TIME] [et/END_TIME] [d/DATE] [tg/TAGS]...`
 
-> Persons can have any number of tags (including 0)
+> If the time is specified, the date must also be specified.
+> If the start time is specified, the end time must also be specified.
+>
+> Tasks can have any number of tags (including 0)
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `add t/Do CS2103T Pre-tutorial et/7pm d/8 Oct 2016`
+* `add t/CS2103T Lecture st/2pm et/4pm d/7 Oct 2016 tg/Important`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
+
+#### Listing all tasks : `list`
+Shows a list of all tasks in the Task Manager.<br>
 Format: `list`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
+> Tasks will be list in order of task, floating, event, and then by index.
+
+
+#### Listing all tasks by categories : `listby`
+Shows a list of all tasks in the Task Manager according to a stated category
+Format: `listby CATEGORIES`
+
+> List will be sorted by the category requested on top first, then by index.
+
+Examples:
+* `listby today`
+* `listby tomorrow`
+* `listby priority`
+* `listby completed`
+* `listby USER-DEFINED TAGS`
+
+
+#### Finding all tasks containing any keyword in their title: `find`
+Finds tasks whose titles contain any of the given keywords.
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+> * Finds all tasks that has the keyword in the task title, and shows in the list sorted in the one of the following order:
+> * By default it will be sorted by the most keyword matches first, but the sorting can be changed
+> * 1. Show the task with the most keyword matches first
+> * 2. Sorted in index order
+>
+> * The search is not case sensitive. e.g `homework` will match `Homework`
+> * The order of the keywords does not matter. e.g. `to do homework` will match `homework to do`
+
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `find homework`<br>
+  Returns `homework/Homework/HomeWoRk`
+* `find dinner meeting project`<br>
+  Returns any task having names `dinner`, `meeting`, or `project`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+  
+#### Deleting a task : `delete`
+Deletes the specified task from the Task Manager.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Task will be removed from the list
 
 Examples: 
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  Deletes task with index 2 in the list
+* `find KEYWORDS`
+  `delete 459`
+  Delete task with index 459 in the list
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+  
+#### Undo a command: `undo`
+Undo the previous action
+Format: `undo`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Task Manager will revert the last action done
 
 Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+* `delete 2`<br>
+  `undo`<br>
+  Restores task which had an index of 2 back to the list
+* `add do housework`<br>
+  `undo`<br>
+  Deletes task of “add do housework”
+
+  
+#### Mark task as complete : `completed`
+Marks a task as completed as a normal tag
+Format: `completed INDEX`
+
+> Task Manager will mark task as completed with a predefined tag “completed” 
+
 
 #### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+Clears all entries from the Task Manager in the save data.<br>
 Format: `clear`  
+
 
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
+
 #### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
+> The file name must end in `.txt` for it to be acceptable to the program.
+>
+> When running the program inside Eclipse, you can set command line parameters before running the program.
+
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Task Manager folder.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add t/TASK_DESCRIPTION [st/START_TIME] [et/END_TIME] [d/DATE] [tg/TAGS]...`
 Clear | `clear`
+Completed | `completed INDEX`
 Delete | `delete INDEX`
+Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
-Select | `select INDEX`
+List | `list`
+Listby | `listby CATEGORIES`
+Undo | `undo`
+
+
+
+
