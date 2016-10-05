@@ -1,90 +1,36 @@
 package seedu.address.model.task;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
-import java.util.Objects;
-
 /**
- * Represents a Task in the task book.
+ * An abstract Task in the task book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
-
-    private Name name;
-    private Description description;
-    private Date date;
-    private Time time;
-
-    private UniqueTagList tags;
-
-    /**
-     * Every field must be present and not null.
-     */
-    public Task(Name name, Description description, Date date, Time time, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, description, date, time, tags);
-        this.name = name;
-        this.description = description;
-        this.date = date;
-        this.time = time;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-
-    /**
-     * Copy constructor.
-     */
-    public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDescription(), source.getDate(), source.getTime(), source.getTags());
-    }
+public abstract class Task implements ReadOnlyTask {
+    
+    public abstract Name getName();
 
     @Override
-    public Name getName() {
-        return name;
-    }
+    public abstract Description getDescription();
 
     @Override
-    public Description getDescription() {
-        return description;
-    }
-
-    @Override
-    public Date getDate() {
-        return date;
-    }
-
-    @Override
-    public Time getTime() {
-        return time;
-    }
-
-    @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
+    public abstract UniqueTagList getTags();
 
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
-    }
+    public abstract void setTags(UniqueTagList replacement);
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
-    }
+    public abstract boolean equals(Object other);
 
     @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, date, time, tags);
-    }
+    public abstract int hashCode();
 
     @Override
-    public String toString() {
-        return getAsText();
-    }
-
+    public abstract String toString();
+    
+    @Override
+    public abstract String getAsText();
+    
 }
