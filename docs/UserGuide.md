@@ -39,6 +39,7 @@ Welcome to WhatNow!
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+
 #### Changing storage location : `change location`
 Changes the data file storage location. <br>
 Format: `change location to PATH`
@@ -46,7 +47,7 @@ Format: `change location to PATH`
 Examples:
 * `change location to C:\Users\Verbena\Dropbox\WhatNow`
 Changes the data file storage location to C:\Users\Verbena\Dropbox\WhatNow
-> <img src="images/UI_Prototype/WhatNowUI-ChangeLocation-Colour.png" width="600">
+<img src="images/UI_Prototype/WhatNowUI-ChangeLocation-Colour.png" width="600">
 
 
 #### Adding a task: `add`
@@ -119,7 +120,7 @@ Examples:
   <img src="images/UI_Prototype/WhatNowUI-DeleteTodo-Colour.png" width="600">
 * `delete 2`<br>
   Deletes the 2nd todo task from the displayed list in WhatNow. <br>
-  <img src="images/UI_Prototype/WhatNowUI-DeleteSchedule-Colour.png" width="600">  <br>
+  <img src="images/UI_Prototype/WhatNowUI-DeleteSchedule-Colour.png" width="600">
 
 
 #### Updating a task : `update`
@@ -198,9 +199,11 @@ There is no need to save manually after you make any changes or additions.
 Clears all tasks from WhatNow.<br>
 Format: `clear`  
 
+
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
+
 
 ## FAQ
 
@@ -208,6 +211,7 @@ Format: `exit`
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous WhatNow folder.
        
+
 ## Command Summary
 
 Command | Format  
