@@ -17,7 +17,7 @@ public class DateTime {
 
     public String startDateString;
     public String endDateString;
-
+    
     /**
      * Default constructor
      */
@@ -40,8 +40,8 @@ public class DateTime {
         if (startDate != null) {
             this.startDate = LocalDateTime.parse(startDate, formatter);
             this.startDateString = startDate;
-            if (this.endDate.isBefore(this.startDate)) {
-                throw new IllegalDateException("End date should be after start date.");
+            if (this.endDate.isBefore(this.startDate) || this.endDate.isEqual(this.startDate)) {
+                throw new IllegalDateException("End dateTime should be after start dateTime.");
             }
         }
 
