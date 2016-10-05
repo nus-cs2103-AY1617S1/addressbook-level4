@@ -97,7 +97,7 @@ The marking task as complete command enables you to mark the task as complete an
 
 Format: 
 
-Complete <index>
+Complete '<index>'
 
 Complete <index>-<index>
 
