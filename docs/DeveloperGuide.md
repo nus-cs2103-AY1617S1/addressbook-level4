@@ -241,7 +241,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, JYM depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -268,17 +268,22 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | view tasks in a calendar format | figure out what events/tasks I have upcoming more easily.
 `* *` | user | specify the location to place the data storage | do things with it, like sync it to my Dropbox.
 `* *` | user | bring up the program with a hotkey | pull it up quickly and conveniently when I need to add a task.
+`* *` | user | schedule multiple time blocks with one task | schedule tasks or events that have multiple and different deadlines or dates.
+`* *` | user | auto-complete certain tasks | save time instead of having to type out the whole command.
+`*` | user | manipulate the schedule with a mouse | save time manipulating the calendar directly as opposed to having to go back to the CLI and type in more command rescheduling events (e.g. drag-drop vs. retyping event details)
 `*` | user | view list or calendar in a pop out window | look at it more easily while working on other items.
+`*` | user | have a nice GUI | have an easier time manipulating the information and let the program be more pleasing to my eyes.
 
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `JYM` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Mark Task completed.
 
 **MSS**
+
 1. User requests to view list of active tasks
 2. System shows list of tasks
 3. User requests to mark a task as completed from the list.
@@ -300,6 +305,7 @@ Use case ends.
 #### Use case: Update Task
 
 **MSS**
+
 1. User requests to view list of active tasks
 2. System shows list of tasks
 3. User requests to update a task with given description and/or deadline
@@ -364,5 +370,23 @@ Contains a description, event date and time, priority, and location.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+##### Google Calendar Quickadd
 
+> Satisfies many stories, but cannot add multiple events simultaneously, and does not hold support for both tasks and events. <br>
+> Everything is an event, and although one can create them in a certain way to make them act like tasks, it can be tedious and not optimal to do so.
+
+##### iStudiez Pro
+
+> Satisfies many stories, in particular having a nice GUI and being able to view the task list in many formats. However, there is no shortcut to add tasks, and you cannot type everything in one line without tabbing over to a separate text box.
+
+##### S Planner (Samsung Phone Calendar, Android 4.2.2)
+
+> Is only a smartphone app. Harder to type in tasks and events on the phone. <br>
+> Syncs with Google Calendar. <br>
+
+##### GO Note Widget (to-do list add-on for GO Launcher)
+
+> Clean and simple interface (clutter-free) <br>
+> Can mark tasks with colored labels <br>
+> No option to state the start or end time of a task <br>
+> Smartphone app.
