@@ -4,49 +4,42 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Verbena Ong](http://github.com/Verbena) 
+<img src="images/Verbena.jpg" width="150"><br>
+**Role**: Team Leader<br>  
+Responsibilities: Project coordination, Integration
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+#### [Lim Wei Jie](http://github.com/1o0p3r)
+<img src="images/Weijie.jpg" width="150"><br>
+**Role**: Developer<br>  
+Responsibilities: Testing of codes, Deliverables and deadlines
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+#### [Patel Drashti](http://github.com/Drashti96)
+<img src="images/Drashti.jpg" width="150"><br>
+**Role**: Developer<br>  
+Responsibilities: Documentation, Scheduling and tracking
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+#### [Zachary Lim](http://github.com/zachylimwl)
+<img src="images/Zachary2.jpg" width="150"><br>
+**Role**: Developer<br>  
+Responsibilities: Coding lead
 
 -----
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
 
 # Contributors
 
 We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
+* [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch/)
+* [Joshua Lee](https://github.com/lejolly)
+* [Leow Yijin](https://github.com/yijinl)
+* [Martin Choo](https://github.com/m133225)
+* [Thien Nguyen](https://github.com/ndt93)
+* [You Liang](https://github.com/yl-coder)
 * [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
 * [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
