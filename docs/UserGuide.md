@@ -122,6 +122,23 @@ Examples:
   **`delete`**` 1,4`<br>
   Deletes the 1st and 4th event in the results of the **`find`** command.
 
+### Marking event as done : `done`
+Mark the events identified by the index numbers used in the last event listing.<br>
+Format: **`done`**` [index 1,index 2,...]`
+
+> This command is capable of marking single and multiple events. For multiple events, the indexes are separated by a comma. <br>
+> Marks the events at the specified index. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+  
+ Examples: 
+* **`list`**` today`<br>
+  **`done`**` 2`<br>
+  Marks the 2nd event in the results of the **`list`** command.
+* **`find`**` mom`<br> 
+  **`done`**` 1,2`<br>
+  Marks the 1st and 2nd event in the results of the **`find`** command.
+
 ### Editing an event : `edit`
 Edits the event identified by the index number used in the last event listing.<br>
 Format: **`edit`**` [index] [details]`
