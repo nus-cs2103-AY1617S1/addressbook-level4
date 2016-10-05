@@ -24,26 +24,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK= "This task already exists in tars";
 
     private final Task toAdd;
-
-    /**
-     * Convenience constructor using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-//    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
-//            throws IllegalValueException {
-//        final Set<Tag> tagSet = new HashSet<>();
-//        for (String tagName : tags) {
-//            tagSet.add(new Tag(tagName));
-//        }
-//        this.toAdd = new Task(
-//                new Name(name),
-//                new Phone(phone),
-//                new Email(email),
-//                new Address(address),
-//                new UniqueTagList(tagSet)
-//        );
-//    }
     
     /**
      * Convenience constructor using raw values.
@@ -61,7 +41,7 @@ public class AddCommand extends Command {
                     new Name(name),
                     new DateTime(null, dateTime[0]),
                     new Priority(priority),
-                    null,
+                    new Status(),
                     new UniqueTagList(tagSet)
             );
         } else {
@@ -69,7 +49,7 @@ public class AddCommand extends Command {
                     new Name(name),
                     new DateTime(dateTime[0], dateTime[1]),
                     new Priority(priority),
-                    null,
+                    new Status(),
                     new UniqueTagList(tagSet)
             );
         }
