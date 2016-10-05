@@ -236,6 +236,12 @@ Example : Help
 
 <img src="images/Capture27.PNG" width="600"><br>
 
+## FAQ
+
+**Q**: How do I transfer my data to another Computer?<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with 
+       the file that contains the data of your previous Address Book folder.
+
 ###Command Summary
 
  No. | Command | Format 
