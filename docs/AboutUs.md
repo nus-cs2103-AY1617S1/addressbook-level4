@@ -4,6 +4,8 @@ We are a team of four computer engineering students based in the [School of Comp
 
 ## Project Team
 
+###Project Mentor :  Nirandika Wanigasekara  <img src="images/CIMG2359.JPG" width="600"><br>
+
 #### Lim Wei Ming Ronald
 **Role**: Team Leader
 
