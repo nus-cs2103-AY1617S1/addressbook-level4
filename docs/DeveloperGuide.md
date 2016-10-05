@@ -273,11 +273,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | new user |  view more information about a particular command | learn how to use various commands
+`* * *` | user | add a new task | record tasks that need to be done ‘some day’
+`* * *` | user | update a task description/due date/priority level | make modifications to tasks without having delete and re-add it
+`* * *` | user | mark completed tasks as done | remind myself that I have completed a task
+`* * *` | user | delete a task | get rid of tasks that I no longer care to track 
+`* * *` | user | sort tasks by due date | decide what needs to be done soon
+`* *` | user with many tasks | find tasks by prefix | locate a tasks / similar tasks in case I forget the exact task description I typed
+‘*’ | user with many tasks | sort tasks by priority level | see the most important tasks and prioritize accordingly
+‘*’ | advanced user | use shorter versions of a command | type a command faster
 
 {More to be added}
 
