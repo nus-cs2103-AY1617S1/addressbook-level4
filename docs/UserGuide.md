@@ -29,23 +29,53 @@
 
 ## Features
 
-#### Viewing help : `help`
-Format: `help`
-
-> Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
- 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
 > 
 > Persons can have any number of tags (including 0)
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+#### Viewing help : `help`
+Format: `help`
+
+> Help is also shown if you enter an incorrect command e.g. `abcd`
+ 
+#### Adding an event:
+`add [event_name]`<br>
+Adds an event to the to do list.<br>
+ 
+###### Optional parameters:
+**from** [datetime] **to** [datetime]
+Indicates the starting and ending datetime of an event.<br>
+The date for from can be omitted if it is the same at the ending date.<br>
+The from keyword can be used standalone if there is no ending datetime.
+
+Examples:
+* **add** dinner with mom **from** 1900 02/10/16 **to** 2030 02/10/16
+* **add** dinner with mom **from** 1900 **to** 2030 2/10/16
+* **add** dinner with mom **from** 1900 2 oct 2016
+
+**by** [datetime]
+This parameter is used to indicate the deadline of an event.
+
+Examples:
+* **add** submit proposal **by** 2359 2/10/16
+
+**at** [location]
+This parameter is used to indicate the venue of an event.
+
+Examples:
+* **add** dinner with mom **at** home
+
+**remarks** [remarks]
+This parameter is used to add remarks for the event.
+
+Examples:
+* **add** dinner with mom **remarks** buy flowers
+
+
+
+
+
 
 #### Listing all persons : `list`
 Shows a list of all persons in the address book.<br>
