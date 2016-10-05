@@ -4,6 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.FloatingTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.person.*;
+import seedu.address.model.person.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -42,7 +43,12 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         //TODO: Prevent code from breaking    
-        model.addPerson(toAdd);
+        try {
+            model.addFloatingTask(toAdd);
+        } catch (DuplicateFloatingTaskException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
