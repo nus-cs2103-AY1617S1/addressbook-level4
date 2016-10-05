@@ -20,9 +20,9 @@ Double-click the file to start Amethyst. You will see the Graphical User Interfa
 To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 
 5. **Try some commands**
-    - `add event=dinner with wife d=25/12/16 t=7 pm - 9 pm`
+    - `add event dinner with wife on 25/12/16 from 7:00pm to 9:00pm`
     Add an event with name 'dinner with wife' from 7 pm to 9 pm on 25th December 2016.
-    - `list type=deadline`
+    - `list deadline`
     See all tasks that are deadlines arranged earliest first.
     - `find lab homework, boy`
     See all tasks with keywords "lab homework" or "boy" in their names.
@@ -35,11 +35,10 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 - Items in `SQUARE_BRACKETS` are optional. <br>
 - Single quotes `' '` and doubel quotes `" "` are interchangeable. Each may be nested within the other. <br>
 - A pipe `|` between items indicates an either-or relationship between them. <br>
-- Only one item in curved brackets separated by a pipe `(item1 | item2)` may be used. All items within the brackets have equivalent functionality. They do not indicate optionality. <br>
 - Items with `...` after them can have multiple instances. <br>
-- An example of the date format dd-mm-yy is 25-12-16. An example of dd-MMM-yy is 03-Mar-15. <br>
-- An example of the time format hh:mm is 18:30. An example of hh:mmpm is 06:30pm. <br>
-- The order of parameters is not fixed.
+- The order of parameters is not fixed. <br>
+- Valid date formats are dd-mm-yy (eg. 03-12-16) and dd-MMM-yy (eg. 03-Dec-15). The name of the month is case-insensitive. <br>
+- Valid time formats are hh:mm (eg. 18:30) and hh:mmam/hh:mmpm (eg. 06:30am/06:30pm).
 
 
 <br>
@@ -53,47 +52,52 @@ Format: `help`
 #### 2.2. Adding a task: `add`
 Adds a task to the address book. Three different types of tasks are supported.<br>
 ##### Events
-Format: `add event="NAME" (t="hh:mm-hh:mm" | t="hh:mmam-hh:mmpm") (d="dd-mm-yy" | d="dd-MMM-yy")`
+Format: `add event "NAME" from hh:mm to hh:mm on dd-mm-yy`
 ##### Deadlines
-Format: `add deadline="NAME" (t="hh:mm" | t="hh:mmpm") (d="dd-mm-yy" | d="dd-MMM-yy")`
-##### Floating tasks
-Format: `add float="NAME"`
+Format: `add deadline "NAME" by hh:mm on dd-mm-yy`
+##### Tasks to be done someday
+Format: `add someday "NAME"`
 
 Examples:
-* `add event="dinner with wife" d="25-12-16" t="7:00pm-9:00pm"`
-* `add deadline='Lab Report' t='16:00' d='03-Mar-15'`
-* `add float="Read EL James' book 50 Shades of Grey"`
-* `add float="Learn "artistic" sarcasm"` is invalid since double quotes are used both to enclose the task name and within the name itself.
+* `add event "dinner with wife" on 25-12-16 from 7:00pm to 9:00pm` <br>
+Note that the date and time can be written in any order.
+* `add deadline 'Lab Report' by 16:00 on 03-Mar-15`
+* `add someday "Read EL James' book 50 Shades of Grey"`
+* `add someday "Learn "artistic" sarcasm"` is invalid since double quotes are used both to enclose the task name and within the name itself.
 
 
 <br>
 #### 2.3. Listing tasks: `list`
 Shows a numbered list of tasks, filtered by optional parameters.<br>
-Format: `list [d="dd-mm-yy"] [type="TASK_TYPE"] [done="true"|"false"] [t="dd-mm-yy"]`
+Format: `list [TASK_TYPE] [done|not-done] [dd-mm-yy] [hh:mm]`
 
-> The 3 valid types are "event", "deadline" and "float".
+> The 3 valid task types are "event", "deadline" and "someday".
+> Tasks are listed in chronological order.
+> If a time is provided, tasks will be filtered as follows:
+> - Events that are occuring at the specified time, start and end time inclusive
+> - Deadlines that are due before the specified time
 
 Example:
-* `list type="float" done="false"`
+* `list someday not-done` lists all someday tasks that have not been completed.
 
 
 <br>
 #### 2.4. Finding all tasks containing any keyword in their name: `find`
 Finds tasks in which the name contains any of the given keywords.<br>
-Format: `find "KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2" ["MORE_KEYPHRASES"...]`
+Format: `find KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2 [KEYPHRASE_ONLY_ONE_WORD, MORE, ...]`
 
-> * Keyphrases are bounded by quotes
-> * The search is _case-insensitive_. e.g `"hANs bo"` will match `"Hans Bo"`
-> * The order of the keywords within each phrase matters. e.g. `"Hans Bo"` will not match `"Bo Hans"`
-> * The order of the keyphrases does not matter. e.g. `"Bo", "Hans"` will match `"Hans Swagtacular Bo"`
+> * Keyphrases are separated by commas
+> * The search is _case-insensitive_. e.g `hANs bo` will match `Hans Bo`
+> * The order of the keywords within each phrase matters. e.g. `Hans Bo` will not match `Bo Hans`
+> * The order of the keyphrases does not matter. e.g. `Bo, Hans` will match `Hans Swagtacular Bo`
 > * Only the name is searched.
-> * Partial phrases will be matched e.g. `"ns B"` will match `"Hans Bo"`
+> * Partial phrases will be matched e.g. `ns B` will match `"Hans Bo`
 
 Examples:
-* `find 'meeting'`<br>
-  Returns `'Meeting with John'`
-* `find "Physics test" "chemistry" "biology"`<br>
-  Returns any task containing `'Physics test'`, `'chemistry'`, or `'biology'`
+* `find meeting`<br>
+  Returns `Meeting with John` and `Skytok project meeting`
+* `find Physics test, chemistry, biology`<br>
+  Returns any task containing any of `Physics test`, `chemistry`, or `biology`
 
 
 <br>
@@ -126,12 +130,16 @@ See 'Deleting a task'.
 <br>
 #### 2.7. Updating a task: `update`
 Overwrites specified attributes of the specified task. <br>
-Format: `update INDEX [name="NEW_NAME"] [t="hh:mm"] [d="dd-mm-yy"] [done=true|false]`
+Format: `update INDEX ["NEWNAME"] [from hh:mm to hh:mm|by hh:mm] [dd-mm-yy] [done|not-done]`
+
+> The `from` and `to` updates are only valid for events.
+> The `by` update is only valid for deadlines.
+> The date update is valid for bothe events and deadlines, but not somedays.
 
 Example:
-* `list type="event"` <br>
-  `update 1 name='Hamlet at The Globe Theatre' t='08:00pm-11:00pm'` <br>
-  Updates the name of 1st task listed to 'Hamlet at The Globe Theatre' and its time period to '08:00pm-11:00pm'.
+* `list event` <br>
+  `update 1 'Hamlet at The Globe Theatre' from 08:00pm to 11:00pm` <br>
+  Updates the name of 1st task listed to 'Hamlet at The Globe Theatre' and its time period to 08:00pm-11:00pm.
 
 
 <br>
@@ -153,12 +161,12 @@ Format: `clear`
 <br>
 #### 2.10. Setting the data storage location: `set-storage`
 Saves all task data to the specified folder. <br>
-Format: `set-storage "FILEPATH"`
+Format: `set-storage FILEPATH`
 
 > Existing data will be moved to the new folder.
 
 Example:
-`set-storage "C:\Users\Liang\Desktop"`
+`set-storage C:\Users\Liang\Desktop`
 
 
 <br>
@@ -172,9 +180,9 @@ Format: `add-alias "COMMAND_ALIAS"="COMMAND_PHRASE"`
 Examples:
 * `add-alias 'del'='delete'` <br>
   The command `del` can be used in place of `delete`.
-* `add-alias "addfl "="add float="` <br>
-  The command `addfl "Clean the garage"` can be used in place of `add float="Clean the garage"`. <br>
-  However, `add deadline="buy addfl a cake" t="4:00pm" d="12-Oct-16` does not become `add deadline="buy add float= a cake" t="4:00pm" d="12-Oct-16"`, since `addfl` was enclosed by quotation marks.
+* `add-alias "add-dl"="add deadline"` <br>
+  The command `add-dl "Clean the garage"` can be used in place of `add someday="Clean the garage"`. <br>
+  However, `add deadline "buy add-dl a cake" by 4:00pm on 12-Oct-16` does not become `add deadline "buy add deadline a cake" by 4:00pm on 12-Oct-16`, since `add-dl` was enclosed by quotation marks.
 
 
 <br>
@@ -186,7 +194,7 @@ Format: `list-alias`
 <br>
 #### 2.13. Deleting an alias: `delete-alias | remove-alias`
 Removes previously set aliases. <br>
-Format: `(delete-alias | remove-alias) INDEX [MORE_INDICES]`
+Format: `(delete-alias | remove-alias) INDEX [MORE_INDICES...]`
 
 Example:
 * `list-alias`
@@ -201,21 +209,22 @@ Format: `exit`
 
 <br>
 ## 3. Command Summary
-
-| Command         | Format         |
-|-----------------|:-----------------|
-|add event          |`add event="NAME" (t="hh:mm-hh:mm" | t="hh:mmam-hh:mmpm") (d="dd-mm-yy" | d="dd-MMM-yy")`|
-|add deadline       |`add deadline="NAME" (t="hh:mm" | t="hh:mmpm") (d="dd-mm-yy" | d="dd-MMM-yy")`|
-|add float          |`add float="NAME"`|
-|list               |`list [d="dd-mm-yy"] [type="TASK_TYPE"] [done="true"|"false"] [t="dd-mm-yy"]`|
-|find               |`find "KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2", ["MORE_KEYPHRASES"...]`|
-|delete             |`delete INDEX [MORE_INDICES...]`|
-|update             |`update INDEX [name="NEWNAME"] [t="hh:mm"] [d="dd-mm-yy"] [done=true|false]` |
-|mark done          |`done INDEX [MORE_INDICES...]`|
-|undo               |`undo`     |
-|clear              |`clear`|
-|set storage location|`set-storage "FILEPATH"`|
-|add command alias          |`add-alias "COMMAND_ALIAS"="COMMAND_PHRASE"`|
-|delete command alias|`(delete-alias | remove-alias) "COMMAND_ALIAS"`|
-|help               |`help`|
-|exit        |`exit`|
+  
+| Command            | Format           |
+|--------------------|:-----------------|
+|add event           |`add event "NAME" from hh:mm to hh:mm on dd-mm-yy`|
+|add deadline        |`add deadline "NAME" at hh:mm by dd-mm-yy`|
+|add task to be done someday         |`add someday "NAME"`|
+|list                |`list [dd-mm-yy] [TASK_TYPE] [done|not-done] [hh:mm]`|
+|find                |`find KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2 [KEYPHRASE_ONLY_ONE_WORD, MORE, ...]`|
+|delete              |`delete INDEX [MORE_INDICES...]`|
+|update              |`update INDEX ["NEWNAME"] [from hh:mm to hh:mm | by hh:mm] [dd-mm-yy] [done|not-done]` |
+|mark done           |`done INDEX [MORE_INDICES...]`|
+|undo                |`undo` |
+|clear               |`clear`|
+|set storage location|`set-storage FILEPATH`|
+|add command alias   |`add-alias "COMMAND_ALIAS"="COMMAND_PHRASE"`|
+|list command aliases|`list-alias`|
+|delete command alias|`(delete-alias | remove-alias) INDEX [MORE_INDICES...]`|
+|help                |`help`|
+|exit                |`exit`|
