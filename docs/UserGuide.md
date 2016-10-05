@@ -207,7 +207,7 @@ Delete | `delete [INDEX]...`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 ListCat | `listcat`
-Select | ‘select INDEX’
+Select | `select INDEX`
 Done | `done`
 Help | `help`
-Exit | ‘exit’
+Exit | `exit`
