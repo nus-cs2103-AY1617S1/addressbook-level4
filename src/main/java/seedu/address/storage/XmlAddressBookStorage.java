@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 /**
  * A class to access ActivityManager data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlAddressBookStorage implements ActivityManagerStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 

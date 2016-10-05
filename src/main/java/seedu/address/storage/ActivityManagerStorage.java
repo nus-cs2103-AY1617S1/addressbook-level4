@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * Represents a storage for {@link seedu.address.model.ActivityManager}.
  */
-public interface AddressBookStorage {
+public interface ActivityManagerStorage {
 
     /**
      * Returns the file path of the data file.
