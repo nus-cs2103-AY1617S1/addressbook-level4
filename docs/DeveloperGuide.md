@@ -272,50 +272,322 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | new user | see usage instructions of all commands | how to use various commands in the App
+`* * *` | user | create task with title and description | put summary as title and more details in description
+`* * *` | user | create task without start time or end time | record tasks that need to be done "some day"
+`* * *` | user | create task with start time and end time or [deadlines](#deadline) | know what event is happening or due at certain time
+`* * *` | user | edit task's title, description, start time, end time and categories | don't have to create new task when I want to update or make mistakes
+`* * *` | user | view all tasks | have an overview of all tasks
+`* * *` | user | view a specific task | get more details of the specific task
+`* * *` | user | find a task by title and description | quickly locate the task if I can only remember few words in the title or description
+`* * *` | user | delete tasks | only track the tasks I care
+`* *` | user | add tasks to different categories | be more organised about managing task
+`* *` | user | view the tasks under a certain category | examine different tasks under different categories
+`* *` | user | view the tasks are going to happen or due today, tomorrow, next 7 days, etc. | become more clear about what is going to happen
+`* *` | user | undo the most recent operations | I will not be panic when I make mistakes in typing command
+`* *` | user | redo the most recent operations | redo the operation after undoing.
+`* *` | user | specify a storage location for data storage | I can ask other could syncing service to sync teh file to prevent data loss
+`* *` | user | mark or unmark the task as [done](#done) | only keep track of the tasks which are needed to be done and archive the tasks done.
+`*` | user | type command parameters in arbitrary order | I don't have to remember the specific order of parameter for certain command 
+`*` | user | add external `ical` file to the todo-lists | keep track of other events created by other.
+`*` | user | create recurring tasks | be reminded to do the same task every fixed-time-interval 
+`*` | user | view events in Google Calendar | I can have a better pictorial view of my shcedule.
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to add in a task.
+2. To-Do List creates task with title, description, start date and end date.
+3. The task is moved into the categories according to the parameters.
+4. System displays the details of the created task.<br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. `add` command followed by the wrong parameters
+
+> 1a1. System indicates the error and display the correct format for user
+  Use case ends
+  
+1b. `TITLE` is empty string
+
+> 1b1. System indicates the error that task_name is empty.
+  Use case ends.
+  
+1c. User doesn't supply `[START->END]` or `END` parameters
+
+> 1c1. Event is created and categorized to `INBOX`
+  1c2. System display the created task
+  Use case resumes from steps 2.
+  
+1d. User does not supply `START` parameter
+
+> 1d1. Event is created with `START` as today
+  Use case resumes from steps 2.
+  
+1e. System is able to parse `START` or `END` which is not in standard format.
+
+> Use case resumes from steps 2.
+
+1f. System is not able to parse `START` or `END` which is not in standard format.
+
+> 1f2. System will create the task without `START` and `END` date
+  1f3. System indicates the error to user
+  Use case resumes from steps 2.
+  
+#### Use case: Edit task
+
+**MSS**
+
+1. User types in the command.
+2. To-Do List finds the task at that index.
+3. The task's details are changed accordingly (title, description, start time, end time, category).
+4. System displays the details of the newly edited task. <br>
+Use case ends.
+
+**Extensions**
+
+1a. `edit` command followed by the wrong parameters
+
+> 1a1. System indicates the error and display the correct format for user
+  Use case ends.
+  
+1b.`edit` command is followed by the non-existent `INDEX`
+
+> 1.b.1 System indicates the error that the `INDEX` is non-existent
+  Use case ends
+
+1c. `TITLE` is empty string
+
+> 1c1. System indicates the error that `TASK_NAME` is empty.
+  Use case ends.
+  
+1d. System is not able to parse `START` or `END` which is not in standard format.
+
+> 1d1. System will create the task without `START` and `END` date
+  1d2. System indicates the error to user
+  Use case resumes from steps 2.
+
+#### Use case: Delete task
+
+**MSS**
+
+1. User types in the command.
+2. System finds the task at that index.
+3. System confirms with the user if he wants to delete the task.
+4. User confirms.
+5. System deletes the task. <br>
+Use case ends.
+
+**Extensions**
+
+1a. `delete` command is followed by the wrong parameters
+
+> 1a1. System indicates error and display the correct format to user
+  Use case ends.
+       	
+1b. `delete` command is followed by a non-existent `INDEX`
+
+> 1b1. System indicates the error in the `INDEX` is non-existent
+  Use case ends.
+  
+4a. User rejects the confirmation
+> 4a1. System indicates that the delete order was not carried out
+  Use case resumes from step 1.
+
+#### Use case: List task by category
+
+**MSS**
+
+1. User types the list command with specific category name as parameter.
+2. System displays all the task under `CATEGORY`. <br>
+Use case ends.
+
+**Extensions**
+
+1a. User does not supply `CATEGORY`
+
+> 1a1. System displays all the tasks
+  Use case ends.
+	
+2a. The category does not exist in the system
+
+> 2a1. System indicates the error.
+  Use case ends.
+
+#### Use case: Undo Command
+
+**MSS**
+
+1. User types in the undo command.
+2. System try to find the last operation which involve change of data.
+3. System undo the operation.
+4. System indicates the change to user. <br>
+Use case ends.
+
+**Extensions**
+
+2a. The last operation which involve the change of the data does not exist
+
+> 2a1. System indicates the error
+  Use case ends.
+
+#### Use case: Clear Command
+
+**MSS**
+
+1. User types in the command.
+2. System confirms if user wants to clear the entire all of the tasks.
+3. User confirms.
+4. System deletes all the tasks. <br>
+Use case ends.
+
+**Extensions**
+
+3a. User rejects the confirmation
+
+> 3a1. System indicates that the clear order was not carried out
+  Use case resumes at step 1.
+  
+#### Use case: Help Command
+
+**MSS**
+
+1. User types in the command.
+2. System finds with the details of a command in its parameters.
+3. System displays the details. <br>
+Use case ends.
+
+**Extensions**
+
+1a. `help` command is followed by the wrong parameters
+
+> 1a1. System indicates the error and display the correct format for user
+  Use case ends.
+  
+1b. `help` command is followed by no parameters
+
+> 1b1. System displays all the commands available with all the details
+  Use case ends.
+  
+#### Use case: View a task
+
+**MSS**
+
+1. User types in the view command.
+2. System retrieve the task list based on the index parameter in the recent displayed list.
+3. System display the detail of the task. <br>
+Use case ends.
+
+**Extensions**
+
+2a. There is no recent displayed list
+
+> 2a1. System indicates the errors to user.
+  Use cases ends.
+  
+2b. The index is not valid
+
+> 2b1. System indicates the errors to user.
+  Use cases ends.
+
+#### Use case: Find keywords
+
+**MSS**
+
+1. User requests to find keyword
+2. To-Do List shows the requested keywords in all categories. <br>
+Use case ends.
+
+**Extensions**
+
+2a. Keyword does not exist in the list.
+
+> Use case ends.
+
+#### Use case: Task Due Command
+
+**MSS**
+
+1. User requests to find all tasks due by end date.
+2. To-Do List shows all of the tasks due by end date. <br>
+Use case ends.
+
+**Extensions**
+
+2a. No tasks are due by end date.
+
+> Use case ends.
+
+#### Use case: Redo Command
+
+**MSS**
+
+1. User types the command
+2. To-do List reverses the most recent undo. <br>
+Use case ends.
+
+**Extensions**
+
+1a. No recent undo is called.
+
+> 1a1. System indicates the error and shows the error message
+  Use case ends.
+  
+#### Use case: Mark Command
+
+**MSS**
+
+1. User marks task of `TASK_NUMBER` done.
+2. To-Do List shows if task could be marked as done. <br>
+Use case ends.
+
+**Extensions**
+
+2a. No such task of `TASK_NUMBER`.
+
+> 2a1. To-Do List shows an error message
+  Use case ends
+  
+2b. Task of `TASK_NUMBER` is already marked done.
 
 > Use case ends
 
-3a. The given index is invalid
+#### Use case: Unmark Command
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+**MSS**
 
-{More to be added}
+1. User marks task of `TASK_NUMBER` undone.
+2. To-Do List shows if task could be marked as undone. <br>
+Use case ends.
+
+**Extensions**
+
+2a. No such task of `TASK_NUMBER`
+
+> 2a1. To-Do List shows an error message
+Use case ends.
+
+2b. Task of `TASK_NUMBER` is already marked undone.
+> Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+4. Should log each operations to log file.
+5. Should favor DOS style commands over Unix-style commands.
+6. The product should have no dependency on other packages.
+7. The software can be opened by clicking without installing.
 
-{More to be added}
+
 
 ## Appendix D : Glossary
 
@@ -323,11 +595,61 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Deadline
 
-> A contact detail that is not meant to be shared with others
+> A time interval with the start day as the day the task created day and the end day as the deadline date.
+
+##### Done
+
+> `Done` is a build-in category in the to-do list which store all the tasks that are marked as `done` 
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+### Review of [TickTick](https://ticktick.com/):
+#### Strengths:
+- Desktop software is provided, so we can launch it quickly without using browser.
+- Shortcuts for opening the software is provided, so the todo lists can be opened quickly to those who prefer using keyboard.
+- User can create their own category for tasks and allocate tasks to different categories.
+- Elegant GUI is provided, the UI is not wordy and icons are quite intuitively.
+
+#### Weaknesses:
+- Network connection is required. If there is no network connection, the software even cannot be opened.
+- The `parser` for input text can only deal with simple command. E.g. adding the start time of event. If the command cannot be recognized, it will be automatically added as task title. 
+
+### Review of [WunderList](https://www.wunderlist.com/zh/):
+#### Strengths:
+- Ease of usage is the biggest strength. Adding an item to the list by just typing and pressing Enter. Users can easily add multiple items in this way.
+- Apple Watch integration is a nice bonus for people with Apple Watch
+- Slick user interface that allows customization with a lot of background choices
+
+#### Weaknesses:
+- The free version is seriously limited. Users only get 25 assigns per shared to-do list and 10 background choices
+- Network connection is required. If there is no network connection, the software even cannot be opened.
+- Wunderlist lacks IFTTT integration that many to-do list apps have
+
+
+### Review of [Trello](https://trello.com/)
+#### Strengths:
+- Online/Cloud based program so it can be transferrable to other computers	
+- Ease to add in notes and description into Trello cards
+- Customizable looks
+
+#### Weaknesses:
+- Unable to put due dates or member tags on Trello cards
+- Inability to link with a calendar software like Google calendar which is hard to keep track of tasks done 
+- The free version is much more limited than the paid version, making certain customisation features is hard
+
+### Review of [Google Calendar](https://calendar.google.com/)
+#### Strengths:
+- Add different kind of colouring to the schedule
+- Undo addition or deletion of events
+- Create multiple calendar for different purposes
+- GUI is quite intuitive. The formatting is clear and it does not require guidelines
+- Able to use calendar in offline mode
+
+
+#### Weaknesses:
+- Unable to view all deleted events or reminders
+- Does not have command-line inputs to modify the calendar; most operations require a user to click, which requires time.
+- Only accessible via browsers; no desktop application available
 
