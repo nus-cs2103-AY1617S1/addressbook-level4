@@ -6,6 +6,7 @@ import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.model.UserPrefs;
 
 /*
  * Manages a list of tasks 1and acts as a gateway for Commands to perform CRUD operations on the list
@@ -13,8 +14,9 @@ import seedu.address.commons.core.ComponentManager;
 public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	private UniqueItemCollection<Task> tasks;
 
-	public TaskManager() {
-		tasks = new UniqueItemCollection<Task>();
+	public TaskManager(UniqueItemCollection<Task> tasks, UserPrefs userPrefs) {
+		// TODO: make use of loaded data
+		this.tasks = new UniqueItemCollection<Task>();
 	}
 	
 	@Override

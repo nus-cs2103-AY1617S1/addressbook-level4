@@ -2,15 +2,19 @@ package seedu.address.logic;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.taskcommands.TaskCommand;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.TaskCommandsParser;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
@@ -22,32 +26,24 @@ import java.util.logging.Logger;
 public class LogicManager_Task extends ComponentManager implements Logic_Task {
     private final Logger logger = LogsCenter.getLogger(LogicManager_Task.class);
 
-    private final Model model;
-    private final Parser parser;
+    private final InMemoryTaskList model;
+    private final TaskCommandsParser parser;
 
-    public LogicManager_Task(Model model, Storage storage) {
+    public LogicManager_Task(InMemoryTaskList model, Storage storage) {
         this.model = model;
-        this.parser = new Parser();
+        this.parser = new TaskCommandsParser();
     }
 
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = parser.parseCommand(commandText);
+        TaskCommand command = parser.parseCommand(commandText);
         command.setData(model);
         return command.execute();
     }
 
     @Override
     public ObservableList<Task> getFilteredTaskList() {
-    	ObservableList<Task> stubList = FXCollections.observableArrayList();
-    	Description a = new Description("Testing A");
-    	Description b = new Description("Testing B");
-    	Description c = new Description("Testing C");
-    	stubList.add(new FloatingTask(a));
-    	stubList.add(new FloatingTask(b));
-    	stubList.add(new FloatingTask(c));
-    	
-        return stubList;
+    	return model.getCurrentFilteredTasks().getInternalList();
     }
 }

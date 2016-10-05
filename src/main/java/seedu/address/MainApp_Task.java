@@ -4,6 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
@@ -14,6 +15,9 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic_Task;
 import seedu.address.logic.LogicManager_Task;
 import seedu.address.model.*;
+import seedu.address.model.task.InMemoryTaskList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskManager;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -37,7 +41,7 @@ public class MainApp_Task extends Application {
     protected Ui ui;
     protected Logic_Task logic;
     protected Storage storage;
-    protected Model model;
+    protected InMemoryTaskList model;
     protected Config config;
     protected UserPrefs userPrefs;
 
@@ -69,7 +73,7 @@ public class MainApp_Task extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    private InMemoryTaskList initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
@@ -86,7 +90,8 @@ public class MainApp_Task extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        // TODO: Actually pass in data to use
+        return new TaskManager(new UniqueItemCollection<Task>(), userPrefs);
     }
 
     private void initLogging(Config config) {
