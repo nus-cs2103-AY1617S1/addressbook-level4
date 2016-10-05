@@ -4,7 +4,7 @@
 
 #### [Project Mentor]
 <img src="images/mentor.png" width="150"><br>
-**Role**: Peoject Mentor <br>
+**Role**: Project Mentor <br>
 
 #### [Chen Rui Wen](http://github.com/ruiwen905) 
 <img src="images/ruiwen.png" width="150"><br>
