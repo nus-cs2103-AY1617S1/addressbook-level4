@@ -68,7 +68,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
+    public List<ReadOnlyTask> getPersonList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();
