@@ -119,21 +119,22 @@ Examples:
   **`delete`**` 1,4`<br>
   Deletes the 1st and 4th event in the results of the **`find`** command.
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+#### Edit an event : `edit`
+Edits the event identified by the index number used in the last events listing.<br>
+Format: **`edit`**` [index] [details]`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
+> Edits the event specified based on the details given.<br>
+> [details] follows the format in **`add`** command. <br>
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+* **`list`**<br>
+  **`edit`**` 2 dinner with dad`<br>
+  Edits the name of the the 2nd event in the results of the **`list`** command.
+* **`find`**` dinner` <br> 
+  **`edit`**` 1 `**`from`**` 1830 `**`to`**` 2000 25 oct 2016 `**`at`**` popeyes`<br>
+  Edits the time and location parameter of the 1st event in the results of the **`find`** command.
 
 #### Clearing all entries : `clear`
 Clears all entries from the address book.<br>
