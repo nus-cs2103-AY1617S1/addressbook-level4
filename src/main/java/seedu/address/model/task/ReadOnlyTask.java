@@ -37,11 +37,11 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
+                .append(" Duedate: ")
                 .append(getDueDate())
-                .append(" Email: ")
+                .append(" Priority: ")
                 .append(getPriority())
-                .append(" Address: ")
+                .append(" Reminder: ")
                 .append(getReminder())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueTaskList persons;
+    private final UniqueTaskList tasks;
     private final UniqueTagList tags;
 
     {
-        persons = new UniqueTaskList();
+        tasks = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
@@ -47,11 +47,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 //// list overwrite operations
 
     public ObservableList<Task> getPersons() {
-        return persons.getInternalList();
+        return tasks.getInternalList();
     }
 
     public void setPersons(List<Task> persons) {
-        this.persons.getInternalList().setAll(persons);
+        this.tasks.getInternalList().setAll(persons);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -78,7 +78,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
-        persons.add(p);
+        tasks.add(p);
     }
 
     /**
@@ -105,7 +105,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
-        if (persons.remove(key)) {
+        if (tasks.remove(key)) {
             return true;
         } else {
             throw new UniqueTaskList.PersonNotFoundException();
@@ -122,13 +122,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyTask> getPersonList() {
-        return Collections.unmodifiableList(persons.getInternalList());
+        return Collections.unmodifiableList(tasks.getInternalList());
     }
 
     @Override
@@ -138,7 +138,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public UniqueTaskList getUniquePersonList() {
-        return this.persons;
+        return this.tasks;
     }
 
     @Override
@@ -151,13 +151,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
+                && this.tasks.equals(((AddressBook) other).tasks)
                 && this.tags.equals(((AddressBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(tasks, tags);
     }
 }
