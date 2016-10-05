@@ -3,7 +3,7 @@ package seedu.taskmanager.storage;
 import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskmanager.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskmanager.commons.exceptions.DataConversionException;
-import seedu.taskmanager.model.ReadOnlyAddressBook;
+import seedu.taskmanager.model.ReadOnlyTaskManager;
 import seedu.taskmanager.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -25,10 +25,10 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     String getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException;
+    Optional<ReadOnlyTaskManager> readAddressBook() throws DataConversionException, FileNotFoundException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyTaskManager addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

@@ -7,7 +7,7 @@ import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskmanager.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskmanager.commons.exceptions.DataConversionException;
-import seedu.taskmanager.model.ReadOnlyAddressBook;
+import seedu.taskmanager.model.ReadOnlyTaskManager;
 import seedu.taskmanager.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -52,14 +52,14 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyTaskManager> readAddressBook() throws DataConversionException, FileNotFoundException {
         logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
 
         return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveAddressBook(ReadOnlyTaskManager addressBook) throws IOException {
         addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
     }
 

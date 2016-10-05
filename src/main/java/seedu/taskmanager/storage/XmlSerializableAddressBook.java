@@ -1,7 +1,7 @@
 package seedu.taskmanager.storage;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
-import seedu.taskmanager.model.ReadOnlyAddressBook;
+import seedu.taskmanager.model.ReadOnlyTaskManager;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
 import seedu.taskmanager.model.task.ReadOnlyTask;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
+public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
@@ -38,8 +38,8 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+    public XmlSerializableAddressBook(ReadOnlyTaskManager src) {
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -54,7 +54,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedPerson p : persons) {
             try {
@@ -67,7 +67,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();
