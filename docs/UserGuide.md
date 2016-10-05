@@ -85,7 +85,7 @@ Examples:
 Deletes the specified task from the task list.  
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
+> Deletes the person at the specified `INDEX`.<br>
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
@@ -108,7 +108,7 @@ Examples:
 Renames the specified task in the task list. <br>
 Format: `rename INDEX NEW_TASK_NAME` 
 
-> Rename the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
+> Rename the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
@@ -124,8 +124,8 @@ Examples:
 Updates the time of the specified task in the task list. <br>
 Format: `schedule INDEX NEW_TIME_DESCRIPTION` 
 
-> Schedule the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
-> The index **must be a positive integer** 1, 2, 3, ...
+> Schedule the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...<br>
 > The time description must follow the format given in the add command examples
 
 Examples:
@@ -144,8 +144,8 @@ Examples:
 Marks the specified task in the task list.<br>
 Format: `mark INDEX...` 
 
-> Mark the task(s) at the specified `INDEX(es)`. The index refers to the index number shown in the most recent listing.
-> The index **must be a positive integer** 1, 2, 3, ...
+> Mark the task(s) at the specified `INDEX(es)`. The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...<br>
 > The index can be in any order.
 
 Examples:
@@ -165,8 +165,8 @@ This works simlar to the `mark` command. <br>
 Unmarks the specified task in the task list. <br>
 Format: `unmark INDEX...` 
 
-> Mark the task(s) at the specified `INDEX(es)`. The index refers to the index number shown in the most recent listing.
-> The index **must be a positive integer** 1, 2, 3, ...
+> Mark the task(s) at the specified `INDEX(es)`. The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...<br>
 > The index can be in any order.
 
 Examples:
@@ -185,7 +185,7 @@ Examples:
 Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX` 
 
-> Selects the task and loads the Google search page the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
+> Selects the task and loads the Google search page the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
