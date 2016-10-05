@@ -17,7 +17,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 
 1. Programming Experience: Java (through CS1020 and CS2103T), PHP (through Orbital), HTML (through Orbital) and MySQL (through Orbital).
 2. Roles and Responsibilities: Incharge of Input Parsing and Maintaining Code Quality.
-3. Tool Expert: All the relevant Java API's (Stream API for Functional Programming, Optional, Collections, etc.)
+3. Tool Expert: All the relevant Java APIs (Stream API for Functional Programming, Optional, Collections, etc.)
 
 -----
 

@@ -11,7 +11,7 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `TaskLine.jar` from the [releases](../../../releases) tab.
+1. Download the latest `SmartScheduler.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for the program.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
@@ -41,7 +41,7 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a task : `add`
-Adds a task to the list. Note: the `add` keyword is optional (i.e. 'add' is implied for an entry with no keyword).<br>
+Adds a task to the list. <br>
 Format: `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE]` 
 
 > At least one of the two TIMEDATE values must be included.
@@ -90,20 +90,20 @@ Deletes the specified task.<br>
 Format: `delete INDEX/TASKNAME`
 
 > Deletes the task at the specified index
-> If taskname is entered, tasks are sought out in the same way the `find` command does. Matching names are then displayed for the user to choose from
+> If taskname is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with deletion using the index of the appropriate task.
 
 Examples:
 * `delete 1`
   Deletes task at index 1
 * `delete b*y*`
-  Lists tasks matching `b*y*` for the user to choose from
+  Lists tasks matching `b*y*` for the user to choose from.
 
 #### Updating a task : `update`
 Update the date/time for a task<br>
 Format: `update INDEX/TASKNAME [at/from STARTTIMEDATE] [to/by ENDTIMEDATE]`
 
 > Replaces the start and end times of the task at the specified index
-> If taskname is entered, tasks are sought out in the same way the `find` command does. Matching names are then displayed for the user to choose from
+> If taskname is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with updating using the index of the appropriate task.
 > Omitting STARTTIMEDATE will remove STARTTIMEDATE from the task
 > Omitting ENDTIMEDATE will remove ENDTIMEDATE from the task
 
@@ -118,7 +118,7 @@ Marks a task as complete.<br>
 Format: `complete INDEX/TASKNAME`
 
 > Marks the task at the specified index as complete
-> If taskname is entered, tasks are sought out in the same way the `find` command does. Matching names are then displayed for the user to choose from
+> If taskname is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with marking a task as complete using the index of the appropriate task.
 
 Examples:
 * `complete 1`
