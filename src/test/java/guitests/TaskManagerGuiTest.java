@@ -13,7 +13,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.TaskManager;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalTestTask;
 
 import java.util.concurrent.TimeoutException;
 
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A GUI Test class for AddressBook.
  */
-public abstract class AddressBookGuiTest {
+public abstract class TaskManagerGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -31,7 +31,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestTask td = new TypicalTestTask();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -39,7 +39,7 @@ public abstract class AddressBookGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle personListPanel;
+    protected TaskListPanelHandle personListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -77,7 +77,7 @@ public abstract class AddressBookGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+        TypicalTestTask.loadAddressBookWithSampleData(ab);
         return ab;
     }
 
@@ -96,7 +96,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyTask person, PersonCardHandle card) {
+    public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
