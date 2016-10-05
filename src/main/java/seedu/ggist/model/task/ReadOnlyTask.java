@@ -28,13 +28,14 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getTaskName().equals(this.getTaskName()) // state checks here onwards
                 && other.getDate().equals(this.getDate())
-                && other.getTime().equals(this.getTime())
-                && other.getPriority().equals(this.getPriority()))
+                && other.getStartTime().equals(this.getStartTime())
+                && other.getEndTime().equals(this.getEndTime())
+                && other.getPriority().equals(this.getPriority())
                 && other.getFrequency().equals(this.getFrequency()));
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the task as text, showing all contact details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
@@ -43,8 +44,10 @@ public interface ReadOnlyTask {
                 .append(getTaskName())
                 .append(" Date: ")
                 .append(getDate())
-                .append(" Time: ")
-                .append(getTime())
+                .append(" Start Time: ")
+                .append(getStartTime())
+                .append(" End Time: ")
+                .append(getEndTime())
                 .append(" Priority: ")
                 .append(getPriority())
                 .append(" Frequency: ")
