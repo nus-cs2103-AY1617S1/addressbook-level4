@@ -7,7 +7,7 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Bernard Koh](http://github.com/bernardified) <br>
 <img src="images/bernard.jpeg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Team Leader, Testing
+Responsibilities: Team Leader, Testing <br>
 In-Charge: Logic
 
 -----
@@ -15,7 +15,7 @@ In-Charge: Logic
 #### [Leah Lim](http://github.com/leahlim)
 <img src="images/leah.jpeg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Documentation, GUI Design
+Responsibilities: Documentation, GUI Design <br>
 In-Charge: UI
 
 -----
@@ -23,7 +23,7 @@ In-Charge: UI
 #### [Liu Zhen Dong](http://github.com/dongxuandong) 
 <img src="images/zhendong.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Code Quality, Time Keeper
+Responsibilities: Code Quality, Time Keeper <br>
 In-Charge: Storage
 
 -----
@@ -31,13 +31,13 @@ In-Charge: Storage
 #### [Li Wang Huan](http://github.com/liwanghuan)
 <img src="images/wanghuan.jpeg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Integration, Eclipse Specialist
+Responsibilities: Integration, Eclipse Specialist <br>
 In-charge: Model
 
 -----
 
 #### Project Mentor: [Akshay Narayan](https://github.com/okkhoy)
-<img src="images/AkshayNarayan.jpeg" width="150"><br>
+<img src="images/AkshayNarayan.jpg" width="150"><br>
 
 
 
