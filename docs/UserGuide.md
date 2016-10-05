@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all tasks to do
-   * **`add`** `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2` : 
+   * **`add`** `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2 r/n` : 
      adds a task named `Buy vegetables` to the Task Manager.
    * **`delete`**`Buy vegetables` : deletes the 'Buy vegetables' task from the manager.
    * **`exit`** : exits the app
@@ -42,13 +42,14 @@ Format: `help`
  
 #### Adding a task: `add`
 Adds a task to the task manager<br>
-Format: `add TASK i/INFORMATION d/DATE s/START_TIME e/END_TIME t/LEVEL_OF_URGENCY_TAG` 
+Format: `add TASK i/INFORMATION d/DATE s/START_TIME e/END_TIME t/LEVEL_OF_URGENCY_TAG r/RECUR_TAG` 
 
 > Level of importance tags range from 1 to 5 (1-Very Low Urgency, 2-Low Urgency, 3-Neutral, 4-High Urgency, 5-Very High Urgency)
+> Recur Tags take in 'Y' for Yes, 'N' for no to recur weekly
 
 Examples: 
-* `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2`
-* `add CS2013T Tutorial i/Prepare for week 8 Tutorial d/04102016 s/2200 e/2359 t/5`
+* `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2 r/n`
+* `add CS2013T Tutorial i/Prepare for week 8 Tutorial d/04102016 s/2200 e/2359 t/5 r/y`
 
 #### Listing all tasks : `list`
 Shows a list of all tasks currently in the task manager.<br>
@@ -125,7 +126,7 @@ Format: `undo`
 	i.e You cannot undo tasks added 2 'adds' ago.
 
 Examples: 
-* `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2`<br>
+* `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2 r/n`<br>
   `undo`<br>
   Undo latest add command, remove 'Buy vegetables task'
 * `find CS2103T`<br> 
@@ -159,7 +160,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK i/INFORMATION d/DATE s/START_TIME e/END_TIME t/LEVEL_OF_URGENCY_TAG`
+Add | `add TASK i/INFORMATION d/DATE s/START_TIME e/END_TIME t/LEVEL_OF_URGENCY_TAG r/RECUR_TAG`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
