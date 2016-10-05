@@ -19,6 +19,7 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+import seedu.address.model.ReadOnlyTaskManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -73,7 +74,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyTaskManager> addressBookOptional;
         ReadOnlyTaskManager initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readTaskManager();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
             }

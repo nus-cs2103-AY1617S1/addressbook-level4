@@ -11,15 +11,15 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * A class to access UserPrefs stored in the hard disk as a json file
+ * A class to access TaskPref stored in the hard disk as a json file
  */
-public class JsonUserPrefsStorage implements UserPrefsStorage{
+public class JsonTaskPrefsStorage implements UserPrefsStorage{
 
-    private static final Logger logger = LogsCenter.getLogger(JsonUserPrefsStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonTaskPrefsStorage.class);
 
     private String filePath;
 
-    public JsonUserPrefsStorage(String filePath){
+    public JsonTaskPrefsStorage(String filePath){
         this.filePath = filePath;
     }
 

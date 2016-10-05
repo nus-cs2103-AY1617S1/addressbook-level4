@@ -17,29 +17,29 @@ import java.util.stream.Collectors;
 /**
  * An Immutable AddressBook that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
+@XmlRootElement(name = "taskmanager")
+public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedTask> tasks;
     @XmlElement
     private List<Tag> tags;
 
     {
-        persons = new ArrayList<>();
+        tasks = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableTaskManager() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyTaskManager src) {
-        persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+    public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
+        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -57,7 +57,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedTask p : tasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -69,7 +69,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
-        return persons.stream().map(p -> {
+        return tasks.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {

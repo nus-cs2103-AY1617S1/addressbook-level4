@@ -12,16 +12,10 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Person.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
-    @XmlElement(required = true)
-    private String phone;
-    @XmlElement(required = true)
-    private String email;
-    @XmlElement(required = true)
-    private String address;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -29,7 +23,7 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedTask() {}
 
 
     /**
@@ -37,12 +31,8 @@ public class XmlAdaptedPerson {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(ReadOnlyTask source) {
+    public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
     }
 
     /**
@@ -51,12 +41,7 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
         final Name name = new Name(this.name);
-        final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, tags);
+        return new Task(name, new UniqueTagList());
     }
 }
