@@ -4,6 +4,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -17,10 +20,12 @@ import java.util.stream.Collectors;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final TaskList tasks;
     private final UniqueTagList tags;
 
     {
         persons = new UniquePersonList();
+        tasks = new TaskList();
         tags = new UniqueTagList();
     }
 
@@ -160,4 +165,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags);
     }
+
+	public void addTask(Task task) {
+		// TODO Auto-generated method stub
+		tasks.add(task);
+	}
 }

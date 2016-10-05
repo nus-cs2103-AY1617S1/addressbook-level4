@@ -10,6 +10,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.task.Task;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -73,6 +74,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+    
+    @Override
+    public synchronized void addTask(Task task) {
+        addressBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
