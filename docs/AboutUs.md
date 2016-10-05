@@ -4,36 +4,50 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Phang Chun Rong](http://github.com/Crphang) <br>
-<img src="https://lh6.googleusercontent.com/IhbJWyYzzWDielmCorRRpu5B6suRJB0SZbod5UD1g8N6fwQZFMZbGHEwLZW2n8PMXUx4_qJY9Bhpbz2ctBLKG-ty-gKQMBVzw5lYs5HKsmdtQnE2bR_jdb-90J0h3uCHZZGbKLEW" width="150"><br>
+#### [Phang Chun Rong](http://github.com/Crphang)
+<br>
+<img src="docs/images/ChunRong.jpg" width="150">
+<br>
 **Role**: Project Mentor
 
 -----
 
 #### [Ang Ray Yan](http://github.com/4rr4y)
-Role: Developer <br>  
-Responsibilities: UI
+<br>
+<img src="docs/images/RayYan.jpg" width="150">
+<br>
+**Role**: Developer (Team Lead) <br>
+**Responsibilities**: UI
 
 -----
 
 #### [Amanda Choy](http://github.com/amandachoy)
-Role: Developer <br>  
-Responsibilities: Storage
+<br>
+<img src="docs/images/Amanda.jpg" width="150">
+<br>
+**Role**: Developer (Code Quality) <br>
+**Responsibilities**: Storage
 
 -----
 
 #### [Lam Chi Thanh](http://github.com/zevergreenz)
-Role: Developer <br>  
-Responsibilities: Model
+<br>
+<img src="docs/images/ChiThanh.jpg" width="150">
+<br>
+**Role**: Developer (Testing) <br>
+**Responsibilities**: Model
 
 -----
 
 #### [Lee Han Cheng](https://github.com/landuomu)
- Role: Developer <br>  
- Responsibilities: Logic
-
+<br>
+<img src="docs/images/HanCheng.jpg" width="150">
+<br>
+ **Role**: Developer (Integration) <br>
+ **Responsibilities**: Logic
+ 
  -----
-
+ 
 
 ## Acknowledgements
 We would like to acknowledge the [developers](https://github.com/nus-cs2103-AY1617S1/addressbook-level4/blob/master/docs/AboutUs.md) of [Address Book Level 4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4) for providing the code base for developing this application.
