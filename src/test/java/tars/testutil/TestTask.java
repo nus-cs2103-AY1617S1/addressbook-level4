@@ -21,6 +21,15 @@ public class TestTask implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
+    
+    public void setDateTime(DateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+    
+   
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
 
     @Override
     public Name getName() {
