@@ -72,6 +72,9 @@ public class Parser {
         case PreviousCommand.COMMAND_WORD:
             return new PreviousCommand();
             
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
+            
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
@@ -138,8 +141,43 @@ public class Parser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+        Command result = new DeleteCommand(index.get());
 
-        return new DeleteCommand(index.get());
+        return result;
+    }
+    
+    /**
+     * Parses arguments in the context of the edit person command.
+     * 
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        Optional<Integer> index = parseIndex(args.substring(1, 2));
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            return new EditCommand(
+                    index.get(),
+                    matcher.group("name").substring(2),
+                    matcher.group("phone"),
+                    matcher.group("email"),
+                    matcher.group("address"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+        
     }
 
     /**
