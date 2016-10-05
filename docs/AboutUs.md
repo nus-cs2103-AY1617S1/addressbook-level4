@@ -11,6 +11,7 @@ We are team T13-C2 for the module CS2103 based in the [School of Computing, Nati
 ## Project Team
 
 #### [Zhang Zongyi](http://github.com/zongyizzy)
+<img src="images/Zongyi.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Code Quality/Deliverables/UI
 
