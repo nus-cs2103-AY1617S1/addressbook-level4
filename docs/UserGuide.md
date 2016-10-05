@@ -34,7 +34,7 @@
 > * The order of parameters does not matter.
 > * Items enclosed within `[ ]` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The use of commas `,` and full stops `.` are optional and will not affect the command.
+> * The use of commas `,` and full stops `.` is optional and will not affect the command.
 > * Words not enclosed within `" "` are not case-sensitive.
 > * For parameters relating to days, they are context-sensitive. For example, specifying "Fri" sets the date parameter as the next Friday from *today*.
 
