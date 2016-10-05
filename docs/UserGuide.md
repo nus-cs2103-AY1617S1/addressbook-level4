@@ -1,5 +1,5 @@
  
-![T-T]{width:20%}(images/Logo.png)
+![T-T](images/Logo.png)
 
 # **USER GUIDE** 
 ---
@@ -36,7 +36,7 @@ In order to install T-T,
 
 When T-T starts up, you will be asked a friendly `"How are you feeling today?"` question. You may input the hotkey for your current mood and the colour theme for the session will change accordingly.<br>
 
-INSERT IMAGE HERE<br><br>
+![Start Screen](images/Screen1.png)
 
 ## **Commands**
 
@@ -56,6 +56,8 @@ The format for adding a new task is : <br>
 <br>For example:<br>
 *   `add washdishes 09102016 1600 high` will create a high priority washdishes task to be done on 9th October.<br><br>
 *   `add callmom 09102016` will create a task named "callmom" to be done anytime on 9th October with normal priority.<br>
+
+![Add Screen](images/ScreenAdd.png)
 
 ###2. EDIT a Task
 
@@ -92,6 +94,7 @@ The format to edit an existing task is : <br>
 *   `list 09102016`  will display all tasks due on 9th October.
 *   `list high` will display all tasks of high priority.
 *   `list` will display all tasks organised by date.
+![List Screen](images/ScreenList.jpg)
 
 ###5. HELP command
 
