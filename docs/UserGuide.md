@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`view`** : View floating task of the day
-   * **`add`**` Homework d/2409 1800 : 
+   * **`add`**` Homework date/2409 1800 : 
      adds a task named `Homework` to the Task List.
    * **`delete`**` 212` : deletes the task with ID 212 shown in the current list
    * **`exit`** : exits the app
@@ -45,7 +45,7 @@ Example:
  
 #### Adding a floating task: `add`
 Adds a task to the todo list<br>
-Format:`add TASK_NAME [t/TAG]...` 
+Format:`add TASK_NAME [tag/TAG]...` 
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
@@ -54,10 +54,10 @@ Format:`add TASK_NAME [t/TAG]...`
 
 Examples: <br>
 * `add Homework`<br>
-* `add Homework t/CS1231`
+* `add Homework tag/CS1231`
 
 #### Adding a task with deadline: “add”
-Format: `add TASK_NAME d/DATE TIME [t/TAG]...`
+Format: `add TASK_NAME end/DATE TIME [tag/TAG]...`
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
@@ -65,10 +65,11 @@ Format: `add TASK_NAME d/DATE TIME [t/TAG]...`
 > Tasks can have any number of tags (including 0)
 
 Examples:
-* `add Homework d/2409 1800 t/CS1231`
+* `add Homework end/2409 1800 tag/CS1231`
+* `add Homework end/24 sep 6pm tag/CS1231`
 
 #### Adding a task with start time and end time: “add”
-Format: `add TASK_NAME d/DATE TIME - DATE TIME [t/TAG]`
+Format: `add TASK_NAME start/DATE TIME end/DATE TIME [tag/TAG]`
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
@@ -76,27 +77,29 @@ Format: `add TASK_NAME d/DATE TIME - DATE TIME [t/TAG]`
 > Tasks can have any number of tags (including 0)
 
 Examples:
-* `add Homework d/2409 2100 - 2509 1900 t/CS1231`
+* `add Homework start/2409 2100 end/2509 1900 tag/CS1231`
+* `add Homework start/24 sep 9pm end/25 sep 7pm tag/CS1231`
 
 #### View floating task of the day : “view”
-Format: view -OPTION
+Format: view /OPTION
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > OPTION currently supports f : floating
 
 Examples: 
-* `view -f`
+* `view /f`
 
 #### View non-floating task of the day : “view”
-Format: view d/DATE
+Format: view date/DATE
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 
 Examples: 
-* `view d/2409`
+* `view date/2409`
+* `view date/24sep`
 
 #### Edit tasks : “edit”
-Format: `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]...`
+Format: `edit TASK_ID [start/EDIT_START_DATE EDIT_START_TIME end/EDIT_END_DATE EDIT_END_TIME] [tag/EDIT_TAG]...`
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
@@ -104,7 +107,8 @@ Format: `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_EN
 > Tasks can have any number of tags (including 0)
 
 Examples: 
-* `edit 213 d/2709 1800 - 3009 1800  t/cs2101`
+* `edit 213 start/2709 1800 end/3009 1800  tag/cs2101`
+* `edit 213 start/27sep 6pm end/30sep 6pm tag/cs2101`
 
 #### Delete tasks : “delete”
 Format: delete TASK_ID
@@ -115,38 +119,40 @@ Examples:
 * `Delete 212`
 
 #### Block out tasks : “block”
-Format: block TASK_NAME d/START_DATE START_TIME - START_DATE START_TIME
+Format: block TASK_NAME start/START_DATE START_TIME end/START_DATE START_TIME
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 
 Examples:
-block cs2103t d/2409 1900 - 2409 2100
+* `block cs2103t start/2409 1900 end/2409 2100`
+* `block cs2103t start/24sep 7pm end/24sep 9pm`
 
 #### Redo tasks : “redo”
-Format: redo
+Format: r
 
 > Maximum 3 redo
 
 Examples: 
-* `redo`
+* `r`
 
 #### Undo tasks : “undo”
-Format: undo
+Format: u
 
 > Maximum 3 undo
 
 Examples: 
-* `undo`
+* `u`
 
 #### Find tasks : “find”
-Format: find [TASK_NAME] [d/DATE [TIME]] [t/TAG]
+Format: find [TASK_NAME] [date/DATE [TIME]] [tag/TAG]
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 
 Examples: <br>
-* `find cs2103 d/2109 <br>`
-* `find d/2109 1800 t/gigi <br>`
-* `find cs2103 t/lolo`
+* `find cs2103 date/2109 <br>`
+* `find date/2109 1800 tag/gigi <br>`
+* `find date/21sep 6pm tag/gigi`
+* `find cs2103 tag/lolo`
 
 #### Undo tasks : “clear”
 Format: clear
@@ -182,17 +188,17 @@ Format: `exit`
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_NAME [t/TAG]`
-Add | `add TASK_NAME d/DATE TIME [t/TAG]`
-Add | `add TASK_NAME d/DATE TIME - DATE TIME [t/TAG]`
-View | `view -OPTION`
-View | `view d/DATE`
-Edit | `edit TASK_ID [d/EDIT_START_DATE EDIT_START_TIME - EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]`
+Add | `add TASK_NAME [tag/TAG]`
+Add | `add TASK_NAME end/DATE TIME [tag/TAG]`
+Add | `add TASK_NAME start/DATE TIME end/DATE TIME [tag/TAG]`
+View | `view /OPTION`
+View | `view date/DATE`
+Edit | `edit TASK_ID [start/EDIT_START_DATE EDIT_START_TIME end/EDIT_END_DATE EDIT_END_TIME] [tag/EDIT_TAG]`
 Delete | `delete TASK_ID`
-Block | `block TASK_NAME d/START_DATE START_TIME - START_DATE START_TIME`
-Redo | `redo`
-Undo | `undo`
-Find | `find [TASK_NAME] [d/DATE [TIME]] [t/TAG]`
+Block | `block TASK_NAME start/START_DATE START_TIME end/START_DATE START_TIME`
+Redo | `r`
+Undo | `u`
+Find | `find [TASK_NAME] [date/DATE [TIME]] [tag/TAG]`
 Clear | `clear`
 Change directory | `cd FILE_PATH`
 Exit | `exit`
