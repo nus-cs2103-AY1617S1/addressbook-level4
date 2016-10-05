@@ -7,14 +7,14 @@
 * [Command Summary](#command-summary)
 
 ## About
-Do you have so many tasks to do everyday that you simply cannot keep track of them anymore? Don’t you wish there was an easy way to stay on top of your daily tasks without stressing out?
+Do you have so many tasks to do everyday that you simply cannot keep track of them anymore? Donï¿½t you wish there was an easy way to stay on top of your daily tasks without stressing out?
 
 *Taskle is here to help you with all of that.*
 
 It is a task management application with a single text box for all your commands. 
 Coupled with short and easy to remember commands, managing your tasks has never been this easy. 
 
-Stop waiting and make “Getting Started with Taskle” the last thing on your to-do list now!
+Stop waiting and make ï¿½Getting Started with Taskleï¿½ the last thing on your to-do list now!
 
 ## Quick Start
 
@@ -23,7 +23,7 @@ Stop waiting and make “Getting Started with Taskle” the last thing on your to-do
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `Taskle.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+2. Copy the file to the folder you want to use as the home folder for your To-do Application.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
@@ -111,7 +111,7 @@ Examples:
 
 #### Finding a Task : `find`
 Finds a task in the to-do application, based on keywords.<br><br>
-Format: `find [`**`search_query`**`][`**`-p/-d-o`**`]`
+Format: `find [`**`search_query`**`][`**`-p/-c/-o`**`]`
 
 Examples:
 * `find `**`meeting`**
@@ -129,12 +129,12 @@ Note:
 <br><br>
 
 #### Marking a Task as Done: `done`
-Undo previous that may have been entered incorrectly.<br><br>
-Format: `undo`
+Marks a task as done. This command is used when you are finished with the task.<br><br>
+Format: `done`
 <br><br>
 
 #### Undoing a Recent Command: `undo`
-Marks a task as done. This command is used when you are finished with the task.<br><br>
+Undo previous that may have been entered incorrectly.<br><br>
 Format: `undo`
 <br><br>
 
