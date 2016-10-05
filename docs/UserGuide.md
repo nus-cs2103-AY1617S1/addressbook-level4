@@ -24,6 +24,36 @@
 
 ## Features
 
+###4.1 Add Command
+There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the section below.
+
+####4.1.1 Add an event
+Format : **Add** [event description, date(DDMMYY), start time, end time]
+
+Example: Add [Siloso beach event, 121216, 1600, 2200]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
