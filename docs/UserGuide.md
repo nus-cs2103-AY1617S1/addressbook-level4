@@ -8,20 +8,20 @@
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
+   Agendum will not work with earlier versions of Java 8.
    
 1. Download the latest `Agendum.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+2. Copy the file to the folder you want to use as the home folder for Agendum.
+3. Double-click the file to start Agendum. The GUI should appear in a few seconds. 
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will list some information about commands. 
 5. Some example commands you can try:
    * **`list`** : lists all contacts
    * **`add`**` Go to shopping mall` : 
-     adds a task with descipription `Go to shopping mall` to the Address Book.
+     adds a task with descipription `Go to shopping mall` to Agendum.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
-   * **`exit`** : exits the app
+   * **`exit`** : exits Agendum
 
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -39,7 +39,7 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `run`
 
-#### Adding a person: `add`
+#### Adding a task: `add`
 Adds a floating task to the task list  
 Format: `add TASK_NAME`
 This will create a floating task without any start time, end time or deadline.
@@ -105,11 +105,11 @@ Examples:
 * `find Nemo Dory`<br>
   Returns all tasks that contain `Dory` or `Nemo`
 
-#### Deleting a person : `delete`
+#### Deleting a task : `delete`
 Deletes the specified task from the task list.  
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`.
+> Deletes the task at the specified `INDEX`.
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
@@ -248,10 +248,6 @@ Examples:
     unalias m
 - `m` can no longer be used to mark tasks.
 
-#### Clearing all tasks : `clear`
-Clears all tasks from the task list.
-Format: `clear`
-
 #### Specifying a data storage location : `store`
 Specifies a folder as the data storage location
 Format: `store FILE_PATH`
@@ -284,7 +280,7 @@ There is no need to save manually.
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with
+**A**: Install Agendum in the other computer and overwrite the empty data file it creates with
        the file that contains the data of your previous Agendum folder.
 
 ## Command Summary
