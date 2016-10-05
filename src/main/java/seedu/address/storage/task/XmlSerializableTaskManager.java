@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 /**
  * An Immutable TaskManager that is serializable to XML format
  */
-@XmlRootElement(name = "task manager")
+@XmlRootElement(name = "taskmanager")
 public class XmlSerializableTaskManager extends UniqueItemCollection<Task>{ 
 
     @XmlElement
