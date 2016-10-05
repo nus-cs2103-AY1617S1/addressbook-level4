@@ -103,7 +103,7 @@ Examples:
   Returns Any event having names `mom`, `dad`, or `sister`
 
 ### Deleting an event : `delete`
-Delete the specified events from the to-do list. Irreversible.<br>
+Delete the specified events from the to-do list.<br>
 Format: **`delete`**` [index 1,index 2,...]`
 
 > This command is capable to deleting single and multiple events. For multiple events, the indexes are separated by a comma. <br>
@@ -136,15 +136,19 @@ Examples:
   **`edit`**` 1 `**`from`**` 1830 `**`to`**` 2000 25 oct 2016 `**`at`**` popeyes`<br>
   Edits the time and location parameter of the 1st event in the results of the **`find`** command.
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+### Undo last action performed : `undo`
+Undo the last action performed in the to-do list. Irreversible.<br>
+Format: **`undo`**
+
+### Clearing all entries : `clear`
+Clears all entries from the to-do list.<br>
 Format: `clear`  
 
-#### Exiting the program : `exit`
+### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
-#### Saving the data 
+### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
