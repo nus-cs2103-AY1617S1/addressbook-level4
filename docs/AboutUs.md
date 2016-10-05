@@ -27,8 +27,16 @@ Responsibilities: Documentation
 -----
 
 #### [Zhang Hao]()
-<img src="images/MartinChoo.jpg" width="150"><br>
+<img src="images/" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Dev Ops
+
+-----
+
+## Project Mentor
+
+#### [Pierce Anderson Fu]()
+<img src="images/PierceAndersonFu.png" width="150"><br>
+Phase C tutor
 
 -----
