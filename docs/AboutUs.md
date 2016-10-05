@@ -16,7 +16,7 @@ Responsibilities:
 #### Joycelyn Ng <br>
 <img src="https://github.com/CS2103AUG2016-T10-C2/main/blob/master/docs/images/JoycelynNg.jpg?raw=true" width="150"> <br>
 Team Lead <br>
-Responsibilties: 
+Responsibilities: 
 * Overall Project Coordination
 * Task Assignment & Tracking
 
