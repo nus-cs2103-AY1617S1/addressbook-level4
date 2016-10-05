@@ -79,7 +79,7 @@ public class ConfigUtilTest {
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setmalitioFilePath("malitio.xml");
+        config.setMalitioFilePath("malitio.xml");
         config.setMalitioName("TypicalmalitioName");
         return config;
     }

@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.malitio.testutil.malitioBuilder;
+import seedu.malitio.testutil.MalitioBuilder;
 import seedu.malitio.testutil.TestUtil;
 import seedu.malitio.commons.util.FileUtil;
 import seedu.malitio.commons.util.XmlUtil;
@@ -86,7 +86,7 @@ public class XmlUtilTest {
         assertEquals((new Malitio(dataToWrite)).toString(),(new Malitio(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        malitioBuilder builder = new malitioBuilder(new Malitio());
+        MalitioBuilder builder = new MalitioBuilder(new Malitio());
         dataToWrite = new XmlSerializableMalitio(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);

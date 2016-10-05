@@ -15,7 +15,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String malitioFilePath = "data/malitio.xml";
-    private String malitioBookName = "Malitio";
+    private String malitioName = "Malitio";
 
 
     public Config() {
@@ -49,16 +49,16 @@ public class Config {
         return malitioFilePath;
     }
 
-    public void setmalitioFilePath(String malitioFilePath) {
+    public void setMalitioFilePath(String malitioFilePath) {
         this.malitioFilePath = malitioFilePath;
     }
 
     public String getMalitioName() {
-        return malitioBookName;
+        return malitioName;
     }
 
     public void setMalitioName(String malitioName) {
-        this.malitioBookName = malitioName;
+        this.malitioName = malitioName;
     }
 
 
@@ -77,12 +77,12 @@ public class Config {
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(malitioFilePath, o.malitioFilePath)
-                && Objects.equals(malitioBookName, o.malitioBookName);
+                && Objects.equals(malitioName, o.malitioName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, malitioFilePath, malitioBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, malitioFilePath, malitioName);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + malitioFilePath);
-        sb.append("\nmalitio name : " + malitioBookName);
+        sb.append("\nMalitio name : " + malitioName);
         return sb.toString();
     }
 

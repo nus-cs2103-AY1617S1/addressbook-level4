@@ -9,22 +9,22 @@ import seedu.malitio.model.task.UniqueTaskList;
 /**
  * A utility class to help with building malitio objects.
  * Example usage: <br>
- *     {@code malitio ab = new malitioBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code malitio ab = new malitioBuilder().withTask("Eat", "Sleep").withTag("Friend").build();}
  */
-public class malitioBuilder {
+public class MalitioBuilder {
 
     private Malitio malitio;
 
-    public malitioBuilder(Malitio malitio){
+    public MalitioBuilder(Malitio malitio){
         this.malitio = malitio;
     }
 
-    public malitioBuilder withPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public MalitioBuilder withPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
         malitio.addTask(task);
         return this;
     }
 
-    public malitioBuilder withTag(String tagName) throws IllegalValueException {
+    public MalitioBuilder withTag(String tagName) throws IllegalValueException {
         malitio.addTag(new Tag(tagName));
         return this;
     }
