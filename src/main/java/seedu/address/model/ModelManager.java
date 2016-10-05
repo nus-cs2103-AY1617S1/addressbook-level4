@@ -82,7 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<Activity> getFilteredPersonList() {
+    public UnmodifiableObservableList<Activity> getFilteredActivityList() {
         return new UnmodifiableObservableList<>(filteredActivities);
     }
 

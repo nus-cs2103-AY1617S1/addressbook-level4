@@ -27,7 +27,7 @@ public interface Model {
     void addPerson(Activity activity);
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<Activity> getFilteredPersonList();
+    UnmodifiableObservableList<Activity> getFilteredActivityList();
 
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();
