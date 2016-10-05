@@ -7,29 +7,29 @@ import seedu.address.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class RemoveCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void delete() {
+    public void remove() {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicalPersons();
         int targetIndex = 1;
-        assertDeleteSuccess(targetIndex, currentList);
+        assertRemoveSuccess(targetIndex, currentList);
 
         //delete the last in the list
         currentList = TestUtil.removePersonFromList(currentList, targetIndex);
         targetIndex = currentList.length;
-        assertDeleteSuccess(targetIndex, currentList);
+        assertRemoveSuccess(targetIndex, currentList);
 
         //delete from the middle of the list
         currentList = TestUtil.removePersonFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
-        assertDeleteSuccess(targetIndex, currentList);
+        assertRemoveSuccess(targetIndex, currentList);
 
         //invalid index
         commandBox.runCommand("delete " + currentList.length + 1);
-        assertResultMessage("The person index provided is invalid");
+        assertResultMessage("The task index provided is invalid");
 
     }
 
@@ -38,7 +38,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of persons (before deletion).
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+    private void assertRemoveSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
