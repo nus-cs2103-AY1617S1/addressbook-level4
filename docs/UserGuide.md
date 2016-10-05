@@ -88,7 +88,7 @@ Adds a todo task “Buy chocolate milk”.
 Shows a list of all tasks that match task type, date, time and priority requested by user.<br>
 Format: `list [date/time/priority] KEYWORD`
 
-> Shows a list of all tasks that match the keyword for the task type, date, time and priority requested by user.
+> * Shows a list of all tasks that match the keyword for the task type, date, time and priority requested by user.
 
 Examples: 
 * `list`<br>
@@ -113,9 +113,9 @@ Returns a list of all tasks scheduled for 3 November of the current year. <br>
 Deletes a task from WhatNow. Reversible.<br>
 Format: `delete todo/schedule/completed INDEX`
 
-> Deletes the task at the specified `INDEX` from todo tasks, schedule or completed tasks as specified. <br>
-  The index refers to the index number shown in the current listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> * Deletes the task at the specified `INDEX` from todo tasks, schedule or completed tasks as specified. <br>
+> * The index refers to the index number shown in the current listing.<br>
+> * The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `delete todo 4`<br>
@@ -130,9 +130,9 @@ Examples:
 Updates a task from the list displayed<br>
 Format: `update todo/schedule INDEX description/date/start/end/status/priority  NEW_VALUE`
 
-> Updates the description/date/start/end/status/priority of the task at the specified `INDEX`<br> from todo tasks or schedule as specified.<br> 
-  The index refers to the index number shown in the current listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> * Updates the description/date/start/end/status/priority of the task at the specified `INDEX`<br> from todo tasks or schedule as specified.<br> 
+> * The index refers to the index number shown in the current listing.<br>
+> * The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `update todo 3 description Avengers`<br>
