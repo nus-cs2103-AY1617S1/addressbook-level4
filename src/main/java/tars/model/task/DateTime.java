@@ -11,7 +11,7 @@ import tars.commons.exceptions.IllegalValueException;
  * Represents a Task's datetime in tars.
  */
 public class DateTime {
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task datetime should be spaces or alphanumeric characters";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task datetime should be spaces or alphanumeric characters";
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
