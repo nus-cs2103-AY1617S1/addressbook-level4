@@ -41,7 +41,7 @@ CommanDo is a task scheduler that helps you to manage the flood of things you ne
 
 `help` or `help [<command_name>]`
 
-> **Command Format Legend**
+> **Command Format**
 
 > * `<>` denotes fields to fill in
 > * `[]` denotes optional
@@ -63,7 +63,9 @@ An event is demarcated by a starting date-time and ending date-time.
 
 `add <description> from <start_datetime> to <end_datetime> [#<tag>...]`
 
-Examples: 
+   > <img src="images/Userguide/addEvent.png" width="600">
+
+More examples: 
 
 * `add event participate in 'Eat and Become Fat' competition from 5 Sep 12:30 to 17:30 #important`
 * `add event meeting with Dr Tan from 30 Sep 9:00 to 10:00 #work #important`
@@ -77,7 +79,9 @@ A deadline is bounded by a due date-time.
 
 `add <description> by <due_datetime> [#<tag>...]`
 
-Examples:
+   > <img src="images/Userguide/addDdl.png" width="600">
+
+More examples:
 
 * `add do Homework 10 by 23 Sep`
 * `add release V0.5 by 7 Nov 2359`
@@ -89,7 +93,9 @@ A floating task is not bounded by any dates or times.
 
 `add <description> [#<tag>...]` 
 
-Examples:
+   > <img src="images/Userguide/addFt.png" width="600">
+
+More examples:
 
 * `add shop for groceries: banana, pineapple, watermelon #housework`
 * `add watch Lord of the Rings`
@@ -100,9 +106,11 @@ You can edit existing to-do items by accessing their index, and stating the fiel
 
 #### Events: 
 
+Edits the details of an event, listed on screen with a number of `<index>`. The `edit` keyword and `<index>` are compulsory. At least one of the optional parameters below must be provided to make a meaningful edit.
+
 `edit <index> [description] [from <start_datetime>] [to <end_datetime>] [#<tag>...]`
 
-Edits the details of an event, listed on screen with a number of `<index>`.
+   > <img src="images/Userguide/editEvent.png" width="600">
 
 Examples:
 
@@ -112,7 +120,11 @@ Examples:
 
 #### Deadlines: 
 
+Edits the details of a deadline, listed on screen with a number of `<index>`. The `edit` keyword and `<index>` are compulsory. At least one of the optional parameters below must be provided to make a meaningful edit.
+
 `edit <index> [description] [by <due_datetime>] [#<tag>...]`
+
+   > <img src="images/Userguide/editDdl.png" width="600">
 
 Examples:
 
@@ -122,7 +134,11 @@ Examples:
 
 #### Floating Tasks: 
 
+Edits the details of a deadline, listed on screen with a number of `<index>`. The `edit` keyword and `<index>` are compulsory. At least one of the optional parameters below must be provided to make a meaningful edit.
+
 `edit <index> [description] [#<tag>...]`
+
+   > <img src="images/Userguide/editFt.png" width="600">
 
 Examples:
 
@@ -131,21 +147,27 @@ Examples:
   
 ### Deleting To-Do Items: `delete`
 
+Deletes an event, deadline or floating task, listed on screen with a number of `INDEX`.
+
 `delete <index>`
 
-Deletes an event, deadline or floating task, listed on screen with a number of `INDEX`.
+   > <img src="images/Userguide/delete.png" width="600">
 
 ### Clearing all To-Do Items: `clear`
 
+Clears all to-do items. Use with caution.
+
 `clear`
 
-Clears all to-do items. Use with caution.
+   > <img src="images/Userguide/clear.png" width="600">
 
 ### Finding To-Do Items: `find`
 
+Searches for and only lists all to-do items which have descriptions or tags containing *all* of the given keywords.
+
 `find <keyword>...`
 
-Searches for and only lists all to-do items which have descriptions or tags containing *all* of the given keywords.
+   > <img src="images/Userguide/find.png" width="600">
 
 How the search works:
 
@@ -157,47 +179,47 @@ How the search works:
 
 ### Marking To-Do Items as Done: `mark`
 
-`mark <index>`
-
 Marks an event, deadline or floating task, listed on screen with a number of `<index>` done.
+
+`mark <index>`
 
 ### Marking To-Do Items as Not Done: `unmark`
 
-`unmark <index>`
-
 Marks an event, deadline or floating task, listed on screen with a number of `<index>` not done.
+
+`unmark <index>`
 
 ### Setting Save Location: `set`
 
-`set storage <filepath>`
-
 Changes the location where the to-do list is saved on the file system to `<filepath>`.
+
+`set storage <filepath>`
 
 A file path can be absolute (`C:/home/sally/statusReport`) or relative to the `.jar` file (`joe/foo/bar`). This applies to the next two commands which too, deals with the file location.
 
 ### Exporting: `export`
 
-`export <filepath>`
-
 Exports the current to-do list as a save data file at `<filepath>`.
+
+`export <filepath>`
 
 ### Importing: `import`
 
-`import <filepath>`
-
 Imports a valid save data file at `<filepath>` and overrides the current to-do list with the imported to-do list.
+
+`import <filepath>`
 
 ### Undoing: `undo`
 
-`undo`
+Undos the last `add`, `edit`, `delete`, `clear` or `import` command.
 
-Undos the last `add`, `edit`, `delete`, `clear` or `import` command
+`undo`
 
 ### Exiting the Application : `exit`
 
-`exit`
-
 Closes the application.
+
+`exit`
 
 ## FAQ   
 
@@ -215,8 +237,8 @@ Use the `export` command to generate a save data file, transfer the file to a 2n
 
 A valid datetime is defined as:
 
-1. A valid date
-2. A valid date followed by a valid time
+1. A valid date.
+2. A valid date followed by a valid time.
 
 where examples of valid dates include:
 
@@ -258,10 +280,10 @@ Edit Floating Task | `edit <index> [description] [#<tag>...]`
 Delete To-Do Item  | `delete <index>`
 Clear              | `clear`
 Find               | `find <keyword>...`
-Export             | `export <filepath>`
-Import             | `Import <filepath>`
 Mark Done          | `mark <index>`
 Mark Not Done      | `unmark <index>`
 Set Save Location  | `set storage <filepath>`
+Export             | `export <filepath>`
+Import             | `Import <filepath>`
 Undo               | `undo`
 Exit               | `exit`
