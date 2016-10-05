@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`view`** : View floating task of the day
-   * **`add`**` Homework d/2409 1800 : 
+   * **`add`**` Homework date/2409 1800 : 
      adds a task named `Homework` to the Task List.
    * **`delete`**` 212` : deletes the task with ID 212 shown in the current list
    * **`exit`** : exits the app
