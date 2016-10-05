@@ -18,27 +18,27 @@ Lastly, **Yun Xuan** looks after the overall code quality of the project and ens
 #### [Clarence Chee](https://github.com/cheec) <br>
 <img src="images/ClarenceChee.jpg" width="150"><br>
 Role: Team Leader, Developer
-Responsibilities: Integration
+Responsibilities: Integration, Logic
 
 -----
 
 #### [Chong Ze Xuan](http://github.com/syltaris)
 <img src="images/ChongZeXuan.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Scheduling and Tracking, Deliverables and Deadlines
+Responsibilities: Scheduling and Tracking, Deliverables and Deadlines, Model
 
 -----
 
 #### [Chong Wei Yin](https://github.com/ShadowLoner17) 
 <img src="images/ChongWeiYin.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Documentation
+Responsibilities: Documentation, UI
 
 -----
 
 #### [Zhang Yunxuan](https://github.com/yunxz)
 <img src="images/ZhangYunxuan.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Testing, Code Quality Control
+Responsibilities: Testing, Code Quality Control, Storage
 
 -----
