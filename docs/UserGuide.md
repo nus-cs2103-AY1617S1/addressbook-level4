@@ -98,11 +98,11 @@ Displays details of activities on a given date or period
   `view 23 Oct`<br>
   `view 23 Oct 30 Oct`<br><br>
 - `view today` <br><br>
-  Displays all activities for current day <br>
+  Displays all activities for current day <br><br>
 - `view tomorrow` <br><br>
-  Displays all activities for next day <br>
+  Displays all activities for next day <br><br>
 - `view week` <br><br>
-  Displays all activities for current week <br>
+  Displays all activities for current week <br><br>
 - `view month` <br><br>
   Displays all activites for current month
 
