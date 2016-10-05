@@ -24,11 +24,6 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
-         <padding>
-            <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
-         </padding>
-      </AnchorPane>
        <AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border" minHeight="100" prefHeight="100" maxHeight="100">
            <padding>
                <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
@@ -46,6 +41,11 @@
             </VBox>
          </items>
       </SplitPane>
+      <AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
+         <padding>
+            <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
+         </padding>
+      </AnchorPane>
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
 </VBox>
