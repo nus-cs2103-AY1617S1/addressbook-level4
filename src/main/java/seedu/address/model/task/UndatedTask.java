@@ -1,11 +1,32 @@
 package seedu.address.model.task;
 
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.person.Time;
+import seedu.address.model.person.Date;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Description;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
  * An abstract UndatedTask in the task book.
  */
-public abstract class UndatedTask implements ReadOnlyUndatedTask {
+public class UndatedTask implements ReadOnlyUndatedTask {
+    
+    private Name name;
+    private Description description;
+    private Date date;
+    private Time time;
+    
+    private UniqueTagList tags;
+    
+    public UndatedTask(Name name, Description description, Date date, Time time, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, description, date, time, tags);
+        this.name = name;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
     
     public abstract Name getName();
 

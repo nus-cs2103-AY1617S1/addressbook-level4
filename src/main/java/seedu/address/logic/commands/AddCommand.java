@@ -16,14 +16,14 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book.\n"
-    		+ "Parameters: TASKNAME d/TASK_DESCRIPTION td/TIME,DATE [t/TAG]...\n"
+    		+ "Parameters: TASKNAME d/TASK_DESCRIPTION date/DATE time/TIME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " Wash Clothes d/Wash with detergent td/9pm,27/9/2016 t/!!!";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the address book";
 
-    private final Person toAdd;
+    private final DatedTask toAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -36,11 +36,11 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Person(
+        this.toAdd = new DatedTask(
                 new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
+                new Description(phone),
+                new Date(email),
+                new Time(address),
                 new UniqueTagList(tagSet)
         );
     }
