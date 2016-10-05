@@ -21,9 +21,9 @@ public class StartTime {
     public StartTime(String phone) throws IllegalValueException {
         assert phone != null;
         phone = phone.trim();
-        if (!isValidPhone(phone)) {
-            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
-        }
+//        if (!isValidPhone(phone)) {
+//            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
+//        }
         this.value = phone;
     }
 
