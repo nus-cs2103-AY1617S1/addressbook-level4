@@ -36,45 +36,48 @@ Format: **`help`**
 ### Adding an event : `add`
 Adds an event to the to do list.<br>
 Format: **`add`**` [event_name]`<br>
-> An event can have any number of optional parameters (including 0)
  
-##### Optional parameters
-The following parameters can be appended to the add command. <br>
+> ##### Optional parameters
+> The following parameters can be appended to the add command. <br>
+> An event can only have one of each parameter.<br>
+> An event can only have either start/end time or deadline parameter.<br>
 
-###### Specifying time : `from ... to ...`
-This parameter is used to indicate the starting and ending datetime of an event.<br>
-Format: **`from`**` [datetime] `**`to`**` [datetime]`<br>
-> The date for from can be omitted if it is the same as the ending date.
+> ###### Specifying start/end time : `from ... to ...`
+> This parameter is used to indicate the starting and ending datetime of an event.<br>
+> Format: **`from`**` [datetime] `**`to`**` [datetime]`<br>
 
-Examples:
-* **`add`**` dinner with mom `**`from`**` 1900 02/10/16 `**`to`**` 2030 02/10/16`
-* **`add`**` dinner with mom `**`from`**` 1900 `**`to`**` 2030 2/10/16`
+> > The date for **`from`** can be omitted if it is on the same ending date.
 
-###### Specifying time : `by`
-This parameter is used to indicate the deadline of an event.<br>
-Format: **`by`**` [datetime]`<br>
+> Examples:
+> * **`add`**` dinner with mom `**`from`**` 1900 02/10/16 `**`to`**` 2030 02/10/16`
+> * **`add`**` dinner with mom `**`from`**` 1900 `**`to`**` 2030 2/10/16`
+> * **`add`**` dinner with mom `**`from`**` 1900 `**`to`**` 2030 2 oct 2016`
 
-Examples:
-* **`add`**` submit proposal `**`by`**` 2359 2/10/16`
+> ###### Specifying deadline : `by`
+> This parameter is used to indicate the deadline of an event.<br>
+> Format: **`by`**` [datetime]`<br>
 
-> Only one kind of time parameter (either `from...to...` or `by`) may be used in a command.<br>
-> [datetime] can be in the following formats: 
-> * hhmm dd/mm/yy (e.g. 0730 12/10/16)
-> * hhmm dd mmm yyyy (e.g. 1730 12 oct 2016)
-> * hhmm dd mmm (e.g. 1730 12 oct)
+> Examples:
+> * **`add`**` submit proposal `**`by`**` 2359 2/10/16`
 
-###### Specifying location : `at`
-This parameter is used to indicate the venue of an event.<br>
-Format: **`at`**` [location]`<br>
-Examples:
-* **`add`**` dinner with mom `**`at`**` home`
+> > [datetime] can be in the following formats: 
+> > * hhmm dd/mm/yy (e.g. 0730 12/10/16)
+> > * hhmm dd mmm yyyy (e.g. 1730 12 oct 2016)
+> > * hhmm dd mmm (e.g. 1730 12 oct)
 
-###### Specifying remarks : `remarks`
-This parameter is used to add remarks for the event.<br>
-Format: **`remarks`**` [remarks]`<br>
+> ###### Specifying location : `at`
+> This parameter is used to indicate the venue of an event.<br>
+> Format: **`at`**` [location]`<br>
 
-Examples:
-* **`add`**` dinner with mom `**`remarks`**` buy flowers`
+> Examples:
+> * **`add`**` dinner with mom `**`at`**` home`
+
+> ###### Specifying remarks : `remarks`
+> This parameter is used to add remarks for the event.<br>
+> Format: **`remarks`**` [remarks]`<br>
+
+> Examples:
+> * **`add`**` dinner with mom `**`remarks`**` buy flowers`
 
 ### Listing all events : `list`
 Shows a list of all events in the to-do list.<br>
