@@ -294,21 +294,25 @@ Use case ends.
 **Extensions**
 
 1a. User cannot find the index of the task that (s)he wants to delete
-	1a1. User types in command to go back to the previous menu
-Users repeats the prerequisite steps 1-2.
-> Use case ends
+
+> 1a1. User types in command to go back to the previous menu. <br>
+  Users repeats the prerequisite steps 1-2. <br>
+  Use case ends
 
 1b. User does not want to delete any task
-	1b1. User types in command to go back to previous menu
-> Use case ends
+
+> 1b1. User types in command to go back to previous menu
+  Use case ends
 
 1c. User keys in invalid index
-	1c1. Lifekeeper gives an error message and returns an empty Command Box
-Use case resumes at step 1
+
+> 1c1. Lifekeeper gives an error message and returns an empty Command Box
+  Use case resumes at step 1
 
 3a. User types 'No' into the CLI
-	3a1. Lifekeeper returns to the indexed list of tasks that was searched by the user.
-> Use case ends
+
+> 3a1. Lifekeeper returns to the indexed list of tasks that was searched by the user. <br>
+  Use case ends
 
 3a. The given index is invalid
 
@@ -391,3 +395,16 @@ Use case resumes from step 3.
 
 > 3. Message boards: permits members delegated to a certain task to hold discussions or ask questions
 
+#### Fantastical
+
+
+
+> 1. Widget on desktop/phone: users have an overview of the upcoming tasks without opening the application
+
+
+
+> 2. Calendar Sets: users can toggle between different calendars for different purposes - for example a work calendar and a family calendar
+
+
+
+> 3. Add events using Natural Language: users can add tasks and events using natural language and expect the details to be interpret and input automatically
