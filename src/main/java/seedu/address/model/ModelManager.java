@@ -4,12 +4,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.item.FloatingTask;
 import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniqueFloatingTaskList;
 import seedu.address.model.person.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
@@ -23,60 +21,59 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final TaskManager taskManager;
     private final FilteredList<FloatingTask> filteredFloatingTasks;
 
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(TaskManager src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new AddressBook(src);
-        filteredFloatingTasks = new FilteredList<>(addressBook.getFloatingTasks());
+        taskManager = new TaskManager(src);
+        filteredFloatingTasks = new FilteredList<>(taskManager.getFloatingTasks());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new TaskManager(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
-        filteredFloatingTasks = new FilteredList<>(addressBook.getFloatingTasks());
+    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
+        taskManager = new TaskManager(initialData);
+        filteredFloatingTasks = new FilteredList<>(taskManager.getFloatingTasks());
+    }
+
+    public void resetData(ReadOnlyTaskManager newData) {
+        taskManager.resetData(newData);
+        indicateTaskManagerChanged();
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyTaskManager getTaskManager() {
+        return taskManager;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+    private void indicateTaskManagerChanged() {
+        raise(new TaskManagerChangedEvent(taskManager));
     }
 
     @Override
     public synchronized void deleteFloatingTask(ReadOnlyFloatingTask floatingTask) throws FloatingTaskNotFoundException {
-        addressBook.removeFloatingTask(floatingTask);
-        indicateAddressBookChanged();
+        taskManager.removeFloatingTask(floatingTask);
+        indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addFloatingTask(FloatingTask floatingTask) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
-        addressBook.addFloatingTask(floatingTask);
+        taskManager.addFloatingTask(floatingTask);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskManagerChanged();
     }
 
     //=========== Filtered Person List Accessors ===============================================================
@@ -86,8 +83,7 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredFloatingTasks);
     }
 
-    @Override
-    public void updateFilteredListToShowAll() {
+    public void TaskManager() {
         filteredFloatingTasks.setPredicate(null);
     }
 
@@ -150,6 +146,12 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+
+    @Override
+    public void updateFilteredListToShowAll() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

@@ -23,7 +23,6 @@ public class AddCommand extends Command {
             + " read Harry Potter and the Akshay rank 1";
 
     //TODO: Prevent code from breaking later on.
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
 
     private final FloatingTask toAdd;

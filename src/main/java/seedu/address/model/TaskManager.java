@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.item.FloatingTask;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyFloatingTask;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -16,7 +18,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class TaskManager implements ReadOnlyFloatingTask, ReadOnlyTaskManager {
 
     private final UniqueFloatingTaskList floatingTasks;
 
@@ -24,24 +26,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         floatingTasks = new UniqueFloatingTaskList();
     }
 
-    public AddressBook() {}
+    public TaskManager() {}
 
     /**
      * FloatingTasks and Tags are copied into this addressbook
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniqueFloatingTaskList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(UniqueFloatingTaskList persons) {
-        resetData(persons.getInternalList());
+    public TaskManager(UniqueFloatingTaskList floatingTasks) {
+        resetData(floatingTasks.getInternalList());
     }
 
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
-        return new AddressBook();
+    public static ReadOnlyTaskManager getEmptyTaskManager() {
+        return new TaskManager();
     }
 
 //// list overwrite operations
@@ -60,7 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setFloatingTasks(newFloatingTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
     }
 
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyTaskManager newData) {
         resetData(newData.getFloatingTaskList());
     }
 
@@ -135,13 +137,25 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.floatingTasks.equals(((AddressBook) other).floatingTasks));
+                || (other instanceof TaskManager // instanceof handles nulls
+                && this.floatingTasks.equals(((TaskManager) other).floatingTasks));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(floatingTasks);
+    }
+
+    @Override
+    public Name getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Priority getPriorityValue() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
