@@ -17,7 +17,7 @@ public interface MalitioStorage {
     String getMalitioFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyMalitio}.
+     * Returns malitio data as a {@link ReadOnlyMalitio}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -34,11 +34,11 @@ public interface MalitioStorage {
      * @param malitio cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyMalitio malitio) throws IOException;
+    void savemalitio(ReadOnlyMalitio malitio) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyMalitio)
+     * @see #savemalitio(ReadOnlyMalitio)
      */
-    void saveAddressBook(ReadOnlyMalitio malitio, String filePath) throws IOException;
+    void savemalitio(ReadOnlyMalitio malitio, String filePath) throws IOException;
 
 }

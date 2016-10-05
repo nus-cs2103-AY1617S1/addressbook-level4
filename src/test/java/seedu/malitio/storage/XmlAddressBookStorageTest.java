@@ -19,8 +19,8 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class XmlAddressBookStorageTest {
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
+public class XmlmalitioStorageTest {
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlmalitioStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -29,12 +29,12 @@ public class XmlAddressBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_assertionFailure() throws Exception {
+    public void readmalitio_nullFilePath_assertionFailure() throws Exception {
         thrown.expect(AssertionError.class);
-        readAddressBook(null);
+        readmalitio(null);
     }
 
-    private java.util.Optional<ReadOnlyMalitio> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyMalitio> readmalitio(String filePath) throws Exception {
         return new XmlMalitioStorage(filePath).readMalitio(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -46,14 +46,14 @@ public class XmlAddressBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readmalitio("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readmalitio("NotXmlFormatmalitio.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -61,46 +61,46 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
+    public void readAndSavemalitio_allInOrder_success() throws Exception {
+        String filePath = testFolder.getRoot().getPath() + "Tempmalitio.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         Malitio original = td.getTypicalMalitio();
-        XmlMalitioStorage xmlAddressBookStorage = new XmlMalitioStorage(filePath);
+        XmlMalitioStorage xmlmalitioStorage = new XmlMalitioStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyMalitio readBack = xmlAddressBookStorage.readMalitio(filePath).get();
+        xmlmalitioStorage.savemalitio(original, filePath);
+        ReadOnlyMalitio readBack = xmlmalitioStorage.readMalitio(filePath).get();
         assertEquals(original, new Malitio(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.hoon));
         original.removeTask(new Task(TypicalTestTasks.alice));
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readMalitio(filePath).get();
+        xmlmalitioStorage.savemalitio(original, filePath);
+        readBack = xmlmalitioStorage.readMalitio(filePath).get();
         assertEquals(original, new Malitio(readBack));
 
         //Save and read without specifying file path
         original.addTask(new Task(TypicalTestTasks.ida));
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readMalitio().get(); //file path not specified
+        xmlmalitioStorage.savemalitio(original); //file path not specified
+        readBack = xmlmalitioStorage.readMalitio().get(); //file path not specified
         assertEquals(original, new Malitio(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_assertionFailure() throws IOException {
+    public void savemalitio_nullmalitio_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(null, "SomeFile.xml");
+        savemalitio(null, "SomeFile.xml");
     }
 
-    private void saveAddressBook(ReadOnlyMalitio addressBook, String filePath) throws IOException {
-        new XmlMalitioStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void savemalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
+        new XmlMalitioStorage(filePath).savemalitio(malitio, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_assertionFailure() throws IOException {
+    public void savemalitio_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(new Malitio(), null);
+        savemalitio(new Malitio(), null);
     }
 
 

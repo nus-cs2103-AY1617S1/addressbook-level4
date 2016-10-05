@@ -8,23 +8,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores Malitio data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given Malitio data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableMalitio addressBook)
+    public static void saveDataToFile(File file, XmlSerializableMalitio malitio)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, malitio);
         } catch (JAXBException e) {
             assert false : "Unexpected exception " + e.getMessage();
         }
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns malitio in the file or an empty malitio
      */
     public static XmlSerializableMalitio loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {

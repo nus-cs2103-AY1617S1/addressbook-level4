@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.malitio.testutil.AddressBookBuilder;
+import seedu.malitio.testutil.malitioBuilder;
 import seedu.malitio.testutil.TestUtil;
 import seedu.malitio.commons.util.FileUtil;
 import seedu.malitio.commons.util.XmlUtil;
@@ -22,8 +22,8 @@ public class XmlUtilTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
     private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
     private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
-    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
-    private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
+    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validmalitio.xml");
+    private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempmalitio.xml"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -86,7 +86,7 @@ public class XmlUtilTest {
         assertEquals((new Malitio(dataToWrite)).toString(),(new Malitio(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        AddressBookBuilder builder = new AddressBookBuilder(new Malitio());
+        malitioBuilder builder = new malitioBuilder(new Malitio());
         dataToWrite = new XmlSerializableMalitio(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);

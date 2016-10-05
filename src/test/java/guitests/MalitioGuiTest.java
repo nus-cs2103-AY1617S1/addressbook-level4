@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for malitio.
  */
 public abstract class MalitioGuiTest {
 
@@ -76,8 +76,8 @@ public abstract class MalitioGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected Malitio getInitialData() {
-        Malitio ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestTasks.loadAddressBookWithSampleData(ab);
+        Malitio ab = TestUtil.generateEmptymalitio();
+        TypicalTestTasks.loadmalitioWithSampleData(ab);
         return ab;
     }
 
@@ -94,14 +94,14 @@ public abstract class MalitioGuiTest {
     }
 
     /**
-     * Asserts the person shown in the card is same as the given person
+     * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndTask(card, person));
+    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
         int numberOfPeople = taskListPanel.getNumberOfPeople();

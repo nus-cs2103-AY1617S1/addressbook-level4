@@ -3,7 +3,7 @@ package seedu.malitio.commons.events.model;
 import seedu.malitio.commons.events.BaseEvent;
 import seedu.malitio.model.ReadOnlyMalitio;
 
-/** Indicates the AddressBook in the model has changed*/
+/** Indicates the Malitio in the model has changed*/
 public class MalitioChangedEvent extends BaseEvent {
 
     public final ReadOnlyMalitio data;

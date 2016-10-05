@@ -59,25 +59,25 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void malitioReadSave() throws Exception {
         Malitio original = new TypicalTestTasks().getTypicalMalitio();
-        storageManager.saveAddressBook(original);
+        storageManager.savemalitio(original);
         ReadOnlyMalitio retrieved = storageManager.readMalitio().get();
         assertEquals(original, new Malitio(retrieved));
-        //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
+        //More extensive testing of malitio saving/reading is done in XmlmalitioStorageTest
     }
 
     @Test
-    public void getAddressBookFilePath(){
+    public void getmalitioFilePath(){
         assertNotNull(storageManager.getMalitioFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
+    public void handlemalitioChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        Storage storage = new StorageManager(new XmlmalitioStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleAddressBookChangedEvent(new MalitioChangedEvent(new Malitio()));
+        storage.handlemalitioChangedEvent(new MalitioChangedEvent(new Malitio()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
@@ -85,14 +85,14 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlMalitioStorage{
+    class XmlmalitioStorageExceptionThrowingStub extends XmlMalitioStorage{
 
-        public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
+        public XmlmalitioStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyMalitio addressBook, String filePath) throws IOException {
+        public void savemalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

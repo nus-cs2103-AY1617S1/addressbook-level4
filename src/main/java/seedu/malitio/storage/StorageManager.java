@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Malitio data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
@@ -31,8 +31,8 @@ public class StorageManager extends ComponentManager implements Storage {
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
-        this(new XmlMalitioStorage(addressBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(String malitioFilePath, String userPrefsFilePath) {
+        this(new XmlMalitioStorage(malitioFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -48,7 +48,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ malitio methods ==============================
 
     @Override
     public String getMalitioFilePath() {
@@ -67,23 +67,23 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyMalitio malitio) throws IOException {
-        saveAddressBook(malitio, malitioStorage.getMalitioFilePath());
+    public void savemalitio(ReadOnlyMalitio malitio) throws IOException {
+        savemalitio(malitio, malitioStorage.getMalitioFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyMalitio malitio, String filePath) throws IOException {
+    public void savemalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        malitioStorage.saveAddressBook(malitio, filePath);
+        malitioStorage.savemalitio(malitio, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(MalitioChangedEvent event) {
+    public void handlemalitioChangedEvent(MalitioChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            savemalitio(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

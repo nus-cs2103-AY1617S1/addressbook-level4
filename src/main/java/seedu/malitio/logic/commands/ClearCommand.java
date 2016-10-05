@@ -3,12 +3,12 @@ package seedu.malitio.logic.commands;
 import seedu.malitio.model.Malitio;
 
 /**
- * Clears the address book.
+ * Clears the malitio.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Malitio has been cleared!";
 
     public ClearCommand() {}
 
@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(Malitio.getEmptyAddressBook());
+        model.resetData(Malitio.getEmptymalitio());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

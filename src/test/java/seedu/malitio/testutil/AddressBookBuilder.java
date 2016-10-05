@@ -7,29 +7,29 @@ import seedu.malitio.model.task.Task;
 import seedu.malitio.model.task.UniqueTaskList;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building malitio objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code malitio ab = new malitioBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
-public class AddressBookBuilder {
+public class malitioBuilder {
 
-    private Malitio addressBook;
+    private Malitio malitio;
 
-    public AddressBookBuilder(Malitio addressBook){
-        this.addressBook = addressBook;
+    public malitioBuilder(Malitio malitio){
+        this.malitio = malitio;
     }
 
-    public AddressBookBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(person);
+    public malitioBuilder withPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
+        malitio.addTask(task);
         return this;
     }
 
-    public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+    public malitioBuilder withTag(String tagName) throws IllegalValueException {
+        malitio.addTag(new Tag(tagName));
         return this;
     }
 
     public Malitio build(){
-        return addressBook;
+        return malitio;
     }
 }

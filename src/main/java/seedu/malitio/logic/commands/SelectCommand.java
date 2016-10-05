@@ -7,7 +7,7 @@ import seedu.malitio.commons.events.ui.JumpToListRequestEvent;
 import seedu.malitio.model.task.ReadOnlyTask;
 
 /**
- * Selects a task identified using it's last displayed index from the address book.
+ * Selects a task identified using it's last displayed index from the malitio.
  */
 public class SelectCommand extends Command {
 

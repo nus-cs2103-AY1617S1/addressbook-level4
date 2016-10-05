@@ -32,7 +32,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadAddressBookWithSampleData(Malitio ab) {
+    public static void loadmalitioWithSampleData(Malitio ab) {
 
         try {
             ab.addTask(new Task(alice));
@@ -53,7 +53,7 @@ public class TypicalTestTasks {
 
     public Malitio getTypicalMalitio(){
         Malitio ab = new Malitio();
-        loadAddressBookWithSampleData(ab);
+        loadmalitioWithSampleData(ab);
         return ab;
     }
 }

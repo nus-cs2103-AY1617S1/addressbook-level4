@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access Malitio data stored as an xml file on the hard disk.
  */
 public class XmlMalitioStorage implements MalitioStorage {
 
@@ -36,29 +36,29 @@ public class XmlMalitioStorage implements MalitioStorage {
     public Optional<ReadOnlyMalitio> readMalitio(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
-        File addressBookFile = new File(filePath);
+        File malitioFile = new File(filePath);
 
-        if (!addressBookFile.exists()) {
-            logger.info("AddressBook file "  + addressBookFile + " not found");
+        if (!malitioFile.exists()) {
+            logger.info("malitio file "  + malitioFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyMalitio addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyMalitio malitioOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(addressBookOptional);
+        return Optional.of(malitioOptional);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyMalitio)}
+     * Similar to {@link #savemalitio(ReadOnlyMalitio)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyMalitio addressBook, String filePath) throws IOException {
-        assert addressBook != null;
+    public void savemalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
+        assert malitio != null;
         assert filePath != null;
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableMalitio(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableMalitio(malitio));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class XmlMalitioStorage implements MalitioStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyMalitio addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void savemalitio(ReadOnlyMalitio malitio) throws IOException {
+        savemalitio(malitio, filePath);
     }
 }

@@ -4,7 +4,7 @@ import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
 

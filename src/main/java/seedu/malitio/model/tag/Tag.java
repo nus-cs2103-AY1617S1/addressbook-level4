@@ -4,7 +4,7 @@ package seedu.malitio.model.tag;
 import seedu.malitio.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in the malitio.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
