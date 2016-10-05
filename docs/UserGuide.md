@@ -37,7 +37,7 @@ Example: Add [Siloso beach event, 121216, 1600, 2200]
 
 <img src="images/Capture 3.PNG" width="600"><br>
 
->Note: The start time and end time is optional when adding an event. 
+>Note: The start time and end time is optional when adding an event.
 Important: The square brackets are compulsory when adding an event.
 
 ####4.1.2 Add a deadline
