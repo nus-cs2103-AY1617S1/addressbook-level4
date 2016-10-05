@@ -258,14 +258,14 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | New user | See usage instructions | Refer to instructions when I forget how to use the program
 `* * *` | New user | Create a new data file to store my tasks | Store my schedule for future reference
 `* * *` | User | List all the tasks that are incomplete, in order of deadline | See the next task that needs to be completed
+`* * *` | User | Create a new task with no associated date or time | Add floating tasks to be completed
 `* * *` | User | Create a new task with a start time and end time | Create an event for my calendar
 `* * *` | User | Create a new task with the deadline (with no time slot) | Create a task that needs to be completed on my calendar
-`* * *` | User | Create a new tag | Label tasks with my new tags
-`* * *` | User | Add location to a task | Make my event happen on a location
+`* * *` | User | Add tags to a task | Categorize the related tasks
 `* * *` | User | Replace information of a task | Keep my tasks updated
 `* * *` | User | Delete a task | Remove outdated tasks
 `* * *` | User | Mark a task as completed | Manage and view my tasks more effectively
-`* * *` | User | Show all tasks | See my completed task and know what is upcoming
+`* * *` | User | Show all tasks | See a complete view of my past and current schedule
 `* * *` | User | Search tasks using keywords | Locate a task easily
 `* * *` | User | Load previously written data | Refer to previously created schedule
 `* * *` | User | Save changes to my schedule | Be able update schedule and refer to updated schedule
@@ -274,9 +274,10 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | User | Choose which folder to save schedule file | Have better control over the data storage file, may store in folder with cloud syncing service
 `* *` | User | Create a task with recurring deadlines | Have recurring schedules without adding a task every time
 `* *` | User | Delete a specific information piece in my task/event | Remove unnecessary information from my tasks
-`* *` | User | Show only tasks/events with specified tag(s) and date | See only the related tasks/events from the list of tasks/events
-`* *` | User | Hide tasks/events with specified tag(s) | Hide tasks/events which I do not care about
+`* *` | User | Show only tasks/events with specified tag(s) and date | See only the related tasks/events from the list
+`* *` | User | Hide tasks/events with specified tag(s) and date | Hide tasks/events which I do not care about from the list
 `*` | User | Convert an email to a task | Create a task based on email that I have received
+`*` | User | Add a location to a task | Make my event happen on a location
 `*` | User | Recover my deleted task(s) | Recover the tasks and events that are mistakenly deleted
 `*` | User | See all free time within a time range | Easily schedule other tasks/events into a free time
 `*` | User | See keyword and tag suggestions as I type | Save time by typing the correct command which yields the results I want
