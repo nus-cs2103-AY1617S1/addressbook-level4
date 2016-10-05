@@ -1,134 +1,121 @@
-# User Guide
-
-* [Quick Start](#quick-start)
-* [Features](#features)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
-
-## Quick Start
-
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-   
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
-
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
-
-
-## Features
-
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
-
-#### Viewing help : `help`
-Format: `help`
-
-> Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+![T-T](images/Logo.png)
 
-> Persons can have any number of tags (including 0)
+# **USER GUIDE** 
+---
+##**Contents**
+*   [About](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#about)
+*   [Quick Start](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#quick-start)
+*   [Commands](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#commands)
+    -   [Add a Task](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#1-add-a-task)
+    -   [Edit a Task](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#2-edit-a-task)
+    -   [Delete a Task](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#3-delete-a-task)
+    -   [List Tasks](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#4-list-tasks)
+    -   [Help Command](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#5-help-command)
+*   [T-T Bot](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#t-t-bot)
+    -   [Call the T-T Bot](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#1call-the-t-t-bot)
+    -   [Kill the T-T Bot](https://github.com/CS2103AUG2016-T09-C3/main/blob/documents/docs/UserGuide.md#2kill-the-t-t-bot)
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+## **About**
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+**Task Tracker (T-T)**, is a lightweight, easy-to-use software which helps you manage your daily tasks. It is a no-nonsense product which uses Command Line Interface to make the operations quick, easy and intuitive. 
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+## **Quick Start**
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+T-T is a lightweight app which does not require much time to install and run. 
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+> Ensure you have Java version `1.8.0_60` or later installed on your PC.
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+In order to install T-T, 
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+1.  Open **Gitbash** at the desired location on your PC and type <br>
+    `git clone https://github.com/t09-c3/task-tracker`<br><br>
+    Press `Enter`.<br>
+    The Git respository will be cloned onto your PC.<br><br>
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+    (*If you do not have Git on your PC, you can download the T-T files directly from https://github.com/t09-c3/task-tracker*)
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+2.  Double Click on file named `T-T` to start the app.<br>
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+When T-T starts up, you will be asked a friendly `"How are you feeling today?"` question. You may input the hotkey for your current mood and the colour theme for the session will change accordingly.<br>
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+![Start Screen](images/Screen1.png)
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+## **Commands**
 
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
+###1. **ADD** a Task
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+The format for adding a new task is : <br>
+&nbsp; &nbsp;   `add [task] [date] [time] [priority]` <br>
 
-## FAQ
+> * [Task] is compulsary. <br>
+> * If [date] is not specified, the task will be assumed to be a floating task. <br>
+> * [priority] formats are: <br>
+>   *   high
+>   *   normal
+>   *   low
+> * If [priority] is not specified, `normal` priority will be assumed.
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
-       
-## Command Summary
+<br>For example:<br>
+*   `add washdishes 09102016 1600 high` will create a high priority washdishes task to be done on 9th October.<br><br>
+*   `add callmom 09102016` will create a task named "callmom" to be done anytime on 9th October with normal priority.<br>
 
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+![Add Screen](images/ScreenAdd.png)
+
+###2. EDIT a Task
+
+The format to edit an existing task is : <br>
+&nbsp; &nbsp; `edit [task] [existing date] [existing time] [existing priority] [new date] [new time] [new priority]` <br>
+
+>   * [existing date], [existing priority] and [existing time] must be mentioned if they were initialised with the original task.
+>   * [new date], [new priority] and [new time] are optional.
+
+<br> For example: <br>
+*   `edit washdishes 09102016 1600 high 09102016 1800`  will edit the existing washdishes task and change the time to 1800 from 1600 and priority to normal from high.<br>
+
+###3. DELETE a Task
+
+The format to edit an existing task is : <br>
+&nbsp; &nbsp; `delete [task] [existing date] [existing time] [existing priority]` <br>
+
+>   *   [existing date], [existing time] and [existing priority] must be mentioned if they were initialised in the original task.
+>   *   Tasks deleted in the same session can be retrieved with the undo function 
+
+
+<br> For example: <br>
+*   `delete washdishes 09102016 1800` will delete the existing washdishes task.
+
+###4. LIST Tasks
+
+The format to edit an existing task is : <br>
+&nbsp; &nbsp; `list [date] [priority]`<br>
+
+>   *   [date] and [priority] are optional.
+>   *   If [date] and [priority] are not mentioned, all tasks will be displayed organised by date.
+
+<br> For example : <br>
+*   `list 09102016`  will display all tasks due on 9th October.
+*   `list high` will display all tasks of high priority.
+*   `list` will display all tasks organised by date.
+![List Screen](images/ScreenList.jpg)
+
+###5. HELP command
+
+Enter `help` into the CLI to list out all the commands.<br> <br>
+
+##**T-T Bot**
+T-T has it's very own playful T-T bot, to provide suggestions and help to you. Managing tasts was never this fun!<br>
+
+###1. Call the T-T Bot
+You can call your friendly T-T bot by typing `T-T` in your input window.
+The T-T bot will awaken and be at your service!
+![T-T Bot] (images/bot_gif.gif)
+
+###2. Kill the T-T Bot
+If you find the T-T Bot too distracting, you can kill it by typing `X-X` in the input window. The T-T Bot will go back to sleep.
+<br><br>
+
+
+
+
+
