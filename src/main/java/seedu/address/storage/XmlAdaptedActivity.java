@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Person.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedActivity {
 
     @XmlElement(required = true)
     private String name;
@@ -29,23 +30,23 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedActivity() {}
 
 
     /**
      * Converts a given Person into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedActivity
      */
-    public XmlAdaptedPerson(ReadOnlyPerson source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
+    public XmlAdaptedActivity(Activity source) {
+        name = source.name;
+//        phone = source.getPhone().value;
+//        email = source.getEmail().value;
+//        address = source.getAddress().value;
+//        tagged = new ArrayList<>();
+//        for (Tag tag : source.getTags()) {
+//            tagged.add(new XmlAdaptedTag(tag));
+//        }
     }
 
     /**
@@ -53,16 +54,16 @@ public class XmlAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Person toModelType() throws IllegalValueException {
+    public Activity toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
-        final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
-        final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Person(name, phone, email, address, tags);
+//        final Name name = new Name(this.name);
+//        final Phone phone = new Phone(this.phone);
+//        final Email email = new Email(this.email);
+//        final Address address = new Address(this.address);
+//        final UniqueTagList tags = new UniqueTagList(personTags);
+        return new Activity(this.name);
     }
 }

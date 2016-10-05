@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.commons.core.LogsCenter;
 
@@ -19,16 +20,16 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+public class ActivityListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(ActivityListPanel.class);
+    private static final String FXML = "ActivityListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyPerson> personListView;
+    private ListView<Activity> activityListView;
 
-    public PersonListPanel() {
+    public ActivityListPanel() {
         super();
     }
 
@@ -47,22 +48,22 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyPerson> personList) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList);
-        return personListPanel;
+    public static ActivityListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+                                       ObservableList<Activity> observableList) {
+        ActivityListPanel activityListPanel =
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new ActivityListPanel());
+        activityListPanel.configure(observableList);
+        return activityListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyPerson> personList) {
-        setConnections(personList);
+    private void configure(ObservableList<Activity> observableList) {
+        setConnections(observableList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+    private void setConnections(ObservableList<Activity> observableList) {
+        activityListView.setItems(observableList);
+        activityListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -72,7 +73,7 @@ public class PersonListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        activityListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
                 raise(new PersonPanelSelectionChangedEvent(newValue));
@@ -82,25 +83,25 @@ public class PersonListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            activityListView.scrollTo(index);
+            activityListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+    class PersonListViewCell extends ListCell<Activity> {
 
         public PersonListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyPerson person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Activity activity, boolean empty) {
+            super.updateItem(activity, empty);
 
-            if (empty || person == null) {
+            if (empty || activity == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(ActivityCard.load(activity, getIndex() + 1).getLayout());
             }
         }
     }
