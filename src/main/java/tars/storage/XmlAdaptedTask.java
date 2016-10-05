@@ -20,10 +20,9 @@ public class XmlAdaptedTask {
     private String priority;
     @XmlElement(required = true)
     private DateTime dateTime;
-//    @XmlElement(required = true)
-//    private String email;
-//    @XmlElement(required = true)
-//    private String address;
+    @XmlElement(required = true)
+    private boolean status;
+
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -43,8 +42,7 @@ public class XmlAdaptedTask {
         name = source.getName().taskName;
         priority = source.getPriority().priorityLevel;
         dateTime = source.getDateTime();
-//        email = source.getEmail().value;
-//        address = source.getAddress().value;
+        status = source.getStatus().status;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -64,9 +62,8 @@ public class XmlAdaptedTask {
         final Name name = new Name(this.name);
         final Priority priority = new Priority(this.priority);
         final DateTime dateTime = new DateTime(this.dateTime.startDateString, this.dateTime.endDateString);
-//        final Email email = new Email(this.email);
-//        final Address address = new Address(this.address);
+        final Status status = new Status(this.status);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, dateTime, priority, null, tags);
+        return new Task(name, dateTime, priority, status, tags);
     }
 }
