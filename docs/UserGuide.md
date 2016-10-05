@@ -44,9 +44,16 @@ To get started, proceed to the Quick Start section below.
 ## Features
 
 > **Command Format**
+> Tasks are split into 3 categories: `todo`, `deadline`, `event`<br>
+> `todo`: Tasks that have no specific date/time to be completed by<br>
+> `deadline`: Tasks that have a specific date/time they must be completed by<br>
+> `event`: Tasks that have specific start and end date/time<br>
+
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
+> * `DATE` parameter can accept different formats. 1 Jan 2015, 010115, 01/01/2015 are all acceptable to represent 1 Jan 2015.
+> * `START_TIME` and `END_TIME` parameters can accept different formats. 3pm, 15:00, 1500 are all acceptable to represent 3pm.
 > * The order of parameters is not fixed.
 
 #### Viewing help : `help`
@@ -61,14 +68,7 @@ Todo format: `add NAME`<br>
 Deadline format: `add NAME DATE END_TIME`<br>
 Event format: `add NAME DATE START_TIME END_TIME`
 
-> Tasks are split into 3 categories: todo, deadline, event<br>
-> todo: Tasks that have no specific date/time to be completed by<br>
-> deadline: Tasks that have a specific date/time they must be completed by<br>
-> event: Tasks that have specific start and end date/time
-
-> DATE can accept different formats. 1 Jan 2015, 010115, 01/01/2015 are all acceptable to represent 1 Jan 2015.
-
-> START_TIME and END_TIME can accept different formats. 3pm, 15:00, 1500 are all acceptable to represent 3pm.
+> Depending on the input format, the task will be saved into 1 of 3 categories: todo, deadline or event.
 
 Examples:
 * `add read book`<br>
