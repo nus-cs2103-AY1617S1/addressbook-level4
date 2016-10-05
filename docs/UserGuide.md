@@ -40,8 +40,8 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a task or category to Lifekeeper<br>
+#### Adding a task: `add`
+Adds a task to Lifekeeper<br>
 Format: `add TASK_NAME d/DUE_DATE p/PRIORITY_LEVEL r/REMINDER [t/TAG]...` 
 
 > Tasks can have any number of tags (including 0)
@@ -50,23 +50,27 @@ Examples:
 * `add Grocery Shopping`
 * `add Assignment 1 d/Tomorrow p/1 r/Today 2000`
 * `add CS2103 T7A1 d/6 Oct 2016 p/2 r/5 Oct 2016 1800 t/teamC2`
+#### Adding a category: `addcat`
+Adds a category to Lifekeeper<br>
+Format: `add CATEGORY_NAME` 
 
-#### Listing : `list`
-Categories
-Shows a list of all categories in LifeKeeper.<br>
-Format: `list categories`
+Examples: 
+* `addcat Work`
+* `addcat CS2103`
+* `addcat Family `
 
-Tasks
-Shows a list of tasks in Lifekeeper in the specified categories, if any.<br>
-Format: `list tasks`
+#### Listing tasks : `list`
+Shows a list of tasks in Lifekeeper, if any.<br>
+Format: `list`
 
 > All the tasks in Lifekeeper will be listed
 
-Examples:
-* `list tasks`
-Lists all the tasks in Lifekeeper
-* `list categories`
-List all the categories that have been created by the user in Lifekeeper
+#### Listing categories: `listcat`
+Shows a list of all categories in LifeKeeper.<br>
+Format: `listcat`
+
+> All the categories in Lifekeeper will be listed
+
 
 #### Finding tasks by name: `find`
 Finds and returns all tasks containing any keyword in their name
@@ -97,7 +101,7 @@ Examples:
   Deletes the 1st and 3rd task in the Lifekeeper task list.
 * `find Dinner`<br>
   `delete 2`<br>
-  Selects the 2nd person in the results of the `find` command and then deletes it.
+  Selects the 2nd task in the results of the `find` command and then deletes it.
 
 #### Select: `select`
 Category
@@ -171,20 +175,20 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Lifekeeper folder.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
 Add | `add TASK_NAME d/DUE_DATE p/PRIORITY_LEVEL r/REMINDER [t/TAG]...` 
-AddCat |`addcat CATEGORY_NAME`
+Add Category |`addcat CATEGORY_NAME`
 Edit | `edit [TASK_NAME] [c/CATEGORY] [d/DUE_DATE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...`
 Clear | `clear`
 Delete | `delete [INDEX]...`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
-ListCat | `listcat`
+List Categories | `listcat`
 Select | `select INDEX`
 Done | `done`
 Help | `help`
