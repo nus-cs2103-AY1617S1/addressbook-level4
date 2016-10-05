@@ -40,7 +40,7 @@ Welcome to WhatNow!
 > * The order of parameters is fixed.
 
 
-#### Changing storage location : `change location`
+#### Changing storage location : `change`
 Changes the data file storage location. <br>
 Format: `change location to PATH`
 
@@ -127,7 +127,7 @@ Examples:
 Updates a task from the list displayed<br>
 Format: `update todo/schedule INDEX description/date/start/end/status/priority  NEW_VALUE`
 
-> Updates the description/date/start/end/status/priority of the task at the specified `INDEX` from todo tasks or schedule as specified. 
+> Updates the description/date/start/end/status/priority of the task at the specified `INDEX` from todo tasks or schedule as specified.<br> 
   The index refers to the index number shown in the current listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
@@ -217,12 +217,13 @@ Format: `exit`
 Command | Format  
 -------- | :-------- 
 Add | `add "DESCRIPTION" [on/by] [today/tomorrow/DAY/DATE] [from/at] [START_TIME] [to/till] [END_TIME] [every] [DAY/day/week/month/year] [low/medium/high]`
+Change | `change location to PATH`
 Clear | `clear`
-Delete | `delete INDEX`
+Delete | `delete todo/schedule/completed INDEX`
 Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 Help | `help`
-List | `list [time/priority/date] KEYWORD`
+List | `list [date/time/priority] KEYWORD`
 Redo | `redo`
-Update | `update todo/schedule INDEX [description/date/start time/end time/status/priority]  NEW_VALUE`
+Update | `update todo/schedule INDEX [description/date/start/end/status/priority]  NEW_VALUE`
 Undo | `undo`
