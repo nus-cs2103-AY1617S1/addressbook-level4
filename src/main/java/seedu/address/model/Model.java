@@ -22,6 +22,9 @@ public interface Model {
 
     /** Adds the given person */
     void addPerson(Task task) throws UniqueTaskList.DuplicatePersonException;
+    
+    /** Adds a note */
+    void addNote(Task task);
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
