@@ -33,7 +33,10 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String name, String priorityValue) throws IllegalValueException {
-        this.toAdd = new FloatingTask(new Name(name), new Priority(priorityValue));
+        if (priorityValue != null)
+            this.toAdd = new FloatingTask(new Name(name), new Priority(priorityValue));
+        else
+            this.toAdd = new FloatingTask(new Name(name));
     }
 
     @Override
