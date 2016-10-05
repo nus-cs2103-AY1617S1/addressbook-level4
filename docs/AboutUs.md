@@ -4,8 +4,14 @@ We are a team in the [CS 2103 Class](http://www.comp.nus.edu.sg/~cs2103/AY1617S1
 
 ## Project Team
 
+#### [Nishant Budhdev](https://github.com/nishantbudhdev) <br>
+<img src="images/Nishant Budhdev.jpg" width="150"><br>
+**Role**: Project Mentor
+
+-----
+
 #### [Murray Chen](https://github.com/mchen14) <br>
-**Role**: Team Lead
+Role: Team Lead
 
 -----
 
