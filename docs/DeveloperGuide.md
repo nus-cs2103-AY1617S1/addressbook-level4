@@ -93,21 +93,51 @@ Use case ends.
 ##Appendix E: Product Survey
 ###Any.do
 ####Any.do is a mobile and online task manager application (not a command-line application).
-1.     User can add new lists of tasks, add new tasks to a selected list.
-2.     User can include task descriptions, notes and set date, time in 24- or 12-hour format.
-3.     User can add sub-tasks under a selected task.
-4.     User can set recurring tasks.
-5.     User can undo marking a task done.
-6.     User can set the priority level of a task. Only two priority levels are supported
-7.    User can choose to view completed and uncompleted tasks. For completed tasks, they are listed in the order of completion, rather than in the order of task date or time. The task name, date/time and list name are shown. Viewing by list or date is not supported. For uncompleted tasks, users can choose to view by list, time and priority.
-8.     User can choose from different themes of UI.
- 
+1.	User can add new lists of tasks, add new tasks to a selected list.
+2.	User can include task descriptions, notes and set date, time in 24- or 12-hour format.
+3.	User can add sub-tasks under a selected task.
+4.	User can delete tasks and lists of tasks.
+5.	User can set recurring tasks.
+6.	User can undo marking a task done.
+7.	User can set the priority level of a task. Only two priority levels are supported
+8.	User can choose to view completed and uncompleted tasks. For completed tasks, they are listed in the order of completion, rather than in the order of task date or time. The task name, date/time and list name are shown. Viewing by list or date is not supported. For uncompleted tasks, users can choose to view by list, time and priority.
+9.	User can choose from different themes of UI.
+
 ###Taskwarrior
 ####Taskwarrior is a well-developed command line task manager software. It has implemented many functionalities, but only the ones most applicable to the project are detailed in this document.
-1.     User can execute all the must-have commands (CRUD, Undo, Mark Done etc.).
-2.     User can also search or list by filters like status of tasks, due date, tags/virtual tags.
-3.     User can also update the task name by using the prepend and append commands.
-4.     User can set the priority level of a task.
-5.     User can add recurring tasks.
-6.     User can type very flexibly in terms of date and time. A wide range of accepted date/time formats is supported. User can also set duration of events by typing keywords like “3 weeks”.
-7.     User can choose from different themes of UI.
+1.	User can execute all the must-have commands (CRUD, Undo, Mark Done etc.).
+2.	User can also search or list by filters like status of tasks, due date, tags/virtual tags.
+3.	User can also update the task name by using the prepend and append commands.
+4.	User can set the priority level of a task.
+5.	User can add recurring tasks.
+6.	User can type very flexibly in terms of date and time. A wide range of accepted date/time formats is supported. User can also set duration of events by typing keywords like “3 weeks”.
+7.	User can choose from different themes of UI.
+
+###Wunderlist
+####Wunderlist is a task manager application for mobile phones, tablets, and computers.
+1.	User can add new lists of tasks, add new tasks to a selected list.
+2.	User can set due date/time as well as reminder before the due date/time.
+3.	User can add subtasks, notes and comments to a task.
+4.	User can delete tasks and lists of tasks.
+5.	User can set recurring tasks.
+6.	User can search for tasks by entering keywords.
+7.	User can undo marking a task done.
+8.	User can “star” a task to indicate priority.
+9.	User can sort the displayed tasks alphabetically, by creation date, due day, and priority.
+10.	User can use the default short-cuts or customize the short-cuts.
+
+###Todoist
+####Todoist, like Any.do, is an online and mobile task manager application.
+1.	User can add new projects (lists) of tasks, add new tasks to a selected project (list).
+2.	User can set due date/time as well as reminder before the due date/time.
+3.	User can add comments to a task.
+4.	User can delete tasks and projects of tasks.
+5.	User can set recurring tasks.
+6.	User can search for tasks by entering keywords.
+7.	User can undo marking a task done.
+8.	User can set different priority levels.
+9.	User can sort the displayed tasks by name, priority, date.
+10.	User can set new filters and labels to categorize different tasks. For example, the existing priority level is implemented as a filter.
+11.	User can choose from different themes of UI.
+
+
