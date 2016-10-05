@@ -6,7 +6,7 @@ import seedu.task.testutil.TestPerson;
 import seedu.task.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.task.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.task.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
 
@@ -49,7 +49,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
     }
 
 }

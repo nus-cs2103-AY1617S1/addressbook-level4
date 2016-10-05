@@ -22,12 +22,13 @@ public class AddCommand extends Command {
 	/**
 	 * Convenience constructor using raw values.
 	 * TODO: 
-	 * 	1. allow tasks with deadline 
+	 * 	1. allow tasks with deadline
+	 *  
 	 * @throws IllegalValueException
 	 *             if any of the raw values are invalid
 	 */
 	public AddCommand(String name, String description) throws IllegalValueException {
-		this.toAdd = new Task(new Name(name), new Description(description));
+		this.toAdd = new Task(new Name(name), new Description(description)); //TODO: more flexible of tasks type
 	}
 
 	@Override
