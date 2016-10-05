@@ -1,7 +1,7 @@
 # About Us
 
-We are the team in charge of developing JIMI, a command-line based task manager that is designed for fast typers. <br>
-<br> Our team consist of four members, each coming from computer engineering majors that are equipped with basic knowledge in Object Oriented Programming (OOP) as well as strong fundamentals of programming in the Java language. <br>
+We are the team in charge of developing Jimi, a command-line based task manager that is designed for fast typers. <br>
+<br> Our team of four, are computer engineers taking a stab at software engineering. We are familar with both OOP and Java - evidently from our code. <br>
 <br>[**Clarence**](#clarence) is the team leader and is in charge of overseeing the overall project coordination as well as manages the integration of different components of the software made by the team. <br>
 <br>[**Ze Xuan**](#zexuan) is in charge of managing and assigning tasks to the team members as well as ensures that the project deliverables are completed on time. <br>
 <br>[**Wei Yin**](#weiyin) takes charge of the overall documentation of the project, which includes the User Guide and the Developer Guide, among other things. <br>
