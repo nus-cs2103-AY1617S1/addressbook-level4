@@ -8,10 +8,12 @@ import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.TaskConfig;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.TaskConfigUtil;
 import seedu.address.logic.Logic_Task;
 import seedu.address.logic.LogicManager_Task;
 import seedu.address.model.*;
@@ -44,7 +46,7 @@ public class MainApp_Task extends Application {
     protected Logic_Task logic;
     protected TaskStorage storage;
     protected InMemoryTaskList model;
-    protected Config config;
+    protected TaskConfig config;
     protected UserPrefs userPrefs;
 
     public MainApp_Task() {}
@@ -55,7 +57,7 @@ public class MainApp_Task extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new TaskStorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new TaskStorageManager(config.getTasksFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -98,15 +100,15 @@ public class MainApp_Task extends Application {
         return new TaskManager(initialData, userPrefs);
     }
 
-    private void initLogging(Config config) {
+    private void initLogging(TaskConfig config) {
         LogsCenter.init(config);
     }
 
-    protected Config initConfig(String configFilePath) {
-        Config initializedConfig;
+    protected TaskConfig initConfig(String configFilePath) {
+        TaskConfig initializedConfig;
         String configFilePathUsed;
 
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+        configFilePathUsed = TaskConfig.DEFAULT_CONFIG_FILE;
 
         if(configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
@@ -116,24 +118,24 @@ public class MainApp_Task extends Application {
         logger.info("Using config file : " + configFilePathUsed);
 
         try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            initializedConfig = configOptional.orElse(new Config());
+            Optional<TaskConfig> configOptional = TaskConfigUtil.readConfig(configFilePathUsed);
+            initializedConfig = configOptional.orElse(new TaskConfig());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
                     "Using default config properties");
-            initializedConfig = new Config();
+            initializedConfig = new TaskConfig();
         }
 
         //Update config file in case it was missing to begin with or there are new/unused fields
         try {
-            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+            TaskConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
         return initializedConfig;
     }
 
-    protected UserPrefs initPrefs(Config config) {
+    protected UserPrefs initPrefs(TaskConfig config) {
         assert config != null;
 
         String prefsFilePath = config.getUserPrefsFilePath();

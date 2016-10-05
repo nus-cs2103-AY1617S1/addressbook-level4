@@ -10,6 +10,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.TaskConfig;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -28,11 +29,11 @@ public class UiManager_Task extends ComponentManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic_Task logic;
-    private Config config;
+    private TaskConfig config;
     private UserPrefs prefs;
     private MainWindow_Task mainWindow;
 
-    public UiManager_Task(Logic_Task logic, Config config, UserPrefs prefs) {
+    public UiManager_Task(Logic_Task logic, TaskConfig config, UserPrefs prefs) {
         super();
         this.logic = logic;
         this.config = config;

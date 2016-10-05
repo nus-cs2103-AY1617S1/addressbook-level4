@@ -31,6 +31,17 @@ public class LogsCenter {
         currentLogLevel = config.getLogLevel();
         logger.info("currentLogLevel: " + currentLogLevel);
     }
+    
+    /**
+     * Initializes with a custom log level (specified in the {@code config} object)
+     * Loggers obtained *AFTER* this initialization will have their logging level changed<br>
+     * Logging levels for existing loggers will only be updated if the logger with the same name is requested again
+     * from the LogsCenter.
+     */
+    public static void init(TaskConfig config) {
+        currentLogLevel = config.getLogLevel();
+        logger.info("currentLogLevel: " + currentLogLevel);
+    }
 
     /**
      * Creates a logger with the given name the given name.

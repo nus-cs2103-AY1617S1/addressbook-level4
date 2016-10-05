@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.TaskConfig;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic_Task;
 import seedu.address.model.UserPrefs;
@@ -34,7 +35,7 @@ public class MainWindow_Task extends UiPart {
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox_Task commandBox;
-    private Config config;
+    private TaskConfig config;
     private UserPrefs userPrefs;
 
     // Handles to elements of this Ui container
@@ -76,14 +77,14 @@ public class MainWindow_Task extends UiPart {
         return FXML;
     }
 
-    public static MainWindow_Task load(Stage primaryStage, Config config, UserPrefs prefs, Logic_Task logic) {
+    public static MainWindow_Task load(Stage primaryStage, TaskConfig config, UserPrefs prefs, Logic_Task logic) {
 
         MainWindow_Task mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow_Task());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getTaskManagerName(), config, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String addressBookName, TaskConfig config, UserPrefs prefs,
                            Logic_Task logic) {
 
         //Set dependencies
@@ -111,7 +112,7 @@ public class MainWindow_Task extends UiPart {
         browserPanel = BrowserPanel_Task.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTasksFilePath());
         commandBox = CommandBox_Task.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 

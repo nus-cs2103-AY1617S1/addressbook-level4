@@ -6,6 +6,8 @@ import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.UserPrefs;
 
 /*
@@ -26,12 +28,19 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	@Override
 	public synchronized void addTask(Task toAdd) throws DuplicateItemException {
 		tasks.add(toAdd);
+		indicateTaskManagerChanged();
 	}
 
 	@Override
 	public synchronized void deleteTask(Task toRemove) throws ItemNotFoundException {
 		tasks.remove(toRemove);
+		 indicateTaskManagerChanged();
 	}
+	
+    /** Raises an event to indicate the model has changed */
+    private void indicateTaskManagerChanged() {
+        raise(new TaskManagerChangedEvent(tasks));
+    }
 
 	@Override
 	public void filterTasks(Set<String> keywords) {
