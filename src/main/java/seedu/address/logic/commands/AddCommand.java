@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "todo";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the address book. "
             + "Parameters: NAME [t/TAG]...\n"
