@@ -38,7 +38,7 @@
 > * Replace words in `UPPER_CASE` with your input.
 > * Items in `[]` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The order of your input text is fixed. For instance, ‘add [DATE/TIME] by [TASK DETAILS]` is invalid.
+> * The order of your input text is fixed. For instance, `add [DATE/TIME] by [TASK DETAILS]` is invalid.
 
 
 Command | Format  
@@ -61,7 +61,6 @@ Command | Format
 
 ## Features
 
-<br>
 
 #### <a id="help"></a>Viewing help : `help`
 Format: `help`
@@ -75,11 +74,12 @@ Adds a floating task to Jimi.<br>
 Format: `add TASK_DETAILS` 
 
 > Floating tasks are tasks without any deadlines.
-> If your command includes a keyword ie. ‘add, by, on , at, from, to’, do use quotation marks to define them. Eg. `add Send Jimmy ‘to’ school ‘on’ the way ‘to’ work ‘from’ home`
+> If your command includes a keyword ie. ‘add, by, on , at, from, to’, do use quotation marks to define them. Eg. `add “Send Jimmy to school on the way to work from home”`
 
 Examples: 
 * `add Buy groceries`
 
+<br>
 Adds a task with a deadline to Jimi.<br>
 Format: `add TASK_DETAILS by DATE [at TIME]`
 
@@ -89,6 +89,7 @@ Examples:
 * `add Get a haircut by Tuesday`
 * `add Pick up Jimmy by Monday at 2pm`
 
+<br>
 Adds an event to Jimi.<br>
 Format: `add EVENT_DETAILS on DATE [to END_DATE, START TIME to END_TIME]`
 
