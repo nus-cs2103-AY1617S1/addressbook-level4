@@ -21,7 +21,7 @@ public class AddTodoCommand extends BaseCommand {
     }
 
     @Override
-    void execute() {
+    public void execute() {
         // TODO: Complete this command
     }
 
