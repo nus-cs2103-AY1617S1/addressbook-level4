@@ -19,7 +19,7 @@ This product is meant to address the concerns of users who wish to schedule thei
 **Running the program**
 1. Double-click the file to start the application. The user interface below should appear in a few seconds.
 > ![Image of Loading Screen](https://github.com/Halo3fanz/main/blob/master/docs/images/Loading.png)
-> <img src="docs/images/Loading.png" width="600"><br>
+> ![Image of Loading Screen](https://github.com/Halo3fanz/main/blob/master/docs/images/Ui.png)
 
 2. Type a command in the command box and press <kbd>enter</kbd> to execute it. Depending on the command, the 	Task Manager will respond by displaying a message in the console window.
 3. Refer to the Features section below for details of each command.
