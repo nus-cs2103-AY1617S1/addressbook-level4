@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Title title;
-    private Phone phone;
+    private Deadline deadline;
     private Email email;
     private Address address;
 
@@ -21,10 +21,10 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Title title, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(title, phone, email, address, tags);
+    public Task(Title title, Deadline deadline, Email email, Address address, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(title, deadline, email, address, tags);
         this.title = title;
-        this.phone = phone;
+        this.deadline = deadline;
         this.email = email;
         this.address = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getDeadline(), source.getEmail(), source.getAddress(), source.getTags());
     }
 
     @Override
@@ -43,8 +43,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Deadline getDeadline() {
+        return deadline;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, phone, email, address, tags);
+        return Objects.hash(title, deadline, email, address, tags);
     }
 
     @Override
