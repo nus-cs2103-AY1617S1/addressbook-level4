@@ -42,8 +42,8 @@ public class FloatingTaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getName());
-        phone.setText(person.getPriorityValue());
+        name.setText(person.getName().name);
+        phone.setText(person.getPriorityValue().priorityValue);
     }
 
     public HBox getLayout() {

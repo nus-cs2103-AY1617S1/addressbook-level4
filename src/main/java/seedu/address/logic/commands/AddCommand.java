@@ -2,11 +2,10 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.FloatingTask;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
 import seedu.address.model.item.Task;
-import seedu.address.model.person.*;
 import seedu.address.model.person.UniqueFloatingTaskList.DuplicateFloatingTaskException;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,9 +33,8 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String priorityValue)
-            throws IllegalValueException {
-        this.toAdd = new FloatingTask(name, priorityValue);
+    public AddCommand(String name, String priorityValue) throws IllegalValueException {
+        this.toAdd = new FloatingTask(new Name(name), new Priority(priorityValue));
     }
 
     @Override

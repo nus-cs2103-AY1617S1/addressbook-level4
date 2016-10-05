@@ -57,7 +57,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 
     public void resetData(Collection<? extends ReadOnlyFloatingTask> newFloatingTasks) {
-        //setFloatingTasks(newFloatingTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
+        setFloatingTasks(newFloatingTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
     }
 
     public void resetData(ReadOnlyAddressBook newData) {
