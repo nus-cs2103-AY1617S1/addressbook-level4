@@ -7,10 +7,20 @@ public class Status {
     private static final String MESSAGE_STATUS_DONE = "Done";
     private static final String MESSAGE_STATUS_UNDONE = "Undone";
 
-    private boolean status;
+    public boolean status;
 
+    /** 
+     * Default constructor
+     */
     public Status() {
         status = false;
+    }
+    
+    /**
+     * For storage
+     */
+    public Status(boolean status) {
+        this.status = status;
     }
 
     @Override
