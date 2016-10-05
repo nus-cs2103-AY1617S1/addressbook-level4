@@ -108,7 +108,9 @@ Mark a task as completed.
 Format: `complete TASK_INDEX`
 
 > * Jimi will note the task as completed at the specified `TASK_INDEX`. 
-> * If you want to revert the task back as incomplete, use the `undo` command.
+> * If you want to revert the task back as incomplete, use the [`undo`](#undo) command.
+> * The index refers to the index number shown in the most recent listing.<br>
+> * The index **must be a positive integer** 1, 2, 3, …
 
 <br><br>
 
@@ -116,19 +118,18 @@ Format: `complete TASK_INDEX`
 Deletes the specified task/ event from Jimi.<br>
 Format: `delete TASK_INDEX`
 
-> * Jimi will delete the task at the specified `TASK_INDEX`. 
-> If you need to recover your deleted task, use the `undo` command.
+> * Jimi will delete the task specified by `TASK_INDEX`. 
+> * If you need to recover your deleted task, use the [`undo`](#undo) command.
 
 Examples: 
 * `delete 2`<br>
   Deletes the 2nd task in the task manager.
 * `find Essay`<br> 
   `delete 1`<br>
-  Deletes the 1st task in the results of the `find` command.
+  Deletes the 1st task in the results of the [`find`](#find) command.
 
-> NOTE: For both `delete` and `complete` commands:
-> The index refers to the index number shown in the most recent listing.<br>
-> The index **must be a positive integer** 1, 2, 3, …
+> * The index refers to the index number shown in the most recent listing.<br>
+> * The index **must be a positive integer** 1, 2, 3, …
 
 <br><br>
 
@@ -136,14 +137,17 @@ Examples:
 Edits the specified detail from the list of tasks. 
 Format: `edit TASK_INDEX DETAIL_MODIFIER EDITS` 
 
-> * If you want to revert back to the original task before the edit, use the `undo` command.
+> * Jimi edits the task specified by `TASK_INDEX`.
+> * `EDITS` are simply the edits you want to make. 
+> * `DETAIL_MODIFIER` is used to indicate which detail you want to edit. You may choose one of the following modifiers: 
 
- `EDITS` are simply the edits you want to make. 
-`DETAIL_MODIFIER` is used to indicate which detail you want to edit. You may choose one of the following modifiers: 
+>     * `/n` : name of task
+>     * `/sd` and `/ed`: start date and end date
+>     * `/st` and `/et` : start time and end time <br>
 
-* `/n` : name of task
-* `/sd` and `/ed`: start date and end date
-* `/st` and `/et` : start time and end time 	
+> * If you want to undo your edit, use the [`undo`](#undo) command. <br>
+> * The index refers to the index number shown in the most recent listing.<br>
+> * The index **must be a positive integer** 1, 2, 3, …
 
 Examples:
 * `edit 2 /n buy food`
