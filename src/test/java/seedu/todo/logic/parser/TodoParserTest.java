@@ -8,7 +8,7 @@ public class TodoParserTest {
 
     @Test
     public void testParse() {
-        TodoParser p;
+        ParseResult p;
         
         p = new TodoParser("hello");
         assertEquals("hello", p.getComand());
@@ -25,7 +25,7 @@ public class TodoParserTest {
     
     @Test
     public void testPositionalArgument() {
-        TodoParser p;
+        ParseResult p;
         
         p = new TodoParser("hello world");
         assertEquals("world", p.getPositionalArgument().get());
@@ -36,7 +36,7 @@ public class TodoParserTest {
     
     @Test
     public void testNamedArguments() {
-        TodoParser p;
+        ParseResult p;
         
         p = new TodoParser("hello -f");
         assertEquals(1, p.getNamedArguments().size());
@@ -59,7 +59,7 @@ public class TodoParserTest {
     
     @Test
     public void testInvalidFlags() {
-        TodoParser p;
+        ParseResult p;
         
         p = new TodoParser("hello");
         assertFalse(p.getPositionalArgument().isPresent());

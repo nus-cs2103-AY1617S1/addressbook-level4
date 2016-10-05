@@ -21,7 +21,7 @@ import com.google.common.collect.Lists;
  * There will only be one command, optionally one positional argument, and 
  * optionally many named arguments. 
  */
-public class TodoParser {
+public class TodoParser implements ParseResult {
     private static final Pattern FLAG_REGEX = Pattern.compile("^(?:-(\\w)|--(\\w{2,}))$"); 
     
     private final String command; 
@@ -79,14 +79,17 @@ public class TodoParser {
         return FLAG_REGEX.matcher(token).matches();
     }
     
+    @Override
     public String getComand() {
         return command;
     }
     
+    @Override
     public Optional<String> getPositionalArgument() {
         return Optional.ofNullable(positional.isEmpty() ? null : positional);
     }
     
+    @Override
     public Map<String, String> getNamedArguments() {
         return named;
     }
