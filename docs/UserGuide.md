@@ -20,16 +20,16 @@ With our task manager, you can add, delete and edit tasks without a fuss. Throug
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
-   
+
 1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+3. Double-click the file to start the app. The GUI should appear in a few seconds.
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`help`** : lists all commands
-   * **`add`**` Meeting, July 10, 5pm-6pm` : 
+   * **`add`**` Meeting, July 10, 5pm-6pm` :
      adds a `Meeting` task on `July 10, 5pm-6pm` to the Task Manager
    * **`alias`**` am add Meeting` : `am` is now a shortcut for `add Meeting`
    * **`exit`** : exits the app
@@ -50,12 +50,12 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-<br> 
+<br>
 #### Adding a task: `add`
 Adds a task to the task manager<br>
-Format: `add TASK, (DATE,TIME) / DEADLINE` 
+Format: `add TASK, (DATE,TIME) / DEADLINE`
 
-Examples: 
+Examples:
 * `add Project meeting, Oct 10, 5pm-6pm`
 
 <br>
@@ -126,7 +126,7 @@ Examples:
 Deletes the specified task.<br>
 Format: `delete INDEX`
 
-> Deletes the task at the specific index. The index refers to the index shown in the most recent listing. 
+> Deletes the task at the specific index. The index refers to the index shown in the most recent listing.
 > The index must be a positive integer 1, 2, 3… If the task selected is a recurring task, user will be prompted to delete all instances of the task or only the next instance of the task.
 
 Examples:
@@ -142,7 +142,7 @@ Examples:
 Sets a one-word alias for any sentence to be used as a command.<br>
 Format: `alias SHORTCUT [ANY_SENTENCE]`
 
-> `ANY_SENTENCE` is tagged to `SHORTCUT` so that if `SHORTCUT` is used as the first command, `ANY_SENTENCE` will be inserted in it's place instead. 
+> `ANY_SENTENCE` is tagged to `SHORTCUT` so that if `SHORTCUT` is used as the first command, `ANY_SENTENCE` will be inserted in it's place instead.
 > `SHORTCUT` can only consist of one word.
 
 Examples:
@@ -172,15 +172,15 @@ Format: `list`
 <br>
 #### Clearing all entries : `clear`
 Clears all entries from the Task Manager.<br>
-Format: `clear`  
+Format: `clear`
 
 <br>
 #### Exiting the program : `exit`
 Exits the program.<br>
-Format: `exit`  
+Format: `exit`
 
 <br>
-#### Saving the data 
+#### Saving the data
 Task data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
@@ -193,30 +193,30 @@ However, if there are multiple commands, they will be displayed. <br>
 Examples:
 * `al`<kbd>TAB</kbd><br>
   `alias` completed for you.
-* `cl`<kbd>TAB</kbd><br> 
+* `cl`<kbd>TAB</kbd><br>
   `clear` completed for you.
 * `un`<kbd>TAB</kbd><br>
   `unfavorite` and `undo` displayed on the screen as possible commands.
-* `unf`<kbd>TAB</kbd><br> 
+* `unf`<kbd>TAB</kbd><br>
   `unfavorite` completed for you.
 
 <br>
 ## Google Integration
 
-At any time, add a Google account to sync tasks with by clicking on the Add Account button (Remember, no GUI). Once added, any present and future tasks will be synchronized bidirectionally and automatically with the given account’s Google Calendar. If the same task is edited locally and on Google Calendar, changes made on Google Calendar will be prioritized during synchronization. 
+At any time, add a Google account to sync tasks with by entering `sync` as a command and following the on-screen instructions. Once added, any present and future tasks will be synchronized bidirectionally and automatically with the given account’s Google Calendar. If the same task is edited locally and on Google Calendar, changes made on Google Calendar will be prioritized during synchronization.
 
 <br>
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
+**A**: Install the app in the other computer and overwrite the empty data file it creates with
        the file that contains the data of your previous Task Manager folder.
 
-<br>       
+<br>
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
+Command | Format
+-------- | :--------
 Help | `help`
 Add | `add TASK, (DATE, TIME) / DEADLINE`
 Add daily/weekly/monthly/yearly | `add daily/weekly/monthly/yearly TASK, (DATE, TIME) / DEADLINE`
@@ -229,4 +229,5 @@ Alias | `alias SHORTCUT ANY_SENTENCE`
 Undo | `undo`
 List | `list`
 Clear | `clear`
+Sync | `sync`
 
