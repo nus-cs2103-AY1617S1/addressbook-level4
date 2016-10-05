@@ -76,9 +76,9 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 | Command | Format |
 | ------- | ------ |
 | help | `help` |
-| add | `add <name> [-due <date>] [#<cat>] [#<cat>] ...` <br /><br /> `add <name> [-on <date>] [-at <location>]...` <br />`add <name> [-from <date><time> -to <date><time>] ...` |
-| edit | `edit <index> [-due <date>]`<br /><br />`edit #<oldCat> #<newCat>` |
-| list | `list` <br /><br /><br /> `list <day / week>` <br /><br /> `list float`<br />`list #<cat>`<br />`list done` |
+| add | `add <name> [-due <date>] [#<cat>] [#<cat>] ...` <br /> `add <name> [-on <date>] [-at <location>]...` <br />`add <name> [-from <date><time> -to <date><time>] ...` |
+| edit | `edit <index> [-due <date>]`<br />`edit #<oldCat> #<newCat>` |
+| list | `list` <br /> `list <day / week>` <br /> `list float`<br />`list #<cat>`<br />`list done` |
 | done | `done <index>` |
 | find | `find <keyword>` <br /> `find #<keyword>` |
 | delete | `del <index>` <br /> `del #<cat>`|
