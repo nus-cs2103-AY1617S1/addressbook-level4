@@ -77,6 +77,7 @@ user | delete a task | I can remove entries that I no longer need.<br>
 user | list all tasks | I can see my tasks in a glance.<br>
 user | edit the task descriptions | date and time | I can update the details of my tasks.<br>
 
+<br>
 #### Medium Priority `* *`
 
 As a ... | I want to... | so that ...
@@ -87,6 +88,7 @@ user | search for my tasks using some keywords | I can easily view tasks based o
 user | mark tasks as completed or uncompleted | I can keep track of my tasks progress.<br>
 user | specify a folder for data storage location | I can store the data file in a local folder controlled by a cloud syncing service.<br>
 
+<br>
 #### Low Priority `*`
 
 As a ... | I want to... | so that ...
