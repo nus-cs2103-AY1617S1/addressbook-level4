@@ -39,38 +39,38 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding an event:
+#### Adding an event
 `add [event_name]`<br>
 Adds an event to the to do list.<br>
  
-###### Optional parameters:
-`from [datetime] to [datetime]`<br>
+###### Optional parameters
+**from [datetime] to [datetime]**
 Indicates the starting and ending datetime of an event.<br>
 The date for from can be omitted if it is the same at the ending date.<br>
 The from keyword can be used standalone if there is no ending datetime.
 
 Examples:
-* **add** dinner with mom **from** 1900 02/10/16 **to** 2030 02/10/16
-* **add** dinner with mom **from** 1900 **to** 2030 2/10/16
-* **add** dinner with mom **from** 1900 2 oct 2016
+* `add dinner with mom from 1900 02/10/16 to 2030 02/10/16`
+* `add dinner with mom from 1900 to 2030 2/10/16`
+* `add dinner with mom from 1900 2 oct 2016`
 
-`by [datetime]`<br>
+**by [datetime]**
 This parameter is used to indicate the deadline of an event.
 
 Examples:
-* **add** submit proposal **by** 2359 2/10/16
+* `add submit proposal by 2359 2/10/16`
 
-`at [location]`<br>
+**at [location]**
 This parameter is used to indicate the venue of an event.
 
 Examples:
-* **add** dinner with mom **at** home
+* `add dinner with mom at home`
 
-`remarks [remarks]`<br>
+**remarks [remarks]**
 This parameter is used to add remarks for the event.
 
 Examples:
-* **add** dinner with mom **remarks** buy flowers
+* `add dinner with mom remarks buy flowers`
 
 
 
