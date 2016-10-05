@@ -6,8 +6,6 @@
 
 ## Getting Started
 1. Ensure you have Java version 1.8.0_60 or later installed in your Computer.
-	> Having any Java 8 version is not enough.  
-	> This app will not work with earlier versions of Java 8.
 2. Download the latest OneLine.jar from the releases tab.
 3. Copy the file to the folder you want to use as the home folder for OneLine.
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -16,40 +14,47 @@
 
 ## Features
 1. Viewing Help: ` help ` 
+> Displays list of available commmands and descriptions 
+
 2. Adding a Task / Event: ` add `  
-	- ` add <task name> due <date> in <category> priority <high / med / low> `
-    - `add <event name> from <start date / time> to <end date / time>` 
-    
+	- `add <name> [-due <date>] [#<cat>] [#<cat>] ...` 
+> If no date is specified, task will be set as a floating task  
+
+    - `add <name> [-on <date>] [-at <location>]...`  
+	
+	- `add <name> [-from <date><time> -to <date><time>] ...`
+> If no date is specified, date will be set to the current day, or the next day if set time has passed  
+> If no time is specified, start times will be set to 0000 and end times to 2359 
+
 3. Editing: ` edit ` 
-	- ` edit <task name> <new task name> due <new date> in <new cat> priority <new priority> ` : edit task
-	- ` edit <category name> <new cat name> ` : edit category name 
+	- `edit <index> [-due <date>]` : edits task specified by index
+	- `edit #<oldCat> #<newCat>` : edits category name 
     
 4. Listing All Tasks: ` list `  
-    - ` list all ` :  lists all undone tasks sorted by priority, followed by deadline  
-    - ` list <day / week / month> ` : list undone tasks / events with deadlines in the day / week / month  
-    - ` list floating `: lists undone tasks with no deadline
-    - ` list <category name>` : lists undone tasks in category
-	- ` list done `: lists all done tasks 
+    - `list` :  lists all undone tasks sorted by by deadline  
+    - `list <day / week>` : lists undone tasks with deadline in the current day / next 7 days  
+    - `list float` : lists undone tasks with no deadline
+    - `list #<cat>` : lists undone tasks in category
+	- `list done` : lists tasks done within the past 7 days  
     
 5. Mark Task as Done: ` done `  
-	- ` done <task name> ` 
+	- `done <index>` : marks task specified by index as done 
     
-5. Unmark Done Task: ` undone `   
-    - ` undone <task name> `
+6. Find: ` find `
+	- `find <keyword>` : returns list of tasks with names similar to keyword
+	- `find #<keyword>` : returns list of categories with names similar to keyword
 	
-6. Deleting a Task: ` del `   
-    - ` del <task name> ` 
+7. Deleting a Task: ` del `   
+    - `del <index>` : deletes task spcified by index 
+	- `del #<cat>` : deletes category 
 
-7. Undo: ` undo ` 
-8. Redo: ` redo `
+8. Undo: ` undo ` 
+9. Redo: ` redo `
 
-9. Change Storage: ` storage ` 
-	- `storage <new path> ` : changes the storage file to the file specified by new path 
+10. Change Storage: ` save ` 
+	- `save <new path>` : changes the storage file to the file specified by new path 
     
-10. Search: ` find `
-	- `find <search term>`: returns tasks with names similar to search term
-    
-11. Exiting Program : ` exit ` 
+11. Exiting Program: ` exit ` 
 
 ## User Stories
 
@@ -71,12 +76,11 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 | Command | Format |
 | ------- | ------ |
 | help | `help` |
-| add | `add <task> due <date> priority <high/med/low>` <br /> `add <event> from <start date/time> to <end date/time>` |
-| edit | `edit <task> <new task name> due <date date> in <new category> priority <new priority>`<br />`edit <category name> <new category name>` |
-| list | `list all`<br /> `list <day/week/month>`<br />`list floating`<br /> `list <category>` <br /> `list done` |
-| done | `done <task>` |
-| undone | `undone <task>` |
-| delete | `del <task> ` |
-| storage | `storage <path>` |
-| search | `find <search term>` |
+| add | `add <name> [-due <date>] [#<cat>] [#<cat>] ...` <br /><br /> `add <name> [-on <date>] [-at <location>]...` <br />`add <name> [-from <date><time> -to <date><time>] ...` |
+| edit | `edit <index> [-due <date>]`<br /><br />`edit #<oldCat> #<newCat>` |
+| list | `list` <br /><br /><br /> `list <day / week>` <br /><br /> `list float`<br />`list #<cat>`<br />`list done` |
+| done | `done <index>` |
+| find | `find <keyword>` <br /> `find #<keyword>` |
+| delete | `del <index>` <br /> `del #<cat>`|
+| storage | `save <path>` |
 | exit | `exit` |
