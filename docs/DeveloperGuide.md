@@ -268,14 +268,14 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Delete task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to list tasks
+2. Task Manager shows a list of tasks
+3. User requests to delete a specific task in the list
+4. Task Manager deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -286,10 +286,22 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. Task Manager shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+#### Use case: Search task
+
+**MSS**
+
+1. User type the correct command in the command box(search KEYWORD)
+2. Task Manager shows a task or more tasks which match the KEYWORD.<br>
+Use case ends.
+
+**Extensions**
+ 1a. The user don't type the correct keyword
+ > Use case ends
+ 
+ 
 
 ## Appendix C : Non Functional Requirements
 
