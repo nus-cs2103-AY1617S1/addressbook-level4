@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all floating tasks, events and tasks due today
-   * **`add`**` CS2103T tutorial work, 1100, tomorrow,t TUTORIAL` : 
+   * **`add`**` CS2103T "tutorial work" by/1100 on/tomorrow t/TUTORIAL` : 
      adds a task named `CS2103T tutorial work` with deadline due tomorrow at 11am to the Schema.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
