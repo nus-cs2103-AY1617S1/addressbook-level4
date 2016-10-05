@@ -7,11 +7,11 @@ import seedu.address.model.task.*;
 /**
  *
  */
-public class TypicalTestPersons {
+public class TypicalTestTask {
 
     public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestPersons() {
+    public TypicalTestTask() {
         try {
             alice =  new PersonBuilder().withName("Alice Pauline").withTags("friends").build();
             benson = new PersonBuilder().withName("Benson Meier").withTags("owesMoney", "friends").build();
