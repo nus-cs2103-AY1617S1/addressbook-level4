@@ -33,8 +33,8 @@
     - `edit <index> [-due <date>]` : edits task specified by index
     - `edit #<oldCat> #<newCat>` : edits category name 
     
-4. Listing All Tasks: ` list `
-<img src="images/list.png" width="600"><br>  
+4. Listing All Tasks: ` list `  
+    <img src="images/list.png" width="600"><br>  
 
     - `list` :  lists all undone tasks sorted by by deadline  
     - `list <day / week>` : lists undone tasks with deadline in the current day / next 7 days  
@@ -47,7 +47,7 @@
 
     - `done <index>` : marks task specified by index as done 
     
-6. Find: ` find `
+6. Find: ` find `   
 <img src="images/find.png" width="600"><br> 
 
     - `find <keyword>` : returns list of tasks with names similar to keyword
@@ -59,13 +59,13 @@
     - `del <index>` : deletes task spcified by index 
     - `del #<cat>` : deletes category 
 
-8. Undo: ` undo ` 
+8. Undo: ` undo `   
 <img src="images/undo.png" width="600"><br> 
 
-9. Redo: ` redo `
+9. Redo: ` redo `   
 <img src="images/redo.png" width="600"><br> 
 
-10. Change Storage: ` save ` 
+10. Change Storage: ` save `    
 <img src="images/save.png" width="600"><br> 
 
 	- `save <new path>` : changes the storage file to the file specified by new path 
