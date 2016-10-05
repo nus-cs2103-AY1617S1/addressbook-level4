@@ -4,9 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.address.model.item.ReadOnlyFloatingTask;
 import seedu.address.model.person.ReadOnlyPerson;
 
-public class PersonCard extends UiPart{
+public class FloatingTaskCard extends UiPart{
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -25,15 +26,15 @@ public class PersonCard extends UiPart{
     @FXML
     private Label tags;
 
-    private ReadOnlyPerson person;
+    private ReadOnlyFloatingTask person;
     private int displayedIndex;
 
-    public PersonCard(){
+    public FloatingTaskCard(){
 
     }
 
-    public static PersonCard load(ReadOnlyPerson person, int displayedIndex){
-        PersonCard card = new PersonCard();
+    public static FloatingTaskCard load(ReadOnlyFloatingTask person, int displayedIndex){
+        FloatingTaskCard card = new FloatingTaskCard();
         card.person = person;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
@@ -41,12 +42,8 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
-        id.setText(displayedIndex + ". ");
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        tags.setText(person.tagsString());
+        name.setText(person.getName().name);
+        phone.setText(person.getPriorityValue().priorityValue);
     }
 
     public HBox getLayout() {

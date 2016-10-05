@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.item.FloatingTask;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
+import seedu.address.model.item.Task;
+import seedu.address.model.person.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,46 +17,36 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List. "
+            + "Parameters: {name} rank {priority value}\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " read Harry Potter and the Akshay rank 1";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    //TODO: Prevent code from breaking later on.
+    public static final String MESSAGE_SUCCESS = "New item added: %1$s";
 
-    private final Person toAdd;
+    private final FloatingTask toAdd;
 
     /**
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd = new Person(
-                new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
-                new UniqueTagList(tagSet)
-        );
+    public AddCommand(String name, String priorityValue) throws IllegalValueException {
+        this.toAdd = new FloatingTask(new Name(name), new Priority(priorityValue));
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
+        //TODO: Prevent code from breaking    
         try {
-            model.addPerson(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniquePersonList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            model.addFloatingTask(toAdd);
+        } catch (DuplicateFloatingTaskException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
 }

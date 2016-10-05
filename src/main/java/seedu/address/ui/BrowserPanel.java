@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.address.commons.util.FxViewUtil;
+import seedu.address.model.item.ReadOnlyFloatingTask;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.commons.core.LogsCenter;
 
@@ -50,8 +51,8 @@ public class BrowserPanel extends UiPart{
         return browserPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
+    public void loadPersonPage(ReadOnlyFloatingTask person) {
+        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().name.replaceAll(" ", "+"));
     }
 
     public void loadPage(String url){

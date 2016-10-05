@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.item.ReadOnlyFloatingTask;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.commons.core.LogsCenter;
 
@@ -26,7 +27,7 @@ public class PersonListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyPerson> personListView;
+    private ListView<ReadOnlyFloatingTask> personListView;
 
     public PersonListPanel() {
         super();
@@ -48,19 +49,19 @@ public class PersonListPanel extends UiPart {
     }
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyPerson> personList) {
+                                       ObservableList<ReadOnlyFloatingTask> personList) {
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
         personListPanel.configure(personList);
         return personListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyPerson> personList) {
+    private void configure(ObservableList<ReadOnlyFloatingTask> personList) {
         setConnections(personList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
+    private void setConnections(ObservableList<ReadOnlyFloatingTask> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -87,20 +88,20 @@ public class PersonListPanel extends UiPart {
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+    class PersonListViewCell extends ListCell<ReadOnlyFloatingTask> {
 
         public PersonListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyPerson person, boolean empty) {
+        protected void updateItem(ReadOnlyFloatingTask person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(FloatingTaskCard.load(person, getIndex() + 1).getLayout());
             }
         }
     }
