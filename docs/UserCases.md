@@ -4,17 +4,17 @@
 `Use case:` UC01 - Adding a calendar task <br>
 `Actor:` User <br>
 `MSS:` <br>
-⋅⋅1.  User chooses to add a calendar task. <br>
-⋅⋅2. User types in command and required parameters. <br>			
-⋅⋅3. KeyboardWarrior displays task in Calendar pane. <br>
-⋅⋅`Use case ends.` <br>
+1.  User chooses to add a calendar task. <br>
+2. User types in command and required parameters. <br>			
+3. KeyboardWarrior displays task in Calendar pane. <br>
+`Use case ends.` <br>
 `Extensions:` <br>
-⋅⋅⋅⋅2a. KeyboardWarrior detects an error in the entered parameters. <br>
-⋅⋅⋅⋅2a1. KeyboardWarrior requests for the correct parameters. <br>
-⋅⋅⋅⋅2a2. User enters new parameters. <br>
-⋅⋅⋅⋅Steps 2a1 - 2a2 are repeated until the parameters entered are correct. <br>
-⋅⋅⋅⋅Use case resumes from step 3. <br>
-⋅⋅⋅⋅`Use case ends.` <br>
+2a. KeyboardWarrior detects an error in the entered parameters. <br>
+2a1. KeyboardWarrior requests for the correct parameters. <br>
+2a2. User enters new parameters. <br>
+Steps 2a1 - 2a2 are repeated until the parameters entered are correct. <br>
+Use case resumes from step 3. <br>
+`Use case ends.` <br>
 
 `Software System:` KeyboardWarrior <br>
 `Use case:` UC02 - Finding a task <br>
