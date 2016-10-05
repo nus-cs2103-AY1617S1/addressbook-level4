@@ -261,7 +261,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add new tasks with start and end time | keep track of tasks with start time and end time
 `* * *` | user | view all tasks today | keep track of my agenda for today
 `* * *` | user | view all tasks for a specific date | keep track of my tasks
-`* * *` | user | find a task using keywords | find my tasks
+`* * *` | user | find a task using keywords | find a specific task easily
 `* * *` | user | edit a task |  update the details of specific tasks
 `* * *` | user | edit deadline/event timeslot |  to track the changes in my schedule accordingly
 `* * *` | user | delete a task | remove a task that is no longer required to be done
