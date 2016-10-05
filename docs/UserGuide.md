@@ -45,12 +45,14 @@
 >   * 09:30pm
 
 #### Viewing help : `help`
+Shows the help page to user<br>
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 #### Adding a task: `add task`
 Adds a task to DoDo-Bird<br>
+Format:
 
 * `add TASKNAME; [a line of details;] [from DD/MM/YY [hh:mm];] [till DD/MM/YY [hh:mm];]` <br>
 * `add TASKNAME; [a line of details;] [DD/MM/YY;]`
@@ -65,31 +67,41 @@ Examples:
 
 #### Updating a task: `update task`
 Update an existing task inside DoDo-Bird<br>
+Format:
 
 * `update TASKNAME; [a line of details;] [from DD/MM/YY [hh:mm];] [till DD/MM/YY [hh:mm];]`
+* `update TASKNAME; [a line of details;] [DD/MM/YY;]`
 
 > Date and Time formats follow the above guidelines.
 
 Examples:
 
-* **`update task`**` Complete Problem set 4; CS1234; from 14/10/17; till 18/10/17;`
-* **`update task`**` Complete tutorial activites; CS1234; 25/10/17;`
+* **`update`**` Complete Problem set 4; CS1234; from 14/10/17; till 18/10/17;`
+* **`update`**` Complete tutorial activites; CS1234; 25/10/17;`
 
 #### Seeing tasks : `see`
 Shows a list of all tasks in DoDo-Bird for a particular date.<br>
-Format: **`see`**`DATE`
+Format: `see DATE`
+
+> Date and Time formats follow the above guidelines.
+
+Examples:
+ 
+* **`see`**` 18/10/17`
+* **`see`**` tomorrow`
 
 #### Searching tasks: `search task`
 Finds tasks whose names contain any of the given keywords or before/after a time.<br>
+Format:
 
 * `search KEYWORD [MORE_KEYWORDS]`
 * `search before DD/MM/YY[@hh:mm]`
 * `search after DD/MM/YY[@hh:mm]`
 
 Examples:
-* `search Meeting`<br>
-* `search Meeting Professor`<br>
-* `search before 25/10/17@09:30`<br>
+* **`search`**` Meeting`<br>
+* **`search`**` Meeting Professor`<br>
+* **`search`**` before 25/10/17@09:30`<br>
 
 > * Only the task name is searched.
 > * The search is case insensitive. e.g `meeting` will match `Meeting`, `Meeting` will match `meeting`.
@@ -104,11 +116,12 @@ Format: `delete ID`
 > Deletes the task at the specified `ID`. The ID **must be a positive integer** 1, 2, 3, ...
 
 Examples:
-* `search tomorrow`<br>
-  `delete 2`<br>
+
+* **`search`**` tomorrow`<br>
+  **`delete`**` 2`<br>
   Deletes the task with `ID #2` in the DoDo-Bird.
-* `search Tutorial`<br>
-  `delete 1`<br>
+* **`search`**` Tutorial`<br>
+  **`delete`**` 1`<br>
   Deletes the task with `ID #1` in the DoDo-Bird.
 
 #### Undoing : `undo`
