@@ -221,59 +221,59 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
 ## Appendix E : Product Survey
 
 1. **Wunderlist**
-..* Strengths
-....Able to add items to any list and assign deadlines and reminders
-....Requires few taps/interaction to create a simple to-do item
-....Natural language feature lets user type simple due dates, such as “tomorrow”, and Wunderlist will interprets and assigns accordingly
-....Available on multiple platforms, access easily from laptop or phone
-....Simple interface
-....Able to share lists with others for collaboration
-....Able to sort list
+⋅⋅* Strengths
+⋅⋅⋅⋅Able to add items to any list and assign deadlines and reminders
+⋅⋅⋅⋅Requires few taps/interaction to create a simple to-do item
+⋅⋅⋅⋅Natural language feature lets user type simple due dates, such as “tomorrow”, and Wunderlist will interprets and assigns accordingly
+⋅⋅⋅⋅Available on multiple platforms, access easily from laptop or phone
+⋅⋅⋅⋅Simple interface
+⋅⋅⋅⋅Able to share lists with others for collaboration
+⋅⋅⋅⋅Able to sort list
 
 2. **Todoist**
-..* Strengths
-....Able to identify dates in tasks statements e.g 18oct, mon. Useful for Jim’s command line habits
-....Has smartphone and desktop applications. Useful for Jim’s requirement for portability
-....Has undo option
-....Allows the use of tags to classify different tasks e.g personal, school work.
-....Allows users to set priority levels to tasks
-....Has smartphone notifications for tasks due today
-....Multiple display formats: today, next 7 days, by tags
+⋅⋅* Strengths
+⋅⋅⋅⋅Able to identify dates in tasks statements e.g 18oct, mon. Useful for Jim’s command line habits
+⋅⋅⋅⋅Has smartphone and desktop applications. Useful for Jim’s requirement for portability
+⋅⋅⋅⋅Has undo option
+⋅⋅⋅⋅Allows the use of tags to classify different tasks e.g personal, school work.
+⋅⋅⋅⋅Allows users to set priority levels to tasks
+⋅⋅⋅⋅Has smartphone notifications for tasks due today
+⋅⋅⋅⋅Multiple display formats: today, next 7 days, by tags
 
-..* Weaknesses
-....Synced to the cloud. Users may have problems when there is no internet connection
+⋅⋅* Weaknesses
+⋅⋅⋅⋅Synced to the cloud. Users may have problems when there is no internet connection
 
 3. **Centrallo**
-..* Strengths
-....Supports email forwarding from your personal mail into Centrallo
-....Allows the creation of list, notes and checklist, where the notes and checklist can be filed under a particular list
-....Items can be tagged as priorities which is consolidated in a ‘priorities’ tab
-....Notes, lists and checklists can be given different colours (7 to choose from)
-....Supports attachment of files (up to 25mb) to the notes
-....Offers 3 methods to sort the notes i.e. alphabetically, by created date and by updated date
+⋅⋅* Strengths
+⋅⋅⋅⋅Supports email forwarding from your personal mail into Centrallo
+⋅⋅⋅⋅Allows the creation of list, notes and checklist, where the notes and checklist can be filed under a particular list
+⋅⋅⋅⋅Items can be tagged as priorities which is consolidated in a ‘priorities’ tab
+⋅⋅⋅⋅Notes, lists and checklists can be given different colours (7 to choose from)
+⋅⋅⋅⋅Supports attachment of files (up to 25mb) to the notes
+⋅⋅⋅⋅Offers 3 methods to sort the notes i.e. alphabetically, by created date and by updated date
 
-..* Weaknesses
-....Only can move 1 note/checklist at a time
-....Limitations of 100 notes in total for a free account
-....Requires internet connection to access (no offline version)
-....No calendar view for a quick overview of all notes by dates
-....No quick overview of all notes in general (GUI highly resembles that of an email inbox - the notes occupy a narrow column on the screen with the rest of the screen occupied by the content of the notes)
+⋅⋅* Weaknesses
+⋅⋅⋅⋅Only can move 1 note/checklist at a time
+⋅⋅⋅⋅Limitations of 100 notes in total for a free account
+⋅⋅⋅⋅Requires internet connection to access (no offline version)
+⋅⋅⋅⋅No calendar view for a quick overview of all notes by dates
+⋅⋅⋅⋅No quick overview of all notes in general (GUI highly resembles that of an email inbox - the notes occupy a narrow column on the screen with the rest of the screen occupied by the content of the notes)
 
 4. **Trello**
-..* Strengths
-....Able to create various lists, allows good organisation
-....Able to add friends into the lists which allows communication between colleagues
-....Different types of lists can be created such as checklists, description texts, deadlines, labels and attachments
-....Can move, copy, subscribe, archive
-....Can be used on both mobile and desktop
-....Can set lists to be visible or invisible to others
-....Can use powerups which has special add ons to the lists, thus Jim can customise it to his needs
-....Has reminders
-....Activity summary to allow Jim to know what he did earlier
-....Can share lists which Jim can tell his colleagues tasks he needs to do/the team needs to do
+⋅⋅* Strengths
+⋅⋅⋅⋅Able to create various lists, allows good organisation
+⋅⋅⋅⋅Able to add friends into the lists which allows communication between colleagues
+⋅⋅⋅⋅Different types of lists can be created such as checklists, description texts, deadlines, labels and attachments
+⋅⋅⋅⋅Can move, copy, subscribe, archive
+⋅⋅⋅⋅Can be used on both mobile and desktop
+⋅⋅⋅⋅Can set lists to be visible or invisible to others
+⋅⋅⋅⋅Can use powerups which has special add ons to the lists, thus Jim can customise it to his needs
+⋅⋅⋅⋅Has reminders
+⋅⋅⋅⋅Activity summary to allow Jim to know what he did earlier
+⋅⋅⋅⋅Can share lists which Jim can tell his colleagues tasks he needs to do/the team needs to do
 
-..* Weaknesses
-....Too many options, too troublesome for Jim’s need to use single line command
-....Difficult to look for things Jim needs
-....No calendar view
-....More useful for teams than individuals
+⋅⋅* Weaknesses
+⋅⋅⋅⋅Too many options, too troublesome for Jim’s need to use single line command
+⋅⋅⋅⋅Difficult to look for things Jim needs
+⋅⋅⋅⋅No calendar view
+⋅⋅⋅⋅More useful for teams than individuals
