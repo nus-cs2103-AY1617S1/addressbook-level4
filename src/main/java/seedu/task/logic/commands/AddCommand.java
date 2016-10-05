@@ -1,60 +1,45 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.tag.Tag;
-import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Adds a person to the address book.
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+	public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task book. "
+			+ "Parameters: TASK_NAME /desc DESCRIPTION /by DEADLINE" + "Example: " + COMMAND_WORD
+			+ " CS2103 Lab 6 /desc hand in through codecrunch /by 30-12-16";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
 
-    private final Task toAdd;
+	private final Task toAdd;
 
-    /**
-     * Convenience constructor using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd = new Task(
-                new Name(name),
-                new Deadline(phone),
-                new Status(email),
-                new Description(address),
-                new UniqueTagList(tagSet)
-        );
-    }
+	/**
+	 * Convenience constructor using raw values.
+	 * TODO: 
+	 * 	1. allow tasks with deadline 
+	 * @throws IllegalValueException
+	 *             if any of the raw values are invalid
+	 */
+	public AddCommand(String name, String description) throws IllegalValueException {
+		this.toAdd = new Task(new Name(name), new Description(description));
+	}
 
-    @Override
-    public CommandResult execute() {
-        assert model != null;
-        try {
-            model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
-        }
+	@Override
+	public CommandResult execute() {
+		assert model != null;
+		try {
+			model.addTask(toAdd);
+			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+		} catch (UniqueTaskList.DuplicateTaskException e) {
+			return new CommandResult(MESSAGE_DUPLICATE_TASK);
+		}
 
-    }
+	}
 
 }

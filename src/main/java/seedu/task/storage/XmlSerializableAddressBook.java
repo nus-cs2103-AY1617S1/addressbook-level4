@@ -2,8 +2,6 @@ package seedu.task.storage;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyTaskBook;
-import seedu.task.model.tag.Tag;
-import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.UniqueTaskList;
 
@@ -21,13 +19,13 @@ import java.util.stream.Collectors;
 public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
-    @XmlElement
-    private List<Tag> tags;
+    private List<XmlAdaptedPerson> tasks;
+//    @XmlElement
+//    private List<Tag> tags;
 
     {
-        persons = new ArrayList<>();
-        tags = new ArrayList<>();
+        tasks = new ArrayList<>();
+//        tags = new ArrayList<>();
     }
 
     /**
@@ -39,26 +37,26 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
      * Conversion
      */
     public XmlSerializableAddressBook(ReadOnlyTaskBook src) {
-        persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        tags = src.getTagList();
+        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+//        tags = src.getTagList();
     }
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    @Override
+//    public UniqueTagList getUniqueTaskList() {
+//        try {
+//            return new UniqueTagList(tags);
+//        } catch (UniqueTagList.DuplicateTagException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedPerson t : tasks) {
             try {
-                lists.add(p.toModelType());
+                lists.add(t.toModelType());
             } catch (IllegalValueException e) {
 
             }
@@ -68,7 +66,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
-        return persons.stream().map(p -> {
+        return tasks.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
@@ -78,9 +76,9 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
-    }
+//    @Override
+//    public List<Tag> getTagList() {
+//        return Collections.unmodifiableList(tags);
+//    }
 
 }

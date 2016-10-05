@@ -1,8 +1,6 @@
 package seedu.task.storage;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.tag.Tag;
-import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -14,17 +12,29 @@ import java.util.List;
  */
 public class XmlAdaptedPerson {
 
-    @XmlElement(required = true)
-    private String name;
-    @XmlElement(required = true)
-    private String phone;
-    @XmlElement(required = true)
-    private String email;
-    @XmlElement(required = true)
-    private String address;
+//    @XmlElement(required = true)
+//    private String name;
+//    @XmlElement(required = true)
+//    private String phone;
+//    @XmlElement(required = true)
+//    private String email;
+//    @XmlElement(required = true)
+//    private String address;
+	
+	@XmlElement(required = true)
+	private String name;
+	
+	@XmlElement
+	private String description;
+	
+	@XmlElement
+	private Boolean status;
+//	
+//	@XmlElement
+//	private String deadline;
 
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+//    @XmlElement
+//    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
@@ -39,13 +49,9 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
         name = source.getName().fullName;
-        phone = source.getDeadline().value;
-        email = source.getStatus().value;
-        address = source.getDescription().value;
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
+        description = source.getDescription().value;
+        status = source.getTaskStatus();
+//        deadline = source.getDealine().value;
     }
 
     /**
@@ -54,15 +60,11 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
+
         final Name name = new Name(this.name);
-        final Deadline phone = new Deadline(this.phone);
-        final Status email = new Status(this.email);
-        final Description address = new Description(this.address);
-        final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, phone, email, address, tags);
+        final Description description = new Description(this.description);
+        final Boolean status = new Boolean(this.status);
+        
+        return new Task(name, description, status);
     }
 }

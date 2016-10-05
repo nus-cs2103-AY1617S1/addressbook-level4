@@ -2,6 +2,7 @@ package seedu.task.model.task;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 
+
 /**
  * Represents a Task's deadline in the task book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
@@ -9,7 +10,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 public class Deadline {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Task deadline should be in a date format of DD-MM-YY";
-    public static final String DEADLINE_VALIDATION_REGEX = "\\d+"; //TODO To edit the Regex
+    public static final String DEADLINE_VALIDATION_REGEX = "\\b[0-3]\\d-[0-1]\\d-\\d{2}\\b"; 
 
     public final String value;
 

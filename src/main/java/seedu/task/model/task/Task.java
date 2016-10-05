@@ -1,7 +1,6 @@
 package seedu.task.model.task;
 
 import seedu.task.commons.util.CollectionUtil;
-import seedu.task.model.tag.UniqueTagList;
 
 import java.util.Objects;
 
@@ -20,11 +19,15 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Name name, Description description) {
+    	this(name, description,false);    
+    }
+    
+    public Task(Name name, Description description, Boolean status) {
         assert !CollectionUtil.isAnyNull(name, description);
         this.name = name;
         this.description = description;
         //this.deadline = deadline;
-        isTaskCompleted = false;;
+        isTaskCompleted = status;
     }
 
     /**
