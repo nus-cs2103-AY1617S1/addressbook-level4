@@ -7,7 +7,7 @@ public abstract class Task {
 	/*
 	 * All tasks are required to minimally have a description
 	 */
-	private Description description;
+	protected Description description;
 	
 	public Task() {
 		this(new Description());
