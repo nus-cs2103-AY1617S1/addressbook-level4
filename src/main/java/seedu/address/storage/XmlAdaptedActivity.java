@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Person.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedActivity {
 
     @XmlElement(required = true)
     private String name;
@@ -30,15 +30,15 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedActivity() {}
 
 
     /**
      * Converts a given Person into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedActivity
      */
-    public XmlAdaptedPerson(Activity source) {
+    public XmlAdaptedActivity(Activity source) {
         name = source.name;
 //        phone = source.getPhone().value;
 //        email = source.getEmail().value;

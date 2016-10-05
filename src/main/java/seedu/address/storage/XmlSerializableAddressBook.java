@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class XmlSerializableAddressBook implements ReadOnlyActivityManager {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedActivity> persons;
     @XmlElement
     private List<Tag> tags;
 
@@ -41,7 +41,7 @@ public class XmlSerializableAddressBook implements ReadOnlyActivityManager {
      * Conversion
      */
     public XmlSerializableAddressBook(ReadOnlyActivityManager src) {
-        persons.addAll(src.getListActivity().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(src.getListActivity().stream().map(XmlAdaptedActivity::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -58,7 +58,7 @@ public class XmlSerializableAddressBook implements ReadOnlyActivityManager {
     @Override
     public ActivityList getActivityList() {
         ActivityList lists = new ActivityList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedActivity p : persons) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
