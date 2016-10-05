@@ -52,32 +52,28 @@ Format: `help`
 #### Adding a task: `add task`
 Adds a task to DoDo-Bird<br>
 
-* `add task -n TASKNAME
-[-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]` <br>
-* `add task -n TASKNAME
-[-d a line of details] [-date DD/MM/YY]`
+* `add TASKNAME; [a line of details;] [from DD/MM/YY [hh:mm];] [till DD/MM/YY [hh:mm];]` <br>
+* `add TASKNAME; [a line of details;] [DD/MM/YY;]`
 
 > Date and Time formats follow the above guidelines.
 
 Examples:
 
-* **`add task`**` -n Meet with professor -d CS1234`
-* **`add task`**` -n Complete tutorial activites -d CS1234 -before 25/10/17@23:59 -after 18/10/17@12:00`
-* **`add task`**` -n Meet with professor -d CS1234 -date 25/10/17`
+* **`add`**` Meet with professor; CS1234;`
+* **`add`**` Complete tutorial activites; CS1234; from 25/10/17 23:59; till 18/10/17 12:00;`
+* **`add`**` Meet with professor; CS1234; 25/10/17;`
 
 #### Updating a task: `update task`
 Update an existing task inside DoDo-Bird<br>
-*
-`update task -n TaskName [-d a line of details] [-before DD/MM/YY[@hh:mm]] [-after DD/MM/YY[@hh:mm]]`
 
-
+* `update TASKNAME; [a line of details;] [from DD/MM/YY [hh:mm];] [till DD/MM/YY [hh:mm];]`
 
 > Date and Time formats follow the above guidelines.
 
 Examples:
 
-* **`update task`**` -n Complete Problem set 4 -d CS1234 -datefrom 14/10/17 -dateto 18/10/17`
-* **`update task`**` -n Complete tutorial activites -d CS1234 -date 25/10/17`
+* **`update task`**` Complete Problem set 4; CS1234; from 14/10/17; till 18/10/17;`
+* **`update task`**` Complete tutorial activites; CS1234; 25/10/17;`
 
 #### Seeing tasks : `see`
 Shows a list of all tasks in DoDo-Bird for a particular date.<br>
@@ -85,14 +81,15 @@ Format: **`see`**`DATE`
 
 #### Searching tasks: `search task`
 Finds tasks whose names contain any of the given keywords or before/after a time.<br>
-Format: `search -n KEYWORD [MORE_KEYWORDS]`
-		`search -before DD/MM/YY[@hh:mm]`
-		`search -after DD/MM/YY[@hh:mm]`
+
+* `search KEYWORD [MORE_KEYWORDS]`
+* `search before DD/MM/YY[@hh:mm]`
+* `search after DD/MM/YY[@hh:mm]`
 
 Examples:
 * `search Meeting`<br>
 * `search Meeting Professor`<br>
-* `search -before 25/10/17@09:30`<br>
+* `search before 25/10/17@09:30`<br>
 
 > * Only the task name is searched.
 > * The search is case insensitive. e.g `meeting` will match `Meeting`, `Meeting` will match `meeting`.
