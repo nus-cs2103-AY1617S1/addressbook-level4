@@ -10,6 +10,13 @@ Role: Project Mentor
 
 -----
 
+#### [Charlene Lee Kei Xin](https://github.com/chaejinkeyne)
+<img src="images/CharleneLee.jpg" width="150"><br>
+Role: Developer <br>
+Responsibilities: UI
+
+-----
+
 #### [Jasper Lee](https://github.com/jasperlee27)
 <img src="images/JasperLee.jpg" width="150"><br>
 Role: Developer <br>  
@@ -17,40 +24,11 @@ Responsibilities: Logic
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
-
------
-
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
-
------
-
 #### [Song Kai](https://github.com/elijahsk)
-<img src="images/SongKai.jpg" width="150"><br>
+<img src="images/SongKai.JPG" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Model
 
-
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
 
 # Contributors
 

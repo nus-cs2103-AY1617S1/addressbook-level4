@@ -21,8 +21,8 @@
 5. Some example commands you can try:
    * **`list`** : lists all tasks to do
    * **`add`** `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2` : 
-     adds a task named `to buy food` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+     adds a task named `Buy vegetables` to the Task Manager.
+   * **`delete`**`Buy vegetables` : deletes the 'Buy vegetables' task from the manager.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -40,8 +40,8 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
+#### Adding a task: `add`
+Adds a task to the task manager<br>
 Format: `add TASK i/INFORMATION d/DATE s/START_TIME e/END_TIME t/LEVEL_OF_URGENCY_TAG` 
 
 > Level of importance tags range from 1 to 5 (1-Very Low Urgency, 2-Low Urgency, 3-Neutral, 4-High Urgency, 5-Very High Urgency)
@@ -50,61 +50,96 @@ Examples:
 * `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2`
 * `add CS2013T Tutorial i/Prepare for week 8 Tutorial d/04102016 s/2200 e/2359 t/5`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
+#### Listing all tasks : `list`
+Shows a list of all tasks currently in the task manager.<br>
 Format: `list`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
+#### Finding all tasks containing any keyword in the task name: `find`
+Finds tasks which contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+> * The order of the keywords does not matter. e.g. `CS2103T Tutorial` will match `Tutorial CS2103T`
+> * Only the task name is searched.
+> * Only full words will be matched e.g. `CS2103T` will not match `CS2103`
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `CS2103T` will match `CS2103T Tutorial`
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `find CS2130T`<br>
+  Returns `CS2130T Tutorial` but not `CS2103 Tutorial`
+* `find CS2103T CS2101 CS3235`<br>
+  Returns Any tasks having keywords `CS2103T`, `CS2101`, or `CS3235`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+#### Deleting a task : `delete`
+Deletes the specified task from the task manager. Irreversible.<br>
+Format: `delete TASK_NAME`
 
-> Deletes the person at the specified `INDEX`. 
+> Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
+  Deletes the 2nd task in the address book.
+* `find CS2103T`<br> 
   `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  Deletes the 1st task in the results of the `find` command.
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
+#### Select a task : `select`
+Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
+> Selects the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
+  Selects the 2nd task in the address book.
+* `find CS2103T` <br> 
   `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+  Selects the 1st task in the results of the `find` command.
+
+#### Update a task : `update`
+Updates the status of the task.<br>
+Format: `update [TASK_NAME] STATUS` 
+
+> Updates task to be completed (marked done) or uncompleted after selecting a task.
+
+Examples: 
+* `list`<br>
+  `update CS2103T Tutorial completed`<br>
+  Update task status of CS2103T Tutorial to 'completed'
+* `find CS2103T`<br>
+  `select 2`<br>
+  `update completed`<br>
+  Update task status of 2nd task in the results of CS2103T to 'completed'
+
+
+#### Undo a task : `undo`
+Undo the latest task added/deleted/updated. Irreversible.<br>
+Format: `undo`
+
+> Undos ONLY the latest task added/deleted/updated.
+	i.e You cannot undo tasks added 2 'adds' ago.
+
+Examples: 
+* `add Buy vegetables i/From the supermarket d/05102016 s/1400 e/1500 t/2`<br>
+  `undo`<br>
+  Undo latest add command, remove 'Buy vegetables task'
+* `find CS2103T`<br> 
+  `delete 1`<br>
+  `undo`<br>
+  Undo latest delete command, re-instate task 1 from CS2103T.
+
+#### View all 'To Do' tasks : `todo`
+Shows a list of tasks yet to be 'completed' in the task manager.<br>
+Format: `todo`
 
 #### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+Clears all entries from the task manager.<br>
 Format: `clear`  
 
 #### Exiting the program : `exit`
@@ -112,23 +147,26 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Task Manager folder.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add TASK i/INFORMATION d/DATE s/START_TIME e/END_TIME t/LEVEL_OF_URGENCY_TAG`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
+List | `list`
 Select | `select INDEX`
+ToDo | `todo`
+Undo | `undo`
+Update | `update [TASK_NAME] STATUS`
