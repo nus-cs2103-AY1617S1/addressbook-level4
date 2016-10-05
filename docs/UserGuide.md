@@ -247,14 +247,13 @@ Command | Format
 -------- | :-------- 
 Help | `help`
 New | `new NAME [by DEADLINE] [from START_TIME to END_TIME] [tag TAG]...`
-List | `list`
+List | `list [TYPE] [START_TIME] [END_TIME] [tag TAG]... [SORTING_ORDER]`
+Find | `find KEYWORD...`
+Narrow | `only [TYPE] [TAG]... [TIME]`
+Hide | `hide [TYPE] [TAG]...`
 Update | `update INDEX [NEW_NAME] [by NEW_DEADLINE] [from START_TIME to END_TIME] [tag TAG]`
 Delete | `delete INDEX`
 Complete | `complete INDEX`
 Undo | `undo [last STEPS]`
-Show | `show [TYPE] [START_TIME] [END_TIME] [tag TAG]... [SORTING_ORDER]`
-Find | `find KEYWORD...`
-Show Only | `only [TYPE] [TAG]... [TIME]`
-Hide | `hide [TYPE] [TAG]...`
 Clear | `clear`
 Relocate | `relocate PATH`
