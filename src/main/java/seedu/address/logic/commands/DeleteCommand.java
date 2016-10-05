@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
             assert false : "The target activity cannot be found";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete.name));
     }
 
 }

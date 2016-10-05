@@ -63,7 +63,7 @@ public class ActivityListPanel extends UiPart {
 
     private void setConnections(ObservableList<Activity> observableList) {
         activityListView.setItems(observableList);
-        activityListView.setCellFactory(listView -> new PersonListViewCell());
+        activityListView.setCellFactory(listView -> new ActivityListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -88,9 +88,9 @@ public class ActivityListPanel extends UiPart {
         });
     }
 
-    class PersonListViewCell extends ListCell<Activity> {
+    class ActivityListViewCell extends ListCell<Activity> {
 
-        public PersonListViewCell() {
+        public ActivityListViewCell() {
         }
 
         @Override

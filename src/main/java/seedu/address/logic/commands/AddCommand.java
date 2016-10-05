@@ -40,7 +40,7 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.name));
     }
 
 }
