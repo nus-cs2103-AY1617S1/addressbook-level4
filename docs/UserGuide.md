@@ -11,10 +11,10 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+1. Download Task Manager: You can then download TaskManager.jar from the latest release here: *COMING SOON*
+2. Copy the file to the folder you want to use as the home folder for your Task Manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   > <img src="images/MainPageLayout.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -154,7 +154,7 @@ Exits the program.
 Format : `exit`
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.
+Task Manager data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.<br>
 
 
@@ -163,7 +163,7 @@ There is no need to save manually.<br>
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Task Manager folder.
        
 ## Command Summary
 
