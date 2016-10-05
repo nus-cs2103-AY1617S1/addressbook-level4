@@ -175,16 +175,16 @@ Example : Help
 
 ###Command Summary
 
-| No. | Command | Format |
-|1| Add | <ul><li>add [event_description, date, start_time, end_time]</li>
+ No. | Command | Format 
+1| Add | <ul><li>add [event_description, date, start_time, end_time]</li>
 <li>add deadline_description, date, end_time</li><li>add to-do_description</li>
-<li>add [event_description, date, start_time, end_time] #tag !</li></ul>|
-|2| Edit | edit &lt;index&gt; &lt;new_event_description&gt; |
-|3| Search | search &lt;keywords&gt; |
-|4| Complete | complete &lt;index&gt;&lt;index&gt;... |
-|5| Undo | undo &lt;numer of times to redo, up to 5&gt; |
-|6| Delete | delete &lt;index&gt;&lt;index&gt; |
-|7| Exit | exit |
-|8| help | help |
+<li>add [event_description, date, start_time, end_time] #tag !</li></ul>
+2| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
+3| Search | search &lt;keywords&gt;
+4| Complete | complete &lt;index&gt;&lt;index&gt;... 
+5| Undo | undo &lt;number of times to undo, up to 5&gt; 
+6| Delete | delete &lt;index&gt;&lt;index&gt; 
+7| Exit | exit 
+8| help | help 
 
 
