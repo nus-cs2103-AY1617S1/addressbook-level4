@@ -1,6 +1,6 @@
  
-![Logo](docs/images/Logo.png)
-Format: ![Alt Text]("T-T")
+![T-T](/images/Logo.png)
+
 # **USER GUIDE** 
 ---
 ##**Contents**
