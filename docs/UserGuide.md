@@ -45,8 +45,8 @@ Changes the data file storage location. <br>
 Format: `change location to PATH`
 
 Examples:
-* `change location to C:\Users\Verbena\Dropbox\WhatNow`
-Changes the data file storage location to C:\Users\Verbena\Dropbox\WhatNow
+* `change location to C:\Users\Verbena\Dropbox\WhatNow`<br>
+Changes the data file storage location to C:\Users\Verbena\Dropbox\WhatNow<br>
 <img src="images/UI_Prototype/WhatNowUI-ChangeLocation-Colour.png" width="600">
 
 
@@ -59,22 +59,22 @@ The format for date must be *day month year* where year is optional. Eg: 10th Oc
 Time should be in the *12 hour format*. Eg: 10am, 6pm, 7.30pm. Not 7:30pm, 2359.
 
 Examples:
-* `add "Do CS2103T tutorial" on 4 Oct 2016 from 10am to 11am every week`
+* `add "Do CS2103T tutorial" on 4 Oct 2016 from 10am to 11am every week`<br>
 Adds a recurring scheduled task “CS2103T tutorial” on the 4th October 2016 from 10am to 11am every week. 
-* `add "Watch Storks movie" on 10/10 from 1pm to 3pm` 
+* `add "Watch Storks movie" on 10/10 from 1pm to 3pm`<br>
 Adds a scheduled task “Watch Storks movie” on 10th October 2016 from 1pm to 3pm. 
-* `add "CS2103 Project" by 20/11/2016 high`
+* `add "CS2103 Project" by 20/11/2016 high`<br>
 Adds a scheduled task “CS2103 Project” of high priority on 20th November 2016. 
-* `add “CS2105 Tutorial” on Thursday at 11am till 12pm every week`
+* `add “CS2105 Tutorial” on Thursday at 11am till 12pm every week`<br>
 Adds a recurring scheduled task “CS2105 Tutorial” on Thursday from 11am to 12pm.
-* `add "Buy chocolate milk"`
-Adds a todo task “Buy chocolate milk”.
-* `add "Buy pizza" at 7pm`
+* `add "Buy pizza" at 7pm`<br>
 Adds a scheduled task “Buy pizza” today at 7pm. 
-* `add "Charlie Puth concert” on 15th Oct 6pm"`
+* `add "Charlie Puth concert” on 15th Oct 6pm"`<br>
 Adds a scheduled task “Charlie Puth concert” on 15th October at 6pm.
+* `add "Buy chocolate milk"`<br>
+Adds a todo task “Buy chocolate milk”.
 
->Tasks with date and time specified will be added to WhatNow as a schedule task and will be displayed under the heading "Schedule".<br> 
+>Tasks with date and time specified will be added to WhatNow as a schedule task and will be<br> displayed under the heading "Schedule".<br> 
 > <img src="images/UI_Prototype/WhatNowUI-AddSchedule-Colour.png" width="600">
 
 >Tasks without date and time specified will be added to WhatNow as a todo task and will be<br> displayed under the heading "Todo Tasks".
