@@ -9,25 +9,25 @@ import tars.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask taskA, taskB, taskC, taskD, taskE, taskF, taskG, taskH, taskI;
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
-                    .withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
-            elle = new TaskBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withAddress("little tokyo").build();
-            george = new TaskBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
+            taskA =  new TaskBuilder().withName("Task A").withDateTime("01/09/2016 1400 to 02/09/2016 1400")
+                    .withPriority("h")
+                    .withTags("test").build();
+            taskB = new TaskBuilder().withName("Task B").withDateTime("02/09/2016 1400 to 03/09/2016 1400")
+                    .withPriority("m")
+                    .withTags("tars", "test").build();
+            taskC = new TaskBuilder().withName("Task C").withDateTime("03/09/2016 1400 to 04/09/2016 1400").withPriority("l").build();
+            taskD = new TaskBuilder().withName("Task D").withDateTime("04/09/2016 1400 to 05/09/2016 1400").withPriority("h").build();
+            taskE = new TaskBuilder().withName("Task E").withDateTime("05/09/2016 1400 to 06/09/2016 1400").withPriority("m").build();
+            taskF = new TaskBuilder().withName("Task F").withDateTime("06/09/2016 1400 to 07/09/2016 1400").withPriority("l").build();
+            taskG = new TaskBuilder().withName("Task G").withDateTime("07/09/2016 1400 to 08/09/2016 1400").withPriority("h").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
-            ida = new TaskBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
+            taskH = new TaskBuilder().withName("Task H").withDateTime("08/09/2016 1400 to 09/09/2016 1400").withPriority("m").build();
+            taskI = new TaskBuilder().withName("Task I").withDateTime("09/09/2016 1400 to 10/09/2016 1400").withPriority("l").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -37,20 +37,20 @@ public class TypicalTestTasks {
     public static void loadTarsWithSampleData(Tars ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
+            ab.addTask(new Task(taskA));
+            ab.addTask(new Task(taskB));
+            ab.addTask(new Task(taskC));
+            ab.addTask(new Task(taskD));
+            ab.addTask(new Task(taskE));
+            ab.addTask(new Task(taskF));
+            ab.addTask(new Task(taskG));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[]{taskA, taskB, taskC, taskD, taskE, taskF, taskG};
     }
 
     public Tars getTypicalTars(){
