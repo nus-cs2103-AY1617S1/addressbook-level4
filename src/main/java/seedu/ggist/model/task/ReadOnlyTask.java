@@ -8,11 +8,7 @@ import seedu.ggist.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-<<<<<<< HEAD:src/main/java/seedu/address/model/person/ReadOnlyPerson.java
-    Name getName();
-=======
     TaskName getTaskName();
->>>>>>> 2196a4f91cbd3b9663c1ef7ca7f3551168fa35e4:src/main/java/seedu/ggist/model/task/ReadOnlyTask.java
     Date getDate();
     Time getTime();
     Priority getPriority();
@@ -30,7 +26,7 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getTaskName().equals(this.getTaskName()) // state checks here onwards
                 && other.getDate().equals(this.getDate())
                 && other.getTime().equals(this.getTime())
                 && other.getPriority().equals(this.getPriority()))
@@ -42,9 +38,9 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Name: ")
-                .append(getName())
+        builder.append(getTaskName())
+                .append(" Task Name: ")
+                .append(getTaskName())
                 .append(" Date: ")
                 .append(getDate())
                 .append(" Time: ")
