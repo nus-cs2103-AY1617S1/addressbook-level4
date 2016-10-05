@@ -121,7 +121,7 @@ Examples:
 
 #### Edit a person : `edit`
 Edits the specified task from the to-do list.<br>
-Format: `edit INDEX [n\TASK_NAME] [s/DDMMYYYY TTTT] [e/DDMMYYYY TTTT] [t/TAG]`
+Format: `edit INDEX [n/TASK_NAME] [s/DDMMYYYY TTTT] [e/DDMMYYYY TTTT] [t/TAG]`
 
 > Edits the person at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
@@ -132,7 +132,7 @@ Examples:
   `edit 2 p/low`<br>
   Edit the 2nd task in the to-do list replacing the priority.
 * `find lunch`<br> 
-  `edit 1 n\lunch with mom`<br>
+  `edit 1 n/lunch with mom`<br>
   Edits the 1st task in the results of the `find` or ‘ command.<br>
   Need to put at least one field
 
@@ -192,6 +192,6 @@ List | `list`
 Help | `help`
 Select | `select INDEX`
 Undo | `undo`
-Edit | `edit INDEX [n\TASK_NAME] [s/DDMMYYYY TTTT] [e/DDMMYYYY TTTT] [t/TAG]`
+Edit | `edit INDEX [n/TASK_NAME] [s/DDMMYYYY TTTT] [e/DDMMYYYY TTTT] [t/TAG]`
 
 
