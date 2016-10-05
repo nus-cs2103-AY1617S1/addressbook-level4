@@ -51,13 +51,11 @@ Use case ends.
 
 > 2a1. Amethyst displays error message
 > 2a2. Amethyst prompts user to input in correct format
-
 > Use case ends.
 
 2b. Duplicate entry entered by user
 
 > 2b1. Amethyst displays prompt message, requests user to differentiate entry <br>
-
 > Use case ends.
 
 #### Use case: Mark task as done
@@ -85,7 +83,6 @@ Use case ends.
 
 > 4a1. Amethyst displays error message
 > 4a2. Amethyst prompts user to input in correct format
-
 > Use case ends.
 
 #### Use case: Undo previous operation
@@ -105,13 +102,11 @@ Use case ends.
 
 > 2a1. Amethyst displays error message
 > 2a2. Amethyst prompts user to input in correct command format
-
 > Use case ends
 
 4a. No more operations to undo/ Program is at original state
 
 > 4a1. Amethyst displays an error message, stating no more operations to undo <br>
-
 > Use case ends
 
 ### Use case: Update task
@@ -139,7 +134,6 @@ Use case ends.
 
 > 4a1. Amethyst displays error message
 > 4a2. Amethyst prompts user to input in correct format
-
 > Use case ends.
 
 ##Appendix C: Non-Functional Requirements
