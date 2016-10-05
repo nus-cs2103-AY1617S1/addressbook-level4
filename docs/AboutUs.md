@@ -4,42 +4,37 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Peh Xian Bin, Eugene](https://github.com/eugenepeh) <br>
+<img src="images/EPXB.jpg" width="150"><br>
+**Role**: ??
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
+#### [Tan Suan Zhi](https://github.com/e0003892)
+<img src="images/TSZ.jpg" width="150"><br>
+Role: ?? <br>  
 Responsibilities: UI
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+#### [Chua Jun Wen](https://github.com/JunWen991) 
+<img src="images/CJW.jpg" width="150"><br>
+Role: ?? <br>  
+Responsibilities: ??
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-Role: Developer <br>  
-Responsibilities: Dev Ops
+#### [YUAN WENYI](https://github.com/ywy13250)
+<img src="images/YWY.jpg" width="150"><br>
+Role: ?? <br>  
+Responsibilities: ??
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
+## Mentor
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
+#### [Jeffry Hartanto](https://github.com/jeffryhartanto)
+<img src="images/Jeffry.jpg" width="150"><br>
  
  -----
 
