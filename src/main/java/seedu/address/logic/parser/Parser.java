@@ -131,9 +131,9 @@ public class Parser {
     	final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         try {
             return new NoteCommand(matcher.group("name"));
-		} catch (IllegalValueException ive) {
-			return new IncorrectCommand(ive.getMessage());
-		}
+        } catch (IllegalValueException ive) {
+		    return new IncorrectCommand(ive.getMessage());
+        }
     }
 
     /**
