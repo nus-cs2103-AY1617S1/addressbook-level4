@@ -287,7 +287,7 @@ Lifekeeper has returned an indexed list of tasks that matches the search
 
 1. User finds the index of the task (s)he wants to delete and enters the index of the task to be deleted
 2. Lifekeeper asks the user to confirm the decision.
-3. User enters ‘Yes’ into the CLI
+3. User enters 'Yes' into the CLI
 4. Lifekeeper deletes the task, shows an acknowledgement message to user. <br>
 Use case ends.
 
@@ -306,7 +306,7 @@ Users repeats the prerequisite steps 1-2.
 	1c1. Lifekeeper gives an error message and returns an empty Command Box
 Use case resumes at step 1
 
-3a. User types ‘No’ into the CLI
+3a. User types 'No' into the CLI
 	3a1. Lifekeeper returns to the indexed list of tasks that was searched by the user.
 > Use case ends
 
@@ -342,6 +342,7 @@ Use case ends.
 > 2a3. User makes edits the parameters by changing the words on the CLI
 Repeat steps 2a1-2a3 until Lifekeeper judges that the input parameters are all valid
 Use case resumes from step 3.
+
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -370,23 +371,23 @@ Use case resumes from step 3.
 
 ## Appendix E : Product Survey
 
-1. Google Calendar
+#### Google Calendar
 
-> 1a. Reminder: allows user to set reminder ahead of the time of event/task
+> 1. Reminder: allows user to set reminder ahead of the time of event/task
 
-> 1b. Calendar display: user can view tasks in a calendar format
+> 2. Calendar display: user can view tasks in a calendar format
 
-2. Todoist
+#### Todoist
 
-> 2a. Prioritize: allows user to set priority to see what tasks should be done first
+> 1. Prioritize: allows user to set priority to see what tasks should be done first
 
-> 2b. Categorization: user can categorize tasks, so that tasks can be viewed by categories
+> 2. Categorization: user can categorize tasks, so that tasks can be viewed by categories
 
-3. Trello
+#### Trello
 
-> 3a. Selective visibility: enables members to view only the projects or tasks that are relevant to them
+> 1. Selective visibility: enables members to view only the projects or tasks that are relevant to them
 
-> 3b. Detailed categorisation: allows 3 levels of categorisations for tasks
+> 2. Detailed categorisation: allows 3 levels of categorisations for tasks
 
-> 3c. Message boards: permits members delegated to a certain task to hold discussions or ask questions
+> 3. Message boards: permits members delegated to a certain task to hold discussions or ask questions
 
