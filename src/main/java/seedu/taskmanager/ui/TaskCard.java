@@ -6,9 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.taskmanager.model.task.ReadOnlyTask;
 
-public class PersonCard extends UiPart{
+public class TaskCard extends UiPart{
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TaskListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -17,36 +17,36 @@ public class PersonCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label deadline;
     @FXML
-    private Label address;
+    private Label reminder;
     @FXML
-    private Label email;
+    private Label priority;
     @FXML
     private Label tags;
 
-    private ReadOnlyTask person;
+    private ReadOnlyTask task;
     private int displayedIndex;
 
-    public PersonCard(){
+    public TaskCard(){
 
     }
 
-    public static PersonCard load(ReadOnlyTask person, int displayedIndex){
-        PersonCard card = new PersonCard();
-        card.person = person;
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+        TaskCard card = new TaskCard();
+        card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getDeadline().value);
-        address.setText(person.getPriority().value);
-        email.setText(person.getReminder().value);
-        tags.setText(person.tagsString());
+        deadline.setText(task.getDeadline().value);
+        reminder.setText(task.getPriority().value);
+        priority.setText(task.getReminder().value);
+        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {
