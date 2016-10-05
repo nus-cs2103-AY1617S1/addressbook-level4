@@ -1,5 +1,5 @@
  
-![T-T](images/Logo.png)
+![T-T](images/Logo.png =100x20)
 
 # **USER GUIDE** 
 ---
