@@ -113,7 +113,7 @@ There is no need to save manually.
 
 **A**: Yes, you can still add your task. You can create a floating task by only type in command `add TASK_NAME` if you don't know the deadline of your task.
 
-> <img src="images/mockup3.JPG" width="600">
+> <img src="images/mockup3.JPG" width="600"><br>
 In this example, you can see shopping is a floating task without a start time and deadline. 
   	
 ## Command Summary
