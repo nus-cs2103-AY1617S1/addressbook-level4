@@ -1,56 +1,56 @@
 package seedu.address.testutil;
 
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.person.*;
+import seedu.address.model.task.*;
 
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestPerson implements ReadOnlyTask {
 
-    private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
+    private TaskName name;
+    private Reminder address;
+    private Priority email;
+    private DueDate phone;
     private UniqueTagList tags;
 
     public TestPerson() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
+    public void setName(TaskName name) {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Reminder address) {
         this.address = address;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(Priority email) {
         this.email = email;
     }
 
-    public void setPhone(Phone phone) {
+    public void setPhone(DueDate phone) {
         this.phone = phone;
     }
 
     @Override
-    public Name getName() {
+    public TaskName getName() {
         return name;
     }
 
     @Override
-    public Phone getPhone() {
+    public DueDate getDueDate() {
         return phone;
     }
 
     @Override
-    public Email getEmail() {
+    public Priority getPriority() {
         return email;
     }
 
     @Override
-    public Address getAddress() {
+    public Reminder getReminder() {
         return address;
     }
 
@@ -67,9 +67,9 @@ public class TestPerson implements ReadOnlyPerson {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("p/" + this.getDueDate().value + " ");
+        sb.append("e/" + this.getPriority().value + " ");
+        sb.append("a/" + this.getReminder().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

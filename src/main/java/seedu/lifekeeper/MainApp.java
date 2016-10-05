@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.lifekeeper;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
