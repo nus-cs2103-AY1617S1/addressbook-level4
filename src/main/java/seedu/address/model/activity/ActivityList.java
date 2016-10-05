@@ -31,14 +31,20 @@ public class ActivityList implements Iterable<Activity> {
      *
      * @throws ActivityNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(Activity toRemove) { //throws PersonNotFoundException {
+    public boolean remove(Activity toRemove) throws ActivityNotFoundException {
         assert toRemove != null;
         final boolean activityFoundAndDeleted = internalList.remove(toRemove);
-//        if (!personFoundAndDeleted) {
-//            throw new PersonNotFoundException();
-//        }
+        if (!activityFoundAndDeleted) {
+            throw new ActivityNotFoundException();
+        }
         return activityFoundAndDeleted;
     }
+    
+    /**
+     * Signals that an operation targeting a specified person in the list would fail because
+     * there is no such matching person in the list.
+     */
+    public static class ActivityNotFoundException extends Exception {}
 	
     public ObservableList<Activity> getInternalList() {
         return internalList;

@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.ActivityManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityList.ActivityNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
@@ -66,7 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(Activity target) { // throws ActivityNotFoundException {
+    public synchronized void deletePerson(Activity target) throws ActivityNotFoundException {
         activityManager.removeActivity(target);
         indicateAddressBookChanged();
     }

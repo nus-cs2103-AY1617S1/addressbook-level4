@@ -107,14 +107,12 @@ public class ActivityManager implements ReadOnlyActivityManager {
 //        activity.setTags(new UniqueTagList(commonTagReferences));
 //    }
 
-    public boolean removeActivity(Activity key) { //throws UniquePersonList.PersonNotFoundException {
+    public boolean removeActivity(Activity key) throws ActivityList.ActivityNotFoundException {
         if (activities.remove(key)) {
             return true;
+        } else {
+            throw new ActivityList.ActivityNotFoundException();
         }
-        return false;
-//        } else {
-//            throw new UniquePersonList.PersonNotFoundException();
-//        }
     }
 
 //// tag-level operations

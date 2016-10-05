@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityList;
+import seedu.address.model.activity.ActivityList.ActivityNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
@@ -19,7 +21,7 @@ public interface Model {
     ReadOnlyActivityManager getAddressBook();
 
     /** Deletes the given person. */
-    void deletePerson(Activity target);
+    void deletePerson(Activity target) throws ActivityNotFoundException;
 
     /** Adds the given person */
     void addPerson(Activity activity);
