@@ -7,7 +7,7 @@ We are from team W14-C3.
 #### [Abel Lim](http://github.com/abellimz) <br>
 <img src="images/AbelLim.jpg" width="150"><br>
 Role: Team Lead, Git Expert, Scheduling & Tracking <br>  
-Responsibilities: Logic & Main
+Responsibilities: Logic
 
 -----
 
@@ -28,6 +28,12 @@ Responsibilities: Model
 #### [Silfer Goh](http://github.com/Silfer)
 <img src="images/GohYuanTat.jpg" width="150"><br>
 Role: Testing & GUI Design <br>  
-Responsibilities: UI
+Responsibilities: UI & Main
+
+-----
+
+#### [Michelle Tan](http://github.com/michelletan) <br>
+<img src="images/MichelleTan.jpg" width="150"><br>
+Role: Mentor <br>  
 
 -----
