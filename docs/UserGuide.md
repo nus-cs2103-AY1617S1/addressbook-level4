@@ -54,9 +54,12 @@ Changes the data file storage location to C:\Users\Verbena\Dropbox\WhatNow<br>
 Adds a task to WhatNow<br>
 Format: `add "DESCRIPTION" [on/by] [today/tomorrow/DAY/DATE] [from/at] [START_TIME] [to/till] [END_TIME] [every] [DAY/day/week/month/year] [low/medium/high]` 
 
->All task description should be written within double quotation marks. Eg Add “buy eggs”. <br>
-The format for date must be *day month year* where year is optional. Eg: 10th Oct, 4 November, 11th August 2017. Not 12/12/12. <br>
-Time should be in the *12 hour format*. Eg: 10am, 6pm, 7.30pm. Not 7:30pm, 2359.
+> * All task description should be written within double quotation marks.<br>
+Eg Add “buy eggs”. <br>
+> * The format for date must be *day month year* where year is optional.<br>
+Eg: 10th Oct, 4 November, 11th August 2017. Not 12/12/12. <br>
+> * Time should be in the *12 hour format*.<br>
+Eg: 10am, 6pm, 7.30pm. Not 7:30pm, 2359.
 
 Examples:
 * `add "Do CS2103T tutorial" on 4 Oct 2016 from 10am to 11am every week`<br>
@@ -85,7 +88,7 @@ Adds a todo task “Buy chocolate milk”.
 Shows a list of all tasks that match task type, date, time and priority requested by user.<br>
 Format: `list [date/time/priority] KEYWORD`
 
-> Shows a list of all tasks that match the keyword for the task type, date, time and priority requested by user.
+> * Shows a list of all tasks that match the keyword for the task type, date, time and priority requested by user.
 
 Examples: 
 * `list`<br>
@@ -110,9 +113,9 @@ Returns a list of all tasks scheduled for 3 November of the current year. <br>
 Deletes a task from WhatNow. Reversible.<br>
 Format: `delete todo/schedule/completed INDEX`
 
-> Deletes the task at the specified `INDEX` from todo tasks, schedule or completed tasks as specified. <br>
-  The index refers to the index number shown in the current listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> * Deletes the task at the specified `INDEX` from todo tasks, schedule or completed tasks as specified. <br>
+> * The index refers to the index number shown in the current listing.<br>
+> * The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `delete todo 4`<br>
@@ -127,9 +130,9 @@ Examples:
 Updates a task from the list displayed<br>
 Format: `update todo/schedule INDEX description/date/start/end/status/priority  NEW_VALUE`
 
-> Updates the description/date/start/end/status/priority of the task at the specified `INDEX` from todo tasks or schedule as specified.<br> 
-  The index refers to the index number shown in the current listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> * Updates the description/date/start/end/status/priority of the task at the specified `INDEX`<br> from todo tasks or schedule as specified.<br> 
+> * The index refers to the index number shown in the current listing.<br>
+> * The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `update todo 3 description Avengers`<br>
