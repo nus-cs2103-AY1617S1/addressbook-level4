@@ -11,7 +11,7 @@ We are a team of four computer engineering students based in the [School of Comp
 
 #### Zavier Ong 
 Role: Developer <br>  
-Responsibilities: COde Quality
+Responsibilities: Code Quality
 
 -----
 
