@@ -7,20 +7,20 @@ import seedu.address.model.task.*;
 /**
  *
  */
-public class PersonBuilder {
+public class TestBuilder {
 
     private TestTask person;
 
-    public PersonBuilder() {
+    public TestBuilder() {
         this.person = new TestTask();
     }
 
-    public PersonBuilder withName(String name) throws IllegalValueException {
+    public TestBuilder withName(String name) throws IllegalValueException {
         this.person.setName(new Name(name));
         return this;
     }
 
-    public PersonBuilder withTags(String ... tags) throws IllegalValueException {
+    public TestBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             person.getTags().add(new Tag(tag));
         }

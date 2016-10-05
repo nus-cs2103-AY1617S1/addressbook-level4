@@ -13,17 +13,17 @@ public class TypicalTestTask {
 
     public TypicalTestTask() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").build();
-            elle = new PersonBuilder().withName("Elle Meyer").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").build();
-            george = new PersonBuilder().withName("George Best").build();
+            alice =  new TestBuilder().withName("Alice Pauline").withTags("friends").build();
+            benson = new TestBuilder().withName("Benson Meier").withTags("owesMoney", "friends").build();
+            carl = new TestBuilder().withName("Carl Kurz").build();
+            daniel = new TestBuilder().withName("Daniel Meier").build();
+            elle = new TestBuilder().withName("Elle Meyer").build();
+            fiona = new TestBuilder().withName("Fiona Kunz").build();
+            george = new TestBuilder().withName("George Best").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").build();
-            ida = new PersonBuilder().withName("Ida Mueller").build();
+            hoon = new TestBuilder().withName("Hoon Meier").build();
+            ida = new TestBuilder().withName("Ida Mueller").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
