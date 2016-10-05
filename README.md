@@ -15,6 +15,7 @@
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
 * [Use Cases and Stories] (docs/UserStoriesCases.md)
+* [Product Surveys] (docs/ProductSurveys.md)
 * [Developer Guide] (docs/DeveloperGuide.md)
 * [About Us](docs/AboutUs.md)
 
