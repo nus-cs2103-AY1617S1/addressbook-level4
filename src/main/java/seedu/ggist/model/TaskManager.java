@@ -77,7 +77,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      */
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(t);
-        tasks.add(t));
+        tasks.add(t);
     }
 
     /**
@@ -150,7 +150,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                && this.tasks.equals(((TaskManager) other).taskss)
+                && this.tasks.equals(((TaskManager) other).tasks)
                 && this.tags.equals(((TaskManager) other).tags));
     }
 

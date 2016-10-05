@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
-import seedu.ggist.commons.events.model.AddressBookChangedEvent;
+import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
 import seedu.ggist.commons.events.storage.DataSavingExceptionEvent;
 import seedu.ggist.commons.exceptions.DataConversionException;
 import seedu.ggist.model.ReadOnlyTaskManager;
@@ -35,5 +35,5 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleAddressBookChangedEvent(TaskManagerChangedEvent abce);
 }

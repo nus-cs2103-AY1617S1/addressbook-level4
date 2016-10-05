@@ -4,12 +4,13 @@ import javafx.collections.transformation.FilteredList;
 import seedu.ggist.commons.core.ComponentManager;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
-import seedu.ggist.commons.events.model.AddressBookChangedEvent;
+import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
 import seedu.ggist.commons.util.StringUtil;
 import seedu.ggist.model.task.Task;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
-import seedu.ggist.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;

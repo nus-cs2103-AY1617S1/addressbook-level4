@@ -6,7 +6,7 @@ import java.util.List;
 import seedu.ggist.model.tag.Tag;
 import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.ReadOnlyTask;
-import seedu.ggist.model.task.UniquePersonList;
+import seedu.ggist.model.task.UniqueTaskList;
 
 /**
  * Unmodifiable view of an address book
@@ -15,12 +15,12 @@ public interface ReadOnlyTaskManager {
 
     UniqueTagList getUniqueTagList();
 
-    UniquePersonList getUniquePersonList();
+    UniqueTaskList getUniqueTaskList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of tasks list
      */
-    List<ReadOnlyTask> getPersonList();
+    List<ReadOnlyTask> getTaskList();
 
     /**
      * Returns an unmodifiable view of tags list
