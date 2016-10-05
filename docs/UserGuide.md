@@ -162,6 +162,7 @@ Command | Format
 Add | `add [TASK/EVENT] DESCRIPTION [-t TITLE] [due/at DATE TIME] [PRIORITY]` OR `DESCRIPTION [-t TITLE] [due/at DATE TIME] [PRIORITY]`
 Update | `update INDEX [DESCRIPTION] [-t TITLE] [due/at DATE TIME] [PRIORITY]`
 Clear | `clear`
+Undo | `undo`
 Complete | `complete INDEX [MORE_INDICES]`
 Search | `search KEYWORD [MORE_KEYWORDS] [FLAGS]`
 List | `list [TASK/EVENT]`
