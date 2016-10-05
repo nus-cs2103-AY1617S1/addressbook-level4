@@ -5,7 +5,7 @@ We are students from the [School of Computing, National University of Singapore]
 ## Project Team
 
 #### Nirandika Wanigasekara <br>
-Project Mentor/ Tutor
+Project Mentor/ Tutor <br>
 <img src="https://lh4.googleusercontent.com/Ri7AdNgaXprtx-UlCIPPy9DStUkP59zjxY6gjpVPoPrqypnIqKj-NK7Ei2FNJYVB-GKb9UunMQHuq7_KTfB5Fysp66ai62dOROdfRdDyKWuM_5vtkitNpE_fZz81TKXeLw" width="150"> <br>
 
 -----
