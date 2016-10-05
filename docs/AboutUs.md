@@ -18,7 +18,7 @@ Responsibilities: Code Quality/Deliverables/UI
 -----
 
 #### [Aloisius Stephen](https://github.com/aloisiusStephen)
-<img src="images/AloisiusStephen.jpg" width="150"><br> 
+<img src="images/Aloisius.jpg" width="150"><br> 
 Role: Developer <br>  
 Responsibilities: Integration, Parser
 
@@ -33,6 +33,7 @@ Responsibilities: Logic, Storage
 
 #### [Hong Bangwu](https://github.com/ndt93)
 <img src="images/Bangwu.jpg" width="150"><br> 
-Role: Developer <br>   Responsibilities: Testing/Model/EventsCentre
+Role: Developer <br>   
+Responsibilities: Testing/Model/EventsCentre
 
 -----
