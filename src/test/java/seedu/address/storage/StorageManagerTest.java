@@ -6,11 +6,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.TaskList;
+import seedu.address.model.UserPrefs;
+import seedu.address.storage.StorageManager;
 import seedu.address.testutil.TypicalTestPersons;
-import seedu.smartscheduler.model.ReadOnlyTaskList;
-import seedu.smartscheduler.model.TaskList;
-import seedu.smartscheduler.model.UserPrefs;
-import seedu.smartscheduler.storage.StorageManager;
 
 import static org.junit.Assert.assertEquals;
 

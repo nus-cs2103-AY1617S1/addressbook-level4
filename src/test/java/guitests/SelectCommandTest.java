@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.smartscheduler.model.task.ReadOnlyTask;
+import seedu.address.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 

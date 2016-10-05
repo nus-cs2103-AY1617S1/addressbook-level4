@@ -6,10 +6,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.smartscheduler.commons.exceptions.DataConversionException;
-import seedu.smartscheduler.commons.util.FileUtil;
-import seedu.smartscheduler.model.UserPrefs;
-import seedu.smartscheduler.storage.JsonUserPrefStorage;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.model.UserPrefs;
+import seedu.address.storage.JsonUserPrefStorage;
 
 import java.io.File;
 import java.io.IOException;

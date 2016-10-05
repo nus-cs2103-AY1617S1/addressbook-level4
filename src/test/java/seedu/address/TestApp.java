@@ -2,13 +2,13 @@ package seedu.address;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.UserPrefs;
+import seedu.address.storage.XmlSerializableTaskList;
 import seedu.address.testutil.TestUtil;
-import seedu.smartscheduler.MainApp;
-import seedu.smartscheduler.commons.core.Config;
-import seedu.smartscheduler.commons.core.GuiSettings;
-import seedu.smartscheduler.model.ReadOnlyTaskList;
-import seedu.smartscheduler.model.UserPrefs;
-import seedu.smartscheduler.storage.XmlSerializableTaskList;
 
 import java.util.function.Supplier;
 

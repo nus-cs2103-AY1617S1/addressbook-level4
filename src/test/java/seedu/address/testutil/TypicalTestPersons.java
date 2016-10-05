@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import seedu.smartscheduler.commons.exceptions.IllegalValueException;
-import seedu.smartscheduler.model.TaskList;
-import seedu.smartscheduler.model.task.*;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.TaskList;
+import seedu.address.model.task.*;
 
 /**
  *
