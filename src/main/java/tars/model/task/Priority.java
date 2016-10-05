@@ -9,15 +9,7 @@ public class Priority {
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority should be h / m / l";
     public static final String PRIORITY_VALIDATION_REGEX = "[\\p{Lower} ]+";
 
-    public static final String PRIORITY_HIGH = "high";
-    public static final String PRIORITY_MEDIUM = "medium";
-    public static final String PRIORITY_LOW = "low";
-
-    public static final String PRIORITY_H = "h";
-    public static final String PRIORITY_M = "m";
-    public static final String PRIORITY_L = "l";
-
-    private String priorityLevel;
+    public String priorityLevel;
 
     /**
      * Validates given task priority level.
@@ -43,21 +35,7 @@ public class Priority {
 
     @Override
     public String toString() {
-        String level = "";
-
-        switch (priorityLevel) {
-        case PRIORITY_H:
-            level = PRIORITY_HIGH;
-            break;
-        case PRIORITY_M:
-            level = PRIORITY_MEDIUM;
-            break;
-        case PRIORITY_L:
-            level = PRIORITY_LOW;
-            break;
-        }
-
-        return level;
+        return priorityLevel;
     }
 
     public void setLevel(String priorityLevel) {
