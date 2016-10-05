@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class StartTime {
 
     public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
-    public static final String PHONE_VALIDATION_REGEX = "\\d+";
+    public static final String PHONE_VALIDATION_REGEX = "[\\p{Alnum} ]";
 
     public final String value;
 
@@ -19,9 +19,10 @@ public class StartTime {
      * @throws IllegalValueException if given phone string is invalid.
      */
     public StartTime(String phone) throws IllegalValueException {
-        assert phone != null;
-        phone = phone.trim();
-        if (!isValidPhone(phone)) {
+        if (phone != null) {
+        	phone = phone.trim();
+        }
+        if ( phone != null && !isValidPhone(phone)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
         }
         this.value = phone;
