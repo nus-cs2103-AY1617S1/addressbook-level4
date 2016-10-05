@@ -1,4 +1,4 @@
-package seedu.end.model.person;
+package seedu.address.model.person;
 
 import seedu.end.commons.util.CollectionUtil;
 import seedu.end.model.tag.UniqueTagList;
