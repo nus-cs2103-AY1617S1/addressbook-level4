@@ -89,7 +89,7 @@ Examples:
 * **`list`**` today`
 * **`list`**` 12 Oct 2016`
 
-#### Finding all events containing any keyword in the name: `find`
+### Finding all events containing any keyword in the name: `find`
 Finds events whose names contain any of the given keywords.<br>
 Format: **`find`**` [keywords]`
 
@@ -102,21 +102,22 @@ Examples:
 * `find mom dad sister`<br>
   Returns Any event having names `mom`, `dad`, or `sister`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+### Deleting an event : `delete`
+Delete the specified events from the to-do list. Irreversible.<br>
+Format: **`delete`**` [index 1,index 2,...]`
 
-> Deletes the person at the specified `INDEX`. 
+> This command is capable to deleting single and multiple events. For multiple events, the indexes are separated by a comma. <br>
+> Deletes the person at the specified index. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+* **`list`**` today`<br>
+  **`delete`**` 2`<br>
+  Deletes the 2nd event in the results of the **`list`** command.
+* **`find`**` mom`<br> 
+  **`delete`**` 1,4`<br>
+  Deletes the 1st and 4th event in the results of the **`find`** command.
 
 #### Select a person : `select`
 Selects the person identified by the index number used in the last person listing.<br>
