@@ -1,8 +1,9 @@
 package tars.model.task;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import tars.commons.exceptions.IllegalValueException;
 
@@ -26,14 +27,14 @@ public class DateTime {
     /**
      * Validates given task dateTime.
      *
-     * @throws DateTimeParseException
-     *             if given dateTime string is invalid.
-     * @throws IllegalDateException
-     *             end date occurring before start date.
+     * @throws DateTimeException if given dateTime string is invalid.
+     * @throws IllegalDateException end date occurring before start date.
      */
-    public DateTime(String startDate, String endDate) throws DateTimeParseException, IllegalDateException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-
+    public DateTime(String startDate, String endDate)
+            throws DateTimeException, IllegalDateException {
+        DateTimeFormatter formatter = DateTimeFormatter
+                .ofPattern("d/M/uuuu HHmm")
+                .withResolverStyle(ResolverStyle.STRICT);
         this.endDate = LocalDateTime.parse(endDate, formatter);
         this.endDateString = endDate;
 
@@ -44,8 +45,6 @@ public class DateTime {
                 throw new IllegalDateException("End dateTime should be after start dateTime.");
             }
         }
-
-
     }
 
     public void setStartDate(LocalDateTime startDate) {
@@ -73,4 +72,5 @@ public class DateTime {
             super(message);
         }
     }
+    
 }
