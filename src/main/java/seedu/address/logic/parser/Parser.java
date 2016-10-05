@@ -92,7 +92,7 @@ public class Parser {
                         keywords.substring(keywords.indexOf("rank")+4, keywords.length()));
             }
             else
-                return new AddCommand(keywords, null);
+                return new AddCommand(keywords);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
