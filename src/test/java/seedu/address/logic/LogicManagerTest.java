@@ -386,7 +386,6 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             StartTime startTime = new StartTime("111111");
             EndTime endTime = new EndTime("adam@gmail.com");
-            int uniqueID = 1;
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
