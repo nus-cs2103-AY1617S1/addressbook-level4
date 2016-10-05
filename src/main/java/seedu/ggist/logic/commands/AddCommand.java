@@ -40,6 +40,8 @@ public class AddCommand extends Command {
                 new Date(date),
                 new Time(startTime),
                 new Time(endTime),
+                new Priority(priority),
+                new Frequency(frequency),
                 new UniqueTagList(tagSet)
         );
     }
