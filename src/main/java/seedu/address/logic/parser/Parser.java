@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
+import seedu.address.model.tag.Tag;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -65,6 +66,9 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
+            
+        case FindTagCommand.COMMAND_WORD:
+            return prepareFindTag(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -231,6 +235,36 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the find tag command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareFindTag(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+
+        final Set<Tag> tagSet = new HashSet<>();
+
+        try {
+            
+            for (String tagName : keywords) {
+                tagSet.add(new Tag(tagName));
+            }
+        
+            return new FindTagCommand(tagSet);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
 }

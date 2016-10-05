@@ -5,6 +5,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 
 import java.util.Set;
 import java.util.Stack;
@@ -36,5 +37,8 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
+
+    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    void updateFilteredTagPersonList(Set<Tag> keywords);
 
 }

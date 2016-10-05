@@ -11,7 +11,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.tag.Tag;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -103,6 +105,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    @Override
+    public void updateFilteredTagPersonList(Set<Tag> keywords){
+        updateFilteredPersonList(new PredicateExpression(new TagQualifier(keywords)));
+    }
 
     private void updateFilteredPersonList(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
@@ -157,6 +164,26 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class TagQualifier implements Qualifier {
+        private Set<Tag> tagKeyWords;
+
+        TagQualifier(Set<Tag> tagKeyWords) {
+            this.tagKeyWords = tagKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyPerson person) {
+            final Set<Tag> tagList = person.getTags().toSet();
+            
+            return !Collections.disjoint(tagList, tagKeyWords);
+        }
+
+        @Override
+        public String toString() {
+            return "tags=" + String.join(", ", tagKeyWords.toString());
         }
     }
 
