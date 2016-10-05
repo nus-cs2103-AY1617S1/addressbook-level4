@@ -161,7 +161,7 @@ Complete T1, T3
 
 >Note: if you want to select more than one task to complete, you can separated the task by a - to complete all tasks that are within the range. In addition, you also separate the task by a , to individually delete them.
 
-###4.5 Display completed task
+###4.5 Display completed tasks
 
 The display command will display the completed tasks in their respective categories.
 
