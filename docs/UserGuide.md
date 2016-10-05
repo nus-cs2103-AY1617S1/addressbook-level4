@@ -11,7 +11,8 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download Task Manager: You can then download TaskManager.jar from the latest release here: *COMING SOON*
+1. Download Task Manager: You can then download TaskManager.jar from the latest release here: 
+   **COMING SOON**
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/MainPageLayout.png" width="600">
