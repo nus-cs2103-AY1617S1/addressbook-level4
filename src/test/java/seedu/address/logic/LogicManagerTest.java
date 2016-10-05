@@ -1,24 +1,28 @@
 package seedu.address.logic;
 
 import com.google.common.eventbus.Subscribe;
+
+import seedu.smartscheduler.commons.core.EventsCenter;
+import seedu.smartscheduler.commons.events.model.TaskListChangedEvent;
+import seedu.smartscheduler.commons.events.ui.JumpToListRequestEvent;
+import seedu.smartscheduler.commons.events.ui.ShowHelpRequestEvent;
+import seedu.smartscheduler.logic.Logic;
+import seedu.smartscheduler.logic.LogicManager;
+import seedu.smartscheduler.logic.commands.*;
+import seedu.smartscheduler.model.Model;
+import seedu.smartscheduler.model.ModelManager;
+import seedu.smartscheduler.model.ReadOnlyTaskList;
+import seedu.smartscheduler.model.TaskList;
+import seedu.smartscheduler.model.tag.Tag;
+import seedu.smartscheduler.model.tag.UniqueTagList;
+import seedu.smartscheduler.model.task.*;
+import seedu.smartscheduler.storage.StorageManager;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.model.TaskListChangedEvent;
-import seedu.address.model.TaskList;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.*;
-import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +31,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.smartscheduler.commons.core.Messages.*;
 
 public class LogicManagerTest {
 

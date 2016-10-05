@@ -5,8 +5,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.exceptions.DataConversionException;
+
+import seedu.smartscheduler.commons.core.Config;
+import seedu.smartscheduler.commons.exceptions.DataConversionException;
+import seedu.smartscheduler.commons.util.ConfigUtil;
+import seedu.smartscheduler.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;

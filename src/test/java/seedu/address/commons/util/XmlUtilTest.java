@@ -3,10 +3,13 @@ package seedu.address.commons.util;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import seedu.address.model.TaskList;
-import seedu.address.storage.XmlSerializableTaskList;
+
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TestUtil;
+import seedu.smartscheduler.commons.util.FileUtil;
+import seedu.smartscheduler.commons.util.XmlUtil;
+import seedu.smartscheduler.model.TaskList;
+import seedu.smartscheduler.storage.XmlSerializableTaskList;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
