@@ -25,5 +25,5 @@ Components: Storage
 #### Li Zhiyuan
 Role: Developer <br>  
 Responsibilities: Code Integration
-Components: Parser
+Components: Model
 -----

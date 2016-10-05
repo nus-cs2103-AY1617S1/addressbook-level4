@@ -177,15 +177,16 @@ Example : Help
 
  No. | Command | Format 
  -------- | :-------- | :--------- | :-----------
-1| Add | <ul><li>add [event_description, date, start_time, end_time]</li>
-<li>add deadline_description, date, end_time</li><li>add to-do_description</li>
-<li>add [event_description, date, start_time, end_time] #tag !</li></ul>
-2| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
-3| Search | search &lt;keywords&gt;
-4| Complete | complete &lt;index&gt;&lt;index&gt;... 
-5| Undo | undo &lt;number of times to undo, up to 5&gt; 
-6| Delete | delete &lt;index&gt;&lt;index&gt; 
-7| Exit | exit 
-8| help | help 
+1| Add event| add [event_description, date, start_time, end_time] 
+2| Add deadline | add deadline_description, date,end_time  
+3| Add to-do | add to-do_description 
+4| Add with tags and priorities | add [event_description, date, start_time, end_time] #tag !
+5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
+6| Search | search &lt;keywords&gt; 
+7| Complete | complete &lt;index&gt;&lt;index&gt;... 
+8| Undo | undo &lt;number of times to undo, up to 5&gt; 
+9| Delete | delete &lt;index&gt;&lt;index&gt; 
+10| Exit | exit 
+11 help | help 
 
 
