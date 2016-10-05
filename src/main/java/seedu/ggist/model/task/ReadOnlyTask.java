@@ -31,6 +31,10 @@ public interface ReadOnlyTask {
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
                 && other.getPriority().equals(this.getPriority())
+                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getDate().equals(this.getDate())
+                && other.getTime().equals(this.getTime())
+                && other.getPriority().equals(this.getPriority()))
                 && other.getFrequency().equals(this.getFrequency()));
     }
 
@@ -39,6 +43,7 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
+<<<<<<< HEAD
         builder.append(getTaskName())
                 .append(" Date: ")
                 .append(getDate())
