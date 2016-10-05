@@ -183,16 +183,16 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your preious Address Book.
+       the file that contains the data of your previous to-do list.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+Add | **`add`**` [event_name] `**`from`**` [datetime] `**`to`**` [datetime] `**`at`**` [location] `**`remarks`**` [remarks]`
+Clear | **`clear`**
+Delete | **`delete`**` [index 1,index 2,...]`
+Find | **`find`**` [keywords]`
+List | **`list`**` [filters]`
+Help | **`help`**
+Set storage | **`setstorage`**` [filepath]`
