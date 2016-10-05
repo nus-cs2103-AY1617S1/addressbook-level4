@@ -1,9 +1,9 @@
 ###User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
- -------- | :-------- | :--------- | :-----------
-Priority | As a ... | I want to ... | So that I can...
 
+Priority | As a ... | I want to ... | So that I can...
+ -------- | :-------- | :--------- | :-----------
 ***  |  user  |  add events with a start time and an end time  |
 ***  |  user  |  add tasks without a specified time  | 
 ***  |  user  |  add tasks without a deadline | 
