@@ -256,11 +256,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add new floating tasks | keep track of tasks that have no date and time
-`* * *` | user | add new deadlines | keep track of deadlines
-`* * *` | user | add new events | keep track of events
+`* * *` | user | add new tasks with no date and time | keep track of tasks that have no date and time
+`* * *` | user | add new tasks with deadlines | keep track of deadlines
+`* * *` | user | add new tasks with start and end time | keep track of tasks with start time and end time
 `* * *` | user | view all tasks today | keep track of my agenda for today
 `* * *` | user | view all tasks for a specific date | keep track of my tasks
+`* * *` | user | find a task using keywords | find my tasks
 `* * *` | user | edit a task |  update the details of specific tasks
 `* * *` | user | edit deadline/event timeslot |  to track the changes in my schedule accordingly
 `* * *` | user | delete a task | remove a task that is no longer required to be done
@@ -364,6 +365,26 @@ Use case ends
 2a. There are no tasks for the specified date
 
 > 1a1. Program returns a message, saying that there are no tasks for the specified date<br>
+  Use case ends.
+  
+#### Use case: Find a specific task
+
+**MSS**
+
+1. User requests to find all tasks with a specified keyword
+2. Program shows the list tasks for which have the keyword<br>
+Use case ends
+
+**Extensions**
+
+1a. Keyword is invalid
+
+> 1a1. Program returns errors message, saying that keyword given is invalid<br>
+  Use case resumes at step 1
+
+2a. There are no tasks for the specified date
+
+> 1a1. Program returns a message, saying that there are no tasks found<br>
   Use case ends.
 
 #### Use case: Edit details of a task
