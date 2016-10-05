@@ -384,13 +384,13 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            StartTime privatePhone = new StartTime("111111");
+            StartTime startTime = new StartTime("111111");
             EndTime endTime = new EndTime("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, endTime, privateAddress, tags);
+            return new Task(name, startTime, endTime, tags);
         }
 
         /**
@@ -405,7 +405,6 @@ public class LogicManagerTest {
                     new Name("Person " + seed),
                     new StartTime("" + Math.abs(seed)),
                     new EndTime(seed + "@email"),
-                    new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -419,7 +418,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append(" p/").append(p.getPhone());
             cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" a/").append(p.getUniqueID());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -504,7 +503,6 @@ public class LogicManagerTest {
                     new Name(name),
                     new StartTime("1"),
                     new EndTime("1@email"),
-                    new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

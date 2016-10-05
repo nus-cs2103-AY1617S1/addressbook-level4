@@ -97,7 +97,6 @@ public class Parser {
                     matcher.group("name"),
                     matcher.group("phone"),
                     matcher.group("email"),
-                    matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
