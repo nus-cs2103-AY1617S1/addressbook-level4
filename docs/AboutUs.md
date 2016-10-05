@@ -44,6 +44,13 @@ We are a group of highly motivated and hardworking students working on our CS210
 3. Tool Expert: Eclipse.
 
  -----
+ 
+## Project Mentor
+ 
+#### [Nirandika Wanigasekara](https://github.com/nirandiw)
+
+<img src="images/ProjectMentor.JPG" width="150">
+
 
 # Contributors
 
