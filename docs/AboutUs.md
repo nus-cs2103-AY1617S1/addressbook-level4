@@ -41,5 +41,5 @@ We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
 * [Martin Choo](https://github.com/m133225)
 * [Thien Nguyen](https://github.com/ndt93)
 * [You Liang](https://github.com/yl-coder)
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+* [Akshay Narayan](https://github.com/se-edu/whatnow-level4/pulls?q=is%3Apr+author%3Aokkhoy)
+* [Sam Yong](https://github.com/se-edu/whatnow-level4/pulls?q=is%3Apr+author%3Amauris)

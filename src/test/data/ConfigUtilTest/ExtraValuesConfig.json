@@ -2,7 +2,7 @@
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
-  "addressBookFilePath" : "addressbook.xml",
-  "addressBookName" : "TypicalAddressBookName",
+  "whatNowFilePath" : "whatnow.xml",
+  "whatNowName" : "TypicalWhatNowName",
   "extra" : "extra value"
 }
