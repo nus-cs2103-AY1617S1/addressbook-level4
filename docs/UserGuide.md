@@ -44,7 +44,7 @@ Format: `help`
 Adds an event to the to do list.<br>
  
 ###### Optional parameters:
-**from** [datetime] **to** [datetime]
+`from [datetime] to [datetime]`<br>
 Indicates the starting and ending datetime of an event.<br>
 The date for from can be omitted if it is the same at the ending date.<br>
 The from keyword can be used standalone if there is no ending datetime.
@@ -54,19 +54,19 @@ Examples:
 * **add** dinner with mom **from** 1900 **to** 2030 2/10/16
 * **add** dinner with mom **from** 1900 2 oct 2016
 
-**by** [datetime]
+`by [datetime]`<br>
 This parameter is used to indicate the deadline of an event.
 
 Examples:
 * **add** submit proposal **by** 2359 2/10/16
 
-**at** [location]
+`at [location]`<br>
 This parameter is used to indicate the venue of an event.
 
 Examples:
 * **add** dinner with mom **at** home
 
-**remarks** [remarks]
+`remarks [remarks]`<br>
 This parameter is used to add remarks for the event.
 
 Examples:
