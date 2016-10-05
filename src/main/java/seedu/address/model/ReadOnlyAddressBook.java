@@ -13,18 +13,11 @@ import java.util.List;
  */
 public interface ReadOnlyAddressBook {
 
-    UniqueTagList getUniqueTagList();
-
     UniqueFloatingTaskList getUniqueFloatingTaskList();
 
     /**
      * Returns an unmodifiable view of persons list
      */
     List<ReadOnlyFloatingTask> getFloatingTaskList();
-
-    /**
-     * Returns an unmodifiable view of tags list
-     */
-    List<Tag> getTagList();
 
 }

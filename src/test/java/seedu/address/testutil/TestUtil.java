@@ -17,6 +17,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
+import seedu.address.model.item.FloatingTask;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -60,20 +61,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Person[] samplePersonData = getSamplePersonData();
+    public static final FloatingTask[] sampleFloatingTaskData = getSampleFloatingTaskData();
 
-    private static Person[] getSamplePersonData() {
+    private static FloatingTask[] getSampleFloatingTaskData() {
         try {
-            return new Person[]{
-                    new Person(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Person(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Person(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Person(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Person(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Person(new Name("George Best"), new Phone("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Person(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
+            return new FloatingTask[]{
+                    new FloatingTask(new String("Ali Muster"), new String("9482424")),
+                    new FloatingTask(new String("Boris Mueller"), new String("87249245")),
+                    new FloatingTask(new String("Carl Kurz"), new String("95352563")),
+                    new FloatingTask(new String("Daniel Meier"), new String("87652533")),
+                    new FloatingTask(new String("Elle Meyer"), new String("9482224")),
+                    new FloatingTask(new String("Fiona Kunz"), new String("9482427")),
+                    new FloatingTask(new String("George Best"), new String("9482442")),
+                    new FloatingTask(new String("Hoon Meier"), new String("8482424")),
+                    new FloatingTask(new String("Ida Mueller"), new String("8482131"))
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,8 +98,8 @@ public class TestUtil {
         }
     }
 
-    public static List<Person> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
+    public static List<FloatingTask> generateSampleFloatingTaskData() {
+        return Arrays.asList(sampleFloatingTaskData);
     }
 
     /**
@@ -135,7 +136,7 @@ public class TestUtil {
     }
 
     public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+        return new AddressBook(new UniqueFloatingTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {

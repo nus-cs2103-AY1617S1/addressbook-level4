@@ -19,11 +19,9 @@ import java.util.stream.Collectors;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueFloatingTaskList floatingTasks;
-    private final UniqueTagList tags;
 
     {
         floatingTasks = new UniqueFloatingTaskList();
-        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -32,14 +30,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * FloatingTasks and Tags are copied into this addressbook
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getUniqueFloatingTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueFloatingTaskList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(UniqueFloatingTaskList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public AddressBook(UniqueFloatingTaskList persons) {
+        resetData(persons.getInternalList());
     }
 
     public static ReadOnlyAddressBook getEmptyAddressBook() {
@@ -56,17 +54,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.floatingTasks.getInternalList().setAll(floatingTasks);
     }
 
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
-    }
 
-    public void resetData(Collection<? extends ReadOnlyFloatingTask> newFloatingTasks, Collection<Tag> newTags) {
+
+    public void resetData(Collection<? extends ReadOnlyFloatingTask> newFloatingTasks) {
         //setFloatingTasks(newFloatingTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
-        setTags(newTags);
     }
 
     public void resetData(ReadOnlyAddressBook newData) {
-        resetData(newData.getFloatingTaskList(), newData.getTagList());
+        resetData(newData.getFloatingTaskList());
     }
 
 //// person-level operations
@@ -79,7 +74,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
     public void addFloatingTask(FloatingTask f) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
-        //syncTagsWithMasterList(f);
         floatingTasks.add(f);
     }
 
@@ -90,13 +84,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     private void syncTagsWithMasterList(Person person) {
         final UniqueTagList personTags = person.getTags();
-        tags.mergeFrom(personTags);
+        //tags.mergeFrom(personTags);
 
         // Create map with values = tag object references in the master list
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+        /*
         for (Tag tag : tags) {
             masterTagObjects.put(tag, tag);
-        }
+        }*/
 
         // Rebuild the list of person tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
@@ -114,17 +109,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-//// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
 
 //// util methods
 
     @Override
     public String toString() {
-        return floatingTasks.getInternalList().size() + " floating tasks, " + tags.getInternalList().size() +  " tags";
+        return floatingTasks.getInternalList().size() + " floating tasks";
         // TODO: refine later
     }
 
@@ -133,33 +123,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         return Collections.unmodifiableList(floatingTasks.getInternalList());
     }
 
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
 
     @Override
     public UniqueFloatingTaskList getUniqueFloatingTaskList() {
         return this.floatingTasks;
     }
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
+
 
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && this.floatingTasks.equals(((AddressBook) other).floatingTasks)
-                && this.tags.equals(((AddressBook) other).tags));
+                && this.floatingTasks.equals(((AddressBook) other).floatingTasks));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(floatingTasks, tags);
+        return Objects.hash(floatingTasks);
     }
 }

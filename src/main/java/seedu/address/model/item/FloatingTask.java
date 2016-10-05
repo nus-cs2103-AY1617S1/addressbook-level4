@@ -1,7 +1,6 @@
 package seedu.address.model.item;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.ReadOnlyPerson;
 
 public class FloatingTask implements ReadOnlyFloatingTask{
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";

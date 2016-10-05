@@ -97,14 +97,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredFloatingTaskList(Expression expression) {
-        //TODO: wtf is going on here
-        //filteredFloatingTasks.setPredicate(expression::satisfies);
+        filteredFloatingTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
+        boolean satisfies(ReadOnlyFloatingTask person);
         String toString();
     }
 
@@ -117,7 +116,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyPerson person) {
+        public boolean satisfies(ReadOnlyFloatingTask person) {
             return qualifier.run(person);
         }
 
@@ -128,7 +127,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyPerson person);
+        boolean run(ReadOnlyFloatingTask person);
         String toString();
     }
 
@@ -140,9 +139,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyPerson person) {
+        public boolean run(ReadOnlyFloatingTask person) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName(), keyword))
                     .findAny()
                     .isPresent();
         }
