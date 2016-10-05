@@ -14,7 +14,7 @@
 2. Download the latest `simply.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for your Simply.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. 
-  
+  <img src="images/StartUp.PNG" width="150"><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -187,6 +187,6 @@ Example : Help
 8| Undo | undo &lt;number of times to undo, up to 5&gt; 
 9| Delete | delete &lt;index&gt;&lt;index&gt; 
 10| Exit | exit 
-11 help | help 
+11| help | help 
 
 
