@@ -1,9 +1,20 @@
 # User Guide
 
+* [About](#about)
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+
+## About
+Do you have so many tasks to do everyday that you simply cannot keep track of them anymore? Don’t you wish there was an easy way to stay on top of your daily tasks without stressing out?
+
+*Taskle is here to help you with all of that.*
+
+It is a task management application with a single text box for all your commands. 
+Coupled with short and easy to remember commands, managing your tasks has never been this easy. 
+
+Stop waiting and make “Getting Started with Taskle” the last thing on your to-do list now!
 
 ## Quick Start
 
