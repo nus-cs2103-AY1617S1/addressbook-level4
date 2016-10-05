@@ -11,11 +11,11 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "Address App";
+    private String appTitle = "To Do App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/addressbook.xml";
-    private String addressBookName = "MyAddressBook";
+    private String toDoFilePath = "data/todo.xml";
+    private String toDoName = "MyToDo";
 
 
     public Config() {
@@ -45,20 +45,20 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getAddressBookFilePath() {
-        return addressBookFilePath;
+    public String getToDoFilePath() {
+        return toDoFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setToDoFilePath(String addressBookFilePath) {
+        this.toDoFilePath = addressBookFilePath;
     }
 
-    public String getAddressBookName() {
-        return addressBookName;
+    public String getToDoName() {
+        return toDoName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.addressBookName = addressBookName;
+    public void setToDoName(String addressBookName) {
+        this.toDoName = addressBookName;
     }
 
 
@@ -76,13 +76,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(addressBookName, o.addressBookName);
+                && Objects.equals(toDoFilePath, o.toDoFilePath)
+                && Objects.equals(toDoName, o.toDoName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, addressBookFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, toDoFilePath, toDoName);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nAddressBook name : " + addressBookName);
+        sb.append("\nLocal data file location : " + toDoFilePath);
+        sb.append("\nAddressBook name : " + toDoName);
         return sb.toString();
     }
 
