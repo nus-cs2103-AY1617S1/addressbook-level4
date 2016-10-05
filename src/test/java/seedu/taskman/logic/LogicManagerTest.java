@@ -210,7 +210,7 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAllTasks() throws Exception {
+    public void execute_find_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskMan expectedAB = helper.generateTaskMan(2);
@@ -219,8 +219,8 @@ public class LogicManagerTest {
         // prepare task man state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
+        assertCommandBehavior("find ",
+                FindCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
     }
