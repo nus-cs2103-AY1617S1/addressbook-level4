@@ -96,13 +96,13 @@ Displays details of activities on a given date or period
 - `view DATE_TIME [END_DATE_TIME]` <br><br>
   Examples:<br>
   `view 23 Oct`<br>
-  `view 23 Oct 30 Oct`<br>
+  `view 23 Oct 30 Oct`<br><br>
 - `view today` <br><br>
-  Displays all activities for current day
+  Displays all activities for current day <br>
 - `view tomorrow` <br><br>
-  Displays all activities for next day
+  Displays all activities for next day <br>
 - `view week` <br><br>
-  Displays all activities for current week
+  Displays all activities for current week <br>
 - `view month` <br><br>
   Displays all activites for current month
 
@@ -139,7 +139,8 @@ Status has to be one of the following (case-insensitive):
 
 ##### Format:<br><br>
 - `mark ACTIVITY_ID as STATUS`<br><br>
-  Example: `mark 1 as completed`
+  Example: <br>
+  `mark 1 as completed` <br>
   Activity with ID 1 (e.g. `do assignment 1`) is marked as completed
 
 #### <br>3.2.6 Find Next Activity : **`next`**
@@ -162,7 +163,8 @@ Displays list of activities that match description (Keyword / date / activity ca
   Example: <br>
   `search events` <br><br>
 - `search STATUS`<br><br>
-  Example: `search completed`
+  Example: <br>
+  `search completed`
 
 #### <br>3.2.8 Undo last command : **`undo`**
 Undo last command entered
