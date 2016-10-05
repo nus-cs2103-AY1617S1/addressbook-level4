@@ -11,7 +11,7 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
-
+<br>
 ## Setting up
 
 #### Prerequisites
@@ -26,7 +26,7 @@
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
-
+<br>
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
@@ -42,6 +42,7 @@
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
+<br>
 #### Troubleshooting
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
@@ -54,45 +55,45 @@
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
  
 
- 
+<br> 
 ## Design
 
 (TODO include UML diagram)
 
 
-
+<br>
 ## Appendix A : User Stories
 
 #### High Priority `* * *`
 
-As a new user, I want to *see usage instructions* so that I can *refer to instructions when i use the Task Manager.*
-As a new user, I want to *view more information about a particular command* so that I can *learn how to use various commands.*
-As a user, I want to *add a task by specifying a task description and the date and time*, so that I can *record tasks that need to be done by that date and time.*
-As a user, I want to *add a scheduled event by specifying the event name and duration and location*, so that I can *record events that I need to attend.*
-As a user, I want to *add a task by specifying a task description only*, so that I can *record tasks that need to be done ‘some day’.*
-As a user, I want to *delete a task* so that I can *remove entries that I no longer need.*
-As a user, I want to *list all tasks* so that I can *see my tasks in a glance.*
-As a user, I want to *edit the task descriptions, date and time* so that I can *update the details of my tasks.*
+As a new user, I want to **see usage instructions** so that I can **refer to instructions when i use the Task Manager.**<br>
+As a new user, I want to **view more information about a particular command** so that I can **learn how to use various commands.**<br>
+As a user, I want to **add a task by specifying a task description and the date and time**, so that I can **record tasks that need to be done by that date and time.**<br>
+As a user, I want to **add a scheduled event by specifying the event name and duration and location**, so that I can **record events that I need to attend.**<br>
+As a user, I want to **add a task by specifying a task description only**, so that I can **record tasks that need to be done ‘some day’.**<br>
+As a user, I want to **delete a task** so that I can **remove entries that I no longer need.**<br>
+As a user, I want to **list all tasks** so that I can **see my tasks in a glance.**<br>
+As a user, I want to **edit the task descriptions, date and time** so that I can **update the details of my tasks.**<br>
 
 #### Medium Priority `* *`
 
-As a user, I want to *undo my previous actions* so that I can *revert any mistakes made.*
-As a user, I want to *sort the tasks by the date and time* so that I can *see my tasks according to their urgency.*
-As a user, I want to *search for my tasks using some keywords* so that I can *easily view tasks based on the specified keywords.*
-As a user, I want to *mark tasks as completed or uncompleted* so that I can *keep track of my tasks progress.*
-As a user, I want to *specify a folder for data storage location* so that I can *store the data file in a local folder controlled by a cloud syncing service.*
+As a user, I want to **undo my previous actions** so that I can **revert any mistakes made.**<br>
+As a user, I want to **sort the tasks by the date and time** so that I can **see my tasks according to their urgency.**<br>
+As a user, I want to **search for my tasks using some keywords** so that I can **easily view tasks based on the specified keywords.**<br>
+As a user, I want to **mark tasks as completed or uncompleted** so that I can **keep track of my tasks progress.**<br>
+As a user, I want to **specify a folder for data storage location** so that I can **store the data file in a local folder controlled by a cloud syncing service.**<br>
 
 #### Low Priority `*`
 
-As a user, I want to *add tags to my task* so that I can *categorise my tasks.*
-As a user, I want to *input my dates and days in any format that I want*, so that *it is easier for my usage.*
-As a user, I want to *implement recurring tasks* so that *I don’t have to add the task every week.*
-As an advanced user, I want to *use shorter versions of the commands* so that I can *type the commands faster.*
-As a busy user, I want to *know what I can do next* so that I can *fill up my free time slots.*
-As a busy user, I want to *reserve time slots for one or more tasks that may not be confirmed* so that I *know which to prioritise*
+As a user, I want to **add tags to my task** so that I can **categorise my tasks.**<br>
+As a user, I want to **input my dates and days in any format that I want**, so that **it is easier for my usage.**<br>
+As a user, I want to **implement recurring tasks** so that **I don’t have to add the task every week.**<br>
+As an advanced user, I want to **use shorter versions of the commands** so that I can **type the commands faster.**<br>
+As a busy user, I want to **know what I can do next** so that I can **fill up my free time slots.**<br>
+As a busy user, I want to **reserve time slots for one or more tasks that may not be confirmed** so that I **know which to prioritise**
 
 
-
+<br>
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the Task Manager and the **Actor** is the user, unless specified otherwise)
@@ -110,7 +111,7 @@ As a busy user, I want to *reserve time slots for one or more tasks that may not
 
 > TaskManager shows error message: “This task has already been created.”
 	
-
+<br>
 #### Use case: Edit task
 
 **MSS**
@@ -137,6 +138,7 @@ As a busy user, I want to *reserve time slots for one or more tasks that may not
 > 3b2. User confirms addition
 > 3b3. TaskManager adds to the specified field
 
+<br>
 #### Use case: Delete task
 
 **MSS**
@@ -166,6 +168,7 @@ Use case ends.
 > 5a2. User enters input
 Step 5a1 and 5a2 are repeated until the user enters a valid input
 
+<br>
 #### Use case: List by
 	
 **MSS**
@@ -188,7 +191,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
 > TaskManager shows list of tasks by the particular tag in order of index
 
 
-
+<br>
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -199,14 +202,15 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
 {More to be added}
 
 
-
+<br>
 ## Appendix D : Glossary
 
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
 
+<br>
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+(TODO: Add a summary of competing products)
 
