@@ -2,7 +2,7 @@
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :--------| :------------ | :-----------
-`* * *`  | new user | see usage instructions | refer to instructions when I forget how to use the App
+`* * *`  | new user | see usage instructions | refer to instructions when I forget how to use the application
 `* * *`  | user | add a new task |
 `* * *`  | user | delete a task | remove entries that are no longer relevant
 `* * *`  | user | find a task by name | locate details of tasks without having to go through the entire list
@@ -51,12 +51,14 @@ Use case ends.
 
 > 2a1. Amethyst displays error message
 > 2a2. Amethyst prompts user to input in correct format
-  Use case ends.
+
+> Use case ends.
 
 2b. Duplicate entry entered by user
 
 > 2b1. Amethyst displays prompt message, requests user to differentiate entry <br>
-  Use case ends.
+
+> Use case ends.
 
 #### Use case: Mark task as done
 
@@ -65,7 +67,7 @@ Use case ends.
 1. User requests to list tasks
 2. Amethyst shows a list of tasks
 3. User requests to mark task(s) as done
-4. Amethysts marks specified task(s) as done
+4. Amethyst marks specified task(s) as done
 Use case ends.
 
 **Extensions**
@@ -78,6 +80,67 @@ Use case ends.
 
 > 3a1. Amethyst displays an error message <br>
   Use case resumes at step 2
+  
+4a. Invalid format entered by user
+
+> 4a1. Amethyst displays error message
+> 4a2. Amethyst prompts user to input in correct format
+
+> Use case ends.
+
+#### Use case: Undo previous operation
+
+**MSS**
+
+1. User requests to execute a command
+2. Amethyst executes specified command
+3. User requests to undo previous action
+4. Amethyst program returns to state before command was executed
+5. (Steps 3 and 4 can be repeated to undo all operations up to and including first operation performed upon starting program)
+Use case ends.
+
+**Extensions**
+
+2a. Invalid command format entered by user
+
+> 2a1. Amethyst displays error message
+> 2a2. Amethyst prompts user to input in correct command format
+
+> Use case ends
+
+4a. No more operations to undo/ Program is at original state
+
+> 4a1. Amethyst displays an error message, stating no more operations to undo <br>
+
+> Use case ends
+
+### Use case: Update task
+
+**MSS**
+
+1. User requests to list tasks
+2. Amethyst shows a list of tasks
+3. User requests to update specified task
+4. Amethyst updates task(s) <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. Amethyst displays an error message <br>
+  Use case resumes at step 2
+
+4a. Invalid format entered by user
+
+> 4a1. Amethyst displays error message
+> 4a2. Amethyst prompts user to input in correct format
+
+> Use case ends.
 
 ##Appendix C: Non-Functional Requirements
 1. Amethyst should work on a desktop without network/internet connection
