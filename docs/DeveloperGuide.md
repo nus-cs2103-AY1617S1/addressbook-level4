@@ -23,7 +23,7 @@ Priority | As a ... | I want to ... | So that I can...
 2. Amethyst shows a list of tasks
 3. User requests to delete task(s) in the list
 4. Amethyst deletes task(s) <br>
-Use case ends.
+Use case ends
 
 **Extensions**
 
@@ -42,8 +42,8 @@ Use case ends.
 
 1. User requests to add task
 2. Amethyst adds the task
-3. Amethyst displays successful addition
-Use case ends.
+3. Amethyst displays successful addition <br>
+Use case ends
 
 **Extensions**
 
@@ -51,12 +51,12 @@ Use case ends.
 
 > 2a1. Amethyst displays error message <br>
   2a2. Amethyst prompts user to input in correct format <br>
-  Use case ends.
+  Use case ends
 
 2b. Duplicate entry entered by user
 
 > 2b1. Amethyst displays prompt message, requests user to differentiate entry <br>
-  Use case ends.
+  Use case ends
 
 #### Use case: Mark task as done
 
@@ -65,8 +65,8 @@ Use case ends.
 1. User requests to list tasks
 2. Amethyst shows a list of tasks
 3. User requests to mark task(s) as done
-4. Amethyst marks specified task(s) as done
-Use case ends.
+4. Amethyst marks specified task(s) as done <br>
+Use case ends
 
 **Extensions**
 
@@ -93,8 +93,8 @@ Use case ends.
 2. Amethyst executes specified command
 3. User requests to undo previous action
 4. Amethyst program returns to state before command was executed
-5. (Steps 3 and 4 can be repeated to undo all operations up to and including first operation performed upon starting program)
-Use case ends.
+5. (Steps 3 and 4 can be repeated to undo all operations up to and including first operation performed upon starting program) <br>
+Use case ends
 
 **Extensions**
 
@@ -117,7 +117,7 @@ Use case ends.
 2. Amethyst shows a list of tasks
 3. User requests to update specified task
 4. Amethyst updates task(s) <br>
-Use case ends.
+Use case ends
 
 **Extensions**
 
@@ -127,14 +127,14 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. Amethyst displays an error message <br>
+> 3a1. Amethyst displays an error message
   Use case resumes at step 2
 
 4a. Invalid format entered by user
 
 > 4a1. Amethyst displays error message
   4a2. Amethyst prompts user to input in correct format
-  Use case ends.
+  Use case ends
 
 ##Appendix C: Non-Functional Requirements
 1. Amethyst should work on a desktop without network/internet connection
