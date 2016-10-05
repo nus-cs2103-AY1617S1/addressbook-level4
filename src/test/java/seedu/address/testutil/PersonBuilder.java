@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.model.tag.Tag;
-import seedu.ggist.model.task.*;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.person.*;
 
 /**
  *

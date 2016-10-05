@@ -2,8 +2,6 @@ package seedu.address.commons.util;
 
 import org.junit.Test;
 
-import seedu.ggist.commons.util.UrlUtil;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 

@@ -1,12 +1,11 @@
 package seedu.address.model;
 
 import javafx.collections.FXCollections;
-import seedu.ggist.commons.core.UnmodifiableObservableList;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import seedu.address.commons.core.UnmodifiableObservableList;
 
 import java.util.*;
 

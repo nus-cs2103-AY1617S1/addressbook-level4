@@ -1,12 +1,12 @@
 package seedu.address.testutil;
 
-import seedu.ggist.model.tag.UniqueTagList;
-import seedu.ggist.model.task.*;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.person.*;
 
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestPerson implements ReadOnlyPerson {
 
     private Name name;
     private Address address;

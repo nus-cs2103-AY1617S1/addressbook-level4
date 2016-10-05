@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
-import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.model.AddressBook;
-import seedu.ggist.model.tag.Tag;
-import seedu.ggist.model.task.Task;
-import seedu.ggist.model.task.UniquePersonList;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.AddressBook;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -19,7 +19,7 @@ public class AddressBookBuilder {
         this.addressBook = addressBook;
     }
 
-    public AddressBookBuilder withPerson(Task person) throws UniquePersonList.DuplicatePersonException {
+    public AddressBookBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         return this;
     }
