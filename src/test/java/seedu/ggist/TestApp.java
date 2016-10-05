@@ -7,7 +7,7 @@ import seedu.ggist.commons.core.Config;
 import seedu.ggist.commons.core.GuiSettings;
 import seedu.ggist.model.ReadOnlyTaskManager;
 import seedu.ggist.model.UserPrefs;
-import seedu.ggist.storage.XmlSerializableAddressBook;
+import seedu.ggist.storage.XmlSerializableTaskManager;
 import seedu.ggist.testutil.TestUtil;
 
 import java.util.function.Supplier;
@@ -36,7 +36,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableTaskManager(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }

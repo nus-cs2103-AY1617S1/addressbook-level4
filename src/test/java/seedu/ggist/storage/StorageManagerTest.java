@@ -14,7 +14,7 @@ import seedu.ggist.model.UserPrefs;
 import seedu.ggist.storage.JsonUserPrefsStorage;
 import seedu.ggist.storage.Storage;
 import seedu.ggist.storage.StorageManager;
-import seedu.ggist.storage.XmlAddressBookStorage;
+import seedu.ggist.storage.XmlTaskManagerStorage;
 import seedu.ggist.testutil.EventsCollector;
 import seedu.ggist.testutil.TypicalTestPersons;
 
@@ -85,7 +85,7 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage{
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlTaskManagerStorage{
 
         public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
