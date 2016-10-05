@@ -100,11 +100,11 @@ This will edit the current deadline task from CS2103 report to Report with an ad
 
 Example: Edit T1 [enter]
 
-img src="images/Capture13.PNG" width="600"><br>
+<img src="images/Capture13.PNG" width="600"><br>
 
 Command Bar: go swimming (Original task details are added to the end)
 
-img src="images/Capture14.PNG" width="600"><br>
+<img src="images/Capture14.PNG" width="600"><br>
 
 Changes: go swimming, **140516, 1600** [enter]
 
