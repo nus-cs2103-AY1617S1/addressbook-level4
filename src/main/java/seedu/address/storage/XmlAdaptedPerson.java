@@ -39,13 +39,13 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyPerson source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
+//        phone = source.getPhone().value;
+//        email = source.getEmail().value;
+//        address = source.getAddress().value;
+//        tagged = new ArrayList<>();
+//        for (Tag tag : source.getTags()) {
+//            tagged.add(new XmlAdaptedTag(tag));
+//        }
     }
 
     /**
@@ -59,10 +59,10 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
-        final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Person(name, phone, email, address, tags);
+//        final Phone phone = new Phone(this.phone);
+//        final Email email = new Email(this.email);
+//        final Address address = new Address(this.address);
+//        final UniqueTagList tags = new UniqueTagList(personTags);
+        return new Person(name); //, phone, email, address, tags);
     }
 }
