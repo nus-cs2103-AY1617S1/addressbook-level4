@@ -22,7 +22,7 @@
 5. Some example commands you can try:
    * **`list`** : lists all tasks. This is the default view.
    * **`add`**` Learn how to use DearJim` : 
-     adds a task to the Address Book.
+     adds a task to the Task Manager.
    * **`delete`**` 1` : deletes the 1st task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -77,12 +77,12 @@ Format: `add NAME (at DATE START_TIME to [DATE] END TIME...)`
 Example: 
 * `add Company meeting (at 22 Sep 2pm to 3pm, at 23 Sep 2pm to 3pm)`
 
-#### Editing an item: `add`
+#### Editing an item: `edit`
 Edits any item in the task manager<br>
 
 *Any type except tentative*
 
-Format: `edit INDEX..`
+Format: Replace 	`add` with `edit INDEX`
 >Tip: We make the edit commands similar to add commands, so that you only have to learn one of them! Simply replace `add` with `edit INDEX` to do an edit.
 
 Examples:
@@ -91,7 +91,7 @@ Examples:
 
 *Tentative events*
 
-Format: `edit INDEX (new OR SUB-INDEX)..`
+Format: Replace `add` with  `edit INDEX (new OR SUB-INDEX)`
 >Note: If you want to confirm the time slot, use the `confirm` command instead.
 
 Examples:
@@ -127,8 +127,8 @@ Archive an item in your task manager.<br>
 
 Format: `done INDEX`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
+#### Listing all items : `list`
+Shows a list of all items in the task manager.<br>
 Format: `list`
 
 #### Find an item : `find`
@@ -144,7 +144,7 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous DearJim folder.
+       the file that contains the data of your previous *DearJim* folder.
 
 **Q**: How do I install the program?<br>
 **A**: Double click the icon
@@ -154,9 +154,9 @@ There is no need to save manually.
 Command | Format  
 -------- | :-------- 
 Add/Edit | `add`/`edit INDEX` `NAME by DUE_DATE DUE_TIME [repeat every RECURRING_INTERVAL]`
-| `add`/`edit INDEX` `add NAME [rank PRIORITY]`
-| `add`/`edit INDEX` `add NAME at DATE START_TIME to [DATE] END_TIME [repeat every RECURRING_INTERVAL]` 
-| `add`/`edit INDEX (new OR SUB-INDEX)` `add NAME (at DATE START_TIME to [DATE] END TIME...)`
+`add`/`edit INDEX` `add NAME [rank PRIORITY]`
+`add`/`edit INDEX` `add NAME at DATE START_TIME to [DATE] END_TIME [repeat every RECURRING_INTERVAL]` 
+`add`/`edit INDEX (new OR SUB-INDEX)` `add NAME (at DATE START_TIME to [DATE] END TIME...)`
 Confirm | `confirm INDEX SUBINDEX`
 Delete | `delete INDEX`
 Undo | `undo`
