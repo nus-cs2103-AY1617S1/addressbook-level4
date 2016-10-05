@@ -29,7 +29,6 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -41,7 +40,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String taskManagerName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -79,7 +78,7 @@ public class MainWindow extends UiPart {
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getTaskManagerName(), config, prefs, logic);
         return mainWindow;
     }
 
@@ -88,7 +87,7 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.taskManagerName = addressBookName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -108,10 +107,9 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
@@ -185,12 +183,5 @@ public class MainWindow extends UiPart {
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
     }
-
-    public void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
+    
 }
