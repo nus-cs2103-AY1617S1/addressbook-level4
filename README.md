@@ -1,6 +1,6 @@
 # WhatNow (V0.0)
 
-<img src="docs/images/UI_Prototype/WhatNowUI-Welcome.png" width="600"><br>
+<img src="docs/images/UI_Prototype/WhatNowUI-Welcome-Colour.png" width="600"><br>
 
 Have you ever missed a deadline because you forgot to write it down? Have you ever forgot that you have to do something?
 
@@ -21,6 +21,6 @@ It is intended for users who can type fast, spend most of the time near a comput
 
 * Some parts of this application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
-
+* The original source code of this application was created by [SE-EDU initiative](https://github.com/se-edu/). 
 
 #### Licence : [MIT](LICENSE)
