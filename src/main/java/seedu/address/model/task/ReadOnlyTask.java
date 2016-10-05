@@ -8,7 +8,7 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    Title getName();
+    Title getTitle();
     Deadline getDeadline();
     Email getEmail();
     Address getAddress();
@@ -25,7 +25,7 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getTitle().equals(this.getTitle()) // state checks here onwards
                 && other.getDeadline().equals(this.getDeadline())
                 && other.getEmail().equals(this.getEmail())
                 && other.getAddress().equals(this.getAddress()));
@@ -36,7 +36,7 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getTitle())
                 .append(" Deadline: ")
                 .append(getDeadline())
                 .append(" Email: ")

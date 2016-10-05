@@ -416,7 +416,7 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
+            cmd.append(p.getTitle().toString());
             cmd.append(" d/").append(p.getDeadline());
             cmd.append(" e/").append(p.getEmail());
             cmd.append(" a/").append(p.getAddress());

@@ -9,7 +9,7 @@ import seedu.address.model.task.ReadOnlyTask;
  * Provides a handle to a person card in the person list panel.
  */
 public class PersonCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#name";
+    private static final String TITLE_FIELD_ID = "#title";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String DEADLINE_FIELD_ID = "#deadline";
     private static final String EMAIL_FIELD_ID = "#email";
@@ -26,7 +26,7 @@ public class PersonCardHandle extends GuiHandle {
     }
 
     public String getFullName() {
-        return getTextFromLabel(NAME_FIELD_ID);
+        return getTextFromLabel(TITLE_FIELD_ID);
     }
 
     public String getAddress() {
@@ -42,7 +42,7 @@ public class PersonCardHandle extends GuiHandle {
     }
 
     public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName().title) && getDeadline().equals(person.getDeadline().value)
+        return getFullName().equals(person.getTitle().title) && getDeadline().equals(person.getDeadline().value)
                 && getEmail().equals(person.getEmail().value) && getAddress().equals(person.getAddress().value);
     }
 

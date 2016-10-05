@@ -29,7 +29,7 @@ public class SerializableTestClass {
 
     public SerializableTestClass() {}
 
-    public static String getNameTestValue() {
+    public static String getTitleTestValue() {
         return NAME_TEST_VALUE;
     }
 
@@ -54,12 +54,12 @@ public class SerializableTestClass {
     }
 
     public void setTestValues() {
-        name = getNameTestValue();
+        name = getTitleTestValue();
         listOfLocalDateTimes = getListTestValues();
         mapOfIntegerToString = getHashMapTestValues();
     }
 
-    public String getName() {
+    public String getTitle() {
         return name;
     }
 

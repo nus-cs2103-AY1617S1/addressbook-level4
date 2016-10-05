@@ -13,7 +13,7 @@ public class PersonCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label title;
     @FXML
     private Label id;
     @FXML
@@ -41,7 +41,7 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().title);
+        title.setText(person.getTitle().title);
         id.setText(displayedIndex + ". ");
         deadline.setText(person.getDeadline().value);
         address.setText(person.getAddress().value);

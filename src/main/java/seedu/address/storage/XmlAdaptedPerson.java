@@ -15,7 +15,7 @@ import java.util.List;
 public class XmlAdaptedPerson {
 
     @XmlElement(required = true)
-    private String name;
+    private String title;
     @XmlElement(required = true)
     private String deadline;
     @XmlElement(required = true)
@@ -38,7 +38,7 @@ public class XmlAdaptedPerson {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
-        name = source.getName().title;
+        title = source.getTitle().title;
         deadline = source.getDeadline().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
@@ -58,7 +58,7 @@ public class XmlAdaptedPerson {
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
-        final Title title = new Title(this.name);
+        final Title title = new Title(this.title);
         final Deadline deadline = new Deadline(this.deadline);
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
