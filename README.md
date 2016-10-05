@@ -3,7 +3,7 @@
 
 # OneLine Task Scheduler by Team DJKK
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/UI_Explanation.png" width="600"><br>
 
 * This is a desktop Task Scheduler application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
