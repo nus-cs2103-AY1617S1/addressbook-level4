@@ -31,11 +31,11 @@
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
-> * Items in `[ ]` are optional.
+> * The order of parameters does not matter.
+> * Items enclosed within `[ ]` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The use of punctuations are up to discretion, except `" "` which is mandatory when required.
-> * Words not enclosed in `" "` are not case-sensitive.
-> * The order of parameters does not matter.
+> * Words not enclosed within `" "` are not case-sensitive.
 
 > **Tasks**<br>
 > A task will have a name, and may have a:
