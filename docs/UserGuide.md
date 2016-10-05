@@ -1,6 +1,7 @@
 # User Guide
 * [Quick Start](#quick-start)
 * [Features](#features)
+* [FAQ](#faq)
 * [Command Summary](#command-summary)
 
 ## Quick Start
