@@ -35,7 +35,7 @@ Format : **Add** [&lt;event description&gt;, &lt;date(DDMMYY)&gt;, &lt;start tim
 
 Example: Add [Siloso beach event, 121216, 1600, 2200]
 
-<img src="images/Capture3.PNG" width="600"><br>
+<img src="images/Capture 3.PNG" width="600"><br>
 
 >Note: The start time and end time is optional when adding an event. 
 Important: The square brackets are compulsory when adding an event.
@@ -74,7 +74,7 @@ To add a priority, simply add a ! at the back of the task.
 The edit task function enables you to update the task description which includes start time, end time, tags and priority and category. By typing the command and the task index followed by [enter], Simply will output the task details into the command bar for editing. After editing and pressing [enter], Simply will make the necessary changes to the task.
 
 
-Format: Edit &lt;index&gt; [enter]
+Format: **Edit** &lt;index&gt; [enter]
 
 <img src="images/Capture8.PNG" width="600"><br>
 
@@ -88,13 +88,13 @@ Command bar: complete report, 120916, 1900 (Original task details are added to t
 
 Format: Changes to task details [enter]
 
-img src="images/Capture10.PNG" width="600"><br>
+<img src="images/Capture10.PNG" width="600"><br>
 
 Changes: **Report, 180916, 1900 #CS2103** [enter]
 
 This will edit the current deadline task from CS2103 report to Report with an additional tag called #CS2103.
 
-img src="images/Capture11.PNG" width="600"><br>
+<img src="images/Capture11.PNG" width="600"><br>
 
 Example: Edit T1 [enter]
 
