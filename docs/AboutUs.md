@@ -8,6 +8,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/bernard.jpeg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Team Leader, Testing
+In-Charge: Logic
 
 -----
 
@@ -15,6 +16,7 @@ Responsibilities: Team Leader, Testing
 <img src="images/leah.jpeg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Documentation, GUI Design
+In-Charge: UI
 
 -----
 
@@ -22,6 +24,7 @@ Responsibilities: Documentation, GUI Design
 <img src="images/zhendong.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Code Quality, Time Keeper
+In-Charge: Storage
 
 -----
 
@@ -29,6 +32,13 @@ Responsibilities: Code Quality, Time Keeper
 <img src="images/wanghuan.jpeg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Integration, Eclipse Specialist
+In-charge: Model
+
+-----
+
+#### Project Mentor: [Akshay Narayan](https://github.com/okkhoy)
+<img src="images/AkshayNarayan.jpeg" width="150"><br>
+
 
 
 # Contributors
