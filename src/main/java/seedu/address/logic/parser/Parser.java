@@ -52,6 +52,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+            
+        case NoteCommand.COMMAND_WORD:
+            return prepareNote(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -115,6 +118,21 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+    
+    /**
+     * Parses arguments in the context of the note command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareNote(String args) {
+    	final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        try {
+            return new NoteCommand(matcher.group("name"));
+        } catch (IllegalValueException ive) {
+		    return new IncorrectCommand(ive.getMessage());
+        }
     }
 
     /**
