@@ -12,18 +12,18 @@ We are a team based in the [School of Computing, National University of Singapor
 ---
 
 ### [Ruth Chew](https://github.com/chewwt)<br>
-Role: Integration, Github Master, Code Developer  
+**Role**: Integration, Github Master, Code Developer  
 
 
 ---
 
 ### [Goh Quan Yang Daryl](https://github.com/darylgqy) <br>
-Role: Documentation, Code Quality, Code Developer
+**Role**: Documentation, Code Quality, Code Developer
 
 ---
 
 ### [Chandraanshu Garg](https://github.com/Chandraanshu)<br>
-Role: Code Testing, Code Quality, Code Developer
+**Role**: Code Testing, Code Quality, Code Developer
 
 ---
 
