@@ -1,52 +1,40 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a team of students studying CS2103 based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
+#### [Advay Pal](http://www.comp.nus.edu.sg/~damithch)
 <img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+Role: Team Lead
+Responsibilities: Testing
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
+#### [Abdul Haliq](http://github.com/lejolly)
 <img src="images/JoshuaLee.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI
+Responsibilities: UI, Scheduling and tracking
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
+#### [Syed Abdullah](http://github.com/yijinl)
 <img src="images/LeowYijin.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: Code quality,Integration
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
+#### [Tsang Cheuk Ling](http://github.com/m133225)
 <img src="images/MartinChoo.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Dev Ops
+Responsibilities: Documentation, deliverables and deadlines
 
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
  -----
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
+# Project Mentor
 
-# Contributors
+#### Cheng Hang
+<img src="images/MartinChoo.jpg" width="150"><br>
 
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
 
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
