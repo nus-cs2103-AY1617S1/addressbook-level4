@@ -210,7 +210,7 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_find_showsAllTasks() throws Exception {
+    public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskMan expectedAB = helper.generateTaskMan(2);
@@ -219,8 +219,8 @@ public class LogicManagerTest {
         // prepare task man state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("find ",
-                FindCommand.MESSAGE_SUCCESS,
+        assertCommandBehavior("list",
+                ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
     }
@@ -314,13 +314,13 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_find_emptyArgsFormat() throws Exception {
-        String expectedMessage = FindCommand.MESSAGE_SUCCESS;
-        assertCommandBehavior("find ", expectedMessage);
+    public void execute_list_emptyArgsFormat() throws Exception {
+        String expectedMessage = ListCommand.MESSAGE_SUCCESS;
+        assertCommandBehavior("list ", expectedMessage);
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void execute_list_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -332,14 +332,14 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("list KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
 
     @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
+    public void execute_list_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithName("bla bla KEY bla");
         Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -351,14 +351,14 @@ public class LogicManagerTest {
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("list KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
 
     @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+    public void execute_list_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
@@ -370,7 +370,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find key rAnDoM",
+        assertCommandBehavior("list key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);

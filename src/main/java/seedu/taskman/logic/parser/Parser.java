@@ -63,8 +63,8 @@ public class Parser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return prepareFind(arguments);
+        case ListCommand.COMMAND_WORD:
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -168,26 +168,26 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find task command.
+     * Parses arguments in the context of the list task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareFind(String args) {
+    private Command prepareList(String args) {
         final String trimmedArgs = args.trim();
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(trimmedArgs);     
         
         if (trimmedArgs.isEmpty()) {
             final Set<String> keywordSet = new HashSet<>();
-            return new FindCommand(keywordSet);
+            return new ListCommand(keywordSet);
         } else if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+                    ListCommand.MESSAGE_USAGE));
         } else {
             // keywords delimited by whitespace
             final String[] keywords = matcher.group("keywords").split("\\s+");
             final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-            return new FindCommand(keywordSet);
+            return new ListCommand(keywordSet);
         }
     }
 

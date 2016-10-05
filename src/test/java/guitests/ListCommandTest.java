@@ -6,31 +6,31 @@ import seedu.taskman.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends TaskManGuiTest {
+public class ListCommandTest extends TaskManGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find Meier", td.benson, td.daniel); //multiple results
+    public void list_nonEmptyList() {
+        assertListResult("list Mark"); //no results
+        assertListResult("list Meier", td.benson, td.daniel); //multiple results
 
-        //find after deleting one result
+        //list after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Meier",td.daniel);
+        assertListResult("list Meier",td.daniel);
     }
 
     @Test
-    public void find_emptyList(){
+    public void list_emptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
+        assertListResult("list Jean"); //no results
     }
 
     @Test
-    public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+    public void list_invalidCommand_fail() {
+        commandBox.runCommand("listgeorge");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
+    private void assertListResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");
