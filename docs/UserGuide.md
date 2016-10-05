@@ -52,7 +52,7 @@ To get started, proceed to the Quick Start section below.
 #### Viewing help : `help`
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+> Help is also shown if you enter an incorrect command e.g. `abcd`<br>
 > <img src="images/UIhelp.png" width="600">
 
 #### Create a new task: `todo`, `deadline` or `event`
@@ -143,8 +143,8 @@ Examples:
 Undo the last completed action.<br>
 Format: `undo`
 
-> The previous version will be restored
-> User can keep retyping undo to undo multiple actions
+> The previous version will be restored<br>
+> User can keep retyping undo to undo multiple actions<br>
 > <img src="images/UIundo.png" width="600">
 
 #### Clearing all entries : `clear`
