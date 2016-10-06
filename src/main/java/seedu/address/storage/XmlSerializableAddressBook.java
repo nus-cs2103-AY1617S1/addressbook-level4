@@ -55,7 +55,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedPerson p : persons) {
             try {
