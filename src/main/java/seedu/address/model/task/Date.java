@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task date should be spaces or alphanumeric characters";
-    public static final String DATE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String DATE_VALIDATION_REGEX = "[0-3][0-9]\\.[01][0-9]\\.\\d{4}";
 
     public final String taskDate;
 

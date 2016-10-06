@@ -1,11 +1,19 @@
 package seedu.address.model.task;
 
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
  * An abstract UndatedTask in the task book.
  */
 public abstract class UndatedTask implements ReadOnlyUndatedTask {
+    
+    private Name name;
+    private Description description;
+    private Date date;
+    private Time time;
+    
+    private UniqueTagList tags;
     
     public abstract Name getName();
 
