@@ -12,9 +12,19 @@ public interface ReadOnlyItem {
 
 	Description getDescription();
 
-	Date getStartDate();
 	
-	Date getDueDate();
+	/**
+	 * These return the start and end dates of the item (if they exist). If not,
+	 * then the default null is used. Override these in the implemented classes
+	 * as necessary.
+	 */
+	default Date getStartDate() {
+		return null;
+	}
+
+	default Date getDueDate() {
+		return null;
+	}
 	
     /**
      * The returned TagList is a deep copy of the internal TagList,
