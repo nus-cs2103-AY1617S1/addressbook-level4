@@ -68,7 +68,7 @@ public abstract class BaseCommand {
     
     private void checkRequiredArguments() {
         for (Parameter p : getArguments()) {
-            if (!p.isOptional() && !p.isSet()) {
+            if (!p.isOptional() && !p.hasBoundValue()) {
                 // TODO: Deal with missing arguments
             }
         }

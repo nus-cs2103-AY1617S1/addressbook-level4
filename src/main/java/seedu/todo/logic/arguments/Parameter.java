@@ -11,7 +11,7 @@ public interface Parameter {
     
     public boolean isPositional();
     
-    public boolean isSet();
+    public boolean hasBoundValue();
     
     public boolean isOptional();
     

@@ -7,7 +7,7 @@ abstract public class Argument<T> implements Parameter {
     private String description;
     private String flag;
     private boolean optional = true;
-    private boolean set = false;
+    private boolean boundValue = false;
     
     protected T value;
     protected T defaultValue;
@@ -21,9 +21,14 @@ abstract public class Argument<T> implements Parameter {
         this.value = defaultValue;
     }
     
+    /**
+     * Binds a value to this parameter. Implementing classes MUST override AND 
+     * call the parent class function so that the dirty bit is set for required
+     * parameter validation to work
+     */
     @Override
     public void setValue(String input) throws IllegalValueException {
-        set = true;
+        boundValue = true;
     }
     
     public T getValue() {
@@ -62,8 +67,8 @@ abstract public class Argument<T> implements Parameter {
         return optional;
     }
     
-    public boolean isSet() {
-        return set;
+    public boolean hasBoundValue() {
+        return boundValue;
     }
 
     public Argument<T> required() {
