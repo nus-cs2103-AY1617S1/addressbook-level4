@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +15,9 @@ public class InvalidCommand extends Command {
 
     private String error;
 
+    /**
+     * Asserts error to be non-null
+     */
     public InvalidCommand(String error) {
         assert error != null;
 
@@ -20,7 +25,7 @@ public class InvalidCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model, EventsCenter eventsCenter) {
         return new CommandResult(error, true);
     }
 

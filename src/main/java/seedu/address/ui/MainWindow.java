@@ -34,14 +34,14 @@ public class MainWindow extends UiPart {
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
-    private Config config;
     private UserPrefs userPrefs;
+    private HelpWindow helpWindow;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String appName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -76,29 +76,30 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public static MainWindow load(Stage primaryStage, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(Config.ApplicationTitle, Config.ApplicationName, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String appName, UserPrefs prefs,
                            Logic logic) {
 
-        //Set dependencies
+        // Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
-        this.config = config;
+        this.appName = appName;
         this.userPrefs = prefs;
 
-        //Configure the UI
+        // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
+
+        helpWindow = HelpWindow.load(primaryStage, Config.UserGuideUrl);
 
         setAccelerators();
     }
@@ -111,7 +112,7 @@ public class MainWindow extends UiPart {
         browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = ToDoListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredToDoList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), Config.DefaultToDoListFilePath);
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
@@ -161,13 +162,17 @@ public class MainWindow extends UiPart {
      */
     public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
     @FXML
     public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load(primaryStage);
-        helpWindow.show();
+        showHelpForCommand("");
+    }
+
+    public void showHelpForCommand(String commandWord) {
+        // Search through map
+        helpWindow.show(Config.getUserGuideAnchorForCommandWord(commandWord));
     }
 
     public void show() {

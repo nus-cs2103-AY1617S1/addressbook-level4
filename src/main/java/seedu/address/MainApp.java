@@ -37,28 +37,26 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
-    protected Config config;
     protected UserPrefs userPrefs;
 
     public MainApp() {}
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing To-Do List ]===========================");
+        logger.info("=============================[ Initializing " + Config.ApplicationTitle + " ]===========================");
         super.init();
 
-        config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(Config.DefaultToDoListFilePath, Config.DefaultUserPrefsFilePath);
 
-        userPrefs = initPrefs(config);
+        userPrefs = initPrefs();
 
-        initLogging(config);
+        initLogging();
 
         model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic, config, userPrefs);
+        ui = new UiManager(logic, userPrefs);
 
         initEventsCenter();
     }
@@ -88,45 +86,12 @@ public class MainApp extends Application {
         return new ModelManager(initialToDoList, userPrefs);
     }
 
-    private void initLogging(Config config) {
-        LogsCenter.init(config);
+    private void initLogging() {
+        LogsCenter.init(Config.LogLevel);
     }
 
-    protected Config initConfig(String configFilePath) {
-        Config initializedConfig;
-        String configFilePathUsed;
-
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-
-        if(configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = configFilePath;
-        }
-
-        logger.info("Using config file: " + configFilePathUsed);
-
-        try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            initializedConfig = configOptional.orElse(new Config());
-        } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
-                    "Using default config properties");
-            initializedConfig = new Config();
-        }
-
-        // Update config file in case it was missing to begin with or there are new/unused fields
-        try {
-            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file: " + StringUtil.getDetails(e));
-        }
-        return initializedConfig;
-    }
-
-    protected UserPrefs initPrefs(Config config) {
-        assert config != null;
-
-        String prefsFilePath = config.getUserPrefsFilePath();
+    protected UserPrefs initPrefs() {
+        String prefsFilePath = Config.DefaultUserPrefsFilePath;
         logger.info("Using prefs file: " + prefsFilePath);
 
         UserPrefs initializedPrefs;
@@ -158,13 +123,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting " + Config.ApplicationTitle + " " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping " + Config.ApplicationTitle + " ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

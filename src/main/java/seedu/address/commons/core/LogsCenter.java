@@ -27,8 +27,8 @@ public class LogsCenter {
      * Logging levels for existing loggers will only be updated if the logger with the same name is requested again
      * from the LogsCenter.
      */
-    public static void init(Config config) {
-        currentLogLevel = config.getLogLevel();
+    public static void init(Level logLevel) {
+        currentLogLevel = logLevel;
         logger.info("currentLogLevel: " + currentLogLevel);
     }
 

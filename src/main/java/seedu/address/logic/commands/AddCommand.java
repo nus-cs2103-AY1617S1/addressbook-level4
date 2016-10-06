@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.todo.Title;
 import seedu.address.model.todo.ToDo;
-
-import java.util.HashSet;
 
 /**
  * Adds a to-do to the to-do list
@@ -24,7 +24,9 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model, EventsCenter eventsCenter) {
+        assert model != null;
+
         model.addToDo(toDo);
         return new CommandResult(String.format(Messages.MESSAGE_TODO_ADDED, toDo));
     }

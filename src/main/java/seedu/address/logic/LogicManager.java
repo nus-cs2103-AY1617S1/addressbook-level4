@@ -3,7 +3,6 @@ package seedu.address.logic;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandFactory;
 import seedu.address.logic.commands.CommandResult;
@@ -39,8 +38,8 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("User command: " + commandText + "");
 
         Command command = commandFactory.build(commandText);
-        command.setModel(model);
-        return command.execute();
+
+        return command.execute(model, eventsCenter);
     }
 
     @Override

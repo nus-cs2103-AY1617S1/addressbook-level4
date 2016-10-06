@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.Parser;
@@ -9,7 +8,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Maps and builds commands from input strings
+ * Maps and builds commands from input strings, using {@link Parser}
  */
 public class CommandFactory {
 
@@ -39,11 +38,19 @@ public class CommandFactory {
                 return buildDeleteCommand();
             case FindCommand.COMMAND_WORD:
                 return buildFindCommand();
-            case ListCommand.COMMAND_WORD:
-                return buildListCommand();
+            case ExitCommand.COMMAND_WORD:
+                return buildExitCommand();
+            case ClearCommand.COMMAND_WORD:
+                return buildClearCommand();
+            case HelpCommand.COMMAND_WORD:
+                return buildHelpCommand();
             default:
                 return new InvalidCommand(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    private Command buildExitCommand() {
+        return new ExitCommand();
     }
 
     private Command buildAddCommand() {
@@ -73,14 +80,22 @@ public class CommandFactory {
     private Command buildFindCommand() {
         // Try to find keywords
         Set<String> words = parser.extractWords();
-        if (words.isEmpty()) {
-            return new InvalidCommand(Messages.MESSAGE_MISSING_FIND_WORDS);
-        }
 
         return new FindCommand(words);
     }
 
-    private Command buildListCommand() {
-        return new ListCommand();
+    private Command buildClearCommand() {
+        return new ClearCommand();
+    }
+
+    private Command buildHelpCommand() {
+        // Try to find command word
+        Optional<String> word = parser.extractText();
+
+        if (word.isPresent()) {
+            return new HelpCommand(word.get());
+        } else {
+            return new HelpCommand();
+        }
     }
 }
