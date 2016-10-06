@@ -31,6 +31,88 @@ Synchronization capability to other task management sites (ex: Google calendar)
 Back-up data that can be used to recover if original copy gets deleted
 Able to migrate all items into .txt file
 
+## Features
+
+> **Command Format**
+> * Words in `UPPER_CASE` are the parameters.
+> * Items in `SQUARE_BRACKETS` are optional.
+> * Items with `...` after them can have multiple instances.
+> * The order of parameters is fixed.
+
+#### Viewing help : `help`
+Format: `help`
+
+> Help is also shown if you enter an incorrect command e.g. `abcd`
+ 
+#### Adding an item: `add`
+Adds an event to the scheduler<br>
+Format: `add NAME st/START_DATE_TIME et/END_DATE_TIME` 
+
+Adds a task to the scheduler<br>
+Format: `add NAME d/DATE` 
+
+Adds a floating task to the scheduler<br>
+Format: `add NAME` 
+
+Examples: 
+* `add Meeting st/20-03-12 13:00 et/20-03-12 14:00`
+* `add Do Homework1 d/19-02-12`
+* `add Do Homework2`
+
+#### Listing all items: `list`
+Shows a list of all items in the scheduler.<br>
+Format: `list [by/SORT_CATEGORY]`
+Examples: 
+* `list`
+* `list by/date`
+
+#### Editing an item : `edit`
+Edits an event to the scheduler specified by the index <br>
+Format: `edit INDEX NAME st/START_DATE_TIME et/END_DATE_TIME` 
+
+Edits a task to the scheduler specified by the index <br>
+Format: `edit INDEX NAME d/DATE` 
+
+Edits a floating task to the scheduler specified by the index <br>
+Format: `edit INDEX NAME` 
+
+Examples: 
+* `edit 1 Meeting st/20-03-12 13:00 et/20-03-12 14:00`
+* `edit 3 Do Homework1 d/19-02-12`
+* `edit 2 Do Homework2`
+
+#### Deleting an item: `delete`
+Delete the item selected by the user.<br>
+Format: `delete INDEX`
+
+> * The user needs to view Scheduler in a list to find index of item
+
+Examples: 
+* `delete 23`
+
+#### Finding all items containing any keyword in their name: `find`
+Finds items where their item names contain any of the given keywords.<br>
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+> * The search is non-case sensitive. e.g `homework` will match `Homework`
+> * Only the name is searched.
+> * Only full words will be matched e.g. `CS` will not match `CS2103`
+> * Persons matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `Midterm` will match `Midterm Review`
+
+Examples: 
+* `find Tutorial`<br>
+  Returns `CS2103 Tutorial` and words related to `tutorial`
+* `find CS Assignment Errand`<br>
+  Returns Any item having names `CS`, `Assignment`, or `Errand`
+
+#### Exiting the program : `exit`
+Exits the program.<br>
+Format: `exit`  
+
+#### Saving the data: `path`
+Scheduler data are saved in the hard disk automatically after any command that changes the data. File path can be manually changed to a user-specified location.<br>
+Format: `path FILE_PATH`
 
 ## FAQ
 
