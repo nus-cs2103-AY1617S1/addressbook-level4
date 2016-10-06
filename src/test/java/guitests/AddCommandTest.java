@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TestUtil;
-import seedu.taskmanager.commons.core.Messages;
-import seedu.taskmanager.logic.commands.AddCommand;
+import seedu.menion.commons.core.Messages;
+import seedu.menion.logic.commands.AddCommand;
 
 import static org.junit.Assert.assertTrue;
 

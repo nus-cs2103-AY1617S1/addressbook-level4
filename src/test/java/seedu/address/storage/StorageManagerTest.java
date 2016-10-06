@@ -7,10 +7,10 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.testutil.TypicalTestPersons;
-import seedu.taskmanager.model.TaskManager;
-import seedu.taskmanager.model.ReadOnlyTaskManager;
-import seedu.taskmanager.model.UserPrefs;
-import seedu.taskmanager.storage.StorageManager;
+import seedu.menion.model.ReadOnlyTaskManager;
+import seedu.menion.model.TaskManager;
+import seedu.menion.model.UserPrefs;
+import seedu.menion.storage.StorageManager;
 
 import static org.junit.Assert.assertEquals;
 

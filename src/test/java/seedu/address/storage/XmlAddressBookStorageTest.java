@@ -7,12 +7,12 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.testutil.TypicalTestPersons;
-import seedu.taskmanager.commons.exceptions.DataConversionException;
-import seedu.taskmanager.commons.util.FileUtil;
-import seedu.taskmanager.model.TaskManager;
-import seedu.taskmanager.model.ReadOnlyTaskManager;
-import seedu.taskmanager.model.task.Task;
-import seedu.taskmanager.storage.XmlTaskManagerStorage;
+import seedu.menion.commons.exceptions.DataConversionException;
+import seedu.menion.commons.util.FileUtil;
+import seedu.menion.model.ReadOnlyTaskManager;
+import seedu.menion.model.TaskManager;
+import seedu.menion.model.task.Task;
+import seedu.menion.storage.XmlTaskManagerStorage;
 
 import java.io.IOException;
 

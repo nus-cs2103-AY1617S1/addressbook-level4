@@ -6,10 +6,10 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TestUtil;
-import seedu.taskmanager.commons.util.FileUtil;
-import seedu.taskmanager.commons.util.XmlUtil;
-import seedu.taskmanager.model.TaskManager;
-import seedu.taskmanager.storage.XmlSerializableTaskManager;
+import seedu.menion.commons.util.FileUtil;
+import seedu.menion.commons.util.XmlUtil;
+import seedu.menion.model.TaskManager;
+import seedu.menion.storage.XmlSerializableTaskManager;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;

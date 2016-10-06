@@ -7,21 +7,21 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.taskmanager.commons.core.EventsCenter;
-import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
-import seedu.taskmanager.commons.events.ui.JumpToListRequestEvent;
-import seedu.taskmanager.commons.events.ui.ShowHelpRequestEvent;
-import seedu.taskmanager.logic.Logic;
-import seedu.taskmanager.logic.LogicManager;
-import seedu.taskmanager.logic.commands.*;
-import seedu.taskmanager.model.TaskManager;
-import seedu.taskmanager.model.Model;
-import seedu.taskmanager.model.ModelManager;
-import seedu.taskmanager.model.ReadOnlyTaskManager;
-import seedu.taskmanager.model.tag.Tag;
-import seedu.taskmanager.model.tag.UniqueTagList;
-import seedu.taskmanager.model.task.*;
-import seedu.taskmanager.storage.StorageManager;
+import seedu.menion.commons.core.EventsCenter;
+import seedu.menion.commons.events.model.TaskManagerChangedEvent;
+import seedu.menion.commons.events.ui.JumpToListRequestEvent;
+import seedu.menion.commons.events.ui.ShowHelpRequestEvent;
+import seedu.menion.logic.Logic;
+import seedu.menion.logic.LogicManager;
+import seedu.menion.logic.commands.*;
+import seedu.menion.model.Model;
+import seedu.menion.model.ModelManager;
+import seedu.menion.model.ReadOnlyTaskManager;
+import seedu.menion.model.TaskManager;
+import seedu.menion.model.tag.Tag;
+import seedu.menion.model.tag.UniqueTagList;
+import seedu.menion.model.task.*;
+import seedu.menion.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.taskmanager.commons.core.Messages.*;
+import static seedu.menion.commons.core.Messages.*;
 
 public class LogicManagerTest {
 

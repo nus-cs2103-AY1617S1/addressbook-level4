@@ -3,12 +3,12 @@ package seedu.address;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.testutil.TestUtil;
-import seedu.taskmanager.MainApp;
-import seedu.taskmanager.commons.core.Config;
-import seedu.taskmanager.commons.core.GuiSettings;
-import seedu.taskmanager.model.ReadOnlyTaskManager;
-import seedu.taskmanager.model.UserPrefs;
-import seedu.taskmanager.storage.XmlSerializableTaskManager;
+import seedu.menion.MainApp;
+import seedu.menion.commons.core.Config;
+import seedu.menion.commons.core.GuiSettings;
+import seedu.menion.model.ReadOnlyTaskManager;
+import seedu.menion.model.UserPrefs;
+import seedu.menion.storage.XmlSerializableTaskManager;
 
 import java.util.function.Supplier;
 

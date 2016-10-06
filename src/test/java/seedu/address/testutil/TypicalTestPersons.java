@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import seedu.taskmanager.commons.exceptions.IllegalValueException;
-import seedu.taskmanager.model.TaskManager;
-import seedu.taskmanager.model.task.*;
+import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.model.TaskManager;
+import seedu.menion.model.task.*;
 
 /**
  *

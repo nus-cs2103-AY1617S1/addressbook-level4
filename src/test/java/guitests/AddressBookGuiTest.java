@@ -11,9 +11,9 @@ import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestPersons;
-import seedu.taskmanager.commons.core.EventsCenter;
-import seedu.taskmanager.model.TaskManager;
-import seedu.taskmanager.model.task.ReadOnlyTask;
+import seedu.menion.commons.core.EventsCenter;
+import seedu.menion.model.TaskManager;
+import seedu.menion.model.task.ReadOnlyTask;
 
 import java.util.concurrent.TimeoutException;
 
