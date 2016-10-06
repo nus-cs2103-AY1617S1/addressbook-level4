@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.jimi.testutil;
 
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;

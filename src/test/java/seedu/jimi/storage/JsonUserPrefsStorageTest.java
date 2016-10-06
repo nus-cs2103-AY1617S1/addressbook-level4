@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.jimi.storage;
 
 
 import org.junit.Rule;

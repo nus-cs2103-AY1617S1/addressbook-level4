@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.jimi.storage;
 
 
 import org.junit.Before;
@@ -6,7 +6,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.storage.DataSavingExceptionEvent;
 import seedu.jimi.model.AddressBook;
@@ -16,7 +15,8 @@ import seedu.jimi.storage.JsonUserPrefsStorage;
 import seedu.jimi.storage.Storage;
 import seedu.jimi.storage.StorageManager;
 import seedu.jimi.storage.XmlAddressBookStorage;
-import seedu.address.testutil.EventsCollector;
+import seedu.jimi.testutil.EventsCollector;
+import seedu.jimi.testutil.TypicalTestPersons;
 
 import java.io.IOException;
 

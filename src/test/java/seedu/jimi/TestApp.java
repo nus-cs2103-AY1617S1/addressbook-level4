@@ -1,14 +1,14 @@
-package seedu.address;
+package seedu.jimi;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.testutil.TestUtil;
 import seedu.jimi.MainApp;
 import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.core.GuiSettings;
 import seedu.jimi.model.ReadOnlyAddressBook;
 import seedu.jimi.model.UserPrefs;
 import seedu.jimi.storage.XmlSerializableAddressBook;
+import seedu.jimi.testutil.TestUtil;
 
 import java.util.function.Supplier;
 

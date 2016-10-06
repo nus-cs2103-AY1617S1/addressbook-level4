@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.jimi.testutil;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.tag.Tag;

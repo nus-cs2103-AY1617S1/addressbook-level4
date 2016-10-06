@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.jimi.commons.core;
 
 import org.junit.Rule;
 import org.junit.Test;
