@@ -303,7 +303,7 @@ Use case ends.
 
 **MSS**
 
-1. User enter command to search tasks by keyword
+1. User enter command to search tasks by keyword.
 2. DoDo-Bird returns a list of tasks which name contains those keywords.
 Use case ends.
 
@@ -314,14 +314,13 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. (Availability/Interoperability) Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
-2. (Capacity) Should be able to hold up to 1000 Tasks and Events
+2. (Capacity) Should be able to hold up to 1000 Tasks and Events.
 3. (Usability) Should be able compile and run the binary.
 4. (Usability) Should favor Unix-style commands over DOS style commands.
 5. (Maintainability) Should come with automated unit tests and open source code.
-6. (Performance) Any command should be able to respond within 3 seconds
-7. (Security/Data Integrity) Data should be encrypted
-8. (Reliability/Recoverability) Should be able to attempt to recover data for
-corrupted data files
+6. (Performance) Should be able to respond any command within 3 seconds.
+7. (Security/Data Integrity) Should encrypt data.
+8. (Reliability/Recoverability) Should be able to attempt to recover data for corrupted data files.
 
 {More to be added}
 
