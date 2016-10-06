@@ -40,80 +40,66 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding a task: `add`
+Adds a task to the task management tool<br>
+Format: `add TASK d/DESCRIPTIOM t/TITLE dd/DUE_DATE [t/TAG]...` 
 
 > Persons can have any number of tags (including 0)
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `add Homework d/ProgrammingEx1 t/Software Engineering dd/6 October`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
+#### Finding task : `find`
+Shows a list of upcoming task in the task management tool.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
+Examples: 
+* `find Homework`<br>
+  Returns `Homework` but not `homework`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+
+#### Deleting a task : `delete`
+Deletes the specified task from the task management tool. Irreversible.<br>
+Format: `delete KEYWORD`
+
+> Deletes the task at the specified `KEYWORD`. 
+  
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `delete Homework`<br> 
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+#### 
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+
+#### Adding task details: `editdetails`
+Edit details to the existing task 
+Format: `editdetails TASKID d/description t/title dd/duedate [t/TAG]...` 
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+* `editdetails 0 d/Programming t/SoftwareEngineering dd/10 October [t/TAG]...`
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
-
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+#### Setting task priority: `setpriority`
+Set priority to a task
+Format: `setpriority TASKID p/PRIORITY_VALUE` 
 
 Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+* `setpriority 0 p/10` 
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+#### Adding duplicate tasks for specific period of time: `addduplicate`
+Set priority to a task
+Format: `addduplicate INTERVAL TIMES d/description t/title dd/duedate [t/TAG]...` 
 
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
+Examples: 
+* `addduplicate 7 10 d/Programming t/SoftwareEngineering dd/10 October [t/TAG]...` 
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+#### Coloring task: `color`
+Set color for a code of task
+Format: `color TASKID c/COLOR_VALUE` 
+
+Examples: 
+* `color 0 c/RED` 
+
+<img src="images/LeowYijin.jpg" width="150"><br>
 
 ## FAQ
 

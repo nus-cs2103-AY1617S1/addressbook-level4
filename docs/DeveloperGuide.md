@@ -269,21 +269,290 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *`| user | add a task | record tasks that need to be done ‘some day’. 
+`* * *`| user |find upcoming tasks | decide what needs to be done soon. 
+`* * *`| user | delete a task | get rid of tasks that I no longer care to track. 
+`* * *`| new user | view more information about a particular command, so that I can learn how to use various commands 
+`* *`| advanced user |  use shorter versions of a command | that can type a command faster.
+`* *`|user | set reminder for my task | can complete the task on time. 
+`* *` |user | view task that is due today when I launch the application | verify what is done and what is to be done. 
+`* *` |user |add category to a task | view task in a more organise manner. 
+`* *` | user | edit my task details, if some changes is needed | So that I can update the latest details.
+`* *`| user | set priority to each of my task | prioritise which task to focus on. 
+`* *`| user | add duplicate tasks for specfic period of time | see a duplicate appears on regular intervals, e.g. once per week. 
+`*`| user | color code a task | group my task easily
 
-{More to be added}
+
+
 
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+
+
+Use case: UC01 add task.
+Actor: User
+Preconditions: User is logged in
+
+**MSS**
+1.User requests to add new task description.
+2.System will update the database of the newly created task.
+Use Case end.
+**Extension**
+    1a. User enter invalid text.
+    >1a1. System shows an error message
+    Use case resume at step 1.
+
+Use case: UC02 find upcoming task
+Actor: User
+Preconditions: User is logged in
+
+**MSS**
+
+1.User requests to find upcoming task
+2.System will show the list of upcoming task
+Use Case end.
+
+
+**Extension**
+
+    2a. There are no upcoming task to be found
+    >2a1. System shows a message no upcoming task are found.
+    Use case ends
+
+Use case: UC03 Delete task
+Actor: User
+Precondition: User is logged in
+
+**MSS**
+
+1.User request to delete a specific task
+2.System request confirmation of deletion of task
+3.User confirm to delete task
+4.System will delete the specific task.
+Use Case ends
+
+**Extension**
+ 
+       1a.Specific task cannot be found
+       >1a1. System will show message task cannot be found
+       4a. System is unable to delete due to failed to connect to database.
+       >4a1. System shows connection has failed message.
+Use case resume at step 1.
+
+
+
+
+
+
+
+
+Use case: UC04 Information of the a particular command.
+Actor: User
+Precondition: User is logged in
+
+**MSS**
+
+1.User enter ‘help’ a particular command
+2.System show the user guide of the particular command
+3.Use Case ends
+
+**Extension**
+ 
+       1a.User enter an invalid command
+       >1a1. System show error message
+Use case ends.
+
+
+
+Use case: UC05 use shorter version of a command
+Actor: Advance user
+Preconditions: User is familiar with the available command
+
+**MSS**
+
+1.User enter a shorter version of a command
+2.System identify which command to execute based on user input
+Use case ends.
+
+**Extension** 
+
+1a. User enter invalid command
+> 1a1. System shows an error message
+Use case ends
+
+2a. System could not connect with the database
+> 2a1. System shows connection failed message.
+Use case ends
+
+
+
+Use case UC06 set reminder for tasks
+Actor: User
+Preconditions: User is logged in, tasks is created.
+
+**MSS**
+
+1.User requests to list all tasks
+2.System shows a list of tasks
+3.User request to set reminder for specific task in the list
+4.System set reminder for the selected task and display action successful message
+Use case ends
+
+**Extension**
+
+    2a. The task list is empty
+    > Use case ends
+
+    3a. User enter invalid index
+    > 3a1. System shows an error message
+    Use case resume at step 2
+
+Use case UC07 view task that is due on the day after launching application
+Actor: User
+Preconditions: User have not launch application
+
+**MSS**
+
+1.User launch application
+2.System display a list of task that is due on the day
+3.Use case ends
+
+**Extension**
+
+    2a. The task list is empty
+    > Use case ends
+
+1.Use case UC08 add category to task
+2.Actor: User
+3.Preconditions: User is logged in, task is created.
+
+**MSS**
+
+1.User requests to list all tasks
+2.System shows a list of tasks
+3.User request to add category for specific task in the list
+4.System prompt for category to set with
+5.User enter category
+6.System set category for the selected task and display action successful message
+
+**Extension**
+
+    2a. The task list is empty
+    > Use case ends
+
+    3a. User enter invalid index
+    > 3a1. System shows an error message
+    Use case resume at step 2
+
+Use case: UC09 edit task details
+Actor: User
+Preconditions: User is logged in.
+MSS: 
+1.User requests to list all tasks
+2.System shows a list of tasks
+3.User chooses one task to edit its details
+4.System retrieves details of chosen task from file
+5.User edits details of the task
+6.System requests for confirmation
+7.User confirms changes 
+8.System updates the details of the task in file and displays the changed task
+    Use Case ends
+
+Exceptions: 
+2a. System detects an error with retrieving data from file
+2a1. System displays the information about the problem with a file
+Use Case ends
+
+4a. System detects an error with retrieving data from file
+4a1. System displays the information about the problem with a file
+Use Case ends
+
+    7a. User does not confirm changes 
+        7a1. System displays the information about not saved changes
+        Use case resumes from step 5.
+
+8a. System detects an error with retrieving data from file
+8a1. System displays the information about the problem with a file
+Use Case ends
+
+*a. At any time, User can cancel editing the task
+    *a1. System requests for confirmation
+    *a2. User confirms the cancellation 
+    Use Case ends. 
+
+Use case: UC10 set priority to tasks
+Actor: User
+Preconditions: User is logged in.
+MSS: 
+1.User requests to list all tasks
+2.System shows a list of tasks
+3.User chooses to set priority of tasks 
+4.System shows the view for setting priority of tasks 
+5.User set priority to tasks 
+6.System requests for confirmation
+7.User confirms changes 
+8.System updates prioritizing for tasks in database and displays current prioritizing for tasks
+    Use Case ends
+
+Exceptions: 
+2a. System detects an error with retrieving data from file
+2a1. System displays the information about the problem with a file
+Use Case ends
+
+    7a. User does not confirm changes 
+        5a1. System displays the information about not saved changes
+        Use case resumes from step 5.
+
+8a. System detects an error with retrieving data from file
+6a1. System displays the information about the problem with a file
+Use Case ends
+
+*a. At any time, User can cancel setting priority for tasks
+    *a1. System requests for confirmation
+    *a2. User confirms the cancellation 
+    Use Case ends. 
+
+Use case: UC11 create a task that happens repeatedly by specifying an interval
+Actor: User
+Preconditions: User is logged in.
+MSS:
+1.User requests to add task with specified start date and interval
+2.System updates the database with information.
+Use Case ends
+
+Extensions:
+1a1. User enters invalid command
+1a1. System displays the error message.
+Use Case resumes at step 1.
+2a1. System detects an error in the connection with database
+2a1. System displays the information about the connection problem with database
+Use Case ends
+
+Use case: UC12 Color coding a task
+Actor: User
+Preconditions: User is logged in, tasks are created.
+MSS:
+1.User requests to list all tasks.
+2.System displays a list of all created tasks.
+3.User selects a task to edit
+4.User changes the color of the task.
+5.System updates the database with the changed details.
+Use Case ends
+
+Extensions:
+2a1. System detects an error in the connection with database
+2a1. System displays the information about the connection problem with database
+Use Case ends
+4a1. User does not confirm the color change
+    4a1. System displays message about cancellation 
+    Use Case resumes from step 1.
+    *a. At any time, User can cancel color coding
+    *a1. System requests for confirmation 
+    *a2. User cancels color coding
+    Use Case ends. 
 
 #### Use case: Delete person
 
@@ -310,10 +579,19 @@ Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+1.System should work on any mainstream OS as long as it has Java 8 or higher installed. 
+2.System should come with automated unit tests 
+3.Should be free and come with open source code. 
+4.Interface should be user friendly and intuitive
+5.System should be able to hold up to 1000 tasks.
+6.System should be able to run system within 5 seconds after launching
+7.System should be able to export task details
+8.System should have backup option
+9.Exported task details should be intuitive and easily readable
+10.System should not allow information to be accessed outside of the program
+11.System should be able to recover from errors quickly
+12.System should be able to report errors
+
 
 {More to be added}
 
