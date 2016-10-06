@@ -2,47 +2,42 @@
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-## Project Team
-
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+## Project Mentor
+#### [Akshay Narayan](https://github.com/okkhoy)
+<img src="images/Akshay.jpg" width="150"><br>
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+
+## Project Team
+
+#### [Dylan Chew Zhi Jiang](https://github.com/zavfel) <br>
+<img src="images/DylanChew.png" width="150"><br>
+Role: Developer <br>  
+Responsibilities: Logic
+
+-----
+
+#### [Wong Kang Fei](https://github.com/kfwong)
+<img src="images/KangFei.png" width="150"><br>
+Role: Developer <br>  
+Responsibilities: Logic
+
+-----
+
+#### [Lim Hui Qi](https://github.com/LuMiN0uSaRc) 
+<img src="images/HuiQi.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: UI
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Albert Yeoh Ji Bin](https://github.com/bertojo)
+<img src="images/AlbertYeoh.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Data
-
------
-
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
-
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
  
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
+-----
 
 # Contributors
 

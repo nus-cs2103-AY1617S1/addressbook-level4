@@ -251,13 +251,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new task | so I can register my things to do
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | find a task by name | locate details of the task without having to go through the entire list
+`* * *` | user | find a task by deadline | locate tasks that are due soon without having to go through the entire list
+`* * *` | user | edit a task | update entries as needed
+`* * *` | user | add a floating task | have a task without a deadline
+`* * *` | user | add a recurring task | add repeating tasks only once
+`* * *` | user | undo a task entered | increase my workflow
+`* * *` | user | sort list by alphabetical order and date | find my tasks easily
+`* * *` | user | specify the location of file storage | choose where to save the to do list
+`* *` | user | mark tasks as done | archive my completed tasks
+`* *` | user | see my tasks in user interface | have an easier time using the app
+`* *` | user | set categories | organise my tasks
+`* *` | user | block out timings | reserve time slots for tasks
+`* *` | user | create subtasks | breakdown my tasks into smaller problems
+`*` | user | specify my own natural language | customise the app
+`*` | user | set reminders for tasks | reduce chances of forgetting to do a task
+`*` | user | import a list of to do tasks | add in tasks without registering them individually
 
-{More to be added}
+
 
 ## Appendix B : Use Cases
 
@@ -288,12 +301,18 @@ Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+1. Should backup tasks list.
+2. Should be able to store 1000 tasks.
+3. Should only receive keyboard inputs.
+4. Should be maintainable and scalable.
+5. Should be user friendly for new users.
+6. Should be able to be accessed offline.
+7. Should come with automated unit testing.
+8. Should be able to startup and quit within 1 second.
+9. Should display up to date tasks when command is given.
+10. Should be able to run on all [mainstream OS](#mainstream-os).
+11. Should be able to display tasks within 1 second when command is given.
+12. Should have a simple GUI that displays [relevant information](#relevant-information).
 
 ## Appendix D : Glossary
 
@@ -301,11 +320,106 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Relevant Information
 
-> A contact detail that is not meant to be shared with others
+> Tasks, due dates, priority
+
+
+##### Floating Tasks
+
+> Tasks with no specific deadline
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+##### Google Calendar
 
+> Pros:
+>1.  Able to sync calendars from other people
+>2.  Chrome extension for offline connectivity
+>3.  Multiple viewing options (Calendar/To do list view)
+>4.  Has a Command Line Interface (CLI)
+  
+> Cons:
+>1.  Unable to support floating task
+>2.  Unable to mark tasks as done
+>3.  Unable to block out and free up timings
+>4.  CLI commands only for addition of tasks
+>5.  Bad interface
+  
+##### Wunderlist
+
+> Pros:
+>1.  Able to set categories
+>2.  Able to mark tasks as done
+>3.  Able to read tasks from e-mails
+>4.  Able to assign tasks to someone
+>5.  Able to search for tasks easily
+>6.  Able to migrate tasks from one category to another easily
+>7.  Web and offline desktop version available
+
+> Cons:
+>1.  Unable to create subtask
+>2.  Unable to support recurring tasks
+>3.  Unable to block out time slots
+>4.  Unable to set start date for tasks
+>5.  Only has a list view
+  
+##### Todoist
+
+> Pros:
+>1.  Able to set categories
+>2.  Able to collaborate with others
+>3.  Able to have sub-projects and sub-tasks
+>4.  Able to support recurring tasks
+>5.  Able to sort tasks by priority level
+>6.  Able to integrate from e-mail
+>7.  Able to backup auotmatically
+  
+> Cons:
+>1.  Unable to block out timings
+>2.  Unable to export out To-do list
+>3.  Minimal CLI
+>4.  Have to do alot of clicking
+
+##### Any.Do
+
+> Pros:
+>1.  Able to set categories by type and day
+>2.  Able to show completed tasks
+>3.  Able to collaborate with others
+>4.  Able to support sub-tasks
+>5.  Able to add attachments
+>6.  Able to support recurring tasks
+>7.  Able to mark task as done
+>8.  Able to notify and remind user
+>9.  Able to have action shortcuts
+>10.  Able to have different types of views
+
+> Cons:
+>1.  Unable to support floating tasks
+>2.  No CLI
+  
+##### Evernote
+
+> Pros:
+>1.  Able to quick search
+>2.  Able to support handwriting, embedded images/audio and links
+>3.  Able to work with camera
+  
+> Cons:
+>1.  No CLI
+>2.  No Calendar view
+  
+##### Trello
+
+> Pros:
+>1.  Able to mark tasks as "in-progress"
+>2.  Able to view as calendar
+  
+> Cons:
+>1.  Unable to import or export
+>2.  Relies on UI interaction
+>3.  No CLI
+>4.  Need to pay for premium use to access 3rd party features
+>5.  No desktop version
+  
