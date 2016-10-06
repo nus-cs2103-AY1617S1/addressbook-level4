@@ -122,15 +122,6 @@ Modifiers | Action
 ---|:---
 -t | List tags used in task manager
 
-#### Completing a task: `complete`
-Tag the task last selected as 'Complete' and remove it from the calendar.<br>
-Format: `complete INDEX`
-
-Examples:
-* `list`<br>
-  `complete 2`<br>
-  Add a tag `COMPLETE` the 2nd task in the task manager.
-
 #### Adding tags to a task: `add tag`
 Add tags to last selected task.<br>
 Format: `add tag [MORE_TAGS]`
@@ -154,6 +145,7 @@ Example:
 #### View the tasks in a calendar: `show in calendar`
 Open a calendar GUI and show all the tasks in the calendar.<br>
 Format: `show in calendar`
+
 #### Completing a task: `complete`
 Tag the task last selected as 'Complete' and remove it from the calendar.<br>
 Format: `complete INDEX`
@@ -202,4 +194,4 @@ List Tags | `list tags [-t] [-c]`
 Undo | `undo`
 Help | `help`
 Select | `select INDEX`
-Complete | 'complete INDEX'
+Complete | `complete INDEX`
