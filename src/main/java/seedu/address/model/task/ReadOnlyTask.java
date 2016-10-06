@@ -41,10 +41,10 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Start Date: ")
-                .append(DateFormatter.convertDateToString(getStartDate()))
-                .append(" End Date: ")
-                .append(DateFormatter.convertDateToString(getEndDate()))
-                .append(" Address: ")
+                .append(DateFormatter.convertDateToDisplayString(getStartDate()))
+                .append(" Due Date: ")
+                .append(DateFormatter.convertDateToDisplayString(getEndDate()))
+                .append(" Location: ")
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

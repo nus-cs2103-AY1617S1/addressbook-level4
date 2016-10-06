@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -40,8 +41,8 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        phone = source.getStartDate().toString();
-        email = source.getEndDate().toString();
+        phone = DateFormatter.convertDateToString(source.getStartDate());
+        email = DateFormatter.convertDateToString(source.getEndDate());
         address = source.getAddress().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -55,13 +56,13 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> personTags = new ArrayList<>(); 
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Date phone = new Date();
-        final Date email = new Date();
+        final Date phone = DateFormatter.convertStringToDate(this.phone);
+        final Date email = DateFormatter.convertStringToDate(this.email);
         final Location address = new Location(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
         return new Task(name, phone, email, address, tags);

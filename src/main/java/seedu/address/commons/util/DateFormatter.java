@@ -30,12 +30,20 @@ public class DateFormatter {
             throw new IllegalValueException("Incorrect time format");
         }
     }
-    
+
     public static String convertDateToString(Date val) {
-        return dateDisplayFormatter.format(val);
+        return dateFormatter.format(val);
     }
     
     public static String convertTimeToString(Date val) {
+        return timeFormatter.format(val);
+    }
+    
+    public static String convertDateToDisplayString(Date val) {
+        return dateDisplayFormatter.format(val);
+    }
+    
+    public static String convertTimeToDisplayString(Date val) {
         return timeDisplayFormatter.format(val);
     }
 }
