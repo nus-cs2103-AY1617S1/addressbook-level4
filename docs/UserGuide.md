@@ -31,7 +31,7 @@
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
+> * Items in `[SQUARE_BRACKETS]` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is not fixed.
 
@@ -40,16 +40,43 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a task: `add`
+#### Adding a task or event: `add`
+
 Adds a task to Lifekeeper<br>
-Format: `add TASK_NAME d/DUE_DATE p/PRIORITY_LEVEL r/REMINDER [t/TAG]...` 
+Format: `add TASK_NAME [d/DEADLINE] [p/PRIORITY_LEVEL] [r/REMINDER] [t/TAG]...` 
 
 > Tasks can have any number of tags (including 0)
+
+`DEADLINE` accepts `Date Time` format input and variable inputs namely:
+* `tomorrow [TIME]`
+* `today [TIME]`
+
+`PRIORITY_LEVEL` has to be an integer equal or larger than 1, with `1` being the top priority.
+
+`REMINDER` accepts `Date Time` format input and variable inputs namely:
+* `tomorrow [TIME]`
+* `today [TIME]`
+* `[TIME] before` sets reminder at the specified time before the `DEADLINE`. e.g. `0015 before` for a reminder 15 minutes before the `DEADLINE`.
 
 Examples: 
 * `add Grocery Shopping`
 * `add Assignment 1 d/Tomorrow p/1 r/Today 2000`
+* `add Assignment 2 d/Tomorrow p/1 r/0400 before`
 * `add CS2103 T7A1 d/6 Oct 2016 p/2 r/5 Oct 2016 1800 t/teamC2`
+Adds an event to Lifekeeper<br>
+Format: `add EVENT_NAME s/START_TIME e/END_TIME [t/TAG]...` 
+
+> Events can have any number of tags (including 0)
+
+`START_TIME` and `END_TIME` accepts `Date Time` format input and variable inputs namely:
+* `tomorrow [TIME]`
+* `today [TIME]`
+* `TIME` format assumes `today`
+
+Examples: 
+* `add Lunch s/1200 e/1300`
+* `add Executive Meeting s/tomorrow 0900 e/tomorrow 1200`
+* `add Concert s/tomorrow 1800 e/tomorrow 2000 t/Leisure`
 
 #### Adding a category: `addcat`
 Adds a category to Lifekeeper<br>
@@ -73,7 +100,7 @@ Format: `listcat`
 > All the categories in Lifekeeper will be listed
 
 
-#### Finding tasks by name, tag(s) or the range of due dates: `find`
+#### Finding tasks by name, tag(s) or the range of DEADLINEs: `find`
 Finding all tasks containing the queried keyword in their name
 * Finds tasks whose names contain any of the given keywords.<br>
 * Format: `find tasks KEYWORD [MORE_KEYWORDS]`
@@ -101,16 +128,16 @@ Examples:
   Returns Any tasks containing the tag `CS2103` or `cs2103` but not `CS2103T` or `CS2103 Project`.    
     
 Finding all tasks which has deadlines falling within certain dates    
-* Finds tasks which has due dates falling between the specified range.<br>    
+* Finds tasks which has DEADLINEs falling between the specified range.<br>    
 * Format: `find date STARTING_DATE ENDING_DATE`    
     
-> Date must be in the form `d MMM yyyy`, `d-MM-yyyy` or `d/MM/yyyy`    
+> Date must be in the form `d MMM yyyy`, `d-MM-yyyy` or `d/MM/yyyy`
     
 Examples:   
 `find date 1 Oct 2016 31 Oct 2016`   
-  Returns Any tasks which has due dates falling in between 1st October 2016 and 31st October 2016.<br>
+  Returns Any tasks which has DEADLINEs falling in between 1st October 2016 and 31st October 2016.<br>
 `find date 1-11-2016 31-12-2016`   
-  Returns Any tasks which has due dates falling in between 1st November 2016 and 31st December 2016.
+  Returns Any tasks which has DEADLINEs falling in between 1st November 2016 and 31st December 2016.
 
 #### Deleting a task: `delete`
 Deletes the selected task from Lifekeeper. Irreversible.<br>
@@ -167,7 +194,7 @@ Examples:
 
 #### Editing a task: `edit`
 Edits the selected task from Lifekeeper. Irreversible.<br>
-Format: `edit [TASK_NAME] [c/CATEGORY] [d/DUE_DATE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...`
+Format: `edit [TASK_NAME] [c/CATEGORY] [d/DEADLINE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...`
 
 > Edits the task that was previously selected with `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
@@ -181,7 +208,7 @@ Examples:
 * `find CS2103 Assignment`<br>
   `select 1`<br> 
   `edit d/15/06/2017`<br>
-  Selects the 1st task in the results of the `find` command and then change the due date to 15/06/2017.
+  Selects the 1st task in the results of the `find` command and then change the DEADLINE to 15/06/2017.
 
 #### Undoing an action : `undo`
 Reverts the action that was previously executed.<br>
@@ -210,9 +237,9 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_NAME d/DUE_DATE p/PRIORITY_LEVEL r/REMINDER [t/TAG]...` 
+Add | `add TASK_NAME d/DEADLINE p/PRIORITY_LEVEL r/REMINDER [t/TAG]...` 
 Add Category |`addcat CATEGORY_NAME`
-Edit | `edit [TASK_NAME] [c/CATEGORY] [d/DUE_DATE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...`
+Edit | `edit [TASK_NAME] [c/CATEGORY] [d/DEADLINE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...`
 Clear | `clear`
 Delete | `delete [INDEX]...`
 Find | `find KEYWORD [MORE_KEYWORDS]`
