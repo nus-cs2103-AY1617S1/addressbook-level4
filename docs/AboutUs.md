@@ -44,6 +44,13 @@ Responsibilities: Dev Ops
  
  -----
 
+#### [Victor Loh](https://github.com/lohvht)
+<img src="images/VictorLoh.jpg" width="150"><br>
+ Role: Project Mentor <br>  
+ Responsibilities: Mentoring
+ 
+ -----
+
 # Contributors
 
 We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
