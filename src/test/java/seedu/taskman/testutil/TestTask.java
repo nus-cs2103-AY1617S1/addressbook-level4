@@ -9,9 +9,10 @@ import seedu.taskman.model.task.*;
 public class TestTask implements EventInterface {
 
     private Title title;
-    private Address address;
-    private Email email;
     private Deadline deadline;
+    private Status status;
+    private Recurrence recurrence;
+    private Schedule schedule;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -22,16 +23,20 @@ public class TestTask implements EventInterface {
         this.title = title;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setEmail(Email email) {
-        this.email = email;
-    }
-
     public void setDeadline(Deadline deadline) {
         this.deadline = deadline;
+    }
+    
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setRecurrence(Recurrence recurrence) {
+        this.recurrence = recurrence;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     @Override
@@ -39,19 +44,22 @@ public class TestTask implements EventInterface {
         return title;
     }
 
-    @Override
     public Deadline getDeadline() {
         return deadline;
     }
 
-    @Override
-    public Email getEmail() {
-        return email;
+    public Status getStatus() {
+        return status;
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public Recurrence getRecurrence() {
+        return recurrence;
+    }
+    
+    @Override
+    public Schedule getSchedule() {
+        return schedule;
     }
 
     @Override
@@ -67,10 +75,21 @@ public class TestTask implements EventInterface {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTitle().title + " ");
-        sb.append("d/" + this.getDeadline().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("d/" + this.getDeadline().toString() + " ");
+        sb.append("c/" + this.getStatus().toString() + " ");
+        sb.append("r/" + this.getRecurrence().toString() + " ");
+        sb.append("s/" + this.getSchedule().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+	@Override
+	public boolean isRecurring() {
+		return recurrence == null;
+	}
+
+	@Override
+	public boolean isScheduled() {
+		return schedule == null;
+	}
 }

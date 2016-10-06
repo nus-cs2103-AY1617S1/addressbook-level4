@@ -19,9 +19,11 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String deadline;
     @XmlElement(required = true)
-    private String email;
+    private String status;
     @XmlElement(required = true)
-    private String address;
+    private String recurrence;
+    @XmlElement(required = true)
+    private String schedule;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -39,9 +41,10 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(EventInterface source) {
         title = source.getTitle().title;
-        deadline = source.getDeadline().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        deadline = ((Task) source).getDeadline().toString();
+        status = ((Task) source).getStatus().toString();
+        recurrence = source.getRecurrence().toString();
+        schedule = source.getSchedule().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -49,7 +52,7 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this JAXB-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
@@ -60,9 +63,10 @@ public class XmlAdaptedTask {
         }
         final Title title = new Title(this.title);
         final Deadline deadline = new Deadline(this.deadline);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
+        final Status status = new Status(this.status);
+        final Recurrence recurrence = new Recurrence(this.recurrence);
+        final Schedule schedule = new Schedule(this.schedule);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(title, deadline, email, address, tags);
+        return new Task(title, deadline, status, recurrence, schedule, tags);
     }
 }

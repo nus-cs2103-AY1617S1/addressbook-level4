@@ -7,26 +7,29 @@ import java.util.Objects;
 
 /**
  * Represents a Task in the task man.
- * Guarantees: details are present and not null, field values are validated.
+ * Guarantees: Title and UniqueTagList are present and not null, field values are validated.
  */
 public class Task implements EventInterface {
 
     private Title title;
     private Deadline deadline;
-    private Email email;
-    private Address address;
+    private Status status;
+    private Recurrence recurrence;
+	private Schedule schedule;
 
     private UniqueTagList tags;
 
     /**
-     * Every field must be present and not null.
+     * Only title and tags field must be present and not null.
      */
-    public Task(Title title, Deadline deadline, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(title, deadline, email, address, tags);
+    public Task(Title title, Deadline deadline,
+    		Status status, Recurrence recurrence, Schedule schedule, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(title, tags);
         this.title = title;
         this.deadline = deadline;
-        this.email = email;
-        this.address = address;
+        this.status = status;
+        this.recurrence = recurrence;
+        this.schedule = schedule;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,7 +37,7 @@ public class Task implements EventInterface {
      * Copy constructor.
      */
     public Task(EventInterface source) {
-        this(source.getTitle(), source.getDeadline(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getTitle(), null, null, source.getRecurrence(), source.getSchedule(), source.getTags());
     }
 
     @Override
@@ -42,21 +45,34 @@ public class Task implements EventInterface {
         return title;
     }
 
-    @Override
     public Deadline getDeadline() {
         return deadline;
     }
+    
+	public Status getStatus() {
+		return status;
+	}
 
-    @Override
-    public Email getEmail() {
-        return email;
-    }
+	@Override
+	public boolean isRecurring() {
+		return recurrence == null;
+	}
 
-    @Override
-    public Address getAddress() {
-        return address;
-    }
+	@Override
+	public boolean isScheduled() {
+		return schedule == null;
+	}
 
+	@Override
+	public Recurrence getRecurrence() {
+		return recurrence;
+	}
+
+	@Override
+	public Schedule getSchedule() {
+		return schedule;
+	}
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -79,7 +95,7 @@ public class Task implements EventInterface {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, deadline, email, address, tags);
+        return Objects.hash(title, deadline, status, recurrence, schedule, tags);
     }
 
     @Override

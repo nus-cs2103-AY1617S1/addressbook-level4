@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Title("Ali Muster"), new Deadline("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Task(new Title("Boris Mueller"), new Deadline("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Task(new Title("Carl Kurz"), new Deadline("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Task(new Title("Daniel Meier"), new Deadline("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Task(new Title("Elle Meyer"), new Deadline("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Task(new Title("Fiona Kunz"), new Deadline("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Task(new Title("George Best"), new Deadline("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Task(new Title("Hoon Meier"), new Deadline("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Task(new Title("Ida Mueller"), new Deadline("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
+                    new Task(new Title("Ali Muster"), new Deadline("9482424"), new Status("hans@google.com"), new Recurrence("4th street"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Boris Mueller"), new Deadline("87249245"), new Status("ruth@google.com"), new Recurrence("81th street"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Carl Kurz"), new Deadline("95352563"), new Status("heinz@yahoo.com"), new Recurrence("wall street"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Daniel Meier"), new Deadline("87652533"), new Status("cornelia@google.com"), new Recurrence("10th street"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Elle Meyer"), new Deadline("9482224"), new Status("werner@gmail.com"), new Recurrence("michegan ave"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Fiona Kunz"), new Deadline("9482427"), new Status("lydia@gmail.com"), new Recurrence("little tokyo"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("George Best"), new Deadline("9482442"), new Status("anna@google.com"), new Recurrence("4th street"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Hoon Meier"), new Deadline("8482424"), new Status("stefan@mail.com"), new Recurrence("little india"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Ida Mueller"), new Deadline("8482131"), new Status("hans@google.com"), new Recurrence("chicago ave"), new Schedule("wed 10am, wed 11am"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -144,7 +144,7 @@ public class TestUtil {
 
     /**
      * Tweaks the {@code keyCodeCombination} to resolve the {@code KeyCode.SHORTCUT} to their
-     * respective platform-specific keycodes
+     * respective platform-specific key codes
      */
     public static KeyCode[] scrub(KeyCodeCombination keyCodeCombination) {
         List<KeyCode> keys = new ArrayList<>();

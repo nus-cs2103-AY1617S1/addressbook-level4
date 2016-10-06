@@ -19,9 +19,11 @@ public class TaskCard extends UiPart{
     @FXML
     private Label deadline;
     @FXML
-    private Label address;
+    private Label status;
     @FXML
-    private Label email;
+    private Label recurrence;
+    @FXML
+    private Label schedule;
     @FXML
     private Label tags;
 
@@ -43,9 +45,10 @@ public class TaskCard extends UiPart{
     public void initialize() {
         title.setText(task.getTitle().title);
         id.setText(displayedIndex + ". ");
-        deadline.setText(task.getDeadline().value);
-        address.setText(task.getAddress().value);
-        email.setText(task.getEmail().value);
+        // deadline.setText(task.getDeadline().toString()); // need fix
+        // status.setText(task.getStatus().toString());
+        recurrence.setText(task.getRecurrence().toString());
+        schedule.setText(task.getSchedule().toString());
         tags.setText(task.tagsString());
     }
 

@@ -385,12 +385,13 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Title title = new Title("Adam Brown");
             Deadline privateDeadline = new Deadline("111111");
-            Email email = new Email("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
+            Status status = new Status("y");
+            Recurrence recurrence = new Recurrence("1d");
+            Schedule schedule = new Schedule("wed 10am, wed 11am");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(title, privateDeadline, email, privateAddress, tags);
+            return new Task(title, privateDeadline, status, recurrence, schedule, tags);
         }
 
         /**
@@ -404,8 +405,9 @@ public class LogicManagerTest {
             return new Task(
                     new Title("Task " + seed),
                     new Deadline("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Address("House of " + seed),
+                    new Status((seed % 2 == 0) ? "y" : "n"),
+                    new Recurrence(seed + "d"),
+                    new Schedule("wed " + seed + "am, wed " + seed + "pm"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -418,8 +420,9 @@ public class LogicManagerTest {
 
             cmd.append(p.getTitle().toString());
             cmd.append(" d/").append(p.getDeadline());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" c/").append(p.getStatus());
+            cmd.append(" r/").append(p.getRecurrence());
+    		cmd.append(" s/").append(p.getSchedule());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -503,9 +506,10 @@ public class LogicManagerTest {
             return new Task(
                     new Title(title),
                     new Deadline("1"),
-                    new Email("1@email"),
-                    new Address("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
+                    new Status("y"),
+                    new Recurrence("7d"),
+                    new Schedule(""),
+                    new UniqueTagList(new Tag("t1"), new Tag("t2"))
             );
         }
     }
