@@ -1,7 +1,6 @@
 package tars.storage;
 
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.util.CollectionUtil;
 import tars.model.tag.Tag;
 
 import javax.xml.bind.annotation.XmlValue;

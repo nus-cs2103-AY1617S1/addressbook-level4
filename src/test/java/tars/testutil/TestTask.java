@@ -9,10 +9,10 @@ import tars.model.tag.UniqueTagList;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
     private UniqueTagList tags;
+    private DateTime dateTime;
+    private Priority priority;
+    private Status status =  new Status();
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -21,37 +21,34 @@ public class TestTask implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
-
-    public void setAddress(Address address) {
-        this.address = address;
+    
+    public void setDateTime(DateTime dateTime) {
+        this.dateTime = dateTime;
     }
-
-    public void setEmail(Email email) {
-        this.email = email;
-    }
-
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    
+   
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     @Override
     public Name getName() {
         return name;
     }
-
+   
     @Override
-    public Phone getPhone() {
-        return phone;
+    public DateTime getDateTime() {
+        return dateTime;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public Status getStatus() {
+        return status;
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public Priority getPriority() {
+        return priority;
     }
 
     @Override
@@ -66,11 +63,10 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("add " + this.getName().taskName + " ");
+        sb.append("-dt " + this.getDateTime().toString() + " ");
+        sb.append("-p " + this.getPriority().toString() + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("-t " + s.tagName + " "));
         return sb.toString();
     }
 }

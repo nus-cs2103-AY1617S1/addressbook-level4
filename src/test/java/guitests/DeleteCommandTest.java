@@ -6,7 +6,7 @@ import tars.testutil.TestTask;
 import tars.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static tars.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static tars.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends TarsGuiTest {
 
@@ -49,7 +49,7 @@ public class DeleteCommandTest extends TarsGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }

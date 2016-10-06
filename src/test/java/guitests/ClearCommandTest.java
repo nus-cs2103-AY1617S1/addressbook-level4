@@ -14,8 +14,8 @@ public class ClearCommandTest extends TarsGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.hoon));
+        commandBox.runCommand(td.taskH.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.taskH));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 

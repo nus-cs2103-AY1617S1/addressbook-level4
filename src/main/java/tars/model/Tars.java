@@ -146,7 +146,6 @@ public class Tars implements ReadOnlyTars {
         return this.tags;
     }
 
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

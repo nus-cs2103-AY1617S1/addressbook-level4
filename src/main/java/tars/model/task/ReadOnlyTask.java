@@ -7,11 +7,20 @@ import tars.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
+    
+    public static final String PRIORITY_HIGH = "high";
+    public static final String PRIORITY_MEDIUM = "medium";
+    public static final String PRIORITY_LOW = "low";
+
+    public static final String PRIORITY_H = "h";
+    public static final String PRIORITY_M = "m";
+    public static final String PRIORITY_L = "l";
 
     Name getName();
-    Phone getPhone();
-    Email getEmail();
-    Address getAddress();
+    DateTime getDateTime();
+    Priority getPriority();
+    Status getStatus();
+    
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -26,9 +35,9 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getDateTime().equals(this.getDateTime())
+                && other.getPriority().equals(this.getPriority())
+                && other.getStatus().equals(this.getStatus()));
     }
 
     /**
@@ -37,15 +46,34 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" DateTime: ")
+                .append(getDateTime())
+                .append(" Priority: ")
+                .append(priorityString())
+                .append(" Status: ")
+                .append(getStatus().toString())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+    
+    /**
+     * Returns a string representation of this Task's priority
+     */
+    default String priorityString() {
+        String level = "";
+        switch (getPriority().toString()) {
+        case PRIORITY_H:
+            level = PRIORITY_HIGH;
+            break;
+        case PRIORITY_M:
+            level = PRIORITY_MEDIUM;
+            break;
+        case PRIORITY_L:
+            level = PRIORITY_LOW;
+            break;
+        }
+        return level;
     }
 
     /**

@@ -73,8 +73,8 @@ public class XmlTarsStorageTest {
         assertEquals(original, new Tars(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.hoon));
-        original.removeTask(new Task(TypicalTestTasks.alice));
+        original.addTask(new Task(TypicalTestTasks.taskH));
+        original.removeTask(new Task(TypicalTestTasks.taskA));
         xmlTarsStorage.saveTars(original, filePath);
         readBack = xmlTarsStorage.readTars(filePath).get();
         assertEquals(original, new Tars(readBack));

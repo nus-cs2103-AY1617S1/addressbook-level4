@@ -17,11 +17,12 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String priority;
     @XmlElement(required = true)
-    private String email;
+    private DateTime dateTime;
     @XmlElement(required = true)
-    private String address;
+    private boolean status;
+
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -38,10 +39,10 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        name = source.getName().taskName;
+        priority = source.getPriority().priorityLevel;
+        dateTime = source.getDateTime();
+        status = source.getStatus().status;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -59,10 +60,10 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
+        final Priority priority = new Priority(this.priority);
+        final DateTime dateTime = new DateTime(this.dateTime.startDateString, this.dateTime.endDateString);
+        final Status status = new Status(this.status);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, phone, email, address, tags);
+        return new Task(name, dateTime, priority, status, tags);
     }
 }

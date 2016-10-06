@@ -100,7 +100,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'tars' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyTars, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -110,7 +110,7 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedTars} <br>
+     *      - the internal tars data are same as those in the {@code expectedTars} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedTars} was saved to the storage file. <br>
      */
@@ -124,7 +124,7 @@ public class LogicManagerTest {
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
-
+        
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTars, model.getTars());
         assertEquals(expectedTars, latestSavedTars);
@@ -165,23 +165,24 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Task Name 22/04/2016 1400 to 23/04/2016 2200 -p h", expectedMessage); //No DateTime Prefix
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Task Name -dt 22/04/2016 1400 23/04/2016 2200 -p h", expectedMessage); //No "to" between start and end DateTime
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Task Name -dt 22/04/2016 1400 to 23/04/2016 2200 h", expectedMessage); //No Priority Prefix
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
+        String expectedErrorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] -dt 05/09/2016 1400 to 06/09/2016 2200 -p m", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Task Name -dt @@@notAValidDate@@@ -p m", expectedErrorMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p notAValidPriority", expectedErrorMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p m -t invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -189,7 +190,7 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.meetAdam();
         Tars expectedAB = new Tars();
         expectedAB.addTask(toBeAdded);
 
@@ -205,7 +206,7 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.meetAdam();
         Tars expectedAB = new Tars();
         expectedAB.addTask(toBeAdded);
 
@@ -215,7 +216,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -229,7 +230,7 @@ public class LogicManagerTest {
         Tars expectedAB = helper.generateTars(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare address book state
+        // prepare tars state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
@@ -258,7 +259,7 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
 
@@ -291,7 +292,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
@@ -320,7 +321,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeTasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -395,15 +396,15 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
+        Task meetAdam() throws Exception {
+            Name name = new Name("Meet Adam Brown");
+            DateTime dateTime = new DateTime("01/09/2016 1400",  "02/09/2016 2200");
+            Priority priority = new Priority("m");
+            Status status = new Status(false);
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+            return new Task(name, dateTime, priority, status, tags);
         }
 
         /**
@@ -414,11 +415,12 @@ public class LogicManagerTest {
          * @param seed used to generate the task data field values
          */
         Task generateTask(int seed) throws Exception {
+            int seed2 = (seed+1)%31 + 1; //Generate 2nd seed for DateTime value
             return new Task(
                     new Name("Task " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Address("House of " + seed),
+                    new DateTime(seed + "/01/2016 1400", seed2 + "/01/2016 2200"),
+                    new Priority("h"),
+                    new Status(false),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -430,13 +432,12 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" -dt ").append(p.getDateTime().toString());
+            cmd.append(" -p ").append(p.getPriority().toString());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" -t ").append(t.tagName);
             }
 
             return cmd.toString();
@@ -515,9 +516,9 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Phone("1"),
-                    new Email("1@email"),
-                    new Address("House of 1"),
+                    new DateTime("05/09/2016 1400", "06/09/2016 2200"),
+                    new Priority("h"),
+                    new Status(false),
                     new UniqueTagList(new Tag("tag"))
             );
         }
