@@ -312,13 +312,33 @@ Use case ends.
 
 ## Appendix D : Glossary
 
+##### Deadline
+
+> What you need to attend to with a specific deadline (e.g homework that requires submission) 
+
+##### Task:
+
+> What you need to attend to that has no specific time/deadline (e.g call your mum to chat)
+
+##### Event:
+
+> What you need to attend to that has a start time and an end time (e.g lecture)
+
+##### Date:
+
+> Date is given in format “[date]/[month]/[year]”
+
+##### Time:
+
+> Time is given in format “[hour]:[minute]”
+
+##### Keyword:
+
+> Name of deadline, task, or event
+
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
-
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
 
