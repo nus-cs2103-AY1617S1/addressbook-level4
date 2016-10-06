@@ -14,11 +14,11 @@ public class TypicalTestPersons {
     public TypicalTestPersons() {
         try {
             alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
-                    .withTags("friends").build();
+                    .withEmail("alice@gmail.com").withPhone("85355255");
+                    //.withTags("friends").build();
             benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
+                    .withEmail("johnd@gmail.com").withPhone("98765432");
+                    //.withTags("owesMoney", "friends").build();
             carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
             daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
             elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
@@ -37,13 +37,13 @@ public class TypicalTestPersons {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addPerson(new Person(alice));
-            ab.addPerson(new Person(benson));
-            ab.addPerson(new Person(carl));
-            ab.addPerson(new Person(daniel));
-            ab.addPerson(new Person(elle));
-            ab.addPerson(new Person(fiona));
-            ab.addPerson(new Person(george));
+            ab.addPerson(new Task(alice));
+            ab.addPerson(new Task(benson));
+            ab.addPerson(new Task(carl));
+            ab.addPerson(new Task(daniel));
+            ab.addPerson(new Task(elle));
+            ab.addPerson(new Task(fiona));
+            ab.addPerson(new Task(george));
         } catch (UniquePersonList.DuplicatePersonException e) {
             assert false : "not possible";
         }
