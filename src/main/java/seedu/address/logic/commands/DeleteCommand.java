@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
         ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
         try {
             model.deleteTask(personToDelete);
         } catch (PersonNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
+            assert false : "The target task cannot be missing";
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));

@@ -246,7 +246,7 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> personList = helper.generatePersonList(2);
 
@@ -279,7 +279,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getPersonList());
         assertEquals(1, targetedJumpIndex);
