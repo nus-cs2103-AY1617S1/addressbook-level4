@@ -5,14 +5,18 @@ We are from [School of Computing, National University of Singapore](http://www.c
 
 ## TaSc Project Team
 
+#### [Akshay Narayan](https://github.com/okkhoy)
+**Role:** Supervisor<br>
+**Responsibilities:** Team Advisor
+
 #### [Tan Wang Leng](https://github.com/yamgent)
 **Role:** Project Lead, Developer<br>
-**Responsibilities:** Integration<br>
+**Responsibilities:** Integration, Tasks Coordination<br>
 **Component-In-Charge:** Model
 
 #### [Cherlynn Cha](https://github.com/Cherc)
 **Role:** Developer<br>
-**Responsibilities:** Documentation and Deliverables (Scheduling & Deadlines)<br>
+**Responsibilities:** Deliverables (Scheduling & Deadlines Adherences)<br>
 **Component-In-Charge:** Logic
 
 #### [Wu Zefeng](https://github.com/DesperadoFlames)
@@ -22,7 +26,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
 
 #### [Ong Heng Le](https://github.com/initialshl)
 **Role:** Developer<br>
-**Responsibilities:** Documentation and Deliverables (Formatting & Code Quality)<br>
+**Responsibilities:** Code Quality, Documentation Formatting<br>
 **Component-In-Charge:** UI
 
 
