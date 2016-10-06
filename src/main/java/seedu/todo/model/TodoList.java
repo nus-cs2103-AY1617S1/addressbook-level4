@@ -1,6 +1,5 @@
 package seedu.todo.model;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -17,31 +16,29 @@ import javafx.collections.transformation.SortedList;
 
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
-import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
-import seedu.todo.storage.TodoListStorage;
+import seedu.todo.storage.Storage;
 
 public class TodoList implements ImmutableTodoList, TodoModel {
     private ObservableList<Task> tasks = FXCollections.observableArrayList(t -> t.getObservableProperties());
     private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
     private SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
     
+    private Storage storage;
+    
     private static final Logger logger = LogsCenter.getLogger(TodoList.class);
     
-    public TodoList(TodoListStorage storage) {
-        try {
-            Optional<ImmutableTodoList> todoListOptional = storage.readTodoList();
-            if (todoListOptional.isPresent()){
-                initTodoList(todoListOptional.get());
-            } else {
-                logger.info("Data file not found. Will be starting with an empty TodoList");
-            }
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty TodoList");
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty TodoList");
+    public TodoList(Storage storage) {
+        this.storage = storage;
+        
+        Optional<ImmutableTodoList> todoListOptional = storage.readTodoList();
+        
+        if (todoListOptional.isPresent()){
+            initTodoList(todoListOptional.get());
+        } else {
+            logger.info("Data file not found. Will be starting with an empty TodoList");
         }
 
         // Set the default comparators
@@ -62,13 +59,17 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         Task task = new Task(title);
         update.accept(task);
         tasks.add(task);
+        
+        storage.saveTodoList(this);
     }
 
     @Override
     public void delete(ImmutableTask task) throws IllegalValueException {
         if (!tasks.remove(task)) {
             throw new IllegalValueException("Task not found in todo list");
-        } 
+        }
+        
+        storage.saveTodoList(this);
     }
 
     @Override
@@ -80,6 +81,8 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         } else {
             Task task = tasks.get(index);
             update.accept(task);
+            
+            storage.saveTodoList(this);
         }
     }
 

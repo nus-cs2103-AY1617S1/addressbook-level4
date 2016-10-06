@@ -4,15 +4,11 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.events.model.AddressBookChangedEvent;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.model.ImmutableTodoList;
-import seedu.todo.model.ReadOnlyAddressBook;
 import seedu.todo.model.UserPrefs;
 
 /**
@@ -54,25 +50,45 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ImmutableTodoList> readTodoList() throws DataConversionException, IOException {
+    public Optional<ImmutableTodoList> readTodoList() {
         return readTodoList(todoListStorage.getTodoListFilePath());
     }
 
     @Override
-    public Optional<ImmutableTodoList> readTodoList(String filePath) throws DataConversionException, IOException {
+    public Optional<ImmutableTodoList> readTodoList(String filePath) {
         logger.fine("Attempting to read data from file: " + filePath);
-        return todoListStorage.readTodoList(filePath);
+        
+        Optional<ImmutableTodoList> todoListOptional = Optional.empty();
+        
+        try {
+            todoListOptional = todoListStorage.readTodoList();
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty TodoList");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty TodoList");
+        }
+        
+        return todoListOptional;
     }
 
     @Override
-    public void saveTodoList(ImmutableTodoList todoList) throws IOException {
-        todoListStorage.saveTodoList(todoList);
+    public void saveTodoList(ImmutableTodoList todoList) {
+        try {
+            todoListStorage.saveTodoList(todoList);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
     }
 
     @Override
-    public void saveTodoList(ImmutableTodoList todoList, String filePath) throws IOException {
+    public void saveTodoList(ImmutableTodoList todoList, String filePath) {
         logger.fine("Attempting to write to data file: " + filePath);
-        todoListStorage.saveTodoList(todoList, filePath);
+        
+        try {
+            todoListStorage.saveTodoList(todoList, filePath);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
     }
 
 }

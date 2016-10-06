@@ -3,10 +3,7 @@ package seedu.todo.storage;
 import java.io.IOException;
 import java.util.Optional;
 
-import seedu.todo.commons.events.model.AddressBookChangedEvent;
-import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.exceptions.DataConversionException;
-import seedu.todo.model.ReadOnlyAddressBook;
 import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.UserPrefs;
 
@@ -25,15 +22,15 @@ public interface Storage extends TodoListStorage, UserPrefsStorage {
     String getTodoListFilePath();
 
     @Override
-    Optional<ImmutableTodoList> readTodoList() throws DataConversionException, IOException;
+    Optional<ImmutableTodoList> readTodoList();
 
     @Override
-    Optional<ImmutableTodoList> readTodoList(String filePath) throws DataConversionException, IOException;
+    Optional<ImmutableTodoList> readTodoList(String filePath);
 
     @Override
-    void saveTodoList(ImmutableTodoList todoList) throws IOException;
+    void saveTodoList(ImmutableTodoList todoList);
 
     @Override
-    void saveTodoList(ImmutableTodoList todoList, String filePath) throws IOException;
+    void saveTodoList(ImmutableTodoList todoList, String filePath);
 
 }
