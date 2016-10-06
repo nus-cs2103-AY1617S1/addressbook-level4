@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 /**
- * Represents a storage for {@link seedu.address.model.AddressBook}.
+ * Represents a storage for {@link seedu.address.model.TaskBook}.
  */
 public interface AddressBookStorage {
 
