@@ -9,21 +9,21 @@ import seedu.address.model.person.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask attendMeeting, buyMilk, createPlan, deliverGoods, eatDinner, flyKite, goConcert, helpFriend, interview;
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").build();
-            benson = new TaskBuilder().withName("Benson Meier").build();
-            carl = new TaskBuilder().withName("Carl Kurz").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").build();
-            elle = new TaskBuilder().withName("Elle Meyer").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").build();
-            george = new TaskBuilder().withName("George Best").build();
+            attendMeeting =  new TaskBuilder().withName("Attend Meeting").build();
+            buyMilk = new TaskBuilder().withName("Buy Milk").build();
+            createPlan = new TaskBuilder().withName("Create Plan").build();
+            deliverGoods = new TaskBuilder().withName("Deliver Goods For Milk").build();
+            eatDinner = new TaskBuilder().withName("Eat Dinner").build();
+            flyKite = new TaskBuilder().withName("Fly Kite").build();
+            goConcert = new TaskBuilder().withName("Go Concert").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").build();
-            ida = new TaskBuilder().withName("Ida Mueller").build();
+            helpFriend = new TaskBuilder().withName("Help Friend").build();
+            interview = new TaskBuilder().withName("Interview").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -33,20 +33,20 @@ public class TypicalTestTasks {
     public static void loadAddressBookWithSampleData(TaskManager ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
+            ab.addTask(new Task(attendMeeting));
+            ab.addTask(new Task(buyMilk));
+            ab.addTask(new Task(createPlan));
+            ab.addTask(new Task(deliverGoods));
+            ab.addTask(new Task(eatDinner));
+            ab.addTask(new Task(flyKite));
+            ab.addTask(new Task(goConcert));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalPersons() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[]{attendMeeting, buyMilk, createPlan, deliverGoods, eatDinner, flyKite, goConcert};
     }
 
     public TaskManager getTypicalTaskManager(){

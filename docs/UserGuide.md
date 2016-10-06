@@ -12,7 +12,7 @@ Do you have so many tasks to do everyday that you simply cannot keep track of th
 *Taskle is here to help you with all of that.*
 
 It is a task management application with a single text box for all your commands. 
-Coupled with short and easy-to-remember commands, managing your tasks has never been this easy. 
+Coupled with short and easy to remember commands, managing your tasks has never been this easy. 
 
 Stop waiting and make "Getting Started with Taskle" the last thing on your to-do list now!
 
@@ -23,24 +23,26 @@ Stop waiting and make "Getting Started with Taskle" the last thing on your to-do
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `Taskle.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use for your To-do Application.
+2. Copy the file to the folder you want to use as the home folder for your task manager application.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+
+<img src="images/UI/Base.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   For example, typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some sample commands you can try:
-   * **`add`**` Buy Milk` : Adds a "Buy Milk" task to Taskle
-   * **`add`**` Submit Proposal by 7 Nov` : Adds a "Submit Proposal" task which is to be completed by 7 Nov
-   * **`remove`**` 5` : Removes the task with index 5 from the current to-do list
-   * **`clear`** : Clears all tasks from the application
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+5. Some example commands you can try:
+   * **`add`**` task_name` : Adds task_name to the to-do list
+   * **`add`**` deadline_name by date [time] [remind date time]` : Adds deadline_name to the to-do list with a deadline and an accompanying reminder
+   * **`add`**` event_name on date [time] [remind date time]` OR **`add`**` event_name from date [time] to date [time] [remind date time]` : Either adds event_name to the to-do list with either a flexible or fixed timeline and an accompanying reminder
+   * **`remove`**` task_number` : Removes the task_number contact shown in the current to-do list
+   * **`clear`**` task_number` : Clears all tasks from the application
    * **`exit`** : exits the appplication
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
 
-Taskle makes it elegantly simple to manage your tasks. All of its features require only a single line of command, making it very easy to use. You will be able to add tasks (with or without deadlines) and events which span over a period of time. Furthermore, it will be easy for you to keep track of your tasks with no hassle at all.
+Taskle makes it elegantly simple to manage your tasks. All of its features require only one single line of command making it very easy to use! Furthermore, it will be easy for you to keep track of your tasks with no hassle at all!
 
 > **Command Format**
 > * Words in **`BOLD`** are the parameters.
@@ -63,6 +65,8 @@ Examples:
 * `add `**`Pay Bills`**
 * `add `**`Do CS2101 Assignment`**` by `**`12 Oct`**
 * `add `**`Business Trip`**` from `**`4 Oct`**` to `**`5 Oct`**` remind `**`3 Oct 2pm`**
+
+<img src="images/UI/Add.png" width="600">
 
 Note:  
 * When entering date and time, the following formats are allowed:
@@ -89,17 +93,29 @@ Remind | `remind `**`task_number`**` on `**`date time`**
 
 Examples:
 * `edit `**`3 Pass money to Abel`**
+
+<img src="images/UI/Edit.png" width="600">
+<img src="images/UI/Edit 2.png" width="600">
+
 * `reschedule `**`Submit proposal `**` to `**`13 Oct 5pm`**
+
+<img src="images/UI/Reschedule.png" width="600">
+<img src="images/UI/Reschedule 2.png" width="600">
+
 * `remind `**`1 3 Oct 2pm`**
 
 Note:
-* Only one reminder is supported for each task. The date and time specified in the "Remind" command will replace any existing reminder. 
+* Only one reminder is supported for each task. The date and time specified in the "Remind" command will replace any existing reminder.
+ 
+* Reminders need to have a **time** specified in order to know the exact time to remind you of upcoming appointments.
 
 * To remove a reminder or deadline from a task, you will have to type "**null**" after typing the task number. For example:
-	* remind **3 null**
-	* reschedule **3 null**
+	* remind **2 null**
+	* reschedule **2 null**
 	
-* Reminders need to have a **time** specified in order to know the exact time to remind you of upcoming appointments.
+<img src="images/UI/Remind.png" width="600">
+<img src="images/UI/Remind 2.png" width="600">	
+	
 <br><br>
 
 #### Remove a Task: `remove`
@@ -108,52 +124,71 @@ Format: `remove `**`task_number`**
 
 Examples:
 * `remove `**`4`**
-* `remove `**`7`**
+
+<img src="images/UI/Remove.png" width="600">
+<img src="images/UI/Remove 2.png" width="600">	
+
 <br><br>
 
-#### Undo a Recent Command: `undo`
-Undo previous command that may have been entered incorrectly.<br>
-Format: `undo`
-<br><br>
-
-#### Find a Task : `find`
-Finds a task in the to-do application, based on keywords.<br>
-Format: `find [`**`search_query`**`] [`**`-p/-c/-o`**`]`
+#### Finding a Task : `find`
+Finds a task in the to-do application, based on keywords.<br><br>
+Format: `find [`**`search_query`**`][`**`-p/-d/-o`**`]`
 
 Examples:
 * `find `**`meeting`**
 * `find `**`submission -o`**
 
+<img src="images/UI/Find.png" width="600">
+
 Note:
-* After typing the words to search for, you can type any of the following keywords to search for specific types of tasks:
+* After typing the words to search for, you can type any of the following keywords to search for specific types of events:
 	* **-p**: Tasks that are still pending.
 	* **-c**: Tasks that are marked as completed.
 	* **-o**: Tasks that are overdue (applicable for deadlines only)
-* To view all types of tasks, you can simply omit the above keywords. 
+* To view all types of events, you can simply omit the above keywords. 
 * To display all tasks, simply type `find`
 * To display all the tasks of a specific type, simply omit the **search_query** parameter while including the keyword mentioned above. For example:
 	* `find `**`-p`**
+	
+<img src="images/UI/Find Pending.png" width="600">
+
 <br><br>
 
 #### Mark a Task as Done: `done`
 Marks a task as done. Use this command when you are finished with the task.<br>
 Format: `done`
+
+<img src="images/UI/Done.png" width="600">
+
 <br><br>
 
-#### Clear all Tasks: `clear`
-Removes all tasks from the application.<br>
+#### Undoing a Recent Command: `undo`
+Marks a task as done. This command is used when you are finished with the task.<br><br>
+Format: `undo`
+
+<br><br>
+
+#### Clearing all Tasks: `clear`
+Clears all tasks from the application.<br><br>
 Format: `clear`
+
+<img src="images/UI/Clear.png" width="600">
+
 <br><br>
 
 #### View Help: `help`
 Displays a list of available commands.<br>
 Format: `help`
 
+<img src="images/UI/Help.png" width="600">
+
 Note:
-* Help is also shown if you enter an incorrect command. For example: `abcd`<br><br>
+* Help is also shown if you enter an incorrect command. For example: `abcd`
+
+<br><br>
 
 #### Exit the Application: `exit`
-Exits the application.<br>
+Exits the application.<br><br>
 Format: `exit`  
 <br><br>
 
