@@ -12,7 +12,7 @@ import harmony.model.TaskManager;
 import harmony.model.task.Task;
 import harmony.model.ReadOnlyTaskManager;
 import harmony.storage.XmlTaskManagerStorage;
-import harmony.testutil.TypicalTestPersons;
+import harmony.testutil.TypicalTestTask;
 
 import java.io.IOException;
 
@@ -63,7 +63,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
+        TypicalTestTask td = new TypicalTestTask();
         TaskManager original = td.getTypicalAddressBook();
         XmlTaskManagerStorage xmlAddressBookStorage = new XmlTaskManagerStorage(filePath);
 
@@ -73,8 +73,8 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new TaskManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Task(TypicalTestPersons.hoon));
-        original.removePerson(new Task(TypicalTestPersons.alice));
+        original.addPerson(new Task(TypicalTestTask.hoon));
+        original.removePerson(new Task(TypicalTestTask.alice));
         xmlAddressBookStorage.saveAddressBook(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new TaskManager(readBack));

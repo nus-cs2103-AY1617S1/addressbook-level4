@@ -10,7 +10,7 @@ import harmony.model.TaskManager;
 import harmony.model.ReadOnlyTaskManager;
 import harmony.model.UserPrefs;
 import harmony.storage.StorageManager;
-import harmony.testutil.TypicalTestPersons;
+import harmony.testutil.TypicalTestTask;
 
 import static org.junit.Assert.assertEquals;
 
@@ -50,7 +50,7 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        TaskManager original = new TypicalTestPersons().getTypicalAddressBook();
+        TaskManager original = new TypicalTestTask().getTypicalAddressBook();
         storageManager.saveAddressBook(original);
         ReadOnlyTaskManager retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new TaskManager(retrieved));

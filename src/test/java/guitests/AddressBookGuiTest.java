@@ -6,7 +6,7 @@ import harmony.commons.core.EventsCenter;
 import harmony.model.TaskManager;
 import harmony.model.task.ReadOnlyTask;
 import harmony.testutil.TestUtil;
-import harmony.testutil.TypicalTestPersons;
+import harmony.testutil.TypicalTestTask;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +31,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestTask td = new TypicalTestTask();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -77,7 +77,7 @@ public abstract class AddressBookGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+        TypicalTestTask.loadAddressBookWithSampleData(ab);
         return ab;
     }
 
