@@ -35,19 +35,29 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a task: `add`
-Adds a task to DoMePlease<br>
-Format: `add TASKNAME d/TASK_DESCRIPTION td/TIME,DATE t/TAG...` 
+Adds a floating task to DoMePlease<br>
+Format: `add TASKNAME d/TASK_DESCRIPTION t/TAG...` 
+
+Adds a deadline to DoMePlease<br>
+Format: `add TASKNAME d/TASK_DESCRIPTION @/DATE TIME [t/TAG...]` 
+
+Adds an event to DoMePlease<br>
+Format: `add TASKNAME d/TASK_DESCRIPTION @/STARTDATE STARTTIME ENDDATE ENDTIME [t/TAG...]` <br>
+Format: `add TASKNAME d/TASK_DESCRIPTION @/DATE STARTTIME ENDTIME [t/TAG...]` <br>
+Format: `add TASKNAME d/TASK_DESCRIPTION @/STARTDATE ENDDATE TIME [t/TAG...]` <br>
+
+\*\* <i>Refer to appendix for Possible formats for \<DATE & TIME\></i>
  
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
 > 
-> Time and Date section is optional.  without = floating-task / with = event
 >
 > Tasks can have any number of tags (including 0)
 
 Examples: 
-* `add Wash Clothes d/Wash with detergent td/9pm,27/9/2016 t/!!!`
-* `add Buy pencil d/Pencil to shade OTAS sheet`
+* `add Buy pencil d/Pencil to shade OAS sheet`
+* `add Wash Clothes d/Wash with detergent @/27.9.2016 9pm t/!!!`
+* `add Meeting d/Meet with Jim @/today 5pm 6pm t/!!! t/jim`
 
 #### Listing all Tasks : `list`
 Shows a list of all floating and dated tasks in the address book.<br>
@@ -64,8 +74,6 @@ and task matching at least one keyword will be returned (i.e. `OR` search).
 Examples: 
 * `find EE2020`<br>
   Returns “EE2020” and “ee2020”
-* `find 2020`<br>
-  Returns “Do EE2020” and “Do CS2020”
 
 #### Deleting a task : `delete`
 Deletes the specified task from DoMePlease. Irreversible.<br>
