@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class BrowserPanel_Task extends UiPart{
 
-    private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
+    private static Logger logger = LogsCenter.getLogger(BrowserPanel_Task.class);
     private WebView browser;
 
     /**
