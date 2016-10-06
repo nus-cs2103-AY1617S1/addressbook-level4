@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "T.A.R.S. - Task and Remember Stuff";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String tarsFilePath = "data/addressbook.xml";
+    private String tarsFilePath = "data/tars.xml";
     private String tarsName = "MyTars";
 
 
