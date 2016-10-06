@@ -16,8 +16,6 @@
 1. Download the latest `tars.jar` from the 'releases' tab. [*No releases available yet*]
 2. Copy the file to the folder you want to use as the home folder for your TARS App.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > *Image not available yet*
-
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
