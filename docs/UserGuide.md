@@ -1,9 +1,22 @@
 # User Guide
 
+* [Introduction](#introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+
+
+## Introduction
+
+Welcome user! This user guide will provide you with all essential information required for you to make full use of our task manager, TasKitty.
+
+TasKitty is a task manager that can help you manage events, deadlines that you have to meet, or simply tasks that you want to get done whenever you have free time.
+
+If you are a keyboard lover and dislike clicking, then TasKitty is the right task manager for you! It boasts an intuitive command line interface with minimal clicking required, and the commands you have to type in are short and sweet. 
+
+To get started, proceed to the Quick Start section below.
+
 
 ## Quick Start
 
@@ -11,108 +24,150 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+1. Download the latest `TasKitty.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your TasKitty.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
+   * **`add`**` read book` : adds a new task named `read book`. 
+   * **`add`**` math homework 1 Jan 2015 2pm` : adds a new task that has the deadline `1 Jan 2015 2pm`.
+   * **`view`** : lists all tasks for today.
+   * **`view`**` 1 Jan 2015` : lists all tasks for specific date.
+   * **`delete`**` 1` : deletes the 1st task shown in the current list of tasks.
+   * **`exit`** : exits the program.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
 
 > **Command Format**
+> Tasks are split into 3 categories: `todo`, `deadline`, `event`<br>
+> `todo`: Tasks that have no specific date/time to be completed by<br>
+> `deadline`: Tasks that have a specific date/time they must be completed by<br>
+> `event`: Tasks that have specific start and end date/time<br>
+
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+> * `DATE` parameter can accept different formats. 1 Jan 2015, 010115, 01/01/2015 are all acceptable to represent 1 Jan 2015.
+> * `START_TIME` and `END_TIME` parameters can accept different formats. 3pm, 15:00, 1500 are all acceptable to represent 3pm.
+> * The order of parameters is not fixed.
 
 #### Viewing help : `help`
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+> Help is also shown if you enter an incorrect command e.g. `abcd`<br>
+> <img src="images/UIhelp.png" width="600">
 
-> Persons can have any number of tags (including 0)
+#### Create a new task: `add`
+Adds a new task to the tasks list or a new event to the event calendar.<br>
+Todo format: `add NAME`<br>
+Deadline format: `add NAME DATE END_TIME`<br>
+Event format: `add NAME DATE START_TIME END_TIME`
+
+> Depending on the input format, the task will be saved into 1 of 3 categories: todo, deadline or event.
+
+Examples:
+* `add read book`<br>
+  Adds a todo task with NAME as `read book`
+  > <img src="images/UItodo.png" width="600">
+
+* `add math homework 1 Jan 2015 2pm`<br>
+  Adds a deadline task with NAME as `math homework`, DATE as `1 Jan 2015`, END_TIME as `1500`
+  > <img src="images/UIdeadline.png" width="600">
+
+* `add meeting 1 Jan 2015 21:00 00:00`<br>
+  Adds an event task with NAME as `meeting`, DATE as `1 Jan 2015`, START_TIME as `2100`, END_TIME as `0000`
+  > <img src="images/UIevent.png" width="600">
+
+#### View all tasks: `view`
+View all tasks for the specified date.<br>
+Format: `view [DATE]`
+
+> All tasks for the specified DATE will be displayed. If no date is specified, all tasks for today will be displayed.
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `view`
+> <img src="images/UIview.png" width="600">
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+* `view 1 Jan 2015`
+> <img src="images/UIviewDate.png" width="600">
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+#### Find tasks: `find`
+Find tasks based on keywords.<br>
+Format: `find KEYWORDS`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+> Tasks that partly or completely match the keywords entered will be displayed.
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+Examples:
+* `find homework`<br>
+> <img src="images/UIfind.png" width="600">
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+#### Edit task details: `edit`
+Edit a task or event already inside the task manager/ event calendar using the index of the task.<br>
+Format: `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
+
+> Format depends on the type of task being edited. When only 1 TIME is provided, it is treated as END_TIME for both deadline and event.
+
+Examples:
+* `view`<br>
+  `edit 3 Do math homework 3pm`<br>
+  Edit the 3rd task today. Changes the NAME to `Do math homework` and END_TIME to `1500`<br>
+  > <img src="images/UIedit.png" width="600">
+
+  `edit 2 22:00 00:00`<br>
+  Edit the 2nd task today. Changes the START_TIME to `2200` and END_TIME to `0000`
+
+#### Delete task: `delete`
+Delete a task inside the task list or an event inside the calendar.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Delete a task at the specified INDEX. The INDEX refers to the index number shown in the most recent listing
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
+Examples:
+* `view`<br>
   `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  Delete the 1st task today as shown by the `view` command
+  > <img src="images/Uidelete.png" width="600">
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+* `view 1 Jan 2015`<br>
+  `delete 2`<br>
+  Delete the 2nd task on 1 Jan 2015 as shown by the `view` command
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+#### Mark task as done: `done`
+Mark a task in the task list as done.<br>
+Format: `done INDEX`
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+> Marks a task at the specified INDEX as completed. The INDEX refers to the index number shown in the most recent listing
+
+Examples:
+* `view`<br>
+  `done 1`<br>
+  Marks the 1st task today as shown by the `view` command as completed
+  > <img src="images/UIdone.png" width="600">
+
+#### Undo previous action: `undo`
+Undo the last completed action.<br>
+Format: `undo`
+
+> The previous version will be restored<br>
+> User can keep retyping undo to undo multiple actions<br>
+> <img src="images/UIundo.png" width="600">
 
 #### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+Clears all tasks from the task manager.<br>
 Format: `clear`  
+> <img src="images/UIclear.png" width="600">
 
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
@@ -125,10 +180,15 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
+Add todo | `add NAME`
+Add deadline | `add NAME DATE END_TIME`
+Add event | `add NAME DATE START_TIME END_TIME`
+View | `view [DATE]`
+Find | `find KEYWORDS`
+Edit | `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
+Done | `done INDEX`
+Undo | `undo`
 Help | `help`
-Select | `select INDEX`
+Clear | `clear`
+Exit | `exit`

@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -273,47 +273,233 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add new tasks with no date and time | keep track of tasks that have no date and time
+`* * *` | user | add new tasks with deadlines | keep track of deadlines
+`* * *` | user | add new tasks with start and end time | keep track of tasks with start time and end time
+`* * *` | user | view all tasks today | keep track of my agenda for today
+`* * *` | user | view all tasks for a specific date | keep track of my tasks
+`* * *` | user | find a task using keywords | find a specific task easily
+`* * *` | user | edit a task | update the details of specific tasks
+`* * *` | user | edit deadline/event timeslot | track the changes in my schedule accordingly
+`* * *` | user | delete a task | remove a task that is no longer required to be done
+`* * *` | user | undo the latest action | undo accidental mistakes
+`* * *` | user | mark a task as done | remember what I have completed
+`* * *` | user | store all tasks in a file | share and sync the file on different computers
+`* *` | user | enter commands in any format | insert tasks more intuitively according to my own style
 
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **Program** is the `Task Manager`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Create new todo task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+1. User creates new task with only name
+2. Program saves the task with given name as a todo
+Use case ends
 
 **Extensions**
 
-2a. The list is empty
+1a. Name is invalid
+
+> 1a1. Program returns error message, saying that name given is invalid<br>
+  Use case resumes at step 1
+
+#### Use case: Create new deadline task
+
+**MSS**
+
+1. User creates new task with name, date and time
+2. Program saves the task with given name, date and time as a deadline<br>
+Use case ends
+
+**Extensions**
+
+1a. Name is invalid
+
+> 1a1. Program returns error message, saying that name given is invalid<br>
+  Use case resumes at step 1
+
+1b. The date/time given is invalid
+
+> 1b1. Program returns error message, saying that date/time given is invalid<br>
+  Use case resumes at step 1
+	
+1c. The date/time entered is already over
+
+> 1c1. Program returns error message, saying that deadline entered is already over<br>
+  Use case resumes at step 1
+
+#### Use case: Create new event task
+
+**MSS**
+
+1. User creates new task with name, date, start and end time
+2. Program saves the task with given name, date, start and end time as an event<br>
+Use case ends
+
+**Extensions**
+
+1a. Name is invalid
+
+> 1a1. Program returns error message, saying that name given is invalid<br>
+  Use case resumes at step 1
+
+1b. The date/time given is invalid
+
+> 1b1. Program returns error message, saying that date/time given is invalid<br>
+  Use case resumes at step 1
+	
+1c. The date/time entered is already over
+
+> 1c1. Program returns error message, saying that deadline entered is already over<br>
+  Use case resumes at step 1
+
+1d. The start time is later then end time
+
+> 1d1. Program returns error message, saying that the start time cannot be later then the end time<br>
+  Use case resumes at step 1
+
+#### Use case: View all tasks at specified date
+
+**MSS**
+
+1. User requests to view all tasks at a specified date
+2. Program shows the list tasks for the specified date<br>
+Use case ends
+
+**Extensions**
+
+1a. Date is invalid
+
+> 1a1. Program returns errors message, saying that date given is invalid<br>
+  Use case resumes at step 1
+
+2a. There are no tasks for the specified date
+
+> 1a1. Program returns a message, saying that there are no tasks for the specified date<br>
+  Use case ends.
+  
+#### Use case: Find a specific task
+
+**MSS**
+
+1. User requests to find all tasks with a specified keyword
+2. Program shows the list tasks for which have the keyword<br>
+Use case ends
+
+**Extensions**
+
+1a. Keyword is invalid
+
+> 1a1. Program returns errors message, saying that keyword given is invalid<br>
+  Use case resumes at step 1
+
+2a. There are no tasks for the specified date
+
+> 1a1. Program returns a message, saying that there are no tasks found<br>
+  Use case ends.
+
+#### Use case: Edit details of a task
+
+**MSS**
+
+1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
+2. User edits the details of a task (selected using the index)
+3. Program saves changes and shows the updated list tasks for the specified date<br>
+Use case ends
+
+**Extension**
+
+1a. There are no tasks for the specified date
 
 > Use case ends
 
-3a. The given index is invalid
+2a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 2a1. Program returns error message, saying that index is invalid<br>
   Use case resumes at step 2
+
+3a. Changes made are invalid
+
+> 3a1. Program returns error message (similar to error messages when creating a new task), depending on type of error<br>
+  Use case resumes at step 2
+
+#### Use case: Delete a task
+
+**MSS**
+
+1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
+2. User requests to delete a task from the list
+3. Program removes the task from storage<br>
+Use case ends
+
+**Extension**
+
+1a. There are no tasks for the specified date
+
+> Use case ends.
+
+2a. The given index is invalid
+
+> 2a1. Program returns error message, saying that index is invalid<br>
+  Use case resumes at step 2.
+
+#### Use case: Mark a task when done
+
+**MSS**
+
+1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
+2. User requests to mark a task from the list as `Done`
+3. Program tags the task as `Done`<br>
+Use case ends
+
+**Extension**
+
+1a. There are no tasks for the specified date
+
+> Use case ends.
+
+2a. The given index is invalid
+
+> 2a1. Program returns error message, saying that index is invalid<br>
+  Use case resumes at step 2
+
+#### Use case: Undo previous action
+
+**MSS**
+
+1. User requests to undo previous action
+2. Program restores the previous version<br>
+Use case ends
+
+**Extension**
+
+1a. There are no actions to undo.
+
+> 1a1. Program returns error message, saying that no action was executed since startup of task manager<br>
+  Use case ends.
 
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+2. Should work on a desktop without network/Internet connection.
+3. Should work stand-alone.
+4. Should not use relational databases.
+5. Should work without requiring an installer.
+6. Should be able to hold up to 1000 events.
+7. Should come with automated unit tests and open source code.
+8. Should favor DOS style commands over Unix-style commands.
+9. Should react to every command within 0.5 seconds.
+10. Should automatically remove tasks that are 3 months old.
+11. Should be able to create tasks as far into the future as the user requires.
+12. Should have intuitive commands for users.
+13. Should store data in a human editable file
 
 {More to be added}
 
@@ -329,5 +515,89 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+#### Ian: `Google Calendar`
+
+**Pros**
+
+* Can be accessed from almost any device (online/offline)
+* Intuitive (Clicking Interface)
+* Sync calendars with different people
+* Layers for calendar
+* Able to locate common free slots for multiple people
+* Able to automatically detect events from gmail
+* Able to use natural language as input
+* Can undo last action
+* Can add recurring reminders
+* Reminders will add to today if they are written for dates that have already passed
+
+**Cons**
+
+* Unable to label events with different categories
+* Has many functionalities, but they are difficult to find
+* Text is truncated on the calendar
+* Only can mark reminders as done
+
+
+#### Jun An: `Wunderlist`
+
+**Pros**
+
+* Cross-platform support: Windows, OS, Android, IOS
+* Easy task management including due dates, reminders, star, and list groups
+* Email and printing for tasks list
+* Cloud sharing tasks lists
+* Group all related lists into folders
+* Filter to see all tasks starred, completed and tasks due within a period
+* Able to add anything from web straight to the list
+* Add notes to tasks for extra details
+* Set on notifications (eg. Email, in-app) for due dates
+  
+**Cons**
+
+* No repeat options for task
+* No options for subtasks or subcontexts
+* No undo function
+* Limited functionalities(eg. Limited number of tasks and limited file sizes) for free versions, requires subscription fee to unlock all functionalities
+
+
+	
+
+#### Rachel: `Todo.txt`
+
+**Pros**
+
+* Has many filters to choose from: project, context, priority, keyword, etc, so it is easy to narrow down a long list based on what you want to look for
+* Automatic and fast syncing with Dropbox, so user can conveniently access the list at any place that has an internet connection
+* Can be used on a command line interface e.g. terminal
+* Can be used on virtually any platform and edited using any text editor.
+* Saves the list as a file in its original, human-readable format, so that even when the application is deleted or uninstalled, the file left behind retains the same readable format when opened by a text editor.
+* Sorts tasks based on 5 priority labels by default (alphabets A - E, where A corresponds to the highest priority), with non-prioritised tasks listed at the bottom.
+* Has a simple and minimalistic interface 
+
+**Cons**
+
+* Requires user to manually edit one of the downloaded files “todo.cfg” in order to specify the directory in which the user wishes the save the file when used on a desktop.
+* No support for routine tasks.
+* No support for subtasks under main tasks.
+* No undo function.
+	
+
+#### Jia Wern: `iCal`
+
+**Pros**
+
+* Events can be added very easily by clicking in the corresponding timeslot
+* Duration of events can be changed easily by dragging the borders of the event
+* There is flexibility in terms of being able to set a task to be a recurring task, setting an event to be an entire day and even setting alarms/reminders for the event
+* Events can be categorized and each category is distinctly colour coded.
+* Works across all platforms (desktop, tablet, phone)
+* Events can be searched.
+* Users can undo their previous action
+
+**Cons**
+
+* Details have to be filled individually into the respective categories. There is no option to type everything in one line and the relevant sections will be filled up automatically.
+* There is no way to mark an item as done
+* There is no automatic way to block of timings. An actual event has to be created and deleted should the event is not happening anymore.
+
 

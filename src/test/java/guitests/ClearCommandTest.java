@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class ClearCommandTest extends AddressBookGuiTest {
+public class ClearCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void clear() {
@@ -26,6 +26,6 @@ public class ClearCommandTest extends AddressBookGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage("Task manager has been cleared!");
     }
 }

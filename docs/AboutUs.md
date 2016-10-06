@@ -1,52 +1,39 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a group of Computer Science students from the School of Computing, National University of Singapore.
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Jia Wern](https://github.com/l0g1cal)<br>
+
+<img src="images/JiaWern.png" width="150"><br>
+* Role: Developer<br>
+* Responsibilities: Team Lead<br>
+* In charge of: UI
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+#### [Ian Teo](https://github.com/IanTeo)<br>
+
+<img src="images/IanTeo.png" width="150"><br>
+* Role: Developer<br>
+* Responsibilities: Integration<br>
+* In charge of: Storage
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+#### [Rachel Yang](https://github.com/JJ-Rachel)<br>
+
+<img src="images/RachelYang.png" width="150"><br>
+* Role: Developer<br>
+* Responsibilities: Code Quality<br>
+* In charge of: Model
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+#### [Jun An](https://github.com/yamidark)<br>
 
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+<img src="images/TanJunAn.png" width="150"><br>
+* Role: Developer<br>
+* Responsibilities: Testing<br>
+* In charge of: Logic
