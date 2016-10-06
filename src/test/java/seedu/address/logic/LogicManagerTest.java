@@ -154,21 +154,21 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid ItemType 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid ItemType p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid ItemType n/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid ItemType p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid ItemType n/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", ItemType.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] n/12345 e/valid@e.mail a/valid, address", ItemType.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid ItemType p/not_numbers e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add Valid ItemType n/not_numbers e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid ItemType p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid ItemType n/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid ItemType p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid ItemType n/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -417,7 +417,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getItemType().toString());
-            cmd.append(" p/").append(p.getName());
+            cmd.append(" n/").append(p.getName());
             cmd.append(" e/").append(p.getEmail());
             cmd.append(" a/").append(p.getAddress());
 
