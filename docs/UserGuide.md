@@ -257,7 +257,7 @@ List | `list`
 Retag | `retag INDEX [t/TAG]... to [t/TAG]...`
 Select | `select INDEX`
 Sort | `sort ATTRIBUTE`
-Sotrageloc | `storageloc [LOCATION]` or `storageloc default`
+Storageloc | `storageloc [LOCATION]` or `storageloc default`
 Tag List | `tag list`
 Tag | `tag INDEX [t/TAG]...`
 Undo | `undo`
