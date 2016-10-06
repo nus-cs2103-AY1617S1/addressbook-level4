@@ -1,6 +1,6 @@
 package seedu.jimi.logic.commands;
 
-import seedu.jimi.model.AddressBook;
+import seedu.jimi.model.TaskBook;
 
 /**
  * Clears the address book.
@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(AddressBook.getEmptyTaskBook());
+        model.resetData(TaskBook.getEmptyTaskBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

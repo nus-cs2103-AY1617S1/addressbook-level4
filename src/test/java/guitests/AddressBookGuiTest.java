@@ -11,7 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.jimi.TestApp;
 import seedu.jimi.commons.core.EventsCenter;
-import seedu.jimi.model.AddressBook;
+import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.testutil.TestUtil;
 import seedu.jimi.testutil.TypicalTestPersons;
@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for TaskBook.
  */
 public abstract class AddressBookGuiTest {
 
@@ -76,9 +76,9 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+    protected TaskBook getInitialData() {
+        TaskBook ab = TestUtil.generateEmptyTaskBook();
+        TypicalTestPersons.loadTaskBookWithSampleData(ab);
         return ab;
     }
 

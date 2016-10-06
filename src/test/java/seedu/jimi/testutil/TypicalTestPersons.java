@@ -1,7 +1,7 @@
 package seedu.jimi.testutil;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
-import seedu.jimi.model.AddressBook;
+import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.task.*;
 
 /**
@@ -34,7 +34,7 @@ public class TypicalTestPersons {
         }
     }
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static void loadTaskBookWithSampleData(TaskBook ab) {
 
         try {
             ab.addTask(new Task(alice));
@@ -53,9 +53,9 @@ public class TypicalTestPersons {
         return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
-        loadAddressBookWithSampleData(ab);
+    public TaskBook getTypicalTaskBook(){
+        TaskBook ab = new TaskBook();
+        loadTaskBookWithSampleData(ab);
         return ab;
     }
 }

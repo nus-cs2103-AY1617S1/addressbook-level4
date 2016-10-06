@@ -17,7 +17,7 @@ import seedu.jimi.TestApp;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.FileUtil;
 import seedu.jimi.commons.util.XmlUtil;
-import seedu.jimi.model.AddressBook;
+import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
@@ -135,12 +135,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
+    public static TaskBook generateEmptyTaskBook() {
+        return new TaskBook(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+        return new XmlSerializableAddressBook(generateEmptyTaskBook());
     }
 
     /**

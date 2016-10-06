@@ -12,9 +12,9 @@ import seedu.jimi.commons.util.FileUtil;
 import seedu.jimi.model.ReadOnlyTaskBook;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access TaskBook data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlAddressBookStorage implements TaskBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
@@ -39,7 +39,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         File addressBookFile = new File(filePath);
 
         if (!addressBookFile.exists()) {
-            logger.info("AddressBook file "  + addressBookFile + " not found");
+            logger.info("TaskBook file "  + addressBookFile + " not found");
             return Optional.empty();
         }
 

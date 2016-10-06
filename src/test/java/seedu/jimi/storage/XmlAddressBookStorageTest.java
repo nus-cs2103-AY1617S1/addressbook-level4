@@ -8,7 +8,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.jimi.commons.exceptions.DataConversionException;
 import seedu.jimi.commons.util.FileUtil;
-import seedu.jimi.model.AddressBook;
+import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.ReadOnlyTaskBook;
 import seedu.jimi.model.task.Task;
 import seedu.jimi.storage.XmlAddressBookStorage;
@@ -64,26 +64,26 @@ public class XmlAddressBookStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTestPersons td = new TypicalTestPersons();
-        AddressBook original = td.getTypicalAddressBook();
+        TaskBook original = td.getTypicalTaskBook();
         XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
 
         //Save in new file and read back
         xmlAddressBookStorage.saveTaskBook(original, filePath);
         ReadOnlyTaskBook readBack = xmlAddressBookStorage.readTaskBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        assertEquals(original, new TaskBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestPersons.hoon));
         original.removePerson(new Task(TypicalTestPersons.alice));
         xmlAddressBookStorage.saveTaskBook(original, filePath);
         readBack = xmlAddressBookStorage.readTaskBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        assertEquals(original, new TaskBook(readBack));
 
         //Save and read without specifying file path
         original.addTask(new Task(TypicalTestPersons.ida));
         xmlAddressBookStorage.saveTaskBook(original); //file path not specified
         readBack = xmlAddressBookStorage.readTaskBook().get(); //file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        assertEquals(original, new TaskBook(readBack));
 
     }
 
@@ -100,7 +100,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void saveAddressBook_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveTaskBook(new AddressBook(), null);
+        saveTaskBook(new TaskBook(), null);
     }
 
 

@@ -21,58 +21,58 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given TaskBook
+     * TaskBook and its variables should not be null
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(TaskBook src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new AddressBook(src);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        taskBook = new TaskBook(src);
+        filteredTasks = new FilteredList<>(taskBook.getTasks());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new TaskBook(), new UserPrefs());
     }
 
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        taskBook = new TaskBook(initialData);
+        filteredTasks = new FilteredList<>(taskBook.getTasks());
     }
 
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
-        addressBook.resetData(newData);
+        taskBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
     public ReadOnlyTaskBook getTaskBook() {
-        return addressBook;
+        return taskBook;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+        raise(new AddressBookChangedEvent(taskBook));
     }
 
     @Override
     public synchronized void deletePerson(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removePerson(target);
+        taskBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(task);
+        taskBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }

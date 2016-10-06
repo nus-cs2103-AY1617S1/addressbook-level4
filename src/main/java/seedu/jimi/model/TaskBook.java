@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyTaskBook {
+public class TaskBook implements ReadOnlyTaskBook {
 
     private final UniqueTaskList persons;
     private final UniqueTagList tags;
@@ -24,24 +24,24 @@ public class AddressBook implements ReadOnlyTaskBook {
         tags = new UniqueTagList();
     }
 
-    public AddressBook() {}
+    public TaskBook() {}
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(ReadOnlyTaskBook toBeCopied) {
+    public TaskBook(ReadOnlyTaskBook toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(UniqueTaskList persons, UniqueTagList tags) {
+    public TaskBook(UniqueTaskList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyTaskBook getEmptyTaskBook() {
-        return new AddressBook();
+        return new TaskBook();
     }
 
 //// list overwrite operations
@@ -150,9 +150,9 @@ public class AddressBook implements ReadOnlyTaskBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equals(((AddressBook) other).tags));
+                || (other instanceof TaskBook // instanceof handles nulls
+                && this.persons.equals(((TaskBook) other).persons)
+                && this.tags.equals(((TaskBook) other).tags));
     }
 
     @Override

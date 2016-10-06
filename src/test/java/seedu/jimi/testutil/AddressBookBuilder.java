@@ -1,7 +1,7 @@
 package seedu.jimi.testutil;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
-import seedu.jimi.model.AddressBook;
+import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.task.Task;
 import seedu.jimi.model.task.UniqueTaskList;
@@ -9,27 +9,27 @@ import seedu.jimi.model.task.UniqueTaskList;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code TaskBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private TaskBook taskBook;
 
-    public AddressBookBuilder(AddressBook addressBook){
-        this.addressBook = addressBook;
+    public AddressBookBuilder(TaskBook taskBook){
+        this.taskBook = taskBook;
     }
 
     public AddressBookBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(task);
+        taskBook.addTask(task);
         return this;
     }
 
     public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+        taskBook.addTag(new Tag(tagName));
         return this;
     }
 
-    public AddressBook build(){
-        return addressBook;
+    public TaskBook build(){
+        return taskBook;
     }
 }
