@@ -75,8 +75,6 @@ public class CommandBox extends UiPart {
     private void handleCommandInputChanged(KeyEvent event){
         KeyCode keyCode = event.getCode();
         if (!keyCode.isDigitKey() && !keyCode.isLetterKey()) return;
-        logger.info(""+event.getCode());
-        logger.info("Command input changed: ["+ commandTextField.getText()+"]");
         resultDisplay.postMessage(logic.decideToolTip(commandTextField.getText()));
     }
 
@@ -90,7 +88,6 @@ public class CommandBox extends UiPart {
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
-        logger.info("Command input changed from entered: ["+ commandTextField.getText()+"]");
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
