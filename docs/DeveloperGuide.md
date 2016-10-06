@@ -276,8 +276,8 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | set time alerts to tasks |
 `*` | user | archive tasks | look up on completed tasks for future reference
 `*` | user | have notifications on tasks | get alerted on due tasks
-`* * *` | user | add tags to a specific task |
-`* * *` | user | remove tags from a specific task |
+`* * *` | user | add tags to a specific task/person |
+`* * *` | user | remove tags from a specific task/person |
 `* * *` | user | list all tags used |
 `*` | user | search a tag |
 `*` | user | see tasks on a calendar GUI |
