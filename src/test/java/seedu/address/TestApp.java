@@ -1,17 +1,5 @@
 package seedu.address;
 
-import java.util.function.Supplier;
-
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import seedu.address.commons.collections.UniqueItemCollection;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.TaskConfig;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.task.Task;
-import seedu.address.storage.task.XmlSerializableTaskManager;
-import seedu.address.testutil.TestUtil;
-
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
  * testing

@@ -1,15 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
-import guitests.guihandles.PersonCardHandle;
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.taskcommands.AddTaskCommand;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
-
 public class AddCommandTest extends AddressBookGuiTest {
 //
 //    @Test

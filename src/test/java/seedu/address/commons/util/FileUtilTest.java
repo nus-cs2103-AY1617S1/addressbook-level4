@@ -1,17 +1,5 @@
 package seedu.address.commons.util;
 
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import seedu.address.testutil.SerializableTestClass;
-import seedu.address.testutil.TestUtil;
-
-import java.io.File;
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-
 public class FileUtilTest {
 //    private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
 //

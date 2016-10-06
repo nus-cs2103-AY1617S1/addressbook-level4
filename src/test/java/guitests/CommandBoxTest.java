@@ -1,9 +1,5 @@
 package guitests;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-
 public class CommandBoxTest extends AddressBookGuiTest {
 
 //    @Test

@@ -1,12 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
-
 public class DeleteCommandTest extends AddressBookGuiTest {
 //
 //    @Test

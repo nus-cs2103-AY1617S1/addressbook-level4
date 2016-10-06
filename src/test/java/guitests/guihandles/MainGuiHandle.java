@@ -1,9 +1,5 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
-import javafx.stage.Stage;
-import seedu.address.TestApp;
-
 /**
  * Provides a handle for the main GUI.
  */
