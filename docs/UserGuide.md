@@ -50,6 +50,7 @@ Examples:
 * `add Grocery Shopping`
 * `add Assignment 1 d/Tomorrow p/1 r/Today 2000`
 * `add CS2103 T7A1 d/6 Oct 2016 p/2 r/5 Oct 2016 1800 t/teamC2`
+
 #### Adding a category: `addcat`
 Adds a category to Lifekeeper<br>
 Format: `add CATEGORY_NAME` 
@@ -72,8 +73,8 @@ Format: `listcat`
 > All the categories in Lifekeeper will be listed
 
 
-#### Finding tasks by name: `find`
-Finds and returns all tasks containing any keyword in their name
+#### Finding tasks by name, tag(s) or the range of due dates: `find`
+Finding all tasks containing the queried keyword in their name
 * Finds tasks whose names contain any of the given keywords.<br>
 * Format: `find tasks KEYWORD [MORE_KEYWORDS]`
 
@@ -86,6 +87,30 @@ Finds and returns all tasks containing any keyword in their name
 Examples: 
 * `find tasks Homework Assignment`<br>
   Returns Any tasks with words containing `Homework`, `homework`, `Assignment`, or `assignment` in their names.
+
+Finding all tasks containing a certain tag    
+* Finds tasks which has tags of given keywords attached to it.<br>    
+* Format: `find tags KEYWORD [MORE_KEYWORDS]`   
+    
+> * The search is not case sensitive.     
+> * Only full words will be matched.    
+> * Only tags matching the EXACT keyword will be returned.    
+    
+Examples:   
+* `find tags CS2103`<br>    
+  Returns Any tasks containing the tag `CS2103` or `cs2103` but not `CS2103T` or `CS2103 Project`.    
+    
+Finding all tasks which has deadlines falling within certain dates    
+* Finds tasks which has due dates falling between the specified range.<br>    
+* Format: `find date STARTING_DATE ENDING_DATE`    
+    
+> Date must be in the form `d MMM yyyy`, `d-MM-yyyy` or `d/MM/yyyy`    
+    
+Examples:   
+`find dates 1 Oct 2016 31 Oct 2016`   
+  Returns Any tasks which has due dates falling in between 1st October 2016 and 31st October 2016.
+`find dates 1-11-2016 31-12-2016`   
+  Returns Any tasks which has due dates falling in between 1st November 2016 and 31st December 2016.
 
 #### Deleting a task: `delete`
 Deletes the selected task from Lifekeeper. Irreversible.<br>
@@ -153,7 +178,7 @@ Examples:
   `select 2`<br>
   `edit assignment 5 c/school`<br>
   Edit the selected the 2nd task in the category work by changing its name to assignment 5 and category from work to school..
-* `find Betsy`<br>
+* `find CS2103 Assignment`<br>
   `select 1`<br> 
   `edit d/15/06/2017`<br>
   Selects the 1st task in the results of the `find` command and then change the due date to 15/06/2017.
