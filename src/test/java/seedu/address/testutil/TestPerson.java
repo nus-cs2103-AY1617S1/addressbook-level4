@@ -6,52 +6,52 @@ import seedu.address.model.person.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestPerson implements ReadOnlyTask {
 
-    private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
+    private Title title;
+    private DueDate dueDate;
+    private Description description;
+    private Group group;
     private UniqueTagList tags;
 
     public TestPerson() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public void setName(Title title) {
+        this.title = title;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddress(DueDate dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setEmail(Description description) {
+        this.description = description;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
-    }
-
-    @Override
-    public Name getName() {
-        return name;
+    public void setPhone(Group group) {
+        this.group = group;
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Title getTitle() {
+        return title;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public Group getGroup() {
+        return group;
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public Description getDescription() {
+        return description;
+    }
+
+    @Override
+    public DueDate getAddress() {
+        return dueDate;
     }
 
     @Override
@@ -66,10 +66,10 @@ public class TestPerson implements ReadOnlyPerson {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("add " + this.getTitle().fullTitle + " ");
+        sb.append("p/" + this.getGroup().description + " ");
+        sb.append("e/" + this.getDescription().description + " ");
+        sb.append("a/" + this.getAddress().date + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

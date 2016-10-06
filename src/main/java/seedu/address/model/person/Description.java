@@ -4,53 +4,53 @@ package seedu.address.model.person;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Represents a Task's phone number in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-public class Email {
+public class Description {
 
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
-            "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    		"Description should be spaces or alphanumeric characters";
+    public static final String EMAIL_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String value;
+    public final String description;
 
     /**
      * Validates given email.
      *
      * @throws IllegalValueException if given email address string is invalid.
      */
-    public Email(String email) throws IllegalValueException {
+    public Description(String email) throws IllegalValueException {
         assert email != null;
         email = email.trim();
-        if (!isValidEmail(email)) {
+        if (!isValidDescription(email)) {
             throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
         }
-        this.value = email;
+        this.description = email;
     }
 
     /**
      * Returns if a given string is a valid person email.
      */
-    public static boolean isValidEmail(String test) {
+    public static boolean isValidDescription(String test) {
         return test.matches(EMAIL_VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return value;
+        return description;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && this.value.equals(((Email) other).value)); // state check
+                || (other instanceof Description // instanceof handles nulls
+                && this.description.equals(((Description) other).description)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return description.hashCode();
     }
 
 }
