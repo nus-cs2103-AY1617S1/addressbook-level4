@@ -74,7 +74,7 @@ public class CommandBox extends UiPart {
     @FXML
     private void handleCommandInputChanged(KeyEvent event){
         KeyCode keyCode = event.getCode();
-        if (!keyCode.isDigitKey() && !keyCode.isLetterKey()) return;
+        if (keyCode != KeyCode.BACK_SPACE && !keyCode.isDigitKey() && !keyCode.isLetterKey()) return;
         resultDisplay.postMessage(logic.decideToolTip(commandTextField.getText()));
     }
 
