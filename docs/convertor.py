@@ -23,18 +23,21 @@ extensions = [
 	"markdown.extensions.toc",
 	"markdown.extensions.sane_lists",
 ]
-listOfFiles = [
-	"DeveloperGuide.md",
-	"UserGuide.md",
+list_of_files = [
+	"DeveloperGuide",
+	"UserGuide",
 ]
 
-input_file = codecs.open("DeveloperGuide.md", mode="r", encoding="utf-8")
-text = input_file.read()
-html = markdown.markdown(text, extensions=extensions)
-output_file = codecs.open("DeveloperGuide.html", "w",
-                          encoding="utf-8",
-                          errors="xmlcharrefreplace",
-)
-output_file.write(HEADER)
-output_file.write(html)
-output_file.write(END)
+md = markdown.Markdown(extensions=extensions)
+
+for file_path in list_of_files:
+	input_file = codecs.open("{}.md".format(file_path), mode="r", encoding="utf-8")
+	text = input_file.read()
+	content = md.reset().convert(text)
+	output_file = codecs.open("{}.html".format(file_path), "w",
+	                          encoding="utf-8",
+	                          errors="xmlcharrefreplace",
+	)
+	output_file.write(HEADER)
+	output_file.write(content)
+	output_file.write(END)
