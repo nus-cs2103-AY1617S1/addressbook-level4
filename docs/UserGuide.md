@@ -1,134 +1,253 @@
-# User Guide
-
-* [Quick Start](#quick-start)
-* [Features](#features)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
+﻿# Sudowudo User Guide
 
 ## Quick Start
-
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-   
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
-
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
-
+<!-- for getting the thing to actually work -->
+<!-- need to wait on our refactoring for addressbook-level4 -->
+1. Ensure you have Java version `1.8.0_60` or later installed.
+2. Download the latest `sudowudo.jar` from the releases tab.
+3. (work in progress)
 
 ## Features
+<!-- each individual command -->
+In the following sections, we outline the format of commands to use `Sudowudo`. Tags such as `date` are placeholders in the command syntax and denoted as *fields*.
 
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+### Getting Help
+`Sudowudo` also stores documentation that can be accessed from its command-line interface using the following command.
 
-#### Viewing help : `help`
-Format: `help`
+```bash
+# format
+help           # for general how-to-use help
+help command   # for command-specific help
+```
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+```bash
+# examples
+help add       # command-specific help for add
+help list       # command-specific help for list
+```
+### Field Formats
 
-> Persons can have any number of tags (including 0)
+#### `descriptors`
+Descriptors are words/phrases used for identification, such as for the name of an event or for an event's description. Quote marks are used to denote a descriptor.
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+```bash
+"Dental Appointment" # valid
+Dental Appointment   # invalid
+```
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+#### `event_id`
+Events can be assigned a numbers as an *identifier*. Each event/task has a unique `event_id`. The identifier does not need to be enclosed in quote marks.
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+#### `time`
+Time is always expressed on a 24-hour clock, omitting the trailing "h".
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+```bash
+1400     # 2pm (valid)
+1400h    # invalid!
+09:30    # invalid!
+08:00pm  # invalid!
+```
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+#### `date`
+Dates can be expressed in multiple ways: naturally or using slash notation.
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+##### Natural Dates
+`date` can be expressed in a natural manner like in normal speech. The format for this is in the form of `day month year` or `day month`. These fields are separated by whitespace.
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+`month` can be abbreviated to the first three letters, e.g. `October` and `Oct` are equivalent.
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+Omitting the year will mean that the date will be implicitly assumed to be the current year.
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+##### Slash Notation
+`date` can also be expressed using numerics and slashes in the format `dd/mm/yyyy`. Leading zeroes in the date or month can be omitted.
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+##### Examples of `date`
+```bash
+14 October 2016  # valid natural form
+14 October       # valid natural form (implicitly 2016)
+14/10/2016       # valid slash notation
+08/01/2016       # valid slash notation
+8/1/2016         # valid slash notation
+8/01/2016        # valid slash notation
+```
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+### Notes on Syntax Examples
+In the remainder of this section, note the following:
 
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
+1. Fields that are in uppercase are *user parameters*.
+2. The order of parameters in command formats is fixed.
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+### Adding an Event
+#### Start and End Times
+For an event with a definite start and end time, you can use the following syntax to add this event.
 
-## FAQ
+```bash
+# format
+add EVENT_NAME from START_TIME to END_TIME on DATE
+```
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
-       
-## Command Summary
+Fields: [`EVENT_NAME`](#descriptors), [`START_TIME`](#time), [`END_TIME`](#time), [`DATE`](#date)
 
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+```bash
+# examples
+add "Dental Appointment" from 1200 to 1600 on 14 October 2016
+add "Dental Appointment" from 1200 to 1600 on 14 October # implicitly current year
+add "Dental Appointment" from 1200 to 1600 on 14/10/2016
+add "Dental Appointment" from 1200 to 1600 on 1/8/2016
+```
+
+#### Deadlines
+For a task with no definite start time but a definite end time (e.g. a homework assignment), you can use the following syntax.
+
+```bash
+# format
+add TASK_NAME by TIME on DATE # with date and time
+add TASK_NAME by DATE         # no definite time
+add TASK_NAME by TIME         # no definite date
+```
+
+Fields: [`TASK_NAME`](#descriptors), [`TIME`](#time), [`DATE`](#date)
+
+```bash
+# examples
+add "CS2103 Tutorial 6" by 7 October
+add "CS2103 Peer Feedback" by 2359 on 27 Sep
+```
+
+#### Floating Tasks
+Floating tasks do not have a definite start or end time.
+
+```bash
+# format
+add TASK_NAME
+```
+Fields: [`TASK_NAME`](#descriptors)
+
+```bash
+# examples
+add "Schedule CS2103 Consult" 
+```
+
+#### Blocking Slots
+Some tasks/events do not have a definite name or description, e.g. simply marking busy periods. The `DATE` field is optional; omitting it implies that the period to block is today.
+
+```bash
+# format
+block START_TIME to END_TIME on DATE
+block START_TIME to END_TIME         # implicitly today
+```
+Fields: [`START_TIME`](#time), [`END_TIME`](#time), [`DATE`](#date)
+
+```bash
+# examples
+block 1600 to 1800
+block 0800 to 1300 on 5/10/2016
+```
+
+### Updating an Event
+#### Editing Event Details
+Sometimes it is necessary to change the details of your event because life.
+
+```bash
+# format
+edit FIELD_NAME for EVENT_NAME to NEW_DETAIL
+edit FIELD_NAME for EVENT_ID to NEW_DETAIL
+```
+Fields: [`FIELD_NAME`](), [`EVENT_NAME`](#descriptors), [`EVENT_ID`](#event-id), `NEW_DETAIL`
+
+```bash
+# examples
+edit start_time for "Dental Appointment" to 1600
+edit date for "CS2103 Consult" to 29 October
+```
+
+#### Marking as Complete
+```bash
+# format
+done EVENT_NAME
+done EVENT_ID
+```
+Fields: [`EVENT_NAME`](#descriptors), [`EVENT_ID`](#event-id)
+
+```bash
+# examples
+done "Dental Appointment"
+done 124235
+```
+
+### Deleting an Event
+You can delete an event using its name. This is not the same as marking an event as complete (see [Marking as Complete](#marking-as-complete)).
+
+```bash
+# format
+delete EVENT_NAME
+delete EVENT_ID
+```
+Fields: [`EVENT_NAME`](#descriptors), [`EVENT_ID`](#event-id)
+
+```bash
+# examples
+delete "CS2103 Tutorial 3"
+delete 124294              # deletes event with ID 124294
+```
+
+### Searching for an Event
+#### Searching by Keyword
+You can search for specific events using keywords. The keywords are case-insensitive and can be simply part of the event name.
+```bash
+# format
+find KEYWORD
+find EVENT_ID
+```
+Fields: [`KEYWORD`](#descriptors), [`EVENT_ID`](#event-id)
+```bash
+# examples
+find "cake"
+find 12093
+```
+
+### Enumerating Tasks
+You can enumerate a list of all the events, sorted alphabetically or chronologically.
+```bash
+list        # lists all events by name in chronological order
+list -l     # lists all events' name and details in chronological order
+```
+
+### Next Thing to Do
+What good is a productivity app if it doesn't boss you around and tell you what to do?
+
+`next` can be used to return the next upcoming task, and can be chained successively to return the `n`-th upcoming task.
+
+```bash
+next           # returns next task
+next next      # returns the 2nd upcoming task
+next next next # returns the 3rd upcoming task
+```
+
+### Undoing
+Use the `undo` command to undo the most recent action.
+```bash
+undo
+```
+
+## Expected Functionality
+
+- CRUD (i.e., Create, Read, Update, Delete) support for tasks.
+- Support for multiple task types:
+
+| Type | Description |
+|------|-------------|
+|Events|has a definite start and end time.|
+|Deadlines|tasks that have to be done before a specific deadline.|
+|Floating tasks |tasks to be completed ‘someday’.|
+|Blocks|timeslots that are simply marked as blocked/busy with no definite name, deadline or start/end times.|
+
+- Simple search: A simple text search for finding an item if the user remembers some keywords from the item description. (start with a single parameter)
+  - Searching tasks by keyword
+- Enumerating tasks.
+  - In chronological order
+  - In alphabetical order
+- Finding the next most urgent thing to do.
+- Some way to keep track of which items are done and undone.
+- Undo operations
