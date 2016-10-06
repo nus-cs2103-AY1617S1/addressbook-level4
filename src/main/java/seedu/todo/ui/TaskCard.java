@@ -117,7 +117,7 @@ public class TaskCard extends UiPart{
         //Extract tag names, and sort the tags lexicographically.
         Stream<String> tagsStream = task.getTags().stream()
                 .map(tag -> tag.tagName);
-        tagsStream.sorted();
+        tagsStream = tagsStream.sorted();
         String[] tags = (String[]) tagsStream.toArray();
         
         //Label or hide the tagLabels
