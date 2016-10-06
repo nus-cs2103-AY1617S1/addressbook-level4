@@ -30,6 +30,9 @@ the main programming language.
 * Some parts of this sample application were inspired by the excellent 
 [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 
+* This project is built on top of the base
+[addressbook-level4 project](https://github.com/se-edu/addressbook-level4) from the NUS CS2103 Course.
+
 
 #### Licence : [MIT](LICENSE)
 
