@@ -3,7 +3,7 @@
 
 # Task Manager
 
-<img src="docs/images/taskmanager.jpg" width="600"><br>
+<img src="docs/images/1945556540.jpg" width="600"><br>
 
 * Taskmanager, is a desktop to-do list application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is written in Java programming language. 
