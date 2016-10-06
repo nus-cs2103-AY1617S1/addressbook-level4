@@ -11,7 +11,7 @@ public interface ReadOnlyTask {
     TaskName getName();
     Phone getPhone();
     Email getEmail();
-    Address getAddress();
+    Venue getAddress();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

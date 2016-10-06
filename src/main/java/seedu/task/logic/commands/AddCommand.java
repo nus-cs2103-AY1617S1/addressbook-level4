@@ -40,7 +40,7 @@ public class AddCommand extends Command {
                 new TaskName(name),
                 new Phone(phone),
                 new Email(email),
-                new Address(address),
+                new Venue(address),
                 new UniqueTagList(tagSet)
         );
     }

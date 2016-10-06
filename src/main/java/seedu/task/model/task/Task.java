@@ -14,19 +14,19 @@ public class Task implements ReadOnlyTask {
     private TaskName taskName;
     private Phone phone;
     private Email email;
-    private Address address;
+    private Venue venue;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskName taskName, Phone phone, Email email, Address address, UniqueTagList tags) {
+    public Task(TaskName taskName, Phone phone, Email email, Venue address, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(taskName, phone, email, address, tags);
         this.taskName = taskName;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.venue = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -53,8 +53,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public Venue getAddress() {
+        return venue;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskName, phone, email, address, tags);
+        return Objects.hash(taskName, phone, email, venue, tags);
     }
 
     @Override
