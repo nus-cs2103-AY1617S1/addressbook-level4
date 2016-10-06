@@ -1,12 +1,12 @@
 package seedu.address.ui;
 
+import harmony.commons.util.FxViewUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.commons.util.FxViewUtil;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.

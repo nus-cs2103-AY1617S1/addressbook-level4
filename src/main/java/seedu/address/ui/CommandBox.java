@@ -1,17 +1,18 @@
 package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
+
+import harmony.commons.core.LogsCenter;
+import harmony.commons.events.ui.IncorrectCommandAttemptedEvent;
+import harmony.commons.util.FxViewUtil;
+import harmony.logic.Logic;
+import harmony.logic.commands.*;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
-import seedu.address.logic.Logic;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.util.FxViewUtil;
-import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 

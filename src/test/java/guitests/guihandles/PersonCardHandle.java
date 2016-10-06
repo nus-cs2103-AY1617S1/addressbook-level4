@@ -1,9 +1,9 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import harmony.model.person.ReadOnlyPerson;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Provides a handle to a person card in the person list panel.

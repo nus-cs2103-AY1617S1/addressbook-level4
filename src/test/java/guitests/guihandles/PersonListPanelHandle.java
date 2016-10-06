@@ -2,14 +2,14 @@ package guitests.guihandles;
 
 
 import guitests.GuiRobot;
+import harmony.TestApp;
+import harmony.model.person.Person;
+import harmony.model.person.ReadOnlyPerson;
+import harmony.testutil.TestUtil;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.testutil.TestUtil;
 
 import java.util.List;
 import java.util.Optional;

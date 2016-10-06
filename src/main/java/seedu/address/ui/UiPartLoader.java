@@ -1,10 +1,10 @@
 package seedu.address.ui;
 
+import harmony.MainApp;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
 
 /**
  * A utility class to load UiParts from FXML files.

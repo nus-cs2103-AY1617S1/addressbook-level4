@@ -1,15 +1,16 @@
 package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
+
+import harmony.commons.core.LogsCenter;
+import harmony.commons.events.model.AddressBookChangedEvent;
+import harmony.commons.util.FxViewUtil;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.util.FxViewUtil;
 
 import java.util.Date;
 import java.util.logging.Logger;

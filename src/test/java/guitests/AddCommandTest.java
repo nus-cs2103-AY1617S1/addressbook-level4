@@ -1,11 +1,12 @@
 package guitests;
 
 import guitests.guihandles.PersonCardHandle;
+import harmony.commons.core.Messages;
+import harmony.logic.commands.AddCommand;
+import harmony.testutil.TestPerson;
+import harmony.testutil.TestUtil;
+
 import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 

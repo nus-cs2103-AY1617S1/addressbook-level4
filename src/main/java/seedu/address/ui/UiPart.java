@@ -1,13 +1,13 @@
 package seedu.address.ui;
 
+import harmony.commons.core.EventsCenter;
+import harmony.commons.events.BaseEvent;
+import harmony.commons.util.AppUtil;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.BaseEvent;
-import seedu.address.commons.util.AppUtil;
 
 /**
  * Base class for UI parts.

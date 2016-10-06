@@ -4,11 +4,12 @@ import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
-import seedu.address.commons.util.FxViewUtil;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
+
+import harmony.commons.core.LogsCenter;
+import harmony.commons.util.FxViewUtil;
+import harmony.model.person.ReadOnlyPerson;
 
 /**
  * The Browser Panel of the App.
