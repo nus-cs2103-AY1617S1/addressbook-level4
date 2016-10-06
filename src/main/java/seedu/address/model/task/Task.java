@@ -12,16 +12,16 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
+    private Date phone;
+    private StartTime email;
+    private EndTime address;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
+    public Task(Name name, Date phone, StartTime email, EndTime address, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -43,17 +43,17 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
+    public Date getPhone() {
         return phone;
     }
 
     @Override
-    public Email getEmail() {
+    public StartTime getEmail() {
         return email;
     }
 
     @Override
-    public Address getAddress() {
+    public EndTime getAddress() {
         return address;
     }
 

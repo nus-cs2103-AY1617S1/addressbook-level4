@@ -38,9 +38,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
+                new Date(phone),
+                new StartTime(email),
+                new EndTime(address),
                 new UniqueTagList(tagSet)
         );
     }
