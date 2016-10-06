@@ -8,8 +8,10 @@ We are a team based in the [School of Computing, National University of Singapor
 -<img src="https://lh5.googleusercontent.com/swdvryeX53Wc7dCEh1Owfz6PmATQWo87AF6lr_J2qL7rrcTW8Nego1_YFdu2TSoxyQBpJ42I_X5n31AVF6O3nQV_ECVZvQN9xbFMa_fDHV03azyXHdSNJMaSGCw-VWUNJVuIsVNh" width="150"><br>
 -**Role**: Project Advisor
 
+-----
+
 #### [Rachael Sim](https://github.com/rachx)
-<img src="images/RachaelSim.JPG" width="150"><br>
+<img src="https://dl.dropboxusercontent.com/content_link/ukwT88jPRqFQvukSGzGNc1c7ERCKEq8ljMj20zh7Z70HnS2r268PmI6RJTKmDdwg/file" width="150"><br>
 Role: Team leader <br>
 Responsibilities: Model, UI, Scheduling and tracking, Code quality
 
