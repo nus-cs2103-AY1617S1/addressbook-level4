@@ -36,9 +36,9 @@ public class XmlSerializableTodoList implements ImmutableTodoList {
         tasks.addAll(src.getTasks().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
-	@Override
-	public List<ImmutableTask> getTasks() {
-	    return tasks.stream().map(p -> {
+    @Override
+    public List<ImmutableTask> getTasks() {
+        return tasks.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
