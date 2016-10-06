@@ -38,15 +38,15 @@
 #### Viewing help : `help`
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`.
+> * Help is also shown if you enter an incorrect command e.g. `abcd`.
  
 #### Adding a task : `add`
 Adds a task, deadline, event or a floating task to the list. <br>
 Format: `add TASKNAME [at/from TIMEDATE] [by/to TIMEDATE] [PRIORITY]` 
 
-> For tasks and events, at least one of the two TIMEDATE values must be included.
-> For floating tasks, none of the TIMEDATE values are specified.
-> If priority is not specified, default priority of * is set.
+> * For tasks and events, at least one of the two TIMEDATE values must be included.<br>
+> * For floating tasks, none of the TIMEDATE values are specified.<br>
+> * If priority is not specified, default priority of * is set.
 
 Examples: 
 * `add Buy eggs at 5pm 13/09/2016 ***`
@@ -56,16 +56,17 @@ Examples:
 
 #### Displaying tasks : `show`
 Displays tasks and their indexes in the specified timeframe.<br>
-Format: `show [TYPE] [PERIOD]`
+Format: `show [PERIOD]`
 
-> Atleast one of the two parameters TYPE and PERIOD must be provided.
-> TYPE format: all, overdue, events.
-> PERIOD format: today, tomorrow, DATE, or floating.
+> * PERIOD format: all, overdue, floating, today, tomorrow, upcoming, or DATE.
 
 Examples:
-* `show float 13/09/2016`. Lists floating tasks for that particular date
-* `show tmrw`. Lists all tasks for tomorrow
-* `show overdue`. List all the overdue tasks
+* `show floating`
+> * Lists all the floating tasks
+* `show tomorrow` 
+> * Lists all tasks for tomorrow
+* `show overdue` 
+> * Lists all the overdue tasks
 
 #### Searching for tasks : `find`
 Lists tasks whose names match the given input.<br>
@@ -78,50 +79,48 @@ Format: `find SEARCHSTRING`
 
 Examples: 
 * `find b*y`<br>
-  Returns `buy` but not `buy eggs`
+> * Returns `buy` but not `buy eggs`
 * `find b*y*`<br>
-  Returns `buy eggs` but not `must buy eggs`
+> * Returns `buy eggs` but not `must buy eggs`
 
 #### Deleting a task : `delete`
 Deletes the specified task.<br>
 Format: `delete INDEX/TASKNAME`
 
-> Deletes the task at the specified index
-> If TASKNAME is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with deletion using the index of the appropriate task.
+> * Deletes the task at the specified index
+> * If TASKNAME is entered instead, all tasks with matching names are displayed along with their indices. The user can then proceed with deletion using the index of the appropriate task.
 
 Examples:
 * `delete 1`
-  Deletes task at index 1
+> * Deletes task at index 1
 * `delete b*y*`
-  Lists tasks matching `b*y*` for the user to choose from.
+> * Lists tasks matching `b*y*` for the user to choose from.
 
 #### Updating a task : `update`
 Update the date/time for a task<br>
 Format: `update INDEX/TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE]`
 
-> Replaces the start and end times of the task at the specified index
-> If TASKNAME is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with updating using the index of the appropriate task.
-> Omitting START_TIMEDATE will remove START_TIMEDATE from the task
-> Omitting END_TIMEDATE will remove END_TIMEDATE from the task
+> * Replaces the start and end times of the task at the specified index
+> * If TASKNAME is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with updating using the index of the appropriate task.
+> * Omitting START_TIMEDATE will remove START_TIMEDATE from the task
+> * Omitting END_TIMEDATE will remove END_TIMEDATE from the task
 
 Examples:
 * `update 1 at 13/09/2016 5pm`<br>
-> `Meeting from 13/09/2016 4pm to 13/09/2016 6pm` will be replaced with `Meeting at 13/09/2016 5pm`
+> * `Meeting from 13/09/2016 4pm to 13/09/2016 6pm` will be replaced with `Meeting at 13/09/2016 5pm`
 * `update b*y* from 13/09/2016 4pm to 13/09/2016 6pm`
-> Lists tasks matching `b*y*` for the user to choose from
+> * Lists tasks matching `b*y*` for the user to choose from
 
 #### Marking a task as complete : `complete`
 Marks a task as complete.<br>
 Format: `complete INDEX/TASKNAME`
 
-> Marks the task at the specified index as complete
-> If TASKNAME is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with marking a task as complete using the index of the appropriate task.
+> * Marks the task at the specified index as complete
+> * If TASKNAME is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with marking a task as complete using the index of the appropriate task.
 
 Examples:
 * `complete 1`
-  Marks task at index 1 as complete
 * `complete b*y*`
-  Lists tasks matching `b*y*` for the user to choose from
 
 #### Setting the storage location: `setstorage`
 Sets the data storage location <br>
@@ -131,14 +130,14 @@ Format: `setstorage FILEPATH`
 Undo the latest change made to the task list.
 Format: `undo`
 
-> Allows undo to up to 3 previous changes to the task list
+> * Allows undo to up to 3 previous changes to the task list
 
 #### Redo previous action(s): `redo`
 Redo the latest change that was reverted using undo.
 Format: `redo`
 
-> Allows redo to up to 3 consecutive undo operations done
-> Does not work if the undo command was not used just before this command
+> * Allows redo to up to 3 consecutive undo operations done
+> * Does not work if the undo command was not used just before this command
 
 #### Exiting the program : `exit`
 Exits the program.<br>
