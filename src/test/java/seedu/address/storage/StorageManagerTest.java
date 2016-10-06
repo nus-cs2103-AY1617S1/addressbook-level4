@@ -5,10 +5,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.model.TaskList;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.UserPrefs;
+
 import seedu.address.testutil.TypicalTestPersons;
+import seedu.tasklist.model.ReadOnlyTaskList;
+import seedu.tasklist.model.TaskList;
+import seedu.tasklist.model.UserPrefs;
+import seedu.tasklist.storage.StorageManager;
 
 import static org.junit.Assert.assertEquals;
 
