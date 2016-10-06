@@ -250,42 +250,47 @@ b. Require developers to download those libraries manually (this creates extra w
 
 ## Appendix A : User Stories
 
-All user stories are likely to be implemented unless specified otherwise.
-* **[Epic]** As a **user**, I want to **get information about the commands**.
-	* As a **user**, I want to **list out all possible commands** so that **I know what are all the possible commands**.
-	* As a **user**, I want to **get specific information about each command** so that **I know how to use each command correctly**.
-* **[Epic]** As a **user**, I want to **add to-do items**.
-	* As a **user**, I want to **add tasks without specific date or times**.
-	* As a **user**, I want to **add tasks that have to be completed before a certain date** so that **I can keep track of my deadlines**.
-	* As a **user**, I want to **add events with start and end dates** so that **I can keep track of my event dates**.
-* **[Epic]** As a **user**, I want to **view a list of my existing to-do items**.
-	* As a **user**, I want to **view a list of my to-do items in chronological order by their date and times** so that **I can easily identify which items are more urgent**.
-	* As a **user**, I want to **view a list of to-do items that are not done**.
-	* As a **user**, I want to **view a list of to-do items that are done**.
-	* As a **user**, I want to **view a list of to-do items filtered by whether they are done, pending or overdue** so that **it is easier to keep track of my tasks and their respective statuses**. [Unlikely]
-* **[Epic]** As a **user**, I want to **edit my existing to-do items**.
-	* As a **user**, I want to **edit my existing to-do items directly** so that **I do not have to delete and add the to-do item again to modify it**.
-	* As a **user**, I want to **mark todo items as done** so that **I can indicate that the task has been completed**.
-* **[Epic]** As a **user**, I want to **delete to-do items**.
-	* As a **user**, I want to **delete a specific to-do item**.
-	* As a **user**, I want to **delete multiple to-do items at one go** so that **I can quickly delete a few wrongly added items** [Unlikely]
-* **[Epic]** As a **user**, I want to **undo my commands**.
-	* As a **user**, I want to **undo my most recent command** so that **I can revert the most recent command if it was wrongly issued**.
-	* As a **user**, I want to **redo my most recently undid command** so that I can revert the last undo command if it was wrongly issued. [Unlikely]
-	* As a **user**, I want to **undo any commands issued for the current session** so that **I can revert any wrongly issued commands from the current session.** [Unlikely]
-* As a **user**, I want to **find an item by searching for some keywords from the item description** so that **I can easily find my to-do items by just knowing the description**.
+Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely) - `*`
 
+|      | Priority| As a | I want to                                   | so that                          |
+| ---- | :------ |----- | ------------------------------------------- | -------------------------------- |
+| Epic |         | user | get information about supported commands    |                                |
+|      | `* * *` | user | list out all supported commands and how to use them | I know what I can do with the application |
+|      | `* *`   | user | get specific information about each command | I know how to use each command correctly |
+| Epic |         | user | add to-do items                             |                                  |
+|      | `* * *` | user | add tasks without specific date or times    | I can keep track of tasks without date and times associated with them |
+|      | `* * *` | user | add tasks that have to be completed before a certain date | I can keep track of my deadlines|
+|      | `* * *` | user | add events with start and end dates         |I can keep track of my event dates|
+| Epic |         | user | view a list of my existing to-do items      |                                  |
+|      | `* * *` | user | view a list of my to-do items in chronological order by their date and times    | I can easily identify which items are more urgent  |
+|      | `* * *` | user | view a list of to-do items that are not done|I know what are my remaining tasks|
+|      | `* *`   | user | view a list of to-do items that are done    | I know what tasks have been done |
+|      | `*`     | user | view a list of to-do items filtered by whether they are done, pending or overdue | I can easily keep track of my tasks and their respective statuses|
+| Epic |         | user | edit my existing to-do items                |                                  |
+|      | `* * *` | user | edit my existing to-do items directly       | I do not have to delete and add the to-do item again to modify it |        |
+|      | `* * *` | user | mark todo items as done                     | I can indicate that the task has been completed |
+| Epic |         | user | delete to-do items                          |                                  |
+|      | `* * *` | user | delete a specific to-do item                |                                  |
+|      | `*`     | user | delete multiple to-do items at one go       | I can quickly delete a few items |
+| Epic |         | user | undo my commands                            |                                  |
+|      | `* * *` | user | undo my most recent command                 | I can revert the most recent command if it was wrongly issued |
+|      | `*`     | user | redo my most recently undid command         | I can revert the last undo command if it was wrongly issued |
+|      | `*`     | user | undo any commands issued for the current session| I can revert any wrongly issued commands from the current session |
+| Epic |         | user | find an item in my todo-list               |                                  |  
+|      | `* * *` | user | find an item by searching for some keywords from the item description         | I can find a task by its description |
+| Epic |         | user | manage reminders for my tasks              |                                 |
+|      | `*`     | user | add reminders for my tasks                 | I would be reminded of my tasks when needed |
+|      | `*`     | user | delete reminders for my tasks              | I can remove reminders when they are not needed |
+|      | `*`     | user | edit reminders for my tasks                | I can change reminders when needed without removing and adding them again |
+| Epic |         | user | manage tags for my tasks                   |                                 |
+|      | `*`     | user | add tags to my tasks                       | I can label or categorize my tasks |
+|      | `*`     | user | delete tags for my tasks                   | I can remove tags when they are not needed |
+|      | `*`     | user | edit tags for my tasks                     | I can change tags when needed without removing and adding them again |
+| Epic |         | user | manage recurring tasks                     |                                 |
+|      | `*`     | user | add tasks that have to be done on a regular basis | I do not have to add them again |
+| Epic |         | user | make changes to my application configuration | I can customize it to suit my needs | 
+|      | `* * *` | user | specify a specific folder as the data storage location                       | I can save the data file into any directory I want |
 
-* As a **user**, I want to **specify a specific folder as the data storage location** so that **I can save the data file into any directory I want**.
-
-
-* As a **user**, I want to **assign tags to my tasks so as to categorize or label them**. [Unlikely]
-
-
-* As a **user**, I want to **manage my recurring tasks**. [Unlikely]
-
-
-* As a **user**, I want to **set reminders for my tasks**. [Unlikely]
 
 
 ## Appendix B : Use Cases
