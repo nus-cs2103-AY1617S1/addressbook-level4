@@ -1,6 +1,6 @@
 # User Guide
 
-<br><img src="images/Logo.jpeg" width="600"><br>
+<br><img align="center" src="images/Logo.jpeg" width="600"><br>
 
 * [Quick Start](#quick-start)
 * [Features](#features)
@@ -105,6 +105,7 @@ Done a task so tick it off the list
 
 Format: `done <index>`  
 <br><img src="images/Done.jpeg" width="600"><br>
+<br><img src="images/Done1.jpeg" width="600"><br>
 
 
 #### Undo the last action : `undo`
@@ -112,6 +113,7 @@ Undo the earlier action
 Format: `undo`  
 
 <br><img src="images/Undo.jpeg" width="600"><br>
+<br><img src="images/Undo1.jpeg" width="600"><br>
 
 
 #### Redo earlier action : `redo`
