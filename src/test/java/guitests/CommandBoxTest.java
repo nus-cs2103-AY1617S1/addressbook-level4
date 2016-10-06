@@ -8,7 +8,7 @@ public class CommandBoxTest extends TarsGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(td.taskB.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 
