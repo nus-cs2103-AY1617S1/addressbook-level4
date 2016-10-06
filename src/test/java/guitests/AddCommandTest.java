@@ -10,9 +10,12 @@ import seedu.todo.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
+
 public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
+    @Ignore
     public void add() {
         //add one person
         TestPerson[] currentList = td.getTypicalPersons();
