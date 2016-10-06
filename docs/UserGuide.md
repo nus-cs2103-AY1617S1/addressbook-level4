@@ -122,7 +122,7 @@ There is no need to save manually.
        the file that contains the data of your previous Address Book folder.<br>
        
 **Q**: How do I report an issue or problem?<br>
-**A**: Please contact e0003401@u.nus.edu for assistance.
+**A**: Contact e0003401@u.nus.edu for assistance.
        
 ## Command Summary
 
