@@ -9,7 +9,7 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    Details getDetails();
+    Detail getDetail();
     TaskDate getFromDate();
     TaskDate getTillDate();
 
@@ -26,19 +26,19 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getDetails().equals(this.getDetails())
+                && other.getDetail().equals(this.getDetail())
                 && other.getFromDate().equals(this.getFromDate())
                 && other.getTillDate().equals(this.getTillDate()));
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the task as text, showing all task information.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Details: ")
-                .append(getDetails())
+                .append(getDetail())
                 .append(" From: ")
                 .append(getFromDate())
                 .append(" Till: ")

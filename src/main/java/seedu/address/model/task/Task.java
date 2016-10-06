@@ -7,12 +7,12 @@ import java.util.Objects;
 
 /**
  * Represents a Task in DoDo-Bird
- * Guarantees: name and details are not null, field values are validated.
+ * Guarantees: name and detail are not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Details details;
+    private Detail detail;
     private TaskDate fromDate;
     private TaskDate tillDate;
 
@@ -21,10 +21,10 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Details details, TaskDate fromDate, TaskDate tillDate, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, details, tags);
+    public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, detail, tags);
         this.name = name;
-        this.details = details;
+        this.detail = detail;
         this.fromDate = fromDate;
         this.tillDate = tillDate;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDetails(), source.getFromDate(), source.getTillDate(), source.getTags());
+        this(source.getName(), source.getDetail(), source.getFromDate(), source.getTillDate(), source.getTags());
     }
 
     @Override
@@ -43,8 +43,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Details getDetails() {
-        return this.details;
+    public Detail getDetail() {
+        return this.detail;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, details, fromDate, tillDate, tags);
+        return Objects.hash(name, detail, fromDate, tillDate, tags);
     }
 
     @Override
