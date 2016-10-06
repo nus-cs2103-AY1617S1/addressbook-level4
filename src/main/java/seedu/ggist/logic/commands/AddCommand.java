@@ -9,7 +9,7 @@ import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to GGist.
  */
 public class AddCommand extends Command {
 
