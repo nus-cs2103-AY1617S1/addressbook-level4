@@ -3,7 +3,7 @@
 
 # Scheduler
 
-<img src="docs/images/MockUi.png" width="600"><br>
+<img src="docs/images/MockUpUi.png" width="600"><br>
 
 * This is a desktop Scheduler application.  It has a GUI but most of the user interactions happen using 
 a CLI (Command Line Interface).
