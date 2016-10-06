@@ -41,7 +41,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String taskManagerName;
+    private String activityManagerName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -83,12 +83,12 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String activityManagerName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.taskManagerName = taskManagerName;
+        this.activityManagerName = activityManagerName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -187,7 +187,7 @@ public class MainWindow extends UiPart {
     }
 
     public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
+        browserPanel.loadActivityPage(task);
     }
 
     public void releaseResources() {
