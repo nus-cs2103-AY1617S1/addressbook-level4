@@ -152,7 +152,6 @@ Examples:
   `complete 2`<br>
   Add a tag `COMPLETE` the 2nd task in the task manager.
 
-
 #### Undo action: `undo`
 Undoes the most recent change from the task manager.<br>
 Format: `undo`
@@ -181,13 +180,13 @@ Command | Format
 -------- | :--------
 Add Task | `add DESCRIPTION [pr/RANK] [time/TIME] [t/TAG]...`
 Add Tag | `add tag [MORE_TAGS]`
-Clear | `clear [-a] [-t] [-c]`
+Clear | `clear`
 Delete | `delete INDEX`
 Remove Tags | `delete TAG [MORE_TAGS]`
 Edit | `edit INPUT [MORE_INPUT]`
 Find Tasks | `find KEYWORD [MORE_KEYWORDS]`
 List Tasks | `list [-pr] [-t/TAG]...`
-List Tags | `list tags [-t] [-c]`
+List Tags | `list tags`
 Undo | `undo`
 Help | `help`
 Select | `select INDEX`
