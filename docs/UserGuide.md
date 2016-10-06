@@ -12,25 +12,25 @@
 
 ## Quick Start
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download Menion: You can then download TaskManager.jar from the latest release here: 
+2. Download Menion: You can then download TaskManager.jar from the latest release here: 
    **COMING SOON**
-2. Copy the file to the folder you want to use as the home folder for your Menion.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+3. Copy the file to the folder you want to use as the home folder for  Menion.
+4. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/MainPageLayout.jpg" width="600">
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
+6. Some example commands you can try:
    * **`list`** : lists all contacts
    * **`add`**` Assignment 2 TASK_DEADLINE TASK_REMINDER PRIORITY NOTES...` : 
      adds a task named `Assignment 2` to the Menion, with high priority.
    * **`delete`**` 3` : deletes the 3rd task / event shown in the current list
    * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+7. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
