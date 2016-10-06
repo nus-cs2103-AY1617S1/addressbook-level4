@@ -30,7 +30,7 @@ public class DeleteTaskCommand extends TaskCommand {
 	    @Override
 	    public CommandResult execute() {
 
-	        ObservableList<Task> lastShownList = model.getCurrentFilteredTasks().getInternalList();
+	        ObservableList<Task> lastShownList = model.getCurrentFilteredTasks();
 
 	        if (lastShownList.size() < targetIndex) {
 	            indicateAttemptToExecuteIncorrectCommand();
