@@ -1,8 +1,8 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import harmony.TestApp;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
 
 /**
  * Provides a handle for the main GUI.
