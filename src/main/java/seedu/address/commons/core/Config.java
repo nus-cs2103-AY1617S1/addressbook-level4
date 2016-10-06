@@ -49,16 +49,16 @@ public class Config {
         return taskManagerFilePath;
     }
 
-    public void setTaskManagerFilePath(String addressBookFilePath) {
-        this.taskManagerFilePath = addressBookFilePath;
+    public void setTaskManagerFilePath(String taskManagerFilePath) {
+        this.taskManagerFilePath = taskManagerFilePath;
     }
 
     public String getTaskManagerName() {
         return taskManagerName;
     }
 
-    public void setTaskManagerName(String addressBookName) {
-        this.taskManagerName = addressBookName;
+    public void setTaskManagerName(String taskManagerName) {
+        this.taskManagerName = taskManagerName;
     }
 
 
