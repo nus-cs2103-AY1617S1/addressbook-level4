@@ -1,134 +1,101 @@
-# User Guide
-
-* [Quick Start](#quick-start)
+# User Guide 
+* [Getting Started](#getting-started)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-## Quick Start
-
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-   
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
-
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+## Getting Started
+1. Ensure you have Java version 1.8.0_60 or later installed in your Computer.
+2. Download the latest OneLine.jar from the releases tab.
+3. Copy the file to the folder you want to use as the home folder for OneLine.
+4. Double-click the file to start the app. The GUI should appear in a few seconds.
+5. Type command in the command box and hit <kbd>enter</kbd> to run it 
 
 
 ## Features
+> [Square brackets] indicate that a field is optional  
+> \<Angled brackets> indicate command parameters 
 
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+1. Viewing Help: ` help `
+> Displays list of available commmands and descriptions 
 
-#### Viewing help : `help`
-Format: `help`
+2. Adding a Task / Event: ` add `   
+    <img src="images/add.png" width="600">
+    
+    - `add <name> [.due <date>] [#<cat>] [#<cat>] ...` 
+> eg ` add User guide .due Wednesday #cs2103 ` 
+> If no date is specified, task will be set as a floating task   
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+    - `add <name> [.on <date>] [-at <location>]...`  
 
-> Persons can have any number of tags (including 0)
+    - `add <name> [.from <date><time> .to <date><time>] ...`
+> If no date is specified, date will be set to the current day, or the next day if set time has passed  
+> If no time is specified, start times will be set to 0000 and end times to 2359 
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+	- `add <name> .every <day / week> ...` : sets task to be a recurring task
+> eg `add Go jogging .every Friday ` 
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+3. Editing: ` edit `    
+<img src="images/edit.png" width="600">
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+    - `edit <index> [.due <date>]` : edits task specified by index
+> eg `edit 2 .due Tuesday ` 
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+    - `edit #<oldCat> [#<newCat>] [.c <colour>]` : edits category name and / or colour
+    
+4. Listing All Tasks: ` list `  
+    <img src="images/list.png" width="600"><br>  
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+    - `list` :  lists all undone tasks sorted by by deadline  
+    - `list <day / week>` : lists undone tasks with deadline in the current day / next 7 days  
+    - `list float` : lists undone tasks with no deadline
+    - `list #<cat>` : lists undone tasks in category
+    - `list done` : lists tasks done within the past 7 days  
+    
+5. Mark Task as Done: ` done `  
+<img src="images/done.png" width="600"><br>  
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+    - `done <index>` : marks task specified by index as done 
+    
+6. Find: ` find `   
+<img src="images/find.png" width="600"><br> 
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+    - `find <keyword>` : returns list of tasks with names similar to keyword
+    - `find #<keyword>` : returns list of categories with names similar to keyword
+	
+7. Deleting a Task: ` del `   
+<img src="images/delete.png" width="600"><br> 
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+    - `del <index>` : deletes task spcified by index 
+    - `del #<cat>` : deletes category 
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+8. Undo: ` undo `   
+<img src="images/undo.png" width="600"><br> 
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+9. Redo: ` redo `   
+<img src="images/redo.png" width="600"><br> 
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+10. Change Storage: ` save `    
+<img src="images/save.png" width="600"><br> 
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
-
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
-
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+	- `save <new path>` : changes the storage file to the file specified by new path 
+    
+11. Exiting Program: ` exit ` 
 
 ## FAQ
+Q: How do I transfer my data to another Computer?
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
-       
+A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
 ## Command Summary
-
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+| Command | Format |
+| ------- | ------ |
+| help | `help` |
+| add | `add <name> [.due <date>] [#<cat>] [#<cat>] ...` <br /> `add <name> [.on <date>] [.at <location>]...` <br />`add <name> [.from <date><time> .to <date><time>] ...` <br /> `add <name> .every <day / week> ...` |
+| edit | `edit <index> [.due <date>]`<br />`edit #<oldCat> [#<newCat>] [.c <colour>]` |
+| list | `list` <br /> `list <day / week>` <br /> `list float`<br />`list #<cat>`<br />`list done` |
+| done | `done <index>` |
+| find | `find <keyword>` <br /> `find #<keyword>` |
+| delete | `del <index>` <br /> `del #<cat>`|
+| storage | `save <path>` |
+| exit | `exit` |
