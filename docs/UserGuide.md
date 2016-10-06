@@ -247,7 +247,6 @@ Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 List Categories | `listcat`
 Select | `select INDEX`
-Done | `done`
 Undo | `undo`
 Help | `help`
 Exit | `exit`
