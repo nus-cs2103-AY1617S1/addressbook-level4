@@ -3,7 +3,7 @@
 
 # Taskle
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/UI/Base.png" width="600"><br>
 
 * It is a task management application with a single text box for the input of commands. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is intended to help users to keep track of their tasks efficiently.
