@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.model.Model;
 
@@ -12,16 +13,25 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
+    private final String commandWord;
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    /**
+     * Shows general help
+     */
+    public HelpCommand() {
+        commandWord = "";
+    }
 
-    public HelpCommand() {}
+    /**
+     * Shows help for specific command word {@param commandWord}
+     */
+    public HelpCommand(String commandWord) {
+        this.commandWord = commandWord;
+    }
 
     @Override
     public CommandResult execute(Model model, EventsCenter eventsCenter) {
-        EventsCenter.getInstance().post(new ShowHelpRequestEvent());
-        return new CommandResult(SHOWING_HELP_MESSAGE);
+        eventsCenter.post(new ShowHelpRequestEvent(commandWord));
+        return new CommandResult(Messages.MESSAGE_HELP_WINDOW_SHOWN);
     }
 }

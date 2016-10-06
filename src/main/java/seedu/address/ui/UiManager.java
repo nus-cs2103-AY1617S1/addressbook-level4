@@ -28,27 +28,25 @@ public class UiManager extends ComponentManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
-    private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, UserPrefs prefs) {
         super();
         this.logic = logic;
-        this.config = config;
         this.prefs = prefs;
     }
 
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
-        primaryStage.setTitle(config.getAppTitle());
+        primaryStage.setTitle(Config.ApplicationTitle);
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
+            mainWindow = MainWindow.load(primaryStage, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -108,7 +106,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.handleHelp();
+        mainWindow.showHelpForCommand(event.getCommandWord());
     }
 
     @Subscribe

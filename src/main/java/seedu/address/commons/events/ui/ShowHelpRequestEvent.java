@@ -7,9 +7,18 @@ import seedu.address.commons.events.BaseEvent;
  */
 public class ShowHelpRequestEvent extends BaseEvent {
 
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName();
+    private final String commandWord;
+
+    public ShowHelpRequestEvent(String commandWord) {
+        this.commandWord = commandWord;
     }
 
+    public String getCommandWord() {
+        return commandWord;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + " with command word: " + commandWord;
+    }
 }

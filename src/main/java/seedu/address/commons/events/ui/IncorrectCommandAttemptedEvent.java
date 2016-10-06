@@ -8,7 +8,7 @@ import seedu.address.logic.commands.Command;
  */
 public class IncorrectCommandAttemptedEvent extends BaseEvent {
 
-    private String command;
+    private final String command;
 
     public IncorrectCommandAttemptedEvent(String command) {
         this.command = command;

@@ -19,17 +19,17 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md";
 
     private AnchorPane mainPane;
 
     private Stage dialogStage;
+    private WebView browser;
+    private String url = "";
 
-    public static HelpWindow load(Stage primaryStage) {
+    public static HelpWindow load(Stage primaryStage, String url) {
         logger.fine("Showing help page about the application.");
         HelpWindow helpWindow = UiPartLoader.loadUiPart(primaryStage, new HelpWindow());
-        helpWindow.configure();
+        helpWindow.configure(url);
         return helpWindow;
     }
 
@@ -43,20 +43,26 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(){
+    private void configure(String url){
+        this.url = url;
+
         Scene scene = new Scene(mainPane);
-        //Null passed as the parent stage to make it non-modal.
+        // Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
 
-        WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
+        browser = new WebView();
+        browser.getEngine().load(this.url);
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
     }
 
-    public void show() {
-        dialogStage.showAndWait();
+    /**
+     * Shows a window that navigates to help url, anchored at `#{@param anchor}`
+     */
+    public void show(String anchor) {
+        browser.getEngine().load(url + "#" + anchor);
+        dialogStage.show();
     }
 }

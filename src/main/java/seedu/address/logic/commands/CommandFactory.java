@@ -42,6 +42,8 @@ public class CommandFactory {
                 return buildExitCommand();
             case ClearCommand.COMMAND_WORD:
                 return buildClearCommand();
+            case HelpCommand.COMMAND_WORD:
+                return buildHelpCommand();
             default:
                 return new InvalidCommand(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
@@ -84,5 +86,16 @@ public class CommandFactory {
 
     private Command buildClearCommand() {
         return new ClearCommand();
+    }
+
+    private Command buildHelpCommand() {
+        // Try to find command word
+        Optional<String> word = parser.extractText();
+
+        if (word.isPresent()) {
+            return new HelpCommand(word.get());
+        } else {
+            return new HelpCommand();
+        }
     }
 }

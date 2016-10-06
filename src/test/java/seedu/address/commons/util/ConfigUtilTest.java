@@ -73,10 +73,10 @@ public class ConfigUtilTest {
 
     private Config getTypicalConfig() {
         Config config = new Config();
-        config.setAppTitle("Typical App Title");
+        config.setApplicationTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setAddressBookFilePath("addressbook.xml");
+        config.setDefaultSaveFilePath("addressbook.xml");
         config.setAddressBookName("TypicalAddressBookName");
         return config;
     }
@@ -111,7 +111,7 @@ public class ConfigUtilTest {
         assertEquals(original, readBack);
 
         //Try saving when the file exists
-        original.setAppTitle("Updated Title");
+        original.setApplicationTitle("Updated Title");
         original.setLogLevel(Level.FINE);
         configStorage.saveConfig(original, configFilePath);
         readBack = configStorage.readConfig(configFilePath).get();
