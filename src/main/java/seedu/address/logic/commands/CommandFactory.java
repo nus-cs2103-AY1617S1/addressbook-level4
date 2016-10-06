@@ -40,6 +40,8 @@ public class CommandFactory {
                 return buildFindCommand();
             case ExitCommand.COMMAND_WORD:
                 return buildExitCommand();
+            case ClearCommand.COMMAND_WORD:
+                return buildClearCommand();
             default:
                 return new InvalidCommand(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
@@ -78,5 +80,9 @@ public class CommandFactory {
         Set<String> words = parser.extractWords();
 
         return new FindCommand(words);
+    }
+
+    private Command buildClearCommand() {
+        return new ClearCommand();
     }
 }

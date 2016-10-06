@@ -38,10 +38,8 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("User command: " + commandText + "");
 
         Command command = commandFactory.build(commandText);
-        command.setModel(model);
-        command.setEventsCenter(eventsCenter);
 
-        return command.execute();
+        return command.execute(model, eventsCenter);
     }
 
     @Override
