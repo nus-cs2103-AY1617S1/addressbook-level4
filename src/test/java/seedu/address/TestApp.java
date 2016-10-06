@@ -6,7 +6,7 @@ import seedu.address.testutil.TestUtil;
 import seedu.menion.MainApp;
 import seedu.menion.commons.core.Config;
 import seedu.menion.commons.core.GuiSettings;
-import seedu.menion.model.ReadOnlyTaskManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.UserPrefs;
 import seedu.menion.storage.XmlSerializableTaskManager;
 
@@ -22,13 +22,13 @@ public class TestApp extends MainApp {
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyTaskManager> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyActivityManager> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyTaskManager> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyActivityManager> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;

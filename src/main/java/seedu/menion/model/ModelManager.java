@@ -15,66 +15,66 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the task manager data.
+ * Represents the in-memory model of the activity manager data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskManager taskManager;
+    private final ActivityManager activityManager;
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given Task Manager
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given Activity Manager
+     * ActivityManager and its variables should not be null
      */
-    public ModelManager(TaskManager src, UserPrefs userPrefs) {
+    public ModelManager(ActivityManager src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with activity manager: " + src + " and user prefs " + userPrefs);
 
-        taskManager = new TaskManager(src);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        activityManager = new ActivityManager(src);
+        filteredTasks = new FilteredList<>(activityManager.getTasks());
     }
 
     public ModelManager() {
-        this(new TaskManager(), new UserPrefs());
+        this(new ActivityManager(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
-        taskManager = new TaskManager(initialData);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
-    }
-
-    @Override
-    public void resetData(ReadOnlyTaskManager newData) {
-        taskManager.resetData(newData);
-        indicateAddressBookChanged();
+    public ModelManager(ReadOnlyActivityManager initialData, UserPrefs userPrefs) {
+        activityManager = new ActivityManager(initialData);
+        filteredTasks = new FilteredList<>(activityManager.getTasks());
     }
 
     @Override
-    public ReadOnlyTaskManager getTaskManager() {
-        return taskManager;
+    public void resetData(ReadOnlyActivityManager newData) {
+        activityManager.resetData(newData);
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public ReadOnlyActivityManager getActivityManager() {
+        return activityManager;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new ActivityManagerChangedEvent(taskManager));
+    private void indicateActivityManagerChanged() {
+        raise(new ActivityManagerChangedEvent(activityManager));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskManager.removeTask(target);
-        indicateAddressBookChanged();
+        activityManager.removeTask(target);
+        indicateActivityManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskManager.addTask(task);
+        activityManager.addTask(task);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateActivityManagerChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================

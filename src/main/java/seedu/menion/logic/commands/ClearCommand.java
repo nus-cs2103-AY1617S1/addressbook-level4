@@ -1,6 +1,6 @@
 package seedu.menion.logic.commands;
 
-import seedu.menion.model.TaskManager;
+import seedu.menion.model.ActivityManager;
 
 /**
  * Clears the activity manager.
@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(TaskManager.getEmptyTaskManager());
+        model.resetData(ActivityManager.getEmptyActivityManager());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

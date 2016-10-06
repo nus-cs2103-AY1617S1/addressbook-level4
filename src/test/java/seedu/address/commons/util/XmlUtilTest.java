@@ -8,7 +8,7 @@ import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TestUtil;
 import seedu.menion.commons.util.FileUtil;
 import seedu.menion.commons.util.XmlUtil;
-import seedu.menion.model.TaskManager;
+import seedu.menion.model.ActivityManager;
 import seedu.menion.storage.XmlSerializableTaskManager;
 
 import javax.xml.bind.JAXBException;
@@ -31,7 +31,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        XmlUtil.getDataFromFile(null, TaskManager.class);
+        XmlUtil.getDataFromFile(null, ActivityManager.class);
     }
 
     @Test
@@ -43,13 +43,13 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.getDataFromFile(MISSING_FILE, TaskManager.class);
+        XmlUtil.getDataFromFile(MISSING_FILE, ActivityManager.class);
     }
 
     @Test
     public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
-        XmlUtil.getDataFromFile(EMPTY_FILE, TaskManager.class);
+        XmlUtil.getDataFromFile(EMPTY_FILE, ActivityManager.class);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        XmlUtil.saveDataToFile(null, new TaskManager());
+        XmlUtil.saveDataToFile(null, new ActivityManager());
     }
 
     @Test
@@ -74,23 +74,23 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.saveDataToFile(MISSING_FILE, new TaskManager());
+        XmlUtil.saveDataToFile(MISSING_FILE, new ActivityManager());
     }
 
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
-        XmlSerializableTaskManager dataToWrite = new XmlSerializableTaskManager(new TaskManager());
+        XmlSerializableTaskManager dataToWrite = new XmlSerializableTaskManager(new ActivityManager());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
-        assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
+        assertEquals((new ActivityManager(dataToWrite)).toString(),(new ActivityManager(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        AddressBookBuilder builder = new AddressBookBuilder(new TaskManager());
+        AddressBookBuilder builder = new AddressBookBuilder(new ActivityManager());
         dataToWrite = new XmlSerializableTaskManager(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
-        assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
+        assertEquals((new ActivityManager(dataToWrite)).toString(),(new ActivityManager(dataFromFile)).toString());
     }
 }

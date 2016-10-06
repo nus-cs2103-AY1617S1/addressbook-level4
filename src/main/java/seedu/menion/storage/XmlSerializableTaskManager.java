@@ -1,7 +1,7 @@
 package seedu.menion.storage;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
-import seedu.menion.model.ReadOnlyTaskManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.tag.Tag;
 import seedu.menion.model.tag.UniqueTagList;
 import seedu.menion.model.task.ReadOnlyTask;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * An Immutable TaskManager that is serializable to XML format
  */
 @XmlRootElement(name = "taskmanager")
-public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
+public class XmlSerializableTaskManager implements ReadOnlyActivityManager {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
@@ -38,7 +38,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     /**
      * Conversion
      */
-    public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
+    public XmlSerializableTaskManager(ReadOnlyActivityManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }

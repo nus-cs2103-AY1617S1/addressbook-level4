@@ -70,20 +70,20 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTaskManager> menionOptional;
-        ReadOnlyTaskManager initialData;
+        Optional<ReadOnlyActivityManager> menionOptional;
+        ReadOnlyActivityManager initialData;
         try {
             menionOptional = storage.readTaskManager();
             if(!menionOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty Task Manager");
             }
-            initialData = menionOptional.orElse(new TaskManager());
+            initialData = menionOptional.orElse(new ActivityManager());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Task Manager");
-            initialData = new TaskManager();
+            initialData = new ActivityManager();
         } catch (FileNotFoundException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty Task Manager");
-            initialData = new TaskManager();
+            initialData = new ActivityManager();
         }
 
         return new ModelManager(initialData, userPrefs);

@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
-import seedu.menion.model.TaskManager;
+import seedu.menion.model.ActivityManager;
 import seedu.menion.model.tag.Tag;
 import seedu.menion.model.task.Task;
 import seedu.menion.model.task.UniqueTaskList;
@@ -13,9 +13,9 @@ import seedu.menion.model.task.UniqueTaskList;
  */
 public class AddressBookBuilder {
 
-    private TaskManager addressBook;
+    private ActivityManager addressBook;
 
-    public AddressBookBuilder(TaskManager addressBook){
+    public AddressBookBuilder(ActivityManager addressBook){
         this.addressBook = addressBook;
     }
 
@@ -29,7 +29,7 @@ public class AddressBookBuilder {
         return this;
     }
 
-    public TaskManager build(){
+    public ActivityManager build(){
         return addressBook;
     }
 }

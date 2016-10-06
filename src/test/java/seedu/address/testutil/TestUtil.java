@@ -16,7 +16,7 @@ import seedu.address.TestApp;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.FileUtil;
 import seedu.menion.commons.util.XmlUtil;
-import seedu.menion.model.TaskManager;
+import seedu.menion.model.ActivityManager;
 import seedu.menion.model.tag.Tag;
 import seedu.menion.model.tag.UniqueTagList;
 import seedu.menion.model.task.*;
@@ -134,8 +134,8 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static TaskManager generateEmptyAddressBook() {
-        return new TaskManager(new UniqueTaskList(), new UniqueTagList());
+    public static ActivityManager generateEmptyAddressBook() {
+        return new ActivityManager(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableTaskManager generateSampleStorageAddressBook() {

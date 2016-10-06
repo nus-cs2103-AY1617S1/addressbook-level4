@@ -3,7 +3,7 @@ package seedu.menion.storage;
 import seedu.menion.commons.core.LogsCenter;
 import seedu.menion.commons.exceptions.DataConversionException;
 import seedu.menion.commons.util.FileUtil;
-import seedu.menion.model.ReadOnlyTaskManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,7 +33,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyActivityManager> readTaskManager(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File taskManagerFile = new File(filePath);
@@ -43,16 +43,16 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
             return Optional.empty();
         }
 
-        ReadOnlyTaskManager taskManagerOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyActivityManager taskManagerOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
         return Optional.of(taskManagerOptional);
     }
 
     /**
-     * Similar to {@link #saveTaskManager(ReadOnlyTaskManager)}
+     * Similar to {@link #saveTaskManager(ReadOnlyActivityManager)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
+    public void saveTaskManager(ReadOnlyActivityManager taskManager, String filePath) throws IOException {
         assert taskManager != null;
         assert filePath != null;
 
@@ -62,12 +62,12 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     @Override
-    public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException {
+    public Optional<ReadOnlyActivityManager> readTaskManager() throws DataConversionException, IOException {
         return readTaskManager(filePath);
     }
 
     @Override
-    public void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException {
+    public void saveTaskManager(ReadOnlyActivityManager taskManager) throws IOException {
         saveTaskManager(taskManager, filePath);
     }
 }

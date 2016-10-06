@@ -3,7 +3,7 @@ package seedu.menion.storage;
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.events.storage.DataSavingExceptionEvent;
 import seedu.menion.commons.exceptions.DataConversionException;
-import seedu.menion.model.ReadOnlyTaskManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -25,10 +25,10 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
     String getTaskManagerFilePath();
 
     @Override
-    Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, FileNotFoundException;
+    Optional<ReadOnlyActivityManager> readTaskManager() throws DataConversionException, FileNotFoundException;
 
     @Override
-    void saveTaskManager(ReadOnlyTaskManager addressBook) throws IOException;
+    void saveTaskManager(ReadOnlyActivityManager addressBook) throws IOException;
 
     /**
      * Saves the current version of the Task Manager to the hard disk.

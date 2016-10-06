@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Unmodifiable view of an task manager
  */
-public interface ReadOnlyTaskManager {
+public interface ReadOnlyActivityManager {
 
     UniqueTagList getUniqueTagList();
 

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the task manager level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskManager implements ReadOnlyTaskManager {
+public class ActivityManager implements ReadOnlyActivityManager {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -24,24 +24,24 @@ public class TaskManager implements ReadOnlyTaskManager {
         tags = new UniqueTagList();
     }
 
-    public TaskManager() {}
+    public ActivityManager() {}
 
     /**
-     * Tasks and Tags are copied into this task manager
+     * Tasks and Tags are copied into this activity manager
      */
-    public TaskManager(ReadOnlyTaskManager toBeCopied) {
+    public ActivityManager(ReadOnlyActivityManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Tasks and Tags are copied into this task manager
      */
-    public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
+    public ActivityManager(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskManager getEmptyTaskManager() {
-        return new TaskManager();
+    public static ReadOnlyActivityManager getEmptyActivityManager() {
+        return new ActivityManager();
     }
 
 //// list overwrite operations
@@ -63,14 +63,14 @@ public class TaskManager implements ReadOnlyTaskManager {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyTaskManager newData) {
+    public void resetData(ReadOnlyActivityManager newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
 //// task-level operations
 
     /**
-     * Adds a task to the task manager.
+     * Adds a task to the activity manager.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
@@ -150,9 +150,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskManager // instanceof handles nulls
-                && this.tasks.equals(((TaskManager) other).tasks)
-                && this.tags.equals(((TaskManager) other).tags));
+                || (other instanceof ActivityManager // instanceof handles nulls
+                && this.tasks.equals(((ActivityManager) other).tasks)
+                && this.tags.equals(((ActivityManager) other).tags));
     }
 
     @Override
