@@ -1,16 +1,15 @@
 package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicatePersonException;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
-import seedu.address.commons.events.model.TaskListChangedEvent;
-import seedu.address.commons.core.ComponentManager;
 
 import java.util.Set;
 import java.util.logging.Logger;

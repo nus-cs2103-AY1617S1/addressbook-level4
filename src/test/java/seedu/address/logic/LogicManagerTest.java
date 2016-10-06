@@ -1,24 +1,28 @@
 package seedu.address.logic;
 
 import com.google.common.eventbus.Subscribe;
+
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.model.TaskListChangedEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.*;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.TaskList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.*;
+import seedu.address.storage.StorageManager;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.model.TaskListChangedEvent;
-import seedu.address.model.TaskList;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.*;
-import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -307,7 +311,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
                 expectedAB,
                 expectedAB.getPersonList());
     }

@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Adds a person to the address book.
@@ -44,7 +44,7 @@ public class NoteCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         model.addNote(toNote);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toNote));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toNote.getName()));
 
     }
 

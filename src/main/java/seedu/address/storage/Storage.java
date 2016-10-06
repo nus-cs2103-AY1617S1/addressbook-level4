@@ -1,14 +1,14 @@
 package seedu.address.storage;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Optional;
+
 import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.UserPrefs;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Optional;
 
 /**
  * API of the Storage component

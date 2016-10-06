@@ -6,7 +6,6 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicatePersonException;
 
 import java.util.*;
 import java.util.stream.Collectors;

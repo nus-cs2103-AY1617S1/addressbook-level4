@@ -3,6 +3,9 @@ package seedu.address.commons.util;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.TaskList;
 import seedu.address.storage.XmlSerializableTaskList;
 import seedu.address.testutil.AddressBookBuilder;

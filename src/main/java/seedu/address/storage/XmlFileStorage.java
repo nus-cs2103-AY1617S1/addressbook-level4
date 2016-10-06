@@ -1,9 +1,10 @@
 package seedu.address.storage;
 
-import seedu.address.commons.util.XmlUtil;
-import seedu.address.commons.exceptions.DataConversionException;
-
 import javax.xml.bind.JAXBException;
+
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.XmlUtil;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
