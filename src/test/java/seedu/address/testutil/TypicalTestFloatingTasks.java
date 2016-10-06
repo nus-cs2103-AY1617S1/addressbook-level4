@@ -1,17 +1,17 @@
 package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.TaskManager;
 import seedu.address.model.person.*;
 
 /**
  *
  */
-public class TypicalTestPersons {
+public class TypicalTestFloatingTasks {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestFloatingTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestPersons() {
+    public TypicalTestFloatingTasks() {
         try {
             alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
                     .withEmail("alice@gmail.com").withPhone("85355255")
@@ -34,28 +34,23 @@ public class TypicalTestPersons {
         }
     }
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
-
-        try {
-            ab.addPerson(new Person(alice));
-            ab.addPerson(new Person(benson));
-            ab.addPerson(new Person(carl));
-            ab.addPerson(new Person(daniel));
-            ab.addPerson(new Person(elle));
-            ab.addPerson(new Person(fiona));
-            ab.addPerson(new Person(george));
-        } catch (UniquePersonList.DuplicatePersonException e) {
-            assert false : "not possible";
-        }
+    public static void loadTaskManagerWithSampleData(TaskManager ab) {
+        ab.addFloatingTask(new Person(alice));
+        ab.addFloatingTask(new Person(benson));
+        ab.addFloatingTask(new Person(carl));
+        ab.addFloatingTask(new Person(daniel));
+        ab.addFloatingTask(new Person(elle));
+        ab.addFloatingTask(new Person(fiona));
+        ab.addFloatingTask(new Person(george));
     }
 
-    public TestPerson[] getTypicalPersons() {
-        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+    public TestFloatingTask[] getTypicalPersons() {
+        return new TestFloatingTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
-        loadAddressBookWithSampleData(ab);
+    public TaskManager getTypicalTaskManager(){
+        TaskManager ab = new TaskManager();
+        loadTaskManagerWithSampleData(ab);
         return ab;
     }
 }
