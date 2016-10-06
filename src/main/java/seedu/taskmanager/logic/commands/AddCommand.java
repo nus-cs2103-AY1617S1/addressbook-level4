@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the task manager.
  */
 public class AddCommand extends Command {
 
@@ -18,7 +18,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
             + "Parameters: NAME d/DEADLINE r/REMINDER p/PRIORITY  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Homework 1 d/121212 r/111112 p/low t/friends t/owesMoney";
+            + " Homework 1 d/12-12-12 r/11-11-12 p/low t/friends t/owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
@@ -49,7 +49,7 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addPerson(toAdd);
+            model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
