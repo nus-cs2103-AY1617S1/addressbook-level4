@@ -6,12 +6,14 @@ import seedu.address.model.tag.UniqueTagList;
  * A read-only immutable interface for a Item in the addressbook.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyPerson {
+public interface ReadOnlyToDo {
 
-    ItemType getItemType();
+    Type getType();
     Name getName();
-    Email getEmail();
-    Address getAddress();
+    TodoDate getStartDate();
+    TodoTime getStartTime();
+    TodoDate getEndDate();
+    TodoTime getEndTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -22,13 +24,11 @@ public interface ReadOnlyPerson {
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyPerson other) {
+    default boolean isSameStateAs(ReadOnlyToDo other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getItemType().equals(this.getItemType()) // state checks here onwards
-                && other.getName().equals(this.getName())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getType().equals(this.getType()) // state checks here onwards
+                && other.getName().equals(this.getName()));
     }
 
     /**
@@ -36,13 +36,9 @@ public interface ReadOnlyPerson {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getItemType())
+        builder.append(getType())
                 .append(" Name: ")
                 .append(getName())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
