@@ -16,18 +16,18 @@ public class Task implements ReadOnlyTask {
     private Start start;
     private End end;
 
-   // private UniqueTagList tags;
+    //private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
     public Task(Name name, Date date, Start start, End end) {//, UniqueTagList tags) {
-  //      assert !CollectionUtil.isAnyNull(name, date, start, end); //, tags);
+  //      assert !CollectionUtil.isAnyNull(name, date, start, end);//, tags);
         this.name = name;
         this.date = date;
         this.start = start;
         this.end = end;
-        //this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+       // this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
     /**
@@ -59,15 +59,15 @@ public class Task implements ReadOnlyTask {
 
  //   @Override
  //   public UniqueTagList getTags() {
- //       return new UniqueTagList(tags);
- //   }
+  //      return new UniqueTagList(tags);
+   // }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
  //   public void setTags(UniqueTagList replacement) {
- //       tags.setTags(replacement);
- //   }
+   //     tags.setTags(replacement);
+    //}
 
     @Override
     public boolean equals(Object other) {
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, start, end); //, tags);
+        return Objects.hash(name, date, start, end);//, tags);
     }
 
     @Override

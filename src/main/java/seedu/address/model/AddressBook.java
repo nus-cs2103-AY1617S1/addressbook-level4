@@ -1,8 +1,8 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Task;
+import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -77,7 +77,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
     public void addPerson(Task p) throws UniquePersonList.DuplicatePersonException {
-        syncTagsWithMasterList(p);
+  //      syncTagsWithMasterList(p);
         persons.add(p);
     }
 
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person person) {
+/*    private void syncTagsWithMasterList(Task person) {
         final UniqueTagList personTags = person.getTags();
         tags.mergeFrom(personTags);
 
@@ -103,7 +103,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
         person.setTags(new UniqueTagList(commonTagReferences));
     }
-
+*/
     public boolean removePerson(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {
         if (persons.remove(key)) {
             return true;
