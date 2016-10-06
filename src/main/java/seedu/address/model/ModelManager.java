@@ -11,6 +11,8 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -36,7 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskList = new TaskList(src);
-        filteredPersons = new FilteredList<>(taskList.getPersons());
+        filteredPersons = new FilteredList<>(taskList.getTasks());
     }
 
     public ModelManager() {
@@ -45,7 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
         taskList = new TaskList(initialData);
-        filteredPersons = new FilteredList<>(taskList.getPersons());
+        filteredPersons = new FilteredList<>(taskList.getTasks());
     }
 
     @Override
@@ -65,7 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
+    public synchronized void deleteTask(ReadOnlyTask target) throws PersonNotFoundException {
         taskList.removePerson(target);
         indicateAddressBookChanged();
     }
@@ -155,6 +157,23 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+
+    @Override
+    public List<ReadOnlyTask> getFilteredTaskListFromTaskName(String taskName) {
+        
+        List<ReadOnlyTask> matchingTasks = new ArrayList<ReadOnlyTask>();
+        for(int i=0; i<taskList.getPersonList().size(); i++){
+            matchingTasks.add(taskList.getPersonList().get(i));
+        }
+        ReadOnlyTask task;
+        for(int i=0; i<matchingTasks.size(); i++){
+            task = matchingTasks.get(i);
+            if(task.getName().toString().contains(taskName));
+            else matchingTasks.remove(i);
+        }
+        
+        return matchingTasks;
     }
 
 }

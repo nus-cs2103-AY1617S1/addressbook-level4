@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -18,7 +19,7 @@ public interface Model {
     ReadOnlyTaskList getAddressBook();
 
     /** Deletes the given person. */
-    void deletePerson(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
 
     /** Adds the given person */
     void addPerson(Task task) throws UniqueTaskList.DuplicatePersonException;
@@ -34,5 +35,8 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
+
+    /** Returns a list of tasks containing the entered string */
+    List<ReadOnlyTask> getFilteredTaskListFromTaskName(String taskName);
 
 }
