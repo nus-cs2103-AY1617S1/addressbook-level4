@@ -74,7 +74,7 @@ Adds a floating task to Jimi.<br>
 Format: `add TASK_DETAILS` 
 
 > Floating tasks are tasks without any deadlines.
-> If your command includes a keyword ie. ‘add, by, on , at, from, to’, do use quotation marks to define them. Eg. `add “Send Jimmy to school on the way to work from home”`
+> If your command includes a keyword ie. â€˜add, by, on , at, from, toâ€™, do use quotation marks to define them. Eg. `add â€œSend Jimmy to school on the way to work from homeâ€`
 
 Examples: 
 * `add Buy groceries`
@@ -97,7 +97,7 @@ Format: `add EVENT_DETAILS on DATE [to END_DATE, START TIME to END_TIME]`
 > * You may define the start and end time of the event if you wish.
 
 Examples:
-* `add Attend Timmy’s orchestra on 5th July`
+* `add Attend Timmyâ€™s orchestra on 5th July`
 * `add Show up for dentist appointment on 8/7/2016, 5:00pm to 7:30pm`
 * `add Have school camp on 10 October to 18 October, 10am to 5pm`
 
@@ -110,7 +110,7 @@ Format: `complete TASK_INDEX`
 > * Jimi will note the task as completed at the specified `TASK_INDEX`. 
 > * If you want to revert the task back as incomplete, use the [`undo`](#undo) command.
 > * The index refers to the index number shown in the most recent listing.<br>
-> * The index **must be a positive integer** 1, 2, 3, …
+> * The index **must be a positive integer** 1, 2, 3, â€¦
 
 <br><br>
 
@@ -129,7 +129,7 @@ Examples:
   Deletes the 1st task in the results of the [`find`](#find) command.
 
 > * The index refers to the index number shown in the most recent listing.<br>
-> * The index **must be a positive integer** 1, 2, 3, …
+> * The index **must be a positive integer** 1, 2, 3, â€¦
 
 <br><br>
 
@@ -147,7 +147,7 @@ Format: `edit TASK_INDEX DETAIL_MODIFIER EDITS`
 
 > * If you want to undo your edit, use the [`undo`](#undo) command. <br>
 > * The index refers to the index number shown in the most recent listing.<br>
-> * The index **must be a positive integer** 1, 2, 3, …
+> * The index **must be a positive integer** 1, 2, 3, â€¦
 
 Examples:
 * `edit 2 /n buy food`
@@ -178,7 +178,7 @@ Examples:
 <br><br>
 
 #### <a id="set"></a>Setting save directory : `setdir`
-Set a new save path for your all your tasks.
+Set a new save path for all your tasks.
 Format: `setdir NEW_DIRECTORY`
 
 > * `NEW_DIRECTORY` should be in the format: `[desired_path]/[file_name].txt`
@@ -218,7 +218,7 @@ There is no need to save manually.
        the file that contains the data of your previous Address Book folder.
 
 **Q**: Is there a way to be notified of upcoming tasks or events that are due soon?
-**A**: Jimi will display all overdue tasks, upcoming tasks and events at the top ‘Agenda’ box, so you will always be notified of the most important details first.
+**A**: Jimi will display all overdue tasks, upcoming tasks and events at the top â€˜Agendaâ€™ box, so you will always be notified of the most important details first.
        
 
 
