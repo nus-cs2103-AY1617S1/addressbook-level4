@@ -20,7 +20,6 @@
 5. Some example commands you can try:
    * **`list`** : lists all tasks
    * **`add`** `Midterms pr/high time/wednesday t/important` :
-     adds a task `Midterms to the Task Manger.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -41,7 +40,7 @@ Format: `help`
 
 #### Adding a task/tag
 
-### Adding a task: `add`
+##### Adding a task: `add`
 Adds a task to the task manager.<br>
 Format: `add DESCRIPTION [pr/RANK] [time/TIME] [t/TAG]...`
 
@@ -54,7 +53,7 @@ Examples:
 * `add get eggs pr/low t/family`
 * `add organize room`
 
-### Adding tags: `add tag`
+##### Adding tags: `add tag`
 Add tags to specified task.<br>
 Format: `add tag INDEX TAG [MORE_TAGS]`
 
@@ -66,7 +65,7 @@ Example:
 
 #### Listing all tasks/tags
 
-### Listing all tasks: `list`
+##### Listing all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
 Format: `list [-pr] [-t/TAGS]...`
 
@@ -78,7 +77,7 @@ Modifiers | Action
 -pr | Tasks are listed by priority
 -t/TAG | Tasks with the specified tag are listed
 
-### Listing all tags used: `list tags`
+##### Listing all tags used: `list tags`
 Lists all the tags used in the task manager.<br>
 Format: `list tags`
 
@@ -102,7 +101,7 @@ Examples:
 
 #### Deleting a task/tag
 
-### Delete a task: `delete`
+##### Delete a task: `delete`
 Deletes the specified task from the task manager.<br>
 Format: `delete INDEX`
 
@@ -111,7 +110,7 @@ Examples:
   `delete 2`<br>
   Deletes the 2nd task in the task manager.
 
-### Deleting tags from a task: `delete tag`
+##### Deleting tags from a task: `delete tag`
 Delete tags from specified task.<br>
 Format: `delete tag INDEX TAG [MORE_TAGS]`
 
