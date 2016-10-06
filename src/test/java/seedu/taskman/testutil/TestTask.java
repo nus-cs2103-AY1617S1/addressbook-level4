@@ -18,7 +18,7 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
 
-    public void setName(Title title) {
+    public void setTitle(Title title) {
         this.title = title;
     }
 

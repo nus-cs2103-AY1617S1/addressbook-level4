@@ -15,8 +15,8 @@ public class TaskBuilder {
         this.task = new TestTask();
     }
 
-    public TaskBuilder withTitle(String name) throws IllegalValueException {
-        this.task.setName(new Title(name));
+    public TaskBuilder withTitle(String title) throws IllegalValueException {
+        this.task.setTitle(new Title(title));
         return this;
     }
 

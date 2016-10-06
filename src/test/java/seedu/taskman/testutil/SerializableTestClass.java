@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class SerializableTestClass {
     public static final String JSON_STRING_REPRESENTATION = String.format("{%n" +
-            "  \"name\" : \"This is a test class\",%n" +
+            "  \"title\" : \"This is a test class\",%n" +
             "  \"listOfLocalDateTimes\" : " +
             "[ \"-999999999-01-01T00:00:00\", \"+999999999-12-31T23:59:59.999999999\", \"0001-01-01T01:01:00\" ],%n" +
             "  \"mapOfIntegerToString\" : {%n" +
@@ -20,9 +20,9 @@ public class SerializableTestClass {
             "  }%n" +
             "}");
 
-    private static final String NAME_TEST_VALUE = "This is a test class";
+    private static final String TITLE_TEST_VALUE = "This is a test class";
 
-    private String name;
+    private String title;
 
     private List<LocalDateTime> listOfLocalDateTimes;
     private HashMap<Integer, String> mapOfIntegerToString;
@@ -30,7 +30,7 @@ public class SerializableTestClass {
     public SerializableTestClass() {}
 
     public static String getTitleTestValue() {
-        return NAME_TEST_VALUE;
+        return TITLE_TEST_VALUE;
     }
 
     public static List<LocalDateTime> getListTestValues() {
@@ -54,13 +54,13 @@ public class SerializableTestClass {
     }
 
     public void setTestValues() {
-        name = getTitleTestValue();
+        title = getTitleTestValue();
         listOfLocalDateTimes = getListTestValues();
         mapOfIntegerToString = getHashMapTestValues();
     }
 
     public String getTitle() {
-        return name;
+        return title;
     }
 
     public List<LocalDateTime> getListOfLocalDateTimes() {
