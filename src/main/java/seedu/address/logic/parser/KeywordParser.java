@@ -22,7 +22,7 @@ public class KeywordParser {
      * Parses input string arguments using keywords provided at construction
      * Substring associated with keyword starts after keyword, and before the next keyword or end of line
      * Keyword and associated substring put in a String array {Keyword, Substring}
-     * Returns list of String arrays
+     * Returns ArrayList of String arrays
      * @param string to be parsed
      * @return
      */
@@ -52,9 +52,9 @@ public class KeywordParser {
                 String[] returnPair = {keyword, returnString};
                 words.add(returnPair);
             }
-            else{
+            /*else{
                 System.out.println("No match");
-            }
+            }*/
         }
         return words;
     }
