@@ -50,7 +50,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/whatnow/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -77,14 +77,14 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeleteTask.png" width="800">
+<img src="images\SDforDeletePerson.png" width="800">
 
 >Note how the `Model` simply raises a `WhatNowChangedEvent` when the What Now data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+<img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -96,15 +96,15 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/whatnow/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/whatnow/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -116,7 +116,7 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/whatnow/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -125,18 +125,18 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
+<img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/whatnow/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the WhatNow data.
-* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
+* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -144,7 +144,7 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/whatnow/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -152,7 +152,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.whatnow.commons` package.
+Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 ## Implementation
 
@@ -204,13 +204,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.whatnow.commons.UrlUtilTest`
+      e.g. `seedu.address.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.whatnow.storage.StorageManagerTest`
+      e.g. `seedu.address.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.whatnow.logic.LogicManagerTest`
+      e.g. `seedu.address.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -257,9 +257,10 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | new user | see user instructions | learn how to use the application
 `* * *` | new user | see user instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a new task | write down tasks that I have to do
-`* * *` | user | delete a task | remove completed tasks
-`* * *` | user | find a task by task name | locate the specific task without having to go through the entire list
+`* * *` | user | delete a task | remove completed or unwanted tasks
+`* * *` | user | find a task by task description | locate the specific task without having to go through the entire list
 `* * *` | user | view all tasks | look at the list of all tasks to be done
+`* * *` | user | view completed tasks only | look at what are the tasks that are completed
 `* * *` | user | edit a task | change any task without removing the old task and creating a new one
 `* *` | user | add a recurring task | add a task once only without having to add it multiple times 
 `* *` | user | undo a command | change my mind without deleting and creating or changing anything
@@ -271,104 +272,104 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-System: WhatNow
+System: WhatNow<br>
 Actor: User
 
 
 #### **Use case: Help**
-**MSS**
-User requests to see the list of available commands
-System show a list of available commands
-	Use case ends
+**MSS**<br>
+User requests to see the list of available commands<br>
+System show a list of available commands<br>
+  Use case ends<br>
 
 #### **Use case: Add task**
-**MSS**
-User requests to add a task into the system
-System adds this task into its list of tasks
-	Use case ends
-**Extensions**
-2a. The task is already existing
-	>2a1. System displays “task is already existing” message.
-	>Use case ends
-2b. The given syntax is invalid
-	>2b1. System displays “Invalid syntax” error message.
-	>2b2. ‘Help’ command is launched.
-	>2b3. System awaits user input.
-	>Use case ends
+**MSS**<br>
+User requests to add a task into the system<br>
+System adds this task into its list of tasks<br>
+  Use case ends<br>
+**Extensions**<br>
+2a. The task is already existing<br>
+  >2a1. System displays “task is already existing” message.<br>
+  >Use case ends<br>
+2b. The given syntax is invalid<br>
+  >2b1. System displays “Invalid syntax” error message.<br>
+  >2b2. ‘Help’ command is launched.<br>
+  >2b3. System awaits user input.<br>
+  >Use case ends<br>
 
 #### **Use case: List task**
-**MSS**
-User requests to add an incoming into the system
-System adds this task into its list of tasks
-	Use case ends
-**Extensions**
-2a. The task is already existing
-	>2a1. System displays “task already exists” message.
-	>Use case ends
-2b. The given syntax is invalid
-	>2b1. System displays “Invalid syntax” error message.
-	>2b2. ‘Help’ command is launched.
-	>2b3. System awaits user input.
-	>Use case ends
+**MSS**<br>
+User requests to add an incoming into the system<br>
+System adds this task into its list of tasks<br>
+  Use case ends<br>
+**Extensions**<br>
+2a. The task is already existing<br>
+  >2a1. System displays “task already exists” message.<br>
+  >Use case ends<br>
+2b. The given syntax is invalid<br>
+  >2b1. System displays “Invalid syntax” error message.<br>
+  >2b2. ‘Help’ command is launched.<br>
+  >2b3. System awaits user input.<br>
+  >Use case ends<br>
 
 #### **Use case: Delete task**
-**MSS**
-User requests to list all the tasks
-System shows a list of task
-User requests to delete a specific task in the list
-System deletes the task
-	Use case ends
-**Extensions**
-2a. The list is empty
-	>Use case ends
-3a. The given index is invalid
-	>3a1. System displays an error message
-     >Use case ends at step 2
+**MSS**<br>
+User requests to list all the tasks<br>
+System shows a list of task<br>
+User requests to delete a specific task in the list<br>
+System deletes the task<br>
+  Use case ends<br>
+**Extensions**<br>
+2a. The list is empty<br>
+  >Use case ends<br>
+3a. The given index is invalid<br>
+  >3a1. System displays an error message<br>
+     >Use case ends at step 2<br>
 
 #### **Use case: Recurring task**
-**MSS**
-User adds a recurring task.
-System asks for date period and time. 
-User inputs date and time.
-System creates a recurring task.
-	Use case ends.
+**MSS**<br>
+User adds a recurring task.<br>
+System asks for date period and time.<br> 
+User inputs date and time.<br>
+System creates a recurring task.<br>
+  Use case ends.<br>
 
 #### **Use case: Undo**
-**MSS**
-User requests to revert back to the state the system was previously in.
-System reverts to the state before the user has entered a command
-**Extensions**
-2a. The user just launched the system and did not type a prior command.
-	>2a1. System displays “Nothing was undone” message
-	>Use case ends
+**MSS**<br>
+User requests to revert back to the state the system was previously in.<br>
+System reverts to the state before the user has entered a command<br>
+**Extensions**<br>
+2a. The user just launched the system and did not type a prior command.<br>
+  >2a1. System displays “Nothing was undone” message<br>
+  >Use case ends<br>
 
 #### **Use case: Redo**
-**MSS**
-User requests to revert back to the state that the system was previously in during ‘undo’
-System reverts to the state of ‘redo’
-**Extensions**
-2a. User did not type an ‘undo’ command previously
-	>2a1. System displays “Nothing to redo” message
-	>Use case ends
+**MSS**<br>
+User requests to revert back to the state that the system was previously in during ‘undo’<br>
+System reverts to the state of ‘redo’<br>
+**Extensions**<br>
+2a. User did not type an ‘undo’ command previously<br>
+  >2a1. System displays “Nothing to redo” message<br>
+  >Use case ends<br>
 
 #### **Use case: Search for a task**
-**MSS**
-User requests to search a particular task. 
-System goes through every task to find the target task.
-System displays the task along with its details.
-**Extensions**
-1a. If no such task exists. 
-	>1a1.System will display “No such task.”
-            >Use case ends
+**MSS**<br>
+User requests to search a particular task.<br>
+System goes through every task to find the target task.<br>
+System displays the task along with its details.<br>
+**Extensions**<br>
+1a. If no such task exists.<br> 
+  >1a1.System will display “No such task.”<br>
+            >Use case ends<br>
 
 #### **Use case: Filter by priority**
-**MSS**
-User requests to list all tasks by priority
-System displays all tasks by the priority specified
-**Extensions**
-1a. There are no tasks of such priority. 
-	>1a1. System displays “No such task” message
-	>Use case ends
+**MSS**<br>
+User requests to list all tasks by priority<br>
+System displays all tasks by the priority specified<br>
+**Extensions**<br>
+1a. There are no tasks of such priority.<br>
+  >1a1. System displays “No such task” message<br>
+  >Use case ends<br>
 
 
 {More to be added}
@@ -394,38 +395,34 @@ System displays all tasks by the priority specified
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
 ## Appendix E : Product Survey
 
-**Google Calendar**
+**Google Calendar**<br>
 Strengths:
 * Free
 * Automatic syncs to all devices
-* Reminders can be configured
+* Reminders can be configured<br>
 Weakness:
 * Cannot edit offline
 * Need to have a google account
 * Need to use a mouse to navigate most of the time
 
-**Todoist (Free version)**
+**Todoist (Free version)**<br>
 Strengths:
-* The interface is clean and simple. Easy to understand. Good for taskal use.
+* The interface is clean and simple. Easy to understand. Good for personal use.
 * Quick access to check on everyday's task
 * Quick add of task is particularly helpful for lazy users
-* Freedom of adding more category of task besides the default(E.g. Taskal, Shopping, Work)
+* Freedom of adding more category of task besides the default(E.g. Personal, Shopping, Work)
 * Allows user to have an immediate view of the task lying ahead on current day or week
 * Additional feature of showing productivity of user is useful to motivate user to be on the ball
 * Priority can be set for every task to help decision making in performing task
-* Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday"
+* Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday"<br>
 Weakness:
 * Free version may be limited as we are unable to add to labels to all tasks.
 * Reminders are not available in the free version.
 * Unable to add notes/details onto the specific task in free version.
 
-**Wunderlist**
+**Wunderlist**<br>
 Strengths:
 * Good GUI. Pleasing to the eye. 
 * Ability to share events with others. (Family, Friends)
@@ -434,16 +431,23 @@ Strengths:
 * Set priority for tasks.
 * Star To-dos: Moves starred tasks to the top of the list automatically.
 * Quick add notification
-* Different taskalizable folders (Family, Private, School, Work, …).
+* Different personalizable folders (Family, Private, School, Work, …).
 * Connects to Facebook and Google account.
 * Duplication of the list.
-* Completed to-do list hidden unless selected.
+* Completed to-do list hidden unless selected.<br>
 Weakness:
 * Slow in updating changes
 
-**Remember The Milk**
+
+**Remember The Milk**<br>
 Strengths:
-
+* There is a free version.
+* Available in web, desktop and mobile applications.
+* Able to edit offline
+* Auto-sync between all devices.
+* Integration with Gmail, Google Calendar and Evernote.
+* Able to see upcoming tasks in the Today, Tomorrow and This Week view.
+* Extra keyboard shortcuts for quicker experience. Shortcut menu is open by just clicking on the key ?.<br>
 Weakness:
-
-
+* Most of the things need to be done with a mouse.
+* Many features are only available in the paid version
