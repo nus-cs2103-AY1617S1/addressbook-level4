@@ -387,10 +387,10 @@ public class LogicManagerTest {
             Date privateDate = new Date("111111");
             Start email = new Start("adam@gmail.com");
             End privateAddress = new End("111, alpha street");
-           // Tag tag1 = new Tag("tag1");
-           // Tag tag2 = new Tag("tag2");
-           // UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privateDate, email, privateAddress);//, tags);
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, privateDate, email, privateAddress, tags);
         }
 
         /**
@@ -405,8 +405,8 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new Date("" + Math.abs(seed)),
                     new Start(seed + "@email"),
-                    new End("House of " + seed)//,
-                  //  new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new End("House of " + seed),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
@@ -421,10 +421,10 @@ public class LogicManagerTest {
             cmd.append(" e/").append(p.getStart());
             cmd.append(" a/").append(p.getEnd());
 
-      //      UniqueTagList tags = p.getTags();
-        //    for(Tag t: tags){
-          //      cmd.append(" t/").append(t.tagName);
-           // }
+            UniqueTagList tags = p.getTags();
+            for(Tag t: tags){
+                cmd.append(" t/").append(t.tagName);
+            }
 
             return cmd.toString();
         }
@@ -504,8 +504,8 @@ public class LogicManagerTest {
                     new Name(name),
                     new Date("1"),
                     new Start("1@email"),
-                    new End("House of 1")//,
-                //    new UniqueTagList(new Tag("tag"))
+                    new End("House of 1"),
+                    new UniqueTagList(new Tag("tag"))
             );
         }
     }

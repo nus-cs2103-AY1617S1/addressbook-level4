@@ -14,11 +14,11 @@ public class TypicalTestPersons {
     public TypicalTestPersons() {
         try {
             alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255");
-                    //.withTags("friends").build();
+                    .withEmail("alice@gmail.com").withPhone("85355255")
+                    .withTags("friends").build();
             benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432");
-                    //.withTags("owesMoney", "friends").build();
+                    .withEmail("johnd@gmail.com").withPhone("98765432")
+                    .withTags("owesMoney", "friends").build();
             carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
             daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
             elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
