@@ -256,9 +256,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task or event with a given deadline or date and priority |
+`* * *` | user | add a new task or event with a given deadline or date and priority | remember what tasks I have to do in the future. 
 `* * *` | user | add a floating task with no given deadline or date | work on long term tasks that have no given deadline.
-`* * *` | user | mark a task or event as completed |
+`* * *` | user | mark a task or event as completed | refer to which tasks I have finished or not finished
 `* * *` | user | find a task or event by name | locate details of tasks/events without having to go through the entire list
 `* * *` | user | list upcoming tasks in sorted order | determine which tasks I should do next
 `* * *` | user | edit tasks | update tasks if things change.
