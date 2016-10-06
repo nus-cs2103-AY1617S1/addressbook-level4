@@ -97,7 +97,7 @@ Finding all tasks containing a certain tag
 > * Only tags matching the EXACT keyword will be returned.    
     
 Examples:   
-* `find tags CS2103`<br>    
+* `find tags CS2103`    
   Returns Any tasks containing the tag `CS2103` or `cs2103` but not `CS2103T` or `CS2103 Project`.    
     
 Finding all tasks which has deadlines falling within certain dates    
@@ -108,7 +108,7 @@ Finding all tasks which has deadlines falling within certain dates
     
 Examples:   
 `find dates 1 Oct 2016 31 Oct 2016`   
-  Returns Any tasks which has due dates falling in between 1st October 2016 and 31st October 2016.
+  Returns Any tasks which has due dates falling in between 1st October 2016 and 31st October 2016.<br>
 `find dates 1-11-2016 31-12-2016`   
   Returns Any tasks which has due dates falling in between 1st November 2016 and 31st December 2016.
 
