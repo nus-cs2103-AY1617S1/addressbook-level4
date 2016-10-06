@@ -12,8 +12,8 @@ import seedu.task.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private TaskName taskName;
-    private Phone phone;
-    private Email email;
+    private Date date;
+    private Time time;
     private Venue venue;
 
     private UniqueTagList tags;
@@ -21,11 +21,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskName taskName, Phone phone, Email email, Venue venue, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(taskName, phone, email, venue, tags);
+    public Task(TaskName taskName, Date date, Time time, Venue venue, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(taskName, date, time, venue, tags);
         this.taskName = taskName;
-        this.phone = phone;
-        this.email = email;
+        this.date = date;
+        this.time = time;
         this.venue = venue;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getVenue(), source.getTags());
+        this(source.getName(), source.getDate(), source.getTime(), source.getVenue(), source.getTags());
     }
 
     @Override
@@ -43,13 +43,13 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Date getDate() {
+        return date;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public Time getTime() {
+        return time;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskName, phone, email, venue, tags);
+        return Objects.hash(taskName, date, time, venue, tags);
     }
 
     @Override

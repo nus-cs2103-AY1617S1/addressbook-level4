@@ -18,9 +18,9 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String date;
     @XmlElement(required = true)
-    private String email;
+    private String time;
     @XmlElement(required = true)
     private String venue;
 
@@ -40,8 +40,8 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
+        date = source.getDate().value;
+        time = source.getTime().value;
         venue = source.getVenue().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -60,10 +60,10 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final TaskName taskName = new TaskName(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
+        final Date date = new Date(this.date);
+        final Time time = new Time(this.time);
         final Venue venue = new Venue(this.venue);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(taskName, phone, email, venue, tags);
+        return new Task(taskName, date, time, venue, tags);
     }
 }
