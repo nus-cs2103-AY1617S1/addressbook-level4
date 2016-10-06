@@ -74,9 +74,9 @@ public class TaskBook implements ReadOnlyTaskBook {
      * Also checks the new person's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the person to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicatePersonException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
      */
-    public void addPerson(Task p) throws UniqueTaskList.DuplicatePersonException {
+    public void addPerson(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         persons.add(p);
     }

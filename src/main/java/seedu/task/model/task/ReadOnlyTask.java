@@ -3,7 +3,7 @@ package seedu.task.model.task;
 import seedu.task.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Task in the addressbook.
+ * A read-only immutable interface for a Task in the taskBook.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
@@ -11,7 +11,7 @@ public interface ReadOnlyTask {
     TaskName getName();
     Phone getPhone();
     Email getEmail();
-    Address getAddress();
+    Venue getVenue();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -28,7 +28,7 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getVenue().equals(this.getVenue()));
     }
 
     /**
@@ -41,8 +41,8 @@ public interface ReadOnlyTask {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Venue: ")
+                .append(getVenue())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

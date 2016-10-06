@@ -9,7 +9,7 @@ import seedu.task.model.task.*;
 public class TestPerson implements ReadOnlyTask {
 
     private TaskName taskName;
-    private Address address;
+    private Venue address;
     private Email email;
     private Phone phone;
     private UniqueTagList tags;
@@ -22,7 +22,7 @@ public class TestPerson implements ReadOnlyTask {
         this.taskName = taskName;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Venue address) {
         this.address = address;
     }
 
@@ -50,7 +50,7 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Address getAddress() {
+    public Venue getVenue() {
         return address;
     }
 
@@ -69,7 +69,7 @@ public class TestPerson implements ReadOnlyTask {
         sb.append("add " + this.getName().fullName + " ");
         sb.append("p/" + this.getPhone().value + " ");
         sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("a/" + this.getVenue().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
