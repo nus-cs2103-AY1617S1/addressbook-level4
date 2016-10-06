@@ -38,7 +38,7 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 <br>
-#### Adding a person: `add`
+#### Adding a task: `add`
 Adds a task to the task manager <br>
 Format: `add t/TASK_DESCRIPTION [st/START_TIME] [et/END_TIME] [d/DATE] [tg/TAGS]...`
 
@@ -56,21 +56,25 @@ Examples:
 Shows a list of all tasks in the Task Manager.<br>
 Format: `list`
 
-> Tasks will be list in order of task, floating, event, and then by index.
 
 <br>
-#### Listing all tasks by categories : `listby`
+#### Listing all tasks by categories : `list`
 Shows a list of all tasks in the Task Manager according to a stated category
-Format: `listby CATEGORIES`
+Format: `list [CATEGORIES]`
 
-> List will be sorted by the category requested on top first, then by index.
+> By default, Tasks will be sorted in order of task, floating, event, and then by index
+> Alternatively, list will be sorted by the category requested on top first, then by index.
+>
+> Categories can be either **Pre-defined categories** or **User-defined tags**: 
+>   Pre-defined categories include: today, tomorrow, priority, completed
+>   User-defined tags
 
 Examples:
-* `listby today`
-* `listby tomorrow`
-* `listby priority`
-* `listby completed`
-* `listby USER-DEFINED TAGS`
+* `list today`
+* `list tomorrow`
+* `list priority`
+* `list completed`
+* `list USER-DEFINED TAGS`
 
 <br>
 #### Finding all tasks containing any keyword in their title: `find`
