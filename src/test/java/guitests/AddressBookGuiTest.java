@@ -1,23 +1,5 @@
 package guitests;
 
-import guitests.guihandles.*;
-import javafx.stage.Stage;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestName;
-import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestPersons;
-
-import java.util.concurrent.TimeoutException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 /**
  * A GUI Test class for AddressBook.
  */
