@@ -9,7 +9,7 @@ import seedu.taskmanager.commons.exceptions.IllegalValueException;
  */
 public class Reminder {
 
-    public static final String MESSAGE_REMINDER_CONSTRAINTS = "Task reminder should only contains number";
+    public static final String MESSAGE_REMINDER_CONSTRAINTS = "Task reminder should be in dd-mm-yy or dd-mm-yyyy format";
     public static final String REMINDER_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-2][0][0-9][0-9]$";
     public static final String REMINDER_SECOND_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-9][0-9]$"; 
     public final String value;

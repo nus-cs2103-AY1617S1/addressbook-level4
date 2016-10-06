@@ -3,8 +3,8 @@
 
 
 # Table of Contents
-* Setting Up
-* Architecture
+* [Setting Up](#setting-up)
+* [Product Architecture](#product-architecture)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
@@ -13,6 +13,7 @@
 
 ## Setting Up
 
+## Product Architecture
 
 
 ## Appendix A : User Stories
@@ -25,7 +26,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a new task |
 `* * *` | user | delete a task | remove tasks that I no longer need
-`* * *` | user | undo a command | undo mistakes easily
+`* * *` | user | undo a command | undo a command which I accidentally made and regretted making it
 `* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
 `* * *` | user | have a one-shot approach to add tasks | minimize clicking and saves time
 `* * *` | user | indicate a completion of Task | keep track of the Tasks which I have completed
@@ -42,8 +43,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `Menion` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use Case : Add Task
+<br>
 
+#### Use Case : Add Task
 **MSS**
 
 1. User enters add command followed by the details of the task.
@@ -59,9 +61,12 @@ Use case ends.
 > 1a1. Menion prompts user to reenter Task.<br>
 > 1a2. User inputs a new task.<br>
 > Repeat 1a1 - 1a2 until user inputs the correct format.<br>
-> Use case resumes at step 2.<br>
+> Use case resumes at step 2.
 
-#### Use case: Delete Task
+<br>
+
+
+#### Use Case : Delete Task
 
 **MSS**
 
@@ -78,7 +83,9 @@ Use case ends.
 > 1a1. Menion prompts user to reinput the index of the Task.<br>
 > 1a2. User reinputs the name of the Task.<br>
 > Repeat 1a1 - 1ab until user inputs valid index of the Task.<br>
-> Use case resumes at step 2.<br>
+> Use case resumes at step 2.
+
+<br>
 
 #### Use Case : Edit Task
 
@@ -105,6 +112,24 @@ Use case ends.
 > 1b2. User reinputs details of the Task.<br>
 > Repeat 1b1 - 1b2 until the user inputs a valid format for the Task.<br>
 > Use case resumes at step 2.
+
+<br>
+
+#### Use Case : Undo
+
+**MSS**
+1. User enters undo command.
+
+Use case ends.
+
+**Extensions**
+1a. There is no previous command available to undo.
+
+> 1b1. Menion displays error message.
+
+Use Case Ends
+
+<br>
 
 #### Use Case : List
 
@@ -135,6 +160,7 @@ Use case ends.
 1f. User wishes the Menion to list all Tasks within a specified range of dates.
 > 1f1. Menion shows a list of all the Tasks in the Menion which has deadlines that fall between the specified range of dates.
 
+<br>
 
 #### Use Case: Find
 
@@ -152,37 +178,9 @@ Use case ends.
 > 3a1. Menion displays 'No particular Task' message.<br>
 > Use case ends.
 
-#### Use Case : Notification at startup
-Actor : `System`
-
-**MSS**
-
-1. User boots up the program.
-2. System detects that the program has started.
-3. System notifies the user of all the scheduled Tasks for the day.
-
-Use case ends.
-
-#### Use Case : Notification of reminders
-Actor : `System`
-
-**MSS**
-
-1. System checks if there are reminders at the moment.
-2. System prompts the user if there is reminder for any Tasks.
-3. System requests for an update of reminder for the Task.
-4. System saves the changes.
-
-Use case ends.
-
-**Extensions**
-
-3a. User changes the timing of reminder. <br>
-3b. User removes the reminder for the Task. <br>
-Use case resumes at step 4.
+<br>
 
 #### Use Case : Modify Storage Path
-
 **MSS**
 
 1. User requests to modify the storage path.
@@ -198,6 +196,7 @@ Use case ends.
 > 2a1. Menion shows an error message.<br>
 > Use case resumes at step 2.
 
+<br>
 
 ## Appendix C : Non Functional Requirements
 
@@ -205,10 +204,8 @@ Use case ends.
 2. Should be able to hold up to 1000 Tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-5. Should be able to use the application without access to internet.
-6. Users should be able to use the application without much instructions.
-
-{More to be added}
+5. Should be able to save activities offline, so that I can use the application when the user does not have internet access.
+6. Should be able to use the application without much instructions.
 
 ## Appendix D : Glossary
 
@@ -257,4 +254,5 @@ _3.1 Pros_
 
 _3.2 Cons_
 > 3.2.1 No one shot approach of typing details of activity into a command line.
+
 
