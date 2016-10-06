@@ -11,7 +11,7 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "Address App";
+    private String appTitle = "Taskle";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/taskmanager.xml";
@@ -49,16 +49,16 @@ public class Config {
         return taskManagerFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.taskManagerFilePath = addressBookFilePath;
+    public void setTaskManagerFilePath(String taskManagerFilePath) {
+        this.taskManagerFilePath = taskManagerFilePath;
     }
 
     public String getTaskManagerName() {
         return taskManagerName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.taskManagerName = addressBookName;
+    public void setTaskManagerName(String taskManagerName) {
+        this.taskManagerName = taskManagerName;
     }
 
 

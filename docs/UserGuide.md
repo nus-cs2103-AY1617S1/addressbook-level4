@@ -40,7 +40,7 @@ Stop waiting and make "Getting Started with Taskle" the last thing on your to-do
 
 ## Features
 
-Taskle makes it elegantly simple to manage your tasks. All of its features require only a single line of command, making it very easy to use. Furthermore, it will be easy for you to keep track of your tasks with no hassle at all.
+Taskle makes it elegantly simple to manage your tasks. All of its features require only a single line of command, making it very easy to use. You will be able to add tasks (with or without deadlines) and events which span over a period of time. Furthermore, it will be easy for you to keep track of your tasks with no hassle at all.
 
 > **Command Format**
 > * Words in **`BOLD`** are the parameters.
@@ -49,14 +49,15 @@ Taskle makes it elegantly simple to manage your tasks. All of its features requi
 
 <br>
 
-#### Add a Task: `add`
-Adds a task into the to-do application. Tasks can be classified into 3 categories: *Floating Tasks* (Tasks without deadlines), *Deadlines* and *Events*.<br><br>
+#### Add a Task / Event: `add`
+Adds a task / event into the to-do application. You can add tasks with or without specifying the deadlines, and events with or without specifying the end date. In addition, for events and tasks with deadlines, a reminder time can be set for the application to remind you of the upcoming task / event. The time parameter is optional here.<br><br>
 
 | Format |  
 | :-------- | 
 | `add `**`task_name`** |  
-| `add `**`deadline_name`**` by `**`date`**`[`**`time`**`] [remind `**`date time`**`]` |  
-| `add `**`event_name`**` on `**`date`**`[`**`time`**`] [remind `**`date time`**`]` <br> OR <br> `add `**`event_name`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`  |
+| `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` |  
+| `add `**`event_name`**` on `**`date`**` [`**`time`**`] [remind `**`date time`**`]` |
+| `add `**`event_name`**` from `**`date`**`[`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  |
 
 Examples:
 * `add `**`Pay Bills`**
@@ -74,11 +75,11 @@ Note:
 	* add "**Collect equipment from Mary**" **tmr**
 
 * When using reserved words **today**, **tmr** and days of the week, it is alright to omit the word **on** (applicable for events). For example:
-	* add **Club Briefing tmr** &emsp; instead of:&emsp; add **Club Briefing on tmr**
+	* add **Club Briefing tmr** &emsp; instead of: &emsp; add **Club Briefing on tmr**
 <br><br>	
 
 #### Edit a Task : `edit; reschedule; remind`
-Edits a task into the to-do application. There are 3 types of edits possible: *Edit Description*, *Reschedule* and *Remind*.<br><br>
+Edits a task into the to-do application. There are 3 types of edits possible: Edit Description, Reschedule and Remind. You are required to input the **task_number** (which can be seen in the mockup) in order for the application to identify which task you are intending to edit.<br><br>
 
 Type | Format  
 :-------- | :-------- 
@@ -117,7 +118,7 @@ Format: `undo`
 
 #### Find a Task : `find`
 Finds a task in the to-do application, based on keywords.<br>
-Format: `find [`**`search_query`**`][`**`-p/-c/-o`**`]`
+Format: `find [`**`search_query`**`] [`**`-p/-c/-o`**`]`
 
 Examples:
 * `find `**`meeting`**
@@ -175,7 +176,8 @@ Command `(Shortcut)` | Format
 :-------- | :-------- 
 Add `a` | `add `**`task_name`**  
  | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
- | `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`<br>OR<br>`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
+ | `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`|
+ |`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
 Edit Description `e` | `edit `**`task_number new_task_name`**
 Reschedule `r` | `reschedule `**`task_number`**` to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`<br> OR <br> `reschedule `**`task_number`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Set Reminder `s` | `remind `**`task_number date time`**
