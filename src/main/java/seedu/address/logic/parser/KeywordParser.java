@@ -12,8 +12,9 @@ public class KeywordParser {
      * Constructor
      * @param keywords used to pass strings
      */
-    public KeywordParser(String... keywords){
-        for(String key: keywords){
+    public KeywordParser(String... inputKeywords){
+        this.keywords = new ArrayList<String>();
+        for(String key: inputKeywords){
             this.keywords.add(key);
         }
     }
@@ -25,20 +26,26 @@ public class KeywordParser {
      * @param string to be parsed
      * @return
      */
-    public List<String[]> parse(String inputString){
+    public ArrayList<String[]> parse(String inputString){
         ArrayList<String[]> words = new ArrayList<String[]>();
         for(int i = 0; i < keywords.size(); i++){
+            inputString = new String(inputString);
             String keyword = keywords.get(i);
-            String patternString = keyword + "(?<returnString>[^/]+)";
-            if (i < keywords.size() - 1){
-                patternString = patternString + keywords.get(i + 1);
-            }
+            System.out.println("Keyword: " + keyword);
+            String patternString = new String (keyword + " (?<returnString>[^/]+)");
+            /*if (i < keywords.size() - 1){
+                patternString = patternString + " " + keywords.get(i + 1);
+            }*/
             Pattern pattern = Pattern.compile(patternString);
-            Matcher matcher = pattern.matcher(inputString.trim());
+            Matcher matcher = pattern.matcher(inputString);
             if(matcher.matches()){
                 String returnString = matcher.group("returnString");
+                System.out.println(returnString);
                 String[] returnPair = {keyword, returnString};
                 words.add(returnPair);
+            }
+            else{
+                System.out.println("No match");
             }
         }
         return words;
