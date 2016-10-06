@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import java.util.Set;
 
 import seedu.address.commons.collections.UniqueItemCollection;
+import seedu.address.commons.core.UnmodifiableObservableList;
 
 /*
  * Represents an in-memory task list
@@ -32,6 +33,6 @@ public interface InMemoryTaskList {
 	/*
 	 * Gets the current list of tasks with the filtering words applied
 	 */
-	UniqueItemCollection<Task> getCurrentFilteredTasks();
+	UnmodifiableObservableList<Task> getCurrentFilteredTasks();
 	
 }
