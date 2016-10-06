@@ -192,7 +192,7 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Task Manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
        
 ## Command Cheatsheet
