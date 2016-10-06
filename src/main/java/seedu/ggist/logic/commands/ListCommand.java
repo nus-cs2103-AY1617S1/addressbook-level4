@@ -2,7 +2,7 @@ package seedu.ggist.logic.commands;
 
 
 /**
- * Lists all tasks on the specified DATE in GGist to the user.
+ * Lists all tasks in GGist to the user.
  */
 public class ListCommand extends Command {
 

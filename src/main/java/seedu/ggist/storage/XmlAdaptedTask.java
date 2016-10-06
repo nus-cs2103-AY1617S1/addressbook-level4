@@ -11,18 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JAXB-friendly version of the Task.
+ * JAXB-friendly version of GGist.
  */
 public class XmlAdaptedTask {
 
     @XmlElement(required = true)
-    private String name;
+    private String taskName;
     @XmlElement(required = true)
-    private String phone;
+    private String date;
     @XmlElement(required = true)
-    private String email;
+    private String startTime;
     @XmlElement(required = true)
-    private String address;
+    private String endTime;
+    @XmlElement(required = true)
+    private String priority;
+    @XmlElement(required = true)
+    private String frequency;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
