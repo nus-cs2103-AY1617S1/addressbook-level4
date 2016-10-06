@@ -259,12 +259,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
-    }
-
-    @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
@@ -277,10 +271,6 @@ public class LogicManagerTest {
         AddressBook expectedAB = helper.generateAddressBook(threePersons);
         helper.addToModel(model, threePersons);
 
-        assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
-                expectedAB,
-                expectedAB.getPersonList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
     }
