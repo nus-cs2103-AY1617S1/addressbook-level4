@@ -35,12 +35,13 @@ public class MainWindow extends UiPart {
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private UserPrefs userPrefs;
+    private HelpWindow helpWindow;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String appName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -82,21 +83,23 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, UserPrefs prefs,
+    private void configure(String appTitle, String appName, UserPrefs prefs,
                            Logic logic) {
 
-        //Set dependencies
+        // Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.appName = appName;
         this.userPrefs = prefs;
 
-        //Configure the UI
+        // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
+
+        helpWindow = HelpWindow.load(primaryStage, Config.UserGuideUrl);
 
         setAccelerators();
     }
@@ -169,7 +172,6 @@ public class MainWindow extends UiPart {
 
     public void showHelpForCommand(String commandWord) {
         // Search through map
-        HelpWindow helpWindow = HelpWindow.load(primaryStage, Config.UserGuideUrl);
         helpWindow.show(Config.getUserGuideAnchorForCommandWord(commandWord));
     }
 

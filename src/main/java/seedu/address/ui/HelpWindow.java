@@ -53,7 +53,7 @@ public class HelpWindow extends UiPart {
         setIcon(dialogStage, ICON);
 
         browser = new WebView();
-        browser.getEngine().load(this.url);
+        browser.getEngine().load(this.url); // preload page at url
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
     }
