@@ -163,10 +163,6 @@ Format: `undo`
 Marks a task as done. This command is used when you are finished with the task.<br><br>
 Format: `undo`
 
-<img src="images/UI/Remove.png" width="600">
-<img src="images/UI/Remove 2.png" width="600">	
-<img src="images/UI/Undo.png" width="600">
-
 <br><br>
 
 #### Clearing all Tasks: `clear`
