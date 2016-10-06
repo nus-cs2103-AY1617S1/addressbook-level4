@@ -121,6 +121,9 @@ There is no need to save manually.
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
        
+**Q**: How do I report an issue?
+**A**: Contact e0008233@u.nus.edu for assistance.
+       
 ## Command Summary
 
 Command | Format  
