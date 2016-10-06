@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="normalize.css">
+  <link rel="stylesheet" type="text/css" href="skeleton.css">
+</head>
+<body>
+<h1 id="developer-guide">Developer Guide</h1>
+<div class="toc">
+<ul>
+<li><a href="#developer-guide">Developer Guide</a><ul>
+<li><a href="#setting-up">Setting up</a><ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#importing-the-project-into-eclipse">Importing the project into Eclipse</a></li>
+</ul>
+</li>
+<li><a href="#design">Design</a><ul>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#ui-component">UI component</a></li>
+<li><a href="#logic-component">Logic component</a></li>
+<li><a href="#model-component">Model component</a></li>
+<li><a href="#storage-component">Storage component</a></li>
+<li><a href="#common-classes">Common classes</a></li>
+</ul>
+</li>
+<li><a href="#implementation">Implementation</a><ul>
+<li><a href="#logging">Logging</a></li>
+<li><a href="#configuration">Configuration</a></li>
+</ul>
+</li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#dev-ops">Dev Ops</a><ul>
+<li><a href="#build-automation">Build Automation</a></li>
+<li><a href="#continuous-integration">Continuous Integration</a></li>
+<li><a href="#making-a-release">Making a Release</a></li>
+<li><a href="#managing-dependencies">Managing Dependencies</a></li>
+</ul>
+</li>
+<li><a href="#appendix-a-user-stories">Appendix A : User Stories</a></li>
+<li><a href="#appendix-b-use-cases">Appendix B : Use Cases</a><ul>
+<li><a href="#use-case-delete-person">Use case: Delete person</a></li>
+</ul>
+</li>
+<li><a href="#appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements</a></li>
+<li><a href="#appendix-d-glossary">Appendix D : Glossary</a><ul>
+<li><a href="#mainstream-os">Mainstream OS</a></li>
+<li><a href="#private-contact-detail">Private contact detail</a></li>
+</ul>
+</li>
+<li><a href="#appendix-e-product-survey">Appendix E : Product Survey</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="setting-up">Setting up</h2>
+<h4 id="prerequisites">Prerequisites</h4>
+<ol>
+<li>
+<p><strong>JDK <code>1.8.0_60</code></strong>  or later<br></p>
+<blockquote>
+<p>Having any Java 8 version is not enough. <br>
+This app will not work with earlier versions of Java 8.</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Eclipse</strong> IDE</p>
+</li>
+<li><strong>e(fx)clipse</strong> plugin for Eclipse (Do the steps 2 onwards given in
+   <a href="http://www.eclipse.org/efxclipse/install.html#for-the-ambitious">this page</a>)</li>
+<li><strong>Buildship Gradle Integration</strong> plugin from the Eclipse Marketplace</li>
+</ol>
+<h4 id="importing-the-project-into-eclipse">Importing the project into Eclipse</h4>
+<ol>
+<li>Fork this repo, and clone the fork to your computer</li>
+<li>Open Eclipse (Note: Ensure you have installed the <strong>e(fx)clipse</strong> and <strong>buildship</strong> plugins as given
+   in the prerequisites above)</li>
+<li>Click <code>File</code> &gt; <code>Import</code></li>
+<li>Click <code>Gradle</code> &gt; <code>Gradle Project</code> &gt; <code>Next</code> &gt; <code>Next</code></li>
+<li>Click <code>Browse</code>, then locate the project's directory</li>
+<li>Click <code>Finish</code></li>
+</ol>
+<blockquote>
+<ul>
+<li>If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.</li>
+<li>Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+      (This is because Gradle downloads library files from servers during the project set up process)</li>
+<li>If Eclipse auto-changed any settings files during the import process, you can discard those changes.</li>
+</ul>
+</blockquote>
+<h2 id="design">Design</h2>
+<h3 id="architecture">Architecture</h3>
+<p><img src="images/Architecture.png" width="600"><br>
+The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of the App.
+Given below is a quick overview of each component.</p>
+<p><code>Main</code> has only one class called <a href="../src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,
+<em> At app launch: Initializes the components in the correct sequence, and connect them up with each other.
+</em> At shut down: Shuts down the components and invoke cleanup method where necessary.</p>
+<p><a href="#common-classes"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components.
+Two of those classes play important roles at the architecture level.
+<em> <code>EventsCentre</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google's Event Bus library</a>)
+  is used by components to communicate with other components using events (i.e. a form of <em>Event Driven</em> design)
+</em> <code>LogsCenter</code> : Used by many classes to write log messages to the App's log file.</p>
+<p>The rest of the App consists four components.
+<em> <a href="#ui-component"><strong><code>UI</code></strong></a> : The UI of tha App.
+</em> <a href="#logic-component"><strong><code>Logic</code></strong></a> : The command executor.
+<em> <a href="#model-component"><strong><code>Model</code></strong></a> : Holds the data of the App in-memory.
+</em> <a href="#storage-component"><strong><code>Storage</code></strong></a> : Reads data from, and writes data to, the hard disk.</p>
+<p>Each of the four components
+<em> Defines its <em>API</em> in an <code>interface</code> with the same name as the Component.
+</em> Exposes its functionality using a <code>{Component Name}Manager</code> class.</p>
+<p>For example, the <code>Logic</code> component (see the class diagram given below) defines it's API in the <code>Logic.java</code>
+interface and exposes its functionality using the <code>LogicManager.java</code> class.<br>
+<img src="images/LogicClassDiagram.png" width="800"><br></p>
+<p>The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the
+command <code>delete 3</code>.</p>
+<p><img src="images\SDforDeletePerson.png" width="800"></p>
+<blockquote>
+<p>Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</code> when the Address Book data are changed,
+ instead of asking the <code>Storage</code> to save the updates to the hard disk.</p>
+</blockquote>
+<p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+<img src="images\SDforDeletePersonEventHandling.png" width="800"></p>
+<blockquote>
+<p>Note how the event is propagated through the <code>EventsCenter</code> to the <code>Storage</code> and <code>UI</code> without <code>Model</code> having
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
+  coupling between components.</p>
+</blockquote>
+<p>The sections below give more details of each component.</p>
+<h3 id="ui-component">UI component</h3>
+<p><img src="images/UiClassDiagram.png" width="800"><br></p>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>,
+<code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class
+and they can be loaded using the <code>UiPartLoader</code>.</p>
+<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files
+ that are in the <code>src/main/resources/view</code> folder.<br>
+ For example, the layout of the <a href="../src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
+ <a href="../src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+<p>The <code>UI</code> component,
+<em> Executes user commands using the <code>Logic</code> component.
+</em> Binds itself to some data in the <code>Model</code> so that the UI can auto-update when data in the <code>Model</code> change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.</p>
+<h3 id="logic-component">Logic component</h3>
+<p><img src="images/LogicClassDiagram.png" width="800"><br></p>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+<ol>
+<li><code>Logic</code> uses the <code>Parser</code> class to parse the user command.</li>
+<li>This results in a <code>Command</code> object which is executed by the <code>LogicManager</code>.</li>
+<li>The command execution can affect the <code>Model</code> (e.g. adding a person) and/or raise events.</li>
+<li>The result of the command execution is encapsulated as a <code>CommandResult</code> object which is passed back to the <code>Ui</code>.</li>
+</ol>
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code>
+ API call.<br>
+<img src="images/DeletePersonSdForLogic.png" width="800"><br></p>
+<h3 id="model-component">Model component</h3>
+<p><img src="images/ModelClassDiagram.png" width="800"><br></p>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+<p>The <code>Model</code>,
+<em> stores a <code>UserPref</code> object that represents the user's preferences.
+</em> stores the Address Book data.
+<em> exposes a <code>UnmodifiableObservableList&lt;ReadOnlyPerson&gt;</code> that can be 'observed' e.g. the UI can be bound to this list
+  so that the UI automatically updates when the data in the list change.
+</em> does not depend on any of the other three components.</p>
+<h3 id="storage-component">Storage component</h3>
+<p><img src="images/StorageClassDiagram.png" width="800"><br></p>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+<p>The <code>Storage</code> component,
+<em> can save <code>UserPref</code> objects in json format and read it back.
+</em> can save the Address Book data in xml format and read it back.</p>
+<h3 id="common-classes">Common classes</h3>
+<p>Classes used by multiple components are in the <code>seedu.addressbook.commons</code> package.</p>
+<h2 id="implementation">Implementation</h2>
+<h3 id="logging">Logging</h3>
+<p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels
+and logging destinations.</p>
+<ul>
+<li>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file
+  (See <a href="#configuration">Configuration</a>)</li>
+<li>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to
+  the specified logging level</li>
+<li>Currently log messages are output through: <code>Console</code> and to a <code>.log</code> file.</li>
+</ul>
+<p><strong>Logging Levels</strong></p>
+<ul>
+<li><code>SEVERE</code> : Critical problem detected which may possibly cause the termination of the application</li>
+<li><code>WARNING</code> : Can continue, but with caution</li>
+<li><code>INFO</code> : Information showing the noteworthy actions by the App</li>
+<li><code>FINE</code> : Details that is not usually noteworthy but may be useful in debugging
+  e.g. print the actual list instead of just its size</li>
+</ul>
+<h3 id="configuration">Configuration</h3>
+<p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
+(default: <code>config.json</code>):</p>
+<h2 id="testing">Testing</h2>
+<p>Tests can be found in the <code>./src/test/java</code> folder.</p>
+<p><strong>In Eclipse</strong>:</p>
+<blockquote>
+<p>If you are not using a recent Eclipse version (i.e. <em>Neon</em> or later), enable assertions in JUnit tests
+  as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option">here</a>.</p>
+</blockquote>
+<ul>
+<li>To run all tests, right-click on the <code>src/test/java</code> folder and choose
+  <code>Run as</code> &gt; <code>JUnit Test</code></li>
+<li>To run a subset of tests, you can right-click on a test package, test class, or a test and choose
+  to run as a JUnit test.</li>
+</ul>
+<p><strong>Using Gradle</strong>:
+* See <a href="UsingGradle.md">UsingGradle.md</a> for how to run tests using Gradle.</p>
+<p>We have two types of tests:</p>
+<ol>
+<li>
+<p><strong>GUI Tests</strong> - These are <em>System Tests</em> that test the entire App by simulating user actions on the GUI.
+   These are in the <code>guitests</code> package.</p>
+</li>
+<li>
+<p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
+</li>
+<li><em>Unit tests</em> targeting the lowest level methods/classes. <br>
+      e.g. <code>seedu.address.commons.UrlUtilTest</code></li>
+<li><em>Integration tests</em> that are checking the integration of multiple code units
+     (those code units are assumed to be working).<br>
+      e.g. <code>seedu.address.storage.StorageManagerTest</code></li>
+<li>Hybrids of unit and integration tests. These test are checking multiple code units as well as
+      how the are connected together.<br>
+      e.g. <code>seedu.address.logic.LogicManagerTest</code></li>
+</ol>
+<p><strong>Headless GUI Testing</strong> :
+Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use,
+ our GUI tests can be run in the <em>headless</em> mode.
+ In the headless mode, GUI tests do not show up on the screen.
+ That means the developer can do other things on the Computer while the tests are running.<br>
+ See <a href="UsingGradle.md#running-tests">UsingGradle.md</a> to learn how to run tests in headless mode.</p>
+<h2 id="dev-ops">Dev Ops</h2>
+<h3 id="build-automation">Build Automation</h3>
+<p>See <a href="UsingGradle.md">UsingGradle.md</a> to learn how to use Gradle for build automation.</p>
+<h3 id="continuous-integration">Continuous Integration</h3>
+<p>We use <a href="https://travis-ci.org/">Travis CI</a> to perform <em>Continuous Integration</em> on our projects.
+See <a href="UsingTravis.md">UsingTravis.md</a> for more details.</p>
+<h3 id="making-a-release">Making a Release</h3>
+<p>Here are the steps to create a new release.</p>
+<ol>
+<li>Generate a JAR file <a href="UsingGradle.md#creating-the-jar-file">using Gradle</a>.</li>
+<li>Tag the repo with the version number. e.g. <code>v0.1</code></li>
+<li><a href="https://help.github.com/articles/creating-releases/">Crete a new release using GitHub</a>
+    and upload the JAR file your created.</li>
+</ol>
+<h3 id="managing-dependencies">Managing Dependencies</h3>
+<p>A project often depends on third-party libraries. For example, Address Book depends on the
+<a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em>
+can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
+is better than these alternatives.<br>
+a. Include those libraries in the repo (this bloats the repo size)<br>
+b. Require developers to download those libraries manually (this creates extra work for developers)<br></p>
+<h2 id="appendix-a-user-stories">Appendix A : User Stories</h2>
+<p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have)  - <code>* *</code>,  Low (unlikely to have) - <code>*</code></p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th align="left">As a ...</th>
+<th align="left">I want to ...</th>
+<th align="left">So that I can...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>* * *</code></td>
+<td align="left">new user</td>
+<td align="left">see usage instructions</td>
+<td align="left">refer to instructions when I forget how to use the App</td>
+</tr>
+<tr>
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">add a new person</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">delete a person</td>
+<td align="left">remove entries that I no longer need</td>
+</tr>
+<tr>
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">find a person by name</td>
+<td align="left">locate details of persons without having to go through the entire list</td>
+</tr>
+<tr>
+<td><code>* *</code></td>
+<td align="left">user</td>
+<td align="left">hide <a href="#private-contact-detail">private contact details</a> by default</td>
+<td align="left">minimize chance of someone else seeing them by accident</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td align="left">user with many persons in the address book</td>
+<td align="left">sort persons by name</td>
+<td align="left">locate a person easily</td>
+</tr>
+</tbody>
+</table>
+<p>{More to be added}</p>
+<h2 id="appendix-b-use-cases">Appendix B : Use Cases</h2>
+<p>(For all use cases below, the <strong>System</strong> is the <code>AddressBook</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
+<h4 id="use-case-delete-person">Use case: Delete person</h4>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User requests to list persons</li>
+<li>AddressBook shows a list of persons</li>
+<li>User requests to delete a specific person in the list</li>
+<li>AddressBook deletes the person <br>
+Use case ends.</li>
+</ol>
+<p><strong>Extensions</strong></p>
+<p>2a. The list is empty</p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<p>3a. The given index is invalid</p>
+<blockquote>
+<p>3a1. AddressBook shows an error message <br>
+  Use case resumes at step 2</p>
+</blockquote>
+<p>{More to be added}</p>
+<h2 id="appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements</h2>
+<ol>
+<li>Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java <code>1.8.0_60</code> or higher installed.</li>
+<li>Should be able to hold up to 1000 persons.</li>
+<li>Should come with automated unit tests and open source code.</li>
+<li>Should favor DOS style commands over Unix-style commands.</li>
+</ol>
+<p>{More to be added}</p>
+<h2 id="appendix-d-glossary">Appendix D : Glossary</h2>
+<h5 id="mainstream-os">Mainstream OS</h5>
+<blockquote>
+<p>Windows, Linux, Unix, OS-X</p>
+</blockquote>
+<h5 id="private-contact-detail">Private contact detail</h5>
+<blockquote>
+<p>A contact detail that is not meant to be shared with others</p>
+</blockquote>
+<h2 id="appendix-e-product-survey">Appendix E : Product Survey</h2>
+<p>{TODO: Add a summary of competing products}</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="nf">Task</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="n">title</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">uuid</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table>
+</body>
+</html>
