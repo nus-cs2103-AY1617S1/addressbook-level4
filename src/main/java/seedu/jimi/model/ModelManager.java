@@ -43,19 +43,19 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyTaskBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyTaskBook getTaskBook() {
         return addressBook;
     }
 

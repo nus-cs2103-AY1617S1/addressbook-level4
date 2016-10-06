@@ -12,7 +12,7 @@ import seedu.jimi.logic.commands.*;
 import seedu.jimi.model.AddressBook;
 import seedu.jimi.model.Model;
 import seedu.jimi.model.ModelManager;
-import seedu.jimi.model.ReadOnlyAddressBook;
+import seedu.jimi.model.ReadOnlyTaskBook;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
@@ -45,13 +45,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyAddressBook latestSavedAddressBook;
+    private ReadOnlyTaskBook latestSavedTaskBook;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
-        latestSavedAddressBook = new AddressBook(abce.data);
+        latestSavedTaskBook = new AddressBook(abce.data);
     }
 
     @Subscribe
@@ -72,7 +72,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedTaskBook = new AddressBook(model.getTaskBook()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -92,7 +92,7 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
+     * @see #assertCommandBehavior(String, String, ReadOnlyTaskBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
         assertCommandBehavior(inputCommand, expectedMessage, new AddressBook(), Collections.emptyList());
@@ -106,7 +106,7 @@ public class LogicManagerTest {
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyAddressBook expectedAddressBook,
+                                       ReadOnlyTaskBook expectedTaskBook,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
@@ -117,8 +117,8 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredPersonList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getAddressBook());
-        assertEquals(expectedAddressBook, latestSavedAddressBook);
+        assertEquals(expectedTaskBook, model.getTaskBook());
+        assertEquals(expectedTaskBook, latestSavedTaskBook);
     }
 
 
@@ -188,7 +188,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
 
     }
 
@@ -208,7 +208,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
 
     }
 
@@ -218,7 +218,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         AddressBook expectedAB = helper.generateAddressBook(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getPersonList();
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare address book state
         helper.addToModel(model, 2);
@@ -259,7 +259,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), taskList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), taskList);
     }
 
     @Test
@@ -284,7 +284,7 @@ public class LogicManagerTest {
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredPersonList().get(1), threeTasks.get(1));
     }
@@ -313,7 +313,7 @@ public class LogicManagerTest {
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
     }
 
 

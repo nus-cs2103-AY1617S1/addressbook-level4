@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.exceptions.DataConversionException;
 import seedu.jimi.commons.util.FileUtil;
-import seedu.jimi.model.ReadOnlyAddressBook;
+import seedu.jimi.model.ReadOnlyTaskBook;
 
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
@@ -29,11 +29,11 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readTaskBook()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File addressBookFile = new File(filePath);
@@ -43,31 +43,31 @@ public class XmlAddressBookStorage implements AddressBookStorage {
             return Optional.empty();
         }
 
-        ReadOnlyAddressBook addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTaskBook taskBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(addressBookOptional);
+        return Optional.of(taskBookOptional);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}
+     * Similar to {@link #saveTaskBook(ReadOnlyTaskBook)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
-        assert addressBook != null;
+    public void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
+        assert taskBook != null;
         assert filePath != null;
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(taskBook));
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
+        return readTaskBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException {
+        saveTaskBook(taskBook, filePath);
     }
 }

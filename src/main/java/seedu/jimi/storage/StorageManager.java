@@ -7,7 +7,7 @@ import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.storage.DataSavingExceptionEvent;
 import seedu.jimi.commons.exceptions.DataConversionException;
-import seedu.jimi.model.ReadOnlyAddressBook;
+import seedu.jimi.model.ReadOnlyTaskBook;
 import seedu.jimi.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -56,25 +56,25 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
+        return readTaskBook(addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return addressBookStorage.readTaskBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException {
+        saveTaskBook(taskBook, addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+    public void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        addressBookStorage.saveTaskBook(taskBook, filePath);
     }
 
 
@@ -83,7 +83,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveTaskBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

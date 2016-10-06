@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import seedu.jimi.commons.exceptions.DataConversionException;
-import seedu.jimi.model.ReadOnlyAddressBook;
+import seedu.jimi.model.ReadOnlyTaskBook;
 
 /**
  * Represents a storage for {@link seedu.jimi.model.AddressBook}.
@@ -17,28 +17,28 @@ public interface AddressBookStorage {
     String getAddressBookFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
+     * Returns AddressBook data as a {@link ReadOnlyTaskBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException;
 
     /**
      * @see #getAddressBookFilePath()
      */
-    Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyAddressBook} to the storage.
-     * @param addressBook cannot be null.
+     * Saves the given {@link ReadOnlyTaskBook} to the storage.
+     * @param taskBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyAddressBook)
+     * @see #saveTaskBook(ReadOnlyTaskBook)
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException;
+    void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException;
 
 }

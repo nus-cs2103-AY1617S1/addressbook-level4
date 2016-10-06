@@ -9,18 +9,18 @@ import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of Jimi's task book.
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyTaskBook {
 
     UniqueTagList getUniqueTagList();
 
     UniqueTaskList getUniqueTaskList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of tasks list
      */
-    List<ReadOnlyTask> getPersonList();
+    List<ReadOnlyTask> getTaskList();
 
     /**
      * Returns an unmodifiable view of tags list

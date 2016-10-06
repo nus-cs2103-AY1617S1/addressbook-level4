@@ -9,7 +9,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.storage.DataSavingExceptionEvent;
 import seedu.jimi.model.AddressBook;
-import seedu.jimi.model.ReadOnlyAddressBook;
+import seedu.jimi.model.ReadOnlyTaskBook;
 import seedu.jimi.model.UserPrefs;
 import seedu.jimi.storage.JsonUserPrefsStorage;
 import seedu.jimi.storage.Storage;
@@ -61,8 +61,8 @@ public class StorageManagerTest {
     @Test
     public void addressBookReadSave() throws Exception {
         AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
+        storageManager.saveTaskBook(original);
+        ReadOnlyTaskBook retrieved = storageManager.readTaskBook().get();
         assertEquals(original, new AddressBook(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }
@@ -92,7 +92,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+        public void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

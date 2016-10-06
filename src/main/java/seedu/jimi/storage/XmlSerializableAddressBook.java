@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
-import seedu.jimi.model.ReadOnlyAddressBook;
+import seedu.jimi.model.ReadOnlyTaskBook;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.ReadOnlyTask;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
+public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
@@ -39,8 +39,8 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+    public XmlSerializableAddressBook(ReadOnlyTaskBook src) {
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -69,7 +69,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();

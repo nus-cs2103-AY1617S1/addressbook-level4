@@ -7,7 +7,7 @@ import java.util.Optional;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.storage.DataSavingExceptionEvent;
 import seedu.jimi.commons.exceptions.DataConversionException;
-import seedu.jimi.model.ReadOnlyAddressBook;
+import seedu.jimi.model.ReadOnlyTaskBook;
 import seedu.jimi.model.UserPrefs;
 
 /**
@@ -25,10 +25,10 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     String getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.
