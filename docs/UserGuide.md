@@ -79,11 +79,7 @@ Format: `delete INDEX`
 Examples: 
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd task in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st task in the results of the `find` command.
-
+  Deletes the 2nd task in the task manager.
 
 #### Clearing all entries : `clear`
 Clears all entries from the task manager.<br>
@@ -106,7 +102,7 @@ Redo the undone modification in the last step.<br>
 Format: `redo`  
 
 #### Change working directory : `directory`
-Change directory being accessed, effectively using another todo list.<br>
+Change directory being accessed, effectively using another task manager.<br>
 Format: `directory [PATH]`  
 
 #### Backup : `backup`
@@ -117,7 +113,7 @@ Format: `backup [PATH]`
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Task Manager folder.
        
 ## Command Summary
 Command | Format  
