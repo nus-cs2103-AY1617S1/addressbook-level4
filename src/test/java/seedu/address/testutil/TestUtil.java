@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Date("948824"), new Start("3333"), new End("1234")),//, new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Date("879245"), new Start("1212"), new End("1111")),//, new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Date("953525"), new Start("1212"), new End("2345")),//, new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Date("876553"), new Start("2222"), new End("7521")),//, new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Date("948222"), new Start("2354"), new End("8542")),//, new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Date("948242"), new Start("1500"), new End("8532")),//, new UniqueTagList()),
-                    new Task(new Name("George Best"), new Date("948244"), new Start("1235"), new End("1234")),//, new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Date("848242"), new Start("1245"), new End("1212")),//, new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Date("848218"), new Start("0000"), new End("1212")),//, new UniqueTagList())
+                    new Task(new Name("Ali Muster"), new Date("948824"), new Start("3333"), new End("1234"), new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), new Date("879245"), new Start("1212"), new End("1111"), new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), new Date("953525"), new Start("1212"), new End("2345"), new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), new Date("876553"), new Start("2222"), new End("7521"), new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), new Date("948222"), new Start("2354"), new End("8542"), new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), new Date("948242"), new Start("1500"), new End("8532"), new UniqueTagList()),
+                    new Task(new Name("George Best"), new Date("948244"), new Start("1235"), new End("1234"), new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), new Date("848242"), new Start("1245"), new End("1212"), new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), new Date("848218"), new Start("0000"), new End("1212"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
