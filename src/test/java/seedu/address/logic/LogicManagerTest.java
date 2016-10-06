@@ -14,7 +14,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -41,7 +41,7 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyAddressBook latestSavedAddressBook;
+    private ReadOnlyTaskBook latestSavedAddressBook;
     private boolean helpShown;
     private int targetedJumpIndex;
 
@@ -88,7 +88,7 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
+     * @see #assertCommandBehavior(String, String, ReadOnlyTaskBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
         assertCommandBehavior(inputCommand, expectedMessage, new AddressBook(), Collections.emptyList());
@@ -102,7 +102,7 @@ public class LogicManagerTest {
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyAddressBook expectedAddressBook,
+                                       ReadOnlyTaskBook expectedAddressBook,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
