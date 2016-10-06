@@ -278,16 +278,20 @@ Actor: User
 
 #### **Use case: Help**
 **MSS**<br>
+
 User requests to see the list of available commands<br>
 System show a list of available commands<br>
   Use case ends<br>
 
 #### **Use case: Add task**
 **MSS**<br>
+
 User requests to add a task into the system<br>
 System adds this task into its list of tasks<br>
   Use case ends<br>
+
 **Extensions**<br>
+
 2a. The task is already existing<br>
   >2a1. System displays “task is already existing” message.<br>
   >Use case ends<br>
@@ -299,10 +303,13 @@ System adds this task into its list of tasks<br>
 
 #### **Use case: List task**
 **MSS**<br>
+
 User requests to add an incoming into the system<br>
 System adds this task into its list of tasks<br>
   Use case ends<br>
+
 **Extensions**<br>
+
 2a. The task is already existing<br>
   >2a1. System displays “task already exists” message.<br>
   >Use case ends<br>
@@ -314,12 +321,15 @@ System adds this task into its list of tasks<br>
 
 #### **Use case: Delete task**
 **MSS**<br>
+
 User requests to list all the tasks<br>
 System shows a list of task<br>
 User requests to delete a specific task in the list<br>
 System deletes the task<br>
   Use case ends<br>
+
 **Extensions**<br>
+
 2a. The list is empty<br>
   >Use case ends<br>
 3a. The given index is invalid<br>
@@ -328,6 +338,7 @@ System deletes the task<br>
 
 #### **Use case: Recurring task**
 **MSS**<br>
+
 User adds a recurring task.<br>
 System asks for date period and time.<br> 
 User inputs date and time.<br>
@@ -336,37 +347,50 @@ System creates a recurring task.<br>
 
 #### **Use case: Undo**
 **MSS**<br>
+
 User requests to revert back to the state the system was previously in.<br>
 System reverts to the state before the user has entered a command<br>
+
 **Extensions**<br>
+
 2a. The user just launched the system and did not type a prior command.<br>
   >2a1. System displays “Nothing was undone” message<br>
   >Use case ends<br>
 
 #### **Use case: Redo**
 **MSS**<br>
+
 User requests to revert back to the state that the system was previously in during ‘undo’<br>
 System reverts to the state of ‘redo’<br>
+
 **Extensions**<br>
+
 2a. User did not type an ‘undo’ command previously<br>
   >2a1. System displays “Nothing to redo” message<br>
   >Use case ends<br>
 
 #### **Use case: Search for a task**
 **MSS**<br>
+
 User requests to search a particular task.<br>
 System goes through every task to find the target task.<br>
 System displays the task along with its details.<br>
+
 **Extensions**<br>
+
 1a. If no such task exists.<br> 
   >1a1.System will display “No such task.”<br>
             >Use case ends<br>
 
 #### **Use case: Filter by priority**
+
 **MSS**<br>
+
 User requests to list all tasks by priority<br>
 System displays all tasks by the priority specified<br>
+
 **Extensions**<br>
+
 1a. There are no tasks of such priority.<br>
   >1a1. System displays “No such task” message<br>
   >Use case ends<br>
@@ -376,7 +400,7 @@ System displays all tasks by the priority specified<br>
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any mainstream OS that has Java 8 or higher installed.
+1. Should work on any [mainstream OS](#Mainstream-OS) that has Java 8 or higher installed.
 2. Should be able to contain up to 20000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favour natural language commands than unix commands.
@@ -402,6 +426,7 @@ Strengths:
 * Free
 * Automatic syncs to all devices
 * Reminders can be configured<br>
+
 Weakness:
 * Cannot edit offline
 * Need to have a google account
@@ -417,7 +442,8 @@ Strengths:
 * Additional feature of showing productivity of user is useful to motivate user to be on the ball
 * Priority can be set for every task to help decision making in performing task
 * Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday"<br>
-Weakness:
+
+Weaknesses:
 * Free version may be limited as we are unable to add to labels to all tasks.
 * Reminders are not available in the free version.
 * Unable to add notes/details onto the specific task in free version.
@@ -435,6 +461,7 @@ Strengths:
 * Connects to Facebook and Google account.
 * Duplication of the list.
 * Completed to-do list hidden unless selected.<br>
+
 Weakness:
 * Slow in updating changes
 
@@ -448,6 +475,7 @@ Strengths:
 * Integration with Gmail, Google Calendar and Evernote.
 * Able to see upcoming tasks in the Today, Tomorrow and This Week view.
 * Extra keyboard shortcuts for quicker experience. Shortcut menu is open by just clicking on the key ?.<br>
+
 Weakness:
 * Most of the things need to be done with a mouse.
 * Many features are only available in the paid version
