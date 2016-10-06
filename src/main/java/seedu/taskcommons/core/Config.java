@@ -53,7 +53,7 @@ public class Config {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public String getAddressBookName() {
+    public String getTaskBookName() {
         return addressBookName;
     }
 

@@ -10,7 +10,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.task.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.taskcommons.core.LogsCenter;
 
@@ -75,7 +75,7 @@ public class TaskListPanel extends UiPart {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                raise(new PersonPanelSelectionChangedEvent(newValue));
+                raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
     }

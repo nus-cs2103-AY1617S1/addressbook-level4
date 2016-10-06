@@ -21,7 +21,7 @@ import seedu.taskcommons.core.GuiSettings;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/calendar.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -41,7 +41,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String taskBookName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -79,16 +79,16 @@ public class MainWindow extends UiPart {
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getTaskBookName(), config, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String taskBookName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.taskBookName = taskBookName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -186,9 +186,6 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
-    }
 
     public void releaseResources() {
         browserPanel.freeResources();

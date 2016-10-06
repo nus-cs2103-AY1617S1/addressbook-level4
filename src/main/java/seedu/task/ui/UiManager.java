@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import seedu.task.MainApp;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
-import seedu.task.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.task.commons.events.ui.ShowHelpEvent;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.Logic;
@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/calandar.png";
 
     private Logic logic;
     private Config config;
@@ -118,9 +118,9 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
+    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadPersonPage(event.getNewSelection());
+        mainWindow.loadTaskPage(event.getNewSelection());
     }
 
 }
