@@ -1,10 +1,17 @@
-# Developer Guide 
+# Introduction
+(to be done by brehmer)
 
+
+# Table of Contents
+* Setting Up
+* Architecture
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
+
+## Setting Up
 
 
 
@@ -33,15 +40,15 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Menion` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use Case : Add Task
 
 **MSS**
 
 1. User enters add command followed by the details of the task.
-2. Task Manager creates the Task based on the details of the task and puts it in the database.
-3. Task Manager displays the Task added.
+2. Menion creates the Task based on the details of the task and puts it in the database.
+3. Menion displays the Task added.
 
 Use case ends.
 
@@ -49,7 +56,7 @@ Use case ends.
 
 1a. Details of the Task do not match format.
 
-> 1a1. Task Manager prompts user to reenter Task.<br>
+> 1a1. Menion prompts user to reenter Task.<br>
 > 1a2. User inputs a new task.<br>
 > Repeat 1a1 - 1a2 until user inputs the correct format.<br>
 > Use case resumes at step 2.<br>
@@ -59,8 +66,8 @@ Use case ends.
 **MSS**
 
 1. User enters command followed by the index of the Task to be deleted.
-2. Task Manager does a search through the database and deletes the task.
-3. Task Manager displays the list of Tasks left in the database.
+2. Menion does a search through the database and deletes the task.
+3. Menion displays the list of Tasks left in the database.
 
 Use case ends.
 
@@ -68,7 +75,7 @@ Use case ends.
 
 1a. The index input by the user is not in the range of indices available.
 
-> 1a1. Task Manager prompts user to reinput the index of the Task.<br>
+> 1a1. Menion prompts user to reinput the index of the Task.<br>
 > 1a2. User reinputs the name of the Task.<br>
 > Repeat 1a1 - 1ab until user inputs valid index of the Task.<br>
 > Use case resumes at step 2.<br>
@@ -78,23 +85,23 @@ Use case ends.
 **MSS**
 
 1. User enters edit command followed by the name of the Task to be edited and the information that is to be edited.
-2. Task Manager does a search for the name of the Task in the database and updates the entry.
-3. Task Manager displays the updated information of the Task.
+2. Menion does a search for the name of the Task in the database and updates the entry.
+3. Menion displays the updated information of the Task.
 
 Use case ends.
 
-**Extentions**
+**Extensions**
 
 1a. The name of the Task entered by the user does not exist.
 
-> 1a1. Task Manager prompts user to reinput name of the Task.<br>
+> 1a1. Menion prompts user to reinput name of the Task.<br>
 > 1a2. User reinputs name of Task.<br>
 > Repeat 1a1 - 1a2 until the user inputs a valid name of Task.<br>
 > Use case resumes at step 2.
 
 1b. The information entered by the user does not follow the format.
 
-> 1b1. Task Manager prompts user to reinput details of the Task in the given format.<br>
+> 1b1. Menion prompts user to reinput details of the Task in the given format.<br>
 > 1b2. User reinputs details of the Task.<br>
 > Repeat 1b1 - 1b2 until the user inputs a valid format for the Task.<br>
 > Use case resumes at step 2.
@@ -113,20 +120,20 @@ Use case ends.
 > 1a1. System prints out error message and requests for another input.<br>
 > Repeat step 1a1 until user inputs a valid filter for the list command.
 
-1b. User wishes the Task Manager to list all the tasks.
-> 1b1. Task Manager shows a list of all the Tasks in the Task Manager.
+1b. User wishes the Menion to list all the tasks.
+> 1b1. Menion shows a list of all the Tasks in the Menion.
 
-1c. User wishes the Task Manager to list only Tasks which has a time interval.
-> 1c1. Task Manager shows a list of all the Tasks in the Task Manager with a time interval.
+1c. User wishes the Menion to list only Tasks which has a time interval.
+> 1c1. Menion shows a list of all the Tasks in the Menion with a time interval.
 
-1d. User wishes the Task Manager to list only Tasks which does not have a time interval.
-> 1d1. Task Manager shows a list of all the Tasks in the Task Manager without a time interval.
+1d. User wishes the Menion to list only Tasks which does not have a time interval.
+> 1d1. Menion shows a list of all the Tasks in the Menion without a time interval.
 
-1e. User wishes the Task Manager to list all Tasks of a specified date.
-> 1e1. Task Manager shows a list of all the Tasks in the Task Manager which has a deadline of the specified date.
+1e. User wishes the Menion to list all Tasks of a specified date.
+> 1e1. Menion shows a list of all the Tasks in the Menion which has a deadline of the specified date.
 
-1f. User wishes the Task Manager to list all Tasks within a specified range of dates.
-> 1f1. Task Manager shows a list of all the Tasks in the Task Manager which has deadlines that fall between the specified range of dates.
+1f. User wishes the Menion to list all Tasks within a specified range of dates.
+> 1f1. Menion shows a list of all the Tasks in the Menion which has deadlines that fall between the specified range of dates.
 
 
 #### Use Case: Find
@@ -134,15 +141,15 @@ Use case ends.
 **MSS**
 
 1. User enters find command followed by the keywords of the search.
-2. Task Manager performs the find command.
-3. Task Manager displays the details of the Task.
+2. Menion performs the find command.
+3. Menion displays the details of the Task.
 
 Use case ends.
 
 **Extensions**
 
 3a. There are no Tasks with the keyword stated.
-> 3a1. Task Manager displays 'No particular Task' message.<br>
+> 3a1. Menion displays 'No particular Task' message.<br>
 > Use case ends.
 
 #### Use Case : Notification at startup
@@ -179,16 +186,16 @@ Use case resumes at step 4.
 **MSS**
 
 1. User requests to modify the storage path.
-2. Task Manager prompts user to key in new desired storage path.
+2. Menion prompts user to key in new desired storage path.
 3. User types in the new desired storage path.
-4. Task Manager updates the new storage path.
+4. Menion updates the new storage path.
 
 Use case ends.
 
 **Extensions**
 
 2a. The given storage path is invalid.
-> 2a1. Task Manager shows an error message.<br>
+> 2a1. Menion shows an error message.<br>
 > Use case resumes at step 2.
 
 

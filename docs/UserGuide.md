@@ -1,9 +1,14 @@
-# User Guide
+# Table of Contents
 
+* [Introduction](#introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+
+
+## Introduction
+(to be done by brehmer)
 
 ## Quick Start
 
@@ -11,9 +16,9 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download Task Manager: You can then download TaskManager.jar from the latest release here: 
+1. Download Menion: You can then download TaskManager.jar from the latest release here: 
    **COMING SOON**
-2. Copy the file to the folder you want to use as the home folder for your Task Manager.
+2. Copy the file to the folder you want to use as the home folder for your Menion.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/MainPageLayout.jpg" width="600">
 
@@ -22,7 +27,7 @@
 5. Some example commands you can try:
    * **`list`** : lists all contacts
    * **`add`**` Assignment 2 TASK_DEADLINE TASK_REMINDER PRIORITY NOTES...` : 
-     adds a task named `Assignment 2` to the Task Manager, with high priority.
+     adds a task named `Assignment 2` to the Menion, with high priority.
    * **`delete`**` 3` : deletes the 3rd task / event shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -42,7 +47,7 @@ Format : `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a person : `add`
-Adds a person to the Task Manager<br>
+Adds a person to the Menion<br>
 Format : `add TASK_NAME d/TASK_DEADLINE r/TASK_REMINDER p/PRIORITY n/NOTES…` <br>
         `add EVENT_NAME d/EVENT_DATE t/xxxx-yyyy r/EVENT_REMINDER p/PRIORITY n/NOTES` 
 
@@ -54,30 +59,30 @@ Examples:
 * `add Dinner With Family d/21-11-16 t/1800-2000 r/true p/high n/Wear formal`
 
 #### Listing all events and tasks : `list all`
-Shows a list of all persons in the task manager.<br>
+Shows a list of all persons in the Menion.<br>
 Format : `list all`
 
 #### Listing all events : `list events`
-Shows a list of all events in the task manager for the day sorted according to the start date and time.<br>
+Shows a list of all events in the Menion for the day sorted according to the start date and time.<br>
 Format : `list events`
 
 #### Listing all tasks : `list tasks`
-Shows a list of all tasks in the task manager sorted according to their priority.<br>
+Shows a list of all tasks in the Menion sorted according to their priority.<br>
 Format : `list tasks`
 
 #### Listing all events and tasks of the specified date : `list day/week/month/date`
-Shows a list of all tasks and events in the task manager for the day/week/month/date sorted according to priority.<br>
+Shows a list of all tasks and events in the Menion for the day/week/month/date sorted according to priority.<br>
 Format : `list day/week/month/date`
 
 #### Listing all events and tasks of the specified range of dates : `list day to day`
-Shows a list of all tasks and events in the task manager for the range of days sorted according to date.<br>
+Shows a list of all tasks and events in the Menion for the range of days sorted according to date.<br>
 Format : `list day to day`
 
 Examples:
 * `list 10-10-16 to 20-10-16
 
 #### Listing all block-out dates : `list blocks`
-Shows a list of all blocked events and their respective timeslot in the task manager sorted according to priority.<br>
+Shows a list of all blocked events and their respective timeslot in the Menion sorted according to priority.<br>
 Format : `list block`
 
 #### Finding all tasks or events containing any keyword in their name : `find task/event`
@@ -96,7 +101,7 @@ Examples
 * Displays: any task having the keywords go, to, gym
 
 #### Deleting a task / event : `delete`
-Deletes the specified task/event  from the task manager. Irreversible.<br>
+Deletes the specified task/event  from the Menion. Irreversible.<br>
 Format : `delete INDEX`
 
 >Deletes the task/event at the specified `INDEX`. The index refers to the index number shown beside it.
@@ -105,10 +110,10 @@ The index must be a positive integer 1,2,3,...
 
 Examples:
 * delete 2
-* deletes the 2nd task/event in the task manager.
+* deletes the 2nd task/event in the Menion.
 
 #### Updating a task : `edit`
-Updates a specified task from the task manager.
+Updates a specified task from the Menion.
 <br>
 Format : `edit INDEX`
 > Edits the task at the specified `INDEX`. The index refers to the index number shown beside the task. The order of the tag to edit is not important.
@@ -143,7 +148,7 @@ Examples:
 * confirm 2.c
 
 #### Clearing all entries : `clear`
-Clear all entries from the task manager.<br>
+Clear all entries from the Menion.<br>
 Format : `clear`
 
 #### Modifying the storage path : `modify storage path`
@@ -155,7 +160,7 @@ Exits the program.
 Format : `exit`
 
 #### Saving the data 
-Task Manager data are saved in the hard disk automatically after any command that changes the data.
+Menion data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.<br>
 
 
@@ -164,7 +169,7 @@ There is no need to save manually.<br>
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Task Manager folder.
+       the file that contains the data of your previous Menion folder.
        
 ## Command Summary
 
