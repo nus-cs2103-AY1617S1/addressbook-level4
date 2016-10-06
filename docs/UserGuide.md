@@ -34,7 +34,7 @@
 Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
- #### Adding a person: `add`
+ #### Adding a task: `add`
 Adds a task to the TaskManager<br>
 Format: `add TASK_NAME, s/[start_time], e/[end_time], p/[low/medium/high], d/[deadline], l/[location], #[tag1], #[tag2], c/[completed_status]` 
 > Tasks can have any number of tags (including 0)
@@ -42,15 +42,15 @@ Examples:
 * `add John Doe project team meeting, s/tomorrow 15:00 e/18:00p/high 
 * `add Betsy Crowe cs2103 assignment s/tonight 21:00 e/24:00 p/medium d/next friday`
 
-#### Listing all persons : `list`
+#### Listing all tasks : `list`
 Shows a list of all tasks in the TaskManager in order of index.<br>
 Format: `list`
 
-#### Listing all persons in order of priority : `listByPriority`
+#### Listing all tasks in order of priority : `listByPriority`
 Shows a list of uncompleted tasks in the TaskManager in order of priority.<br>
 Format: `listByPriority`
 
-#### Listing all persons : `listByDeadline`
+#### Listing all tasks : `listByDeadline`
 Shows a list of uncompleted tasks in the TaskManager in order of their deadlines, tasks without deadlines will be listed in order of index after it<br>
 Format: `listByDeadline`
 
@@ -71,7 +71,7 @@ Examples:
 * `find Practice tennis`<br>
   Returns Any tasks having names `Practice` or `tennis`
 
-#### Adding a person: `Edit`
+#### Editing a task: `Edit`
 Edit task information in the TaskManager<br>
 Format: Edit | `edit TASK_NAME/INDEX s/ [start time]`, `edit TASK_NAME/INDEX e/ [end time]`,`edit TASK_NAME/INDEX p/[low/medium/high]` `edit TASK_NAME/INDEX t/[tag]`, ‘edit TASK_NAME/INDEX c/[completed_status]’, ‘edit TASK_NAME/INDEX l/[location]’
 
