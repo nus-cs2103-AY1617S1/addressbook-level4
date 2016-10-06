@@ -279,15 +279,15 @@ Actor: User
 #### **Use case: Help**
 **MSS**<br>
 
-User requests to see the list of available commands<br>
-System show a list of available commands<br>
+1. User requests to see the list of available commands<br>
+2. System show a list of available commands<br>
   Use case ends<br>
 
 #### **Use case: Add task**
 **MSS**<br>
 
-User requests to add a task into the system<br>
-System adds this task into its list of tasks<br>
+1. User requests to add a task into the system<br>
+2. System adds this task into its list of tasks<br>
   Use case ends<br>
 
 **Extensions**<br>
@@ -295,6 +295,7 @@ System adds this task into its list of tasks<br>
 2a. The task is already existing<br>
   >2a1. System displays “task is already existing” message.<br>
   >Use case ends<br>
+
 2b. The given syntax is invalid<br>
   >2b1. System displays “Invalid syntax” error message.<br>
   >2b2. ‘Help’ command is launched.<br>
@@ -304,8 +305,8 @@ System adds this task into its list of tasks<br>
 #### **Use case: List task**
 **MSS**<br>
 
-User requests to add an incoming into the system<br>
-System adds this task into its list of tasks<br>
+1. User requests to add an incoming into the system<br>
+2. System adds this task into its list of tasks<br>
   Use case ends<br>
 
 **Extensions**<br>
@@ -313,6 +314,7 @@ System adds this task into its list of tasks<br>
 2a. The task is already existing<br>
   >2a1. System displays “task already exists” message.<br>
   >Use case ends<br>
+
 2b. The given syntax is invalid<br>
   >2b1. System displays “Invalid syntax” error message.<br>
   >2b2. ‘Help’ command is launched.<br>
@@ -322,16 +324,17 @@ System adds this task into its list of tasks<br>
 #### **Use case: Delete task**
 **MSS**<br>
 
-User requests to list all the tasks<br>
-System shows a list of task<br>
-User requests to delete a specific task in the list<br>
-System deletes the task<br>
+1. User requests to list all the tasks<br>
+2. System shows a list of task<br>
+3. User requests to delete a specific task in the list<br>
+4. System deletes the task<br>
   Use case ends<br>
 
 **Extensions**<br>
 
 2a. The list is empty<br>
   >Use case ends<br>
+
 3a. The given index is invalid<br>
   >3a1. System displays an error message<br>
      >Use case ends at step 2<br>
@@ -339,17 +342,17 @@ System deletes the task<br>
 #### **Use case: Recurring task**
 **MSS**<br>
 
-User adds a recurring task.<br>
-System asks for date period and time.<br> 
-User inputs date and time.<br>
-System creates a recurring task.<br>
-  Use case ends.<br>
+1. User adds a recurring task.<br>
+2. System asks for date period and time.<br> 
+3. User inputs date and time.<br>
+4. System creates a recurring task.<br>
+Use case ends.<br>
 
 #### **Use case: Undo**
 **MSS**<br>
 
-User requests to revert back to the state the system was previously in.<br>
-System reverts to the state before the user has entered a command<br>
+1. User requests to revert back to the state the system was previously in.<br>
+2. System reverts to the state before the user has entered a command<br>
 
 **Extensions**<br>
 
@@ -360,8 +363,8 @@ System reverts to the state before the user has entered a command<br>
 #### **Use case: Redo**
 **MSS**<br>
 
-User requests to revert back to the state that the system was previously in during ‘undo’<br>
-System reverts to the state of ‘redo’<br>
+1. User requests to revert back to the state that the system was previously in during ‘undo’<br>
+2. System reverts to the state of ‘redo’<br>
 
 **Extensions**<br>
 
@@ -372,9 +375,9 @@ System reverts to the state of ‘redo’<br>
 #### **Use case: Search for a task**
 **MSS**<br>
 
-User requests to search a particular task.<br>
-System goes through every task to find the target task.<br>
-System displays the task along with its details.<br>
+1. User requests to search a particular task.<br>
+2. System goes through every task to find the target task.<br>
+3. System displays the task along with its details.<br>
 
 **Extensions**<br>
 
@@ -386,8 +389,8 @@ System displays the task along with its details.<br>
 
 **MSS**<br>
 
-User requests to list all tasks by priority<br>
-System displays all tasks by the priority specified<br>
+1. User requests to list all tasks by priority<br>
+2. System displays all tasks by the priority specified<br>
 
 **Extensions**<br>
 
@@ -400,7 +403,7 @@ System displays all tasks by the priority specified<br>
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#Mainstream-OS) that has Java 8 or higher installed.
+1. Should work on any [mainstream OS](#appendix-d--glossary) that has Java 8 or higher installed.
 2. Should be able to contain up to 20000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favour natural language commands than unix commands.
@@ -427,7 +430,7 @@ Strengths:
 * Automatic syncs to all devices
 * Reminders can be configured<br>
 
-Weakness:
+Weaknesses:
 * Cannot edit offline
 * Need to have a google account
 * Need to use a mouse to navigate most of the time
@@ -462,7 +465,7 @@ Strengths:
 * Duplication of the list.
 * Completed to-do list hidden unless selected.<br>
 
-Weakness:
+Weaknesses:
 * Slow in updating changes
 
 
@@ -476,6 +479,6 @@ Strengths:
 * Able to see upcoming tasks in the Today, Tomorrow and This Week view.
 * Extra keyboard shortcuts for quicker experience. Shortcut menu is open by just clicking on the key ?.<br>
 
-Weakness:
+Weaknesses:
 * Most of the things need to be done with a mouse.
 * Many features are only available in the paid version
