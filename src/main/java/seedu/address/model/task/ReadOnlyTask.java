@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import java.util.Date;
 
+import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -13,7 +14,7 @@ public interface ReadOnlyTask {
     Name getName();
     Date getStartDate();
     Date getEndDate();
-    Address getAddress();
+    Location getAddress();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -39,10 +40,10 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getStartDate())
-                .append(" Email: ")
-                .append(getEndDate())
+                .append(" Start Date: ")
+                .append(DateFormatter.convertDateToString(getStartDate()))
+                .append(" End Date: ")
+                .append(DateFormatter.convertDateToString(getEndDate()))
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

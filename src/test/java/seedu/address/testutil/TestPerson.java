@@ -11,7 +11,7 @@ import seedu.address.model.task.*;
 public class TestPerson implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
+    private Location address;
     private Date email;
     private Date phone;
     private UniqueTagList tags;
@@ -24,7 +24,7 @@ public class TestPerson implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Location address) {
         this.address = address;
     }
 
@@ -52,7 +52,7 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Address getAddress() {
+    public Location getAddress() {
         return address;
     }
 

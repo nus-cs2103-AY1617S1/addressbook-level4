@@ -139,9 +139,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addPerson(helper.generatePerson(1));
-        model.addPerson(helper.generatePerson(2));
-        model.addPerson(helper.generatePerson(3));
+        model.addTask(helper.generatePerson(1));
+        model.addTask(helper.generatePerson(2));
+        model.addTask(helper.generatePerson(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
     }
@@ -198,12 +198,12 @@ public class LogicManagerTest {
         expectedAB.addPerson(toBeAdded);
 
         // setup starting state
-        model.addPerson(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // person already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getPersonList());
 
@@ -253,7 +253,7 @@ public class LogicManagerTest {
         // set AB state to 2 persons
         model.resetData(new AddressBook());
         for (Task p : personList) {
-            model.addPerson(p);
+            model.addTask(p);
         }
 
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
@@ -387,7 +387,7 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             Date privatePhone = new Date(1346524199000l);
             Date email = new Date(1346524199000l);
-            Address privateAddress = new Address("111, alpha street");
+            Location privateAddress = new Location("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -406,7 +406,7 @@ public class LogicManagerTest {
                     new Name("Person " + seed),
                     new Date(1346524199000l),
                     new Date(1346524199000l),
-                    new Address("House of " + seed),
+                    new Location("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -478,7 +478,7 @@ public class LogicManagerTest {
          */
         void addToModel(Model model, List<Task> personsToAdd) throws Exception{
             for(Task p: personsToAdd){
-                model.addPerson(p);
+                model.addTask(p);
             }
         }
 
@@ -505,7 +505,7 @@ public class LogicManagerTest {
                     new Name(name),
                     new Date(1346524199000l),
                     new Date(1346524199000l),
-                    new Address("House of 1"),
+                    new Location("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

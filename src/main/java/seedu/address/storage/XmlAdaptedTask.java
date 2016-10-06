@@ -62,7 +62,7 @@ public class XmlAdaptedTask {
         final Name name = new Name(this.name);
         final Date phone = new Date();
         final Date email = new Date();
-        final Address address = new Address(this.address);
+        final Location address = new Location(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
         return new Task(name, phone, email, address, tags);
     }
