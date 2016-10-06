@@ -34,12 +34,14 @@
 Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
- #### Adding a task: `add`
+#### Adding a task: `add`
 Adds a task to the TaskManager<br>
 Format: `add TASK_NAME, [s/START_TIME], [e/END_TIME], [p/PRIORITY_LEVEL], [d/DEADLINE], [l/LOCATION], [t/TAG1] [t/TAG2] ..., [c/COMPLETED_STATUS]` 
+
 > All additional information after `TASK_NAME` are optional
 > If left blank, `PRIORITY_LEVEL` defaults to `medium` and `COMPLETED_STATUS` defaults to `uncompleted`
 > Each task can have up to 5 tags
+
 Examples: 
 * `add project team meeting, s/tomorrow 15:00 e/18:00 p/high `
 * `add cs2103 assignment s/tonight 21:00 e/24:00 p/medium d/next friday`
@@ -48,10 +50,12 @@ Examples:
 Edit task information in the TaskManager<br>
 Format: `edit TASK_NAME/INDEX, [s/START_TIME], [e/END_TIME], [p/PRIORITY_LEVEL], [d/DEADLINE], [l/LOCATION], [c/COMPLETED_STATUS]`
 `edit TASK_NAME/INDEX, tag[TAG_NUMBER]`
+
 > Edit the task at the specific `INDEX` or `TASK_NAME`
      The index refers to the index number shown in the most recent listing.<br>
      The index **must be a positive integer** 1, 2, 3, …
      `TASK_NAME` should be the same as the task name stored in the TaskManager regardless of the word case
+
 Examples: 
 * `edit 2 s/3pm` 
 `edit meeting p/low`
@@ -59,9 +63,11 @@ Examples:
 #### Deleting a task : `delete`
 Deletes the specified task from the TaskManager.<br>
 Format: `delete INDEX`
+
 > Deletes the task at the specified `INDEX`. 
   The index refers to the index number.<br>
   The index **must be a positive integer** 1, 2, 3, ...
+
 Examples: 
   `delete 2`<br>
   Deletes the task with index '2' in the TaskManager.<br>
@@ -69,7 +75,9 @@ Examples:
 #### Listing all tasks : `list`
 Shows a list of all tasks in the TaskManager in order of index (default), priority or deadline.<br>
 Format: `list [DATA_TYPE]`
+
 >`list deadline` Shows a list of uncompleted tasks in the TaskManager in order of their deadlines, tasks without deadlines will be listed in order of index after it
+
 Examples: 
 * `list`
 * `list priority`
@@ -77,12 +85,14 @@ Examples:
 #### Searching all tasks containing any keyword in their name or location: `search`
 Searches tasks with names or location contain any of the given keywords.<br>
 Format: `search KEYWORD [MORE_KEYWORDS]`
+
 > * The search is not case sensitive. e.g `tennis` will match `Tennis`
 > * The order of the keywords does not matter. e.g. `buy groceries` will match `groceries buy`
 > * Only the name and location is searched.
 > * Only full words will be matched e.g. `ball` will not match `balls`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `ball` will match `Buy tennis balls`
+
 Examples: 
 * `search  tennis`<br>
 * `search submit report`<br>
