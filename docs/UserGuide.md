@@ -107,9 +107,9 @@ Finding all tasks which has deadlines falling within certain dates
 > Date must be in the form `d MMM yyyy`, `d-MM-yyyy` or `d/MM/yyyy`    
     
 Examples:   
-`find dates 1 Oct 2016 31 Oct 2016`   
+`find date 1 Oct 2016 31 Oct 2016`   
   Returns Any tasks which has due dates falling in between 1st October 2016 and 31st October 2016.<br>
-`find dates 1-11-2016 31-12-2016`   
+`find date 1-11-2016 31-12-2016`   
   Returns Any tasks which has due dates falling in between 1st November 2016 and 31st December 2016.
 
 #### Deleting a task: `delete`
@@ -183,6 +183,10 @@ Examples:
   `edit d/15/06/2017`<br>
   Selects the 1st task in the results of the `find` command and then change the due date to 15/06/2017.
 
+#### Undoing an action : `undo`
+Reverts the action that was previously executed.<br>
+Format: `undo`
+
 
 #### Clearing all entries : `clear`
 Clears all entries from Lifekeeper.<br>
@@ -216,5 +220,6 @@ List | `list`
 List Categories | `listcat`
 Select | `select INDEX`
 Done | `done`
+Undo | `undo`
 Help | `help`
 Exit | `exit`
