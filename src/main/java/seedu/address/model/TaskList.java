@@ -36,8 +36,8 @@ public class TaskList implements ReadOnlyTaskList {
     /**
      * Tasks and Tags are copied into this tasklist
      */
-    public TaskList(UniqueTaskList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
+        resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyTaskList getEmptyTaskList() {
@@ -50,7 +50,7 @@ public class TaskList implements ReadOnlyTaskList {
         return tasks.getInternalList();
     }
 
-    public void setPersons(List<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -59,7 +59,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setPersons(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -76,7 +76,7 @@ public class TaskList implements ReadOnlyTaskList {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(task);
         tasks.add(task);
     }

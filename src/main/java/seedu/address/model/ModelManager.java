@@ -72,7 +72,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskList.addPerson(task);
+        taskList.addTask(task);
         updateFilteredTaskToShowAll();
         indicateAddressBookChanged();
     }

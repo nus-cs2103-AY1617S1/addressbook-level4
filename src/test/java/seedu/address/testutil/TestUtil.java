@@ -76,15 +76,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    createNewTaskWithName("Ali Muster"),
-                    createNewTaskWithName("Boris Mueller"),
-                    createNewTaskWithName("Carl Kurz"),
-                    createNewTaskWithName("Daniel Meier"),
-                    createNewTaskWithName("Elle Meyer"),
-                    createNewTaskWithName("Fiona Kunz"),
-                    createNewTaskWithName("George Best"),
-                    createNewTaskWithName("Hoon Meier"),
-                    createNewTaskWithName("Ida Mueller")
+                    createNewTaskWithName("Submit prototype"),
+                    createNewTaskWithName("Submit progress report"),
+                    createNewTaskWithName("Do research on whales"),
+                    createNewTaskWithName("Attend meeting"),
+                    createNewTaskWithName("Sign up for yoga"),
+                    createNewTaskWithName("Attend workshop"),
+                    createNewTaskWithName("Update GitHub repository"),
+                    createNewTaskWithName("Learn git rebase"),
+                    createNewTaskWithName("Buy birthday gift")
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -98,8 +98,8 @@ public class TestUtil {
     private static Tag[] getSampleTagData() {
         try {
             return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
+                    new Tag("important"),
+                    new Tag("cs2103")
             };
         } catch (IllegalValueException e) {
             assert false;

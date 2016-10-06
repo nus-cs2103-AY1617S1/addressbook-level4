@@ -35,13 +35,13 @@ public class TypicalTestTasks {
     public static void loadTaskListWithSampleData(TaskList tl) {
 
         try {
-            tl.addPerson(new Task(submitPrototype));
-            tl.addPerson(new Task(submitProgressReport));
-            tl.addPerson(new Task(developerMeeting));
-            tl.addPerson(new Task(researchWhales));
-            tl.addPerson(new Task(learnVim));
-            tl.addPerson(new Task(buyBirthdayGift));
-            tl.addPerson(new Task(signUpForYoga));
+            tl.addTask(new Task(submitPrototype));
+            tl.addTask(new Task(submitProgressReport));
+            tl.addTask(new Task(developerMeeting));
+            tl.addTask(new Task(researchWhales));
+            tl.addTask(new Task(learnVim));
+            tl.addTask(new Task(buyBirthdayGift));
+            tl.addTask(new Task(signUpForYoga));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }

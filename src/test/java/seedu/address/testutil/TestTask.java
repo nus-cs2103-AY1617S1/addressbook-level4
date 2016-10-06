@@ -32,23 +32,23 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
 
-    private void setComplete(Complete complete) {
+    public void setComplete(Complete complete) {
         this.complete = complete;
     }
 
-    private void setDeadline(Deadline deadline) {
+    public void setDeadline(Deadline deadline) {
         this.deadline = deadline;
     }
 
-    private void setPeriod(Period period) {
+    public void setPeriod(Period period) {
         this.period = period;
     }
 
-    private void setDeadlineRecur(Recurrence deadlineRecur) {
+    public void setDeadlineRecur(Recurrence deadlineRecur) {
         this.deadlineRecur = deadlineRecur;
     }
 
-    private void setPeriodRecur(Recurrence periodRecur) {
+    public void setPeriodRecur(Recurrence periodRecur) {
         this.periodRecur = periodRecur;
     }
 

@@ -20,7 +20,7 @@ public class TaskListBuilder {
     }
 
     public TaskListBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskList.addPerson(task);
+        taskList.addTask(task);
         return this;
     }
 
