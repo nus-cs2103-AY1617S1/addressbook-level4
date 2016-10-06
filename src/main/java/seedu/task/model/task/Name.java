@@ -3,7 +3,7 @@ package seedu.task.model.task;
 import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's name in the address book.
+ * Represents a Task's name in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
