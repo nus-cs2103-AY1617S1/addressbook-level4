@@ -9,6 +9,12 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
+    Complete getComplete();
+    
+    Deadline getDeadline();
+    Period getPeriod();
+    Recurrence getDeadlineRecurrence();
+    Recurrence getPeriodRecurrence();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -22,8 +28,12 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())); // state checks here onwards
-
+                && (other.getName().equals(this.getName()) // state checks here onwards
+                    && other.getComplete().equals(this.getComplete())
+                    && other.getDeadline().equals(this.getDeadline())
+                    && other.getPeriod().equals(this.getPeriod()) 
+                    && other.getDeadlineRecurrence().equals(this.getDeadlineRecurrence())
+                    && other.getPeriodRecurrence().equals(this.getPeriodRecurrence())));
     }
 
     /**
@@ -32,7 +42,30 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Tags: ");
+            .append("Completion Status: ")
+            .append(getComplete());
+        
+        if (getDeadline().hasDeadline) {
+            builder.append("Deadline: ")
+                .append(getDeadline());
+        }
+        
+        if (getPeriod().hasPeriod) {
+            builder.append("Period: ")
+                .append(getPeriod());
+        }
+
+        if (getDeadlineRecurrence().hasRecurrence) {
+            builder.append("Recurrence (deadline): ")
+                .append(getDeadlineRecurrence());
+        }
+
+        if (getPeriodRecurrence().hasRecurrence) {
+            builder.append("Recurrence (period): ")
+                .append(getPeriodRecurrence());
+        }
+        
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

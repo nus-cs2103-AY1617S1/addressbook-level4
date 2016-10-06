@@ -170,7 +170,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         TaskList expectedAB = new TaskList();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
@@ -186,7 +186,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         TaskList expectedAB = new TaskList();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
         model.addTask(toBeAdded); // person already in internal address book
@@ -377,10 +377,18 @@ public class LogicManagerTest {
         //Edited for floating tasks
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
+            
+            // TODO update test case
+            Complete complete = new Complete(false);
+            Deadline deadline = new Deadline();
+            Period period = new Period();
+            Recurrence deadlineRecurrence = new Recurrence();
+            Recurrence periodRecurrence = new Recurrence();
+            
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags);
+            return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
         }
 
         /**
@@ -391,8 +399,14 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Task generatePerson(int seed) throws Exception {
+            // TODO update test case
             return new Task(
                     new Name("Person " + seed),
+                    new Complete(false),
+                    new Deadline(),
+                    new Period(),
+                    new Recurrence(),
+                    new Recurrence(),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -445,7 +459,7 @@ public class LogicManagerTest {
          */
         void addToAddressBook(TaskList addressBook, List<Task> personsToAdd) throws Exception{
             for(Task p: personsToAdd){
-                addressBook.addPerson(p);
+                addressBook.addTask(p);
             }
         }
 
@@ -480,13 +494,19 @@ public class LogicManagerTest {
         List<Task> generatePersonList(Task... persons) {
             return Arrays.asList(persons);
         }
-
+        
+        // TODO update test case
         /**
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
+                    new Complete(false),
+                    new Deadline(),
+                    new Period(),
+                    new Recurrence(),
+                    new Recurrence(),
                     new UniqueTagList(new Tag("tag"))
             );
         }

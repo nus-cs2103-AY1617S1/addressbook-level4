@@ -61,19 +61,30 @@ public class TestUtil {
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     public static final Task[] sampleTaskData = getSampleTaskData();
+    
+    private static Task createNewTaskWithName(String name) throws IllegalValueException {
+        return new Task(
+                new Name(name),
+                new Complete(false),
+                new Deadline(),
+                new Period(),
+                new Recurrence(),
+                new Recurrence(),
+                new UniqueTagList());
+    }
 
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new UniqueTagList())
+                    createNewTaskWithName("Submit prototype"),
+                    createNewTaskWithName("Submit progress report"),
+                    createNewTaskWithName("Do research on whales"),
+                    createNewTaskWithName("Attend meeting"),
+                    createNewTaskWithName("Sign up for yoga"),
+                    createNewTaskWithName("Attend workshop"),
+                    createNewTaskWithName("Update GitHub repository"),
+                    createNewTaskWithName("Learn git rebase"),
+                    createNewTaskWithName("Buy birthday gift")
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -87,8 +98,8 @@ public class TestUtil {
     private static Tag[] getSampleTagData() {
         try {
             return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
+                    new Tag("important"),
+                    new Tag("cs2103")
             };
         } catch (IllegalValueException e) {
             assert false;

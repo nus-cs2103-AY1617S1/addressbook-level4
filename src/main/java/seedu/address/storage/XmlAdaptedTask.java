@@ -50,7 +50,15 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
+        
+        // TODO update test case
+        final Complete complete = new Complete(false);
+        final Deadline deadline = new Deadline();
+        final Period period = new Period();
+        final Recurrence deadlineRecurrence = new Recurrence();
+        final Recurrence periodRecurrence = new Recurrence();
+        
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, tags);
+        return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
     }
 }
