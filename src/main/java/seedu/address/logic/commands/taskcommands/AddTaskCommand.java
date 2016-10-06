@@ -5,9 +5,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Adds a task to TaskManager.
  */

@@ -1,25 +1,16 @@
 package seedu.address.logic;
 
-import javafx.collections.FXCollections;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
-import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
-import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.TaskCommandsParser;
-import seedu.address.model.Model;
-import seedu.address.model.person.Person;
-import seedu.address.model.task.Description;
-import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.model.task.Task;
-import seedu.address.storage.Storage;
 import seedu.address.storage.task.TaskStorage;
-
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager_Task of the app.

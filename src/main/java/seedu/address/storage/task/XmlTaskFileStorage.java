@@ -1,13 +1,11 @@
 package seedu.address.storage.task;
 
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.logging.Logger;
 
 /**
  * Stores task manager data in an XML file

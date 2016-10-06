@@ -4,8 +4,6 @@ import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.task.Description;
 import seedu.address.model.task.Task;
 
 import java.io.File;

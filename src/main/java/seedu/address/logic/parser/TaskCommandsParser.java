@@ -9,8 +9,6 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.logic.commands.taskcommands.DeleteTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
@@ -35,7 +33,8 @@ public class TaskCommandsParser {
     public TaskCommand parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        	// TODO: Replace this placeholder
+            return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "placeholder"));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -45,7 +44,7 @@ public class TaskCommandsParser {
         case AddTaskCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteTaskCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
         default:

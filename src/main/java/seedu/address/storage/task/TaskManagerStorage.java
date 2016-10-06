@@ -2,7 +2,6 @@ package seedu.address.storage.task;
 
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.task.Task;
 
 import java.io.IOException;

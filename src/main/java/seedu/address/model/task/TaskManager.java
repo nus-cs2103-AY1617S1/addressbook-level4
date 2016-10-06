@@ -6,10 +6,8 @@ import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.UniquePersonList;
 
 /*
  * Manages a list of tasks 1and acts as a gateway for Commands to perform CRUD operations on the list

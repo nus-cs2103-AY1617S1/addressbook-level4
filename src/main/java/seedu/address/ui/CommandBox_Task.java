@@ -1,19 +1,20 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
-import seedu.address.logic.Logic_Task;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
+import seedu.address.commons.events.ui.IncorrectTaskCommandAttemptedEvent;
+import seedu.address.commons.util.FxViewUtil;
+import seedu.address.logic.Logic_Task;
+import seedu.address.logic.commands.CommandResult;
 
 public class CommandBox_Task extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox_Task.class);
@@ -91,7 +92,7 @@ public class CommandBox_Task extends UiPart {
     }
 
     @Subscribe
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
+    private void handleIncorrectCommandAttempted(IncorrectTaskCommandAttemptedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
