@@ -12,7 +12,7 @@ import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.storage.DataSavingExceptionEvent;
 import seedu.jimi.commons.events.ui.JumpToListRequestEvent;
-import seedu.jimi.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.commons.events.ui.ShowHelpRequestEvent;
 import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.logic.Logic;
@@ -118,7 +118,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
+    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadPersonPage(event.getNewSelection());
     }
