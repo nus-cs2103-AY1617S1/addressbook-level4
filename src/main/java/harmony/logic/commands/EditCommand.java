@@ -1,7 +1,6 @@
 package harmony.logic.commands;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import harmony.commons.core.Messages;
@@ -9,7 +8,6 @@ import harmony.commons.core.UnmodifiableObservableList;
 import harmony.commons.exceptions.IllegalValueException;
 import harmony.model.tag.Tag;
 import harmony.model.tag.UniqueTagList;
-import harmony.model.task.Address;
 import harmony.model.task.Date;
 import harmony.model.task.Name;
 import harmony.model.task.ReadOnlyTask;
@@ -26,8 +24,7 @@ public class EditCommand extends Command{
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the person identified by the index number used in the last person listing.\n"
             + "Parameters: INDEX NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 John Doe p/98765432 e/johnd@gmail.com "
-            + "a/311, Clementi Ave 2, #02-25 t/friends" ;
+            + "Example: " + COMMAND_WORD + " 1 John Doe p/98765432 e/johnd@gmail.com ";
 
     
     public static final String MESSAGE_EDIT_PERSON_PROMPT = "Edit the following person: %1$s";

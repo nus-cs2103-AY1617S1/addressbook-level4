@@ -390,7 +390,6 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             Time privatePhone = new Time("111111");
             Date email = new Date("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -432,7 +431,7 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an AddressBook with auto-generated persons.
+         * Generates an TaskManager with auto-generated persons.
          */
         TaskManager generateAddressBook(int numGenerated) throws Exception{
             TaskManager addressBook = new TaskManager();
