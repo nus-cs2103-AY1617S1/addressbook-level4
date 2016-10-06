@@ -113,7 +113,7 @@ Examples:
   
 #### Marking of a task as undone: `undone`
 Unmark a completed task.<br>
-Format: `done INDEX`
+Format: `undone INDEX`
 
 > Marks a task entry as undone at the specified `INDEX`. 
   The index refers to the index number shown in the completed task listing.<br>
@@ -254,7 +254,7 @@ Examples:
 #### Redo a command: `redo`
 Returns the system to the state before the execution of the last undo command.<br>
 Format: 
-*`undo`
+*`redo`
 
 
 #### Clearing all entries : `clear`
@@ -281,8 +281,13 @@ Command | Format
 -------- | :-------- 
 Add | `add <task description> at/by <time> on <date>`, `add <task description> on <date> at/by <time>`, `add <task description> on/at/by <date> <time>`
 Clear | `clear`
-Delete | `delete INDEX`
+Done | `done INDEX`
+Edit | `edit <index> <new description> at/on/by <new date/time> #<new hashtags>`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
-Select | `select INDEX`
+Redo | `redo`
+Remove | `remove INDEX`
+Undo | `undo`
+Undone | `undone INDEX`
+
