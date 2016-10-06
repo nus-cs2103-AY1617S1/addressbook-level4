@@ -256,7 +256,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add an event, a task and a floating task | so that I can record tasks that need to be done ‘some day’
+`* * *` | user | add an event, a task and a floating task | so that I can record tasks that need to be done some day
 `* * *` | user | list all items | view all entries and dates that are due sorted by date and time and know what needs to be done next
 `* * *` | user | edit an item | update entries that are outdated
 `* * *` | user | delete an item | remove entries that I no longer need
