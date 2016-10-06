@@ -11,23 +11,27 @@ public class FindCommandTest extends TarsGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find Meier", td.taskB, td.taskD); //multiple results
+        assertFindResult("find Meeting"); //no results
+        assertFindResult("find Task B", 
+                td.taskA, td.taskB,
+                td.taskC, td.taskD,
+                td.taskE, td.taskF,
+                td.taskG); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Meier",td.taskD);
+        assertFindResult("find A");
     }
 
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
+        assertFindResult("find No Such Task"); //no results
     }
 
     @Test
     public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+        commandBox.runCommand("findmeeting");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
