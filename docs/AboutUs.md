@@ -20,14 +20,15 @@ Responsibilities: Integration
 
 -----
 
-#### [Low Zheng Yu](http://github.com/zhengyu92)
+#### [Leow Zheng Yu](http://github.com/zhengyu92)
 <img src="images/ZhengYu.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: UI
 
 -----
 
-#### [Niveetha](http://github.com/niveetha) 
+#### [Niveetha](http://github.com/niveetha)
+<img src="images/PD1.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Data
 
