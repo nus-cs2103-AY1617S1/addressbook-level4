@@ -54,7 +54,7 @@ Examples:
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in the task manager.<br>
-Format: `list [-t] [-pr] [-t/TAGS]...`
+Format: `list [-pr] [-t/TAGS]...`
 
 > * Tasks are sorted chronologically by default
 > * Tasks without deadlines are listed at the end when chronologically sorted
