@@ -293,8 +293,8 @@ Use case ends
     Use case resumes from step 2.
 
 1c. OneLine detects a time clash in task entered
->   1c1. OneLine shows an error message 
-    1c2. OneLine suggests the next closest time slot.<br>
+>   1c1. OneLine creates the task
+    1c2. OneLine marks the task in task pane to show time clash.<br>
     Use case ends
 
 #### Use case: Delete task
