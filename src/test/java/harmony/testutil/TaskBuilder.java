@@ -9,36 +9,36 @@ import harmony.model.task.*;
  */
 public class TaskBuilder {
 
-    private TestTask person;
+    private TestTask task;
 
     public TaskBuilder() {
-        this.person = new TestTask();
+        this.task = new TestTask();
     }
 
     public TaskBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+        this.task.setName(new Name(name));
         return this;
     }
 
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
-            person.getTags().add(new Tag(tag));
+            task.getTags().add(new Tag(tag));
         }
         return this;
     }
 
     public TaskBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new Time(phone));
+        this.task.setPhone(new Time(phone));
         return this;
     }
 
     public TaskBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Date(email));
+        this.task.setEmail(new Date(email));
         return this;
     }
 
     public TestTask build() {
-        return this.person;
+        return this.task;
     }
 
 }

@@ -16,14 +16,14 @@ public class AddCommand extends Command implements Undoable{
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
+            + "Parameters: NAME at/TIME on/DATE [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com t/friends t/owesMoney";
+            + " task at/1000 on/0110 t/friends t/finals";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_UNDO_SUCCESS = "[Undo Add Command] Person deleted: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS = "[Undo Add Command] Task deleted: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in Schema";
 
     private final Task toAdd;
 
@@ -32,16 +32,17 @@ public class AddCommand extends Command implements Undoable{
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, String email, Set<String> tags)
+    public AddCommand(String name, String time, String date, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        System.out.println("inside AddCommand");
         this.toAdd = new Task(
                 new Name(name),
-                new Time(phone),
-                new Date(email),
+                new Time(time),
+                new Date(date),
                 new UniqueTagList(tagSet)
         );
     }
@@ -50,11 +51,11 @@ public class AddCommand extends Command implements Undoable{
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addPerson(toAdd);
+            model.addTask(toAdd);
             model.getCommandHistory().push(this);
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -64,11 +65,11 @@ public class AddCommand extends Command implements Undoable{
     public CommandResult undo() {
         try {
             // remove the person that's previously added.
-            model.deletePerson(toAdd);
+            model.deleteTask(toAdd);
             
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
-        } catch (UniqueTaskList.PersonNotFoundException pne) {
-            return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
+        } catch (UniqueTaskList.TaskNotFoundException pne) {
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_ADDRESSBOOK);
         }
     }
 

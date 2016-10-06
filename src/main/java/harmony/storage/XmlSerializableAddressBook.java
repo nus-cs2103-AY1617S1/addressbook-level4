@@ -40,7 +40,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
      * Conversion
      */
     public XmlSerializableAddressBook(ReadOnlyTaskManager src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -55,7 +55,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : persons) {
             try {
@@ -68,7 +68,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();

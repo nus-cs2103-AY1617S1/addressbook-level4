@@ -21,8 +21,8 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicatePersonException extends DuplicateDataException {
-        protected DuplicatePersonException() {
+    public static class DuplicateTaskException extends DuplicateDataException {
+        protected DuplicateTaskException() {
             super("Operation would result in duplicate persons");
         }
     }
@@ -31,7 +31,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * Signals that an operation targeting a specified person in the list would fail because
      * there is no such matching person in the list.
      */
-    public static class PersonNotFoundException extends Exception {}
+    public static class TaskNotFoundException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
@@ -51,12 +51,12 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a person to the list.
      *
-     * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
+     * @throws DuplicateTaskException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(Task toAdd) throws DuplicatePersonException {
+    public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
     }
@@ -64,13 +64,13 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Removes the equivalent person from the list.
      *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * @throws TaskNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws PersonNotFoundException {
+    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
-            throw new PersonNotFoundException();
+            throw new TaskNotFoundException();
         }
         return personFoundAndDeleted;
     }

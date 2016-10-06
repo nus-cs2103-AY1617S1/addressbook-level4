@@ -4,36 +4,36 @@ package harmony.model.task;
 import harmony.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Represents a Task's date in the task manager.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
 
-    public static final String MESSAGE_EMAIL_CONSTRAINTS =
-            "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    public static final String MESSAGE_DATE_CONSTRAINTS =
+            "Task date should be in DDMM format";
+    public static final String DATE_VALIDATION_REGEX = "\\d{4}";
 
     public final String value;
 
     /**
-     * Validates given email.
+     * Validates given date.
      *
-     * @throws IllegalValueException if given email address string is invalid.
+     * @throws IllegalValueException if given date string is invalid.
      */
-    public Date(String email) throws IllegalValueException {
-        assert email != null;
-        email = email.trim();
-        if (!isValidEmail(email)) {
-            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
+    public Date(String date) throws IllegalValueException {
+        assert date != null;
+        date = date.trim();
+        if (!isValidDate(date)) {
+            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        this.value = email;
+        this.value = date;
     }
 
     /**
-     * Returns if a given string is a valid person email.
+     * Returns if a given string is a valid date.
      */
-    public static boolean isValidEmail(String test) {
-        return test.matches(EMAIL_VALIDATION_REGEX);
+    public static boolean isValidDate(String test) {
+        return test.matches(DATE_VALIDATION_REGEX);
     }
 
     @Override

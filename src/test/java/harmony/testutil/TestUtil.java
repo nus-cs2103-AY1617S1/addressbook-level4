@@ -1,7 +1,7 @@
 package harmony.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import harmony.TestApp;
 import harmony.commons.exceptions.IllegalValueException;
 import harmony.commons.util.FileUtil;
@@ -326,8 +326,8 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
-        return card.isSamePerson(person);
+    public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask person) {
+        return card.isSameTask(person);
     }
 
     public static Tag[] getTagList(String tags) {
