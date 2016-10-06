@@ -3,15 +3,15 @@ package seedu.address.model.task;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Task in the addressbook.
- * Implementations should guarantee: details are present and not null, field values are validated.
+ * A read-only immutable interface for a Task in the todo application.
+ * Implementations should guarantee: |name is not null, field values are validated.
  */
 public interface ReadOnlyTask {
 
     Name getName();
-    Phone getPhone();
-    Email getEmail();
-    Address getAddress();
+    Details getDetails();
+    TaskDate getFromDate();
+    TaskDate getTillDate();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -26,9 +26,9 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getDetails().equals(this.getDetails())
+                && other.getFromDate().equals(this.getFromDate())
+                && other.getTillDate().equals(this.getTillDate()));
     }
 
     /**
@@ -37,14 +37,14 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Details: ")
+                .append(getDetails())
+                .append(" From: ")
+                .append(getFromDate())
+                .append(" Till: ")
+                .append(getTillDate())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+        //getTags().forEach(builder::append);
         return builder.toString();
     }
 
