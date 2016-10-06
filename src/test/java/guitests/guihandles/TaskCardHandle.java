@@ -11,7 +11,7 @@ import seedu.address.model.task.ReadOnlyTask;
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
+    private static final String START_DATE_TIME_FIELD_ID = "#startDateTime";
     private static final String EMAIL_FIELD_ID = "#email";
 
     private Node node;
@@ -33,8 +33,8 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(ADDRESS_FIELD_ID);
     }
 
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+    public String getStartDateTime() {
+        return getTextFromLabel(START_DATE_TIME_FIELD_ID);
     }
 
     public String getEmail() {
@@ -42,7 +42,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName) && getPhone().equals(task.getPhone().value)
+        return getFullName().equals(task.getName().fullName) && getStartDateTime().equals(task.getStartDateTime().value)
                 && getEmail().equals(task.getEmail().value) && getAddress().equals(task.getAddress().value);
     }
 
