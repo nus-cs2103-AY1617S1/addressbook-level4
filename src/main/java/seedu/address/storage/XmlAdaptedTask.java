@@ -7,12 +7,13 @@ import seedu.address.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * JAXB-friendly version of the Person.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
@@ -29,7 +30,7 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedTask() {}
 
 
     /**
@@ -37,10 +38,10 @@ public class XmlAdaptedPerson {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(ReadOnlyTask source) {
+    public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
+        phone = source.getStartDate().toString();
+        email = source.getEndDate().toString();
         address = source.getAddress().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -59,8 +60,8 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
+        final Date phone = new Date();
+        final Date email = new Date();
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
         return new Task(name, phone, email, address, tags);

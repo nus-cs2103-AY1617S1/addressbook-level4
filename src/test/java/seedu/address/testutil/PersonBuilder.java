@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.Date;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.*;
@@ -33,12 +35,12 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new Phone(phone));
+        this.person.setStartDate(new Date(phone));
         return this;
     }
 
     public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Email(email));
+        this.person.setEndDate(new Date(email));
         return this;
     }
 

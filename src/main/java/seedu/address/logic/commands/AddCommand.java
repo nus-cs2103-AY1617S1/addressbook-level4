@@ -5,6 +5,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,8 +39,8 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Name(name),
-                new Phone(phone),
-                new Email(email),
+                new Date(),
+                new Date(),
                 new Address(address),
                 new UniqueTagList(tagSet)
         );

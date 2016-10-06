@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -12,8 +13,8 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Phone startDate;
-    private Email email;
+    private Date startDate;
+    private Date endDate;
     private Address address;
 
     private UniqueTagList tags;
@@ -21,11 +22,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+    public Task(Name name, Date startDate, Date endDate, Address address, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startDate, endDate, address, tags);
         this.name = name;
-        this.startDate = phone;
-        this.email = email;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.address = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -34,7 +35,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getAddress(), source.getTags());
     }
 
     @Override
@@ -43,13 +44,13 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
+    public Date getStartDate() {
         return startDate;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public Date getEndDate() {
+        return endDate;
     }
 
     @Override
@@ -79,7 +80,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startDate, email, address, tags);
+        return Objects.hash(name, startDate, endDate, address, tags);
     }
 
     @Override

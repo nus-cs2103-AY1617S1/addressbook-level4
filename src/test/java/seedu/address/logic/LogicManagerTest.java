@@ -23,6 +23,7 @@ import seedu.address.storage.StorageManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -384,8 +385,8 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@gmail.com");
+            Date privatePhone = new Date(1346524199000l);
+            Date email = new Date(1346524199000l);
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -403,8 +404,8 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Name("Person " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
+                    new Date(1346524199000l),
+                    new Date(1346524199000l),
                     new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -417,8 +418,8 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
+            cmd.append(" p/").append(p.getStartDate());
+            cmd.append(" e/").append(p.getEndDate());
             cmd.append(" a/").append(p.getAddress());
 
             UniqueTagList tags = p.getTags();
@@ -502,8 +503,8 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Phone("1"),
-                    new Email("1@email"),
+                    new Date(1346524199000l),
+                    new Date(1346524199000l),
                     new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
