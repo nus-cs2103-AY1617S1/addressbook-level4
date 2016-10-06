@@ -13,7 +13,6 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
-
 ## Setting up
 
 #### Prerequisites
@@ -56,11 +55,11 @@ Given below is a quick overview of each component.
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play an important role at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used to by componnents to communicate with other components using events (i.e. a form of _Event Driven_ design)
+  is used to by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log files.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -116,7 +115,7 @@ The `UI` component,
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`
 
 ### Model component
 
@@ -143,7 +142,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+Classes used by multiple components are in the `seedu.addressbook.commands` package. 
 
 ## Implementation
 
@@ -246,30 +245,58 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+`* * *` | user | add a new task |
+`* * *` | user | list all tasks | 
+`* * *` | user | find a task by task name | locate details of tasks without having to go through the entire task list
+`* * *` | user | find a task by task date | locate details of tasks without having to go through the entire task list
+`* * *` | user | find a task by task time| locate details of tasks without having to go through the entire task list
+`* * *` | user | select a task | delete or edit or add additional information
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | delete a specified information in its task | remove the parameter that I no longer need
+`* * *` | user | edit a Task | edit details without re-entry
+`* * *` | user | add red colour code to indicate an overdue task | easily to track overdue task
+`* * *` | user | add green colour code to indicate a done task | easily to track done task
+`* *` | user | use tab to switch between UI elements | change to next elements without typing out the whole commands 
+`* *` | user | use up arrow or down arrow to select task list | navigate through the task list
+`* *` | user | use up arrow or down arrow to reuse previous command(s) | reduce typing
+`* *` | user | use keyboard shortcut <ctrl z> to return to previous action | reduce typing
+`* *` | user | sort task by task name | able to track the task asap
+`* *` | user | sort task by date | able to track the task asap
+`* *` | user | sort task by time | able to track the task asap
+`* *` | user | add pink colour code to indicate a priority task | easily to track important task
+`*` | user with many tasks in the scheduler | sort task by task name | locate a task easily
+`*` | user with many tasks in the scheduler | sort task by task date | locate a task easily
+`*` | user with many tasks in the scheduler | sort task by task time | locate a task easily
+`*` | user | toggle the UI between dark and light mode | use the ToDoList under different lighting environment
+`*` | user | lock task(with a password) | prevent unauthorized access/modification 
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `MustDoList` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to add tasks
+2. MustDoList adds the task
+3. MustDoList shows a list of added tasks <br>
+Use case ends.
+
+**Extensions**
+
+
+#### Use case: Delete task
+
+**MSS**
+
+1. User requests to list tasks
+2. MustDoList shows a list of tasks
+3. User requests to delete a specific task in the list
+4. MustDoList deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -280,19 +307,48 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. MustDoList shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+#### Use case: Edit a task
+
+**MSS**
+
+1. User requests to list task
+2. MustDoList shows a list of tasks
+3. User requests to edit a specific task in the list
+4. MustDoList confirms the change with user
+5. User confirmed the changes
+6. MustDoList edits the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. MustDoList shows an error message <br>
+  Use case resumes at step 2
+
+
+5a. User cancel the changes
+
+> Use case ends
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+5. Should backup the MustDoList to prevent data-loss
+6. Should have a small overall program size
+7. Should have fast response time.
+8. Should be accessible and usable only by authorized users
+9. Should protect task information 
 
 ## Appendix D : Glossary
 
@@ -306,5 +362,28 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+#### TodoList
 
+> Pros
+Access task everywhere (on mobile, web browser)
+Collaborate on shared task (in real-time)
+Powerful recurring dates (Create repeating due dates)
+
+> Cons
+
+A few important features not available to free users. (at $29-per-year Premium level)
+Its search function is limited in the free plan
+It doesn’t have a backup option for free users
+
+#### Google calendar
+
+> Pros
+
+Multiple calendars
+Schedule meeting using “Suggested Time” or “Find a Time”
+Share your calendar with others
+
+> Cons
+Must sign up for the service
+Offline version only for viewing
+Cannot categorize calendar events based on “event type”
