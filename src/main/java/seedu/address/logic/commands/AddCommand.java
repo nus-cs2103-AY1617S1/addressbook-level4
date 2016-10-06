@@ -17,6 +17,8 @@ public class AddCommand extends Command {
             + "Parameters: NAME [rank PRIORITY_VALUE]\n"
             + "Example: " + COMMAND_WORD
             + " read Harry Potter and the Akshay rank 1";
+    
+    public static final String TOOL_TIP = "add NAME [rank PRIORITY]";
 
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
 

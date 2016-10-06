@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -65,10 +67,22 @@ public class CommandBox extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
+    
+    /**
+     * Attempt to parse a possibly incomplete command in the command box and display the command format matching that.
+     */
+    @FXML
+    private void handleCommandInputChanged(KeyEvent event){
+        KeyCode keyCode = event.getCode();
+        if (!keyCode.isDigitKey() && !keyCode.isLetterKey()) return;
+        logger.info(""+event.getCode());
+        logger.info("Command input changed: ["+ commandTextField.getText()+"]");
+        resultDisplay.postMessage(logic.decideToolTip(commandTextField.getText()));
+    }
 
 
     @FXML
-    private void handleCommandInputChanged() {
+    private void handleCommandInputEntered() {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
 
@@ -76,6 +90,7 @@ public class CommandBox extends UiPart {
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
+        logger.info("Command input changed from entered: ["+ commandTextField.getText()+"]");
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);

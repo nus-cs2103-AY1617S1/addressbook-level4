@@ -186,5 +186,54 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
+    
+    /**
+     * Parses an incomplete user input into a list of Strings (which are the command usages) to determine possible commands the user might be thinking of doing.
+     * 
+     * @param userInput user input string
+     * @return 
+     */
+    public List<String> parseIncompleteCommand(String userInput) {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        ArrayList<String> commandMatches = new ArrayList<String>();
+        if (!matcher.matches()) {
+            //TODO: make this thing make sense
+            commandMatches.add(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            return commandMatches;
+            //return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        // reserve this maybe can use next time to match more precisely
+        // final String arguments = matcher.group("arguments");
+        if (StringUtil.isSubstring(AddCommand.COMMAND_WORD, commandWord)){
+            commandMatches.add(AddCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(SelectCommand.COMMAND_WORD, commandWord)){
+            commandMatches.add(SelectCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(DeleteCommand.COMMAND_WORD, commandWord)){
+            commandMatches.add(DeleteCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(ClearCommand.COMMAND_WORD, commandWord)){
+            commandMatches.add(ClearCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(FindCommand.COMMAND_WORD, commandWord)){
+            commandMatches.add(FindCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(ListCommand.COMMAND_WORD, commandWord)){
+            commandMatches.add(ListCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(ExitCommand.COMMAND_WORD, commandWord)){
+            commandMatches.add(ExitCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(HelpCommand.COMMAND_WORD, commandWord)){
+            commandMatches.add(HelpCommand.TOOL_TIP);
+        }
+        if (commandMatches.isEmpty()){
+            commandMatches.add(MESSAGE_UNKNOWN_COMMAND);
+        }
+        return commandMatches;      
+    }
 
 }

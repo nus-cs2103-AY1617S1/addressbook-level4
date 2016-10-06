@@ -16,6 +16,8 @@ public class DeleteCommand extends Command {
             + ": Deletes the item identified by the index number used in the last item listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
+    
+    public static final String TOOL_TIP = "delete INDEX";
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
 
