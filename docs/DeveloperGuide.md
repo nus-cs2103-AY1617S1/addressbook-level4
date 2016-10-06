@@ -310,13 +310,7 @@ Use case ends.
 
 ## Appendix D : Glossary
 
-##### Mainstream OS
 
-> Windows, Linux, Unix, OS-X
-
-##### Private contact detail
-
-> Questions? Complaints? Contact Harsh Gadodia at gadodia.harsh@gmail.com 
 
 ## Appendix E : Product Survey
 
