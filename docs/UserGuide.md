@@ -21,7 +21,7 @@
 5. Some example commands you can try:
    * **`list`**` today` : lists all tasks for today
    * **`add`**` Buy milk `**`at`**` Fairprice` : 
-     adds a task named `Buy milk` to the Task!t.
+     adds a task named `Buy milk` to Task!t.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -35,19 +35,35 @@ Format: **`help`**
  
 ### Adding a task : `add`
 Add a task to Task!t.<br>
-Format: **`add`**` [task_name]`<br>
+Format: **`add`**` [task_name] [optional parameter 1] [optional parameter 2] [optional parameter 3]...`<br>
  
 > ##### Optional parameters
 > The following parameters can be appended to the add command. <br>
-> A task can only have one of each parameter.<br>
+> A task can only have one of each type of parameter.<br>
 > A task can only have either start/end time or deadline parameter.<br>
 
-> ###### Specifying start/end time : `from ... to ...`
+> ###### Specifying start/end time: `from ... to ...`
 > This parameter is used to indicate the starting and ending datetime of a task.<br>
 > Format: **`from`**` [datetime] `**`to`**` [datetime]`<br>
 
 > > The date for **`from`** can be omitted if it is on the same ending date. <br>
-> > [datetime] must be in the format: hh:mm dd mmm yyyy (e.g. 19:30 12 oct 2016)
+> > A few variations in [datetime] format are accepted: <br>
+> > - Both 24-Hour and AM/PM formats are accepted: <br>
+> > E.g. 19:30 12 oct 2016 <br>
+> > E.g. 7:30 PM 12 oct 2016 <br>
+> > E.g. 7:30 pm 12 oct 2016 <br>
+
+> > - Minutes can be omitted and assumed to be 00: <br> 
+> > E.g. 7 pm 12 oct 2016 <br> 
+
+> > - Month can be in abbreviations, or number separated by slash from day and year: <br>
+> > E.g. 19:30 12 oct 2016 <br>
+> > E.g. 19:30 12/10/2016 <br>
+
+> > - Year can be omitted and assumed to be the current year: <br> 
+> > E.g. 19:30 12/10 <br> 
+> > E.g. 7:30 pm 12/10 <br> 
+
 
 > Examples:
 > * **`add`**` dinner with mom `**`from`**` 19:30 02 oct 2016 `**`to`**` 20:30 02 oct 2016`
@@ -56,8 +72,6 @@ Format: **`add`**` [task_name]`<br>
 > ###### Specifying deadline : `by`
 > This parameter is used to indicate the deadline of a task.<br>
 > Format: **`by`**` [datetime]`<br>
-
-> > [datetime] must be in the format: hh:mm dd mmm yyyy (e.g. 19:30 12 oct 2016)
 
 > Examples:
 > * **`add`**` submit proposal `**`by`**` 23:59 02 oct 2016`
@@ -77,35 +91,55 @@ Format: **`add`**` [task_name]`<br>
 > * **`add`**` dinner with mom `**`remarks`**` buy flowers`
 
 Examples:
-* **`add`**` Bake cookies`
 * **`add`**` Prepare meeting agenda `**`by`**` 11:00 7 oct 2016`
 * **`add`**` Jimmy's wedding banquet `**`at`**` Trinity Church `**`from`**` 19:00 `**`to`**` 22:00 11 nov 2016 `
 
 ### Listing all tasks : `list`
-Shows a list of all tasks in the to-do list.<br>
+Shows the list of all tasks sorted temporally with the most recent ones displayed first.<br>
 Format: **`list`**` [filter]`<br>
 > [filters] available: <br>
 > * today - shows the list of tasks for today's date
 > * week - shows the list of tasks for this week
 > * month - shows the list of tasks for the current month
-> * date (e.g. 12 Oct 2016) - shows the list of tasks for the specified date
+> * [date] (e.g. 12 Oct 2016) - shows the list of tasks for the specified date
 
 Examples:
 * **`list`**` today`
 * **`list`**` 12 Oct 2016`
 
-### Finding all tasks containing any keyword in the name: `find`
+### Finding all tasks containing keyword in the name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
 Format: **`find`**` [keywords]`
 
-> The search is case sensitive, the order of the keywords does not matter, only the name is searched, 
-and tasks matching at least one keyword will be returned (i.e. `OR` search).
+> The search is case insensitive. <br>
+> the order of the keywords does not matter. <br>
+> Only the task name is searched. <br>
+> Tasks matching at least one keyword will be returned. <br>
+> More relevant tasks (i.e. those matching more keywords) are displayed first.
 
 Examples: 
 * `find mom`<br>
-  Returns `dinner with mom` but not `dinner with Mom`
+  Returns both `dinner with mom` and `dinner with Mom`
 * `find mom dad sister`<br>
   Returns Any task having names `mom`, `dad`, or `sister`
+
+> ##### Optional specifiers:
+
+> ###### Find tasks that contain all keywords: `all`
+> This specifier demands that only tasks containing all, not just some, keywords will be returned.
+> Format: **`find all`**` [keywords]`<br>
+
+> Examples:
+> * `find all mom dad sister` <br>
+> Returns `dinner with mom, dad and sister` but not `dinner with mom and dad`
+
+> ###### Find by an exact phrase: `exactly`
+> This specifier demands that only tasks containing all the keywords in the exact order will be returned.
+> Format: **`find exactly`**` [keywords]`<br>
+
+> Examples:
+> * `find exactly mom and dad` <br>
+> Returns `dinner with mom and dad` but not `dinner with mom`
 
 ### Deleting a task : `delete`
 Delete the specified tasks from the to-do list.<br>
@@ -143,12 +177,13 @@ Format: **`done`**` [index 1,index 2,...]`
 
 ### Editing a task : `edit`
 Edits the task identified by the index number used in the last task listing.<br>
-Format: **`edit`**` [index] [details]`
+Format: **`edit`**` [index] [optional parameter 1] [optional parameter 2]...`
 
 > Edits the tasks specified based on the details given.<br>
-> [details] follows the format in **`add`** command. <br>
+> [optional parameter] follows the format in **`add`** command. <br>
 > The index refers to the index number shown in the most recent listing.<br>
-> The index **must be a positive integer** 1, 2, 3, ...
+> The index **must be a positive integer** 1, 2, 3, ... <br>
+> Leaving the detail blank after entering a parameter identifier deletes the parameter. <br>
 
 Examples: 
 * **`list`**<br>
@@ -157,19 +192,23 @@ Examples:
 * **`find`**` dinner` <br> 
   **`edit`**` 1 `**`from`**` 1830 `**`to`**` 2000 25 oct 2016 `**`at`**` popeyes`<br>
   Edits the time and location parameter of the 1st task in the results of the **`find`** command.
+* **`find`**` dinner` <br> 
+  **`edit`**` 1 `**`at`**<br>
+  Deletes the location parameter of the 1st task in the results of the **`find`** command.
+
 
 ### Undoing last action performed : `undo`
 Undo the last action performed in Task!t. Irreversible.<br>
+Memory supports up to five historical actions. <br>
 Format: **`undo`**
 
 ### Setting the storage location : `setstorage`
 Sets the location of the storage file. <br>
 Format: **`setstorage`**` [filepath]`
 
-> The [filepath] provided can be both absolute or relative. Data file in current storage will be moved.
+> Data file in the previously used storage path will be moved over to the new path.
 
 Examples: 
-* **`setstorage`**` ../documents/todolist`.<br>
 * **`setstorage`**` C://user/documents/todolist`.<br>
 
 ### Clearing all entries : `clear`
