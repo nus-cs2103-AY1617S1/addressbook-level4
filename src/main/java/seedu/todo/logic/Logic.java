@@ -1,8 +1,6 @@
 package seedu.todo.logic;
 
 import javafx.collections.ObservableList;
-import seedu.todo.logic.commands.CommandResult;
-import seedu.todo.model.person.ReadOnlyPerson;
 import seedu.todo.model.task.ImmutableTask;
 
 /**
@@ -11,13 +9,9 @@ import seedu.todo.model.task.ImmutableTask;
 public interface Logic {
     /**
      * Executes the command and returns the result.
-     * @param commandText The command as entered by the user.
-     * @return the result of the command execution.
+     * @param input The command as entered by the user.
      */
-    CommandResult execute(String commandText);
-
-    /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyPerson> getFilteredPersonList();
+    public void execute(String input);
     
     ObservableList<ImmutableTask> getObservableTaskList();
 
