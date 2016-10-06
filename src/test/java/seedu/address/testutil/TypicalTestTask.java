@@ -13,17 +13,17 @@ public class TypicalTestTask {
 
     public TypicalTestTask() {
         try {
-            attendMeeting =  new TaskBuilder().withName("Alice Pauline").build();
-            buyMilk = new TaskBuilder().withName("Benson Meier").build();
-            createPlan = new TaskBuilder().withName("Carl Kurz").build();
-            deliverGoods = new TaskBuilder().withName("Daniel Meier").build();
-            eatDinner = new TaskBuilder().withName("Elle Meyer").build();
-            flyKite = new TaskBuilder().withName("Fiona Kunz").build();
-            goConcert = new TaskBuilder().withName("George Best").build();
+            attendMeeting =  new TaskBuilder().withName("Attend Meeting").build();
+            buyMilk = new TaskBuilder().withName("Buy Milk").build();
+            createPlan = new TaskBuilder().withName("Create Plan").build();
+            deliverGoods = new TaskBuilder().withName("Deliver Goods").build();
+            eatDinner = new TaskBuilder().withName("Eat Dinner").build();
+            flyKite = new TaskBuilder().withName("Fly Kite").build();
+            goConcert = new TaskBuilder().withName("Go Concert").build();
 
           //Manually added
-            helpFriend = new TaskBuilder().withName("Hoon Meier").build();
-            interview = new TaskBuilder().withName("Ida Mueller").build();
+            helpFriend = new TaskBuilder().withName("Help Friend").build();
+            interview = new TaskBuilder().withName("Interview").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
