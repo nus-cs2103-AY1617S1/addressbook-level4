@@ -227,9 +227,6 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-<<<<<<< HEAD
-
-=======
  
 #### Troubleshooting tests
  **Problem: Tests fail because NullPointException when AssertionError is expected**
@@ -239,7 +236,6 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
   
->>>>>>> nus-cs2103-AY1617S1/master
 ## Dev Ops
 
 ### Build Automation
@@ -276,21 +272,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-
-`* * *` | user | add tags to a specific task/person |
-`* * *` | user | remove tags from a specific task/person |
-`* * *` | user | list all tags used |
 `* * *` | user | add a task |
 `* * *` | user | edit a selected task |
 `* * *` | user | delete a selected task |
+`* * *` | user | add tags to a specific task/person |
+`* * *` | user | remove tags from a specific task/person |
 `* * *` | user | list tasks that are due chronologically | see what tasks I have yet to complete
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`* *` | user | undo my action | revert changes I made
-`* *` | user | edit a selected person | update the person's details
+`* * *` | user | list all tags used |
 `* *` | user | user with multiple tasks | search a task by name |
 `* *` | user | list tasks that are due by priority | see what tasks I have yet to complete
 `*` | user with multiple tasks | sort tasks by tags | differentiate the tasks I have
@@ -301,8 +289,6 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | have notifications on tasks | get alerted on due tasks
 `*` | user | search a tag |
 `*` | user | see tasks on a calendar GUI |
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-`*` | user | clear my address book | start afresh
 
 
 {More to be added}
@@ -351,7 +337,8 @@ Use case ends.
 
 ##### Private contact detail
 
-> A contact detail that is not meant to be shared with others
+> A contact detail that is not meant to be shared with othe
+rs
 
 ## Appendix E : Product Survey
 
