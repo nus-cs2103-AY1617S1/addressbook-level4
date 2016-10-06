@@ -227,9 +227,6 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-<<<<<<< HEAD
-
-=======
  
 #### Troubleshooting tests
  **Problem: Tests fail because NullPointException when AssertionError is expected**
@@ -239,7 +236,6 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
   
->>>>>>> nus-cs2103-AY1617S1/master
 ## Dev Ops
 
 ### Build Automation
