@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.regex.Matcher;
@@ -23,11 +24,18 @@ import seedu.address.logic.commands.SelectCommand;
 public class TMParser {
 	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+	
 	// Allow multiple orderings
-	private static final Pattern ADD_ARGS_FORMAT = 
-			Pattern.compile("(?<taskType>event|deadline|someday)(?<addCommandArgs>.*)"
-			+ "|(?<addCommandArgs2>.*)(?<taskType2>event|deadline|someday)");
+	private static final Pattern ADD_ARGS_FORMAT_1 = Pattern.compile("(?<taskType>event|deadline|someday)(?<addCommandArgs>.*)");
+	private static final Pattern ADD_ARGS_FORMAT_2 = Pattern.compile("(?<addCommandArgs>.*)(?<taskType>event|deadline|someday)");
+	
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("(?<taskName>'.+')");
+	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern.compile("(?<taskName>'.+')\\sby\\s(?<date>.+)\\sat\\s(?<time>.+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern.compile("(?<taskName>'.+')\\sat\\s(?<time>.+)\\sby\\s(?<date>.+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_3 = Pattern.compile("by\\s(?<date>.+)\\sat\\s(?<time>.+)\\s(?<taskName>'.+')");
+	private static final Pattern DEADLINE_ARGS_FORMAT_4 = Pattern.compile("by\\s(?<date>.+)\\s(?<taskName>'.+')\\sat\\s(?<time>.+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_5 = Pattern.compile("at\\s(?<time>.+)\\sby\\s(?<date>.+)\\s(?<taskName>'.+')");
+	private static final Pattern DEADLINE_ARGS_FORMAT_6 = Pattern.compile("at\\s(?<time>.+)\\s(?<taskName>'.+')\\sby\\s(?<date>.+)");
 	
 	
 	public static Command parseUserInput(String userInput) {
@@ -74,19 +82,25 @@ public class TMParser {
 
 
 	private static Command prepareAdd(String arguments) {
-		final Matcher matcher = ADD_ARGS_FORMAT.matcher(arguments.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
+		ArrayList<Matcher> matchers = new ArrayList<>();
+		matchers.add(ADD_ARGS_FORMAT_1.matcher(arguments.trim()));
+		matchers.add(ADD_ARGS_FORMAT_2.matcher(arguments.trim()));
+		
+		String taskType = null;
+        String addCommandArgs = null;
+		
+		boolean isAnyMatch = false;
+		
+		for (Matcher matcher : matchers) {
+			if (matcher.matches()) {
+	            isAnyMatch = true;
+	            taskType = matcher.group("taskType").trim();
+	            addCommandArgs = matcher.group("addCommandArgs").trim();
+	        }
+		}
         
-        String taskType;
-        String addCommandArgs;
-        try {
-        	taskType = matcher.group("taskType").trim();
-            addCommandArgs = matcher.group("addCommandArgs").trim();
-        } catch (NullPointerException e) {
-        	taskType = matcher.group("taskType2").trim();
-            addCommandArgs = matcher.group("addCommandArgs2").trim();
+        if (!isAnyMatch) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
         
         System.out.println("task type: " + taskType);
@@ -96,7 +110,7 @@ public class TMParser {
 		switch (taskType) {
 		// TODO change hardcoded strings to references to strings in command classes
 		//case "event":
-		//	return prepareAddEvent(userInput);
+		//	return prepareAddEvent(addCommandArgs);
 		case "deadline":
 			return prepareAddDeadline(addCommandArgs);
 		case "someday":
@@ -122,35 +136,46 @@ public class TMParser {
 	}
 
 
-	private static Command prepareAddDeadline(String userInputWithoutCommands) {
-//		// Short alias
-//		String input = userInputWithoutCommands;
-//
-//		if (input.indexOf("'") == -1) {
-//			// TODO better error message
-//			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
-//		}
-//
-////		String taskName = input.substring(input.indexOf("'") + 1, input.lastIndexOf("'")).trim();
-////		System.out.println("task name: " + taskName);
-////
-////		String args = input.replace("'" + taskName + "'", "").trim();
-////		
-////		System.out.println("args: " + args);
-//		
-//		Pattern MY_PATTERN = Pattern.compile("'(.+)'");
-//		Matcher m = MY_PATTERN.matcher(userInputWithoutCommands);
-//		
-//		while (m.find()) {
-//		    String s = m.group(1);
-//		    System.out.println("s: " + s);
-//		}
+	private static Command prepareAddDeadline(String arguments) {
+		System.out.println("yo");
+		
+		ArrayList<Matcher> matchers = new ArrayList<>();
+		matchers.add(DEADLINE_ARGS_FORMAT_1.matcher(arguments.trim()));
+		matchers.add(DEADLINE_ARGS_FORMAT_2.matcher(arguments.trim()));
+		matchers.add(DEADLINE_ARGS_FORMAT_3.matcher(arguments.trim()));
+		matchers.add(DEADLINE_ARGS_FORMAT_4.matcher(arguments.trim()));
+		matchers.add(DEADLINE_ARGS_FORMAT_5.matcher(arguments.trim()));
+		matchers.add(DEADLINE_ARGS_FORMAT_6.matcher(arguments.trim()));
+		
+		String taskName = null;
+	    String date = null;
+	    String time = null;
+		
+		boolean isAnyMatch = false;
+		
+		for (Matcher matcher : matchers) {
+			if (matcher.matches()) {
+	            isAnyMatch = true;
+	            taskName = matcher.group("taskName").trim();
+	            date = matcher.group("date").trim();
+	            time = matcher.group("time").trim();
+	        }
+		}
+        
+        if (!isAnyMatch) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        
+        System.out.println("task name: " + taskName);
+        System.out.println("date: " + date);
+        System.out.println("time: " + time);
+        
 		return null;
 	}
 	
 	
 	public static void main(String[] args) {
-		String userInput = "add 'Read 50 Shades of Grey' someday";
+		String userInput = "add deadline 'Read 50 Shades of Grey' at 05:00 by 25/12/2001";
 		parseUserInput(userInput);
 	}
 }
