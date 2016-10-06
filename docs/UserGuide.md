@@ -42,6 +42,11 @@ Format: `help`
 Adds a task to the task manager <br>
 Format: `add t/TASK_DESCRIPTION [st/START_TIME] [et/END_TIME] [d/DATE] [tg/TAGS]...`
 
+<img src="../assets/add_1.png" width="1000"><br>
+First, type a command.
+<img src="../assets/add_2.png" width="1000"><br>
+Command will be added.
+
 > If the time is specified, the date must also be specified.
 > If the start time is specified, the end time must also be specified.
 >
