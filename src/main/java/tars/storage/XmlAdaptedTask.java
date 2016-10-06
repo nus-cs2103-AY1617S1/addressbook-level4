@@ -16,7 +16,7 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
-    @XmlElement
+    @XmlElement(required = true)
     private String priority;
     @XmlElement(required = true)
     private DateTime dateTime;
