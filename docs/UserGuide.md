@@ -108,10 +108,10 @@ Format: `listbydate <Date>`
    > <img src="UserGuideImages/listbydate_0.png" width="600">
    
 Simply key in the command as shown below.
-   > <img src="UserGuideImages/listbydate_0.png" width="600">
+   > <img src="UserGuideImages/listbydate_1.png" width="600">
 
 The tasks which are due on the date you have just entered will be displayed on the application
-   > <img src="UserGuideImages/listbydate_0.png" width="600">
+   > <img src="UserGuideImages/listbydate_2.png" width="600">
    
 #### 4. Help Command
 
