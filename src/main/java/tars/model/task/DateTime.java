@@ -35,12 +35,14 @@ public class DateTime {
         DateTimeFormatter formatter = DateTimeFormatter
                 .ofPattern("d/M/uuuu HHmm")
                 .withResolverStyle(ResolverStyle.STRICT);
+        DateTimeFormatter stringFormatter = DateTimeFormatter
+                .ofPattern("dd/MM/uuuu HHmm");
         this.endDate = LocalDateTime.parse(endDate, formatter);
-        this.endDateString = endDate;
+        this.endDateString = this.endDate.format(stringFormatter);
 
         if (startDate != null) {
             this.startDate = LocalDateTime.parse(startDate, formatter);
-            this.startDateString = startDate;
+            this.startDateString = this.startDate.format(stringFormatter);
             if (this.endDate.isBefore(this.startDate) || this.endDate.isEqual(this.startDate)) {
                 throw new IllegalDateException("End dateTime should be after start dateTime.");
             }
