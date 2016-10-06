@@ -4,14 +4,18 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.Command;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.tag.Tag;
 
+import java.util.Collections;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +27,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
+    private final Stack<Command> commandHistory;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -37,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        commandHistory = new Stack<>();
     }
 
     public ModelManager() {
@@ -46,6 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        commandHistory = new Stack<>();
     }
 
     @Override
@@ -62,6 +69,11 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
+    }
+    
+    @Override
+    public Stack<Command> getCommandHistory() {
+        return commandHistory;
     }
 
     @Override
@@ -92,6 +104,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredPersonList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+    
+    @Override
+    public void updateFilteredTagPersonList(Set<Tag> keywords){
+        updateFilteredPersonList(new PredicateExpression(new TagQualifier(keywords)));
     }
 
     private void updateFilteredPersonList(Expression expression) {
@@ -147,6 +164,26 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class TagQualifier implements Qualifier {
+        private Set<Tag> tagKeyWords;
+
+        TagQualifier(Set<Tag> tagKeyWords) {
+            this.tagKeyWords = tagKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyPerson person) {
+            final Set<Tag> tagList = person.getTags().toSet();
+            
+            return !Collections.disjoint(tagList, tagKeyWords);
+        }
+
+        @Override
+        public String toString() {
+            return "tags=" + String.join(", ", tagKeyWords.toString());
         }
     }
 

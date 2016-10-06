@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
+import seedu.address.model.tag.Tag;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -65,9 +66,21 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
+            
+        case FindTagCommand.COMMAND_WORD:
+            return prepareFindTag(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+            
+        case PreviousCommand.COMMAND_WORD:
+            return new PreviousCommand();
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -132,8 +145,43 @@ public class Parser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+        Command result = new DeleteCommand(index.get());
 
-        return new DeleteCommand(index.get());
+        return result;
+    }
+    
+    /**
+     * Parses arguments in the context of the edit person command.
+     * 
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        Optional<Integer> index = parseIndex(args.substring(1, 2));
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            return new EditCommand(
+                    index.get(),
+                    matcher.group("name").substring(2),
+                    matcher.group("phone"),
+                    matcher.group("email"),
+                    matcher.group("address"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+        
     }
 
     /**
@@ -187,6 +235,36 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the find tag command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareFindTag(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+
+        final Set<Tag> tagSet = new HashSet<>();
+
+        try {
+            
+            for (String tagName : keywords) {
+                tagSet.add(new Tag(tagName));
+            }
+        
+            return new FindTagCommand(tagSet);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
 }

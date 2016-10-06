@@ -70,13 +70,22 @@ public class CommandBox extends UiPart {
     @FXML
     private void handleCommandInputChanged() {
         //Take a copy of the command text
-        previousCommandTest = commandTextField.getText();
-
+        String currentCommand = commandTextField.getText();
+        
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
-        mostRecentResult = logic.execute(previousCommandTest);
+        
+        //handle previous command
+        if (currentCommand.equals(PreviousCommand.COMMAND_WORD)) {
+            restoreCommandText();
+        }else {
+            previousCommandTest = currentCommand;
+        }
+
+
+        mostRecentResult = logic.execute(currentCommand);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
