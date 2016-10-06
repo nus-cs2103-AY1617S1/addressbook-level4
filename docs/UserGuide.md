@@ -59,17 +59,17 @@ Format: `add <details> <day> <time> /<priority> -<tag>`
 <br><img src="images/Add2.jpeg" width="600"><br>
 <br><img src="images/Add2a.jpeg" width="600"><br>
 
-#### Listing task in CMDo : `list <day>` or `param`
+#### Listing task in CMDo : `list <day>` or `param` or `/priority`
 Shows a list of all task in the CMDo on that day. It also acts as a filter.<br>
 Format: `list <today>`
 
-> Key in <damith> and all task with 'damith' will appear
+> Key in <day> and all task due on that day will appear
 > <br><img src="images/ListTmr.jpeg" width="600"><br>
 > Key in <done> and all done task will appear
 > <br><img src="images/ListDone.jpeg" width="600"><br>
 > Key in any search parameter and list command will add a filter for you
 <br><img src="images/ListTake.jpeg" width="600"><br>
-> Key in <with ___ priority> to show all tasks with specified priority
+> Key in </priority> to show all tasks with specified priority
 <br><img src="images/ListHP.jpeg" width="600"><br>
 
 #### Deleting a task in CMDo : `delete`
