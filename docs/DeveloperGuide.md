@@ -256,11 +256,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add an event, a task and a floating task | so that I can record tasks that need to be done ‘some day’
+`* * *` | user | list all items | view all entries and dates that are due sorted by date and time and know what needs to be done next
+`* * *` | user | edit an item | update entries that are outdated
+`* * *` | user | delete an item | remove entries that I no longer need
+`* * *` | user | undo an operation | have read-consistency and data changes should not be visible to queries that started running before committing them
+`* * *` | advanced user | use flexible commands | type a command faster
+`* * *` | user | find an item by name | locate details of item without having to go through the entire list
+`* * *` | user | track items | keep track of items that have been completed/uncompleted to filter items based on completion
+`* * *` | user | path items | save my files on shared folders for accessibility on other devices
+`* *` | user | clear all items | clear all my list in the scheduler 
+`*` | user | exit the program | exit the program conveniently
 
 {More to be added}
 
