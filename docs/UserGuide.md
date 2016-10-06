@@ -70,7 +70,6 @@ Format: `list [-t] [-pr] [-t/TAGS]...`
 
 Modifiers | Action
 ---|:---
--t | Tasks are listed chronologically
 -pr | Tasks are listed by priority
 -t/TAG | Tasks with the specified tag are listed
 
@@ -234,7 +233,7 @@ Remove Tags | `delete TAG [MORE_TAGS]`
 Edit | `edit INPUT [MORE_INPUT]`
 Find Tasks | `find KEYWORD [MORE_KEYWORDS]`
 Find Contacts | `find contact KEYWORD [MORE_KEYWORDS]`
-List Tasks | `list [-t] [-pr] [-t/TAG]...`
+List Tasks | `list [-pr] [-t/TAG]...`
 List Contacts | `list contact`
 List Tags | `list tags [-t] [-c]`
 Undo | `undo`
