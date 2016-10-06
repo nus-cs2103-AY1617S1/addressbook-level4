@@ -69,7 +69,7 @@ Format: `list [-t] [-pr] [-t/TAGS]...`
 > * Tasks without deadlines are listed at the end when chronologically sorted
 
 Modifiers | Action
----|---
+---|:---
 -t | Tasks are listed chronologically
 -pr | Tasks are listed by priority
 -t/TAG | Tasks with the specified tag are listed
@@ -169,13 +169,13 @@ Format: `list tags [-t] [-c]`
 > Lists all tags used in both task manager and address book by default
 
 Modifiers | Action
----|---
+---|:---
 -t | List tags used in task manager
 -c | List tags used in address book
 
 #### Adding tags to a task/person: `add tag`
 Add tags to last selected task/person.<br>
-Format: `add tag [TAG]...`
+Format: `add tag [MORE_TAGS]`
 
 Example:
 * `list contact`<br>
@@ -185,7 +185,7 @@ Example:
 
 #### Removing tags from a task/person: `delete tag`
 Remove tags from last selected task/person.<br>
-Format: `delete tag [TAG]...`
+Format: `delete tag [MORE_TAGS]`
 
 Example:
 * `list contact`<br>
@@ -202,7 +202,7 @@ Clears entries from the address book.<br>
 Format: `clear [-a] [-t] [-c]`
 
 Modifiers | Action
----|---
+---|:---
 -a | Clears all from task manager and address book
 -t | Clears all from task manager
 -c | Clears all from address book  
@@ -225,10 +225,18 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
+Add Task | `add DESCRIPTION [pr/RANK] [time/TIME] [t/TAG]...`
+Add Contact | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add Tag | `add tag [MORE_TAGS]`
+Clear | `clear [-a] [-t] [-c]`
 Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
+Remove Tags | `delete TAG [MORE_TAGS]`
+Edit | `edit INPUT [MORE_INPUT]`
+Find Tasks | `find KEYWORD [MORE_KEYWORDS]`
+Find Contacts | `find contact KEYWORD [MORE_KEYWORDS]`
+List Tasks | `list [-t] [-pr] [-t/TAG]...`
+List Contacts | `list contact`
+List Tags | `list tags [-t] [-c]`
+Undo | `undo`
 Help | `help`
 Select | `select INDEX`
