@@ -1,7 +1,7 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.task.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -46,8 +46,8 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertPersonSelected(int index) {
         assertEquals(personListPanel.getSelectedPersons().size(), 1);
-        ReadOnlyPerson selectedPerson = personListPanel.getSelectedPersons().get(0);
-        assertEquals(personListPanel.getPerson(index-1), selectedPerson);
+        ReadOnlyTask selectedTask = personListPanel.getSelectedPersons().get(0);
+        assertEquals(personListPanel.getPerson(index-1), selectedTask);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 

@@ -1,17 +1,19 @@
 package seedu.address.testutil;
 
+import java.util.Date;
+
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.person.*;
+import seedu.address.model.task.*;
 
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestPerson implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
+    private Location address;
+    private Date email;
+    private Date phone;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -22,16 +24,16 @@ public class TestPerson implements ReadOnlyPerson {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Location address) {
         this.address = address;
     }
 
-    public void setEmail(Email email) {
+    public void setEndDate(Date email) {
         this.email = email;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    public void setStartDate(Date date) {
+        this.phone = date;
     }
 
     @Override
@@ -40,17 +42,17 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public Phone getPhone() {
+    public Date getStartDate() {
         return phone;
     }
 
     @Override
-    public Email getEmail() {
+    public Date getEndDate() {
         return email;
     }
 
     @Override
-    public Address getAddress() {
+    public Location getAddress() {
         return address;
     }
 
@@ -67,8 +69,8 @@ public class TestPerson implements ReadOnlyPerson {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
+        sb.append("s/" + this.getStartDate().toString() + " ");
+        sb.append("e/" + this.getEndDate().toString() + " ");
         sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
