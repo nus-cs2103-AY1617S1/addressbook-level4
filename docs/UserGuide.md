@@ -13,11 +13,13 @@ This product is meant to address the concerns of users who wish to schedule thei
 ## Starting the program
 
 **Installation**
+
 1. Make  sure you have Java version `1.8.0_60` or later installed in your computer.
 2. Download the latest Practical Task Manager from the Releases tab.
 3. Copy the file to a suitable location on your computer. This location will serve as the home folder for the 	Task Manager.
 
 **Running the program**
+
 1. Double-click the file to start the application. The user interface below should appear in a few seconds.
 
 > ![Image of Loading Screen](https://github.com/Halo3fanz/main/blob/master/docs/images/Loading.png)
