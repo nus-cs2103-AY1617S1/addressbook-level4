@@ -247,8 +247,11 @@ Examples:
 <br><br>
 
 #### <a id="undo"></a>Undo previous action: `undo`
-Undos the previous action done in the task manager. <br>
 Format: `undo`
+
+Undos the previous action done in the task manager if you've made a mistake. <br>
+
+> Cannot undo CLEAR commands!
 
 <br><br>
 
