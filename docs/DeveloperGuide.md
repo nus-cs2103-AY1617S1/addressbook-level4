@@ -230,24 +230,24 @@ _1.2 Cons_
 **2. Fantastical**
 
 _2.1 Pros_
-> Calendar view for all activities.<br>
-> Beautiful user interface.<br>
-> Able to be used offline.<br>
-> ble to sync across platforms when online.
+> 2.1.1 Calendar view for all activities.<br>
+> 2.1.2 Beautiful user interface.<br>
+> 2.1.3 Able to be used offline.<br>
+> 2.1.4 Able to sync across platforms when online.
 
 _2.2 Cons_
-> No one shot approach of typing details of activity into a command line.<br>
-> Unable to block out uncertain schedules.<br>
-> Requires a lot of mouse clicking.
+> 2.2.1 No one shot approach of typing details of activity into a command line.<br>
+> 2.2.2 Unable to block out uncertain schedules.<br>
+> 2.2.3 Requires a lot of mouse clicking.
 
 **3. Any.do**
 
 _3.1 Pros_
-> Very simple user interface.<br>
-> Able to sync across platforms when online.<br>
-> Simple and clean user interface.<br>
-> Has list view, time view, or combined view.
+> 3.1.1 Very simple user interface.<br>
+> 3.1.2 Able to sync across platforms when online.<br>
+> 3.1.3 Simple and clean user interface.<br>
+> 3.1.4 Has list view, time view, or combined view.
 
 _3.2 Cons_
-> No one shot approach of typing details of activity into a command line.
+> 3.2.1 No one shot approach of typing details of activity into a command line.
 
