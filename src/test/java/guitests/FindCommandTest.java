@@ -1,8 +1,9 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestPerson;
+
+import seedu.jimi.commons.core.Messages;
+import seedu.jimi.testutil.TestPerson;
 
 import static org.junit.Assert.assertTrue;
 
@@ -33,7 +34,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     private void assertFindResult(String command, TestPerson... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " persons listed!");
+        assertResultMessage(expectedHits.length + " task(s) listed!");
         assertTrue(personListPanel.isListMatching(expectedHits));
     }
 }

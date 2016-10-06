@@ -2,10 +2,11 @@ package guitests;
 
 import guitests.guihandles.PersonCardHandle;
 import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
+
+import seedu.jimi.commons.core.Messages;
+import seedu.jimi.logic.commands.AddCommand;
+import seedu.jimi.testutil.TestPerson;
+import seedu.jimi.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
@@ -26,7 +27,7 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //add duplicate person
         commandBox.runCommand(td.hoon.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(personListPanel.isListMatching(currentList));
 
         //add to empty list
