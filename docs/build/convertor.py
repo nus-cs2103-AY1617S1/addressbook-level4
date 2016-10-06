@@ -1,43 +1,35 @@
 import markdown
-import codecs
+from os import path
 
-HEADER = """<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <link rel="stylesheet" type="text/css" href="normalize.css">
-  <link rel="stylesheet" type="text/css" href="skeleton.css">
-</head>
-<body>
-<div class="container">
-"""
-END = """
-</div>
-</body>
-</html>
-"""
+files = {
+    "DeveloperGuide": "Developer Guide",
+    "UserGuide": "User Guide",
+}
 
-extensions = [
-	"markdown.extensions.extra",
-	"markdown.extensions.codehilite",
-	"markdown.extensions.toc",
-	"markdown.extensions.sane_lists",
-]
-list_of_files = [
-	"DeveloperGuide",
-	"UserGuide",
-]
+base = path.dirname(path.abspath(__file__))
+output_dir = path.join(base, "../")
 
-md = markdown.Markdown(extensions=extensions)
+md = markdown.Markdown(extensions=[
+    "markdown.extensions.extra",
+    "markdown.extensions.codehilite",
+    "markdown.extensions.toc",
+    "markdown.extensions.sane_lists",
+])
 
-for file_path in list_of_files:
-	input_file = codecs.open("{}.md".format(file_path), mode="r", encoding="utf-8")
-	text = input_file.read()
-	content = md.reset().convert(text)
-	output_file = codecs.open("{}.html".format(file_path), "w",
-	                          encoding="utf-8",
-	                          errors="xmlcharrefreplace",
-	)
-	output_file.write(HEADER)
-	output_file.write(content)
-	output_file.write(END)
+with open(path.join(base, "template.html"), encoding="utf-8") as f:
+	template = f.read()
+
+for filename, title in files.items():
+	input_path = path.join(output_dir, filename + ".md")
+	output_path = path.join(output_dir, filename + ".html")
+
+	with open(input_path, encoding="utf-8") as input:
+		source = input.read()
+
+	html = md.reset().convert(source)
+	output_content = template.format(title, html)
+
+	with open(output_path, mode="w", encoding="utf-8") as output:
+		output.write(output_content)
+
+	print("Converting {} to {}".format(input_path, output_path))
