@@ -42,9 +42,9 @@ Format: `help`
 Adds a task to the task manager.<br>
 Format: `add DESCRIPTION [priority/RANK] [time/TIME] [t/TAG]...`
 
-> Tasks can have different priorities, normal by default, high or low
-> Deadlines can be set for tasks
-> Tasks can have any number of tags (including 0)
+> * Tasks can have different priorities, normal by default, high or low
+> * Deadlines can be set for tasks
+> * Tasks can have any number of tags (including 0)
 
 Examples:
 * `add Midterms priority/high time/wednesday t/important`
@@ -65,11 +65,11 @@ Examples:
 Shows a list of all tasks in the task manager.<br>
 Format: `list [-t] [-p] [-t/TAGS]...`
 
-> Tasks without deadlines are listed at the end when chronologically sorted
-> The following modifiers are mutually exclusive
-> -t     Tasks are listed chronologically
-> -p     Tasks are listed by priority
-> -t/TAG Tasks with the specified tag are listed
+> * Tasks without deadlines are listed at the end when chronologically sorted
+> * The following modifiers are mutually exclusive
+> * -t     Tasks are listed chronologically
+> * -p     Tasks are listed by priority
+> * -t/TAG Tasks with the specified tag are listed
 
 #### Listing all persons: `list contact`
 Shows a list of all persons in the address book.<br>
@@ -145,9 +145,9 @@ Examples:
 Edits the task/person last selected.<br>
 Format: `edit INPUT [MORE_INPUT]`
 
-> Edits the task/person by replacing the information stored with the input accordingly
-> Inputs are the same as specified in the `add` or `add contact` functions
-> Entries can be removed by calling the modifier but not specifying anything
+> * Edits the task/person by replacing the information stored with the input accordingly
+> * Inputs are the same as specified in the `add` or `add contact` functions
+> * Entries can be removed by calling the modifier but not specifying anything
 
 Examples:
 * `list`<br>
@@ -163,10 +163,10 @@ Examples:
 Lists all the tags used in the task manager and/or address book.<br>
 Format: `list tags [-t] [-c]`
 
-> Lists all tags used in both task manager and address book by default
-> The following modifiers are mutually exclusive
-> -t List tags used in task manager
-> -c List tags used in address book
+> * Lists all tags used in both task manager and address book by default
+> * The following modifiers are mutually exclusive
+> * -t List tags used in task manager
+> * -c List tags used in address book
 
 ### Adding tags to a task/person: `add tag`
 Add tags to last selected task/person.<br>
@@ -181,7 +181,7 @@ Example:
 ### Removing tags from a task/person: `delete tag`
 Remove tags from last selected task/person.<br>
 Format: `delete tag [TAG]...`
-  
+
 Example:
 * `list contact`<br>
   `select 3`<br>
@@ -196,10 +196,10 @@ Format: `undo`
 Clears entries from the address book.<br>
 Format: `clear [-a] [-t] [-c]`
 
-> The following command modifiers are mutually exclusive
-> -a clears all from task manager and address book
-> -t clears all from task manager
-> -c clears all from address book  
+> * The following command modifiers are mutually exclusive
+> * -a clears all from task manager and address book
+> * -t clears all from task manager
+> * -c clears all from address book  
 
 #### Exiting the program: `exit`
 Exits the program.<br>
