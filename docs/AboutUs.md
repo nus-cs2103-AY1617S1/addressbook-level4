@@ -35,7 +35,7 @@ Code quality: looks after the code quality, ensures adherence to code standards.
 
 #Project Mentor
 #### [**Sam Yong**](https://github.com/mauris)
- <img src="images/SamYong.jpg" width="150"><br>
+ <img src="images/SamYong.jpeg" width="150"><br>
  
 ------
 
