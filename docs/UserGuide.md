@@ -40,15 +40,15 @@ Format: `help`
 
 #### Adding a task: `add `
 Adds a task to the task manager.<br>
-Format: `add DESCRIPTION [priority/RANK] [time/TIME] [t/TAG]...`
+Format: `add DESCRIPTION [pr/RANK] [time/TIME] [t/TAG]...`
 
 > * Tasks can have different priorities, normal by default, high or low
 > * Deadlines can be set for tasks
 > * Tasks can have any number of tags (including 0)
 
 Examples:
-* `add Midterms priority/high time/wednesday t/important`
-* `add get eggs priority/low t/family`
+* `add Midterms pr/high time/wednesday t/important`
+* `add get eggs pr/low t/family`
 * `add organize room`
 
 #### Adding a person: `add contact`
@@ -63,13 +63,16 @@ Examples:
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in the task manager.<br>
-Format: `list [-t] [-p] [-t/TAGS]...`
+Format: `list [-t] [-pr] [-t/TAGS]...`
 
+> * Tasks are sorted chronologically by default
 > * Tasks without deadlines are listed at the end when chronologically sorted
-> * The following modifiers are mutually exclusive
-> * -t     Tasks are listed chronologically
-> * -p     Tasks are listed by priority
-> * -t/TAG Tasks with the specified tag are listed
+
+Modifiers | Action
+---|---
+-t | Tasks are listed chronologically
+-pr | Tasks are listed by priority
+-t/TAG | Tasks with the specified tag are listed
 
 #### Listing all persons: `list contact`
 Shows a list of all persons in the address book.<br>
@@ -141,7 +144,7 @@ Examples:
   `select 1`<br>
   Selects the 1st person in the results of the `find` command.
 
-### Editing a task/person: `edit`
+#### Editing a task/person: `edit`
 Edits the task/person last selected.<br>
 Format: `edit INPUT [MORE_INPUT]`
 
@@ -152,43 +155,45 @@ Format: `edit INPUT [MORE_INPUT]`
 Examples:
 * `list`<br>
   `select 3`<br>
-  `edit Complete tutorial 7 priority/ time/`
+  `edit Complete tutorial 7 priority/ time/`<br>
   Edits the 3rd task in the task manager by replacing the description, resetting the priority and removing the deadline
 * `find Chance`<br>
   `select 1`<br>
-  `edit Serendipity p/92345678`
+  `edit Serendipity p/92345678`<br>
   Renames the 2nd person found with the name `Chance`to `Serendipity` and and changes the recorded phone number to `92345678`
 
-### Listing all tags used: `list tags`
+#### Listing all tags used: `list tags`
 Lists all the tags used in the task manager and/or address book.<br>
 Format: `list tags [-t] [-c]`
 
-> * Lists all tags used in both task manager and address book by default
-> * The following modifiers are mutually exclusive
-> * -t List tags used in task manager
-> * -c List tags used in address book
+> Lists all tags used in both task manager and address book by default
 
-### Adding tags to a task/person: `add tag`
+Modifiers | Action
+---|---
+-t | List tags used in task manager
+-c | List tags used in address book
+
+#### Adding tags to a task/person: `add tag`
 Add tags to last selected task/person.<br>
 Format: `add tag [TAG]...`
 
 Example:
 * `list contact`<br>
   `select 2`<br>
-  `add tag friend NUS`
+  `add tag friend NUS`<br>
   Adds the tags `friend` and `NUS` to the 2nd contact selected
 
-### Removing tags from a task/person: `delete tag`
+#### Removing tags from a task/person: `delete tag`
 Remove tags from last selected task/person.<br>
 Format: `delete tag [TAG]...`
 
 Example:
 * `list contact`<br>
   `select 3`<br>
-  `delete tag foe NTU`
+  `delete tag foe NTU`<br>
   Removes the tags `foe` and `NTU` from the 3rd contact selected
 
-### Undo action: `undo`
+#### Undo action: `undo`
 Undoes the most recent change from the task manager or address book.<br>
 Format: `undo`
 
@@ -196,10 +201,11 @@ Format: `undo`
 Clears entries from the address book.<br>
 Format: `clear [-a] [-t] [-c]`
 
-> * The following command modifiers are mutually exclusive
-> * -a clears all from task manager and address book
-> * -t clears all from task manager
-> * -c clears all from address book  
+Modifiers | Action
+---|---
+-a | Clears all from task manager and address book
+-t | Clears all from task manager
+-c | Clears all from address book  
 
 #### Exiting the program: `exit`
 Exits the program.<br>
