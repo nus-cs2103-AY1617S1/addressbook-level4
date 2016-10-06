@@ -17,7 +17,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.*;
+import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Person[] samplePersonData = getSamplePersonData();
+    public static final Item[] sampleItemData = getSampleItemData();
 
-    private static Person[] getSamplePersonData() {
+    private static Item[] getSampleItemData() {
         try {
-            return new Person[]{
-                    new Person(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Person(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Person(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Person(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Person(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Person(new Name("George Best"), new Phone("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Person(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
+            return new Item[]{
+                    new Item(new Type("event"), new Name("ABC"), new TodoDate("2016-06-06"), new TodoTime("18:00"), new TodoDate("2016-07-07"), new TodoTime("19:00"), new UniqueTagList()),
+                    new Item(new Type("event"), new Name("DEF"), new TodoDate("2016-07-06"), new TodoTime("08:00"), new TodoDate("2016-09-01"), new TodoTime("09:00"), new UniqueTagList()),
+                    new Item(new Type("deadline"), new Name("HACK THIS OUT"), new TodoDate(""), new TodoTime(""), new TodoDate("2016-09-05"), new TodoTime("09:00"), new UniqueTagList()),
+                    new Item(new Type("deadline"), new Name("GOGO POWER RANGERS"), new TodoDate(""), new TodoTime(""), new TodoDate("2016-09-07"), new TodoTime("23:00"), new UniqueTagList()),
+                    new Item(new Type("deadline"), new Name("LALALA"), new TodoDate(""), new TodoTime(""), new TodoDate("2016-12-01"), new TodoTime("05:00"), new UniqueTagList()),
+                    new Item(new Type("deadline"), new Name("BABABA"), new TodoDate(""), new TodoTime(""), new TodoDate("2016-12-31"), new TodoTime("02:00"), new UniqueTagList()),
+                    new Item(new Type("task"), new Name("ROW ROW ROW YOUR BOAT"), new TodoDate(""), new TodoTime(""), new TodoDate(""), new TodoTime(""), new UniqueTagList()),
+                    new Item(new Type("task"), new Name("ROW ROW ROW YOUR BOAT 2"), new TodoDate(""), new TodoTime(""), new TodoDate(""), new TodoTime(""), new UniqueTagList()),
+                    new Item(new Type("task"), new Name("ROW ROW ROW YOUR BOAT 3"), new TodoDate(""), new TodoTime(""), new TodoDate(""), new TodoTime(""), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,8 +97,8 @@ public class TestUtil {
         }
     }
 
-    public static List<Person> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
+    public static List<Item> generateSampleItemData() {
+        return Arrays.asList(sampleItemData);
     }
 
     /**
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
+    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyToDo person) {
         return card.isSamePerson(person);
     }
 
