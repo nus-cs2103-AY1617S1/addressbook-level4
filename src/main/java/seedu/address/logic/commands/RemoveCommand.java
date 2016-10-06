@@ -6,7 +6,7 @@ import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the task manager.
  */
 public class RemoveCommand extends Command {
 
