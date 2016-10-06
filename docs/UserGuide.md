@@ -101,7 +101,7 @@ Format: **`list`**` [filter]`<br>
 > * today - shows the list of tasks for today's date
 > * week - shows the list of tasks for this week
 > * month - shows the list of tasks for the current month
-> * [date] (e.g. 12 Oct 2016) - shows the list of tasks for the specified date
+> * date (e.g. 12 Oct 2016) - shows the list of tasks for the specified date
 
 Examples:
 * **`list`**` today`
@@ -121,12 +121,12 @@ Examples:
 * `find mom`<br>
   Returns both `dinner with mom` and `dinner with Mom`
 * `find mom dad sister`<br>
-  Returns Any task having names `mom`, `dad`, or `sister`
+  Returns Any task having `mom`, `dad`, or `sister`in its name
 
 > ##### Optional specifiers:
 
 > ###### Find tasks that contain all keywords: `all`
-> This specifier demands that only tasks containing all, not just some, keywords will be returned.
+> This specifier demands that only tasks containing all, not just some, keywords will be returned. <br>
 > Format: **`find all`**` [keywords]`<br>
 
 > Examples:
@@ -134,7 +134,7 @@ Examples:
 > Returns `dinner with mom, dad and sister` but not `dinner with mom and dad`
 
 > ###### Find by an exact phrase: `exactly`
-> This specifier demands that only tasks containing all the keywords in the exact order will be returned.
+> This specifier demands that only tasks containing all the keywords in the exact order will be returned. <br>
 > Format: **`find exactly`**` [keywords]`<br>
 
 > Examples:
