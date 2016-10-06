@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart{
@@ -43,8 +44,8 @@ public class PersonCard extends UiPart{
     public void initialize() {
         name.setText(person.getName().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getStartDate().toString());
-        email.setText(person.getEndDate().toString());
+        phone.setText(DateFormatter.convertDateToString(person.getStartDate()));
+        email.setText(DateFormatter.convertDateToString(person.getEndDate()));
         address.setText(person.getAddress().value);
         tags.setText(person.tagsString());
     }

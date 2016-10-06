@@ -418,7 +418,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getStartDate());
+            cmd.append(" s/").append(p.getStartDate());
             cmd.append(" e/").append(p.getEndDate());
             cmd.append(" a/").append(p.getAddress());
 
