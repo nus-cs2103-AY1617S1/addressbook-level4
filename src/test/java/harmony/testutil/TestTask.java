@@ -21,11 +21,11 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setEmail(Date email) {
+    public void setDate(Date email) {
         this.date = email;
     }
 
-    public void setPhone(Time phone) {
+    public void setTime(Time phone) {
         this.time = phone;
     }
 

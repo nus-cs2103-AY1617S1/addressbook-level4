@@ -11,10 +11,10 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "Schema";
+    private String appTitle = "Mastermind";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskManagerFilePath = "data/schema.xml";
+    private String taskManagerFilePath = "data/mastermind.xml";
     private String taskManagerName = "MyTaskManager";
 
 
@@ -57,8 +57,8 @@ public class Config {
         return taskManagerName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.taskManagerName = addressBookName;
+    public void setTaskManagerName(String taskManagerName) {
+        this.taskManagerName = taskManagerName;
     }
 
 
