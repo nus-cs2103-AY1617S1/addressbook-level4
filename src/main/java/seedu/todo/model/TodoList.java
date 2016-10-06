@@ -3,27 +3,50 @@ package seedu.todo.model;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
+import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
+import seedu.todo.storage.Storage;
 
 public class TodoList implements ImmutableTodoList, TodoModel {
     private ObservableList<Task> tasks = FXCollections.observableArrayList(t -> t.getObservableProperties());
     private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
     private SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
     
-    public TodoList() {
+    private Storage storage;
+    
+    private static final Logger logger = LogsCenter.getLogger(TodoList.class);
+    
+    public TodoList(Storage storage) {
+        this.storage = storage;
+        
+        Optional<ImmutableTodoList> todoListOptional = storage.readTodoList();
+        
+        if (todoListOptional.isPresent()){
+            initTodoList(todoListOptional.get());
+        } else {
+            logger.info("Data file not found. Will be starting with an empty TodoList");
+        }
+
         // Set the default comparators
         view(null, null);
+    }
+    
+    private void initTodoList(ImmutableTodoList initialData) {
+        tasks.setAll(initialData.getTasks().stream().map(Task::new).collect(Collectors.toList()));
     }
 
     @Override
@@ -36,13 +59,17 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         Task task = new Task(title);
         update.accept(task);
         tasks.add(task);
+        
+        storage.saveTodoList(this);
     }
 
     @Override
     public void delete(ImmutableTask task) throws IllegalValueException {
         if (!tasks.remove(task)) {
             throw new IllegalValueException("Task not found in todo list");
-        } 
+        }
+        
+        storage.saveTodoList(this);
     }
 
     @Override
@@ -54,6 +81,8 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         } else {
             Task task = tasks.get(index);
             update.accept(task);
+            
+            storage.saveTodoList(this);
         }
     }
 

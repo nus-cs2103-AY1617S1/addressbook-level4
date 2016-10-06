@@ -20,7 +20,7 @@ import com.google.common.collect.Lists;
  * There will only be one command, optionally one positional argument, and 
  * optionally many named arguments. 
  */
-public class TodoParser implements ParserContract {
+public class TodoParser implements Parser {
     private class TodoResult implements ParseResult {
         private final String command;
         private final String positional;
