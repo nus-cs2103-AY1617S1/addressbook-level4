@@ -2,7 +2,7 @@
 
 ### User Interface
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/uimockup.jpg" width="600"><br>
 
 
 ### Introduction
