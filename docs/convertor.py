@@ -1,13 +1,6 @@
 import markdown
 import codecs
 
-extensions = [
-	'markdown.extensions.extra',
-	'markdown.extensions.codehilite',
-	'markdown.extensions.toc',
-	'markdown.extensions.sane_lists',
-]
-
 HEADER = """<!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +16,17 @@ END = """
 </body>
 </html>
 """
+
+extensions = [
+	"markdown.extensions.extra",
+	"markdown.extensions.codehilite",
+	"markdown.extensions.toc",
+	"markdown.extensions.sane_lists",
+]
+listOfFiles = [
+	"DeveloperGuide.md",
+	"UserGuide.md",
+]
 
 input_file = codecs.open("DeveloperGuide.md", mode="r", encoding="utf-8")
 text = input_file.read()
