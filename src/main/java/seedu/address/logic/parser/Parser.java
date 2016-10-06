@@ -32,7 +32,12 @@ public class Parser {
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    
     public Parser() {}
 
     /**
@@ -88,11 +93,14 @@ public class Parser {
      */
     private Command prepareAdd(String args){
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher2 = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        
         // Validate arg string format
-        if (!matcher.matches()) {
+        if (!matcher.matches() && !matcher2.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
+            if(matcher.matches()) {
             return new AddCommand(
                     matcher.group("name"),
                     matcher.group("phone"),
@@ -100,6 +108,14 @@ public class Parser {
                     matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
+            } 
+            else {
+                return new AddCommand(
+                        matcher2.group("name"),
+                        getTagsFromArgs(matcher2.group("tagArguments"))
+                        );
+            }
+                       
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
