@@ -1,11 +1,11 @@
 [![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
 [![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
 
-# Address Book (Level 4)
+# Task Manager
 
 <img src="docs/images/taskmanager.jpg" width="600"><br>
 
-* taskmanager, is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* Taskmanager, is a desktop to-do list application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is written in Java programming language. 
 * The target user prefer typing over mouse
 * It provides a list of commands for user to manage their tasks and events, and tasks and events will be reflected by GUI
