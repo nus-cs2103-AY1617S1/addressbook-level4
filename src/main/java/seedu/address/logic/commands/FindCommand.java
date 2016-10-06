@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import java.util.Set;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all tasks in task manager whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
 public class FindCommand extends Command {
@@ -12,8 +12,8 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks with names consisting of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Format: " + COMMAND_WORD + " [search_query] [ -p/-d/-o]"
-            + "Example: " + COMMAND_WORD + " meeting -o";
+            + "Format: " + COMMAND_WORD + " [search_query]"
+            + "Example: " + COMMAND_WORD + " meeting";
 
     private final Set<String> keywords;
 
