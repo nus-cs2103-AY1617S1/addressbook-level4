@@ -2,6 +2,8 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.oneline.logic.commands.ClearCommand;
+
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends AddressBookGuiTest {
@@ -26,6 +28,6 @@ public class ClearCommandTest extends AddressBookGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage(ClearCommand.MESSAGE_SUCCESS);
     }
 }

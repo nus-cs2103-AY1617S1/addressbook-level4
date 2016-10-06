@@ -2,6 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.oneline.logic.commands.SelectCommand;
 import seedu.oneline.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
@@ -41,7 +42,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("Selected Person: "+index);
+        assertResultMessage(String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, index));
         assertPersonSelected(index);
     }
 
