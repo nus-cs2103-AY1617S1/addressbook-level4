@@ -5,12 +5,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.task.Task;
+
 import seedu.address.testutil.TypicalTestPersons;
+import seedu.jimi.commons.exceptions.DataConversionException;
+import seedu.jimi.commons.util.FileUtil;
+import seedu.jimi.model.AddressBook;
+import seedu.jimi.model.ReadOnlyAddressBook;
+import seedu.jimi.model.task.Task;
+import seedu.jimi.storage.XmlAddressBookStorage;
 
 import java.io.IOException;
 
