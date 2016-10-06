@@ -6,7 +6,7 @@ import seedu.task.commons.util.CollectionUtil;
 import seedu.task.model.tag.UniqueTagList;
 
 /**
- * Represents a Task in the address book.
+ * Represents a Task in the taskBook.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
@@ -21,12 +21,12 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskName taskName, Phone phone, Email email, Venue address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(taskName, phone, email, address, tags);
+    public Task(TaskName taskName, Phone phone, Email email, Venue venue, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(taskName, phone, email, venue, tags);
         this.taskName = taskName;
         this.phone = phone;
         this.email = email;
-        this.venue = address;
+        this.venue = venue;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getVenue(), source.getTags());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Venue getAddress() {
+    public Venue getVenue() {
         return venue;
     }
 
@@ -63,7 +63,7 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);

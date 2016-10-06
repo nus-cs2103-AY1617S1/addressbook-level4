@@ -5,12 +5,12 @@ import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidVenue(String)}
  */
 public class Venue {
     
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task addresses can be in any format";
-    public static final String ADDRESS_VALIDATION_REGEX = ".+";
+    public static final String MESSAGE_VENUE_CONSTRAINTS = "Task addresses can be in any format";
+    public static final String VENUE_VALIDATION_REGEX = ".+";
 
     public final String value;
 
@@ -19,19 +19,19 @@ public class Venue {
      *
      * @throws IllegalValueException if given address string is invalid.
      */
-    public Venue(String address) throws IllegalValueException {
-        assert address != null;
-        if (!isValidAddress(address)) {
-            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+    public Venue(String venue) throws IllegalValueException {
+        assert venue != null;
+        if (!isValidVenue(venue)) {
+            throw new IllegalValueException(MESSAGE_VENUE_CONSTRAINTS);
         }
-        this.value = address;
+        this.value = venue;
     }
 
     /**
      * Returns true if a given string is a valid person email.
      */
-    public static boolean isValidAddress(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+    public static boolean isValidVenue(String test) {
+        return test.matches(VENUE_VALIDATION_REGEX);
     }
 
     @Override
