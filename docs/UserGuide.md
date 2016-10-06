@@ -7,14 +7,14 @@
 * [Command Summary](#command-summary)
 
 ## About
-Do you have so many tasks to do everyday that you simply cannot keep track of them anymore? Don’t you wish there was an easy way to stay on top of your daily tasks without stressing out?
+Do you have so many tasks to do everyday that you simply cannot keep track of them anymore? Don't you wish there was an easy way to stay on top of your daily tasks without stressing out?
 
 *Taskle is here to help you with all of that.*
 
 It is a task management application with a single text box for all your commands. 
-Coupled with short and easy to remember commands, managing your tasks has never been this easy. 
+Coupled with short and easy-to-remember commands, managing your tasks has never been this easy. 
 
-Stop waiting and make “Getting Started with Taskle” the last thing on your to-do list now!
+Stop waiting and make "Getting Started with Taskle" the last thing on your to-do list now!
 
 ## Quick Start
 
@@ -23,43 +23,40 @@ Stop waiting and make “Getting Started with Taskle” the last thing on your to-do
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `Taskle.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+2. Copy the file to the folder you want to use for your To-do Application.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`add`**` task_name` : Adds task_name to the to-do list
-   * **`add`**` deadline_name by date [time] [remind date time]` : Adds deadline_name to the to-do list with a deadline and an accompanying reminder
-   * **`add`**` event_name on date [time] [remind date time]` OR **`add`**` event_name from date [time] to date [time] [remind date time]` : Either adds event_name to the to-do list with either a flexible or fixed timeline and an accompanying reminder
-   * **`remove`**` task_number` : Removes the task_number contact shown in the current to-do list
-   * **`clear`**` task_number` : Clears all tasks from the application
+   For example, typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+5. Some sample commands you can try:
+   * **`add`**` Buy Milk` : Adds a "Buy Milk" task to Taskle
+   * **`add`**` Submit Proposal by 7 Nov` : Adds a "Submit Proposal" task which is to be completed by 7 Nov
+   * **`remove`**` 5` : Removes the task with index 5 from the current to-do list
+   * **`clear`** : Clears all tasks from the application
    * **`exit`** : exits the appplication
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
 
-Taskle makes it elegantly simple to manage your tasks. All of its features require only one single line of command making it very easy to use! Furthermore, it will be easy for you to keep track of your tasks with no hassle at all!
+Taskle makes it elegantly simple to manage your tasks. All of its features require only a single line of command, making it very easy to use. Furthermore, it will be easy for you to keep track of your tasks with no hassle at all.
 
 > **Command Format**
 > * Words in **`BOLD`** are the parameters.
-> * Words in *`ITALICS`* represent different categories under the same command.
-> * Items in `SQUARE_BRACKETS` are optional.
+> * Items in `[SQUARE_BRACKETS]` are optional.
 > * The order of parameters is fixed.
 
 <br>
 
-#### Adding a Task: `add`
-Adds a task into the to-do application. Tasks can be classified into 3 categories: *Floating Tasks* (Tasks with no deadlines), *Deadlines* and *Events*.<br><br>
-Format:  
+#### Add a Task: `add`
+Adds a task into the to-do application. Tasks can be classified into 3 categories: *Floating Tasks* (Tasks without deadlines), *Deadlines* and *Events*.<br><br>
 
-Type | Format  
-:-------- | :-------- 
-Floating Tasks | `add `**`task_name`**  
-Deadlines | `add `**`deadline_name`**` by `**`date`**`[`**`time`**`] [remind `**`date time`**`]`  
-Events | `add `**`event_name`**` on `**`date`**`[`**`time`**`] [remind `**`date time`**`]` <br> OR <br> `add `**`event_name`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`  
+| Format |  
+| :-------- | 
+| `add `**`task_name`** |  
+| `add `**`deadline_name`**` by `**`date`**`[`**`time`**`] [remind `**`date time`**`]` |  
+| `add `**`event_name`**` on `**`date`**`[`**`time`**`] [remind `**`date time`**`]` <br> OR <br> `add `**`event_name`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`  |
 
 Examples:
 * `add `**`Pay Bills`**
@@ -68,25 +65,25 @@ Examples:
 
 Note:  
 * When entering date and time, the following formats are allowed:
-	* 14 Jul, 14 July
+	* 14 Jan, 14/01
 	* 9pm, 2100
 	* today, tmr
+	* mon, tue, wed
 
 * Words such as **by**, **on**, **from** and **to** are reserved for commands. When adding tasks, if the name consists of any of the reserved words, they should be enclosed within double quotation marks, (" "). For example:
 	* add "**Collect equipment from Mary**" **tmr**
 
-* When using reserved words **today** and **tmr**, it is alright to omit the word **on** (applicable for events). For example:
+* When using reserved words **today**, **tmr** and days of the week, it is alright to omit the word **on** (applicable for events). For example:
 	* add **Club Briefing tmr** &emsp; instead of:&emsp; add **Club Briefing on tmr**
 <br><br>	
 
-#### Editing a Task : `edit; reschedule; remind`
+#### Edit a Task : `edit; reschedule; remind`
 Edits a task into the to-do application. There are 3 types of edits possible: *Edit Description*, *Reschedule* and *Remind*.<br><br>
-Format:
 
 Type | Format  
 :-------- | :-------- 
 Edit Description | `edit `**`task_number new_task_name`**  
-Reschedule | `reschedule `**`task_number`**` to `**`date`**`[`**`time`**`] [remind `**`date time`**`]`  
+Reschedule | `reschedule `**`task_number`**` to `**`date`**`[`**`time`**`] [remind `**`date time`**`]`  <br> OR <br> `reschedule `**`task_number`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Remind | `remind `**`task_number`**` on `**`date time`**
 
 Examples:
@@ -95,66 +92,67 @@ Examples:
 * `remind `**`1 3 Oct 2pm`**
 
 Note:
-* Only one reminder is supported for each task. The date and time specified in the "Remind" command will replace any existing reminder. To remove a reminder completely, you will have to type "**null**" after typing the task number. For example:
+* Only one reminder is supported for each task. The date and time specified in the "Remind" command will replace any existing reminder. 
+
+* To remove a reminder or deadline from a task, you will have to type "**null**" after typing the task number. For example:
 	* remind **3 null**
+	* reschedule **3 null**
 	
-* Reminders need to have a **time** specified in order for us to know the exact time to remind you of your appointments.
+* Reminders need to have a **time** specified in order to know the exact time to remind you of upcoming appointments.
 <br><br>
 
-#### Removing a Task: `remove`
-Removes a task from the to-do application.<br><br>
+#### Remove a Task: `remove`
+Removes a task from the to-do application.<br>
 Format: `remove `**`task_number`**
 
 Examples:
 * `remove `**`4`**
+* `remove `**`7`**
 <br><br>
 
-#### Finding a Task : `find`
-Finds a task in the to-do application, based on keywords.<br><br>
-Format: `find [`**`search_query`**`][`**`-p/-d-o`**`]`
+#### Undo a Recent Command: `undo`
+Undo previous command that may have been entered incorrectly.<br>
+Format: `undo`
+<br><br>
+
+#### Find a Task : `find`
+Finds a task in the to-do application, based on keywords.<br>
+Format: `find [`**`search_query`**`][`**`-p/-c/-o`**`]`
 
 Examples:
 * `find `**`meeting`**
 * `find `**`submission -o`**
 
 Note:
-* After typing the words to search for, you can type any of the following keywords to search for specific types of events:
+* After typing the words to search for, you can type any of the following keywords to search for specific types of tasks:
 	* **-p**: Tasks that are still pending.
 	* **-c**: Tasks that are marked as completed.
 	* **-o**: Tasks that are overdue (applicable for deadlines only)
-* To view all types of events, you can simply omit the above keywords. 
+* To view all types of tasks, you can simply omit the above keywords. 
 * To display all tasks, simply type `find`
 * To display all the tasks of a specific type, simply omit the **search_query** parameter while including the keyword mentioned above. For example:
 	* `find `**`-p`**
 <br><br>
 
-#### Marking a Task as Done: `done`
-Undo previous that may have been entered incorrectly.<br><br>
-Format: `undo`
+#### Mark a Task as Done: `done`
+Marks a task as done. Use this command when you are finished with the task.<br>
+Format: `done`
 <br><br>
 
-#### Undoing a Recent Command: `undo`
-Marks a task as done. This command is used when you are finished with the task.<br><br>
-Format: `undo`
-<br><br>
-
-#### Clearing all Tasks: `clear`
-Clears all tasks from the application.<br><br>
+#### Clear all Tasks: `clear`
+Removes all tasks from the application.<br>
 Format: `clear`
 <br><br>
 
-#### Viewing Help: `help`
-Views help for commands
+#### View Help: `help`
+Displays a list of available commands.<br>
 Format: `help`
 
 Note:
-* Help is also shown if you enter an incorrect command. For example:
-	* `abcd`
+* Help is also shown if you enter an incorrect command. For example: `abcd`<br><br>
 
-<br><br>
-
-#### Exiting the Application: `exit`
-Exits the application.<br><br>
+#### Exit the Application: `exit`
+Exits the application.<br>
 Format: `exit`  
 <br><br>
 
@@ -162,30 +160,29 @@ Format: `exit`
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+**A**: Install the application in the other computer and overwrite the empty data file it creates with 
+       the file created in your previous to-do application folder.
        
 ## Command Summary
 
 The table below shows the overall list of commands used in the application.<br>
 Note the following conventions used:
 * Words in **`BOLD`** are the parameters.
-* Words in *`ITALICS`* represent different categories under the same command.
 * Items in `SQUARE_BRACKETS` are optional.
 * The order of parameters is fixed.
 
-Command (Shortcut) | Format  
+Command `(Shortcut)` | Format  
 :-------- | :-------- 
-Add Task `a` | `add `**`task_name`**  
-Add Deadline `a` | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
-Add Event `a` | `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`<br>OR<br>`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
+Add `a` | `add `**`task_name`**  
+ | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
+ | `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`<br>OR<br>`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
 Edit Description `e` | `edit `**`task_number new_task_name`**
-Reschedule `r` | `reschedule `**`task_number`**` to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`
+Reschedule `r` | `reschedule `**`task_number`**` to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`<br> OR <br> `reschedule `**`task_number`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Set Reminder `s` | `remind `**`task_number date time`**
 Remove `rm` | `remove `**`task_number`**
+Undo `u` | `undo`
 Find `f` | `find [`**`search_query`**`] [`**`-p/-c/-o`**`]`
 Mark as Done `d` | `done `**`task_number`**
-Undo `u` | `undo`
 Clear | `clear`
 Help `h` | `help`
 Exit | `exit`
