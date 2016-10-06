@@ -72,7 +72,7 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person
+     * Converts this jaxb-friendly adapted task object into the model's Task
      * object.
      *
      * @throws IllegalValueException
@@ -83,13 +83,13 @@ public class XmlAdaptedTask {
         Task task = new Task(title);
         task.setDescription(description);
         task.setLocation(location);
-        
+
         task.setPinned(pinned);
         task.setCompleted(completed);
-        
+
         task.setStartTime(startTime);
         task.setEndTime(endTime);
-        
+
         Set<Tag> setOfTags = new HashSet<Tag>();
         for (XmlAdaptedTag tag : tags) {
             setOfTags.add(tag.toModelType());

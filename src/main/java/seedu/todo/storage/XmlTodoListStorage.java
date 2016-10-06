@@ -20,22 +20,23 @@ public class XmlTodoListStorage implements TodoListStorage {
 
     private String filePath;
 
-    public XmlTodoListStorage(String filePath){
+    public XmlTodoListStorage(String filePath) {
         this.filePath = filePath;
     }
 
-	@Override
-	public String getTodoListFilePath() {
-		return filePath;
-	}
+    @Override
+    public String getTodoListFilePath() {
+        return filePath;
+    }
 
-	public Optional<ImmutableTodoList> readTodoList(String filePath) throws DataConversionException, FileNotFoundException {
+    @Override
+    public Optional<ImmutableTodoList> readTodoList(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File TodoListFile = new File(filePath);
 
         if (!TodoListFile.exists()) {
-            logger.info("TodoList file "  + TodoListFile + " not found");
+            logger.info("TodoList file " + TodoListFile + " not found");
             return Optional.empty();
         }
 
@@ -44,7 +45,7 @@ public class XmlTodoListStorage implements TodoListStorage {
         return Optional.of(TodoListOptional);
     }
 
-	@Override
+    @Override
     public void saveTodoList(ImmutableTodoList TodoList, String filePath) throws IOException {
         assert TodoList != null;
         assert filePath != null;
