@@ -49,16 +49,16 @@ public class Config {
         return todoListFilePath;
     }
 
-    public void setTodoListFilePath(String addressBookFilePath) {
-        this.todoListFilePath = addressBookFilePath;
+    public void setTodoListFilePath(String todoListFIlePath) {
+        this.todoListFilePath = todoListFIlePath;
     }
 
     public String getTodoListName() {
         return todoListName;
     }
 
-    public void setTodoListName(String addressBookName) {
-        this.todoListName = addressBookName;
+    public void setTodoListName(String todoListName) {
+        this.todoListName = todoListName;
     }
 
 
@@ -92,7 +92,7 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + todoListFilePath);
-        sb.append("\nAddressBook name : " + todoListName);
+        sb.append("\nTodo List name : " + todoListName);
         return sb.toString();
     }
 

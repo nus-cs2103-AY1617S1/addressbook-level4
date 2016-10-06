@@ -30,6 +30,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     }
 
     @Test
+    @Ignore
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findgeorge");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
