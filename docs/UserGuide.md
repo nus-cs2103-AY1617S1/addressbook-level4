@@ -42,7 +42,7 @@ Format: `help`
  
 #### Adding a task : `add`
 Adds a task to the list. <br>
-Format: `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE]` 
+Format: `add TASKNAME [at/from TIME and DATE] [to/by TIME and DATE]` 
 
 > At least one of the two TIMEDATE values must be included.
 
@@ -51,24 +51,24 @@ Examples:
 * `Meeting from 13/09/2016 5pm to 13/09/2016 7pm`
 * `Pay bills by 13/09/2016 5pm`
 
-#### Adding a note: `note`
+#### Adding a note: `add`
 Adds a note to the list. A note has neither start nor end time.<br>
-Format: `note TASKNAME`
+Format: `add TASKNAME`
 
 Examples:
 * `note Do laundry`
 
-#### Displaying tasks : `display`
+#### Displaying tasks : `list`
 Displays tasks and their indexes in the specified timeframe.<br>
-Format: `display TYPE [PERIOD]`
+Format: `list TYPE [PERIOD]`
 
-> TYPE format: all, floating, incomplete, overdue.<br>
-> PERIOD format: today, tomorrow, week, month, year, or the DATE
+> TYPE format: all, float, incomplete, overdue.<br>
+> PERIOD format: today, tmrw (tasks tomorrow), wk (for this week), month (tasks for the month), yr(tasks for the year), or the DATE
 
 Examples:
-* `display floating 13/09/2016`
-* `display all tomorrow`
-* `display overdue`
+* `list float 13/09/2016`. Lists floating tasks for that particular date
+* `list tmrw`. Lists all tasks for tomorrow
+* `list overdue`. List all the overdue tasks
 
 #### Searching for tasks : `find`
 Lists tasks whose names match the given input.<br>
@@ -89,7 +89,7 @@ Examples:
 Deletes the specified task.<br>
 Format: `delete INDEX/TASKNAME`
 
-> Deletes the task at the specified index
+> Deletes the task sat the specified index
 > If taskname is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with deletion using the index of the appropriate task.
 
 Examples:
@@ -108,7 +108,7 @@ Format: `update INDEX/TASKNAME [at/from STARTTIMEDATE] [to/by ENDTIMEDATE]`
 > Omitting ENDTIMEDATE will remove ENDTIMEDATE from the task
 
 Examples:
-* `update 1 at 13/09/2016 5pm`
+* `update 1 13/09/2016 5pm`
   `Meeting from 13/09/2016 4pm to 13/09/2016 6pm` will be replaced with `Meeting at 13/09/2016 5pm`
 * `update b*y* from 13/09/2016 4pm to 13/09/2016 6pm`
   Lists tasks matching `b*y*` for the user to choose from
