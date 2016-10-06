@@ -36,7 +36,7 @@ Format: `help`
 
 #### Adding a task: `add`
 Adds a task to the TaskManager<br>
-Format: `add TASK_NAME, [s/START_TIME], [e/END_TIME], [p/PRIORITY_LEVEL], [d/DEADLINE], [l/LOCATION], [t/TAG1] [t/TAG2] ..., [c/COMPLETED_STATUS]` 
+Format: `add TASK_NAME[, s/START_TIME][, e/END_TIME][, [p/PRIORITY_LEVEL][, d/DEADLINE][, l/LOCATION][, t/TAG1 t/TAG2 ...][, c/COMPLETED_STATUS]` 
 
 > All additional information after `TASK_NAME` are optional
 > If left blank, `PRIORITY_LEVEL` defaults to `medium` and `COMPLETED_STATUS` defaults to `uncompleted`
@@ -48,8 +48,7 @@ Examples:
 
 #### Editing a task: `Edit`
 Edit task information in the TaskManager<br>
-Format: `edit TASK_NAME/INDEX, [s/START_TIME], [e/END_TIME], [p/PRIORITY_LEVEL], [d/DEADLINE], [l/LOCATION], [c/COMPLETED_STATUS]`
-`edit TASK_NAME/INDEX, tag[TAG_NUMBER]`
+Format: `edit INDEX/TASK_NAME[, TASK_NAME][, s/START_TIME][, e/END_TIME][, [p/PRIORITY_LEVEL][, d/DEADLINE][, l/LOCATION][, t1/TAG1 t4/TAG4 ...][, c/COMPLETED_STATUS] `
 
 > Edit the task at the specific `INDEX` or `TASK_NAME`
      The index refers to the index number shown in the most recent listing.<br>
@@ -142,8 +141,8 @@ There is no need to save manually.
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | `add TASK_NAME, [s/START_TIME], [e/END_TIME], [p/PRIORITY_LEVEL], [d/DEADLINE], [l/LOCATION], [t/TAG1] [t/TAG2] ..., [c/COMPLETED_STATUS]` 
-Edit | `edit TASK_NAME/INDEX s/ [start time]`, `edit TASK_NAME/INDEX e/ [end time]`,`edit TASK_NAME/INDEX p/[low/medium/high]`, `edit TASK_NAME/INDEX t/[tag]`,`‘edit TASK_NAME/INDEX c/[completed_status]`,  `edit TASK_NAME/INDEX l/[location]`
+Add | `add TASK_NAME[, s/START_TIME][, e/END_TIME][, [p/PRIORITY_LEVEL][, d/DEADLINE][, l/LOCATION][, t/TAG1 t/TAG2 ...][, c/COMPLETED_STATUS]`
+Edit | `edit INDEX/TASK_NAME[, TASK_NAME][, s/START_TIME][, e/END_TIME][, [p/PRIORITY_LEVEL][, d/DEADLINE][, l/LOCATION][, t1/TAG1 t4/TAG4 ...][, c/COMPLETED_STATUS] `
 Delete | `delete INDEX`
 List | `list [DATA_TYPE]`
 Search | `search KEYWORD`
