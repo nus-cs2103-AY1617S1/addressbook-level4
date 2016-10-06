@@ -15,12 +15,12 @@ public interface ReadOnlyToDoList {
 
     UniqueTagList getUniqueTagList();
 
-    UniqueTaskList getUniquePersonList();
+    UniqueTaskList getUniqueTaskList();
 
     /**
      * Returns an unmodifiable view of persons list
      */
-    List<ReadOnlyTask> getPersonList();
+    List<ReadOnlyTask> getTaskList();
 
     /**
      * Returns an unmodifiable view of tags list

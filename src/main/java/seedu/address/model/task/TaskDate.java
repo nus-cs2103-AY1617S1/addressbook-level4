@@ -38,18 +38,19 @@ public class TaskDate {
      * Returns true if a given string is a valid person phone number.
      */
     public static boolean isValidDateTime(String datetime) {
-    	return datetime.matches(DATETIME_VALIDATION_REGEX);
+    	return true;
     }
 
     @Override
     public String toString() {
-        return datetime.toString();
+        return datetime == null ? "" : datetime.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskDate // instanceof handles nulls
+                || (this.datetime == null && ((TaskDate) other).datetime == null)
                 && this.datetime.equals(((TaskDate) other).datetime)); // state check
     }
 
