@@ -6,7 +6,7 @@ import seedu.address.model.person.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestFloatingTask implements ReadOnlyPerson {
 
     private Name name;
     private Address address;
@@ -14,7 +14,7 @@ public class TestPerson implements ReadOnlyPerson {
     private Phone phone;
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestFloatingTask() {
         tags = new UniqueTagList();
     }
 

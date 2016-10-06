@@ -150,8 +150,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        // TODO Auto-generated method stub
-        
+    	filteredFloatingTasks.setPredicate(null);
     }
 
 }
