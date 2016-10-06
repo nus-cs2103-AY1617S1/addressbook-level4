@@ -11,7 +11,7 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
+1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/UIProject.png" width="600">
@@ -43,7 +43,7 @@ Format: `help`
 Adds a task to the task management tool<br>
 Format: `add TASK d/DESCRIPTION t/TITLE dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL ...` 
 
-> Persons can have any number of tags (including 0)
+> Tasks can have any number of tags (including 0)
 
 Examples: 
 * `add Homework d/ProgrammingEx1 t/Software Engineering dd/06102016 i/7 , `

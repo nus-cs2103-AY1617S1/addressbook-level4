@@ -4,6 +4,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.task.commons.core.Config;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -17,8 +19,8 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : Address App\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data/addressbook.xml\n" +
-                "AddressBook name : MyAddressBook";
+                "Local data file location : data/taskmanager.xml\n" +
+                "TaskManager name : MyTaskManager";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }
