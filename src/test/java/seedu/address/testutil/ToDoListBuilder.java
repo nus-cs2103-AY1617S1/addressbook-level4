@@ -9,22 +9,22 @@ import seedu.address.model.ToDoList;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code ToDoList ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code ToDoList ab = new AddressBookBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
-public class AddressBookBuilder {
+public class ToDoListBuilder {
 
     private ToDoList toDoList;
 
-    public AddressBookBuilder(ToDoList toDoList){
+    public ToDoListBuilder(ToDoList toDoList){
         this.toDoList = toDoList;
     }
 
-    public AddressBookBuilder withPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
-        toDoList.addPerson(task);
+    public ToDoListBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        toDoList.addTask(task);
         return this;
     }
 
-    public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
+    public ToDoListBuilder withTag(String tagName) throws IllegalValueException {
         toDoList.addTag(new Tag(tagName));
         return this;
     }

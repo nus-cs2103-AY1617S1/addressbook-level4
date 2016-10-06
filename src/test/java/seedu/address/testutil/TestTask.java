@@ -6,15 +6,15 @@ import seedu.address.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
-    private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
+	private Name name;
+    private Detail detail;
+    private TaskDate fromDate;
+    private TaskDate tillDate;
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
@@ -22,16 +22,16 @@ public class TestPerson implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setDetail(Detail detail) {
+        this.detail = detail;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setFromDate(TaskDate fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    public void setTillDate(TaskDate tillDate) {
+        this.tillDate = tillDate;
     }
 
     @Override
@@ -40,18 +40,18 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Detail getDetail() {
+        return this.detail;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public TaskDate getFromDate() {
+        return this.fromDate;
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public TaskDate getTillDate() {
+        return this.tillDate;
     }
 
     @Override
@@ -67,9 +67,9 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("p/" + this.getDetail().value + " ");
+        sb.append("e/" + this.getFromDate().toString() + " ");
+        sb.append("a/" + this.getTillDate().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
