@@ -98,7 +98,7 @@ Format: `list`
    > <img src="UserGuideImages/list_0.png" width="600">
 
 You will want to key in the command as shown below.
-   > <img src="UserGuideImages/list_1.jpg" width="600">
+   > <img src="UserGuideImages/list_1.png" width="600">
 
 The list of tasks will be displayed in the application as shown below.
    > <img src="UserGuideImages/list_2.png" width="600">
