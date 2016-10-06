@@ -63,6 +63,7 @@ Examples:
 * `add Assignment 1 d/Tomorrow p/1 r/Today 2000`
 * `add Assignment 2 d/Tomorrow p/1 r/0400 before`
 * `add CS2103 T7A1 d/6 Oct 2016 p/2 r/5 Oct 2016 1800 t/teamC2`
+
 Adds an event to Lifekeeper<br>
 Format: `add EVENT_NAME s/START_TIME e/END_TIME [t/TAG]...` 
 
