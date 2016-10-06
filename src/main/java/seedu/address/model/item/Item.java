@@ -9,68 +9,54 @@ import java.util.Objects;
  * Represents a Item in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Item implements ReadOnlyToDo {
+public class Item implements ReadOnlyPerson {
 
-    private Type type;
+    private ItemType itemType;
     private Name name;
-    private TodoDate startDate;
-    private TodoDate endDate;
-    private TodoTime startTime;
-    private TodoTime endTime;
+    private Email email;
+    private Address address;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Item(Type type, Name name, TodoDate sd, TodoTime st, TodoDate ed, TodoTime et, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(type, name, tags);
-        this.type = type;
+    public Item(ItemType itemType, Name name, Email email, Address address, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(itemType, name, email, address, tags);
+        this.itemType = itemType;
         this.name = name;
-        this.endDate = ed;
-        this.endTime = et;
-        this.startDate = sd;
-        this.startTime = st;
+        this.email = email;
+        this.address = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
-    public Item(ReadOnlyToDo source) {
-        this(source.getType(), source.getName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getTags());
+    public Item(ReadOnlyPerson source) {
+        this(source.getItemType(), source.getName(), source.getEmail(), source.getAddress(), source.getTags());
     }
 
     @Override
-    public Type getType() {
-        return type;
+    public ItemType getItemType() {
+        return itemType;
     }
 
     @Override
     public Name getName() {
         return name;
     }
-    
+
     @Override
-    public TodoDate getStartDate() {
-        return startDate;
-    }
-    
-    @Override
-    public TodoTime getStartTime() {
-        return startTime;
+    public Email getEmail() {
+        return email;
     }
 
     @Override
-    public TodoDate getEndDate() {
-        return endDate;
+    public Address getAddress() {
+        return address;
     }
-    
-    @Override
-    public TodoTime getEndTime() {
-        return endTime;
-    }
-    
+
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -86,14 +72,14 @@ public class Item implements ReadOnlyToDo {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyToDo // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyToDo) other));
+                || (other instanceof ReadOnlyPerson // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyPerson) other));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(type, name, tags);
+        return Objects.hash(itemType, name, email, address, tags);
     }
 
     @Override

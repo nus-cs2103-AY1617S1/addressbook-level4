@@ -9,7 +9,7 @@ public class Type {
     public static final String EVENT_WORD = "event";
     
     public static final String MESSAGE_TYPE_CONSTRAINTS = "Item types should only be 'task', 'deadline' or 'event'.";
-    public static final String TYPE_VALIDATION_REGEX = "\\b(task|deadline|event)\\b";
+    public static final String TYPE_VALIDATION_REGEX = "\b(task|deadline|event)\b";
 
     public final String value;
 

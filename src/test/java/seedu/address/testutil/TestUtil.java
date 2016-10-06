@@ -65,15 +65,15 @@ public class TestUtil {
     private static Item[] getSampleItemData() {
         try {
             return new Item[]{
-                    new Item(new Type("event"), new Name("ABC"), new TodoDate("2016-06-06"), new TodoTime("18:00"), new TodoDate("2016-07-07"), new TodoTime("19:00"), new UniqueTagList()),
-                    new Item(new Type("event"), new Name("DEF"), new TodoDate("2016-07-06"), new TodoTime("08:00"), new TodoDate("2016-09-01"), new TodoTime("09:00"), new UniqueTagList()),
-                    new Item(new Type("deadline"), new Name("HACK THIS OUT"), new TodoDate(""), new TodoTime(""), new TodoDate("2016-09-05"), new TodoTime("09:00"), new UniqueTagList()),
-                    new Item(new Type("deadline"), new Name("GOGO POWER RANGERS"), new TodoDate(""), new TodoTime(""), new TodoDate("2016-09-07"), new TodoTime("23:00"), new UniqueTagList()),
-                    new Item(new Type("deadline"), new Name("LALALA"), new TodoDate(""), new TodoTime(""), new TodoDate("2016-12-01"), new TodoTime("05:00"), new UniqueTagList()),
-                    new Item(new Type("deadline"), new Name("BABABA"), new TodoDate(""), new TodoTime(""), new TodoDate("2016-12-31"), new TodoTime("02:00"), new UniqueTagList()),
-                    new Item(new Type("task"), new Name("ROW ROW ROW YOUR BOAT"), new TodoDate(""), new TodoTime(""), new TodoDate(""), new TodoTime(""), new UniqueTagList()),
-                    new Item(new Type("task"), new Name("ROW ROW ROW YOUR BOAT 2"), new TodoDate(""), new TodoTime(""), new TodoDate(""), new TodoTime(""), new UniqueTagList()),
-                    new Item(new Type("task"), new Name("ROW ROW ROW YOUR BOAT 3"), new TodoDate(""), new TodoTime(""), new TodoDate(""), new TodoTime(""), new UniqueTagList())
+                    new Item(new ItemType("Ali Muster"), new Name("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
+                    new Item(new ItemType("Boris Mueller"), new Name("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
+                    new Item(new ItemType("Carl Kurz"), new Name("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
+                    new Item(new ItemType("Daniel Meier"), new Name("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
+                    new Item(new ItemType("Elle Meyer"), new Name("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
+                    new Item(new ItemType("Fiona Kunz"), new Name("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
+                    new Item(new ItemType("George Best"), new Name("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
+                    new Item(new ItemType("Hoon Meier"), new Name("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
+                    new Item(new ItemType("Ida Mueller"), new Name("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyToDo person) {
+    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
         return card.isSamePerson(person);
     }
 

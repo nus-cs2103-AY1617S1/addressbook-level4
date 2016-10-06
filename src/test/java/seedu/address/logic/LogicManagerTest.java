@@ -103,7 +103,7 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyAddressBook expectedAddressBook,
-                                       List<? extends ReadOnlyToDo> expectedShownList) throws Exception {
+                                       List<? extends ReadOnlyPerson> expectedShownList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
@@ -214,7 +214,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         AddressBook expectedAB = helper.generateAddressBook(2);
-        List<? extends ReadOnlyToDo> expectedList = expectedAB.getPersonList();
+        List<? extends ReadOnlyPerson> expectedList = expectedAB.getPersonList();
 
         // prepare address book state
         helper.addToModel(model, 2);
@@ -383,16 +383,14 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Item adam() throws Exception {
-            Type type = new Type("event");
-            Name privateName = new Name("go win some stuff");
-            TodoDate startDate = new TodoDate("2016-01-01");
-            TodoTime startTime = new TodoTime("18:00");
-            TodoDate endDate = new TodoDate("2016-01-01");
-            TodoTime endTime = new TodoTime("19:00");
+            ItemType itemType = new ItemType("Adam Brown");
+            Name privateName = new Name("111111");
+            Email email = new Email("adam@gmail.com");
+            Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Item(type, privateName, startDate, startTime, endDate, endTime, tags);
+            return new Item(itemType, privateName, email, privateAddress, tags);
         }
 
         /**
@@ -404,12 +402,10 @@ public class LogicManagerTest {
          */
         Item generateItem(int seed) throws Exception {
             return new Item(
-                    new Type("Item " + seed),
+                    new ItemType("Item " + seed),
                     new Name("" + Math.abs(seed)),
-                    new TodoDate("2016-06-06"),
-                    new TodoTime("18:00"),
-                    new TodoDate("2016-07-07"),
-                    new TodoTime("19:00"),
+                    new Email(seed + "@email"),
+                    new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -420,20 +416,11 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getType().toString());
-            if (p.getType().toString().equals(Type.TASK_WORD)) {
-                cmd.append(" n/").append(p.getName());
-            } else if (p.getType().toString().equals(Type.DEADLINE_WORD)) {
-                cmd.append(" n/").append(p.getName());
-                cmd.append(" d/").append(p.getEndDate());
-                cmd.append(" t/").append(p.getEndTime());
-            } else {
-                cmd.append(" n/").append(p.getName());
-                cmd.append(" sd/").append(p.getStartDate());
-                cmd.append(" st/").append(p.getStartTime());
-                cmd.append(" ed/").append(p.getEndDate());
-                cmd.append(" et/").append(p.getEndTime());
-            }
+            cmd.append(p.getItemType().toString());
+            cmd.append(" p/").append(p.getName());
+            cmd.append(" e/").append(p.getEmail());
+            cmd.append(" a/").append(p.getAddress());
+
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
@@ -514,12 +501,10 @@ public class LogicManagerTest {
          */
         Item generateItemWithName(String name) throws Exception {
             return new Item(
-                    new Type(name),
+                    new ItemType(name),
                     new Name("1"),
-                    new TodoDate("2016-06-06"),
-                    new TodoTime("18:00"),
-                    new TodoDate("2016-07-07"),
-                    new TodoTime("19:00"),
+                    new Email("1@email"),
+                    new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
