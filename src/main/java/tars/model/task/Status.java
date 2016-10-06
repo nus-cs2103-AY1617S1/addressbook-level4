@@ -31,6 +31,13 @@ public class Status {
             return MESSAGE_STATUS_UNDONE;
         }
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Status // instanceof handles nulls
+                && this.toString().equals(((Status) other).toString())); // state check
+    }
 
     public void setDone() {
         this.status = true;

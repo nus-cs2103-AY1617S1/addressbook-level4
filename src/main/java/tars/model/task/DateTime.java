@@ -65,6 +65,13 @@ public class DateTime {
             return startDateString + " to " + endDateString;
         }
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DateTime // instanceof handles nulls
+                && this.toString().equals(((DateTime) other).toString())); // state check
+    }
 
     /**
      * Signals an error caused by end date occurring before start date

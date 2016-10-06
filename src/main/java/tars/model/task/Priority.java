@@ -37,6 +37,13 @@ public class Priority {
     public String toString() {
         return priorityLevel;
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Priority // instanceof handles nulls
+                && this.toString().equals(((Priority) other).toString())); // state check
+    }
 
     public void setLevel(String priorityLevel) {
         this.priorityLevel = priorityLevel;
