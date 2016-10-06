@@ -8,8 +8,8 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.TaskBook;
+import seedu.address.model.task.Task;
 import seedu.address.model.ReadOnlyTaskBook;
-import seedu.address.model.person.Task;
 import seedu.address.testutil.TypicalTestPersons;
 
 import java.io.IOException;
