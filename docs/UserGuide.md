@@ -233,11 +233,11 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | **`add`**` [task_name] <optional parameters>`
+Add | **`add`**` [task_name] [optional parameter 1] [optional parameter 2] [optional parameter 3]...`
 Clear | **`clear`**
 Delete | **`delete`**` [index 1,index 2,...]`
 Done | **`done`**` [index 1,index 2,...]`
-Edit | **`edit`**` [index] [details]`
+Edit | **`edit`**` [index] [optional parameter 1] [optional parameter 2]...`
 Exit | **`exit`**
 Find | **`find`**` [keywords]`
 List | **`list`**` [filter]`
