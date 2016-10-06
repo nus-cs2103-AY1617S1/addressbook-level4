@@ -4,9 +4,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
+
 public class ClearCommandTest extends AddressBookGuiTest {
 
     @Test
+    @Ignore
     public void clear() {
 
         //verify a non-empty list can be cleared

@@ -12,7 +12,7 @@ import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.events.ui.JumpToListRequestEvent;
-import seedu.todo.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.todo.commons.events.ui.SelectionChangedEvent;
 import seedu.todo.commons.events.ui.ShowHelpRequestEvent;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/app_icon.png";
 
     private Logic logic;
     private Config config;
@@ -62,7 +62,6 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
-        mainWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -117,10 +116,10 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
     }
 
+    //TODO: Rename this method, or delete it if this method is of no use.
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
+    private void handlePersonPanelSelectionChangedEvent(SelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadPersonPage(event.getNewSelection());
     }
 
 }
