@@ -8,7 +8,7 @@ import harmony.commons.core.Config;
 import harmony.commons.core.LogsCenter;
 import harmony.commons.events.storage.DataSavingExceptionEvent;
 import harmony.commons.events.ui.JumpToListRequestEvent;
-import harmony.commons.events.ui.PersonPanelSelectionChangedEvent;
+import harmony.commons.events.ui.TaskPanelSelectionChangedEvent;
 import harmony.commons.events.ui.ShowHelpRequestEvent;
 import harmony.commons.util.StringUtil;
 import harmony.logic.Logic;
@@ -119,7 +119,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
+    private void handlePersonPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadPersonPage(event.getNewSelection());
     }

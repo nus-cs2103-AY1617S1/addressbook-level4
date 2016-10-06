@@ -1,8 +1,8 @@
 package harmony.testutil;
 
 import harmony.commons.exceptions.IllegalValueException;
-import harmony.model.person.*;
 import harmony.model.tag.Tag;
+import harmony.model.task.*;
 
 /**
  *
@@ -27,18 +27,13 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Address(address));
-        return this;
-    }
-
     public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new Phone(phone));
+        this.person.setPhone(new Time(phone));
         return this;
     }
 
     public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Email(email));
+        this.person.setEmail(new Date(email));
         return this;
     }
 

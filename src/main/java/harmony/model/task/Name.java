@@ -1,4 +1,4 @@
-package harmony.model.person;
+package harmony.model.task;
 
 import harmony.commons.exceptions.IllegalValueException;
 

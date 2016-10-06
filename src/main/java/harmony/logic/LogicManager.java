@@ -10,7 +10,7 @@ import harmony.logic.commands.Command;
 import harmony.logic.commands.CommandResult;
 import harmony.logic.parser.Parser;
 import harmony.model.Model;
-import harmony.model.person.ReadOnlyPerson;
+import harmony.model.task.ReadOnlyTask;
 import harmony.storage.Storage;
 
 /**
@@ -36,7 +36,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
+    public ObservableList<ReadOnlyTask> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
 }

@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import harmony.commons.core.LogsCenter;
 import harmony.commons.util.FxViewUtil;
-import harmony.model.person.ReadOnlyPerson;
+import harmony.model.task.ReadOnlyTask;
 
 /**
  * The Browser Panel of the App.
@@ -51,7 +51,7 @@ public class BrowserPanel extends UiPart{
         return browserPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
+    public void loadPersonPage(ReadOnlyTask person) {
         loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
     }
 

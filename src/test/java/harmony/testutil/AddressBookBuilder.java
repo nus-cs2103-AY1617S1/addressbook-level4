@@ -1,10 +1,10 @@
 package harmony.testutil;
 
 import harmony.commons.exceptions.IllegalValueException;
-import harmony.model.AddressBook;
-import harmony.model.person.Person;
-import harmony.model.person.UniquePersonList;
+import harmony.model.TaskManager;
 import harmony.model.tag.Tag;
+import harmony.model.task.Task;
+import harmony.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -13,13 +13,13 @@ import harmony.model.tag.Tag;
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private TaskManager addressBook;
 
-    public AddressBookBuilder(AddressBook addressBook){
+    public AddressBookBuilder(TaskManager addressBook){
         this.addressBook = addressBook;
     }
 
-    public AddressBookBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
+    public AddressBookBuilder withPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
         addressBook.addPerson(person);
         return this;
     }
@@ -29,7 +29,7 @@ public class AddressBookBuilder {
         return this;
     }
 
-    public AddressBook build(){
+    public TaskManager build(){
         return addressBook;
     }
 }

@@ -2,8 +2,8 @@ package harmony.logic.commands;
 
 import harmony.commons.core.Messages;
 import harmony.commons.core.UnmodifiableObservableList;
-import harmony.model.person.ReadOnlyPerson;
-import harmony.model.person.UniquePersonList.PersonNotFoundException;
+import harmony.model.task.ReadOnlyTask;
+import harmony.model.task.UniqueTaskList.PersonNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -29,14 +29,14 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyPerson personToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.deletePerson(personToDelete);

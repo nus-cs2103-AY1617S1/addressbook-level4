@@ -1,7 +1,7 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
-import harmony.model.person.ReadOnlyPerson;
+import harmony.model.task.ReadOnlyTask;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -41,9 +41,9 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyPerson person){
-        return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value) && getAddress().equals(person.getAddress().value);
+    public boolean isSamePerson(ReadOnlyTask person){
+        return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getTime().value)
+                && getEmail().equals(person.getDate().value);
     }
 
     @Override

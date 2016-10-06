@@ -1,14 +1,14 @@
 package harmony.commons.events.model;
 
 import harmony.commons.events.BaseEvent;
-import harmony.model.ReadOnlyAddressBook;
+import harmony.model.ReadOnlyTaskManager;
 
 /** Indicates the AddressBook in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+public class TaskManagerChangedEvent extends BaseEvent {
 
-    public final ReadOnlyAddressBook data;
+    public final ReadOnlyTaskManager data;
 
-    public AddressBookChangedEvent(ReadOnlyAddressBook data){
+    public TaskManagerChangedEvent(ReadOnlyTaskManager data){
         this.data = data;
     }
 

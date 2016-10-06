@@ -2,7 +2,7 @@ package harmony.logic.commands;
 
 import java.util.EmptyStackException;
 
-import harmony.model.AddressBook;
+import harmony.model.TaskManager;
 
 public class UndoCommand extends Command{
     

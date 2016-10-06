@@ -3,24 +3,24 @@ package harmony.model;
 
 import java.util.List;
 
-import harmony.model.person.ReadOnlyPerson;
-import harmony.model.person.UniquePersonList;
 import harmony.model.tag.Tag;
 import harmony.model.tag.UniqueTagList;
+import harmony.model.task.ReadOnlyTask;
+import harmony.model.task.UniqueTaskList;
 
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyTaskManager {
 
     UniqueTagList getUniqueTagList();
 
-    UniquePersonList getUniquePersonList();
+    UniqueTaskList getUniquePersonList();
 
     /**
      * Returns an unmodifiable view of persons list
      */
-    List<ReadOnlyPerson> getPersonList();
+    List<ReadOnlyTask> getPersonList();
 
     /**
      * Returns an unmodifiable view of tags list

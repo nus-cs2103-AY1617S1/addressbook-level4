@@ -7,16 +7,16 @@ import java.util.Set;
 import harmony.commons.core.Messages;
 import harmony.commons.core.UnmodifiableObservableList;
 import harmony.commons.exceptions.IllegalValueException;
-import harmony.model.person.Address;
-import harmony.model.person.Email;
-import harmony.model.person.Name;
-import harmony.model.person.Person;
-import harmony.model.person.Phone;
-import harmony.model.person.ReadOnlyPerson;
-import harmony.model.person.UniquePersonList.DuplicatePersonException;
-import harmony.model.person.UniquePersonList.PersonNotFoundException;
 import harmony.model.tag.Tag;
 import harmony.model.tag.UniqueTagList;
+import harmony.model.task.Address;
+import harmony.model.task.Date;
+import harmony.model.task.Name;
+import harmony.model.task.ReadOnlyTask;
+import harmony.model.task.Task;
+import harmony.model.task.Time;
+import harmony.model.task.UniqueTaskList.DuplicatePersonException;
+import harmony.model.task.UniqueTaskList.PersonNotFoundException;
 
 public class EditCommand extends Command{
 
@@ -35,8 +35,8 @@ public class EditCommand extends Command{
     
 //    private MainWindow window;
     private final int targetIndex;
-    private ReadOnlyPerson personToEdit;
-    private Person toEdit;
+    private ReadOnlyTask personToEdit;
+    private Task toEdit;
     
     public EditCommand(int targetIndex,String name, String phone, String email,
             String address, Set<String> tags) throws IllegalValueException{
@@ -46,11 +46,10 @@ public class EditCommand extends Command{
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toEdit = new Person(
+        this.toEdit = new Task(
                 new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
+                new Time(phone),
+                new Date(email),
                 new UniqueTagList(tagSet)
         );
     }
@@ -60,7 +59,7 @@ public class EditCommand extends Command{
     @Override
     public CommandResult execute() {
         
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

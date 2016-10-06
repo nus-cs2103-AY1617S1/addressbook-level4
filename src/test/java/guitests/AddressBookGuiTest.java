@@ -3,8 +3,8 @@ package guitests;
 import guitests.guihandles.*;
 import harmony.TestApp;
 import harmony.commons.core.EventsCenter;
-import harmony.model.AddressBook;
-import harmony.model.person.ReadOnlyPerson;
+import harmony.model.TaskManager;
+import harmony.model.task.ReadOnlyTask;
 import harmony.testutil.TestUtil;
 import harmony.testutil.TypicalTestPersons;
 import javafx.stage.Stage;
@@ -75,8 +75,8 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
+    protected TaskManager getInitialData() {
+        TaskManager ab = TestUtil.generateEmptyAddressBook();
         TypicalTestPersons.loadAddressBookWithSampleData(ab);
         return ab;
     }
@@ -97,7 +97,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
+    public void assertMatching(ReadOnlyTask person, PersonCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 

@@ -1,7 +1,7 @@
 package harmony.logic;
 
 import harmony.logic.commands.CommandResult;
-import harmony.model.person.ReadOnlyPerson;
+import harmony.model.task.ReadOnlyTask;
 import javafx.collections.ObservableList;
 
 /**
@@ -16,6 +16,6 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyPerson> getFilteredPersonList();
+    ObservableList<ReadOnlyTask> getFilteredPersonList();
 
 }

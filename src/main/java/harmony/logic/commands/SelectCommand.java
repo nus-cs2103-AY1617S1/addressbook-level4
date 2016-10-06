@@ -4,7 +4,7 @@ import harmony.commons.core.EventsCenter;
 import harmony.commons.core.Messages;
 import harmony.commons.core.UnmodifiableObservableList;
 import harmony.commons.events.ui.JumpToListRequestEvent;
-import harmony.model.person.ReadOnlyPerson;
+import harmony.model.task.ReadOnlyTask;
 
 /**
  * Selects a person identified using it's last displayed index from the address book.
@@ -29,7 +29,7 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

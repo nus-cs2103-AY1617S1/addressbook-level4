@@ -14,22 +14,22 @@ import javafx.stage.Stage;
 import java.util.logging.Logger;
 
 import harmony.commons.core.LogsCenter;
-import harmony.commons.events.ui.PersonPanelSelectionChangedEvent;
-import harmony.model.person.ReadOnlyPerson;
+import harmony.commons.events.ui.TaskPanelSelectionChangedEvent;
+import harmony.model.task.ReadOnlyTask;
 
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class TaskListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyPerson> personListView;
+    private ListView<ReadOnlyTask> personListView;
 
-    public PersonListPanel() {
+    public TaskListPanel() {
         super();
     }
 
@@ -48,20 +48,20 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyPerson> personList) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
+    public static TaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+                                       ObservableList<ReadOnlyTask> personList) {
+        TaskListPanel personListPanel =
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
         personListPanel.configure(personList);
         return personListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyPerson> personList) {
+    private void configure(ObservableList<ReadOnlyTask> personList) {
         setConnections(personList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
+    private void setConnections(ObservableList<ReadOnlyTask> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -76,7 +76,7 @@ public class PersonListPanel extends UiPart {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                raise(new PersonPanelSelectionChangedEvent(newValue));
+                raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
     }
@@ -88,20 +88,20 @@ public class PersonListPanel extends UiPart {
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+    class PersonListViewCell extends ListCell<ReadOnlyTask> {
 
         public PersonListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyPerson person, boolean empty) {
+        protected void updateItem(ReadOnlyTask person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(person, getIndex() + 1).getLayout());
             }
         }
     }

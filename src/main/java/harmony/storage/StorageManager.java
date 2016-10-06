@@ -4,10 +4,10 @@ import com.google.common.eventbus.Subscribe;
 
 import harmony.commons.core.ComponentManager;
 import harmony.commons.core.LogsCenter;
-import harmony.commons.events.model.AddressBookChangedEvent;
+import harmony.commons.events.model.TaskManagerChangedEvent;
 import harmony.commons.events.storage.DataSavingExceptionEvent;
 import harmony.commons.exceptions.DataConversionException;
-import harmony.model.ReadOnlyAddressBook;
+import harmony.model.ReadOnlyTaskManager;
 import harmony.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -21,13 +21,13 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private XmlAddressBookStorage addressBookStorage;
+    private XmlTaskManagerStorage addressBookStorage;
     private JsonUserPrefStorage userPrefStorage;
 
 
     public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
         super();
-        this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
+        this.addressBookStorage = new XmlTaskManagerStorage(addressBookFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
@@ -52,21 +52,21 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyTaskManager> readAddressBook() throws DataConversionException, FileNotFoundException {
         logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
 
         return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveAddressBook(ReadOnlyTaskManager addressBook) throws IOException {
         addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleAddressBookChangedEvent(TaskManagerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAddressBook(event.data);

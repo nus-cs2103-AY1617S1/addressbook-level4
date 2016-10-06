@@ -3,7 +3,7 @@ package seedu.address.ui;
 import com.google.common.eventbus.Subscribe;
 
 import harmony.commons.core.LogsCenter;
-import harmony.commons.events.model.AddressBookChangedEvent;
+import harmony.commons.events.model.TaskManagerChangedEvent;
 import harmony.commons.util.FxViewUtil;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -91,7 +91,7 @@ public class StatusBarFooter extends UiPart {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+    public void handleAddressBookChangedEvent(TaskManagerChangedEvent abce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
