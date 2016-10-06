@@ -76,18 +76,37 @@ Format: `list [TAB_NAME]`
 > 4. Deadlines
 > 5. Archive 
 
-#### Finding all tasks containing any keyword in their description: `find`
+### Finding all tasks containing any keyword in their description: `find`
 Finds tasks whose description contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> The search is not case sensitive, the order of the keywords does not matter, only the description is searched, 
-and tasks matching at least one keyword will be returned (i.e. `OR` search).
+> The search is not case sensitive.
+>
+> The order of the keywords does not matter.
+> 
+> Tasks matching at least one keyword will be returned.
 
 Examples: 
 * `find Dinner`<br>
   Returns `Dinner on 10/10/16 at 1900hrs (Date)`
 * `find "cs2010 ps10"`<br>
   Returns any task having description `cs2010 ps10`.
+  
+### Finding all tasks containing any tag keyword in their description: `findtag`
+Finds tasks whose tag contain any of the given keywords.<br>
+Format: `findtag KEYWORD [MORE_KEYWORDS]`
+
+> The search is not case sensitive
+>
+> The order of the tag keywords does not matter
+>
+> Tasks matching at least one tag keyword will be returned
+
+Examples: 
+* `find date`<br>
+  Returns `Dinner on 10 Oct at 1900hrs (Date,meals)`
+* `find "exam,assignment"`<br>
+  Returns `CS2010 PS10 on 11 Oct by 1000hrs (Assignment)`.
 
 ### Editing a task : `edit`
 Edits the task identified by the index number used in the last task listing.  
@@ -215,6 +234,7 @@ Complete | `complete "TASK" [by/time] [on/DATE] [t/TAG...]`
 Do | `do "TASK" [t/TAG...]`
 List | `list [TAB_NAME]`
 Find | `find KEYWORD [MORE_KEYWORDS]`
+Find Tag | `findtag KEYWORD [MORE_KEYWORDS]`
 Edit | `edit INDEX DETAILS`
 Delete | `delete INDEX`
 Undo | `undo`

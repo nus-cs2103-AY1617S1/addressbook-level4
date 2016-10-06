@@ -5,13 +5,9 @@
 
 <img src="docs/images/Ui.png" width="600"><br>
 
-* This is a desktop To Do list application. It has a GUI but most of the user interactions happen using 
+* This is a to do list desktop application called Schema. It has a GUI but most of the user interactions is through
   a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as 
-  the main programming language. 
-* It is **written in OOP fashion**. It provides a **reasonably well-written** code example that is 
-  **significantly bigger** (around 6 KLoC)than what students usually write in beginner-level SE modules. 
-
+* Schema is a powerful task manager that allow users to manage tasks anywhere and get things done.
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
@@ -25,6 +21,7 @@
 
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
+* This application is inspired from the [sample projects](https://github.com/se-edu/) created by SE_EDU initiatives
 
 
 #### Licence : [MIT](LICENSE)
