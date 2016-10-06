@@ -14,14 +14,14 @@ import java.util.regex.Pattern;
 /**
  * Parses user input.
  */
-public class TaskParser {
+public class ActivityParser {
 
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern ACTIVITY_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -33,7 +33,7 @@ public class TaskParser {
                     + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public TaskParser() {}
+    public ActivityParser() {}
 
     /**
      * Parses user input into command for execution.
@@ -106,7 +106,7 @@ public class TaskParser {
     }
 
     /**
-     * Extracts the new task's tags from the add command's tag arguments string.
+     * Extracts the new activity's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -120,7 +120,7 @@ public class TaskParser {
     }
 
     /**
-     * Parses arguments in the context of the delete task command.
+     * Parses arguments in the context of the delete activity command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -137,7 +137,7 @@ public class TaskParser {
     }
 
     /**
-     * Parses arguments in the context of the select task command.
+     * Parses arguments in the context of the select activity command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -157,7 +157,7 @@ public class TaskParser {
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = ACTIVITY_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -171,7 +171,7 @@ public class TaskParser {
     }
 
     /**
-     * Parses arguments in the context of the find task command.
+     * Parses arguments in the context of the find activity command.
      *
      * @param args full command args string
      * @return the prepared command

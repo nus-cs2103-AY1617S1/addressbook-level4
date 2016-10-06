@@ -5,7 +5,7 @@ import seedu.menion.commons.core.ComponentManager;
 import seedu.menion.commons.core.LogsCenter;
 import seedu.menion.logic.commands.Command;
 import seedu.menion.logic.commands.CommandResult;
-import seedu.menion.logic.parser.TaskParser;
+import seedu.menion.logic.parser.ActivityParser;
 import seedu.menion.model.Model;
 import seedu.menion.model.task.ReadOnlyTask;
 import seedu.menion.storage.Storage;
@@ -19,11 +19,11 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final TaskParser parser;
+    private final ActivityParser parser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.parser = new TaskParser();
+        this.parser = new ActivityParser();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
+    public ObservableList<ReadOnlyTask> getFilteredActivityList() {
         return model.getFilteredTaskList();
     }
 }

@@ -15,7 +15,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the menion. "
             + "Parameters: NAME d/DEADLINE r/REMINDER p/PRIORITY  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " Homework 1 d/12-12-12 r/11-11-12 p/low t/friends t/owesMoney";

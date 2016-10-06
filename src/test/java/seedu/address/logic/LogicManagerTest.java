@@ -248,7 +248,7 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        String expectedMessage = MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> personList = helper.generatePersonList(2);
 
@@ -281,7 +281,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_ACTIVITY_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
@@ -310,7 +310,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, threePersons.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -336,7 +336,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForActivityListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -355,7 +355,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForActivityListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -374,7 +374,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForActivityListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
