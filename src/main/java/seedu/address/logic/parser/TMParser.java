@@ -23,9 +23,10 @@ import seedu.address.logic.commands.SelectCommand;
 public class TMParser {
 	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+	// Allow multiple orderings
 	private static final Pattern ADD_ARGS_FORMAT = 
 			Pattern.compile("(?<taskType>event|deadline|someday)(?<addCommandArgs>.*)"
-			+ "|(?<addCommandArgs>.*)(?<taskType>event|deadline|someday)");
+			+ "|(?<addCommandArgs2>.*)(?<taskType2>event|deadline|someday)");
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("(?<taskName>'.+')");
 	
 	
@@ -78,11 +79,19 @@ public class TMParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
         
-        final String taskType = matcher.group("taskType").trim();
-        final String addCommandArgs = matcher.group("addCommandArgs").trim();
+        String taskType;
+        String addCommandArgs;
+        try {
+        	taskType = matcher.group("taskType").trim();
+            addCommandArgs = matcher.group("addCommandArgs").trim();
+        } catch (NullPointerException e) {
+        	taskType = matcher.group("taskType2").trim();
+            addCommandArgs = matcher.group("addCommandArgs2").trim();
+        }
         
         System.out.println("task type: " + taskType);
         System.out.println("add args: " + addCommandArgs);
+        
         
 		switch (taskType) {
 		// TODO change hardcoded strings to references to strings in command classes
@@ -99,15 +108,16 @@ public class TMParser {
 	}
 
 
-	private static Command prepareAddSomeday(String userInput) {
-//		Pattern namePattern = Pattern.compile("'(.+)'");
-//		Matcher nameMatcher = namePattern.matcher(userInput);
-//		
-//		while (nameMatcher.find()) {
-//		    String s = nameMatcher.group(1);
-//		    System.out.println("s: " + s);
-//		}
-//		
+	private static Command prepareAddSomeday(String arguments) {
+		final Matcher matcher = SOMEDAY_ARGS_FORMAT.matcher(arguments.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        
+        final String taskName = matcher.group("taskName").trim();
+        System.out.println("task name: " + taskName);
+        
+        // TODO return new addsomedaycommand
 		return null;
 	}
 
@@ -140,7 +150,7 @@ public class TMParser {
 	
 	
 	public static void main(String[] args) {
-		String userInput = "add someday 'Read 50 Shades of Grey'";
+		String userInput = "add 'Read 50 Shades of Grey' someday";
 		parseUserInput(userInput);
 	}
 }
