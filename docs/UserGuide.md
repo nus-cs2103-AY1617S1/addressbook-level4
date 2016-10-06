@@ -161,7 +161,7 @@ Format: `sort CATEGORY`
 
 Example:<br>
 * `sort A`
-* `Sort D`
+* `sort D`
 
 #### Reserving a time slot : `reserve`
 Reserves a time slot and prevents you from scheduling conflicting tasks.<br>
@@ -206,7 +206,7 @@ Search  | `search KEYWORD`
 Reserve | `reserve DATE, TIME`
 Edit    | `edit INDEX FIELD NEW_INFORMATION`
 List    | `list DATE`
-Undo    | `Uno`
+Undo    | `undo`
 Sort    | `sort CATEGORY`
 Help    | `help`
 Exit    | `exit`
