@@ -1,6 +1,6 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a group of Computer Engineering students taking CS2103T Software Engineering at [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
 
