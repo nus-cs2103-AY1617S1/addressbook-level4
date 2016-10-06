@@ -14,15 +14,14 @@
 1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   > <img src="images/UIProject.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`add`**` Homework  d/MathTut t/Mathematics dd/08102016` : 
+     adds a task named `Homework` to the Task Management Tool.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -42,12 +41,12 @@ Format: `help`
  
 #### Adding a task: `add`
 Adds a task to the task management tool<br>
-Format: `add TASK d/DESCRIPTIOM t/TITLE dd/DUE_DATE [t/TAG]...` 
+Format: `add TASK d/DESCRIPTION t/TITLE dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL ...` 
 
 > Persons can have any number of tags (including 0)
 
 Examples: 
-* `add Homework d/ProgrammingEx1 t/Software Engineering dd/6 October`
+* `add Homework d/ProgrammingEx1 t/Software Engineering dd/06102016 i/7 , `
 
 
 #### Finding task : `find`
@@ -68,8 +67,13 @@ Format: `delete KEYWORD`
 Examples: 
 * `delete Homework`<br> 
 
-#### 
+#### Use Shorter Version
 
+#### Set Reminder
+
+#### View Task
+
+#### Add Category
 
 #### Adding task details: `editdetails`
 Edit details to the existing task 
