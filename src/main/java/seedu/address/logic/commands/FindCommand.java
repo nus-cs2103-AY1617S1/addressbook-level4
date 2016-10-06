@@ -19,7 +19,12 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredToDoList(keywords);
-        return new CommandResult(String.format(Messages.MESSAGE_FIND, model.getFilteredToDoList().size()));
+        if (keywords.size() > 0) {
+            model.updateFilteredToDoList(keywords);
+            return new CommandResult(String.format(Messages.MESSAGE_FIND, model.getFilteredToDoList().size()));
+        } else {
+            model.updateFilteredListToShowAll();
+            return new CommandResult(Messages.MESSAGE_CLEAR_FIND);
+        }
     }
 }

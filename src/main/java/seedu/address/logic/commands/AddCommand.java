@@ -5,8 +5,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.todo.Title;
 import seedu.address.model.todo.ToDo;
 
-import java.util.HashSet;
-
 /**
  * Adds a to-do to the to-do list
  */
@@ -23,8 +21,13 @@ public class AddCommand extends Command {
         toDo = new ToDo(title);
     }
 
+    /**
+     * Asserts that model is non-null
+     */
     @Override
     public CommandResult execute() {
+        assert model != null;
+
         model.addToDo(toDo);
         return new CommandResult(String.format(Messages.MESSAGE_TODO_ADDED, toDo));
     }
