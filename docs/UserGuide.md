@@ -17,8 +17,8 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 6. Refer to the [Features](#features) section below for details of each command.<br>5. Some example commands you can try:
-   * **`add Practice tennis, s/tomorrow 3pm, e/tomorrow 6pm, l/school court 4, #sports`**: adds a task `Practice tennis` for the next day from 3pm to 6pm with a tag `sports`
-   * **`edit s/tomorrow 4pm`**:  updates information stored
+   * **`add Practice tennis, s/tomorrow 3pm, e/tomorrow 6pm, l/school court 4, #sports`** : adds a task `Practice tennis` for the next day from 3pm to 6pm with a tag `sports`
+   * **`edit s/tomorrow 4pm`** :  updates information stored
    * **`list`** : lists all tasks in order of index
    * **`delete`** : deletes the 1st indexed task
    * **`exit`** : exits the app
@@ -57,7 +57,7 @@ Format: `edit INDEX/TASK_NAME[, TASK_NAME][, s/START_TIME][, e/END_TIME][, [p/PR
 
 Examples: 
 * `edit 2 s/3pm` 
-`edit meeting p/low`
+* `edit meeting p/low`
 
 #### Deleting a task : `delete`
 Deletes the specified task from the TaskManager.<br>
