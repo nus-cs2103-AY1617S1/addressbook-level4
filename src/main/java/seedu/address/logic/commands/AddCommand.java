@@ -14,7 +14,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List. "
-            + "Parameters: {name} rank {priority value}\n"
+            + "Parameters: NAME [rank PRIORITY_VALUE]\n"
             + "Example: " + COMMAND_WORD
             + " read Harry Potter and the Akshay rank 1";
 
@@ -38,7 +38,6 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        //TODO: Prevent code from breaking    
         try {
             model.addFloatingTask(toAdd);
         } catch (DuplicateFloatingTaskException e) {
