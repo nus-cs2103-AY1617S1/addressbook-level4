@@ -154,6 +154,15 @@ Example:
 #### View the tasks in a calendar: `show in calendar`
 Open a calendar GUI and show all the tasks in the calendar.<br>
 Format: `show in calendar`
+#### Completing a task: `complete`
+Tag the task last selected as 'Complete' and remove it from the calendar.<br>
+Format: `complete INDEX`
+
+Examples:
+* `list`<br>
+  `complete 2`<br>
+  Add a tag `COMPLETE` the 2nd task in the task manager.
+
 
 #### Undo action: `undo`
 Undoes the most recent change from the task manager.<br>
