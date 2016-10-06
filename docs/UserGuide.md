@@ -36,40 +36,40 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
  #### Adding a task: `add`
-Adds a person to the task manager<br>
+Adds a task to the task manager<br>
 Format: `add TASK_NAME, s/[start_time], e/[end_time], p/[low/medium/high], d/[deadline], l/[location], #[tag1], #[tag2], c/[completed_status]` 
-> Persons can have any number of tags (including 0)
+> Tasks can have any number of tags (including 0)
 Examples: 
 * `add John Doe project team meeting, s/tomorrow 15:00 e/18:00p/high `
 * `add Betsy Crowe cs2103 assignment s/tonight 21:00 e/24:00 p/medium d/next friday`
 
-#### Listing all persons : `list`
+#### Listing all tasks : `list`
 Shows a list of all tasks in the to-do list in order of index.<br>
 Format: `list`
 
-#### Listing all persons in order of priority : `listByPriority`
+#### Listing all tasks in order of priority : `listByPriority`
 Shows a list of uncompleted tasks in the to-do list in order of priority.<br>
 Format: `listByPriority`
 
-#### Listing all persons : `listByDeadline`
+#### Listing all tasks : `listByDeadline`
 Shows a list of uncompleted tasks in the to-do list in order of their deadlines, tasks without deadlines will be listed in order of index after it<br>
 Format: `listByDeadline`
 
 #### Editing a task: `Edit`
-Edit person information in the task manager<br>
+Edit task information in the task manager<br>
 Format: Edit | `edit TASK_NAME/INDEX s/ [start time]`, `edit TASK_NAME/INDEX e/ [end time]`,`edit TASK_NAME/INDEX p/[low/medium/high]` `edit TASK_NAME/INDEX t/[tag]`, ‘edit TASK_NAME/INDEX c/[completed_status]’, ‘edit TASK_NAME/INDEX l/[location]’
 
-> Edit the person at the specific `INDEX` or ‘TASK_NAME’
+> Edit the task at the specific `INDEX` or ‘TASK_NAME’
      The index refers to the index number shown in the most recent listing.<br>
      The index **must be a positive integer** 1, 2, 3, …
-     `TASK_NAME` should be the same as the task name stored in address book regardless the word case
+     `TASK_NAME` should be the same as the task name stored in task manager regardless the word case
 
 Examples: 
 * `edit 2 s/3pm` 
 `edit meeting p/low`
 
 #### Deleting a task : `delete`
-Deletes the specified person from the task manager.<br>
+Deletes the specified task from the task manager.<br>
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
@@ -90,7 +90,7 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 #### Undo the modification : `undo`
