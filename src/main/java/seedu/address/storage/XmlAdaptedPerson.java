@@ -43,9 +43,9 @@ public class XmlAdaptedPerson {
         start = source.getStart().value;
         end = source.getEnd().value;
         tagged = new ArrayList<>();
-      //  for (Tag tag : source.getTags()) {
-      //     tagged.add(new XmlAdaptedTag(tag));
-      //  }
+        for (Tag tag : source.getTags()) {
+           tagged.add(new XmlAdaptedTag(tag));
+        }
     }
 
     /**
@@ -62,7 +62,7 @@ public class XmlAdaptedPerson {
         final Date date = new Date(this.date);
         final Start start = new Start(this.start);
         final End end = new End(this.end);
-      //  final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, date, start, end);//, tags);
+        final UniqueTagList tags = new UniqueTagList(personTags);
+        return new Task(name, date, start, end, tags);
     }
 }

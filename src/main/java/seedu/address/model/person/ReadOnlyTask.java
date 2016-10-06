@@ -17,7 +17,7 @@ public interface ReadOnlyTask {
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
      */
-//    UniqueTagList getTags();
+    UniqueTagList getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -42,16 +42,16 @@ public interface ReadOnlyTask {
                 .append(" Start: ")
                 .append(getStart())
                 .append(" End: ")
-                .append(getEnd());
-              //  .append(" Tags: ");
-       // getTags().forEach(builder::append);
+                .append(getEnd())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 
     /**
      * Returns a string representation of this Person's tags
      */
-  /*  default String tagsString() {
+    default String tagsString() {
         final StringBuffer buffer = new StringBuffer();
         final String separator = ", ";
         getTags().forEach(tag -> buffer.append(tag).append(separator));
@@ -61,5 +61,5 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-*/
+
 }
