@@ -45,7 +45,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing TaskManager ]===========================");
+        logger.info("=============================[ Initializing GGist ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -73,7 +73,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyTaskManager> addressBookOptional;
         ReadOnlyTaskManager initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readTaskManager();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty TaskManager");
             }
@@ -159,13 +159,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting TaskManager " + MainApp.VERSION);
+        logger.info("Starting GGist " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping GGist ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
