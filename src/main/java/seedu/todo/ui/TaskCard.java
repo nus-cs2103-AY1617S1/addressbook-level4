@@ -61,7 +61,7 @@ public class TaskCard extends UiPart{
         titleLabel.setText(String.valueOf(displayedIndex) + ". " + task.getTitle());
         pinImage.setVisible(task.isPinned());
         typeLabel.setText((task.isEvent()) ? EVENT_TYPE : TASK_TYPE);
-        displayTags();
+        //TODO: displayTags();
         
         //Display task description when available
         if (task.getDescription().isPresent()) {
