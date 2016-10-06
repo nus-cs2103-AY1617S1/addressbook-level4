@@ -115,13 +115,9 @@ Examples:
 
 #### Listing all tags used: `list tags`
 Lists all the tags used in the task manager.<br>
-Format: `list tags [-t] [-c]`
+Format: `list tags`
 
 > Lists all tags used in both task manager by default
-
-Modifiers | Action
----|:---
--t | List tags used in task manager
 
 #### Adding tags to a task: `add tag`
 Add tags to last selected task.<br>
