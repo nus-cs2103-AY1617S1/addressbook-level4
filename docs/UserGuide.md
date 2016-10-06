@@ -176,6 +176,7 @@ Add | `add task -n TaskName [parameters]`
 Clear | `clear`
 Delete | `delete ID`
 Help | `help`
+Mark | `mark`
 Quitting | `exit`
 Search | `search KEYWORD [MORE_KEYWORDS]`
 See | `see DATE`
