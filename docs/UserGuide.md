@@ -81,7 +81,7 @@ Examples:
 * **`add`**` Prepare meeting agenda `**`by`**` 11:00 7 oct 2016`
 * **`add`**` Jimmy's wedding banquet `**`at`**` Trinity Church `**`from`**` 19:00 `**`to`**` 22:00 11 nov 2016 `
 
-### Listing all events : `list`
+### Listing all tasks : `list`
 Shows a list of all tasks in the to-do list.<br>
 Format: **`list`**` [filter]`<br>
 > [filters] available: <br>
