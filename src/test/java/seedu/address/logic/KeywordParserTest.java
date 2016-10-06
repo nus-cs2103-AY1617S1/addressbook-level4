@@ -16,7 +16,7 @@ public class KeywordParserTest {
         String input = "add Assignment by friday tag important";
         KeywordParser parser = new KeywordParser("add", "by", "tag");
         ArrayList<String[]> list = parser.parse(input);
-        assertTrue(list.get(0)[0].equals("Assignment"));
+        assertTrue(list.get(0)[1].equals("Assignment"));
 
     }
 

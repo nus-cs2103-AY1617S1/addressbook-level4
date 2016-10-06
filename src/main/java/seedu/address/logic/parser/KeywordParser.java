@@ -32,10 +32,11 @@ public class KeywordParser {
             inputString = new String(inputString);
             String keyword = keywords.get(i);
             System.out.println("Keyword: " + keyword);
-            String patternString = new String (keyword + " (?<returnString>[^/]+)");
-            /*if (i < keywords.size() - 1){
-                patternString = patternString + " " + keywords.get(i + 1);
-            }*/
+            String patternString = new String ("[^/]*" + keyword + " (?<returnString>[^/]+)");
+            //String patternString = new String ("add (?<returnString>[^/]+) by[^/]+");
+            if (i < keywords.size() - 1){
+                patternString = patternString + " " + keywords.get(i + 1) + "[^/]+";
+            }
             Pattern pattern = Pattern.compile(patternString);
             Matcher matcher = pattern.matcher(inputString);
             if(matcher.matches()){
