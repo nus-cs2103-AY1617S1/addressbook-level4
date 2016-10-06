@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedTask> persons;
     @XmlElement
     private List<Tag> tags;
 
@@ -40,7 +40,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
      * Conversion
      */
     public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
-        persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -58,7 +58,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedTask p : persons) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
