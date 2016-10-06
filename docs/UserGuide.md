@@ -49,7 +49,7 @@ All the features in Inbx_0 are performed by typing in commands in the command li
 
 The rest of the guide will be using the general command format to describe what is needed to execute each command.
 
-#### Help Command
+#### <a id="help"></a>Help Command
 Format: `help`
 
 Looking for help? If you ever need a reminder on how to input certain commands or have some troubleshooting issues, you can easily access the ‘help’ command which will guide you to the right direction.
@@ -61,12 +61,24 @@ This will show a list of available commands with detailed instructions on how to
 
 > The Help command will be also activated if you enter an incorrect or invalid command repeatedly e.g. `abcd`
  
-#### Adding a task: `add`
-Format: `add t/TASK s/START_DATE, START_TIME, e/END_DATE, END_TIME i/IMPORTANCE` 
+#### <a id="add"></a>Adding a task: `add`
+Adds a floating task.<br>
+Format: `add t/TASK` 
 
-It is time to begin organizing and managing your schedule by adding tasks to the task manager. This can be easily achieved by typing the following in the command line:
+> Floating tasks are tasks without deadlines.
 
-> add NAME, s/START_DATE, START_TIME, e/END_DATE, END_TIME, i/IMPORTANCE, [t/TAGS]...
+Examples: 
+* `add Buy Groceries` <br>
+
+Adds a task with deadlines.<br>
+Format: `add t/TASK e/END_DATE, END_TIME i/IMPORTANCE, [t/TAGS]` 
+
+Examples: 
+* `add Do CS2103 Homework e/tomorrow, 10am, i/red`
+* `add Finish Project Paper e/1 March, 12am i/green` <br>
+
+Adds an event.<br>
+Format: `add t/TASK s/START_DATE, START_TIME e/END_DATE, END_TIME i/IMPORTANCE`
 
 Parameters:
 NAME: Name of the task <br>
@@ -79,11 +91,11 @@ t/TAGS: Tags that are assigned to the task
 
 > Tasks can have any number of tags (including 0)
 
-Examples: 
-* `add Do CS2103 Homework, s/tomorrow, 9am, e/tomorrow, 10am, i/red`
-* `add SO’s Birthday, s/29 Feb, 12am , e/1 March, 12am i/green, t/flowers chocolates`
+Examples:
+* `add Doctor's appointment, s/2 July 2016, 5pm, e/2 July 2016, 7:30pm i/green`
+* `add SO’s Birthday, s/29 Feb, 12am e/1 March, 12am i/green, t/flowers chocolates` <br>
 
-#### Listing all tasks: `list`
+#### <a id="list"></a>Listing tasks: `list`
 Format: `list`
 
 The List Command shows a list of all tasks in the task manager so that you will be able to keep track of different tasks on different days.
@@ -91,15 +103,16 @@ The List Command shows a list of all tasks in the task manager so that you will 
 You will be able to view all of today’s tasks and  tasks that are due before a specific date. There will be index numbers allocated at the side of each task which will be needed for other operations such as deleting a task or selecting a task.
 
 
-#### Listing today’s task : `list today`
+Listing today’s task. <br>
 Format: `list today`
 
 In order to shows a list of the tasks due today in the task manager, you have to type the following in the command line <br>
 
 > list today
 
-This will bring up all your tasks in a list which is sorted accordingly to the time that the task will be starting. 
-#### Listing tasks due before a specific date: `list d/[DATE]`
+This will bring up all your tasks in a list which is sorted accordingly to the time that the task will be starting. <br>
+
+Listing tasks due before a specific date. <br>
 Format: `list d/[DATE]`
 
 By keying in the following, it will display a list of the tasks due before the input date in the task manager.
@@ -115,7 +128,7 @@ Examples:
 * `list d/tomorrow` shows every task from now to the end of tomorrow
 * `list d/01/01/2017` shows every task from now till the end of 1st January 2017
 
-#### Listing tasks with a certain importance: `list i/[IMPORTANCE]
+Listing tasks with a certain importance. <br>
 Format: `list i/[IMPORTANT]`
 
 By keying in the following, it will display a list of the tasks associated with the input importance.
@@ -127,7 +140,7 @@ By keying in the following, it will display a list of the tasks associated with 
 >     red, yellow, green
 
 
-#### Finding all tasks containing any keyword in their name: `find`
+#### <a id="find"></a>Finding all tasks containing any keyword in their name: `find`
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 The Find command will search all tasks which contain any of the given keywords.
@@ -147,7 +160,7 @@ Examples:
 * `find Fish Friday`<br>
   Returns Any task having containing `Fish`, or `Friday` (eg. ‘Visit Fish Market’ and ‘Listen to Rebecca Black’s Friday’)
 
-#### Editing a task: `edit`
+#### <a id="edit"></a>Editing a task: `edit`
 Format: `edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [st/END_TIME], [i/IMPORTANCE]`
 
 Made a spelling mistake or your event was postponed? You can use the Edit Command to swiftly rectify any tasks on the task list.
@@ -176,12 +189,12 @@ Examples
   `edit 1 n/Business Lunch`<br>
   Changes the name of 1st task in the results of the `find` command to ‘Business Lunch’ 
 
-#### Deleting a task: `delete`
-Format: `delete INDEX`
+#### <a id="del"></a>Deleting a task: `del`
+Format: `del INDEX`
 
 If you have incorrectly keyed in the task and wish to remove it, you can delete the specified task from the task list by typing the following: <br>
 
-> delete INDEX
+> del INDEX
 
 This will remove the task from task list. Do note that such a deletion is irreversible and you should double check whether you are deleting the correct task.
 
@@ -191,19 +204,19 @@ This will remove the task from task list. Do note that such a deletion is irreve
 
 Examples: 
 * `list today`<br>
-  `delete 2`<br>
+  `del 2`<br>
   Deletes the 2nd task in today’s list.
 
 * `find meeting`<br> 
-  `delete 1`<br>
+  `del 1`<br>
   Deletes the 1st task in the results of the `find` command for ‘meeting’.
 
-#### Select a task : `select`
-Format: `select INDEX`
+#### <a id="sel"></a>Select a task : `sel`
+Format: `sel INDEX`
 
 In order to view more details on a task that you have created, you can select the task identified by the index number in the last listing. The Select Command can be performed by typing:
 
-> select INDEX
+> sel INDEX
 
 This will automatically display the selected task and you will be able to see whether you have placed any reminders on the task. You will also be able to view tags that are associated with the task.
 
@@ -213,47 +226,49 @@ This will automatically display the selected task and you will be able to see wh
 
 Examples: 
 * `list`<br>
-  `select 2`<br>
+  `sel 2`<br>
   Selects the 2nd task in the task list.
   
-* `find project` 
-  `select 1`<br>
+* `find project`<br>
+  `sel 1`<br>
   Selects the 1st task in the results of the `find` command.
 
-#### Clearing all tasks : `clear`
-Format: `clear`
+#### <a id="clr"></a>Clearing all tasks : `clr`
+Format: `clr`
 
 Tasks can easily become obsolete and checking off tasks individually can be quite a hassle. The Clear command will help you to remove all selected tasks and can be accessed by typing the following:
 
-> clear [DATE]
+> clr [DATE]
 
 Adding the date in the command line  is optional and by default it will clear the tasks that were scheduled today. By including the date, this will enable you to clear tasks from other days as well.
 
 > Please ensure that the tasks are the ones that you want to clear before initiating the Clear Command.
 
-#### Mark a task as `finished`
-Format: `finish + INDEX`
+#### <a id="com"></a>Mark a task as `complete`
+Format: `complete + INDEX`
 
-If you have finished a certain task and wish to mark it as finished you can give a `done` label to the specified task in the task list by typing the following: <br>
+If you have finished a certain task and wish to mark it as finished you can give a `complete` label to the specified task in the task list by typing the following: <br>
 
-> finish INDEX
+> complete INDEX
 
-This will label a task as `done`, when you display the task, you will be reminded that you have finished the specified task.
+This will label a task as `complete`, when you display the task, you will be reminded that you have finished the specified task.
+
+> The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
 
 Example: 
-*`find today` <br>
- `finish 2` <br>
- Give a `done` label to the 2nd task in today’s list
+* `find today` <br>
+  `complete 2` <br>
+ Gives a `complete` label to the 2nd task in today’s list
 
-#### Exiting the program : 
+#### <a id="exit"></a>Exiting the program : 
 Format: `exit`
 
 After using Inbx_0, you can easily exit the program by typing the following in the command line:
 
 > exit
 
-This will initiate a final save and after which, the program will close automatically.
-Format: `exit`  
+This will initiate a final save and after which, the program will close automatically.  
 
 #### Saving the data 
 Task Manager data are saved in the hard disk automatically after any command that changes the data.<br>
@@ -279,16 +294,18 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Help | `help`
-Add | `add NAME s/START_DATE, START_TIME, e/END_DATE, END_TIME, i/IMPORTANCE, [t/TAGS]...`
-List | `list d/[DATE]`
-List | `list i/[IMPORTANCE]`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-Edit | `edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [et/END_TIME], [i/IMPORTANCE]`
-Delete | `delete INDEX`
-Select | `select INDEX`
-Clear | `clear [DATE]`
-Finish | `finish INDEX`
-Exit | `exit`
+[Help](#help) | `help`
+[Add](#add) | `add NAME`
+&nbsp; | `add NAME e/END_DATE, END_TIME i/IMPORTANCE, [t/TAGS]...`
+&nbsp; | `add NAME s/START_DATE, START_TIME e/END_DATE, END_TIME i/IMPORTANCE, [t/TAGS]...`
+[List](#list) | `list d/[DATE]`
+&nbsp; | `list i/[IMPORTANCE]`
+[Find](#find) | `find KEYWORD [MORE_KEYWORDS]`
+[Edit](#edit) | `edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [et/END_TIME], [i/IMPORTANCE]`
+[Delete](#del) | `del INDEX`
+[Select](#sel) | `sel INDEX`
+[Clear](#clr) | `clr [DATE]`
+[Complete](#com) | `complete INDEX`
+[Exit](#exit) | `exit`
 
 
