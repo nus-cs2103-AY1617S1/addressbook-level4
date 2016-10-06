@@ -11,7 +11,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
 
 #### [Tan Wang Leng](https://github.com/yamgent)
 **Role:** Project Lead, Developer<br>
-**Responsibilities:** Integration, Tasks Coordination<br>
+**Responsibilities:** Integration, Work Breakdown<br>
 **Component-In-Charge:** Model
 
 #### [Cherlynn Cha](https://github.com/Cherc)
