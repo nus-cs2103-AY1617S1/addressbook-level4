@@ -3,7 +3,7 @@ package seedu.oneline.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.oneline.commons.core.EventsCenter;
-import seedu.oneline.commons.events.model.AddressBookChangedEvent;
+import seedu.oneline.commons.events.model.TaskBookChangedEvent;
 import seedu.oneline.commons.events.ui.JumpToListRequestEvent;
 import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
 import seedu.oneline.logic.Logic;
@@ -50,7 +50,7 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
+    private void handleLocalModelChangedEvent(TaskBookChangedEvent abce) {
         latestSavedAddressBook = new TaskBook(abce.data);
     }
 

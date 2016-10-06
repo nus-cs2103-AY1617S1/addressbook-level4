@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
-import seedu.oneline.commons.events.model.AddressBookChangedEvent;
+import seedu.oneline.commons.events.model.TaskBookChangedEvent;
 import seedu.oneline.commons.events.storage.DataSavingExceptionEvent;
 import seedu.oneline.commons.exceptions.DataConversionException;
 import seedu.oneline.model.ReadOnlyTaskBook;
@@ -28,12 +28,12 @@ public interface Storage extends TaskBookStorage, UserPrefsStorage {
     Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException;
 
     @Override
-    void saveTaskBook(ReadOnlyTaskBook addressBook) throws IOException;
+    void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
+     * Saves the current version of the Task Book to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleTaskBookChangedEvent(TaskBookChangedEvent abce);
 }

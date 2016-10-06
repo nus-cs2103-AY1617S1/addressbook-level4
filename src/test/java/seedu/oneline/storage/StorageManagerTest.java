@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.oneline.commons.events.model.AddressBookChangedEvent;
+import seedu.oneline.commons.events.model.TaskBookChangedEvent;
 import seedu.oneline.commons.events.storage.DataSavingExceptionEvent;
 import seedu.oneline.model.ReadOnlyTaskBook;
 import seedu.oneline.model.TaskBook;
@@ -14,7 +14,7 @@ import seedu.oneline.model.UserPrefs;
 import seedu.oneline.storage.JsonUserPrefsStorage;
 import seedu.oneline.storage.Storage;
 import seedu.oneline.storage.StorageManager;
-import seedu.oneline.storage.XmlAddressBookStorage;
+import seedu.oneline.storage.XmlTaskBookStorage;
 import seedu.oneline.testutil.EventsCollector;
 import seedu.oneline.testutil.TypicalTestPersons;
 
@@ -77,7 +77,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new TaskBook()));
+        storage.handleTaskBookChangedEvent(new TaskBookChangedEvent(new TaskBook()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
@@ -85,7 +85,7 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage{
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlTaskBookStorage{
 
         public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);

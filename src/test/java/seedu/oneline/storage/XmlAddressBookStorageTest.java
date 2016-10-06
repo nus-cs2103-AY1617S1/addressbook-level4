@@ -11,7 +11,7 @@ import seedu.oneline.commons.util.FileUtil;
 import seedu.oneline.model.ReadOnlyTaskBook;
 import seedu.oneline.model.TaskBook;
 import seedu.oneline.model.task.Task;
-import seedu.oneline.storage.XmlAddressBookStorage;
+import seedu.oneline.storage.XmlTaskBookStorage;
 import seedu.oneline.testutil.TypicalTestPersons;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyTaskBook> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(filePath).readTaskBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlTaskBookStorage(filePath).readTaskBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -65,7 +65,7 @@ public class XmlAddressBookStorageTest {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTestPersons td = new TypicalTestPersons();
         TaskBook original = td.getTypicalAddressBook();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        XmlTaskBookStorage xmlAddressBookStorage = new XmlTaskBookStorage(filePath);
 
         //Save in new file and read back
         xmlAddressBookStorage.saveTaskBook(original, filePath);
@@ -94,7 +94,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private void saveAddressBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
-        new XmlAddressBookStorage(filePath).saveTaskBook(addressBook, addToTestDataPathIfNotNull(filePath));
+        new XmlTaskBookStorage(filePath).saveTaskBook(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
