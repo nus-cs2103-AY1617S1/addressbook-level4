@@ -41,6 +41,18 @@
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  
+#### Troubleshooting project setup
+
+**Problem: Eclipse reports compile errors after new commits are pulled from Git**
+* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
+* Solution: Refresh the project in Eclipse:<br> 
+  Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
+  
+**Problem: Eclipse reports some required libraries missing**
+* Reason: Required libraries may not have been downloaded during the project import. 
+* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
+ 
 
 ## Design
 
@@ -186,9 +198,6 @@ Certain properties of the application can be controlled (e.g App name, logging l
 Tests can be found in the `./src/test/java` folder.
 
 **In Eclipse**:
-> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
-  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
-
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
@@ -218,7 +227,15 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-
+ 
+#### Troubleshooting tests
+ **Problem: Tests fail because NullPointException when AssertionError is expected**
+ * Reason: Assertions are not enabled for JUnit tests. 
+   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
+ * Solution: Enable assertions in JUnit tests as described 
+   [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
+   Delete run configurations created when you ran tests earlier.
+  
 ## Dev Ops
 
 ### Build Automation
@@ -255,30 +272,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-`* *` | user | undo my action | revert changes I made
-`* *` | user | edit a selected person | update the person's details
-`*` | user | clear my address book | start afresh
+-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a task |
 `* * *` | user | edit a selected task |
 `* * *` | user | delete a selected task |
+`* * *` | user | add tags to a specific task/person |
+`* * *` | user | remove tags from a specific task/person |
+`* * *` | user | list tasks that are due chronologically | see what tasks I have yet to complete
+`* * *` | user | list all tags used |
 `* *` | user | user with multiple tasks | search a task by name |
+`* *` | user | list tasks that are due by priority | see what tasks I have yet to complete
 `*` | user with multiple tasks | sort tasks by tags | differentiate the tasks I have
 `*` | user | clear all tasks |
-`* * *` | user | list tasks that are due chronologically | see what tasks I have yet to complete
-`* *` | user | list tasks that are due by priority | see what tasks I have yet to complete
 `*` | user | list tasks that are due by tags | see what tasks I have yet to complete
 `*` | user | set time alerts to tasks |
 `*` | user | archive tasks | look up on completed tasks for future reference
 `*` | user | have notifications on tasks | get alerted on due tasks
-`* * *` | user | add tags to a specific task/person |
-`* * *` | user | remove tags from a specific task/person |
-`* * *` | user | list all tags used |
 `*` | user | search a tag |
 `*` | user | see tasks on a calendar GUI |
 
@@ -329,7 +338,8 @@ Use case ends.
 
 ##### Private contact detail
 
-> A contact detail that is not meant to be shared with others
+> A contact detail that is not meant to be shared with othe
+rs
 
 ## Appendix E : Product Survey
 

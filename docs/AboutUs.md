@@ -1,6 +1,6 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a group of Computer Engineering students taking CS2103T Software Engineering at [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
 
@@ -41,6 +41,13 @@ Responsibilities: Dev Ops
 <img src="images/YouLiang.jpg" width="150"><br>
  Role: Developer <br>  
  Responsibilities: UI
+ 
+ -----
+
+#### [Victor Loh](https://github.com/lohvht)
+<img src="images/VictorLoh.jpg" width="150"><br>
+ Role: Project Mentor <br>  
+ Responsibilities: Mentoring
  
  -----
 
