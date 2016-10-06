@@ -61,11 +61,16 @@ Format: `show [PERIOD]`
 > * PERIOD format: all, overdue, floating, today, tomorrow, upcoming, or DATE.
 
 Examples:
-* `show floating`
+* `show floating`<br>
+
 > * Lists all the floating tasks
-* `show tomorrow` 
+
+* `show tomorrow`<br>
+
 > * Lists all tasks for tomorrow
-* `show overdue` 
+
+* `show overdue`<br>
+
 > * Lists all the overdue tasks
 
 #### Searching for tasks : `find`
@@ -79,8 +84,11 @@ Format: `find SEARCHSTRING`
 
 Examples: 
 * `find b*y`<br>
+
 > * Returns `buy` but not `buy eggs`
+
 * `find b*y*`<br>
+
 > * Returns `buy eggs` but not `must buy eggs`
 
 #### Deleting a task : `delete`
@@ -92,8 +100,11 @@ Format: `delete INDEX/TASKNAME`
 
 Examples:
 * `delete 1`
+
 > * Deletes task at index 1
+
 * `delete b*y*`
+
 > * Lists tasks matching `b*y*` for the user to choose from.
 
 #### Updating a task : `update`
@@ -107,8 +118,11 @@ Format: `update INDEX/TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE]`
 
 Examples:
 * `update 1 at 13/09/2016 5pm`<br>
+
 > * `Meeting from 13/09/2016 4pm to 13/09/2016 6pm` will be replaced with `Meeting at 13/09/2016 5pm`
+
 * `update b*y* from 13/09/2016 4pm to 13/09/2016 6pm`
+
 > * Lists tasks matching `b*y*` for the user to choose from
 
 #### Marking a task as complete : `complete`
@@ -150,7 +164,7 @@ There is no need to save manually.
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TaskLine folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SmartScheduler folder.
        
 ## Command Summary
 
