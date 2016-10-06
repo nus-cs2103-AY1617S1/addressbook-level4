@@ -151,7 +151,6 @@ public class Parser {
         if (!matcher.matches()) {
             return Optional.empty();
         }
-
         String index = matcher.group("targetIndex");
         if(!StringUtil.isUnsignedInteger(index)){
             return Optional.empty();
@@ -161,7 +160,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -172,7 +171,6 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
