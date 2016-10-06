@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.menion.commons.core.EventsCenter;
-import seedu.menion.commons.events.model.TaskManagerChangedEvent;
+import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.events.ui.JumpToListRequestEvent;
 import seedu.menion.commons.events.ui.ShowHelpRequestEvent;
 import seedu.menion.logic.Logic;
@@ -49,7 +49,7 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
+    private void handleLocalModelChangedEvent(ActivityManagerChangedEvent abce) {
         latestSavedAddressBook = new TaskManager(abce.data);
     }
 

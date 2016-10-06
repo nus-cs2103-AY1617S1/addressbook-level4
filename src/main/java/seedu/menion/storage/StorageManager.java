@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.menion.commons.core.ComponentManager;
 import seedu.menion.commons.core.LogsCenter;
-import seedu.menion.commons.events.model.TaskManagerChangedEvent;
+import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.events.storage.DataSavingExceptionEvent;
 import seedu.menion.commons.exceptions.DataConversionException;
 import seedu.menion.model.ReadOnlyTaskManager;
@@ -66,7 +66,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent event) {
+    public void handleTaskManagerChangedEvent(ActivityManagerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveTaskManager(event.data);

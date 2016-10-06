@@ -4,14 +4,14 @@ import seedu.menion.commons.events.BaseEvent;
 import seedu.menion.model.task.ReadOnlyTask;
 
 /**
- * Represents a selection change in the Task List Panel
+ * Represents a selection change in the Activity List Panel
  */
-public class TaskPanelSelectionChangedEvent extends BaseEvent {
+public class ActivityPanelSelectionChangedEvent extends BaseEvent {
 
 
     private final ReadOnlyTask newSelection;
 
-    public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection){
+    public ActivityPanelSelectionChangedEvent(ReadOnlyTask newSelection){
         this.newSelection = newSelection;
     }
 

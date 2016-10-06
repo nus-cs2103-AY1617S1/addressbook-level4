@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
 
 import seedu.menion.commons.core.LogsCenter;
-import seedu.menion.commons.events.model.TaskManagerChangedEvent;
+import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.util.FxViewUtil;
 
 import java.util.Date;
@@ -91,7 +91,7 @@ public class StatusBarFooter extends UiPart {
     }
 
     @Subscribe
-    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent abce) {
+    public void handleTaskManagerChangedEvent(ActivityManagerChangedEvent abce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);

@@ -11,11 +11,11 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "Task Manager App";
+    private String appTitle = "Menion";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskManagerFilePath = "data/taskmanager.xml";
-    private String taskManagerName = "MyTaskManager";
+    private String activityManagerFilePath = "data/menion.xml";
+    private String activityManagerName = "Menion";
 
 
     public Config() {
@@ -45,20 +45,20 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getTaskManagerFilePath() {
-        return taskManagerFilePath;
+    public String getActivityManagerFilePath() {
+        return activityManagerFilePath;
     }
 
-    public void setTaskManagerFilePath(String taskManagerFilePath) {
-        this.taskManagerFilePath = taskManagerFilePath;
+    public void setActivityManagerFilePath(String activityManagerFilePath) {
+        this.activityManagerFilePath = activityManagerFilePath;
     }
 
-    public String getTaskManagerName() {
-        return taskManagerName;
+    public String getActivityManagerName() {
+        return activityManagerName;
     }
 
-    public void setTaskManagerName(String taskManagerName) {
-        this.taskManagerName = taskManagerName;
+    public void setActivityManagerName(String activityManagerName) {
+        this.activityManagerName = activityManagerName;
     }
 
 
@@ -76,13 +76,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(taskManagerFilePath, o.taskManagerFilePath)
-                && Objects.equals(taskManagerName, o.taskManagerName);
+                && Objects.equals(activityManagerFilePath, o.activityManagerFilePath)
+                && Objects.equals(activityManagerName, o.activityManagerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskManagerFilePath, taskManagerName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, activityManagerFilePath, activityManagerName);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + taskManagerFilePath);
-        sb.append("\nTask Manager name : " + taskManagerName);
+        sb.append("\nLocal data file location : " + activityManagerFilePath);
+        sb.append("\nActivity Manager name : " + activityManagerName);
         return sb.toString();
     }
 

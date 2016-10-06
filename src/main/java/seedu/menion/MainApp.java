@@ -49,7 +49,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getActivityManagerFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -70,14 +70,14 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTaskManager> taskManagerOptional;
+        Optional<ReadOnlyTaskManager> menionOptional;
         ReadOnlyTaskManager initialData;
         try {
-            taskManagerOptional = storage.readTaskManager();
-            if(!taskManagerOptional.isPresent()){
+            menionOptional = storage.readTaskManager();
+            if(!menionOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty Task Manager");
             }
-            initialData = taskManagerOptional.orElse(new TaskManager());
+            initialData = menionOptional.orElse(new TaskManager());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Task Manager");
             initialData = new TaskManager();
@@ -159,7 +159,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Task Manager " + MainApp.VERSION);
+        logger.info("Starting Menion " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

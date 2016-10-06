@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.menion.commons.core.LogsCenter;
-import seedu.menion.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.menion.commons.events.ui.ActivityPanelSelectionChangedEvent;
 import seedu.menion.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
@@ -75,7 +75,7 @@ public class TaskListPanel extends UiPart {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
+                raise(new ActivityPanelSelectionChangedEvent(newValue));
             }
         });
     }

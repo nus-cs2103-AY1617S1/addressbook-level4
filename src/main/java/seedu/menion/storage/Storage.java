@@ -1,6 +1,6 @@
 package seedu.menion.storage;
 
-import seedu.menion.commons.events.model.TaskManagerChangedEvent;
+import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.events.storage.DataSavingExceptionEvent;
 import seedu.menion.commons.exceptions.DataConversionException;
 import seedu.menion.model.ReadOnlyTaskManager;
@@ -35,5 +35,5 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleTaskManagerChangedEvent(TaskManagerChangedEvent abce);
+    void handleTaskManagerChangedEvent(ActivityManagerChangedEvent abce);
 }
