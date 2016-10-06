@@ -87,10 +87,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 > Tasks matching at least one keyword will be returned.
 
 Examples: 
-* `find Dinner`<br>
-  Returns `Dinner on 10/10/16 at 1900hrs (Date)`
-* `find "cs2010 ps10"`<br>
-  Returns any task having description `cs2010 ps10`.
+* `find Dinner`  
+  Returns `Dinner on 10/10/16 at 1900hrs (Date)`.
+* `find "cs2010 ps10"`  
+  Returns `CS2010 PS10 on 11 Oct by 1000hrs (Assignment)`.
   
 ### Finding all tasks containing any tag keyword in their description: `findtag`
 Finds tasks whose tag contain any of the given keywords.<br>
@@ -103,9 +103,9 @@ Format: `findtag KEYWORD [MORE_KEYWORDS]`
 > Tasks matching at least one tag keyword will be returned
 
 Examples: 
-* `find date`<br>
-  Returns `Dinner on 10 Oct at 1900hrs (Date,meals)`
-* `find "exam,assignment"`<br>
+* `find date`  
+  Returns `Dinner on 10 Oct at 1900hrs (Date,meals)`.
+* `find "exam,assignment"`  
   Returns `CS2010 PS10 on 11 Oct by 1000hrs (Assignment)`.
 
 ### Editing a task : `edit`
@@ -176,7 +176,7 @@ Examples:
   Selects the 2nd task in Schema and mark the task as completed.
 * `find CS2010`   
   `mark 1 `  
-  Selects the 1st task in the results of the `find` command and edit the date from 1110 to 2010.
+  Selects the 1st task in the results of the `find` command and mark the task as completed.
 
 ### Clearing of entries : `clear`
 Clears all tasks in the current tab.<br>
