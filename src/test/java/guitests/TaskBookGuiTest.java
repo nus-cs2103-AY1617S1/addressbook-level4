@@ -14,7 +14,7 @@ import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.model.TaskBook;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.testutil.TestUtil;
-import seedu.oneline.testutil.TypicalTestPersons;
+import seedu.oneline.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -22,9 +22,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for Task book.
  */
-public abstract class AddressBookGuiTest {
+public abstract class TaskBookGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -32,7 +32,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -77,8 +77,8 @@ public abstract class AddressBookGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected TaskBook getInitialData() {
-        TaskBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+        TaskBook ab = TestUtil.generateEmptyTaskBook();
+        TypicalTestTasks.loadTaskBookWithSampleData(ab);
         return ab;
     }
 
@@ -96,14 +96,14 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Asserts the person shown in the card is same as the given person
+     * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndTask(card, person));
+    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
         int numberOfPeople = taskListPanel.getNumberOfTasks();

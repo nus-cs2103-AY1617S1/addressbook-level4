@@ -12,14 +12,14 @@ import seedu.oneline.model.ReadOnlyTaskBook;
 import seedu.oneline.model.TaskBook;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.storage.XmlTaskBookStorage;
-import seedu.oneline.testutil.TypicalTestPersons;
+import seedu.oneline.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class XmlAddressBookStorageTest {
+public class XmlTaskBookStorageTest {
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
 
     @Rule
@@ -63,8 +63,8 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
-        TaskBook original = td.getTypicalAddressBook();
+        TypicalTestTasks td = new TypicalTestTasks();
+        TaskBook original = td.getTypicalTaskBook();
         XmlTaskBookStorage xmlAddressBookStorage = new XmlTaskBookStorage(filePath);
 
         //Save in new file and read back
@@ -73,14 +73,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new TaskBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestPersons.hoon));
-        original.removeTask(new Task(TypicalTestPersons.alice));
+        original.addTask(new Task(TypicalTestTasks.hoon));
+        original.removeTask(new Task(TypicalTestTasks.alice));
         xmlAddressBookStorage.saveTaskBook(original, filePath);
         readBack = xmlAddressBookStorage.readTaskBook(filePath).get();
         assertEquals(original, new TaskBook(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestPersons.ida));
+        original.addTask(new Task(TypicalTestTasks.ida));
         xmlAddressBookStorage.saveTaskBook(original); //file path not specified
         readBack = xmlAddressBookStorage.readTaskBook().get(); //file path not specified
         assertEquals(original, new TaskBook(readBack));

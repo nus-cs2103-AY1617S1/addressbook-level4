@@ -3,11 +3,12 @@ package guitests;
 import org.junit.Test;
 
 import seedu.oneline.commons.core.Messages;
-import seedu.oneline.testutil.TestPerson;
+import seedu.oneline.logic.commands.Command;
+import seedu.oneline.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends TaskBookGuiTest {
 
     @Test
     public void find_nonEmptyList() {
@@ -31,10 +32,10 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestPerson... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " persons listed!");
+        assertResultMessage(Command.getMessageForTaskListShownSummary(expectedHits.length));
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }

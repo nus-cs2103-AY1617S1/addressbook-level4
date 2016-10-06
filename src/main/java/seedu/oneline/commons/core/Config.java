@@ -11,11 +11,11 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "Address App";
+    private String appTitle = "Task App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/addressbook.xml";
-    private String addressBookName = "MyAddressBook";
+    private String addressBookFilePath = "data/taskbook.xml";
+    private String addressBookName = "MyTaskBook";
 
 
     public Config() {
@@ -49,7 +49,7 @@ public class Config {
         return addressBookFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
+    public void setTaskBookFilePath(String addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
     }
 
@@ -57,7 +57,7 @@ public class Config {
         return addressBookName;
     }
 
-    public void setAddressBookName(String addressBookName) {
+    public void setTaskBookName(String addressBookName) {
         this.addressBookName = addressBookName;
     }
 
@@ -92,7 +92,7 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nAddressBook name : " + addressBookName);
+        sb.append("\nTaskBook name : " + addressBookName);
         return sb.toString();
     }
 
