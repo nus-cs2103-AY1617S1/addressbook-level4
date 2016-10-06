@@ -75,14 +75,14 @@ public class MainApp extends Application {
         try {
             menionOptional = storage.readActivityManager();
             if(!menionOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty Task Manager");
+                logger.info("Data file not found. Will be starting with an empty Activity Manager");
             }
             initialData = menionOptional.orElse(new ActivityManager());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Task Manager");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Activity Manager");
             initialData = new ActivityManager();
         } catch (FileNotFoundException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty Task Manager");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty Activity Manager");
             initialData = new ActivityManager();
         }
 
@@ -139,7 +139,7 @@ public class MainApp extends Application {
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty Task Manager");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty Activity Manager");
             initializedPrefs = new UserPrefs();
         }
 
