@@ -18,8 +18,6 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.FileUtil;
 import seedu.task.commons.util.XmlUtil;
 import seedu.task.model.TaskBook;
-import seedu.task.model.tag.Tag;
-import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
 import seedu.task.storage.XmlSerializableAddressBook;
 
@@ -61,20 +59,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Task[] samplePersonData = getSamplePersonData();
+    public static final Task[] sampleTaskData = getSampleTaskData();
 
-    private static Task[] getSamplePersonData() {
+    private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Deadline("9482424"), new Status("hans@google.com"), new Description("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Deadline("87249245"), new Status("ruth@google.com"), new Description("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Deadline("95352563"), new Status("heinz@yahoo.com"), new Description("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Deadline("87652533"), new Status("cornelia@google.com"), new Description("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Status("werner@gmail.com"), new Description("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Status("lydia@gmail.com"), new Description("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Deadline("9482442"), new Status("anna@google.com"), new Description("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Status("stefan@mail.com"), new Description("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Status("hans@google.com"), new Description("chicago ave"), new UniqueTagList())
+                    new Task(new Name("CS1010 CodeCrunch Practices"), new Description("20 Practices up to Lecture 7 syllabus")),
+                    new Task(new Name("CS1020 CodeCrunch Practices"), new Description("20 Practices up to Lecture 7 syllabus")),
+                    new Task(new Name("Computing Project 1"), new Description("Complete my part before meeting")),
+                    new Task(new Name("Science Project 1"), new Description("Complete my part before meeting")),
+                    new Task(new Name("Biz Project 1"), new Description("Complete my part before meeting")),
+                    new Task(new Name("Engineering Project 1"), new Description("Complete my part before meeting")),
+                    new Task(new Name("Music Project 1"), new Description("Complete my part before meeting")),
+                    new Task(new Name("Arts Project 1"), new Description("Complete my part before meeting")),
+                    new Task(new Name("Social Science Project 1"), new Description("Complete my part before meeting")),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -83,23 +81,23 @@ public class TestUtil {
         }
     }
 
-    public static final Tag[] sampleTagData = getSampleTagData();
+//    public static final Tag[] sampleTagData = getSampleTagData();
+//
+//    private static Tag[] getSampleTagData() {
+//        try {
+//            return new Tag[]{
+//                    new Tag("relatives"),
+//                    new Tag("friends")
+//            };
+//        } catch (IllegalValueException e) {
+//            assert false;
+//            return null;
+//            //not possible
+//        }
+//    }
 
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
-        }
-    }
-
-    public static List<Task> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
+    public static List<Task> generateSampleTaskData() {
+        return Arrays.asList(sampleTaskData);
     }
 
     /**
@@ -118,7 +116,7 @@ public class TestUtil {
     }
 
     public static void createDataFileWithSampleData(String filePath) {
-        createDataFileWithData(generateSampleStorageAddressBook(), filePath);
+        createDataFileWithData(generateSampleStorageTaskBook(), filePath);
     }
 
     public static <T> void createDataFileWithData(T data, String filePath) {
@@ -135,12 +133,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static TaskBook generateEmptyAddressBook() {
-        return new TaskBook(new UniqueTaskList(), new UniqueTagList());
+    public static TaskBook generateEmptyTaskBook() {
+        return new TaskBook(new UniqueTaskList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableAddressBook generateSampleStorageTaskBook() {
+        return new XmlSerializableAddressBook(generateEmptyTaskBook());
     }
 
     /**
@@ -274,49 +272,49 @@ public class TestUtil {
     }
 
     /**
-     * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
-     * @return The modified persons after removal of the subset from persons.
+     * Removes a subset from the list of tasks.
+     * @param tasks The list of tasks
+     * @param tasksToRemove The subset of tasks.
+     * @return The modified tasks after removal of the subset from tasks.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+    public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.removeAll(asList(tasksToRemove));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
 
     /**
-     * Returns a copy of the list with the person at specified index removed.
+     * Returns a copy of the list with the tasks at specified index removed.
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
+        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
-     * Replaces persons[i] with a person.
-     * @param persons The array of persons.
-     * @param person The replacement person
-     * @param index The index of the person to be replaced.
+     * Replaces tasks[i] with a task.
+     * @param tasks The array of tasks.
+     * @param task The replacement task
+     * @param index The index of the task to be replaced.
      * @return
      */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
-        persons[index] = person;
-        return persons;
+    public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
+        tasks[index] = task;
+        return tasks;
     }
 
     /**
-     * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
-     * @return The modified array of persons.
+     * Appends tasks to the array of tasks.
+     * @param tasks A array of tasks.
+     * @param tasksToAdd The tasks that are to be appended behind the original array.
+     * @return The modified array of tasks.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+    public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.addAll(asList(tasksToAdd));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -327,29 +325,29 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask person) {
-        return card.isSamePerson(person);
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
+        return card.isSameTask(task);
     }
 
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
-    }
+//    public static Tag[] getTagList(String tags) {
+//
+//        if (tags.equals("")) {
+//            return new Tag[]{};
+//        }
+//
+//        final String[] split = tags.split(", ");
+//
+//        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
+//            try {
+//                return new Tag(e.replaceFirst("Tag: ", ""));
+//            } catch (IllegalValueException e1) {
+//                //not possible
+//                assert false;
+//                return null;
+//            }
+//        }).collect(Collectors.toList());
+//
+//        return collect.toArray(new Tag[split.length]);
+//    }
 
 }

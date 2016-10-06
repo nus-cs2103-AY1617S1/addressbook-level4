@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import seedu.task.model.task.ReadOnlyTask;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
@@ -43,7 +43,7 @@ public class TaskCardHandle extends GuiHandle {
 
     
 
-    public boolean isSamePerson(ReadOnlyTask task){
+    public boolean isSameTask(ReadOnlyTask task){
         return getFullName().equals(task.getName().fullName) 
 //        		&& getDeadline().equals(task.getDeadline().value)
                 && getTaskStatus().equals(task.getTaskStatus()) //should status be checked?

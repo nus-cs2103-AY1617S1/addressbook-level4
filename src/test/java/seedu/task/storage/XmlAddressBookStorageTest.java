@@ -12,7 +12,7 @@ import seedu.task.model.TaskBook;
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.task.Task;
 import seedu.task.storage.XmlAddressBookStorage;
-import seedu.task.testutil.TypicalTestPersons;
+import seedu.task.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 
@@ -63,8 +63,8 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
-        TaskBook original = td.getTypicalAddressBook();
+        TypicalTestTasks td = new TypicalTestTasks();
+        TaskBook original = td.getTypicalTaskBook();
         XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
 
         //Save in new file and read back
@@ -73,8 +73,8 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new TaskBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestPersons.hoon));
-        original.removeTask(new Task(TypicalTestPersons.alice));
+        original.addTask(new Task(TypicalTestTasks.arts));
+        original.removeTask(new Task(TypicalTestTasks.arts));
         xmlAddressBookStorage.saveAddressBook(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new TaskBook(readBack));

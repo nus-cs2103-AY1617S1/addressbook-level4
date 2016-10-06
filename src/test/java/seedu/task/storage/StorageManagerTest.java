@@ -10,7 +10,7 @@ import seedu.task.model.TaskBook;
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.UserPrefs;
 import seedu.task.storage.StorageManager;
-import seedu.task.testutil.TypicalTestPersons;
+import seedu.task.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertEquals;
 
@@ -50,7 +50,7 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        TaskBook original = new TypicalTestPersons().getTypicalAddressBook();
+        TaskBook original = new TypicalTestTasks().getTypicalTaskBook();
         storageManager.saveAddressBook(original);
         ReadOnlyTaskBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new TaskBook(retrieved));
