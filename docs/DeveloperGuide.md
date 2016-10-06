@@ -312,5 +312,21 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
+### Google Calendar
+#### Strengths
+1. Simple 'what you see is what you get' interface
+2. Multi-platform; can be run on various devices
+3. Data is synchronized via google account
+4. Color coding for organizing scheduled tasks and events
+5. Global Search; data searched through other google products as well; Gmail, Drive, etc.
+6. Automatic generation of start and end times enforcing structure in all entries
+7. Recurring events
+
+#### Weaknesses
+1. No tagging mechanism for more complex organization
+2. No analysis, summary nor statistics of data the user has entered
+3. No anonymous use; must have a google account
+4. Calendar cannot display a filtered set, thus clutter when high volume of data
+
 {TODO: Add a summary of competing products}
 
