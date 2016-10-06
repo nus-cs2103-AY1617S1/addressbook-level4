@@ -288,7 +288,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteByIndexCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
@@ -307,7 +307,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeItems);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeItems.get(1)),
+                String.format(DeleteByIndexCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeItems.get(1)),
                 expectedAB,
                 expectedAB.getPersonList());
     }
