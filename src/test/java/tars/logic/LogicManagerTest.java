@@ -174,12 +174,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
+        String expectedErrorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
                 "add []\\[;] -dt 05/09/2016 1400 to 06/09/2016 2200 -p m", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Task Name -dt notAValidDate -p m", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+                "add Valid Task Name -dt @@@notAValidDate@@@ -p m", expectedErrorMessage);
         assertCommandBehavior(
-                "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p notAValidPriority", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+                "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p notAValidPriority", expectedErrorMessage);
         assertCommandBehavior(
                 "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p m -t invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
