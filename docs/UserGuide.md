@@ -172,7 +172,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Add | `add task -n TaskName [parameters]`
+Add | `add TaskName; [parameters;]`
 Clear | `clear`
 Delete | `delete ID`
 Help | `help`
@@ -181,4 +181,4 @@ Quitting | `exit`
 Search | `search KEYWORD [MORE_KEYWORDS]`
 See | `see DATE`
 Undo | `undo`
-Update | `update task -n TaskName [parameters]`
+Update | `update TaskName; [parameters;]`
