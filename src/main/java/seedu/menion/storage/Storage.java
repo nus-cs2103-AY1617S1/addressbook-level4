@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * API of the Storage component
  */
-public interface Storage extends TaskManagerStorage, UserPrefsStorage {
+public interface Storage extends ActivityManagerStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -22,18 +22,18 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    String getTaskManagerFilePath();
+    String getActivityManagerFilePath();
 
     @Override
-    Optional<ReadOnlyActivityManager> readTaskManager() throws DataConversionException, FileNotFoundException;
+    Optional<ReadOnlyActivityManager> readActivityManager() throws DataConversionException, FileNotFoundException;
 
     @Override
-    void saveTaskManager(ReadOnlyActivityManager addressBook) throws IOException;
+    void saveActivityManager(ReadOnlyActivityManager activityManager) throws IOException;
 
     /**
-     * Saves the current version of the Task Manager to the hard disk.
+     * Saves the current version of the Activity Manager to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleTaskManagerChangedEvent(ActivityManagerChangedEvent abce);
+    void handleActivityManagerChangedEvent(ActivityManagerChangedEvent abce);
 }

@@ -73,7 +73,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyActivityManager> menionOptional;
         ReadOnlyActivityManager initialData;
         try {
-            menionOptional = storage.readTaskManager();
+            menionOptional = storage.readActivityManager();
             if(!menionOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty Task Manager");
             }

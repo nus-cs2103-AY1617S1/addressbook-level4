@@ -8,7 +8,7 @@ import seedu.menion.commons.core.Config;
 import seedu.menion.commons.core.GuiSettings;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.UserPrefs;
-import seedu.menion.storage.XmlSerializableTaskManager;
+import seedu.menion.storage.XmlSerializableActivityManager;
 
 import java.util.function.Supplier;
 
@@ -36,7 +36,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableTaskManager(this.initialDataSupplier.get()),
+                    new XmlSerializableActivityManager(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }

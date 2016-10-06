@@ -16,18 +16,18 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of ActivityManager data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private XmlTaskManagerStorage addressBookStorage;
+    private XmlActivityManagerStorage activityManagerStorage;
     private JsonUserPrefStorage userPrefStorage;
 
 
-    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
+    public StorageManager(String activityManagerFilePath, String userPrefsFilePath) {
         super();
-        this.addressBookStorage = new XmlTaskManagerStorage(addressBookFilePath);
+        this.activityManagerStorage = new XmlActivityManagerStorage(activityManagerFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
@@ -44,32 +44,32 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ ActivityManager methods ==============================
 
     @Override
-    public String getTaskManagerFilePath() {
-        return addressBookStorage.getTaskManagerFilePath();
+    public String getActivityManagerFilePath() {
+        return activityManagerStorage.getActivityManagerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyActivityManager> readTaskManager() throws DataConversionException, FileNotFoundException {
-        logger.fine("Attempting to read data from file: " + addressBookStorage.getTaskManagerFilePath());
+    public Optional<ReadOnlyActivityManager> readActivityManager() throws DataConversionException, FileNotFoundException {
+        logger.fine("Attempting to read data from file: " + activityManagerStorage.getActivityManagerFilePath());
 
-        return addressBookStorage.readTaskManager(addressBookStorage.getTaskManagerFilePath());
+        return activityManagerStorage.readActivityManager(activityManagerStorage.getActivityManagerFilePath());
     }
 
     @Override
-    public void saveTaskManager(ReadOnlyActivityManager addressBook) throws IOException {
-        addressBookStorage.saveTaskManager(addressBook, addressBookStorage.getTaskManagerFilePath());
+    public void saveActivityManager(ReadOnlyActivityManager addressBook) throws IOException {
+        activityManagerStorage.saveActivityManager(addressBook, activityManagerStorage.getActivityManagerFilePath());
     }
 
 
     @Override
     @Subscribe
-    public void handleTaskManagerChangedEvent(ActivityManagerChangedEvent event) {
+    public void handleActivityManagerChangedEvent(ActivityManagerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveTaskManager(event.data);
+            saveActivityManager(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

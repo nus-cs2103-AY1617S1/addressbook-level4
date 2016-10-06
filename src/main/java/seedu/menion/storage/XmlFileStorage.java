@@ -8,28 +8,28 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores task manager data in an XML file
+ * Stores activity manager data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given task manager data to the specified file.
+     * Saves the given activity manager data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableTaskManager taskManager)
+    public static void saveDataToFile(File file, XmlSerializableActivityManager activityManager)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, taskManager);
+            XmlUtil.saveDataToFile(file, activityManager);
         } catch (JAXBException e) {
             assert false : "Unexpected exception " + e.getMessage();
         }
     }
 
     /**
-     * Returns task manager in the file or an empty task manager
+     * Returns activity manager in the file or an empty activity manager
      */
-    public static XmlSerializableTaskManager loadDataFromSaveFile(File file) throws DataConversionException,
+    public static XmlSerializableActivityManager loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {
         try {
-            return XmlUtil.getDataFromFile(file, XmlSerializableTaskManager.class);
+            return XmlUtil.getDataFromFile(file, XmlSerializableActivityManager.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }

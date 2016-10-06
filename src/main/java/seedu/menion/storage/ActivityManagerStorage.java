@@ -9,26 +9,26 @@ import java.util.Optional;
 /**
  * Represents a storage for {@link seedu.menion.model.ActivityManager}.
  */
-public interface TaskManagerStorage {
+public interface ActivityManagerStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    String getTaskManagerFilePath();
+    String getActivityManagerFilePath();
 
     /**
-     * Returns TaskManager data as a {@link ReadOnlyActivityManager}.
+     * Returns ActivityManager data as a {@link ReadOnlyActivityManager}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyActivityManager> readTaskManager() throws DataConversionException, IOException;
+    Optional<ReadOnlyActivityManager> readActivityManager() throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyActivityManager} to the storage.
-     * @param taskManager cannot be null.
+     * @param activityManager cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTaskManager(ReadOnlyActivityManager taskManager) throws IOException;
+    void saveActivityManager(ReadOnlyActivityManager activityManager) throws IOException;
 
 }

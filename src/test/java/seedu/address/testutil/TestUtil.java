@@ -20,7 +20,7 @@ import seedu.menion.model.ActivityManager;
 import seedu.menion.model.tag.Tag;
 import seedu.menion.model.tag.UniqueTagList;
 import seedu.menion.model.task.*;
-import seedu.menion.storage.XmlSerializableTaskManager;
+import seedu.menion.storage.XmlSerializableActivityManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -138,8 +138,8 @@ public class TestUtil {
         return new ActivityManager(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableTaskManager generateSampleStorageAddressBook() {
-        return new XmlSerializableTaskManager(generateEmptyAddressBook());
+    public static XmlSerializableActivityManager generateSampleStorageAddressBook() {
+        return new XmlSerializableActivityManager(generateEmptyAddressBook());
     }
 
     /**

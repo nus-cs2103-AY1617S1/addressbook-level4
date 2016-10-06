@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable TaskManager that is serializable to XML format
+ * An Immutable ActivityManager that is serializable to XML format
  */
-@XmlRootElement(name = "taskmanager")
-public class XmlSerializableTaskManager implements ReadOnlyActivityManager {
+@XmlRootElement(name = "activitymanager")
+public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
@@ -33,12 +33,12 @@ public class XmlSerializableTaskManager implements ReadOnlyActivityManager {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableTaskManager() {}
+    public XmlSerializableActivityManager() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableTaskManager(ReadOnlyActivityManager src) {
+    public XmlSerializableActivityManager(ReadOnlyActivityManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
