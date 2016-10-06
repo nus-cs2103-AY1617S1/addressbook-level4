@@ -10,7 +10,7 @@ import seedu.address.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String DATE_FIELD_ID = "#date";
     private static final String START_DATE_TIME_FIELD_ID = "#startDateTime";
     private static final String END_DATE_TIME_FIELD_ID = "#endDateTime";
 
@@ -29,8 +29,8 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getDate() {
+        return getTextFromLabel(DATE_FIELD_ID);
     }
 
     public String getStartDateTime() {
@@ -43,7 +43,7 @@ public class TaskCardHandle extends GuiHandle {
 
     public boolean isSameTask(ReadOnlyTask task){
         return getFullName().equals(task.getName().fullName) && getStartDateTime().equals(task.getStartDateTime().value)
-                && getEndDateTime().equals(task.getEndDateTime().value) && getAddress().equals(task.getAddress().value);
+                && getEndDateTime().equals(task.getEndDateTime().value) && getDate().equals(task.getDate().value);
     }
 
     @Override
@@ -51,13 +51,13 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getDate().equals(handle.getDate()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName() + " " + getDate();
     }
 }

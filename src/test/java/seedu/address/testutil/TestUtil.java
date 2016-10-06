@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new StartDateTime("9482424"), new EndDateTime("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new StartDateTime("87249245"), new EndDateTime("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new StartDateTime("95352563"), new EndDateTime("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new StartDateTime("87652533"), new EndDateTime("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new StartDateTime("9482224"), new EndDateTime("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new StartDateTime("9482427"), new EndDateTime("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new StartDateTime("9482442"), new EndDateTime("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new StartDateTime("8482424"), new EndDateTime("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new StartDateTime("8482131"), new EndDateTime("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
+                    new Task(new Name("Ali Muster"), new StartDateTime("9482424"), new EndDateTime("hans@google.com"), new Date("4th street"), new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), new StartDateTime("87249245"), new EndDateTime("ruth@google.com"), new Date("81th street"), new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), new StartDateTime("95352563"), new EndDateTime("heinz@yahoo.com"), new Date("wall street"), new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), new StartDateTime("87652533"), new EndDateTime("cornelia@google.com"), new Date("10th street"), new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), new StartDateTime("9482224"), new EndDateTime("werner@gmail.com"), new Date("michegan ave"), new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), new StartDateTime("9482427"), new EndDateTime("lydia@gmail.com"), new Date("little tokyo"), new UniqueTagList()),
+                    new Task(new Name("George Best"), new StartDateTime("9482442"), new EndDateTime("anna@google.com"), new Date("4th street"), new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), new StartDateTime("8482424"), new EndDateTime("stefan@mail.com"), new Date("little india"), new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), new StartDateTime("8482131"), new EndDateTime("hans@google.com"), new Date("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

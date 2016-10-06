@@ -27,8 +27,8 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withAddress(String address) throws IllegalValueException {
-        this.task.setAddress(new Address(address));
+    public TaskBuilder withDate(String date) throws IllegalValueException {
+        this.task.setDate(new Date(date));
         return this;
     }
 

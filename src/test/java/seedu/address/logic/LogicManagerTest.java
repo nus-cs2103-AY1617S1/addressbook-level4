@@ -376,11 +376,11 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             StartDateTime privateStartDateTime = new StartDateTime("111111");
             EndDateTime endDateTime = new EndDateTime("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
+            Date privateDate = new Date("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privateStartDateTime, endDateTime, privateAddress, tags);
+            return new Task(name, privateStartDateTime, endDateTime, privateDate, tags);
         }
 
         /**
@@ -395,7 +395,7 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new StartDateTime("" + Math.abs(seed)),
                     new EndDateTime(seed + "@endDateTime"),
-                    new Address("House of " + seed),
+                    new Date("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -409,7 +409,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append(" p/").append(p.getStartDateTime());
             cmd.append(" e/").append(p.getEndDateTime());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" a/").append(p.getDate());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -494,7 +494,7 @@ public class LogicManagerTest {
                     new Name(name),
                     new StartDateTime("1"),
                     new EndDateTime("1@endDateTime"),
-                    new Address("House of 1"),
+                    new Date("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
