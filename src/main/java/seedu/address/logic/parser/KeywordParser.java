@@ -34,7 +34,7 @@ public class KeywordParser {
             String keyword = keywords.get(i);
             String patternString;
             if (keyword.equals("add")) {
-                //Special case fore add command, which takes ""
+                //Special case for add command, which takes ""
                 patternString = new String("[^/]*" + keyword + " " + "\"(?<returnString>[^/]+)\"");
             }
             else{

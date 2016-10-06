@@ -4,7 +4,7 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
  */
- 
+
 plugins {
     id "com.github.kt3k.coveralls" version "2.4.0"
     id "com.github.johnrengelman.shadow" version '1.2.3'
@@ -52,6 +52,8 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
+        compile "org.ocpsoft.prettytime:prettytime:4.0.1.Final"
+        compile "org.ocpsoft.prettytime:prettytime-nlp:3.2.5.Final"
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
@@ -61,7 +63,7 @@ allprojects {
         }
         testCompile "org.testfx:openjfx-monocle:$monocleVersion"
     }
-    
+
     sourceSets {
         main {
             java {
@@ -72,7 +74,7 @@ allprojects {
             }
         }
     }
-    
+
     shadowJar {
         archiveName = "addressbook.jar"
 
