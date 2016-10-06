@@ -10,7 +10,7 @@ public class Detail {
 
 	public static final String MESSAGE_DETAILS_CONSTRAINTS = "Task details has no constraint.";
 
-	public final String value;
+	public String value;
 
 	/**
 	 * Validates given email.
