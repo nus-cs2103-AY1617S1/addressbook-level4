@@ -73,7 +73,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyTaskBook> addressBookOptional;
         ReadOnlyTaskBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readTaskBook();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
             }

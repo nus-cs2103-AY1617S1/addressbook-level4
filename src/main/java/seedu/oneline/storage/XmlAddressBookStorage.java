@@ -14,7 +14,7 @@ import seedu.oneline.model.ReadOnlyTaskBook;
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlAddressBookStorage implements TaskBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
@@ -24,16 +24,16 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getTaskBookFilePath(){
         return filePath;
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readTaskBook()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTaskBook> readAddressBook(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File addressBookFile = new File(filePath);
@@ -49,10 +49,10 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyTaskBook)}
+     * Similar to {@link #saveTaskBook(ReadOnlyTaskBook)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
+    public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
         assert addressBook != null;
         assert filePath != null;
 
@@ -62,12 +62,12 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyTaskBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
+        return readTaskBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveTaskBook(ReadOnlyTaskBook addressBook) throws IOException {
+        saveTaskBook(addressBook, filePath);
     }
 }
