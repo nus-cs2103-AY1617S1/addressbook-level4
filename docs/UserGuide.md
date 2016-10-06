@@ -40,14 +40,13 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a task: `add`
-Adds a task to the task management tool<br>
-Format: `add TASK d/DESCRIPTION t/TITLE dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL ...` 
+Adds a task to the task management<br>
+Format: `add TASK d/DESCRIPTION sd/START_DATE dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL ...` 
 
 > Tasks can have any number of tags (including 0)
 
 Examples: 
-* `add Homework d/ProgrammingEx1 t/Software Engineering dd/06102016 i/7 , `
-
+* `add Homework d/ProgrammingEx1 dd/06102016 i/7`
 
 #### Finding task : `find`
 Shows a list of upcoming task in the task management tool.<br>
@@ -59,21 +58,28 @@ Examples:
 
 #### Deleting a task : `delete`
 Deletes the specified task from the task management tool. Irreversible.<br>
-Format: `delete KEYWORD`
+Format: `delete TASKID`
 
 > Deletes the task at the specified `KEYWORD`. 
   
 
 Examples: 
-* `delete Homework`<br> 
+* `delete 1`<br> 
 
-#### Use Shorter Version
 
-#### Set Reminder
+#### View Task: `View`
+View Task Description
+Format: `View TASKID`
 
-#### View Task
+Example:
+* `View 1`
 
-#### Add Category
+#### Add Category: `Assign`
+Assign Task to a category
+Format: `Assign TASKID c/CATEGORY`
+
+Example:
+* `Assign 1 c/Work`
 
 #### Adding task details: `editdetails`
 Edit details to the existing task 
@@ -115,9 +121,9 @@ Examples:
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add TASK d/DESCRIPTION dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL...`
 Clear | `clear`
-Delete | `delete INDEX`
+Delete | `delete TASKID`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
