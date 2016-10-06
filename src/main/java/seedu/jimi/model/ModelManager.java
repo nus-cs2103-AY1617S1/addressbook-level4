@@ -65,7 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removePerson(target);
         indicateAddressBookChanged();
     }
@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
@@ -90,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
