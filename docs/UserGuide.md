@@ -27,7 +27,7 @@ Unlike all the other task managers out there, Inbx\_0 is a simple program that r
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 6. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**:`EE2020 Midterms s/10-11-2016, 0900 e/10-11-2016, 1100 i/red` :  adds a task called `EE2020 Midterms` to the Task Manager
+   * **`add`**:`add EE2020 Midterms s/10-11-2016, 0900 e/10-11-2016, 1100 i/red` :  adds a task called `EE2020 Midterms` to the Task Manager
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 7. Refer to the [Features](#features) section below for details of each command.<br>
@@ -60,6 +60,8 @@ To access the help command, type the following into the command line:
 This will show a list of available commands with detailed instructions on how to execute each command and any issues that you might face.
 
 > The Help command will be also activated if you enter an incorrect or invalid command repeatedly e.g. `abcd`
+
+<br><br>
  
 #### <a id="add"></a>Adding a task: `add`
 Adds a floating task.<br>
@@ -93,7 +95,9 @@ t/TAGS: Tags that are assigned to the task
 
 Examples:
 * `add Doctor's appointment, s/2 July 2016, 5pm, e/2 July 2016, 7:30pm i/green`
-* `add SO’s Birthday, s/29 Feb, 12am e/1 March, 12am i/green, t/flowers chocolates` <br>
+* `add SO’s Birthday, s/29 Feb, 12am e/1 March, 12am i/green, t/flowers chocolates`
+
+<br><br>
 
 #### <a id="list"></a>Listing tasks: `list`
 Format: `list`
@@ -139,6 +143,7 @@ By keying in the following, it will display a list of the tasks associated with 
 >     1,2,3 -- where 1 means the most important tasks
 >     red, yellow, green
 
+<br><br>
 
 #### <a id="find"></a>Finding all tasks containing any keyword in their name: `find`
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -159,6 +164,8 @@ Examples:
   Returns `Lunch meeting` but not `Lunch Meeting`
 * `find Fish Friday`<br>
   Returns Any task having containing `Fish`, or `Friday` (eg. ‘Visit Fish Market’ and ‘Listen to Rebecca Black’s Friday’)
+
+<br><br>
 
 #### <a id="edit"></a>Editing a task: `edit`
 Format: `edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [st/END_TIME], [i/IMPORTANCE]`
@@ -186,8 +193,10 @@ Examples
   Changes the 2nd task in today’s list to start tomorrow
 
 * `find meeting`<br> 
-  `edit 1 n/Business Lunch`<br>
-  Changes the name of 1st task in the results of the `find` command to ‘Business Lunch’ 
+  `edit 1 n/Business Lunch st/1pm`<br>
+  Changes the name of 1st task in the results of the `find` command to ‘Business Lunch at 1 pm’ 
+
+<br><br>
 
 #### <a id="del"></a>Deleting a task: `del`
 Format: `del INDEX`
@@ -211,6 +220,8 @@ Examples:
   `del 1`<br>
   Deletes the 1st task in the results of the `find` command for ‘meeting’.
 
+<br><br>
+
 #### <a id="sel"></a>Select a task : `sel`
 Format: `sel INDEX`
 
@@ -233,6 +244,14 @@ Examples:
   `sel 1`<br>
   Selects the 1st task in the results of the `find` command.
 
+<br><br>
+
+#### <a id="undo"></a>Undo previous action: `undo`
+Undos the previous action done in the task manager. <br>
+Format: `undo`
+
+<br><br>
+
 #### <a id="clr"></a>Clearing all tasks : `clr`
 Format: `clr`
 
@@ -243,6 +262,8 @@ Tasks can easily become obsolete and checking off tasks individually can be quit
 Adding the date in the command line  is optional and by default it will clear the tasks that were scheduled today. By including the date, this will enable you to clear tasks from other days as well.
 
 > Please ensure that the tasks are the ones that you want to clear before initiating the Clear Command.
+
+<br><br>
 
 #### <a id="com"></a>Mark a task as `complete`
 Format: `complete + INDEX`
@@ -261,6 +282,8 @@ Example:
   `complete 2` <br>
  Gives a `complete` label to the 2nd task in today’s list
 
+<br><br>
+
 #### <a id="exit"></a>Exiting the program : 
 Format: `exit`
 
@@ -269,6 +292,8 @@ After using Inbx_0, you can easily exit the program by typing the following in t
 > exit
 
 This will initiate a final save and after which, the program will close automatically.  
+
+<br><br>
 
 #### Saving the data 
 Task Manager data are saved in the hard disk automatically after any command that changes the data.<br>
@@ -304,6 +329,7 @@ Command | Format
 [Edit](#edit) | `edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [et/END_TIME], [i/IMPORTANCE]`
 [Delete](#del) | `del INDEX`
 [Select](#sel) | `sel INDEX`
+[Undo](#undo) | `undo`
 [Clear](#clr) | `clr [DATE]`
 [Complete](#com) | `complete INDEX`
 [Exit](#exit) | `exit`
