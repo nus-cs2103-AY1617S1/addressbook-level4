@@ -2,8 +2,6 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 
 /**
  * A utility class to help with building Addressbook objects.

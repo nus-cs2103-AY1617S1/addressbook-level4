@@ -1,17 +1,5 @@
 package seedu.address.commons.util;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.TestUtil;
-
-import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import static org.junit.Assert.assertEquals;
-
 public class XmlUtilTest {
 
 //    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
