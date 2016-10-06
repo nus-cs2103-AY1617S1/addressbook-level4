@@ -127,6 +127,19 @@ Examples:
 Sets the data storage location <br>
 Format: `setstorage FILEPATH`
 
+#### Undo previous action(s): `undo`
+Undo the latest change made to the task list.
+Format: `undo`
+
+> Allows undo to up to 3 previous changes to the task list
+
+#### Redo previous action(s): `redo`
+Redo the latest change that was reverted using undo.
+Format: `redo`
+
+> Allows redo to up to 3 consecutive undo operations done
+> Does not work if the undo command was not used just before this command
+
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
@@ -152,4 +165,6 @@ delete | `delete INDEX/TASKNAME`
 update | `update INDEX/TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE]`
 complete | `complete INDEX/TASKNAME`
 setstorage | `setstorage FILEPATH`
+undo | `undo`
+redo | `redo`
 exit | `exit`
