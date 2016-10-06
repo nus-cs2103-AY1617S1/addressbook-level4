@@ -11,43 +11,54 @@ import seedu.todo.model.task.Task;
 
 /**
  * Represents the data layer of the application.
- *
  */
 public interface TodoModel {
     /**
-     * Adds a new task to the todo list. To set additional fields, use the 
-     * <code>update</code> lambda which takes in one parameter, a mutable Task
-     * and does not expect any return value.  
+     * Adds a new task or event with title only to the todo list.
      * 
+     * @param title  the title of the task 
      * @throws IllegalValueException if the values set in the update predicate is invalid
      */
     public void add(String title) throws IllegalValueException;
+    
+    /**
+     * Adds a new task or event with title and other fields to the todo list.
+     * 
+     * @param title   the title of the task 
+     * @param update  a mutable {@link Task} is passed into this lambda. All other fields 
+     *                should be set from inside this lambda. 
+     *  
+     * @throws IllegalValueException if the values set in the update predicate is invalid
+     */
     public void add(String title, Consumer<Task> update)  throws IllegalValueException;
     
     /**
-     * Deletes the given task 
+     * Deletes the given task from the todo list. This change is also propagated to the 
+     * underlying persistence layer.  
+     * 
+     * @param task  a reference to the task that needs to be deleted
      * 
      * @throws IllegalValueException if the task does not exist
      */
     public void delete(ImmutableTask task) throws IllegalValueException;
     
     /**
-     * Updates the provided task. Mutation of the Task object should only be done in the 
-     * <code>update</code> lambda. The lambda takes in one parameter, a mutable Task, 
-     * and does not expect any return value. For example: 
+     * Replaces certain fields in the task. Mutation of the {@link Task} object should 
+     * only be done in the <code>update</code> lambda. The lambda takes in one parameter, 
+     * a mutable {@link Task}, and does not expect any return value. For example: 
      * 
      * <pre><code>todo.update(task, t -> {
      *     t.setEndTime(t.getEndTime.get().plusHours(2)); // Push deadline back by 2h
-     *     t.setPin(true);
+     *     t.setPin(true); // Pin this task
      * });</code></pre>
      * 
-     * @throws IllegalValueException if the task does not exist or if the values set in the 
-     * update predicate is invalid
+     * @throws IllegalValueException  if the task does not exist or if the values set in the 
+     *                                update predicate is invalid
      */
     public void update(ImmutableTask task, Consumer<Task> update) throws IllegalValueException;
     
     /**
-     * Update the filter predicate and sort comparator used to display the tasks. A null
+     * Changes the filter predicate and sort comparator used to display the tasks. A null
      * value for either parameter resets it to the default value - showing everything for 
      * the filter and insertion order for sort. 
      */
