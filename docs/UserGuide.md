@@ -13,30 +13,35 @@
 
 
 ## Features
-> [Square brackets] indicate that a field is optional 
-> <Chevrons> indicate command parameters 
+> [Square brackets] indicate that a field is optional  
+> \<Angled brackets> indicate command parameters 
 
 1. Viewing Help: ` help `
 > Displays list of available commmands and descriptions 
 
 2. Adding a Task / Event: ` add `   
     <img src="images/add.png" width="600">
-    - `add <name> [-due <date>] [#<cat>] [#<cat>] ...` 
+    
+    - `add <name> [.due <date>] [#<cat>] [#<cat>] ...` 
+> eg ` add User guide .due Wednesday #cs2103 ` 
 > If no date is specified, task will be set as a floating task   
 
-	- `add <name> [-on <date>] [-at <location>]...`  
+    - `add <name> [.on <date>] [-at <location>]...`  
 
-    - `add <name> [-from <date><time> -to <date><time>] ...`
+    - `add <name> [.from <date><time> .to <date><time>] ...`
 > If no date is specified, date will be set to the current day, or the next day if set time has passed  
 > If no time is specified, start times will be set to 0000 and end times to 2359 
 
-	- `add <name> -every <day / week> ...` : sets task to be a recurring task
-	
+	- `add <name> .every <day / week> ...` : sets task to be a recurring task
+> eg `add Go jogging .every Friday ` 
+
 3. Editing: ` edit `    
 <img src="images/edit.png" width="600">
 
-    - `edit <index> [-due <date>]` : edits task specified by index
-    - `edit #<oldCat> [#<newCat>] [-c <colour>]` : edits category name and / or colour 
+    - `edit <index> [.due <date>]` : edits task specified by index
+> eg `edit 2 .due Tuesday ` 
+
+    - `edit #<oldCat> [#<newCat>] [.c <colour>]` : edits category name and / or colour
     
 4. Listing All Tasks: ` list `  
     <img src="images/list.png" width="600"><br>  
@@ -86,8 +91,8 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 | Command | Format |
 | ------- | ------ |
 | help | `help` |
-| add | `add <name> [-due <date>] [#<cat>] [#<cat>] ...` <br /> `add <name> [-on <date>] [-at <location>]...` <br />`add <name> [-from <date><time> -to <date><time>] ...` <br /> `add <name> -every <day / month> ...` |
-| edit | `edit <index> [-due <date>]`<br />`edit #<oldCat> [#<newCat>] [-c <colour>]` |
+| add | `add <name> [.due <date>] [#<cat>] [#<cat>] ...` <br /> `add <name> [.on <date>] [.at <location>]...` <br />`add <name> [.from <date><time> .to <date><time>] ...` <br /> `add <name> .every <day / week> ...` |
+| edit | `edit <index> [.due <date>]`<br />`edit #<oldCat> [#<newCat>] [.c <colour>]` |
 | list | `list` <br /> `list <day / week>` <br /> `list float`<br />`list #<cat>`<br />`list done` |
 | done | `done <index>` |
 | find | `find <keyword>` <br /> `find #<keyword>` |
