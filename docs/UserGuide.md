@@ -46,21 +46,21 @@ Format: **`add`**` [event_name]`<br>
 > This parameter is used to indicate the starting and ending datetime of an event.<br>
 > Format: **`from`**` [datetime] `**`to`**` [datetime]`<br>
 
-> > The date for **`from`** can be omitted if it is on the same ending date.
-> > [datetime] must be in the format: hh:mm[am/pm] dd mmm yyyy (e.g. 7:30pm 12 oct 2016)
+> > The date for **`from`** can be omitted if it is on the same ending date. <br>
+> > [datetime] must be in the format: hh:mm dd mmm yyyy (e.g. 19:30 12 oct 2016)
 
 > Examples:
-> * **`add`**` dinner with mom `**`from`**` 7:30pm 2 oct 2016 `**`to`**` 8:30pm 2 oct 2016`
-> * **`add`**` dinner with mom `**`from`**` 7:30pm `**`to`**` 8:30pm 2 oct 2016`
+> * **`add`**` dinner with mom `**`from`**` 19:30 02 oct 2016 `**`to`**` 20:30 02 oct 2016`
+> * **`add`**` dinner with mom `**`from`**` 19:30 `**`to`**` 20:30 02 oct 2016`
 
 > ###### Specifying deadline : `by`
 > This parameter is used to indicate the deadline of an event.<br>
 > Format: **`by`**` [datetime]`<br>
 
-> > [datetime] must be in the format: hh:mm[am/pm] dd mmm yyyy (e.g. 7:30pm 12 oct 2016)
+> > [datetime] must be in the format: hh:mm dd mmm yyyy (e.g. 19:30 12 oct 2016)
 
 > Examples:
-> * **`add`**` submit proposal `**`by`**` 11:59pm 2 oct 2016`
+> * **`add`**` submit proposal `**`by`**` 23:59 02 oct 2016`
 
 > ###### Specifying location : `at`
 > This parameter is used to indicate the venue of an event.<br>
@@ -75,6 +75,11 @@ Format: **`add`**` [event_name]`<br>
 
 > Examples:
 > * **`add`**` dinner with mom `**`remarks`**` buy flowers`
+
+Examples:
+* **`add`**` Bake cookies`
+* **`add`**` Prepare meeting agenda `**`by`**` 11:00 7 oct 2016`
+* **`add`**` Jimmy's wedding banquet `**`at`**` Trinity Church `**`from`**` 19:00 `**`to`**` 22:00 11 nov 2016 `
 
 ### Listing all events : `list`
 Shows a list of all events in the to-do list.<br>
