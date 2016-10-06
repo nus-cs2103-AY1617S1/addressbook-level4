@@ -172,13 +172,13 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Add | `add TaskName; [parameters;]`
+Add | `add TASKNAME; [PARAMETERS;]`
 Clear | `clear`
 Delete | `delete ID`
 Help | `help`
-Mark | `mark`
+Mark | `mark ID`
 Quitting | `exit`
 Search | `search KEYWORD [MORE_KEYWORDS]`
 See | `see DATE`
 Undo | `undo`
-Update | `update TaskName; [parameters;]`
+Update | `update TASKNAME; [PARAMETERS;]`
