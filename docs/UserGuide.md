@@ -50,7 +50,7 @@ Event Format: `add TASK_NAME s/DDMMYYYY TTTT e/DDMMYYYY TTTT [t/TAG]`
 Examples: 
 * `add drink water p/high`
 * `add CS2103 homework s/09102016 1100  p/high`
-* `add lunch with mom 05102016 1400 05102016 1700 t/don’t be late`
+* `add lunch with mom s/05102016 1400 e/05102016 1700 t/don’t be late`
 * `time format is from 0000 to 2359`
 
 #### Listing tasks: `list`
