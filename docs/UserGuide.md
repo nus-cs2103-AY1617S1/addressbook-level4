@@ -19,11 +19,10 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all tasks
-   * **`add`**` Feed the Parrot d/Feed timmy the parrot with corn` : 
-     adds a task named `Feed the parrot` to the Floating Task in the To Do List.
-   * **`delete`**` 3` : deletes the 3rd task shown in the current list
-   * **`exit`** : exits the app
+    `add Feed the Parrot d/Feed timmy the parrot with corn` : Add a floating task.
+    `listall` : List all the floating tasks, deadline and events in the application.
+    `delete 3` : Deletes the 3rd task shown in the current list.
+    `exit` : Exits the application.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
@@ -46,7 +45,7 @@ Format: `add TASKNAME d/TASK_DESCRIPTION @/STARTDATE STARTTIME ENDDATE ENDTIME [
 Format: `add TASKNAME d/TASK_DESCRIPTION @/DATE STARTTIME ENDTIME [t/TAG...]` <br>
 Format: `add TASKNAME d/TASK_DESCRIPTION @/STARTDATE ENDDATE TIME [t/TAG...]` <br>
 
-\*\* <i>Refer to appendix for Possible formats for \<DATE & TIME\></i>
+\*\* <i>Refer to appendix for Possible formats for DATE & TIME</i>
  
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
@@ -59,24 +58,60 @@ Examples:
 * `add Wash Clothes d/Wash with detergent @/27.9.2016 9pm t/!!!`
 * `add Meeting d/Meet with Jim @/today 5pm 6pm t/!!! t/jim`
 
-#### Listing all Tasks : `list`
-Shows a list of all floating and dated tasks in the address book.<br>
-Format: `list`
+#### Edit task in the application: `edit`
+Edit the details of the floating task, deadline and event. <br>
+Format: `edit INDEX`
 
-#### Finding all tasks containing any keyword in their name: `find`
-Finds all tasks whose names contain any of the given keywords.<br>
+> Edits the task at the specified `INDEX`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
+Examples:
+* `listall`<br>
+*  `edit 2`<br>
+*  Edit the 2nd floating task in DoMePlease. Example Buy Pencil.
+*  The format whereby the 2nd floating task was entered by user in the past will be populated on the command line.
+* `add Buy pencil d/Pencil to shade OAS sheet` <br>
+* User will edit the inputs accordingly and submit the edit field.
+* A message will be displayed to inform the user that the task is edited.
+
+#### Listing all tasks : `listall`
+Shows a list of all floating tasks, deadline and events in the application.<br>
+Format: `listall`
+
+#### Listing all overdue deadlines: `listod`
+Shows a list of all overdue deadlines. <br>
+Format: `listod`
+
+#### Listing all completed tasks: `listdone`
+Shows a list of completed floating tasks, deadlines and events. <br>
+Format: `listdone`
+
+#### Finding all floating tasks, deadlines and events containing any keyword in their name and tags: `find`
+Finds all floating tasks, deadlines and events which names and tags contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> The search is case insensitive, the order of the keywords does not matter, only the name is searched, 
-and task matching at least one keyword will be returned (i.e. `OR` search).
-> Only full words will be matched e.g. `Program` will not match `Programming`
+> The search is case insensitive, the order of the keywords does not matter, only the name and tag is searched, 
+and task matching at least one keyword will be returned (i.e. `OR` search). <br>
+> Only full words will be matched e.g. `Program` will not match `Programming`.
 
 Examples: 
 * `find EE2020`<br>
-  Returns “EE2020” and “ee2020”
+*  Returns “EE2020” and “ee2020”
+  
+#### Navigating through Calendar: `select`
+Populate the list of deadlines and events on the input DATA of current month on the calendar panel <br>
+Format: `select DATE`
+
+> The calendar panel of the application will list out all the deadlines on the day and events that start, ends or is on-going on the date. <br>
+
+Examples:
+* `select 5` <br>
+* Assume that the calendar panel on the application is on the month of June.
+* Output the full list of deadlines on the day and events that start, ends or is on-going on 5th June.
 
 #### Deleting a task : `delete`
-Deletes the specified task from DoMePlease. Irreversible.<br>
+Deletes the specified task from DoMePlease. Irreversible <br>
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
@@ -84,12 +119,33 @@ Format: `delete INDEX`
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in DoMePlease.
+* `listall`<br>
+*  `delete 2`<br>
+*  Deletes the 2nd task in DoMePlease.
 * `find Laundry`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+*  `delete 1`<br>
+*  Deletes the 1st person in the result of the `find` command.
+  
+#### Undoing a move: `undo`
+Undo the previous command entered by user.<br>
+A message will be displayed to inform the user that the previous command has been undone. <br>
+Format: `undo`
+
+#### Marking floating tasks and deadlines as done: `done`
+Marking a completed a floating task and deadline as done. <br>
+Format: `done INDEX`
+
+
+> Marks the floating tasks or deadline as done at the specified `index` <br>
+  The index refers to the index number shown in the most recent listing. <br>
+  The index **must be a positive integer** 1,2,3, .. <br>
+  The completed task will be moved to the archive list <br>
+
+Examples: 
+* `list` <br>
+  `done 2` <br>
+   Mark the 2nd task in DoMePlease as completed.
+  
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -110,13 +166,20 @@ There is no need to save manually.
 Command | Format  
 -------- | -------- 
 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add TASKNAME d/TASK_DESCRIPTION @/DATE TIME [t/TAG...]`
 
 Delete | `delete INDEX`
 
 Find | `find KEYWORD [MORE_KEYWORDS]`
 
-List | `list`
+List | `listall` , `listod`, `listdone`
 
 Help | `help`
 
+Select | `select INDEX`
+
+Done | `done INDEX`
+
+Undo | `undo`
+
+Edit | `edit INDEX`
