@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package harmony.ui;
 
 import javafx.event.Event;
 import javafx.scene.Node;
@@ -51,7 +51,7 @@ public class BrowserPanel extends UiPart{
         return browserPanel;
     }
 
-    public void loadPersonPage(ReadOnlyTask task) {
+    public void loadTaskPage(ReadOnlyTask task) {
         loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
     }
 

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package harmony.ui;
 
 import harmony.model.task.ReadOnlyTask;
 import javafx.fxml.FXML;
@@ -30,9 +30,9 @@ public class TaskCard extends UiPart{
 
     }
 
-    public static TaskCard load(ReadOnlyTask person, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
         TaskCard card = new TaskCard();
-        card.task = person;
+        card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }

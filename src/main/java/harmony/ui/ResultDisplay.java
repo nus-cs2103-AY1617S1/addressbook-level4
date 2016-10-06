@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package harmony.ui;
 
 import harmony.commons.util.FxViewUtil;
 import javafx.beans.property.SimpleStringProperty;

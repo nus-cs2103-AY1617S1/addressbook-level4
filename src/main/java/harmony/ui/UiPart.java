@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package harmony.ui;
 
 import harmony.commons.core.EventsCenter;
 import harmony.commons.events.BaseEvent;

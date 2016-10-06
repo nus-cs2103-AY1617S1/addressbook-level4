@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package harmony.ui;
 
 import harmony.MainApp;
 import javafx.fxml.FXMLLoader;

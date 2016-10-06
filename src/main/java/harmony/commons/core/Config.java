@@ -45,7 +45,7 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getAddressBookFilePath() {
+    public String getTaskManagerFilePath() {
         return addressBookFilePath;
     }
 
@@ -53,7 +53,7 @@ public class Config {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public String getAddressBookName() {
+    public String getTaskManagerName() {
         return addressBookName;
     }
 

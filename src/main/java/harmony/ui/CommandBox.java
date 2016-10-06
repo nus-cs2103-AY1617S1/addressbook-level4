@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package harmony.ui;
 
 import com.google.common.eventbus.Subscribe;
 

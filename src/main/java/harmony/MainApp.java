@@ -15,11 +15,11 @@ import harmony.logic.LogicManager;
 import harmony.model.*;
 import harmony.storage.Storage;
 import harmony.storage.StorageManager;
+import harmony.ui.Ui;
+import harmony.ui.UiManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -50,7 +50,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
