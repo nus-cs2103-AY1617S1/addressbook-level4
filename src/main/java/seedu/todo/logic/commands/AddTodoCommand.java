@@ -1,5 +1,6 @@
 package seedu.todo.logic.commands;
 
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.FlagArgument;
 import seedu.todo.logic.arguments.Parameter;
@@ -7,22 +8,31 @@ import seedu.todo.logic.arguments.StringArgument;
 
 public class AddTodoCommand extends BaseCommand {
     
-    private Argument<String> name = new StringArgument("name").required();
+    private Argument<String> title = new StringArgument("title").required();
+    
     private Argument<String> description = new StringArgument("description")
             .flag("m");
+    
     private Argument<Boolean> pin = new FlagArgument("pin")
             .flag("p");
+    
+    private Argument<String> location = new StringArgument("location")
+            .flag("l");
 
     @Override
     public Parameter[] getArguments() {
         return new Parameter[] {
-            name, description, pin,
+            title, description, location, pin,
         };
     }
 
     @Override
-    public void execute() {
-        // TODO: Complete this command
+    public void execute() throws IllegalValueException {
+        this.model.add(title.getValue(), task -> {
+            task.setDescription(description.getValue());
+            task.setPinned(pin.getValue());
+            task.setLocation(location.getValue());
+        });
     }
 
 }
