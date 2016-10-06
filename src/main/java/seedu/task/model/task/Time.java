@@ -5,35 +5,35 @@ import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
-public class Email {
+public class Time {
 
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
             "Task emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    public static final String TIME_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
 
     public final String value;
 
     /**
-     * Validates given email.
+     * Validates given time.
      *
-     * @throws IllegalValueException if given email address string is invalid.
+     * @throws IllegalValueException if given time address string is invalid.
      */
-    public Email(String email) throws IllegalValueException {
-        assert email != null;
-        email = email.trim();
-        if (!isValidEmail(email)) {
+    public Time(String time) throws IllegalValueException {
+        assert time != null;
+        time = time.trim();
+        if (!isValidTime(time)) {
             throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
         }
-        this.value = email;
+        this.value = time;
     }
 
     /**
      * Returns if a given string is a valid person email.
      */
-    public static boolean isValidEmail(String test) {
-        return test.matches(EMAIL_VALIDATION_REGEX);
+    public static boolean isValidTime(String test) {
+        return test.matches(TIME_VALIDATION_REGEX);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class Email {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && this.value.equals(((Email) other).value)); // state check
+                || (other instanceof Time // instanceof handles nulls
+                && this.value.equals(((Time) other).value)); // state check
     }
 
     @Override
