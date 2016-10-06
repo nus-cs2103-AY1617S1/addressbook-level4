@@ -23,9 +23,10 @@ Stop waiting and make “Getting Started with Taskle” the last thing on your to-do
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `Taskle.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+2. Copy the file to the folder you want to use as the home folder for your task manager application.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+
+<img src="images/UI/Base.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -66,6 +67,8 @@ Examples:
 * `add `**`Do CS2101 Assignment`**` by `**`12 Oct`**
 * `add `**`Business Trip`**` from `**`4 Oct`**` to `**`5 Oct`**` remind `**`3 Oct 2pm`**
 
+<img src="images/UI/Add.png" width="600">
+
 Note:  
 * When entering date and time, the following formats are allowed:
 	* 14 Jul, 14 July
@@ -91,12 +94,23 @@ Remind | `remind `**`task_number`**` on `**`date time`**
 
 Examples:
 * `edit `**`3 Pass money to Abel`**
+
+<img src="images/UI/Edit.png" width="600">
+<img src="images/UI/Edit 2.png" width="600">
+
 * `reschedule `**`Submit proposal `**` to `**`13 Oct 5pm`**
+
+<img src="images/UI/Reschedule.png" width="600">
+<img src="images/UI/Reschedule 2.png" width="600">
+
 * `remind `**`1 3 Oct 2pm`**
 
 Note:
 * Only one reminder is supported for each task. The date and time specified in the "Remind" command will replace any existing reminder. To remove a reminder completely, you will have to type "**null**" after typing the task number. For example:
 	* remind **3 null**
+	
+<img src="images/UI/Remind.png" width="600">
+<img src="images/UI/Remind 2.png" width="600">	
 	
 * Reminders need to have a **time** specified in order for us to know the exact time to remind you of your appointments.
 <br><br>
@@ -107,6 +121,10 @@ Format: `remove `**`task_number`**
 
 Examples:
 * `remove `**`4`**
+
+<img src="images/UI/Remove.png" width="600">
+<img src="images/UI/Remove 2.png" width="600">	
+
 <br><br>
 
 #### Finding a Task : `find`
@@ -117,6 +135,8 @@ Examples:
 * `find `**`meeting`**
 * `find `**`submission -o`**
 
+<img src="images/UI/Find.png" width="600">
+
 Note:
 * After typing the words to search for, you can type any of the following keywords to search for specific types of events:
 	* **-p**: Tasks that are still pending.
@@ -126,26 +146,42 @@ Note:
 * To display all tasks, simply type `find`
 * To display all the tasks of a specific type, simply omit the **search_query** parameter while including the keyword mentioned above. For example:
 	* `find `**`-p`**
+	
+<img src="images/UI/Find Pending.png" width="600">
+
 <br><br>
 
 #### Marking a Task as Done: `done`
 Undo previous that may have been entered incorrectly.<br><br>
 Format: `undo`
+
+<img src="images/UI/Done.png" width="600">
+
 <br><br>
 
 #### Undoing a Recent Command: `undo`
 Marks a task as done. This command is used when you are finished with the task.<br><br>
 Format: `undo`
+
+<img src="images/UI/Remove.png" width="600">
+<img src="images/UI/Remove 2.png" width="600">	
+<img src="images/UI/Undo.png" width="600">
+
 <br><br>
 
 #### Clearing all Tasks: `clear`
 Clears all tasks from the application.<br><br>
 Format: `clear`
+
+<img src="images/UI/Clear.png" width="600">
+
 <br><br>
 
 #### Viewing Help: `help`
 Views help for commands
 Format: `help`
+
+<img src="images/UI/Help.png" width="600">
 
 Note:
 * Help is also shown if you enter an incorrect command. For example:
