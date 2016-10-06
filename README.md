@@ -3,7 +3,7 @@
 
 # The Practical Task Manager
 
-<img src="docs/images/" width="600"><br>
+![Image of UI](https://github.com/Halo3fanz/main/blob/master/docs/images/Ui.png)
 
 * This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
