@@ -10,7 +10,7 @@ import harmony.model.TaskManager;
 import harmony.model.tag.Tag;
 import harmony.model.tag.UniqueTagList;
 import harmony.model.task.*;
-import harmony.storage.XmlSerializableAddressBook;
+import harmony.storage.XmlSerializableTaskManager;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -138,8 +138,8 @@ public class TestUtil {
         return new TaskManager(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskManager generateSampleStorageAddressBook() {
+        return new XmlSerializableTaskManager(generateEmptyAddressBook());
     }
 
     /**

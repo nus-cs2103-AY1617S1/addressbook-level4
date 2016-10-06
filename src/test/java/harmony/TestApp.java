@@ -10,7 +10,7 @@ import harmony.commons.core.Config;
 import harmony.commons.core.GuiSettings;
 import harmony.model.ReadOnlyTaskManager;
 import harmony.model.UserPrefs;
-import harmony.storage.XmlSerializableAddressBook;
+import harmony.storage.XmlSerializableTaskManager;
 import harmony.testutil.TestUtil;
 
 /**
@@ -37,7 +37,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableTaskManager(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }

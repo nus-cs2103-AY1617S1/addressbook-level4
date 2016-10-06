@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 
 public class TaskCard extends UiPart{
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TaskListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -17,13 +17,13 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label time;
     @FXML
-    private Label email;
+    private Label date;
     @FXML
     private Label tags;
 
-    private ReadOnlyTask person;
+    private ReadOnlyTask task;
     private int displayedIndex;
 
     public TaskCard(){
@@ -32,18 +32,18 @@ public class TaskCard extends UiPart{
 
     public static TaskCard load(ReadOnlyTask person, int displayedIndex){
         TaskCard card = new TaskCard();
-        card.person = person;
+        card.task = person;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getTime().value);
-        email.setText(person.getDate().value);
-        tags.setText(person.tagsString());
+        time.setText(task.getTime().value);
+        date.setText(task.getDate().value);
+        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {

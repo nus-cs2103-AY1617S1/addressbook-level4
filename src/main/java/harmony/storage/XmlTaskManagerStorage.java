@@ -58,7 +58,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskManager(addressBook));
     }
 
     @Override

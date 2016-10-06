@@ -7,8 +7,8 @@ import org.junit.rules.ExpectedException;
 import harmony.commons.util.FileUtil;
 import harmony.commons.util.XmlUtil;
 import harmony.model.TaskManager;
-import harmony.storage.XmlSerializableAddressBook;
-import harmony.testutil.AddressBookBuilder;
+import harmony.storage.XmlSerializableTaskManager;
+import harmony.testutil.TaskManagerBuilder;
 import harmony.testutil.TestUtil;
 
 import javax.xml.bind.JAXBException;
@@ -54,7 +54,7 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTaskManager.class);
         assertEquals(9, dataFromFile.getTaskList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
@@ -80,17 +80,17 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new TaskManager());
+        XmlSerializableTaskManager dataToWrite = new XmlSerializableTaskManager(new TaskManager());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
         assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        AddressBookBuilder builder = new AddressBookBuilder(new TaskManager());
-        dataToWrite = new XmlSerializableAddressBook(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
+        TaskManagerBuilder builder = new TaskManagerBuilder(new TaskManager());
+        dataToWrite = new XmlSerializableTaskManager(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
         assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
     }
 }
