@@ -8,8 +8,8 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.item.FloatingTask;
 import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.person.UniqueFloatingTaskList;
-import seedu.address.model.person.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.address.model.item.UniqueFloatingTaskList;
+import seedu.address.model.item.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;

@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.item.FloatingTask;
-import seedu.address.model.person.UniqueFloatingTaskList;
+import seedu.address.model.item.UniqueFloatingTaskList;
 
 /**
  * A utility class to help with building Addressbook objects.

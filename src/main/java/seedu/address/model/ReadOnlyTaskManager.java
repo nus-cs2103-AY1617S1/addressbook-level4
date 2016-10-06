@@ -2,7 +2,7 @@ package seedu.address.model;
 
 
 import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.person.UniqueFloatingTaskList;
+import seedu.address.model.item.UniqueFloatingTaskList;
 
 import java.util.List;
 
