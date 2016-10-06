@@ -11,13 +11,13 @@ import org.junit.Test;
 public class KeywordParserTest {
 
     @Test
-    public void parses_addCommand_input_no_tag() {
+    public void parses_addCommand_input() {
 
-        String input = "add Assignment by friday tag important";
+        String input = "add \"Assignment\" by friday tag important";
         KeywordParser parser = new KeywordParser("add", "by", "tag");
         ArrayList<String[]> list = parser.parse(input);
+        assertTrue(list.get(0)[0].equals("add"));
         assertTrue(list.get(0)[1].equals("Assignment"));
-
     }
 
 }

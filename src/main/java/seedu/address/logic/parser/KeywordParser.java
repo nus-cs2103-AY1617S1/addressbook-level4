@@ -31,8 +31,15 @@ public class KeywordParser {
         for(int i = 0; i < keywords.size(); i++){
             inputString = new String(inputString);
             String keyword = keywords.get(i);
-            System.out.println("Keyword: " + keyword);
-            String patternString = new String ("[^/]*" + keyword + " (?<returnString>[^/]+)");
+            //System.out.println("Keyword: " + keyword);
+            String patternString;
+            if (keyword.equals("add")) {
+                //Special case fore add command, which takes ""
+                patternString = new String("[^/]*" + keyword + " " + "\"(?<returnString>[^/]+)\"");
+            }
+            else{
+                patternString = new String("[^/]*" + keyword + " " + "(?<returnString>[^/]+)");
+            }
             //String patternString = new String ("add (?<returnString>[^/]+) by[^/]+");
             if (i < keywords.size() - 1){
                 patternString = patternString + " " + keywords.get(i + 1) + "[^/]+";
@@ -41,7 +48,7 @@ public class KeywordParser {
             Matcher matcher = pattern.matcher(inputString);
             if(matcher.matches()){
                 String returnString = matcher.group("returnString");
-                System.out.println(returnString);
+                //System.out.println(returnString);
                 String[] returnPair = {keyword, returnString};
                 words.add(returnPair);
             }
