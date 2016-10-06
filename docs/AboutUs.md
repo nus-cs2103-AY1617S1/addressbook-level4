@@ -12,6 +12,7 @@ Documentation: ensure quality of various project documents.
 -----
 
 ### [**Liu Yuheng**](https://github.com/E0003705)
+<img src='images/LiuYuheng.jpg' width="150"><br>
 **Role**:  Group member
 Debugger: responsible for checking for bugs in all codes.
 Tools expert: advance knowledge on tools used and helps with tools related problems.
