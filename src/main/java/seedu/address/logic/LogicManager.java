@@ -15,13 +15,13 @@ import seedu.address.storage.task.TaskStorage;
 /**
  * The main LogicManager_Task of the app.
  */
-public class LogicManager_Task extends ComponentManager implements Logic_Task {
-    private final Logger logger = LogsCenter.getLogger(LogicManager_Task.class);
+public class LogicManager extends ComponentManager implements Logic {
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final InMemoryTaskList model;
     private final TaskCommandsParser parser;
 
-    public LogicManager_Task(InMemoryTaskList model, TaskStorage storage) {
+    public LogicManager(InMemoryTaskList model, TaskStorage storage) {
         this.model = model;
         this.parser = new TaskCommandsParser();
     }

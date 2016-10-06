@@ -7,7 +7,7 @@ import seedu.address.model.task.Task;
 /**
  * API of the Logic component
  */
-public interface Logic_Task {
+public interface Logic {
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.

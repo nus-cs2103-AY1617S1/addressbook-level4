@@ -9,7 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import seedu.address.MainApp_Task;
+import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.TaskConfig;
@@ -18,22 +18,22 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic_Task;
+import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
 /**
  * The manager of the UI component.
  */
-public class UiManager_Task extends ComponentManager implements Ui {
-    private static final Logger logger = LogsCenter.getLogger(UiManager_Task.class);
+public class UiManager extends ComponentManager implements Ui {
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
-    private Logic_Task logic;
+    private Logic logic;
     private TaskConfig config;
     private UserPrefs prefs;
-    private MainWindow_Task mainWindow;
+    private MainWindow mainWindow;
 
-    public UiManager_Task(Logic_Task logic, TaskConfig config, UserPrefs prefs) {
+    public UiManager(Logic logic, TaskConfig config, UserPrefs prefs) {
         super();
         this.logic = logic;
         this.config = config;
@@ -49,7 +49,7 @@ public class UiManager_Task extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = MainWindow_Task.load(primaryStage, config, prefs, logic);
+            mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -72,7 +72,7 @@ public class UiManager_Task extends ComponentManager implements Ui {
     }
 
     private Image getImage(String imagePath) {
-        return new Image(MainApp_Task.class.getResourceAsStream(imagePath));
+        return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {

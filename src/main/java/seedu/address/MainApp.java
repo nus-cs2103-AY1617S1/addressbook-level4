@@ -19,8 +19,8 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.TaskConfigUtil;
-import seedu.address.logic.LogicManager_Task;
-import seedu.address.logic.Logic_Task;
+import seedu.address.logic.LogicManager;
+import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.model.task.Task;
@@ -28,24 +28,24 @@ import seedu.address.model.task.TaskManager;
 import seedu.address.storage.task.TaskStorage;
 import seedu.address.storage.task.TaskStorageManager;
 import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager_Task;
+import seedu.address.ui.UiManager;
 
 /**
  * The main entry point to the application.
  */
-public class MainApp_Task extends Application {
-    private static final Logger logger = LogsCenter.getLogger(MainApp_Task.class);
+public class MainApp extends Application {
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     public static final Version VERSION = new Version(1, 0, 0, true);
 
     protected Ui ui;
-    protected Logic_Task logic;
+    protected Logic logic;
     protected TaskStorage storage;
     protected InMemoryTaskList model;
     protected TaskConfig config;
     protected UserPrefs userPrefs;
 
-    public MainApp_Task() {}
+    public MainApp() {}
 
     @Override
     public void init() throws Exception {
@@ -61,9 +61,9 @@ public class MainApp_Task extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager_Task(model, storage);
+        logic = new LogicManager(model, storage);
 
-        ui = new UiManager_Task(logic, config, userPrefs);
+        ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
     }
@@ -166,7 +166,7 @@ public class MainApp_Task extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp_Task.VERSION);
+        logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

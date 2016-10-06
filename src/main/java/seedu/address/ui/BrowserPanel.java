@@ -13,15 +13,15 @@ import java.util.logging.Logger;
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel_Task extends UiPart{
+public class BrowserPanel extends UiPart{
 
-    private static Logger logger = LogsCenter.getLogger(BrowserPanel_Task.class);
+    private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
     private WebView browser;
 
     /**
      * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
      */
-    private BrowserPanel_Task() {
+    private BrowserPanel() {
 
     }
 
@@ -40,9 +40,9 @@ public class BrowserPanel_Task extends UiPart{
      * This method should be called after the FX runtime is initialized and in FX application thread.
      * @param placeholder The AnchorPane where the BrowserPanel must be inserted
      */
-    public static BrowserPanel_Task load(AnchorPane placeholder){
+    public static BrowserPanel load(AnchorPane placeholder){
         logger.info("Initializing browser");
-        BrowserPanel_Task browserPanel = new BrowserPanel_Task();
+        BrowserPanel browserPanel = new BrowserPanel();
         browserPanel.browser = new WebView();
         placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);

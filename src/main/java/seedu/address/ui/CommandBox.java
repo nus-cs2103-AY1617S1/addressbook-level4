@@ -13,11 +13,11 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.IncorrectTaskCommandAttemptedEvent;
 import seedu.address.commons.util.FxViewUtil;
-import seedu.address.logic.Logic_Task;
+import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 
-public class CommandBox_Task extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(CommandBox_Task.class);
+public class CommandBox extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox_Task.fxml";
 
     private AnchorPane placeHolderPane;
@@ -25,21 +25,21 @@ public class CommandBox_Task extends UiPart {
     private ResultDisplay resultDisplay;
     String previousCommandTest;
 
-    private Logic_Task logic;
+    private Logic logic;
 
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
-    public static CommandBox_Task load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic_Task logic) {
-        CommandBox_Task commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox_Task());
+    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
+            ResultDisplay resultDisplay, Logic logic) {
+        CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    public void configure(ResultDisplay resultDisplay, Logic_Task logic) {
+    public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
         registerAsAnEventHandler(this);
