@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.todo.Title;
 import seedu.address.model.todo.ToDo;
 
@@ -21,11 +23,8 @@ public class AddCommand extends Command {
         toDo = new ToDo(title);
     }
 
-    /**
-     * Asserts that model is non-null
-     */
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model, EventsCenter eventsCenter) {
         assert model != null;
 
         model.addToDo(toDo);

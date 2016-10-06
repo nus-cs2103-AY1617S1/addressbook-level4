@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.model.Model;
 
 import java.util.Set;
 
@@ -18,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model, EventsCenter eventsCenter) {
         if (keywords.size() > 0) {
             model.updateFilteredToDoList(keywords);
             return new CommandResult(String.format(Messages.MESSAGE_FIND, model.getFilteredToDoList().size()));
