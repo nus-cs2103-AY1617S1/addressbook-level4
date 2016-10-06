@@ -5,7 +5,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-## Getting started
+## Getting Started
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
@@ -23,7 +23,7 @@
    * **`exit`** : exits the app
    * ** `edit`**:  update information stored
 
-            ## Features
+## Features
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
@@ -39,7 +39,7 @@ Adds a task to the TaskManager<br>
 Format: `add TASK_NAME, s/[start_time], e/[end_time], p/[low/medium/high], d/[deadline], l/[location], #[tag1], #[tag2], c/[completed_status]` 
 > Tasks can have any number of tags (including 0)
 Examples: 
-* `add John Doe project team meeting, s/tomorrow 15:00 e/18:00p/high 
+* `add John Doe project team meeting, s/tomorrow 15:00 e/18:00p/high `
 * `add Betsy Crowe cs2103 assignment s/tonight 21:00 e/24:00 p/medium d/next friday`
 
 #### Listing all tasks : `list`
@@ -73,9 +73,9 @@ Examples:
 
 #### Editing a task: `Edit`
 Edit task information in the TaskManager<br>
-Format: Edit | `edit TASK_NAME/INDEX s/ [start time]`, `edit TASK_NAME/INDEX e/ [end time]`,`edit TASK_NAME/INDEX p/[low/medium/high]` `edit TASK_NAME/INDEX t/[tag]`, ‘edit TASK_NAME/INDEX c/[completed_status]’, ‘edit TASK_NAME/INDEX l/[location]’
+Format: `edit TASK_NAME/INDEX s/ [start time]`, `edit TASK_NAME/INDEX e/ [end time]`,`edit TASK_NAME/INDEX p/[low/medium/high]` `edit TASK_NAME/INDEX t/[tag]`, `edit TASK_NAME/INDEX c/[completed_status]`, `edit TASK_NAME/INDEX l/[location]`
 
-> Edit the task at the specific `INDEX` or ‘TASK_NAME’
+> Edit the task at the specific `INDEX` or `TASK_NAME`
      The index refers to the index number shown in the most recent listing.<br>
      The index **must be a positive integer** 1, 2, 3, …
      `TASK_NAME` should be the same as the task name stored in the TaskManager regardless the word case
@@ -95,7 +95,7 @@ Format: `delete INDEX`
 Examples: 
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd task in the TaskManager.
+  Deletes the task with index '2' in the TaskManager.<br>
 
 #### Clearing all entries : `clear`
 Clears all entries from the TaskManager.<br>
@@ -116,10 +116,15 @@ Format: `redo`
 #### Change working directory : `directory`
 Change directory being accessed, effectively using another TaskManager instance.<br>
 Format: `directory [PATH]`  
+Examples: 
+* `directory C:/Documents and Settings/User/Desktop/TaskManager2`
+
 
 #### Backup : `backup`
 Save a copy of the current TaskManager list into the specified directory.<br>
 Format: `backup [PATH]`  
+Examples: 
+* `backup C:/Documents and Settings/User/Desktop/TaskManagerBackup`
 
 
 #### Saving the data 
