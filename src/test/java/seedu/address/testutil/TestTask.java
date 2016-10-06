@@ -13,8 +13,8 @@ public class TestTask implements ReadOnlyTask {
     
     private Deadline deadline;
     private Period period;
-    private Recurrence deadlineRecur;
-    private Recurrence periodRecur;
+    private Recurrence deadlineRecurrence;
+    private Recurrence periodRecurrence;
 
     private UniqueTagList tags;
 
@@ -22,8 +22,8 @@ public class TestTask implements ReadOnlyTask {
         complete = new Complete(false);
         deadline = new Deadline();
         period = new Period();
-        deadlineRecur = new Recurrence();
-        periodRecur = new Recurrence();
+        deadlineRecurrence = new Recurrence();
+        periodRecurrence = new Recurrence();
         
         tags = new UniqueTagList();
     }
@@ -44,12 +44,12 @@ public class TestTask implements ReadOnlyTask {
         this.period = period;
     }
 
-    public void setDeadlineRecur(Recurrence deadlineRecur) {
-        this.deadlineRecur = deadlineRecur;
+    public void setDeadlineRecurrence(Recurrence deadlineRecurrence) {
+        this.deadlineRecurrence = deadlineRecurrence;
     }
 
-    public void setPeriodRecur(Recurrence periodRecur) {
-        this.periodRecur = periodRecur;
+    public void setPeriodRecurrence(Recurrence periodRecurrence) {
+        this.periodRecurrence = periodRecurrence;
     }
 
     @Override
@@ -73,13 +73,13 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Recurrence getDeadlineRecur() {
-        return deadlineRecur;
+    public Recurrence getDeadlineRecurrence() {
+        return deadlineRecurrence;
     }
     
     @Override
-    public Recurrence getPeriodRecur() {
-        return periodRecur;
+    public Recurrence getPeriodRecurrence() {
+        return periodRecurrence;
     }
     
     @Override
@@ -104,12 +104,12 @@ public class TestTask implements ReadOnlyTask {
             sb.append("from " + this.getPeriod().startTime + " to " + this.getPeriod().endTime + " ");
         }
 
-        if (this.getDeadlineRecur().hasRecurrence) {
-            sb.append("repeatdeadline " + this.getDeadlineRecur().frequency + " ");
+        if (this.getDeadlineRecurrence().hasRecurrence) {
+            sb.append("repeatdeadline " + this.getDeadlineRecurrence().frequency + " ");
         }
 
-        if (this.getPeriodRecur().hasRecurrence) {
-            sb.append("repeatperiod " + this.getPeriodRecur().frequency + " ");
+        if (this.getPeriodRecurrence().hasRecurrence) {
+            sb.append("repeatperiod " + this.getPeriodRecurrence().frequency + " ");
         }
         
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/ " + s.tagName + " "));

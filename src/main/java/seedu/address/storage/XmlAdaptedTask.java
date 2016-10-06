@@ -55,10 +55,10 @@ public class XmlAdaptedTask {
         final Complete complete = new Complete(false);
         final Deadline deadline = new Deadline();
         final Period period = new Period();
-        final Recurrence deadlineRecur = new Recurrence();
-        final Recurrence periodRecur = new Recurrence();
+        final Recurrence deadlineRecurrence = new Recurrence();
+        final Recurrence periodRecurrence = new Recurrence();
         
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, complete, deadline, period, deadlineRecur, periodRecur, tags);
+        return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
     }
 }

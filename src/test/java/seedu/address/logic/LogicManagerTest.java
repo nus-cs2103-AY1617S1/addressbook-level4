@@ -382,13 +382,13 @@ public class LogicManagerTest {
             Complete complete = new Complete(false);
             Deadline deadline = new Deadline();
             Period period = new Period();
-            Recurrence deadlineRecur = new Recurrence();
-            Recurrence periodRecur = new Recurrence();
+            Recurrence deadlineRecurrence = new Recurrence();
+            Recurrence periodRecurrence = new Recurrence();
             
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, complete, deadline, period, deadlineRecur, periodRecur, tags);
+            return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
         }
 
         /**

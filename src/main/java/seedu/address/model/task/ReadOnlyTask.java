@@ -13,8 +13,8 @@ public interface ReadOnlyTask {
     
     Deadline getDeadline();
     Period getPeriod();
-    Recurrence getDeadlineRecur();
-    Recurrence getPeriodRecur();
+    Recurrence getDeadlineRecurrence();
+    Recurrence getPeriodRecurrence();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -32,8 +32,8 @@ public interface ReadOnlyTask {
                     && other.getComplete().equals(this.getComplete())
                     && other.getDeadline().equals(this.getDeadline())
                     && other.getPeriod().equals(this.getPeriod()) 
-                    && other.getDeadlineRecur().equals(this.getDeadlineRecur())
-                    && other.getPeriodRecur().equals(this.getPeriodRecur())));
+                    && other.getDeadlineRecurrence().equals(this.getDeadlineRecurrence())
+                    && other.getPeriodRecurrence().equals(this.getPeriodRecurrence())));
     }
 
     /**
@@ -55,14 +55,14 @@ public interface ReadOnlyTask {
                 .append(getPeriod());
         }
 
-        if (getDeadlineRecur().hasRecurrence) {
-            builder.append("Recur (deadline): ")
-                .append(getDeadlineRecur());
+        if (getDeadlineRecurrence().hasRecurrence) {
+            builder.append("Recurrence (deadline): ")
+                .append(getDeadlineRecurrence());
         }
 
-        if (getPeriodRecur().hasRecurrence) {
-            builder.append("Recur (period): ")
-                .append(getPeriodRecur());
+        if (getPeriodRecurrence().hasRecurrence) {
+            builder.append("Recurrence (period): ")
+                .append(getPeriodRecurrence());
         }
         
         builder.append(" Tags: ");

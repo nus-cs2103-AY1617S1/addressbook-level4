@@ -37,15 +37,15 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withDeadlineRecur(Recurrence.Pattern pattern, int frequency)
+    public TaskBuilder withDeadlineRecurrence(Recurrence.Pattern pattern, int frequency)
             throws IllegalValueException {
-        this.task.setDeadlineRecur(new Recurrence(pattern, frequency));
+        this.task.setDeadlineRecurrence(new Recurrence(pattern, frequency));
         return this;
     }
 
-    public TaskBuilder withPeriodRecur(Recurrence.Pattern pattern, int frequency)
+    public TaskBuilder withPeriodRecurrence(Recurrence.Pattern pattern, int frequency)
             throws IllegalValueException {
-        this.task.setPeriodRecur(new Recurrence(pattern, frequency));
+        this.task.setPeriodRecurrence(new Recurrence(pattern, frequency));
         return this;
     }
 
