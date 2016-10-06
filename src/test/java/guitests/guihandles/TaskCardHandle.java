@@ -41,8 +41,8 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(STATUS_FIELD_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask task){
-        return gettaskName().equals(task.getName().taskName) && getPriority().equals(task.getPriority().toString())
+    public boolean isSameTask(ReadOnlyTask task) {
+        return gettaskName().equals(task.getName().taskName) && getPriority().equals(task.priorityString())
                 && getDateTime().equals(task.getDateTime().toString()) && getStatus().equals(task.getStatus().toString());
     }
 
