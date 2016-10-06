@@ -11,8 +11,8 @@ public class TestTask implements ReadOnlyTask {
     private Name name;
     private UniqueTagList tags;
     private DateTime dateTime;
-    private Status status;
     private Priority priority;
+    private Status status =  new Status();
 
     public TestTask() {
         tags = new UniqueTagList();
