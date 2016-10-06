@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.ObjectUtil;
 
 /**
  * Represents a task's period in the task list.
@@ -68,10 +69,19 @@ public class Period {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Period // instanceof handles nulls
-                && (this.startTime.equals(((Period) other).startTime) &&
-                        this.endTime.equals(((Period) other).endTime))); // state check
+        if (other == this) { // short circuit if same object
+            return true;
+        }
+        
+        if (other instanceof Period == false) { // instanceof handles nulls
+            return false;
+        }
+        
+        Period otherPeriod = (Period)other;
+        
+        return ObjectUtil.isEquivalentOrBothNull(this.hasPeriod, otherPeriod.hasPeriod) &&
+                ObjectUtil.isEquivalentOrBothNull(this.startTime, otherPeriod.startTime) &&
+                ObjectUtil.isEquivalentOrBothNull(this.endTime, otherPeriod.endTime); // state check
     }
 
     @Override

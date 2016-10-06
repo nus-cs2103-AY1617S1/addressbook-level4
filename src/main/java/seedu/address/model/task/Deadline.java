@@ -45,10 +45,18 @@ public class Deadline {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Deadline // instanceof handles nulls
-                && ObjectUtil.isEquivalentOrBothNull(this.deadline, 
-                                                     ((Deadline) other).deadline)); // state check
+        if (other == this) { // short circuit if same object
+            return true;
+        }
+        
+        if (other instanceof Deadline == false) { // instanceof handles nulls
+            return false;
+        }
+        
+        Deadline otherDeadline = (Deadline)other;
+        
+        return ObjectUtil.isEquivalentOrBothNull(this.hasDeadline, otherDeadline.hasDeadline) &&
+                ObjectUtil.isEquivalentOrBothNull(this.deadline, otherDeadline.deadline); // state checkk
     }
 
     @Override

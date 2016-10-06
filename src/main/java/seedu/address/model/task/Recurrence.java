@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import java.util.Objects;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.ObjectUtil;
 
 /**
  * Represents a task's recurrence (deadline, period, etc)
@@ -73,10 +74,20 @@ public class Recurrence {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Recurrence // instanceof handles nulls
-                && (this.pattern.equals(((Recurrence) other).pattern)
-                        && (this.frequency == ((Recurrence)other).frequency))); // state check
+        if (other == this) { // short circuit if same object
+            return true;
+        }
+        
+        if (other instanceof Recurrence == false) { // instanceof handles nulls
+            return false;
+        }
+        
+        Recurrence otherRecurrence = (Recurrence)other;
+        
+        return ObjectUtil.isEquivalentOrBothNull(this.hasRecurrence, otherRecurrence.hasRecurrence) &&
+                ObjectUtil.isEquivalentOrBothNull(this.pattern, otherRecurrence.pattern) &&
+                ObjectUtil.isEquivalentOrBothNull(this.frequency, otherRecurrence.frequency); // state checkk
+    
     }
 
     @Override
