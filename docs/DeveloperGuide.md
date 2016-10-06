@@ -49,10 +49,10 @@ Use case ends.
 
 1a. Details of the Task do not match format.
 
-> 1a1. Task Manager prompts user to reenter Task.
-> 1a2. User inputs a new task.
-> Repeat 1a1 - 1a2 until user inputs the correct format.
-> Use case resumes at step 2.
+> 1a1. Task Manager prompts user to reenter Task.<br>
+> 1a2. User inputs a new task.<br>
+> Repeat 1a1 - 1a2 until user inputs the correct format.<br>
+> Use case resumes at step 2.<br>
 
 #### Use case: Delete Task
 
@@ -68,10 +68,10 @@ Use case ends.
 
 1a. The index input by the user is not in the range of indices available.
 
-> 1a1. Task Manager prompts user to reinput the index of the Task.
-> 1a2. User reinputs the name of the Task.
-> Repeat 1a1 - 1ab until user inputs valid index of the Task.
-> Use case resumes at step 2.
+> 1a1. Task Manager prompts user to reinput the index of the Task.<br>
+> 1a2. User reinputs the name of the Task.<br>
+> Repeat 1a1 - 1ab until user inputs valid index of the Task.<br>
+> Use case resumes at step 2.<br>
 
 #### Use Case : Edit Task
 
@@ -87,16 +87,16 @@ Use case ends.
 
 1a. The name of the Task entered by the user does not exist.
 
-> 1a1. Task Manager prompts user to reinput name of the Task.
-> 1a2. User reinputs name of Task.
-> Repeat 1a1 - 1a2 until the user inputs a valid name of Task.
+> 1a1. Task Manager prompts user to reinput name of the Task.<br>
+> 1a2. User reinputs name of Task.<br>
+> Repeat 1a1 - 1a2 until the user inputs a valid name of Task.<br>
 > Use case resumes at step 2.
 
 1b. The information entered by the user does not follow the format.
 
-> 1b1. Task Manager prompts user to reinput details of the Task in the given format.
-> 1b2. User reinputs details of the Task.
-> Repeat 1b1 - 1b2 until the user inputs a valid format for the Task.
+> 1b1. Task Manager prompts user to reinput details of the Task in the given format.<br>
+> 1b2. User reinputs details of the Task.<br>
+> Repeat 1b1 - 1b2 until the user inputs a valid format for the Task.<br>
 > Use case resumes at step 2.
 
 #### Use Case : List
@@ -110,7 +110,7 @@ Use case ends.
 **Extensions**
 
 1a. The filter input by the User is not valid.
-> 1a1. System prints out error message and requests for another input.
+> 1a1. System prints out error message and requests for another input.<br>
 > Repeat step 1a1 until user inputs a valid filter for the list command.
 
 1b. User wishes the Task Manager to list all the tasks.
@@ -142,7 +142,7 @@ Use case ends.
 **Extensions**
 
 3a. There are no Tasks with the keyword stated.
-> 3a1. Task Manager displays 'No particular Task' message.
+> 3a1. Task Manager displays 'No particular Task' message.<br>
 > Use case ends.
 
 #### Use Case : Notification at startup
@@ -170,8 +170,8 @@ Use case ends.
 
 **Extensions**
 
-3a. User changes the timing of reminder.
-3b. User removes the reminder for the Task.
+3a. User changes the timing of reminder. <br>
+3b. User removes the reminder for the Task. <br>
 Use case resumes at step 4.
 
 #### Use Case : Modify Storage Path
@@ -188,7 +188,7 @@ Use case ends.
 **Extensions**
 
 2a. The given storage path is invalid.
-> 2a1. Task Manager shows an error message.
+> 2a1. Task Manager shows an error message.<br>
 > Use case resumes at step 2.
 
 
@@ -214,38 +214,38 @@ Use case ends.
 **1. WunderList**
 
 _1.1 Pros_
-> 1.1.1 Able to do type in the details of the activity in a command line. One shot approach.
-> 1.1.2 Able to be used offline.
-> 1.1.3 When online, able to sync across platforms.
-> 1.1.4 Able to sync to calendar which can be exported.
+> 1.1.1 Able to do type in the details of the activity in a command line. One shot approach.<br>
+> 1.1.2 Able to be used offline.<br>
+> 1.1.3 When online, able to sync across platforms.<br>
+> 1.1.4 Able to sync to calendar which can be exported.<br>
 > 1.1.5 Simple user interface.
 
 _1.2 Cons_
-> 1.2.1 Unable to block out uncertain schedules.
-> 1.2.2 Unable to start application just by a short command.
-> 1.2.3 Requires a lot of mouse clicking.
-> 1.2.4 Unable to set the time of the dateline.
+> 1.2.1 Unable to block out uncertain schedules.<br>
+> 1.2.2 Unable to start application just by a short command.<br>
+> 1.2.3 Requires a lot of mouse clicking.<br>
+> 1.2.4 Unable to set the time of the dateline.<br>
 > 1.2.5 Unable to synchronize schedule without 3rd party calendar app.
 
 **2. Fantastical**
 
 _2.1 Pros_
-> Calendar view for all activities.
-> Beautiful user interface.
-> Able to be used offline.
+> Calendar view for all activities.<br>
+> Beautiful user interface.<br>
+> Able to be used offline.<br>
 > ble to sync across platforms when online.
 
 _2.2 Cons_
-> No one shot approach of typing details of activity into a command line.
-> Unable to block out uncertain schedules.
+> No one shot approach of typing details of activity into a command line.<br>
+> Unable to block out uncertain schedules.<br>
 > Requires a lot of mouse clicking.
 
 **3. Any.do**
 
 _3.1 Pros_
-> Very simple user interface.
-> Able to sync across platforms when online.
-> Simple and clean user interface.
+> Very simple user interface.<br>
+> Able to sync across platforms when online.<br>
+> Simple and clean user interface.<br>
 > Has list view, time view, or combined view.
 
 _3.2 Cons_
