@@ -7,7 +7,7 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project Team
 
 #### [Ang Kiang Siang](https://docs.google.com/document/u/1/d/1O3HF7qsh6KVeLesPmcQ0nPxSqhrkJxvS-OA_g-k-two/pub?embedded=true) <br>
-<img src="images/angkiangsiang.jpg" width="150"><br>
+<img src="images/angkiangsiang.png" width="150"><br>
 Role: Project Mentor<br>  
 
 -----
