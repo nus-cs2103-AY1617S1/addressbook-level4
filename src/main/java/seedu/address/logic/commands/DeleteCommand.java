@@ -13,7 +13,7 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
+            + ": Deletes the item identified by the index number used in the last item listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -21,6 +21,9 @@ public class DeleteCommand extends Command {
 
     public final int targetIndex;
 
+    /*
+     * Deletes deadline, task, or event by keyword.
+     */
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -38,9 +41,9 @@ public class DeleteCommand extends Command {
         ReadOnlyToDo personToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deletePerson(personToDelete);
+            model.deleteItem(personToDelete);
         } catch (PersonNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
+            assert false : "The target item cannot be missing";
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));

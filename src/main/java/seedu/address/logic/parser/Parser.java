@@ -168,6 +168,52 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
 
+        /*
+        final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher deadlineMatcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
+
+        if (!taskMatcher.matches() && !deadlineMatcher.matches() && !eventMatcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            if (taskMatcher.matches()) {
+                return new DeleteCommand(
+                    Type.TASK_WORD,
+                    taskMatcher.group("name"),
+                    null,
+                    null,
+                    null,
+                    null,
+                    getTagsFromArgs(taskMatcher.group("tagArguments"))
+                );
+            } else if (deadlineMatcher.matches()) {
+                return new AddCommand(
+                    Type.DEADLINE_WORD,
+                    deadlineMatcher.group("name"),
+                    null,
+                    null,
+                    deadlineMatcher.group("endDate"),
+                    deadlineMatcher.group("endTime"),
+                    getTagsFromArgs(deadlineMatcher.group("tagArguments"))
+                );
+            } else {
+                return new AddCommand(
+                    Type.EVENT_WORD,
+                    eventMatcher.group("name"),
+                    eventMatcher.group("startDate"),
+                    eventMatcher.group("startTime"),
+                    eventMatcher.group("endDate"),
+                    eventMatcher.group("endTime"),
+                    getTagsFromArgs(eventMatcher.group("tagArguments"))
+                );
+            }
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+        */
+        
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(

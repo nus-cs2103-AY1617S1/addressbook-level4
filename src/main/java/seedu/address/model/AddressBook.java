@@ -104,7 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         item.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyToDo key) throws UniquePersonList.PersonNotFoundException {
+    public boolean removeItem(ReadOnlyToDo key) throws UniquePersonList.PersonNotFoundException {
         if (persons.remove(key)) {
             return true;
         } else {
