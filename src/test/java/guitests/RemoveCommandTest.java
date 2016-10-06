@@ -28,7 +28,7 @@ public class RemoveCommandTest extends AddressBookGuiTest {
         assertRemoveSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
+        commandBox.runCommand("remove " + currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
 
     }
@@ -39,16 +39,16 @@ public class RemoveCommandTest extends AddressBookGuiTest {
      * @param currentList A copy of the current list of persons (before deletion).
      */
     private void assertRemoveSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
-        TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
-        commandBox.runCommand("delete " + targetIndexOneIndexed);
+        commandBox.runCommand("remove " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous persons except the deleted person
-        assertTrue(personListPanel.isListMatching(expectedRemainder));
+        assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }
