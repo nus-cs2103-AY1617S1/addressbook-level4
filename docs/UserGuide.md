@@ -38,41 +38,39 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a todo:
+#### Adding a todo: `add`
 Adds a todo task to the KeyboardWarrior<br>
 Format: `TASK`
 
 Examples: 
-* `Buy Chocolate`
-* `Download Github`
-* `Download Eclipse`
+* `add Buy Chocolate`
+* `add Download Github`
+* `add Download Eclipse`
 
-#### Adding a Deadline:
+#### Adding a Deadline: `add`
 Adds a deadline to the KeyboardWarrior<br>
 Format: `TASK by [DATE] [TIME]`
 
 Examples: 
-* `Do CS2103 Tutorial by Thursday`
-* `Submit Lab report by 020314 2030`
+* `add Do CS2103 Tutorial by Thursday`
+* `add Submit Lab report by 020314 2030`
 
 #### Adding a calendar task: `add`
 Adds a specific task to the KeyboardWarrior that will be able to show any combinations of the following parameters:<br>
 
-Format: `add DATE TIME to [TIME] TASK @ [VENUE]`
+Format: `add DATE TIME [to TIME] TASK [@VENUE]`
 
 Examples: 
 * `add 010116 1810 Go to the mall`
 * `add Sunday 0210 to 0300 Group Meeting @I3 MR9`
 * `add Fri 1410 to 1600 Basketball Tryouts @13 Computing Dr 117417`
 
-#### find a task: `find`
-find all task in the KeyboardWarrior that contains a phrase, time, date or venue<br>
-Format: `find [DATE] [TIME] [KEYWORD] @[VENUE]`
+#### Find a task: `find`
+Find all task in the KeyboardWarrior that contains a phrase, time, date or venue<br>
+Format: `find [KEYWORD] [@VENUE]`
 
 Examples: 
-* `find 010215`
-* `find 030216 2345`
-* `find basketball`
+* `find baskebtall`
 * `find @I3`
 
 #### Show Calendar : `show`
