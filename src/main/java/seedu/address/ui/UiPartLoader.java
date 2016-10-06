@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
+import seedu.address.MainApp_Task;
 
 /**
  * A utility class to load UiParts from FXML files.
@@ -26,7 +26,7 @@ public class UiPartLoader {
      */
     public static <T extends UiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
+        loader.setLocation(MainApp_Task.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
         Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());
         UiPart controller = loader.getController();
         controller.setStage(primaryStage);
@@ -44,7 +44,7 @@ public class UiPartLoader {
 
     public static <T extends UiPart> T loadUiPart(T seedUiPart) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + seedUiPart.getFxmlPath()));
+        loader.setLocation(MainApp_Task.class.getResource(FXML_FILE_FOLDER + seedUiPart.getFxmlPath()));
         loader.setController(seedUiPart);
         loadLoader(loader, seedUiPart.getFxmlPath());
         return seedUiPart;

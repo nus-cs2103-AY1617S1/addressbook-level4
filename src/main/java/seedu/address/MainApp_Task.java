@@ -1,11 +1,16 @@
 package seedu.address;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.commons.collections.UniqueItemCollection;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.TaskConfig;
@@ -14,31 +19,22 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.TaskConfigUtil;
-import seedu.address.logic.Logic_Task;
 import seedu.address.logic.LogicManager_Task;
-import seedu.address.model.*;
+import seedu.address.logic.Logic_Task;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
 import seedu.address.storage.task.TaskStorage;
 import seedu.address.storage.task.TaskStorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager_Task;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
-
 /**
  * The main entry point to the application.
  */
 public class MainApp_Task extends Application {
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final Logger logger = LogsCenter.getLogger(MainApp_Task.class);
 
     public static final Version VERSION = new Version(1, 0, 0, true);
 
@@ -170,7 +166,7 @@ public class MainApp_Task extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting AddressBook " + MainApp_Task.VERSION);
         ui.start(primaryStage);
     }
 

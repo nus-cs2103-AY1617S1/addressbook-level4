@@ -2,8 +2,8 @@ package seedu.address;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.TaskConfig;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * This class is meant to override some properties of MainApp so that it will be suited for
  * testing
  */
-public class TestApp extends MainApp {
+public class TestApp extends MainApp_Task {
 
     public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
@@ -41,8 +41,8 @@ public class TestApp extends MainApp {
     }
 
     @Override
-    protected Config initConfig(String configFilePath) {
-        Config config = super.initConfig(configFilePath);
+    protected TaskConfig initConfig(String configFilePath) {
+        TaskConfig config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
         config.setAddressBookFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
@@ -51,7 +51,7 @@ public class TestApp extends MainApp {
     }
 
     @Override
-    protected UserPrefs initPrefs(Config config) {
+    protected UserPrefs initPrefs(TaskConfig config) {
         UserPrefs userPrefs = super.initPrefs(config);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
