@@ -3,7 +3,10 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.logic.commands.taskcommands.DeleteTaskCommand;
+import seedu.address.logic.commands.taskcommands.FindTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
@@ -46,10 +50,26 @@ public class TaskCommandsParser {
 
         case DeleteTaskCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case FindTaskCommand.COMMAND_WORD:
+            return prepareFind(arguments);
 
         default:
             return new IncorrectTaskCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    /**
+     * Parses arguments in the context of the find task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private TaskCommand prepareFind(String arguments) {
+        // keywords delimited by whitespace
+        final String[] keywords = arguments.split(" ");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new FindTaskCommand(keywordSet);
     }
 
     /**
