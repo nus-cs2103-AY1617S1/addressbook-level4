@@ -337,15 +337,15 @@ Use case ends.
 
 4a. The item is an event 
 
-> 4a1. The function requires an input “<name of event> <start date and time DD-MM-YY 00:00> <end date and time DD-MM-YY 00:00>” <br>
+> 4a1. The function requires an input “'NAME OF EVENT' 'START DATE AND TIME' 'END DATE AND TIME'" <br>
 
 4b. The item is a task with a deadline 
 
-> 4b1. The function requires an input “<name of task> <deadline DD-MM-YY>” <br>
+> 4b1. The function requires an input “'NAME OF TASK' 'DEADLINE'” <br>
 
 4c. The item is a floating task
 
-> 4c1. The function requires an input “<name of task>” <br>
+> 4c1. The function requires an input “'NAME OF TASK'” <br>
 
 #### Use case: Delete item
 
