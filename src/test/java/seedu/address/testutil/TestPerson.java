@@ -54,10 +54,10 @@ public class TestPerson implements ReadOnlyTask {
         return end;
     }
 
-   // @Override
-   // public UniqueTagList getTags() {
-   //     return tags;
-   // }
+    @Override
+    public UniqueTagList getTags() {
+        return tags;
+    }
 
     @Override
     public String toString() {

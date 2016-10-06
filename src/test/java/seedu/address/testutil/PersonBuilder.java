@@ -20,12 +20,12 @@ public class PersonBuilder {
         return this;
     }
 
- //   public PersonBuilder withTags(String ... tags) throws IllegalValueException {
-   //     for (String tag: tags) {
-     //       person.getTags().add(new Tag(tag));
-       // }
-       // return this;
-   // }
+    public PersonBuilder withTags(String ... tags) throws IllegalValueException {
+        for (String tag: tags) {
+            person.getTags().add(new Tag(tag));
+        }
+        return this;
+    }
 
     public PersonBuilder withAddress(String address) throws IllegalValueException {
         this.person.setAddress(new End(address));
