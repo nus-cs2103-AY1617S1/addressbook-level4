@@ -15,13 +15,13 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the to-do list. "
+            + "Parameters: \"EVENT_NAME\" from START_TIME to END_TIME on DATE"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + "\"Be awesome\" from 1300 to 2359 on 07/10/2016";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the to-do list";
 
     private final Person toAdd;
 
