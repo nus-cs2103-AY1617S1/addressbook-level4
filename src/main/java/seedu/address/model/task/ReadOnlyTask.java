@@ -9,6 +9,12 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
+    Complete getComplete();
+    
+    Deadline getDeadline();
+    Period getPeriod();
+    Recurrence getDeadlineRecur();
+    Recurrence getPeriodRecur();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -22,8 +28,12 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())); // state checks here onwards
-
+                && (other.getName().equals(this.getName()) // state checks here onwards
+                    && other.getComplete().equals(this.getComplete())
+                    && other.getDeadline().equals(this.getDeadline())
+                    && other.getPeriod().equals(this.getPeriod()) 
+                    && other.getDeadlineRecur().equals(this.getDeadlineRecur())
+                    && other.getPeriodRecur().equals(this.getPeriodRecur())));
     }
 
     /**
@@ -32,7 +42,30 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Tags: ");
+            .append("Completion Status: ")
+            .append(getComplete());
+        
+        if (getDeadline().hasDeadline) {
+            builder.append("Deadline: ")
+                .append(getDeadline());
+        }
+        
+        if (getPeriod().hasPeriod) {
+            builder.append("Period: ")
+                .append(getPeriod());
+        }
+
+        if (getDeadlineRecur().hasRecurrence) {
+            builder.append("Recur (deadline): ")
+                .append(getDeadlineRecur());
+        }
+
+        if (getPeriodRecur().hasRecurrence) {
+            builder.append("Recur (period): ")
+                .append(getPeriodRecur());
+        }
+        
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

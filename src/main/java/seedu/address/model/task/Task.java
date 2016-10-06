@@ -12,15 +12,27 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
+    private Complete complete;
+    
+    private Deadline deadline;
+    private Period period;
+    private Recurrence deadlineRecur;
+    private Recurrence periodRecur;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name,tags);
+    public Task(Name name, Complete complete, Deadline deadline, Period period, Recurrence deadlineRecur,
+            Recurrence periodRecur, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, complete, deadline, period, deadlineRecur, periodRecur, tags);
         this.name = name;
+        this.complete = complete;
+        this.deadline = deadline;
+        this.period = period;
+        this.deadlineRecur = deadlineRecur;
+        this.periodRecur = periodRecur;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -28,7 +40,8 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getComplete(), source.getDeadline(), source.getPeriod(),
+                source.getDeadlineRecur(), source.getPeriodRecur(), source.getTags());
     }
 
     @Override
@@ -58,12 +71,37 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, tags);
+        return Objects.hash(name, complete, deadline, period, deadlineRecur, periodRecur, tags);
     }
 
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public Complete getComplete() {
+        return complete;
+    }
+
+    @Override
+    public Deadline getDeadline() {
+        return deadline;
+    }
+
+    @Override
+    public Period getPeriod() {
+        return period;
+    }
+
+    @Override
+    public Recurrence getDeadlineRecur() {
+        return deadlineRecur;
+    }
+
+    @Override
+    public Recurrence getPeriodRecur() {
+        return periodRecur;
     }
 
 }

@@ -35,8 +35,14 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        // TODO ensure that we input the correct details!
         this.toAdd = new Task(
                 new Name(name),
+                new Complete(false),
+                new Deadline(),
+                new Period(),
+                new Recurrence(),
+                new Recurrence(),
                 new UniqueTagList(tagSet)
         );
     }
