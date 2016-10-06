@@ -41,7 +41,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskManager getEmptyAddressBook() {
+    public static ReadOnlyTaskManager getEmptyTaskManager() {
         return new TaskManager();
     }
 
@@ -51,16 +51,16 @@ public class TaskManager implements ReadOnlyTaskManager {
         return tasks.getInternalList();
     }
 
-    public void setPersons(List<Task> persons) {
-        this.tasks.getInternalList().setAll(persons);
+    public void setPersons(List<Task> tasks) {
+        this.tasks.getInternalList().setAll(tasks);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+        setPersons(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -71,7 +71,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 //// person-level operations
 
     /**
-     * Adds a task to the address book.
+     * Adds a task to the task manager.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
@@ -83,7 +83,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
-     * Ensures that every tag in this person:
+     * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
@@ -123,7 +123,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 

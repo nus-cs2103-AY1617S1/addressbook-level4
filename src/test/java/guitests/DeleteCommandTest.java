@@ -5,7 +5,7 @@ import org.junit.Test;
 import harmony.testutil.TestTask;
 import harmony.testutil.TestUtil;
 
-import static harmony.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static harmony.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 import static org.junit.Assert.assertTrue;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
@@ -49,7 +49,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
     }
 
 }

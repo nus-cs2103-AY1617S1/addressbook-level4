@@ -7,14 +7,19 @@ import java.util.Set;
 import harmony.commons.exceptions.IllegalValueException;
 import harmony.model.tag.Tag;
 
+/**
+ * Finds and lists all tasks in task manager whose tag contains any of the argument keywords.
+ * Keyword matching is case sensitive.
+ */
+
 public class FindTagCommand extends Command {
 
     public static final String COMMAND_WORD = "findtag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all persons whose tags contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all tasks whose tags contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
-            + "Example: " + COMMAND_WORD + " friends colleagues";
+            + "Example: " + COMMAND_WORD + " meal finals";
 
     private final Set<Tag> keywords;
 
@@ -33,7 +38,7 @@ public class FindTagCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredTagTaskList(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredTaskList().size()));
+        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
 }

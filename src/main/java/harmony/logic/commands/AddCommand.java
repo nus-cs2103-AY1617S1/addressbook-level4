@@ -10,16 +10,16 @@ import harmony.model.tag.UniqueTagList;
 import harmony.model.task.*;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the task manager.
  */
 public class AddCommand extends Command implements Undoable{
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to schema. "
             + "Parameters: NAME at/TIME on/DATE [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " task at/1000 on/0110 t/friends t/finals";
+            + " task at/1000 on/0110 t/finals";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Add Command] Task deleted: %1$s";
@@ -38,7 +38,7 @@ public class AddCommand extends Command implements Undoable{
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        System.out.println("inside AddCommand");
+
         this.toAdd = new Task(
                 new Name(name),
                 new Time(time),
@@ -64,12 +64,12 @@ public class AddCommand extends Command implements Undoable{
     @Override
     public CommandResult undo() {
         try {
-            // remove the person that's previously added.
+            // remove the task that's previously added.
             model.deleteTask(toAdd);
             
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
         } catch (UniqueTaskList.TaskNotFoundException pne) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_ADDRESSBOOK);
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_SCHEMA);
         }
     }
 

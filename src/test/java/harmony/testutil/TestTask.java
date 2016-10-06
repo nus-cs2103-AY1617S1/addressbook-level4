@@ -4,13 +4,13 @@ import harmony.model.tag.UniqueTagList;
 import harmony.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Date email;
-    private Time phone;
+    private Date date;
+    private Time time;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -22,11 +22,11 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public void setEmail(Date email) {
-        this.email = email;
+        this.date = email;
     }
 
     public void setPhone(Time phone) {
-        this.phone = phone;
+        this.time = phone;
     }
 
     @Override
@@ -36,12 +36,12 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public Time getTime() {
-        return phone;
+        return time;
     }
 
     @Override
     public Date getDate() {
-        return email;
+        return date;
     }
 
     @Override
@@ -57,8 +57,8 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getTime().value + " ");
-        sb.append("e/" + this.getDate().value + " ");
+        sb.append("at/" + this.getTime().value + " ");
+        sb.append("on/" + this.getDate().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

@@ -16,6 +16,10 @@ import harmony.model.task.Time;
 import harmony.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.model.task.UniqueTaskList.TaskNotFoundException;
 
+/**
+ * Edits a task in task manager
+ *
+ */
 public class EditCommand extends Command{
 
     public static final String COMMAND_WORD = "edit";

@@ -9,7 +9,7 @@ import harmony.model.task.ReadOnlyTask;
 import harmony.model.task.UniqueTaskList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an task manager
  */
 public interface ReadOnlyTaskManager {
 
@@ -18,7 +18,7 @@ public interface ReadOnlyTaskManager {
     UniqueTaskList getUniqueTaskList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getTaskList();
 

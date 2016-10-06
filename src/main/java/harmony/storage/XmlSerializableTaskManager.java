@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * An Immutable TaskManager that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "taskmanager")
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
