@@ -142,7 +142,7 @@ Examples:
 
 #### Deleting a task: `delete`
 Deletes the selected task from Lifekeeper. Irreversible.<br>
-Format: `delete`
+Format: `delete INDEX`
 
 > Deletes the task with `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
@@ -192,6 +192,21 @@ Examples:
   `select 1`<br>
   Selects the 3rd category in the list and then select the 1st task shown in the category..
 
+#### Marking a task as done: `done`
+Marks the task as completed.<br>
+Format: `done INDEX`
+
+> Marks the task with `INDEX` as completed.
+  The index refers to the index number shown in the most recent listing.<br>
+  
+
+Examples: 
+* `list`<br>
+  `done 1`<br>
+  Marks the 1st task in the Lifekeeper task list as completed.
+* `find Admin`<br>
+  `done 2`<br>
+  Selects the 2nd task in the results of the `find` command and then marks it as completed.
 
 #### Editing a task: `edit`
 Edits the selected task from Lifekeeper. Irreversible.<br>
@@ -247,6 +262,7 @@ Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 List Categories | `listcat`
 Select | `select INDEX`
+Done | `done`
 Undo | `undo`
 Help | `help`
 Exit | `exit`
