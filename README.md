@@ -1,11 +1,11 @@
 [![Build Status](https://travis-ci.org/se-edu/malitio-level4.svg?branch=master)](https://travis-ci.org/se-edu/malitio-level4)
 [![Coverage Status](https://coveralls.io/repos/github/se-edu/malitio-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/malitio-level4?branch=master)
 
-# malitio (Level 4)
+# Malitio (Level 4)
 
 <img src="docs/images/Ui.png" width="600"><br>
 
-* This is a desktop malitio application. It has a GUI but most of the user interactions happen using 
+* This is a desktop to-do list application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as 
   the main programming language. 
