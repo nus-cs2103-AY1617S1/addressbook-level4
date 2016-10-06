@@ -21,6 +21,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | undo a command | undo mistakes easily
 `* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
 `* * *` | user | have a one-shot approach to add tasks | minimize clicking and saves time
+`* * *` | user | indicate a completion of Task | keep track of the Tasks which I have completed
 `* * *` | user | set recurring tasks| repeatedly input the same event
 `* * *` | user | track completed/uncompleted tasks | better manage my schedule
 `* * *` | user | modify storage path | store data in my desired location
@@ -194,7 +195,7 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 Tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 5. Should be able to use the application without access to internet.
