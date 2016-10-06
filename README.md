@@ -5,9 +5,10 @@
 
 <img src="docs/images/Ui.png" width="600"><br>
 
-* This is a to do list desktop application called Schema. It has a GUI but most of the user interactions is through
+* This is a desktop task manager application called Schema. It has a GUI but most of the user interactions is through
   a CLI (Command Line Interface).
 * Schema is a powerful task manager that allow users to manage tasks anywhere and get things done.
+* Schema is catered towards users that spend most of their time on the computer and prefer to use keyboard over mouse as inputs.
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
