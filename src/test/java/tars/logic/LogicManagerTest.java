@@ -124,7 +124,7 @@ public class LogicManagerTest {
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
-
+        
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTars, model.getTars());
         assertEquals(expectedTars, latestSavedTars);
@@ -176,10 +176,10 @@ public class LogicManagerTest {
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] -dt 05/09/2016 1400 to 06/09/2016 2200 -p m", Name.MESSAGE_NAME_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "add Valid Task Name -dt notAValidDate -p m", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p notAValidPriority", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Task Name -dt notAValidDate -p m", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p notAValidPriority", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p m -t invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -201,25 +201,25 @@ public class LogicManagerTest {
 
     }
 
-//    @Test
-//    public void execute_addDuplicate_notAllowed() throws Exception {
-//        // setup expectations
-//        TestDataHelper helper = new TestDataHelper();
-//        Task toBeAdded = helper.meetAdam();
-//        Tars expectedAB = new Tars();
-//        expectedAB.addTask(toBeAdded);
-//
-//        // setup starting state
-//        model.addTask(toBeAdded); // task already in internal address book
-//
-//        // execute command and verify result
-//        assertCommandBehavior(
-//                helper.generateAddCommand(toBeAdded),
-//                AddCommand.MESSAGE_DUPLICATE_TASK,
-//                expectedAB,
-//                expectedAB.getTaskList());
-//
-//    }
+    @Test
+    public void execute_addDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal address book
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAdded),
+                AddCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
 
 
     @Test
@@ -229,7 +229,7 @@ public class LogicManagerTest {
         Tars expectedAB = helper.generateTars(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare address book state
+        // prepare tars state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
@@ -326,68 +326,68 @@ public class LogicManagerTest {
     }
 
 
-//    @Test
-//    public void execute_find_invalidArgsFormat() throws Exception {
-//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-//        assertCommandBehavior("find ", expectedMessage);
-//    }
-//
-//    @Test
-//    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-//        TestDataHelper helper = new TestDataHelper();
-//        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-//        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-//        Task p1 = helper.generateTaskWithName("KE Y");
-//        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
-//
-//        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-//        Tars expectedAB = helper.generateTars(fourTasks);
-//        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-//        helper.addToModel(model, fourTasks);
-//
-//        assertCommandBehavior("find KEY",
-//                Command.getMessageForTaskListShownSummary(expectedList.size()),
-//                expectedAB,
-//                expectedList);
-//    }
-//
-//    @Test
-//    public void execute_find_isNotCaseSensitive() throws Exception {
-//        TestDataHelper helper = new TestDataHelper();
-//        Task p1 = helper.generateTaskWithName("bla bla KEY bla");
-//        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-//        Task p3 = helper.generateTaskWithName("key key");
-//        Task p4 = helper.generateTaskWithName("KEy sduauo");
-//
-//        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-//        Tars expectedAB = helper.generateTars(fourTasks);
-//        List<Task> expectedList = fourTasks;
-//        helper.addToModel(model, fourTasks);
-//
-//        assertCommandBehavior("find KEY",
-//                Command.getMessageForTaskListShownSummary(expectedList.size()),
-//                expectedAB,
-//                expectedList);
-//    }
-//
-//    @Test
-//    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-//        TestDataHelper helper = new TestDataHelper();
-//        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-//        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-//        Task pTarget3 = helper.generateTaskWithName("key key");
-//        Task p1 = helper.generateTaskWithName("sduauo");
-//
-//        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-//        Tars expectedAB = helper.generateTars(fourTasks);
-//        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-//        helper.addToModel(model, fourTasks);
-//
-//        assertCommandBehavior("find key rAnDoM",
-//                Command.getMessageForTaskListShownSummary(expectedList.size()),
-//                expectedAB,
-//                expectedList);
-//    }
+    @Test
+    public void execute_find_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+        assertCommandBehavior("find ", expectedMessage);
+    }
+
+    @Test
+    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        Task p1 = helper.generateTaskWithName("KE Y");
+        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+
+        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
+        Tars expectedAB = helper.generateTars(fourTasks);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
+        helper.addToModel(model, fourTasks);
+
+        assertCommandBehavior("find KEY",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_find_isNotCaseSensitive() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task p1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        Task p3 = helper.generateTaskWithName("key key");
+        Task p4 = helper.generateTaskWithName("KEy sduauo");
+
+        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
+        Tars expectedAB = helper.generateTars(fourTasks);
+        List<Task> expectedList = fourTasks;
+        helper.addToModel(model, fourTasks);
+
+        assertCommandBehavior("find KEY",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generateTaskWithName("key key");
+        Task p1 = helper.generateTaskWithName("sduauo");
+
+        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
+        Tars expectedAB = helper.generateTars(fourTasks);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
+        helper.addToModel(model, fourTasks);
+
+        assertCommandBehavior("find key rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
 
 
     /**
