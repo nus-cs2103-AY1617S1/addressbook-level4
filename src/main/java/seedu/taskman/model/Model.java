@@ -1,7 +1,7 @@
 package seedu.taskman.model;
 
 import seedu.taskman.commons.core.UnmodifiableObservableList;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.task.EventInterface;
 import seedu.taskman.model.task.Task;
 import seedu.taskman.model.task.UniqueTaskList;
 
@@ -18,13 +18,13 @@ public interface Model {
     ReadOnlyTaskMan getTaskMan();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(EventInterface target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    UnmodifiableObservableList<EventInterface> getFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();

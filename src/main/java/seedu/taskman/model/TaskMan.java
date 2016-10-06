@@ -3,7 +3,7 @@ package seedu.taskman.model;
 import javafx.collections.ObservableList;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.task.EventInterface;
 import seedu.taskman.model.task.Task;
 import seedu.taskman.model.task.UniqueTaskList;
 
@@ -58,7 +58,7 @@ public class TaskMan implements ReadOnlyTaskMan {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends EventInterface> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
@@ -104,7 +104,7 @@ public class TaskMan implements ReadOnlyTaskMan {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(EventInterface key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -127,7 +127,7 @@ public class TaskMan implements ReadOnlyTaskMan {
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
+    public List<EventInterface> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 

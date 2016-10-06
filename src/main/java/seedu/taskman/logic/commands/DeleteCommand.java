@@ -2,7 +2,7 @@ package seedu.taskman.logic.commands;
 
 import seedu.taskman.commons.core.Messages;
 import seedu.taskman.commons.core.UnmodifiableObservableList;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.task.EventInterface;
 import seedu.taskman.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -29,14 +29,14 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<EventInterface> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        EventInterface taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.deleteTask(taskToDelete);

@@ -3,7 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.task.EventInterface;
 
 /**
  * Provides a handle to a task card in the task list panel.
@@ -41,7 +41,7 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask task){
+    public boolean isSameTask(EventInterface task){
         return getFullTitle().equals(task.getTitle().title) && getDeadline().equals(task.getDeadline().value)
                 && getEmail().equals(task.getEmail().value) && getAddress().equals(task.getAddress().value);
     }

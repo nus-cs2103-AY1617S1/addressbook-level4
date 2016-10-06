@@ -103,7 +103,7 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskMan expectedTaskMan,
-                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+                                       List<? extends EventInterface> expectedShownList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
@@ -214,7 +214,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskMan expectedAB = helper.generateTaskMan(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        List<? extends EventInterface> expectedList = expectedAB.getTaskList();
 
         // prepare task man state
         helper.addToModel(model, 2);

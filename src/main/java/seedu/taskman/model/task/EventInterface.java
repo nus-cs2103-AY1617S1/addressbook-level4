@@ -6,7 +6,7 @@ import seedu.taskman.model.tag.UniqueTagList;
  * A read-only immutable interface for a Task in the taskMan.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyTask {
+public interface EventInterface {
 
     Title getTitle();
     Deadline getDeadline();
@@ -22,7 +22,7 @@ public interface ReadOnlyTask {
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyTask other) {
+    default boolean isSameStateAs(EventInterface other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getTitle().equals(this.getTitle()) // state checks here onwards

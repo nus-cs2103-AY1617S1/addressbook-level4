@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a Task in the task man.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements EventInterface {
 
     private Title title;
     private Deadline deadline;
@@ -33,7 +33,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Copy constructor.
      */
-    public Task(ReadOnlyTask source) {
+    public Task(EventInterface source) {
         this(source.getTitle(), source.getDeadline(), source.getEmail(), source.getAddress(), source.getTags());
     }
 
@@ -72,8 +72,8 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                || (other instanceof EventInterface // instanceof handles nulls
+                && this.isSameStateAs((EventInterface) other));
     }
 
     @Override

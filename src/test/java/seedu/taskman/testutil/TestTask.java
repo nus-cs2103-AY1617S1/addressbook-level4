@@ -6,7 +6,7 @@ import seedu.taskman.model.task.*;
 /**
  * A mutable task object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements EventInterface {
 
     private Title title;
     private Address address;
