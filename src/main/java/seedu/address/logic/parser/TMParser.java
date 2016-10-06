@@ -1,10 +1,12 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -19,36 +21,50 @@ import seedu.address.logic.commands.SelectCommand;
 
 
 public class TMParser {
-
+	
+	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+	private static final Pattern ADD_ARGS_FORMAT = 
+			Pattern.compile("(?<taskType>event|deadline|someday)(?<addCommandArgs>.*)"
+			+ "|(?<addCommandArgs>.*)(?<taskType>event|deadline|someday)");
+	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("(?<taskName>'.+')");
+	
+	
 	public static Command parseUserInput(String userInput) {
-		String[] splitSpace = userInput.split(" ");
-		String commandWord = splitSpace[0].trim();
+		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        
+        final String commandWord = matcher.group("commandWord").trim();
+        final String arguments = matcher.group("arguments").trim();
+        
 		System.out.println("command: " + commandWord);
+		System.out.println("arguments: " + arguments);
 
 		switch (commandWord) {
 		case AddCommand.COMMAND_WORD:
-			return prepareAdd(userInput);
+			return prepareAdd(arguments);
 
-			//		case SelectCommand.COMMAND_WORD:
-			//			return prepareSelect(userInput);
-			//
-			//		case DeleteCommand.COMMAND_WORD:
-			//			return prepareDelete(userInput);
-			//
-			//		case ClearCommand.COMMAND_WORD:
-			//			return new ClearCommand();
-			//
-			//		case FindCommand.COMMAND_WORD:
-			//			return prepareFind(userInput);
-			//
-			//		case ListCommand.COMMAND_WORD:
-			//			return new ListCommand();
-			//
-			//		case ExitCommand.COMMAND_WORD:
-			//			return new ExitCommand();
-			//
-			//		case HelpCommand.COMMAND_WORD:
-			//			return new HelpCommand();
+//		case SelectCommand.COMMAND_WORD:
+//            return prepareSelect(arguments);
+//
+//        case DeleteCommand.COMMAND_WORD:
+//            return prepareDelete(arguments);
+//
+//        case ClearCommand.COMMAND_WORD:
+//            return new ClearCommand();
+//
+//        case FindCommand.COMMAND_WORD:
+//            return prepareFind(arguments);
+//
+//        case ListCommand.COMMAND_WORD:
+//            return new ListCommand();
+//
+//        case ExitCommand.COMMAND_WORD:
+//            return new ExitCommand();
+//
+//        case HelpCommand.COMMAND_WORD:
+//            return new HelpCommand();
 
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -56,23 +72,26 @@ public class TMParser {
 	}
 
 
-	private static Command prepareAdd(String userInput) {
-		// Second word in command string must be task type
-		String[] splitSpace = userInput.split(" ");
-		String taskType = splitSpace[1].trim();
-		System.out.println("task type: " + taskType);
-
-		String[] userInputWithoutCommandsArr = Arrays.copyOfRange(splitSpace, 2, splitSpace.length);
-		String userInputWithoutCommands = String.join(" ", userInputWithoutCommandsArr);
-
+	private static Command prepareAdd(String arguments) {
+		final Matcher matcher = ADD_ARGS_FORMAT.matcher(arguments.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        
+        final String taskType = matcher.group("taskType").trim();
+        final String addCommandArgs = matcher.group("addCommandArgs").trim();
+        
+        System.out.println("task type: " + taskType);
+        System.out.println("add args: " + addCommandArgs);
+        
 		switch (taskType) {
 		// TODO change hardcoded strings to references to strings in command classes
-		//		case "event":
-		//			prepareAddEvent(userInput);
-		//		case "deadline":
-		//			return prepareAddDeadline(userInput);
+		//case "event":
+		//	return prepareAddEvent(userInput);
+		case "deadline":
+			return prepareAddDeadline(addCommandArgs);
 		case "someday":
-			return prepareAddSomeday(userInputWithoutCommands);
+			return prepareAddSomeday(addCommandArgs);
 		default: 
 			// TODO better error message
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -80,57 +99,46 @@ public class TMParser {
 	}
 
 
-	private static Command prepareAddSomeday(String userInputWithoutCommands) {
-		// Short alias
-		String input = userInputWithoutCommands;
-
-		if (input.indexOf("'") == -1) {
-			// TODO better error message
-			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
-		}
-
-		String taskName = input.substring(input.indexOf("'") + 1, input.lastIndexOf("'")).trim();
-		System.out.println("task name: " + taskName);
-
-		String args = input.replace("'" + taskName + "'", "").trim();
-		
-		if (!args.equals("")) {
-			// TODO better error message
-			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
-		}
-		
-		// return new AddSomedayCommand(taskName);
+	private static Command prepareAddSomeday(String userInput) {
+//		Pattern namePattern = Pattern.compile("'(.+)'");
+//		Matcher nameMatcher = namePattern.matcher(userInput);
+//		
+//		while (nameMatcher.find()) {
+//		    String s = nameMatcher.group(1);
+//		    System.out.println("s: " + s);
+//		}
+//		
 		return null;
 	}
 
 
-	private Command prepareAddDeadline(String userInputWithoutCommands) {
-		//TODO
-		// Short alias
-		String input = userInputWithoutCommands;
-
-		if (input.indexOf("'") == -1) {
-			// TODO better error message
-			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
-		}
-
-		String taskName = input.substring(input.indexOf("'") + 1, input.lastIndexOf("'")).trim();
-		System.out.println("task name: " + taskName);
-
-		String args = input.replace("'" + taskName + "'", "").trim();
-		String[] argsArr = args.split(" ");
-
-		HashSet<String> validArgs = new HashSet<>();
-		validArgs.add("");
-
-		for (int i=0; i<argsArr.length; i++) {
-
-		}
-
+	private static Command prepareAddDeadline(String userInputWithoutCommands) {
+//		// Short alias
+//		String input = userInputWithoutCommands;
+//
+//		if (input.indexOf("'") == -1) {
+//			// TODO better error message
+//			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+//		}
+//
+////		String taskName = input.substring(input.indexOf("'") + 1, input.lastIndexOf("'")).trim();
+////		System.out.println("task name: " + taskName);
+////
+////		String args = input.replace("'" + taskName + "'", "").trim();
+////		
+////		System.out.println("args: " + args);
+//		
+//		Pattern MY_PATTERN = Pattern.compile("'(.+)'");
+//		Matcher m = MY_PATTERN.matcher(userInputWithoutCommands);
+//		
+//		while (m.find()) {
+//		    String s = m.group(1);
+//		    System.out.println("s: " + s);
+//		}
 		return null;
 	}
-
-
+	
+	
 	public static void main(String[] args) {
 		String userInput = "add someday 'Read 50 Shades of Grey'";
 		parseUserInput(userInput);
