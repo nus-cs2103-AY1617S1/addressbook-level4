@@ -1,29 +1,29 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds a person to the address book.
+ * Adds an item to the scheduler.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the scheduler. "
+            + "Parameters: NAME st/START_DATE_TIME et/END_DATE_TIME\n or NAME d/DATE\n or NAME \n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " Meeting st/20-09-14 14:00 et/20-09-14 15:00\n or Assignment1 d/23-09-12\n or Read Hamlet";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New item added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This item already exists in the scheduler";
 
-    private final Person toAdd;
+    private final Task toAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -36,7 +36,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Person(
+        this.toAdd = new Task(
                 new Name(name),
                 new Phone(phone),
                 new Email(email),
@@ -49,10 +49,10 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addPerson(toAdd);
+            model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniquePersonList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }

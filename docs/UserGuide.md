@@ -76,8 +76,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 > * The search is case sensitive. e.g `homework` will not match `Homework`
 > * The order of the keywords does not matter. e.g. `CS 2103` will match `2013 CS`
 > * Only the name is searched.
-> * Only full words will be matched e.g. `CS` will not match `CS2103’
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
+> * Only full words will be matched e.g. `CS` will not match `CS2103`
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
 e.g. `Midterm` will match `Midterm Review`
 
 Examples: 
