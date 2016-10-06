@@ -24,7 +24,7 @@
      adds a contact named `John Doe` to the Address Book.
    * **`delete`**` 3` : deletes the 3rd contact shown in the current list
    * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+6. Refer to the [Features](#features) section below for details of each command.<br> 
 
 
 ## Features
