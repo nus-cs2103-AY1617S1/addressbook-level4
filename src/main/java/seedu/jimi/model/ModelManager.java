@@ -9,7 +9,7 @@ import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.Task;
 import seedu.jimi.model.task.UniqueTaskList;
-import seedu.jimi.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -65,13 +65,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
+    public synchronized void deletePerson(ReadOnlyTask target) throws TaskNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicatePersonException {
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         addressBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
