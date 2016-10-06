@@ -172,7 +172,7 @@ Command | Format
 -------- | :--------
 help | `help` 
 add | `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE] [PRIORITY]`
-display | `display [TYPE] [PERIOD]`
+show | `show [PERIOD]`
 find | `find SEARCHSTRING`
 delete | `delete INDEX/TASKNAME`
 update | `update INDEX/TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE]`
