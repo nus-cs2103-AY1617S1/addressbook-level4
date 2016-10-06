@@ -72,16 +72,10 @@ Format: `undo`
 
 #### Deleting a Task: `delete`
 Deletes a particular task in the task manager<br>
-Format: `delete <task name>`
+Format: `delete <task index>`
 
 Example:
-* `delete CS2103T Tutorial`
-
-#### Adding a subtask: `add-s`
-Adds a subtask to a main task<br>
-Format: `add-s <main task name> <subtask>`
-Example: 
-* `add-s CS2103Tutorial Question1`
+* `delete s1`
 
 #### View: `donelist`
 Displays all the completed task on that day for the user to view.<br>
@@ -89,33 +83,39 @@ Format: `donelist`
 
 #### Editing a Task: `edit`
 Allows the user to edit a particular task<br>
-Format: `edit <name of task> <detail to edit> <new value>`
+Format: `edit <task index> <detail to edit> <new value>`
 
 Example:
-* `edit project meeting time 11am`
-* `edit tutorial name CS2103T Tutorial`
-* `edit project meeting date 21/11/2016`
+* `edit t2 time 11am`
+* `edit s1 name CS2103T Tutorial`
+* `edit t2 date 21/11/2016`
 
-#### View all task: `view`
-Allows the user to view a list of all the undone tasks.<br>
-Format: `view`
+#### View all task: `home`
+Returns to the default view of the application when it is opened.<br>
+Format: `home`
 
 #### Mark as done: `done`
 Marks a task as done. <br>
-Format: `done <task name>`
+Format: `done <task index>`
 
 Example:
-* `done CS2103 tutorial`
+* `done t1`
+
+#### Adding a subtask: `add-s`
+Adds a subtask to a main task<br>
+Format: `add-s <task index> <subtask>`
+Example: 
+* `add-s t2 Question1`
 
 ##### Set alarms for tasks: `remind`
 There are 2 ways to set an alarm for tasks. The first is to set the alarm when creating the task, and the second is to set it manually for a task that is already present.<br>
 Format: 
-* To set an alarm while creating a task, `add <task name> by <date/time>priority(optional) <priority type> remind by <date>  at <time>`
-* To manually set an alarm for a currently present task, `remind <task name> by <date>  at <time>`
+* To set an alarm while creating a task, `add <task index> by <date/time>priority(optional) <priority type> remind by <date>  at <time>`
+* To manually set an alarm for a currently present task, `remind <task index> by <date>  at <time>`
 
 Examples:
-* `add CS2101 by 21/09/2016 remind by 20/09/2016 at 5pm`
-* `remind CS2101 by 20/09/2016 at 5pm`
+* `add t2 by 21/09/2016 remind by 20/09/2016 at 5pm`
+* `remind t2 by 20/09/2016 at 5pm`
 
 #### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
