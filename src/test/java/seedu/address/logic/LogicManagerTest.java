@@ -152,11 +152,11 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoStartDateTimePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 e/valid@endDateTime.butNoStartDateTimePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Name p/12345 valid@endDateTime.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name p/12345 e/valid@endDateTime.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
@@ -166,7 +166,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", StartDateTime.MESSAGE_START_DATE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnEndDateTime a/valid, address", EndDateTime.MESSAGE_END_DATE_TIME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -375,12 +375,12 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             StartDateTime privateStartDateTime = new StartDateTime("111111");
-            Email email = new Email("adam@gmail.com");
+            EndDateTime endDateTime = new EndDateTime("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privateStartDateTime, email, privateAddress, tags);
+            return new Task(name, privateStartDateTime, endDateTime, privateAddress, tags);
         }
 
         /**
@@ -394,7 +394,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new StartDateTime("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
+                    new EndDateTime(seed + "@endDateTime"),
                     new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -408,7 +408,7 @@ public class LogicManagerTest {
 
             cmd.append(p.getName().toString());
             cmd.append(" p/").append(p.getStartDateTime());
-            cmd.append(" e/").append(p.getEmail());
+            cmd.append(" e/").append(p.getEndDateTime());
             cmd.append(" a/").append(p.getAddress());
 
             UniqueTagList tags = p.getTags();
@@ -493,7 +493,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new StartDateTime("1"),
-                    new Email("1@email"),
+                    new EndDateTime("1@endDateTime"),
                     new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );

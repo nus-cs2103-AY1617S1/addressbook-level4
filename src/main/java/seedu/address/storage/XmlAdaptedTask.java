@@ -19,7 +19,7 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String startDateTime;
     @XmlElement(required = true)
-    private String email;
+    private String endDateTime;
     @XmlElement(required = true)
     private String address;
 
@@ -40,7 +40,7 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         startDateTime = source.getStartDateTime().value;
-        email = source.getEmail().value;
+        endDateTime = source.getEndDateTime().value;
         address = source.getAddress().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -60,9 +60,9 @@ public class XmlAdaptedTask {
         }
         final Name name = new Name(this.name);
         final StartDateTime startDateTime = new StartDateTime(this.startDateTime);
-        final Email email = new Email(this.email);
+        final EndDateTime endDateTime = new EndDateTime(this.endDateTime);
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, startDateTime, email, address, tags);
+        return new Task(name, startDateTime, endDateTime, address, tags);
     }
 }

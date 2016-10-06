@@ -13,7 +13,7 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private StartDateTime startDateTime;
-    private Email email;
+    private EndDateTime endDateTime;
     private Address address;
 
     private UniqueTagList tags;
@@ -21,11 +21,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, StartDateTime startDateTime, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, startDateTime, email, address, tags);
+    public Task(Name name, StartDateTime startDateTime, EndDateTime endDateTime, Address address, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startDateTime, endDateTime, address, tags);
         this.name = name;
         this.startDateTime = startDateTime;
-        this.email = email;
+        this.endDateTime = endDateTime;
         this.address = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDateTime(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getStartDateTime(), source.getEndDateTime(), source.getAddress(), source.getTags());
     }
 
     @Override
@@ -48,8 +48,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public EndDateTime getEndDateTime() {
+        return endDateTime;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startDateTime, email, address, tags);
+        return Objects.hash(name, startDateTime, endDateTime, address, tags);
     }
 
     @Override

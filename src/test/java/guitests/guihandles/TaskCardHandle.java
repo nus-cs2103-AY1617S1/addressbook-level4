@@ -12,7 +12,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String START_DATE_TIME_FIELD_ID = "#startDateTime";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String END_DATE_TIME_FIELD_ID = "#endDateTime";
 
     private Node node;
 
@@ -37,13 +37,13 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(START_DATE_TIME_FIELD_ID);
     }
 
-    public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+    public String getEndDateTime() {
+        return getTextFromLabel(END_DATE_TIME_FIELD_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){
         return getFullName().equals(task.getName().fullName) && getStartDateTime().equals(task.getStartDateTime().value)
-                && getEmail().equals(task.getEmail().value) && getAddress().equals(task.getAddress().value);
+                && getEndDateTime().equals(task.getEndDateTime().value) && getAddress().equals(task.getAddress().value);
     }
 
     @Override

@@ -33,7 +33,7 @@
                         </HBox>
                         <Label fx:id="startDateTime" styleClass="cell_small_label" text="\$startDateTime" />
                         <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                        <Label fx:id="endDateTime" styleClass="cell_small_label" text="\$endDateTime" />
                     </children>
                 </VBox>
             </children>
