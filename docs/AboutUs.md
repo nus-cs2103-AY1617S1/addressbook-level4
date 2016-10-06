@@ -12,7 +12,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
 
 #### [Cherlynn Cha](https://github.com/Cherc)
 **Role:** Developer<br>
-**Responsibilities:** Documentation and Deliverables (Formatting & Code Quality)<br>
+**Responsibilities:** Documentation and Deliverables (Scheduling & Deadlines)<br>
 **Component-In-Charge:** Logic
 
 #### [Wu Zefeng](https://github.com/DesperadoFlames)
@@ -22,7 +22,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
 
 #### [Ong Heng Le](https://github.com/initialshl)
 **Role:** Developer<br>
-**Responsibilities:** Documentation and Deliverables (Scheduling & Deadlines)<br>
+**Responsibilities:** Documentation and Deliverables (Formatting & Code Quality)<br>
 **Component-In-Charge:** UI
 
 
