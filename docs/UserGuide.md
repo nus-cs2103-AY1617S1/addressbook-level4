@@ -144,6 +144,21 @@ Examples:
   **`delete`**` 1`<br>
   Deletes the task with `ID #1` in the DoDo-Bird.
 
+## Tagging a task : `tag`
+Tags the specified task from the DoDo-Bird.<br>
+Format: `tag ID TAG`
+
+> Tags the task at the specified `ID`. The ID **must be a positive integer** 1, 2, 3, ...
+
+Examples:
+
+* **`search`**` tomorrow`<br>
+**`tag`**` 2 Homework`<br>
+Deletes the task with `ID #2` in the DoDo-Bird.
+* **`search`**` Tutorial`<br>
+**`tag`**` 1 CS1010`<br>
+Deletes the task with `ID #1` in the DoDo-Bird.
+
 ## Undoing : `undo`
 Undo the last operation.<br>
 Format: `undo`
