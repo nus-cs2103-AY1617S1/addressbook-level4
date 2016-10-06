@@ -33,17 +33,17 @@
 Format: **`help`**
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-### Adding an event : `add`
-Adds an event to the to do list.<br>
-Format: **`add`**` [event_name]`<br>
+### Adding a task : `add`
+Add a task to Task!t.<br>
+Format: **`add`**` [task_name]`<br>
  
 > ##### Optional parameters
 > The following parameters can be appended to the add command. <br>
-> An event can only have one of each parameter.<br>
-> An event can only have either start/end time or deadline parameter.<br>
+> A task can only have one of each parameter.<br>
+> A task can only have either start/end time or deadline parameter.<br>
 
 > ###### Specifying start/end time : `from ... to ...`
-> This parameter is used to indicate the starting and ending datetime of an event.<br>
+> This parameter is used to indicate the starting and ending datetime of a task.<br>
 > Format: **`from`**` [datetime] `**`to`**` [datetime]`<br>
 
 > > The date for **`from`** can be omitted if it is on the same ending date. <br>
@@ -54,7 +54,7 @@ Format: **`add`**` [event_name]`<br>
 > * **`add`**` dinner with mom `**`from`**` 19:30 `**`to`**` 20:30 02 oct 2016`
 
 > ###### Specifying deadline : `by`
-> This parameter is used to indicate the deadline of an event.<br>
+> This parameter is used to indicate the deadline of a task.<br>
 > Format: **`by`**` [datetime]`<br>
 
 > > [datetime] must be in the format: hh:mm dd mmm yyyy (e.g. 19:30 12 oct 2016)
@@ -63,14 +63,14 @@ Format: **`add`**` [event_name]`<br>
 > * **`add`**` submit proposal `**`by`**` 23:59 02 oct 2016`
 
 > ###### Specifying location : `at`
-> This parameter is used to indicate the venue of an event.<br>
+> This parameter is used to indicate the venue of a task.<br>
 > Format: **`at`**` [location]`<br>
 
 > Examples:
 > * **`add`**` dinner with mom `**`at`**` home`
 
 > ###### Specifying remarks : `remarks`
-> This parameter is used to add remarks for the event.<br>
+> This parameter is used to add remarks for the task.<br>
 > Format: **`remarks`**` [remarks]`<br>
 
 > Examples:
@@ -82,70 +82,70 @@ Examples:
 * **`add`**` Jimmy's wedding banquet `**`at`**` Trinity Church `**`from`**` 19:00 `**`to`**` 22:00 11 nov 2016 `
 
 ### Listing all events : `list`
-Shows a list of all events in the to-do list.<br>
+Shows a list of all tasks in the to-do list.<br>
 Format: **`list`**` [filter]`<br>
 > [filters] available: <br>
-> * today - shows the list of events for today's date
-> * week - shows the list of events for this week
-> * month - shows the list of events for the current month
-> * date (e.g. 12 Oct 2016) - shows the list of events for the specified date
+> * today - shows the list of tasks for today's date
+> * week - shows the list of tasks for this week
+> * month - shows the list of tasks for the current month
+> * date (e.g. 12 Oct 2016) - shows the list of tasks for the specified date
 
 Examples:
 * **`list`**` today`
 * **`list`**` 12 Oct 2016`
 
-### Finding all events containing any keyword in the name: `find`
-Finds events whose names contain any of the given keywords.<br>
+### Finding all tasks containing any keyword in the name: `find`
+Finds tasks whose names contain any of the given keywords.<br>
 Format: **`find`**` [keywords]`
 
 > The search is case sensitive, the order of the keywords does not matter, only the name is searched, 
-and events matching at least one keyword will be returned (i.e. `OR` search).
+and tasks matching at least one keyword will be returned (i.e. `OR` search).
 
 Examples: 
 * `find mom`<br>
   Returns `dinner with mom` but not `dinner with Mom`
 * `find mom dad sister`<br>
-  Returns Any event having names `mom`, `dad`, or `sister`
+  Returns Any task having names `mom`, `dad`, or `sister`
 
-### Deleting an event : `delete`
-Delete the specified events from the to-do list.<br>
+### Deleting a task : `delete`
+Delete the specified tasks from the to-do list.<br>
 Format: **`delete`**` [index 1,index 2,...]`
 
-> This command is capable to deleting single and multiple events. For multiple events, the indexes are separated by a comma. <br>
-> Deletes the person at the specified index. 
+> This command is capable to deleting single and multiple tasks. For multiple tasks, the indexes are separated by a comma. <br>
+> Deletes the task at the specified index. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * **`list`**` today`<br>
   **`delete`**` 2`<br>
-  Deletes the 2nd event in the results of the **`list`** command.
+  Deletes the 2nd task in the results of the **`list`** command.
 * **`find`**` mom`<br> 
   **`delete`**` 1,4`<br>
-  Deletes the 1st and 4th event in the results of the **`find`** command.
+  Deletes the 1st and 4th tasks in the results of the **`find`** command.
 
-### Marking event as done : `done`
-Mark the events identified by the index numbers used in the last event listing.<br>
+### Marking task as done : `done`
+Mark the tasks identified by the index numbers used in the last task listing.<br>
 Format: **`done`**` [index 1,index 2,...]`
 
-> This command is capable of marking single and multiple events. For multiple events, the indexes are separated by a comma. <br>
-> Marks the events at the specified index. 
+> This command is capable of marking single and multiple tasks. For multiple tasks, the indexes are separated by a comma. <br>
+> Marks the tasks at the specified index. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
   
  Examples: 
 * **`list`**` today`<br>
   **`done`**` 2`<br>
-  Marks the 2nd event in the results of the **`list`** command.
+  Marks the 2nd task in the results of the **`list`** command.
 * **`find`**` mom`<br> 
   **`done`**` 1,2`<br>
-  Marks the 1st and 2nd event in the results of the **`find`** command.
+  Marks the 1st and 2nd tasks in the results of the **`find`** command.
 
-### Editing an event : `edit`
-Edits the event identified by the index number used in the last event listing.<br>
+### Editing a task : `edit`
+Edits the task identified by the index number used in the last task listing.<br>
 Format: **`edit`**` [index] [details]`
 
-> Edits the event specified based on the details given.<br>
+> Edits the tasks specified based on the details given.<br>
 > [details] follows the format in **`add`** command. <br>
 > The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, ...
@@ -153,13 +153,13 @@ Format: **`edit`**` [index] [details]`
 Examples: 
 * **`list`**<br>
   **`edit`**` 2 dinner with dad`<br>
-  Edits the name of the the 2nd event in the results of the **`list`** command.
+  Edits the name of the the 2nd task in the results of the **`list`** command.
 * **`find`**` dinner` <br> 
   **`edit`**` 1 `**`from`**` 1830 `**`to`**` 2000 25 oct 2016 `**`at`**` popeyes`<br>
-  Edits the time and location parameter of the 1st event in the results of the **`find`** command.
+  Edits the time and location parameter of the 1st task in the results of the **`find`** command.
 
 ### Undoing last action performed : `undo`
-Undo the last action performed in the to-do list. Irreversible.<br>
+Undo the last action performed in Task!t. Irreversible.<br>
 Format: **`undo`**
 
 ### Setting the storage location : `setstorage`
@@ -173,7 +173,7 @@ Examples:
 * **`setstorage`**` C://user/documents/todolist`.<br>
 
 ### Clearing all entries : `clear`
-Clears all entries from the to-do list.<br>
+Clears all entries from Task!t.<br>
 Format: `clear`  
 
 ### Exiting the program : `exit`
@@ -181,20 +181,20 @@ Exits the program.<br>
 Format: `exit`  
 
 ### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Task!t data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous to-do list.
+       the file that contains the data of your previous Task!t.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | **`add`**` [event_name] <optional parameters>`
+Add | **`add`**` [task_name] <optional parameters>`
 Clear | **`clear`**
 Delete | **`delete`**` [index 1,index 2,...]`
 Done | **`done`**` [index 1,index 2,...]`
