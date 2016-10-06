@@ -39,9 +39,11 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
      * Conversion
      */
     public XmlSerializableTaskList(ReadOnlyTaskList src) {
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+    	List<ReadOnlyTask> tl = src.getTaskList();
+        tasks.addAll(tl.stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
+    
 
     @Override
     public UniqueTagList getUniqueTagList() {
@@ -51,6 +53,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
             e.printStackTrace();
             return null;
         }
+        
     }
 
     @Override
@@ -60,7 +63,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
-
+            	
             }
         }
         return lists;

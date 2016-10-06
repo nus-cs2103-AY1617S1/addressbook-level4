@@ -24,11 +24,11 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
+    
 
 
     @Override
     public CommandResult execute() {
-
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
