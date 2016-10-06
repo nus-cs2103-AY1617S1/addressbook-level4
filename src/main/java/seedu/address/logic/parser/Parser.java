@@ -30,6 +30,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + " s/(?<start>[^/]+)"
                     + " e/(?<end>[^/]+)"
+                    + " p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     private static final Pattern NOTE_ARGS_FORMAT = Pattern.compile("(?<name>.+)");
 
@@ -100,6 +101,7 @@ public class Parser {
                     matcher.group("name"),
                     matcher.group("start"),
                     matcher.group("end"),
+                    matcher.group("priority"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
@@ -133,7 +135,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     	}
         try {
-            return new NoteCommand(matcher.group("name"));
+            return new NoteCommand(matcher.group("name"), matcher.group("priority"));
         } catch (IllegalValueException ive) {
 		    return new IncorrectCommand(ive.getMessage());
         }

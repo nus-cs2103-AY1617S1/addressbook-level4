@@ -29,13 +29,14 @@ public class NoteCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public NoteCommand(String taskName)
+    public NoteCommand(String taskName, String priority)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         this.toNote = new Task(
                 new Name(taskName),
                 new StartTime(null),
                 new EndTime(null),
+                new Priority(priority),
                 new UniqueTagList(tagSet)
         );
     }
