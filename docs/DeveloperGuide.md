@@ -455,6 +455,10 @@ Use case ends.
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Synchronization capability to other task management sites (ex: Google calendar)
+6. Back-up data that can be used to recover if original copy gets deleted
+7. Able to migrate all items into .txt file
+
 
 {More to be added}
 
