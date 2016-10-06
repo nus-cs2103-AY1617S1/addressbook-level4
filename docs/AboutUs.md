@@ -36,8 +36,8 @@ Responsibilities: Storage
 
 -----
 ## Project Mentor
-#### [Nirandika Wanigasekara]
-<img src="images/NirandikaWanigasekara.jpg" width="150"><br>
+#### Nirandika Wanigasekara
+<img src="images/NirandikaWanigasekara.png" width="150"><br>
 
 -----
 # Contributors
