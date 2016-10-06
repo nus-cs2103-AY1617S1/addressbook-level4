@@ -194,10 +194,14 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | **`add`**` [event_name] `**`from`**` [datetime] `**`to`**` [datetime] `**`at`**` [location] `**`remarks`**` [remarks]`
+Add | **`add`**` [event_name] <optional parameters>`
 Clear | **`clear`**
 Delete | **`delete`**` [index 1,index 2,...]`
+Done | **`done`**` [index 1,index 2,...]`
+Edit | **`edit`**` [index] [details]`
+Exit | **`exit`**
 Find | **`find`**` [keywords]`
-List | **`list`**` [filters]`
+List | **`list`**` [filter]`
 Help | **`help`**
 Set storage | **`setstorage`**` [filepath]`
+Undo | **`undo`**
