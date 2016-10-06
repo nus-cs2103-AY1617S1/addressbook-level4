@@ -1,0 +1,7 @@
+{
+  "appTitle" : "Must Do List",
+  "logLevel" : "INFO",
+  "userPrefsFilePath" : "preferences.json",
+  "addressBookFilePath" : "data/addressbook.xml",
+  "addressBookName" : "MustDoList"
+}
