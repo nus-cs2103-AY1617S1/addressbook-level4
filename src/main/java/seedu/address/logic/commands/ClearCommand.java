@@ -16,6 +16,8 @@ public class ClearCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, EventsCenter eventsCenter) {
+        assert model != null;
+
         model.resetData(new ToDoList());
         return new CommandResult(Messages.MESSAGE_TODO_LIST_CLEARED);
     }

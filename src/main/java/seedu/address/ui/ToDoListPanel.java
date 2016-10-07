@@ -104,5 +104,4 @@ public class ToDoListPanel extends UiPart {
             }
         }
     }
-
 }

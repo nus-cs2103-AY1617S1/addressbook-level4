@@ -48,7 +48,7 @@ public class ToDoList implements ReadOnlyToDoList {
         if (list.remove(toDo)) {
             return true;
         } else {
-            throw new IllegalValueException(toDo.toString() + " not found in to-do list");
+            throw new IllegalValueException(String.format(Messages.MESSAGE_TODO_NOT_FOUND, toDo.toString()));
         }
     }
 

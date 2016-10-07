@@ -16,11 +16,15 @@ public class FindCommand extends Command {
     private final Set<String> keywords;
 
     public FindCommand(Set<String> keywords) {
+        assert keywords != null;
+
         this.keywords = keywords;
     }
 
     @Override
     public CommandResult execute(Model model, EventsCenter eventsCenter) {
+        assert model != null;
+
         if (keywords.size() > 0) {
             model.updateFilteredToDoList(keywords);
             return new CommandResult(String.format(Messages.MESSAGE_FIND, model.getFilteredToDoList().size()));

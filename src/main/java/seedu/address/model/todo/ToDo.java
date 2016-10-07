@@ -81,5 +81,4 @@ public class ToDo implements ReadOnlyToDo {
     public String toString() {
         return getAsText();
     }
-
 }
