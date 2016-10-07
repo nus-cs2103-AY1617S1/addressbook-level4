@@ -11,8 +11,8 @@ public interface ReadOnlyTask {
     Name getName();
     StartTime getPhone();
     EndTime getEmail();
-    int getUniqueID();
     Priority getPriority();
+    int getUniqueID();
     boolean isComplete();
 
     /**
@@ -30,6 +30,7 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
+                && other.getPriority().equals(this.getPriority())
                 && (other.getUniqueID()==this.getUniqueID()));
     }
 
@@ -43,6 +44,8 @@ public interface ReadOnlyTask {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Priority: ")
+                .append(getPriority())
                 .append(" UniqueID: ")
                 .append(getUniqueID())
                 .append(" Tags: ");

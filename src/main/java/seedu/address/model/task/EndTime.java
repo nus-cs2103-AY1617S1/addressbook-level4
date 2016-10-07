@@ -21,7 +21,8 @@ public class EndTime {
      * @throws IllegalValueException if given email address string is invalid.
      */
     public EndTime(String email) throws IllegalValueException {
-        assert email != null;
+        //assert email != null;
+    	if(email==null)
         if (!isValidEmail(email)) {
             throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
         }

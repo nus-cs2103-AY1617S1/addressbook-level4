@@ -1,9 +1,12 @@
 package seedu.address.logic.commands;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -18,22 +21,33 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private String keywords;
-
+    public static final String MESSAGE_FIND_TASK_FAILURE = "No such task was found.";
+    private final String keywords;
+    
     public FindCommand(String keywords) {
         this.keywords = keywords;
     }
 
     @Override
     public CommandResult execute() {
-/*        
-        List<ReadOnlyTask> matchingTasks = model.getFilteredTaskListFromTaskName(keywords);
-        Set<String> keywordList = model.getKeywordsFromList(matchingTasks);
-        model.updateFilteredPersonList(keywordList);
-        //model.updateFilteredPersonList(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
-*/
-        return null;
+        Set<String> taskNameSet = new HashSet<String>();
+        taskNameSet.add(keywords);
+        model.updateFilteredPersonList(taskNameSet);
+        UnmodifiableObservableList<ReadOnlyTask> matchingTasks = model.getFilteredPersonList();
+        
+        // No tasks match string
+        if (matchingTasks.isEmpty()){
+            model.updateFilteredListToShowAll();
+            return new CommandResult(String.format(MESSAGE_FIND_TASK_FAILURE));
+        }
+        
+        // One or more tasks match string
+        else {
+            Set<String> words = new HashSet<String>();
+            words.add(keywords);
+            model.updateFilteredPersonList(words);
+            return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
+        }
     }
 
 }

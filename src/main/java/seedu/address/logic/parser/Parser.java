@@ -28,10 +28,10 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)" 
 										+ "((?: s/)(?<start>[^/&&\\S]+))?"
 										+ "((?: e/)(?<end>[^/&&\\S]+))?"
-										+ " p/(?<priority>[^/]+)"
+										+ "p/(?<priority>[^/]+)"
 										+ "(?<tagArguments>(?: t/[^/]+)*)");
-   
-    private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)"  + " p/(?<priority>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+    
+    private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)" + "p/(?<priority>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
     private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern.compile("(?<index>(\\d+)?)|"
     		+ "(?<searchString>[^/]+)");
 
@@ -109,27 +109,38 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-    	final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-    	if (!taskMatcher.matches()) {
-    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-    	}
-    	else if(taskMatcher.group("start") == null && taskMatcher.group("end") == null){
-    		try {
-    			return new AddCommand(taskMatcher.group("name"), taskMatcher.group("priority"), getTagsFromArgs(taskMatcher.group("tagArguments")));
-    		}
-    		catch (IllegalValueException e) {
-    			return new IncorrectCommand(e.getMessage());
-    		}
-		}
-    	else {
-    		String startTime = (taskMatcher.group("start")==null)?"NIL":taskMatcher.group("start");
-    		String endTime = (taskMatcher.group("end")==null)?"NIL":taskMatcher.group("end");
-    		try {
-				return new AddCommand(taskMatcher.group("name"), startTime, endTime, taskMatcher.group("priority"), getTagsFromArgs(taskMatcher.group("tagArguments")));
-			} catch (IllegalValueException e) {
-				return new IncorrectCommand(e.getMessage());
-			}
-    	}
+        final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher floatingMatcher = FLOATING_TASK_ARGS_FORMAT.matcher(args.trim());
+        
+        if (!taskMatcher.matches() && !floatingMatcher.matches()) {
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        } 
+        
+         if(floatingMatcher.matches()){
+            try {
+                return new AddCommand(
+                        floatingMatcher.group("name"),
+                        floatingMatcher.group("priority"),
+                        getTagsFromArgs(floatingMatcher.group("tagArguments"))
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }
+        
+        else {
+            try {
+                return new AddCommand(
+                        taskMatcher.group("name"),
+                        taskMatcher.group("start"),
+                        taskMatcher.group("end"),
+                        taskMatcher.group("priority"),
+                        getTagsFromArgs(taskMatcher.group("tagArguments"))
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        } 
     }
 
     /**

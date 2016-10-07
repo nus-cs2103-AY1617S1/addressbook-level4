@@ -1,9 +1,9 @@
 package seedu.address.model.task;
 
-import java.util.Objects;
-
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
+
+import java.util.Objects;
 
 /**
  * Represents a Person in the address book.
@@ -16,8 +16,8 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private StartTime startTime;
     private EndTime endTime;
-    private int uniqueID;
     private Priority priority;
+    private int uniqueID;
     private boolean isComplete;
 
     private UniqueTagList tags;
@@ -26,7 +26,7 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Name name, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime, tags);
+        assert !CollectionUtil.isAnyNull(name, startTime, endTime, priority, tags);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -67,6 +67,10 @@ public class Task implements ReadOnlyTask {
     public int getUniqueID() {
         return uniqueID;
     }
+    
+    public void setUniqueId(int newuniqueId){
+    	uniqueID = newuniqueId;
+    }
 
     @Override
     public UniqueTagList getTags() {
@@ -99,7 +103,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startTime, endTime, uniqueID, tags);
+        return Objects.hash(name, startTime, endTime, priority, uniqueID, tags);
     }
 
     @Override

@@ -19,7 +19,8 @@ public class StartTime {
      * @throws IllegalValueException if given phone string is invalid.
      */
     public StartTime(String phone) throws IllegalValueException {
-        assert phone != null;
+     //  assert phone != null;
+    	if(phone==null)
         if (!isValidPhone(phone)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
         }
@@ -34,7 +35,7 @@ public class StartTime {
     	if(test==null){
     		return true;
     	}
-        return test.matches(PHONE_VALIDATION_REGEX);
+    	return test.matches(PHONE_VALIDATION_REGEX);
     }
 
     @Override
