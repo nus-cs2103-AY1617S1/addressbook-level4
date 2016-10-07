@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
-import java.util.*;
+import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,14 +21,14 @@ public class KeywordParser {
     }
     /**
      * Parses input string arguments using keywords provided at construction
-     * Substring associated with keyword starts after keyword, and before the next keyword or end of line
-     * Keyword and associated substring put in a String array {Keyword, Substring}
-     * Returns ArrayList of String arrays
+     * Substring associated with keyword starts after keyword, and ends before the next keyword or end of line
+     * Keyword and associated substring put in a HashMap, with key = keyword and value = associated substring
+     * If no match found then empty HashMap returned
      * @param string to be parsed
      * @return
      */
-    public ArrayList<String[]> parse(String inputString){
-        ArrayList<String[]> words = new ArrayList<String[]>();
+    public HashMap<String, String> parse(String inputString){
+        HashMap<String, String> words = new HashMap<String, String>();
         for(int i = 0; i < keywords.size(); i++){
             inputString = new String(inputString);
             String keyword = keywords.get(i);
@@ -46,8 +47,7 @@ public class KeywordParser {
             Matcher matcher = pattern.matcher(inputString);
             if(matcher.matches()){
                 String returnString = matcher.group("returnString");
-                String[] returnPair = {keyword, returnString};
-                words.add(returnPair);
+                words.put(keyword, returnString);
             }
 
         }
