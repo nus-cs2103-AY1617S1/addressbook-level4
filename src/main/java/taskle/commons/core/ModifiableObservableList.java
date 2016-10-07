@@ -16,9 +16,10 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import taskle.model.person.Task;
 
 /**
- * Modifiable view of the obeservable list. Mainly used for the edit command.
+ * Modifiable view of the observable list. Mainly used for the edit command.
  * @author zhiyong
  *
  * @param <E>
@@ -35,6 +36,7 @@ public class ModifiableObservableList<E> implements ObservableList<E>{
         }
         this.backingList = backingList;
     }
+
     @Override
     public final boolean addAll(Object... elements) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
@@ -291,7 +293,7 @@ public class ModifiableObservableList<E> implements ObservableList<E>{
 
     @Override
     public final List<E> subList(int fromIndex, int toIndex) {
-        return (List<E>) (backingList.subList(fromIndex, toIndex));
+        return backingList.subList(fromIndex, toIndex);
     }
     
 
