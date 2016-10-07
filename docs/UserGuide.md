@@ -40,14 +40,14 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `run`
 
 #### Adding a task: `add`
-Adds a task which can be done at anytime  
+Adds a task which can be done at anytime.<br>
 Format: `add TASK_NAME`  
 This will create a floating task without any start time, end time or deadline.  
 Examples:  
 
 * `add watch Star Wars`
 
-Adds a task to be done by a specific date  
+Adds a task to be done by a specific date.<br>
 Format: `add TASK_NAME /by DATE_TIME`  or `add TASK_NAME /before DATE_TIME`  
 
 > Date formats are highly flexible and case-insensitive
@@ -59,7 +59,7 @@ Examples:
 * `add watch Star Wars /by next Wed`
 * `add watch Star Wars /by 10 Oct, 9.30pm`
 
-Adds a task (event) which has a specific start and end time  
+Adds a task (event) which has a specific start and end time.<br>
 Format: `add TASK_NAME [/from START_DATE_TIME] [/to END_DATE_TIME] `  
 If the time is specified but there are no days/dates given, the date of creation will be used.  
 
@@ -89,7 +89,7 @@ Shows a list of all tasks including all completed and uncompleted tasks.
 Format: `list all`  
 
 #### Finding all tasks containing any keyword in their name: `find`
-Finds tasks that contain any of the given keywords.  
+Finds tasks that contain any of the given keywords.<br>
 Format: `find KEYWORD``...`  
 
   > * The search is not case sensitive. e.g `assignment` will match `Assignment`
@@ -106,7 +106,7 @@ Examples:
   Returns all tasks that contain `Dory` or `Nemo`  
 
 #### Deleting a task : `delete`
-Deletes the specified task from the task list.  
+Deletes the specified task from the task list.<br>
 Format: `delete INDEX`  
 
 > Deletes the task at the specified `INDEX`.
@@ -129,7 +129,7 @@ Examples:
   Deletes the 2nd, 3rd and 4th task in the task list.  
 
 #### Updating the name of a task : `rename`
-Renames the specified task in the task list.  
+Renames the specified task in the task list.<br>
 Format: `rename INDEX NEW_TASK_NAME`  
 
 > Rename the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
@@ -145,7 +145,7 @@ Examples:
   Updates the name of the 1st task in the results of the `find` command to “Star Wars II”. 
 
 #### Updating the date/time of a task : `schedule`
-Updates the time of the specified task in the task list.
+Updates the time of the specified task in the task list.<br>
 Format: `schedule INDEX NEW_TIME_DESCRIPTION`
 
 > Schedule the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
@@ -165,7 +165,7 @@ Examples:
   Sets task 3's start time as 1 Oct 7pm and end time as 1 Oct 9.30pm
 
 #### Marking a task as completed : `mark`
-Marks the specified task in the task list
+Marks the specified task in the task list<br>
 Format: `mark INDEX...`
 
 > Mark the task(s) at the specified `INDEX(es)`. The index refers to the index number shown in the most recent listing.
@@ -189,19 +189,19 @@ Examples:
   Marks the 2nd, 3rd and 4th task in the task list.  
 
 #### Unmarking a task as completed : `unmark`
-This works simlar to the `mark` command. Unmarks the specified task in the task list  
+This works simlar to the `mark` command. Unmarks the specified task in the task list.<br>
 Format: `unmark INDEX...`
 
 #### Undo the last command : `undo`  
-Undo the last command that have modified the task list (excluding undo).  
+Undo the last command that have modified the task list (excluding undo).<br>
 Format: `undo`  
 Multiple undo actions are supported.
 
 ### Create an alias command : `alias`
-Defines an alternative short-hand command for an original command. Both original and new commands can be used.  
+Defines an alternative short-hand command for an original command. Both original and new commands can be used.<br>
 Format: `alias ORIGINAL_COMMAND_NAME as NEW_COMMAND_NAME`  
 
-> NEW_COMMAND_NAME must be a single word.
+> NEW_COMMAND_NAME must be a single word.<br>
 > ORIGINAL_COMMAND_NAME must be a command word that is specified in the help section
 
 Examples:
@@ -210,7 +210,7 @@ Examples:
 - `m` can used to mark tasks as well.
 
 #### Remove an alias command : `unalias`
-Removes the short-hand command  
+Removes the short-hand command.<br>
 Format: `unalias NEW_COMMAND_NAME`  
 
 > NEW_COMMAND_NAME must be a user-defined command word.
@@ -221,7 +221,7 @@ Examples:
 - `m` can no longer be used to mark tasks.
 
 #### Specifying a data storage location : `store`
-Specifies a folder as the data storage location  
+Specifies a folder as the data storage location.<br>
 Format: `store FILE_PATH`
 
 > FILE_PATH must be a valid directory path on the local computer
@@ -232,7 +232,7 @@ Examples:
 The task data will be moved to the specific directory, and future data will be saved in that location.
 
 #### Exiting the program : `exit`
-Exits the program.  
+Exits the program.<br>
 Format: `exit`  
 
 #### Keyboard Shortcuts
