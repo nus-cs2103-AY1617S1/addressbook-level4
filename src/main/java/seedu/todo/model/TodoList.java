@@ -52,6 +52,8 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     @Override
     public void add(String title) {
         tasks.add(new Task(title));
+        
+        storage.saveTodoList(this);
     }
     
     @Override
