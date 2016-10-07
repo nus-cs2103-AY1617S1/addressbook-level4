@@ -4,51 +4,51 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidGroup(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidStartDate(String)}
  */
-public class Group {
+public class StartDate {
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "Group description should be spaces or alphanumeric characters";
-    public static final String PHONE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_PHONE_CONSTRAINTS = "StartDate should be digits only";
+    public static final String PHONE_VALIDATION_REGEX = "\\d+";
 
-    public final String description;
+    public final String startDate;
 
     /**
      * Validates given phone number.
      *
      * @throws IllegalValueException if given phone string is invalid.
      */
-    public Group(String phone) throws IllegalValueException {
+    public StartDate(String phone) throws IllegalValueException {
         assert phone != null;
         phone = phone.trim();
-        if (!isValidGroup(phone)) {
+        if (!isValidStartDate(phone)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
         }
-        this.description = phone;
+        this.startDate = phone;
     }
 
     /**
      * Returns true if a given string is a valid person phone number.
      */
-    public static boolean isValidGroup(String test) {
+    public static boolean isValidStartDate(String test) {
         return test.matches(PHONE_VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return description;
+        return startDate;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Group // instanceof handles nulls
-                && this.description.equals(((Group) other).description)); // state check
+                || (other instanceof StartDate // instanceof handles nulls
+                && this.startDate.equals(((StartDate) other).startDate)); // state check
     }
 
     @Override
     public int hashCode() {
-        return description.hashCode();
+        return startDate.hashCode();
     }
 
 }

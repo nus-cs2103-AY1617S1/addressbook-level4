@@ -9,7 +9,7 @@ import seedu.tasklsit.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Title getTitle();
-    Group getGroup();
+    StartDate getGroup();
     Description getDescription();
     DueDate getAddress();
 
@@ -37,7 +37,7 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
-                .append(" Group: ")
+                .append(" StartDate: ")
                 .append(getGroup())
                 .append(" Description: ")
                 .append(getDescription())

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Title task;
-    private Group group;
+    private StartDate startDate;
     private Description description;
     private DueDate dueDate;
 
@@ -21,10 +21,10 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Title title, Group group, Description description, DueDate dueDate, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(title, group, description, dueDate, tags);
+    public Task(Title title, StartDate startDate, Description description, DueDate dueDate, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(title, startDate, description, dueDate, tags);
         this.task = title;
-        this.group = group;
+        this.startDate = startDate;
         this.description = description;
         this.dueDate = dueDate;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -43,8 +43,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Group getGroup() {
-        return group;
+    public StartDate getGroup() {
+        return startDate;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(task, group, description, dueDate, tags);
+        return Objects.hash(task, startDate, description, dueDate, tags);
     }
 
     @Override

@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Title("Ali Muster"), new Group("9482424"), new Description("hans@google.com"), new DueDate("4th street"), new UniqueTagList()),
-                    new Task(new Title("Boris Mueller"), new Group("87249245"), new Description("ruth@google.com"), new DueDate("81th street"), new UniqueTagList()),
-                    new Task(new Title("Carl Kurz"), new Group("95352563"), new Description("heinz@yahoo.com"), new DueDate("wall street"), new UniqueTagList()),
-                    new Task(new Title("Daniel Meier"), new Group("87652533"), new Description("cornelia@google.com"), new DueDate("10th street"), new UniqueTagList()),
-                    new Task(new Title("Elle Meyer"), new Group("9482224"), new Description("werner@gmail.com"), new DueDate("michegan ave"), new UniqueTagList()),
-                    new Task(new Title("Fiona Kunz"), new Group("9482427"), new Description("lydia@gmail.com"), new DueDate("little tokyo"), new UniqueTagList()),
-                    new Task(new Title("George Best"), new Group("9482442"), new Description("anna@google.com"), new DueDate("4th street"), new UniqueTagList()),
-                    new Task(new Title("Hoon Meier"), new Group("8482424"), new Description("stefan@mail.com"), new DueDate("little india"), new UniqueTagList()),
-                    new Task(new Title("Ida Mueller"), new Group("8482131"), new Description("hans@google.com"), new DueDate("chicago ave"), new UniqueTagList())
+                    new Task(new Title("Ali Muster"), new StartDate("9482424"), new Description("hans@google.com"), new DueDate("4th street"), new UniqueTagList()),
+                    new Task(new Title("Boris Mueller"), new StartDate("87249245"), new Description("ruth@google.com"), new DueDate("81th street"), new UniqueTagList()),
+                    new Task(new Title("Carl Kurz"), new StartDate("95352563"), new Description("heinz@yahoo.com"), new DueDate("wall street"), new UniqueTagList()),
+                    new Task(new Title("Daniel Meier"), new StartDate("87652533"), new Description("cornelia@google.com"), new DueDate("10th street"), new UniqueTagList()),
+                    new Task(new Title("Elle Meyer"), new StartDate("9482224"), new Description("werner@gmail.com"), new DueDate("michegan ave"), new UniqueTagList()),
+                    new Task(new Title("Fiona Kunz"), new StartDate("9482427"), new Description("lydia@gmail.com"), new DueDate("little tokyo"), new UniqueTagList()),
+                    new Task(new Title("George Best"), new StartDate("9482442"), new Description("anna@google.com"), new DueDate("4th street"), new UniqueTagList()),
+                    new Task(new Title("Hoon Meier"), new StartDate("8482424"), new Description("stefan@mail.com"), new DueDate("little india"), new UniqueTagList()),
+                    new Task(new Title("Ida Mueller"), new StartDate("8482131"), new Description("hans@google.com"), new DueDate("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -190,7 +190,7 @@ public class TestUtil {
         // remove final modifier from field
         Field modifiersField = Field.class.getDeclaredField("modifiers");
         modifiersField.setAccessible(true);
-        // ~Modifier.FINAL is used to remove the final modifier from field so that its description is no longer
+        // ~Modifier.FINAL is used to remove the final modifier from field so that its startDate is no longer
         // final and can be changed
         modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
         field.set(null, newValue);
