@@ -37,10 +37,6 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Email(email));
-        return this;
-    }
 
     public TestPerson build() {
         return this.person;

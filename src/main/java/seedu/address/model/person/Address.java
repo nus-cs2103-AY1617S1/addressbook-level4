@@ -27,10 +27,7 @@ public class Address {
         this.value = address;
     }
 
-    /**
-     * Returns true if a given string is a valid person email.
-     */
-    public static boolean isValidAddress(String test) {
+    private static boolean isValidAddress(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
