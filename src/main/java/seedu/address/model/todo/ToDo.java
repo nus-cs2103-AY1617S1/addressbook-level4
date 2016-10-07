@@ -4,6 +4,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a to-do
@@ -12,8 +13,8 @@ import java.util.Objects;
 public class ToDo implements ReadOnlyToDo {
 
     private Title title;
-    private DueDate dueDate;
-    private DateRange dateRange;
+    private Optional<DueDate> dueDate;
+    private Optional<DateRange> dateRange;
     private UniqueTagList tags;
 
     /**
@@ -35,11 +36,11 @@ public class ToDo implements ReadOnlyToDo {
         this.title = title;
     }
 
-    public void setDueDate(DueDate dueDate) {
+    public void setDueDate(Optional<DueDate> dueDate) {
         this.dueDate = dueDate;
     }
 
-    public void setDateRange(DateRange dateRange) {
+    public void setDateRange(Optional<DateRange> dateRange) {
         this.dateRange = dateRange;
     }
 
@@ -47,11 +48,11 @@ public class ToDo implements ReadOnlyToDo {
         this.tags = tags;
     }
     
-    public DueDate getDueDate() {
+    public Optional<DueDate> getDueDate() {
         return dueDate;
     }
 
-    public DateRange getDateRange() {
+    public Optional<DateRange> getDateRange() {
         return dateRange;
     }
 

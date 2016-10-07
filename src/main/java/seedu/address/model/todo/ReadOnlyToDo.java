@@ -1,5 +1,6 @@
 package seedu.address.model.todo;
 
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -12,8 +13,8 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyToDo {
 
     Title getTitle();
-    DateRange getDateRange();
-    DueDate getDueDate();
+    Optional<DateRange> getDateRange();
+    Optional<DueDate> getDueDate();
     UniqueTagList getTags();
 
     /**
