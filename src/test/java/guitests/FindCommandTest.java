@@ -2,8 +2,8 @@ package guitests;
 
 import org.junit.Test;
 
-import harmony.commons.core.Messages;
-import harmony.testutil.TestTask;
+import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 

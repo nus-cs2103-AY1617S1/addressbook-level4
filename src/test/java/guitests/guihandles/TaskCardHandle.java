@@ -1,7 +1,7 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
-import harmony.model.task.ReadOnlyTask;
+import harmony.mastermind.model.task.ReadOnlyTask;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 

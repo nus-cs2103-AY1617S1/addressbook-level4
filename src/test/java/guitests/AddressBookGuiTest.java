@@ -1,12 +1,12 @@
 package guitests;
 
 import guitests.guihandles.*;
-import harmony.TestApp;
-import harmony.commons.core.EventsCenter;
-import harmony.model.TaskManager;
-import harmony.model.task.ReadOnlyTask;
-import harmony.testutil.TestUtil;
-import harmony.testutil.TypicalTestTask;
+import harmony.mastermind.TestApp;
+import harmony.mastermind.commons.core.EventsCenter;
+import harmony.mastermind.model.TaskManager;
+import harmony.mastermind.model.task.ReadOnlyTask;
+import harmony.mastermind.testutil.TestUtil;
+import harmony.mastermind.testutil.TypicalTestTask;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;

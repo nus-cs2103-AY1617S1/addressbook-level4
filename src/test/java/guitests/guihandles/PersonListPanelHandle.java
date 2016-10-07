@@ -2,10 +2,10 @@ package guitests.guihandles;
 
 
 import guitests.GuiRobot;
-import harmony.TestApp;
-import harmony.model.task.ReadOnlyTask;
-import harmony.model.task.Task;
-import harmony.testutil.TestUtil;
+import harmony.mastermind.TestApp;
+import harmony.mastermind.model.task.ReadOnlyTask;
+import harmony.mastermind.model.task.Task;
+import harmony.mastermind.testutil.TestUtil;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;

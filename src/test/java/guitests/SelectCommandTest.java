@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import harmony.model.task.ReadOnlyTask;
+import harmony.mastermind.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 

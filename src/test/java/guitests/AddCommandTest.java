@@ -1,10 +1,10 @@
 package guitests;
 
 import guitests.guihandles.TaskCardHandle;
-import harmony.commons.core.Messages;
-import harmony.logic.commands.AddCommand;
-import harmony.testutil.TestTask;
-import harmony.testutil.TestUtil;
+import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.logic.commands.AddCommand;
+import harmony.mastermind.testutil.TestTask;
+import harmony.mastermind.testutil.TestUtil;
 
 import org.junit.Test;
 
