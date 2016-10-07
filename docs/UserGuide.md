@@ -63,13 +63,14 @@ Format: `help`
 
 #### Create a new task/event: `add`
 Adds a new task or event to the task list.<br>
-Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
+Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
 
 > Creates a new task with the name given. The particulars of the task may vary:
 >	* If it is a normal task, a deadline should be set.
 >	* If it is a task with allocated timeslot, a deadline, start time and end time should be set.
 >	* If it is an event, the start time and end time should be set.
-> The repeat frequency can be `daily`, `weekly`, or `monthly`.
+> The repeat frequency can be `daily`, `weekly`, or `monthly`.<br>
+> The repeat count will represent how many times the recurrence will occur.<br>
 > You can assign tags to it to classify them by category or by priority 
 > (up to your own discretion)
 
@@ -164,12 +165,13 @@ Examples:
 
 #### Change the details of a task/event: `update`
 Updates a task or event.<br>
-Format: `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
+Format: `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
 
 > Updates the specified task with the given information.<br>
 > The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, ...<br>
-> The repeat frequency can be `daily`, `weekly`, or `monthly`.
+> The repeat frequency can be `daily`, `weekly`, or `monthly`.<br>
+> The repeat count will represent how many times the recurrence will occur.<br>
 >
 > To remove any details for the task, prefix the argument keyword with `remove`.<br>
 > For example: `update 1 removeby` will remove the deadline.
@@ -264,12 +266,12 @@ when running the program.
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
+Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
 List | `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [SORTING_ORDER]`
 Find | `find KEYWORD...`
 Show | `show [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]]  [tag "TAG"...]`
 Hide | `hide [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]`
-Update | `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY] [repeattime FREQUENCY] [tag "TAG"...]`
+Update | `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
 Delete | `delete INDEX`
 Complete | `complete INDEX`
 Undo | `undo [last STEPS]`
