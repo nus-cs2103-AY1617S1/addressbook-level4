@@ -45,11 +45,11 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing ToDoList ]===========================");
+        logger.info("=============================[ Initializing TaskManager ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getToDoListFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -70,20 +70,20 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyToDoList> toDoListOptional;
-        ReadOnlyToDoList initialData;
+        Optional<ReadOnlyTaskManager> taskManagerOptional;
+        ReadOnlyTaskManager initialData;
         try {
-            toDoListOptional = storage.readToDoList();
-            if(!toDoListOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty ToDoList");
+            taskManagerOptional = storage.readTaskManager();
+            if(!taskManagerOptional.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty TaskManager");
             }
-            initialData = toDoListOptional.orElse(new ToDoList());
+            initialData = taskManagerOptional.orElse(new TaskManager());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ToDoList");
-            initialData = new ToDoList();
+            logger.warning("Data file not in the correct format. Will be starting with an empty TaskManager");
+            initialData = new TaskManager();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
-            initialData = new ToDoList();
+            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskManager");
+            initialData = new TaskManager();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -139,7 +139,7 @@ public class MainApp extends Application {
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskManager");
             initializedPrefs = new UserPrefs();
         }
 
@@ -159,7 +159,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting ToDoList " + MainApp.VERSION);
+        logger.info("Starting TaskManager " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

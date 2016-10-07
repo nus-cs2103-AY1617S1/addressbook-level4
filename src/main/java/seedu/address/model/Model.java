@@ -12,10 +12,10 @@ import java.util.Set;
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyToDoList newData);
+    void resetData(ReadOnlyTaskManager newData);
 
-    /** Returns the ToDoList */
-    ReadOnlyToDoList getToDoList();
+    /** Returns the TaskManager */
+    ReadOnlyTaskManager getTaskManager();
 
     /** Deletes the given task */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

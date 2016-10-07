@@ -3,10 +3,10 @@ package seedu.address.storage;
 import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.ToDoListChangedEvent;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyToDoList;
+import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -15,23 +15,23 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of ToDoList data in local storage.
+ * Manages storage of TaskManager data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private ToDoListStorage toDoListStorage;
+    private TaskManagerStorage taskManagerStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(ToDoListStorage toDoListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(TaskManagerStorage taskManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.toDoListStorage = toDoListStorage;
+        this.taskManagerStorage = taskManagerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(String toDoListFilePath, String userPrefsFilePath) {
-        this(new XmlToDoListStorage(toDoListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(String taskManagerFilePath, String userPrefsFilePath) {
+        this(new XmlTaskManagerStorage(taskManagerFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -47,42 +47,42 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ ToDoList methods ==============================
+    // ================ TaskManager methods ==============================
 
     @Override
-    public String getToDoListFilePath() {
-        return toDoListStorage.getToDoListFilePath();
+    public String getTaskManagerFilePath() {
+        return taskManagerStorage.getTaskManagerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyToDoList> readToDoList() throws DataConversionException, IOException {
-        return readToDoList(toDoListStorage.getToDoListFilePath());
+    public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException {
+        return readTaskManager(taskManagerStorage.getTaskManagerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyToDoList> readToDoList(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return toDoListStorage.readToDoList(filePath);
+        return taskManagerStorage.readTaskManager(filePath);
     }
 
     @Override
-    public void saveToDoList(ReadOnlyToDoList toDoList) throws IOException {
-        saveToDoList(toDoList, toDoListStorage.getToDoListFilePath());
+    public void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException {
+        saveTaskManager(taskManager, taskManagerStorage.getTaskManagerFilePath());
     }
 
     @Override
-    public void saveToDoList(ReadOnlyToDoList toDoList, String filePath) throws IOException {
+    public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        toDoListStorage.saveToDoList(toDoList, filePath);
+        taskManagerStorage.saveTaskManager(taskManager, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleToDoListChangedEvent(ToDoListChangedEvent event) {
+    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveToDoList(event.data);
+            saveTaskManager(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
