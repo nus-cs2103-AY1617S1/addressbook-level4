@@ -104,7 +104,9 @@ Example Command:
 ### Viewing help : `help`
 Format: 
 
-```help```
+```
+help
+```
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
