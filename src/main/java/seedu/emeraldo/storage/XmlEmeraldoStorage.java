@@ -1,9 +1,9 @@
-package seedu.address.storage;
+package seedu.emeraldo.storage;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEmeraldo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,26 +14,26 @@ import java.util.logging.Logger;
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlEmeraldoStorage implements EmeraldoStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlEmeraldoStorage.class);
 
     private String filePath;
 
-    public XmlAddressBookStorage(String filePath){
+    public XmlEmeraldoStorage(String filePath){
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getEmeraldoFilePath(){
         return filePath;
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readEmeraldo()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyEmeraldo> readEmeraldo(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File addressBookFile = new File(filePath);
@@ -43,16 +43,16 @@ public class XmlAddressBookStorage implements AddressBookStorage {
             return Optional.empty();
         }
 
-        ReadOnlyAddressBook addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyEmeraldo addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
         return Optional.of(addressBookOptional);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}
+     * Similar to {@link #saveEmeraldo(ReadOnlyEmeraldo)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+    public void saveEmeraldo(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
         assert addressBook != null;
         assert filePath != null;
 
@@ -62,12 +62,12 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyEmeraldo> readEmeraldo() throws DataConversionException, IOException {
+        return readEmeraldo(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveEmeraldo(ReadOnlyEmeraldo addressBook) throws IOException {
+        saveEmeraldo(addressBook, filePath);
     }
 }

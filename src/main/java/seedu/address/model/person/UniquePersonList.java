@@ -30,7 +30,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Signals that an operation targeting a specified person in the list would fail because
      * there is no such matching person in the list.
      */
-    public static class PersonNotFoundException extends Exception {}
+    public static class TaskNotFoundException extends Exception {}
 
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
 
@@ -63,13 +63,13 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Removes the equivalent person from the list.
      *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * @throws TaskNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public boolean remove(ReadOnlyPerson toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
-            throw new PersonNotFoundException();
+            throw new TaskNotFoundException();
         }
         return personFoundAndDeleted;
     }

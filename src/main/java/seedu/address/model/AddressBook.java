@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class AddressBook implements ReadOnlyEmeraldo {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
@@ -29,7 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public AddressBook(ReadOnlyEmeraldo toBeCopied) {
         this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
     }
 
@@ -40,7 +40,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
+    public static ReadOnlyEmeraldo getEmptyAddressBook() {
         return new AddressBook();
     }
 
@@ -63,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyEmeraldo newData) {
         resetData(newData.getPersonList(), newData.getTagList());
     }
 
@@ -104,11 +104,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
+    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.TaskNotFoundException {
         if (persons.remove(key)) {
             return true;
         } else {
-            throw new UniquePersonList.PersonNotFoundException();
+            throw new UniquePersonList.TaskNotFoundException();
         }
     }
 
