@@ -61,10 +61,9 @@ public class Period {
     @Override
     public String toString() {
         if (hasPeriod) {
-//        	TODO: String formatter got error
-//            return String.format(TO_STRING_FORMAT, startTime, endTime);
-        	return "";
+            return String.format(TO_STRING_FORMAT, startTime, endTime);
         }
+        
         return TO_STRING_NO_PERIOD;
     }
 
