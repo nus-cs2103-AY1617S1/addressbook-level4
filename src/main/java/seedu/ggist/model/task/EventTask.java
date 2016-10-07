@@ -78,7 +78,7 @@ public class EventTask extends Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taksName, date, startTime, endTime, tags);
+        return Objects.hash(taskName, date, startTime, endTime, tags);
     }
 
     @Override
