@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
  */
-public interface AddressBookStorage {
+public interface EmeraldoStorage {
 
     /**
      * Returns the file path of the data file.
