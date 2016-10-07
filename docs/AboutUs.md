@@ -2,13 +2,13 @@
 
 ## Project Team
 
-#### [Akshay Narayan]
+#### [Akshay Narayan](https://github.com/okkhoy)
 <img src="images/akshay.png" width="150"><br>
 **Role**: Project Mentor <br>
 
 -----
 
-#### [Nishant Budhdev]
+#### [Nishant Budhdev](https://github.com/nishantbudhdev)
 <img src="images/nishant.jpg" width="150"><br>
 **Role**: Project Mentor <br>
 
