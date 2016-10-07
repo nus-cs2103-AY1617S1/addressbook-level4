@@ -10,10 +10,10 @@ public interface ReadOnlyTask {
 
     TaskName getTaskName();
     Date getDate();
-    Time getTime();
-    Priority getPriority();
-    Frequency getFrequency();
-
+    Time getStartTime();
+    Time getEndTime();
+    
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
@@ -30,8 +30,6 @@ public interface ReadOnlyTask {
                 && other.getDate().equals(this.getDate())
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
-                && other.getPriority().equals(this.getPriority())
-                && other.getFrequency().equals(this.getFrequency()));
     }
 
     /**
@@ -48,10 +46,6 @@ public interface ReadOnlyTask {
                 .append(getStartTime())
                 .append(" End Time: ")
                 .append(getEndTime())
-                .append(" Priority: ")
-                .append(getPriority())
-                .append(" Frequency: ")
-                .append(getFrequency())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
