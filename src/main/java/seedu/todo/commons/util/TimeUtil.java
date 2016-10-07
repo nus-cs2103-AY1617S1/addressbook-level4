@@ -14,7 +14,6 @@ public class TimeUtil {
      * @return a formatted deadline String
      */
     public static String getTaskDeadlineString(LocalDateTime endTime) {
-        //Validate assumptions
         assert(endTime != null);
         
         LocalDateTime currentTime = LocalDateTime.now();
