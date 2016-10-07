@@ -18,7 +18,7 @@ public class TimeUtil {
      * @param endTime ending time (compulsory)
      * @return a formatted time to be displayed in UI
      */
-    public static String printFormattedTime(LocalDateTime startTime, LocalDateTime endTime) {
+    public static String getTaskDeadlineString(LocalDateTime startTime, LocalDateTime endTime) {
         //Validate assumptions
         assert(endTime != null);
         assert(startTime == null || startTime.isBefore(endTime));
