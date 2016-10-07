@@ -32,14 +32,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Persons and Tags are copied into this addressbook
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueUndatedTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(UniquePersonList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public AddressBook(UniquePersonList persons, UniquePersonList undatedTasks, UniqueTagList tags) {
+        resetData(persons.getInternalList(), undatedTasks.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyAddressBook getEmptyAddressBook() {
@@ -68,13 +68,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyDatedTask> newPersons, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyDatedTask> newPersons, 
+            Collection<? extends ReadOnlyDatedTask> newUndatedTasks,
+            Collection<Tag> newTags) {
         setPersons(newPersons.stream().map(DatedTask::new).collect(Collectors.toList()));
+        setPersons(newUndatedTasks.stream().map(DatedTask::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyAddressBook newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getPersonList(), newData.getUndatedTaskList(), newData.getTagList());
     }
 
 //// person-level operations
@@ -137,7 +140,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     
     public boolean removeUndatedTask(ReadOnlyDatedTask key) throws UniquePersonList.PersonNotFoundException {
-        if (persons.remove(key)) {
+        if (undatedList.remove(key)) {
             return true;
         } else {
             throw new UniquePersonList.PersonNotFoundException();
