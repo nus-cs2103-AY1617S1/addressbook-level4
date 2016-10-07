@@ -29,17 +29,16 @@
 There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the section below.
 
 ####4.1.1 Add an event
-Format : **Add** [&lt;event description&gt;, &lt;date(DDMMYY)&gt;, &lt;start time&gt;, &lt;end time&gt;]
 
-<img src="images/Capture2.PNG" width="600"><br>
+>Format : **Add** [&lt;event description&gt;, &lt;date(DDMMYY)&gt;, &lt;start time&gt;, &lt;end time&gt;]
 
 
 >Note: The start time and end time is optional when adding an event.
 Important: The square brackets are compulsory when adding an event.
 
 ####4.1.2 Add a deadline
-Format: **Add** &lt;deadline description&gt;, &lt;date(DDMMYY)&gt;, &lt;end time&gt;
 
+>Format: **Add** &lt;deadline description&gt;, &lt;date(DDMMYY)&gt;, &lt;end time&gt;
 
 Example: Add complete report, 120916, 1900
 
@@ -47,55 +46,57 @@ Example: Add complete report, 120916, 1900
 >Important: The date and end time are compulsory when adding an deadline
 
 ####4.1.3 Add a to-do
-Format: **Add** &lt;to-do description&gt;
 
+>Format: **Add** &lt;to-do description&gt;
 
 Example: Add go swimming
 
-
 >Note: To do tasks do not have a date or time.
 
-
->Note: To add a tag, simply add a # followed by the tag name. 
-To add a priority, simply add a ! at the back of the task.
-
-
-###4.2 Editing a task
-
-The edit task function enables you to update the task description which includes start time, end time, tags and priority and category. By typing the command and the task index followed by [enter], Simply will output the task details into the command bar for editing. After editing and pressing [enter], Simply will make the necessary changes to the task.
+>***Note: To add a tag, simply add a # followed by the tag name. 
+To add a priority, simply add a ! at the back of the task.***
 
 
-Format: **Edit** &lt;index&gt; [enter]
+###4.2 Edit a task
 
+The multiple edit task functions allow you to update specific task details.
 
-Example: Edit D1 [enter]
+#### 4.2.1 Edit all task details in one go
 
-Command Bar: Index task details are added to the back of the edit command
+>Format: **Edit** &lt;index&gt; [&lt;event description&gt;, &lt;date&gt;, &lt;start time&gt;, &lt;end time&gt;, &lt;tags&gt;, !] 
 
+>Format: **Edit** &lt;index&gt; &lt;deadline description&gt;, &lt;date&gt;, &lt;end time&gt;, &lt;tags&gt; 
+ 
+>Format: **Edit** &lt;index&gt; &lt;to-do description&gt; !
+ 
+#### 4.2.2 Edit task description
 
-Command bar: complete report, 120916, 1900 (Original task details are added to the end)
+>Format: **Edit** &lt;index&gt; **des** &lt;description&gt;
 
-Format: Changes to task details [enter]
+#### 4.2.3 Edit task date
 
+>Format: **Edit** &lt;index&gt; **date** &lt;date&gt;
 
-Changes: **Report, 180916, 1900 #CS2103** [enter]
+>Note: If you add a date to a to-do, this will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
+ 
+#### 4.2.4 Edit task start time 
 
-This will edit the current deadline task from complete report to Report with an additional tag called #CS2103.
+>Format: **Edit** &lt;index&gt; **start** &lt;start time&gt;
 
+#### 4.2.5 Edit task end time 
 
+>Format: **Edit** &lt;index&gt; **end** &lt;end time&gt;
 
-Example: Edit T1 [enter]
+#### 4.2.6 Edit task tags
 
+>Format: **Edit** &lt;index&gt; **tags** &lt;tags&gt;
 
-Command Bar: go swimming (Original task details are added to the end)
+#### 4.2.7 Edit task priority 
 
-<img src="images/Capture14.PNG" width="600"><br>
+>Format: **Edit** &lt;index&gt; **pri** &lt;priority&gt;
 
-Changes: go swimming, **140516, 1600** [enter]
-
-
-This will edit the current to-do task into a deadline task with the deadline on **140516 at 1600H**.
-
+>Note: If you want to remove priority, just leave an empty space after pri
+ 
 ###4.3 Search Task by Partial Keyword
 
 The search by partial keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task have not been entered, an error message will be shown.
@@ -118,17 +119,17 @@ Search #CS2103
 
 Only the tasks with the keyword are displayed.
 
-###4.4 Marking Task as Complete 
+###4.4 Marking Task as Done 
 
-The marking task as complete command enables you to mark the task as complete and hide the task.
+When you are done with tasks, enter this command to mark them as done and hide them away.
 
 Format: 
 
-Complete &lt;index&gt;
+Done &lt;index&gt;
 
-Complete &lt;index&gt;-&lt;index&gt;
+Done &lt;index&gt;-&lt;index&gt;
 
-Complete &lt;index&gt;, &lt;index&gt;
+Done &lt;index&gt;, &lt;index&gt;
     
     
 Example: 
