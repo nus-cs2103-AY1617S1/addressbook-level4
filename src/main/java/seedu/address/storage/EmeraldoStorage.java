@@ -17,7 +17,7 @@ public interface EmeraldoStorage {
     String getEmeraldoFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyEmeraldo}.
+     * Returns Emeraldo data as a {@link ReadOnlyEmeraldo}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
