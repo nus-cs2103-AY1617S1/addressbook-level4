@@ -24,12 +24,6 @@
 
 ## Features
 
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
-
 #### Viewing help : `help`
 Format: `help`
 
@@ -39,25 +33,22 @@ Format: `help`
 
 Description: Adds a task to the planner <br>
 Format:<br> 
-*`add TASKNAME DATE(optional)` 
-*`add TASKNAME DATE(optional) STARTTIME to ENDTIME isRECURRING(optional)`
-*`add TASKNAME DATE(optional) by ENDTIME(optional) isRECURRING(optional)`
+`add TASKNAME DATE(optional)` <br>
+`add TASKNAME DATE(optional) STARTTIME to ENDTIME isRECURRING(optional)`<br>
+`add TASKNAME DATE(optional) by ENDTIME(optional) isRECURRING(optional)` <br>
 
 Examples:<br>
-*`add gym today` <br>
+`add gym today` <br>
 Floating task with no specified time is added<br>
-*`add meeting tomorrow 2pm to 4pm` <br>
-Fixed task is added
-*`add math homework by 6pm` <br>
+`add meeting tomorrow 2pm to 4pm` <br>
+Fixed task is added <br>
+`add math homework by 6pm` <br>
 Task with a deadline, no date is specified so today’s date is assumed<br>
 
 >All tasks will be stored with a date. If user adds a task with no date specified, it is assumed the task is to be done today. 
 >Daily Planner splits all tasks into three categories - floating tasks(tasks which have no start time or end time), fixed tasks(tasks with a specified start time and end time) and deadline tasks(tasks with only an end time). 
 >Daily Planner will use this categorization to automatically create the user’s schedule.
 
-
-Shows a list of all persons in the address book.<br>
-Format: `list`
 
 #### Viewing a schedule : `show`
 
@@ -66,10 +57,10 @@ Description: Shows tasks on a particular day
 Format: `show DATE(optional)`
 
 Examples:
-*`show today`<br>
-Shows schedule for today
-*`show next wednesday` <br>
-Shows schedule for next wednesday
+`show today`<br>
+Shows schedule for today<br>
+`show next wednesday` <br>
+Shows schedule for next wednesday <br>
 
 >The show function will generate the user’s schedule when queried. Starting from the current time, it will consider all tasks in hand for the day and assign them to timeslots. 
 >Urgent tasks will be scheduled first(tasks with nearing deadlines). Fixed tasks will be scheduled only during their specified timeslot and floating tasks will be inserted to remaining empty timeslots throughout the day. Daily Planner will even account for breaks in between certain hours of consecutive tasks(say, every 3 hours). 
@@ -88,31 +79,18 @@ Format: `find TASKNAME`
     e.g. `Hans` will match `Hans Bo`
 
 Examples:
-*`find cs lecture`
+`find cs lecture` <br>
 
 #### Editing a task: `edit`
 
 Description: edits a particular task’s details<br>
-Format:
-* `edit INDEX DATE(optional)`<br> 
+Format:<br>
+`edit INDEX DATE(optional)`<br> 
 	`NEWTASKNAME(optional) NEWDATE(optional) NEWSTARTTIME(optional) to NEWENDTIME(optional)`<br>
 Examples:
-* `edit 2 tomorrow`<br>
+`edit 2 tomorrow`<br>
   `wednesday 4pm to 6pm`<br>
-(only changes date and time)
-
-
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
-
-
-
-Examples: 
-
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+(only changes date and time)<br>
   
 #### Deleting a task : `delete`
 
@@ -126,9 +104,9 @@ Format: `delete INDEX DATE(optional)`
 
 Examples: 
 *`Delete 5 12 oct`<br>
-Deletes task 5 of 5th october
+Deletes task 5 of 5th october <br>
 *`Delete 1`<br> 
-No date specified, so deletes first task today
+No date specified, so deletes first task today <br>
  
 
 #### Exiting the program : `exit`
