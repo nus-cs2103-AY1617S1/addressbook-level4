@@ -137,8 +137,8 @@ public class TestUtil {
         return new TaskBook(new UniqueTaskList());
     }
 
-    public static XmlSerializableTaskBook generateSampleStorageAddressBook() {
-        return new XmlSerializableTaskBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskBook generateSampleStorageTaskBook() {
+        return new XmlSerializableTaskBook(generateEmptyTaskBook());
     }
 
     /**

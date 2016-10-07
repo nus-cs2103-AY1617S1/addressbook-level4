@@ -48,14 +48,14 @@ public class SelectCommandTest extends TaskBookGuiTest {
         assertTaskSelected(index);
     }
 
-    private void assertPersonSelected(int index) {
+    private void assertTaskSelected(int index) {
         assertEquals(taskListPanel.getSelectedTasks().size(), 1);
-        ReadOnlyTask selectedPerson = taskListPanel.getSelectedTasks().get(0);
-        assertEquals(taskListPanel.getPerson(index-1), selectedPerson);
+        ReadOnlyTask selectedTask = taskListPanel.getSelectedTasks().get(0);
+        assertEquals(taskListPanel.getTask(index-1), selectedTask);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
-    private void assertNoPersonSelected() {
+    private void assertNoTaskSelected() {
         assertEquals(taskListPanel.getSelectedTasks().size(), 0);
     }
 

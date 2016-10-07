@@ -43,7 +43,7 @@ public class TaskCardHandle extends GuiHandle {
 
     
 
-    public boolean isSamePerson(ReadOnlyTask task){
+    public boolean isSameTask(ReadOnlyTask task){
         return getFullTaskName().equals(task.getTask().fullName) 
 //        		&& getDeadline().equals(task.getDeadline().value)
                 && getTaskStatus().equals(task.getTaskStatus()) //should status be checked?
