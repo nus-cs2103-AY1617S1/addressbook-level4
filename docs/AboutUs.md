@@ -5,7 +5,7 @@ We are a group of students in the [School of Computing, National University of S
 ## Project Team
 
 #### [Ang Shi Ya](https://github.com/AngShiYa) <br>
-<img src="images/ShiYa.jpg" width="150"><br>
+<img src="images/ShiYa.png" width="150"><br>
 Role: Testing, Developer <br>  
 Responsibilities: Model
 
