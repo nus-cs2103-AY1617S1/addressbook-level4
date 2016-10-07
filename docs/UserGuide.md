@@ -160,7 +160,7 @@ Add/Edit | `add`/`edit INDEX` `NAME by DUE_DATE DUE_TIME [repeat every RECURRING
 Add/Edit | `add`/`edit INDEX` `add NAME [rank PRIORITY]`
 Add/Edit | `add`/`edit INDEX` `add NAME at DATE START_TIME to [DATE] END_TIME [repeat every RECURRING_INTERVAL]` 
 Add/Edit | `add`/`edit INDEX (new OR SUB-INDEX)` `add NAME (at DATE START_TIME to [DATE] END TIME...)`
-Confirm | `confirm INDEX SUBINDEX`
+Confirm | `confirm INDEX SUB-INDEX`
 Delete | `delete INDEX`
 Undo | `undo`
 Redo | `redo`
