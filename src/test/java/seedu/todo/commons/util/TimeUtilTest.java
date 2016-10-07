@@ -45,6 +45,19 @@ public class TimeUtilTest {
         }
     }
     
+    @Test
+    public void getTaskDeadlineString_aMinuteBeforeDeadlines() {
+        String expectedOutput = "in 1 minute";
+        
+        LocalDateTime inputTime1 = LocalDateTime.now().plusMinutes(1);
+        String generatedOutput1 = TimeUtil.getTaskDeadlineString(inputTime1);
+        assertEquals(generatedOutput1, expectedOutput);
+        
+        LocalDateTime inputTime2 = LocalDateTime.now().plusMinutes(1).plusSeconds(10);
+        String generatedOutput2 = TimeUtil.getTaskDeadlineString(inputTime2);
+        assertEquals(generatedOutput2, expectedOutput);
+    }
+    
     
 
 }
