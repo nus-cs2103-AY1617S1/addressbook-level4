@@ -17,6 +17,7 @@ public class Task implements ReadOnlyTask {
     private StartTime startTime;
     private EndTime endTime;
     private int uniqueID;
+    private boolean isComplete;
 
     private UniqueTagList tags;
 
@@ -30,6 +31,7 @@ public class Task implements ReadOnlyTask {
         this.endTime = endTime;
         this.uniqueID = currentID++;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isComplete = false;
     }
 
     /**
@@ -72,6 +74,15 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
+    public boolean isComplete() {
+        return isComplete;
+    }
+    
+    public void markAsComplete() {
+        isComplete = true;
+    }
+    
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
@@ -88,5 +99,5 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
+    
 }

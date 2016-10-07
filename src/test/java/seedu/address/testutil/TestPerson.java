@@ -4,7 +4,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable Task object. For testing only.
  */
 public class TestPerson implements ReadOnlyTask {
 
@@ -13,6 +13,7 @@ public class TestPerson implements ReadOnlyTask {
     private EndTime endTime;
     private StartTime startTime;
     private UniqueTagList tags;
+    private boolean isComplete;
 
     public TestPerson() {
         tags = new UniqueTagList();
@@ -53,6 +54,10 @@ public class TestPerson implements ReadOnlyTask {
     public int getUniqueID() {
         return uniqueID;
     }
+    
+    public void markAsComplete() {
+        isComplete = true;
+    }
 
     @Override
     public UniqueTagList getTags() {
@@ -72,5 +77,10 @@ public class TestPerson implements ReadOnlyTask {
         sb.append("a/" + this.getUniqueID() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
+    }
+
+    @Override
+    public boolean isComplete() {
+        return isComplete;
     }
 }

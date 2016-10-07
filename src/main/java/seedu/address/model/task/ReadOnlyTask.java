@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     StartTime getPhone();
     EndTime getEmail();
     int getUniqueID();
+    boolean isComplete();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

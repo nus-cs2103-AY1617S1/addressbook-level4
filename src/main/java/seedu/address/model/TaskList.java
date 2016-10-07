@@ -16,28 +16,28 @@ import java.util.stream.Collectors;
  */
 public class TaskList implements ReadOnlyTaskList {
 
-    private final UniqueTaskList persons;
+    private final UniqueTaskList tasks;
     private final UniqueTagList tags;
 
     {
-        persons = new UniqueTaskList();
+        tasks = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
     public TaskList() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * tasks and Tags are copied into this addressbook
      */
     public TaskList(ReadOnlyTaskList toBeCopied) {
         this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * tasks and Tags are copied into this addressbook
      */
-    public TaskList(UniqueTaskList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
+        resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyTaskList getEmptyAddressBook() {
@@ -46,20 +46,20 @@ public class TaskList implements ReadOnlyTaskList {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getPersons() {
-        return persons.getInternalList();
+    public ObservableList<Task> getTasks() {
+        return tasks.getInternalList();
     }
 
-    public void setPersons(List<Task> tasks) {
-        this.persons.getInternalList().setAll(tasks);
+    public void setTasks(List<Task> tasks) {
+        this.tasks.getInternalList().setAll(tasks);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyTask> newtasks, Collection<Tag> newTags) {
+        setTasks(newtasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -78,7 +78,7 @@ public class TaskList implements ReadOnlyTaskList {
      */
     public void addPerson(Task p) throws UniqueTaskList.DuplicatePersonException {
         syncTagsWithMasterList(p);
-        persons.add(p);
+        tasks.add(p);
     }
 
     /**
@@ -105,7 +105,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
-        if (persons.remove(key)) {
+        if (tasks.remove(key)) {
             return true;
         } else {
             throw new UniqueTaskList.PersonNotFoundException();
@@ -122,13 +122,13 @@ public class TaskList implements ReadOnlyTaskList {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyTask> getPersonList() {
-        return Collections.unmodifiableList(persons.getInternalList());
+        return Collections.unmodifiableList(tasks.getInternalList());
     }
 
     @Override
@@ -138,7 +138,7 @@ public class TaskList implements ReadOnlyTaskList {
 
     @Override
     public UniqueTaskList getUniquePersonList() {
-        return this.persons;
+        return this.tasks;
     }
 
     @Override
@@ -151,13 +151,13 @@ public class TaskList implements ReadOnlyTaskList {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskList // instanceof handles nulls
-                && this.persons.equals(((TaskList) other).persons)
+                && this.tasks.equals(((TaskList) other).tasks)
                 && this.tags.equals(((TaskList) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(tasks, tags);
     }
 }
