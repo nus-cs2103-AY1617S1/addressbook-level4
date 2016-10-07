@@ -1,5 +1,6 @@
 package seedu.todo.commons.util;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 /**
@@ -18,7 +19,12 @@ public class TimeUtil {
      * @return a formatted time to be displayed in UI
      */
     public static String printFormattedTime(LocalDateTime startTime, LocalDateTime endTime) {
-        return null;
+        LocalDateTime currentTime = LocalDateTime.now();
+        Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
+        
+        long hoursToDeadline = durationCurrentToEnd.toHours();
+        String formattedTime = "in " + String.valueOf(hoursToDeadline) + " hours";
+        return formattedTime;
     }
     
 }
