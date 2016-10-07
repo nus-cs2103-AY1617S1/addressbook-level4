@@ -29,6 +29,20 @@ public abstract class Command {
     public abstract CommandResult execute();
 
     /**
+     * 
+     * @return true if this command can be undone
+     */
+    public abstract boolean canUndo();
+    
+    /**
+     * Undo this command.
+     * To use this method, this command MUST be undo-able.
+     * 
+     * @return feedback message of the undo result for display
+     */
+    public abstract CommandResult executeUndo();
+
+    /**
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.

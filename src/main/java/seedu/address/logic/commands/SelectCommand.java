@@ -41,4 +41,14 @@ public class SelectCommand extends Command {
 
     }
 
+    @Override
+    public boolean canUndo() {
+        return false;
+    }
+
+    @Override
+    public CommandResult executeUndo() {
+        return null;
+    }
+
 }

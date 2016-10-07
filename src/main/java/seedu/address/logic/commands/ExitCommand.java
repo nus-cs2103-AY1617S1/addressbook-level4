@@ -20,4 +20,14 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
+    @Override
+    public boolean canUndo() {
+        return false;
+    }
+
+    @Override
+    public CommandResult executeUndo() {
+        return null;
+    }
+
 }
