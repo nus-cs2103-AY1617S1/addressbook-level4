@@ -15,10 +15,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.*;
 import seedu.address.commons.util.ConfigUtil;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+import seedu.emeraldo.storage.Storage;
+import seedu.emeraldo.storage.StorageManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

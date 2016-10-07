@@ -18,7 +18,7 @@ import seedu.address.model.ReadOnlyEmeraldo;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.storage.StorageManager;
+import seedu.emeraldo.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;

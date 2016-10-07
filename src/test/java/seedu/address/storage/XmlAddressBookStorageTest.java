@@ -11,6 +11,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyEmeraldo;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalTestPersons;
+import seedu.emeraldo.storage.XmlEmeraldoStorage;
 
 import java.io.IOException;
 

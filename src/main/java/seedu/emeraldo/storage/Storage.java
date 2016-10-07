@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.emeraldo.storage;
 
 import seedu.address.commons.events.model.EmeraldoChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;

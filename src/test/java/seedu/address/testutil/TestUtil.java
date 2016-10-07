@@ -20,7 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.emeraldo.storage.XmlSerializableAddressBook;
 
 import java.io.File;
 import java.io.IOException;

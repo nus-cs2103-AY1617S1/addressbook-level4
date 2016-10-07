@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.emeraldo.storage;
 
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.commons.exceptions.DataConversionException;

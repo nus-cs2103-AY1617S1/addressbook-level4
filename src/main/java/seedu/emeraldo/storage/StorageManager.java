@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.emeraldo.storage;
 
 import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
