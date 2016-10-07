@@ -9,40 +9,69 @@ import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to GGist.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task. "
-            + "Parameters: TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task, task with deadline or event. "
+            + "Parameters: TASK, [DATE], [TIME]...\n"
             + "Example: " + COMMAND_WORD
-            + "add buy milk, oct 13, 1800, high";
+            + "add buy milk, oct 13, 1800";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";
     
     private final Task toAdd;
+    final Set<Tag> tagSet = new HashSet<>();
 
     /**
-     * Convenience constructor using raw values.
+     * onstructor for task with start and end times using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String taskName, String date, String startTime, String endTime, Set<String> tags)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
+    public AddCommand(String taskName, String date, String startTime, String endTime, Set<String> tags) throws IllegalValueException {      
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
+        this.toAdd = new EventTask(
                 new TaskName(taskName),
                 new Date(date),
                 new Time(startTime),
                 new Time(endTime),
-                new Priority(priority),
-                new Frequency(frequency),
+                new UniqueTagList(tagSet)
+        );
+    }
+    
+    /**
+     * Convenience constructor for task with deadline using raw values.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String taskName, String date, String endTime, Set<String> tags) throws IllegalValueException {      
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new DeadlineTask(
+                new TaskName(taskName),
+                new Date(date),
+                new Time(endTime),
+                new UniqueTagList(tagSet)
+        );
+    }
+    
+    /**
+     * Convenience constructor for task without deadlines using raw values.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String taskName, Set<String> tags) throws IllegalValueException {      
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new FloatingTask(
+                new TaskName(taskName),
                 new UniqueTagList(tagSet)
         );
     }

@@ -23,7 +23,6 @@ public class XmlAdaptedTask {
     private String startTime;
     @XmlElement(required = true)
     private String endTime;
- 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -50,7 +49,7 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
@@ -64,6 +63,7 @@ public class XmlAdaptedTask {
         final Time startTime = new Time(this.startTime);
         final Time endTime = new Time(this.endTime);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(taskName, date, startTime, endTime, tags);
+        return new EventTask(taskName, date, startTime, endTime, tags);
+>>>>>>> 7a567d56e1a3adba4f46dbc0915667979692f248
     }
 }

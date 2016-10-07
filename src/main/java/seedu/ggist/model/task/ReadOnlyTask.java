@@ -30,6 +30,7 @@ public interface ReadOnlyTask {
                 && other.getDate().equals(this.getDate())
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
+         );
     }
 
     /**

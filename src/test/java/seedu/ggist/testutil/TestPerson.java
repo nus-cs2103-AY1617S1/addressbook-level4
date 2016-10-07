@@ -8,7 +8,7 @@ import seedu.ggist.model.task.*;
  */
 public class TestPerson implements ReadOnlyTask {
 
-    private Name name;
+    private TaskName name;
     private Address address;
     private Email email;
     private Phone phone;
@@ -18,7 +18,7 @@ public class TestPerson implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
+    public void setName(TaskName name) {
         this.name = name;
     }
 
@@ -35,7 +35,7 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Name getName() {
+    public TaskName getName() {
         return name;
     }
 
