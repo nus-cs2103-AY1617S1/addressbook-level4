@@ -91,7 +91,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'whatnow book' and the 'last shown list' are expected to be empty.
+     * Both 'WhatNow' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyWhatNow, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -101,7 +101,7 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal whatnow book data are same as those in the {@code expectedWhatNow} <br>
+     *      - the internal WhatNow data are same as those in the {@code expectedWhatNow} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedWhatNow} was saved to the storage file. <br>
      */
@@ -154,21 +154,15 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, whatnow", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, whatnow", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, whatnow", expectedMessage);
+                "add wrong/args wrong/args", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, whatnow", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p12345 evalid@e.mail avalid, whatnow", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, whatnow t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name p12345 evalid@e.mail avalid, whatnow t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -197,7 +191,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // task already in internal whatnow book
+        model.addTask(toBeAdded); // task already in internal WhatNow
 
         // execute command and verify result
         assertCommandBehavior(
@@ -216,7 +210,7 @@ public class LogicManagerTest {
         WhatNow expectedAB = helper.generateWhatNow(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare whatnow book state
+        // prepare WhatNow state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",

@@ -25,7 +25,7 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns whatnow book in the file or an empty whatnow book
+     * Returns WhatNow in the file or an empty WhatNow
      */
     public static XmlSerializableWhatNow loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {

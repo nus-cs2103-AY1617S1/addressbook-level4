@@ -9,7 +9,7 @@ import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.UniqueTaskList;
 
 /**
- * Unmodifiable view of an whatnow book
+ * Unmodifiable view of WhatNow
  */
 public interface ReadOnlyWhatNow {
 

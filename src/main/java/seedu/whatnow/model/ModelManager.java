@@ -33,7 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with whatnow book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with WhatNow: " + src + " and user prefs " + userPrefs);
 
         whatNow = new WhatNow(src);
         filteredTasks = new FilteredList<>(whatNow.getTasks());

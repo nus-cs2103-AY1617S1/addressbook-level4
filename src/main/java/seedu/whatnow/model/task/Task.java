@@ -6,7 +6,7 @@ import seedu.whatnow.commons.util.CollectionUtil;
 import seedu.whatnow.model.tag.UniqueTagList;
 
 /**
- * Represents a Task in the whatnow book.
+ * Represents a Task in WhatNow.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
