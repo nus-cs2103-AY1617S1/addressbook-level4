@@ -14,13 +14,13 @@ public class TaskTime {
      *
      * @throws IllegalValueException if given email address string is invalid.
      */
-    public TaskTime(String email) throws IllegalValueException {
-        assert email != null;
-        email = email.trim();
-        if (!isValidTaskTime(email)) {
+    public TaskTime(String time) throws IllegalValueException {
+        assert time != null;
+        time = time.trim();
+        if (!isValidTaskTime(time)) {
             throw new IllegalValueException(MESSAGE_TASK_TIME_CONSTRAINTS);
         }
-        this.value = email;
+        this.value = time;
     }
 
     /**
@@ -39,7 +39,7 @@ public class TaskTime {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskTime // instanceof handles nulls
-                && true); // state check TODO
+                && this.value == ((TaskTime) other).value); // state check TODO
     }
 
     @Override

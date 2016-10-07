@@ -14,13 +14,13 @@ public class TaskRecurrence {
      *
      * @throws IllegalValueException if given email address string is invalid.
      */
-    public TaskRecurrence(String email) throws IllegalValueException {
-        assert email != null;
-        email = email.trim();
-        if (!isValidTaskRecurrence(email)) {
+    public TaskRecurrence(String recurrence) throws IllegalValueException {
+        assert recurrence != null;
+        recurrence = recurrence.trim();
+        if (!isValidTaskRecurrence(recurrence)) {
             throw new IllegalValueException(MESSAGE_TASK_RECURRENCE_CONSTRAINTS);
         }
-        this.value = email;
+        this.value = recurrence;
     }
 
     /**
@@ -39,7 +39,7 @@ public class TaskRecurrence {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskRecurrence // instanceof handles nulls
-                && true); // state check TODO
+                && this.value == ((TaskRecurrence) other).value); // state check TODO
     }
 
     @Override
