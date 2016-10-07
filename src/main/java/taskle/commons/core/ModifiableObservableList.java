@@ -1,13 +1,21 @@
 package taskle.commons.core;
 
+import java.text.Collator;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * Modifiable view of the obeservable list. Mainly used for the edit command.
@@ -17,210 +25,275 @@ import javafx.collections.ObservableList;
  */
 public class ModifiableObservableList<E> implements ObservableList<E>{
 
-    private final ObservableList<? extends E> backingList;
+    private final ObservableList<E> backingList;
     
-    public ModifiableObservableList(ObservableList<? extends E> backingList) {
+    public static final String MUTATION_OP_EXCEPTION_MESSAGE = "Attempted to perform functions other than editing";
+    
+    public ModifiableObservableList(ObservableList<E> backingList) {
         if (backingList == null) {
             throw new NullPointerException();
         }
         this.backingList = backingList;
     }
     @Override
-    public boolean add(E arg0) {
-        // TODO Auto-generated method stub
-        return false;
+    public final boolean addAll(Object... elements) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
-    public void add(int arg0, E arg1) {
-        // TODO Auto-generated method stub
-        
+    public final boolean setAll(Object... elements) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> arg0) {
-        // TODO Auto-generated method stub
-        return false;
+    public final boolean setAll(Collection<? extends E> col) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+    
+    @Override
+    public final boolean removeAll(Object... elements) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+    
+    @Override
+    public final boolean retainAll(Object... elements) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
-    public boolean addAll(int arg0, Collection<? extends E> arg1) {
-        // TODO Auto-generated method stub
-        return false;
+    public final void remove(int from, int to) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+    @Override
+    public final boolean add(E o) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+    
+    @Override
+    public final boolean remove(Object o) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
-    public void clear() {
-        // TODO Auto-generated method stub
-        
+    public final boolean containsAll(Collection<?> c) {
+        return backingList.containsAll(c);
     }
 
     @Override
-    public boolean contains(Object arg0) {
-        // TODO Auto-generated method stub
-        return false;
+    public final boolean addAll(Collection<? extends E> c) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
-    public boolean containsAll(Collection<?> arg0) {
-        // TODO Auto-generated method stub
-        return false;
+    public final boolean addAll(int index, Collection<? extends E> c) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+    
+    @Override
+    public final boolean removeAll(Collection<?> c) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+    
+    @Override
+    public final boolean retainAll(Collection<?> c) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
-    public E get(int arg0) {
-        // TODO Auto-generated method stub
-        return null;
+    public final void replaceAll(UnaryOperator<E> operator) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
-    public int indexOf(Object arg0) {
-        // TODO Auto-generated method stub
-        return 0;
+    public final void sort(Comparator<? super E> c) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+    
+    @Override
+    public final void clear() {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+    
+    @Override
+    public final void add(int index, Object element) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
-    public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+    public final E remove(int index) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
-
-    @Override
-    public Iterator<E> iterator() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public int lastIndexOf(Object arg0) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public ListIterator<E> listIterator() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ListIterator<E> listIterator(int arg0) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public boolean remove(Object arg0) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public E remove(int arg0) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> arg0) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> arg0) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
+      
     @Override
     public E set(int arg0, E arg1) {
-        // TODO Auto-generated method stub
-        return null;
+        return backingList.set(arg0, arg1);
+    }
+   
+    
+    @Override
+    public final void addListener(ListChangeListener<? super E> listener) {
+        backingList.addListener(listener);
     }
 
     @Override
-    public int size() {
-        // TODO Auto-generated method stub
-        return 0;
+    public final void removeListener(ListChangeListener<? super E> listener) {
+        backingList.removeListener(listener);
     }
 
     @Override
-    public List<E> subList(int arg0, int arg1) {
-        // TODO Auto-generated method stub
-        return null;
+    public final void addListener(InvalidationListener listener) {
+        backingList.addListener(listener);
     }
 
     @Override
-    public Object[] toArray() {
-        // TODO Auto-generated method stub
-        return null;
+    public final void removeListener(InvalidationListener listener) {
+        backingList.removeListener(listener);
+    }
+    
+    @Override
+    public final FilteredList<E> filtered(Predicate<E> predicate) {
+        return new FilteredList<>(this, predicate);
     }
 
     @Override
-    public <T> T[] toArray(T[] arg0) {
-        // TODO Auto-generated method stub
-        return null;
+    public final SortedList<E> sorted(Comparator<E> comparator) {
+        return new SortedList<>(this, comparator);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public final SortedList<E> sorted() {
+        return sorted(Comparator.nullsFirst((o1, o2) -> {
+            if (o1 instanceof Comparable) {
+                return ((Comparable) o1).compareTo(o2);
+            }
+            return Collator.getInstance().compare(o1.toString(), o2.toString());
+        }));
     }
 
     @Override
-    public void addListener(InvalidationListener arg0) {
-        // TODO Auto-generated method stub
-        
+    public final int size() {
+        return backingList.size();
     }
 
     @Override
-    public void removeListener(InvalidationListener arg0) {
-        // TODO Auto-generated method stub
-        
+    public final boolean isEmpty() {
+        return backingList.isEmpty();
+    }
+    
+    @Override
+    public final boolean contains(Object o) {
+        return backingList.contains(o);
+    }
+    
+    @Override
+    public final Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private final Iterator<? extends E> i = backingList.iterator();
+
+            public final boolean hasNext() {
+                return i.hasNext();
+            }
+            public final E next() {
+                return i.next();
+            }
+            public final void remove() {
+                throw new UnsupportedOperationException();
+            }
+            @Override
+            public final void forEachRemaining(Consumer<? super E> action) {
+                // Use backing collection version
+                i.forEachRemaining(action);
+            }
+        };
     }
 
     @Override
-    public boolean addAll(E... arg0) {
-        // TODO Auto-generated method stub
-        return false;
+    public final Object[] toArray() {
+        return backingList.toArray();
     }
 
     @Override
-    public void addListener(ListChangeListener<? super E> arg0) {
-        // TODO Auto-generated method stub
-        
+    public final <T> T[] toArray(T[] a) {
+        return backingList.toArray(a);
+    }
+    
+    @Override
+    public final boolean equals(Object o) {
+        return o == this || backingList.equals(o);
     }
 
     @Override
-    public void remove(int arg0, int arg1) {
-        // TODO Auto-generated method stub
-        
+    public final int hashCode() {
+        return backingList.hashCode();
+    }
+
+    
+    @Override
+    public final E get(int index) {
+        return backingList.get(index);
+    }
+    @Override
+    public final int indexOf(Object o) {
+        return backingList.indexOf(o);
+    }
+    
+    @Override
+    public final int lastIndexOf(Object o) {
+        return backingList.lastIndexOf(o);
     }
 
     @Override
-    public boolean removeAll(E... arg0) {
-        // TODO Auto-generated method stub
-        return false;
+    public final ListIterator<E> listIterator() {
+        return listIterator(0);
+    }
+    
+    @Override
+    public final ListIterator<E> listIterator(int index) {
+        return new ListIterator<E>() {
+            private final ListIterator<? extends E> i = backingList.listIterator(index);
+
+            public final boolean hasNext() {
+                return i.hasNext();
+            }
+            public final E next() {
+                return i.next();
+            }
+            public final boolean hasPrevious() {
+                return i.hasPrevious();
+            }
+            public final E previous() {
+                return i.previous();
+            }
+            public final int nextIndex() {
+                return i.nextIndex();
+            }
+            public final int previousIndex() {
+                return i.previousIndex();
+            }
+
+            public final void remove() {
+               
+            }
+            public final void set(E e) {
+                
+            }
+            public final void add(E e) {
+                
+            }
+
+            @Override
+            public final void forEachRemaining(Consumer<? super E> action) {
+                i.forEachRemaining(action);
+            }
+        };
     }
 
     @Override
-    public void removeListener(ListChangeListener<? super E> arg0) {
-        // TODO Auto-generated method stub
-        
+    public final List<E> subList(int fromIndex, int toIndex) {
+        return (List<E>) (backingList.subList(fromIndex, toIndex));
     }
+    
 
-    @Override
-    public boolean retainAll(E... arg0) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean setAll(E... arg0) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean setAll(Collection<? extends E> arg0) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
+    
 }
