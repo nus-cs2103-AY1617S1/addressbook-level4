@@ -4,6 +4,10 @@ import java.util.Set;
 
 import seedu.address.logic.commands.CommandResult;
 
+/**
+ * Finds and lists all tasks in TaskManager whose description contains any of the argument keywords.
+ * 
+ */
 public class FindTaskCommand extends TaskCommand {
 
         public static final String COMMAND_WORD = "find";
