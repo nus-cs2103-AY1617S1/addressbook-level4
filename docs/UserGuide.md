@@ -137,6 +137,8 @@ Example: Edit T1 pri
 Example: Edit T1 pri !
 
 >Note: If you want to remove priority, just leave an empty space after pri
+
+>Note: High priority tasks are color coded blue.
  
 ###4.3 Search Task by Partial Keyword
 
