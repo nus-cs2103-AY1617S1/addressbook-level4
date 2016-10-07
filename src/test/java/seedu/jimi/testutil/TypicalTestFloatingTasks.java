@@ -7,7 +7,7 @@ import seedu.jimi.model.task.*;
 /**
  *
  */
-public class TypicalTestFloatingTasks{
+public class TypicalTestFloatingTasks {
 
     public static TestFloatingTask water, ideas, car, airport, lunch, flight, beach, night, dream;
 
