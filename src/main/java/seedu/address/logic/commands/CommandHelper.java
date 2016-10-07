@@ -2,14 +2,20 @@ package seedu.address.logic.commands;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.lang.Exception;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.KeywordParser;
 //import org.ocpsoft.prettytime.PrettyTime;
 
 import seedu.address.model.task.Recurrence;
 
 public class CommandHelper {
+
+    public static String MESSAGE_REPEAT_PARAMETERS_INVALID = "Invalid repeat parameters";
 
     /**
      * Parses date(s) from an input String containing the dates
@@ -43,10 +49,53 @@ public class CommandHelper {
         return dates.get(0);
     }
 
-    public static Recurrence getRecurrence(String repeatParameter){
-        Recurrence recurrence = new Recurrence();
+    /**
+     * Input parameter includes the pattern of recurrence, and frequency of recurrence
+     * @param repeatParameter
+     * @return Recurrence object from repeatParameter
+     * @throws IllegalValueException
+     */
+    public static Recurrence getRecurrence(String repeatParameter) throws IllegalValueException{
+        String parseThis = repeatParameter.toLowerCase();
+        KeywordParser kp = new KeywordParser("daily","weekly","monthly","yearly");
+        HashMap<String, String> parameters = kp.parse(parseThis);
 
-        return recurrence;
+        if(parameters.containsKey("daily")){
+            try {
+                Recurrence recurrence = new Recurrence(Recurrence.Pattern.DAILY, Integer.parseInt(parameters.get("daily")));
+                return recurrence;
+            } catch (NumberFormatException | IllegalValueException e) {
+                throw new IllegalValueException(MESSAGE_REPEAT_PARAMETERS_INVALID);
+            }
+        }
+        else if(parameters.containsKey("weekly")){
+            try {
+                Recurrence recurrence = new Recurrence(Recurrence.Pattern.WEEKLY, Integer.parseInt(parameters.get("weekly")));
+                return recurrence;
+            } catch (NumberFormatException | IllegalValueException e) {
+                throw new IllegalValueException(MESSAGE_REPEAT_PARAMETERS_INVALID);
+            }
+        }
+        else if(parameters.containsKey("monthly")){
+            try {
+                Recurrence recurrence = new Recurrence(Recurrence.Pattern.MONTHLY, Integer.parseInt(parameters.get("monthly")));
+                return recurrence;
+            } catch (NumberFormatException | IllegalValueException e) {
+                throw new IllegalValueException(MESSAGE_REPEAT_PARAMETERS_INVALID);
+            }
+        }
+        else if(parameters.containsKey("yearly")){
+            try {
+                Recurrence recurrence = new Recurrence(Recurrence.Pattern.YEARLY, Integer.parseInt(parameters.get("yearly")));
+                return recurrence;
+            } catch (NumberFormatException | IllegalValueException e) {
+                throw new IllegalValueException(MESSAGE_REPEAT_PARAMETERS_INVALID);
+            }
+        }
+        else{
+            return new Recurrence();
+        }
+
     }
 
 }
