@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.commons.events.ui.ToDoListPanelSelectionChangedEvent;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.todo.ReadOnlyToDo;
@@ -64,6 +66,13 @@ public class ToDoListPanel extends UiPart {
         toDoListView.setItems(toDoList);
         toDoListView.setCellFactory(listView -> new ToDoListViewCell());
         setEventHandlerForSelectionChangeEvent();
+    }
+
+    /**
+     * Update the list and each list item
+     */
+    public void update() {
+        toDoListView.refresh();
     }
 
     private void addToPlaceholder() {
