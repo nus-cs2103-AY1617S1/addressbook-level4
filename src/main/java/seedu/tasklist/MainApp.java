@@ -64,20 +64,20 @@ public class MainApp extends Application {
         initEventsCenter();
     }
 
-    private String getApplicationParameter(String parameterName){
+    private String getApplicationParameter(String parameterName) {
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTaskList> addressBookOptional;
+        Optional<ReadOnlyTaskList> taskListOptional;
         ReadOnlyTaskList initialData;
         try {
-            addressBookOptional = storage.readTaskList();
-            if(!addressBookOptional.isPresent()){
+            taskListOptional = storage.readTaskList();
+            if(!taskListOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty TaskList");
             }
-            initialData = addressBookOptional.orElse(new TaskList());
+            initialData = taskListOptional.orElse(new TaskList());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TaskList");
             initialData = new TaskList();
@@ -165,7 +165,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping DueDate Book ] =============================");
+        logger.info("============================= [ Stopping TaskList ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

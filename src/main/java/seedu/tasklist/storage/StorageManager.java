@@ -25,9 +25,9 @@ public class StorageManager extends ComponentManager implements Storage {
     private JsonUserPrefStorage userPrefStorage;
 
 
-    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
+    public StorageManager(String taskListFilePath, String userPrefsFilePath) {
         super();
-        this.taskListStorage = new XmlTaskListStorage(addressBookFilePath);
+        this.taskListStorage = new XmlTaskListStorage(taskListFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
@@ -59,14 +59,14 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveTaskList(ReadOnlyTaskList addressBook) throws IOException {
-        taskListStorage.saveTaskList(addressBook, taskListStorage.getTaskListFilePath());
+    public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
+        taskListStorage.saveTaskList(taskList, taskListStorage.getTaskListFilePath());
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressTaskListEvent(TaskListChangedEvent event) {
+    public void handleTaskListEvent(TaskListChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveTaskList(event.data);

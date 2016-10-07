@@ -51,7 +51,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *`| user | find a task by name | locate details of tasks without having to go through the entire list
 `* * *`| user | find a task by dates | locate details of tasks without having to go through the entire list
 `* * *`| user | find a task by groups | locate details of tasks without having to go through the entire list
-`* * *`| user | find a task by labels | locate details of tasks without having to go through the entire list
+`* * *`| user | find a task by tags | locate details of tasks without having to go through the entire list
 `* * *`| user | edit the tasks | updates the changes of the task
 `* * *`| user | delete a tasks | remove entries that I no longer need
 `* * *`| user | check for time collision  | ensure that no events are stacked
@@ -60,7 +60,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * `| new user | set my username | regard the app as my own
 `* * `| user | change/add shortcut names  | it is more intuitive
 `* * `| user | hide private tasks by default | minimize chance of someone else seeing them by accident
-`* * `| user | lock addressbook | prevent unauthorised access
+`* * `| user | lock tasklist | prevent unauthorised access
 `* `| user | change the task list's theme | personalise the look of the application
 
 

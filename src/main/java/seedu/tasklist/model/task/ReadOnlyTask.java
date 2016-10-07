@@ -1,21 +1,21 @@
 package seedu.tasklist.model.task;
 
-import seedu.tasklsit.model.tag.UniqueTagList;
+import seedu.tasklist.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Task in the addressbook.
+ * A read-only immutable interface for a Task in the task list.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
 
     Title getTitle();
-    StartDate getGroup();
+    StartDate getStartDate();
     Description getDescription();
-    DueDate getAddress();
+    DueDate getDueDate();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the person's internal tags.
+     * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
 
@@ -26,23 +26,23 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getTitle().equals(this.getTitle()) // state checks here onwards
-                && other.getGroup().equals(this.getGroup())
+                && other.getStartDate().equals(this.getStartDate())
                 && other.getDescription().equals(this.getDescription())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getDueDate().equals(this.getDueDate()));
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the task as text, showing all details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
                 .append(" StartDate: ")
-                .append(getGroup())
+                .append(getStartDate())
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" DueDate: ")
-                .append(getAddress())
+                .append(getDueDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

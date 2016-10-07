@@ -3,35 +3,35 @@ package seedu.tasklist.model.task;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents a Task's title in the task list.
+ * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
  */
 public class Title {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task title should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_TITLE_CONSTRAINTS = "Task title should be spaces or alphanumeric characters";
+    public static final String TITLE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullTitle;
 
     /**
-     * Validates given name.
+     * Validates given title.
      *
-     * @throws IllegalValueException if given name string is invalid.
+     * @throws IllegalValueException if given title string is invalid.
      */
     public Title(String title) throws IllegalValueException {
         assert title != null;
         title = title.trim();
-        if (!isValidName(title)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+        if (!isValidTitle(title)) {
+            throw new IllegalValueException(MESSAGE_TITLE_CONSTRAINTS);
         }
         this.fullTitle = title;
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid title.
      */
-    public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
+    public static boolean isValidTitle(String test) {
+        return test.matches(TITLE_VALIDATION_REGEX);
     }
 
 

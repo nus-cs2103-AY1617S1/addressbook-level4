@@ -1,15 +1,15 @@
 package seedu.tasklist.logic.commands;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
+import seedu.tasklist.model.tag.Tag;
+import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
-import seedu.tasklsit.model.tag.Tag;
-import seedu.tasklsit.model.tag.UniqueTagList;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the task list.
  */
 public class AddCommand extends Command {
 
@@ -21,7 +21,7 @@ public class AddCommand extends Command {
             + " CS2103 d/Pre tutorial 1 s/12151993 e/12301993 t/urgent";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task list";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
 
     private final Task toAdd;
 
@@ -52,7 +52,7 @@ public class AddCommand extends Command {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }

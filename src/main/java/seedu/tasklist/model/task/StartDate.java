@@ -3,35 +3,35 @@ package seedu.tasklist.model.task;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's phone number in the address book.
+ * Represents a Task's start date in the task list.
  * Guarantees: immutable; is valid as declared in {@link #isValidStartDate(String)}
  */
 public class StartDate {
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "StartDate should be digits only";
-    public static final String PHONE_VALIDATION_REGEX = "\\d+";
+    public static final String MESSAGE_STARTDATE_CONSTRAINTS = "StartDate should be digits only";
+    public static final String DATE_VALIDATION_REGEX = "\\d+";
 
     public final String startDate;
 
     /**
-     * Validates given phone number.
+     * Validates given start date.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException if given startDate string is invalid.
      */
-    public StartDate(String phone) throws IllegalValueException {
-        assert phone != null;
-        phone = phone.trim();
-        if (!isValidStartDate(phone)) {
-            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
+    public StartDate(String startDate) throws IllegalValueException {
+        assert startDate != null;
+        startDate = startDate.trim();
+        if (!isValidStartDate(startDate)) {
+            throw new IllegalValueException(MESSAGE_STARTDATE_CONSTRAINTS);
         }
-        this.startDate = phone;
+        this.startDate = startDate;
     }
 
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given string is a valid start date.
      */
     public static boolean isValidStartDate(String test) {
-        return test.matches(PHONE_VALIDATION_REGEX);
+        return test.matches(DATE_VALIDATION_REGEX);
     }
 
     @Override

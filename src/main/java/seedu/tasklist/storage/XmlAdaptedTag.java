@@ -2,7 +2,7 @@ package seedu.tasklist.storage;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.CollectionUtil;
-import seedu.tasklsit.model.tag.Tag;
+import seedu.tasklist.model.tag.Tag;
 
 import javax.xml.bind.annotation.XmlValue;
 
@@ -31,7 +31,7 @@ public class XmlAdaptedTag {
     /**
      * Converts this jaxb-friendly adapted tag object into the model's Tag object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Tag toModelType() throws IllegalValueException {
         return new Tag(tagName);

@@ -1,15 +1,15 @@
 package seedu.tasklist.model;
 
 
+import seedu.tasklist.model.tag.Tag;
+import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.UniqueTaskList;
-import seedu.tasklsit.model.tag.Tag;
-import seedu.tasklsit.model.tag.UniqueTagList;
 
 import java.util.List;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an task list
  */
 public interface ReadOnlyTaskList {
 
@@ -18,7 +18,7 @@ public interface ReadOnlyTaskList {
     UniqueTaskList getUniqueTaskList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getTaskList();
 

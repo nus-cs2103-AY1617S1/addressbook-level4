@@ -1,12 +1,12 @@
 package seedu.tasklist.model.task;
 
 import seedu.tasklist.commons.util.CollectionUtil;
-import seedu.tasklsit.model.tag.UniqueTagList;
+import seedu.tasklist.model.tag.UniqueTagList;
 
 import java.util.Objects;
 
 /**
- * Represents a Task in the dueDate book.
+ * Represents a Task in the task list.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getTitle(), source.getGroup(), source.getDescription(), source.getAddress(), source.getTags());
+        this(source.getTitle(), source.getStartDate(), source.getDescription(), source.getDueDate(), source.getTags());
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public StartDate getGroup() {
+    public StartDate getStartDate() {
         return startDate;
     }
 
@@ -53,7 +53,7 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public DueDate getAddress() {
+    public DueDate getDueDate() {
         return dueDate;
     }
 
@@ -63,7 +63,7 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);

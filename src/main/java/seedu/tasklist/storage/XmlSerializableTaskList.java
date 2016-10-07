@@ -2,10 +2,10 @@ package seedu.tasklist.storage;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.ReadOnlyTaskList;
+import seedu.tasklist.model.tag.Tag;
+import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.UniqueTaskList;
-import seedu.tasklsit.model.tag.Tag;
-import seedu.tasklsit.model.tag.UniqueTagList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * An Immutable TaskList that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "tasklist")
 public class XmlSerializableTaskList implements ReadOnlyTaskList {
 
     @XmlElement
@@ -56,9 +56,9 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : tasks) {
+        for (XmlAdaptedTask t : tasks) {
             try {
-                lists.add(p.toModelType());
+                lists.add(t.toModelType());
             } catch (IllegalValueException e) {
 
             }
@@ -68,9 +68,9 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
-        return tasks.stream().map(p -> {
+        return tasks.stream().map(t -> {
             try {
-                return p.toModelType();
+                return t.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
                 return null;

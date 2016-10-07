@@ -11,11 +11,11 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "DueDate App";
+    private String appTitle = "TaskList";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskListFilePath = "data/addressbook.xml";
-    private String taskListName = "MyAddressBook";
+    private String taskListFilePath = "data/tasklist.xml";
+    private String taskListName = "TaskList";
 
 
     public Config() {
@@ -49,16 +49,16 @@ public class Config {
         return taskListFilePath;
     }
 
-    public void setTaskListFilePath(String addressBookFilePath) {
-        this.taskListFilePath = addressBookFilePath;
+    public void setTaskListFilePath(String taskListFilePath) {
+        this.taskListFilePath = taskListFilePath;
     }
 
     public String getTaskListName() {
         return taskListName;
     }
 
-    public void setTaskListName(String addressBookName) {
-        this.taskListName = addressBookName;
+    public void setTaskListName(String taskListName) {
+        this.taskListName = taskListName;
     }
 
 
@@ -92,7 +92,7 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + taskListFilePath);
-        sb.append("\nAddressBook name : " + taskListName);
+        sb.append("\nTaskList name : " + taskListName);
         return sb.toString();
     }
 

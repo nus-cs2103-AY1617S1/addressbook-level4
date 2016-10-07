@@ -19,19 +19,19 @@ Format: `help`
 
 ## Adding a task: `add`
 Adds a task to the task list<br>
-Format: `add TITLE [p]d/DETAILS [p]s/STARTTIME [p]e/ENDTIME [p]l/LABEL...`
+Format: `add TITLE [p]d/DETAILS [p]s/STARTTIME [p]e/ENDTIME [p]t/tag...`
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 > items with `...` after them can have multiple instances. Order of parameters are fixed.
 >
-> Put a `p` before the details / group / labels prefixes to mark it as `private`. `private` details can only
+> Put a `p` before the details / group / tags prefixes to mark it as `private`. `private` details can only
 > be seen using the `unveil` command.
 >
-> Tasks can have any number of labels (including 0)
+> Tasks can have any number of tags (including 0)
 
 Examples:
-* `add CS1020 Tutorial d/many questions e/051016 1200  l/needhelp`
-* `add CS2103 Project pp/hard to do s/051016 1200 e/051116 1200  l/priority1`
+* `add CS1020 Tutorial d/many questions e/051016 1200  t/needhelp`
+* `add CS2103 Project pp/hard to do s/051016 1200 e/051116 1200  t/priority1`
 
 ## Listing all tasks : `list`
 Shows a list of all tasks in task list.<br>
@@ -49,8 +49,8 @@ Examples:
   Returns `CS2103` and `cs2103`
 * `find cs1010 cs1020 cs2103`<br>
   Returns Any tasks having names `cs1010`, `cs1020`, or `cs2103`
-* `find <group>/<labels>/<dates>’<br>
-  Returns Any tasks having the same group/labels/dates.
+* `find <group>/<tags>/<dates>’<br>
+  Returns Any tasks having the same group/tags/dates.
 
 ##Set file location: ‘locate’
 Set the storage file location.
@@ -73,7 +73,7 @@ Format: username USERS NAME
 Example:
 * `username Jim`<br>
 
-##Edit a task: ‘edit’ (what are you editing)
+##Edit a task: ‘edit’
 Edit the task’s information from the task list
 Format: ‘edit INDEX’
 
@@ -105,7 +105,7 @@ Format: `view INDEX`
 Examples:
 * `list`<br>
   `view 2`<br>
-  Views the 2nd task in the address book.
+  Views the 2nd task in the task list.
 * `find cs2103` <br>
   `view 1`<br>
   Views the 1st task in the results of the `find` command.
@@ -120,7 +120,7 @@ Format: `unveil INDEX`
 Examples:
 * `list`<br>
   `unveil 2`<br>
-  Views all details of the 2nd task in the address book.
+  Views all details of the 2nd task in the task list.
 * `find cs2103`<br>
   `unveil 1`<br>
   Views all details of the 1st task in the results of the `find` command.
@@ -159,7 +159,7 @@ Task List ‘s data are saved in the hard disk automatically after any command t
 There is no need to save manually.
 
 ## Changing the save location
-Address book data are saved in a file called `addressbook.txt` in the project root folder.
+Task list data are saved in a file called `tasklist.txt` in the project root folder.
 You can change the location by specifying the file path as a program argument.<br>
 
 > The file name must end in `.txt` for it to be acceptable to the program.

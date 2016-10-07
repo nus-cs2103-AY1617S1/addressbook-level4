@@ -3,12 +3,12 @@ package seedu.tasklist.logic.commands;
 import seedu.tasklist.model.TaskList;
 
 /**
- * Clears the address book.
+ * Clears the task list.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "DueDate book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Task list has been cleared!";
 
     public ClearCommand() {}
 
