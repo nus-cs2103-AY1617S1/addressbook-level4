@@ -2,8 +2,8 @@ package seedu.jimi.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.jimi.commons.exceptions.DuplicateDataException;
 import seedu.jimi.commons.util.CollectionUtil;
+import seedu.jimi.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
 
@@ -15,7 +15,7 @@ import java.util.*;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<Task> {
+public class UniqueTaskList implements Iterable<FloatingTask> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -32,7 +32,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
@@ -52,7 +52,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(FloatingTask toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
@@ -74,12 +74,12 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
 
-    public ObservableList<Task> getInternalList() {
+    public ObservableList<FloatingTask> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Task> iterator() {
+    public Iterator<FloatingTask> iterator() {
         return internalList.iterator();
     }
 

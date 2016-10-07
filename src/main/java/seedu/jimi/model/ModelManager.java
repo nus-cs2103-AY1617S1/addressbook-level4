@@ -6,8 +6,8 @@ import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.util.StringUtil;
+import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
-import seedu.jimi.model.task.Task;
 import seedu.jimi.model.task.UniqueTaskList;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -22,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskBook taskBook;
-    private final FilteredList<Task> filteredTasks;
+    private final FilteredList<FloatingTask> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -71,7 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(FloatingTask task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();

@@ -3,8 +3,8 @@ package seedu.jimi.model;
 import javafx.collections.ObservableList;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
+import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
-import seedu.jimi.model.task.Task;
 import seedu.jimi.model.task.UniqueTaskList;
 
 import java.util.*;
@@ -46,11 +46,11 @@ public class TaskBook implements ReadOnlyTaskBook {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
+    public ObservableList<FloatingTask> getTasks() {
         return tasks.getInternalList();
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(List<FloatingTask> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -59,7 +59,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -76,7 +76,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(FloatingTask p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
@@ -86,7 +86,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task task) {
+    private void syncTagsWithMasterList(FloatingTask task) {
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 
