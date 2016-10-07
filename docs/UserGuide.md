@@ -53,16 +53,16 @@ Adds a task to Savvy Tasker.<br>
 Format: `add TASK_NAME [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]` 
 
 > If DATE is entered but TIME is not entered, the task is assumed to occur all-day <br>
-> If TIME is entered but DATE is not entered, DATE is assumed to be today's date <br>
-> Tasks with START_TIME only, are assumed to occur for that specified 1 hour only <br>
-> Tasks with either or both END_DATE and/or END_TIME, are assumed to be tasks with deadlines <br>
+> If TIME is entered but DATE is not entered, DATE is assumed to be current date <br>
+> Tasks with START_TIME only, are assumed to occur for 1 hour from specified START_TIME only <br>
+> Tasks with either one of or both END_DATE and/or END_TIME, are assumed to be tasks with deadlines <br>
 > Tasks with START_DATE only, are assumed to have the same START_DATE and END_DATE <br>
 > Tasks with either or both START_DATE and/or START_TIME, are assumed to be events instead of task <br>
 > If START_DATE and END_DATE are different, the RECURRING_TYPE has to be larger than the duration between START_DATE and END_DATE. (e.g. A 3d2n camp cannot be recurring daily but can be recurring weekly) <br>
-> If START_DATE and END_DATE are different, END_DATE must be later than START_DATE, and END_TIME do not have to be later than START_TIME <br>
+> If START_DATE and END_DATE are different, END_DATE must be later than START_DATE, and END_TIME does not have to be later than START_TIME <br>
 > If START_DATE and END_DATE are the same, END_TIME must be later than START_TIME <br>
-> For DATE the format is as follow: dd-mm-yyyy <br>
-> For TIME the format is as follow: hh:MM, hh:MM defaults to 00:00 if not specified. <br>
+> For DATE the format is as follows: dd-mm-yyyy <br>
+> For TIME the format is as follows: hh:MM, hh:MM defaults to 00:00 if not specified. <br>
 > Having more than 1 task for any specific timing is allowed (Multitasking) <br>
 > RECURRING_TYPE can be `none`, `daily`, `weekly` or `monthly`, `yearly`, by default RECURRING_TYPE set as `none`, NUMBER_OF_RECURRENCE set as 0 <br>
 > PRIORITY_LEVEL can be `high`, `medium`, `low`, by default PRIORITY_LEVEL is set as `low` <br>
@@ -75,7 +75,7 @@ Examples:
 
 #### Listing all tasks: `list`
 Shows a list of all tasks in Savvy Tasker <br>
-Format: `list t/[LIST_TYPE]`
+Format: `list [t/LIST_TYPE]`
 
 > LIST_TYPE can be `Due Date`, `Priority Level`, `Archived`, by default LIST_TYPE is set as `Due Date`<br>
 > If TYPE is `Due Date`, the tasks and events are sorted according to due date and time of tasks and start date and time of events, earliest first.<br>
@@ -85,7 +85,7 @@ Format: `list t/[LIST_TYPE]`
 
 #### Finding all task containing any keyword in its name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
-Format: `find t/[FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
+Format: `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
 
 > FIND_TYPE can be `Partial`, `Full`, `Exact`, by default FIND_TYPE is set as `Partial` <br>
 > If FIND_TYPE is `Partial`, partial keywords will be matched e.g. `task` will match ` 2103 tasks` <br>
@@ -166,7 +166,7 @@ Examples:
 
 #### Unmark a task as done : `unmark`
 Unmarks the task identified by the index number used in the last task listing.<br>
-Format: `UNmark INDEX [MORE_INDEX]`
+Format: `Unmark INDEX [MORE_INDEX]`
 
 > Selects the task and marks the task as done at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
@@ -200,12 +200,9 @@ Format: `alias k/KEYWORD s/SHORT_KEYWORD`
 Examples: 
 * `alias k/Project Meeting s/pjm`<br>
   `add pjm s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
-  Add Project Meeting to task list
-  Subsequent user command of pjm, system will interpret it as Project Meeting
-  `alias k/unalias s/ua`<br>
-  `ua s/pjm`<br>
-  RemoveReplace of shorter version of pjm back to Project Meeting
-
+System will interpret subsequent user command of "pjm" as "Project Meeting"<br>  
+Add Project Meeting to task list<br>
+  
 #### Unalias a keyword : `unalias`
 Unalias of shorter version of keyword <br>
 Format: `unalias s/SHORT_KEYWORD`
@@ -213,9 +210,9 @@ Format: `unalias s/SHORT_KEYWORD`
 Examples: 
 * `unalias s/pjm`<br>
   `add pjm s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
-  Add task named pjm to task list
-  `add Project Meeting s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
-  Add task named Project Meeting to task list
+Remove replacement of shorter version of "pjm" back to "Project Meeting"<br>
+  Add task named "pjm" to task list<br>
+  
 
 ## FAQ
 
@@ -232,8 +229,8 @@ Alias | `alias k/KEYWORD s/SHORT_KEYWORD`
 Clear | `clear`
 Delete | `delete INDEX [MORE_INDEX]`
 Exit | `exit`
-Find | `find t/[FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
-List | `list t/[LIST_TYPE]`
+Find | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
+List | `list [t/LIST_TYPE]`
 Help | `help`
 Select | `select INDEX [MORE_INDEX]`
 Modify | `modify INDEX [t/TASK_NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
