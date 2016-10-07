@@ -93,14 +93,14 @@ Fields: [`EVENT_NAME`](#descriptors), [`START_TIME`](#time), [`END_TIME`](#time)
 
 ```bash
 # examples
-add "Do laundry" from 1600 to 1700
-jjj
-add "Dental Appointment" from 1200 to 1600 on 14 October 2016
-add "Dental Appointment" from 1200 to 1600 on 14 October # implicitly current year
-add "Dental Appointment" from 1200 to 1600 on 14/10/2016
-add "Dental Appointment" from 1200 to 1600 on 1/8/2016
+add "Do laundry" from 1600 to 1700                                      # implicitly today
 
-add "CS2103 Hackathon" from 1000 on 12 November to 1200 on 15 November
+add "Dental Appointment" from 1200 to 1600 on 14 October 2016
+add "Dental Appointment" from 1200 to 1600 on 14 October                # implicitly current year
+add "Dental Appointment" from 1200 to 1600 on 14/10/2016
+add "Dental Appointment" from 1200 to 1600 on 1/8/2016                  # strip leading zeroes
+
+add "CS2103 Hackathon" from 1000 on 12 November to 1200 on 15 November  # multiday event
 ```
 
 #### Deadlines
@@ -172,7 +172,10 @@ You can change multiple fields for the same event at the same time by separating
 # examples
 for "Dental Appointment" edit start_time to 1600
 for "CS2103 Consult" edit date to 29 October
-for "Dental Appointment" edit start_time,end_time to 1600,2000 # change multiple fields at the same time
+for 124235 edit end_time to 1200
+
+# change multiple fields at the same time
+for "Dental Appointment" edit start_time,end_time to 1600,2000
 for "CS2103 Consult" edit start_time,end_time,date to 1200,2100,12 October 2016
 ```
 
