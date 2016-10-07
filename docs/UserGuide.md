@@ -199,7 +199,7 @@ Format: `alias k/KEYWORD s/SHORT_KEYWORD`
 
 Examples: 
 * `alias k/Project Meeting s/pjm`<br>
-System will interpret subsequent user command of "pjm" as "Project Meeting"<br>  
+System will interpret subsequent user command of "pjm" as "Project Meeting"<br>
   `add pjm s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
 Add "Project Meeting" to task list
   
