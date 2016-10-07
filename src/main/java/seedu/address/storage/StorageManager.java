@@ -71,9 +71,9 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveEmeraldo(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
+    public void saveEmeraldo(ReadOnlyEmeraldo emeraldo, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        emeraldoStorage.saveEmeraldo(addressBook, filePath);
+        emeraldoStorage.saveEmeraldo(emeraldo, filePath);
     }
 
 
