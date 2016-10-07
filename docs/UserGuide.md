@@ -39,17 +39,17 @@ Format: `help`
 
 Description: Adds a task to the planner <br>
 Format:<br> 
-`add TASKNAME DATE(optional)` 
-`add TASKNAME DATE(optional) STARTTIME to ENDTIME isRECURRING(optional)`
-`add TASKNAME DATE(optional) by ENDTIME(optional) isRECURRING(optional)`
+*`add TASKNAME DATE(optional)` 
+*`add TASKNAME DATE(optional) STARTTIME to ENDTIME isRECURRING(optional)`
+*`add TASKNAME DATE(optional) by ENDTIME(optional) isRECURRING(optional)`
 
-Examples:
+Examples:<br>
 *`add gym today` <br>
-(floating task with no specified time is added)
+Floating task with no specified time is added<br>
 *`add meeting tomorrow 2pm to 4pm` <br>
-(fixed task)
+Fixed task is added
 *`add math homework by 6pm` <br>
-(task with a deadline, no date is specified so today’s date is assumed)<br>
+Task with a deadline, no date is specified so today’s date is assumed<br>
 
 >All tasks will be stored with a date. If user adds a task with no date specified, it is assumed the task is to be done today. 
 >Daily Planner splits all tasks into three categories - floating tasks(tasks which have no start time or end time), fixed tasks(tasks with a specified start time and end time) and deadline tasks(tasks with only an end time). 
@@ -66,8 +66,10 @@ Description: Shows tasks on a particular day
 Format: `show DATE(optional)`
 
 Examples:
-*`show today (shows schedule for today)`
-*`show next wednesday (shows schedule for next wednesday)`
+*`show today`<br>
+Shows schedule for today
+*`show next wednesday` <br>
+Shows schedule for next wednesday
 
 >The show function will generate the user’s schedule when queried. Starting from the current time, it will consider all tasks in hand for the day and assign them to timeslots. 
 >Urgent tasks will be scheduled first(tasks with nearing deadlines). Fixed tasks will be scheduled only during their specified timeslot and floating tasks will be inserted to remaining empty timeslots throughout the day. Daily Planner will even account for breaks in between certain hours of consecutive tasks(say, every 3 hours). 
@@ -92,12 +94,11 @@ Examples:
 
 Description: edits a particular task’s details<br>
 Format:
-edit `INDEX DATE(optional)`<br> 
-	*Daily Planner will ask for changes* <br>
-	`NEWTASKNAME(optional) NEWDATE(optional) NEWSTARTTIME(optional) to NEWENDTIME(optional)`
+* `edit INDEX DATE(optional)`<br> 
+	`NEWTASKNAME(optional) NEWDATE(optional) NEWSTARTTIME(optional) to NEWENDTIME(optional)`<br>
 Examples:
-*`edit 2 tomorrow`<br>
-`wednesday 4pm to 6pm` <br>
+* `edit 2 tomorrow`<br>
+  `wednesday 4pm to 6pm`<br>
 (only changes date and time)
 
 
@@ -107,8 +108,7 @@ Format: `delete INDEX`
 
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
+
   Deletes the 2nd person in the address book.
 * `find Betsy`<br> 
   `delete 1`<br>
@@ -125,8 +125,10 @@ Format: `delete INDEX DATE(optional)`
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-Delete 5 12 oct (Deletes task 5 of 5th october)
-Delete 1 (No date specified, so deletes first task today)
+*`Delete 5 12 oct`<br>
+Deletes task 5 of 5th october
+*`Delete 1`<br> 
+No date specified, so deletes first task today
  
 
 #### Exiting the program : `exit`
@@ -134,7 +136,7 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Daily Planner data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 
