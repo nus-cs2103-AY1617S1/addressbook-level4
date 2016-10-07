@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 /**
  * An Immutable ToDoList that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyToDoList {
+@XmlRootElement(name = "ToDoList")
+public class XmlSerializableToDoList implements ReadOnlyToDoList {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedTask> persons;
     @XmlElement
     private List<Tag> tags;
 
@@ -33,13 +33,13 @@ public class XmlSerializableAddressBook implements ReadOnlyToDoList {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableToDoList() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyToDoList src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+    public XmlSerializableToDoList(ReadOnlyToDoList src) {
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -55,9 +55,9 @@ public class XmlSerializableAddressBook implements ReadOnlyToDoList {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedTask p : persons) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -68,7 +68,7 @@ public class XmlSerializableAddressBook implements ReadOnlyToDoList {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();

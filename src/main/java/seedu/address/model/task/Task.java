@@ -6,27 +6,26 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Task in the address book.
- * Guarantees: details are present and not null, field values are validated.
+ * Represents a Task in DoDo-Bird
+ * Guarantees: all fields are not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
-
+    private Detail detail;
+    private TaskDate fromDate;
+    private TaskDate tillDate;
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+    public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, detail, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.detail = detail;
+        this.fromDate = fromDate;
+        this.tillDate = tillDate;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,27 +33,27 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getDetail(), source.getFromDate(), source.getTillDate(), source.getTags());
     }
 
     @Override
     public Name getName() {
-        return name;
+        return this.name;
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Detail getDetail() {
+        return this.detail;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public TaskDate getFromDate() {
+        return this.fromDate;
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public TaskDate getTillDate() {
+        return this.tillDate;
     }
 
     @Override
@@ -79,7 +78,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, detail, fromDate, tillDate, tags);
     }
 
     @Override

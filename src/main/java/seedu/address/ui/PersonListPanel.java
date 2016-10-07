@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class PersonListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
@@ -100,7 +100,7 @@ public class PersonListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(person, getIndex() + 1).getLayout());
             }
         }
     }

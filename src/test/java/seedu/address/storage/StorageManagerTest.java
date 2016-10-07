@@ -10,7 +10,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.ToDoList;
 import seedu.address.model.ReadOnlyToDoList;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalTestTasks;
 import seedu.address.testutil.EventsCollector;
 
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        ToDoList original = new TypicalTestPersons().getTypicalAddressBook();
+        ToDoList original = new TypicalTestTasks().getTypicalToDoList();
         storageManager.saveAddressBook(original);
         ReadOnlyToDoList retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new ToDoList(retrieved));
