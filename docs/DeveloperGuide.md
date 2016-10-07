@@ -255,14 +255,44 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | New user | See usage instructions | Refer to instructions when I forget how to use the App
+`* * *` | User | Add a task | Keep track of tasks which I need to do
+`* * *` | User | Delete a task/multiple tasks | Remove tasks that I no longer need to keep track of
+`* * *` | User | Edit a task name | Update task details to reflect the latest changes
+`* * *` | User | View all my tasks | Have a quick and clear reference of everything I need to do
+`* * *` | User | Mark a task/multiple tasks as completed | Know that it is completed without deleting it, distinguish between completed and uncompleted tasks
+`* * *` | User | Unmark a task from completed | Update the status of my task
+`* * *` | Busy user | Specify start and end time when creating tasks | Keep track of events with defined start and end dates
+`* * *` | Busy User | Specify deadlines when creating tasks | Keep track of tasks which must be done by a certain and date and time
+`* * *` | Busy User | Edit and remove start and end time of tasks | Update events with defined start and end dates
+`* * *` | Busy User | Edit and remove deadlines of tasks | Update tasks which must be done by a certain and date and time
+`* * *` | User | Undo my last action(s) | Easily correct any accidental mistakes in the last command(s)
+`* * *` | User | Search based on task name | Find a task without going through the entire list if I remember a few key words
+`* * *` | User | Specify my data storage location | Easily locate the raw text file for editing and sync the file to a cloud storage service
+`* * *` | User | Clear all existing tasks | Easily start afresh with a new task list
+`* * *` | User | Exit the application by typing a command | Close the app easily
+`* *` | User | Sort tasks by alphabetical order and date | Organise and easily locate tasks
+`* *` | User | Filter upcoming and overdue tasks | Decide on what needs to be done soon
+`* *` | User | Filter tasks based on whether they are marked/unmarked | View my tasks grouped by their state of completion. Review my completed tasks and decide on what I should do next
+`* *` | User | See the count/statistics for upcoming/ overdue and pending tasks | Know how many tasks I need to do
+`*` | Advanced user | Specify my own short-hand alias commands | Enter commands faster
+`*` | Advanced user | Remove or edit the short-hand alias commands | Update to use more suitable command aliases
+`*` | Intensive user | Scroll through my past few commands | Check what I have done and redo actions easily
+`*` | User | Clear the command I am typing with a key | Enter a new command without having to backspace the entire command line
+`* Unlikely` | Google calendar user | Sync my tasks with Google calendar | Keep track of my tasks online
+`* Unlikely` | User | Add multiple time slots for a task | “Block” multiple time slots when the exact timing of a task is certain
+`* Unlikely` | Busy user | Add recurring events or tasks | Keep the same tasks in my task list without adding them manually
+`* Unlikely` | User | Add tags for my tasks | Group tasks together and organise my task list
+`* Unlikely` | User | Search based on tags | Find all the tasks of a similar nature
+`* Unlikely` | User | Add/Remove tags for existing tasks | Update the grouping of tasks
+`* Unlikely` | Busy User | Search for tasks by date (e.g. on/before a date) | Easily check my schedule and make plans accordingly
+`* Unlikely` | Busy User | Search for a time when I am free | Find a suitable slot to schedule an item
+`* Unlikely` | User | Be notified of deadline/time clashes | Resolve these conflicts manually
+`* Unlikely` | Busy user | Can specify a priority of a task | Keep track of what tasks are more important
+`* Unlikely` | User | Key in emojis/symbols and characters from other languages e.g. Mandarin | Capture information in other languages
+`* Unlikely` | Advanced User | Import tasks from an existing text file | Add multiple tasks efficiently without relying on multiple commands
+`* Unlikely` | Advanced User | Save a backup of the application in a custom file | Restore it anytime at a later date
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
