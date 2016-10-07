@@ -13,7 +13,7 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Lee Wenwei Johnervan](http://github.com/johnervan) <br>
 <img src="images/JohnervanLee.png", width="150"><br>
 **Role**: Team Lead <br>
-Responsibilities: Documentation
+Responsibilities: Documentation, Model
 
 -----
 
