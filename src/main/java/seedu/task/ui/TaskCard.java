@@ -38,7 +38,7 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().fullName);
+        name.setText(task.getTask().fullName);
         index.setText(displayedIndex + ". ");
 //        phone.setText(task.getDeadline().value);
         description.setText(task.getDescription().value);
