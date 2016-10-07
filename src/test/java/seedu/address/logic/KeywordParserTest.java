@@ -35,4 +35,16 @@ public class KeywordParserTest {
         assertTrue(list.get(2)[0].equals("to"));
         assertTrue(list.get(2)[1].equals("saturday"));
     }
+
+    @Test
+    public void parses_addCommand_input_multipleTags() {
+
+        String input = "add \"Assignment\" by friday tag important school urgent";
+        KeywordParser parser = new KeywordParser("add", "by", "tag");
+        ArrayList<String[]> list = parser.parse(input);
+        assertTrue(list.get(0)[0].equals("add"));
+        assertTrue(list.get(0)[1].equals("Assignment"));
+        assertTrue(list.get(2)[0].equals("tag"));
+        assertTrue(list.get(2)[1].equals("important school urgent"));
+    }
 }
