@@ -21,6 +21,11 @@ import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.storage.Storage;
 
+/**
+ * Represents the data layer of the application. Implements TodoModel interface so that it can provide 
+ * data to other parts of the logic layer, and the ImmutableTodoList interface so that it can be 
+ * serialized and persisted directly
+ */
 public class TodoList implements ImmutableTodoList, TodoModel {
     private ObservableList<Task> tasks = FXCollections.observableArrayList(t -> t.getObservableProperties());
     private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
@@ -52,6 +57,8 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     @Override
     public void add(String title) {
         tasks.add(new Task(title));
+        
+        storage.saveTodoList(this);
     }
     
     @Override

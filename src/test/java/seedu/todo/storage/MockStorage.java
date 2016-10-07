@@ -8,6 +8,15 @@ import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.UserPrefs;
 
 public class MockStorage implements Storage {
+    private boolean todoListWasSaved = false;
+    private ImmutableTodoList list;
+    
+    public MockStorage() {
+    }
+    
+    public MockStorage(ImmutableTodoList list) {
+        this.list = list;
+    }
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
@@ -26,22 +35,27 @@ public class MockStorage implements Storage {
 
     @Override
     public Optional<ImmutableTodoList> readTodoList() {
-        return Optional.empty();
+        return Optional.ofNullable(list);
     }
 
     @Override
     public Optional<ImmutableTodoList> readTodoList(String filePath) {
-        return Optional.empty();
+        return Optional.ofNullable(list);
     }
 
     @Override
     public void saveTodoList(ImmutableTodoList todoList) {
-        // Does nothing
+        todoListWasSaved = true;
     }
 
     @Override
     public void saveTodoList(ImmutableTodoList todoList, String filePath) {
-        // Does nothing
+        todoListWasSaved = true;
+    }
+    
+    public void assertTodoListWasSaved() {
+        assert todoListWasSaved;
+        todoListWasSaved = false;
     }
 
 }

@@ -1,6 +1,9 @@
 package seedu.todo.logic;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
+import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.BaseCommand;
 import seedu.todo.logic.parser.ParseResult;
@@ -16,6 +19,8 @@ public class TodoLogic implements Logic {
     private final TodoModel model;
     private final Dispatcher dispatcher;
     
+    private static final Logger logger = LogsCenter.getLogger(TodoLogic.class);
+    
     public TodoLogic(Parser parser, TodoModel model, Dispatcher dispatcher) {
         assert parser != null;
         assert model != null;
@@ -28,6 +33,7 @@ public class TodoLogic implements Logic {
     
     public void execute(String input) {
         ParseResult parseResult = parser.parse(input);
+        logger.info("Parsed command: " + parseResult.toString());
         
         try {
             BaseCommand command = dispatcher.dispatch(parseResult);
@@ -35,6 +41,7 @@ public class TodoLogic implements Logic {
             command.execute();
         } catch (IllegalValueException e) {
             // TODO: Do something about incorrect input
+            logger.info(e.getMessage());
         }
     }
     
