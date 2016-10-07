@@ -106,8 +106,6 @@ public class PersonListPanelHandle extends GuiHandle {
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
-        // TODO: wtf is going on here.
-        person.get();
         assertTrue(person.isPresent());
         return navigateToFloatingTask(person.get());
         
