@@ -33,6 +33,9 @@ public class EndTime {
      * Returns if a given string is a valid person email.
      */
     public static boolean isValidEmail(String test) {
+    	if(test==null){
+    		return true;
+    	}
         return test.matches(EMAIL_VALIDATION_REGEX);
     }
 

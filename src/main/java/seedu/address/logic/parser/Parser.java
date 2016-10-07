@@ -21,16 +21,14 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " s/(?<start>[^/]+)"
-                    + " e/(?<end>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)" 
+										+ "((?: s/)(?<start>[^/&&\\S]+))?"
+										+ "((?: e/)(?<end>[^/&&\\S]+))?"
+										+ "(?<tagArguments>(?: t/[^/]+)*)");
     
     private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)");
     private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern.compile("(?<index>(\\d+)?)|"
@@ -110,33 +108,27 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher taskMatcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher floatingMatcher = FLOATING_TASK_ARGS_FORMAT.matcher(args.trim());
-
-       // Validate arg string format
-        if (!taskMatcher.matches() && !floatingMatcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        } else if (taskMatcher.matches()){
-            try {
-                return new AddCommand(
-                        taskMatcher.group("name"),
-                        taskMatcher.group("start"),
-                        taskMatcher.group("end"),
-                        getTagsFromArgs(taskMatcher.group("tagArguments"))
-                );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        } else {
-        	try {
-                return new AddCommand(
-                        floatingMatcher.group("name"),
-                        getTagsFromArgs(floatingMatcher.group("tagArguments"))
-                );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        }
+    	final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+    	if (!taskMatcher.matches()) {
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    	}
+    	else if(taskMatcher.group("start") == null && taskMatcher.group("end") == null){
+    		try {
+    			return new AddCommand(taskMatcher.group("name"), getTagsFromArgs(taskMatcher.group("tagArguments")));
+    		}
+    		catch (IllegalValueException e) {
+    			return new IncorrectCommand(e.getMessage());
+    		}
+		}
+    	else {
+    		String startTime = (taskMatcher.group("start")==null)?"NIL":taskMatcher.group("start");
+    		String endTime = (taskMatcher.group("end")==null)?"NIL":taskMatcher.group("end");
+    		try {
+				return new AddCommand(taskMatcher.group("name"), startTime, endTime, getTagsFromArgs(taskMatcher.group("tagArguments")));
+			} catch (IllegalValueException e) {
+				return new IncorrectCommand(e.getMessage());
+			}
+    	}
     }
 
     /**
@@ -196,7 +188,7 @@ public class Parser {
      * otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }

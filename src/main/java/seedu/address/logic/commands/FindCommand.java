@@ -26,12 +26,14 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        
+/*        
         List<ReadOnlyTask> matchingTasks = model.getFilteredTaskListFromTaskName(keywords);
         Set<String> keywordList = model.getKeywordsFromList(matchingTasks);
         model.updateFilteredPersonList(keywordList);
         //model.updateFilteredPersonList(keywords);
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+*/
+        return null;
     }
 
 }

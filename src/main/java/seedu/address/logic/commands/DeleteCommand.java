@@ -1,14 +1,12 @@
 package seedu.address.logic.commands;
 
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
-import java.util.Set;
 
 /**
  * Deletes a person identified using it's last displayed index from the address
@@ -103,6 +101,4 @@ public class DeleteCommand extends Command {
     		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName()));
     	}
     }
-    
-
 }

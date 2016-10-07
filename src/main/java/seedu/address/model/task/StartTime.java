@@ -31,6 +31,9 @@ public class StartTime {
      * Returns true if a given string is a valid person phone number.
      */
     public static boolean isValidPhone(String test) {
+    	if(test==null){
+    		return true;
+    	}
         return test.matches(PHONE_VALIDATION_REGEX);
     }
 
