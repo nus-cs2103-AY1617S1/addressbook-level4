@@ -403,7 +403,7 @@ Use case ends.<br>
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#appendix-d--glossary) that has Java 8 or higher installed.
+1. Should work on any [mainstream OS](#mainstream-os) that has Java 8 or higher installed.
 2. Should be able to contain up to 20000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favour natural language commands than unix commands.
@@ -482,4 +482,3 @@ Strengths:
 Weaknesses:
 * Most of the things need to be done with a mouse.
 * Many features are only available in the paid version
-
