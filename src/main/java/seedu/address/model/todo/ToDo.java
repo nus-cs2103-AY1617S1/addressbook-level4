@@ -12,6 +12,9 @@ import java.util.Objects;
 public class ToDo implements ReadOnlyToDo {
 
     private Title title;
+    private DueDate dueDate;
+    private DateRange dateRange;
+    private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
@@ -27,7 +30,35 @@ public class ToDo implements ReadOnlyToDo {
     public ToDo(ReadOnlyToDo source) {
         this(source.getTitle());
     }
+    
+    public void setTitle(Title title) {
+        this.title = title;
+    }
 
+    public void setDueDate(DueDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setDateRange(DateRange dateRange) {
+        this.dateRange = dateRange;
+    }
+
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
+    }
+    
+    public DueDate getDueDate() {
+        return dueDate;
+    }
+
+    public DateRange getDateRange() {
+        return dateRange;
+    }
+
+    public UniqueTagList getTags() {
+        return tags;
+    }
+    
     @Override
     public Title getTitle() {
         return title;
@@ -49,4 +80,5 @@ public class ToDo implements ReadOnlyToDo {
     public String toString() {
         return getAsText();
     }
+
 }
