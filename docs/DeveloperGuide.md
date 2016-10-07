@@ -293,12 +293,12 @@ Actor: User
 **Extensions**<br>
 
 2a. The task is already existing<br>
-  >2a1. System displays “task is already existing” message.<br>
+  >2a1. System displays "task is already existing" message.<br>
   >Use case ends<br>
 
 2b. The given syntax is invalid<br>
-  >2b1. System displays “Invalid syntax” error message.<br>
-  >2b2. ‘Help’ command is launched.<br>
+  >2b1. System displays "Invalid syntax" error message.<br>
+  >2b2. Help command is launched.<br>
   >2b3. System awaits user input.<br>
   >Use case ends<br>
 
@@ -312,12 +312,12 @@ Actor: User
 **Extensions**<br>
 
 2a. The task is already existing<br>
-  >2a1. System displays “task already exists” message.<br>
+  >2a1. System displays "task already exists" message.<br>
   >Use case ends<br>
 
 2b. The given syntax is invalid<br>
-  >2b1. System displays “Invalid syntax” error message.<br>
-  >2b2. ‘Help’ command is launched.<br>
+  >2b1. System displays "Invalid syntax" error message.<br>
+  >2b2. Help command is launched.<br>
   >2b3. System awaits user input.<br>
   >Use case ends<br>
 
@@ -357,19 +357,19 @@ Use case ends.<br>
 **Extensions**<br>
 
 2a. The user just launched the system and did not type a prior command.<br>
-  >2a1. System displays “Nothing was undone” message<br>
+  >2a1. System displays "Nothing was undone" message<br>
   >Use case ends<br>
 
 #### **Use case: Redo**
 **MSS**<br>
 
-1. User requests to revert back to the state that the system was previously in during ‘undo’<br>
+1. User requests to revert back to the state that the system was previously in during undo<br>
 2. System reverts to the state of ‘redo’<br>
 
 **Extensions**<br>
 
-2a. User did not type an ‘undo’ command previously<br>
-  >2a1. System displays “Nothing to redo” message<br>
+2a. User did not type an "undo" command previously<br>
+  >2a1. System displays "Nothing to redo" message<br>
   >Use case ends<br>
 
 #### **Use case: Search for a task**
@@ -382,7 +382,7 @@ Use case ends.<br>
 **Extensions**<br>
 
 1a. If no such task exists.<br> 
-  >1a1.System will display “No such task.”<br>
+  >1a1.System will display "No such task."<br>
             >Use case ends<br>
 
 #### **Use case: Filter by priority**
@@ -395,7 +395,7 @@ Use case ends.<br>
 **Extensions**<br>
 
 1a. There are no tasks of such priority.<br>
-  >1a1. System displays “No such task” message<br>
+  >1a1. System displays "No such task" message<br>
   >Use case ends<br>
 
 
@@ -482,3 +482,4 @@ Strengths:
 Weaknesses:
 * Most of the things need to be done with a mouse.
 * Many features are only available in the paid version
+
