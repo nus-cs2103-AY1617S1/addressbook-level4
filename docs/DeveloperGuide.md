@@ -291,16 +291,16 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `SavvyTasker` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Savvy Tasker` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Delete person
 
 **MSS**
 
 1. User requests to list tasks
-2. SavvyTasker shows a list of tasks
+2. Savvy Tasker shows a list of tasks
 3. User requests to delete a specific task in the list
-4. SavvyTasker deletes the task <br>
+4. Savvy Tasker deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -311,7 +311,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. SavvyTasker shows an error message <br>
+> 3a1. Savvy Tasker shows an error message <br>
   Use case resumes at step 2
 
 {More to be added}
