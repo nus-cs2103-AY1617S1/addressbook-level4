@@ -3,6 +3,8 @@ package seedu.todo.model;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,19 +16,44 @@ import seedu.todo.model.task.Task;
 import seedu.todo.storage.MockStorage;
 
 public class TodoTest {
+    private class MockTodoList implements ImmutableTodoList {
+        private ImmutableTask[] tasks; 
+        
+        public MockTodoList(ImmutableTask[] tasks) {
+            this.tasks = tasks; 
+        }
+        
+        @Override
+        public List<ImmutableTask> getTasks() {
+            return Arrays.asList(tasks);
+        }
+    }
+    
     private TodoList todo;
     private UnmodifiableObservableList<ImmutableTask> observableList;
     private MockStorage storage;
-    
-    private ImmutableTask getTask(int index) {
-        return todo.getTasks().get(index);
-    }
     
     @Before
     public void setUp() {
         storage = new MockStorage();
         todo = new TodoList(storage);
         observableList = todo.getObserveableList();
+    }
+    
+    @Test
+    public void testRestoreFromStorage() {
+        // Create a mock todo list, add it to mock storage and try to get 
+        // TodoList to retrieve it
+        Task task1 = new Task("Task 1");
+        Task task2 = new Task("Task 2");
+        
+        MockTodoList testList = new MockTodoList(new ImmutableTask[]{ task1, task2 });
+        MockStorage nonEmptyStorage = new MockStorage(testList);
+        TodoList todolist = new TodoList(nonEmptyStorage);
+        
+        assertEquals(2, todolist.getTasks().size());
+        assertTrue(todolist.getTasks().contains(task1));
+        assertTrue(todolist.getTasks().contains(task2));
     }
     
     @Test
@@ -167,5 +194,8 @@ public class TodoTest {
         assertTrue(observableList.get(0).isPinned());
         assertEquals(lastTask.getTitle(), observableList.get(0).getTitle());
     }
-
+    
+    private ImmutableTask getTask(int index) {
+        return todo.getTasks().get(index);
+    }
 }
