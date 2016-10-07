@@ -503,7 +503,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Date("1"),
-                    new Time("1@time"),
+                    new Time("1@time")
 //                    new Address("House of 1"),
 //                    new UniqueTagList(new Tag("tag"))
             );

@@ -3,12 +3,12 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's date number in the address book.
+ * Represents a Task's date in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class Time {
 
-    public static final String MESSAGE_EMAIL_CONSTRAINTS =
+    public static final String MESSAGE_TIME_CONSTRAINTS =
             "Task times should be 2 alphanumeric/period strings separated by '@'";
     public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
 
@@ -23,7 +23,7 @@ public class Time {
         assert time != null;
         time = time.trim();
         if (!isValidTime(time)) {
-            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         this.value = time;
     }
