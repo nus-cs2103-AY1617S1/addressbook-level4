@@ -42,6 +42,7 @@ Format: `add TASKNAME [at/from TIMEDATE] [by/to TIMEDATE] [PRIORITY]`
 > * For tasks and events, at least one of the two TIMEDATE values must be included.<br>
 > * For floating tasks, none of the TIMEDATE values are specified.<br>
 > * If priority is not specified, default priority of * is set.
+> * If START_TIMEDATE exceeds END_TIMEDATE, the addition of task will not be successful.
 
 Examples: 
 * `add Buy eggs at 5pm 13/09/2016 ***`
@@ -104,22 +105,20 @@ Examples:
 > * Lists tasks matching `b*y*` for the user to choose from.
 
 #### Updating a task : `update`
-Update the date/time for a task<br>
-Format: `update INDEX/TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE]`
+Updates information for a task referred by its index.<br>
+Format: `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [PRIORITY]`
 
-> * Replaces the start and end times of the task at the specified index
-> * If TASKNAME is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with updating using the index of the appropriate task.
-> * Omitting START_TIMEDATE will remove START_TIMEDATE from the task
-> * Omitting END_TIMEDATE will remove END_TIMEDATE from the task
+> * Replaces the entered information for the task at the specified index
+> * If updated START_TIME/DATE exceeds END_TIME/DATE of the task, the update will not be successful
 
 Examples:
 * `update 1 at 13/09/2016 5pm`<br>
 
 > * `Meeting from 13/09/2016 4pm to 13/09/2016 6pm` will be replaced with `Meeting at 13/09/2016 5pm`
 
-* `update b*y* from 13/09/2016 4pm to 13/09/2016 6pm`
+* `update 1 from 13/09/2016 4pm to 13/09/2016 6pm`
 
-> * Lists tasks matching `b*y*` for the user to choose from
+> * `Meeting at 13/09/2016 5pm` will be replaced with `Meeting from 13/09/2016 4pm to 13/09/2016 6pm`
 
 #### Marking a task as complete : `done`
 Marks a task as complete.<br>
@@ -174,7 +173,7 @@ add | `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE] [PRIORITY]`
 show | `show [TYPE]`
 find | `find SEARCHSTRING`
 delete | `delete INDEX/TASKNAME`
-update | `update INDEX/TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE]`
+update | `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [PRIORITY]`
 done | `done INDEX/TASKNAME`
 setstorage | `setstorage FILEPATH`
 undo | `undo`
