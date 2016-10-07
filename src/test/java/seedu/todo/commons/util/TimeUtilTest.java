@@ -12,12 +12,6 @@ public class TimeUtilTest {
         TimeUtil.getTaskDeadlineString(null);
     }
     
-    @Test (expected = AssertionError.class)
-    public void getTaskDeadlineString_startTimeAfterEndTime() {
-        LocalDateTime currentTime = LocalDateTime.now();
-        TimeUtil.getTaskDeadlineString(currentTime.minusHours(1).minusDays(1));
-    }
-    
     @Test
     public void getTaskDeadlineString_hoursBeforeDeadlines() {
         for (long hoursLeft = 2; hoursLeft < 24; hoursLeft++) {
