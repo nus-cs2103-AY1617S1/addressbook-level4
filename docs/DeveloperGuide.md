@@ -406,11 +406,11 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-|       |  Wunderlist  |  Google  |  Todoist  |
+|       |  Wunderlist  |  Google Calendar  |  Todoist  |
 |---|---|---|---|
 |  Strengths | <ul><li>Elegant and simple</li><li>CLI input but graphical display</li><li>Add notes and timestamps to tasks</li><li>Ability to create email with list of tasks automatically</li><li>Organize tasks in different ‘lists’</li></ul> | <ul><li>Quick add feature to minimize use of mouse</li><li>Ability to allocate tasks to specific timeslots</li><li>Ability to view free timeslots</li><li>Ability to set reminders</li></ul> | <ul><li>CLI input but graphical display</li><li>Keyboard shortcuts to minimize use of mouse</li><li>Ability to set deadlines and reminders for tasks</li><li>Ability to set priorities for tasks to decide which task to do next</li></ul> |
-|  Unnecessary features  | <ul><li>Cross-platform functionality</li><li>Syncs between devices</li><li>Collaboration with others</li></ul> | <ul><li>Collaboration with others</li></ul> |<ul><li>Cross-platform functionality</li><li>Collaboration with others</li></ul> |
-|  Weaknesses  |<ul><li>No way to allocate tasks to a specific timeslot</li><li>No way to view free timeslots</li></ul>|<ul><li>Does not provide a desktop software for easy summoning using keyboard shortcuts</li><li>No easy way to “block” multiple timeslots when the exact timing of a task is uncertain and release the blocked slots when the time is finalized</li><li>Not good with capturing tasks that need to be done before a specific date/time, or after a specific date/time, and items without specific times</li><li>No support for offline access</li></ul>|<ul><li>No way to allocate tasks to a specific timeslot</li><li>No way to view free timeslots</li></ul>|
+|  Unnecessary features  | <ul><li>Cross-platform functionality</li><li>Syncs between devices</li><li>Collaboration with others</li></ul> | <ul><li>Collaboration with others</li></ul> | <ul><li>Cross-platform functionality</li><li>Collaboration with others</li></ul> |
+|  Weaknesses  | <ul><li>No way to allocate tasks to a specific timeslot</li><li>No way to view free timeslots</li></ul> | <ul><li>Does not provide a desktop software for easy summoning using keyboard shortcuts</li><li>No easy way to “block” multiple timeslots when the exact timing of a task is uncertain and release the blocked slots when the time is finalized</li><li>Not good with capturing tasks that need to be done before a specific date/time, or after a specific date/time, and items without specific times</li><li>No support for offline access</li></ul> | <ul><li>No way to allocate tasks to a specific timeslot</li><li>No way to view free timeslots</li></ul> |
 
 
 
