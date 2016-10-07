@@ -36,9 +36,14 @@
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="datetime" styleClass="cell_small_label" text="\$datetime">
+                  <Label fx:id="startDate" layoutX="25.0" layoutY="52.0" styleClass="cell_small_label" text="\$startDate">
                      <graphic>
-                        <Label text="Date &amp; Time:" />
+                        <Label text="Start:" />
+                     </graphic>
+                  </Label>
+                        <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate">
+                     <graphic>
+                        <Label text="End:" />
                      </graphic></Label>
                         <Label fx:id="priority" styleClass="cell_small_label" text="\$priority">
                      <graphic>

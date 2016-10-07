@@ -16,11 +16,11 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
-    @XmlElement(required = true)
+    @XmlElement
     private String priority;
-    @XmlElement(required = true)
+    @XmlElement
     private DateTime dateTime;
-    @XmlElement(required = true)
+    @XmlElement
     private boolean status;
 
 
