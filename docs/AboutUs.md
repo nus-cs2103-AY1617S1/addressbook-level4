@@ -18,6 +18,7 @@ Responsibilities:
 -----
 
 #### [Yip Bing You](https://github.com/leaffriend)
+<img src="images/YipBingYou.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: 
 
