@@ -77,6 +77,7 @@ In the remainder of this section, note the following:
 
 1. Fields that are in uppercase are *user parameters*.
 2. The order of parameters in command formats is fixed.
+3. Commands that begin with `for` have autocomplete to assist the user.
 
 ### Adding an Event
 #### Start and End Times
