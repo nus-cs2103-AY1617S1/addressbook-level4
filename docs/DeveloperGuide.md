@@ -1,4 +1,4 @@
-# Developer Guide 
+# Developer Guide
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -22,7 +22,7 @@
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -32,7 +32,7 @@
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -83,7 +83,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The sections below give more details of each component.
@@ -144,18 +144,18 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+Classes used by multiple components are in the `seedu.addressbook.commans` package.
 
 ## Implementation
 
 ### Logging
 
-We are using `java.util.logging.Logger` as our logger, and `LogsCenter` is used to manage the logging levels 
+We are using `java.util.logging.Logger` as our logger, and `LogsCenter` is used to manage the logging levels
 of loggers and handlers (for output of log messages)
 
-- The logging level can be controlled using the `logLevel` setting in the configuration file 
+- The logging level can be controlled using the `logLevel` setting in the configuration file
   (See [Configuration](#configuration))
-- The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to 
+- The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
 
 - Currently log messages are output through: `Console` and `.log`
@@ -180,46 +180,46 @@ of loggers and handlers (for output of log messages)
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
 
 ## Testing
 
-**In Eclipse**: 
+**In Eclipse**:
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
   as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
-* To run all tests, right-click on the `src/test/java` folder and choose 
+* To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose 
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
-  
+
 **Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle. 
+* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
 Tests can be found in the `./src/test/java` folder.
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
-  
+
 **Headless GUI Testing** :
 Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+
 ## Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
@@ -228,15 +228,15 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 ## Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
-   
+
 ## Managing Dependencies
 
-A project often depends on third party libraries. For example, Address Book depends on the 
+A project often depends on third party libraries. For example, Address Book depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -251,49 +251,390 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new task | so I can register my things to do
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | find a task by name | locate details of the task without having to go through the entire list
+`* * *` | user | find a task by deadline | locate tasks that are due soon without having to go through the entire list
+`* * *` | user | edit a task | update entries as needed
+`* * *` | user | add a floating task | have a task without a deadline
+`* * *` | user | add a recurring task | add repeating tasks only once
+`* * *` | user | undo a task entered | increase my workflow
+`* * *` | user | sort list by alphabetical order and date | find my tasks easily
+`* * *` | user | specify the location of file storage | choose where to save the to do list
+`* *` | user | mark tasks as done | archive my completed tasks
+`* *` | user | see my tasks in user interface | have an easier time using the app
+`* *` | user | set categories | organise my tasks
+`* *` | user | block out timings | reserve time slots for tasks
+`* *` | user | create subtasks | breakdown my tasks into smaller problems
+`*` | user | specify my own natural language | customise the app
+`*` | user | set reminders for tasks | reduce chances of forgetting to do a task
+`*` | user | import a list of to do tasks | add in tasks without registering them individually
 
-{More to be added}
+
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Schema` and the **Actor** is the `User`, unless specified otherwise)
 
-#### Use case: Delete person
+| # | Use Case | Descriptions  |
+|---|---|---|
+| [UC1](#uc1-display-help) | Display Help  | Display help when requested, or when user enter an invalid command. |
+| [UC2](#uc2-adddo-a-task) | Add/Do a Task  | Adding a task. A task can be concrete (have defined date/time) or floating (without date/time). |
+| [UC3](#uc3-lists-tasks) | Lists Tasks  | Display lists of tasks added into the System. |
+| [UC4](#uc4-find-tasks) | Find Tasks  | Search for task by specifying parameters with keywords. |
+| [UC5](#uc5-edit-a-task) | Edit a Task  | Edit the details of a single task. The command only update fields specified by the User. Unspecified field remains untouched. |
+| [UC6](#uc6-delete-a-task) | Delete a task  | Remove a task entry by index. |
+| [UC7](#uc7-undo-action) | Undo Action  | Undo last action performed. |
+| [UC8](#uc8-redo-action) | Redo Action  | Redo an action performed in UC7. |
+| [UC9](#uc9-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
+| [UC10](#uc10-clear-a-category) | Clear a category  | System performs bulk delete on the cateogry specified (Deadlines, events, tasks). |
+| [UC11](#uc11-clear-all-category) | Clear all category  | System performs bulk delete on every category (Deadlines, events, tasks). |
+| [UC12](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specifed by the user. |
+| [UC13](#uc13-exit-application) | Exit application  | Quit the application |
 
-**MSS**
+---
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+### UC1: Display help
 
-**Extensions**
+Display help when requested, or when user enter an invalid command.
 
-2a. The list is empty
+##### Main Success Scenario:
 
-> Use case ends
+1. User requests to display help.
 
-3a. The given index is invalid
+2. System display the help manual.
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+3. Use case ends.
 
-{More to be added}
+##### Extensions
+
+1a. User entered an invalid command
+
+* 1a1. Use case resume at 2.
+
+---
+
+### UC2: Add/Do a Task
+
+Adding a task. A task can be concrete (have defined date/time) or floating (without date/time).
+
+##### Main Success Scenario:
+
+1. User requests to add a task.
+
+2. System accepts the command & parameters and create task.
+
+3. System displays successful message to User.
+
+4. Use case ends.
+
+##### Extensions
+
+1a. User entered an invalid command
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
+1b. User enters task with date/time.
+
+* 1b1. System accepts the command as concrete task.
+
+* 1b2. Use case resume at 2.
+
+1c. User enteres task without date/time.
+
+* 1c1. System accepts the command as floating task.
+
+* 1c2. Use case resume at 2.
+
+---
+
+### UC3: Lists Tasks
+
+Display lists of tasks added into the System.
+
+##### Main Success Scenario:
+
+1. User requests to lists tasks.
+
+2. System display list of tasks.
+
+3. Use case ends.
+
+##### Extensions
+
+2a. System cannot find any task.
+
+* 2a1. System display message, "No task found.".
+
+---
+
+### UC4: Find Tasks
+
+Search for task by specifying parameters with keywords.
+
+Note: The combination are filtered using **OR** operation. For example, the following command
+
+```bash
+find name/grocery tag/milk,egg
+```
+
+should return all tasks matches "grocery" in name OR having tag with "milk" or "egg"
+
+##### Main Success Scenario:
+
+1. User request to search for a tasks.
+
+2. System Search for a task that matches the parameters.
+
+3. System displays the matching results to the User.
+
+4. Use case ends.
+
+##### Extensions
+
+2a. System cannot find any task.
+
+* 2a1. System display message, "No matching task found.".
+
+---
+
+### UC5: Edit a Task
+
+Edit the details of a single task. The command only update fields specified by the User. Unspecified field remains untouched.
+
+##### Main Success Scenario
+
+1. User request to edit a task by index.
+
+2. System find and update the task.
+
+3. System display successful message.
+
+4. Use case ends.
+
+##### Extensions
+
+2a. Invalid index.
+
+* 2a1. System cannot find the task associated with the index.
+
+* 2a2. System display unsuccessful message.
+
+* 2a3. Use case ends.
+
+---
+
+### UC6: Delete a task
+
+Remove a task entry by index.
+
+##### Main Success Scenario
+
+1. User request to delete a task by index.
+
+2. System find and remove the task.
+
+3. System display successful message.
+
+4. Use case ends.
+
+##### Extensions
+
+2a. Invalid index.
+
+* 2a1. System cannot find the task associated with the index.
+
+* 2a2. System display unsuccessful message.
+
+* 2a3. Use case ends.
+
+---
+
+### UC7: Undo Action
+
+Undo last action performed.
+
+##### Main Success Scenario
+
+1. User requests to undo last action performed.
+
+2. System pop from Undo stack and performs undo on the last action performed.
+
+3. System put the action into Redo stack.
+
+3. System display successful message and details of the undo operation.
+
+4. Use case ends.
+
+##### Extensions
+
+2a. System cannot find any previous action in Undo stack.
+
+* 2a1. System display unsuccessful message.
+
+* 2a2. Use case ends.
+
+---
+
+### UC8: Redo Action
+
+Redo an action performed in UC7.
+
+##### Main Success Scenario
+
+1. User requests to redo an action performed in UC7.
+
+2. System pop from Redo stack and performs redo on the last action performed in UC7.
+
+3. System display successful message and details of the redo operation.
+
+4. Use case ends.
+
+##### Extensions
+
+2a. System cannot find any previous action in Redo stack.
+
+* 2a1. System display unsuccessful message.
+
+* 2a2. Use case ends.
+
+---
+
+### UC9: Mark Task as done
+
+Mark a task as done by index. A marked task should be automatically archived and exclude from display and search.
+
+##### Main Success Scenario
+
+1. User requests to mark a task as done by index.
+
+2. System finds and mark the task as done.
+
+3. System archives the task.
+
+4. Use case ends.
+
+##### Extensions
+
+2a. Invalid Index.
+
+* 2a1. System cannot find the task associated with the index.
+
+* 2a2. System display unsuccessful message.
+
+* 2a3. Use case ends.
+
+---
+
+### UC10: Clear a category
+
+System performs bulk delete on the cateogry specified (Deadlines, events, tasks).
+
+##### Main Success Scenario
+
+1. User requests to clear a category.
+
+2. System proceed to perform bulk action descibed in UC6 for the specified category.
+
+3. Use case ends.
+
+##### Extensions
+
+2a. Invalid category
+
+* 2a1. System cannot find the specified category.
+
+* 2a2. System display unsuccessful message.
+
+* 2a3. Use case ends.
+
+---
+
+### UC11: Clear all category
+
+System performs bulk delete on every category (Deadlines, events, tasks).
+
+##### Main Success Scenario
+
+1. User requests to clear all category.
+
+2. System proceed to perform bulk action describe in UC6.
+
+3. Use case ends.
+
+##### Extensions
+N.I.L.
+
+---
+
+### UC12: Relocate storage location
+
+Change the current storage to other directory specifed by the user.
+
+##### Main Success Scenario
+
+1. User requests to relocate the storage directory.
+
+2. System change the storage directory according to user input.
+
+3. System copy current storage to the new location.
+
+4. System update all future command to reference the new location.
+
+5. System displays successful message.
+
+6. Use case ends.
+
+##### Extensions
+
+2a. Invalid storage location.
+
+* 2a1. System display unsuccessful message.
+
+* 2a2. Use case ends.
+
+2b. Storage location is not accessible/writable.
+
+* 2a1. System display unsuccessful message.
+
+* 2a2. Use case ends.
+
+---
+
+### UC13: Exit application
+
+Quit the application.
+
+##### Main Success Scenario
+
+1. User requests to exit application.
+
+2. System perform synchronization and save it to the storage.
+
+3. System exit application.
+
+4. Use case ends.
+
+##### Extensions
+N.I.L
+
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+1. Should backup tasks list.
+2. Should be able to store 1000 tasks.
+3. Should only receive keyboard inputs.
+4. Should be maintainable and scalable.
+5. Should be user friendly for new users.
+6. Should be able to be accessed offline.
+7. Should come with automated unit testing.
+8. Should be able to startup and quit within 1 second.
+9. Should display up to date tasks when command is given.
+10. Should be able to run on all [mainstream OS](#mainstream-os).
+11. Should be able to display tasks within 1 second when command is given.
+12. Should have a simple GUI that displays [relevant information](#relevant-information).
 
 ## Appendix D : Glossary
 
@@ -301,11 +642,105 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Relevant Information
 
-> A contact detail that is not meant to be shared with others
+> Tasks, due dates, priority
+
+
+##### Floating Tasks
+
+> Tasks with no specific deadline
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+##### Google Calendar
 
+> Pros:
+>1.  Able to sync calendars from other people
+>2.  Chrome extension for offline connectivity
+>3.  Multiple viewing options (Calendar/To do list view)
+>4.  Has a Command Line Interface (CLI)
+
+> Cons:
+>1.  Unable to support floating task
+>2.  Unable to mark tasks as done
+>3.  Unable to block out and free up timings
+>4.  CLI commands only for addition of tasks
+>5.  Bad interface
+
+##### Wunderlist
+
+> Pros:
+>1.  Able to set categories
+>2.  Able to mark tasks as done
+>3.  Able to read tasks from e-mails
+>4.  Able to assign tasks to someone
+>5.  Able to search for tasks easily
+>6.  Able to migrate tasks from one category to another easily
+>7.  Web and offline desktop version available
+
+> Cons:
+>1.  Unable to create subtask
+>2.  Unable to support recurring tasks
+>3.  Unable to block out time slots
+>4.  Unable to set start date for tasks
+>5.  Only has a list view
+
+##### Todoist
+
+> Pros:
+>1.  Able to set categories
+>2.  Able to collaborate with others
+>3.  Able to have sub-projects and sub-tasks
+>4.  Able to support recurring tasks
+>5.  Able to sort tasks by priority level
+>6.  Able to integrate from e-mail
+>7.  Able to backup auotmatically
+
+> Cons:
+>1.  Unable to block out timings
+>2.  Unable to export out To-do list
+>3.  Minimal CLI
+>4.  Have to do alot of clicking
+
+##### Any.Do
+
+> Pros:
+>1.  Able to set categories by type and day
+>2.  Able to show completed tasks
+>3.  Able to collaborate with others
+>4.  Able to support sub-tasks
+>5.  Able to add attachments
+>6.  Able to support recurring tasks
+>7.  Able to mark task as done
+>8.  Able to notify and remind user
+>9.  Able to have action shortcuts
+>10.  Able to have different types of views
+
+> Cons:
+>1.  Unable to support floating tasks
+>2.  No CLI
+
+##### Evernote
+
+> Pros:
+>1.  Able to quick search
+>2.  Able to support handwriting, embedded images/audio and links
+>3.  Able to work with camera
+
+> Cons:
+>1.  No CLI
+>2.  No Calendar view
+
+##### Trello
+
+> Pros:
+>1.  Able to mark tasks as "in-progress"
+>2.  Able to view as calendar
+
+> Cons:
+>1.  Unable to import or export
+>2.  Relies on UI interaction
+>3.  No CLI
+>4.  Need to pay for premium use to access 3rd party features
+>5.  No desktop version

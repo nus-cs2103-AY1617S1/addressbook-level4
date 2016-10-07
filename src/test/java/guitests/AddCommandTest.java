@@ -1,11 +1,12 @@
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardHandle;
+import harmony.commons.core.Messages;
+import harmony.logic.commands.AddCommand;
+import harmony.testutil.TestTask;
+import harmony.testutil.TestUtil;
+
 import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,8 +15,8 @@ public class AddCommandTest extends AddressBookGuiTest {
     @Test
     public void add() {
         //add one person
-        TestPerson[] currentList = td.getTypicalPersons();
-        TestPerson personToAdd = td.hoon;
+        TestTask[] currentList = td.getTypicalPersons();
+        TestTask personToAdd = td.hoon;
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
@@ -38,15 +39,15 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestPerson personToAdd, TestPerson... currentList) {
+    private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) {
         commandBox.runCommand(personToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().fullName);
+        TaskCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().fullName);
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestPerson[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
+        TestTask[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
         assertTrue(personListPanel.isListMatching(expectedList));
     }
 
