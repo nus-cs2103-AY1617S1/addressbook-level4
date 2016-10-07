@@ -65,7 +65,7 @@ This will show a list of available commands with detailed instructions on how to
  
 #### <a id="add"></a>Adding a task: `add`
 Adds a floating task.<br>
-Format: `add t/TASK` 
+Format: `add TASK` 
 
 > Floating tasks are tasks without deadlines.
 
@@ -73,17 +73,17 @@ Examples:
 * `add Buy Groceries` <br>
 
 Adds a task with deadlines.<br>
-Format: `add t/TASK e/END_DATE, END_TIME i/IMPORTANCE, [t/TAGS]` 
+Format: `add TASK e/END_DATE, END_TIME i/IMPORTANCE, [t/TAGS]` 
 
 Examples: 
 * `add Do CS2103 Homework e/tomorrow, 10am, i/red`
 * `add Finish Project Paper e/1 March, 12am i/green` <br>
 
 Adds an event.<br>
-Format: `add t/TASK s/START_DATE, START_TIME e/END_DATE, END_TIME i/IMPORTANCE`
+Format: `add TASK s/START_DATE, START_TIME e/END_DATE, END_TIME i/IMPORTANCE`
 
-Parameters:
-NAME: Name of the task <br>
+Parameters: <br>
+TASK: Name of the task <br>
 s/START_DATE: The date that the task will start on <br>
 START_TIME: The time of the start of the task <br>
 e/END_DATE: The date of the task that the task will end on <br>
@@ -176,7 +176,7 @@ This can be done by typing the following:
 
 > edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [et/END_TIME], [i/IMPORTANCE]
 
-Parameters:
+Parameters: <br>
 INDEX: the number that was linked to the task you wish to edit <br>
 [n/NAME]: the name you wish to change to <br>
 [s/START_DATE]: the start date you wish to change to <br>
@@ -268,22 +268,22 @@ Adding the date in the command line  is optional and by default it will clear th
 
 <br><br>
 
-#### <a id="com"></a>Mark a task as `complete`
-Format: `complete + INDEX`
+#### <a id="done"></a>Mark a task as `done`
+Format: `done + INDEX`
 
-If you have finished a certain task and wish to mark it as finished you can give a `complete` label to the specified task in the task list by typing the following: <br>
+If you have finished a certain task and wish to mark it as finished you can give a `done` label to the specified task in the task list by typing the following: <br>
 
-> complete INDEX
+> done INDEX
 
-This will label a task as `complete`, when you display the task, you will be reminded that you have finished the specified task.
+This will label a task as `done`, when you display the task, you will be reminded that you have finished the specified task.
 
 > The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Example: 
 * `find today` <br>
-  `complete 2` <br>
- Gives a `complete` label to the 2nd task in today’s list
+  `done 2` <br>
+ Gives a `done` label to the 2nd task in today’s list
 
 <br><br>
 
@@ -334,7 +334,7 @@ Command | Format
 [Select](#sel) | `sel INDEX`
 [Undo](#undo) | `undo`
 [Clear](#clr) | `clr [DATE]`
-[Complete](#com) | `complete INDEX`
+[Done](#done) | `done INDEX`
 [Exit](#exit) | `exit`
 
 
