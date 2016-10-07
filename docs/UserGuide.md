@@ -104,7 +104,7 @@ To remove certain task details like end time, simply leave their corresponding s
 
 #### 4.2.6 Edit a specific tag
 
->Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt > &lt;new_tag&gt;
+>Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt; **>** &lt;new_tag&gt;
 
 #### 4.2.7 Edit task priority 
 
