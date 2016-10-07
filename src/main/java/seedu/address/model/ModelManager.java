@@ -4,7 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
@@ -21,60 +21,60 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ToDoList toDoList;
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given ToDoList
+     * ToDoList and its variables should not be null
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(ToDoList src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new AddressBook(src);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        toDoList = new ToDoList(src);
+        filteredTasks = new FilteredList<>(toDoList.getTasks());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ToDoList(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
-    }
-
-    @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
+        toDoList = new ToDoList(initialData);
+        filteredTasks = new FilteredList<>(toDoList.getTasks());
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void resetData(ReadOnlyToDoList newData) {
+        toDoList.resetData(newData);
+        indicateToDoListChanged();
+    }
+
+    @Override
+    public ReadOnlyToDoList getToDoList() {
+        return toDoList;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+    private void indicateToDoListChanged() {
+        raise(new ToDoListChangedEvent(toDoList));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removeTask(target);
-        indicateAddressBookChanged();
+        toDoList.removeTask(target);
+        indicateToDoListChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(task);
+        toDoList.addTask(task);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateToDoListChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
