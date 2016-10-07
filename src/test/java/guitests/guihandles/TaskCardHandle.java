@@ -41,10 +41,12 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
-//    public boolean isSameTask(ReadOnlyTask task){
-//        return getFullName().equals(task.getName().fullName) && getDate().equals(task.getDate().value)
-//                && getTime().equals(task.getTime().value) && getAddress().equals(task.getAddress().value);
-//    }
+    public boolean isSameTask(ReadOnlyTask task){
+        return getFullName().equals(task.getName().fullName) 
+        		&& getDate().equals(task.getDate().value)
+                && getTime().equals(task.getTime().value); 
+//                && getAddress().equals(task.getAddress().value);
+    }
 
     @Override
     public boolean equals(Object obj) {
