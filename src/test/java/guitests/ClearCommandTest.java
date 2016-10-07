@@ -16,7 +16,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
         //verify other commands can work after a clear command
         commandBox.runCommand(td.hoon.getAddCommand());
         assertTrue(personListPanel.isListMatching(td.hoon));
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("del 1");
         assertListSize(0);
 
         //verify clear command works when the list is empty
@@ -24,7 +24,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
     }
 
     private void assertClearCommandSuccess() {
-        commandBox.runCommand("clear");
+        commandBox.runCommand("clr");
         assertListSize(0);
         assertResultMessage("Address book has been cleared!");
     }
