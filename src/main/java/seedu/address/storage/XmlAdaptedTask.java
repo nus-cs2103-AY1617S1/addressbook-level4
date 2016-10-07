@@ -6,6 +6,9 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,13 +22,13 @@ public class XmlAdaptedTask {
     private String name;
     
     @XmlElement
-    private long deadline = -1;
+    private String deadline = "00/00/0000 00:00:00";
     @XmlElement
     private boolean isCompleted = false;
     @XmlElement
-    private long startTime = -1;
+    private String startTime = "00/00/0000 00:00:00";
     @XmlElement
-    private long endTime = -1;
+    private String endTime = "00/00/0000 00:00:00";
     @XmlElement
     private String deadlinePattern = "NONE";
     @XmlElement
@@ -37,6 +40,8 @@ public class XmlAdaptedTask {
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     /**
      * No-arg constructor for JAXB use.
@@ -56,17 +61,17 @@ public class XmlAdaptedTask {
         
         Date tempDeadline = source.getDeadline().deadline;
         if (tempDeadline != null) {
-        	deadline = tempDeadline.getTime();
+        	deadline = sdf.format(new Date(tempDeadline.getTime()));
         }
         
         Period period = source.getPeriod();
         Date tempStartTime = period.startTime;
         if (tempStartTime != null) {
-        	startTime = tempStartTime.getTime();
+        	startTime = sdf.format(new Date(tempStartTime.getTime()));
         }
         Date tempEndTime = period.endTime;
         if (tempEndTime != null) {
-        	endTime = period.endTime.getTime();
+        	endTime = sdf.format(new Date(period.endTime.getTime()));
         }
         
         Recurrence deadlineRecurrence = source.getDeadlineRecurrence(); 
@@ -87,8 +92,9 @@ public class XmlAdaptedTask {
      * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
+     * @throws ParseException 
      */
-    public Task toModelType() throws IllegalValueException {
+    public Task toModelType() throws IllegalValueException, ParseException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
@@ -96,12 +102,12 @@ public class XmlAdaptedTask {
         final Name name = new Name(this.name);
         
         final Complete complete = new Complete(this.isCompleted);
-        final Deadline deadline = (this.deadline == -1) ? new Deadline() : 
-        												  new Deadline(new Date(this.deadline));
-        final Period period = (this.startTime == -1 ||
-        					   this.endTime == -1) ? new Period() : 
-        						   					 new Period(new Date(this.startTime),
-        						   							 	new Date(this.endTime));
+        final Deadline deadline = (this.deadline.equals("00/00/0000 00:00:00")) ? new Deadline() : 
+        												  new Deadline(sdf.parse(this.deadline));
+        final Period period = (this.startTime.equals("00/00/0000 00:00:00") ||
+        					   this.endTime.equals("00/00/0000 00:00:00")) ? new Period() : 
+        						   					 new Period(sdf.parse(this.startTime),
+        						   							sdf.parse(this.endTime));
         final Recurrence deadlineRecurrence = this.deadlinePattern.equals("NONE") ? 
         		new Recurrence() : new Recurrence(Recurrence.Pattern.valueOf(this.deadlinePattern), this.deadlineFrequency);
         final Recurrence periodRecurrence = this.periodPattern.equals("NONE") ? 
