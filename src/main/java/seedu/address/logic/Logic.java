@@ -18,4 +18,6 @@ public interface Logic {
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyDatedTask> getFilteredPersonList();
 
+    /** Returns the filtered list of persons */
+    ObservableList<ReadOnlyDatedTask> getFilteredUndatedTaskList();
 }

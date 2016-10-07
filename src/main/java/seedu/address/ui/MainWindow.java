@@ -13,7 +13,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyDatedTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,7 +28,8 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    // private BrowserPanel browserPanel;
+    private PersonListPanel undatedListPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -108,7 +108,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        // browserPanel = BrowserPanel.load(browserPlaceholder);
+        undatedListPanel = PersonListPanel.load(primaryStage, browserPlaceholder , logic.getFilteredUndatedTaskList());
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
@@ -185,7 +186,7 @@ public class MainWindow extends UiPart {
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
     }
-
+/*
     public void loadPersonPage(ReadOnlyDatedTask person) {
         browserPanel.loadPersonPage(person);
     }
@@ -193,4 +194,5 @@ public class MainWindow extends UiPart {
     public void releaseResources() {
         browserPanel.freeResources();
     }
+*/
 }

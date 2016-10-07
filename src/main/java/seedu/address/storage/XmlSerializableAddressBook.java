@@ -83,4 +83,29 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
         return Collections.unmodifiableList(tags);
     }
 
+    @Override
+    public UniquePersonList getUniqueUndatedTaskList() {
+        UniquePersonList lists = new UniquePersonList();
+        for (XmlAdaptedPerson p : persons) {
+            try {
+                lists.add(p.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        return lists;
+    }
+
+    @Override
+    public List<ReadOnlyDatedTask> getUndatedTaskList() {
+        return persons.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
+
 }
