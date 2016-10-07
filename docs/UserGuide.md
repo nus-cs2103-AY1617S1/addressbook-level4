@@ -6,16 +6,22 @@
 
 ## Quick Start
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   Agendum will not work with earlier versions of Java 8.
+0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.
+
+   > Having any Java 8 version is not enough.
+   
+   > Agendum will not work with earlier versions of Java 8.
 
 1. Download the latest `Agendum.jar` from the [releases](../../../releases) tab.
+
 2. Copy the file to the folder you want to use as the home folder for Agendum.
+
 3. Double-click the file to start Agendum. The GUI should appear in a few seconds.
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
+
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will list some information about commands.
+   
 5. Some example commands you can try:
    * **`list`** : lists all contacts
    * **`add`**` Go to shopping mall` :
@@ -23,7 +29,8 @@
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits Agendum
 
-6. Refer to the [Features](#features) section below for details of each command.<br>
+6. Refer to the [Features](#features) section below for details of each command.
+
 
 ## Features
 
@@ -40,14 +47,16 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `run`
 
 #### Adding a task: `add`
-Adds a task which can be done at anytime.<br>
+Adds a task which can be done at anytime.
+
 Format: `add TASK_NAME`  
 This will create a floating task without any start time, end time or deadline.  
 Examples:  
 
 * `add watch Star Wars`
 
-Adds a task to be done by a specific date.<br>
+Adds a task to be done by a specific date.
+
 Format: `add TASK_NAME /by DATE_TIME`  or `add TASK_NAME /before DATE_TIME`  
 
 > Date formats are highly flexible and case-insensitive
@@ -59,7 +68,8 @@ Examples:
 * `add watch Star Wars /by next Wed`
 * `add watch Star Wars /by 10 Oct, 9.30pm`
 
-Adds a task (event) which has a specific start and end time.<br>
+Adds a task (event) which has a specific start and end time.
+
 Format: `add TASK_NAME [/from START_DATE_TIME] [/to END_DATE_TIME] `  
 If the time is specified but there are no days/dates given, the date of creation will be used.  
 
