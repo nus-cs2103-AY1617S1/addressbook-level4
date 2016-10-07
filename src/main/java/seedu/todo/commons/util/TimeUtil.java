@@ -8,12 +8,12 @@ import java.time.LocalDateTime;
  */
 public class TimeUtil {
     
-    private static final String PREFIX_BEFORE_DEADLINE = " in";
+    private static final String PREFIX_BEFORE_DEADLINE = "in ";
     
     private static final String HOUR_SINGLE_UNIT = " hour";
-    private static final String HOUR_MULTIPLE_UNIT = " hours";
+    private static final String HOURS_MULTIPLE_UNIT = " hours";
     private static final String MINUTE_SINGLE_UNIT = " minute";
-    private static final String MINUTE_MULTIPLE_UNIT = " minutes";
+    private static final String MINUTES_MULTIPLE_UNIT = " minutes";
     
     /**
      * Gets the task deadline expression for the UI.
@@ -30,14 +30,12 @@ public class TimeUtil {
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         
         if (hoursToDeadline == 0) {
-            return PREFIX_BEFORE_DEADLINE + String.valueOf(minutesToDeadline) + MINUTE_MULTIPLE_UNIT;            
-            
+            return PREFIX_BEFORE_DEADLINE + String.valueOf(minutesToDeadline) + MINUTES_MULTIPLE_UNIT;            
         } else if (hoursToDeadline == 1) {
-            return "in an hour";
+            return PREFIX_BEFORE_DEADLINE + "1" + HOUR_SINGLE_UNIT;
+        } else {
+            return PREFIX_BEFORE_DEADLINE + String.valueOf(hoursToDeadline) + " hours";
         }
-        
-        String formattedTime = "in " + String.valueOf(hoursToDeadline) + " hours";
-        return formattedTime;
     }
     
     
