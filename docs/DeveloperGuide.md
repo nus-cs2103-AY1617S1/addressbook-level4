@@ -337,7 +337,7 @@ Actor: User
 
 3a. The given index is invalid<br>
   >3a1. System displays an error message<br>
-     >Use case ends at step 2<br>
+     Use case ends at step 2<br>
 
 #### **Use case: Recurring task**
 **MSS**<br>
@@ -383,7 +383,7 @@ Use case ends.<br>
 
 1a. If no such task exists.<br> 
   >1a1.System will display "No such task."<br>
-            >Use case ends<br>
+            Use case ends<br>
 
 #### **Use case: Filter by priority**
 
