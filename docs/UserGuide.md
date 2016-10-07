@@ -82,20 +82,25 @@ In the remainder of this section, note the following:
 #### Start and End Times
 For an event with a definite start and end time, you can use the following syntax to add this event.
 
-<!-- what about multi-day event? -->
 ```bash
 # format
+add EVENT_NAME from START_TIME to END_TIME                              # implicitly the same day
 add EVENT_NAME from START_TIME to END_TIME on DATE
+add EVENT_NAME from START_TIME on START_DATE to END_TIME on END_DATE    # for multiday events
 ```
 
-Fields: [`EVENT_NAME`](#descriptors), [`START_TIME`](#time), [`END_TIME`](#time), [`DATE`](#date)
+Fields: [`EVENT_NAME`](#descriptors), [`START_TIME`](#time), [`END_TIME`](#time), [`DATE`](#date), [`START_DATE`](#date), [`END_DATE`](#date)
 
 ```bash
 # examples
+add "Do laundry" from 1600 to 1700
+jjj
 add "Dental Appointment" from 1200 to 1600 on 14 October 2016
 add "Dental Appointment" from 1200 to 1600 on 14 October # implicitly current year
 add "Dental Appointment" from 1200 to 1600 on 14/10/2016
 add "Dental Appointment" from 1200 to 1600 on 1/8/2016
+
+add "CS2103 Hackathon" from 1000 on 12 November to 1200 on 15 November
 ```
 
 #### Deadlines
@@ -105,7 +110,7 @@ For a task with no definite start time but a definite end time (e.g. a homework 
 # format
 add TASK_NAME by TIME on DATE # with date and time
 add TASK_NAME by DATE         # no definite time
-add TASK_NAME by TIME         # no definite date
+add TASK_NAME by TIME         # implicitly the same day
 ```
 
 Fields: [`TASK_NAME`](#descriptors), [`TIME`](#time), [`DATE`](#date)
@@ -135,15 +140,19 @@ Some tasks/events do not have a definite name or description, e.g. simply markin
 
 ```bash
 # format
+block START_TIME to END_TIME                            # implicitly today
+block START_DATE to END_DATE                            # full-day block
 block START_TIME to END_TIME on DATE
-block START_TIME to END_TIME         # implicitly today
+block START_TIME on START_DATE to END_TIME on END_DATE  # for multiday blocks
 ```
-Fields: [`START_TIME`](#time), [`END_TIME`](#time), [`DATE`](#date)
+Fields: [`START_TIME`](#time), [`END_TIME`](#time), [`DATE`](#date), [`START_DATE`](#date), [`END_DATE`](#date)
 
 ```bash
 # examples
 block 1600 to 1800
 block 0800 to 1300 on 5/10/2016
+block 14 October to 12/11/2016
+block 1200 on 12 October to 1400 on 14 October 2016
 ```
 
 ### Updating an Event
