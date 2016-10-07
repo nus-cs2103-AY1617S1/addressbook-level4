@@ -13,8 +13,8 @@ import java.util.Optional;
 public class ToDo implements ReadOnlyToDo {
 
     private Title title;
-    private Optional<DueDate> dueDate;
-    private Optional<DateRange> dateRange;
+    private DueDate dueDate;
+    private DateRange dateRange;
     private UniqueTagList tags;
 
     /**
@@ -36,11 +36,11 @@ public class ToDo implements ReadOnlyToDo {
         this.title = title;
     }
 
-    public void setDueDate(Optional<DueDate> dueDate) {
+    public void setDueDate(DueDate dueDate) {
         this.dueDate = dueDate;
     }
 
-    public void setDateRange(Optional<DateRange> dateRange) {
+    public void setDateRange(DateRange dateRange) {
         this.dateRange = dateRange;
     }
 
@@ -49,11 +49,11 @@ public class ToDo implements ReadOnlyToDo {
     }
     
     public Optional<DueDate> getDueDate() {
-        return dueDate;
+        return Optional.ofNullable(dueDate);
     }
 
     public Optional<DateRange> getDateRange() {
-        return dateRange;
+        return Optional.ofNullable(dateRange);
     }
 
     public UniqueTagList getTags() {

@@ -8,7 +8,11 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.todo.ToDo;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.todo.DateRange;
+import seedu.address.model.todo.DueDate;
 import seedu.address.model.todo.ReadOnlyToDo;
+import seedu.address.model.todo.Title;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -67,17 +71,46 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
-
+    
     @Override
     public ReadOnlyToDoList getToDoList() {
         return toDoList;
     }
 
+    
     /** Raises an event to indicate the model has changed */
     private void indicateToDoListChanged() {
         raise(new ToDoListChangedEvent(toDoList));
     }
+    
+    @Override
+    public void editTodoTitle(ReadOnlyToDo todo, Title title) throws IllegalValueException {
+        toDoList.editTitle(todo, title);
+        updateFilteredListToShowAll();
+        indicateToDoListChanged();
+    }
 
+    @Override
+    public void editTodoDateRange(ReadOnlyToDo todo, DateRange dateRange) throws IllegalValueException {
+        toDoList.editDateRange(todo, dateRange);
+        updateFilteredListToShowAll();
+        indicateToDoListChanged();
+    }
+
+    @Override
+    public void editTodoDueDate(ReadOnlyToDo todo, DueDate dueDates) throws IllegalValueException {
+        toDoList.editDueDate(todo, dueDates);
+        updateFilteredListToShowAll();
+        indicateToDoListChanged();
+    }
+
+    @Override
+    public void editTodoTags(ReadOnlyToDo todo, Set<Tag> tags) throws IllegalValueException {
+        toDoList.editTags(todo, tags);
+        updateFilteredListToShowAll();
+        indicateToDoListChanged();
+    }
+    
     //================================================================================
     // Filtering to-do list operations
     //================================================================================
@@ -154,4 +187,6 @@ public class ModelManager extends ComponentManager implements Model {
             return "Title = " + String.join(", ", titleKeyWords);
         }
     }
+
+    
 }
