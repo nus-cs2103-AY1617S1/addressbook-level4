@@ -40,21 +40,23 @@ Format: `help`
 <br>
 #### Adding a task: `add`
 Adds a task to the task manager <br>
-Format: `add t/TASK_DESCRIPTION [st/START_TIME] [et/END_TIME] [d/DATE] [tg/TAGS]...`
+Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [#TAGS]...`
 
 <img src="../assets/add_1.png" width="1000"><br>
 First, type a command.
 <img src="../assets/add_2.png" width="1000"><br>
 Command will be added.
 
-> If the time is specified, the date must also be specified.
-> If the start time is specified, the end time must also be specified.
+> For a floating task, only the task description is required to be specified.
+> For a task with a deadline, the date and end time must be specified.
+> For a scheduled task, the date, start and end time must be specified.
+> For any tasks with tags, specify the tags as the last parameter.
 >
 > Tasks can have any number of tags (including 0)
 
 Examples: 
-* `add t/Do CS2103T Pre-tutorial et/7pm d/8 Oct 2016`
-* `add t/CS2103T Lecture st/2pm et/4pm d/7 Oct 2016 tg/Important`
+* `add "Do CS2103T Pre-tutorial" on 8 Oct 2016 by 7pm`
+* `add "CS2103T Lecture" on 7 Oct 2016 from 2pm to 4pm #Important`
 
 <br>
 #### Listing all tasks : `list`
