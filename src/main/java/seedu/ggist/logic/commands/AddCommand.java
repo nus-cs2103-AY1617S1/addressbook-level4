@@ -50,12 +50,18 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+<<<<<<< HEAD
+        model.addTask(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+
+=======
         try {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
+>>>>>>> 98294e894113134b92ff545cbd3732461dc69f44
     }
 
 }

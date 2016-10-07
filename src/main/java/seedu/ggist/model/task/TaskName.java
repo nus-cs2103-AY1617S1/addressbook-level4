@@ -18,10 +18,17 @@ public class TaskName {
      *
      * @throws IllegalValueException if given name string is invalid.
      */
+<<<<<<< HEAD:src/main/java/seedu/ggist/model/task/TaskName.java
+    public TaskName(String name) throws IllegalValueException {
+        assert name != null;
+        name = name.trim();
+        if (!isValidName(name)) {
+=======
     public TaskName(String taskName) throws IllegalValueException {
         assert taskName != null;
         taskName = taskName.trim();
         if (!isValidName(taskName)) {
+>>>>>>> 98294e894113134b92ff545cbd3732461dc69f44:src/main/java/seedu/ggist/model/task/TaskName.java
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
         this.taskName = taskName;
@@ -44,7 +51,11 @@ public class TaskName {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskName // instanceof handles nulls
+<<<<<<< HEAD:src/main/java/seedu/ggist/model/task/TaskName.java
+                && this.fullName.equals(((TaskName) other).fullName)); // state check
+=======
                 && this.taskName.equals(((TaskName) other).taskName)); // state check
+>>>>>>> 98294e894113134b92ff545cbd3732461dc69f44:src/main/java/seedu/ggist/model/task/TaskName.java
     }
 
     @Override
