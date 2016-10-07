@@ -25,7 +25,14 @@ public class DateRange {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
+    
+    public static boolean isValid(DateRange dateRange) {
+        if (dateRange.endDate.compareTo(dateRange.startDate)>=0)
+            return true;
+        else
+            return false;
+    }
+    
     @Override
     public String toString() {
         return this.startDate.toString() + " " + this.endDate.toString();
