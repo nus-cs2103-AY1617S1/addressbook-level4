@@ -2,7 +2,6 @@ package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Represents a selection change in the Person List Panel

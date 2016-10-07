@@ -6,7 +6,6 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.item.ReadOnlyFloatingTask;
 import seedu.address.model.item.UniqueFloatingTaskList;
-import seedu.address.model.person.ReadOnlyPerson;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

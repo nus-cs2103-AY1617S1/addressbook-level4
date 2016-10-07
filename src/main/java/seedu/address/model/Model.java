@@ -4,8 +4,6 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.item.FloatingTask;
 import seedu.address.model.item.ReadOnlyFloatingTask;
 import seedu.address.model.item.UniqueFloatingTaskList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
 
 import java.util.Set;
 

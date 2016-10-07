@@ -1,7 +1,6 @@
 package seedu.address.model.item;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Name;
 
 public class Priority {
     
