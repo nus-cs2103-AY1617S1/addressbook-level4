@@ -26,7 +26,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> personListView;
+    private ListView<ReadOnlyTask> taskListView;
 
     public TaskListPanel() {
         super();
@@ -61,8 +61,8 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        personListView.setItems(taskList);
-        personListView.setCellFactory(listView -> new TaskListViewCell());
+        taskListView.setItems(taskList);
+        taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -72,7 +72,7 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
@@ -82,8 +82,8 @@ public class TaskListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            taskListView.scrollTo(index);
+            taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 

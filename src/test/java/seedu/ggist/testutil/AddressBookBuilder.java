@@ -19,8 +19,8 @@ public class AddressBookBuilder {
         this.taskManager = taskManager;
     }
 
-    public AddressBookBuilder withPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
-        taskManager.addPerson(person);
+    public AddressBookBuilder withPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
+        taskManager.addTask(task);
         return this;
     }
 

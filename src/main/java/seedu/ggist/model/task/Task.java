@@ -12,16 +12,23 @@ import seedu.ggist.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask{
 
     protected TaskName taskName;
-    protected UniqueTagList tags;
     protected Date date;
     protected Time startTime;
     protected Time endTime;
+    protected UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
-     */
+    */  
+    public Task(){}
     
-    public Task(){};
+    public Task(TaskName taskName, Date date, Time startTime, Time endTime, UniqueTagList tags) {
+        this.taskName = taskName;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
     
     @Override
     public UniqueTagList getTags() {

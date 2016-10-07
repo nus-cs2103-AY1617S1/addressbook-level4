@@ -9,10 +9,10 @@ import seedu.ggist.model.task.ReadOnlyTask;
  * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String TASKNAME_FIELD_ID = "#name";
+    private static final String DATE_FIELD_ID = "#date";
+    private static final String STARTTIME_FIELD_ID = "#startTime";
+    private static final String ENDTIME_FIELD_ID = "#endTime";
 
     private Node node;
 
@@ -26,25 +26,24 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getFullName() {
-        return getTextFromLabel(NAME_FIELD_ID);
+        return getTextFromLabel(TASKNAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getDate() {
+        return getTextFromLabel(DATE_FIELD_ID);
     }
 
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+    public String getStartTime() {
+        return getTextFromLabel(STARTTIME_FIELD_ID);
     }
 
-    public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+    public String getEndTime() {
+        return getTextFromLabel(ENDTIME_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyTask task){
+    public boolean isSameTask(ReadOnlyTask task){
         return getFullName().equals(task.getTaskName().taskName) && getDate().equals(task.getDate().value)
-                && getStartTime().equals(task.getStartTime().value) && getEndTime().equals(task.getAddress().value)
-                && getPriority().equals(task.getPriority().value) && getFrequency().equals(task.getFrequency().value);
+                && getStartTime().equals(task.getStartTime().value) && getEndTime().equals(task.getEndTime().value);
     }
 
     @Override
@@ -52,13 +51,13 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getDate().equals(handle.getDate()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName() + " " + getDate();
     }
 }

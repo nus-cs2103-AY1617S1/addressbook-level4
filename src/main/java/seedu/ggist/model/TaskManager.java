@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.ggist.model.tag.Tag;
 import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.Task;
+import seedu.ggist.model.task.EventTask;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
 
@@ -58,7 +59,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(EventTask::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
