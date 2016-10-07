@@ -19,7 +19,7 @@
 1. **JDK `1.8.0_60`**  or later<br>
 
     > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
+    This application will not work with earlier versions of Java 8.
     
 2. **Eclipse** IDE
 
@@ -239,7 +239,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ### Managing Dependencies
@@ -290,7 +290,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* Unlikely` | User | Be notified of deadline/time clashes | Resolve these conflicts manually
 `* Unlikely` | User | Key in emojis/symbols and characters from other languages e.g. Mandarin | Capture information in other languages
 `* Unlikely` | Advanced User | Import tasks from an existing text file | Add multiple tasks efficiently without relying on multiple commands
-`* Unlikely` | Advanced User | Save a backup of the application in a custom file | Restore it anytime at a later date
+`* Unlikely` | Advanced User | Save a backup of the application in a custom file | Restore it any time at a later date
 `* Unlikely` | Busy user | Add recurring events or tasks | Keep the same tasks in my task list without adding them manually
 `* Unlikely` | Busy User | Search for tasks by date (e.g. on/before a date) | Easily check my schedule and make plans accordingly
 `* Unlikely` | Busy User | Search for a time when I am free | Find a suitable slot to schedule an item
@@ -519,6 +519,6 @@ Strengths:
 - Give notifications and reminders for tasks near deadline or overdue
 
 Weaknesses:
-- Wunderlist has a complex interface and might require multiple clicks to get specific tasks done. For example, it has separate field to add tasks, search for tasks and a sort button. There are various lists & sublists. Each list has a completed/uncompleted  section and each task needs to be clicked to display the associated subtasks, notes, files and comment.
+- Wunderlist has a complex interface and might require multiple clicks to get specific tasks done. For example, it has separate field to add tasks, search for tasks and a sort button. There are various lists & sub-lists. Each list has a completed/uncompleted  section and each task needs to be clicked to display the associated subtasks, notes, files and comment.
 - New users might not know how to use the advanced features e.g. creating recurring tasks
 
