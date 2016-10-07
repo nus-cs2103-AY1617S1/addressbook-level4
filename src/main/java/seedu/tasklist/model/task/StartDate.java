@@ -8,7 +8,7 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
  */
 public class StartDate {
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "StartDate startDate should be spaces or alphanumeric characters";
+    public static final String MESSAGE_PHONE_CONSTRAINTS = "StartDate should be digits only";
     public static final String PHONE_VALIDATION_REGEX = "\\d+";
 
     public final String startDate;

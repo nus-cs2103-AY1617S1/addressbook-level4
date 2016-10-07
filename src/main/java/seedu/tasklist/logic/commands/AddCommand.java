@@ -16,9 +16,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task list. "
-            + "Parameters: TITLE g/GROUP d/DESCRIPTION dt/DATE IN MMDDYYYY [t/TAG]...\n"
+            + "Parameters: TITLE d/DESCRIPTION  s/START DATE e/DUE DATE [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " CS2103 g/Tutorial 3 d/Pre tutorial 1 dt/12301993 t/friends t/owesMoney";
+            + " CS2103 d/Pre tutorial 1 s/12151993 e/12301993 t/urgent";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task list";
@@ -30,7 +30,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String title, String group, String description, String dueDate, Set<String> tags)
+    public AddCommand(String title, String startDate, String description, String dueDate, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -38,7 +38,7 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Title(title),
-                new StartDate(group),
+                new StartDate(startDate),
                 new Description(description),
                 new DueDate(dueDate),
                 new UniqueTagList(tagSet)
