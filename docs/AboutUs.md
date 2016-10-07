@@ -41,7 +41,7 @@ Responsibilities:
 -----
 
 #### [Bay Chuan Wei Candiie](http://github.com/Candiie)
-<img src="images/BayChuanWeiCandiie.jpg" width="150"><br>
+<img src="images/BayChuanWeiCandiie.png" width="150"><br>
 Role: Project Mentor <br>  
 Responsibilities:
 * Provides guidance for the project.
