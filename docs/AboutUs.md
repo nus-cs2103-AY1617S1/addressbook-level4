@@ -17,7 +17,7 @@
 #### [Chen Rui Wen](http://github.com/ruiwen905) 
 <img src="images/ruiwen.png" width="150"><br>
 **Role**: Developer <br>  
-Responsibilities: <br>
+Responsibilities: Team Lead<br>
 Component SME: UI
 
 -----
@@ -26,7 +26,7 @@ Component SME: UI
 <img src="images/henry.png" width="150"><br>
 **Role**: Developer <br>  
 Responsibilities: Documentation, Code Quality <br>
-Component SME: Logic
+Component SME: Logic, Parsing
 
 -----
 
