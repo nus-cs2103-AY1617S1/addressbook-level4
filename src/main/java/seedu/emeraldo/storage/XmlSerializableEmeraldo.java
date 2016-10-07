@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyEmeraldo {
+public class XmlSerializableEmeraldo implements ReadOnlyEmeraldo {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
@@ -33,12 +33,12 @@ public class XmlSerializableAddressBook implements ReadOnlyEmeraldo {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableEmeraldo() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyEmeraldo src) {
+    public XmlSerializableEmeraldo(ReadOnlyEmeraldo src) {
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
