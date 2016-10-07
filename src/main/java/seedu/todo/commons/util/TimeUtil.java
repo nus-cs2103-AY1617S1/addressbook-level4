@@ -30,11 +30,17 @@ public class TimeUtil {
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         
         if (hoursToDeadline == 0) {
-            return PREFIX_BEFORE_DEADLINE + String.valueOf(minutesToDeadline) + MINUTES_MULTIPLE_UNIT;            
+            
+            if (minutesToDeadline == 1) {
+                return PREFIX_BEFORE_DEADLINE + "1" + MINUTE_SINGLE_UNIT;
+            } else {
+                return PREFIX_BEFORE_DEADLINE + String.valueOf(minutesToDeadline) + MINUTES_MULTIPLE_UNIT;
+            }
+                      
         } else if (hoursToDeadline == 1) {
             return PREFIX_BEFORE_DEADLINE + "1" + HOUR_SINGLE_UNIT;
         } else {
-            return PREFIX_BEFORE_DEADLINE + String.valueOf(hoursToDeadline) + " hours";
+            return PREFIX_BEFORE_DEADLINE + String.valueOf(hoursToDeadline) + HOURS_MULTIPLE_UNIT;
         }
     }
     
