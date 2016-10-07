@@ -268,30 +268,134 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
-
-#### Use case: Delete person
+(For all use cases below, the **System** is the `Task!t` and the **Actor** is the `user`, unless specified otherwise)
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to add task
+2. Task!t displays the task added<br>
+Use case ends.
+
+**Extensions**
+
+2a. The command format is invalid
+> 2a1. Task!t shows a 'invalid command' message and display the expected format.
+> Use case ends
+
+#### Use case: Edit task
+
+**MSS**
+
+1. User requests to view tasks for a particular date/week/month/date
+2. Task!t displays the list of tasks for that date sorted by date and/or time
+3. User request to edit a specific task in the list based on task’s index with certain details
+6. Task!t updates the task details<br>
 Use case ends.
 
 **Extensions**
 
 2a. The list is empty
-
+> 2a1. Task!t shows a 'no task found' message.
 > Use case ends
 
 3a. The given index is invalid
+> 3a1. Task!t shows a 'invalid index' message 
+> Use case resumes at step 2
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+3b. The command format is invalid
+> 3b1. Task!t shows a 'invalid command' message and display the expected format.
+> Use case resumes at step 2
 
-{More to be added}
+#### Use case: View task
+
+**MSS**
+
+1. User requests to view tasks for a particular day/week/month/date
+2. Task!t display the list of tasks for that date sorted by date and/or time<br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+> 2a1. Task!t shows a 'no task found' message.
+> Use case ends
+
+#### Use case: Find task
+
+**MSS**
+
+1. User requests to find tasks by keyword
+2. Task!t displays the list of tasks that contains the keyword in the name<br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+> 2a1. Task!t shows a 'no task found' message.
+> Use case ends
+
+#### Use case: Mark task as done
+
+**MSS**
+
+1. User requests to view tasks for a particular date/week/month/date
+2. Task!t displays the list of tasks for that date sorted by date and/or time
+3. User request to mark specific tasks in the list based on task’s index
+4. Task!t marks the tasks<br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+> 2a1. Task!t shows a 'no task found' message.
+> Use case ends
+
+3a. The given index is invalid
+> 3a1. Task!t shows a 'invalid index' message 
+> Use case resumes at step 2
+
+3b. The command format is invalid
+> 3b1. Task!t shows a 'invalid format' message and display the expected format.
+> Use case ends
+
+3c. The task is already marked as done
+> 3c1. Task!t shows a 'task already marked' message.
+> Use case resumes at step 3
+
+#### Use case: Delete task
+
+**MSS**
+
+1. User requests to view tasks for a particular date/week/month/date
+2. Task!t displays the list of tasks for that date sorted by date and/or time
+3. User requests to delete a specific task in the list based on task’s index
+4. Task!t deletes the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+> 2a1. Task!t shows a 'no task found' message.
+> Use case ends
+
+3a. The given index is invalid
+> 3a1. Task!t shows a 'invalid index' message 
+> Use case resumes at step 2
+
+#### Use case: Set storage location
+
+**MSS**
+
+1. User requests to change storage location wo a specified file path
+2. Task!t changes the storage location<br>
+Use case ends.
+
+**Extensions**
+
+2a. The given path is invalid
+> 2a1. Task!t shows a 'invalid path' message.
+> Use case ends
 
 ## Appendix C : Non Functional Requirements
 
