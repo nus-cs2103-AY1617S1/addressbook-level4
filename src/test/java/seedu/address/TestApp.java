@@ -7,7 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyEmeraldo;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TestUtil;
-import seedu.emeraldo.storage.XmlSerializableAddressBook;
+import seedu.emeraldo.storage.XmlSerializableEmeraldo;
 
 import java.util.function.Supplier;
 
@@ -35,7 +35,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableEmeraldo(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }

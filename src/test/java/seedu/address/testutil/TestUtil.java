@@ -20,7 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.emeraldo.storage.XmlSerializableAddressBook;
+import seedu.emeraldo.storage.XmlSerializableEmeraldo;
 
 import java.io.File;
 import java.io.IOException;
@@ -138,8 +138,8 @@ public class TestUtil {
         return new AddressBook(new UniquePersonList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableEmeraldo generateSampleStorageAddressBook() {
+        return new XmlSerializableEmeraldo(generateEmptyAddressBook());
     }
 
     /**
