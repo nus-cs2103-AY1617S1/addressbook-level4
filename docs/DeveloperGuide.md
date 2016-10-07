@@ -278,13 +278,15 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | update a task description/due date/priority level | make modifications to tasks without having delete and re-add it
 `* * *` | user | mark completed tasks as done | remind myself that I have completed a task
 `* * *` | user | delete a task | get rid of tasks that I no longer care to track 
-`* * *` | user | sort tasks by due date | decide what needs to be done soon
+`* * *` | user | sort ongoing tasks by due date or priority | decide what needs to be done soon
 `* * *` | user | view the list of ongoing tasks | decide what needs to be done
 `* * *` | user | view the list of archived tasks | see what has been done
-`* *` | user with many tasks | find tasks by prefix | locate a tasks / similar tasks in case I forget the exact task description I typed
-`*` | user with many tasks | sort tasks by priority level | see the most important tasks and prioritize accordingly
-`*` | advanced user | replace keywords with shorter versions | type a command faster
-`*` | advanced user | remove replace of keywords with shorter versions | get rid of shorter version of certain keywords
+`* *` | user | find tasks by partial or full task name or date | locate a tasks / similar tasks in case I forget the exact task name I typed
+`*` | user | sort tasks by priority level | see the most important tasks and prioritize accordingly
+`*` | user | undo most recent command | undo the most recent operation
+`*` | user | redo most recent undo command | redo the operation done by the most recent undo action
+`*` | advanced user | alias keywords with shorter versions | type a command faster
+`*` | advanced user | remove alias of keywords with shorter versions | get rid of shorter version of certain keywords
 {More to be added}
 
 ## Appendix B : Use Cases
