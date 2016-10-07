@@ -2,6 +2,7 @@ package taskle.model;
 
 import java.util.Set;
 
+import taskle.commons.core.ModifiableObservableList;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.model.person.ModifiableTask;
 import taskle.model.person.ReadOnlyTask;
@@ -30,6 +31,9 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
+    /** Returns the filtered task list as an {@code ModifiableObservableList<ReadOnlyTask>} */
+    ModifiableObservableList<ModifiableTask> getModifiableFilteredTaskList();
+    
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
