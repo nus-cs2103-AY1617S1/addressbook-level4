@@ -3,21 +3,21 @@ package seedu.address.model.item;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents an Item's Description in the Todo List. Immutable for now; is
- * valid as declared in {@link #isValidName(String)}
+ * Represents an Item's Description in the Todo List.
  */
 public class Description {
 
 	public static final String MESSAGE_NAME_CONSTRAINTS = "Descriptions should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-	public final String fullDescription;
+	private String fullDescription;
 
-    /**
-     * Validates given name.
-     *
-     * @throws IllegalValueException if given name string is invalid.
-     */
+	/**
+	 * Validates given name.
+	 *
+	 * @throws IllegalValueException
+	 *             if given name string is invalid.
+	 */
 	public Description(String desc) throws IllegalValueException {
 		assert desc != null;
 		desc = desc.trim();
@@ -34,6 +34,17 @@ public class Description {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
+	public String getFullDescription() {
+		return fullDescription;
+	}
+
+	public void setFullDescription(String fullDescription) throws IllegalValueException {
+		if (!isValidName(fullDescription)) {
+			throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+		} else {
+			this.fullDescription = fullDescription;
+		}
+	}
 
     @Override
     public String toString() {
