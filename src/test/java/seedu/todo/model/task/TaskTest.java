@@ -3,9 +3,14 @@ package seedu.todo.model.task;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.model.tag.Tag;
 
 public class TaskTest {
     private Task task;
@@ -73,7 +78,9 @@ public class TaskTest {
         assertFalse(task.getStartTime().isPresent());
         assertFalse(task.getEndTime().isPresent());
         
-        
+        // TODO: Time definitely needs validation, for example task end time 
+        // should come after start time. Issue #16 https://github.com/CS2103AUG2016-W10-C4/main/issues/16 
+        // is blocking this though
     }
 
     @Test
@@ -93,8 +100,16 @@ public class TaskTest {
     }
 
     @Test
-    public void testTags() {
+    public void testTags() throws IllegalValueException {
         assertEquals(0, task.getTags().size());
+        
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag("Hello"));
+        tags.add(new Tag("World"));
+        task.setTags(tags);
+        
+        assertEquals(2, task.getTags().size());
+        // TODO: This should do more when we finalize how tags can be edited 
     }
 
     @Test
@@ -112,6 +127,7 @@ public class TaskTest {
         MockTask testTask = new MockTask("Mock Task");
         testTask.uuid = task.getUUID(); 
         assertEquals(task, testTask);
+        assertFalse(task.equals(12));
     }
 
 }

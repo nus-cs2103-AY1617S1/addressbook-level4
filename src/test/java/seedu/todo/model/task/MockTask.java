@@ -8,6 +8,11 @@ import java.util.UUID;
 
 import seedu.todo.model.tag.Tag;
 
+/**
+ * Mock of ImmutableTask interface with all properties exposed for 
+ * manipulation. Can be used in place of Task class for the purpose
+ * of testing.
+ */
 public class MockTask implements ImmutableTask {
     public String title; 
     public String description;
