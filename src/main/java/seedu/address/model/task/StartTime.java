@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -7,11 +7,11 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
-public class Email {
+public class StartTime {
 
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
             "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    public static final String EMAIL_VALIDATION_REGEX = ".+";
 
     public final String value;
 
@@ -20,7 +20,7 @@ public class Email {
      *
      * @throws IllegalValueException if given email address string is invalid.
      */
-    public Email(String email) throws IllegalValueException {
+    public StartTime(String email) throws IllegalValueException {
         assert email != null;
         email = email.trim();
         if (!isValidEmail(email)) {
@@ -44,8 +44,8 @@ public class Email {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && this.value.equals(((Email) other).value)); // state check
+                || (other instanceof StartTime // instanceof handles nulls
+                && this.value.equals(((StartTime) other).value)); // state check
     }
 
     @Override

@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,15 +15,15 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the daily planner. "
+            + "Parameters: NAME d/DATE st/STARTTIME et/ENDTIME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " CS2103 Assignment d/11/11/2016 st/10pm et/11pm t/urgent t/important";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the daily planner";
 
-    private final Person toAdd;
+    private final Task toAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -36,11 +36,11 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Person(
+        this.toAdd = new Task(
                 new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
+                new Date(phone),
+                new StartTime(email),
+                new EndTime(address),
                 new UniqueTagList(tagSet)
         );
     }
@@ -51,7 +51,7 @@ public class AddCommand extends Command {
         try {
             model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniquePersonList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicatePersonException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
 
