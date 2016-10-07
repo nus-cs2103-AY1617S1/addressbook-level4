@@ -115,10 +115,43 @@ public class TodoTest {
         assertEquals(2, observableList.size());
     }
     
+    @Test
+    public void testDeleting() throws IllegalValueException {
+        todo.add("Foo");
+        todo.add("FooBar");
+        todo.add("Bar");
+        todo.add("Bar Bar");
+        
+        // Delete the first task, then check that it has been deleted
+        ImmutableTask topTask = todo.getObserveableList().get(0);
+        todo.delete(topTask);
+        assertFalse(todo.getTasks().contains(topTask));
+        assertEquals(3, todo.getTasks().size());
+        storage.assertTodoListWasSaved();
+        
+        // Continue deleting the top task until the list is empty
+        todo.delete(todo.getObserveableList().get(0));
+        storage.assertTodoListWasSaved();
+        
+        todo.delete(todo.getObserveableList().get(0));
+        storage.assertTodoListWasSaved();
+        
+        todo.delete(todo.getObserveableList().get(0));
+        storage.assertTodoListWasSaved();
+        
+        assertTrue(todo.getTasks().isEmpty());
+    }
+    
     @Test(expected=IllegalValueException.class)
     public void testIllegalUpdate() throws IllegalValueException {
         todo.add("Foo Bar Test");
         todo.update(new Task("Hello world"), t -> t.setTitle("Test 2"));
+    }
+    
+    @Test(expected=IllegalValueException.class)
+    public void testIllegalDelete() throws IllegalValueException {
+        todo.add("Foo Bar Test");
+        todo.delete(new Task("Hello world"));
     }
     
     @Test
