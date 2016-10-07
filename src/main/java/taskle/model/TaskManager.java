@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import taskle.model.person.FloatTask;
+import taskle.model.person.ModifiableTask;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.Task;
 import taskle.model.person.UniqueTaskList;
@@ -22,7 +23,7 @@ import taskle.model.tag.UniqueTagList;
  * Wraps all data at the task-manager level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskManager implements ReadOnlyTaskManager {
+public class TaskManager implements ReadOnlyTaskManager, ModifiableTaskManager {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -37,8 +38,22 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Tasks and Tags are copied into this taskmanager
      */
+    public TaskManager(TaskManager toBeCopied) {
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+    }
+    
+    /**
+     * Tasks and Tags are copied into this taskmanager
+     */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+    }
+    
+    /**
+     * Tasks and Tags are copied into this taskmanager
+     */
+    public TaskManager(ModifiableTaskManager toBeEdited) {
+        this(toBeEdited.getModifiableUniqueTaskList(), toBeEdited.getModifiableUniqueTagList());
     }
 
     /**
@@ -58,6 +73,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         return tasks.getInternalList();
     }
 
+    public ObservableList<ModifiableTask> getModifiableTasks() {
+        return tasks.getModifiableList();
+    }
+    
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
@@ -167,5 +186,26 @@ public class TaskManager implements ReadOnlyTaskManager {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
+    }
+    
+    @Override
+    public List<ModifiableTask> getModifiableTaskList() {
+        return tasks.getModifiableList();
+    }
+
+    @Override
+    public List<Tag> getModifiableTagList() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public UniqueTagList getModifiableUniqueTagList() {
+        return this.tags;
+    }
+
+    @Override
+    public UniqueTaskList getModifiableUniqueTaskList() {
+        return this.tasks;
     }
 }
