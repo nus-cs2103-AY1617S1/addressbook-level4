@@ -58,6 +58,19 @@ public class TimeUtilTest {
         assertEquals(generatedOutput2, expectedOutput);
     }
     
+    @Test
+    public void getTaskDeadlineString_dueNow() {
+        String expectedOutput = "right now";
+        
+        LocalDateTime inputTime1 = LocalDateTime.now();
+        String generatedOutput1 = TimeUtil.getTaskDeadlineString(inputTime1);
+        assertEquals(generatedOutput1, expectedOutput);
+        
+        LocalDateTime inputTime2 = LocalDateTime.now().plusSeconds(10);
+        String generatedOutput2 = TimeUtil.getTaskDeadlineString(inputTime2);
+        assertEquals(generatedOutput2, expectedOutput);
+    }
+    
     
 
 }
