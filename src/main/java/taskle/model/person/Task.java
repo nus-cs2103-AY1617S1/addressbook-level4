@@ -11,7 +11,7 @@ import taskle.model.tag.UniqueTagList;
  * Represents a Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
-public abstract class Task implements ReadOnlyTask {
+public abstract class Task implements ReadOnlyTask, ModifiableTask {
 
     protected Name name;
 
@@ -42,10 +42,16 @@ public abstract class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    @Override
+    public void setName(Name name) {
+        this.name = name;
+    }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
+    @Override
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
