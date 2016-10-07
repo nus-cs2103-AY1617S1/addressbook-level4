@@ -14,6 +14,7 @@ import seedu.address.model.todo.DueDate;
 import seedu.address.model.todo.ReadOnlyToDo;
 import seedu.address.model.todo.Title;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -178,11 +179,22 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyToDo toDo) {
             return titleKeyWords.stream()
-                    .filter(keyword -> StringUtil.substringIgnoreCase(toDo.getTitle().title, keyword))
+                    .filter(keyword -> check(toDo, keyword))
                     .findAny()
                     .isPresent();
         }
-
+        
+        private boolean check(ReadOnlyToDo toDo, String keyword){
+            Iterator<Tag> itr = toDo.getTags().iterator();
+            boolean flag = false;
+            while (itr.hasNext()){
+                Tag element = itr.next();
+                if (StringUtil.substringIgnoreCase(element.tagName, keyword))
+                    flag = true;
+            }
+            return flag || StringUtil.substringIgnoreCase(toDo.getTitle().title, keyword);
+        }
+        
         @Override
         public String toString() {
             return "Title = " + String.join(", ", titleKeyWords);
