@@ -1,18 +1,15 @@
 package seedu.address.logic.commands;
 
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
-import java.util.Set;
 
 /**
- * Deletes a person identified using it's last displayed index from the address
- * book.
+ * Deletes a person identified using it's last displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
@@ -20,7 +17,8 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_TASK_FAILURE = "No such task was found.";
@@ -103,6 +101,4 @@ public class DeleteCommand extends Command {
     		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName()));
     	}
     }
-    
-
 }
