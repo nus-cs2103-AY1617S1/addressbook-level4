@@ -13,12 +13,15 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
+            + ": Deletes the specified task/event from Jimi.\n"
+            + "You can specify the task/event by entering its index number given in the last listing. \n"
+            + "If you need to recover your deleted task, you can use the undo command. \n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Jimi has deleted this task: %1$s";
+    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Jimi has deleted this event: %1$s";
+    
     public final int targetIndex;
 
     public DeleteCommand(int targetIndex) {
