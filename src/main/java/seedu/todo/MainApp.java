@@ -12,15 +12,18 @@ import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.ConfigUtil;
 import seedu.todo.commons.util.StringUtil;
+import seedu.todo.logic.Dispatcher;
 import seedu.todo.logic.Logic;
-import seedu.todo.logic.LogicManager;
+import seedu.todo.logic.TodoDispatcher;
+import seedu.todo.logic.TodoLogic;
+import seedu.todo.logic.parser.Parser;
+import seedu.todo.logic.parser.TodoParser;
 import seedu.todo.model.*;
 import seedu.todo.storage.Storage;
 import seedu.todo.storage.StorageManager;
 import seedu.todo.ui.Ui;
 import seedu.todo.ui.UiManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -37,7 +40,9 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
-    protected Model model;
+    protected TodoModel model;
+    protected Dispatcher dispatcher; 
+    protected Parser parser;
     protected Config config;
     protected UserPrefs userPrefs;
 
@@ -49,15 +54,18 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getTodoListFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        parser = new TodoParser();
 
-        logic = new LogicManager(model, storage);
+        model = new TodoList(storage);
+        
+        dispatcher = new TodoDispatcher();
+        logic = new TodoLogic(parser, model, dispatcher);
 
         ui = new UiManager(logic, config, userPrefs);
 
@@ -67,26 +75,6 @@ public class MainApp extends Application {
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
-    }
-
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if(!addressBookOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty AddressBook");
-            }
-            initialData = addressBookOptional.orElse(new AddressBook());
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }
-
-        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -99,7 +87,7 @@ public class MainApp extends Application {
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
-        if(configFilePath != null) {
+        if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
         }

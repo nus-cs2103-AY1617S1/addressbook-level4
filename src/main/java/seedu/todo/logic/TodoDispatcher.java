@@ -18,7 +18,7 @@ public class TodoDispatcher implements Dispatcher {
             command = new AddTodoCommand();
             break;
         default:
-            return null;
+            throw new IllegalValueException("Command not recognized");
         }
         
         command.setArguments(parser);

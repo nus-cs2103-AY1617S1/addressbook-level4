@@ -11,6 +11,7 @@ import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
+import seedu.todo.storage.MockStorage;
 
 public class TodoTest {
     private TodoList todo;
@@ -22,7 +23,7 @@ public class TodoTest {
     
     @Before
     public void setUp() {
-        todo = new TodoList();
+        todo = new TodoList(new MockStorage());
         observableList = todo.getObserveableList();
     }
     

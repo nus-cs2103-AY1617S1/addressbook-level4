@@ -7,7 +7,7 @@ import org.junit.Test;
 import seedu.todo.commons.exceptions.IllegalValueException;
 
 public class TodoParserTest {
-    private ParserContract parser = new TodoParser();
+    private Parser parser = new TodoParser();
     
     @Test
     public void testParse() throws IllegalValueException {

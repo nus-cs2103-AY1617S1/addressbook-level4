@@ -1,19 +1,15 @@
 package seedu.todo.storage;
 
-import com.google.common.eventbus.Subscribe;
-
-import seedu.todo.commons.core.ComponentManager;
-import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.events.model.AddressBookChangedEvent;
-import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
-import seedu.todo.commons.exceptions.DataConversionException;
-import seedu.todo.model.ReadOnlyAddressBook;
-import seedu.todo.model.UserPrefs;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.todo.commons.core.ComponentManager;
+import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
+import seedu.todo.commons.exceptions.DataConversionException;
+import seedu.todo.model.ImmutableTodoList;
+import seedu.todo.model.UserPrefs;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -21,18 +17,17 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private TodoListStorage todoListStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(TodoListStorage todoListStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.todoListStorage = todoListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
-        this(new XmlAddressBookStorage(addressBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(String todoListFilePath, String userPrefsFilePath) {
+        this(new XmlTodoListStorage(todoListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -47,43 +42,50 @@ public class StorageManager extends ComponentManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
-    // ================ AddressBook methods ==============================
+    // ================ TodoList methods ==============================
 
     @Override
-    public String getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public String getTodoListFilePath() {
+        return todoListStorage.getTodoListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ImmutableTodoList> readTodoList() {
+        return readTodoList(todoListStorage.getTodoListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, IOException {
+    public Optional<ImmutableTodoList> readTodoList(String filePath) {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
-    }
-
-    @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
-    }
-
-    @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
-    }
-
-
-    @Override
-    @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        
+        Optional<ImmutableTodoList> todoListOptional = Optional.empty();
+        
         try {
-            saveAddressBook(event.data);
+            todoListOptional = todoListStorage.readTodoList();
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty TodoList");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty TodoList");
+        }
+        
+        return todoListOptional;
+    }
+
+    @Override
+    public void saveTodoList(ImmutableTodoList todoList) {
+        try {
+            todoListStorage.saveTodoList(todoList);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    public void saveTodoList(ImmutableTodoList todoList, String filePath) {
+        logger.fine("Attempting to write to data file: " + filePath);
+        
+        try {
+            todoListStorage.saveTodoList(todoList, filePath);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
