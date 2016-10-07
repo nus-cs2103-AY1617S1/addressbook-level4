@@ -2,10 +2,10 @@ package guitests;
 
 import org.junit.Test;
 
-import harmony.testutil.TestTask;
-import harmony.testutil.TestUtil;
+import harmony.mastermind.testutil.TestTask;
+import harmony.mastermind.testutil.TestUtil;
 
-import static harmony.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static harmony.mastermind.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 import static org.junit.Assert.assertTrue;
 
 public class DeleteCommandTest extends AddressBookGuiTest {

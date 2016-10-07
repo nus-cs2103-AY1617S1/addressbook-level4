@@ -1,8 +1,8 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
-import harmony.TestApp;
-import harmony.commons.core.LogsCenter;
+import harmony.mastermind.TestApp;
+import harmony.mastermind.commons.core.LogsCenter;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

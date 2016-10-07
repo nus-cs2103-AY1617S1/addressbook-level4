@@ -1,7 +1,7 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
-import harmony.TestApp;
+import harmony.mastermind.TestApp;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
