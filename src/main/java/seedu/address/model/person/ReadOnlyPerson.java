@@ -10,7 +10,6 @@ public interface ReadOnlyPerson {
 
     Name getName();
     Phone getPhone();
-    Email getEmail();
     Address getAddress();
 
     /**
@@ -27,7 +26,6 @@ public interface ReadOnlyPerson {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
                 && other.getAddress().equals(this.getAddress()));
     }
 
@@ -39,8 +37,6 @@ public interface ReadOnlyPerson {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
