@@ -53,8 +53,8 @@ Example: Add go swimming
 
 >Note: To do tasks do not have a date or time.
 
->***Note: To add a tag, simply add a # followed by the tag name. 
-To add a priority, simply add a ! at the back of the task.***
+>***Note: To add a tag, simply add a # followed by the tag name at the back of the command 
+To add a priority, simply add a ! at the back of the command.***
 
 ####4.1.4 Add a tag / multiple tags
 
