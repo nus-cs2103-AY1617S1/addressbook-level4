@@ -11,6 +11,7 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
+&nbsp;
 
 ## Setting up
 
@@ -50,6 +51,7 @@
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
+&nbsp;
 
 ## Design
 
@@ -163,6 +165,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+&nbsp;
 
 ## Implementation
 
@@ -190,6 +193,7 @@ and logging destinations.
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
+&nbsp;
 
 ## Testing
 
@@ -229,6 +233,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
+&nbsp;
 
 ## Dev Ops
 
@@ -259,6 +264,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+&nbsp;
 
 ## Appendix A : User Stories
 
@@ -304,6 +310,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* Unlikely` | Busy User | Search for a time when I am free | Find a suitable slot to schedule an item
 `* Unlikely` | Busy user | Can specify a priority of a task | Keep track of what tasks are more important
 
+&nbsp;
 
 ## Appendix B : Use Cases
 
@@ -482,6 +489,7 @@ Priority | As a ... | I want to ... | So that I can...
 > *b1.  System gives an error message (“We do not understand the command: <invalid-command>”)
 > *b2. System displays a short list of valid commands
 
+&nbsp;
 
 ## Appendix C : Non Functional Requirements
 
@@ -502,6 +510,7 @@ Priority | As a ... | I want to ... | So that I can...
 15.	Should not require an installer.
 16.	Should not use paid libraries and frameworks.
 
+&nbsp;
 
 ## Appendix D : Glossary
 
