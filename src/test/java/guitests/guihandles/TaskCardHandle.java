@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String TIME_FIELD_ID = "#phone";
+    private static final String TIME_FIELD_ID = "#time";
     private static final String DATE_FIELD_ID = "#email";
 
     private Node node;

@@ -16,14 +16,14 @@ public class AddCommand extends Command implements Undoable{
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to schema. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to Mastermind. "
             + "Parameters: NAME at/TIME on/DATE [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " task at/1000 on/0110 t/finals";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Add Command] Task deleted: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in Schema";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Mastermind";
 
     private final Task toAdd;
 
@@ -56,7 +56,7 @@ public class AddCommand extends Command implements Undoable{
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }
@@ -69,7 +69,7 @@ public class AddCommand extends Command implements Undoable{
             
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
         } catch (UniqueTaskList.TaskNotFoundException pne) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_SCHEMA);
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
     }
 
