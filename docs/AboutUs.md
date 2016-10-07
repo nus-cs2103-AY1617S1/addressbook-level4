@@ -1,52 +1,32 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a team of 3 Year 2 NUS students from SoC.
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Praveer Tewari] (http://github.com/praveer922) <br>
+<img src="images/PraveerTewari" width="150"><br>
+**Role**:  Team lead, in charge of Model component
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+#### [Teo Ming Yi](http://github.com/myteo)
+<img src="images/MingYi" width="150"><br>
+Role: Testing, Integration, in charge of Logic component
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+#### [Zhuang Yufeng](http://github.com/rainwindy) 
+<img src="images/Yufeng" width="150"><br>
+Role: Code quality, Scheduling and Tracking, in charge of UI component
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+#### [Muthu Kumar Chandrasekaran] (https://github.com/cmkumar87)
+<img src="images/MuthuKumar.jpeg" width="150"><br>
+Role: Mentor
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
 
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
