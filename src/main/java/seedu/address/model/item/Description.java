@@ -3,8 +3,8 @@ package seedu.address.model.item;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents an Item's Description in the Todo List. Immutable for now; is
+ * valid as declared in {@link #isValidName(String)}
  */
 public class Description {
 
@@ -28,8 +28,8 @@ public class Description {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
-     */
+	 * Returns true if a given string is a valid description.
+	 */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
     }
