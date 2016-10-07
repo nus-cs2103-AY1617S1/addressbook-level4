@@ -30,7 +30,7 @@ public class Parser {
             Pattern.compile("(?<name>[^,]+)"
                     + ", (?<date>[^,]+)"
                     + ", (?<start>[^,]+)"
-                    + ", (?<end>[^,]+)"
+                    + ", (?<end>[^#]+)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -104,10 +104,15 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
     /**
      * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
+     */
+    /**
+     * @param tagArguments
+     * @return
+     * @throws IllegalValueException
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
@@ -115,7 +120,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" #", "").split(" #"));
         return new HashSet<>(tagStrings);
     }
 
