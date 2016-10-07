@@ -17,7 +17,7 @@ public class FloatingTaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label priority;
     @FXML
     private Label address;
     @FXML
@@ -42,7 +42,7 @@ public class FloatingTaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(person.getName().name);
-        phone.setText(person.getPriorityValue().priorityValue);
+        priority.setText(person.getPriorityValue().priorityValue);
         id.setText(displayedIndex + "");
     }
 

@@ -22,7 +22,7 @@ public interface ReadOnlyFloatingTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName().name)
-                .append(" Priority: ")
+                .append(" Rank: ")
                 .append(getPriorityValue().priorityValue);
         return builder.toString();
     }

@@ -10,7 +10,7 @@ import seedu.address.model.item.ReadOnlyFloatingTask;
  */
 public class FloatingTaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String PRIORITY_FIELD_ID = "#priorityValue";
+    private static final String PRIORITY_FIELD_ID = "#priority";
 
 
     private Node node;
