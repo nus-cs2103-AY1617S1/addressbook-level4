@@ -7,13 +7,13 @@ import java.util.Objects;
 
 /**
  * Represents a Task in the task manager.
- * Guarantees: details are present and not null, field values are validated.
+ * Guarantees: name field values are validated
  */
-public class Task implements ReadOnlyTask {
+public abstract class Task implements ReadOnlyTask {
 
-    private Name name;
+    protected Name name;
 
-    private UniqueTagList tags;
+    protected UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
@@ -65,5 +65,10 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+    
+    public abstract DateTime getDateTime();
+    
+    public abstract String getDateTimeString();
+
 
 }
