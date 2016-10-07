@@ -15,13 +15,14 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME s/START e/END [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a person to the address book. "
+            + "Task details can be marked private by prepending 'p' to the prefix.\n\t"
+            + "Parameters: NAME [p]s/START [p]e/END [p]p/PRIORITY [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " Sleep s/8 Oct e/9 Oct p/high";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the Task Manager.";
 
     private final Task toAdd;
 
@@ -30,18 +31,28 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, String email, Set<String> tags)
-            throws IllegalValueException {
+    public AddCommand(String name, String startTime, String endTime, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new Task(
                 new Name(name),
-                new StartTime(phone),
-                new EndTime(email),
+//              new StartDate(startDate),
+                new StartTime(startTime),
+//              new EndDate(endDate),
+                new EndTime(endTime),
                 new UniqueTagList(tagSet)
         );
+    }
+    
+    /**
+     * Constructor for floating tasks.
+     * 
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, Set<String> tags) throws IllegalValueException {
+        this(name, "NIL", "NIL", tags);
     }
 
     @Override
