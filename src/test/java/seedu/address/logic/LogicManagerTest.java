@@ -385,8 +385,8 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             Description privatePhone = new Description("111111");
-            Date email = new Date("adam@gmail.com");
-            Time privateAddress = new Time("111, alpha street");
+            Date email = new Date("11.11.11");
+            Time privateAddress = new Time("1111");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -417,9 +417,9 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" p/").append(p.getDescription());
+            cmd.append(" e/").append(p.getDate());
+            cmd.append(" a/").append(p.getTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
