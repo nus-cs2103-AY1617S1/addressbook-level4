@@ -6,6 +6,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.model.TodoModel;
+import seedu.todo.model.task.ImmutableTask;
 
 /**
  * The base class for commands. All commands need to implement an execute function 
@@ -23,22 +24,44 @@ public abstract class BaseCommand {
     
     abstract public void execute() throws IllegalValueException;
     
-    /**
-     * Hook allowing subclasses to implement their own validation logic for arguments
-     */
-    protected void validateArguments() throws IllegalValueException { 
+    protected void validateArguments() throws IllegalValueException {
+        // Hook allowing subclasses to implement their own validation logic for arguments
     }
     
+    /**
+     * Binds the data model to the command object
+     */
     public void setModel(TodoModel model) {
         this.model = model;
     }
     
-    public void setArguments(ParseResult parser) throws IllegalValueException {
-        if (parser.getPositionalArgument().isPresent()) {
-            setPositionalArgument(parser.getPositionalArgument().get());
+    /**
+     * Obtains the task at the specified index that is currently displayed to the 
+     * user. The index is 1-indexed, as the list of tasks shown to the user starts 
+     * at 1. 
+     * 
+     * @throws IllegalValueException if the task does not exist
+     */
+    public ImmutableTask getTaskAt(int index) throws IllegalValueException {
+        try {
+            return model.getObserveableList().get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalValueException("The specified index does not exist");
+        }
+    }
+    
+    /**
+     * Binds the both positional and named command arguments from the parse results 
+     * to the command object itself 
+     * 
+     * @throws IllegalValueException
+     */
+    public void setArguments(ParseResult arguments) throws IllegalValueException {
+        if (arguments.getPositionalArgument().isPresent()) {
+            setPositionalArgument(arguments.getPositionalArgument().get());
         }
         
-        for (Entry<String, String> e : parser.getNamedArguments().entrySet()) {
+        for (Entry<String, String> e : arguments.getNamedArguments().entrySet()) {
             setNameArgument(e.getKey(), e.getValue());
         }
         

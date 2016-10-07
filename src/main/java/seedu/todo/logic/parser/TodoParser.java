@@ -3,6 +3,7 @@ package seedu.todo.logic.parser;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
@@ -45,6 +46,17 @@ public class TodoParser implements Parser {
         @Override
         public Map<String, String> getNamedArguments() {
             return named;
+        }
+        
+        @Override
+        public String toString() {
+            StringJoiner sj = new StringJoiner(" ");
+            sj.add(command).add(getPositionalArgument().orElse(""));
+            for (Entry<String, String> e : getNamedArguments().entrySet()) {
+                String prefix = e.getKey().length() == 1 ? "-" : "--";
+                sj.add(prefix + e.getKey()).add(e.getValue());
+            }
+            return sj.toString();
         }
     }
 
