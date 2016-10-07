@@ -7,10 +7,9 @@ import taskle.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ModifiableTask {
-
     
-    void setName();
+    void setName(Name name);
 
-    void setTags();
+    void setTags(UniqueTagList tag);
     
 }
