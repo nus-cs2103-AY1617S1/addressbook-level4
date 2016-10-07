@@ -40,25 +40,30 @@
 
 #### Viewing help : `help`
 
+If you need some more information about the features available, you can use the `help` command.
+
 Format: `help`  
 
-> Help is also shown if you enter an incorrect command e.g. `run`
+> Help is also shown if an incorrect command is entered e.g. `run`
 
 #### Adding a task: `add`
 
-Adds a task which can be done at anytime.
+You can add a task without a specific time and date.
 
-Format: `add TASK_NAME`  
-This will create a floating task without any start time, end time or deadline.  
+Format: `add TASK_NAME`
+
+This will create a floating task without any start time, end time or deadline.
+
 Examples:  
 
+* `add Workout`
 * `add watch Star Wars`
 
-Adds a task to be done by a specific date.
+If you need a task to be done by a specific date, you can specify it using `/by` or `before`.
 
 Format: `add TASK_NAME /by DATE_TIME`  or `add TASK_NAME /before DATE_TIME`  
 
-> Date formats are highly flexible and case-insensitive
+> Date formats are not case-sensitive
 
 Examples:  
 
@@ -67,10 +72,11 @@ Examples:
 * `add watch Star Wars /by next Wed`
 * `add watch Star Wars /by 10 Oct, 9.30pm`
 
-Adds a task (event) which has a specific start and end time.
+If you need a task to be done within a specific date and time, you can specify it using `/from` and `/to`
 
-Format: `add TASK_NAME [/from START_DATE_TIME] [/to END_DATE_TIME] `  
-If the time is specified but there are no days/dates given, the date of creation will be used.  
+Format: `add TASK_NAME [/from START_DATE_TIME] [/to END_DATE_TIME] ` 
+
+> If you specify the time but no days or dates given, the date of creation will be used.  
 
 Examples:
 
@@ -78,8 +84,9 @@ Examples:
 * `add movie marathon /from today 12pm /to this friday 3pm`
 * `add project meeting /from 10 oct 12pm /to 2pm`
 
-The event “watch Star Wars” start date time will be 7pm of the date of creation. No end time is saved.  
-The event “project meeting” will start at 10 October 12pm and end at 10 October, 2pm.  
+The event “watch Star Wars” will begin from 7pm of the date of creation. No end time is specified.  
+The event “project meeting” will start at 12pm on 10 October and end at 2pm on 10 October.
+
 
 #### Retrieving task list : `list`
 
