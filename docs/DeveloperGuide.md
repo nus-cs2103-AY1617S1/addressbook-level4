@@ -22,9 +22,12 @@
     This app will not work with earlier versions of Java 8.
     
 2. **Eclipse** IDE
+
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
+   
+4. **Buildship Gradle Integration** plugin from the 
+   [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
 
 
 #### Importing the project into Eclipse
@@ -262,43 +265,43 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | User | View all my tasks | Have a quick and clear reference of everything I need to do
 `* * *` | User | Mark a task/multiple tasks as completed | Know that it is completed without deleting it, distinguish between completed and uncompleted tasks
 `* * *` | User | Unmark a task from completed | Update the status of my task
-`* * *` | Busy user | Specify start and end time when creating tasks | Keep track of events with defined start and end dates
-`* * *` | Busy User | Specify deadlines when creating tasks | Keep track of tasks which must be done by a certain and date and time
-`* * *` | Busy User | Edit and remove start and end time of tasks | Update events with defined start and end dates
-`* * *` | Busy User | Edit and remove deadlines of tasks | Update tasks which must be done by a certain and date and time
 `* * *` | User | Undo my last action(s) | Easily correct any accidental mistakes in the last command(s)
 `* * *` | User | Search based on task name | Find a task without going through the entire list if I remember a few key words
 `* * *` | User | Specify my data storage location | Easily locate the raw text file for editing and sync the file to a cloud storage service
 `* * *` | User | Clear all existing tasks | Easily start afresh with a new task list
 `* * *` | User | Exit the application by typing a command | Close the app easily
+`* * *` | Busy user | Specify start and end time when creating tasks | Keep track of events with defined start and end dates
+`* * *` | Busy User | Specify deadlines when creating tasks | Keep track of tasks which must be done by a certain and date and time
+`* * *` | Busy User | Edit and remove start and end time of tasks | Update events with defined start and end dates
+`* * *` | Busy User | Edit and remove deadlines of tasks | Update tasks which must be done by a certain and date and time
 `* *` | User | Sort tasks by alphabetical order and date | Organise and easily locate tasks
 `* *` | User | Filter upcoming and overdue tasks | Decide on what needs to be done soon
 `* *` | User | Filter tasks based on whether they are marked/unmarked | View my tasks grouped by their state of completion. Review my completed tasks and decide on what I should do next
 `* *` | User | See the count/statistics for upcoming/ overdue and pending tasks | Know how many tasks I need to do
+`*` | User | Clear the command I am typing with a key | Enter a new command without having to backspace the entire command line
 `*` | Advanced user | Specify my own short-hand alias commands | Enter commands faster
 `*` | Advanced user | Remove or edit the short-hand alias commands | Update to use more suitable command aliases
-`*` | Intensive user | Scroll through my past few commands | Check what I have done and redo actions easily
-`*` | User | Clear the command I am typing with a key | Enter a new command without having to backspace the entire command line
+`*` | Advanced user | Scroll through my past few commands | Check what I have done and redo actions easily
 `* Unlikely` | Google calendar user | Sync my tasks with Google calendar | Keep track of my tasks online
 `* Unlikely` | User | Add multiple time slots for a task | “Block” multiple time slots when the exact timing of a task is certain
-`* Unlikely` | Busy user | Add recurring events or tasks | Keep the same tasks in my task list without adding them manually
 `* Unlikely` | User | Add tags for my tasks | Group tasks together and organise my task list
 `* Unlikely` | User | Search based on tags | Find all the tasks of a similar nature
 `* Unlikely` | User | Add/Remove tags for existing tasks | Update the grouping of tasks
-`* Unlikely` | Busy User | Search for tasks by date (e.g. on/before a date) | Easily check my schedule and make plans accordingly
-`* Unlikely` | Busy User | Search for a time when I am free | Find a suitable slot to schedule an item
 `* Unlikely` | User | Be notified of deadline/time clashes | Resolve these conflicts manually
-`* Unlikely` | Busy user | Can specify a priority of a task | Keep track of what tasks are more important
 `* Unlikely` | User | Key in emojis/symbols and characters from other languages e.g. Mandarin | Capture information in other languages
 `* Unlikely` | Advanced User | Import tasks from an existing text file | Add multiple tasks efficiently without relying on multiple commands
 `* Unlikely` | Advanced User | Save a backup of the application in a custom file | Restore it anytime at a later date
+`* Unlikely` | Busy user | Add recurring events or tasks | Keep the same tasks in my task list without adding them manually
+`* Unlikely` | Busy User | Search for tasks by date (e.g. on/before a date) | Easily check my schedule and make plans accordingly
+`* Unlikely` | Busy User | Search for a time when I am free | Find a suitable slot to schedule an item
+`* Unlikely` | Busy user | Can specify a priority of a task | Keep track of what tasks are more important
 
 
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is `Agendum` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case 01 - Add a task
+### Use case 01 - Add a task
 
 **MSS**
 
@@ -309,6 +312,7 @@ Priority | As a ... | I want to ... | So that I can...
 5. Use case ends.
 
 **Extensions**
+
 2a. No task description is provided
 
 > 2a1. System shows an error message (“Please provide a task name/description”)
@@ -319,7 +323,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 2b1. System shows an error message (“Please use a new task description”)
 > Use case resumes at step 1
 
-#### Use case 02 - Delete a task
+### Use case 02 - Delete a task
 
 **MSS**
 
@@ -331,6 +335,7 @@ Priority | As a ... | I want to ... | So that I can...
 6. Use case ends.
 
 **Extensions**
+
 2a. The list is empty
 
 > Use case ends
@@ -340,7 +345,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 3a1. System shows an error message (“Please select a task on the list with a valid index”)
 > Use case resumes at step 2
 
-#### Use case 03 - Rename a task
+### Use case 03 - Rename a task
 
 **MSS**
 
@@ -352,6 +357,7 @@ Priority | As a ... | I want to ... | So that I can...
 6. Use case ends.
 
 **Extensions**
+
 2a. The list is empty
 
 > Use case ends
@@ -371,7 +377,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 3c1. System shows an error message (“Please use a new task name”)
 > Use case resumes at step 2
 
-#### Use case 04 - Modify a task’s start and end time and deadlines
+### Use case 04 - Modify a task’s start and end time and deadlines
 
 **MSS**
 
@@ -383,6 +389,7 @@ Priority | As a ... | I want to ... | So that I can...
 6. Use case ends.
 
 **Extensions**
+
 2a. The list is empty
 
 > Use case ends
@@ -397,7 +404,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 3b1. System shows an error message (“Please follow the given time format”)
 > Use case resumes at step 2
 
-#### Use case 05 - Undo the previous command that modified the task list
+### Use case 05 - Undo the previous command that modified the task list
 
 **MSS**
 
@@ -408,12 +415,13 @@ Priority | As a ... | I want to ... | So that I can...
 5. Use case ends.
 
 **Extensions**
+
 2a. There are no previous commands that modify the list (since the launch of the application)
 
 > 2a1. System shows an error message (“No previous command to undo”)
 > Use case ends
 
-#### Use case 06 - Mark a task as completed
+### Use case 06 - Mark a task as completed
 
 **MSS**:
 
@@ -425,6 +433,7 @@ Priority | As a ... | I want to ... | So that I can...
 6. Use case ends
 
 **Extensions**
+
 2a. The list is empty
 
 > 2a1. Use case ends
@@ -434,7 +443,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 3a1. System shows an error message (“Please select a task on the list with a valid index”)
 > Use case resumes at step 2
 
-#### Use case 07 - Add short hand commands
+### Use case 07 - Add short hand commands
 
 **MSS**
 
@@ -444,6 +453,7 @@ Priority | As a ... | I want to ... | So that I can...
 4. Use case ends.
 
 **Extensions**
+
 1a. There is no existing command with the original name specified
 
 > 1a1. System shows an error message (“There is no such existing command”)
