@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /**
  * Represents a Task in DoDo-Bird
- * Guarantees: name and detail are not null, field values are validated.
+ * Guarantees: all fields are not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
