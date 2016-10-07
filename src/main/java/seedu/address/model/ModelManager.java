@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,6 +74,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws PersonNotFoundException {
         taskList.removePerson(target);
+        updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 
@@ -145,25 +147,46 @@ public class ModelManager extends ComponentManager implements Model {
 
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
+        private Pattern NAME_QUERY;
+        
 
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
+            this.NAME_QUERY = Pattern.compile(getRegexFromString());
         }
 
+        private String getRegexFromString(){
+        	String result = "";
+        	for(String keyword: nameKeyWords){
+        		for(char c: keyword.toCharArray()){
+        			switch(c){
+        			case '*':
+        				result += ".*";
+        				break;
+        			default:
+        				result += c;
+        			}
+        		}
+        	}
+        	return result;
+        }
+        
         @Override
         public boolean run(ReadOnlyTask person) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
+//            return nameKeyWords.stream()
+//                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+//                    .findAny()
+//                    .isPresent();
+        	Matcher matcher = NAME_QUERY.matcher(person.getName().fullName);
+        	return matcher.matches();
         }
-
+        
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    
     @Override
     public List<ReadOnlyTask> getFilteredTaskListFromTaskName(String taskName) {
         Pattern patternForTaskName = getPatternForTaskName(wildcardToRegex(taskName));

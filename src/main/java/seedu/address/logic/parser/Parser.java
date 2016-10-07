@@ -33,6 +33,8 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+    private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern.compile("(?<index>(\\d+)?)|"
+    		+ "(?<searchString>[^/]+)");
 
     public Parser() {
     }
@@ -61,7 +63,7 @@ public class Parser {
             return prepareSelect(arguments);
 
         case DoneCommand.COMMAND_WORD:
-            return prepareComplete(arguments);
+            return prepareDone(arguments);
             
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -86,19 +88,18 @@ public class Parser {
         }
     }
 
-    private Command prepareComplete(String args) {
-        if (containsIndex(args)) {
-            /*
-            if (!index.isPresent()) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-            }
-            */
-            args = args.trim();
-            return new DoneCommand(Integer.parseInt(args));
+    private Command prepareDone(String args) {
+        final Matcher matcher = DELETE_COMPLETE_ARGS_PARSER.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        else {
-            return new DoneCommand(args);
+        else if(matcher.group("index")!=null){
+            return new DoneCommand(Integer.valueOf(matcher.group("index")));
         }
+        else if(matcher.group("searchString") != null){
+            return new DoneCommand(matcher.group("searchString"));
+        }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 
     /**
@@ -160,31 +161,19 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-        if (containsIndex(args)) {
-            /*
-            if (!index.isPresent()) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-            }
-            */
-            args = args.trim();
-            return new DeleteCommand(Integer.parseInt(args));
+    	final Matcher matcher = DELETE_COMPLETE_ARGS_PARSER.matcher(args.trim());
+        if (!matcher.matches()) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        else {
-            return new DeleteCommand(args);
+        else if(matcher.group("index")!=null){
+        	return new DeleteCommand(Integer.valueOf(matcher.group("index")));
         }
+        else if(matcher.group("searchString") != null){
+        	return new DeleteCommand(matcher.group("searchString"));
+        }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
     
-    /**
-     * Check if this string contains only integers
-     */
-    private boolean containsIndex(String args){
-        args = args.trim();
-        for(int i=0; i<args.length(); i++){
-            if(args.charAt(i) < '0' || args.charAt(i) > '9')
-                return false;
-        }
-        return true;
-    }
     /**
      * Parses arguments in the context of the select person command.
      *
