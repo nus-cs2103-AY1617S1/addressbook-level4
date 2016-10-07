@@ -75,6 +75,9 @@ public class Parser {
         case PreviousCommand.COMMAND_WORD:
             return new PreviousCommand();
             
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(arguments);
+            
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
             
@@ -144,6 +147,24 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         Command result = new DeleteCommand(index.get());
+
+        return result;
+    }
+    
+    /**
+     * Parses arguments in the context of the mark task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMark(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        }
+        Command result = new MarkCommand(index.get());
 
         return result;
     }

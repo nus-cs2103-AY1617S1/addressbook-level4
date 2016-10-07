@@ -25,6 +25,9 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+
+    /** Marks the given task as done */
+    void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
     /** Returns the stack of command history */
     Stack<Command> getCommandHistory();

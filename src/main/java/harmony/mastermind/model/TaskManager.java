@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
+import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
@@ -18,10 +19,12 @@ import harmony.mastermind.model.task.UniqueTaskList;
 public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
+    private final ArchiveTaskList archivedTasks;
     private final UniqueTagList tags;
 
     {
         tasks = new UniqueTaskList();
+        archivedTasks = new ArchiveTaskList();
         tags = new UniqueTagList();
     }
 
@@ -68,7 +71,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
-//// person-level operations
+//// task-level operations
 
     /**
      * Adds a task to the task manager.
@@ -107,6 +110,18 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    /**
+     * Removes the task from TaskManager and adds into Archive list
+     */
+    public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.remove(key)) {
+            archivedTasks.add(key);
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
