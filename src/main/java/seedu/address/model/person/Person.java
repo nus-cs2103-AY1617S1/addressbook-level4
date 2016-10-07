@@ -15,7 +15,8 @@ public class Person implements ReadOnlyPerson {
     private Phone phone;
     private Email email;
     private Address address;
-
+    private String description;
+    
     private UniqueTagList tags;
 
     /**
