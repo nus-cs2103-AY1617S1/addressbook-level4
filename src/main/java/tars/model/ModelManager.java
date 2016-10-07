@@ -91,6 +91,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
+    	if(keywords.contains("done") || keywords.contains("undone")) {
+    		updateFilteredTaskList(new PredicateExpression(new ListQualifier(keywords)));
+    	}
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
@@ -148,6 +151,23 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    
+    private class ListQualifier implements Qualifier {
+    	private Set<String> listArguments;
+    	
+    	ListQualifier(Set<String> listArguments) {
+    		this.listArguments = listArguments;
+    	}
+    	
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			return listArguments.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus().toString(), keyword))
+					.findAny()
+					.isPresent();
+		}
+    	
     }
 
 }
