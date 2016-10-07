@@ -23,6 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<DatedTask> filteredPersons;
+    private final FilteredList<DatedTask> filteredUndatedTasks;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -37,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredUndatedTasks = new FilteredList<>(addressBook.getUndatedTasks());
     }
 
     public ModelManager() {
@@ -46,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredUndatedTasks = new FilteredList<>(addressBook.getUndatedTasks());
     }
 
     @Override
@@ -83,10 +86,16 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyDatedTask> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyDatedTask> getFilteredUndatedTasksList() {
+        return new UnmodifiableObservableList<>(filteredUndatedTasks);
+    }
 
     @Override
     public void updateFilteredListToShowAll() {
         filteredPersons.setPredicate(null);
+        filteredUndatedTasks.setPredicate(null);
     }
 
     @Override
@@ -96,6 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredPersonList(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
+        filteredUndatedTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

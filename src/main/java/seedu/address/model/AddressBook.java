@@ -99,7 +99,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
     
-    private boolean checkIfDated(DatedTask d){
+    private boolean checkIfDated(ReadOnlyDatedTask d){
         if(d.getDate() == null && d.getTime() == null){
             return false;
         }
@@ -131,22 +131,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyDatedTask key) throws UniquePersonList.PersonNotFoundException {
+    public boolean removePerson(ReadOnlyDatedTask key) throws UniquePersonList.PersonNotFoundException {       
         if (persons.remove(key)) {
             return true;
-        } else {
-            throw new UniquePersonList.PersonNotFoundException();
-        }
-    }
-    
-    public boolean removeUndatedTask(ReadOnlyDatedTask key) throws UniquePersonList.PersonNotFoundException {
-        if (undatedList.remove(key)) {
+        } 
+        else if (undatedList.remove(key)){
             return true;
-        } else {
+        }
+        else {
             throw new UniquePersonList.PersonNotFoundException();
         }
     }
-
+   
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
