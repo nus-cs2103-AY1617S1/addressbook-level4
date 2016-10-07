@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-F10-C1/main.svg?branch=develop)](https://travis-ci.org/CS2103AUG2016-F10-C1/main.svg?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-F10-C1/main/badge.svg?branch=develop)](https://coveralls.io/github/CS2103AUG2016-F10-C1/main?branch=develop)
 # TARS: Task And Remember Stuff 
 ### A Productivity Tool by CS2103AUG2016-F10-C1
 
