@@ -24,7 +24,7 @@ public class XmlAddressBookStorage implements EmeraldoStorage {
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getEmeraldoFilePath(){
         return filePath;
     }
 
