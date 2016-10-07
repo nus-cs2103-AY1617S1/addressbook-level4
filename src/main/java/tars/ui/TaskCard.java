@@ -10,6 +10,8 @@ public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
 
+    private static final String NO_START_DATE = "None";
+
     @FXML
     private HBox cardPane;
     @FXML
@@ -17,7 +19,9 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label datetime;
+    private Label startDate;
+    @FXML
+    private Label endDate;
     @FXML
     private Label priority;
     @FXML
@@ -44,7 +48,13 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().taskName);
         priority.setText(task.priorityString());
         id.setText(displayedIndex + ". ");
-        datetime.setText(task.getDateTime().toString());
+        if (task.getDateTime().startDateString != null) {
+            startDate.setText(task.getDateTime().startDateString);
+        } else {
+            startDate.setVisible(false);
+            startDate.setManaged(false);
+        }
+        endDate.setText(task.getDateTime().endDateString);
         status.setText(task.getStatus().toString());
         tags.setText(task.tagsString());
     }
