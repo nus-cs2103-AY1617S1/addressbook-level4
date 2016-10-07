@@ -411,7 +411,7 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
+            cmd.append(p.getTask().toString());
             cmd.append(" /desc ").append(p.getDescription());
 
             return cmd.toString();

@@ -34,11 +34,11 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDescription());
+        this(source.getTask(), source.getDescription());
     }
 
     @Override
-    public Name getName() {
+    public Name getTask() {
         return name;
     }
 
