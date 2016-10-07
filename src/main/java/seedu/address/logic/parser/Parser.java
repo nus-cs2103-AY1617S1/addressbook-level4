@@ -97,8 +97,8 @@ public class Parser {
             try {
                 return new AddCommand(
                         taskMatcher.group("name"),
-                	    taskMatcher.group("start"),
-                	    taskMatcher.group("end"),
+                        taskMatcher.group("start"),
+                        taskMatcher.group("end"),
                         getTagsFromArgs(taskMatcher.group("tagArguments"))
                 );
             } catch (IllegalValueException ive) {
@@ -107,7 +107,7 @@ public class Parser {
         } else {
         	try {
                 return new AddCommand(
-                	    floatingMatcher.group("name"),
+                        floatingMatcher.group("name"),
                         getTagsFromArgs(floatingMatcher.group("tagArguments"))
                 );
             } catch (IllegalValueException ive) {
