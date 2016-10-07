@@ -14,7 +14,7 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private Detail detail;
     private TaskDate fromDate;
-    private TaskDate tillDate;
+    private TaskDate tillDate; //deadline
     private UniqueTagList tags;
 
     /**
