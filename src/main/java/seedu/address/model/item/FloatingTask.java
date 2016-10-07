@@ -35,9 +35,6 @@ public class FloatingTask implements ReadOnlyFloatingTask {
         this.priorityValue = priorityValue;
     }
 
-
-
-    
     @Override
     public String toString() {
         return name + VARIABLE_CONNECTOR + priorityValue;
