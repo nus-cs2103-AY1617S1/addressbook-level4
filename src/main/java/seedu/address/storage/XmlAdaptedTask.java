@@ -103,15 +103,16 @@ public class XmlAdaptedTask {
         
         final Complete complete = new Complete(this.isCompleted);
         final Deadline deadline = (this.deadline.equals("00/00/0000 00:00:00")) ? new Deadline() : 
-        												  new Deadline(sdf.parse(this.deadline));
-        final Period period = (this.startTime.equals("00/00/0000 00:00:00") ||
-        					   this.endTime.equals("00/00/0000 00:00:00")) ? new Period() : 
-        						   					 new Period(sdf.parse(this.startTime),
-        						   							sdf.parse(this.endTime));
+        	new Deadline(sdf.parse(this.deadline));
+        final Period period = (this.startTime.equals("00/00/0000 00:00:00") || 
+        		this.endTime.equals("00/00/0000 00:00:00")) ? new Period() : 
+        			new Period(sdf.parse(this.startTime), sdf.parse(this.endTime));
         final Recurrence deadlineRecurrence = this.deadlinePattern.equals("NONE") ? 
-        		new Recurrence() : new Recurrence(Recurrence.Pattern.valueOf(this.deadlinePattern), this.deadlineFrequency);
+        		new Recurrence() : new Recurrence(Recurrence.Pattern.valueOf(this.deadlinePattern), 
+        				this.deadlineFrequency);
         final Recurrence periodRecurrence = this.periodPattern.equals("NONE") ? 
-        		new Recurrence() : new Recurrence(Recurrence.Pattern.valueOf(this.periodPattern), this.periodFrequency);
+        		new Recurrence() : new Recurrence(Recurrence.Pattern.valueOf(this.periodPattern), 
+        				this.periodFrequency);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
     }
