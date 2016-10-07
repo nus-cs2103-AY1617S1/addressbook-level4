@@ -264,7 +264,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | set notification for a task | remind myself of the deadlines and upcoming events
 `*` | user | summon the software quickly by pressing a keyboard shortcut | save time
 `*` | user | synchronize my tasklist among all my devices | check my tasks wherever I am
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
 
 ## Appendix B : Use Cases
 
