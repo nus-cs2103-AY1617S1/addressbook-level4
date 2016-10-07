@@ -21,7 +21,7 @@ public class Phone {
     public Phone(String phone) throws IllegalValueException {
         assert phone != null;
         phone = phone.trim();
-        if (!isValidPhone(phone)) {
+        if (!isValidPhone(phone) && (phone != "")) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
         }
         this.value = phone;
