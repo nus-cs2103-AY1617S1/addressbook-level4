@@ -16,11 +16,18 @@ public interface ReadOnlyAddressBook {
     UniqueTagList getUniqueTagList();
 
     UniquePersonList getUniquePersonList();
+    
+    UniquePersonList getUniqueUndatedTaskList();
 
     /**
      * Returns an unmodifiable view of persons list
      */
     List<ReadOnlyDatedTask> getPersonList();
+    
+    /**
+     * Returns an unmodifiable view of persons list
+     */
+    List<ReadOnlyDatedTask> getUndatedTaskList();
 
     /**
      * Returns an unmodifiable view of tags list

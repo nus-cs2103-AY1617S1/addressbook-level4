@@ -17,10 +17,12 @@ import java.util.stream.Collectors;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniquePersonList undatedList;
     private final UniqueTagList tags;
 
     {
         persons = new UniquePersonList();
+        undatedList = new UniquePersonList();
         tags = new UniqueTagList();
     }
 
@@ -49,9 +51,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<DatedTask> getPersons() {
         return persons.getInternalList();
     }
+    
+    public ObservableList<DatedTask> getUndatedTasks() {
+        return undatedList.getInternalList();
+    }
 
     public void setPersons(List<DatedTask> persons) {
         this.persons.getInternalList().setAll(persons);
+    }
+    
+    public void setUndatedTaskList(List<DatedTask> persons) {
+        this.undatedList.getInternalList().setAll(persons);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -78,7 +88,21 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(DatedTask p) throws UniquePersonList.DuplicatePersonException {
         syncTagsWithMasterList(p);
-        persons.add(p);
+        if (checkIfDated(p)){
+            persons.add(p);
+        }
+        else{
+            undatedList.add(p);
+        }
+    }
+    
+    private boolean checkIfDated(DatedTask d){
+        if(d.getDate() == null && d.getTime() == null){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     /**
@@ -111,6 +135,14 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new UniquePersonList.PersonNotFoundException();
         }
     }
+    
+    public boolean removeUndatedTask(ReadOnlyDatedTask key) throws UniquePersonList.PersonNotFoundException {
+        if (persons.remove(key)) {
+            return true;
+        } else {
+            throw new UniquePersonList.PersonNotFoundException();
+        }
+    }
 
 //// tag-level operations
 
@@ -130,6 +162,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public List<ReadOnlyDatedTask> getPersonList() {
         return Collections.unmodifiableList(persons.getInternalList());
     }
+    
+    @Override
+    public List<ReadOnlyDatedTask> getUndatedTaskList() {
+        return Collections.unmodifiableList(undatedList.getInternalList());
+    }
 
     @Override
     public List<Tag> getTagList() {
@@ -139,6 +176,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public UniquePersonList getUniquePersonList() {
         return this.persons;
+    }
+    
+    @Override
+    public UniquePersonList getUniqueUndatedTaskList() {
+        return this.undatedList;
     }
 
     @Override
@@ -152,12 +194,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
+                && this.undatedList.equals(((AddressBook) other).undatedList)
                 && this.tags.equals(((AddressBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(persons, undatedList, tags);
     }
 }
