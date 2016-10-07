@@ -12,6 +12,12 @@ public class TimeUtilTest {
         TimeUtil.printFormattedTime(LocalDateTime.now(), null);
     }
     
+    @Test (expected = AssertionError.class)
+    public void printFormattedTime_startTimeAfterEndTime() {
+        LocalDateTime currentTime = LocalDateTime.now();
+        TimeUtil.printFormattedTime(currentTime, currentTime.minusHours(1).minusDays(1));
+    }
+    
     @Test
     public void printFormattedTime_hoursBeforeDeadlines() {
         for (long hoursLeft = 2; hoursLeft < 24; hoursLeft++) {
