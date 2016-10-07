@@ -32,6 +32,7 @@ There are three variations to the add command. You are able to choose a task to 
 
 >Format : **Add** [&lt;event description&gt;, &lt;date(DDMMYY)&gt;, &lt;start time&gt;, &lt;end time&gt;]
 
+Example: Add [Sam's birthday party, 20/12/16 , 9pm]
 
 >Note: The start time and end time is optional when adding an event.
 Important: The square brackets are compulsory when adding an event.
@@ -55,6 +56,11 @@ Example: Add go swimming
 >***Note: To add a tag, simply add a # followed by the tag name. 
 To add a priority, simply add a ! at the back of the task.***
 
+####4.1.4 Add a tag / multiple tags
+
+>Format: **Add** &lt;index&gt; #tag1 #tag2
+
+Example: Add E1 #win #victor #finally  
 
 ###4.2 Edit a task
 
@@ -68,11 +74,15 @@ The multiple edit task functions allow you to update specific task details.
  
 >Format: **Edit** &lt;index&gt; &lt;to-do description&gt; !
 
+To add certain task details like start time, simply add their corresponding sections in the command format.
+
 To remove certain task details like end time, simply leave their corresponding sections in the command format blank.
 
 >Note: Adding a start time and end time to a to-do will automatically convert your to-do into and event.
 
 >Note: Adding a end time to a to-do will automatically convert your to-do into a deadline.
+
+>Note: Adding a start time to a deadline will automatically convert a deadline to an event.
 
 >Note: Add a date to a to-do will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
 
@@ -86,9 +96,13 @@ To remove certain task details like end time, simply leave their corresponding s
 
 >Format: **Edit** &lt;index&gt; **des** &lt;description&gt;
 
+Example: Edit T1 des eat apple
+
 #### 4.2.3 Edit task date
 
 >Format: **Edit** &lt;index&gt; **date** &lt;date&gt;
+
+Example: Edit E1 date 12/09/16
 
 >Note: If you add a date to a to-do, this will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
 
@@ -96,11 +110,15 @@ To remove certain task details like end time, simply leave their corresponding s
 
 >Format: **Edit** &lt;index&gt; **start** &lt;start time&gt;
 
+Example: Edit E1 start 7am
+
 >Note: Adding a start time to a to-do will automatically convert your to-do into an event with a default day of today and start time as entered. 
 
 #### 4.2.5 Edit task end time 
 
 >Format: **Edit** &lt;index&gt; **end** &lt;end time&gt;
+
+Example: Edit E1 end 1900
 
 >Note: Adding a end time to a to-do will automatically convert your to-do into a deadline with a default date of today and end time as entered. 
 
@@ -108,9 +126,15 @@ To remove certain task details like end time, simply leave their corresponding s
 
 >Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt; ***>*** &lt;new_tag&gt;
 
+Example: Edit D1 #doOrdie > #died
+
 #### 4.2.7 Edit task priority 
 
 >Format: **Edit** &lt;index&gt; **pri** &lt;priority&gt;
+
+Example: Edit T1 pri 
+
+Example: Edit T1 pri !
 
 >Note: If you want to remove priority, just leave an empty space after pri
  
@@ -147,23 +171,28 @@ When you are done with tasks, enter this command to mark them as done and hide t
     
 Example: 
 
-Complete T1
+Done T1
 
-Complete T1-T3
+Done T1-T3
 
-Complete T1, T3
+Done T1, T3
 
 
 >Note: if you want to select more than one task to complete, you can separated the task by a - to complete all tasks that are within the range. In addition, you also separate the task by a , to individually delete them.
 
-###4.5 Display completed tasks
+###4.5 Display tasks
+
+####4.5.1 Display completed tasks
 
 The display command will display the completed tasks in their respective categories.
 
-> Format: Display
+> Format: Display completed
 
-Example: Display
+####4.5.2 Display all tasks
 
+This is mainly used to return to the default screen showing all tasks.
+
+> Format: Display all
 
 ###4.6 Undo the Most Recent Commands
 
@@ -200,7 +229,9 @@ Redo 2
 >Note: If no number is entered, the default number of times the command will redo is 1.
 
 
-###4.8 Deleting task
+###4.8 Delete task
+
+#### 4.8.1 Deleting a task
 
 The delete command enables you to delete the tasks that you no longer need.
 
@@ -222,6 +253,11 @@ Delete T1, T3
 
 >Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a -, Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a , Simply will delete the tasks entered individually. 
 
+#### 4.8.2 Deleting a tag / multiple tags
+
+>Format: **Delete** &lt;index&gt; #tag1 #tag2
+
+Example: Delete E1 #win #victor #finally  
 
 ###4.9 Exiting the program
 
