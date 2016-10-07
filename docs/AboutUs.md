@@ -25,12 +25,6 @@ Responsibilities: Dev Ops
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
 #### [You Liang](http://github.com/yl-coder) 
 <img src="images/YouLiang.jpg" width="150"><br>
  Role: Developer <br>  
