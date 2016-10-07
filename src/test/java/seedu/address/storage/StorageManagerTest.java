@@ -56,7 +56,7 @@ public class StorageManagerTest {
     @Test
     public void addressBookReadSave() throws Exception {
         AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
+        storageManager.saveEmeraldo(original);
         ReadOnlyEmeraldo retrieved = storageManager.readEmeraldo().get();
         assertEquals(original, new AddressBook(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
@@ -87,7 +87,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
+        public void saveEmeraldo(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

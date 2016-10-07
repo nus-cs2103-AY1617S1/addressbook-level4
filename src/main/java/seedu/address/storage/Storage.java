@@ -28,7 +28,7 @@ public interface Storage extends EmeraldoStorage, UserPrefsStorage {
     Optional<ReadOnlyEmeraldo> readEmeraldo() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyEmeraldo addressBook) throws IOException;
+    void saveEmeraldo(ReadOnlyEmeraldo addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

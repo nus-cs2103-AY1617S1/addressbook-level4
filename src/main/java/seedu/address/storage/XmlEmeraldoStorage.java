@@ -49,10 +49,10 @@ public class XmlEmeraldoStorage implements EmeraldoStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyEmeraldo)}
+     * Similar to {@link #saveEmeraldo(ReadOnlyEmeraldo)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
+    public void saveEmeraldo(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
         assert addressBook != null;
         assert filePath != null;
 
@@ -67,7 +67,7 @@ public class XmlEmeraldoStorage implements EmeraldoStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyEmeraldo addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveEmeraldo(ReadOnlyEmeraldo addressBook) throws IOException {
+        saveEmeraldo(addressBook, filePath);
     }
 }

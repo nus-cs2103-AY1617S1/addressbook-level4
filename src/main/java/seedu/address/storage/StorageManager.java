@@ -66,14 +66,14 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyEmeraldo addressBook) throws IOException {
-        saveAddressBook(addressBook, emeraldoStorage.getEmeraldoFilePath());
+    public void saveEmeraldo(ReadOnlyEmeraldo addressBook) throws IOException {
+        saveEmeraldo(addressBook, emeraldoStorage.getEmeraldoFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
+    public void saveEmeraldo(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        emeraldoStorage.saveAddressBook(addressBook, filePath);
+        emeraldoStorage.saveEmeraldo(addressBook, filePath);
     }
 
 
@@ -82,7 +82,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveEmeraldo(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

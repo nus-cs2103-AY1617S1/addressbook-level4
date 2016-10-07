@@ -66,20 +66,20 @@ public class XmlAddressBookStorageTest {
         XmlEmeraldoStorage xmlAddressBookStorage = new XmlEmeraldoStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
+        xmlAddressBookStorage.saveEmeraldo(original, filePath);
         ReadOnlyEmeraldo readBack = xmlAddressBookStorage.readEmeraldo(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(new Person(TypicalTestPersons.hoon));
         original.removePerson(new Person(TypicalTestPersons.alice));
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
+        xmlAddressBookStorage.saveEmeraldo(original, filePath);
         readBack = xmlAddressBookStorage.readEmeraldo(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Save and read without specifying file path
         original.addPerson(new Person(TypicalTestPersons.ida));
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
+        xmlAddressBookStorage.saveEmeraldo(original); //file path not specified
         readBack = xmlAddressBookStorage.readEmeraldo().get(); //file path not specified
         assertEquals(original, new AddressBook(readBack));
 
@@ -92,7 +92,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private void saveAddressBook(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
-        new XmlEmeraldoStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+        new XmlEmeraldoStorage(filePath).saveEmeraldo(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
