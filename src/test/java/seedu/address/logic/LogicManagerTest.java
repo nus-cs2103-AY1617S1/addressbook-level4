@@ -167,7 +167,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Title.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Title p/not_numbers e/valid@e.mail a/valid, address", Group.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Title p/not_numbers e/valid@e.mail a/valid, address", StartDate.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Title p/12345 e/notAnEmail a/valid, address", Description.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
@@ -387,7 +387,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Title title = new Title("Adam Brown");
-            Group privatePhone = new Group("111111");
+            StartDate privatePhone = new StartDate("111111");
             Description description = new Description("adam@gmail.com");
             DueDate privateAddress = new DueDate("111, alpha street");
             Tag tag1 = new Tag("tag1");
@@ -406,7 +406,7 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Title("Task " + seed),
-                    new Group("" + Math.abs(seed)),
+                    new StartDate("" + Math.abs(seed)),
                     new Description(seed + "@email"),
                     new DueDate("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -505,7 +505,7 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Title(name),
-                    new Group("1"),
+                    new StartDate("1"),
                     new Description("1@email"),
                     new DueDate("House of 1"),
                     new UniqueTagList(new Tag("tag"))

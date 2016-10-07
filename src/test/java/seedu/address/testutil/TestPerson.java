@@ -11,7 +11,7 @@ public class TestPerson implements ReadOnlyTask {
     private Title title;
     private DueDate dueDate;
     private Description description;
-    private Group group;
+    private StartDate startDate;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -30,8 +30,8 @@ public class TestPerson implements ReadOnlyTask {
         this.description = description;
     }
 
-    public void setPhone(Group group) {
-        this.group = group;
+    public void setPhone(StartDate startDate) {
+        this.startDate = startDate;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Group getGroup() {
-        return group;
+    public StartDate getGroup() {
+        return startDate;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTitle().fullTitle + " ");
-        sb.append("p/" + this.getGroup().description + " ");
+        sb.append("p/" + this.getGroup().startDate + " ");
         sb.append("e/" + this.getDescription().description + " ");
         sb.append("a/" + this.getAddress().date + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));

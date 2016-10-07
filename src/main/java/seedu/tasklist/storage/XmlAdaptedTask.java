@@ -39,7 +39,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getTitle().fullTitle;
-        phone = source.getGroup().description;
+        phone = source.getGroup().startDate;
         email = source.getDescription().description;
         address = source.getAddress().date;
         tagged = new ArrayList<>();
@@ -59,10 +59,10 @@ public class XmlAdaptedTask {
             personTags.add(tag.toModelType());
         }
         final Title title = new Title(this.name);
-        final Group group = new Group(this.phone);
+        final StartDate startDate = new StartDate(this.phone);
         final Description description = new Description(this.email);
         final DueDate dueDate = new DueDate(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(title, group, description, dueDate, tags);
+        return new Task(title, startDate, description, dueDate, tags);
     }
 }
