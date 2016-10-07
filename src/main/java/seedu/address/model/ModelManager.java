@@ -8,9 +8,15 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.todo.ToDo;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.todo.DateRange;
+import seedu.address.model.todo.DueDate;
 import seedu.address.model.todo.ReadOnlyToDo;
+import seedu.address.model.todo.Title;
 
+import java.util.Iterator;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -67,17 +73,46 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
-
+    
     @Override
     public ReadOnlyToDoList getToDoList() {
         return toDoList;
     }
 
+    
     /** Raises an event to indicate the model has changed */
     private void indicateToDoListChanged() {
         raise(new ToDoListChangedEvent(toDoList));
     }
+    
+    @Override
+    public void editTodoTitle(ReadOnlyToDo todo, Title title) throws IllegalValueException {
+        toDoList.editTitle(todo, title);
+        updateFilteredListToShowAll();
+        indicateToDoListChanged();
+    }
 
+    @Override
+    public void editTodoDateRange(ReadOnlyToDo todo, DateRange dateRange) throws IllegalValueException {
+        toDoList.editDateRange(todo, dateRange);
+        updateFilteredListToShowAll();
+        indicateToDoListChanged();
+    }
+
+    @Override
+    public void editTodoDueDate(ReadOnlyToDo todo, DueDate dueDates) throws IllegalValueException {
+        toDoList.editDueDate(todo, dueDates);
+        updateFilteredListToShowAll();
+        indicateToDoListChanged();
+    }
+
+    @Override
+    public void editTodoTags(ReadOnlyToDo todo, Set<Tag> tags) throws IllegalValueException {
+        toDoList.editTags(todo, tags);
+        updateFilteredListToShowAll();
+        indicateToDoListChanged();
+    }
+    
     //================================================================================
     // Filtering to-do list operations
     //================================================================================
@@ -100,7 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredToDoList(Expression expression) {
         filteredToDos.setPredicate(expression::satisfies);
     }
-
+    
     //================================================================================
     //  Inner classes/interfaces used for filtering
     //================================================================================
@@ -144,14 +179,27 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyToDo toDo) {
             return titleKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(toDo.getTitle().title, keyword))
+                    .filter(keyword -> check(toDo, keyword))
                     .findAny()
                     .isPresent();
         }
-
+        
+        private boolean check(ReadOnlyToDo toDo, String keyword){
+            Iterator<Tag> itr = toDo.getTags().iterator();
+            boolean flag = false;
+            while (itr.hasNext()){
+                Tag element = itr.next();
+                if (StringUtil.substringIgnoreCase(element.tagName, keyword))
+                    flag = true;
+            }
+            return flag || StringUtil.substringIgnoreCase(toDo.getTitle().title, keyword);
+        }
+        
         @Override
         public String toString() {
             return "Title = " + String.join(", ", titleKeyWords);
         }
     }
+
+    
 }
