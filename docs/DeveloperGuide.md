@@ -5,10 +5,10 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A : User Stories](#appendix-a-user-stories)
+* [Appendix B : Use Cases](#appendix-b-use-cases)
+* [Appendix C : Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D : Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
@@ -273,26 +273,34 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
+`* * *` | new user |  view more information about a particular command | learn how to use various commands
+`* * *` | user | add a new task | record tasks that need to be done some day
+`* * *` | user | update a task description/due date/priority level | make modifications to tasks without having delete and re-add it
+`* * *` | user | mark completed tasks as done | remind myself that I have completed a task
+`* * *` | user | delete a task | get rid of tasks that I no longer care to track 
+`* * *` | user | sort ongoing tasks by due date or priority | decide what needs to be done soon
+`* * *` | user | view the list of ongoing tasks | decide what needs to be done
+`* * *` | user | view the list of archived tasks | see what has been done
+`* *` | user | find tasks by partial or full task name or date | locate a tasks / similar tasks in case I forget the exact task name I typed
+`*` | user | sort tasks by priority level | see the most important tasks and prioritize accordingly
+`*` | user | undo most recent command | undo the most recent operation
+`*` | user | redo most recent undo command | redo the operation done by the most recent undo action
+`*` | advanced user | alias keywords with shorter versions | type a command faster
+`*` | advanced user | remove alias of keywords with shorter versions | get rid of shorter version of certain keywords
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Savvy Tasker` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Delete person
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to list tasks
+2. Savvy Tasker shows a list of tasks
+3. User requests to delete a specific task in the list
+4. Savvy Tasker deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -303,7 +311,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. Savvy Tasker shows an error message <br>
   Use case resumes at step 2
 
 {More to be added}
@@ -311,7 +319,7 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
