@@ -1,4 +1,4 @@
-# Developer Guide 
+# Developer Guide
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -9,8 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
-
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 ## Setting up
 
@@ -18,29 +17,28 @@
 
 1. **JDK `1.8.0_60`**  or later<br>
 
-    > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
-    
+	> Having any Java 8 version is not enough. <br>
+	This app will not work with earlier versions of Java 8.
+   
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+  [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
-
 
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
-   in the prerequisites above)
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
+  in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
 4. Click `Browse`, then locate the project's directory
 5. Click `Finish`
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+ > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+ > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+ 	(This is because Gradle downloads library files from servers during the project set up process)
+ > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 ## Design
 
@@ -57,7 +55,7 @@ Given below is a quick overview of each component.
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+ is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
@@ -80,15 +78,15 @@ command `delete 3`.
 <img src="images\SDforDeletePerson.png" width="800">
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.
+instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
-  coupling between components.
+ to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
+ coupling between components.
 
 The sections below give more details of each component.
 
@@ -103,9 +101,9 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
- [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+that are in the `src/main/resources/view` folder.<br>
+For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+[`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 * Executes user commands using the `Logic` component.
@@ -124,7 +122,7 @@ The `UI` component,
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
+API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
 ### Model component
@@ -137,7 +135,7 @@ The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
+ so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 ### Storage component
@@ -162,9 +160,9 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
+ (See [Configuration](#configuration))
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level
+ the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
@@ -173,13 +171,12 @@ and logging destinations.
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size
+ e.g. print the actual list instead of just its size
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `config.json`):
-
 
 ## Testing
 
@@ -187,38 +184,35 @@ Tests can be found in the `./src/test/java` folder.
 
 **In Eclipse**:
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
-  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+ as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 * To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
+ `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
-  to run as a JUnit test.
+ to run as a JUnit test.
 
 **Using Gradle**:
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
-   These are in the `guitests` package.
-  
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
+  These are in the `guitests` package.
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
-  
+  1. _Unit tests_ targeting the lowest level methods/classes. <br>
+ 	e.g. `seedu.address.commons.UrlUtilTest`
+  2. _Integration tests_ that are checking the integration of multiple code units
+	(those code units are assumed to be working).<br>
+ 	e.g. `seedu.address.storage.StorageManagerTest`
+  3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
+ 	how the are connected together.<br>
+ 	e.g. `seedu.address.logic.LogicManagerTest`
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
- See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+our GUI tests can be run in the _headless_ mode.
+In the headless mode, GUI tests do not show up on the screen.
+That means the developer can do other things on the Computer while the tests are running.<br>
+See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 ## Dev Ops
 
 ### Build Automation
@@ -233,12 +227,11 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 ### Making a Release
 
 Here are the steps to create a new release.
- 
- 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
- 2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
-    and upload the JAR file your created.
-   
+1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
+2. Tag the repo with the version number. e.g. `v0.1`
+2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
+	and upload the JAR file your created.
+  
 ### Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the
@@ -252,44 +245,165 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+`* * *` | user | add a task with deadline| 
+`* * *` | user | add a task without start time and deadline| keep track of general, non-time based tasks 
+`* * *` | user | add an event with start time and close time| 
+`* * *` | user | add an event/task with tag| 
+`* * *` | user | delete a task| remove tasks that I do not have to take any further action on
+`* * *` |user | undo my previous action | recover from commands entered by mistake
+`* * *` | user | find a task from to-do list| find details of tasks without having to go through the entire list
+`* * *` | user | update a task | change the specifications of a specific task
+`* * *` | user | see the entire to-do list | know the number of task/ event that I have
+`* * *` | user | specify the file location of the task list | store the list in a more convenient location (such as Dropbox)
+`* *` | user | mark a task as completed | distinguish between completed and pending tasks
+`* *` | user | sync events and tasks with due dates with Google Calendar| collate my tasks
+`* *` |user | be able to mark certain tasks as important | easily distinguish tasks that require attention/action to be taken
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `MESS` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to add a task
+2. MESS adds the task to the list<br>
+Use case ends.
+
+**Extensions**
+1a. The input command format is wrong
+> MESS shows an error message with correct input format and prompts user to enter correct command
+>User case resumes on step 1.
+
+
+#### Use case: Delete task by task name
+
+**MSS**
+
+1. User request to delete task by task name
+2.  MESS deletes the task <br>
+Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+>User case ends
+
+1b. No task match with task name
+> User case ends
+
+1c. The delete command format is wrong.
+>MESS shows an error message and prompts user to type the correct format <br>
+   Use case resumes at step 1
+
+
+#### Use case: Delete task by index
+
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks 
+3. User requests to delete a specific task in the list 
+4. MESS deletes the task <br>
+Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> Use case ends
+
+1b. The list command format is wrong.
+
+>MESS shows an error message and prompts user to type the correct format <br>
+   Use case resumes at step 1
+
+
+3a. The given index is invalid
+
+>MESS shows an error message <br>
+   Use case resumes at step 2
+
+#### Use case: Update task
+
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks 
+3. User requests to update a specific task in the list
+4. MESS updates the task <br>
+Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+>MESS shows an error message <br>
+   Use case resumes at step 3
+
+3b. The update command format is wrong
+
+>MESS shows an error message and prompts user to type the correct format<br>
+  User case resumes at step 3
+
+#### Use case: Undo previous action
+
+**MSS**
+
+1. User requests to undo
+2. MESS undo the previous action<br>
+Use case ends.
+
+**Extensions**
+
+1a. There is no previous action
+
+> Use case ends
+
+#### Use case: Find task
+
+**MSS**
+
+1. User requests to find a task
+2. MESS shows the searched task <br>
+Use case ends.
+
+**Extensions**
+
+1a. The find command format is wrong
+
+>MESS shows an error message and prompts user to type the correct format <br>
+   Use case resumes at step 1.
+
+1b. There is no matched task
+
+>MESS shows an no-match message <br>
+   Use case ends.
+
+#### Use case: List all tasks
+
+**MSS**
+
+1. User requests to list all tasks
+2. MESS shows the entire list<br>
 Use case ends.
 
 **Extensions**
 
 2a. The list is empty
 
-> Use case ends
+> Nothing will be returned. <br>
+Use case ends.
 
-3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
-
-{More to be added}
 
 ## Appendix C : Non Functional Requirements
 
@@ -379,3 +493,4 @@ Use case ends.
 3. Synchronization to different platform is only available for premium version
 
 In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, priority for tasks and the tag for tasks are some important features.
+
