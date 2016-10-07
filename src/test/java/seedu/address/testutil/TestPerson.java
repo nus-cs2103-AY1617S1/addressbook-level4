@@ -1,16 +1,16 @@
 package seedu.address.testutil;
 
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.person.*;
+import seedu.address.model.task.*;
 
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestPerson implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
-    private Email email;
+    private Deadline address;
+    private Priority email;
     private Phone phone;
     private UniqueTagList tags;
 
@@ -22,11 +22,11 @@ public class TestPerson implements ReadOnlyPerson {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Deadline address) {
         this.address = address;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(Priority email) {
         this.email = email;
     }
 
@@ -45,12 +45,12 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public Email getEmail() {
+    public Priority getEmail() {
         return email;
     }
 
     @Override
-    public Address getAddress() {
+    public Deadline getDeadline() {
         return address;
     }
 
@@ -69,7 +69,7 @@ public class TestPerson implements ReadOnlyPerson {
         sb.append("add " + this.getName().fullName + " ");
         sb.append("p/" + this.getPhone().value + " ");
         sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("a/" + this.getDeadline().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
