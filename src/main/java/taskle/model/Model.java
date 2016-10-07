@@ -2,9 +2,11 @@ package taskle.model;
 
 import java.util.Set;
 
+
 import taskle.commons.core.ModifiableObservableList;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.model.person.ModifiableTask;
+import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.Task;
 import taskle.model.person.UniqueTaskList;
@@ -23,7 +25,7 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Edits the given task. */
-    void editTask(ModifiableTask target) throws UniqueTaskList.TaskNotFoundException;
+    void editTask(ModifiableTask target, Name newName) throws UniqueTaskList.TaskNotFoundException;
     
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
