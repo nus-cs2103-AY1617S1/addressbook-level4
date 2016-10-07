@@ -13,7 +13,8 @@
 
 1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
-3. Double-click the file to start the app. The GUI should appear in a few seconds.
+3. Double-click the file to start the app. The GUI should appear in a few seconds.<br>
+   <img src="images/GUI2.png">
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
@@ -53,7 +54,7 @@ Examples:
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in the task manager.<br>
-Format: `list [-t] [-pr] [-t/TAGS]...`
+Format: `list [-pr] [-t/TAGS]...`
 
 > * Tasks are sorted chronologically by default
 > * Tasks without deadlines are listed at the end when chronologically sorted
@@ -114,13 +115,9 @@ Examples:
 
 #### Listing all tags used: `list tags`
 Lists all the tags used in the task manager.<br>
-Format: `list tags [-t] [-c]`
+Format: `list tags`
 
 > Lists all tags used in both task manager by default
-
-Modifiers | Action
----|:---
--t | List tags used in task manager
 
 #### Adding tags to a task: `add tag`
 Add tags to last selected task.<br>
@@ -155,7 +152,6 @@ Examples:
   `complete 2`<br>
   Add a tag `COMPLETE` the 2nd task in the task manager.
 
-
 #### Undo action: `undo`
 Undoes the most recent change from the task manager.<br>
 Format: `undo`
@@ -184,13 +180,13 @@ Command | Format
 -------- | :--------
 Add Task | `add DESCRIPTION [pr/RANK] [time/TIME] [t/TAG]...`
 Add Tag | `add tag [MORE_TAGS]`
-Clear | `clear [-a] [-t] [-c]`
+Clear | `clear`
 Delete | `delete INDEX`
 Remove Tags | `delete TAG [MORE_TAGS]`
 Edit | `edit INPUT [MORE_INPUT]`
 Find Tasks | `find KEYWORD [MORE_KEYWORDS]`
 List Tasks | `list [-pr] [-t/TAG]...`
-List Tags | `list tags [-t] [-c]`
+List Tags | `list tags`
 Undo | `undo`
 Help | `help`
 Select | `select INDEX`
