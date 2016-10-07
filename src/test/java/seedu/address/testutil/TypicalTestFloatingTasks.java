@@ -2,7 +2,8 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.TaskManager;
-import seedu.address.model.person.*;
+import seedu.address.model.item.*;
+import seedu.address.model.item.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 
 /**
  *
@@ -13,21 +14,17 @@ public class TypicalTestFloatingTasks {
 
     public TypicalTestFloatingTasks() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
-                    .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withAddress("little tokyo").build();
-            george = new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
+            alice =  new FloatingTaskBuilder().withName("Meet Alice Pauline").withPriority("1").build();
+            benson = new FloatingTaskBuilder().withName("Meet Benson Meier").withPriority("2").build();
+            carl = new FloatingTaskBuilder().withName("Meet Carl Kurz").withPriority("3").build();
+            daniel = new FloatingTaskBuilder().withName("Meet Daniel Meier").withPriority("4").build();
+            elle = new FloatingTaskBuilder().withName("Meet Elle Meyer").withPriority("5").build();
+            fiona = new FloatingTaskBuilder().withName("Meet Fiona Kunz").withPriority("6").build();
+            george = new FloatingTaskBuilder().withName("Meet George Best").withPriority("7").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
+            hoon = new FloatingTaskBuilder().withName("Meet Hoon Meier").withPriority("8").build();
+            ida = new FloatingTaskBuilder().withName("Meet Ida Mueller").withPriority("9").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -35,13 +32,18 @@ public class TypicalTestFloatingTasks {
     }
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
-        ab.addFloatingTask(new Person(alice));
-        ab.addFloatingTask(new Person(benson));
-        ab.addFloatingTask(new Person(carl));
-        ab.addFloatingTask(new Person(daniel));
-        ab.addFloatingTask(new Person(elle));
-        ab.addFloatingTask(new Person(fiona));
-        ab.addFloatingTask(new Person(george));
+        try {
+            ab.addFloatingTask(new FloatingTask(alice));
+            ab.addFloatingTask(new FloatingTask(benson));
+            ab.addFloatingTask(new FloatingTask(carl));
+            ab.addFloatingTask(new FloatingTask(daniel));
+            ab.addFloatingTask(new FloatingTask(elle));
+            ab.addFloatingTask(new FloatingTask(fiona));
+            ab.addFloatingTask(new FloatingTask(george));
+        } catch (DuplicateFloatingTaskException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public TestFloatingTask[] getTypicalPersons() {

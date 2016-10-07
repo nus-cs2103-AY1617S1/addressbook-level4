@@ -1,20 +1,27 @@
 package seedu.address.testutil;
 
-import seedu.address.model.tag.UniqueTagList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyFloatingTask;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable floating task object. For testing only.
  */
 public class TestFloatingTask implements ReadOnlyFloatingTask {
 
     private Name name;
-    private UniqueTagList tags;
+    private Priority priority;
+    //private UniqueTagList tags;
 
     public TestFloatingTask() {
-        tags = new UniqueTagList();
+        try {
+            this.priority = new Priority("5");
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //tags = new UniqueTagList();
     }
 
     public void setName(Name name) {
@@ -26,10 +33,13 @@ public class TestFloatingTask implements ReadOnlyFloatingTask {
         return name;
     }
     
+    public void setPriorityValue(Priority priority){
+        this.priority = priority;
+    }
+    
     @Override
     public Priority getPriorityValue() {
-        // TODO Auto-generated method stub
-        return null;
+        return priority;
     }
 
     @Override
@@ -39,8 +49,8 @@ public class TestFloatingTask implements ReadOnlyFloatingTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("add " + this.getName().name + " ");
+        sb.append("rank " + this.getPriorityValue().priorityValue);
         return sb.toString();
     }
 }

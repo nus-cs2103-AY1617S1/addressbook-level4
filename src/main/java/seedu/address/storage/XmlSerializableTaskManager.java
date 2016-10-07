@@ -1,8 +1,6 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.item.ReadOnlyFloatingTask;
 import seedu.address.model.item.UniqueFloatingTaskList;
@@ -10,12 +8,11 @@ import seedu.address.model.item.UniqueFloatingTaskList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable Task Manager that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {

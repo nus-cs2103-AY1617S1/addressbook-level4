@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.FloatingTaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -20,7 +20,6 @@ import seedu.address.model.item.FloatingTask;
 import seedu.address.model.TaskManager;
 import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.XmlSerializableTaskManager;
 
 import java.io.File;
@@ -66,15 +65,15 @@ public class TestUtil {
     private static FloatingTask[] getSampleFloatingTaskData() {
         try {
             return new FloatingTask[]{
-                    new FloatingTask(new Name("Ali Muster"), new Priority("9482424")),
-                    new FloatingTask(new Name("Boris Mueller"), new Priority("87249245")),
-                    new FloatingTask(new Name("Carl Kurz"), new Priority("95352563")),
-                    new FloatingTask(new Name("Daniel Meier"), new Priority("87652533")),
-                    new FloatingTask(new Name("Elle Meyer"), new Priority("9482224")),
-                    new FloatingTask(new Name("Fiona Kunz"), new Priority("9482427")),
-                    new FloatingTask(new Name("George Best"), new Priority("9482442")),
-                    new FloatingTask(new Name("Hoon Meier"), new Priority("8482424")),
-                    new FloatingTask(new Name("Ida Mueller"), new Priority("8482131"))
+                    new FloatingTask(new Name("Ali Muster"), new Priority("9")),
+                    new FloatingTask(new Name("Boris Mueller"), new Priority("8")),
+                    new FloatingTask(new Name("Carl Kurz"), new Priority("9")),
+                    new FloatingTask(new Name("Daniel Meier"), new Priority("8")),
+                    new FloatingTask(new Name("Elle Meyer"), new Priority("9")),
+                    new FloatingTask(new Name("Fiona Kunz"), new Priority("9")),
+                    new FloatingTask(new Name("George Best"), new Priority("9")),
+                    new FloatingTask(new Name("Hoon Meier"), new Priority("8")),
+                    new FloatingTask(new Name("Ida Mueller"), new Priority("8"))
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -313,7 +312,7 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestFloatingTask[] addPersonsToList(final TestFloatingTask[] persons, TestFloatingTask... personsToAdd) {
+    public static TestFloatingTask[] addFloatingTasksToList(final TestFloatingTask[] persons, TestFloatingTask... personsToAdd) {
         List<TestFloatingTask> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
         return listOfPersons.toArray(new TestFloatingTask[listOfPersons.size()]);
@@ -327,8 +326,8 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyFloatingTask person) {
-        return card.isSamePerson(person);
+    public static boolean compareCardAndPerson(FloatingTaskCardHandle card, ReadOnlyFloatingTask floatingTask) {
+        return card.isSameFloatingTask(floatingTask);
     }
 
     public static Tag[] getTagList(String tags) {

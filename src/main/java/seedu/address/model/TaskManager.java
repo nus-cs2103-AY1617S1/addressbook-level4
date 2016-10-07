@@ -6,8 +6,6 @@ import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyFloatingTask;
 import seedu.address.model.item.UniqueFloatingTaskList;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 import java.util.*;
 import java.util.stream.Collectors;
