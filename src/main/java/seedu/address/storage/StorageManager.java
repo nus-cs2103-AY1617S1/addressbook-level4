@@ -20,13 +20,13 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private EmeraldoStorage addressBookStorage;
+    private EmeraldoStorage emeraldoStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(EmeraldoStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.emeraldoStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -51,29 +51,29 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public String getEmeraldoFilePath() {
-        return addressBookStorage.getEmeraldoFilePath();
+        return emeraldoStorage.getEmeraldoFilePath();
     }
 
     @Override
     public Optional<ReadOnlyEmeraldo> readEmeraldo() throws DataConversionException, IOException {
-        return readEmeraldo(addressBookStorage.getEmeraldoFilePath());
+        return readEmeraldo(emeraldoStorage.getEmeraldoFilePath());
     }
 
     @Override
     public Optional<ReadOnlyEmeraldo> readEmeraldo(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readEmeraldo(filePath);
+        return emeraldoStorage.readEmeraldo(filePath);
     }
 
     @Override
     public void saveAddressBook(ReadOnlyEmeraldo addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getEmeraldoFilePath());
+        saveAddressBook(addressBook, emeraldoStorage.getEmeraldoFilePath());
     }
 
     @Override
     public void saveAddressBook(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        emeraldoStorage.saveAddressBook(addressBook, filePath);
     }
 
 
