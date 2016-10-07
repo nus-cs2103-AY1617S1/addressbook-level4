@@ -14,8 +14,8 @@ public class Config {
     private String appTitle = "dowat";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskBookFilePath = "data/taskbook.xml";
-    private String taskBookName = "MyTaskBook";
+    private String taskBookFilePath = "taskbook.xml";
+    private String taskBookName = "TypicalTaskBookName";
 
 
     public Config() {
