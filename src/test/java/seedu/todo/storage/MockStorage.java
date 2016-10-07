@@ -8,6 +8,7 @@ import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.UserPrefs;
 
 public class MockStorage implements Storage {
+    private boolean todoListWasSaved = false;
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
@@ -36,12 +37,17 @@ public class MockStorage implements Storage {
 
     @Override
     public void saveTodoList(ImmutableTodoList todoList) {
-        // Does nothing
+        todoListWasSaved = true;
     }
 
     @Override
     public void saveTodoList(ImmutableTodoList todoList, String filePath) {
-        // Does nothing
+        todoListWasSaved = true;
+    }
+    
+    public void assertTodoListWasSaved() {
+        assert todoListWasSaved;
+        todoListWasSaved = false;
     }
 
 }

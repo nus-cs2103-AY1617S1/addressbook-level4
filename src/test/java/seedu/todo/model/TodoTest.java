@@ -16,6 +16,7 @@ import seedu.todo.storage.MockStorage;
 public class TodoTest {
     private TodoList todo;
     private UnmodifiableObservableList<ImmutableTask> observableList;
+    private MockStorage storage;
     
     private ImmutableTask getTask(int index) {
         return todo.getTasks().get(index);
@@ -23,7 +24,8 @@ public class TodoTest {
     
     @Before
     public void setUp() {
-        todo = new TodoList(new MockStorage());
+        storage = new MockStorage();
+        todo = new TodoList(storage);
         observableList = todo.getObserveableList();
     }
     
@@ -33,12 +35,13 @@ public class TodoTest {
         assertEquals(1, todo.getTasks().size());
         assertFalse(getTask(0).isPinned());
         assertFalse(getTask(0).isCompleted());
+        storage.assertTodoListWasSaved();
         
         todo.add("Test Task 2");
         assertEquals(2, todo.getTasks().size());
-        
         assertEquals("Test Task 1", getTask(0).getTitle());
-        assertEquals("Test Task 2", getTask(1).getTitle());        
+        assertEquals("Test Task 2", getTask(1).getTitle());
+        storage.assertTodoListWasSaved();
     }
     
     @Test
@@ -54,16 +57,18 @@ public class TodoTest {
             t.setTitle(title);
             t.setDescription(description);
         });
-        
         assertEquals(title, getTask(0).getTitle());
         assertEquals(description, getTask(0).getDescription().get());
+        storage.assertTodoListWasSaved();
         
         // Check that updating boolean fields work
         todo.update(task, t -> t.setPinned(true));
         assertTrue(getTask(0).isPinned());
+        storage.assertTodoListWasSaved();
 
         todo.update(task, t -> t.setCompleted(true));
         assertTrue(getTask(0).isCompleted());
+        storage.assertTodoListWasSaved();
     }
     
     @Test
