@@ -5,7 +5,7 @@ import seedu.address.commons.util.CollectionUtil;
 
 public class FloatingTask implements ReadOnlyFloatingTask {
     
-    public static final String VARIABLE_CONNECTOR = ". Rank: ";
+    public static final String VARIABLE_CONNECTOR = ", Rank: ";
     public static final String DEFAULT_PRIORITY_VALUE = "5";
 
     
