@@ -24,10 +24,15 @@ public class TimeUtilTest {
     
     @Test
     public void getTaskDeadlineString_anHourBeforeDeadlines() {
-        LocalDateTime inputTime = LocalDateTime.now().plusHours(1).plusMinutes(10);
-        String generatedOutput = TimeUtil.getTaskDeadlineString(inputTime);
         String expectedOutput = "in an hour";
-        assertEquals(generatedOutput, expectedOutput);
+        
+        LocalDateTime inputTime1 = LocalDateTime.now().plusHours(1);
+        String generatedOutput1 = TimeUtil.getTaskDeadlineString(inputTime1);
+        assertEquals(generatedOutput1, expectedOutput);
+        
+        LocalDateTime inputTime2 = LocalDateTime.now().plusHours(1).plusMinutes(10);
+        String generatedOutput2 = TimeUtil.getTaskDeadlineString(inputTime2);
+        assertEquals(generatedOutput2, expectedOutput);
     }
 
 }
