@@ -1,9 +1,9 @@
 package seedu.address.model.task;
 
-import java.util.Objects;
-
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
+
+import java.util.Objects;
 
 /**
  * Represents a Person in the address book.
@@ -16,6 +16,7 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private StartTime startTime;
     private EndTime endTime;
+    private Priority priority;
     private int uniqueID;
     private boolean isComplete;
 
@@ -24,11 +25,12 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, StartTime startTime, EndTime endTime, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime, tags);
+    public Task(Name name, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startTime, endTime, priority, tags);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.priority = priority;
         this.uniqueID = currentID++;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isComplete = false;
@@ -38,7 +40,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getPriority(),source.getTags());
     }
 
     @Override
@@ -59,6 +61,14 @@ public class Task implements ReadOnlyTask {
     @Override
     public int getUniqueID() {
         return uniqueID;
+    }
+    
+    public Priority getPriority(){
+    	return priority;
+    }
+    
+    public void setUniqueId(int newuniqueId){
+    	uniqueID = newuniqueId;
     }
 
     @Override
@@ -92,7 +102,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startTime, endTime, uniqueID, tags);
+        return Objects.hash(name, startTime, endTime, priority, uniqueID, tags);
     }
 
     @Override

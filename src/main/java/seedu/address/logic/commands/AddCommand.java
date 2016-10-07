@@ -31,7 +31,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String startTime, String endTime, Set<String> tags) throws IllegalValueException {
+    public AddCommand(String name, String startTime, String endTime, String priority, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -42,6 +42,7 @@ public class AddCommand extends Command {
                 new StartTime(startTime),
 //              new EndDate(endDate),
                 new EndTime(endTime),
+                new Priority(priority),
                 new UniqueTagList(tagSet)
         );
     }
@@ -51,8 +52,8 @@ public class AddCommand extends Command {
      * 
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, Set<String> tags) throws IllegalValueException {
-        this(name, "NIL", "NIL", tags);
+    public AddCommand(String name, String priority, Set<String> tags) throws IllegalValueException {
+        this(name, "NIL", "NIL", priority ,tags);
     }
 
     @Override
