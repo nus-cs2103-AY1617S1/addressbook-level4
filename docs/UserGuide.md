@@ -42,7 +42,6 @@ Important: The square brackets are compulsory when adding an event.
 
 Example: Add complete report, 120916, 1900
 
-
 >Important: The date and end time are compulsory when adding an deadline
 
 ####4.1.3 Add a to-do
@@ -68,6 +67,18 @@ The multiple edit task functions allow you to update specific task details.
 >Format: **Edit** &lt;index&gt; &lt;deadline description&gt;, &lt;date&gt;, &lt;end time&gt;, &lt;tags&gt; 
  
 >Format: **Edit** &lt;index&gt; &lt;to-do description&gt; !
+
+To remove certain task details like end time, simply leave their corresponding sections in the command format blank.
+
+>Note: Adding a start time and end time to a to-do will automatically convert your to-do into and event.
+
+>Note: Adding a end time to a to-do will automatically convert your to-do into a deadline.
+
+>Note: Removing date from events and deadlines will automatically convert them into a to-do with no date or time.
+
+>Note: Removing start time from events will automatically convert them into deadlines.
+
+>Note: Removing end time from deadlines will automatically set the end time of the deadline to 2359. 
  
 #### 4.2.2 Edit task description
 
@@ -83,13 +94,17 @@ The multiple edit task functions allow you to update specific task details.
 
 >Format: **Edit** &lt;index&gt; **start** &lt;start time&gt;
 
+>Note: Adding a start time to a to-do will automatically convert your to-do into an event with a default day of today and start time as entered. 
+
 #### 4.2.5 Edit task end time 
 
 >Format: **Edit** &lt;index&gt; **end** &lt;end time&gt;
 
-#### 4.2.6 Edit task tags
+>Note: Adding a end time to a to-do will automatically convert your to-do into a deadline with a default date of today and end time as entered. 
 
->Format: **Edit** &lt;index&gt; **tags** &lt;tags&gt;
+#### 4.2.6 Edit a specific tag
+
+>Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt > &lt;new_tag&gt;
 
 #### 4.2.7 Edit task priority 
 
@@ -119,7 +134,7 @@ Search #CS2103
 
 Only the tasks with the keyword are displayed.
 
-###4.4 Marking Task as Done 
+###4.4 Mark done tasks 
 
 When you are done with tasks, enter this command to mark them as done and hide them away.
 
