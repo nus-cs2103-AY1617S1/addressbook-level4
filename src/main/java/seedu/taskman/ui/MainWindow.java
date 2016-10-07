@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.taskman.Constants;
 import seedu.taskman.commons.core.Config;
 import seedu.taskman.commons.core.GuiSettings;
 import seedu.taskman.commons.events.ui.ExitAppRequestEvent;
@@ -22,7 +23,7 @@ import seedu.taskman.model.task.ReadOnlyTask;
 public class MainWindow extends UiPart {
 
     // TODO: ui, change app icon
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = Constants.APP_ICON_FILE_PATH;
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
