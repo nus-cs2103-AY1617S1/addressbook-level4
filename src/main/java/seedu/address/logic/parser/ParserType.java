@@ -1,10 +1,16 @@
 package seedu.address.logic.parser;
 
 import java.lang.reflect.Field;
+import java.util.logging.Logger;
+
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 
 public class ParserType {
 		
-	private static final Class<?>[] parserTypes = new Class[]{AddCommandParser.class, DeleteCommandParser.class};
+	private static final Class<?>[] parserTypes = CommandParserList.getList();
+    private static final Logger logger = LogsCenter.getLogger(ParserType.class);
+
 	
 	public static CommandParser get(String commandWord){
 		for(int i=0; i<parserTypes.length; i++){
@@ -15,16 +21,11 @@ public class ParserType {
 				}
 			} 
 			catch (NoSuchFieldException e) {
-				return new IncorrectCommandParser();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warning("Error: Non-parser class placed into list");
+				System.exit(0);
+			} catch (Exception e) {
+				logger.warning("Exception encountered");
+				System.exit(0);			
 			}
 		}
 		return new IncorrectCommandParser();
