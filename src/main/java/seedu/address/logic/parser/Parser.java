@@ -28,10 +28,10 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)" 
 										+ "((?: s/)(?<start>[^/&&\\S]+))?"
 										+ "((?: e/)(?<end>[^/&&\\S]+))?"
-										+ "((?: p/)(?<priority>[^/]+))?"
+										+ "p/(?<priority>[^/]+)"
 										+ "(?<tagArguments>(?: t/[^/]+)*)");
     
-    private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)" + "((?: p/)(?<priority>[^/]+))?" + "(?<tagArguments>(?: t/[^/]+)*)");
+    private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)" + "p/(?<priority>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
     private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern.compile("(?<index>(\\d+)?)|"
     		+ "(?<searchString>[^/]+)");
 
