@@ -3,7 +3,7 @@
 ## Project Team
 
 #### [Akshay Narayan](https://github.com/okkhoy)
-<img src="images/akshay.png" width="150"><br>
+<img src="images/akshay.jpg" width="150"><br>
 **Role**: Project Mentor <br>
 
 -----
