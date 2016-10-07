@@ -5,8 +5,9 @@
 
 <img src="docs/images/Ui.png" width="600"><br>
 
-* This is a desktop to-do list/calendar application. It has a GUI but most of the user interactions happen using 
-  a CLI (Command Line Interface).
+This is a desktop task manager which can run offline. 
+
+It has a Graphical User Interface (GUI) but it is mainly operated using the Command Line Interface (CLI).
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
