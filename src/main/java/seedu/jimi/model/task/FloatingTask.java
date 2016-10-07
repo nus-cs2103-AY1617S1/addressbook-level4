@@ -21,6 +21,7 @@ public class FloatingTask implements ReadOnlyTask {
     public FloatingTask(Name name, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.isCompleted = false;
+        this.name = name;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
