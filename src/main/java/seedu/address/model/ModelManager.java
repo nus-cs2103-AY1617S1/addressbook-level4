@@ -78,9 +78,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void editTask(ReadOnlyTask oldTask, Task newTask) throws PersonNotFoundException, UniquePersonList.DuplicatePersonException {
-        addressBook.removePerson(oldTask);  
-        addressBook.addPerson(newTask);
+    public void editTask(ReadOnlyTask oldTask, Task newTask) 
+            throws PersonNotFoundException, UniquePersonList.DuplicatePersonException {
+        addressBook.editPerson(oldTask, newTask);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
         

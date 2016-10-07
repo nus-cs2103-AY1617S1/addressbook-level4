@@ -126,6 +126,7 @@ public class Parser {
         catch (NumberFormatException nfe) {
             return new IncorrectCommand("Invalid Index Number.");
         }
+        assert index >= 0;
         matcher = PERSON_DATA_ARGS_FORMAT.matcher(matcher.group("arguments"));
         
         // Validate arg string format

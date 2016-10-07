@@ -52,7 +52,7 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Location getAddress() {
+    public Location getLocation() {
         return address;
     }
 
@@ -71,7 +71,7 @@ public class TestPerson implements ReadOnlyTask {
         sb.append("add " + this.getName().fullName + " ");
         sb.append("s/" + this.getStartDate().toString() + " ");
         sb.append("e/" + this.getEndDate().toString() + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("a/" + this.getLocation().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

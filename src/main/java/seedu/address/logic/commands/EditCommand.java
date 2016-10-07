@@ -13,7 +13,6 @@ import seedu.address.model.task.Location;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniquePersonList;
 import seedu.address.model.task.UniquePersonList.DuplicatePersonException;
 import seedu.address.model.task.UniquePersonList.PersonNotFoundException;
 
@@ -29,7 +28,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
     
     public final int targetIndex;
-    private final Task toEdit;
+    private final Task toCopy;
 
     /**
      * Convenience constructor using raw values.
@@ -44,7 +43,7 @@ public class EditCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toEdit = new Task(
+        this.toCopy = new Task(
                 new Name(name),
                 DateFormatter.convertStringToDate(startDate),
                 DateFormatter.convertStringToDate(endDate),
@@ -65,10 +64,12 @@ public class EditCommand extends Command {
         ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
 
         try {
-            model.editTask(personToEdit, toEdit);
-        } catch (Exception pnfe) {
+            model.editTask(personToEdit, toCopy);
+        } catch (DuplicatePersonException dpe) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
-        } 
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit));
     }
 }

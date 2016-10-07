@@ -46,7 +46,7 @@ public class PersonCard extends UiPart{
         id.setText(displayedIndex + ". ");
         phone.setText("Start Date: " + DateFormatter.convertDateToDisplayString(person.getStartDate()));
         email.setText("Due Date: " + DateFormatter.convertDateToDisplayString(person.getEndDate()));
-        address.setText(person.getAddress().value);
+        address.setText(person.getLocation().value);
         tags.setText(person.tagsString());
     }
 

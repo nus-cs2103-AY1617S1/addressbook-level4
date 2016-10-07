@@ -420,7 +420,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append(" s/").append(p.getStartDate());
             cmd.append(" e/").append(p.getEndDate());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" a/").append(p.getLocation());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
