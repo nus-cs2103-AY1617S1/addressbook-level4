@@ -26,7 +26,7 @@ Component SME: UI
 <img src="images/henry.png" width="150"><br>
 **Role**: Developer <br>  
 Responsibilities: Documentation, Code Quality <br>
-Component SME: Logic
+Component SME: Logic, Parsing
 
 -----
 
