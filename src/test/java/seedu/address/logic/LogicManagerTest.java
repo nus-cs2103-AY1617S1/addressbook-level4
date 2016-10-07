@@ -359,7 +359,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            return new Task(name, stubTagList);
+            return new FloatTask(name, stubTagList);
         }
 
         /**
@@ -370,7 +370,7 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Task generateTask(int seed) throws Exception {
-            return new Task(
+            return new FloatTask(
                     new Name("Task " + seed), stubTagList);
         }
 
@@ -453,7 +453,7 @@ public class LogicManagerTest {
          * Generates a Task object with given name. Other fields will have some dummy values.
          */
         Task generateTaskWithName(String name) throws Exception {
-            return new Task(
+            return new FloatTask(
                     new Name(name), stubTagList);
         }
     }

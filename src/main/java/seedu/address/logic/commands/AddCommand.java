@@ -37,7 +37,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name)
             throws IllegalValueException {
-        this.toAdd = new Task(new Name(name), stubTagList);
+        this.toAdd = new FloatTask(new Name(name), stubTagList);
     }
 
     @Override

@@ -33,13 +33,13 @@ public class TypicalTestTasks {
     public static void loadAddressBookWithSampleData(TaskManager ab) {
 
         try {
-            ab.addTask(new Task(attendMeeting));
-            ab.addTask(new Task(buyMilk));
-            ab.addTask(new Task(createPlan));
-            ab.addTask(new Task(deliverGoods));
-            ab.addTask(new Task(eatDinner));
-            ab.addTask(new Task(flyKite));
-            ab.addTask(new Task(goConcert));
+            ab.addTask(new FloatTask(attendMeeting));
+            ab.addTask(new FloatTask(buyMilk));
+            ab.addTask(new FloatTask(createPlan));
+            ab.addTask(new FloatTask(deliverGoods));
+            ab.addTask(new FloatTask(eatDinner));
+            ab.addTask(new FloatTask(flyKite));
+            ab.addTask(new FloatTask(goConcert));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
