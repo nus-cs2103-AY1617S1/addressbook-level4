@@ -9,14 +9,9 @@ import java.time.LocalDateTime;
 public class TimeUtil {
     
     /**
-     * Gets the formatted time for the UI, where if the user provides:
-     *     endTime only          - parsed as deadline format for tasks
-     *     startTime and endTime - parsed as duration format for events
-     *     any other combination - invalid input
-     * 
-     * @param startTime starting time (optional)
-     * @param endTime ending time (compulsory)
-     * @return a formatted time to be displayed in UI
+     * Gets the task deadline expression for the UI.
+     * @param endTime ending time
+     * @return a formatted deadline String
      */
     public static String getTaskDeadlineString(LocalDateTime startTime, LocalDateTime endTime) {
         //Validate assumptions
