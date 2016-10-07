@@ -13,14 +13,14 @@ import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.tasklist.commons.exceptions.IllegalValueException;
+import seedu.tasklist.commons.util.FileUtil;
+import seedu.tasklist.commons.util.XmlUtil;
+import seedu.tasklist.model.TaskList;
+import seedu.tasklist.model.task.*;
+import seedu.tasklist.storage.XmlSerializableTaskList;
+import seedu.tasklsit.model.tag.Tag;
+import seedu.tasklsit.model.tag.UniqueTagList;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Person[] samplePersonData = getSamplePersonData();
+    public static final Task[] samplePersonData = getSamplePersonData();
 
-    private static Person[] getSamplePersonData() {
+    private static Task[] getSamplePersonData() {
         try {
-            return new Person[]{
-                    new Person(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Person(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Person(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Person(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Person(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Person(new Name("George Best"), new Phone("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Person(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
+            return new Task[]{
+                    new Task(new Title("Ali Muster"), new Group("9482424"), new Description("hans@google.com"), new DueDate("4th street"), new UniqueTagList()),
+                    new Task(new Title("Boris Mueller"), new Group("87249245"), new Description("ruth@google.com"), new DueDate("81th street"), new UniqueTagList()),
+                    new Task(new Title("Carl Kurz"), new Group("95352563"), new Description("heinz@yahoo.com"), new DueDate("wall street"), new UniqueTagList()),
+                    new Task(new Title("Daniel Meier"), new Group("87652533"), new Description("cornelia@google.com"), new DueDate("10th street"), new UniqueTagList()),
+                    new Task(new Title("Elle Meyer"), new Group("9482224"), new Description("werner@gmail.com"), new DueDate("michegan ave"), new UniqueTagList()),
+                    new Task(new Title("Fiona Kunz"), new Group("9482427"), new Description("lydia@gmail.com"), new DueDate("little tokyo"), new UniqueTagList()),
+                    new Task(new Title("George Best"), new Group("9482442"), new Description("anna@google.com"), new DueDate("4th street"), new UniqueTagList()),
+                    new Task(new Title("Hoon Meier"), new Group("8482424"), new Description("stefan@mail.com"), new DueDate("little india"), new UniqueTagList()),
+                    new Task(new Title("Ida Mueller"), new Group("8482131"), new Description("hans@google.com"), new DueDate("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,7 +97,7 @@ public class TestUtil {
         }
     }
 
-    public static List<Person> generateSamplePersonData() {
+    public static List<Task> generateSamplePersonData() {
         return Arrays.asList(samplePersonData);
     }
 
@@ -134,12 +134,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+    public static TaskList generateEmptyAddressBook() {
+        return new TaskList(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskList generateSampleStorageAddressBook() {
+        return new XmlSerializableTaskList(generateEmptyAddressBook());
     }
 
     /**
@@ -190,7 +190,7 @@ public class TestUtil {
         // remove final modifier from field
         Field modifiersField = Field.class.getDeclaredField("modifiers");
         modifiersField.setAccessible(true);
-        // ~Modifier.FINAL is used to remove the final modifier from field so that its value is no longer
+        // ~Modifier.FINAL is used to remove the final modifier from field so that its description is no longer
         // final and can be changed
         modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
         field.set(null, newValue);
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
+    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
         return card.isSamePerson(person);
     }
 
