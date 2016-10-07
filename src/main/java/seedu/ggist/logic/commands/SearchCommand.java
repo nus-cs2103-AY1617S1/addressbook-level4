@@ -3,17 +3,17 @@ package seedu.ggist.logic.commands;
 import java.util.Set;
 
 /**
- * Finds and lists all tasks in GGist whose parameters contains any of the argument keywords.
- * Keyword matching is not case sensitive.
+ * Finds and lists all tasks in GGist whose task name contains any of the argument keywords.
+ * Keyword matching is case sensitive.
  */
 public class SearchCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "search";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
             + "the specified keywords (not case-sensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " buy milk";
+            + "Example: " + COMMAND_WORD + " milk ";
 
     private final Set<String> keywords;
 
