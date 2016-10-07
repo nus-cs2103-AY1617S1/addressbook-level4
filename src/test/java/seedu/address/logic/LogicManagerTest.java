@@ -213,23 +213,6 @@ public class LogicManagerTest {
     }
 
 
-    @Test
-    public void execute_list_showsAllPersons() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskList expectedAB = helper.generateAddressBook(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getPersonList();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-    }
-
-
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -263,32 +246,9 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
-    }
-
-    @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
-
-    @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
-
-        TaskList expectedAB = helper.generateAddressBook(threePersons);
-        helper.addToModel(model, threePersons);
-
-        assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
-                expectedAB,
-                expectedAB.getPersonList());
-        assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
-    }
-
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
