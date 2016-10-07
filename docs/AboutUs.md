@@ -4,14 +4,25 @@ We are a team of four computer engineering students based in the [School of Comp
 
 ## Project Team
 
+###Project Mentor :  Nirandika Wanigasekara  
+
+<img src="images/CIMG2539.JPG" width="100"><br>
+
+-----
+
 #### Lim Wei Ming Ronald
-**Role**: Project Advisor
+**Role**: Team Leader <br>
+Responsibilities: Documentation, Deliverables and Deadlines, Scheduling and Tracking
+
+Components: UI
 
 -----
 
 #### Zavier Ong 
 Role: Developer <br>  
-Responsibilities: Code Quality
+Responsibilities: Code Integration
+
+Components: Logic
 
 -----
 
@@ -19,10 +30,14 @@ Responsibilities: Code Quality
 Role: Developer <br>  
 Responsibilities: Testing
 
+Components: Storage
+
 -----
 
 #### Li Zhiyuan
 Role: Developer <br>  
-Responsibilities: Code Integration
+Responsibilities: Code Quality, Tool Expert
+
+Components: Model
 
 -----
