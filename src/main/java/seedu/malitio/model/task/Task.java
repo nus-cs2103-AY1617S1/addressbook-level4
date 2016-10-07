@@ -6,7 +6,7 @@ import seedu.malitio.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Person in the malitio.
+ * Represents a Task in Malitio.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {

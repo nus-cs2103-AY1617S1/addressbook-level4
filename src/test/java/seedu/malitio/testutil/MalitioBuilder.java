@@ -19,7 +19,7 @@ public class MalitioBuilder {
         this.malitio = malitio;
     }
 
-    public MalitioBuilder withPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public MalitioBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         malitio.addTask(task);
         return this;
     }

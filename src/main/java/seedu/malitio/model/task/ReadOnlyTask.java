@@ -3,7 +3,7 @@ package seedu.malitio.model.task;
 import seedu.malitio.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Person in Malitio.
+ * A read-only immutable interface for a Task in Malitio.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
@@ -39,7 +39,7 @@ public interface ReadOnlyTask {
     }
 
     /**
-     * Returns a string representation of this Person's tags
+     * Returns a string representation of this Task's tags
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();

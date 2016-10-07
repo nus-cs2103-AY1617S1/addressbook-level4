@@ -31,7 +31,7 @@ public class TaskListPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public List<ReadOnlyTask> getSelectedPersons() {
+    public List<ReadOnlyTask> getSelectedTasks() {
         ListView<ReadOnlyTask> taskList = getListView();
         return taskList.getSelectionModel().getSelectedItems();
     }
@@ -114,7 +114,7 @@ public class TaskListPanelHandle extends GuiHandle {
      * Navigates the listview to display and select the task.
      */
     public TaskCardHandle navigateToTask(ReadOnlyTask task) {
-        int index = getPersonIndex(task);
+        int index = getTaskIndex(task);
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
@@ -129,10 +129,10 @@ public class TaskListPanelHandle extends GuiHandle {
     /**
      * Returns the position of the task given, {@code NOT_FOUND} if not found in the list.
      */
-    public int getPersonIndex(ReadOnlyTask targetPerson) {
+    public int getTaskIndex(ReadOnlyTask targetTask) {
         List<ReadOnlyTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
-            if(tasksInList.get(i).getName().equals(targetPerson.getName())){
+            if(tasksInList.get(i).getName().equals(targetTask.getName())){
                 return i;
             }
         }
@@ -142,7 +142,7 @@ public class TaskListPanelHandle extends GuiHandle {
     /**
      * Gets a task from the list by index
      */
-    public ReadOnlyTask getPerson(int index) {
+    public ReadOnlyTask getTask(int index) {
         return getListView().getItems().get(index);
     }
 

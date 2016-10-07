@@ -36,7 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with malitio: " + src + " and user prefs " + userPrefs);
 
         malitio = new Malitio(src);
-        filteredTasks = new FilteredList<>(malitio.getPersons());
+        filteredTasks = new FilteredList<>(malitio.getTasks());
     }
 
     public ModelManager() {
@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyMalitio initialData, UserPrefs userPrefs) {
         malitio = new Malitio(initialData);
-        filteredTasks = new FilteredList<>(malitio.getPersons());
+        filteredTasks = new FilteredList<>(malitio.getTasks());
     }
 
     @Override
@@ -77,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicatemalitioChanged();
     }
 
-    //=========== Filtered Person List Accessors ===============================================================
+    //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {

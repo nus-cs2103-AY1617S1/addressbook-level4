@@ -192,7 +192,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // task already in internal malitio
+        model.addTask(toBeAdded); // task already in internal Malitio
 
         // execute command and verify result
         assertCommandBehavior(
@@ -205,10 +205,10 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        Malitio expectedAB = helper.generatemalitio(2);
+        Malitio expectedAB = helper.generateMalitio(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare malitio state
@@ -265,19 +265,19 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
+    public void execute_select_jumpsToCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generateTaskList(3);
+        List<Task> threeTasks = helper.generateTaskList(3);
 
-        Malitio expectedAB = helper.generatemalitio(threePersons);
-        helper.addToModel(model, threePersons);
+        Malitio expectedAB = helper.generateMalitio(threeTasks);
+        helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
+        assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
     }
 
 
@@ -293,16 +293,16 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
+    public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generateTaskList(3);
+        List<Task> threeTasks = helper.generateTaskList(3);
 
-        Malitio expectedAB = helper.generatemalitio(threePersons);
-        expectedAB.removeTask(threePersons.get(1));
-        helper.addToModel(model, threePersons);
+        Malitio expectedAB = helper.generateMalitio(threeTasks);
+        expectedAB.removeTask(threeTasks.get(1));
+        helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -322,10 +322,10 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("KE Y");
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        Malitio expectedAB = helper.generatemalitio(fourPersons);
+        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
+        Malitio expectedAB = helper.generateMalitio(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourPersons);
+        helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -341,10 +341,10 @@ public class LogicManagerTest {
         Task p3 = helper.generateTaskWithName("key key");
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
-        List<Task> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
-        Malitio expectedAB = helper.generatemalitio(fourPersons);
-        List<Task> expectedList = fourPersons;
-        helper.addToModel(model, fourPersons);
+        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
+        Malitio expectedAB = helper.generateMalitio(fourTasks);
+        List<Task> expectedList = fourTasks;
+        helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -360,10 +360,10 @@ public class LogicManagerTest {
         Task pTarget3 = helper.generateTaskWithName("key key");
         Task p1 = helper.generateTaskWithName("sduauo");
 
-        List<Task> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        Malitio expectedAB = helper.generatemalitio(fourPersons);
+        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
+        Malitio expectedAB = helper.generateMalitio(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourPersons);
+        helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -388,7 +388,7 @@ public class LogicManagerTest {
         /**
          * Generates a valid task using the given seed.
          * Running this function with the same parameter values guarantees the returned task will have the same state.
-         * Each unique seed will generate a unique Person object.
+         * Each unique seed will generate a unique Task object.
          *
          * @param seed used to generate the task data field values
          */
@@ -416,50 +416,50 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates malitio with auto-generated tasks.
+         * Generates Malitio with auto-generated tasks.
          */
-        Malitio generatemalitio(int numGenerated) throws Exception{
+        Malitio generateMalitio(int numGenerated) throws Exception{
             Malitio malitio = new Malitio();
-            addTomalitio(malitio, numGenerated);
+            addToMalitio(malitio, numGenerated);
             return malitio;
         }
 
         /**
-         * Generates an malitio based on the list of Persons given.
+         * Generates Malitio based on the list of Tasks given.
          */
-        Malitio generatemalitio(List<Task> tasks) throws Exception{
+        Malitio generateMalitio(List<Task> tasks) throws Exception{
             Malitio malitio = new Malitio();
-            addTomalitio(malitio, tasks);
+            addToMalitio(malitio, tasks);
             return malitio;
         }
 
         /**
-         * Adds auto-generated Person objects to the given malitio
-         * @param malitio The malitio to which the Persons will be added
+         * Adds auto-generated Task objects to the given Malitio
+         * @param The malitio to which the Tasks will be added
          */
-        void addTomalitio(Malitio malitio, int numGenerated) throws Exception{
-            addTomalitio(malitio, generateTaskList(numGenerated));
+        void addToMalitio(Malitio malitio, int numGenerated) throws Exception{
+            addToMalitio(malitio, generateTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given malitio
+         * Adds the given list of Tasks to the given Malitio
          */
-        void addTomalitio(Malitio malitio, List<Task> tasksToAdd) throws Exception{
+        void addToMalitio(Malitio malitio, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 malitio.addTask(p);
             }
         }
 
         /**
-         * Adds auto-generated Person objects to the given model
-         * @param model The model to which the Persons will be added
+         * Adds auto-generated Task objects to the given model
+         * @param model The model to which the Tasks will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception{
             addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given model
+         * Adds the given list of Tasks to the given model
          */
         void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
@@ -468,7 +468,7 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a list of Persons based on the flags.
+         * Generates a list of Tasks based on the flags.
          */
         List<Task> generateTaskList(int numGenerated) throws Exception{
             List<Task> tasks = new ArrayList<>();
@@ -483,7 +483,7 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a Person object with given name. Other fields will have some dummy values.
+         * Generates a Task object with given name. Other fields will have some dummy values.
          */
         Task generateTaskWithName(String name) throws Exception {
             return new Task(

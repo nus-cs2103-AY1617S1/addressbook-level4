@@ -4,7 +4,7 @@ import seedu.malitio.commons.events.BaseEvent;
 import seedu.malitio.model.task.ReadOnlyTask;
 
 /**
- * Represents a selection change in the Person List Panel
+ * Represents a selection change in the Task List Panel
  */
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
