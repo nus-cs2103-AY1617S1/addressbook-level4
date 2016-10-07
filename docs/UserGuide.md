@@ -2,29 +2,24 @@
 
 * [Quick Start](#quick-start)
 * [Features](#features)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
 
-## Quick Start
+## Quick start
+ 
+1. Ensure that you have the latest Java version ‘1.8.0_60’ or later installed in your 	Computer.<br>
+	> Having any Java 8 version is not enough<br>
+	> The application will not work for any earlier Java versions
+2. Find the project in the `Project Explorer` or `Package Explorer` (usually located 	at the left side)
+3. Right click on the project
+4. Click `Run As` > `Java Application` and choose the `Main` class. The GUI should 	appear within split second.
+5. Type the command into the command box and press <kbd>Enter</kbd> to execute the 	command. <br>
+	List of commands:
+	 * **`add`** : adds a task
+	 * **`show`** : shows all tasks
+	 * **`find`** : searches for a task
+	 * **`edit`** : edits a task
+	 * **`delete`** : deletes a task
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-   
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
-
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+7.  Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
@@ -39,45 +34,77 @@
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
 
-> Persons can have any number of tags (including 0)
+#### Adding a task : `add`
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+Description: Adds a task to the planner <br>
+Format:<br> 
+`add TASKNAME DATE(optional)` 
+`add TASKNAME DATE(optional) STARTTIME to ENDTIME isRECURRING(optional)`
+`add TASKNAME DATE(optional) by ENDTIME(optional) isRECURRING(optional)`
 
-#### Listing all persons : `list`
+Examples:
+*`add gym today` <br>
+(floating task with no specified time is added)
+*`add meeting tomorrow 2pm to 4pm` <br>
+(fixed task)
+*`add math homework by 6pm` <br>
+(task with a deadline, no date is specified so today’s date is assumed)<br>
+
+>All tasks will be stored with a date. If user adds a task with no date specified, it is assumed the task is to be done today. 
+>Daily Planner splits all tasks into three categories - floating tasks(tasks which have no start time or end time), fixed tasks(tasks with a specified start time and end time) and deadline tasks(tasks with only an end time). 
+>Daily Planner will use this categorization to automatically create the user’s schedule.
+
+
 Shows a list of all persons in the address book.<br>
 Format: `list`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+#### Viewing a schedule : `show`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+Description: Shows tasks on a particular day
+
+Format: `show DATE(optional)`
+
+Examples:
+*`show today (shows schedule for today)`
+*`show next wednesday (shows schedule for next wednesday)`
+
+>The show function will generate the user’s schedule when queried. Starting from the current time, it will consider all tasks in hand for the day and assign them to timeslots. 
+>Urgent tasks will be scheduled first(tasks with nearing deadlines). Fixed tasks will be scheduled only during their specified timeslot and floating tasks will be inserted to remaining empty timeslots throughout the day. Daily Planner will even account for breaks in between certain hours of consecutive tasks(say, every 3 hours). 
+>The user can then use this recommended schedule to worryless-ly go about their day. 
+
+
+#### Searching for a task: `find`
+
+Description: Searches for a particular task and displays more information about it.<br>
+
+Format: `find TASKNAME`
+> * The search is case insensitive.
+> * The order of the keywords does not matter. e.g. `math assignment` will match `assignment math`
 > * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
+> * Task matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Hans` will match `Hans Bo`
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+Examples:
+*`find cs lecture`
 
-#### Deleting a person : `delete`
+#### Editing a task: `edit`
+
+Description: edits a particular task’s details<br>
+Format:
+edit `INDEX DATE(optional)`<br> 
+	*Daily Planner will ask for changes* <br>
+	`NEWTASKNAME(optional) NEWDATE(optional) NEWSTARTTIME(optional) to NEWENDTIME(optional)`
+Examples:
+*`edit 2 tomorrow`<br>
+`wednesday 4pm to 6pm` <br>
+(only changes date and time)
+
+
 Deletes the specified person from the address book. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+
 
 Examples: 
 * `list`<br>
@@ -86,26 +113,21 @@ Examples:
 * `find Betsy`<br> 
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
+  
+#### Deleting a task : `delete`
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+Description: Deletes a task from the planner. <br>
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
+Format: `delete INDEX DATE(optional)` 
+
+> Deletes the task at the specified `INDEX`. 
+  The index refers to the index number shown on that day's schedule listing<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
-
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+Delete 5 12 oct (Deletes task 5 of 5th october)
+Delete 1 (No date specified, so deletes first task today)
+ 
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -115,20 +137,15 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
-## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
-       
-## Command Summary
 
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+
+
+
+
+
+
+
+
+
+
