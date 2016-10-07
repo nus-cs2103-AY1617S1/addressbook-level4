@@ -26,6 +26,6 @@ public class ClearCommandTest extends WhatNowGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage("WhatNow has been cleared!");
     }
 }

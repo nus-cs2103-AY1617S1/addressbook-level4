@@ -7,7 +7,7 @@ import seedu.whatnow.commons.events.ui.JumpToListRequestEvent;
 import seedu.whatnow.model.task.ReadOnlyTask;
 
 /**
- * Selects a task identified using it's last displayed index from the whatnow book.
+ * Selects a task identified using it's last displayed index from WhatNow.
  */
 public class SelectCommand extends Command {
 
