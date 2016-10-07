@@ -17,7 +17,7 @@ In the following sections, we outline the format of commands to use `Sudowudo`. 
 ```bash
 # format
 help           # for general how-to-use help
-help command   # for command-specific help
+help COMMAND   # for command-specific help
 ```
 
 ```bash
