@@ -1,11 +1,15 @@
 package taskle.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
+import taskle.commons.core.ModifiableObservableList;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.util.StringUtil;
+import taskle.model.person.ModifiableTask;
+import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.Task;
 import taskle.model.person.UniqueTaskList;
@@ -23,6 +27,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final ObservableList<ModifiableTask> modifiableTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -37,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        modifiableTasks = null;
     }
 
     public ModelManager() {
@@ -45,7 +51,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
+        modifiableTasks = null;
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+    }
+    
+    public ModelManager(ModifiableTaskManager initialData, UserPrefs userPrefs) {
+        taskManager = new TaskManager(initialData);
+        filteredTasks = null;
+        modifiableTasks = taskManager.getModifiableTasks();
     }
 
     @Override
@@ -69,7 +82,13 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
-
+    
+    @Override
+    public synchronized void editTask(ModifiableTask target, Name newName) throws TaskNotFoundException {
+        target.setName(newName);
+        indicateTaskManagerChanged();
+    }
+    
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
@@ -83,7 +102,12 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-
+    
+    @Override
+    public ModifiableObservableList<ModifiableTask> getModifiableFilteredTaskList() {
+        return new ModifiableObservableList<>(modifiableTasks);
+    }
+    
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
