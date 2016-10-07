@@ -39,7 +39,7 @@ public class TaskRecurrence {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskRecurrence // instanceof handles nulls
-                && this.value == ((TaskRecurrence) other).value); // state check TODO
+                && this.value.equals(((TaskRecurrence) other).value)); // state check TODO
     }
 
     @Override

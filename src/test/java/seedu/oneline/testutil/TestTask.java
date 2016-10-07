@@ -8,36 +8,16 @@ import seedu.oneline.model.task.*;
  */
 public class TestTask implements ReadOnlyTask {
 
-    private Name oldName;
-    private Address address;
-    private Email email;
-    private Phone phone;
-    private UniqueTagList tags;
-    
     private TaskName name;
     private TaskTime startTime;
     private TaskTime endTime;
     private TaskTime deadline;
     private TaskRecurrence recurrence;
+    
+    private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
-    }
-
-    public void setOldName(Name name) {
-        this.oldName = name;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setEmail(Email email) {
-        this.email = email;
-    }
-
-    public void setPhone(Phone phone) {
-        this.phone = phone;
     }
     
     public void setName(TaskName name) {
@@ -58,26 +38,6 @@ public class TestTask implements ReadOnlyTask {
 
     public void setRecurrence(TaskRecurrence recurrence) {
         this.recurrence = recurrence;
-    }
-    
-    @Override
-    public Name getOldName() {
-        return oldName;
-    }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
     }
 
     @Override
@@ -117,11 +77,12 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getOldName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("add " + this.getName().toString() + " ");
+        sb.append(".a " + this.getStartTime().toString() + " ");
+        sb.append(".b " + this.getEndTime().toString() + " ");
+        sb.append(".c " + this.getDeadline().toString() + " ");
+        sb.append(".d " + this.getRecurrence().toString() + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
         return sb.toString();
     }
 }

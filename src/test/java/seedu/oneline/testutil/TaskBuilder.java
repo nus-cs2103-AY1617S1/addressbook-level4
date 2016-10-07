@@ -15,33 +15,6 @@ public class TaskBuilder {
         this.task = new TestTask();
     }
 
-    public TaskBuilder withOldName(String name) throws IllegalValueException {
-        this.task.setOldName(new Name(name));
-        return this;
-    }
-
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
-            task.getTags().add(new Tag(tag));
-        }
-        return this;
-    }
-
-    public TaskBuilder withAddress(String address) throws IllegalValueException {
-        this.task.setAddress(new Address(address));
-        return this;
-    }
-
-    public TaskBuilder withPhone(String phone) throws IllegalValueException {
-        this.task.setPhone(new Phone(phone));
-        return this;
-    }
-
-    public TaskBuilder withEmail(String email) throws IllegalValueException {
-        this.task.setEmail(new Email(email));
-        return this;
-    }
-
     public TaskBuilder withName(String name) throws IllegalValueException {
         this.task.setName(new TaskName(name));
         return this;
@@ -64,6 +37,13 @@ public class TaskBuilder {
 
     public TaskBuilder withRecurrence(String recurrence) throws IllegalValueException {
         this.task.setRecurrence(new TaskRecurrence(recurrence));
+        return this;
+    }
+
+    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
+        for (String tag: tags) {
+            task.getTags().add(new Tag(tag));
+        }
         return this;
     }
     

@@ -21,22 +21,22 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskBook addressBook;
-    private final FilteredList<Task> filteredPersons;
+    private final TaskBook taskBook;
+    private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given Task book
+     * Task book and its variables should not be null
      */
     public ModelManager(TaskBook src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new TaskBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getTasks());
+        taskBook = new TaskBook(src);
+        filteredTasks = new FilteredList<>(taskBook.getTasks());
     }
 
     public ModelManager() {
@@ -44,49 +44,49 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
-        addressBook = new TaskBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getTasks());
+        taskBook = new TaskBook(initialData);
+        filteredTasks = new FilteredList<>(taskBook.getTasks());
     }
 
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
-        addressBook.resetData(newData);
+        taskBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
     public ReadOnlyTaskBook getTaskBook() {
-        return addressBook;
+        return taskBook;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new TaskBookChangedEvent(addressBook));
+        raise(new TaskBookChangedEvent(taskBook));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removeTask(target);
+        taskBook.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(person);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors ===============================================================
+    //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredTasks.setPredicate(null);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+        filteredTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -139,7 +139,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask person) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getOldName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().toString(), keyword))
                     .findAny()
                     .isPresent();
         }

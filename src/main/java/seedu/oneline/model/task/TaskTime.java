@@ -39,7 +39,7 @@ public class TaskTime {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskTime // instanceof handles nulls
-                && this.value == ((TaskTime) other).value); // state check TODO
+                && this.value.equals(((TaskTime) other).value)); // state check TODO
     }
 
     @Override

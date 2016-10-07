@@ -8,11 +8,6 @@ import seedu.oneline.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    Name getOldName();
-    Phone getPhone();
-    Email getEmail();
-    Address getAddress();
-    
     public TaskName getName();
     public TaskTime getStartTime();
     public TaskTime getEndTime();
@@ -32,10 +27,11 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getOldName().equals(this.getOldName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getStartTime().equals(this.getStartTime())
+                && other.getEndTime().equals(this.getEndTime())
+                && other.getDeadline().equals(this.getDeadline())
+                && other.getRecurrence().equals(this.getRecurrence()));
     }
 
     /**
@@ -43,13 +39,15 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getOldName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+        builder.append(getName())
+                .append(" Time: ")
+                .append(getStartTime())
+                .append(" to ")
+                .append(getEndTime())
+                .append(" Deadline: ")
+                .append(getDeadline())
+                .append(" Recurrence: ")
+                .append(getRecurrence())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

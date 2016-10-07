@@ -9,25 +9,39 @@ import seedu.oneline.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask event1, event2, event3, eventExtra,
+                            todo1, todo2, todo3, todoExtra,
+                            float1, float2, float3, floatExtra;
+  
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withOldName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
-                    .withTags("friends").build();
-            benson = new TaskBuilder().withOldName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withOldName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
-            daniel = new TaskBuilder().withOldName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
-            elle = new TaskBuilder().withOldName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
-            fiona = new TaskBuilder().withOldName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withAddress("little tokyo").build();
-            george = new TaskBuilder().withOldName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
-
-            //Manually added
-            hoon = new TaskBuilder().withOldName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
-            ida = new TaskBuilder().withOldName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
+            event1 = new TaskBuilder().withName("Meeting with Harry").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            event2 = new TaskBuilder().withName("Appointment with John").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            event3 = new TaskBuilder().withName("Date with Girlfriend").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            todo1 = new TaskBuilder().withName("Check email").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            todo2 = new TaskBuilder().withName("Consolidate EOY reviews").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            todo3 = new TaskBuilder().withName("Purchase new stock of cases").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            float1 = new TaskBuilder().withName("Consolidate reports").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            float2 = new TaskBuilder().withName("Gym").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            float3 = new TaskBuilder().withName("Watch Fixing Good").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            
+            // Extra for manual addition
+            eventExtra = new TaskBuilder().withName("Name EE").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            todoExtra = new TaskBuilder().withName("Name TE").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
+            floatExtra = new TaskBuilder().withName("Name FE").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -37,20 +51,22 @@ public class TypicalTestTasks {
     public static void loadTaskBookWithSampleData(TaskBook ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
+            ab.addTask(new Task(event1));
+            ab.addTask(new Task(event2));
+            ab.addTask(new Task(event3));
+            ab.addTask(new Task(todo1));
+            ab.addTask(new Task(todo2));
+            ab.addTask(new Task(todo3));
+            ab.addTask(new Task(float1));
+            ab.addTask(new Task(float2));
+            ab.addTask(new Task(float3));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[]{event1, event2, event3, todo1, todo2, todo3, float1, float2, float3};
     }
 
     public TaskBook getTypicalTaskBook(){

@@ -11,11 +11,6 @@ import seedu.oneline.model.tag.UniqueTagList;
  */
 public class Task implements ReadOnlyTask {
 
-    private Name oldName;
-    private Phone phone;
-    private Email email;
-    private Address address;
-
     private TaskName name;
     private TaskTime startTime;
     private TaskTime endTime;
@@ -26,16 +21,7 @@ public class Task implements ReadOnlyTask {
 
     /**
      * Every field must be present and not null.
-     */
-    public Task(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
-        this.oldName = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-    
+     */    
     public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tags);
         this.name = name;
@@ -50,27 +36,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getOldName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
-    }
-
-    @Override
-    public Name getOldName() {
-        return oldName;
-    }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
+        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getRecurrence(), source.getTags());
     }
 
     @Override
@@ -120,7 +86,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(oldName, phone, email, address, tags);
+        return Objects.hash(name, startTime, endTime, deadline, recurrence, tags);
     }
 
     @Override

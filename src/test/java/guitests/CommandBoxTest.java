@@ -8,7 +8,7 @@ public class CommandBoxTest extends TaskBookGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(td.todo1.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

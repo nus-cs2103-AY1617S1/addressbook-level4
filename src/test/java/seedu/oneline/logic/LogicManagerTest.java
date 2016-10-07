@@ -166,13 +166,14 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add []\\[;] .a A .b B .c C .d D", TaskName.MESSAGE_TASK_NAME_CONSTRAINTS);
+        // TODO: ADD PROPER CONSTRAINTS
+        //assertCommandBehavior(
+        //        "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
+        //assertCommandBehavior(
+        //        "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+        //assertCommandBehavior(
+        //        "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -180,7 +181,7 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.myTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
 
@@ -196,7 +197,7 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.myTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
 
@@ -386,15 +387,16 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
+        Task myTask() throws Exception {
+            TaskName name = new TaskName("Adam Brown");
+            TaskTime startTime = new TaskTime("111111");
+            TaskTime endTime = new TaskTime("adam@gmail.com");
+            TaskTime deadline = new TaskTime("111, alpha street");
+            TaskRecurrence recurrence = new TaskRecurrence("X");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+            return new Task(name, startTime, endTime, deadline, recurrence, tags);
         }
 
         /**
@@ -406,10 +408,11 @@ public class LogicManagerTest {
          */
         Task generateTask(int seed) throws Exception {
             return new Task(
-                    new Name("Task " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Address("House of " + seed),
+                    new TaskName("Task " + seed),
+                    new TaskTime("" + Math.abs(seed)),
+                    new TaskTime("" + seed),
+                    new TaskTime("" + seed),
+                    new TaskRecurrence("" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -420,14 +423,14 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getOldName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
-
+            cmd.append(p.getName().toString());
+            cmd.append(" .a ").append(p.getStartTime());
+            cmd.append(" .b ").append(p.getEndTime());
+            cmd.append(" .c ").append(p.getDeadline());
+            cmd.append(" .d ").append(p.getRecurrence());
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" #").append(t.tagName);
             }
 
             return cmd.toString();
@@ -505,10 +508,11 @@ public class LogicManagerTest {
          */
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
-                    new Name(name),
-                    new Phone("1"),
-                    new Email("1@email"),
-                    new Address("House of 1"),
+                    new TaskName(name),
+                    new TaskTime(""),
+                    new TaskTime(""),
+                    new TaskTime(""),
+                    new TaskRecurrence(""),
                     new UniqueTagList(new Tag("tag"))
             );
         }

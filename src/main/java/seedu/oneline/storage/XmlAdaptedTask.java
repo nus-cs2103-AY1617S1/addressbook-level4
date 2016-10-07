@@ -18,11 +18,13 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String starttime;
     @XmlElement(required = true)
-    private String email;
+    private String endtime;
     @XmlElement(required = true)
-    private String address;
+    private String deadline;
+    @XmlElement(required = true)
+    private String recurrence;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -39,10 +41,11 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getOldName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        name = source.getName().name;
+        starttime = source.getStartTime().toString();
+        endtime = source.getEndTime().toString();
+        deadline = source.getDeadline().toString();
+        recurrence = source.getRecurrence().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -59,11 +62,12 @@ public class XmlAdaptedTask {
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
-        final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
+        final TaskName name = new TaskName(this.name);
+        final TaskTime startTime = new TaskTime(this.starttime);
+        final TaskTime endTime = new TaskTime(this.endtime);
+        final TaskTime deadline = new TaskTime(this.deadline);
+        final TaskRecurrence recurrence = new TaskRecurrence(this.recurrence);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, phone, email, address, tags);
+        return new Task(name, startTime, endTime, deadline, recurrence, tags);
     }
 }

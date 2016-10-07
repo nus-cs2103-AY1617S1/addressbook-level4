@@ -17,18 +17,18 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label line1;
     @FXML
-    private Label address;
+    private Label line2;
     @FXML
-    private Label email;
+    private Label line3;
     @FXML
     private Label tags;
 
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public TaskCard(){
+    public TaskCard() {
 
     }
 
@@ -41,12 +41,13 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(task.getOldName().fullName);
+        TaskCardParser parser = new TaskCardParser(task);
+        name.setText(parser.getName());
         id.setText(displayedIndex + ". ");
-        phone.setText(task.getPhone().value);
-        address.setText(task.getAddress().value);
-        email.setText(task.getEmail().value);
-        tags.setText(task.tagsString());
+        line1.setText(parser.getLine1());
+        line2.setText(parser.getLine2());
+        line3.setText(parser.getLine3());
+        tags.setText(parser.getTags());
     }
 
     public HBox getLayout() {
