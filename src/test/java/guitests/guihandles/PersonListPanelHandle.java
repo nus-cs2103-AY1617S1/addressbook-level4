@@ -92,7 +92,7 @@ public class PersonListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndPerson(getFloatingTaskCardHandle(startPosition + i), persons[i])) {
+            if (!TestUtil.compareCardAndTask(getFloatingTaskCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
         }
@@ -153,7 +153,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public FloatingTaskCardHandle getFloatingTaskCardHandle(ReadOnlyTask person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new FloatingTaskCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
+                .filter(n -> new FloatingTaskCardHandle(guiRobot, primaryStage, n).isSameTask(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
             return new FloatingTaskCardHandle(guiRobot, primaryStage, personCardNode.get());

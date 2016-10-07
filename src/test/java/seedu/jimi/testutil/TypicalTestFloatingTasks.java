@@ -45,7 +45,7 @@ public class TypicalTestFloatingTasks{
         }
     }
 
-    public TestFloatingTask[] getTypicalPersons() {
+    public TestFloatingTask[] getTypicalTasks() {
         return new TestFloatingTask[]{water, ideas, car, airport, lunch, flight, beach};
     }
 
