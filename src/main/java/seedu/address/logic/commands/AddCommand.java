@@ -43,6 +43,10 @@ public class AddCommand extends Command {
 //                new UniqueTagList(tagSet)
 //        );
     }
+    
+    public AddCommand(String name) throws IllegalValueException {
+    	this.toAdd = new Task(new Name(name));
+    }
 
     @Override
     public CommandResult execute() {

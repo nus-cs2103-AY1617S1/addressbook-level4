@@ -94,9 +94,9 @@ public class Parser {
         }
         try {
             return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("date"),
-                    matcher.group("time")
+                    matcher.group("name")
+//                    matcher.group("date"),
+//                    matcher.group("time"),
 //                    matcher.group("address"),
 //                    getTagsFromArgs(matcher.group("tagArguments"))
             );
