@@ -53,7 +53,7 @@ public class XmlAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public DatedTask toModelType() throws IllegalValueException {
+    public Task toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -63,6 +63,6 @@ public class XmlAdaptedPerson {
         final Date email = new Date(this.email);
         final Time address = new Time(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new DatedTask(name, phone, email, address, tags);
+        return new Task(name, phone, email, address, tags);
     }
 }

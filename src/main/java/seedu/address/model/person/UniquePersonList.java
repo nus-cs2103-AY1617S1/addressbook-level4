@@ -12,10 +12,10 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see DatedTask#equals(Object)
+ * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<DatedTask> {
+public class UniquePersonList implements Iterable<Task> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -32,7 +32,7 @@ public class UniquePersonList implements Iterable<DatedTask> {
      */
     public static class PersonNotFoundException extends Exception {}
 
-    private final ObservableList<DatedTask> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
@@ -52,7 +52,7 @@ public class UniquePersonList implements Iterable<DatedTask> {
      *
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(DatedTask toAdd) throws DuplicatePersonException {
+    public void add(Task toAdd) throws DuplicatePersonException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -74,12 +74,12 @@ public class UniquePersonList implements Iterable<DatedTask> {
         return personFoundAndDeleted;
     }
 
-    public ObservableList<DatedTask> getInternalList() {
+    public ObservableList<Task> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<DatedTask> iterator() {
+    public Iterator<Task> iterator() {
         return internalList.iterator();
     }
 

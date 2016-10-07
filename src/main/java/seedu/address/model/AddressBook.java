@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.DatedTask;
+import seedu.address.model.person.Task;
 import seedu.address.model.person.ReadOnlyDatedTask;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -48,19 +48,19 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 //// list overwrite operations
 
-    public ObservableList<DatedTask> getPersons() {
+    public ObservableList<Task> getPersons() {
         return persons.getInternalList();
     }
     
-    public ObservableList<DatedTask> getUndatedTasks() {
+    public ObservableList<Task> getUndatedTasks() {
         return undatedList.getInternalList();
     }
 
-    public void setPersons(List<DatedTask> persons) {
+    public void setPersons(List<Task> persons) {
         this.persons.getInternalList().setAll(persons);
     }
     
-    public void setUndatedTaskList(List<DatedTask> persons) {
+    public void setUndatedTaskList(List<Task> persons) {
         this.undatedList.getInternalList().setAll(persons);
     }
 
@@ -71,8 +71,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(Collection<? extends ReadOnlyDatedTask> newPersons, 
             Collection<? extends ReadOnlyDatedTask> newUndatedTasks,
             Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(DatedTask::new).collect(Collectors.toList()));
-        setPersons(newUndatedTasks.stream().map(DatedTask::new).collect(Collectors.toList()));
+        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+        setPersons(newUndatedTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -89,7 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(DatedTask p) throws UniquePersonList.DuplicatePersonException {
+    public void addPerson(Task p) throws UniquePersonList.DuplicatePersonException {
         syncTagsWithMasterList(p);
         if (checkIfDated(p)){
             persons.add(p);
@@ -113,7 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(DatedTask person) {
+    private void syncTagsWithMasterList(Task person) {
         final UniqueTagList personTags = person.getTags();
         tags.mergeFrom(personTags);
 
