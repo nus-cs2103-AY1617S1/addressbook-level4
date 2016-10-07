@@ -34,12 +34,14 @@ public class Parser {
     
     private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
-    public Parser() {}
+    public Parser() {
+    }
 
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput
+     *            full user input string
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
@@ -58,6 +60,9 @@ public class Parser {
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
+        case DoneCommand.COMMAND_WORD:
+            return prepareComplete(arguments);
+            
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
@@ -81,16 +86,33 @@ public class Parser {
         }
     }
 
+    private Command prepareComplete(String args) {
+        if (containsIndex(args)) {
+            /*
+            if (!index.isPresent()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
+            */
+            args = args.trim();
+            return new DoneCommand(Integer.parseInt(args));
+        }
+        else {
+            return new DoneCommand(args);
+        }
+    }
+
     /**
      * Parses arguments in the context of the add person command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args){
         final Matcher taskMatcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher floatingMatcher = FLOATING_TASK_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
+
+       // Validate arg string format
         if (!taskMatcher.matches() && !floatingMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } else if (taskMatcher.matches()){
@@ -117,8 +139,8 @@ public class Parser {
     }
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
+     * Extracts the new person's tags from the add command's tag arguments
+     * string. Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
@@ -129,43 +151,60 @@ public class Parser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
-    
+
     /**
      * Parses arguments in the context of the delete person command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        if (containsIndex(args)) {
+            /*
+            if (!index.isPresent()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
+            */
+            args = args.trim();
+            return new DeleteCommand(Integer.parseInt(args));
         }
-
-        return new DeleteCommand(index.get());
+        else {
+            return new DeleteCommand(args);
+        }
     }
-
+    
+    /**
+     * Check if this string contains only integers
+     */
+    private boolean containsIndex(String args){
+        args = args.trim();
+        for(int i=0; i<args.length(); i++){
+            if(args.charAt(i) < '0' || args.charAt(i) > '9')
+                return false;
+        }
+        return true;
+    }
     /**
      * Parses arguments in the context of the select person command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
 
         return new SelectCommand(index.get());
     }
 
     /**
-     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+     * Returns the specified index in the {@code command} IF a positive unsigned
+     * integer is given as the index. Returns an {@code Optional.empty()}
+     * otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
         final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
@@ -174,7 +213,7 @@ public class Parser {
         }
 
         String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
+        if (!StringUtil.isUnsignedInteger(index)) {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
@@ -184,20 +223,23 @@ public class Parser {
     /**
      * Parses arguments in the context of the find person command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
-
+        /*
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+        */
+        args = args.trim();
+        return new FindCommand(args);
     }
 
 }
