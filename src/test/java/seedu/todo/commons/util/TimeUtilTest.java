@@ -27,5 +27,13 @@ public class TimeUtilTest {
             assertEquals(generatedOutput, expectedOutput);
         }
     }
+    
+    @Test
+    public void printFormattedTime_anHourBeforeDeadlines() {
+        LocalDateTime inputTime = LocalDateTime.now().plusHours(1).plusMinutes(10);
+        String generatedOutput = TimeUtil.printFormattedTime(null, inputTime);
+        String expectedOutput = "in an hour";
+        assertEquals(generatedOutput, expectedOutput);
+    }
 
 }
