@@ -10,7 +10,7 @@ public class DeleteTodoCommand extends BaseCommand {
     // TODO: Consider either creating a new subclass for indices 
     // or create constraints framework for adding additional validation 
     // to ensure this is always a position, non-zero number
-    Argument<Integer> index = new IntArgument("index").required();
+    private Argument<Integer> index = new IntArgument("index").required();
 
     @Override
     protected Parameter[] getArguments() {

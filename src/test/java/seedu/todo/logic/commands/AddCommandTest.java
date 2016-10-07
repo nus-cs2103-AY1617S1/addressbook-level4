@@ -14,8 +14,9 @@ public class AddCommandTest extends CommandTest {
 
     @Test
     public void testAdd() throws IllegalValueException {
-        this.setParameter("Hello World");
-        this.execute();
-        this.assertTotalTaskCount(1);
+        setParameter("Hello World");
+        execute();
+        assertTotalTaskCount(1);
+        assertEquals("Hello World", this.getTaskAt(1).getTitle());
     }
 }
