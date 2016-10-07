@@ -21,6 +21,7 @@ public class TimeUtil {
     public static String printFormattedTime(LocalDateTime startTime, LocalDateTime endTime) {
         //Validate assumptions
         assert(endTime != null);
+        assert(startTime == null || startTime.isBefore(endTime));
         
         LocalDateTime currentTime = LocalDateTime.now();
         Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
