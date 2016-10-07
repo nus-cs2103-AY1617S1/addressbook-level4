@@ -17,7 +17,7 @@ public class AddCommand extends Command {
 	public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to tars. "
-            + "Parameters: NAME -dt DATETIME -p PRIORITY [t/TAG]...\n"
+            + "Parameters: NAME -dt DATETIME -p PRIORITY [-t TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " cs2103 project meeting -dt 05/09/2016 1400 to 06/09/2016 2200 -p h -t project";
 
