@@ -1,17 +1,17 @@
 package seedu.task.testutil;
 
-import seedu.task.model.person.*;
 import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
