@@ -4,11 +4,11 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyEmeraldo;
 
 /** Indicates the AddressBook in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+public class EmeraldoChangedEvent extends BaseEvent {
 
     public final ReadOnlyEmeraldo data;
 
-    public AddressBookChangedEvent(ReadOnlyEmeraldo data){
+    public EmeraldoChangedEvent(ReadOnlyEmeraldo data){
         this.data = data;
     }
 

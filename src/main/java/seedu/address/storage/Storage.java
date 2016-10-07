@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.EmeraldoChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyEmeraldo;
@@ -35,5 +35,5 @@ public interface Storage extends EmeraldoStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleEmeraldoChangedEvent(AddressBookChangedEvent abce);
+    void handleEmeraldoChangedEvent(EmeraldoChangedEvent abce);
 }
