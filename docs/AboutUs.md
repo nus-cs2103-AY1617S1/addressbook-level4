@@ -1,52 +1,39 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a team based in the School of Computing, National University of Singapore (NUS). We are working on a Task List Application aimed to allow users to record tasks need to be done and prioritise accordingly. Our work can be found on  [CS2103AUG2016-F09-C1] (https://github.com/CS2103AUG2016-F09-C1).
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Jeffry Hartanto](https://github.com/jeffryhartanto) <br>
+<img src="images/JeffryHartanto.jpg" width="150"><br>
+Role: Project Advisor <br>
+
+#### [Bernard Tan Ke Xuan](https://github.com/bernardtankx) <br>
+<img src="images/BernardTanKeXuan.jpg" width="150"><br>
+Role: Developer <br>
+Responsibilities: Team Lead, Integration
+Area of Focus: Logic
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+#### [Toni Miharja](https://github.com/tmiharja)
+<img src="images/tmiharja.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI
+Responsibilities: Code Quality
+Area of Focus: Model
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Chua Woo Hian](https://github.com/woohian)
+<img src="images/ChuaWooHian.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: Documentation, Scheduling
+Area of Focus: UI
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
+#### [Chu Ying Yu](https://github.com/azoic0)
+<img src="images/ChuYingYu.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Dev Ops
-
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+Responsibilities: Testing, Deadlines
+Area of Focus: Storage
