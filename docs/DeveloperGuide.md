@@ -242,16 +242,16 @@ a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 ## Appendix A : User Stories
-
+ 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
+ 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a task with deadline| 
-`* * *` | user | add a task without start time and deadline| keep track of general, non-time based tasks 
-`* * *` | user | add an event with start time and close time| 
-`* * *` | user | add an event/task with tag| 
+`* * *` | user | add a task with deadline|
+`* * *` | user | add a task without start time and deadline| keep track of general, non-time based tasks
+`* * *` | user | add an event with start time and close time|
+`* * *` | user | add an event/task with tag|
 `* * *` | user | delete a task| remove tasks that I do not have to take any further action on
 `* * *` |user | undo my previous action | recover from commands entered by mistake
 `* * *` | user | find a task from to-do list| find details of tasks without having to go through the entire list
@@ -261,100 +261,88 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | mark a task as completed | distinguish between completed and pending tasks
 `* *` | user | sync events and tasks with due dates with Google Calendar| collate my tasks
 `* *` |user | be able to mark certain tasks as important | easily distinguish tasks that require attention/action to be taken
-
+ 
 ## Appendix B : Use Cases
-
+ 
 (For all use cases below, the **System** is the `MESS` and the **Actor** is the `user`, unless specified otherwise)
-
+ 
 #### Use case: Add task
-
+ 
 **MSS**
-
+ 
 1. User requests to add a task
 2. MESS adds the task to the list<br>
 Use case ends.
-
+ 
 **Extensions**
 1a. The input command format is wrong
 > MESS shows an error message with correct input format and prompts user to enter correct command
->User case resumes on step 1.
+Use case resumes on step 1.
 
-
+1b. The task name already exists on the list.
+> MESS shows a message to inform user that task already exists
+Use case resumes on step 1.
+ 
+ 
 #### Use case: Delete task by task name
-
+ 
 **MSS**
-
+ 
 1. User request to delete task by task name
 2.  MESS deletes the task <br>
 Use case ends.
-
+ 
 **Extensions**
-
+ 
 1a. The list is empty
->User case ends
-
+>Use case ends
+ 
 1b. No task match with task name
-> User case ends
-
-1c. The delete command format is wrong.
->MESS shows an error message and prompts user to type the correct format <br>
-   Use case resumes at step 1
-
-
+> Use case ends
+ 
 #### Use case: Delete task by index
-
+ 
 **MSS**
-
+ 
 1. User requests to list tasks
-2. MESS shows a list of tasks 
-3. User requests to delete a specific task in the list 
+2. MESS shows a list of tasks
+3. User requests to delete a specific task in the list
 4. MESS deletes the task <br>
 Use case ends.
-
+ 
 **Extensions**
-
+ 
 1a. The list is empty
-
+ 
 > Use case ends
-
-1b. The list command format is wrong.
-
->MESS shows an error message and prompts user to type the correct format <br>
-   Use case resumes at step 1
-
-
+ 
 3a. The given index is invalid
-
+ 
 >MESS shows an error message <br>
    Use case resumes at step 2
-
+ 
 #### Use case: Update task
-
+ 
 **MSS**
 
 1. User requests to list tasks
-2. MESS shows a list of tasks 
+2. MESS shows a list of tasks
 3. User requests to update a specific task in the list
-4. MESS updates the task <br>
+4. MESS deletes the person <br>
 Use case ends.
-
+ 
 **Extensions**
-
+ 
 1a. The list is empty
-
-> Use case ends
-
+ 
+> User case ends
+ 
 3a. The given index is invalid
-
+ 
 >MESS shows an error message <br>
-   Use case resumes at step 3
+   User case resumes at step 2
 
-3b. The update command format is wrong
-
->MESS shows an error message and prompts user to type the correct format<br>
-  User case resumes at step 3
-
-#### Use case: Undo previous action
+ #### Use case: Undo previous action
 
 **MSS**
 
@@ -406,26 +394,24 @@ Use case ends.
 
 
 ## Appendix C : Non Functional Requirements
-
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+ 
+1. Should work on any mainstream OS as long as it has Java `1.8.0_60` or higher installed
+2. Should be able to process user’s request and show result in 2 seconds.
+3. Should be user-friendly for both beginners and advanced users.
+4. Should be able to hold up to 1000 tasks.
+5. Should be able to work offline
+6. Should only input by keyboard
+7. Should be able to change the storage location of data file
+8. Should come with automated unit tests and open source code.
 
 ## Appendix D : Glossary
-
+ 
 ##### Mainstream OS
-
+ 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
 ## Appendix E : Product Survey
-
+ 
 ### Google Calendar
 #### Strengths
 1. Simple 'what you see is what you get' interface
@@ -435,13 +421,13 @@ Use case ends.
 5. Global Search; data searched through other google products as well; Gmail, Drive, etc.
 6. Automatic generation of start and end times enforcing structure in all entries
 7. Recurring events
-
+ 
 #### Weaknesses
 1. No tagging mechanism for more complex organization
 2. No analysis, summary nor statistics of data the user has entered
 3. No anonymous use; must have a google account
 4. Calendar cannot display a filtered set, thus clutter when high volume of data
-
+ 
 ### Todo.txt (laptop version)
 #### Strength:
 1. Simple editors(use CLI) to manage tasks
@@ -454,16 +440,16 @@ Use case ends.
 8. Priority can be set for each task
 9. Can be extended to add-ons
 10. Can be connected to Dropbox
-
+ 
 #### Weakness:
 1. UI does not look good
 2. All the output will only be shown in CLI format (no colour, no font change)
 3. Need to update whether the task has finished or not by the user
 4. No notification for task near deadline
 5. Require users to remember too many commands
-
+ 
 ### Wunderlist (Free version)
-
+ 
 #### Strength
 1. Easy to use
 2. Cross-platform application
@@ -472,12 +458,12 @@ Use case ends.
 5. Use hashtag to categorize tasks
 6. Plug-in for Microsoft Outlook and Google Calendar
 7. Can take notes (not only task)
-
+ 
 #### Weakness
 1. Cannot create task using one line command
 2. Have limited number subtasks (only premium version has unlimited)
 3. Cannot customize the interface (only premium version can do)
-
+ 
 ### Todoist (Free version)
 #### Strength
 1. Simple to use
@@ -486,11 +472,10 @@ Use case ends.
 4. Have both online and offline access
 5. Have different priority level for tasks
 6. Can track your productivity and visualize your achievement trends over time.
-
+ 
 #### Weakness
 1. tasks for free version
 2. Cannot use label to categorize tasks for free version
 3. Synchronization to different platform is only available for premium version
-
+ 
 In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, priority for tasks and the tag for tasks are some important features.
-
