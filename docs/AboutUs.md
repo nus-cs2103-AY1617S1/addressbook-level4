@@ -12,6 +12,7 @@ We are a team of four computer engineering students based in the [School of Comp
 
 #### Lim Wei Ming Ronald
 **Role**: Team Leader
+Responsibilities: Documentation
 
 Components: UI
 
