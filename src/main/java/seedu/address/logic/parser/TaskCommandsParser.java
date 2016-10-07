@@ -42,7 +42,7 @@ public class TaskCommandsParser {
         }
 
         final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final String arguments = matcher.group("arguments").trim();
         switch (commandWord) {
 
         case AddTaskCommand.COMMAND_WORD:
