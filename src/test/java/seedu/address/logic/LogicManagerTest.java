@@ -166,7 +166,7 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", TaskName.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
@@ -206,7 +206,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_Task,
                 expectedAB,
                 expectedAB.getPersonList());
 
@@ -387,7 +387,7 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
+            TaskName name = new TaskName("Adam Brown");
             Phone privatePhone = new Phone("111111");
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
@@ -406,7 +406,7 @@ public class LogicManagerTest {
          */
         Task generatePerson(int seed) throws Exception {
             return new Task(
-                    new Name("Task " + seed),
+                    new TaskName("Task " + seed),
                     new Phone("" + Math.abs(seed)),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
@@ -505,7 +505,7 @@ public class LogicManagerTest {
          */
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
-                    new Name(name),
+                    new TaskName(name),
                     new Phone("1"),
                     new Email("1@email"),
                     new Address("House of 1"),

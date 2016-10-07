@@ -47,7 +47,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.addPerson(toAdd);
+        model.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 
     }

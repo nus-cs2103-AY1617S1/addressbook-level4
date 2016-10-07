@@ -17,11 +17,11 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/DeleteCommand.java
+<<<<<<< HEAD:src/main/java/seedu/ggist/logic/commands/DeleteCommand.java;
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-=======
+//=======
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
->>>>>>> 2196a4f91cbd3b9663c1ef7ca7f3551168fa35e4:src/main/java/seedu/ggist/logic/commands/DeleteCommand.java
+>>>>>>> 2196a4f91cbd3b9663c1ef7ca7f3551168fa35e4:src/main/java/seedu/ggist/logic/commands/DeleteCommand.java;
 
     public final int targetIndex;
 
