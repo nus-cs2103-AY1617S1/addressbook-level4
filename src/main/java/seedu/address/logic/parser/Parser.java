@@ -31,7 +31,8 @@ public class Parser {
                     + " s/(?<start>[^/]+)"
                     + " e/(?<end>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    private static final Pattern NOTE_ARGS_FORMAT = Pattern.compile("(?<name>.+)");
+    
+    private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
     public Parser() {}
 
@@ -53,9 +54,6 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-            
-        case NoteCommand.COMMAND_WORD:
-            return prepareNote(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -90,20 +88,31 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher taskMatcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher floatingMatcher = FLOATING_TASK_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        if (!matcher.matches()) {
+        if (!taskMatcher.matches() && !floatingMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("start"),
-                    matcher.group("end"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+        } else if (taskMatcher.matches()){
+            try {
+                return new AddCommand(
+                		taskMatcher.group("name"),
+                		taskMatcher.group("start"),
+                		taskMatcher.group("end"),
+                        getTagsFromArgs(taskMatcher.group("tagArguments"))
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        } else {
+        	try {
+                return new AddCommand(
+                		floatingMatcher.group("name"),
+                        getTagsFromArgs(floatingMatcher.group("tagArguments"))
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
         }
     }
 
@@ -121,24 +130,6 @@ public class Parser {
         return new HashSet<>(tagStrings);
     }
     
-    /**
-     * Parses arguments in the context of the note command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareNote(String args) {
-    	final Matcher matcher = NOTE_ARGS_FORMAT.matcher(args.trim());
-    	if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-    	}
-        try {
-            return new NoteCommand(matcher.group("name"));
-        } catch (IllegalValueException ive) {
-		    return new IncorrectCommand(ive.getMessage());
-        }
-    }
-
     /**
      * Parses arguments in the context of the delete person command.
      *

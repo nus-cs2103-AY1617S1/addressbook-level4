@@ -103,11 +103,6 @@ public class TaskList implements ReadOnlyTaskList {
         }
         task.setTags(new UniqueTagList(commonTagReferences));
     }
-    
-    public void addNote(Task p) {
-    	syncTagsWithMasterList(p);
-        persons.note(p);
-    }
 
     public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
         if (persons.remove(key)) {

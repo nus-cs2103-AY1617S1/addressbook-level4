@@ -76,13 +76,6 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
-    
-    @Override
-    public synchronized void addNote(Task task) {
-        taskList.addNote(task);
-        updateFilteredListToShowAll();
-        indicateAddressBookChanged();
-    }
 
     //=========== Filtered Person List Accessors ===============================================================
 

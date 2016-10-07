@@ -59,14 +59,6 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
-    
-    /**
-     * Adds a note to the list.
-     */    
-    public void note(Task toNote) {
-        assert toNote != null;
-        internalList.add(toNote);
-    }
 
     /**
      * Removes the equivalent person from the list.
