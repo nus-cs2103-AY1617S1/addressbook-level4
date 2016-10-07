@@ -71,7 +71,7 @@ Each of the four components
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 

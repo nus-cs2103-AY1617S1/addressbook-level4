@@ -20,6 +20,7 @@
 #### Acknowledgements
 
 * The project is a group project designed by Professor Damith C. Rajapakse and his team from [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+* The project is morphed based on the [AddressBook-Level4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4) prepared by the teaching crew. 
 
 
 #### Licence : [MIT](LICENSE)
