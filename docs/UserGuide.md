@@ -146,7 +146,7 @@ Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] 
 > Selects the task and modifies the task as done at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
-> Overwrites any of the specified fields (LOCATION, DESCRIPTION...) with the new values
+> Overwrites any of the specified fields ('LOCATION', 'DESCRIPTION'...) with the new values
 
 #### Mark a task as done : `mark`
 Marks the task as completed identified by the index number used in the last task listing. Completed task will be remove from the normal list and placed under archived list<br>
@@ -186,7 +186,7 @@ Format: `undo`
 
 #### Redo the most recent undo operation : `redo`
 Redo the most recent command that was executed by the undo.<br>
-Format: `undo`  
+Format: `redo`  
 >Redo is unavailable if the most recent command is not undo
 
 #### Clearing all entries : `clear`
