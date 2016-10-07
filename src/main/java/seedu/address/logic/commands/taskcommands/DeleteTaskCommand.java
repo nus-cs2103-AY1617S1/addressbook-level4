@@ -41,7 +41,9 @@ public class DeleteTaskCommand extends TaskCommand {
 
 	        try {
 	            model.deleteTask(taskToDelete);
-	            model.clearTasksFilter();
+	            if(lastShownList.size() == 0) {
+	                model.clearTasksFilter();
+	            }
 	        } catch (ItemNotFoundException tnfe) {
 	            assert false : "The target item cannot be missing";
 	        }
