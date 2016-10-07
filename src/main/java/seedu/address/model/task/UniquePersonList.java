@@ -59,6 +59,23 @@ public class UniquePersonList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
+    
+    /**
+     * Edits a person to the list.
+     *
+     * @throws DuplicatePersonException if the task to add is a duplicate of an existing task in the list.
+     */
+    public void edit(ReadOnlyTask toEdit, Task toCopy) throws DuplicatePersonException, PersonNotFoundException{
+        assert toEdit != null;
+        if (contains(toCopy)) {
+            throw new DuplicatePersonException();
+        }
+        int index = internalList.indexOf(toEdit);
+        if (index < 0) {
+            throw new PersonNotFoundException();
+        }
+        internalList.set(index, toCopy);
+    }
 
     /**
      * Removes the equivalent person from the list.

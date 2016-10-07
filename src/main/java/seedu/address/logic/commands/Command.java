@@ -11,6 +11,7 @@ import seedu.address.model.Model;
 public abstract class Command {
     protected Model model;
 
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *

@@ -35,7 +35,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getTags());
     }
 
     @Override
@@ -54,9 +54,33 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Location getAddress() {
+    public Location getLocation() {
         return address;
     }
+    
+    public void setName(Name name) {
+        this.name = name;
+    }
+    
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setLocation(Location address) {
+        this.address = address;
+    }
+    
+    public void copyField(Task task) {
+        setName(task.getName());
+        setStartDate(task.getStartDate());
+        setEndDate(task.getEndDate());
+        setLocation(task.getLocation());
+        setTags(task.getTags());
+     }
 
     @Override
     public UniqueTagList getTags() {

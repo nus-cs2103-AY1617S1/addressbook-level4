@@ -80,6 +80,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncTagsWithMasterList(p);
         persons.add(p);
     }
+    
+    /**
+     * Edits a person to the address book.
+     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     *
+     * @throws UniquePersonList.DuplicatePersonException if an equivalent task already exists.
+     */
+    public void editPerson(ReadOnlyTask oldTask, Task newTask) 
+            throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException {
+        persons.edit(oldTask, newTask);
+        syncTagsWithMasterList(newTask);
+
+    }
 
     /**
      * Ensures that every tag in this person:

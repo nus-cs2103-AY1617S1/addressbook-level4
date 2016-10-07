@@ -23,7 +23,6 @@ public class AddCommand extends Command {
             + " Do CS2103 Pretut s/09092009 e/10102011 a/NUS COM1-B103 t/Priority";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
 
     private final Task toAdd;
 

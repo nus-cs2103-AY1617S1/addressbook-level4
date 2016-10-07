@@ -43,7 +43,7 @@ public class TaskCardHandle extends GuiHandle {
 
     public boolean isSamePerson(ReadOnlyTask person){
         return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getStartDate().toString())
-                && getEmail().equals(person.getEndDate().toString()) && getAddress().equals(person.getAddress().value);
+                && getEmail().equals(person.getEndDate().toString()) && getAddress().equals(person.getLocation().value);
     }
 
     @Override

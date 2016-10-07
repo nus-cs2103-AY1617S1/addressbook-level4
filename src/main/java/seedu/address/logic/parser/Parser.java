@@ -25,7 +25,7 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
+    
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " s/(?<startDate>[^/]+)"
@@ -54,6 +54,9 @@ public class Parser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
+            
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
@@ -94,6 +97,45 @@ public class Parser {
         }
         try {
             return new AddCommand(
+                    matcher.group("name"),
+                    matcher.group("startDate"),
+                    matcher.group("endDate"),
+                    matcher.group("address"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
+        int index;
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        try {
+            index = Integer.parseInt(matcher.group("commandWord"));
+        }
+        catch (NumberFormatException nfe) {
+            return new IncorrectCommand("Invalid Index Number.");
+        }
+        assert index >= 0;
+        matcher = PERSON_DATA_ARGS_FORMAT.matcher(matcher.group("arguments"));
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new EditCommand(
+                    index,
                     matcher.group("name"),
                     matcher.group("startDate"),
                     matcher.group("endDate"),
