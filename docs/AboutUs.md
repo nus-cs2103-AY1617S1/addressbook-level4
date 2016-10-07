@@ -17,10 +17,10 @@ Responsibilities: UI
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Ravi Shwetha](http://github.com/ravishwetha) 
+<img src="images/RaviShwetha.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: Storage and Testing
 
 -----
 
@@ -43,10 +43,3 @@ Responsibilities: Dev Ops
  Responsibilities: UI
  
  -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
