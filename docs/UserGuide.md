@@ -39,9 +39,9 @@ Format:<br>
 
 Examples:<br>
 `add gym today` <br>
-Floating task with no specified time is added<br>
+Floating task with no specified time is added<br><br>
 `add meeting tomorrow 2pm to 4pm` <br>
-Fixed task is added <br>
+Fixed task is added <br><br>
 `add math homework by 6pm` <br>
 Task with a deadline, no date is specified so today’s date is assumed<br>
 
@@ -56,9 +56,9 @@ Description: Shows tasks on a particular day
 
 Format: `show DATE(optional)`
 
-Examples:
+Examples:<br>
 `show today`<br>
-Shows schedule for today<br>
+Shows schedule for today<br><br>
 `show next wednesday` <br>
 Shows schedule for next wednesday <br>
 
@@ -87,7 +87,7 @@ Description: edits a particular task’s details<br>
 Format:<br>
 `edit INDEX DATE(optional)`<br> 
 	`NEWTASKNAME(optional) NEWDATE(optional) NEWSTARTTIME(optional) to NEWENDTIME(optional)`<br>
-Examples:
+Examples:<br>
 `edit 2 tomorrow`<br>
   `wednesday 4pm to 6pm`<br>
 (only changes date and time)<br>
@@ -102,7 +102,7 @@ Format: `delete INDEX DATE(optional)`
   The index refers to the index number shown on that day's schedule listing<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
-Examples: 
+Examples: <br>
 *`Delete 5 12 oct`<br>
 Deletes task 5 of 5th october <br>
 *`Delete 1`<br> 

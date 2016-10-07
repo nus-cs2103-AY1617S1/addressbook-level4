@@ -23,7 +23,7 @@ Role: Code quality, Scheduling and Tracking, in charge of UI component
 -----
 
 #### [Muthu Kumar Chandrasekaran] (https://github.com/cmkumar87)
-<img src="images/MuthuKumar.jpg" width="150"><br>
+<img src="images/MuthuKumar.JPG" width="150"><br>
 Role: Mentor
 
 -----
