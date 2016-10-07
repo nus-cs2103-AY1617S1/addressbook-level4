@@ -16,7 +16,7 @@ import seedu.address.commons.util.ObjectUtil;
 public class Period {
     public static final String MESSAGE_PERIOD_CONSTRAINTS = "Start time should not be later than end time.";
 
-    public static final String TO_STRING_FORMAT = "%c - %c";
+    public static final String TO_STRING_FORMAT = "%s - %s";
     public static final String TO_STRING_NO_PERIOD = "No period.";
     
     public final boolean hasPeriod;
