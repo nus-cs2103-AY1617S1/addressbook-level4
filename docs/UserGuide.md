@@ -8,8 +8,6 @@
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.
 
-   > Having any Java 8 version is not enough.
-   
    > Agendum will not work with earlier versions of Java 8.
 
 1. Download the latest `Agendum.jar` from the [releases](../../../releases) tab.
@@ -18,18 +16,17 @@
 
 3. Double-click the file to start Agendum. The GUI should appear in a few seconds.
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
+4. Type a command in the command box and press <kbd>Enter</kbd> to execute it.
 
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will list some information about commands.
    
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` Go to shopping mall` :
-     adds a task with descipription `Go to shopping mall` to Agendum.
+5. Here are some commands you can try:
+   * **`add`**` Go to shopping mall` : adds a task with description `Go to shopping mall` to Agendum.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
+   * **`list`** : lists all tasks
    * **`exit`** : exits Agendum
 
-6. Refer to the [Features](#features) section below for details of each command.
+6. Refer to the [Features](#features) section below for more details of each command.
 
 
 ## Features
@@ -42,11 +39,13 @@
 > * Commands are not case-sensitive e.g `list` will match `List`  
 
 #### Viewing help : `help`
+
 Format: `help`  
 
 > Help is also shown if you enter an incorrect command e.g. `run`
 
 #### Adding a task: `add`
+
 Adds a task which can be done at anytime.
 
 Format: `add TASK_NAME`  
@@ -82,7 +81,8 @@ Examples:
 The event “watch Star Wars” start date time will be 7pm of the date of creation. No end time is saved.  
 The event “project meeting” will start at 10 October 12pm and end at 10 October, 2pm.  
 
-#### Listing all tasks : `list`
+#### Retrieving task list : `list`
+
 Shows a list of all uncompleted tasks.  
 Format: `list`  
 
@@ -98,8 +98,10 @@ Format: `list done`
 Shows a list of all tasks including all completed and uncompleted tasks.  
 Format: `list all`  
 
-#### Finding all tasks containing any keyword in their name: `find`
-Finds tasks that contain any of the given keywords.<br>
+#### Finding tasks containing keywords: `find`
+
+Finds tasks that contain any of the given keywords.
+
 Format: `find KEYWORD``...`  
 
   > * The search is not case sensitive. e.g `assignment` will match `Assignment`
@@ -139,7 +141,9 @@ Examples:
   Deletes the 2nd, 3rd and 4th task in the task list.  
 
 #### Updating the name of a task : `rename`
-Renames the specified task in the task list.<br>
+
+Renames the specified task in the task list.
+
 Format: `rename INDEX NEW_TASK_NAME`  
 
 > Rename the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
@@ -155,7 +159,9 @@ Examples:
   Updates the name of the 1st task in the results of the `find` command to “Star Wars II”. 
 
 #### Updating the date/time of a task : `schedule`
-Updates the time of the specified task in the task list.<br>
+
+Updates the time of the specified task in the task list.
+
 Format: `schedule INDEX NEW_TIME_DESCRIPTION`
 
 > Schedule the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
@@ -175,7 +181,9 @@ Examples:
   Sets task 3's start time as 1 Oct 7pm and end time as 1 Oct 9.30pm
 
 #### Marking a task as completed : `mark`
-Marks the specified task in the task list<br>
+
+Marks the specified task in the task list
+
 Format: `mark INDEX...`
 
 > Mark the task(s) at the specified `INDEX(es)`. The index refers to the index number shown in the most recent listing.
@@ -207,7 +215,7 @@ Undo the last command that have modified the task list (excluding undo).<br>
 Format: `undo`  
 Multiple undo actions are supported.
 
-### Create an alias command : `alias`
+#### Create an alias command : `alias`
 Defines an alternative short-hand command for an original command. Both original and new commands can be used.<br>
 Format: `alias ORIGINAL_COMMAND_NAME as NEW_COMMAND_NAME`  
 
