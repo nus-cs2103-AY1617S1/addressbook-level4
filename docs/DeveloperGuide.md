@@ -60,17 +60,17 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). Listed below are its responsibilities.
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). Listed below are its functions:
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
+Two of those classes play important roles at the architecture level:
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists four components.
+The rest of the App consists four components:
 * [**`UI`**](#ui-component) : The UI of tha App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
@@ -117,13 +117,13 @@ and they can be loaded using the `UiPartLoader`.
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.
  
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+The `UI` component has the following functions:
+* Execute user commands using the `Logic` component
+* Bind itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Respond to events raised from various parts of the App and update the UI accordingly
 
 ### Logic component
 
@@ -131,13 +131,14 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
+The `Logic` component works in the following manner:
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+ 
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
 ### Model component
@@ -146,12 +147,13 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
-The `Model`,
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+The `Model` component has the following functions:
+* Store a `UserPref` object that represents the user's preferences
+* Store Agendum data
+* Expose a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' 
+  e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+> This component does not depend on any of the other three components.
 
 ### Storage component
 
@@ -159,9 +161,9 @@ The `Model`,
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+The `Storage` component has the following functions:
+* Save `UserPref` objects in json format and read it back
+* Save the Address Book data in xml format and read it back
 
 ### Common classes
 
