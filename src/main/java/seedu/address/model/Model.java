@@ -12,10 +12,10 @@ import java.util.Set;
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyEmeraldo newData);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyEmeraldo getAddressBook();
 
     /** Deletes the given person. */
     void deleteTask(ReadOnlyPerson target) throws UniquePersonList.TaskNotFoundException;
