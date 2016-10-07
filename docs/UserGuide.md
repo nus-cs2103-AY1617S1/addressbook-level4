@@ -37,7 +37,7 @@ Format: `help`
  
 #### Adding a task/event: `add`
 Adds a task/event to the **the application**  
-Format: `add NAME [s/START_DATE [e/END_DATE]] [d/DEADLINE] [t/TAG]...` 
+Format: `add NAME [s/START_DATE] [e/END_DATE]] [d/DEADLINE] [t/TAG]...` 
 
 > *Note:* An **event** is a special kind of **task**. It does not have any deadlines, but instead it has start and end dates.
  
@@ -126,10 +126,10 @@ Examples:
   `delete 1`  
   Deletes the 1st task in the results of the `find` command.
 
-#### Removing a tag : `removetag`
+#### Removing a tag : `untag`
 
 Removes the specified tag of the task. 
-Format: `removetag INDEX TAG_NAME`
+Format: `untag INDEX TAG_NAME`
 
 > Removes the tag for the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.
@@ -137,13 +137,24 @@ Format: `removetag INDEX TAG_NAME`
 Examples: 
 
 * `list`  
-  `delete 2 CS2103`  
-  Deletes the tag of `CS2103` of the 2nd task in the **the application**.
+  `untag 2 CS2103`  
+  Untag the tag of `CS2103` of the 2nd task in the **the application**.
 
 * `find assignment2`  
-  `delete 1 CS2103`  
-  Deletes the tag of `CS2103` of the 1st task in the results of the `find` command.
+  `untag 1 CS2103`  
+  Untag the tag of `CS2103` of the 1st task in the results of the `find` command.
 
+#### Remove Tag : `removeTag`  
+
+Removes the specified tag of the task. 
+Format: `removetag TAG_NAME`
+
+> Removes all the tasks that is tagged with `TAG_NAME`.
+
+Examples: 
+
+* `removeTag CS2103`    
+  Deletes all the tasks that are tagged with `CS2103` **the application**.
 
 #### Completing a task : `complete`
 
@@ -157,7 +168,7 @@ Format: `complete INDEX`
 
 Examples: 
 
-* `list`  
+* `list `  
   `complete 2`  
   Completes the 2nd task in the **the application**.
 
