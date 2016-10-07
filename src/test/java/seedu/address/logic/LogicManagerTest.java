@@ -167,8 +167,8 @@ public class LogicManagerTest {
                 "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Date.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/notAnTime a/valid, address", Time.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+//        assertCommandBehavior(
+//                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -384,13 +384,13 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Date privateDate = new Date("111111");
-            Time time = new Time("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privateDate, time, privateAddress, tags);
+            Date privateDate = new Date("11/11/16");
+            Time time = new Time("3pm to 4pm");
+//            Address privateAddress = new Address("111, alpha street");
+//            Tag tag1 = new Tag("tag1");
+//            Tag tag2 = new Tag("tag2");
+//            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, privateDate, time); //, privateAddress, tags);
         }
 
         /**
@@ -404,9 +404,9 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new Date("" + Math.abs(seed)),
-                    new Time(seed + "@time"),
-                    new Address("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new Time(seed + "@time")
+//                    new Address("House of " + seed),
+//                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
@@ -417,14 +417,14 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getDate());
-            cmd.append(" e/").append(p.getTime());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" d/").append(p.getDate());
+            cmd.append(" t/").append(p.getTime());
+//            cmd.append(" a/").append(p.getAddress());
 
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
+//            UniqueTagList tags = p.getTags();
+//            for(Tag t: tags){
+//                cmd.append(" t/").append(t.tagName);
+//            }
 
             return cmd.toString();
         }
