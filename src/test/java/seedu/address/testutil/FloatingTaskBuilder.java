@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.item.Name;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -8,10 +9,10 @@ import seedu.address.model.tag.Tag;
  */
 public class FloatingTaskBuilder {
 
-    private TestFloatingTest floatingTask;
+    private TestFloatingTask floatingTask;
 
     public FloatingTaskBuilder() {
-        this.floatingTask = new TestFloatingTest();
+        this.floatingTask = new TestFloatingTask();
     }
 
     public FloatingTaskBuilder withName(String name) throws IllegalValueException {
@@ -26,22 +27,7 @@ public class FloatingTaskBuilder {
         return this;
     }
 
-    public FloatingTaskBuilder withAddress(String address) throws IllegalValueException {
-        this.floatingTask.setAddress(new Address(address));
-        return this;
-    }
-
-    public FloatingTaskBuilder withPhone(String phone) throws IllegalValueException {
-        this.floatingTask.setPhone(new Phone(phone));
-        return this;
-    }
-
-    public FloatingTaskBuilder withEmail(String email) throws IllegalValueException {
-        this.floatingTask.setEmail(new Email(email));
-        return this;
-    }
-
-    public TestFloatingTest build() {
+    public TestFloatingTask build() {
         return this.floatingTask;
     }
 

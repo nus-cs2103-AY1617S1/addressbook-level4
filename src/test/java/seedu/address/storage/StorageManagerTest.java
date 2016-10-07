@@ -10,8 +10,8 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.address.testutil.EventsCollector;
+import seedu.address.testutil.TypicalTestFloatingTasks;
 
 import java.io.IOException;
 
@@ -55,7 +55,7 @@ public class StorageManagerTest {
 
     @Test
     public void TaskManagerReadSave() throws Exception {
-        TaskManager original = new TypicalTestPersons().getTypicalTaskManager();
+        TaskManager original = new TypicalTestFloatingTasks().getTypicalTaskManager();
         storageManager.saveTaskManager(original);
         ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
         assertEquals(original, new TaskManager(retrieved));
