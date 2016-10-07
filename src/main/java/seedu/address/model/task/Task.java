@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
@@ -6,14 +6,14 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Task in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
-//    private Phone phone;
-//    private Email email;
+//    private Date date;
+//    private Time time;
 //    private Address address;
 
 //    private UniqueTagList tags;
@@ -21,11 +21,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name) {//, Phone phone, Email email, Address address, UniqueTagList tags) {
-        //assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+    public Task(Name name) {//, Date date, Time time, Address address, UniqueTagList tags) {
+        //assert !CollectionUtil.isAnyNull(name, date, time, address, tags);
         this.name = name;
-//        this.phone = phone;
-//        this.email = email;
+//        this.date = date;
+//        this.time = time;
 //        this.address = address;
 //        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -52,7 +52,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name);//, phone, email, address, tags);
+        return Objects.hash(name);//, date, time, address, tags);
     }
 
     @Override

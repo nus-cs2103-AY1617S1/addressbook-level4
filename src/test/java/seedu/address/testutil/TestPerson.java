@@ -1,20 +1,20 @@
 package seedu.address.testutil;
 
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.person.*;
+import seedu.address.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
-    private UniqueTagList tags;
+//    private Address address;
+    private Time time;
+    private Date date;
+//    private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
@@ -26,12 +26,12 @@ public class TestPerson implements ReadOnlyPerson {
         this.address = address;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setTime(Time time) {
+        this.time = time;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override
@@ -40,13 +40,13 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Date getDate() {
+        return date;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public Time getTime() {
+        return time;
     }
 
     @Override
@@ -67,8 +67,8 @@ public class TestPerson implements ReadOnlyPerson {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
+        sb.append("p/" + this.getDate().value + " ");
+        sb.append("e/" + this.getTime().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
