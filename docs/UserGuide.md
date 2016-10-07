@@ -201,7 +201,7 @@ Examples:
 * `alias k/Project Meeting s/pjm`<br>
   `add pjm s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
 System will interpret subsequent user command of "pjm" as "Project Meeting"<br>  
-Add Project Meeting to task list<br>
+Add "Project Meeting" to task list
   
 #### Unalias a keyword : `unalias`
 Unalias of shorter version of keyword <br>
@@ -211,7 +211,7 @@ Examples:
 * `unalias s/pjm`<br>
   `add pjm s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
 Remove replacement of shorter version of "pjm" back to "Project Meeting"<br>
-  Add task named "pjm" to task list<br>
+  Add task named "pjm" to task list
   
 
 ## FAQ
