@@ -17,7 +17,7 @@ In the following sections, we outline the format of commands to use `Sudowudo`. 
 ```bash
 # format
 help           # for general how-to-use help
-help command   # for command-specific help
+help COMMAND   # for command-specific help
 ```
 
 ```bash
@@ -77,6 +77,7 @@ In the remainder of this section, note the following:
 
 1. Fields that are in uppercase are *user parameters*.
 2. The order of parameters in command formats is fixed.
+3. Commands that begin with `for` have autocomplete to assist the user.
 
 ### Adding an Event
 #### Start and End Times
@@ -84,17 +85,23 @@ For an event with a definite start and end time, you can use the following synta
 
 ```bash
 # format
+add EVENT_NAME from START_TIME to END_TIME                              # implicitly the same day
 add EVENT_NAME from START_TIME to END_TIME on DATE
+add EVENT_NAME from START_TIME on START_DATE to END_TIME on END_DATE    # for multiday events
 ```
 
-Fields: [`EVENT_NAME`](#descriptors), [`START_TIME`](#time), [`END_TIME`](#time), [`DATE`](#date)
+Fields: [`EVENT_NAME`](#descriptors), [`START_TIME`](#time), [`END_TIME`](#time), [`DATE`](#date), [`START_DATE`](#date), [`END_DATE`](#date)
 
 ```bash
 # examples
+add "Do laundry" from 1600 to 1700                                      # implicitly today
+
 add "Dental Appointment" from 1200 to 1600 on 14 October 2016
-add "Dental Appointment" from 1200 to 1600 on 14 October # implicitly current year
+add "Dental Appointment" from 1200 to 1600 on 14 October                # implicitly current year
 add "Dental Appointment" from 1200 to 1600 on 14/10/2016
-add "Dental Appointment" from 1200 to 1600 on 1/8/2016
+add "Dental Appointment" from 1200 to 1600 on 1/8/2016                  # strip leading zeroes
+
+add "CS2103 Hackathon" from 1000 on 12 November to 1200 on 15 November  # multiday event
 ```
 
 #### Deadlines
@@ -104,7 +111,7 @@ For a task with no definite start time but a definite end time (e.g. a homework 
 # format
 add TASK_NAME by TIME on DATE # with date and time
 add TASK_NAME by DATE         # no definite time
-add TASK_NAME by TIME         # no definite date
+add TASK_NAME by TIME         # implicitly the same day
 ```
 
 Fields: [`TASK_NAME`](#descriptors), [`TIME`](#time), [`DATE`](#date)
@@ -134,15 +141,19 @@ Some tasks/events do not have a definite name or description, e.g. simply markin
 
 ```bash
 # format
+block START_TIME to END_TIME                            # implicitly today
+block START_DATE to END_DATE                            # full-day block
 block START_TIME to END_TIME on DATE
-block START_TIME to END_TIME         # implicitly today
+block START_TIME on START_DATE to END_TIME on END_DATE  # for multiday blocks
 ```
-Fields: [`START_TIME`](#time), [`END_TIME`](#time), [`DATE`](#date)
+Fields: [`START_TIME`](#time), [`END_TIME`](#time), [`DATE`](#date), [`START_DATE`](#date), [`END_DATE`](#date)
 
 ```bash
 # examples
 block 1600 to 1800
 block 0800 to 1300 on 5/10/2016
+block 14 October to 12/11/2016
+block 1200 on 12 October to 1400 on 14 October 2016
 ```
 
 ### Updating an Event
@@ -151,29 +162,36 @@ Sometimes it is necessary to change the details of your event because life.
 
 ```bash
 # format
-edit FIELD_NAME for EVENT_NAME to NEW_DETAIL
-edit FIELD_NAME for EVENT_ID to NEW_DETAIL
+for EVENT_NAME edit FIELD_NAME to NEW_DETAIL
+for EVENT_ID edit FIELD_NAME to NEW_DETAIL
 ```
 Fields: [`FIELD_NAME`](), [`EVENT_NAME`](#descriptors), [`EVENT_ID`](#event-id), `NEW_DETAIL`
 
+You can change multiple fields for the same event at the same time by separating multiple `FIELD_NAME` and `NEW_DETAIL` with a comma. The `FIELD_NAME` will correspond to the order of `NEW_DETAIL`.
+
 ```bash
 # examples
-edit start_time for "Dental Appointment" to 1600
-edit date for "CS2103 Consult" to 29 October
+for "Dental Appointment" edit start_time to 1600
+for "CS2103 Consult" edit date to 29 October
+for 124235 edit end_time to 1200
+
+# change multiple fields at the same time
+for "Dental Appointment" edit start_time,end_time to 1600,2000
+for "CS2103 Consult" edit start_time,end_time,date to 1200,2100,12 October 2016
 ```
 
 #### Marking as Complete
 ```bash
 # format
-done EVENT_NAME
-done EVENT_ID
+for EVENT_NAME done
+for EVENT_ID done
 ```
 Fields: [`EVENT_NAME`](#descriptors), [`EVENT_ID`](#event-id)
 
 ```bash
 # examples
-done "Dental Appointment"
-done 124235
+for "Dental Appointment" done
+for 124133 done
 ```
 
 ### Deleting an Event
@@ -181,15 +199,15 @@ You can delete an event using its name. This is not the same as marking an event
 
 ```bash
 # format
-delete EVENT_NAME
-delete EVENT_ID
+for EVENT_NAME delete
+for EVENT_ID delete
 ```
 Fields: [`EVENT_NAME`](#descriptors), [`EVENT_ID`](#event-id)
 
 ```bash
 # examples
-delete "CS2103 Tutorial 3"
-delete 124294              # deletes event with ID 124294
+for "CS2103 Tutorial 3" delete
+for 124129 delete              # deletes event with ID 124294
 ```
 
 ### Searching for an Event
@@ -211,7 +229,7 @@ find 12093
 You can enumerate a list of all the events, sorted alphabetically or chronologically.
 ```bash
 list        # lists all events by name in chronological order
-list -l     # lists all events' name and details in chronological order
+list long   # lists all events' name and details in chronological order
 ```
 
 ### Next Thing to Do
