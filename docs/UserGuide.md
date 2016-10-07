@@ -1,134 +1,233 @@
 # User Guide
 
-* [Quick Start](#quick-start)
+* [Getting Started](#getting-started)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-## Quick Start
+## Getting Started
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+2. Download the latest `simply.jar` from the [releases](../../../releases) tab.
+3. Copy the file to the folder you want to use as the home folder for your Simply.
+4. Double-click the file to start the app. The GUI should appear in a few seconds. 
+  
+ <img src="images/StartUp.PNG" width="600"><br>
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
+
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
 
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+###4.1 Add Command
+There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the section below.
 
-#### Viewing help : `help`
-Format: `help`
+####4.1.1 Add an event
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+>Format : **Add** [&lt;event description&gt;, &lt;date(DDMMYY)&gt;, &lt;start time&gt;, &lt;end time&gt;]
+
+
+>Note: The start time and end time is optional when adding an event.
+Important: The square brackets are compulsory when adding an event.
+
+####4.1.2 Add a deadline
+
+>Format: **Add** &lt;deadline description&gt;, &lt;date(DDMMYY)&gt;, &lt;end time&gt;
+
+Example: Add complete report, 120916, 1900
+
+
+>Important: The date and end time are compulsory when adding an deadline
+
+####4.1.3 Add a to-do
+
+>Format: **Add** &lt;to-do description&gt;
+
+Example: Add go swimming
+
+>Note: To do tasks do not have a date or time.
+
+>***Note: To add a tag, simply add a # followed by the tag name. 
+To add a priority, simply add a ! at the back of the task.***
+
+
+###4.2 Edit a task
+
+The multiple edit task functions allow you to update specific task details.
+
+#### 4.2.1 Edit all task details in one go
+
+>Format: **Edit** &lt;index&gt; [&lt;event description&gt;, &lt;date&gt;, &lt;start time&gt;, &lt;end time&gt;, &lt;tags&gt;, !] 
+
+>Format: **Edit** &lt;index&gt; &lt;deadline description&gt;, &lt;date&gt;, &lt;end time&gt;, &lt;tags&gt; 
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+>Format: **Edit** &lt;index&gt; &lt;to-do description&gt; !
+ 
+#### 4.2.2 Edit task description
 
-> Persons can have any number of tags (including 0)
+>Format: **Edit** &lt;index&gt; **des** &lt;description&gt;
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+#### 4.2.3 Edit task date
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+>Format: **Edit** &lt;index&gt; **date** &lt;date&gt;
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+>Note: If you add a date to a to-do, this will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
+ 
+#### 4.2.4 Edit task start time 
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+>Format: **Edit** &lt;index&gt; **start** &lt;start time&gt;
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+#### 4.2.5 Edit task end time 
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+>Format: **Edit** &lt;index&gt; **end** &lt;end time&gt;
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+#### 4.2.6 Edit task tags
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+>Format: **Edit** &lt;index&gt; **tags** &lt;tags&gt;
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+#### 4.2.7 Edit task priority 
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+>Format: **Edit** &lt;index&gt; **pri** &lt;priority&gt;
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+>Note: If you want to remove priority, just leave an empty space after pri
+ 
+###4.3 Search Task by Partial Keyword
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+The search by partial keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task have not been entered, an error message will be shown.
 
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
+Format: 
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+**Search** &lt;keyword&gt;
+
+
+Example: 
+
+Search **siloso**
+
+Search 050316
+
+Search 2359
+
+Search #CS2103
+
+
+Only the tasks with the keyword are displayed.
+
+###4.4 Marking Task as Done 
+
+When you are done with tasks, enter this command to mark them as done and hide them away.
+
+Format: 
+
+Done &lt;index&gt;
+
+Done &lt;index&gt;-&lt;index&gt;
+
+Done &lt;index&gt;, &lt;index&gt;
+    
+    
+Example: 
+Complete T1
+
+Complete T1-T3
+
+Complete T1, T3
+
+
+>Note: if you want to select more than one task to complete, you can separated the task by a - to complete all tasks that are within the range. In addition, you also separate the task by a , to individually delete them.
+
+###4.5 Display completed tasks
+
+The display command will display the completed tasks in their respective categories.
+
+Format: Display
+
+
+Example: Display
+
+
+###4.6 Undo the Most Recent Commands
+
+The undo command enables you to undo the most recent command that have been executed.
+
+Format: Undo &lt;number of operations&gt;
+
+
+Example: 
+Undo
+
+Undo 2
+
+
+>Note: The undo command can only undo a maximum of 5 commands that have been executed
+
+###4.7 Deleting task
+
+The delete command enables you to delete the tasks that you no longer need.
+
+Format: 
+Delete &lt;index&gt;
+
+Delete &lt;index&gt;-&lt;index&gt;
+
+Delete &lt;index&gt;, &lt;index&gt; 
+
+
+Example: 
+Delete T3
+
+Delete T1-T3
+
+Delete T1, T3
+
+
+>Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a -, Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a , Simply will delete the tasks entered individually. 
+
+>Note: If no number is entered, the default number of times the command will undo is 1.
+
+###4.8 Exiting the program
+
+This command enables you to close the program.
+
+Format: **Exit**
+
+Example: Exit
+
+###4.9 Help
+
+
+Format: **Help**
+
+
+Example : Help
+
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
-       
-## Command Summary
 
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+###Command Summary
+
+ No. | Command | Format 
+ -------- | :-------- | :--------- | :-----------
+1| Add event| add [event_description, date, start_time, end_time] 
+2| Add deadline | add deadline_description, date,end_time  
+3| Add to-do | add to-do_description 
+4| Add with tags and priorities | add [event_description, date, start_time, end_time] #tag !
+5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
+6| Search | search &lt;keywords&gt; 
+7| Complete | complete &lt;index&gt;&lt;index&gt;... 
+8| Undo | undo &lt;number of times to undo, up to 5&gt; 
+9| Delete | delete &lt;index&gt;&lt;index&gt; 
+10| Exit | exit 
+11| help | help 
+
+
