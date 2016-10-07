@@ -1,6 +1,6 @@
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.FloatingTaskCardHandle;
 import org.junit.Test;
 
 import seedu.jimi.commons.core.Messages;
@@ -43,7 +43,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(personToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().fullName);
+        FloatingTaskCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().fullName);
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
