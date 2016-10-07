@@ -1,4 +1,4 @@
-package seedu.inbx0.model.person;
+package seedu.inbx0.model.task;
 
 import seedu.inbx0.commons.exceptions.IllegalValueException;
 

@@ -7,7 +7,7 @@ import seedu.inbx0.logic.commands.Command;
 import seedu.inbx0.logic.commands.CommandResult;
 import seedu.inbx0.logic.parser.Parser;
 import seedu.inbx0.model.Model;
-import seedu.inbx0.model.person.ReadOnlyPerson;
+import seedu.inbx0.model.task.ReadOnlyTask;
 import seedu.inbx0.storage.Storage;
 
 import java.util.logging.Logger;
@@ -35,7 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return model.getFilteredTaskList();
     }
 }

@@ -10,9 +10,9 @@ import seedu.inbx0.commons.exceptions.DataConversionException;
 import seedu.inbx0.commons.util.FileUtil;
 import seedu.inbx0.model.AddressBook;
 import seedu.inbx0.model.ReadOnlyAddressBook;
-import seedu.inbx0.model.person.Person;
+import seedu.inbx0.model.task.Task;
 import seedu.inbx0.storage.XmlAddressBookStorage;
-import seedu.inbx0.testutil.TypicalTestPersons;
+import seedu.inbx0.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 
@@ -63,7 +63,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
+        TypicalTestTasks td = new TypicalTestTasks();
         AddressBook original = td.getTypicalAddressBook();
         XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
 
@@ -73,14 +73,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Person(TypicalTestPersons.hoon));
-        original.removePerson(new Person(TypicalTestPersons.alice));
+        original.addTask(new Task(TypicalTestTasks.hoon));
+        original.removeTask(new Task(TypicalTestTasks.alice));
         xmlAddressBookStorage.saveAddressBook(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(new Person(TypicalTestPersons.ida));
+        original.addTask(new Task(TypicalTestTasks.ida));
         xmlAddressBookStorage.saveAddressBook(original); //file path not specified
         readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
         assertEquals(original, new AddressBook(readBack));

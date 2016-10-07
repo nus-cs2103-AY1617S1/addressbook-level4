@@ -2,14 +2,14 @@ package seedu.inbx0.testutil;
 
 import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.model.AddressBook;
-import seedu.inbx0.model.person.Person;
-import seedu.inbx0.model.person.UniquePersonList;
 import seedu.inbx0.model.tag.Tag;
+import seedu.inbx0.model.task.Task;
+import seedu.inbx0.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code AddressBook ab = new AddressBookBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
 public class AddressBookBuilder {
 
@@ -19,8 +19,8 @@ public class AddressBookBuilder {
         this.addressBook = addressBook;
     }
 
-    public AddressBookBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public AddressBookBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.addTask(task);
         return this;
     }
 
