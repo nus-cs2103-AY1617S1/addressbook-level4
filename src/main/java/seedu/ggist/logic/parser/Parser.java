@@ -21,18 +21,31 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+    //regex for tasks without deadline
+    private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<taskName>[^,]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags;
+    
+    //regex for tasks with deadline
+    private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<taskName>[^,]+)"
+                    + " (?<date>[^,]+)"
+                    + " (?<endTime>[^,]+)"
+                    + " (?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+        
+    //regex for tasks with start and end time
+    private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<taskName>[^,]+)"
+                    + " (?<date>[^,]+)"
+                    + " (?<startTime>[^-]+)"
+                    + " (?<endTime>[^,]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
+   
     public Parser() {}
 
     /**
@@ -81,32 +94,67 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
+    private Command prepareAdd(String args) {
+        final String taskType = matchTaskType(args.trim());
+        Matcher matcher;
+        if (taskType.equals("taskTypeNotFound")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+        }    
         try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
+            if(taskType.equals("eventTask")) {
+                matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+                return new AddCommand(
+                        matcher.group("taskName"),
+                        matcher.group("date"),
+                        matcher.group("startTime"),
+                        matcher.group("endTime"),
+                        getTagsFromArgs(matcher.group("tagArguments"))
+                );    
+            } else if (taskType.equals("deadlineTask")) {
+                matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+                return new AddCommand(
+                        matcher.group("taskName"),
+                        matcher.group("date"),
+                        matcher.group("endTime"),
+                        getTagsFromArgs(matcher.group("tagArguments"))
+                        );
+            } else if (taskType.equals("floatingTask")) {
+                matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+                return new AddCommand(
+                        matcher.group("taskName"),
+                        getTagsFromArgs(matcher.group("tagArguments"))
+                );
+            }                         
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+        return null;   
+    }
+    
+    /**
+     *  Matches arg string format and validates
+     * @param args full command string
+     * @return the task type in String
+     */
+    private String matchTaskType(String args) {
+        
+        if (EVENT_TASK_DATA_ARGS_FORMAT.matcher(args).matches()) {
+            return new String("eventTask");
+        } else if (DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args).matches()) {
+            return new String("deadlineTask");
+        } else if (FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args).matches()) {
+            return new String("floatingTask");
+        }       
+        return new String("taskTypeNotFound");
     }
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
+     * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -120,7 +168,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -137,7 +185,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the select task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -157,7 +205,7 @@ public class Parser {
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }

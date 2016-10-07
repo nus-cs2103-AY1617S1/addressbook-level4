@@ -6,7 +6,7 @@ import seedu.ggist.commons.util.CollectionUtil;
 import seedu.ggist.model.tag.UniqueTagList;
 
 /**
- * Represents a Task in the address book.
+ * Represents a Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
@@ -15,8 +15,6 @@ public class Task implements ReadOnlyTask {
     private Date date;
     private Time startTime;
     private Time endTime;
-    private Priority priority;
-    private Frequency frequency;
 
     private UniqueTagList tags;
 
@@ -28,8 +26,6 @@ public class Task implements ReadOnlyTask {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.priority = priority;
-        this.frequency = frequency;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 

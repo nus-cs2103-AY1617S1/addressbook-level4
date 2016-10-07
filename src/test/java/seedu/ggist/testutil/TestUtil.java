@@ -1,7 +1,7 @@
 package seedu.ggist.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -327,7 +327,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
+    public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask person) {
         return card.isSamePerson(person);
     }
 
