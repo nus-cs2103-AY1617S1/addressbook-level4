@@ -250,13 +250,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
+`* * *` | user | add a task | keep a list of task
+`* * *` | user | set timing and deadline for a task | meet all the timing and deadlines
+`* * *` | user | set the location for a task | know where to go for a task
+`* * *` | user | add remarks to a task | have quick access to additional information related to the task
+`* * *` | user | view task list sorted by date and time | keep track of tasks that have to be done on a specific day
+`* * *` | user | find an existing task by name using keywords | locate an existing task without having to go through the entire task list
+`* * *` | user | modify the information of a task | update the details, requirements and deadline of a task if they are changed
+`* * *` | user | undo the operation of the most recent action done by the user | revert the previous state of tasks in case if a mistake is made
+`* * *` | user | mark the completed tasks as done | keep track of which items are done and which are yet to be done
+`* * *` | user | delete a task | discard cancelled tasks
+`* * *` | user | specify a specific folder as the data storage location | choose a folder that is more convenient for me to access the data
+`* *` | user | set notification for a task | remind myself of the deadlines and upcoming events
+`*` | user | summon the software quickly by pressing a keyboard shortcut | save time
+`*` | user | synchronize my tasklist among all my devices | check my tasks wherever I am
 `*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
 
 ## Appendix B : Use Cases
 
