@@ -3,7 +3,7 @@
 * [Quick Start](#quick-start)
 * [Features](#features)
 
-## Quick start
+# Quick start
  
 1. Ensure that you have the latest Java version ‘1.8.0_60’ or later installed in your 	Computer.<br>
 	> Having any Java 8 version is not enough<br>
@@ -19,74 +19,170 @@
 	 * **`edit`** : edits a task
 	 * **`delete`** : deletes a task
 
-7.  Refer to the [Features](#features) section below for details of each command.<br>
+7.  Refer to the [Commands](#commands) section below for details of each command.<br>
 
 
-## Features
+# Features
 
-#### Viewing help : `help`
-Format: `help`
+## Descriptions and Usage
+### Tasks
+The daily planner stores all of the users events as a `Task`.
+
+A `Task` can be viewed, added, searched, edited or deleted with the right command word as can be found in [Commands](#commands).
+
+**Every `Task` must consist of a mandatory `TASKNAME` field and optional `DATE`, `STARTTIME`, `ENDTIME`, `isRECURRING` fields.**
+
+#### `DATE` Field
+The `DATE` field, if specified, tells the Daily Planner which date the task is meant for. If no `DATE` is specified, Daily Planner assumes the task is meant to be done today. 
+
+The `DATE` field can accept natural descriptions of dates. The following are all valid dates:
+```
+1978-01-28
+1984/04/02
+1/02/1980
+2/28/79
+The 31st of April in the year 2008
+Fri, 21 Nov 1997
+Jan 21, '97
+Sun, Nov 21
+jan 1st
+february twenty-eighth
+next thursday
+last wednesday
+today
+tomorrow
+yesterday
+next week
+next month
+next year
+3 days from now
+three weeks ago
+```
+
+#### `STARTTIME` and `ENDTIME` fields
+
+1. No `STARTTIME` or `ENDTIME` fields have to be entered for tasks with no specific timing
+2. For a task that must occur within a fixed time period, `STARTTIME` and `ENDTIME` fields must be given in the following format:
+    * `STARTTIME to ENDTIME`
+    * Example: `2pm to 4pm` 
+3. For tasks with only a deadline, only the `ENDTIME` has to be given after a `by` keyword:
+    * `by ENDTTIME`
+    * Example: `by 6pm`
+
+`STARTTIME` and `ENDTIME` fields can also accept various natural desciptions:
+
+```
+0600h
+06:00 hours
+6pm
+5:30 a.m.
+5
+12:59
+23:59
+8p
+noon
+afternoon
+midnight
+```
+
+#### `isRECURRING` field
+
+If a recurring `Task` must be described in a command, (e.g. tasks that must occur every week), the optional reccuring field can be entered in the format:
+
+`every CYCLE`,
+
+Where `CYCLE` can be `week` or `month`.
+
+Example Command:
+
+`add cs lecture 2pm to 4pm every week`
+
+
+
+
+## Commands 
+### Viewing help : `help`
+Format: 
+
+```help```
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-#### Adding a task : `add`
+### Adding a task : `add`
 
-Description: Adds a task to the planner <br>
+Adds a task to the planner <br>
 Format:<br> 
-`add TASKNAME DATE(optional)` <br>
-`add TASKNAME DATE(optional) STARTTIME to ENDTIME isRECURRING(optional)`<br>
-`add TASKNAME DATE(optional) by ENDTIME(optional) isRECURRING(optional)` <br>
+```
+1. add TASKNAME DATE(optional)
+2. add TASKNAME DATE(optional) STARTTIME to ENDTIME isRECURRING(optional)
+3. add TASKNAME DATE(optional) by ENDTIME(optional) isRECURRING(optional)
+```
+<br>
 
 Examples:<br>
-`add gym today` <br>
-Floating task with no specified time is added<br><br>
-`add meeting tomorrow 2pm to 4pm` <br>
-Fixed task is added <br><br>
-`add math homework by 6pm` <br>
-Task with a deadline, no date is specified so today’s date is assumed<br>
-
->All tasks will be stored with a date. If user adds a task with no date specified, it is assumed the task is to be done today. 
->Daily Planner splits all tasks into three categories - floating tasks(tasks which have no start time or end time), fixed tasks(tasks with a specified start time and end time) and deadline tasks(tasks with only an end time). 
->Daily Planner will use this categorization to automatically create the user’s schedule.
+1. `add gym today` <br>
+> Task with no specified timing is added to today's schedule
+2. `add meeting tomorrow 2pm to 4pm` <br>
+> Fixed task is added from 2pm to 4pm the next day
+3. `add math homework by 6pm` <br>
+> Task with a deadline is added, no date is specified so today’s date is assumed<br>
 
 
-#### Viewing a schedule : `show`
+### Viewing a schedule : `show`
 
-Description: Shows tasks on a particular day
+Shows tasks on a particular day
 
-Format: `show DATE(optional)`
+Format: 
+
+```
+show DATE(optional)
+```
 
 Examples:<br>
-`show today`<br>
-Shows schedule for today<br><br>
-`show next wednesday` <br>
-Shows schedule for next wednesday <br>
+1. `show today`
+>Shows schedule for today
+2. `show next wednesday`
+>Shows schedule for next wednesday <br>
 
->The show function will generate the user’s schedule when queried. Starting from the current time, it will consider all tasks in hand for the day and assign them to timeslots. 
->Urgent tasks will be scheduled first(tasks with nearing deadlines). Fixed tasks will be scheduled only during their specified timeslot and floating tasks will be inserted to remaining empty timeslots throughout the day. Daily Planner will even account for breaks in between certain hours of consecutive tasks(say, every 3 hours). 
->The user can then use this recommended schedule to worryless-ly go about their day. 
+<br>
+
+The show function will generate the user’s schedule when queried. Starting from the current time, it will consider all tasks in hand for the day and assign them to timeslots. 
+
+Urgent tasks will be scheduled first(tasks with nearing deadlines). Fixed tasks will be scheduled only during their specified timeslot and floating tasks will be inserted to remaining empty timeslots throughout the day. Daily Planner will even account for breaks in between certain hours of consecutive tasks(say, every 3 hours). 
+
+The user can then use this recommended schedule to worryless-ly go about their day. 
 
 
-#### Searching for a task: `find`
+### Searching for a task: `find`
 
-Description: Searches for a particular task and displays more information about it.<br>
+Searches for a particular task and displays more information about it.<br>
 
-Format: `find TASKNAME`
+Format: 
+
+```
+find TASKNAME
+```
+
+Examples:
+
+```
+find cs lecture
+```
+
 > * The search is case insensitive.
 > * The order of the keywords does not matter. e.g. `math assignment` will match `assignment math`
 > * Only the name is searched.
 > * Task matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Hans` will match `Hans Bo`
 
-Examples:
-`find cs lecture` <br>
+### Editing a task: `edit`
 
-#### Editing a task: `edit`
-
-Description: edits a particular task’s details<br>
-Format:<br>
-`edit INDEX DATE(optional)`<br> 
-	`NEWTASKNAME(optional) NEWDATE(optional) NEWSTARTTIME(optional) to NEWENDTIME(optional)`<br>
+Edits a particular task’s details<br>
+Format:
+```
+edit DATE(optional) INDEX  
+NEWTASKNAME(optional) NEWDATE(optional) NEWSTARTTIME(optional) to NEWENDTIME(optional)
+```
 Examples:<br>
 `edit 2 tomorrow`<br>
   `wednesday 4pm to 6pm`<br>
@@ -96,36 +192,21 @@ Examples:<br>
 
 Description: Deletes a task from the planner. <br>
 
-Format: `delete INDEX DATE(optional)` 
+Format: `delete INDEX` 
 
 > Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown on that day's schedule listing<br>
+  The index refers to the index number shown on the list that is currently being viewed<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: <br>
-*`Delete 5 12 oct`<br>
-Deletes task 5 of 5th october <br>
-*`Delete 1`<br> 
-No date specified, so deletes first task today <br>
+```delete 5```
+>Deletes task 5 of current list being viewed
  
 
-#### Exiting the program : `exit`
+### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
-#### Saving the data 
+### Saving the data 
 Daily Planner data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
-
-
-
-
-
-
-
-
-
-
-
-
-
