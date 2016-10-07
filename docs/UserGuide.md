@@ -74,6 +74,8 @@ To remove certain task details like end time, simply leave their corresponding s
 
 >Note: Adding a end time to a to-do will automatically convert your to-do into a deadline.
 
+>Note: Add a date to a to-do will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
+
 >Note: Removing date from events and deadlines will automatically convert them into a to-do with no date or time.
 
 >Note: Removing start time from events will automatically convert them into deadlines.
@@ -89,7 +91,7 @@ To remove certain task details like end time, simply leave their corresponding s
 >Format: **Edit** &lt;index&gt; **date** &lt;date&gt;
 
 >Note: If you add a date to a to-do, this will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
- 
+
 #### 4.2.4 Edit task start time 
 
 >Format: **Edit** &lt;index&gt; **start** &lt;start time&gt;
@@ -116,9 +118,7 @@ To remove certain task details like end time, simply leave their corresponding s
 
 The search by partial keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task have not been entered, an error message will be shown.
 
-Format: 
-
-**Search** &lt;keyword&gt;
+> Format: **Search** &lt;keyword&gt;
 
 
 Example: 
@@ -138,16 +138,15 @@ Only the tasks with the keyword are displayed.
 
 When you are done with tasks, enter this command to mark them as done and hide them away.
 
-Format: 
+> Format: Done &lt;index&gt;
 
-Done &lt;index&gt;
+> Format: Done &lt;index&gt;-&lt;index&gt;
 
-Done &lt;index&gt;-&lt;index&gt;
-
-Done &lt;index&gt;, &lt;index&gt;
+> Format: Done &lt;index&gt;, &lt;index&gt;
     
     
 Example: 
+
 Complete T1
 
 Complete T1-T3
@@ -161,40 +160,59 @@ Complete T1, T3
 
 The display command will display the completed tasks in their respective categories.
 
-Format: Display
-
+> Format: Display
 
 Example: Display
 
 
 ###4.6 Undo the Most Recent Commands
 
-The undo command enables you to undo the most recent command that have been executed.
+The undo command enables you to undo the most recent executed command.
 
-Format: Undo &lt;number of operations&gt;
-
+> Format: Undo &lt;number of operations&gt;
 
 Example: 
+
 Undo
 
 Undo 2
 
 
->Note: The undo command can only undo a maximum of 5 commands that have been executed
+>Note: The undo command can only undo a maximum of 5 executed commands
 
-###4.7 Deleting task
+>Note: If no number is entered, the default number of times the command will undo is 1.
+
+
+###4.7 Redo the Most Recent Commands
+
+The redo command enables you to redo the most recent undone command.
+
+> Format: Redo &lt;number of operations&gt;
+
+Example: 
+
+Redo
+
+Redo 2
+
+>Note: The Redo command can only undo a maximum of 5 undone commands
+
+>Note: If no number is entered, the default number of times the command will redo is 1.
+
+
+###4.8 Deleting task
 
 The delete command enables you to delete the tasks that you no longer need.
 
-Format: 
-Delete &lt;index&gt;
+> Format: Delete &lt;index&gt;
 
-Delete &lt;index&gt;-&lt;index&gt;
+> Format: Delete &lt;index&gt;-&lt;index&gt;
 
-Delete &lt;index&gt;, &lt;index&gt; 
+> Format: Delete &lt;index&gt;, &lt;index&gt; 
 
 
 Example: 
+
 Delete T3
 
 Delete T1-T3
@@ -204,20 +222,18 @@ Delete T1, T3
 
 >Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a -, Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a , Simply will delete the tasks entered individually. 
 
->Note: If no number is entered, the default number of times the command will undo is 1.
 
-###4.8 Exiting the program
+###4.9 Exiting the program
 
 This command enables you to close the program.
 
-Format: **Exit**
+> Format: **Exit**
 
 Example: Exit
 
-###4.9 Help
+###4.10 Help
 
-
-Format: **Help**
+> Format: **Help**
 
 
 Example : Help
@@ -239,10 +255,9 @@ Example : Help
 4| Add with tags and priorities | add [event_description, date, start_time, end_time] #tag !
 5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
 6| Search | search &lt;keywords&gt; 
-7| Complete | complete &lt;index&gt;&lt;index&gt;... 
-8| Undo | undo &lt;number of times to undo, up to 5&gt; 
-9| Delete | delete &lt;index&gt;&lt;index&gt; 
-10| Exit | exit 
-11| help | help 
-
-
+7| Done | done &lt;index&gt;&lt;index&gt;... 
+8| Undo | undo &lt;number of times to undo, up to 5&gt;
+9| Redo | redo &lt;number of times to redo, up to 5&gt;
+10| Delete | delete &lt;index&gt;&lt;index&gt; 
+11| Exit | exit 
+12| help | help 
