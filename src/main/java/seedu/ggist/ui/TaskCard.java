@@ -23,10 +23,6 @@ public class TaskCard extends UiPart{
     @FXML
     private Label endTime;
     @FXML
-    private Label frequency;
-    @FXML
-    private Label priority;
-    @FXML
     private Label tags;
 
     private ReadOnlyTask task;

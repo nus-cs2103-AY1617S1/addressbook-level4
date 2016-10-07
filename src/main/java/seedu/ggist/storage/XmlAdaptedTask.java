@@ -47,8 +47,6 @@ public class XmlAdaptedTask {
         date = source.getDate().value;
         startTime = source.getStartTime().value;
         endTime = source.getEndTime().value;
-        priority = source.getPriority().value;
-        frequency = source.getFrequency().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -69,8 +67,6 @@ public class XmlAdaptedTask {
         final Date date = new Date(this.date);
         final Time startTime = new Time(this.startTime);
         final Time endTime = new Time(this.endTime);
-        final Priority priority = new Priority(this.priority);
-        final Frequency frequency = new Frequency(this.frequency);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(taskName, date, startTime, endTime, priority, frequency, tags);
     }
