@@ -1,9 +1,17 @@
 # User Guide
 
+
+* [About](#about)
 * [Quick Start](#quick-start)
 * [Features](#features)
+* [File Format](#file-format)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+
+
+##About
+TaskMan is a task management application that aims to simplify the way you work with your tasks and events. It is a Java desktop application that can work offline, without requiring Internet connection. 
+It has a simple graphical user interface, showing you what you really want to know. Instead of trying to find and click buttons all over the screen, you just need to type through your keyboard to give the necessary commands, and TaskMan will do the rest for you. 
 
 ## Quick Start
 
@@ -32,8 +40,9 @@
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
+> * Only one item should be picked from items in `CURLY_BRACES`.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+> * The order of parameters is not fixed.
 
 #### Viewing help: `help`
 Command Format: `help`
@@ -42,61 +51,103 @@ Command Format: `help`
  
 #### Adding a task: `add`
 Adds a task to TaskMan<br>
-Command Format: `add TITLE [d/DEADLINE] [start/DATETIME] [end/DATETIME] [c/] [r/FREQUENCY] [t/TAG]...`
+Command Format: `add TITLE [d/DEADLINE] [p/PERIOD] [c/] [r/FREQUENCY] [t/TAG]...`
 
 Parameter | Format
 -------- | :-------- 
-`DEADLINE` and `DATETIME` | `[next] ddd [hh[.mm]am/pm]`
-`FREQUENCY` | `X[d/w/m/y]` where X is a natural number, d is day, m is month, and y is year.
+`PERIOD` | `DATETIME`, `DATETIME to DATETIME` or `DATETIME for X{h/d/w}’ where X is a number (non-negative integer or decimal) and h is hour, d is day, w is week. Event is taken to be 1 hour long if not specified. 
+`DEADLINE` and `DATETIME` | `[next] ddd [hh[.mm]{am/pm}]` or `DD-MM-YYYY TT:TT`
+`FREQUENCY` | `X{d/w/m/y}` where X is a natural number, d is day, m is month, and y is year.
 
-`start` and `end` are the dates and times the task is scheduled to be worked on. The presence of just `c/` will mark the task as completed.
+The `PERIOD` represents the period of time the task is scheduled to be worked on. The presence of just `c/` will mark the task as completed.
 
-> Tasks can have any number of tags. Tags may contain spaces and are case-insensitive (i.e. tags "school", "School", and "SCHOOL" should not co-exist).
+> Tasks can have any number of tags. Tags may contain spaces and are case-insensitive (i.e. tags "school", "School", and "SCHOOL" are the same tags).
 
 Examples:
-* `add CS2103T Tutorial d/wed 9.59am start/tue 11.59pm end/wed 4am`
-* `add CS2101 Tutorial d/next mon 11.59am start/sun 2am end/sun 6am t/CS2101 t/V0.0`
+* `add CS2103T Pre-Tutorial Work d/wed 9.59am start/tue 11.59pm end/wed 4am`
+* `add CS2101 HW d/next mon 11.59am start/sun 2am end/sun 6am t/CS2101 t/V0.0`
 * `add Take a shower d/thu 12am start/thu 12am end/12.30am r/1d t/Life`
 
-#### Listing all tasks: `list`
-Shows a list of all tasks in TaskMan.<br>
-Command Format: `list`
+#### Adding an event: ‘add e ’
+Adds a task to TaskMan<br>
+Command Format: `add e TITLE [p/PERIOD] [r/FREQUENCY] [t/TAG]...`
 
-#### Finding all tasks containing any keyword in their title: `find`
-Finds tasks whose titles contain any of the given keywords.<br>
-Command Format: `find KEYWORD [MORE_KEYWORDS]`
+Parameter | Format
+-------- | :-------- 
+`PERIOD` | `DATETIME`, `DATETIME to DATETIME` or `DATETIME for X{h/d/w}’ where X is a number (non-negative integer or decimal) and h is hour, d is day, w is week. Event is taken to be 1 hours long if not specified. 
+`DATETIME` | `[next] ddd [hh[.mm]{am/pm}]` or `DD-MM-YYYY TT:TT`
+`FREQUENCY` | `X{d/w/m/y}` where X is a natural number, d is day, m is month, and y is year.
+
+The `PERIOD` represents the period of time which the event is occurring.
+
+> Similarly like tasks, events can have any number of tags. Tags may contain spaces and are case-insensitive (i.e. tags "school", "School", and "SCHOOL" are the same tags).
+
+Examples:
+* `add CS2103T Lecture p/fri 2pm to fri 4pm r/1w t/CS2103T`
+* `add Project Meeting p/mon 12pm to mon 2pm t/CS2101 t/lunch time`
+
+####Changing the View: `view`
+Shows a different view based on the parameters entered.<br>
+Command Format: view [{task/event/all/more/less/cal/day}]
+Examples:
+* `view` or `view task`<br> 
+Shows list of tasks
+* `view event`<br> 
+Shows list of events
+* `view all`<br>
+Show list of both tasks and events
+* `view more`<br>
+Show more details in the list
+* `view less`<br>
+Show less details in the list
+* `view cal`<br>
+Shows a GUI calendar in for the specified month
+* `view day`<br>
+Shows a detailed view of the entire day, inclusive of tasks and vacant timeblocks 
+
+
+#### Listing all tasks: `list`
+Shows a list of all tasks or events, depending on the view, whose titles contain any of the given keywords or contains any given tags.<br>
+Command Format: `list [KEYWORD]... [t/TAG]... `
 
 > * The search is case-insensitive. e.g `cs3244` will match `CS3244`
 > * The order of the keywords does not matter. e.g. `CS3244 Homework` will match `Homework CS3244`
 > * Only the title is searched.
 > * Only full words will be matched e.g. `CS` will not match `CS3244`
-> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `CS3244` will match `CS3244 Homework`
+> * Tasks matching at least one keyword or one tag will be returned (i.e. `OR` search).
+    e.g. `CS3244` will match `CS3244 Homework`, a task with tags `t/CS2103T` and `t/hw` will match a search for `t/hw`
 
 Examples:
 * `find CS2103T`<br>
   Returns `CS2103T Tutorial`
-* `find CS2101 CS3230 CS2103T`<br>
-  Returns any task having titles `CS2101`, `CS3230`, or `CS2103T`
+* `find CS2101 CS3230 CS2103T t/hw`<br>
+  Returns any task or event having titles `CS2101`, `CS3230`, or `CS2103T` or tag `hw`
 
 #### Completing a Task: `complete`
 Marks the specified task as completed.
 Command Format: `complete INDEX` or `complete list`
 
-#### Editing a task: `edit`
-Edits a task to TaskMan<br>
-Command Format: `edit TITLE [d/DEADLINE] [start/DATETIME] [end/DATETIME] [c/STATUS] [r/FREQUENCY] [t/TAG]...`
+#### Editing a task/event: `edit`
+Edits a task or event to TaskMan<br>
+##### For a Task:
+Command Format: `edit INDEX TITLE [d/DEADLINE] [p/PERIOD] [c/STATUS] [r/FREQUENCY] [t/TAG]...`
+##### For an Event:
+Command Format: `edit INDEX TITLE [p/PERIOD] [c/STATUS] [r/FREQUENCY] [t/TAG]...`
 
 Parameter | Format
 -------- | :-------- 
-`DEADLINE` and `DATETIME` | `[next] ddd [hh[.mm]am/pm]`
+`PERIOD` | `DATETIME`, `DATETIME to DATETIME` or `DATETIME for X{h/d/w}’ where X is a number (non-negative integer or decimal) and h is hour, d is day, w is week. Event is taken to be 1 hours long if not specified. 
+`DATETIME` | `[next] ddd [hh[.mm]{am/pm}]` or `DD-MM-YYYY TT:TT`
 `STATUS` | `y/n` where y denotes complete and n denotes incomplete
-`FREQUENCY` | `X[d/w/m/y]` where X is a natural number, d is day, m is month, and y is year.
+`FREQUENCY` | `X{d/w/m/y}` where X is a natural number, d is day, m is month, and y is year.
 
-`start` and `end` are the dates and times the task is scheduled to be worked on. The presence of `c/` will mark the task as completed.
+
+Fields which are not present are assumed to stay unchanged. By adding tags, previous tags are removed and the new tags are added to the task/event.
 
 Examples:
-* `edit CS2103T Tutorial start/mon 10pm end/tue 2am`
+* `list`<br>
+  `edit 1 CS2103T Tutorial p/mon 10pm to tue 2am`<br>
+  Changes title of the 1st task/event to `CS2103T Tutorial` and the period to `mon 10pm to tue 2am`
 * `edit CS2101 Tutorial d/thu 11.59am`
 
 #### Deleting a task: `delete`
@@ -111,7 +162,7 @@ Examples:
 * `list`<br>
   `delete 2`<br>
   Deletes the 2nd task in TaskMan.
-* `find CS2101`<br>
+* `list CS2101`<br>
   `delete list`<br>
   Deletes all of the tasks in the result(s) of the `find` command.
 
@@ -160,13 +211,12 @@ Examples:
   Untags all tags from the the first task in list result(s).
 
 #### Editing tag name: `retag`
-Edits names of tag of specified Task from TaskMan.<br>
-Command Format: `retag INDEX [t/TAG]... to [t/TAG]...`
+Edits name of a tag from TaskMan.<br>
+Command Format: `retag t/ORIGINAL_NAME t/DESIRED_NAME`
 
 Examples:
-* `find t/CS2103T`
-  `retag 1 t/CS2103T t/V0.1 to t/CS2101 t/V0.0`<br>
-  Renames the tag CS2103T and V0.1 from the 1st task in the result(s) of `find t/CS2103T` to CS2101 and V0.0
+* `retag t/CS2103T t/software engine`<br>
+  Renames the tag `CS2103T` to `software engine`
 
 #### Sorting tasks: `sort`
 Sorts the recent listing of tasks according to the specified attribute. Default sort order is ascending.<br>
@@ -211,29 +261,69 @@ There is no need to save manually.
 #### Setting the save and load location: `storageloc`
 Saves to the specified file name and location and sets the application to load from the specified location in the future.<br>
 TaskMan data are saved in a file called tasks.txt in the application folder by default.<br>
-The filename **must end in .txt**.<br>
+The filename **must end in .xml<br>
 Format: `storageloc [LOCATION]`
 
 Examples:
-* `storageloc C:/Users/Owner/Desktop/new_tasks.txt`<br>
-	Sets the new save and load location to C:/Users/Owner/Desktop/new_tasks.txt
+* `storageloc C:/Users/Owner/Desktop/new_tasks.xml`<br>
+    Sets the new save and load location to C:/Users/Owner/Desktop/new_tasks.xml
 * `storageloc default`<br>
-	Sets the new save and load location to tasks.txt in the current application folder
+    Sets the new save and load location to tasks.xml in the current application folder
 
-#### Saved data file format
-Each Task is separated by newline.<br>
-`TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`
+## File Format
+The file is saved in xml format, which is easy to read and write with appropriate editors.
 
-Parameter | Format
--------- | :-------- 
-`DEADLINE` and `DATETIME` | `[next] ddd [hh[.mm]am/pm]`
-`STATUS` | `y/n` where y denotes complete and n denotes incomplete
-`FREQUENCY` | `X[d/w/m/y]` where X is a natural number, d is day, m is month, and y is year.
+#### Task
+Each Task is saved in the following format:
+`<tasks>
+<title>TITLE</title>
+<deadline>DD-MM-YYYY TT:TT</deadline>
+<period>DD-MM-YYYY TT:TT to DD-MM-YYYY TT:TT</period>
+<frequency>X{d/w/m/y}</frequency>
+<tagged>TAGNAME</tagged>
+<tagged>TAGNAME</tagged>
+</tasks>`
+Fields which are blank can be left out.
+Example:
+* `<tasks>
+<title>CS2103T Tutorial HW</title>
+<deadline>11-10-2016 23:59</deadline>
+<period></period>
+<frequency>1w</frequency>
+<tagged>CS2103T</tagged>
+</tasks>`
 
-#### Adding tasks manually to data file
-Format: `TITLE [d/DEADLINE] [s/DATETIME] [e/DATETIME] [r/FREQUENCY] [c/STATUS] [t/TAG]...`<br>
 
-Format of each field should follow that of the `add` command.<br>
+#### Event
+Each Event is saved in the following format:
+`<events>
+<title>TITLE</title>
+<period>DD-MM-YYYY TT:TT to DD-MM-YYYY TT:TT</period>
+<frequency>1w</frequency>
+<tagged>TAGNAME</tagged>
+<tagged>TAGNAME</tagged>
+</events>`
+Fields which are blank can be left out.
+Example:
+* `<events>
+<title>CS2103T Lecture</title>
+<period>01-10-2016 12:00 to 01-10-2016 14:00</period>
+<frequency>X{d/w/m/y}</frequency>
+<tagged>CS2103T</tagged>
+<tagged>lecture</tagged>
+</events>`
+
+
+#### Tag
+Each Tag is saved in the following format:
+`<tags>
+<tagName>TAGNAME</tagName>
+</tags>`
+
+Example:
+* `<tags>
+<tagName>CS2103T</tagName>
+</tags>`
 
 ## FAQ
 
@@ -244,21 +334,22 @@ Format of each field should follow that of the `add` command.<br>
 
 Command | Format
 -------- | :--------
-Add | `add TITLE [d/DEADLINE] [start/DATETIME] [end/DATETIME] [c/] [r/FREQUENCY] [t/TAG]...	`
+Add | `add TITLE [d/DEADLINE] [p/PERIOD] [c/] [r/FREQUENCY] [t/TAG]...    `
+Add Event | `add e TITLE [p/PERIOD] [r/FREQUENCY] [t/TAG]...    `
 Clear | `clear`
 Complete | `complete`
 Delete | `delete INDEX` or `delete list`
-Edit | `edit TITLE [d/DEADLINE] [start/DATETIME] [end/DATETIME] [c/STATUS] [r/FREQUENCY] [t/TAG]...`
+Edit | `edit INDEX TITLE [d/DEADLINE] [p/PERIOD] [c/STATUS] [r/FREQUENCY] [t/TAG]...`
 Exit | `exit`
-Find | `find KEYWORD [MORE_KEYWORDS]`
 Help | `help`
 History | `history`
-List | `list`
-Retag | `retag INDEX [t/TAG]... to [t/TAG]...`
+List | `list [KEYWORD]... [t/TAG]...`
+Retag | `retag t/ORIGINAL t/DESIRED`
 Select | `select INDEX`
-Sort | `sort ATTRIBUTE`
+Sort | `sort ATTRIBUTE [desc]`
 Storageloc | `storageloc [LOCATION]` or `storageloc default`
 Tag List | `tag list`
 Tag | `tag INDEX [t/TAG]...`
 Undo | `undo`
 Untag | `untag INDEX [t/TAG]...` or `untag all`
+View | `view` or `view PARAM`
