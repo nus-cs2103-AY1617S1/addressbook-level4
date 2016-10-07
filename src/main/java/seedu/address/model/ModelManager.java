@@ -15,6 +15,7 @@ import seedu.address.model.todo.ReadOnlyToDo;
 import seedu.address.model.todo.Title;
 
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -133,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredToDoList(Expression expression) {
         filteredToDos.setPredicate(expression::satisfies);
     }
-
+    
     //================================================================================
     //  Inner classes/interfaces used for filtering
     //================================================================================
@@ -177,7 +178,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyToDo toDo) {
             return titleKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(toDo.getTitle().title, keyword))
+                    .filter(keyword -> StringUtil.substringIgnoreCase(toDo.getTitle().title, keyword))
                     .findAny()
                     .isPresent();
         }
