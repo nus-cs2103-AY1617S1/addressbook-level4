@@ -11,18 +11,17 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
+1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   > <img src="images/UIProject.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`add`**` Homework  d/MathTut t/Mathematics dd/08102016` : 
+     adds a task named `Homework` to the Task Management Tool.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -40,80 +39,77 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding a task: `add`
+Adds a task to the task management<br>
+Format: `add TASK d/DESCRIPTION sd/START_DATE dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL ...` 
 
-> Persons can have any number of tags (including 0)
+> Tasks can have any number of tags (including 0)
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `add Homework d/ProgrammingEx1 dd/06102016 i/7`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
-
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
+#### Finding task : `find`
+Shows a list of upcoming task in the task management tool.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
+Examples: 
+* `find Homework`<br>
+  Returns `Homework` but not `homework`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+
+#### Deleting a task : `delete`
+Deletes the specified task from the task management tool. Irreversible.<br>
+Format: `delete TASKID`
+
+> Deletes the task at the specified `KEYWORD`. 
+  
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `delete 1`<br> 
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+#### View Task: `View`
+View Task Description
+Format: `View TASKID`
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+Example:
+* `View 1`
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+#### Add Category: `Assign`
+Assign Task to a category
+Format: `Assign TASKID c/CATEGORY`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+Example:
+* `Assign 1 c/Work`
+
+#### Adding task details: `editdetails`
+Edit details to the existing task 
+Format: `editdetails TASKID d/description t/title dd/duedate [t/TAG]...` 
 
 Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+* `editdetails 0 d/Programming t/SoftwareEngineering dd/10 October [t/TAG]...`
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+#### Setting task priority: `setpriority`
+Set priority to a task
+Format: `setpriority TASKID p/PRIORITY_VALUE` 
 
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
+Examples: 
+* `setpriority 0 p/10` 
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+#### Adding duplicate tasks for specific period of time: `addduplicate`
+Set priority to a task
+Format: `addduplicate INTERVAL TIMES d/description t/title dd/duedate [t/TAG]...` 
+
+Examples: 
+* `addduplicate 7 10 d/Programming t/SoftwareEngineering dd/10 October [t/TAG]...` 
+
+#### Coloring task: `color`
+Set color for a code of task
+Format: `color TASKID c/COLOR_VALUE` 
+
+Examples: 
+* `color 0 c/RED` 
+
+<img src="images/LeowYijin.jpg" width="150"><br>
 
 ## FAQ
 
@@ -125,9 +121,9 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add TASK d/DESCRIPTION dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL...`
 Clear | `clear`
-Delete | `delete INDEX`
+Delete | `delete TASKID`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
