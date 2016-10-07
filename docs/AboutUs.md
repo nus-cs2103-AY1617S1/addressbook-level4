@@ -23,6 +23,7 @@ Responsibilities: Storage
 
 -----
 
-#### [Lai Yingchen](https://github.com/yingchen0505)
+#### [Lai Yingchen](https://github.com/yingchen0505) <br>
+<img src="images/Yingchen.JPG" width="150"><br>
 Role: Integration, Developer <br>  
 Responsibilities: UI
