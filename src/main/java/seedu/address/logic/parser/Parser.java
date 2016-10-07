@@ -189,7 +189,8 @@ public class Parser {
         }
 
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
+      //  final String[] keywords = matcher.group("keywords").split("\\s+");
+        final String[] keywords = {args.trim()};
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
