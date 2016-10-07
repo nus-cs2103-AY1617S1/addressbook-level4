@@ -6,9 +6,9 @@ import org.junit.rules.ExpectedException;
 
 import tars.commons.util.FileUtil;
 import tars.commons.util.XmlUtil;
-import tars.model.AddressBook;
-import tars.storage.XmlSerializableAddressBook;
-import tars.testutil.AddressBookBuilder;
+import tars.model.Tars;
+import tars.storage.XmlSerializableTars;
+import tars.testutil.TarsBuilder;
 import tars.testutil.TestUtil;
 
 import javax.xml.bind.JAXBException;
@@ -22,8 +22,8 @@ public class XmlUtilTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
     private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
     private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
-    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
-    private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
+    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validTars.xml");
+    private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempTars.xml"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -31,7 +31,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        XmlUtil.getDataFromFile(null, AddressBook.class);
+        XmlUtil.getDataFromFile(null, Tars.class);
     }
 
     @Test
@@ -43,26 +43,26 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.getDataFromFile(MISSING_FILE, AddressBook.class);
+        XmlUtil.getDataFromFile(MISSING_FILE, Tars.class);
     }
 
     @Test
     public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
-        XmlUtil.getDataFromFile(EMPTY_FILE, AddressBook.class);
+        XmlUtil.getDataFromFile(EMPTY_FILE, Tars.class);
     }
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
-        assertEquals(9, dataFromFile.getPersonList().size());
+        XmlSerializableTars dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTars.class);
+        assertEquals(1, dataFromFile.getTaskList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
 
     @Test
     public void saveDataToFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        XmlUtil.saveDataToFile(null, new AddressBook());
+        XmlUtil.saveDataToFile(null, new Tars());
     }
 
     @Test
@@ -74,23 +74,23 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.saveDataToFile(MISSING_FILE, new AddressBook());
+        XmlUtil.saveDataToFile(MISSING_FILE, new Tars());
     }
 
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AddressBook());
+        XmlSerializableTars dataToWrite = new XmlSerializableTars(new Tars());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(),(new AddressBook(dataFromFile)).toString());
+        XmlSerializableTars dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTars.class);
+        assertEquals((new Tars(dataToWrite)).toString(),(new Tars(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
-        dataToWrite = new XmlSerializableAddressBook(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
+        TarsBuilder builder = new TarsBuilder(new Tars());
+        dataToWrite = new XmlSerializableTars(builder.withTask(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(),(new AddressBook(dataFromFile)).toString());
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTars.class);
+        assertEquals((new Tars(dataToWrite)).toString(),(new Tars(dataFromFile)).toString());
     }
 }

@@ -2,7 +2,7 @@ package tars.logic;
 
 import javafx.collections.ObservableList;
 import tars.logic.commands.CommandResult;
-import tars.model.person.ReadOnlyPerson;
+import tars.model.task.ReadOnlyTask;
 
 /**
  * API of the Logic component
@@ -15,7 +15,7 @@ public interface Logic {
      */
     CommandResult execute(String commandText);
 
-    /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyPerson> getFilteredPersonList();
+    /** Returns the filtered list of tasks */
+    ObservableList<ReadOnlyTask> getFilteredTaskList();
 
 }

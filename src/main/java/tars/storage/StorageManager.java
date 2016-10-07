@@ -4,10 +4,10 @@ import com.google.common.eventbus.Subscribe;
 
 import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
-import tars.commons.events.model.AddressBookChangedEvent;
+import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.events.storage.DataSavingExceptionEvent;
 import tars.commons.exceptions.DataConversionException;
-import tars.model.ReadOnlyAddressBook;
+import tars.model.ReadOnlyTars;
 import tars.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -16,18 +16,18 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Tars data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private XmlAddressBookStorage addressBookStorage;
+    private XmlTarsStorage tarsStorage;
     private JsonUserPrefStorage userPrefStorage;
 
 
-    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
+    public StorageManager(String tarsFilePath, String userPrefsFilePath) {
         super();
-        this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
+        this.tarsStorage = new XmlTarsStorage(tarsFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
@@ -44,32 +44,32 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ Tars methods ==============================
 
     @Override
-    public String getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public String getTarsFilePath() {
+        return tarsStorage.getTarsFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException {
-        logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyTars> readTars() throws DataConversionException, FileNotFoundException {
+        logger.fine("Attempting to read data from file: " + tarsStorage.getTarsFilePath());
 
-        return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return tarsStorage.readTars(tarsStorage.getTarsFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveTars(ReadOnlyTars tars) throws IOException {
+        tarsStorage.saveTars(tars, tarsStorage.getTarsFilePath());
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleTarsChangedEvent(TarsChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveTars(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

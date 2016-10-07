@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
 
 import tars.commons.core.LogsCenter;
-import tars.commons.events.model.AddressBookChangedEvent;
+import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.util.FxViewUtil;
 
 import java.util.Date;
@@ -91,7 +91,7 @@ public class StatusBarFooter extends UiPart {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+    public void handleTarsChangedEvent(TarsChangedEvent abce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);

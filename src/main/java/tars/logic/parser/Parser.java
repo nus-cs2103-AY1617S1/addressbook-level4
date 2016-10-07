@@ -1,6 +1,6 @@
 package tars.logic.parser;
 
-import tars.logic.commands.*;
+import tars.commons.core.Messages;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.AddCommand;
@@ -17,6 +17,7 @@ import tars.logic.commands.SelectCommand;
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tars.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.time.DateTimeException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,13 +36,13 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<name>[^/]+) (?<datetime>(-dt (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} ([01]\\d|2[0-3])?[0-5]\\d)"
+                    + "|(-dt (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} ([01]\\d|2[0-3])?[0-5]\\d "
+                    + "to (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} ([01]\\d|2[0-3])?[0-5]\\d)) "
+                    + "(?<priority>-p [hml])" 
+                    + "(?<tagArguments>(?: -t [^/]+)*)"); // variable number of tags
 
     public Parser() {}
 
@@ -91,13 +92,13 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -105,18 +106,32 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
+                    getDateTimeFromArgs(matcher.group("datetime").replace("-dt ", "")),
+                    matcher.group("priority").replace("-p ", ""),
+                    getTagsFromArgs(matcher.group("tagArguments")));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (DateTimeException dte) {
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
+        }
+    }
+    
+    /**
+     * Extracts the new task's datetime from the add command's task arguments string.
+     */
+    private static String[] getDateTimeFromArgs(String taskArguments) {
+        if (taskArguments.contains("to")) {
+            int toIndex = taskArguments.indexOf("to");
+            String startDateTime = taskArguments.substring(0, toIndex).trim();
+            String endDateTime = taskArguments.substring(toIndex+2).trim();
+            return new String[] {startDateTime, endDateTime};
+        } else {
+            return new String[] {taskArguments};
         }
     }
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
+     * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -125,12 +140,12 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" -t ", "").split(" -t "));
         return new HashSet<>(tagStrings);
     }
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -147,7 +162,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the select task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -181,7 +196,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find task command.
      *
      * @param args full command args string
      * @return the prepared command

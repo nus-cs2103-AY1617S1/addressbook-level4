@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tars>
+    <tasks>
+	<name>Task 1</name>
+        <priority>h</priority>
+        <dateTime>
+            <startDateString>01/09/2016 1400</startDateString>
+            <endDateString>02/09/2016 1400</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+</tars>
