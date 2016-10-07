@@ -13,10 +13,9 @@ public class TimeUtil {
      * @param endTime ending time
      * @return a formatted deadline String
      */
-    public static String getTaskDeadlineString(LocalDateTime startTime, LocalDateTime endTime) {
+    public static String getTaskDeadlineString(LocalDateTime endTime) {
         //Validate assumptions
         assert(endTime != null);
-        assert(startTime == null || startTime.isBefore(endTime));
         
         LocalDateTime currentTime = LocalDateTime.now();
         Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
