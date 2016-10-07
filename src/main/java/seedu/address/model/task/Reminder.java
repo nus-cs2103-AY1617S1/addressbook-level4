@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.DateValidation;
 
 /**
  * Represents a Task's reminder in the Lifekeeper.
@@ -10,8 +11,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Reminder {
     
     public static final String MESSAGE_REMINDER_CONSTRAINTS = "Task reminder can only be in date format";
-    public static final String REMINDER_VALIDATION_REGEX = "\\d{2}-\\d{2}-\\d{4}";
-
     public final String value;
 
     /**
@@ -31,7 +30,10 @@ public class Reminder {
      * Returns true if a given string is a valid task reminder.
      */
     public static boolean isValidReminder(String test) {
-        return test.matches(REMINDER_VALIDATION_REGEX);
+        if((DateValidation.validate(test)) || (test== "today") || (test == "tomorrow"))
+            return true;
+        else 
+            return false;
     }
 
     @Override

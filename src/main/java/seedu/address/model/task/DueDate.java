@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.DateValidation;
 
 /**
  * Represents a Task's DueDate in the Lifekeeper.
@@ -9,7 +10,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class DueDate {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task's DueDate should only contain valid date";
-    public static final String DUEDATE_VALIDATION_REGEX = "\\d{2}-\\d{2}-\\d{4}";
 
     public final String value;
 
@@ -31,7 +31,10 @@ public class DueDate {
      * Returns true if a given string is a valid person phone number.
      */
     public static boolean isValidDueDate(String test) {
-        return test.matches(DUEDATE_VALIDATION_REGEX);
+        if((DateValidation.validate(test)) || (test== "today") || (test == "tomorrow"))
+            return true;
+        else 
+            return false;
     }
 
     @Override
