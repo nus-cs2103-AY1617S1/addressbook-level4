@@ -23,22 +23,22 @@ public class TMParser {
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
 	// Different regexes for different permutations of arguments
-	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern.compile("(?<taskType>event|deadline|someday)(?<addTaskArgs>.*)");
-	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern.compile("(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
+	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern.compile("(?i)(?<taskType>event|deadline|someday)(?<addTaskArgs>.*)");
+	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
 
-	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile("(?<taskName>'.+')\\son\\s(?<date>.+)\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)");
-	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile("(?<taskName>'.+')\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\son\\s(?<date>.+)");
-	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile("on\\s(?<date>.+)\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\s(?<taskName>'.+')");
-	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile("on\\s(?<date>.+)\\s(?<taskName>'.+')\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)");
-	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile("from\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\son\\s(?<date>.+)\\s(?<taskName>'.+')");
-	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile("from\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\s(?<taskName>'.+')\\son\\s(?<date>.+)");
+	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>'.+')\\son\\s(?<date>.+)\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)");
+	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>'.+')\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\son\\s(?<date>.+)");
+	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile("(?i)on\\s(?<date>.+)\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\s(?<taskName>'.+')");
+	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile("(?i)on\\s(?<date>.+)\\s(?<taskName>'.+')\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)");
+	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile("(?i)from\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\son\\s(?<date>.+)\\s(?<taskName>'.+')");
+	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile("(?i)from\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\s(?<taskName>'.+')\\son\\s(?<date>.+)");
 
-	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern.compile("(?<taskName>'.+')\\sby\\s(?<date>.+)\\sat\\s(?<time>.+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern.compile("(?<taskName>'.+')\\sat\\s(?<time>.+)\\sby\\s(?<date>.+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_3 = Pattern.compile("by\\s(?<date>.+)\\sat\\s(?<time>.+)\\s(?<taskName>'.+')");
-	private static final Pattern DEADLINE_ARGS_FORMAT_4 = Pattern.compile("by\\s(?<date>.+)\\s(?<taskName>'.+')\\sat\\s(?<time>.+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_5 = Pattern.compile("at\\s(?<time>.+)\\sby\\s(?<date>.+)\\s(?<taskName>'.+')");
-	private static final Pattern DEADLINE_ARGS_FORMAT_6 = Pattern.compile("at\\s(?<time>.+)\\s(?<taskName>'.+')\\sby\\s(?<date>.+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>'.+')\\sby\\s(?<date>.+)\\sat\\s(?<time>.+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>'.+')\\sat\\s(?<time>.+)\\sby\\s(?<date>.+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_3 = Pattern.compile("(?i)by\\s(?<date>.+)\\sat\\s(?<time>.+)\\s(?<taskName>'.+')");
+	private static final Pattern DEADLINE_ARGS_FORMAT_4 = Pattern.compile("(?i)by\\s(?<date>.+)\\s(?<taskName>'.+')\\sat\\s(?<time>.+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_5 = Pattern.compile("(?i)at\\s(?<time>.+)\\sby\\s(?<date>.+)\\s(?<taskName>'.+')");
+	private static final Pattern DEADLINE_ARGS_FORMAT_6 = Pattern.compile("(?i)at\\s(?<time>.+)\\s(?<taskName>'.+')\\sby\\s(?<date>.+)");
 
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("(?<taskName>'.+')");
 
@@ -228,7 +228,7 @@ public class TMParser {
 
 
 	public static void main(String[] args) {
-		String userInput = "add event 'Read 50 Shades of Grey' from 05:00 to 06:00 on 25/12/2001";
+		String userInput = "add event 'Read 50 Shades of Grey' fRom 05:00 to 06:00 on 25/12/2001";
 		parseUserInput(userInput);
 	}
 }
