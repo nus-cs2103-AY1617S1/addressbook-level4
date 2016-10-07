@@ -15,14 +15,13 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a person to the address book. "
-            + "Task details can be marked private by prepending 'p' to the prefix.\n\t"
-            + "Parameters: NAME [p]s/START [p]e/END [p]p/PRIORITY [t/TAG]...\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a task to the to-do list."
+            + "Parameters: NAME s/START e/END p/PRIORITY [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
             + " Sleep s/8 Oct e/9 Oct p/high";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the Task Manager.";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to-do list.";
 
     private final Task toAdd;
 
@@ -53,7 +52,7 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String name, String priority, Set<String> tags) throws IllegalValueException {
-        this(name, "NIL", "NIL", priority ,tags);
+        this(name, "", "", priority ,tags);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class AddCommand extends Command {
             model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }
