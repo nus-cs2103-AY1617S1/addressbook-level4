@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Person.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
 //    @XmlElement(required = true)
 //    private String name;
@@ -22,7 +22,7 @@ public class XmlAdaptedPerson {
 //    private String address;
 	
 	@XmlElement(required = true)
-	private String name;
+	private String task;
 	
 	@XmlElement
 	private String description;
@@ -39,16 +39,16 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedTask() {}
 
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given task into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(ReadOnlyTask source) {
-        name = source.getName().fullName;
+    public XmlAdaptedTask(ReadOnlyTask source) {
+        task = source.getTask().fullName;
         description = source.getDescription().value;
         status = source.getTaskStatus();
 //        deadline = source.getDealine().value;
@@ -61,7 +61,7 @@ public class XmlAdaptedPerson {
      */
     public Task toModelType() throws IllegalValueException {
 
-        final Name name = new Name(this.name);
+        final Name name = new Name(this.task);
         final Description description = new Description(this.description);
         final Boolean status = new Boolean(this.status);
         

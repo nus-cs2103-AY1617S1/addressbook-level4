@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable TaskBook that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
+@XmlRootElement(name = "taskbook")
+public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @XmlElement
-    private List<XmlAdaptedPerson> tasks;
+    private List<XmlAdaptedTask> tasks;
 //    @XmlElement
 //    private List<Tag> tags;
 
@@ -31,13 +31,13 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableTaskBook() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyTaskBook src) {
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+    public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
+        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
 //        tags = src.getTagList();
     }
 
@@ -54,7 +54,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson t : tasks) {
+        for (XmlAdaptedTask t : tasks) {
             try {
                 lists.add(t.toModelType());
             } catch (IllegalValueException e) {

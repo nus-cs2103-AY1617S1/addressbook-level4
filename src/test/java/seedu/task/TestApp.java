@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 import seedu.task.MainApp;
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.UserPrefs;
-import seedu.task.storage.XmlSerializableAddressBook;
+import seedu.task.storage.XmlSerializableTaskBook;
 import seedu.task.testutil.TestUtil;
 import seedu.taskcommons.core.Config;
 import seedu.taskcommons.core.GuiSettings;
@@ -36,7 +36,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableTaskBook(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -45,9 +45,9 @@ public class TestApp extends MainApp {
     protected Config initConfig(String configFilePath) {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
-        config.setAddressBookFilePath(saveFileLocation);
+        config.setTaskBookFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
-        config.setAddressBookName(ADDRESS_BOOK_NAME);
+        config.setTaskBookName(ADDRESS_BOOK_NAME);
         return config;
     }
 

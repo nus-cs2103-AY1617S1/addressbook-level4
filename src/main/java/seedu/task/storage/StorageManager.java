@@ -16,18 +16,18 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of TaskBook data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private XmlAddressBookStorage addressBookStorage;
+    private XmlTaskBookStorage taskBookStorage;
     private JsonUserPrefStorage userPrefStorage;
 
 
-    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
+    public StorageManager(String taskBookFilePath, String userPrefsFilePath) {
         super();
-        this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
+        this.taskBookStorage = new XmlTaskBookStorage(taskBookFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
@@ -47,29 +47,29 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public String getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public String getTaskBookFilePath() {
+        return taskBookStorage.getTaskBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyTaskBook> readAddressBook() throws DataConversionException, FileNotFoundException {
-        logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, FileNotFoundException {
+        logger.fine("Attempting to read data from file: " + taskBookStorage.getTaskBookFilePath());
 
-        return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return taskBookStorage.readTaskBook(taskBookStorage.getTaskBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskBook addressBook) throws IOException {
-        addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException {
+        taskBookStorage.saveTaskBook(taskBook, taskBookStorage.getTaskBookFilePath());
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(TaskBookChangedEvent event) {
+    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveTaskBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

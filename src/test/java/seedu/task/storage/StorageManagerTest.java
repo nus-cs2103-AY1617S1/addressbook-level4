@@ -50,9 +50,9 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        TaskBook original = new TypicalTestTasks().getTypicalTaskBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyTaskBook retrieved = storageManager.readAddressBook().get();
+        TaskBook original = new TypicalTestPersons().getTypicalAddressBook();
+        storageManager.saveTaskBook(original);
+        ReadOnlyTaskBook retrieved = storageManager.readTaskBook().get();
         assertEquals(original, new TaskBook(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }
