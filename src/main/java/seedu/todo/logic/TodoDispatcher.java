@@ -35,8 +35,6 @@ public class TodoDispatcher implements Dispatcher {
             throw new IllegalValueException("Command not recognized");
         }
         
-        command.setArguments(parser);
-        
         return command;
     }
 }
