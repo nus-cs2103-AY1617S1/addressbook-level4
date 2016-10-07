@@ -11,8 +11,8 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `schema.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Schema.
+1. Download the latest `mastermind.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your Mastermind.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
@@ -20,8 +20,13 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all floating tasks, events and tasks due today
+<<<<<<< HEAD
+   * **`add`**` CS2103T "tutorial work" by/1100 on/tomorrow t/TUTORIAL` : 
+     adds a task named `CS2103T tutorial work` with deadline due tomorrow at 11am to Mastermind.
+=======
    * **`add`** `"CS2103T tutorial work" by/1100 on/tomorrow t/TUTORIAL` : 
      adds a task named `CS2103T tutorial work` with deadline due tomorrow at 11am to the Schema.
+>>>>>>> master
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -35,11 +40,19 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 ### Adding a task: `add` `do` `complete`
+<<<<<<< HEAD
+#### Adds an event to Mastermind  
+Format: `add "TASK", at/TIME, on/DATE [t/TAG...]`  
+#### Adds a task with deadline to Mastermind  
+Format: `complete "TASK" by/TIME on/DATE [t/TAG...]`  
+#### Adds a floating task to Mastermind  
+=======
 #### Add an event to Schema  
 Format: `add "TASK", at/TIME, on/DATE [t/TAG...]`  
 #### Add a task with deadline to Schema  
 Format: `complete "TASK" by/TIME on/DATE [t/TAG...]`  
 #### Add a floating task to Schema  
+>>>>>>> master
 Format: `do "TASK" [t/TAG...]` 
 
  
@@ -108,7 +121,7 @@ Format: `edit INDEX [TASK] [at/TIME] [on/DATE] [t/TAGS...]`
 Examples: 
 * `list`<br>
   `edit 1 Lunch`<br>
-  Selects the 2nd task in Schema and edit the task to Lunch from Dinner.
+  Selects the 2nd task in Mastermind and edit the task to Lunch from Dinner.
 * `find CS2010` <br> 
   `edit 1 on/2010`<br>
   Selects the 1st task in the results of the `find` command and edit the date from 1110 to 2010.
@@ -124,7 +137,7 @@ Format: `delete INDEX`
 Examples: 
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd task in the Schema.
+  Deletes the 2nd task in the Mastermind.
 * `find buy groceries`<br> 
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` command.
@@ -158,7 +171,7 @@ Format: `mark INDEX`
 Examples: 
 * `list`  
   `mark 1 `  
-  Selects the 2nd task in Schema and mark the task as completed.
+  Selects the 2nd task in Mastermind and mark the task as completed.
 * `find CS2010`   
   `mark 1 `  
   Selects the 1st task in the results of the `find` command and mark the task as completed.
@@ -172,20 +185,21 @@ Example:
   All tasks in deadlines are cleared.
 
 ### Clearing all entries: `clearall`
-Clears all tasks available from Schema.  
+Clears all tasks available from Mastermind  
+>>>>>>> master
 Format: `clearall`
 
 Example:
 * `clearall`  
-  All tasks in Schema are cleared.
+  All tasks in Mastermind are cleared
   
 ### Changing save location : `relocate`
 Relocates the destination that data is saved.  
 Format: `relocate FILEPATH`
 
 Example:
-* `relocate ~/document/schema`  
-  Data has been relocated to ~/document/schema
+* `relocate ~/document/mastermind`  
+  data has been relocated to ~/document/mastermind
 
 ### Exiting the program : `exit`
 Exits the program.  
@@ -193,17 +207,17 @@ Format: `exit`
 
 Example:
 * `exit`  
-  Exiting Schema...
+  Exiting Mastermind...
 
 ### Saving the data 
-Schema's data are saved in the hard disk automatically after any command that changes the data.<br>
+Mastermind's data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the application in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Schema.
+       the file that contains the data of your previous Mastermind.
        
 **Q**: Is my data secure?  
 **A**: Your data is stored locally on your hard drive as a .xml file. Your data is as secure as your computer
