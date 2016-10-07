@@ -260,8 +260,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a dealdine to a task I am creating or to a entered task |
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | find a task by name | see whether it has been completed or if it is upcoming
-`* *`   | 
-`*` | 
+`* * *` | user | I can edit a task | so that I can easily update my task list when changes arise.
+`*`     | 
 
 
 
