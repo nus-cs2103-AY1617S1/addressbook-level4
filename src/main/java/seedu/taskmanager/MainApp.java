@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.taskmanager;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
