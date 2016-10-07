@@ -27,6 +27,11 @@ public class TimeUtil {
         Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
         
         long hoursToDeadline = durationCurrentToEnd.toHours();
+        
+        if (hoursToDeadline == 1) {
+            return "in an hour";
+        }
+        
         String formattedTime = "in " + String.valueOf(hoursToDeadline) + " hours";
         return formattedTime;
     }
