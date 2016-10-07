@@ -8,18 +8,24 @@ import seedu.oneline.model.task.*;
  */
 public class TestTask implements ReadOnlyTask {
 
-    private Name name;
+    private Name oldName;
     private Address address;
     private Email email;
     private Phone phone;
     private UniqueTagList tags;
+    
+    private TaskName name;
+    private TaskTime startTime;
+    private TaskTime endTime;
+    private TaskTime deadline;
+    private TaskRecurrence recurrence;
 
     public TestTask() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public void setOldName(Name name) {
+        this.oldName = name;
     }
 
     public void setAddress(Address address) {
@@ -33,10 +39,30 @@ public class TestTask implements ReadOnlyTask {
     public void setPhone(Phone phone) {
         this.phone = phone;
     }
+    
+    public void setName(TaskName name) {
+        this.name = name;
+    }
+    
+    public void setStartTime(TaskTime startTime) {
+        this.startTime = startTime;
+    }
+    
+    public void setEndTime(TaskTime endTime) {
+        this.endTime = endTime;
+    }
+    
+    public void setDeadline(TaskTime deadline) {
+        this.deadline = deadline;
+    }
 
+    public void setRecurrence(TaskRecurrence recurrence) {
+        this.recurrence = recurrence;
+    }
+    
     @Override
-    public Name getName() {
-        return name;
+    public Name getOldName() {
+        return oldName;
     }
 
     @Override
@@ -55,6 +81,31 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
+    public TaskName getName() {
+        return name;
+    }
+
+    @Override
+    public TaskTime getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public TaskTime getEndTime() {
+        return endTime;
+    }
+
+    @Override
+    public TaskTime getDeadline() {
+        return deadline;
+    }
+
+    @Override
+    public TaskRecurrence getRecurrence() {
+        return recurrence;
+    }
+    
+    @Override
     public UniqueTagList getTags() {
         return tags;
     }
@@ -66,7 +117,7 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
+        sb.append("add " + this.getOldName().fullName + " ");
         sb.append("p/" + this.getPhone().value + " ");
         sb.append("e/" + this.getEmail().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
