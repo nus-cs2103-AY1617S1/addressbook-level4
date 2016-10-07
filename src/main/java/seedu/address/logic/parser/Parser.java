@@ -7,15 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Parses
+ * Parses a given input string
+ * Methods modify the input string by extracting appropriate parts of it
  */
 public class Parser {
 
-    private static final Pattern COMMAND_WORD_PATTERN = Pattern.compile("^(?<commandWord>\\S+)(?<tail>.*)$");
-    private static final Pattern ITEM_INDEX_PATTERN = Pattern.compile("^(?<index>\\d+)(?<tail>.*)$");
-    private static final Pattern TEXT_PATTERN = Pattern.compile("^(?<text>.+)$");
+    private static final Pattern FIRST_WORD_PATTERN = Pattern.compile("^(?<word>\\S+)(?<tail>.*)$");
+    private static final Pattern FIRST_INTEGER_PATTERN = Pattern.compile("^(?<index>\\d+)(?<tail>.*)$");
     private static final Pattern WORD_PATTERN = Pattern.compile("(?<word>\\S+)");
-
     private String input;
 
     public Parser() {}
@@ -28,21 +27,80 @@ public class Parser {
     }
 
     /**
-     * Extracts text and removes it from the current input, if found
-     * @return optional of description extracted from input, empty if not found
+     * Gets current input the parser is working on
      */
-    public Optional<String> extractText() {
-        final Matcher matcher = TEXT_PATTERN.matcher(input.trim());
-
-        if (matcher.matches()) {
-            return Optional.of(matcher.group("text"));
-        }
-
-        return Optional.empty();
+    public String getInput() {
+        return input;
     }
 
     /**
-     * Extracts a set of words in input
+     * From start, extracts text from input until any keyword in the set of keywords {@param keywords}
+     * Keywords are matched as whole words, not substrings, and as case-insensitive ("word" does not match in "keyword")
+     * It can match up to the end of input, if an empty set of keywords is provided or none in
+     * set is encountered
+     * Asserts {@param keywords} is non-null
+     * @return optional of text extracted from input, empty if not found
+     */
+    public Optional<String> extractText(String... keywords) {
+        assert keywords != null;
+
+        // Search for earliest occurrence of any keyword, case insensitive
+        int index = input.length();
+        String lowerCaseInput = input.toLowerCase();
+
+        Matcher matcher = WORD_PATTERN.matcher(lowerCaseInput);
+        loop:
+        while (matcher.find()) {
+            for (String keyword : keywords) {
+                // If any keyword matched current word
+                if (matcher.group("word").equals(keyword.trim().toLowerCase())) {
+                    index = matcher.start();
+                    break loop; // stop, we found the first
+                }
+            }
+        }
+
+        String text = input.substring(0, index).trim();
+        input = input.substring(index); // Remove extracted text
+
+        if (text.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(text);
+    }
+
+    /**
+     * Extracts all words prefixed with {@param prefix}
+     * Eg, method("#") on input = "some #tag1 #tag2 thing" returns {"tag1", "tag2"}
+     * and resulting input = "some  thing"
+     */
+    public Set<String> extractPrefixedWords(String prefix) {
+        assert prefix != null;
+
+        Set<String> words = new HashSet<>();
+
+        // Keep trying to find the next word, until cannot be found
+        for (Matcher matcher = WORD_PATTERN.matcher(input);
+             matcher.find();) {
+
+            String word = matcher.group("word");
+
+            // Check prefix of word
+            if (word.indexOf(prefix) == 0) {
+                words.add(word.substring(prefix.length())); // Add without prefix
+                input = input.substring(0, matcher.start())
+                    + input.substring(matcher.end()); // Remove matched word from input
+
+                matcher = WORD_PATTERN.matcher(input); // Reset matcher to new input string
+            }
+        }
+
+        return words;
+    }
+
+    /**
+     * From start, extracts a set of words in input until its end
      * @return set of words found
      */
     public Set<String> extractWords() {
@@ -54,33 +112,35 @@ public class Parser {
            words.add(matcher.group("word"));
         }
 
+        input = ""; // empty input
+
         return words;
     }
 
     /**
-     * Extracts command word in input and removes it from the current input, if found
-     * @return optional of command word extracted from input, empty if not found
+     * From start, extracts the first word in input, if found
+     * @return optional of word extracted from input, empty if not found
      */
-    public Optional<String> extractCommandWord() {
-        final Matcher matcher = COMMAND_WORD_PATTERN.matcher(input.trim());
+    public Optional<String> extractFirstWord() {
+        final Matcher matcher = FIRST_WORD_PATTERN.matcher(input.trim());
 
         if (matcher.matches()) {
-            input = matcher.group("tail"); // What's left after extracting
-            return Optional.of(matcher.group("commandWord"));
+            input = matcher.group("tail"); // Remove extracted command word
+            return Optional.of(matcher.group("word"));
         }
 
         return Optional.empty();
     }
 
     /**
-     * Extracts item index in input and removes it from the current input, if found
-     * @return optional of item index extracted from input, empty if not found
+     * From start, extracts first integer in input, if found
+     * @return optional of found integer extracted from input, empty if not found
      */
-    public Optional<Integer> extractItemIndex() {
-        final Matcher matcher = ITEM_INDEX_PATTERN.matcher(input.trim());
+    public Optional<Integer> extractFirstInteger() {
+        final Matcher matcher = FIRST_INTEGER_PATTERN.matcher(input.trim());
 
         if (matcher.matches()) {
-            input = matcher.group("tail"); // What's left after extracting
+            input = matcher.group("tail"); // Remove extracted item index
             String indexString = matcher.group("index");
 
             try {

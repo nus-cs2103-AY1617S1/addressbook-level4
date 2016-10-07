@@ -9,8 +9,13 @@ import java.util.Set;
 
 /**
  * Maps and builds commands from input strings, using {@link Parser}
+ * In charge of splitting up input strings to required parts for commands
  */
 public class CommandFactory {
+    public static final String KEYWORD_DATERANGE_START = "from";
+    public static final String KEYWORD_DATERANGE_END = "to";
+    public static final String KEYWORD_DUEDATE = "by";
+    public static final String TAG_PREFIX = "#";
 
     private Parser parser;
     {
@@ -25,7 +30,7 @@ public class CommandFactory {
         parser.setInput(inputString);
 
         // Check if command word exists
-        Optional<String> commandWord = parser.extractCommandWord();
+        Optional<String> commandWord = parser.extractFirstWord();
 
         if (!commandWord.isPresent()) {
             return new InvalidCommand(Messages.MESSAGE_MISSING_COMMAND_WORD);
@@ -69,7 +74,7 @@ public class CommandFactory {
 
     private Command buildDeleteCommand() {
         // Try to find index
-        Optional<Integer> index = parser.extractItemIndex();
+        Optional<Integer> index = parser.extractFirstInteger();
         if (!index.isPresent()) {
             return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_ITEM_INDEX);
         }
@@ -98,4 +103,5 @@ public class CommandFactory {
             return new HelpCommand();
         }
     }
+
 }
