@@ -49,6 +49,8 @@ public class CommandFactory {
                 return buildClearCommand();
             case HelpCommand.COMMAND_WORD:
                 return buildHelpCommand();
+            case EditCommand.COMMAND_WORD:
+                return buildEditCommand();
             default:
                 return new InvalidCommand(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
@@ -103,5 +105,41 @@ public class CommandFactory {
             return new HelpCommand();
         }
     }
+    private Command buildEditCommand() {
+        // Try to find index
+        Optional<Integer> index = parser.extractFirstInteger();
+        if (!index.isPresent()) {
+            return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_ITEM_INDEX);
+        }
 
+        EditCommand command = new EditCommand(index.get());
+
+        // Extract tags
+        Set<String> tags = parser.extractPrefixedWords(TAG_PREFIX);
+
+        if (!tags.isEmpty()) {
+            try {
+                command.setTags(tags);
+            } catch (IllegalValueException exception) {
+                return new InvalidCommand(Messages.MESSAGE_TODO_TAG_CONSTRAINTS);
+            }
+        }
+
+        // Extract title
+        Optional<String> title = parser.extractText(
+            KEYWORD_DATERANGE_START,
+            KEYWORD_DATERANGE_END,
+            KEYWORD_DUEDATE
+        );
+
+        if (title.isPresent()) {
+            try {
+                command.setTitle(title.get());
+            } catch (IllegalValueException exception) {
+                return new InvalidCommand(Messages.MESSAGE_TODO_TITLE_CONSTRAINTS);
+            }
+        }
+
+        return command;
+    }
 }
