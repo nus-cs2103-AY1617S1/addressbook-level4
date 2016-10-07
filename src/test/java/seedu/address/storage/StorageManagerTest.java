@@ -57,7 +57,7 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyEmeraldo retrieved = storageManager.readAddressBook().get();
+        ReadOnlyEmeraldo retrieved = storageManager.readEmeraldo().get();
         assertEquals(original, new AddressBook(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }

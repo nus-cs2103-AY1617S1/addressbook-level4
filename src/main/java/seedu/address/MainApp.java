@@ -73,7 +73,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyEmeraldo> addressBookOptional;
         ReadOnlyEmeraldo initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readEmeraldo();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
             }

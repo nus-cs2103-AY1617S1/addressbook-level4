@@ -29,7 +29,7 @@ public class XmlAddressBookStorage implements EmeraldoStorage {
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readEmeraldo()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -62,7 +62,7 @@ public class XmlAddressBookStorage implements EmeraldoStorage {
     }
 
     @Override
-    public Optional<ReadOnlyEmeraldo> readAddressBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyEmeraldo> readEmeraldo() throws DataConversionException, IOException {
         return readAddressBook(filePath);
     }
 
