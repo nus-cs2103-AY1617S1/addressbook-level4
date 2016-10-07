@@ -35,11 +35,6 @@
 > * Items with `...` after them can have multiple instances.
 > * Flexible ordering of parameters.
 
-#### Viewing help : `help`
-Format: `help`
-
-> * Help is also shown if you enter an incorrect command e.g. `abcd`.
- 
 #### Adding a task : `add`
 Adds a task, deadline, event or a floating task to the list. <br>
 Format: `add TASKNAME [at/from TIMEDATE] [by/to TIMEDATE] [PRIORITY]` 
@@ -56,9 +51,10 @@ Examples:
 
 #### Displaying tasks : `show`
 Displays tasks and their indexes in the specified timeframe.<br>
-Format: `show [PERIOD]`
+Format: `show [TYPE]`
 
-> * PERIOD format: all, overdue, floating, today, tomorrow, upcoming, or DATE.
+> * TYPE format: complete, all, overdue, floating, today, tomorrow, upcoming, or DATE.
+> * Except for show complete, all other inputs for TYPE will only display the incomplete tasks, i.e., the tasks which have not been marked as done
 
 Examples:
 * `show floating`<br>
@@ -125,16 +121,16 @@ Examples:
 
 > * Lists tasks matching `b*y*` for the user to choose from
 
-#### Marking a task as complete : `complete`
+#### Marking a task as complete : `done`
 Marks a task as complete.<br>
-Format: `complete INDEX/TASKNAME`
+Format: `done INDEX/TASKNAME`
 
 > * Marks the task at the specified index as complete
 > * If TASKNAME is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with marking a task as complete using the index of the appropriate task.
 
 Examples:
-* `complete 1`
-* `complete b*y*`
+* `done 1`
+* `done b*y*`
 
 #### Setting the storage location: `setstorage`
 Sets the data storage location <br>
@@ -153,6 +149,10 @@ Format: `redo`
 > * Allows redo to up to 3 consecutive undo operations done
 > * Does not work if the undo command was not used just before this command
 
+#### Viewing help : `help`
+Format: `help`
+
+> * Help is also shown if you enter an incorrect command e.g. `abcd`.
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
@@ -170,14 +170,14 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-help | `help` 
 add | `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE] [PRIORITY]`
-show | `show [PERIOD]`
+show | `show [TYPE]`
 find | `find SEARCHSTRING`
 delete | `delete INDEX/TASKNAME`
 update | `update INDEX/TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE]`
-complete | `complete INDEX/TASKNAME`
+done | `done INDEX/TASKNAME`
 setstorage | `setstorage FILEPATH`
 undo | `undo`
 redo | `redo`
+help | `help` 
 exit | `exit`
