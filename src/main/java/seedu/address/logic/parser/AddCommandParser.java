@@ -6,6 +6,7 @@ import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
 public class AddCommandParser extends CommandParser{
+    public static final String COMMAND_WORD = "add";
 	/**
      * Parses arguments in the context of the add task command.
      *
