@@ -38,9 +38,9 @@ public class TimeUtilTest {
     @Test
     public void getTaskDeadlineString_minutesBeforeDeadlines() {
         for (long minutesLeft = 2; minutesLeft < 60; minutesLeft++) {
-            LocalDateTime inputTime = LocalDateTime.now().plusHours(minutesLeft).plusMinutes(1);
+            LocalDateTime inputTime = LocalDateTime.now().plusMinutes(minutesLeft).plusSeconds(30);
             String generatedOutput = TimeUtil.getTaskDeadlineString(inputTime);
-            String expectedOutput = "in " + String.valueOf(minutesLeft) + " hours";
+            String expectedOutput = "in " + String.valueOf(minutesLeft) + " minutes";
             assertEquals(generatedOutput, expectedOutput);
         }
     }
