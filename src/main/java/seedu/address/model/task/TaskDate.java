@@ -1,8 +1,10 @@
 package seedu.address.model.task;
 
+
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -11,52 +13,85 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class TaskDate {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Tasks' dates need to follow predefined format.";
-    public static final String DATETIME_VALIDATION_REGEX = "\\d+";
-
-    public LocalDateTime datetime;
-
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Tasks' dates and time need to follow predefined format.";
+    private static final int DATE_TIME_STRING_DATE_INDEX = 0;
+    private static final int DATE_TIME_STRING_TIME_INDEX = 1;
+    
+    private LocalDate date;
+    private LocalTime time;
+    
     /**
-     * Validates given phone number.
+     * Validates given date and time string.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException if given date and time string is invalid.
      */
-    public TaskDate(String datetime) throws IllegalValueException {
-        if (datetime == null) {
-        	this.datetime = null;
+    public TaskDate(String dateTimeString) throws IllegalValueException {
+        if (dateTimeString == null) {
+        	this.date = null;
+        	this.time = null;
         } else {
-        	datetime = datetime.trim();
-            
-            if (!isValidDateTime(datetime)) {
+        	dateTimeString = dateTimeString.trim();
+        	String[] dateAndTime = dateTimeString.split("t");
+        	
+            if (!isValidDate(dateAndTime[DATE_TIME_STRING_DATE_INDEX])) {
                 throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
             }
-            this.datetime = null;
+            this.date = DateTimeUtil.parseDateString(dateAndTime[DATE_TIME_STRING_DATE_INDEX]);
+            
+            if(dateAndTime.length > 1) {
+            	if (!isValidTime(dateAndTime[DATE_TIME_STRING_TIME_INDEX])) {
+            		throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
+            	}
+            	this.time = DateTimeUtil.parseTimeString(dateAndTime[DATE_TIME_STRING_TIME_INDEX]);
+            } else {
+            	this.time = null;
+            }
         }
     }
 
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given string is able to parse to a valid LocalDate
      */
-    public static boolean isValidDateTime(String datetime) {
-    	return true;
+    public static boolean isValidDate(String dateString) {
+    	return DateTimeUtil.isValidDateString(dateString);
+    }
+    
+    /**
+     * Returns true if a given string is able to parse to a valid LocalTime
+     */
+    public static boolean isValidTime(String timeString) {
+    	return DateTimeUtil.isValidTimeString(timeString);
     }
 
     @Override
     public String toString() {
-        return datetime == null ? "" : datetime.toString();
+        
+    	String dateString, timeString;
+    	if (date == null) {
+    		dateString = "";
+    	} else {
+    		dateString = DateTimeUtil.prettyPrintDate(date);
+    	}
+    	
+    	if (time == null) {
+    		timeString = "";
+    	} else {
+    		timeString = DateTimeUtil.prettyPrintTime(time);
+    	}
+    	
+    	return dateString + " " + timeString;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskDate // instanceof handles nulls
-                || (this.datetime == null && ((TaskDate) other).datetime == null)
-                && this.datetime.equals(((TaskDate) other).datetime)); // state check
+                || this.toString().equals(other.toString()));
     }
 
     @Override
     public int hashCode() {
-        return datetime.hashCode();
+        return this.toString().hashCode();
     }
 
 }
