@@ -9,6 +9,8 @@ import seedu.address.model.ReadOnlyTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,9 +41,11 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
      * Conversion
      */
     public XmlSerializableTaskList(ReadOnlyTaskList src) {
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+    	List<ReadOnlyTask> tl = src.getTaskList();
+        tasks.addAll(tl.stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
+    
 
     @Override
     public UniqueTagList getUniqueTagList() {
@@ -51,6 +55,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
             e.printStackTrace();
             return null;
         }
+        
     }
 
     @Override
@@ -59,8 +64,8 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
         for (XmlAdaptedTask p : tasks) {
             try {
                 lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
-
+            } catch (IllegalValueException | ParseException e) {
+            	
             }
         }
         return lists;
@@ -71,7 +76,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
         return tasks.stream().map(p -> {
             try {
                 return p.toModelType();
-            } catch (IllegalValueException e) {
+            } catch (IllegalValueException | ParseException e) {
                 e.printStackTrace();
                 return null;
             }
