@@ -279,7 +279,7 @@ Use case ends.
 **Extensions**
 
 2a. The command format is invalid
-> 2a1. Task!t shows a 'invalid command' message and display the expected format.
+> 2a1. Task!t shows a 'invalid command' message and display the expected format. <br>
 > Use case ends
 
 #### Use case: Edit task
@@ -295,15 +295,15 @@ Use case ends.
 **Extensions**
 
 2a. The list is empty
-> 2a1. Task!t shows a 'no task found' message.
+> 2a1. Task!t shows a 'no task found' message.<br>
 > Use case ends
 
 3a. The given index is invalid
-> 3a1. Task!t shows a 'invalid index' message 
+> 3a1. Task!t shows a 'invalid index' message <br>
 > Use case resumes at step 2
 
 3b. The command format is invalid
-> 3b1. Task!t shows a 'invalid command' message and display the expected format.
+> 3b1. Task!t shows a 'invalid command' message and display the expected format.<br>
 > Use case resumes at step 2
 
 #### Use case: View task
@@ -317,7 +317,7 @@ Use case ends.
 **Extensions**
 
 2a. The list is empty
-> 2a1. Task!t shows a 'no task found' message.
+> 2a1. Task!t shows a 'no task found' message.<br>
 > Use case ends
 
 #### Use case: Find task
@@ -331,7 +331,7 @@ Use case ends.
 **Extensions**
 
 2a. The list is empty
-> 2a1. Task!t shows a 'no task found' message.
+> 2a1. Task!t shows a 'no task found' message.<br>
 > Use case ends
 
 #### Use case: Mark task as done
@@ -347,19 +347,19 @@ Use case ends.
 **Extensions**
 
 2a. The list is empty
-> 2a1. Task!t shows a 'no task found' message.
+> 2a1. Task!t shows a 'no task found' message.<br>
 > Use case ends
 
 3a. The given index is invalid
-> 3a1. Task!t shows a 'invalid index' message 
+> 3a1. Task!t shows a 'invalid index' message <br>
 > Use case resumes at step 2
 
 3b. The command format is invalid
-> 3b1. Task!t shows a 'invalid format' message and display the expected format.
+> 3b1. Task!t shows a 'invalid format' message and display the expected format<br>
 > Use case ends
 
 3c. The task is already marked as done
-> 3c1. Task!t shows a 'task already marked' message.
+> 3c1. Task!t shows a 'task already marked' message.<br>
 > Use case resumes at step 3
 
 #### Use case: Delete task
@@ -375,11 +375,11 @@ Use case ends.
 **Extensions**
 
 2a. The list is empty
-> 2a1. Task!t shows a 'no task found' message.
+> 2a1. Task!t shows a 'no task found' message<br>
 > Use case ends
 
 3a. The given index is invalid
-> 3a1. Task!t shows a 'invalid index' message 
+> 3a1. Task!t shows a 'invalid index' message <br>
 > Use case resumes at step 2
 
 #### Use case: Set storage location
@@ -393,7 +393,7 @@ Use case ends.
 **Extensions**
 
 2a. The given path is invalid
-> 2a1. Task!t shows a 'invalid path' message.
+> 2a1. Task!t shows a 'invalid path' message<br>
 > Use case ends
 
 ## Appendix C : Non Functional Requirements
