@@ -15,6 +15,8 @@ public class TimeUtil {
     private static final String MINUTE_SINGLE_UNIT = " minute";
     private static final String MINUTES_MULTIPLE_UNIT = " minutes";
     
+    private static final String DUE_NOW = "right now";
+    
     /**
      * Gets the task deadline expression for the UI.
      * @param endTime ending time
@@ -28,6 +30,10 @@ public class TimeUtil {
         
         long hoursToDeadline = durationCurrentToEnd.toHours();
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
+        
+        if (minutesToDeadline == 0) {
+            return DUE_NOW;
+        }
         
         if (hoursToDeadline == 0) {
             
