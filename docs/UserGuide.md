@@ -82,6 +82,7 @@ In the remainder of this section, note the following:
 #### Start and End Times
 For an event with a definite start and end time, you can use the following syntax to add this event.
 
+<!-- what about multi-day event? -->
 ```bash
 # format
 add EVENT_NAME from START_TIME to END_TIME on DATE
@@ -151,29 +152,33 @@ Sometimes it is necessary to change the details of your event because life.
 
 ```bash
 # format
-edit FIELD_NAME for EVENT_NAME to NEW_DETAIL
-edit FIELD_NAME for EVENT_ID to NEW_DETAIL
+for EVENT_NAME edit FIELD_NAME to NEW_DETAIL
+for EVENT_ID edit FIELD_NAME to NEW_DETAIL
 ```
 Fields: [`FIELD_NAME`](), [`EVENT_NAME`](#descriptors), [`EVENT_ID`](#event-id), `NEW_DETAIL`
 
+You can change multiple fields for the same event at the same time by separating multiple `FIELD_NAME` and `NEW_DETAIL` with a comma. The `FIELD_NAME` will correspond to the order of `NEW_DETAIL`.
+
 ```bash
 # examples
-edit start_time for "Dental Appointment" to 1600
-edit date for "CS2103 Consult" to 29 October
+for "Dental Appointment" edit start_time to 1600
+for "CS2103 Consult" edit date to 29 October
+for "Dental Appointment" edit start_time,end_time to 1600,2000 # change multiple fields at the same time
+for "CS2103 Consult" edit start_time,end_time,date to 1200,2100,12 October 2016
 ```
 
 #### Marking as Complete
 ```bash
 # format
-done EVENT_NAME
-done EVENT_ID
+for EVENT_NAME done
+for EVENT_ID done
 ```
 Fields: [`EVENT_NAME`](#descriptors), [`EVENT_ID`](#event-id)
 
 ```bash
 # examples
-done "Dental Appointment"
-done 124235
+for "Dental Appointment" done
+for 124133 done
 ```
 
 ### Deleting an Event
@@ -181,15 +186,15 @@ You can delete an event using its name. This is not the same as marking an event
 
 ```bash
 # format
-delete EVENT_NAME
-delete EVENT_ID
+for EVENT_NAME delete
+for EVENT_ID delete
 ```
 Fields: [`EVENT_NAME`](#descriptors), [`EVENT_ID`](#event-id)
 
 ```bash
 # examples
-delete "CS2103 Tutorial 3"
-delete 124294              # deletes event with ID 124294
+for "CS2103 Tutorial 3" delete
+for 124129 delete              # deletes event with ID 124294
 ```
 
 ### Searching for an Event
@@ -211,7 +216,7 @@ find 12093
 You can enumerate a list of all the events, sorted alphabetically or chronologically.
 ```bash
 list        # lists all events by name in chronological order
-list -l     # lists all events' name and details in chronological order
+list long   # lists all events' name and details in chronological order
 ```
 
 ### Next Thing to Do
