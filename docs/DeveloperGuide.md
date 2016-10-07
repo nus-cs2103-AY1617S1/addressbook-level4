@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E: Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -273,11 +273,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add new task | find out  tasks are urgently due
+`* * *` | user | set deadlines | be reminded of my due dates for my respective tasks
+`* * *` | user | delete a task | remove entries that are completed
+`* * *` | user | find a task by name | search for a task  without having to go through the entire list
+`* * *` | user | edit a task and its particulars | update instantly if there are any changes in the task
+`* *` | user | view the tasks | take a quick glance or have my tasks presented according to my needs and preference
+`* *` | user | set recurring tasks | save the hassle of contstantly updating my regular activities
+`*` | advanced user | use shortcuts | key in my commands quicker and easier
 
 {More to be added}
 
@@ -285,14 +288,75 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to add task
+2. Task Manager adds task and displays the new list of tasks 
+Use case ends.
+
+**Extensions**
+
+1a. Required information for task missing
+
+>1a1. Task Manager shows an error message<br>
+    Use case resumes back to step 1
+    
+1b.  Timeslot for task is already filled
+>1b1. Task manager informs user that timeslot is already filled <br>
+Use case resumes at step 1 
+
+
+#### Use case: Delete task
+
+**MSS**
+
+1. User requests to view tsks for specific time period
+2. Task Manager displays all tasks during time period
+3. User requests to delete a specific task in the list
+4. Task Manager asks for confirmation on task to delete
+5. Task Manager deletes the task 
+Use case ends
+
+**Extensions**
+
+2a. The list is empty
+>Use case ends
+    
+3a. Given index is invalid
+>3b1. Task manager shows error message <br>
+Use case resumes at step 2
+
+4a. If deleting a recurring task
+
+>4a1. Task manager prompts user to choose between deleting task on that specific day or delete  all recurring tasks
+>
+>4a2. User enters choice
+>
+>4a3. Task manager deletes accordingly<br>
+    User case ends
+    
+#### Use case: View task
+
+**MSS**
+
+1. User requests to view tasks for specific time period and a certain format
+2. Task Manager displays all tasks during time period in that format
+
+Use case ends
+
+
+#### Use case: Edit task
+
+**MSS**
+
+1. User requests to list tasks for a specific time period
+2. Task Manager displays all tasks during time period
+3. User requests to edit a specific task in the list
+4. Task Manager asks for confirmation on task to be edited
+5. User confirms the changes
+6. Task manager makes the edits <br>
 Use case ends.
 
 **Extensions**
@@ -303,10 +367,22 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+> 3a1. Task Manager shows an error message <br>
+> Use case resumes at step 2
 
-{More to be added}
+4a. If editing a recurring task 
+
+> 4a1. Task manager prompts user to choose between editing task on that specific day or deleting all the recurring tasks
+> 
+> 4a2. User enters choice
+> 
+> 4a3. Task manager edits task accordingly
+
+> Use case ends
+
+    
+
+ <br>
 
 ## Appendix C : Non Functional Requirements
 
@@ -314,6 +390,7 @@ Use case ends.
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Task input should not be more than 200 characters to be concise
 
 {More to be added}
 
@@ -329,5 +406,22 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+|       |  Wunderlist  |  Google  |  Todoist  |
+|---|---|---|---|
+|  Strengths | <ul><li>Elegant and simple</li><li>CLI input but graphical display</li><li>Add notes and timestamps to tasks</li><li>Ability to create email with list of tasks automatically</li><li>Organize tasks in different ‘lists’</li></ul> | <ul><li>Quick add feature to minimize use of mouse</li><li>Ability to allocate tasks to specific timeslots</li><li>Ability to view free timeslots</li><li>Ability to set reminders</li></ul> | <ul><li>CLI input but graphical display</li><li>Keyboard shortcuts to minimize use of mouse</li><li>Ability to set deadlines and reminders for tasks</li><li>Ability to set priorities for tasks to decide which task to do next</li></ul> |
+|  Unnecessary features  | <ul><li>Cross-platform functionality</li><li>Syncs between devices</li><li>Collaboration with others</li></ul> | <ul><li>Collaboration with others</li></ul> |<ul><li>Cross-platform functionality</li><li>Collaboration with others</li></ul> |
+|  Weaknesses  |<ul><li>No way to allocate tasks to a specific timeslot</li><li>No way to view free timeslots</li></ul>|<ul><li>Does not provide a desktop software for easy summoning using keyboard shortcuts</li><li>No easy way to “block” multiple timeslots when the exact timing of a task is uncertain and release the blocked slots when the time is finalized</li><li>Not good with capturing tasks that need to be done before a specific date/time, or after a specific date/time, and items without specific times</li><li>No support for offline access</li></ul>|<ul><li>No way to allocate tasks to a specific timeslot</li><li>No way to view free timeslots</li></ul>|
+
+
+
+
+
+
+
+
+
+
+
+
+
 
