@@ -219,8 +219,10 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | new user | view all possible command types | learn about the functionality of the application while using it
 `* * *` | new user | view the correct command syntax and sample commands after inputting a command wrongly | learn the correct command syntax while using it
 `* *` | user | set events as recurring | avoid having to enter identical events periodically
+`* *` | user | use command keywords (eg, "from", "to", "by") in titles of my to-do items | avoid having to change how I write my to-do because of the command keywords
 `* *` | user with many to-do items | add tags to to-do items, and search to-do items by tags | quickly determine what kind of classification the to-do items are when I skim through the list
 `* *` | very active user | summon the application and have it ready for input immediately via a keyboard shortcut | quickly be able to add to or remove from my to-do list when I have to
+`* *` | user | receive a visual confirmation of the details of the to-do item I have added/edited | be able to verify modifications to my to-do list
 `*` | user with upcoming events that have uncertain timings | mark events as “unconfirmed”, and manage and view them as “pending time confirmation” | better track and manage events with uncertain timings that are pending confirmation
 `*` | new user | view syntax highlighting of the various fields of a command while inputting, in real time | be clear about how the application parses my to-do item’s fields and avoid unintended errors in input
 `*` | user | customize command keywords with my own aliases | use commands that are personally more intuitive and possibly spend less time typing by having own keywords
