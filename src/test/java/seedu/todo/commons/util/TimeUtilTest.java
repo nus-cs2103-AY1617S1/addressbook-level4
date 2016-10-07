@@ -24,7 +24,7 @@ public class TimeUtilTest {
     
     @Test
     public void getTaskDeadlineString_anHourBeforeDeadlines() {
-        String expectedOutput = "in an hour";
+        String expectedOutput = "in 1 hour";
         
         LocalDateTime inputTime1 = LocalDateTime.now().plusHours(1);
         String generatedOutput1 = TimeUtil.getTaskDeadlineString(inputTime1);
