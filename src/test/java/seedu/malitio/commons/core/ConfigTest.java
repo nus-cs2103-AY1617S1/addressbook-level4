@@ -20,7 +20,7 @@ public class ConfigTest {
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
                 "Local data file location : data/malitio.xml\n" +
-                "malitio name : Mymalitio";
+                "Malitio name : MyMalitio";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }

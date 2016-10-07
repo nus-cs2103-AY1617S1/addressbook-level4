@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class XmlMalitioStorageTest {
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlmalitioStorageTest/");
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlMalitioStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -31,10 +31,10 @@ public class XmlMalitioStorageTest {
     @Test
     public void readmalitio_nullFilePath_assertionFailure() throws Exception {
         thrown.expect(AssertionError.class);
-        readmalitio(null);
+        readMalitio(null);
     }
 
-    private java.util.Optional<ReadOnlyMalitio> readmalitio(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyMalitio> readMalitio(String filePath) throws Exception {
         return new XmlMalitioStorage(filePath).readMalitio(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -46,14 +46,14 @@ public class XmlMalitioStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readmalitio("NonExistentFile.xml").isPresent());
+        assertFalse(readMalitio("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readmalitio("NotXmlFormatmalitio.xml");
+        readMalitio("NotXmlFormatMalitio.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
