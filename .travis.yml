@@ -11,3 +11,6 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
+
+notifications:
+  slack: cs2103aug2016-f10-c1:5ptG2TxXzNoNzKGzo3ymxl31
