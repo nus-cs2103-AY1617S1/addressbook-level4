@@ -37,6 +37,7 @@ public class AddTaskCommand extends TaskCommand {
         assert model != null;
         try {
             model.addTask(toAdd);
+            model.clearTasksFilter();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueItemCollection.DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
