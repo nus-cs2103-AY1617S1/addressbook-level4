@@ -145,14 +145,9 @@ The search by partial keyword command enables you to search for any events, dead
 > Format: **Search** &lt;keyword&gt;
 
 
-Example: 
-
-Search **siloso**
-
-Search 050316
-
-Search 2359
-
+Example: Search **siloso** <br>
+Search 050316 <br>
+Search 2359 <br>
 Search #CS2103
 
 

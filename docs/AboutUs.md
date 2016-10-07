@@ -11,7 +11,7 @@ We are a team of four computer engineering students based in the [School of Comp
 -----
 
 #### Lim Wei Ming Ronald
-**Role**: Team Leader
+**Role**: Team Leader <br>
 Responsibilities: Documentation, Deliverables and Deadlines, Scheduling and Tracking
 
 Components: UI
