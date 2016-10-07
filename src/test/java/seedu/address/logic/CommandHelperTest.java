@@ -41,7 +41,7 @@ public class CommandHelperTest {
 
     @Test
     public void convertStringToMultipleDates_correct_dayOfWeek_timeOfDayInNumbers() {
-        String date = "next friday 7pm";
+        String date = "friday 7pm";
         List<Date> dates = CommandHelper.convertStringToMultipleDates(date);
         assertTrue(dates.get(0).getDay() == 5);
         assertTrue(dates.get(0).getHours() == 19);
