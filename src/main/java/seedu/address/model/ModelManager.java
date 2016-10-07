@@ -77,6 +77,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void editTask(ReadOnlyTask oldTask, Task newTask) throws PersonNotFoundException, UniquePersonList.DuplicatePersonException {
+        addressBook.removePerson(oldTask);  
+        addressBook.addPerson(newTask);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+        
+    }
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
@@ -149,5 +157,6 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
 
 }
