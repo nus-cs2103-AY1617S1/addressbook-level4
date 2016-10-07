@@ -26,14 +26,7 @@ public class DateTimeUtil {
 			"d-MMMM-yyyy",
 			"d M yyyy",
 			"d MMM yyyy",
-			"d MMMM yyyy",
-			"d-MMM",
-			"d/MMM",
-			"d MMM",
-			"MMMM d",
-			"MMM d",
-			"d/M", 
-			"d-M" };
+			"d MMMM yyyy"};
 	
 	private static final String[] timeFormats = {
 			"hh:mm:ss a",
@@ -57,7 +50,6 @@ public class DateTimeUtil {
 		dateString = dateString.trim();
 		for(String formatString : dateFormats) {
 			try {
-				System.out.println(dateString);
 				LocalDate.parse(dateString.trim(), DateTimeFormatter.ofPattern(formatString));
 				return true;
 			} catch (DateTimeParseException e) {}
