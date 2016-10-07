@@ -20,13 +20,8 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all floating tasks, events and tasks due today
-<<<<<<< HEAD
    * **`add`**` CS2103T "tutorial work" by/1100 on/tomorrow t/TUTORIAL` : 
      adds a task named `CS2103T tutorial work` with deadline due tomorrow at 11am to Mastermind.
-=======
-   * **`add`** `"CS2103T tutorial work" by/1100 on/tomorrow t/TUTORIAL` : 
-     adds a task named `CS2103T tutorial work` with deadline due tomorrow at 11am to the Schema.
->>>>>>> master
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -40,19 +35,11 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 ### Adding a task: `add` `do` `complete`
-<<<<<<< HEAD
 #### Adds an event to Mastermind  
 Format: `add "TASK", at/TIME, on/DATE [t/TAG...]`  
 #### Adds a task with deadline to Mastermind  
 Format: `complete "TASK" by/TIME on/DATE [t/TAG...]`  
 #### Adds a floating task to Mastermind  
-=======
-#### Add an event to Schema  
-Format: `add "TASK", at/TIME, on/DATE [t/TAG...]`  
-#### Add a task with deadline to Schema  
-Format: `complete "TASK" by/TIME on/DATE [t/TAG...]`  
-#### Add a floating task to Schema  
->>>>>>> master
 Format: `do "TASK" [t/TAG...]` 
 
  
