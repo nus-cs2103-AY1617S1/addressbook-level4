@@ -59,7 +59,6 @@ public class CommandHelper {
         String parseThis = repeatParameter.toLowerCase();
         KeywordParser kp = new KeywordParser("daily","weekly","monthly","yearly");
         HashMap<String, String> parameters = kp.parse(parseThis);
-
         if(parameters.containsKey("daily")){
             try {
                 Recurrence recurrence = new Recurrence(Recurrence.Pattern.DAILY, Integer.parseInt(parameters.get("daily")));

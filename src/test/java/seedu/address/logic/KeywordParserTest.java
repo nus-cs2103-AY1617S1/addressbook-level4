@@ -11,6 +11,15 @@ import org.junit.Test;
 public class KeywordParserTest {
 
     @Test
+    public void parses_addCommand_input_onlyTask() {
+
+        String input = "add \"Assignment\"";
+        KeywordParser parser = new KeywordParser("add");
+        HashMap<String, String> list = parser.parse(input);
+        assertTrue(list.get("add").equals("Assignment"));
+    }
+
+    @Test
     public void parses_addCommand_input_task() {
 
         String input = "add \"Assignment\" by friday tag important";

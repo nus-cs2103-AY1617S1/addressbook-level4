@@ -27,6 +27,7 @@ public class KeywordParser {
      * @param string to be parsed
      * @return
      */
+    //TODO Make parsing not depend on order of input keywords
     public HashMap<String, String> parse(String inputString){
         HashMap<String, String> words = new HashMap<String, String>();
         for(int i = 0; i < keywords.size(); i++){

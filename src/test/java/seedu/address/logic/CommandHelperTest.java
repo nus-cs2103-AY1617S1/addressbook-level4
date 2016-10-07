@@ -4,7 +4,10 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 import java.util.List;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandHelper;
+import seedu.address.model.task.Recurrence;
 
 import org.junit.Test;
 
@@ -114,6 +117,19 @@ public class CommandHelperTest {
         } catch (Exception e) {
 
         }
+    }
+
+    @Test
+    public void getRecurrence_validInput(){
+        String repeatParameter = "weekly 3";
+        Recurrence recurrence;
+        try {
+            recurrence = CommandHelper.getRecurrence(repeatParameter);
+            assertEquals("WEEKLY [3 time(s)]", recurrence.toString());
+        } catch (IllegalValueException e) {
+            fail();
+        }
+
     }
 
 }
