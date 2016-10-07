@@ -2,8 +2,8 @@ package seedu.todo.logic;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.BaseCommand;
-import seedu.todo.logic.commands.AddTodoCommand;
-import seedu.todo.logic.commands.DeleteTodoCommand;
+import seedu.todo.logic.commands.AddCommand;
+import seedu.todo.logic.commands.DeleteCommand;
 import seedu.todo.logic.commands.ExitCommand;
 import seedu.todo.logic.parser.ParseResult;
 
@@ -17,12 +17,12 @@ public class TodoDispatcher implements Dispatcher {
         switch (parser.getComand()) {
         case "add":
         case "a":
-            command = new AddTodoCommand();
+            command = new AddCommand();
             break;
             
         case "delete":
         case "d":
-            command = new DeleteTodoCommand();
+            command = new DeleteCommand();
             break;
         
 
