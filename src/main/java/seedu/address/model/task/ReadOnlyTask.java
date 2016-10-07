@@ -3,15 +3,14 @@ package seedu.address.model.task;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Task in the addressbook.
+ * A read-only immutable interface for a Task in the to-do list.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
 
     Name getName();
-//    Date getDate();
-//    Time getTime();
-//    Address getAddress();
+    Date getDate();
+    Time getTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -25,10 +24,9 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())); // state checks here onwards
-//                && other.getDate().equals(this.getDate())
-//                && other.getTime().equals(this.getTime())
-//                && other.getAddress().equals(this.getAddress()));
+                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getDate().equals(this.getDate())
+                && other.getTime().equals(this.getTime()));
     }
 
     /**
@@ -36,13 +34,11 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
-//                .append(" Date: ")
-//                .append(getDate())
-//                .append(" Time: ")
-//                .append(getTime())
-//                .append(" Address: ")
-//                .append(getAddress())
+        builder.append(getName())
+                .append(" Date: ")
+                .append(getDate())
+                .append(" Time: ")
+                .append(getTime());
 //                .append(" Tags: ");
 //        getTags().forEach(builder::append);
         return builder.toString();

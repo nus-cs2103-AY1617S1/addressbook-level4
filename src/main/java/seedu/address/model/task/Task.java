@@ -12,23 +12,26 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-//    private Date date;
-//    private Time time;
-//    private Address address;
+    private Date date;
+    private Time time;
+
 
 //    private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name) {//, Date date, Time time, Address address, UniqueTagList tags) {
+    public Task(Name name , Date date, Time time) { //Address address, UniqueTagList tags) {
         //assert !CollectionUtil.isAnyNull(name, date, time, address, tags);
         this.name = name;
-//        this.date = date;
-//        this.time = time;
-//        this.address = address;
+        this.date = date;
+        this.time = time;
 //        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
+    
+    public Task(Name name) {
+		this.name = name;
+	}
 
     /**
      * Copy constructor.
@@ -37,7 +40,7 @@ public class Task implements ReadOnlyTask {
         this(source.getName());
     }
 
-    @Override
+	@Override
     public Name getName() {
         return name;
     }
@@ -59,5 +62,15 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
+	@Override
+	public Date getDate() {
+		return this.date;
+	}
+
+	@Override
+	public Time getTime() {
+		return this.time;
+	}
 
 }
