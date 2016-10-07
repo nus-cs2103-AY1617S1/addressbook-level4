@@ -161,7 +161,7 @@ Format: `sort CATEGORY`
 
 Example:<br>
 * `sort A`
-* `Sort D`
+* `sort D`
 
 #### Reserving a time slot : `reserve`
 Reserves a time slot and prevents you from scheduling conflicting tasks.<br>
@@ -192,7 +192,7 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Task Manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
        
 ## Command Cheatsheet
@@ -206,7 +206,7 @@ Search  | `search KEYWORD`
 Reserve | `reserve DATE, TIME`
 Edit    | `edit INDEX FIELD NEW_INFORMATION`
 List    | `list DATE`
-Undo    | `Uno`
+Undo    | `undo`
 Sort    | `sort CATEGORY`
 Help    | `help`
 Exit    | `exit`

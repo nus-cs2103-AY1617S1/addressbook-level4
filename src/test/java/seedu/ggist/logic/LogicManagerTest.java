@@ -166,7 +166,15 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
+<<<<<<< HEAD
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", TaskName.MESSAGE_NAME_CONSTRAINTS);
+=======
+<<<<<<< HEAD:src/test/java/seedu/address/logic/LogicManagerTest.java
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", TaskName.MESSAGE_NAME_CONSTRAINTS);
+=======
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", TaskName.MESSAGE_TaskName_CONSTRAINTS);
+>>>>>>> 98294e894113134b92ff545cbd3732461dc69f44:src/test/java/seedu/ggist/logic/LogicManagerTest.java
+>>>>>>> 763be30ccf9478d1195ab5c728d321afac22a5d6
         assertCommandBehavior(
                 "add Valid TaskName p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
@@ -206,7 +214,11 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
+<<<<<<< HEAD:src/test/java/seedu/address/logic/LogicManagerTest.java
+                AddCommand.MESSAGE_DUPLICATE_Task,
+=======
                 AddCommand.MESSAGE_DUPLICATE_TASK,
+>>>>>>> 98294e894113134b92ff545cbd3732461dc69f44:src/test/java/seedu/ggist/logic/LogicManagerTest.java
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -387,8 +399,13 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
+<<<<<<< HEAD:src/test/java/seedu/address/logic/LogicManagerTest.java
+            TaskName name = new TaskName("Adam Brown");
+            Phone privatePhone = new Phone("111111");
+=======
             TaskName TaskName = new TaskName("Adam Brown");
             Date privatePhone = new Phone("111111");
+>>>>>>> 98294e894113134b92ff545cbd3732461dc69f44:src/test/java/seedu/ggist/logic/LogicManagerTest.java
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
@@ -505,7 +522,11 @@ public class LogicManagerTest {
          */
         Task generateTaskWithTaskName(String TaskName) throws Exception {
             return new Task(
+<<<<<<< HEAD:src/test/java/seedu/address/logic/LogicManagerTest.java
+                    new TaskName(name),
+=======
                     new TaskName(TaskName),
+>>>>>>> 98294e894113134b92ff545cbd3732461dc69f44:src/test/java/seedu/ggist/logic/LogicManagerTest.java
                     new Phone("1"),
                     new Email("1@email"),
                     new Address("House of 1"),
