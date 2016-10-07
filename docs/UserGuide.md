@@ -20,8 +20,8 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
+   * **`add`**` add Visit Dentist d/18-11-2016 l/Mount Elizabeth` : 
+     adds a task named `Visit Dentist` to the Address Book.
    * **`delete`**` 3` : deletes the 3rd contact shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -42,19 +42,19 @@ Format: `help`
  
 #### Adding a person: `add`
 Adds a task to the task list<br>
-Format: `add NAME d/duedate l/location [t/TAG]...` 
+Format: `add NAME before/by/due duedate at location [t/TAG]...` 
 
 > Persons can have any number of tags (including 0)
 
 Examples: 
-* `add Visit Dentist d/18/ l/Mount Elizabeth'
+* `add Visit Dentist before 18-11-2016 at Mount Elizabeth'
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in the task list.<br>
 Format: `list`
 
 #### Finding all tasks containing any keyword in their name: `find`
-Finds tasks whose names contain any of the given keywords.<br>
+Finds tasks whose descriptions contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > * The search is case sensitive. e.g `hans` will not match `Hans`
@@ -67,8 +67,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples: 
 * `find Visit Dentist`<br>
   Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `find Homework Dentistry`<br>
+  Returns Any person having names `Homework`, `Dentistry` or `Dentist`
 
 #### Deleting a task : `delete`
 Deletes the specified task from the address book. Irreversible.<br>
