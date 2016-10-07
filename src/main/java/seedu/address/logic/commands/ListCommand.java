@@ -17,4 +17,14 @@ public class ListCommand extends Command {
         model.updateFilteredTaskToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean canUndo() {
+        return false;
+    }
+
+    @Override
+    public CommandResult executeUndo() {
+        return null;
+    }
 }
