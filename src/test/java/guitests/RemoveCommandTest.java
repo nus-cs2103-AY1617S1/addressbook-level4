@@ -1,11 +1,12 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+
+import taskle.testutil.TestTask;
+import taskle.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static taskle.logic.commands.RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class RemoveCommandTest extends AddressBookGuiTest {
 

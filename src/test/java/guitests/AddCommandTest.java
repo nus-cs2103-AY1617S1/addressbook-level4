@@ -2,10 +2,11 @@ package guitests;
 
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+
+import taskle.commons.core.Messages;
+import taskle.logic.commands.AddCommand;
+import taskle.testutil.TestTask;
+import taskle.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
