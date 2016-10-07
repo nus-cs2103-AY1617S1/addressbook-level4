@@ -9,11 +9,11 @@ public interface ModifiableTaskManager {
     /**
      * Returns an unmodifiable view of tasks list
      */
-    List<ModifiableTask> getTaskList();
+    List<ModifiableTask> getModifiableTaskList();
 
     /**
      * Returns an unmodifiable view of tags list
      */
-    List<Tag> getTagList();
+    List<Tag> getModifiableTagList();
     
 }
