@@ -14,13 +14,13 @@ import java.util.logging.Logger;
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements EmeraldoStorage {
+public class XmlEmeraldoStorage implements EmeraldoStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlEmeraldoStorage.class);
 
     private String filePath;
 
-    public XmlAddressBookStorage(String filePath){
+    public XmlEmeraldoStorage(String filePath){
         this.filePath = filePath;
     }
 

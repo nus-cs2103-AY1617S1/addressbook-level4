@@ -31,7 +31,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     public StorageManager(String emeraldoFilePath, String userPrefsFilePath) {
-        this(new XmlAddressBookStorage(emeraldoFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+        this(new XmlEmeraldoStorage(emeraldoFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
