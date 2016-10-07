@@ -3,7 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.ReadOnlyTask;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -37,7 +37,7 @@ public class PersonCardHandle extends GuiHandle {
     }
 
 
-    public boolean isSamePerson(ReadOnlyPerson person){
+    public boolean isSamePerson(ReadOnlyTask person){
         return getFullName().equals(person.getName().fullName) 
                  && getPhone().equals(person.getPhone().value)
                  && getAddress().equals(person.getAddress().value);
