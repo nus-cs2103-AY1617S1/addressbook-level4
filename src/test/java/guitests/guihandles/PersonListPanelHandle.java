@@ -6,9 +6,9 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.testutil.TestUtil;
 import seedu.ggist.model.task.Task;
+import seedu.ggist.testutil.TestUtil;
+import seedu.ggist.TestApp;
 import seedu.ggist.model.task.ReadOnlyTask;
 
 import java.util.List;

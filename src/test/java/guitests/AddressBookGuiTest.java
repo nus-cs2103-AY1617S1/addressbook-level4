@@ -8,12 +8,13 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestPersons;
+
+import seedu.ggist.TestApp;
 import seedu.ggist.commons.core.EventsCenter;
-import seedu.ggist.model.AddressBook;
+import seedu.ggist.model.TaskManager;
 import seedu.ggist.model.task.ReadOnlyTask;
+import seedu.ggist.testutil.TestUtil;
+import seedu.ggist.testutil.TypicalTestPersons;
 
 import java.util.concurrent.TimeoutException;
 
@@ -21,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for TaskManager.
  */
 public abstract class AddressBookGuiTest {
 
@@ -75,15 +76,14 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
+    protected TaskManager getInitialData() {
+        TaskManager ab = TestUtil.generateEmptyAddressBook();
         TypicalTestPersons.loadAddressBookWithSampleData(ab);
         return ab;
     }
 
     /**
      * Override this in child classes to set the data file location.
-     * @return
      */
     protected String getDataFileLocation() {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
@@ -111,7 +111,6 @@ public abstract class AddressBookGuiTest {
 
     /**
      * Asserts the message shown in the Result Display area is same as the given string.
-     * @param expected
      */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());

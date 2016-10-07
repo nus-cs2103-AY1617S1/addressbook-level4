@@ -3,7 +3,7 @@ package seedu.ggist.logic.commands;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.model.task.ReadOnlyTask;
-import seedu.ggist.model.task.UniquePersonList.PersonNotFoundException;
+import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -17,11 +17,16 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
+<<<<<<< HEAD
 <<<<<<< HEAD:src/main/java/seedu/ggist/logic/commands/DeleteCommand.java;
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 //=======
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
 >>>>>>> 2196a4f91cbd3b9663c1ef7ca7f3551168fa35e4:src/main/java/seedu/ggist/logic/commands/DeleteCommand.java;
+=======
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+
+>>>>>>> 98294e894113134b92ff545cbd3732461dc69f44
 
     public final int targetIndex;
 
@@ -32,27 +37,15 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/DeleteCommand.java
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredTaskList();
-=======
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
->>>>>>> 2196a4f91cbd3b9663c1ef7ca7f3551168fa35e4:src/main/java/seedu/ggist/logic/commands/DeleteCommand.java
-
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/DeleteCommand.java
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-=======
-        ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
->>>>>>> 2196a4f91cbd3b9663c1ef7ca7f3551168fa35e4:src/main/java/seedu/ggist/logic/commands/DeleteCommand.java
-
         try {
             model.deleteTask(taskToDelete);
-        } catch (PersonNotFoundException pnfe) {
+        } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 

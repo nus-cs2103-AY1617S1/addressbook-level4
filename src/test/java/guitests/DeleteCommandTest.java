@@ -1,8 +1,9 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
+
+import seedu.ggist.testutil.TestPerson;
+import seedu.ggist.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.ggist.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
