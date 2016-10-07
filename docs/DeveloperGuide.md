@@ -266,11 +266,11 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Agendum` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Delete person
 
-**MSS**
+****MSS****
 
 1. User requests to list persons
 2. AddressBook shows a list of persons
@@ -278,7 +278,7 @@ Priority | As a ... | I want to ... | So that I can...
 4. AddressBook deletes the person <br>
 Use case ends.
 
-**Extensions**
+****Extensions****
 
 2a. The list is empty
 
@@ -289,7 +289,172 @@ Use case ends.
 > 3a1. AddressBook shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+#### Use case 01 - Add a task
+Actor: User
+**MSS**
+
+1. Agendum prompts the user to enter a command
+2. User enters an add command with the task name into the input box.
+3. Agendum adds the task.
+4. Agendum shows a feedback message (“Task <name> added”) and displays the updated list containing the new task on the interface.
+5. Use case ends.
+
+**Extensions**
+2a. No task description is provided
+
+> 2a1. Agendum shows an error message (“Please provide a task name/description”)
+> Use case resumes at step 1
+
+2b. There is an existing task with the same description and details
+
+> 2b1. Agendum shows an error message (“Please use a new task description”)
+> Use case resumes at step 1
+
+#### Use case 02 - Delete a task
+Actor: User
+**MSS**
+
+1. User requests to list tasks
+2. Agendum shows a list of tasks
+3. User requests to delete a specific task in the list by its index
+4. Agendum deletes the task.
+5. Agendum shows a feedback message (“Task <index> deleted”) and displays the updated list without the deleted task.
+6. Use case ends.
+
+**Extensions**
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. Agendum shows an error message (“Please select a task on the list with a valid index”)
+> Use case resumes at step 2
+
+#### Use case 03 - Rename a task
+Actor: User
+**MSS**
+
+1. User requests to list tasks
+2. Agendum shows a list of tasks
+3. User requests to rename a specific task in the list by its index and also input the new task name
+4. Agendum updates the task 
+5. Agendum shows a feedback message (“Task <index> updated”) and displays the updated list with the edited task name.
+6. Use case ends.
+
+**Extensions**
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. Agendum shows an error message (“Please select a task on the list with a valid index”)
+> Use case resumes at step 2
+
+3b. No task description is provided
+
+> 3b1. Agendum shows an error message (“Please include a new task name”)
+> Use case resumes at step 2
+
+3c. There is an existing task with the same description and details
+
+> 3c1. Agendum shows an error message (“Please use a new task name”)
+> Use case resumes at step 2
+
+#### Use case 04 - Modify a task’s start and end time and deadlines
+Actor: User
+**MSS**
+
+1. User requests to list tasks
+2. Agendum shows a list of tasks
+3. User requests to set time of a specific task in the list by its index and also input the new start/end time or deadline
+4. Agendum updates the task 
+5. Agendum shows a feedback message (“Task <index> ’s time updated”) and displays the updated list on the interface.
+6. Use case ends.
+
+**Extensions**
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. Agendum shows an error message (“Please select a task on the list with a valid index”)
+> Use case resumes at step 2
+
+3b. The new input time format is invalid
+
+> 3b1. Agendum shows an error message (“Please follow the given time format”)
+> Use case resumes at step 2
+
+#### Use case 05 - Undo the previous command that modified the task list
+Actor: User
+**MSS**
+
+1. User enters an undo command
+2. Agendum finds the latest command that modified the task list
+3. Agendum undo the identified command
+4. Agendum shows a feedback message (“The command <last-command> has been undone”) and displays the updated list on the interface.
+5. Use case ends.
+
+**Extensions**
+2a. There are no previous commands that modify the list (since the launch of the application)
+
+> 2a1. Agendum shows an error message (“No previous command to undo”)
+> Use case ends
+
+#### Use case 06 - Mark a task as completed
+Actor: User
+**MSS**:
+
+1. User requests to list tasks
+2. Agendum show a list of tasks
+3. Users requests to mark a task specified by its index in the list as completed
+4. Agendum updates the task
+5. Agendum shows a feedback message (“Task <index> is marked as completed”) and hides the marked task.
+6. Use case ends
+
+**Extensions**
+2a. The list is empty
+
+> 2a1. Use case ends
+
+3a. The given index is invalid
+
+> 3a1. Agendum shows an error message (“Please select a task on the list with a valid index”)
+> Use case resumes at step 2
+
+#### Use case 07 - Add short hand commands
+Actor: User
+**MSS**
+
+1. User enters a alias command and specify the name and new alias name of the command
+2. Agendum alias the command
+3. Agendum shows a feedback message (“The command <original-command> can now be keyed in as <new-command>”)
+4. Use case ends.
+
+**Extensions**
+1a. There is no existing command with the original name specified
+
+> 1a1. Agendum shows an error message (“There is no such existing command”)
+> Use case ends
+
+1b. The new alias name is already reserved/used for other commands
+
+> 1b1. Agendum shows an error message (“The name is already in use”)
+> Use case ends
+
+*a. At any time, user choose to exit Agendum
+
+> *a1. Agendum displays a goodbye message
+> *a2. Agendum closes the program
+
+*b. At any time, user enters a invalid command
+
+> *b1.  Agendum gives an error message (“We do not understand the command: <invalid-command>”)
+> *b2. Agendum displays a short list of valid commands
+
 
 ## Appendix C : Non Functional Requirements
 
