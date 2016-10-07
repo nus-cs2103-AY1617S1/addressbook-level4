@@ -1,5 +1,6 @@
+[![Build Status](https://travis-ci.org/CS2103AUG2016-F10-C1/main.svg?branch=develop)](https://travis-ci.org/CS2103AUG2016-F10-C1/main.svg?branch=develop)
 # TARS: Task And Remember Stuff 
-### *A Productivity Tool by CS2103AUG2016-F10-C1*
+### A Productivity Tool by CS2103AUG2016-F10-C1
 
 <img src="docs/images/tars_ui.png" width="600"><br>
 
