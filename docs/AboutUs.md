@@ -11,7 +11,7 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Rachael Sim](https://github.com/rachx)
-<img src="https://dl.dropboxusercontent.com/content_link/ukwT88jPRqFQvukSGzGNc1c7ERCKEq8ljMj20zh7Z70HnS2r268PmI6RJTKmDdwg/file" width="150"><br>
+<img src="https://www.dropbox.com/s/meu5emynn73vsnl/RachaelSim.JPG?raw=1" width="150"><br>
 Role: Team leader <br>
 Responsibilities: Model, UI, Scheduling and tracking, Code quality
 
