@@ -11,8 +11,6 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -41,7 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskList = new TaskList(src);
-        filteredPersons = new FilteredList<>(taskList.getTasks());
+        filteredPersons = new FilteredList<>(taskList.getPersons());
     }
 
     public ModelManager() {
@@ -50,7 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
         taskList = new TaskList(initialData);
-        filteredPersons = new FilteredList<>(taskList.getTasks());
+        filteredPersons = new FilteredList<>(taskList.getPersons());
     }
 
     @Override
@@ -79,13 +77,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addPerson(Task task) throws UniqueTaskList.DuplicatePersonException {
         taskList.addPerson(task);
-        updateFilteredListToShowAll();
-        indicateAddressBookChanged();
-    }
-    
-    @Override
-    public synchronized void addNote(Task task) {
-        taskList.addNote(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -184,21 +175,4 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    @Override
-    public List<ReadOnlyTask> getFilteredTaskListFromTaskName(String taskName) {
-        
-        List<ReadOnlyTask> matchingTasks = new ArrayList<ReadOnlyTask>();
-        for(int i=0; i<taskList.getPersonList().size(); i++){
-            matchingTasks.add(taskList.getPersonList().get(i));
-        }
-        ReadOnlyTask task;
-        for(int i=0; i<matchingTasks.size(); i++){
-            task = matchingTasks.get(i);
-            if(task.getName().toString().contains(taskName));
-            else matchingTasks.remove(i);
-        }
-        
-        return matchingTasks;
-    }
-
 }

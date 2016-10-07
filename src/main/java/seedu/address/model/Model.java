@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -23,9 +22,6 @@ public interface Model {
 
     /** Adds the given person */
     void addPerson(Task task) throws UniqueTaskList.DuplicatePersonException;
-    
-    /** Adds a note */
-    void addNote(Task task);
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
@@ -35,8 +31,5 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
-
-    /** Returns a list of tasks containing the entered string */
-    List<ReadOnlyTask> getFilteredTaskListFromTaskName(String taskName);
 
 }
