@@ -27,7 +27,7 @@ public interface EmeraldoStorage {
     /**
      * @see #getEmeraldoFilePath()
      */
-    Optional<ReadOnlyEmeraldo> readAddressBook(String filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyEmeraldo> readEmeraldo(String filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyEmeraldo} to the storage.

@@ -56,13 +56,13 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Optional<ReadOnlyEmeraldo> readEmeraldo() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getEmeraldoFilePath());
+        return readEmeraldo(addressBookStorage.getEmeraldoFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyEmeraldo> readAddressBook(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyEmeraldo> readEmeraldo(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return addressBookStorage.readEmeraldo(filePath);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class XmlAddressBookStorage implements EmeraldoStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyEmeraldo> readAddressBook(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyEmeraldo> readEmeraldo(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File addressBookFile = new File(filePath);
@@ -63,7 +63,7 @@ public class XmlAddressBookStorage implements EmeraldoStorage {
 
     @Override
     public Optional<ReadOnlyEmeraldo> readEmeraldo() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+        return readEmeraldo(filePath);
     }
 
     @Override
