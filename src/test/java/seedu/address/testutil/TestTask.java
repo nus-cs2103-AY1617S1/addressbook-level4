@@ -2,21 +2,22 @@ package seedu.address.testutil;
 
 import java.util.Date;
 
+import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Location address;
-    private Date email;
-    private Date phone;
+    private Date startDate;
+    private Date endDate;
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
@@ -29,11 +30,11 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     public void setEndDate(Date email) {
-        this.email = email;
+        this.startDate = email;
     }
 
     public void setStartDate(Date date) {
-        this.phone = date;
+        this.endDate = date;
     }
 
     @Override
@@ -43,12 +44,12 @@ public class TestPerson implements ReadOnlyTask {
 
     @Override
     public Date getStartDate() {
-        return phone;
+        return endDate;
     }
 
     @Override
     public Date getEndDate() {
-        return email;
+        return startDate;
     }
 
     @Override
@@ -69,8 +70,8 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("s/" + this.getStartDate().toString() + " ");
-        sb.append("e/" + this.getEndDate().toString() + " ");
+        sb.append("s/" + DateFormatter.convertDateToString(this.getStartDate()) + " ");
+        sb.append("e/" + DateFormatter.convertDateToString(this.getEndDate()) + " ");
         sb.append("a/" + this.getLocation().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 public class DateFormatter {
@@ -19,7 +20,7 @@ public class DateFormatter {
         try {
             return dateFormatter.parse(val);
         } catch (ParseException e) {
-            throw new IllegalValueException("Incorrect date format");
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 
@@ -27,7 +28,7 @@ public class DateFormatter {
         try {
             return timeFormatter.parse(val);
         } catch (ParseException e) {
-            throw new IllegalValueException("Incorrect time format");
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
     }
 

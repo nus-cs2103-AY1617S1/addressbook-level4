@@ -7,9 +7,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpEvent;
+import seedu.address.commons.util.DateFormatter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -163,13 +165,13 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] s/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name s/not_numbers e/01012016 a/valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name s/01012016 e/notAnEmail a/valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name s/01012016 e/01012016 a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -385,13 +387,13 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Date privatePhone = new Date(1346524199000l);
-            Date email = new Date(1346524199000l);
+            Date startDate = DateFormatter.convertStringToDate("09092011");
+            Date endDate = DateFormatter.convertStringToDate("09092011");
             Location privateAddress = new Location("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+            return new Task(name, startDate, endDate, privateAddress, tags);
         }
 
         /**
@@ -404,8 +406,8 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Name("Person " + seed),
-                    new Date(1346524199000l),
-                    new Date(1346524199000l),
+                    new Date(DateFormatter.convertStringToDate("09092001").getTime()),
+                    new Date(DateFormatter.convertStringToDate("09092001").getTime()),
                     new Location("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -418,9 +420,9 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" s/").append(p.getStartDate());
-            cmd.append(" e/").append(p.getEndDate());
-            cmd.append(" a/").append(p.getLocation());
+            cmd.append(" s/").append(DateFormatter.convertDateToString(p.getStartDate()));
+            cmd.append(" e/").append(DateFormatter.convertDateToString(p.getEndDate()));
+            cmd.append(" a/").append(p.getLocation().value);
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
