@@ -1,22 +1,21 @@
 package guitests.guihandles;
 
 
-import guitests.GuiRobot;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
-import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.person.Task;
-import seedu.address.model.person.FloatTask;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.testutil.TestUtil;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.assertTrue;
+import guitests.GuiRobot;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import javafx.stage.Stage;
+import taskle.TestApp;
+import taskle.model.person.FloatTask;
+import taskle.model.person.ReadOnlyTask;
+import taskle.testutil.TestUtil;
 
 /**
  * Provides a handle for the panel containing the person list.

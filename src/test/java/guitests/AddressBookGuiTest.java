@@ -8,12 +8,13 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.TaskManager;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestTasks;
+
+import taskle.TestApp;
+import taskle.commons.core.EventsCenter;
+import taskle.model.TaskManager;
+import taskle.model.person.ReadOnlyTask;
+import taskle.testutil.TestUtil;
+import taskle.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
