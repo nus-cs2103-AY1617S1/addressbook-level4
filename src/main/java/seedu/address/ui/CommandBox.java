@@ -74,8 +74,15 @@ public class CommandBox extends UiPart {
     @FXML
     private void handleCommandInputChanged(KeyEvent event){
         KeyCode keyCode = event.getCode();
+        
+        // do not update tooltip if user clears textfield
+        if (commandTextField.getText().equals("")) return;
+        
+        // only update if user uses a backspace or enters a valid character
         if (keyCode != KeyCode.BACK_SPACE && !keyCode.isDigitKey() && !keyCode.isLetterKey()) return;
-        resultDisplay.postMessage(logic.decideToolTip(commandTextField.getText()));
+        
+        String toDisplay = logic.decideToolTip(commandTextField.getText());
+        resultDisplay.postMessage(toDisplay);
     }
 
 

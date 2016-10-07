@@ -47,25 +47,31 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public String decideToolTip(String commandText){
         logger.info("----------------[INCOMPLETE USER COMMAND][" + commandText + "]");
-        List<String> matchedCommands = parser.parseIncompleteCommand(commandText);
+        List<String> toolTips = parser.parseIncompleteCommand(commandText);
+        
+        // toolTips should at least have 1 item
+        assert toolTips.size() > 0;
         
         // check if invalid command format
-        if (matchedCommands.contains(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE))){
-            return matchedCommands.get(0);
+        if (toolTips.contains(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE))){
+            assert toolTips.size() == 1;
+            return toolTips.get(0);
         }
         
         // check if unknown command typed
-        if (matchedCommands.contains(Messages.MESSAGE_UNKNOWN_COMMAND)){
-            return matchedCommands.get(0);
+        if (toolTips.contains(Messages.MESSAGE_UNKNOWN_COMMAND)){
+            assert toolTips.size() == 1;
+            return toolTips.get(0);
         }
         
         // return all matches
         StringBuilder stringBuilder = new StringBuilder();
-        for (String matchedCommand : matchedCommands){
-            stringBuilder.append(matchedCommand);
+        for (String toolTip : toolTips){
+            stringBuilder.append(toolTip);
             stringBuilder.append("\n");
         }
         
+        // return the tooltip as a single string separated by \n
         return stringBuilder.toString();
     }
 }
