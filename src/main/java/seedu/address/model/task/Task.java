@@ -57,6 +57,22 @@ public class Task implements ReadOnlyTask {
     public Location getAddress() {
         return address;
     }
+    
+    public void setName(Name name) {
+        this.name = name;
+    }
+    
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setLocation(Location address) {
+        this.address = address;
+    }
 
     @Override
     public UniqueTagList getTags() {

@@ -116,11 +116,18 @@ public class Parser {
      */
     private Command prepareEdit(String args) {
         Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
+        int index;
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        int index = Integer.parseInt(matcher.group("commandWord"));
+        try {
+            index = Integer.parseInt(matcher.group("commandWord"));
+        }
+        catch (NumberFormatException nfe) {
+            return new IncorrectCommand("Invalid Index Number.");
+        }
         matcher = PERSON_DATA_ARGS_FORMAT.matcher(matcher.group("arguments"));
+        
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
