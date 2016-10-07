@@ -19,8 +19,8 @@ public class TaskBookBuilder {
         this.taskBook = taskBook;
     }
 
-    public TaskBookBuilder withTask(FloatingTask task) throws UniqueTaskList.DuplicateTaskException {
-        taskBook.addTask(task);
+    public TaskBookBuilder withFloatingTask(FloatingTask floatingTask) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.addFloatingTask(floatingTask);
         return this;
     }
 

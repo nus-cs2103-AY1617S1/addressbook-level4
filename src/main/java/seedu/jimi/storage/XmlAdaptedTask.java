@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JAXB-friendly version of the Task.
+ * JAXB-friendly version of the FloatingTask.
  */
 public class XmlAdaptedTask {
 
@@ -34,7 +34,7 @@ public class XmlAdaptedTask {
 
 
     /**
-     * Converts a given Task into this class for JAXB use.
+     * Converts a given FloatingTask into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
@@ -47,7 +47,7 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's FloatingTask object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */

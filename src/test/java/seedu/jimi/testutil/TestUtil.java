@@ -61,9 +61,9 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final FloatingTask[] sampleTaskData = getSampleTaskData();
+    public static final FloatingTask[] sampleFloatingTaskData = getSampleFloatingTaskData();
 
-    private static FloatingTask[] getSampleTaskData() {
+    private static FloatingTask[] getSampleFloatingTaskData() {
         try {
             return new FloatingTask[]{
                     new FloatingTask(new Name("add water"), new UniqueTagList()),
@@ -98,8 +98,8 @@ public class TestUtil {
         }
     }
 
-    public static List<FloatingTask> generateSampleTaskData() {
-        return Arrays.asList(sampleTaskData);
+    public static List<FloatingTask> generateSampleFloatingTaskData() {
+        return Arrays.asList(sampleFloatingTaskData);
     }
 
     /**

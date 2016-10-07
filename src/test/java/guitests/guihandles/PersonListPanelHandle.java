@@ -8,7 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.jimi.TestApp;
 import seedu.jimi.model.task.ReadOnlyTask;
-import seedu.jimi.model.task.Task;
+import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.testutil.TestUtil;
 
 import java.util.List;
@@ -147,7 +147,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public PersonCardHandle getPersonCardHandle(int index) {
-        return getPersonCardHandle(new Task(getListView().getItems().get(index)));
+        return getPersonCardHandle(new FloatingTask(getListView().getItems().get(index)));
     }
 
     public PersonCardHandle getPersonCardHandle(ReadOnlyTask person) {

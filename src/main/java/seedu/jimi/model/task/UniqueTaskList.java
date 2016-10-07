@@ -12,7 +12,7 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see Task#equals(Object)
+ * @see FloatingTask#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<FloatingTask> {
