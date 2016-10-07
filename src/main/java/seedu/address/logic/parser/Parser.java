@@ -28,9 +28,10 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)" 
 										+ "((?: s/)(?<start>[^/&&\\S]+))?"
 										+ "((?: e/)(?<end>[^/&&\\S]+))?"
+										+ " p/(?<priority>[^/]+)"
 										+ "(?<tagArguments>(?: t/[^/]+)*)");
-    
-    private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+   
+    private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)"  + " p/(?<priority>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
     private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern.compile("(?<index>(\\d+)?)|"
     		+ "(?<searchString>[^/]+)");
 
@@ -114,7 +115,7 @@ public class Parser {
     	}
     	else if(taskMatcher.group("start") == null && taskMatcher.group("end") == null){
     		try {
-    			return new AddCommand(taskMatcher.group("name"), getTagsFromArgs(taskMatcher.group("tagArguments")));
+    			return new AddCommand(taskMatcher.group("name"), taskMatcher.group("priority"), getTagsFromArgs(taskMatcher.group("tagArguments")));
     		}
     		catch (IllegalValueException e) {
     			return new IncorrectCommand(e.getMessage());
@@ -124,7 +125,7 @@ public class Parser {
     		String startTime = (taskMatcher.group("start")==null)?"NIL":taskMatcher.group("start");
     		String endTime = (taskMatcher.group("end")==null)?"NIL":taskMatcher.group("end");
     		try {
-				return new AddCommand(taskMatcher.group("name"), startTime, endTime, getTagsFromArgs(taskMatcher.group("tagArguments")));
+				return new AddCommand(taskMatcher.group("name"), startTime, endTime, taskMatcher.group("priority"), getTagsFromArgs(taskMatcher.group("tagArguments")));
 			} catch (IllegalValueException e) {
 				return new IncorrectCommand(e.getMessage());
 			}

@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     StartTime getPhone();
     EndTime getEmail();
     int getUniqueID();
+    Priority getPriority();
     boolean isComplete();
 
     /**

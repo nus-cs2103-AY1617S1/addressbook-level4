@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new StartTime("9482424"), new EndTime("hans@google.com"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new StartTime("87249245"), new EndTime("ruth@google.com"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new StartTime("95352563"), new EndTime("heinz@yahoo.com"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new StartTime("87652533"), new EndTime("cornelia@google.com"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new StartTime("9482224"), new EndTime("werner@gmail.com"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new StartTime("9482427"), new EndTime("lydia@gmail.com"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new StartTime("9482442"), new EndTime("anna@google.com"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new StartTime("8482424"), new EndTime("stefan@mail.com"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new StartTime("8482131"), new EndTime("hans@google.com"), new UniqueTagList())
+                    new Task(new Name("Ali Muster"), new StartTime("9482424"), new EndTime("hans@google.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), new StartTime("87249245"), new EndTime("ruth@google.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), new StartTime("95352563"), new EndTime("heinz@yahoo.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), new StartTime("87652533"), new EndTime("cornelia@google.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), new StartTime("9482224"), new EndTime("werner@gmail.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), new StartTime("9482427"), new EndTime("lydia@gmail.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Name("George Best"), new StartTime("9482442"), new EndTime("anna@google.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), new StartTime("8482424"), new EndTime("stefan@mail.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), new StartTime("8482131"), new EndTime("hans@google.com"), new Priority("high"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

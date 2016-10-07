@@ -12,6 +12,7 @@ public class TestPerson implements ReadOnlyTask {
     private int uniqueID;
     private EndTime endTime;
     private StartTime startTime;
+    private Priority priority;
     private UniqueTagList tags;
     private boolean isComplete;
 
@@ -82,5 +83,10 @@ public class TestPerson implements ReadOnlyTask {
     @Override
     public boolean isComplete() {
         return isComplete;
+    }
+
+    @Override
+    public Priority getPriority() {
+        return priority;
     }
 }
