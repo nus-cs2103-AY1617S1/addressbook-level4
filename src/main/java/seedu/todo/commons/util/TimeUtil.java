@@ -19,6 +19,9 @@ public class TimeUtil {
      * @return a formatted time to be displayed in UI
      */
     public static String printFormattedTime(LocalDateTime startTime, LocalDateTime endTime) {
+        //Validate assumptions
+        assert(endTime != null);
+        
         LocalDateTime currentTime = LocalDateTime.now();
         Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
         
