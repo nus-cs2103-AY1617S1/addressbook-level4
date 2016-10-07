@@ -22,9 +22,9 @@ public class TimeUtilTest {
     public void printFormattedTime_hoursBeforeDeadlines() {
         for (long hoursLeft = 2; hoursLeft < 24; hoursLeft++) {
             LocalDateTime inputTime = LocalDateTime.now().plusHours(hoursLeft).plusMinutes(1);
-            String input = TimeUtil.printFormattedTime(null, inputTime);
-            String output = "in " + String.valueOf(hoursLeft) + " hours";
-            assertEquals(input, output);
+            String generatedOutput = TimeUtil.printFormattedTime(null, inputTime);
+            String expectedOutput = "in " + String.valueOf(hoursLeft) + " hours";
+            assertEquals(generatedOutput, expectedOutput);
         }
     }
 
