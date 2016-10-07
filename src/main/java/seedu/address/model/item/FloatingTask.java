@@ -44,7 +44,8 @@ public class FloatingTask implements ReadOnlyFloatingTask {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FloatingTask // instanceof handles nulls
-                && this.priorityValue.equals(((FloatingTask) other).priorityValue)); // state check
+                && this.getName().name.equals(((FloatingTask) other).getName().name)
+                && this.priorityValue.priorityValue.equals(((FloatingTask) other).priorityValue.priorityValue)); // state check
     }
 
     @Override
