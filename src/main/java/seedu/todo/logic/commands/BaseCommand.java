@@ -28,6 +28,9 @@ public abstract class BaseCommand {
         // Hook allowing subclasses to implement their own validation logic for arguments
     }
     
+    /**
+     * Binds the data model to the command object
+     */
     public void setModel(TodoModel model) {
         this.model = model;
     }
@@ -47,12 +50,18 @@ public abstract class BaseCommand {
         }
     }
     
-    public void setArguments(ParseResult parser) throws IllegalValueException {
-        if (parser.getPositionalArgument().isPresent()) {
-            setPositionalArgument(parser.getPositionalArgument().get());
+    /**
+     * Binds the both positional and named command arguments from the parse results 
+     * to the command object itself 
+     * 
+     * @throws IllegalValueException
+     */
+    public void setArguments(ParseResult arguments) throws IllegalValueException {
+        if (arguments.getPositionalArgument().isPresent()) {
+            setPositionalArgument(arguments.getPositionalArgument().get());
         }
         
-        for (Entry<String, String> e : parser.getNamedArguments().entrySet()) {
+        for (Entry<String, String> e : arguments.getNamedArguments().entrySet()) {
             setNameArgument(e.getKey(), e.getValue());
         }
         
