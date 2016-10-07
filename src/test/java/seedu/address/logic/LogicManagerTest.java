@@ -202,7 +202,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -504,8 +504,8 @@ public class LogicManagerTest {
                     new Name(name),
                     new Date("1"),
                     new Time("1@time"),
-                    new Address("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
+//                    new Address("House of 1"),
+//                    new UniqueTagList(new Tag("tag"))
             );
         }
     }
