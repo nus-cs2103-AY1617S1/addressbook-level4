@@ -25,9 +25,9 @@ public class DeleteTaskCommandTest {
 		setupEmptyTaskList();
 		DeleteTaskCommand command = new DeleteTaskCommand(1);
 		command.setData(model);
-		CommandResult result = command.execute();
-		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX));
+				
+		String expected = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+		assertCommandFeedback(command, expected);
 	}
 	
 	@Test
@@ -39,9 +39,9 @@ public class DeleteTaskCommandTest {
 		setupSomeTasksInTaskList();
 		DeleteTaskCommand command = new DeleteTaskCommand(4);
 		command.setData(model);
-		CommandResult result = command.execute();
-		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX));
+		
+		String expected = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+		assertCommandFeedback(command, expected);
 	}
 	
 	@Test
@@ -53,9 +53,9 @@ public class DeleteTaskCommandTest {
 		setupSomeTasksInTaskList();
 		DeleteTaskCommand command = new DeleteTaskCommand(-1);
 		command.setData(model);
-		CommandResult result = command.execute();
-		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX));
+		
+		String expected = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+		assertCommandFeedback(command, expected);
 	}
 	
 	@Test
@@ -67,9 +67,9 @@ public class DeleteTaskCommandTest {
 		setupSomeTasksInTaskList();
 		DeleteTaskCommand command = new DeleteTaskCommand(2);
 		command.setData(model);
-		CommandResult result = command.execute();
-		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, "Task 1")));
+		
+		String expected = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, "Task 1");
+		assertCommandFeedback(command, expected);
 	}
 
 	/*
@@ -79,6 +79,7 @@ public class DeleteTaskCommandTest {
 		model = new TaskManager();
 	}
 	
+	// Setting up tasks in the TaskList in order to delete them in the tests
 	public void setupSomeTasksInTaskList() throws IllegalValueException {
 		model = new TaskManager();
 		// Add 3 tasks into the task manager
@@ -87,5 +88,15 @@ public class DeleteTaskCommandTest {
 			command.setData(model);
 			command.execute();
 		}
+	}
+	
+	/*
+	 * Given a command and an expected string, execute the command
+	 * and assert that the feedback corresponds to the expected string
+	 */
+	public void assertCommandFeedback(DeleteTaskCommand command, String expected) {
+		CommandResult result = command.execute();
+		String feedback = result.feedbackToUser;
+		assertTrue(feedback.equals(expected));
 	}
 }
