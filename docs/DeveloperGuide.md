@@ -415,9 +415,9 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Event
+##### Task
 
-> An item in the to-do list, could be an event, a task or a reminder.
+> An item in Task!t, could be an event, a deadline, or a reminder.
 
 ## Appendix E : Product Survey
 
