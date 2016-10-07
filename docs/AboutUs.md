@@ -12,7 +12,7 @@ We are a team of four computer engineering students based in the [School of Comp
 
 #### Lim Wei Ming Ronald
 **Role**: Team Leader
-Responsibilities: Documentation
+Responsibilities: Documentation, Deliverables and Deadlines, Scheduling and Tracking
 
 Components: UI
 
@@ -20,7 +20,7 @@ Components: UI
 
 #### Zavier Ong 
 Role: Developer <br>  
-Responsibilities: Code Quality
+Responsibilities: Code Integration
 
 Components: Logic
 
@@ -36,7 +36,7 @@ Components: Storage
 
 #### Li Zhiyuan
 Role: Developer <br>  
-Responsibilities: Code Integration
+Responsibilities: Code Quality, Tool Expert
 
 Components: Model
 
