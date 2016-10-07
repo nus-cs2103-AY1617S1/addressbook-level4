@@ -30,7 +30,6 @@
 4. **Buildship Gradle Integration** plugin from the 
    [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
 
-
 ### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
@@ -46,7 +45,7 @@
 
 5. Click `Finish`
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+  > * If you are prompted to 'keep' or 'overwrite' config files, choose to 'keep'.
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
@@ -61,7 +60,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). Listed below are its responsibilities.
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -81,7 +80,7 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.
 
 <img src="images/LogicClassDiagram.png" width="800">
@@ -116,7 +115,8 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
+ that are in the `src/main/resources/view` folder.
+ 
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
