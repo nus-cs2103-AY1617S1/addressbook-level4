@@ -8,6 +8,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.UserPrefs;
+import seedu.emeraldo.storage.JsonUserPrefsStorage;
 
 import java.io.File;
 import java.io.IOException;

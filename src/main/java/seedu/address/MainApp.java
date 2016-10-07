@@ -15,10 +15,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.*;
 import seedu.address.commons.util.ConfigUtil;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+import seedu.emeraldo.storage.Storage;
+import seedu.emeraldo.storage.StorageManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -70,10 +70,10 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyEmeraldo> addressBookOptional;
+        ReadOnlyEmeraldo initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readEmeraldo();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
             }
