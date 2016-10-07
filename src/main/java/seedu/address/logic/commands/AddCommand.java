@@ -53,7 +53,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Person(
                 new Name(name),
-                null, null, null, 
+                new Phone(""),
+                new Email(""),
+                new Address(""),
                 new UniqueTagList(tagSet)
         );
     }

@@ -30,14 +30,6 @@ public class Person implements ReadOnlyPerson {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
-    public Person(Name name, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = null;
-        this.email = null;
-        this.address = null;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
     
     /**
      * Copy constructor.
