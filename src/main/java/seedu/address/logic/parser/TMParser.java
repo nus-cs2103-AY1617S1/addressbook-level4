@@ -26,24 +26,26 @@ public class TMParser {
 	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern.compile("(?i)(?<taskType>event|deadline|someday)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
 
-	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>'.+')\\son\\s(?<date>.+)\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)");
-	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>'.+')\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\son\\s(?<date>.+)");
-	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile("(?i)on\\s(?<date>.+)\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\s(?<taskName>'.+')");
-	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile("(?i)on\\s(?<date>.+)\\s(?<taskName>'.+')\\sfrom\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)");
-	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile("(?i)from\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\son\\s(?<date>.+)\\s(?<taskName>'.+')");
-	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile("(?i)from\\s(?<startTime>.+)\\sto\\s(?<endTime>.+)\\s(?<taskName>'.+')\\son\\s(?<date>.+)");
+	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>\\S+')\\son\\s(?<date\\S+)\\sfrom\\s(?<startTime\\S+)\\sto\\s(?<endTime\\S+)");
+	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>\\S+')\\sfrom\\s(?<startTime\\S+)\\sto\\s(?<endTime\\S+)\\son\\s(?<date\\S+)");
+	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile("(?i)on\\s(?<date\\S+)\\sfrom\\s(?<startTime\\S+)\\sto\\s(?<endTime\\S+)\\s(?<taskName>\\S+')");
+	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile("(?i)on\\s(?<date\\S+)\\s(?<taskName>\\S+')\\sfrom\\s(?<startTime\\S+)\\sto\\s(?<endTime\\S+)");
+	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile("(?i)from\\s(?<startTime\\S+)\\sto\\s(?<endTime\\S+)\\son\\s(?<date\\S+)\\s(?<taskName>\\S+')");
+	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile("(?i)from\\s(?<startTime\\S+)\\sto\\s(?<endTime\\S+)\\s(?<taskName>\\S+')\\son\\s(?<date\\S+)");
 
-	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>'.+')\\sby\\s(?<date>.+)\\sat\\s(?<time>.+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>'.+')\\sat\\s(?<time>.+)\\sby\\s(?<date>.+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_3 = Pattern.compile("(?i)by\\s(?<date>.+)\\sat\\s(?<time>.+)\\s(?<taskName>'.+')");
-	private static final Pattern DEADLINE_ARGS_FORMAT_4 = Pattern.compile("(?i)by\\s(?<date>.+)\\s(?<taskName>'.+')\\sat\\s(?<time>.+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_5 = Pattern.compile("(?i)at\\s(?<time>.+)\\sby\\s(?<date>.+)\\s(?<taskName>'.+')");
-	private static final Pattern DEADLINE_ARGS_FORMAT_6 = Pattern.compile("(?i)at\\s(?<time>.+)\\s(?<taskName>'.+')\\sby\\s(?<date>.+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>'\\S+')\\sby\\s(?<date>\\S+)\\sat\\s(?<time>\\S+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>'\\S+')\\sat\\s(?<time>\\S+)\\sby\\s(?<date>\\S+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_3 = Pattern.compile("(?i)by\\s(?<date>\\S+)\\sat\\s(?<time>\\S+)\\s(?<taskName>'\\S+')");
+	private static final Pattern DEADLINE_ARGS_FORMAT_4 = Pattern.compile("(?i)by\\s(?<date>\\S+)\\s(?<taskName>'\\S+')\\sat\\s(?<time>\\S+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_5 = Pattern.compile("(?i)at\\s(?<time>\\S+)\\sby\\s(?<date>\\S+)\\s(?<taskName>'\\S+')");
+	private static final Pattern DEADLINE_ARGS_FORMAT_6 = Pattern.compile("(?i)at\\s(?<time>\\S+)\\s(?<taskName>'\\S+')\\sby\\s(?<date>\\S+)");
 
-	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("(?<taskName>'.+')");
+	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>\\S+)'");
 
-
-	public static Command parseUserInput(String userInput) {
+	
+	public TMParser() {};
+	
+	public Command parseUserInput(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -86,7 +88,7 @@ public class TMParser {
 	}
 
 
-	private static Command prepareAdd(String arguments) {
+	private Command prepareAdd(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(ADD_COMMAND_FORMAT_1.matcher(arguments.trim()));
 		matchers.add(ADD_COMMAND_FORMAT_2.matcher(arguments.trim()));
@@ -129,7 +131,7 @@ public class TMParser {
 		}
 	}
 
-	private static Command prepareAddEvent(String arguments) {		
+	private Command prepareAddEvent(String arguments) {		
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments.trim()));
 		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments.trim()));
@@ -173,7 +175,7 @@ public class TMParser {
 	}
 
 
-	private static Command prepareAddDeadline(String arguments) {
+	private Command prepareAddDeadline(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(DEADLINE_ARGS_FORMAT_1.matcher(arguments.trim()));
 		matchers.add(DEADLINE_ARGS_FORMAT_2.matcher(arguments.trim()));
@@ -213,7 +215,7 @@ public class TMParser {
 	}
 
 
-	private static Command prepareAddSomeday(String arguments) {
+	private Command prepareAddSomeday(String arguments) {
 		final Matcher matcher = SOMEDAY_ARGS_FORMAT.matcher(arguments.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -229,6 +231,7 @@ public class TMParser {
 
 	public static void main(String[] args) {
 		String userInput = "add event 'Read 50 Shades of Grey' fRom 05:00 to 06:00 on 25/12/2001";
-		parseUserInput(userInput);
+		TMParser p = new TMParser();
+		p.parseUserInput(userInput);
 	}
 }
