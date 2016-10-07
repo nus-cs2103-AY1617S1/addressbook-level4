@@ -28,7 +28,7 @@ public interface InMemoryTaskList {
 	/*
 	 * Clears the filtering keywords applied to the tasks
 	 */
-	void clearTasksFilter() throws UniqueItemCollection.ItemNotFoundException;
+	void clearTasksFilter();
 	
 	/*
 	 * Gets the current list of tasks with the filtering words applied

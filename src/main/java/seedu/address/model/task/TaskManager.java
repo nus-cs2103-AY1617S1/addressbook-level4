@@ -50,25 +50,21 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 
 	@Override
 	public void filterTasks(Set<String> keywords) {
-	    // TODO Auto-generated method stub
 	    filterTasks(new PredicateExpression(new NameQualifier(keywords)));
-
 	}
+	
 	public void filterTasks(Expression expression) {
 	    filteredTasks.setPredicate(expression::satisfies);
-
 	}
 
 	@Override
 	public void clearTasksFilter() {
-		// TODO Auto-generated method stub
 	    filteredTasks.setPredicate(null);
 		
 	}
 
 	@Override
 	public UnmodifiableObservableList<Task> getCurrentFilteredTasks() {
-		// TODO Auto-generated method stub
 		return new UnmodifiableObservableList<>(filteredTasks);
 	}
 	
