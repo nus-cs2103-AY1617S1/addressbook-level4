@@ -34,6 +34,4 @@ public interface ReadOnlyToDo {
         builder.append(getTitle());
         return builder.toString();
     }
-    
-    
 }

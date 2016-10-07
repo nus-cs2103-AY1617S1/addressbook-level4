@@ -15,16 +15,14 @@ public class Title {
 
     /**
      * Constructor for a title
-     * Asserts title is not null
      * @throws IllegalValueException if given title is invalid
      */
     public Title(String title) throws IllegalValueException {
-        assert title != null;
-
-        title = title.trim();
         if (!isValid(title)) {
             throw new IllegalValueException(Messages.MESSAGE_TODO_TITLE_CONSTRAINTS);
         }
+
+        title = title.trim();
 
         this.title = title;
     }
@@ -33,7 +31,7 @@ public class Title {
      * Returns true if a given string is a valid title
      */
     public static boolean isValid(String title) {
-        return title.matches(TITLE_VALIDATION_REGEX);
+        return title != null && title.matches(TITLE_VALIDATION_REGEX);
     }
 
 

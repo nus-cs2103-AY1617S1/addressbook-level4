@@ -7,7 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents the Due date of a to-do
- * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(Date)}
  */
 public class DueDate {
 
@@ -15,13 +15,18 @@ public class DueDate {
 
     /**
      * Constructor for a due date
-     * Asserts title is not null
      * @throws IllegalValueException if given title is invalid
      */
-    public DueDate(Date dueDate){
-        assert dueDate != null;
-       
+    public DueDate(Date dueDate) throws IllegalValueException {
+        if (!isValid(dueDate)) {
+            throw new IllegalValueException(Messages.MESSAGE_TODO_DUEDATE_CONSTRAINTS);
+        }
+
         this.dueDate = dueDate;
+    }
+
+    public static boolean isValid(Date dueDate) {
+        return dueDate != null;
     }
 
     @Override

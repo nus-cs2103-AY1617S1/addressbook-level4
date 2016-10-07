@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.todo.ToDo;
 import seedu.address.model.tag.Tag;
@@ -85,13 +86,12 @@ public class ToDoList implements ReadOnlyToDoList {
     // Utility methods
     //================================================================================
 
-    public ToDo getToDo(ReadOnlyToDo todo) throws IllegalValueException{
+    public ToDo getToDo(ReadOnlyToDo todo) throws IllegalValueException {
         int idx = list.indexOf(todo);
         if (idx == -1){
-            throw new IllegalValueException(todo.toString() + "not found in to-do list");
+            throw new IllegalValueException(String.format(Messages.MESSAGE_TODO_NOT_FOUND, todo.toString()));
         }
         return list.get(idx);
-        
     }
     
     public ObservableList<ToDo> getToDos() {
@@ -119,8 +119,5 @@ public class ToDoList implements ReadOnlyToDoList {
     public int hashCode() {
         return Objects.hash(list);
     }
-
-    
-
 
 }

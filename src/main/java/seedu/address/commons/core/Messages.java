@@ -8,8 +8,11 @@ public class Messages {
     public static final String MESSAGE_MISSING_COMMAND_WORD = "Missing command word.";
     public static final String MESSAGE_MISSING_TODO_TITLE = "Missing to-do title.";
     public static final String MESSAGE_MISSING_TODO_ITEM_INDEX = "Missing to-do item index.";
+    public static final String MESSAGE_TODO_DATERANGE_CONSTRAINTS = "For date range, rnd date must be after start date.";
+    public static final String MESSAGE_TODO_DUEDATE_CONSTRAINTS = "Due date can be any date.";
     public static final String MESSAGE_TODO_ADDED = "To-do added: %1$s.";
     public static final String MESSAGE_TODO_DELETED = "To-do deleted: %1$s.";
+    public static final String MESSAGE_TODO_NOT_FOUND = "To-do not found: %1$s";
     public static final String MESSAGE_FIND = "Found %1$d to-do item(s).";
     public static final String MESSAGE_CLEAR_FIND = "Listed all to-do items.";
     public static final String MESSAGE_TODO_TITLE_CONSTRAINTS = "Title can be any text.";
