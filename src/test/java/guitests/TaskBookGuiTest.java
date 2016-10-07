@@ -60,7 +60,7 @@ public abstract class TaskBookGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            taskListPanel = mainGui.getTaskListPanel();
+            taskListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -106,8 +106,8 @@ public abstract class TaskBookGuiTest {
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfTask = taskListPanel.getNumberOfTasks();
-        assertEquals(size, numberOfTask);
+        int numberOfPeople = taskListPanel.getNumberOfPeople();
+        assertEquals(size, numberOfPeople);
     }
 
     /**

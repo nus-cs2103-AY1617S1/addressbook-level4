@@ -25,7 +25,7 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(fieldId, node);
     }
 
-    public String getFullName() {
+    public String getFullTaskName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
@@ -43,8 +43,8 @@ public class TaskCardHandle extends GuiHandle {
 
     
 
-    public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName) 
+    public boolean isSamePerson(ReadOnlyTask task){
+        return getFullTaskName().equals(task.getTask().fullName) 
 //        		&& getDeadline().equals(task.getDeadline().value)
                 && getTaskStatus().equals(task.getTaskStatus()) //should status be checked?
                 && getDescription().equals(task.getDescription().value);
@@ -54,7 +54,7 @@ public class TaskCardHandle extends GuiHandle {
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
+            return getFullTaskName().equals(handle.getFullTaskName())
                     && getDescription().equals(handle.getDescription()); //TODO: compare the rest
         }
         return super.equals(obj);
@@ -62,6 +62,6 @@ public class TaskCardHandle extends GuiHandle {
 
     @Override
     public String toString() {
-        return getFullName() + " " + getDescription();
+        return getFullTaskName() + " " + getDescription();
     }
 }

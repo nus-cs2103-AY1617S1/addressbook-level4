@@ -130,23 +130,23 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+        private Set<String> taskKeyWords;
 
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
+        NameQualifier(Set<String> taskKeyWords) {
+            this.taskKeyWords = taskKeyWords;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+            return taskKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTask().fullName, keyword))
                     .findAny()
                     .isPresent();
         }
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
+            return "task=" + String.join(", ", taskKeyWords);
         }
     }
 

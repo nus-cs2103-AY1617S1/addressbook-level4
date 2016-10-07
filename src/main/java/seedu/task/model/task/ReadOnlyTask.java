@@ -6,7 +6,7 @@ package seedu.task.model.task;
  */
 public interface ReadOnlyTask {
 
-    Name getName();
+    Name getTask();
     Description getDescription();
 //    Deadline getDeadline();
     Boolean getTaskStatus();
@@ -17,7 +17,7 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getTask().equals(this.getTask()) // state checks here onwards
 //                && other.getDeadline().equals(this.getDeadline())
                 && other.getTaskStatus().equals(this.getTaskStatus())
                 && other.getDescription().equals(this.getDescription()));
@@ -28,7 +28,7 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getTask())
                 .append(" Desc: ")
                 .append(getDescription())
                 .append(" Status: ");
