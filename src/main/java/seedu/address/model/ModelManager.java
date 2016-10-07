@@ -6,6 +6,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
@@ -90,11 +91,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredItemList(Set<String> keywords){
+        updateFilteredItemList(new PredicateExpression(new DescriptionQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
+    private void updateFilteredItemList(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
     }
 
@@ -125,28 +126,28 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyPerson person);
+        boolean run(ReadOnlyItem item);
         String toString();
     }
 
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+    private class DescriptionQualifier implements Qualifier {
+        private Set<String> descriptionKeyWords;
 
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
+        DescriptionQualifier(Set<String> nameKeyWords) {
+            this.descriptionKeyWords = nameKeyWords;
         }
 
         @Override
-        public boolean run(ReadOnlyPerson person) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+        public boolean run(ReadOnlyItem item) {
+            return descriptionKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(item.getDescription().getFullDescription(), keyword))
                     .findAny()
                     .isPresent();
         }
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
+            return "name=" + String.join(", ", descriptionKeyWords);
         }
     }
 
