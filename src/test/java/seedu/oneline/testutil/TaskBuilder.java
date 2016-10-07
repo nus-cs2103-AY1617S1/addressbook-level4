@@ -15,7 +15,7 @@ public class TaskBuilder {
         this.task = new TestTask();
     }
 
-    public TaskBuilder withName(String name) throws IllegalValueException {
+    public TaskBuilder withOldName(String name) throws IllegalValueException {
         this.task.setOldName(new Name(name));
         return this;
     }
@@ -42,6 +42,31 @@ public class TaskBuilder {
         return this;
     }
 
+    public TaskBuilder withName(String name) throws IllegalValueException {
+        this.task.setName(new TaskName(name));
+        return this;
+    }
+
+    public TaskBuilder withStartTime(String startTime) throws IllegalValueException {
+        this.task.setStartTime(new TaskTime(startTime));
+        return this;
+    }
+
+    public TaskBuilder withEndTime(String endTime) throws IllegalValueException {
+        this.task.setEndTime(new TaskTime(endTime));
+        return this;
+    }
+
+    public TaskBuilder withDeadline(String deadline) throws IllegalValueException {
+        this.task.setDeadline(new TaskTime(deadline));
+        return this;
+    }
+
+    public TaskBuilder withRecurrence(String recurrence) throws IllegalValueException {
+        this.task.setRecurrence(new TaskRecurrence(recurrence));
+        return this;
+    }
+    
     public TestTask build() {
         return this.task;
     }
