@@ -75,7 +75,14 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean remove(ReadOnlyTask toRemove) throws PersonNotFoundException {
         assert toRemove != null;
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
+        boolean personFoundAndDeleted = false;
+        for (Task i: internalList){
+        	if(i.getUniqueID()==toRemove.getUniqueID()){
+        		personFoundAndDeleted = true;
+        		internalList.remove(i);
+        		return personFoundAndDeleted;
+        	}
+        }
         if (!personFoundAndDeleted) {
             throw new PersonNotFoundException();
         }

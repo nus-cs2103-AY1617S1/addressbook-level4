@@ -41,6 +41,8 @@ public class Parser {
                                                                                                                       // of
                                                                                                                       // tags
     private static final Pattern NOTE_ARGS_FORMAT = Pattern.compile("(?<name>.+)");
+    private static final Pattern DELETE_ARGS_PARSER = Pattern.compile("(?<index>(\\d+)?)|"
+    		+ "(?<searchString>[^/]+)");
 
     public Parser() {
     }
@@ -156,29 +158,19 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-        if (containsIndex(args)) {
-            Optional<Integer> index = parseIndex(args);
-            if (!index.isPresent()) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-            }
-
-            return new DeleteCommand(index.get());
+    	final Matcher matcher = DELETE_ARGS_PARSER.matcher(args.trim());
+        if (!matcher.matches()) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        else {
-            return new DeleteCommand(args);
+        else if(matcher.group("index")!=null){
+        	return new DeleteCommand(Integer.valueOf(matcher.group("index")));
         }
+        else if(matcher.group("searchString") != null){
+        	return new DeleteCommand(matcher.group("searchString"));
+        }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
     
-    /**
-     * Check if this string contains only integers
-     */
-    private boolean containsIndex(String args){
-        for(int i=0; i<args.length(); i++){
-            if(args.charAt(i) < '0' || args.charAt(i) > '9')
-                return false;
-        }
-        return true;
-    }
     /**
      * Parses arguments in the context of the select person command.
      *

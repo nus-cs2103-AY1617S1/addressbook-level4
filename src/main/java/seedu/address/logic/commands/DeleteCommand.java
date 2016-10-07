@@ -26,71 +26,83 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TASK_FAILURE = "No such task was found.";
     public static final String MESSAGE_DELETE_IN_NEXT_STEP = "Multiple tasks were found containing the entered keywords. Please check below and delete by index.";
 
-    public static final String STRING_UNUSED_DEFAULT_VAL = "";
-    public static final int INDEX_UNUSED_DEFAULT_VAL = -1;
+    public final boolean deleteByIndex;
 
-    public final int targetIndex;
-    public final String taskName;
+    public int targetIndex;
+    public String taskName;
 
     public DeleteCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
-        this.taskName = STRING_UNUSED_DEFAULT_VAL;
+    	deleteByIndex = true;
+        this.targetIndex = targetIndex-1;
     }
 
     public DeleteCommand(String taskName) {
+    	deleteByIndex = false;
         taskName = taskName.trim();
         this.taskName = taskName;
-        this.targetIndex = INDEX_UNUSED_DEFAULT_VAL;
     }
-
+    
     @Override
-    public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
-        ReadOnlyTask taskToDelete = lastShownList.get(0);
-        boolean deleteTaskDirect = false;
-        boolean noMatchingTasksFound = false;
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        if (targetIndexWasEntered()) {
-            taskToDelete = lastShownList.get(targetIndex - 1);
-            deleteTaskDirect = true;
-        } 
-        
-        else {
-        
-            List<ReadOnlyTask> matchingTasks = model.getFilteredTaskListFromTaskName(taskName);
-            if (matchingTasks.size() == 1) {
-                taskToDelete = matchingTasks.get(0);
-                deleteTaskDirect = true;
-            } 
-            else if (matchingTasks.size() > 1) {
-                Set<String> keywords = new HashSet<String>();
-                keywords.add(taskName);
-                model.updateFilteredPersonList(keywords);
-            }
-            else {
-                noMatchingTasksFound = true;
-            }
-
-        }
-        if (deleteTaskDirect) {
-            try {
-                model.deleteTask(taskToDelete);
-            } catch (PersonNotFoundException pnfe) {
-                assert false : "The target task cannot be missing";
-            }
-            return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName()));
-        }
-        else if(!noMatchingTasksFound) return new CommandResult(MESSAGE_DELETE_IN_NEXT_STEP);
-        else return new CommandResult(MESSAGE_DELETE_TASK_FAILURE);
+    public CommandResult execute(){
+    	if(deleteByIndex){
+    		return deleteUsingIndex();
+    	}
+    	else{
+    		return deleteUsingString();
+    	}	
     }
-
-    boolean targetIndexWasEntered() {
-        return (targetIndex >= 0);
+    
+    private CommandResult deleteUsingString(){
+    	Set<String> taskNameSet = new HashSet<String>();
+    	taskNameSet.add(taskName);
+    	model.updateFilteredPersonList(taskNameSet);
+    	UnmodifiableObservableList<ReadOnlyTask> matchingTasks = model.getFilteredPersonList();
+    	
+    	// No tasks match string
+    	if (matchingTasks.isEmpty()){
+    		model.updateFilteredListToShowAll();
+    		return new CommandResult(String.format(MESSAGE_DELETE_TASK_FAILURE));
+    	}
+    	
+    	// Only 1 task matches string
+    	else if (matchingTasks.size() == 1) {
+    		ReadOnlyTask taskToDelete = matchingTasks.get(0);
+    		try {
+				model.deleteTask(taskToDelete);
+			}
+    		catch (PersonNotFoundException e) {
+				assert false: "The target task cannot be missing";
+			}
+    		model.updateFilteredListToShowAll();
+    		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName()));
+    	} 
+    	
+    	//More than 1 task matches string
+    	else {
+    		Set<String> keywords = new HashSet<String>();
+    		keywords.add(taskName);
+    		model.updateFilteredPersonList(keywords);
+    		return new CommandResult(String.format(MESSAGE_DELETE_IN_NEXT_STEP));
+    	}
     }
+    
+    
+    private CommandResult deleteUsingIndex(){
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+    	if(targetIndex >= lastShownList.size()){
+    		return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    	}
+    	else{
+    		ReadOnlyTask taskToDelete = lastShownList.get(targetIndex);
+    		try{
+    			model.deleteTask(taskToDelete);
+    		}
+    		catch (PersonNotFoundException e){
+    			assert false: "The target task cannot be missing";
+    		}
+    		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName()));
+    	}
+    }
+    
+
 }
