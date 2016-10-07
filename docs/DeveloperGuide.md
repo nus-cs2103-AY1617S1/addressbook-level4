@@ -24,7 +24,7 @@
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+4. **Buildship Gradle Integration** plugin from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
 
 
 #### Importing the project into Eclipse
@@ -293,12 +293,22 @@ Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+1.  Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
+2.	Should be able to hold up to 500 tasks.
+3.	Should come with automated unit tests.
+4.	Should use a Continuous Integration server for real time status of master’s health.
+5.	Should be kept open source code.
+6.	Should favour DOS style commands over Unix-style commands.
+7.	Should be able to accept minor mistakes in the commands entered.
+8.	Should adopt an object oriented design.
+9.	Should not violate any copyrights.
+10.	Should have a response time of less than 1 second, for every action performed.
+11.	Should work offline without an internet connection.
+12.	Should work as a standalone application.
+13.	Should not use relational databases to store data.
+14.	Should store data in an editable text file.
+15.	Should not require an installer.
+16.	Should not use paid libraries and frameworks.
 
 ## Appendix D : Glossary
 
