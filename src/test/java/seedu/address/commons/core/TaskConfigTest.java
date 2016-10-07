@@ -14,15 +14,13 @@ public class TaskConfigTest {
 
     @Test
     public void toString_defaultObject_stringReturned() {
-    	/* TODO: Reenable
-        String defaultConfigAsString = "App title : Address App\n" +
+        String defaultConfigAsString = "App title : Task Manager\n" +
                 "Current log level : INFO\n" +
-                "Preference file Location : preferences.json\n" +
-                "Local data file location : data/addressbook.xml\n" +
-                "AddressBook name : MyAddressBook";
+                "Preference file Location : task-userpreferences.json\n" +
+                "Local data file location : data/tasks.xml\n" +
+                "AddressBook name : TaskManager";
 
         assertEquals(defaultConfigAsString, new TaskConfig().toString());
-        */
     }
 
     @Test
