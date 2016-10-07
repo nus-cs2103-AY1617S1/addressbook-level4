@@ -104,11 +104,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
+    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.TaskNotFoundException {
         if (persons.remove(key)) {
             return true;
         } else {
-            throw new UniquePersonList.PersonNotFoundException();
+            throw new UniquePersonList.TaskNotFoundException();
         }
     }
 
