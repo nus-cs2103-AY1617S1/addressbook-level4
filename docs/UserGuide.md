@@ -102,6 +102,7 @@ Format: **`list`**` [filter]`<br>
 > * week - shows the list of tasks for this week
 > * month - shows the list of tasks for the current month
 > * date (e.g. 12 Oct 2016) - shows the list of tasks for the specified date
+> * completed - shows a list of tasks that were mark as done.
 
 Examples:
 * **`list`**` today`
