@@ -27,13 +27,26 @@ public class TimeUtil {
         Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
         
         long hoursToDeadline = durationCurrentToEnd.toHours();
+        long minutesToDeadline = durationCurrentToEnd.toMinutes();
         
-        if (hoursToDeadline == 1) {
+        if (hoursToDeadline == 0) {
+            return PREFIX_BEFORE_DEADLINE + String.valueOf(minutesToDeadline) + MINUTE_MULTIPLE_UNIT;            
+            
+        } else if (hoursToDeadline == 1) {
             return "in an hour";
         }
         
         String formattedTime = "in " + String.valueOf(hoursToDeadline) + " hours";
         return formattedTime;
+    }
+    
+    
+    public static String getEventTimeString(LocalDateTime startTime, LocalDateTime endTime) {
+        assert(startTime != null);
+        assert(endTime != null);
+        assert(startTime.isBefore(endTime));
+        
+        return null;
     }
     
 }
