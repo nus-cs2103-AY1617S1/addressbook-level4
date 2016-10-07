@@ -66,8 +66,8 @@ public class Parser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ShowCommand.COMMAND_WORD:
+            return new ShowCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -94,12 +94,12 @@ public class Parser {
         }
         try {
             return new AddCommand(
-                    matcher.group("name"));
-//                    matcher.group("date"),
-//                    matcher.group("time"),
+                    matcher.group("name"),
+                    matcher.group("date"),
+                    matcher.group("time")
 //                    matcher.group("address"),
 //                    getTagsFromArgs(matcher.group("tagArguments"))
-//            );
+            );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
