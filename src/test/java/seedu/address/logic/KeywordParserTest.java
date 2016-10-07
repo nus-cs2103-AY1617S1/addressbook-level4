@@ -2,7 +2,7 @@ package seedu.address.logic;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import seedu.address.logic.parser.KeywordParser;
 
@@ -15,11 +15,9 @@ public class KeywordParserTest {
 
         String input = "add \"Assignment\" by friday tag important";
         KeywordParser parser = new KeywordParser("add", "by", "tag");
-        ArrayList<String[]> list = parser.parse(input);
-        assertTrue(list.get(0)[0].equals("add"));
-        assertTrue(list.get(0)[1].equals("Assignment"));
-        assertTrue(list.get(1)[0].equals("by"));
-        assertTrue(list.get(1)[1].equals("friday"));
+        HashMap<String, String> list = parser.parse(input);
+        assertTrue(list.get("add").equals("Assignment"));
+        assertTrue(list.get("by").equals("friday"));
     }
 
     @Test
@@ -27,13 +25,10 @@ public class KeywordParserTest {
 
         String input = "add \"Assignment\" from friday to saturday tag important";
         KeywordParser parser = new KeywordParser("add", "from", "to", "tag");
-        ArrayList<String[]> list = parser.parse(input);
-        assertTrue(list.get(0)[0].equals("add"));
-        assertTrue(list.get(0)[1].equals("Assignment"));
-        assertTrue(list.get(1)[0].equals("from"));
-        assertTrue(list.get(1)[1].equals("friday"));
-        assertTrue(list.get(2)[0].equals("to"));
-        assertTrue(list.get(2)[1].equals("saturday"));
+        HashMap<String, String> list = parser.parse(input);
+        assertTrue(list.get("add").equals("Assignment"));
+        assertTrue(list.get("from").equals("friday"));
+        assertTrue(list.get("to").equals("saturday"));
     }
 
     @Test
@@ -41,10 +36,9 @@ public class KeywordParserTest {
 
         String input = "add \"Assignment\" by friday tag important school urgent";
         KeywordParser parser = new KeywordParser("add", "by", "tag");
-        ArrayList<String[]> list = parser.parse(input);
-        assertTrue(list.get(0)[0].equals("add"));
-        assertTrue(list.get(0)[1].equals("Assignment"));
-        assertTrue(list.get(2)[0].equals("tag"));
-        assertTrue(list.get(2)[1].equals("important school urgent"));
+        HashMap<String, String> list = parser.parse(input);
+        assertTrue(list.get("add").equals("Assignment"));
+        assertTrue(list.get("by").equals("friday"));
+        assertTrue(list.get("tag").equals("important school urgent"));
     }
 }
