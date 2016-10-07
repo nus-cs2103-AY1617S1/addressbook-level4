@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class StartTime {
 
     public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
-    public static final String PHONE_VALIDATION_REGEX = "[\\p{Alnum} ]";
+    public static final String PHONE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String value;
 
@@ -19,11 +19,9 @@ public class StartTime {
      * @throws IllegalValueException if given phone string is invalid.
      */
     public StartTime(String phone) throws IllegalValueException {
-
-        if (phone != null) {
-        	phone = phone.trim();
-        }
-        if ( phone != null && !isValidPhone(phone)) {
+     //  assert phone != null;
+    	if(phone==null)
+        if (!isValidPhone(phone)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
         }
 
@@ -34,7 +32,9 @@ public class StartTime {
      * Returns true if a given string is a valid person phone number.
      */
     public static boolean isValidPhone(String test) {
+    	if(test!=null)
         return test.matches(PHONE_VALIDATION_REGEX);
+    	return false;
     }
 
     @Override
@@ -44,9 +44,11 @@ public class StartTime {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof StartTime // instanceof handles nulls
-                && this.value.equals(((StartTime) other).value)); // state check
+    	return other == this // short circuit if same object
+
+                || ((this.value!=null && ((StartTime)other).value!=null) && (other instanceof StartTime // instanceof handles nulls
+
+                && this.value.equals(((StartTime) other).value))); // state check
     }
 
     @Override
