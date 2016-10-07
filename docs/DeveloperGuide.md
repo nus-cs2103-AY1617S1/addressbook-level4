@@ -316,11 +316,25 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+#### Wunderlist
+
+Strengths:
+- Clearly display tasks that have not been completed
+- Tasks can be categorized under different lists
+- Tasks can have sub tasks
+- Possible to highlight tasks by marking as important (starred) or pinning tasks
+- Can set deadlines for tasks
+- Can create recurring tasks
+- Can associate files with tasks
+- Can be used offline
+- Keyboard friendly – keyboard shortcuts to mark tasks as completed and important
+- Search and sort functionality makes finding and organizing tasks easier
+- Possible to synchronize across devices
+- Give notifications and reminders for tasks near deadline or overdue
+
+Weaknesses:
+- Wunderlist has a complex interface and might require multiple clicks to get specific tasks done. For example, it has separate field to add tasks, search for tasks and a sort button. There are various lists & sublists. Each list has a completed/uncompleted  section and each task needs to be clicked to display the associated subtasks, notes, files and comment.
+- New users might not know how to use the advanced features e.g. creating recurring tasks
 
