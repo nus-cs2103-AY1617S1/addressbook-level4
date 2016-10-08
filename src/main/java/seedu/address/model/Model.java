@@ -3,9 +3,9 @@ package seedu.address.model;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniquePersonList;
-import seedu.address.model.task.UniquePersonList.DuplicatePersonException;
-import seedu.address.model.task.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicatePersonException;
+import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 
 import java.util.Set;
 
@@ -20,10 +20,10 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniquePersonList.DuplicatePersonException;
+    void addTask(Task task) throws UniqueTaskList.DuplicatePersonException;
 
     /** Edits the given task. 
      * @throws DuplicatePersonException */

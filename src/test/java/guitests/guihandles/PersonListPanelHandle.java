@@ -111,10 +111,10 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Navigates the listview to display and select the person.
+     * Navigates the listview to display and select the task.
      */
-    public TaskCardHandle navigateToPerson(ReadOnlyTask person) {
-        int index = getPersonIndex(person);
+    public TaskCardHandle navigateToPerson(ReadOnlyTask task) {
+        int index = getPersonIndex(task);
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
@@ -122,7 +122,21 @@ public class PersonListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
-        return getPersonCardHandle(person);
+        return getPersonCardHandle(task);
+    }
+    
+    /**
+     * Navigates the listview to display and select the index.
+     */
+    public TaskCardHandle navigateToPerson(int index) {
+        
+        guiRobot.interact(() -> {
+            getListView().scrollTo(index);
+            guiRobot.sleep(150);
+            getListView().getSelectionModel().select(index);
+        });
+        guiRobot.sleep(100);
+        return getPersonCardHandle(index);
     }
 
 
@@ -147,7 +161,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public TaskCardHandle getPersonCardHandle(int index) {
-        return getPersonCardHandle(new Task(getListView().getItems().get(index)));
+        return getPersonCardHandle(new Task(getPerson(index)));
     }
 
     public TaskCardHandle getPersonCardHandle(ReadOnlyTask person) {

@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
@@ -124,7 +125,7 @@ public class Parser {
             index = Integer.parseInt(matcher.group("commandWord"));
         }
         catch (NumberFormatException nfe) {
-            return new IncorrectCommand("Invalid Index Number.");
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         assert index >= 0;
         matcher = PERSON_DATA_ARGS_FORMAT.matcher(matcher.group("arguments"));

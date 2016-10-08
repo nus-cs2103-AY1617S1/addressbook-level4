@@ -6,8 +6,8 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniquePersonList;
-import seedu.address.model.task.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
@@ -71,16 +71,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicatePersonException {
+        addressBook.addTask(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 
     @Override
     public void editTask(ReadOnlyTask oldTask, Task newTask) 
-            throws PersonNotFoundException, UniquePersonList.DuplicatePersonException {
-        addressBook.editPerson(oldTask, newTask);
+            throws PersonNotFoundException, UniqueTaskList.DuplicatePersonException {
+        addressBook.editTask(oldTask, newTask);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
         

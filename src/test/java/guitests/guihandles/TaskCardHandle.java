@@ -3,6 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
@@ -42,8 +43,8 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getStartDate().toString())
-                && getEmail().equals(person.getEndDate().toString()) && getAddress().equals(person.getLocation().value);
+        return getFullName().equals(person.getName().fullName) && getPhone().equals("Start Date: " + DateFormatter.convertDateToDisplayString(person.getStartDate()))
+                && getEmail().equals("Due Date: " + DateFormatter.convertDateToDisplayString(person.getEndDate())) && getAddress().equals(person.getLocation().value);
     }
 
     @Override
