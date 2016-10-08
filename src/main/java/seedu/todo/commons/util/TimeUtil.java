@@ -24,10 +24,11 @@ public class TimeUtil {
     
     private static final String DUE_NOW = "due now";
     private static final String DUE_LESS_THAN_A_MINUTE = "in less than a minute";
-    private static final String TOMORROW = "tomorrow, ";
-    private static final String YESTERDAY = "yesterday, ";
-    private static final String TODAY = "today, ";
-    private static final String TONIGHT = "tonight, ";
+    private static final String DUE_TOMORROW = "tomorrow, ";
+    private static final String DUE_YESTERDAY = "yesterday, ";
+    private static final String DUE_TODAY = "today, ";
+    private static final String DUE_TONIGHT = "tonight, ";
+    private static final String DUE_JUST_NOW = "moments ago at ";
     
     /* Variables */
     protected Clock clock = Clock.systemDefaultZone();
@@ -48,26 +49,35 @@ public class TimeUtil {
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         long secondsToDeadline = durationCurrentToEnd.getSeconds();
         
-        if (secondsToDeadline >= -59 && secondsToDeadline <= 0) {
-            return DUE_NOW;
-        } else if (secondsToDeadline > 0 && secondsToDeadline <= 59) {
-            return DUE_LESS_THAN_A_MINUTE;
-        } else if (minutesToDeadline == 1) {
-            return DEADLINE_PREFIX_IN + "1" + MINUTE_SINGLE_UNIT;
-        } else if (minutesToDeadline == -1) {
-            return "1" + MINUTE_SINGLE_UNIT + DEADLINE_SUFFIX_AGO;
-        } else if (minutesToDeadline > 1 && minutesToDeadline <= 59) {
-            return DEADLINE_PREFIX_IN + minutesToDeadline + MINUTES_MULTIPLE_UNIT;
-        } else if (minutesToDeadline < -1 && minutesToDeadline >= -59) {
-            return (-minutesToDeadline) + MINUTES_MULTIPLE_UNIT + DEADLINE_SUFFIX_AGO;
-        } else if (daysToDeadline == 0 && currentTime.toLocalDate().equals(endTime.toLocalDate())) {
-            return ((endTime.toLocalTime().isBefore(LocalTime.of(18, 00))) ? TODAY : TONIGHT) 
-                    + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));  
+        if (currentTime.isBefore(endTime)) {
+            if (secondsToDeadline <= 59) {
+                return DUE_LESS_THAN_A_MINUTE;
+            } else if (minutesToDeadline == 1) {
+                return DEADLINE_PREFIX_IN + "1" + MINUTE_SINGLE_UNIT;
+            } else if (minutesToDeadline > 1 && minutesToDeadline <= 59) {
+                return DEADLINE_PREFIX_IN + minutesToDeadline + MINUTES_MULTIPLE_UNIT;
+            } else if (currentTime.isBefore(endTime) && currentTime.toLocalDate().equals(endTime.toLocalDate())) {
+                return ((endTime.toLocalTime().isBefore(LocalTime.of(18, 00))) ? DUE_TODAY : DUE_TONIGHT) 
+                        + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));  
+            }
+            
+        } else {
+            if (secondsToDeadline >= -59) {
+                return DUE_NOW;
+            } else if (minutesToDeadline == -1) {
+                return "1" + MINUTE_SINGLE_UNIT + DEADLINE_SUFFIX_AGO;
+            } else if (minutesToDeadline < -1 && minutesToDeadline >= -59) {
+                return (-minutesToDeadline) + MINUTES_MULTIPLE_UNIT + DEADLINE_SUFFIX_AGO;
+            } else if (currentTime.isAfter(endTime) && currentTime.toLocalDate().equals(endTime.toLocalDate())) {
+                return DUE_JUST_NOW + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
+            }
         }
+        
+             
         
         
         if (daysToDeadline >= 0 && daysToDeadline <= 2 && currentTime.plusDays(1).getDayOfWeek().equals(endTime.getDayOfWeek())) {
-            return DEADLINE_PREFIX_BY + TOMORROW + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
+            return DEADLINE_PREFIX_BY + DUE_TOMORROW + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
         }
         if (daysToDeadline == 0) {
             return DEADLINE_PREFIX_IN + String.valueOf(hoursToDeadline) + HOURS_MULTIPLE_UNIT;
