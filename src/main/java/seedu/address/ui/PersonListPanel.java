@@ -10,9 +10,9 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.model.person.ReadOnlyTask;
 import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.emeraldo.model.person.ReadOnlyTask;
 
 import java.util.logging.Logger;
 

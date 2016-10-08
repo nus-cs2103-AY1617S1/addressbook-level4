@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.emeraldo.model.person;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

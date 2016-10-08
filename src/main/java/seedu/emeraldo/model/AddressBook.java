@@ -1,11 +1,11 @@
 package seedu.emeraldo.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.emeraldo.model.person.Person;
+import seedu.emeraldo.model.person.ReadOnlyTask;
+import seedu.emeraldo.model.person.UniquePersonList;
 
 import java.util.*;
 import java.util.stream.Collectors;

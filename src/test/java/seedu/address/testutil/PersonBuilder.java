@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.tag.Tag;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
+import seedu.emeraldo.model.person.*;
 
 /**
  *

@@ -3,8 +3,8 @@ package seedu.address.testutil;
 import seedu.address.model.tag.Tag;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.AddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.emeraldo.model.person.Person;
+import seedu.emeraldo.model.person.UniquePersonList;
 
 /**
  * A utility class to help with building Addressbook objects.

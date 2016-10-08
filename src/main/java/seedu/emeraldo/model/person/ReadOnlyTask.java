@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.emeraldo.model.person;
 
 import seedu.address.model.tag.UniqueTagList;
 

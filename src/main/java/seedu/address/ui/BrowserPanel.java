@@ -4,9 +4,9 @@ import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
-import seedu.address.model.person.ReadOnlyTask;
 import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.commons.util.FxViewUtil;
+import seedu.emeraldo.model.person.ReadOnlyTask;
 
 import java.util.logging.Logger;
 

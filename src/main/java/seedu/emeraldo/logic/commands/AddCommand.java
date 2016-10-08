@@ -1,9 +1,9 @@
 package seedu.emeraldo.logic.commands;
 
-import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.model.person.*;
 
 import java.util.HashSet;
 import java.util.Set;
