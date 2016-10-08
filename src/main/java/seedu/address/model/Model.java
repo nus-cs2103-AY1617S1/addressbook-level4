@@ -27,15 +27,18 @@ public interface Model {
     /** Marks the given task as complete */
     void markTaskAsComplete(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Updates the filter of the filtered task list to show all persons */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords */
+    /** Updates the filter of the filtered task list to filter by the given keywords */
     void updateFilteredTaskList(Set<String> keywords);
 
     Set<String> getKeywordsFromList(List<ReadOnlyTask> matchingTasks);
+
+    /** Updates the filter of the filtered task list to only show complete */
+	void updateFilteredListToShowIncomplete();
 
 }
