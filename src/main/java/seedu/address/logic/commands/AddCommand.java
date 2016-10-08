@@ -40,10 +40,10 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new Task(
-                new Detail(name),
-                new DueByDate(phone),
-                new DueByTime(email),
-                new Priority(address),
+                new Detail(details),
+                new DueByDate(dueByDate),
+                new DueByTime(dueByTime),
+                new Priority(priority),
                 new UniqueTagList(tagSet)
         );
     }
