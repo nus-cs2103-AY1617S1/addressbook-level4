@@ -11,25 +11,25 @@ import seedu.address.model.person.UniquePersonList;
  * Example usage: <br>
  *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
-public class AddressBookBuilder {
+public class ToDoListBuilder {
 
-    private AddressBook addressBook;
+    private ToDoList toDoList;
 
-    public AddressBookBuilder(AddressBook addressBook){
-        this.addressBook = addressBook;
+    public ToDoListBuilder(ToDoList toDoList){
+        this.toDoList = toDoList;
     }
 
-    public AddressBookBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public ToDoListBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
+        toDoList.addPerson(person);
         return this;
     }
 
-    public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+    public ToDoListBuilder withTag(String tagName) throws IllegalValueException {
+        toDoList.addTag(new Tag(tagName));
         return this;
     }
 
-    public AddressBook build(){
-        return addressBook;
+    public ToDoList build(){
+        return toDoList;
     }
 }
