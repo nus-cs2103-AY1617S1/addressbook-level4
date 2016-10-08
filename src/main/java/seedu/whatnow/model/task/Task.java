@@ -47,6 +47,10 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
+    
+    public void setName(Name name) {
+        this.name = name;
+    }
 
     @Override
     public boolean equals(Object other) {

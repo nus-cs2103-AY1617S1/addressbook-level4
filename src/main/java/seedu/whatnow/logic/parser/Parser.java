@@ -29,6 +29,12 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final int TASK_TYPE = 0;
+    private static final int INDEX = 1;
+    private static final int ARG_TYPE = 2;
+    private static final int ARG = 3;
+    
 
     public Parser() {}
 
@@ -71,6 +77,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case UpdateCommand.COMMAND_WORD:
+            return prepareUpdate(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -128,6 +137,51 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the update task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUpdate(String args) {
+        String[] ArgComponents= args.trim().split(" ");
+        String type = ArgComponents[TASK_TYPE];
+        int index = Integer.parseInt((ArgComponents[INDEX]));
+        String argType = ArgComponents[ARG_TYPE];
+        String arg = "";
+        for (int i = ARG; i < ArgComponents.length; i++) {
+            arg += ArgComponents[i] + " ";
+        }
+        // Validate arg string format
+        if (!isValidUpdateCommandFormat(type, index, argType)) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new UpdateCommand(
+                type,
+                index,
+                argType,
+                arg);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    private boolean isValidUpdateCommandFormat(String type, int index, String argType) {
+        if (!(type.compareToIgnoreCase("todo") == 0 || type.compareToIgnoreCase("schedule") == 0)) {
+            return false;
+        }
+        if (index < 0) {
+            return false;
+        }
+        if (!(argType.compareToIgnoreCase("description") == 0 || argType.compareToIgnoreCase("tag") == 0 
+                || argType.compareToIgnoreCase("date") == 0 || argType.compareToIgnoreCase("time") == 0)) {
+            return false;
+        }
+        return true;
     }
 
     /**
