@@ -34,8 +34,18 @@ public class TimeUtilTest {
          * Is only used for dependency injection in testing time sensitive components.
          */
         public ModifiedTimeUtil (LocalDateTime pseudoCurrentTime) {
-            this(Clock.fixed(pseudoCurrentTime.toInstant(ZoneId.systemDefault().getRules().getOffset(pseudoCurrentTime)), ZoneId.systemDefault()));
+            this.clock = Clock.fixed(pseudoCurrentTime.toInstant(
+                    ZoneId.systemDefault().getRules().getOffset(pseudoCurrentTime)), ZoneId.systemDefault());
         }
+    }
+    
+    /**
+     * Aids to test taskDeadlineText with a current time and due time, against an expected output.
+     */
+    private void testTaskDeadlineTextHelper (String expectedOutput, LocalDateTime currentTime, LocalDateTime dueTime) {
+        TimeUtil timeUtil = new ModifiedTimeUtil(currentTime);
+        String generatedOutput = timeUtil.getTaskDeadlineText(dueTime);
+        assertEquals(expectedOutput, generatedOutput);
     }
         
     @Test (expected = AssertionError.class)
@@ -260,26 +270,12 @@ public class TimeUtilTest {
     
     @Test
     public void getTaskDeadlineText_yesterdayAfterDeadline() {
-        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 21, 12, 00, 00);
-        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
-        String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-        String expectedOutput1 = "since yesterday, 12:00 PM";
-        assertEquals(expectedOutput1, generatedOutput1);
-        
-        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 21, 23, 50, 00);
-        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 00, 51, 00);
-        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
-        String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-        String expectedOutput2 = "since yesterday, 12:51 AM";
-        assertEquals(expectedOutput2, generatedOutput2);
-        
-        LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 21, 00, 10, 00);
-        LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 23, 50, 00);
-        TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
-        String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
-        String expectedOutput3 = "20 minutes ago";
-        assertEquals(expectedOutput3, generatedOutput3);
+        testTaskDeadlineTextHelper("since yesterday, 12:00 PM", 
+                LocalDateTime.of(2016, Month.MARCH, 21, 12, 00, 00), LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00));
+        testTaskDeadlineTextHelper("since yesterday, 12:51 AM",
+                LocalDateTime.of(2016, Month.MARCH, 21, 23, 50, 00), LocalDateTime.of(2016, Month.MARCH, 20, 00, 51, 00));
+        testTaskDeadlineTextHelper("20 minutes ago", 
+                LocalDateTime.of(2016, Month.MARCH, 21, 00, 10, 00), LocalDateTime.of(2016, Month.MARCH, 20, 23, 50, 00));
     }
     
     
