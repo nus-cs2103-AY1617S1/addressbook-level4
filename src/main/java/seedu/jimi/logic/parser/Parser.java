@@ -15,7 +15,7 @@ import seedu.jimi.logic.commands.*;
  * Parses user input.
  */
 public class Parser {
-
+    
     /**
      * Used for initial separation of command word and args.
      */
@@ -30,7 +30,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
 
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
-            Pattern.compile("(?<targetIndex>\\d)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
+            Pattern.compile("(?<targetIndex>\\d+)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
     
     public Parser() {}
 
@@ -111,12 +111,13 @@ public class Parser {
      * @return  the prepared edit command
      */
     private Command prepareEdit(String args){
-        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args);
+        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        
         try {
             return new EditCommand(
                     matcher.group("name"),
