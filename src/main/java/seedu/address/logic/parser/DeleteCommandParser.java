@@ -11,6 +11,9 @@ import seedu.address.logic.commands.taskcommands.DeleteTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
+/*
+ * Parses delete commands
+ */
 public class DeleteCommandParser extends CommandParser{
 	public static final String COMMAND_WORD = DeleteTaskCommand.COMMAND_WORD;
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");

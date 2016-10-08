@@ -7,6 +7,9 @@ import java.util.Set;
 import seedu.address.logic.commands.taskcommands.FindTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
+/*
+ * Parses Find commands
+ */
 public class FindCommandParser extends CommandParser{
 	public static final String COMMAND_WORD = FindTaskCommand.COMMAND_WORD;
 	

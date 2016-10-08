@@ -8,7 +8,10 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
-public class TaskCommandsParser{
+/*
+ * Serves as entry point for user input to be parsed into a TaskCommand
+ */
+public class TaskCommandsParser {
 	/**
      * Used for initial separation of command word and args.
      */
