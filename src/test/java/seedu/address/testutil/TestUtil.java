@@ -65,15 +65,15 @@ public class TestUtil {
     private static Item[] getSampleItemData() {
         try {
             return new Item[]{
-                    new Item(new ItemType("event"), new Name("Ali Muster"), new Date("2016-07-07"), new Time("00:00"), new Date("2016-08-07"), new Time("12:00"), new UniqueTagList()),
-                    new Item(new ItemType("deadline"), new Name("Boris Mueller"), new Date(""), new Time(""), new Date("2017-05-05"), new Time("23:59"), new UniqueTagList()),
-                    new Item(new ItemType("task"), new Name("Carl Kurz"), new Date(""), new Time(""), new Date(""), new Time(""), new UniqueTagList()),
-                    new Item(new ItemType("event"), new Name("Daniel Meier"), new Date("2018-05-05"), new Time("23:59"), new Date("2019-01-01"), new Time("02:30"), new UniqueTagList()),
-                    new Item(new ItemType("deadline"), new Name("Elle Meyer"), new Date(""), new Time(""), new Date("2020-12-30"), new Time("04:49"), new UniqueTagList()),
-                    new Item(new ItemType("task"), new Name("Fiona Kunz"), new Date(""), new Time(""), new Date(""), new Time(""), new UniqueTagList()),
-                    new Item(new ItemType("event"), new Name("George Best"), new Date("2018-05-05"), new Time("21:59"), new Date("2022-01-01"), new Time("19:21"), new UniqueTagList()),
-                    new Item(new ItemType("deadline"), new Name("Hoon Meier"), new Date(""), new Time(""), new Date("2023-03-03"), new Time("14:21"), new UniqueTagList()),
-                    new Item(new ItemType("task"), new Name("Ida Mueller"), new Date(""), new Time(""), new Date("2016-11-21"), new Time("13:10"), new UniqueTagList())
+                    new Item(new ItemType("event"), new Name("Game of Life"), new Date("2016-07-07"), new Time("00:00"), new Date("2016-08-07"), new Time("12:00"), new UniqueTagList()),
+                    new Item(new ItemType("deadline"), new Name("This is a deadline"), new Date(""), new Time(""), new Date("2017-05-05"), new Time("23:59"), new UniqueTagList()),
+                    new Item(new ItemType("task"), new Name("Win at Life"), new Date(""), new Time(""), new Date(""), new Time(""), new UniqueTagList()),
+                    new Item(new ItemType("event"), new Name("This is an event"), new Date("2018-05-05"), new Time("23:59"), new Date("2019-01-01"), new Time("02:30"), new UniqueTagList()),
+                    new Item(new ItemType("deadline"), new Name("Pay my bills"), new Date(""), new Time(""), new Date("2020-12-30"), new Time("04:49"), new UniqueTagList()),
+                    new Item(new ItemType("task"), new Name("This is a task"), new Date(""), new Time(""), new Date(""), new Time(""), new UniqueTagList()),
+                    new Item(new ItemType("event"), new Name("2103 exam"), new Date("2018-05-05"), new Time("21:59"), new Date("2022-01-01"), new Time("19:21"), new UniqueTagList()),
+                    new Item(new ItemType("deadline"), new Name("Submit report"), new Date(""), new Time(""), new Date("2023-03-03"), new Time("14:21"), new UniqueTagList()),
+                    new Item(new ItemType("task"), new Name("Buy a dozen cartons of milk"), new Date(""), new Time(""), new Date("2016-11-21"), new Time("13:10"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
