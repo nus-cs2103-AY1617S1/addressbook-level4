@@ -71,16 +71,13 @@ public class TaskCard extends UiPart{
         }
         
         //Display time when available
-        if (task.getStartTime().isPresent() || task.getEndTime().isPresent()) {
-            //TODO: Temporary implementation. To upgrade to a better one.
-            StringBuilder timeString = new StringBuilder();
-            if (task.getStartTime().isPresent()) {
-                timeString.append("Start: ").append(task.getStartTime().get().format(DateTimeFormatter.ISO_DATE_TIME));
-            }
-            if (task.getEndTime().isPresent()) {
-                timeString.append("End: ").append(task.getEndTime().get().format(DateTimeFormatter.ISO_DATE_TIME));
-            }
+        TimeUtil timeUtil = new TimeUtil();
+        if (task.isEvent() && task.getStartTime().isPresent() && task.getEndTime().isPresent()) {
+            dateLabel.setText(timeUtil.getEventTimeText(task.getStartTime().get(), task.getEndTime().get()));
+        } else if (!task.isEvent() && task.getEndTime().isPresent()) {
+            dateLabel.setText(timeUtil.getTaskDeadlineText(task.getEndTime().get()));
         } else {
+            dateBox.setManaged(false);
             dateBox.setVisible(false);
         }
         
