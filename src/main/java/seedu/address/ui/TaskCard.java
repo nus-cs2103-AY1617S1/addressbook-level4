@@ -43,7 +43,7 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getDescription().toString());
         id.setText(displayedIndex + ". ");
-        address.setText(task.getLocation().value);
+        if(task.getLocation() != null) address.setText(task.getLocation().value);
         tags.setText(task.tagsString());
     }
 

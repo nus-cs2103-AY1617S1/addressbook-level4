@@ -39,6 +39,13 @@ public class Task implements ReadOnlyTask {
         this(source.getDescription(), source.getLocation(), source.getTags());
     }
 
+    public Task(Description description, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(description, tags);
+        this.description = description;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.location = null;
+    }
+
     @Override
     public Description getDescription() {
         return description;
