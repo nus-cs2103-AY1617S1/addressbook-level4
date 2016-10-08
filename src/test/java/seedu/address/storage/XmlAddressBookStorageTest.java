@@ -10,7 +10,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.item.Item;
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalTestItems;
 
 import java.io.IOException;
 
@@ -61,7 +61,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
+        TypicalTestItems td = new TypicalTestItems();
         AddressBook original = td.getTypicalAddressBook();
         XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
 
@@ -71,8 +71,8 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addItem(new Item(TypicalTestPersons.hoon));
-        original.removePerson(new Item(TypicalTestPersons.alice));
+        original.addItem(new Item(TypicalTestItems.hoon));
+        original.removePerson(new Item(TypicalTestItems.alice));
         xmlAddressBookStorage.saveAddressBook(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));

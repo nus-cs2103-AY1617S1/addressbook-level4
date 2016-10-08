@@ -7,11 +7,11 @@ import seedu.address.model.item.*;
 /**
  *
  */
-public class TypicalTestPersons {
+public class TypicalTestItems {
 
     public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestPersons() {
+    public TypicalTestItems() {
         try {
             alice =  new PersonBuilder().withItemType("event").withStartDate("2016-06-06").withStartTime("05:00").withEndTime("12:01")
                     .withEndDate("2016-08-08").withName("Alice Pauline")
