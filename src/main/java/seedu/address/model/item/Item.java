@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a Item in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Item implements ReadOnlyPerson {
+public class Item implements ReadOnlyItem {
 
     private ItemType itemType;
     private Name name;
@@ -37,7 +37,7 @@ public class Item implements ReadOnlyPerson {
     /**
      * Copy constructor.
      */
-    public Item(ReadOnlyPerson source) {
+    public Item(ReadOnlyItem source) {
         this(source.getItemType(), source.getName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getTags());
     }
 
@@ -86,8 +86,8 @@ public class Item implements ReadOnlyPerson {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyPerson // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyPerson) other));
+                || (other instanceof ReadOnlyItem // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyItem) other));
     }
 
     @Override

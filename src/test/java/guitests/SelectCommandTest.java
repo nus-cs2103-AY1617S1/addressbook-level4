@@ -2,11 +2,11 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.item.ReadOnlyPerson;
+import seedu.address.model.item.ReadOnlyItem;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends TaskManagerGuiTest {
 
 
     @Test
@@ -47,7 +47,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertPersonSelected(int index) {
         assertEquals(personListPanel.getSelectedPersons().size(), 1);
-        ReadOnlyPerson selectedPerson = personListPanel.getSelectedPersons().get(0);
+        ReadOnlyItem selectedPerson = personListPanel.getSelectedPersons().get(0);
         assertEquals(personListPanel.getPerson(index-1), selectedPerson);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }

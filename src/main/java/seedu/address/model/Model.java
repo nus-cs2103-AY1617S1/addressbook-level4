@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ReadOnlyPerson;
+import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.model.item.UniquePersonList;
 
 import java.util.Set;
@@ -18,13 +18,13 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /** Deletes the given person. */
-    void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
+    void deletePerson(ReadOnlyItem target) throws UniquePersonList.PersonNotFoundException;
 
     /** Adds the given person */
     void addItem(Item item) throws UniquePersonList.DuplicatePersonException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
+    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyItem>} */
+    UnmodifiableObservableList<ReadOnlyItem> getFilteredPersonList();
 
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();
