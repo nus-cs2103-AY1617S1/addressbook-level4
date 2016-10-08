@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="helpWindowRoot" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskle.ui.HelpWindow">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableView?>
+<AnchorPane  fx:id="helpWindowRoot" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskle.ui.HelpWindow">
+   <stylesheets>
+        <URL value="@DarkTheme.css" />
+        <URL value="@Extensions.css" />
+    </stylesheets>
    <children>
-
+		<TableView  fx:id="tableDisplayPlaceholder" minHeight="100" prefHeight="100" maxHeight="100">
+       </AnchorPane>
    </children>
 </AnchorPane>

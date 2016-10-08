@@ -2,11 +2,13 @@ package taskle.ui;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.util.FxViewUtil;
+import taskle.model.help.CommandHelp;
 
 import java.util.logging.Logger;
 
@@ -23,7 +25,8 @@ public class HelpWindow extends UiPart {
             "https://github.com/CS2103AUG2016-W14-C3/main/blob/master/docs/UserGuide.md";
 
     private AnchorPane mainPane;
-
+    private TableView<CommandHelp> tableView;
+    
     private Stage dialogStage;
 
     public static HelpWindow load(Stage primaryStage) {
