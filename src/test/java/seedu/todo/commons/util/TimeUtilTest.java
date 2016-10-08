@@ -32,17 +32,15 @@ public class TimeUtilTest {
     
     @Test 
     public void getTaskDeadlineString_yearsBeforeDeadlines() {
-        LocalDateTime inputTime = pseudoCurrentTime
-                .plusYears(1)
-                .plusMonths(2)
-                .plusDays(3)
-                .plusHours(4)
-                .plusMinutes(5);
+        LocalDateTime inputTime1 = LocalDateTime.of(2018, Month.JUNE, 6, 17, 20, 15);
+        String expectedOutput1 = "by 6 July 2018, 5:20 PM";
+        String generatedOutput1 = timeUtil.getTaskDeadlineString(inputTime1);
+        assertEquals(generatedOutput1, expectedOutput1);
         
-        String expectedOutput = "by 6 July 2017, 5:20 PM";
-        
-        String generatedOutput = timeUtil.getTaskDeadlineString(inputTime);
-        assertEquals(generatedOutput, expectedOutput);
+        LocalDateTime inputTime2 = LocalDateTime.of(2017, Month.DECEMBER, 11, 49, 30);
+        String expectedOutput2 = "by 11 December 2017, 11:49 AM";
+        String generatedOutput2 = timeUtil.getTaskDeadlineString(inputTime2);
+        assertEquals(generatedOutput2, expectedOutput2);
     }
     
     @Test
