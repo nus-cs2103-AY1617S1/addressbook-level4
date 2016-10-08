@@ -1,9 +1,13 @@
 package seedu.address.model.todo;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents a to-do
@@ -12,6 +16,9 @@ import java.util.Objects;
 public class ToDo implements ReadOnlyToDo {
 
     private Title title;
+    private DueDate dueDate;
+    private DateRange dateRange;
+    private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
@@ -27,7 +34,39 @@ public class ToDo implements ReadOnlyToDo {
     public ToDo(ReadOnlyToDo source) {
         this(source.getTitle());
     }
+    
+    public void setTitle(Title title) {
+        this.title = title;
+    }
 
+    public void setDueDate(DueDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setDateRange(DateRange dateRange) {
+        this.dateRange = dateRange;
+    }
+
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
+    }
+    
+    public Optional<DueDate> getDueDate() {
+        return Optional.ofNullable(dueDate);
+    }
+
+    public Optional<DateRange> getDateRange() {
+        return Optional.ofNullable(dateRange);
+    }
+
+    public Set<Tag> getTags() {
+        if (tags == null) {
+            return new HashSet<>();
+        } else {
+            return tags.toSet();
+        }
+    }
+    
     @Override
     public Title getTitle() {
         return title;

@@ -19,6 +19,8 @@ public class ExitCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model, EventsCenter eventsCenter) {
+        assert eventsCenter != null;
+
         eventsCenter.post(new ExitAppRequestEvent());
         return new CommandResult(Messages.MESSAGE_EXIT_APPLICATION);
     }

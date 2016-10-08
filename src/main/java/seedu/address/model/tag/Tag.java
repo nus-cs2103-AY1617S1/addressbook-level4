@@ -1,41 +1,37 @@
 package seedu.address.model.tag;
 
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Tag in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Represents a tag of a to-do item
+ * Guarantees: immutable; tag is valid as declared in {@link #isValid(String)}
  */
 public class Tag {
 
-    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
     public String tagName;
 
-    public Tag() {
-    }
-
     /**
      * Validates given tag name.
-     *
      * @throws IllegalValueException if the given tag name string is invalid.
      */
     public Tag(String name) throws IllegalValueException {
-        assert name != null;
-        name = name.trim();
-        if (!isValidTagName(name)) {
-            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
+        if (!isValid(name)) {
+            throw new IllegalValueException(Messages.MESSAGE_TODO_TAG_CONSTRAINTS);
         }
+
+        name = name.trim();
         this.tagName = name;
     }
 
     /**
      * Returns true if a given string is a valid tag name.
      */
-    public static boolean isValidTagName(String test) {
-        return test.matches(TAG_VALIDATION_REGEX);
+    public static boolean isValid(String tag) {
+        return tag != null && tag.matches(TAG_VALIDATION_REGEX);
     }
 
     @Override

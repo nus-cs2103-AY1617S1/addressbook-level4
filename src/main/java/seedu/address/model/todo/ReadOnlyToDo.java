@@ -1,5 +1,11 @@
 package seedu.address.model.todo;
 
+import java.util.Optional;
+import java.util.Set;
+
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+
 /**
  * A read-only immutable interface for a to-do
  * Implementations should guarantee: details are present and not null, field values are validated.
@@ -7,6 +13,9 @@ package seedu.address.model.todo;
 public interface ReadOnlyToDo {
 
     Title getTitle();
+    Optional<DateRange> getDateRange();
+    Optional<DueDate> getDueDate();
+    Set<Tag> getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -22,8 +31,12 @@ public interface ReadOnlyToDo {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle());
+
+        builder.append(String.join(", ",
+            "Title: " + getTitle().toString(),
+            "Date Range: " + (getDateRange().isPresent() ? getDateRange().get().toString() : "none"),
+            "Due Date: " + (getDueDate().isPresent() ? getDueDate().get().toString() : "none"),
+            "Tags: " + getTags().toString()));
         return builder.toString();
     }
-
 }

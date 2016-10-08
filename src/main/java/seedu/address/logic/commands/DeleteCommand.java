@@ -22,6 +22,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, EventsCenter eventsCenter) {
+        assert model != null;
+
         UnmodifiableObservableList<ReadOnlyToDo> lastShownList = model.getFilteredToDoList();
 
         if (lastShownList.size() < toDoIndex) {
@@ -33,7 +35,7 @@ public class DeleteCommand extends Command {
         try {
             model.deleteToDo(toDoToDelete);
         } catch (IllegalValueException exception) {
-            assert false : "The to-do at index shouldn't be invalid";
+            return new CommandResult(exception.getMessage());
         }
 
         return new CommandResult(String.format(Messages.MESSAGE_TODO_DELETED, toDoToDelete.toString()));

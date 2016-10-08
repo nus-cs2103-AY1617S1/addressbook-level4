@@ -2,9 +2,15 @@ package seedu.address.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.todo.ToDo;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.todo.DateRange;
+import seedu.address.model.todo.DueDate;
 import seedu.address.model.todo.ReadOnlyToDo;
+import seedu.address.model.todo.Title;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,13 +48,14 @@ public class ToDoList implements ReadOnlyToDoList {
         if (list.remove(toDo)) {
             return true;
         } else {
-            throw new IllegalValueException(toDo.toString() + " not found in to-do list");
+            throw new IllegalValueException(String.format(Messages.MESSAGE_TODO_NOT_FOUND, toDo.toString()));
         }
     }
 
     public void setToDos(List<ToDo> ToDos) {
         list.setAll(ToDos);
     }
+    
 
     public void resetData(Collection<? extends ReadOnlyToDo> newToDos) {
         setToDos(newToDos.stream().map(ToDo::new).collect(Collectors.toList()));
@@ -58,11 +65,35 @@ public class ToDoList implements ReadOnlyToDoList {
         resetData(newData.getToDoList());
     }
 
+    public void editTitle(ReadOnlyToDo todo, Title title) throws IllegalValueException {
+        getToDo(todo).setTitle(title);
+    }
 
+    public void editDateRange(ReadOnlyToDo todo, DateRange dateRange) throws IllegalValueException {
+        getToDo(todo).setDateRange(dateRange);
+    }
+
+    public void editDueDate(ReadOnlyToDo todo, DueDate dueDates) throws IllegalValueException {
+        getToDo(todo).setDueDate(dueDates);
+    }
+
+    public void editTags(ReadOnlyToDo todo, Set<Tag> tags) throws IllegalValueException {
+        getToDo(todo).setTags(new UniqueTagList(tags));
+    }
+    
+    
     //================================================================================
     // Utility methods
     //================================================================================
 
+    public ToDo getToDo(ReadOnlyToDo todo) throws IllegalValueException {
+        int idx = list.indexOf(todo);
+        if (idx == -1){
+            throw new IllegalValueException(String.format(Messages.MESSAGE_TODO_NOT_FOUND, todo.toString()));
+        }
+        return list.get(idx);
+    }
+    
     public ObservableList<ToDo> getToDos() {
         return list;
     }
@@ -88,4 +119,5 @@ public class ToDoList implements ReadOnlyToDoList {
     public int hashCode() {
         return Objects.hash(list);
     }
+
 }

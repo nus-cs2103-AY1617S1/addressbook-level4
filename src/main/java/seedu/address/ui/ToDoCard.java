@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.address.model.todo.DateRange;
 import seedu.address.model.todo.ReadOnlyToDo;
 
 public class ToDoCard extends UiPart{
@@ -16,6 +17,12 @@ public class ToDoCard extends UiPart{
     private Label titleLabel;
     @FXML
     private Label indexLabel;
+    @FXML
+    private Label startLabel;
+    @FXML
+    private Label endLabel;
+    @FXML
+    private Label dueLabel;
 
     private ReadOnlyToDo toDo;
     private int index;
@@ -33,6 +40,21 @@ public class ToDoCard extends UiPart{
     public void initialize() {
         titleLabel.setText(toDo.getTitle().title);
         indexLabel.setText(String.valueOf(index));
+
+        if (toDo.getDateRange().isPresent()) {
+            DateRange dateRange = toDo.getDateRange().get();
+            startLabel.setText(dateRange.startDate.toString());
+            endLabel.setText(dateRange.endDate.toString());
+        } else {
+            startLabel.setText("");
+            endLabel.setText("");
+        }
+
+        if (toDo.getDueDate().isPresent()) {
+            dueLabel.setText(toDo.getDueDate().get().dueDate.toString());
+        } else {
+            dueLabel.setText("");
+        }
     }
 
     public HBox getLayout() {

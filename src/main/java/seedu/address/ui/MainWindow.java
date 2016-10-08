@@ -187,11 +187,11 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public ToDoListPanel getPersonListPanel() {
+    public ToDoListPanel getToDoListPanel() {
         return this.personListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyToDo toDo) {
+    public void loadToDoListPage(ReadOnlyToDo toDo) {
         browserPanel.loadPersonPage(toDo);
     }
 
