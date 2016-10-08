@@ -4,6 +4,7 @@ import javafx.stage.Stage;
 import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.ui.views.View;
 
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ public class UiManager extends ComponentManager implements Ui {
 
     private Config config;
     private MainWindow mainWindow;
+    private Stage primaryStage;
 
     public UiManager(Config config) {
         super();
@@ -25,6 +27,9 @@ public class UiManager extends ComponentManager implements Ui {
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
         
+        // Save primaryStage for later renders.
+        this.primaryStage = primaryStage;
+        
         // Show main window.
         mainWindow = MainWindow.load(primaryStage, config);
         mainWindow.show();
@@ -33,6 +38,15 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void stop() {
         mainWindow.hide();
+    }
+    
+    public void loadView(View view) {
+    	if (primaryStage == null)
+    		return;
+    	
+    	assert primaryStage != null;
+    	
+    	view.render(primaryStage);
     }
 
 }
