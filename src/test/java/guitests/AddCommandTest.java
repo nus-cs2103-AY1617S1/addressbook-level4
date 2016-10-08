@@ -15,14 +15,14 @@ public class AddCommandTest extends TaskManagerGuiTest {
     public void add() {
         //add one person
         TestItem[] currentList = td.getTypicalPersons();
-        TestItem personToAdd = td.deadline3;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+        TestItem itemToAdd = td.deadline3;
+        assertAddSuccess(itemToAdd, currentList);
+        currentList = TestUtil.addItemsToList(currentList, itemToAdd);
 
         //add another person
-        personToAdd = td.task3;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+        itemToAdd = td.task3;
+        assertAddSuccess(itemToAdd, currentList);
+        currentList = TestUtil.addItemsToList(currentList, itemToAdd);
 
         //add duplicate person
         commandBox.runCommand(td.deadline3.getAddCommand());
@@ -38,15 +38,15 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestItem personToAdd, TestItem... currentList) {
-        commandBox.runCommand(personToAdd.getAddCommand());
+    private void assertAddSuccess(TestItem itemToAdd, TestItem... currentList) {
+        commandBox.runCommand(itemToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().value);
-        assertMatching(personToAdd, addedCard);
+        PersonCardHandle addedCard = personListPanel.navigateToPerson(itemToAdd.getName().value);
+        assertMatching(itemToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestItem[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
+        TestItem[] expectedList = TestUtil.addItemsToList(currentList, itemToAdd);
         assertTrue(personListPanel.isListMatching(expectedList));
     }
 

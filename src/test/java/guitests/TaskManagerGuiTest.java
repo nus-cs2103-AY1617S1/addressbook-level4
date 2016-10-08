@@ -98,7 +98,7 @@ public abstract class TaskManagerGuiTest {
      * Asserts the person shown in the card is same as the given person
      */
     public void assertMatching(ReadOnlyItem person, PersonCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, person));
+        assertTrue(TestUtil.compareCardAndItem(card, person));
     }
 
     /**
