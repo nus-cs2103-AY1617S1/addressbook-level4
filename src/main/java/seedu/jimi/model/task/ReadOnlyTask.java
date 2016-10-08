@@ -6,7 +6,7 @@ import seedu.jimi.model.tag.UniqueTagList;
  * A read-only immutable interface for a FloatingTask in the task manager.
  * Implementations should guarantee: name is present and not null, field values are validated.
  */
-public interface ReadOnlyTask{
+public interface ReadOnlyTask {
 
     Name getName();
     boolean isCompleted();
