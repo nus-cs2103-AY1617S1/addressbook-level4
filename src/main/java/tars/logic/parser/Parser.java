@@ -36,13 +36,6 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    
-    private static final Pattern TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<name>[^/]+) (?<datetime>(-dt (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} ([01]\\d|2[0-3])?[0-5]\\d)"
-                    + "|(-dt (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} ([01]\\d|2[0-3])?[0-5]\\d "
-                    + "to (0?[1-9]|[12][0-9]|3[01])[//](0?[1-9]|1[012])[//]\\d{4} ([01]\\d|2[0-3])?[0-5]\\d)) "
-                    + "(?<priority>-p [hml])" 
-                    + "(?<tagArguments>(?: -t [^/]+)*)"); // variable number of tags
 
     public Parser() {}
 
@@ -97,18 +90,31 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    private Command prepareAdd(String args) {
+        Option nameOpt = new Option("-n", true);
+        Option priorityOpt = new Option("-p", true);
+        Option dateTimeOpt = new Option("-dt", true);
+        Option tagOpt = new Option("-t", false);
+        
+        Option[] options = {
+                nameOpt, 
+                priorityOpt, 
+                dateTimeOpt, 
+                tagOpt
+        };
+        
+        HashMap<Option, String> optionFlagNArgMap = getOptionFlagNArg(args, options);
+        if (optionFlagNArgMap.get(nameOpt) == null || optionFlagNArgMap.get(nameOpt).equals("")) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        
         try {
             return new AddCommand(
-                    matcher.group("name"),
-                    getDateTimeFromArgs(matcher.group("datetime").replace("-dt ", "")),
-                    matcher.group("priority").replace("-p ", ""),
-                    getTagsFromArgs(matcher.group("tagArguments")));
+                    optionFlagNArgMap.get(nameOpt).replace(" -n ", ""),
+                    getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(" -dt ", "")),
+                    optionFlagNArgMap.get(priorityOpt).replace(" -p ", ""),
+                    getTagsFromArgs(optionFlagNArgMap.get(tagOpt)));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
@@ -120,13 +126,15 @@ public class Parser {
      * Extracts the new task's datetime from the add command's task arguments string.
      */
     private static String[] getDateTimeFromArgs(String taskArguments) {
-        if (taskArguments.contains("to")) {
+        if (taskArguments.equals("")) {
+            return new String[] {"", ""};
+        } else if (taskArguments.contains("to")) {
             int toIndex = taskArguments.indexOf("to");
             String startDateTime = taskArguments.substring(0, toIndex).trim();
-            String endDateTime = taskArguments.substring(toIndex+2).trim();
+            String endDateTime = taskArguments.substring(toIndex + 2).trim();
             return new String[] {startDateTime, endDateTime};
         } else {
-            return new String[] {taskArguments};
+            return new String[] {"", taskArguments};
         }
     }
 
@@ -136,12 +144,53 @@ public class Parser {
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
-        if (tagArguments.isEmpty()) {
+        if (tagArguments.equals("")) {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" -t ", "").split(" -t "));
         return new HashSet<>(tagStrings);
+    }
+    
+    /**
+     * Extracts the option's flag and arg from arguments string.
+     */
+    private static HashMap<Option, String> getOptionFlagNArg(String args, Option[] options) {
+        TreeMap<Integer, Option> flagsPosMap = new TreeMap<Integer, Option>();
+        HashMap<Option, String> flagsValueMap = new HashMap<Option, String>();
+
+        if (args != null && args.length() > 0 && options.length > 0) {
+            for (int i = 0; i < options.length; i++) {
+                int indexOf = -1;
+                flagsValueMap.put(options[i], "");
+                do {
+                    indexOf = args.indexOf(options[i].flag, indexOf + 1);
+                    if (indexOf >= 0) {
+                        flagsPosMap.put(indexOf, options[i]);
+                    }
+                    if (options[i].hasMultiple) {
+                        break;
+                    }
+                } while (indexOf >= 0);
+            }
+
+            int endPos = args.length();
+            for (Map.Entry<Integer, Option> entry : flagsPosMap.descendingMap().entrySet()) {
+                Option option = entry.getValue();
+                Integer pos = entry.getKey();
+
+                String arg = args.substring(pos, endPos);
+                endPos = pos;
+
+                if (flagsValueMap.containsKey(option)) {
+                    flagsValueMap.put(option, flagsValueMap.get(option).concat(arg));
+                } else {
+                    flagsValueMap.put(option, arg);
+                }
+            }
+        }
+
+        return flagsValueMap;
     }
 
     /**
@@ -214,4 +263,27 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+}
+
+
+class Option {
+    public String flag;
+    public boolean hasMultiple;
+
+    public Option(String flag, boolean hasMultiple) {
+        this.flag = " " + flag + " ";
+        this.hasMultiple = hasMultiple;
+    }
+    
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Option // instanceof handles nulls
+                && this.flag.equals(((Option) other).flag)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return flag.hashCode();
+    }
 }
