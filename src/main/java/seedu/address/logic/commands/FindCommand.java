@@ -32,7 +32,7 @@ public class FindCommand extends Command {
     public CommandResult execute() {
         Set<String> taskNameSet = new HashSet<String>();
         taskNameSet.add(keywords);
-        model.updateFilteredPersonList(taskNameSet);
+        model.updateFilteredTaskList(taskNameSet);
         UnmodifiableObservableList<ReadOnlyTask> matchingTasks = model.getFilteredPersonList();
         
         // No tasks match string
@@ -45,7 +45,7 @@ public class FindCommand extends Command {
         else {
             Set<String> words = new HashSet<String>();
             words.add(keywords);
-            model.updateFilteredPersonList(words);
+            model.updateFilteredTaskList(words);
             return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
         }
     }

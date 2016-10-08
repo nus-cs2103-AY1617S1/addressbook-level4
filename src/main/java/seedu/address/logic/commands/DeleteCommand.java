@@ -53,7 +53,7 @@ public class DeleteCommand extends Command {
     private CommandResult deleteUsingString(){
     	Set<String> taskNameSet = new HashSet<String>();
     	taskNameSet.add(taskName);
-    	model.updateFilteredPersonList(taskNameSet);
+    	model.updateFilteredTaskList(taskNameSet);
     	UnmodifiableObservableList<ReadOnlyTask> matchingTasks = model.getFilteredPersonList();
     	
     	// No tasks match string
@@ -79,7 +79,7 @@ public class DeleteCommand extends Command {
     	else {
     		Set<String> keywords = new HashSet<String>();
     		keywords.add(taskName);
-    		model.updateFilteredPersonList(keywords);
+    		model.updateFilteredTaskList(keywords);
     		return new CommandResult(String.format(MESSAGE_DELETE_IN_NEXT_STEP));
     	}
     }

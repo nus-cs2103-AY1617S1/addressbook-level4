@@ -62,7 +62,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskList getAddressBook() {
+    public ReadOnlyTaskList getTaskList() {
         return taskList;
     }
 
@@ -74,14 +74,21 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws PersonNotFoundException {
         taskList.removePerson(target);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowIncomplete();
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Task task) throws UniqueTaskList.DuplicatePersonException {
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicatePersonException {
         taskList.addPerson(task);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowIncomplete();
+        indicateAddressBookChanged();
+    }
+    
+    @Override
+    public synchronized void markTaskAsComplete(ReadOnlyTask task) throws PersonNotFoundException {
+        taskList.markTaskAsComplete(task);
+        updateFilteredListToShowIncomplete();
         indicateAddressBookChanged();
     }
 
@@ -96,9 +103,15 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
+    
+    @Override
+    public void updateFilteredListToShowIncomplete() {
+    	updateFilteredListToShowAll();
+    	updateFilteredPersonList(new PredicateExpression(new DefaultDisplayQualifier()));
+    }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
@@ -144,6 +157,18 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask person);
         String toString();
     }
+    
+    private class DefaultDisplayQualifier implements Qualifier {
+
+    	DefaultDisplayQualifier(){
+    		
+    	}
+    	
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			return !person.isComplete();
+		}
+    }
 
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
@@ -178,7 +203,7 @@ public class ModelManager extends ComponentManager implements Model {
 //                    .findAny()
 //                    .isPresent();
         	Matcher matcher = NAME_QUERY.matcher(person.getName().taskDetails);
-        	return matcher.matches();
+        	return matcher.matches() && !person.isComplete();
         }
         
         @Override

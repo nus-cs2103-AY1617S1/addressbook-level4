@@ -1,13 +1,13 @@
 package seedu.address.logic.commands;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+
 
 public class DoneCommand extends Command {
 
@@ -54,20 +54,49 @@ public class DoneCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         else{
-            ReadOnlyTask taskToDelete = lastShownList.get(targetIndex);
+            ReadOnlyTask taskToMark = lastShownList.get(targetIndex);
             try{
-                model.deleteTask(taskToDelete);
+                model.markTaskAsComplete(taskToMark);
             }
             catch (PersonNotFoundException e){
                 assert false: "The target task cannot be missing";
             }
-            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDelete.getName()));
+            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getName()));
         }
     }
 
     private CommandResult doneUsingString(){
-        
-        return null;
+    	Set<String> taskNameSet = new HashSet<String>();
+    	taskNameSet.add(taskName);
+    	model.updateFilteredTaskList(taskNameSet);
+    	UnmodifiableObservableList<ReadOnlyTask> matchingTasks = model.getFilteredPersonList();
+    	
+    	// No tasks match string
+    	if (matchingTasks.isEmpty()){
+    		model.updateFilteredListToShowAll();
+    		return new CommandResult(String.format(MESSAGE_DONE_TASK_FAILURE));
+    	}
+    	
+    	// Only 1 task matches string
+    	else if (matchingTasks.size() == 1) {
+    		ReadOnlyTask taskToMark = matchingTasks.get(0);
+    		try {
+				model.deleteTask(taskToMark);
+			}
+    		catch (PersonNotFoundException e) {
+				assert false: "The target task cannot be missing";
+			}
+    		model.updateFilteredListToShowAll();
+    		return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getName()));
+    	} 
+    	
+    	//More than 1 task matches string
+    	else {
+    		Set<String> keywords = new HashSet<String>();
+    		keywords.add(taskName);
+    		model.updateFilteredTaskList(keywords);
+    		return new CommandResult(String.format(MESSAGE_DONE_IN_NEXT_STEP));
+    	}
     }
     
     boolean targetIndexWasEntered() {
