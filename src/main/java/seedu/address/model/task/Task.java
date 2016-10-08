@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.exceptions.TaskAlreadyCompletedException;
 
 import java.util.Objects;
 
@@ -47,13 +48,14 @@ public class Task implements ReadOnlyTask {
     /**
      * Convert an uncompleted task to completed.
      * 
-     * Pre-condition: taskToConvert MUST BE uncompleted.
-     * 
      * @param taskToConvert to completed
      * @return the same task but with completed = true
+     * @throws TaskAlreadyCompletedException if task is already completed
      */
-    public static Task convertToComplete(ReadOnlyTask taskToConvert) {
-        assert taskToConvert.getComplete().isCompleted == false;
+    public static Task convertToComplete(ReadOnlyTask taskToConvert) throws TaskAlreadyCompletedException {
+        if (taskToConvert.getComplete().isCompleted == true) {
+            throw new TaskAlreadyCompletedException();
+        }
         
         return new Task(taskToConvert.getName(),
                 new Complete(true),

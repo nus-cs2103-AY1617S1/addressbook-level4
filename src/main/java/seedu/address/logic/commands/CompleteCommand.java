@@ -6,6 +6,7 @@ import seedu.address.model.task.Complete;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.exceptions.TaskAlreadyCompletedException;
 
 /**
  * Marks a task as complete using the last displayed index from the task list.
@@ -16,22 +17,22 @@ public class CompleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Mark as complete the task identified by the index number used "
-            + "in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "in the last task listing.\n" + "Parameters: INDEX (must be a positive integer)\n" + "Example: "
+            + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed Task: %1$s";
     public static final String MESSAGE_COMPLETE_TASK_UNDO_SUCCESS = "Marked task as uncompleted: %1$1";
+    public static final String MESSAGE_COMPLETE_TASK_ALREADY_COMPLETED = "Task is already completed: %1$1";
 
     public final int targetIndex;
-    
+
     private ReadOnlyTask oldReadOnlyTask;
     private Task newTask;
 
     public CompleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-    
+
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
@@ -40,10 +41,16 @@ public class CompleteCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        
+
         oldReadOnlyTask = lastShownList.get(targetIndex - 1);
-        newTask = Task.convertToComplete(oldReadOnlyTask);
-        
+
+        try {
+            newTask = Task.convertToComplete(oldReadOnlyTask);
+        } catch (TaskAlreadyCompletedException tace) {
+            return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_ALREADY_COMPLETED,
+                    oldReadOnlyTask));
+        }
+
         try {
             model.updateTask(oldReadOnlyTask, newTask);
         } catch (TaskNotFoundException pnfe) {
@@ -61,7 +68,7 @@ public class CompleteCommand extends Command {
     @Override
     public CommandResult executeUndo() {
         Task oldTask = new Task(oldReadOnlyTask);
-        
+
         try {
             model.updateTask(newTask, oldTask);
         } catch (TaskNotFoundException pnfe) {
