@@ -1,13 +1,13 @@
 package seedu.address.logic;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyTask;
+import seedu.emeraldo.commons.core.ComponentManager;
+import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.storage.Storage;
 
 import java.util.logging.Logger;

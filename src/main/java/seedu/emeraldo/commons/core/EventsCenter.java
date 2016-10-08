@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.emeraldo.commons.core;
 
 import com.google.common.eventbus.EventBus;
 import seedu.address.commons.events.BaseEvent;

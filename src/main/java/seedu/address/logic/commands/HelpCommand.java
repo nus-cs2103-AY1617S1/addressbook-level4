@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.emeraldo.commons.core.EventsCenter;
 
 /**
  * Format full help instructions for every command for display.

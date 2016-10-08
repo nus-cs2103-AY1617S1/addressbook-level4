@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.emeraldo.commons.core;
 
 import java.util.Objects;
 import java.util.logging.Level;

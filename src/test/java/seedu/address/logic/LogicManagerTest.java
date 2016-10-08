@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.EventsCenter;
+
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
@@ -18,6 +18,7 @@ import seedu.address.model.ReadOnlyEmeraldo;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.emeraldo.commons.core.Messages.*;
 
 public class LogicManagerTest {
 

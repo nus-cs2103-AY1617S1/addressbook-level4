@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.commons.core.LogsCenter;
+import seedu.emeraldo.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 

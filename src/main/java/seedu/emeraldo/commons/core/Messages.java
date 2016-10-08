@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.emeraldo.commons.core;
 
 /**
  * Container for user visible messages.

@@ -1,8 +1,8 @@
 package seedu.address.commons.util;
 
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.emeraldo.commons.core.Config;
+import seedu.emeraldo.commons.core.LogsCenter;
 
 import java.io.File;
 import java.io.IOException;

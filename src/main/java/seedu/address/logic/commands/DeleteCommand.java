@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniquePersonList.TaskNotFoundException;
+import seedu.emeraldo.commons.core.Messages;
+import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
