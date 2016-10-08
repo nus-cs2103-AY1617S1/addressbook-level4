@@ -21,6 +21,7 @@ import seedu.todo.model.AddressBook;
 import seedu.todo.model.person.*;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
+import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.storage.XmlSerializableAddressBook;
 
 import java.io.File;
@@ -30,7 +31,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
@@ -141,6 +144,31 @@ public class TestUtil {
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
         return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    }
+    
+
+    /**
+     * Do a shallow equality test based on the titles in the two list of tasks
+     * 
+     * @param a the first list of tasks to compare
+     * @param b the second list of tasks to compare
+     * @return whether the two contains tasks with the same titles
+     */
+    public static boolean isShallowEqual(List<ImmutableTask> a, List<ImmutableTask> b) {
+        if (a.size() != b.size()) {
+            return false;
+        }
+
+        Set<String> setOfTitles = new HashSet<>();
+        for (ImmutableTask taskA : a) {
+            setOfTitles.add(taskA.getTitle());
+        }
+        for (ImmutableTask taskB : b) {
+            if (!setOfTitles.remove(taskB.getTitle())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
