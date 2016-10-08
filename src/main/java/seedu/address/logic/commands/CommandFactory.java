@@ -2,15 +2,16 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.DateTimeParser;
+import seedu.address.logic.parser.SequentialParser;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Maps and builds commands from input strings, using {@link Parser}
+ * Maps and builds commands from input strings, using {@link SequentialParser}
  * In charge of splitting up input strings to required parts for commands
  */
 public class CommandFactory {
@@ -19,9 +20,11 @@ public class CommandFactory {
     public static final String KEYWORD_DUEDATE = "by";
     public static final String TAG_PREFIX = "#";
 
-    private Parser parser;
+    private SequentialParser sequentialParser;
+    private DateTimeParser dateTimeParser;
     {
-        parser = new Parser();
+        sequentialParser = new SequentialParser();
+        dateTimeParser = new DateTimeParser();
     }
 
     /**
@@ -29,10 +32,10 @@ public class CommandFactory {
      * @return instance of a command based on {@param parsable}
      */
     public Command build(String inputString){
-        parser.setInput(inputString);
+        sequentialParser.setInput(inputString);
 
         // Check if command word exists
-        Optional<String> commandWord = parser.extractFirstWord();
+        Optional<String> commandWord = sequentialParser.extractFirstWord();
 
         if (!commandWord.isPresent()) {
             return new InvalidCommand(Messages.MESSAGE_MISSING_COMMAND_WORD);
@@ -64,7 +67,7 @@ public class CommandFactory {
 
     private Command buildAddCommand() {
         // Try to find title
-        Optional<String> title = parser.extractText();
+        Optional<String> title = sequentialParser.extractText();
         if (!title.isPresent()) {
             return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_TITLE);
         }
@@ -78,7 +81,7 @@ public class CommandFactory {
 
     private Command buildDeleteCommand() {
         // Try to find index
-        Optional<Integer> index = parser.extractFirstInteger();
+        Optional<Integer> index = sequentialParser.extractFirstInteger();
         if (!index.isPresent()) {
             return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_ITEM_INDEX);
         }
@@ -88,7 +91,7 @@ public class CommandFactory {
 
     private Command buildFindCommand() {
         // Try to find keywords
-        List<String> words = parser.extractWords();
+        List<String> words = sequentialParser.extractWords();
 
         // Convert to set
         return new FindCommand(words.stream().collect(Collectors.toSet()));
@@ -100,7 +103,7 @@ public class CommandFactory {
 
     private Command buildHelpCommand() {
         // Try to find command word
-        Optional<String> word = parser.extractText();
+        Optional<String> word = sequentialParser.extractText();
 
         if (word.isPresent()) {
             return new HelpCommand(word.get());
@@ -110,7 +113,7 @@ public class CommandFactory {
     }
     private Command buildEditCommand() {
         // Try to find index
-        Optional<Integer> index = parser.extractFirstInteger();
+        Optional<Integer> index = sequentialParser.extractFirstInteger();
         if (!index.isPresent()) {
             return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_ITEM_INDEX);
         }
@@ -118,7 +121,7 @@ public class CommandFactory {
         EditCommand command = new EditCommand(index.get());
 
         // Extract tags
-        List<String> tags = parser.extractPrefixedWords(TAG_PREFIX);
+        List<String> tags = sequentialParser.extractPrefixedWords(TAG_PREFIX);
 
         if (!tags.isEmpty()) {
             try {
@@ -129,7 +132,7 @@ public class CommandFactory {
         }
 
         // Extract title
-        Optional<String> title = parser.extractText(
+        Optional<String> title = sequentialParser.extractText(
             KEYWORD_DATERANGE_START,
             KEYWORD_DATERANGE_END,
             KEYWORD_DUEDATE
@@ -144,10 +147,12 @@ public class CommandFactory {
         }
 
         // Extract due date, if exists
-        Optional<String> dueDate = parser.extractTextAfterKeyword(KEYWORD_DUEDATE,
+        Optional<String> dueDateString = sequentialParser.extractTextAfterKeyword(KEYWORD_DUEDATE,
             KEYWORD_DATERANGE_START,
             KEYWORD_DATERANGE_END
         );
+
+        Optional<Date> dueDate = dateTimeParser.parseDateTime(dueDateString.orElse(""));
 
         if (dueDate.isPresent()) {
             try {
@@ -158,25 +163,37 @@ public class CommandFactory {
         }
 
         // Extract date range, if exists
-        Optional<String> startDate = parser.extractTextAfterKeyword(KEYWORD_DATERANGE_START,
+        Optional<String> startDateString = sequentialParser.extractTextAfterKeyword(KEYWORD_DATERANGE_START,
             KEYWORD_DATERANGE_END,
             KEYWORD_DUEDATE
         );
-        Optional<String> endDate = parser.extractTextAfterKeyword(KEYWORD_DATERANGE_END,
+        Optional<String> endDateString = sequentialParser.extractTextAfterKeyword(KEYWORD_DATERANGE_END,
             KEYWORD_DATERANGE_START,
             KEYWORD_DUEDATE
         );
 
-        if (startDate.isPresent() && endDate.isPresent()) {
+        if (startDateString.isPresent() || startDateString.isPresent()) {
+            if (endDateString.isPresent() && !startDateString.isPresent()) {
+                return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_DATERANGE_START);
+            } else if (startDateString.isPresent() && !endDateString.isPresent()) {
+                return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_DATERANGE_END);
+            }
+
+            Optional<Date> startDate = dateTimeParser.parseDateTime(startDateString.orElse(""));
+            Optional<Date> endDate = dateTimeParser.parseDateTime(endDateString.orElse(""));
+
+            if (!startDate.isPresent()) {
+                return new InvalidCommand(Messages.MESSAGE_TODO_DATERANGE_START_INVALID_FORMAT);
+            } else if (!endDate.isPresent()) {
+                return new InvalidCommand(Messages.MESSAGE_TODO_DATERANGE_END_INVALID_FORMAT);
+            }
+
+            // Here, startDate and endDate exist and are valid
             try {
                 command.setDateRange(startDate.get(), endDate.get());
             } catch (IllegalValueException exception) {
                 return new InvalidCommand(exception.getMessage());
             }
-        } else if (endDate.isPresent() && !startDate.isPresent()) {
-            return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_DATERANGE_START);
-        } else if (startDate.isPresent() && !endDate.isPresent()) {
-            return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_DATERANGE_END);
         }
 
         return command;

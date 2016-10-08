@@ -11,11 +11,8 @@ import seedu.address.model.todo.DueDate;
 import seedu.address.model.todo.ReadOnlyToDo;
 import seedu.address.model.todo.Title;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -41,37 +38,12 @@ public class EditCommand extends Command {
         this.title = new Title(title);
     }
 
-    public void setDueDate(String dueDate) throws IllegalValueException {
-        assert dueDate != null;
-
-       try {
-           this.dueDate = new DueDate(new SimpleDateFormat().parse(dueDate));
-       } catch (ParseException exception) {
-           throw new IllegalValueException(Messages.MESSAGE_TODO_DUEDATE_INVALID_FORMAT);
-       }
+    public void setDueDate(Date dueDate) throws IllegalValueException {
+        this.dueDate = new DueDate(dueDate);
     }
 
-    public void setDateRange(String startDate, String endDate) throws IllegalValueException {
-        assert startDate != null;
-        assert endDate != null;
-
-        Date formattedStartDate;
-        Date formattedEndDate;
-        try {
-            formattedStartDate = new SimpleDateFormat().parse(startDate);
-        } catch (ParseException exception) {
-            throw new IllegalValueException(Messages.MESSAGE_TODO_DATERANGE_START_INVALID_FORMAT);
-        }
-
-        try {
-            formattedEndDate = new SimpleDateFormat().parse(endDate);
-        } catch (ParseException exception) {
-            throw new IllegalValueException(Messages.MESSAGE_TODO_DATERANGE_END_INVALID_FORMAT);
-        }
-
-        this.dateRange = new DateRange(
-            formattedStartDate, formattedEndDate
-        );
+    public void setDateRange(Date startDate, Date endDate) throws IllegalValueException {
+        this.dateRange = new DateRange(startDate, endDate);
     }
 
     /**
