@@ -3,6 +3,7 @@ package seedu.todo.commons.util;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -25,6 +26,8 @@ public class TimeUtil {
     private static final String DUE_LESS_THAN_A_MINUTE = "in less than a minute";
     private static final String TOMORROW = "tomorrow, ";
     private static final String YESTERDAY = "yesterday, ";
+    private static final String TODAY = "today, ";
+    private static final String TONIGHT = "tonight, ";
     
     /* Variables */
     protected Clock clock = Clock.systemDefaultZone();
@@ -57,12 +60,12 @@ public class TimeUtil {
             return DEADLINE_PREFIX_IN + minutesToDeadline + MINUTES_MULTIPLE_UNIT;
         } else if (minutesToDeadline < -1 && minutesToDeadline >= -59) {
             return (-minutesToDeadline) + MINUTES_MULTIPLE_UNIT + DEADLINE_SUFFIX_AGO;
+        } else if (daysToDeadline == 0 && currentTime.toLocalDate().equals(endTime.toLocalDate())) {
+            return ((endTime.toLocalTime().isBefore(LocalTime.of(18, 00))) ? TODAY : TONIGHT) 
+                    + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));  
         }
         
         
-        if (hoursToDeadline == 1) {
-            return DEADLINE_PREFIX_IN + "1" + HOUR_SINGLE_UNIT;
-        }
         if (daysToDeadline >= 0 && daysToDeadline <= 2 && currentTime.plusDays(1).getDayOfWeek().equals(endTime.getDayOfWeek())) {
             return DEADLINE_PREFIX_BY + TOMORROW + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
         }
