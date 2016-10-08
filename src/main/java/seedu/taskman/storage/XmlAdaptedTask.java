@@ -39,17 +39,18 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public XmlAdaptedTask(ReadOnlyTask source) {
         title = source.getTitle().title;
         deadline = source.getDeadline().isPresent()
-                ? source.getDeadline().toString()
+                ? source.getDeadline().get().toString()
                 : null;
         status = source.getStatus().toString();
         schedule = source.getSchedule().isPresent()
-                ? source.getSchedule().toString()
+                ? source.getSchedule().get().toString()
                 : null;
         frequency = source.getFrequency().isPresent()
-                ? source.getFrequency().toString()
+                ? source.getFrequency().get().toString()
                 : null;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {

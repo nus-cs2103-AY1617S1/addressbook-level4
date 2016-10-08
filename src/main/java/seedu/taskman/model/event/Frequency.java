@@ -1,5 +1,6 @@
 package seedu.taskman.model.event;
 
+import com.google.common.base.Objects;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 
 public class Frequency {
@@ -27,6 +28,14 @@ public class Frequency {
     @Override
     public String toString() {
         return String.valueOf(seconds);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Frequency frequency = (Frequency) o;
+        return Objects.equal(seconds, frequency.seconds);
     }
 
     @Override

@@ -88,12 +88,15 @@ public class Task extends Event implements ReadOnlyTask {
         // TODO: delete this after testing!!!!
         Logger log = Logger.getAnonymousLogger();
 
+        log.warning("state is same: " + this.isSameStateAs((Task) other));
         Task other2 = (Task) other;
                 log.warning("Title: " + this.getTitle() + " , " + other2.getTitle() + " . " + other2.getTitle().equals(this.getTitle()));
-        log.warning("" + other2.getFrequency().equals(this.getFrequency()));
-        log.warning("" + other2.getSchedule().equals(this.getSchedule()));
-        log.warning("" + other2.getDeadline().equals(this.getDeadline()));
-        log.warning("" + other2.getStatus().equals(this.getStatus()));
+        log.warning("Freq " + other2.getFrequency().equals(this.getFrequency()));
+        log.warning("Schedule " + other2.getSchedule().equals(this.getSchedule()));
+        log.warning("Schedule 1: " + this.getSchedule().isPresent());
+        log.warning("Schedule 1: " + other2.getSchedule().isPresent());
+        log.warning("Deadline " + other2.getDeadline().equals(this.getDeadline()));
+        log.warning("Status " + other2.getStatus().equals(this.getStatus()));
         return result;
     }
 
