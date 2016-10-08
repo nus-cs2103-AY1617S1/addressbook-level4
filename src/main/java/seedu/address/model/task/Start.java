@@ -33,7 +33,10 @@ public class Start {
      * Returns if a given string is a valid person email.
      */
     public static boolean isValidStart(String test) {
-        return test.matches(START_VALIDATION_REGEX);
+    	if (test == "" || test.matches(START_VALIDATION_REGEX))
+    		return true;
+    	else
+    		return false;
     }
 
     @Override

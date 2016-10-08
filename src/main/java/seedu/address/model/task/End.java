@@ -31,7 +31,10 @@ public class End {
      * Returns true if a given string is a valid person email.
      */
     public static boolean isValidEnd(String test) {
-        return test.matches(END_VALIDATION_REGEX);
+    	if (test == "" || test.matches(END_VALIDATION_REGEX))
+    		return true;
+    	else
+    		return false;
     }
 
     @Override

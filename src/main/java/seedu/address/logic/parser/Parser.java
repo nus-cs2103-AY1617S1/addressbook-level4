@@ -56,10 +56,10 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD: {
-        	if (TASK_DATA_ARGS_FORMAT.matcher(userInput).find())
-        		return prepareAdd(arguments);
-        	else if (TODO_DATA_ARGS_FORMAT.matcher(userInput).find())
+        	if (TODO_DATA_ARGS_FORMAT.matcher(userInput).find())
         		return prepareToDo(arguments);
+        	else if (TASK_DATA_ARGS_FORMAT.matcher(userInput).find())
+        		return prepareAdd(arguments);
         }
             
         
@@ -90,7 +90,7 @@ public class Parser {
     }
     
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add todo command.
      *
      * @param args full command args string
      * @return the prepared command

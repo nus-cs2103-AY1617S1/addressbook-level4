@@ -19,7 +19,7 @@ public class Date {
      * @throws IllegalValueException if given date string is invalid.
      */
     public Date(String date) throws IllegalValueException {
-        assert date != null;
+        //assert date != null;
         date = date.trim();
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
@@ -31,7 +31,10 @@ public class Date {
      * Returns true if a given string is a valid person phone number.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(DATE_VALIDATION_REGEX);
+    	if (test == "" || test.matches(DATE_VALIDATION_REGEX))
+    		return true;
+    	else
+    		return false;
     }
 
     @Override
