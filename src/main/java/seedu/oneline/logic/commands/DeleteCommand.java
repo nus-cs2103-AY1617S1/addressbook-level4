@@ -24,10 +24,15 @@ public class DeleteCommand extends Command {
 
     public final int targetIndex;
 
-    public DeleteCommand(String args) throws IllegalValueException, IllegalCmdArgsException {
-        Integer index = Parser.getIndexFromArgs(args);
+    public DeleteCommand(String args) throws IllegalCmdArgsException {
+        Integer index = null;
+        try {
+            index = Parser.getIndexFromArgs(args);
+        } catch (IllegalValueException e) {
+            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+        }
         if (index == null) {
-            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(DeleteCommand.MESSAGE_USAGE));
+            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
         this.targetIndex = index;
     }

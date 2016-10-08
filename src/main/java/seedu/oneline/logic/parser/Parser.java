@@ -137,7 +137,7 @@ public class Parser {
      */
     public static Integer getIndexFromArgs(String args) throws IllegalValueException {
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        if (!index.isPresent()) {
             throw new IllegalValueException("Index does not parse to integer.");
         }
         return index.get();
