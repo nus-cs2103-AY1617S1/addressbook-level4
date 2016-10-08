@@ -16,7 +16,15 @@ public class Time {
     public final String value;
 
     /**
-     * Validates given address.
+     * Validates given time.
+     *
+     */
+    public Time() {
+        value = EMPTY_TIME;
+    }
+    
+    /**
+     * Validates given time.
      *
      * @throws IllegalValueException if given address string is invalid.
      */
@@ -32,7 +40,7 @@ public class Time {
      * Returns true if a given string is a valid person email.
      */
     public static boolean isValidTime(String test) {
-    	if (test.equals("")) {
+    	if (test.equals(EMPTY_TIME)) {
     		return true;
     	}
         return test.matches(TIME_VALIDATION_REGEX);

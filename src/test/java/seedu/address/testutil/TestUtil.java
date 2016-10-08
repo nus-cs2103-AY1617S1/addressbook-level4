@@ -274,14 +274,14 @@ public class TestUtil {
 
     /**
      * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
+     * @param items The list of persons
+     * @param itemsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestItem[] removePersonsFromList(final TestItem[] persons, TestItem... personsToRemove) {
-        List<TestItem> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestItem[listOfPersons.size()]);
+    public static TestItem[] removeItemsFromList(final TestItem[] items, TestItem... itemsToRemove) {
+        List<TestItem> listOfItems = asList(items);
+        listOfItems.removeAll(asList(itemsToRemove));
+        return listOfItems.toArray(new TestItem[listOfItems.size()]);
     }
 
 
@@ -290,32 +290,32 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestItem[] removePersonFromList(final TestItem[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    public static TestItem[] removeItemFromList(final TestItem[] list, int targetIndexInOneIndexedFormat) {
+        return removeItemsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
-     * Replaces persons[i] with a person.
-     * @param persons The array of persons.
-     * @param person The replacement person
-     * @param index The index of the person to be replaced.
+     * Replaces items[i] with an item.
+     * @param items The array of items.
+     * @param item The replacement item
+     * @param index The index of the item to be replaced.
      * @return
      */
-    public static TestItem[] replacePersonFromList(TestItem[] persons, TestItem person, int index) {
-        persons[index] = person;
-        return persons;
+    public static TestItem[] replaceItemFromList(TestItem[] items, TestItem item, int index) {
+        items[index] = item;
+        return items;
     }
 
     /**
-     * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
-     * @return The modified array of persons.
+     * Appends items to the array of items.
+     * @param items A array of items.
+     * @param itemsToAdd The items that are to be appended behind the original array.
+     * @return The modified array of items.
      */
-    public static TestItem[] addPersonsToList(final TestItem[] persons, TestItem... personsToAdd) {
-        List<TestItem> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestItem[listOfPersons.size()]);
+    public static TestItem[] addItemsToList(final TestItem[] items, TestItem... itemsToAdd) {
+        List<TestItem> listOfItems = asList(items);
+        listOfItems.addAll(asList(itemsToAdd));
+        return listOfItems.toArray(new TestItem[listOfItems.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -326,8 +326,8 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyItem person) {
-        return card.isSamePerson(person);
+    public static boolean compareCardAndItem(PersonCardHandle card, ReadOnlyItem item) {
+        return card.isSamePerson(item);
     }
 
     public static Tag[] getTagList(String tags) {
