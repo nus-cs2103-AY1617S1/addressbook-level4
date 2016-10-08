@@ -1,4 +1,4 @@
-package seedu.address.model.task;
+package seedu.address.model.person;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

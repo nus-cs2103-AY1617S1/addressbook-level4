@@ -3,9 +3,11 @@ package seedu.address.logic.commands;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.models.AddCommandModel;
 import seedu.address.logic.commands.models.AliasCommandModel;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.*;
+import seedu.address.model.person.*;
 
 import java.util.HashSet;
 import java.util.Set;
