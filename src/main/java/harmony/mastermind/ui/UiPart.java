@@ -58,22 +58,6 @@ public abstract class UiPart {
 
 
     /**
-     * Creates a modal dialog.
-     * @param title Title of the dialog.
-     * @param parentStage The owner stage of the dialog.
-     * @param scene The scene that will contain the dialog.
-     * @return the created dialog, not yet made visible.
-     */
-    protected Stage createDialogStage(String title, Stage parentStage, Scene scene) {
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle(title);
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(parentStage);
-        dialogStage.setScene(scene);
-        return dialogStage;
-    }
-
-    /**
      * Sets the given image as the icon for the primary stage of this UI Part.
      * @param iconSource e.g. {@code "/images/help_icon.png"}
      */
