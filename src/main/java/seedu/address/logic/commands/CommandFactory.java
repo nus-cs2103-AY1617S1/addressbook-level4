@@ -124,7 +124,7 @@ public class CommandFactory {
             try {
                 command.setTags(tags.stream().collect(Collectors.toSet()));
             } catch (IllegalValueException exception) {
-                return new InvalidCommand(Messages.MESSAGE_TODO_TAG_CONSTRAINTS);
+                return new InvalidCommand(exception.getMessage());
             }
         }
 
@@ -139,8 +139,44 @@ public class CommandFactory {
             try {
                 command.setTitle(title.get());
             } catch (IllegalValueException exception) {
-                return new InvalidCommand(Messages.MESSAGE_TODO_TITLE_CONSTRAINTS);
+                return new InvalidCommand(exception.getMessage());
             }
+        }
+
+        // Extract due date, if exists
+        Optional<String> dueDate = parser.extractTextAfterKeyword(KEYWORD_DUEDATE,
+            KEYWORD_DATERANGE_START,
+            KEYWORD_DATERANGE_END
+        );
+
+        if (dueDate.isPresent()) {
+            try {
+                command.setDueDate(dueDate.get());
+            } catch (IllegalValueException exception) {
+                return new InvalidCommand(exception.getMessage());
+            }
+        }
+
+        // Extract date range, if exists
+        Optional<String> startDate = parser.extractTextAfterKeyword(KEYWORD_DATERANGE_START,
+            KEYWORD_DATERANGE_END,
+            KEYWORD_DUEDATE
+        );
+        Optional<String> endDate = parser.extractTextAfterKeyword(KEYWORD_DATERANGE_END,
+            KEYWORD_DATERANGE_START,
+            KEYWORD_DUEDATE
+        );
+
+        if (startDate.isPresent() && endDate.isPresent()) {
+            try {
+                command.setDateRange(startDate.get(), endDate.get());
+            } catch (IllegalValueException exception) {
+                return new InvalidCommand(exception.getMessage());
+            }
+        } else if (endDate.isPresent() && !startDate.isPresent()) {
+            return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_DATERANGE_START);
+        } else if (startDate.isPresent() && !endDate.isPresent()) {
+            return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_DATERANGE_END);
         }
 
         return command;

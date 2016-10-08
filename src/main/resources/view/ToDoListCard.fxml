@@ -13,37 +13,42 @@
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0"/>
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0"
+                      GridPane.columnIndex="0">
                     <stylesheets>
-                        <URL value="@DarkTheme.css" />
-                        <URL value="@Extensions.css" />
+                        <URL value="@DarkTheme.css"/>
+                        <URL value="@Extensions.css"/>
                     </stylesheets>
                     <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
+                        <Insets bottom="5" left="15" right="5" top="5"/>
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="216.0" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="indexLabel" styleClass="cell_big_label">
-                              <padding>
-                                 <Insets right="10.0" />
-                              </padding></Label>
-                                    <Label fx:id="titleLabel" styleClass="cell_big_label" text="\$title" />
+                                    <Label fx:id="indexLabel" styleClass="cell_big_label" text="\$i">
+                                        <padding>
+                                            <Insets right="10.0"/>
+                                        </padding>
+                                    </Label>
+                                    <Label fx:id="titleLabel" styleClass="cell_big_label" text="\$title"/>
+                                    <Label fx:id="startLabel" styleClass="cell_big_label" text="\$start"/>
+                                    <Label fx:id="endLabel" styleClass="cell_big_label" text="\$end"/>
+                                    <Label fx:id="dueLabel" styleClass="cell_big_label" text="\$due"/>
                                 </HBox>
                             </children>
                         </HBox>
                     </children>
                 </VBox>
             </children>
-         <rowConstraints>
-            <RowConstraints />
-         </rowConstraints>
+            <rowConstraints>
+                <RowConstraints/>
+            </rowConstraints>
         </GridPane>
     </children>
 </HBox>

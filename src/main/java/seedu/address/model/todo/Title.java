@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Title {
 
-    public static final String TITLE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String TITLE_VALIDATION_REGEX = ".+";
 
     public final String title;
 
