@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.ReadOnlyFloatingTask;
 import seedu.address.model.task.UniqueTaskList;
 
 import java.util.Set;
@@ -18,13 +18,13 @@ public interface Model {
     ReadOnlyTaskList getTaskList();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(ReadOnlyFloatingTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(FloatingTask task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    UnmodifiableObservableList<ReadOnlyFloatingTask> getFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();

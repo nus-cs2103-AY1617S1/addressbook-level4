@@ -42,7 +42,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(ReadOnlyTask toCheck) {
+    public boolean contains(ReadOnlyFloatingTask toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -65,7 +65,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public boolean remove(ReadOnlyFloatingTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {

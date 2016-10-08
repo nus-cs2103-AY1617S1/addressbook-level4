@@ -6,7 +6,7 @@ import seedu.address.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestFloatingTask extends FloatingTask implements ReadOnlyTask {
+public class TestFloatingTask extends FloatingTask implements ReadOnlyFloatingTask {
 
     private Name name;
     private UniqueTagList tags;

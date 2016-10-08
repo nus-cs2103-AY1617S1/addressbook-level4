@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.ReadOnlyFloatingTask;
 import seedu.address.model.task.UniqueTaskList;
 
 import java.util.*;
@@ -58,7 +58,7 @@ public class TaskList implements ReadOnlyTaskList {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyFloatingTask> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
         setTags(newTags);
     }
@@ -104,7 +104,7 @@ public class TaskList implements ReadOnlyTaskList {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyFloatingTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -127,7 +127,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
+    public List<ReadOnlyFloatingTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 

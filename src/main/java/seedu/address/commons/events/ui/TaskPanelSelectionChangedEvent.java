@@ -1,7 +1,7 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.ReadOnlyFloatingTask;
 
 /**
  * Represents a selection change in the Task List Panel
@@ -9,9 +9,9 @@ import seedu.address.model.task.ReadOnlyTask;
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
 
-    private final ReadOnlyTask newSelection;
+    private final ReadOnlyFloatingTask newSelection;
 
-    public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection){
+    public TaskPanelSelectionChangedEvent(ReadOnlyFloatingTask newSelection){
         this.newSelection = newSelection;
     }
 
@@ -20,7 +20,7 @@ public class TaskPanelSelectionChangedEvent extends BaseEvent {
         return this.getClass().getSimpleName();
     }
 
-    public ReadOnlyTask getNewSelection() {
+    public ReadOnlyFloatingTask getNewSelection() {
         return newSelection;
     }
 }

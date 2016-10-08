@@ -5,7 +5,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.ReadOnlyFloatingTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskListChangedEvent;
@@ -66,7 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyFloatingTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
         indicateTaskListChanged();
     }
@@ -87,7 +87,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+    public UnmodifiableObservableList<ReadOnlyFloatingTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
@@ -108,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyTask task);
+        boolean satisfies(ReadOnlyFloatingTask task);
         String toString();
     }
 
@@ -121,7 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask task) {
+        public boolean satisfies(ReadOnlyFloatingTask task) {
             return qualifier.run(task);
         }
 
@@ -132,7 +132,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask task);
+        boolean run(ReadOnlyFloatingTask task);
         String toString();
     }
 
@@ -144,7 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask task) {
+        public boolean run(ReadOnlyFloatingTask task) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()

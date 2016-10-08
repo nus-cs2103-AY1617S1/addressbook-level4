@@ -3,7 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.ReadOnlyFloatingTask;
 
 /**
  * Provides a handle to a floating task card in the task list panel.
@@ -26,7 +26,7 @@ public class FloatingTaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask task){
+    public boolean isSameTask(ReadOnlyFloatingTask task){
         return getFullName().equals(task.getName().fullName);
     }
 
