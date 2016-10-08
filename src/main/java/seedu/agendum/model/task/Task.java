@@ -16,7 +16,7 @@ public class Task implements ReadOnlyTask {
     private boolean isCompleted;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-
+    
     private UniqueTagList tags;
     
     // ================ Constructor methods ==============================

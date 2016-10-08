@@ -16,6 +16,8 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
+    @XmlElement(required = true)
+    private String isCompleted;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -33,6 +35,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
+        isCompleted = Boolean.toString(source.isCompleted());
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -50,7 +53,13 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
+        final boolean markedAsCompleted = Boolean.valueOf(isCompleted);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, tags);
+        
+        Task newTask = new Task(name,tags);
+        if (markedAsCompleted) {
+            newTask.markAsCompleted();
+        }
+        return newTask;
     }
 }

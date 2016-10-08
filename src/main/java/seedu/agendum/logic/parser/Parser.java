@@ -65,6 +65,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+            
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -128,6 +131,23 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the mark task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMark(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        }
+
+        return new MarkCommand(index.get());
     }
 
     /**

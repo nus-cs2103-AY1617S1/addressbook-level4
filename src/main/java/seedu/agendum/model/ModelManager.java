@@ -80,6 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         toDoList.markTask(target);
+        updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
 
