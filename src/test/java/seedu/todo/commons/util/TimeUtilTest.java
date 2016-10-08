@@ -233,4 +233,28 @@ public class TimeUtilTest {
         String expectedOutput3 = "30 minutes ago";
         assertEquals(expectedOutput3, generatedOutput3);
     }
+    
+    @Test
+    public void getTaskDeadlineText_tomorrowBeforeDeadline() {
+        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
+        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 21, 12, 00, 00);
+        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
+        String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
+        String expectedOutput1 = "by tomorrow, 12:00 PM";
+        assertEquals(expectedOutput1, generatedOutput1);
+        
+        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 23, 50, 00);
+        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 21, 00, 51, 00);
+        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
+        String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
+        String expectedOutput2 = "by tomorrow, 12:51 AM";
+        assertEquals(expectedOutput2, generatedOutput2);
+        
+        LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 23, 50, 00);
+        LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 21, 00, 10, 00);
+        TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
+        String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
+        String expectedOutput3 = "in 20 minutes";
+        assertEquals(expectedOutput3, generatedOutput3);
+    }
 }
