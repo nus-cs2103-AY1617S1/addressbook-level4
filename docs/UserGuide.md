@@ -10,9 +10,9 @@
 
 
 ##About
-TaskMan is a task management application that aims to simplify the way you work with your tasks and events. It is a Java desktop application that can work offline, without requiring Internet connection.
+TaskMan is a task management application that aims to simplify the way you work with your tasks and events. It is a Java desktop application that can work offline, without requiring Internet connection. 
 
-It has a simple graphical user interface, showing you what you really want to know. Instead of trying to find and click buttons all over the screen, you just need to type through your keyboard to give the necessary commands, and TaskMan will do the rest for you. 
+It uses a simple graphical user interface to display your events and tasks. Instead of trying to find and click buttons all over the screen, you just need to type through your keyboard to give the necessary commands, and TaskMan will do the rest for you. 
 
 ## Quick Start
 
@@ -65,9 +65,9 @@ The `PERIOD` represents the period of time the task is scheduled to be worked on
 > Tasks can have any number of tags. Tags may contain spaces and are case-insensitive (i.e. tags "school", "School", and "SCHOOL" are the same tags).
 
 Examples:
-* `add CS2103T Pre-Tutorial Work d/wed 9.59am start/tue 11.59pm end/wed 4am`
-* `add CS2101 HW d/next mon 11.59am start/sun 2am end/sun 6am t/CS2101 t/V0.0`
-* `add Take a shower d/thu 12am start/thu 12am end/12.30am r/1d t/Life`
+* `add CS2103T Pre-Tutorial Work d/wed 9.59am p/tue 11.59pm to wed 4am`
+* `add CS2101 HW d/next mon 11.59am t/CS2101 t/V0.0`
+* `add Take a shower d/thu 12am p/thu 12am to fri 12.30am r/1d t/Life`
 
 #### Adding an event: ‘add e ’
 Adds a task to TaskMan<br>
@@ -89,14 +89,8 @@ Examples:
 
 ####Changing the View: `view`
 Shows a different view based on the parameters entered.<br>
-Command Format: view [{task/event/all/more/less/cal/day}]
+Command Format: view [{more/less/cal/day}]
 Examples:
-* `view` or `view task`<br> 
-Shows list of tasks
-* `view event`<br> 
-Shows list of events
-* `view all`<br>
-Show list of both tasks and events
 * `view more`<br>
 Show more details in the list
 * `view less`<br>
@@ -109,18 +103,20 @@ Shows a detailed view of the entire day, inclusive of tasks and vacant timeblock
 
 #### Listing all tasks: `list`
 Shows a list of all tasks or events, depending on the view, whose titles contain any of the given keywords or contains any given tags.<br>
-Command Format: `list [KEYWORD]... [t/TAG]... `
+Command Format: `list [{e/, all/}] [KEYWORD]... [t/TAG]... `
 
+
+> * The list returns tasks only by default. Lists with `e/` returns events only while lists with `all/` returns both tasks and events.
 > * The search is case-insensitive. e.g `cs3244` will match `CS3244`
 > * The order of the keywords does not matter. e.g. `CS3244 Homework` will match `Homework CS3244`
 > * Only the title is searched.
 > * Only full words will be matched e.g. `CS` will not match `CS3244`
-> * Tasks matching at least one keyword or one tag will be returned (i.e. `OR` search).
+> * Tasks/Events matching at least one keyword or one tag will be returned (i.e. `OR` search).
     e.g. `CS3244` will match `CS3244 Homework`, a task with tags `t/CS2103T` and `t/hw` will match a search for `t/hw`
 
 Examples:
 * `find CS2103T`<br>
-  Returns `CS2103T Tutorial`
+  Returns Tasks with `CS2103T` in their titles
 * `find CS2101 CS3230 CS2103T t/hw`<br>
   Returns any task or event having titles `CS2101`, `CS3230`, or `CS2103T` or tag `hw`
 
@@ -346,7 +342,7 @@ Edit | `edit INDEX TITLE [d/DEADLINE] [p/PERIOD] [c/STATUS] [r/FREQUENCY] [t/TAG
 Exit | `exit`
 Help | `help`
 History | `history`
-List | `list [KEYWORD]... [t/TAG]...`
+List | `list [{e/, all/}] [KEYWORD]... [t/TAG]...`
 Retag | `retag t/ORIGINAL t/DESIRED`
 Select | `select INDEX`
 Sort | `sort ATTRIBUTE [desc]`
