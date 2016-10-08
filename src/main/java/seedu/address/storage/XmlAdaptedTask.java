@@ -16,15 +16,13 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
-    @XmlElement(required = true)
+    @XmlElement
     private String detail;
-    @XmlElement(required = true)
+    @XmlElement
     private String fromDate;
-    @XmlElement(required = true)
+    @XmlElement
     private String tillDate;
 
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
@@ -39,25 +37,20 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        detail = source.getDetail().value;
+        detail = source.getDetail().toString();
         fromDate = source.getFromDate().toString();
         tillDate = source.getTillDate().toString();
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
+
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
+        final List<Tag> taskTags = new ArrayList<>();
+
         final Name name = new Name(this.name);
         final Detail detail = new Detail(this.detail);
         final TaskDate fromDate = new TaskDate(this.fromDate);

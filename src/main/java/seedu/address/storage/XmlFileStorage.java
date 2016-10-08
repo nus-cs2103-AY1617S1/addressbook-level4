@@ -8,11 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores ToDoList data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given ToDoList data to the specified file.
      */
     public static void saveDataToFile(File file, XmlSerializableToDoList addressBook)
             throws FileNotFoundException {
@@ -30,6 +30,7 @@ public class XmlFileStorage {
                                                                             FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableToDoList.class);
+            
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }

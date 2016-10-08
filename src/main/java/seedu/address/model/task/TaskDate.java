@@ -26,7 +26,7 @@ public class TaskDate {
      * @throws IllegalValueException if given date and time string is invalid.
      */
     public TaskDate(String dateTimeString) throws IllegalValueException {
-        if (dateTimeString == null) {
+        if (dateTimeString == null || dateTimeString.equals("") || dateTimeString.equals(" ")) {
         	this.date = null;
         	this.time = null;
         } else {
@@ -87,7 +87,7 @@ public class TaskDate {
     		timeString = DateTimeUtil.prettyPrintTime(time);
     	}
     	
-    	return dateString + " " + timeString;
+    	return dateString + "" + timeString;
     }
 
     @Override
