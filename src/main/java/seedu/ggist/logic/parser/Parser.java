@@ -35,15 +35,15 @@ public class Parser {
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<taskName>[^,]+)"
                     + " (?<date>[^,]+)"
-                    + " (?<time>[^,]+)"
+                    + " (?<time>\\d{4})"
                     + " (?<tagArguments>(?:[^,]+)*)"); // variable number of tags
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<taskName>[^,]+)"
                     + " (?<date>[^,]+)"
-                    + " (?<startTime>[^,]+)"
-                    + " (?<endTime>[^,]+)"
+                    + " (?<startTime>\\d{4})"
+                    + " (?<endTime>\\d{4})"
                     + "(?<tagArguments>(?: [^,]+)*)"); // variable number of tags
    
     public Parser() {}
@@ -152,9 +152,6 @@ public class Parser {
         if ((matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
             return new String("eventTask");
         } else if ((matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
-            System.out.println("task name = " + matcher.group("taskName"));
-            System.out.println("date = " + matcher.group("date"));
-            System.out.println("time = " + matcher.group("time"));
             return new String("deadlineTask");
         } else if ((matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
             return new String("floatingTask");

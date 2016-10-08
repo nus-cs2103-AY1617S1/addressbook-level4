@@ -2,7 +2,6 @@ package seedu.ggist.model.task;
 
 import java.util.Objects;
 
-import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.util.CollectionUtil;
 import seedu.ggist.model.tag.UniqueTagList;
 
