@@ -57,13 +57,13 @@ public class KeywordParserTest {
 
         String input = "add \"Assignment\" tag important";
         KeywordParser parser = new KeywordParser("add", "by", "tag");
-        HashMap<String, String> list = parser.parseFree(input);
+        HashMap<String, String> list = parser.parseKeywordsWithoutFixedOrder(input);
         assertEquals(list.get("add"), "Assignment");
         assertEquals(list.get("tag"), "important");
 
         String input2 = "add \"Assignment\" from monday to thursday";
         KeywordParser parser2 = new KeywordParser("add", "from", "to", "tag");
-        HashMap<String, String> list2 = parser2.parseFree(input2);
+        HashMap<String, String> list2 = parser2.parseKeywordsWithoutFixedOrder(input2);
         assertEquals(list2.get("add"), "Assignment");
         assertEquals(list2.get("from"), "monday");
         assertEquals(list2.get("to"), "thursday");

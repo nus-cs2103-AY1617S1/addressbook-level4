@@ -85,7 +85,7 @@ public class Parser {
      */
     private Command prepareAdd(String args){
         final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "repeattime", "tag");
-        HashMap<String, String> parsed = parser.parseFree(args);
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
         String name = parsed.get("add");
         String by = parsed.get("by");
         String startTime = parsed.get("from");

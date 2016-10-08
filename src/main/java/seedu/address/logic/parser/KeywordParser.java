@@ -60,7 +60,7 @@ public class KeywordParser {
      * @param string to be parsed
      * @return HashMap containing the keyword - associated substring pairs
      */
-    public HashMap<String, String> parseFree(String inputString){
+    public HashMap<String, String> parseKeywordsWithoutFixedOrder(String inputString){
         HashMap<String, String> words = new HashMap<String, String>();
         for(int i = 0; i < keywords.size(); i++){
             inputString = new String(inputString);
@@ -106,7 +106,7 @@ public class KeywordParser {
      * @param inputString
      * @return HashMap containing the keyword - associated substring pair
      */
-    public HashMap<String, String> parseOne(String inputString){
+    public HashMap<String, String> parseForOneKeyword(String inputString){
         HashMap<String, String> words = new HashMap<String, String>();
         for(int i = 0; i < keywords.size(); i++){
             inputString = new String(inputString);
