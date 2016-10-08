@@ -73,7 +73,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addPerson(Activity activity) {
+    public synchronized void addActivity(Activity activity) {
         activityManager.addActivity(activity);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
