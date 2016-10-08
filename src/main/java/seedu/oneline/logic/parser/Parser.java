@@ -5,15 +5,14 @@ import static seedu.oneline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.oneline.commons.core.LogsCenter;
-import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.commons.util.StringUtil;
-import seedu.oneline.logic.LogicManager;
 import seedu.oneline.logic.commands.*;
 import seedu.oneline.model.task.TaskField;
 
@@ -40,14 +39,19 @@ public class Parser {
                     + " \\.d (?<recurrence>[^#]+)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
 
+    private static final Pattern EDIT_COMMAND_ARGS_FORMAT =
+            Pattern.compile("(?<index>-?[\\d]+)" // index
+                    + " (?<args>.+)"); // the other arguments
+    
     public Parser() {}
 
-    private static final Map<String, Class> COMMAND_CLASSES = initCommandClasses();
+    private static final Map<String, Class<?>> COMMAND_CLASSES = initCommandClasses();
     
-    private static Map<String, Class> initCommandClasses() {
-        Map<String, Class> commands = new HashMap<String, Class>();
+    private static Map<String, Class<?>> initCommandClasses() {
+        Map<String, Class<?>> commands = new HashMap<String, Class<?>>();
         commands.put(AddCommand.COMMAND_WORD.toLowerCase(), AddCommand.class);
         commands.put(SelectCommand.COMMAND_WORD.toLowerCase(), SelectCommand.class);
+        commands.put(EditCommand.COMMAND_WORD.toLowerCase(), EditCommand.class);
         commands.put(DeleteCommand.COMMAND_WORD.toLowerCase(), DeleteCommand.class);
         commands.put(ClearCommand.COMMAND_WORD.toLowerCase(), ClearCommand.class);
         commands.put(FindCommand.COMMAND_WORD.toLowerCase(), FindCommand.class);
@@ -75,7 +79,7 @@ public class Parser {
         if (!COMMAND_CLASSES.containsKey(commandWord)) {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
-        Class cmdClass = COMMAND_CLASSES.get(commandWord);
+        Class<?> cmdClass = COMMAND_CLASSES.get(commandWord);
         Object obj = null;
         try {
             obj = cmdClass.getConstructor(String.class).newInstance(arguments);
@@ -103,7 +107,7 @@ public class Parser {
         Map<TaskField, String> fields = new HashMap<TaskField, String>();
         // Validate arg string format
         if (!matcher.matches()) {
-            throw new IllegalCmdArgsException(AddCommand.MESSAGE_USAGE); // TODO: THROW ERROR
+            throw new IllegalCmdArgsException("Invalid format for command arguments"); // TODO: THROW ERROR
         }
         fields.put(TaskField.NAME, matcher.group("name"));
         fields.put(TaskField.START_TIME, matcher.group("startTime"));
@@ -177,6 +181,16 @@ public class Parser {
         }
         return Optional.of(Integer.parseInt(index));
 
+    }
+    
+    public static Entry<Integer, Map<TaskField, String>> getIndexAndTaskFieldsFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
+        final Matcher matcher = EDIT_COMMAND_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new IllegalCmdArgsException("Args not in format <index> <arguments>");
+        }
+        Integer index = Parser.getIndexFromArgs(matcher.group("index"));
+        Map<TaskField, String> fields = Parser.getTaskFieldsFromArgs(args);
+        return new SimpleEntry<Integer, Map<TaskField, String>>(index, fields);
     }
 
 }

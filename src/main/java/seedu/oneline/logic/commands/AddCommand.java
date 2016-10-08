@@ -34,7 +34,7 @@ public class AddCommand extends Command {
         try {
             fields = Parser.getTaskFieldsFromArgs(args);
         } catch (IllegalCmdArgsException e) {
-            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(e.getMessage()));
+            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
         Set<String> tags = Parser.getTagsFromArgs(fields.get(TaskField.TAG_ARGUMENTS));
         final Set<Tag> tagSet = new HashSet<>();

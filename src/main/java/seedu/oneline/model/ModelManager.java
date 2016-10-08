@@ -8,7 +8,9 @@ import seedu.oneline.commons.events.model.TaskBookChangedEvent;
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
+import seedu.oneline.model.task.TaskName;
 import seedu.oneline.model.task.UniqueTaskList;
+import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -73,6 +75,19 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void replaceTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException {
+        taskBook.removeTask(oldTask);
+        assert !taskBook.getUniqueTaskList().contains(newTask);
+        try {
+            taskBook.addTask(newTask);
+        } catch (DuplicateTaskException e) {
+            assert false : "Logic error"; // Should not be happening
+        }
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
