@@ -6,15 +6,19 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 
 /*
- * Iterates through all parsers to find the appropriate one for the given command input
+ * Responsible for selecting an appropriate parser from a pre-specified list
  */
-public class ParserType {
+public class ParserSelector {
 		
 	private static final Class<?>[] parserTypes = CommandParserList.getList();
-    private static final Logger logger = LogsCenter.getLogger(ParserType.class);
+    private static final Logger logger = LogsCenter.getLogger(ParserSelector.class);
 
-	
-	public static CommandParser get(String commandWord){
+	/*
+	 * Returns an appropriate CommandParser based on the input command word.
+	 * Iterates through the list of available parsers to select the first one with a matching
+	 * command word
+	 */
+	public static CommandParser getByCommandWord(String commandWord){
 		for(int i=0; i<parserTypes.length; i++){
 			try {
 				Field type = parserTypes[i].getField("COMMAND_WORD");
