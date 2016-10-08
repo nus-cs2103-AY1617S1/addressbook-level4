@@ -351,7 +351,7 @@ Use case ends
 **MSS**
 
 1. User requests to view all tasks at a specified date
-2. Program shows the list tasks for the specified date<br>
+2. Program shows the list of tasks for the specified date and deadlines up to the specified date<br>
 Use case ends
 
 **Extensions**
@@ -363,7 +363,12 @@ Use case ends
 
 2a. There are no tasks for the specified date
 
-> 1a1. Program returns a message, saying that there are no tasks for the specified date<br>
+> 2a1. Program returns a message, saying that there are no tasks for the specified date<br>
+  Use case ends.
+
+2b. There are neither deadlines before nor on the specified date
+
+> 2b1. Program returns a message, saying that there are neither tasks due before nor on the specified date<br>
   Use case ends.
   
 #### Use case: Find a specific task
@@ -371,20 +376,25 @@ Use case ends
 **MSS**
 
 1. User requests to find all tasks with a specified keyword
-2. Program shows the list tasks for which have the keyword<br>
+2. Program shows the list of tasks that contain the keyword<br>
 Use case ends
 
 **Extensions**
 
-1a. Keyword is invalid
+1a. Keyword entered is a date
 
-> 1a1. Program returns errors message, saying that keyword given is invalid<br>
+> 1a1. Program returns same results as 'view tasks on specified date' command [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)<br>
+  Use case ends
+
+1b. Keyword is invalid
+
+> 1b1. Program returns errors message, saying that keyword given is invalid<br>
   Use case resumes at step 1
 
 2a. There are no tasks for the specified date
 
 > 1a1. Program returns a message, saying that there are no tasks found<br>
-  Use case ends.
+  Use case ends
 
 #### Use case: Edit details of a task
 
