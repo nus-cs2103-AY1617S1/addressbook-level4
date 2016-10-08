@@ -57,7 +57,8 @@ public class TimeUtil {
             } else if (minutesToDeadline > 1 && minutesToDeadline <= 59) {
                 return DEADLINE_PREFIX_IN + minutesToDeadline + MINUTES_MULTIPLE_UNIT;
             } else if (currentTime.isBefore(endTime) && currentTime.toLocalDate().equals(endTime.toLocalDate())) {
-                return ((endTime.toLocalTime().isBefore(LocalTime.of(18, 00))) ? DUE_TODAY : DUE_TONIGHT) 
+                return DEADLINE_PREFIX_BY 
+                        + ((endTime.toLocalTime().isBefore(LocalTime.of(18, 00))) ? DUE_TODAY : DUE_TONIGHT) 
                         + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));  
             }
             
