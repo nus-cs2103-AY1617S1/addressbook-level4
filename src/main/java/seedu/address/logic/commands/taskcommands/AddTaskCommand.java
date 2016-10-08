@@ -19,6 +19,7 @@ public class AddTaskCommand extends TaskCommand {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in TaskManager";
+    public static final String MESSAGE_EMPTY_TASK = "There is no description for the task";
 
     private final Task toAdd;
 
@@ -29,6 +30,9 @@ public class AddTaskCommand extends TaskCommand {
      */
     public AddTaskCommand(String description)
             throws IllegalValueException {
+    	if (description == null || description.isEmpty()) {
+    		throw new IllegalValueException("Description to AddTaskCommand constructor is empty.");
+    	}
         this.toAdd = new FloatingTask(new Description(description));
     }
 
@@ -37,6 +41,7 @@ public class AddTaskCommand extends TaskCommand {
         assert model != null;
         try {
             model.addTask(toAdd);
+            model.clearTasksFilter();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueItemCollection.DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
