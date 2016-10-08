@@ -76,7 +76,7 @@ public class Parser {
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteByIndexCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
         case ClearCommand.COMMAND_WORD:
@@ -217,10 +217,10 @@ public class Parser {
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteByIndexCommand.MESSAGE_USAGE));
         }
 
-        return new DeleteCommand(index.get());
+        return new DeleteByIndexCommand(index.get());
     }
 
     /**
