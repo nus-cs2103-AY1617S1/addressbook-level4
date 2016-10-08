@@ -111,6 +111,14 @@ public class WhatNow implements ReadOnlyWhatNow {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public boolean updateTask(ReadOnlyTask old, Task toUpdate) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.update(old, toUpdate)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 
 //// tag-level operations
 

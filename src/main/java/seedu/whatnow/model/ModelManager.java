@@ -76,6 +76,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateWhatNowChanged();
     }
+    
+    @Override
+    public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException {
+        whatNow.updateTask(old, toUpdate);
+        indicateWhatNowChanged();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
