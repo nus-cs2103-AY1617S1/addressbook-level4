@@ -6,7 +6,7 @@ import seedu.ggist.commons.util.CollectionUtil;
 import seedu.ggist.model.tag.UniqueTagList;
 
 /**
- * Represents a EventTask in the address book.
+ * Represents a EventTask in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class EventTask extends Task implements ReadOnlyTask {

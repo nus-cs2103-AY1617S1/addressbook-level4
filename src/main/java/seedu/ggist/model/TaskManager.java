@@ -40,7 +40,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskManager getEmptyAddressBook() {
+    public static ReadOnlyTaskManager getEmptyTaskManager() {
         return new TaskManager();
     }
 
