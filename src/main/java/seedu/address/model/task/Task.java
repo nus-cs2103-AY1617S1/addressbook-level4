@@ -2,7 +2,10 @@ package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
-
+import seedu.address.model.task.Location;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Priority;
+import seedu.address.model.task.Deadline;
 import java.util.Objects;
 
 /**
@@ -11,21 +14,20 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
-    private Description discription;
-    private Phone phone;
-    private Email email;
+    private Description description;
+   
     private Location location;
+
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Discription discription, Phone phone, Email email, Location location, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(discription, phone, email, location, tags);
-        this.discription = discription;
-        this.phone = phone;
-        this.email = email;
+    public Task(Description description, Location location, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(description, location, tags);
+        this.description = description;
+     
         this.location = location;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -34,22 +36,19 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDiscription(), source.getPhone(), source.getEmail(), source.getLocation(), source.getTags());
+        this(source.getDescription(), source.getLocation(), source.getTags());
+    }
+
+    public Task(Description description, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(description, tags);
+        this.description = description;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.location = null;
     }
 
     @Override
-    public Discription getDiscription() {
-        return discription;
-    }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
+    public Description getDescription() {
+        return description;
     }
 
     @Override
@@ -79,12 +78,20 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(discription, phone, email, location, tags);
+        return Objects.hash(description, location, tags);
     }
 
     @Override
     public String toString() {
         return getAsText();
     }
+
+
+    @Override
+    public Deadline getDeadline() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 
 }
