@@ -17,7 +17,8 @@ Responsibilities: Logic
 
 -----
 
-#### [Huang Tsai Ti](https://github.com/tyrahuang) 
+#### [Huang Tsai Ti](https://github.com/tyrahuang) <br>
+<img src="images/TsaiTi.jpg" width="150"><br>
 Role: Code quality, Developer <br>  
 Responsibilities: Storage
 
