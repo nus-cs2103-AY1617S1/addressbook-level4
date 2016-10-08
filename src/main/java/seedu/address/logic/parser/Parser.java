@@ -79,6 +79,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return prepareUndo(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -154,6 +157,19 @@ public class Parser {
 
         return new SelectCommand(index.get());
     }
+    
+    private Command prepareUndo(String args) {
+        if (args.equals("")) {
+            return new UndoCommand(1);
+        }
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE));
+        }
+
+        return new UndoCommand(index.get());
+    }    
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
