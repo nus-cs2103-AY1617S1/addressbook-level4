@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.emeraldo.logic.parser;
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.StringUtil;
