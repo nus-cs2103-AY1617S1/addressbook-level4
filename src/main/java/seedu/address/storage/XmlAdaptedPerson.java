@@ -40,8 +40,8 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson(ReadOnlyPerson source) {
         name = source.getItemType().value;
         phone = source.getName().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        email = source.getDate().value;
+        address = source.getTime().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -60,8 +60,8 @@ public class XmlAdaptedPerson {
         }
         final ItemType itemType = new ItemType(this.name);
         final Name name = new Name(this.phone);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
+        final Date email = new Date(this.email);
+        final Time address = new Time(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
         return new Item(itemType, name, email, address, tags);
     }

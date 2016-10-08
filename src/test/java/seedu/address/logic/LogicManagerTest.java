@@ -20,6 +20,11 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -166,7 +171,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid ItemType n/not_numbers e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid ItemType n/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid ItemType n/12345 e/notAnEmail a/valid, address", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid ItemType n/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -385,8 +390,8 @@ public class LogicManagerTest {
         Item adam() throws Exception {
             ItemType itemType = new ItemType("Adam Brown");
             Name privateName = new Name("111111");
-            Email email = new Email("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
+            Date email = new Date("2016-08-08");
+            Time privateAddress = new Time("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -401,11 +406,14 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Item generateItem(int seed) throws Exception {
+            String dateFormat = "yyyy-MM-dd";
+            LocalDateTime ldt = LocalDateTime.now();
+            String date = ldt.format(DateTimeFormatter.ofPattern(dateFormat));
             return new Item(
                     new ItemType("Item " + seed),
                     new Name("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Address("House of " + seed),
+                    new Date(date),
+                    new Time("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -418,8 +426,8 @@ public class LogicManagerTest {
 
             cmd.append(p.getItemType().toString());
             cmd.append(" n/").append(p.getName());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" e/").append(p.getDate());
+            cmd.append(" a/").append(p.getTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -503,8 +511,8 @@ public class LogicManagerTest {
             return new Item(
                     new ItemType(name),
                     new Name("1"),
-                    new Email("1@email"),
-                    new Address("House of 1"),
+                    new Date("2016-12-12"),
+                    new Time("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

@@ -10,8 +10,8 @@ public interface ReadOnlyPerson {
 
     ItemType getItemType();
     Name getName();
-    Email getEmail();
-    Address getAddress();
+    Date getDate();
+    Time getTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -27,8 +27,8 @@ public interface ReadOnlyPerson {
                 || (other != null // this is first to avoid NPE below
                 && other.getItemType().equals(this.getItemType()) // state checks here onwards
                 && other.getName().equals(this.getName())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getDate().equals(this.getDate())
+                && other.getTime().equals(this.getTime()));
     }
 
     /**
@@ -40,9 +40,9 @@ public interface ReadOnlyPerson {
                 .append(" Name: ")
                 .append(getName())
                 .append(" Email: ")
-                .append(getEmail())
+                .append(getDate())
                 .append(" Address: ")
-                .append(getAddress())
+                .append(getTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

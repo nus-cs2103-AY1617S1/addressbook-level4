@@ -13,20 +13,20 @@ public class Item implements ReadOnlyPerson {
 
     private ItemType itemType;
     private Name name;
-    private Email email;
-    private Address address;
+    private Date date;
+    private Time time;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Item(ItemType itemType, Name name, Email email, Address address, UniqueTagList tags) {
+    public Item(ItemType itemType, Name name, Date email, Time address, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(itemType, name, email, address, tags);
         this.itemType = itemType;
         this.name = name;
-        this.email = email;
-        this.address = address;
+        this.date = email;
+        this.time = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,7 +34,7 @@ public class Item implements ReadOnlyPerson {
      * Copy constructor.
      */
     public Item(ReadOnlyPerson source) {
-        this(source.getItemType(), source.getName(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getItemType(), source.getName(), source.getDate(), source.getTime(), source.getTags());
     }
 
     @Override
@@ -48,13 +48,13 @@ public class Item implements ReadOnlyPerson {
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public Date getDate() {
+        return date;
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public Time getTime() {
+        return time;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Item implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(itemType, name, email, address, tags);
+        return Objects.hash(itemType, name, date, time, tags);
     }
 
     @Override

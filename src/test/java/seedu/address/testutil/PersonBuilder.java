@@ -28,7 +28,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Address(address));
+        this.person.setAddress(new Time(address));
         return this;
     }
 
@@ -37,8 +37,8 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Email(email));
+    public PersonBuilder withDate(String date) throws IllegalValueException {
+        this.person.setDate(new Date(date));
         return this;
     }
 

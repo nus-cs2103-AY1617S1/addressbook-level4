@@ -9,8 +9,8 @@ import seedu.address.model.tag.UniqueTagList;
 public class TestPerson implements ReadOnlyPerson {
 
     private ItemType itemType;
-    private Address address;
-    private Email email;
+    private Time address;
+    private Date email;
     private Name name;
     private UniqueTagList tags;
 
@@ -22,11 +22,11 @@ public class TestPerson implements ReadOnlyPerson {
         this.itemType = itemType;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Time address) {
         this.address = address;
     }
 
-    public void setEmail(Email email) {
+    public void setDate(Date email) {
         this.email = email;
     }
 
@@ -45,12 +45,12 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public Email getEmail() {
+    public Date getDate() {
         return email;
     }
 
     @Override
-    public Address getAddress() {
+    public Time getTime() {
         return address;
     }
 
@@ -68,8 +68,8 @@ public class TestPerson implements ReadOnlyPerson {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getItemType().value + " ");
         sb.append("n/" + this.getName().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("e/" + this.getDate().value + " ");
+        sb.append("a/" + this.getTime().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
