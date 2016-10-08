@@ -6,10 +6,8 @@ import java.util.Optional;
 
 /**
  * Wrapper for both ReadOnlyEvent and ReadOnlyTask
- *
- * May i
  */
-public class Activity{
+public class Activity implements ReadOnlyEvent{
 
     public enum ActivityType {EVENT, TASK};
 
@@ -50,21 +48,38 @@ public class Activity{
         }
     }
 
-
+    @Override
     public Title getTitle() {
         return activity.getTitle();
     }
 
+    @Override
     public Optional<Frequency> getFrequency() {
         return activity.getFrequency();
     }
 
+    @Override
     public Optional<Schedule> getSchedule() {
         return activity.getSchedule();
     }
 
+    @Override
     public UniqueTagList getTags() {
         return activity.getTags();
+    }
+
+    @Override
+    public boolean isSameStateAs(ReadOnlyEvent other) {
+        return activity.isSameStateAs(other);
+    }
+
+    public boolean isSameStateAs(ReadOnlyTask task) {
+        return task.isSameStateAs(activity);
+    }
+
+    @Override
+    public String getAsText() {
+        return activity.getAsText();
     }
 
 }
