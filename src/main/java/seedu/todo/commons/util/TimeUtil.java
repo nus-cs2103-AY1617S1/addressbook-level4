@@ -58,27 +58,43 @@ public class TimeUtil {
         long hoursToDeadline = durationCurrentToEnd.toHours();
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         
-        if (currentTime.getYear() < endTime.getYear()) {
-            return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM yyyy, h:m a"));
-        }
-        
+        //Currently is the deadline.
         if (minutesToDeadline == 0) {
             return DUE_NOW;
         }
         
+        if (minutesToDeadline == 1) {
+            return DEADLINE_PREFIX_IN + "1" + MINUTE_SINGLE_UNIT;
+        } 
+        
         if (hoursToDeadline == 0) {
-            
-            if (minutesToDeadline == 1) {
-                return DEADLINE_PREFIX_IN + "1" + MINUTE_SINGLE_UNIT;
-            } else {
-                return DEADLINE_PREFIX_IN + String.valueOf(minutesToDeadline) + MINUTES_MULTIPLE_UNIT;
-            }
-                      
-        } else if (hoursToDeadline == 1) {
+            return DEADLINE_PREFIX_IN + String.valueOf(minutesToDeadline) + MINUTES_MULTIPLE_UNIT;
+        }
+        
+        if (hoursToDeadline == 1) {
             return DEADLINE_PREFIX_IN + "1" + HOUR_SINGLE_UNIT;
-        } else {
+        }
+        
+        if (daysToDeadline == 0) {
             return DEADLINE_PREFIX_IN + String.valueOf(hoursToDeadline) + HOURS_MULTIPLE_UNIT;
         }
+               
+        
+        //Different year before deadline
+        if (currentTime.getYear() < endTime.getYear()) {
+            return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM yyyy, h:m a"));
+        }
+        
+        //Same year before deadline
+        if (currentTime.getYear() == endTime.getYear()) {
+            return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM, h:m a"));
+        }
+        
+        return null;
+        
+        
+        
+        
     }
     
     
