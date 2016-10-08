@@ -16,13 +16,16 @@ public interface Model {
     void resetData(ReadOnlyTaskList newData);
 
     /** Returns the AddressBook */
-    ReadOnlyTaskList getAddressBook();
+    ReadOnlyTaskList getTaskList();
 
-    /** Deletes the given person. */
+    /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
 
-    /** Adds the given person */
-    void addPerson(Task task) throws UniqueTaskList.DuplicatePersonException;
+    /** Adds the given task */
+    void addTask(Task task) throws UniqueTaskList.DuplicatePersonException;
+    
+    /** Marks the given task as complete */
+    void markTaskAsComplete(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
@@ -31,7 +34,7 @@ public interface Model {
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered person list to filter by the given keywords */
-    void updateFilteredPersonList(Set<String> keywords);
+    void updateFilteredTaskList(Set<String> keywords);
 
     Set<String> getKeywordsFromList(List<ReadOnlyTask> matchingTasks);
 
