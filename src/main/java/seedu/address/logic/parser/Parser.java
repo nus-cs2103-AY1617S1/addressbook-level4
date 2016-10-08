@@ -1,13 +1,17 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
-import seedu.address.model.item.ItemType;
+import seedu.address.model.item.Date;
+import seedu.address.model.item.Time;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.text.ParseException;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -114,23 +118,63 @@ public class Parser {
                 return new AddCommand(
                     "task",
                     taskMatcher.group("name"),
-                    "", // No Start Date
-                    "", // No Start Time
-                    "", // No End Date
-                    "", // No End Time
                     getTagsFromArgs(taskMatcher.group("tagArguments"))
                 );
             } else if (deadlineMatcher.matches()) {
+            	try {
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat df2 = new SimpleDateFormat("MM-dd");
+                    df.setLenient(false);
+                    String parts[] = deadlineMatcher.group("endDate").split("-");
+                    // If yyyy-MM-dd
+                    if (parts.length == 3) {
+                        df.parse(deadlineMatcher.group("endDate"));
+                    } else { // MM-dd
+                        df2.parse(deadlineMatcher.group("endDate"));
+                    }
+                } catch (ParseException e) {
+                	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+                }
                 return new AddCommand(
                     "deadline",
                     deadlineMatcher.group("name"),
-                    "", // No Start Date
-                    "", // No Start Time
                     deadlineMatcher.group("endDate"),
                     deadlineMatcher.group("endTime"),
                     getTagsFromArgs(deadlineMatcher.group("tagArguments"))
                 );
             } else if (eventMatcher.matches()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                try {	
+                    df.setLenient(false);
+                    // If yyyy-MM-dd
+                    String startDateString;
+                    String endDateString;
+                    String parts[] = eventMatcher.group("endDate").split("-");
+                    if (parts.length == 3) {
+                        endDateString = eventMatcher.group("endDate");
+                        df.parse(eventMatcher.group("endDate"));
+                    } else { // MM-dd
+                        LocalDateTime ldt = LocalDateTime.now();
+                        endDateString = ldt.getYear() + "-" + eventMatcher.group("endDate");
+                        df.parse(endDateString);
+                    }
+                    String parts2[] = eventMatcher.group("startDate").split("-");
+                    // If yyyy-MM-dd
+                    if (parts2.length == 3) {
+                        startDateString = eventMatcher.group("startDate");
+                        df.parse(eventMatcher.group("startDate"));
+                    } else { // MM-dd
+                        LocalDateTime ldt = LocalDateTime.now();
+                        startDateString = ldt.getYear() + "-" + eventMatcher.group("startDate");
+                        df.parse(startDateString);
+                    }
+                    if (sdf.parse(endDateString + " " + eventMatcher.group("endTime")).before(sdf.parse(startDateString + " " + eventMatcher.group("startTime")))) {
+                        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+                    }
+                } catch (ParseException e) {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+                }
                 return new AddCommand(
                     "event",
                     eventMatcher.group("name"),

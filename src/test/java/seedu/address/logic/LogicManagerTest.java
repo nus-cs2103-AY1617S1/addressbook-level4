@@ -180,13 +180,22 @@ public class LogicManagerTest {
                 "add deadline n/not_numbers ed/2016-08-08 et/18:00", Name.MESSAGE_NAME_CONSTRAINTS);
         // Invalid EndDate
         assertCommandBehavior(
-                "add deadline n/12345 ed/notADate et/18:00", Date.MESSAGE_DATE_CONSTRAINTS);
+                "add deadline n/12345 ed/notADate et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
         // Invalid EndTime
         assertCommandBehavior(
                 "add deadline n/12345 ed/2016-08-08 et/notATime", Time.MESSAGE_TIME_CONSTRAINTS);
         // Invalid Tag
         assertCommandBehavior(
                 "add deadline n/12345 ed/2016-08-08 et/18:00 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        // Invalid Event endDate and endTime
+        assertCommandBehavior(
+                "add event n/12345 sd/2016-08-08 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+       // Invalid Date
+        assertCommandBehavior(
+                "add event n/12345 sd/2016-02-30 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+       // Invalid Date
+        assertCommandBehavior(
+                "add deadline n/12345 ed/2016-11-31 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
 
     }
 
@@ -220,7 +229,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_ITEM,
                 expectedAB,
                 expectedAB.getPersonList());
 
@@ -425,7 +434,7 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Item generateItem(int seed) throws Exception {
-            String dateFormat = "yyyy-MM-dd";
+            String dateFormat = "MM-dd";
             String timeFormat = "HH:mm";
             LocalDateTime ldt = LocalDateTime.now();
             String startDate = ldt.format(DateTimeFormatter.ofPattern(dateFormat));
@@ -570,16 +579,13 @@ public class LogicManagerTest {
          * Generates a Item object with given name. Other fields will have some dummy values.
          */
         Item generateItemWithName(String name) throws Exception {
-        	// Generates Random Name
-            // String uuid = UUID.randomUUID().toString();
-            // System.out.println("uuid = " + uuid);
         	String itemType = "deadline";
             return new Item(
                     new ItemType(itemType),
                     new Name(name),
                     new Date(""),
                     new Time(""),
-                    new Date("2016-12-12"),
+                    new Date("2016-12-15"),
                     new Time("01:39"),
                     new UniqueTagList(new Tag("tag"))
             );
