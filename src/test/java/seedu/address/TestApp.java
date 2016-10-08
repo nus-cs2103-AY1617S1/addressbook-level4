@@ -7,6 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyEmeraldo;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TestUtil;
+import seedu.emeraldo.MainApp;
 import seedu.emeraldo.storage.XmlSerializableEmeraldo;
 
 import java.util.function.Supplier;
