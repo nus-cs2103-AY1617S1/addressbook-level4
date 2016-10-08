@@ -294,5 +294,17 @@ public class TimeUtilTest {
                 LocalDateTime.of(2016, Month.SEPTEMBER, 15, 00, 00), LocalDateTime.of(2016, Month.SEPTEMBER, 13, 23, 59));
     }
     
-    
+    @Test
+    public void getTaskDeadlineText_differentYearBeforeDeadline() {
+        testTaskDeadlineTextHelper("in 1 minute", 
+                LocalDateTime.of(2016, Month.DECEMBER, 31, 23, 59), LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0));
+        testTaskDeadlineTextHelper("by tomorrow, 12:00 AM",
+                LocalDateTime.of(2016, Month.DECEMBER, 31, 00, 00), LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0));
+        testTaskDeadlineTextHelper("by tomorrow, 1:15 AM",
+                LocalDateTime.of(2016, Month.DECEMBER, 31, 23, 00), LocalDateTime.of(2017, Month.JANUARY, 1, 1, 15));
+        testTaskDeadlineTextHelper("by 31 January 2017, 1:05 AM",
+                LocalDateTime.of(2016, Month.JUNE, 30, 22, 00), LocalDateTime.of(2017, Month.JANUARY, 31, 1, 5));
+        testTaskDeadlineTextHelper("by 31 August 2020, 12:35 PM",
+                LocalDateTime.of(2016, Month.FEBRUARY, 13, 13, 00), LocalDateTime.of(2020, Month.AUGUST, 31, 12, 35));
+    }
 }
