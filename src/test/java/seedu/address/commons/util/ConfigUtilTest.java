@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.emeraldo.commons.core.Config;
+import seedu.emeraldo.commons.exceptions.DataConversionException;
 
 import java.io.File;
 import java.io.IOException;
