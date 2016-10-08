@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.junit.Assert;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * Model class to encapsulate the information provided
  * by each row in the help window.
@@ -15,9 +17,9 @@ import org.junit.Assert;
 public class CommandGuide {
     
     // Member variables for a CommandGuide object
-    private String name;
+    private String actionName;
     private String commandWord;
-    private List<String> args; 
+    private String[] args; 
     
     /**
      * Private constructor for Command Guide so it cannot be constructed
@@ -30,28 +32,27 @@ public class CommandGuide {
      * Constructor for CommandGuide
      * Asserts that name and commandWord are non-null because it is
      * constructed by custom parameters in HelpWindow always.
-     * @param name
-     * @param commandWord
-     * @param args
+     * @param name Name of the action and command
+     * @param commandWord command keyword
+     * @param args optional arguments for command keyword
      */
     public CommandGuide(String name, String commandWord, String... args) {
         assert name != null;
         assert commandWord != null;
-        this.name = name;
+        this.actionName = name;
         this.commandWord = commandWord;
-        this.args = new ArrayList<>(
-                Arrays.asList(args));
+        this.args = args;
     }
     
     public String getName() {
-        return name;
+        return actionName;
     }
     
     public String getCommandWord() {
         return commandWord;
     }
     
-    public List<String> getArgs() {
+    public String[] getArgs() {
         return args;
     }
 }
