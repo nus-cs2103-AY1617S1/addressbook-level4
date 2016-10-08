@@ -8,12 +8,12 @@ import seedu.address.model.item.UniquePersonList.PersonNotFoundException;
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteByIndexCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deleteByIndex";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the last person listing.\n"
+            + ": Deletes the item identified by the index number used in the last item listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -21,10 +21,12 @@ public class DeleteCommand extends Command {
 
     public final int targetIndex;
 
-    public DeleteCommand(int targetIndex) {
+    /*
+     * Deletes deadline, task, or event by keyword.
+     */
+    public DeleteByIndexCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-
 
     @Override
     public CommandResult execute() {
@@ -39,9 +41,9 @@ public class DeleteCommand extends Command {
         ReadOnlyItem personToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deletePerson(personToDelete);
+            model.deleteItem(personToDelete);
         } catch (PersonNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
+            assert false : "The target item cannot be missing";
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));

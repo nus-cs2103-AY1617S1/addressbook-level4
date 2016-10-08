@@ -5,7 +5,7 @@ import seedu.address.testutil.TestItem;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.address.logic.commands.DeleteByIndexCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
@@ -28,7 +28,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
+        commandBox.runCommand("deleteByIndex " + currentList.length + 1);
         assertResultMessage("The person index provided is invalid");
 
     }
@@ -42,7 +42,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         TestItem personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestItem[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
-        commandBox.runCommand("delete " + targetIndexOneIndexed);
+        commandBox.runCommand("deleteByIndex " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous persons except the deleted person
         assertTrue(personListPanel.isListMatching(expectedRemainder));
