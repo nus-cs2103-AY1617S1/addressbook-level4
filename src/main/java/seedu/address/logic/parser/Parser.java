@@ -25,11 +25,12 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)" 
-										+ "((?: s/)(?<start>[^/&&\\S]+))?"
-										+ "((?: e/)(?<end>[^/&&\\S]+))?"
-										+ "p/(?<priority>[^/]+)"
-										+ "(?<tagArguments>(?: t/[^/]+)*)");
+    private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>([^/](?<! (starts|ends|priority) ))+)" 
+			+ "((?: starts )(?<start>([^/](?<! (ends|priority) ))+))?"
+			+ "((?: ends )(?<end>([^/](?<! priority ))+))?"
+			+ "((?: priority )(?<priority>[^/]+))?"
+			+ "(?<tagArguments>(?: t/[^/]+)*)");
+    
     
     private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)" + "p/(?<priority>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
     private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern.compile("(?<index>(\\d+)?)|"
