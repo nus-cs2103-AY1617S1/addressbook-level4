@@ -6,27 +6,27 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
-public class MarkCommand extends Command {
-	
-	public static final String COMMAND_WORD = "mark";
+public class UnmarkCommand extends Command {
+    
+    public static final String COMMAND_WORD = "unmark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the task identified by the index number used in the last task listing.\n"
+            + ": Unmarks the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_MARK_TASK_SUCCESS = "Mark Task: %1$s";
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Unmark Task: %1$s";
 
     public final int targetIndex;
 
-    public MarkCommand(int targetIndex) {
+    public UnmarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute() {
         
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getUnmodifiableFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getUnmodifiableFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -37,12 +37,12 @@ public class MarkCommand extends Command {
         
         try {
             Task toMark = model.getTask(taskToMark);
-            toMark.setIsDone(true);
+            toMark.setIsDone(false);
             model.updateTask(taskToMark, toMark);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
         }
-    	
+        
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }
 }
