@@ -25,7 +25,7 @@ public class EditCommand extends Command{
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task/event in Jimi. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task/event in Jimi. \n"
             + "Example: " + COMMAND_WORD
             + "2 by 10th July at 12 pm";
 
