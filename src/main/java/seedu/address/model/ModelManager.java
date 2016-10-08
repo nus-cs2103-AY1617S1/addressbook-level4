@@ -4,12 +4,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -22,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -36,7 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         addressBook = new AddressBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
     public ModelManager() {
@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
     @Override
@@ -65,28 +65,28 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+    public synchronized void deletePerson(ReadOnlyTask target) throws TaskNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors ===============================================================
+    //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredTasks.setPredicate(null);
     }
 
     @Override
@@ -95,13 +95,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+        filteredTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
+        boolean satisfies(ReadOnlyTask person);
         String toString();
     }
 
@@ -114,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyPerson person) {
+        public boolean satisfies(ReadOnlyTask person) {
             return qualifier.run(person);
         }
 
@@ -125,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyPerson person);
+        boolean run(ReadOnlyTask person);
         String toString();
     }
 
@@ -137,9 +137,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyPerson person) {
+        public boolean run(ReadOnlyTask person) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().taskName, keyword))
                     .findAny()
                     .isPresent();
         }
