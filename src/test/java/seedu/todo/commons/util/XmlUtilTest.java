@@ -1,29 +1,32 @@
 package seedu.todo.commons.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.todo.testutil.TestUtil.isShallowEqual;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import javax.xml.bind.JAXBException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.todo.commons.util.FileUtil;
-import seedu.todo.commons.util.XmlUtil;
 import seedu.todo.model.AddressBook;
-import seedu.todo.storage.XmlSerializableAddressBook;
-import seedu.todo.testutil.AddressBookBuilder;
+import seedu.todo.model.TodoList;
+import seedu.todo.storage.Storage;
+import seedu.todo.storage.StorageManager;
+import seedu.todo.storage.XmlSerializableTodoList;
 import seedu.todo.testutil.TestUtil;
-
-import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import static org.junit.Assert.assertEquals;
 
 public class XmlUtilTest {
 
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
     private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
     private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
-    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
-    private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
+    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validTodoList.xml");
+    private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempTodoList.xml"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -54,9 +57,8 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
-        assertEquals(9, dataFromFile.getPersonList().size());
-        assertEquals(0, dataFromFile.getTagList().size());
+        XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTodoList.class);
+        assertEquals(3, dataFromFile.getTasks().size());
     }
 
     @Test
@@ -80,17 +82,20 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AddressBook());
+        Storage storage = new StorageManager(TEMP_FILE.getAbsolutePath(), EMPTY_FILE.getAbsolutePath());
+        XmlSerializableTodoList dataToWrite = new XmlSerializableTodoList(new TodoList(storage));
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(),(new AddressBook(dataFromFile)).toString());
-        //TODO: use equality instead of string comparisons
+        XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);
 
-        AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
-        dataToWrite = new XmlSerializableAddressBook(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
+        // TODO: improve shallow equal method comparison
+        assertTrue(isShallowEqual(dataFromFile.getTasks(), dataToWrite.getTasks()));
 
+        TodoList todoList = new TodoList(storage);
+        todoList.add("test");
+        dataToWrite = new XmlSerializableTodoList(todoList);
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(),(new AddressBook(dataFromFile)).toString());
+
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);
+        assertTrue(isShallowEqual(dataFromFile.getTasks(), dataToWrite.getTasks()));
     }
 }

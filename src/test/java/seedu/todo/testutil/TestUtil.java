@@ -145,7 +145,6 @@ public class TestUtil {
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
         return new XmlSerializableAddressBook(generateEmptyAddressBook());
     }
-    
 
     /**
      * Do a shallow equality test based on the titles in the two list of tasks
@@ -159,7 +158,7 @@ public class TestUtil {
             return false;
         }
 
-        Set<String> setOfTitles = new HashSet<>();
+        List<String> setOfTitles = new ArrayList<>();
         for (ImmutableTask taskA : a) {
             setOfTitles.add(taskA.getTitle());
         }

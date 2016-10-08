@@ -2,11 +2,9 @@ package seedu.todo.storage;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.todo.testutil.TestUtil.isShallowEqual;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,7 +16,6 @@ import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.TodoList;
-import seedu.todo.model.task.ImmutableTask;
 
 public class XmlTodoListStorageTest {
     @Rule
@@ -64,30 +61,6 @@ public class XmlTodoListStorageTest {
     public void testReadNonXmlFormatFile() throws Exception {
         thrown.expect(DataConversionException.class);
         readTodoList("NotXmlFormatTodoList.xml");
-    }
-
-    /**
-     * Do a shallow equality test based on the titles in the two list of tasks
-     * 
-     * @param a the first list of tasks to compare
-     * @param b the second list of tasks to compare
-     * @return whether the two contains tasks with the same titles
-     */
-    private static boolean isShallowEqual(List<ImmutableTask> a, List<ImmutableTask> b) {
-        if (a.size() != b.size()) {
-            return false;
-        }
-
-        Set<String> setOfTitles = new HashSet<>();
-        for (ImmutableTask taskA : a) {
-            setOfTitles.add(taskA.getTitle());
-        }
-        for (ImmutableTask taskB : b) {
-            if (!setOfTitles.remove(taskB.getTitle())) {
-                return false;
-            }
-        }
-        return true;
     }
 
     @Test
