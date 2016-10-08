@@ -1,10 +1,12 @@
 package seedu.agendum.model;
 
 import seedu.agendum.commons.core.UnmodifiableObservableList;
+import seedu.agendum.model.task.Name;
 import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.Task;
 import seedu.agendum.model.task.UniqueTaskList;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -23,9 +25,20 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+    /** Rename the given task */
+    void renameTask(ReadOnlyTask target, Name newTaskName)
+            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
+    
+    /**Schedules the given task */
+    void scheduleTask(ReadOnlyTask target, LocalDateTime startDateTime, LocalDateTime endDateTime)
+            throws UniqueTaskList.TaskNotFoundException;
+       
     /** Marks the given task as completed */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
-
+    
+    /** Unmarks the given task */
+    void unmarkTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

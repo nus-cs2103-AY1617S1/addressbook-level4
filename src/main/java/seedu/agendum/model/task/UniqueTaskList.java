@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.agendum.commons.util.CollectionUtil;
 import seedu.agendum.commons.exceptions.DuplicateDataException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -75,6 +76,50 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
+     * Renames the equivalent task in the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws DuplicateTaskException if the renamed task is a duplicate of an existing task in the list.
+     */
+    public boolean rename(ReadOnlyTask toRename, Name newTaskName)
+            throws TaskNotFoundException, DuplicateTaskException {
+        assert toRename != null;
+        assert newTaskName != null;
+        final int taskIndex = internalList.indexOf(toRename);
+        final boolean taskFoundAndRenamed = (taskIndex != -1);
+        if (!taskFoundAndRenamed) {
+            throw new TaskNotFoundException();
+        }
+        Task toCheck = new Task(toRename);
+        toCheck.setName(newTaskName);
+        if (contains(toCheck)) {
+            throw new DuplicateTaskException();
+        }
+        internalList.set(taskIndex, toCheck);
+        return taskFoundAndRenamed;
+    }
+
+    /**
+     * Schedules the equivalent task in the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+    */
+    public boolean schedule(ReadOnlyTask toSchedule, LocalDateTime startDateTime,
+            LocalDateTime endDateTime) throws TaskNotFoundException {
+        assert toSchedule != null;
+        final int taskIndex = internalList.indexOf(toSchedule);
+        final boolean taskFoundAndScheduled = (taskIndex != -1);
+        if (!taskFoundAndScheduled) {
+            throw new TaskNotFoundException();
+        }
+        Task scheduledTask = new Task(toSchedule);
+        scheduledTask.setStartDateTime(startDateTime);
+        scheduledTask.setEndDateTime(endDateTime);
+        internalList.set(taskIndex, scheduledTask);
+        return taskFoundAndScheduled;
+    }
+
+    /**
      * Marks the equivalent task in the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
@@ -86,8 +131,26 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!taskFoundAndMarked) {
             throw new TaskNotFoundException();
         }
-        internalList.get(taskIndex).markAsCompleted();
+        Task markedTask = new Task(toMark);
+        markedTask.markAsCompleted();
+        internalList.set(taskIndex,markedTask);
         return taskFoundAndMarked;
+    }
+    
+    /**
+     * Unmarks the equivalent task in the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean unmark(ReadOnlyTask toUnmark) throws TaskNotFoundException {
+        assert toUnmark != null;
+        final int taskIndex = internalList.indexOf(toUnmark);
+        final boolean taskFoundAndUnmarked = (taskIndex != -1);
+        if (!taskFoundAndUnmarked) {
+            throw new TaskNotFoundException();
+        }
+        internalList.get(taskIndex).markAsUncompleted();
+        return taskFoundAndUnmarked;
     }
 
     public ObservableList<Task> getInternalList() {

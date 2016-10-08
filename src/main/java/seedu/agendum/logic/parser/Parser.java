@@ -30,6 +30,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    private static final Pattern RENAME_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)(?<name>[^/]+)");
     public Parser() {}
 
     /**
@@ -65,9 +66,15 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-            
+
+        case RenameCommand.COMMAND_WORD:
+            return prepareRename(arguments);
+
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
+
+        case UnmarkCommand.COMMAND_WORD:
+            return prepareUnmark(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -132,7 +139,7 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
-    
+
     /**
      * Parses arguments in the context of the mark task command.
      *
@@ -148,6 +155,50 @@ public class Parser {
         }
 
         return new MarkCommand(index.get());
+    }
+ 
+    /**
+     * Parses arguments in the context of the unmark task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUnmark(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
+        }
+
+        return new UnmarkCommand(index.get());
+    }
+
+    /**
+     * Parses arguments in the context of the rename task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareRename(String args) {
+        final Matcher matcher = RENAME_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
+        }
+        final String givenIndex = matcher.group("targetIndex");
+        final String givenName = matcher.group("name").trim();
+        System.err.println(givenIndex);
+        Optional<Integer> index = parseIndex(givenIndex);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            return new RenameCommand(index.get(), givenName);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
     /**
