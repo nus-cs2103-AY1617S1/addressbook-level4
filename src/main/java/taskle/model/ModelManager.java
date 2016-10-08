@@ -27,7 +27,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
-    private final ObservableList<ModifiableTask> modifiableTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -42,7 +41,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        modifiableTasks = null;
     }
 
     public ModelManager() {
@@ -51,15 +49,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
-        modifiableTasks = null;
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
     
-    public ModelManager(ModifiableTaskManager initialData, UserPrefs userPrefs) {
-        taskManager = new TaskManager(initialData);
-        filteredTasks = null;
-        modifiableTasks = taskManager.getModifiableTasks();
-    }
+
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
@@ -85,7 +78,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void editTask(ModifiableTask target, Name newName) throws TaskNotFoundException {
-        target.setName(newName);
+        taskManager.editTask(target, newName);;
+        updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
     
@@ -104,8 +98,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public ModifiableObservableList<ModifiableTask> getModifiableFilteredTaskList() {
-        return new ModifiableObservableList<>(modifiableTasks);
+    public ModifiableObservableList<ModifiableTask> getModifiableTaskList() {
+        return new ModifiableObservableList<>(filteredTasks);
     }
     
     @Override
