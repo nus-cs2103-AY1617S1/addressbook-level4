@@ -18,7 +18,7 @@ public interface Model {
     ReadOnlyActivityManager getActivityManager();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
+    void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.ActivityNotFoundException;
 
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;

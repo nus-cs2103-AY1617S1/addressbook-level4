@@ -3,7 +3,7 @@ package seedu.menion.logic.commands;
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
 import seedu.menion.model.activity.ReadOnlyActivity;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
 
         try {
             model.deleteTask(activityToDelete);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (ActivityNotFoundException pnfe) {
             assert false : "The target activity cannot be missing";
         }
 

@@ -9,7 +9,7 @@ import seedu.menion.commons.util.StringUtil;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -65,7 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyActivity target) throws ActivityNotFoundException {
         activityManager.removeTask(target);
         indicateActivityManagerChanged();
     }

@@ -104,11 +104,11 @@ public class ActivityManager implements ReadOnlyActivityManager {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
 

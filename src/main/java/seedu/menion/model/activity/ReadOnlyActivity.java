@@ -32,7 +32,7 @@ public interface ReadOnlyActivity {
     }
 
     /**
-     * Formats the task as text, showing all task details.
+     * Formats the activity as text, showing all activity details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
@@ -49,7 +49,7 @@ public interface ReadOnlyActivity {
     }
 
     /**
-     * Returns a string representation of this Task's tags
+     * Returns a string representation of this Activity's tags
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();
