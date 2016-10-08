@@ -277,6 +277,13 @@ public class TimeUtilTest {
         testTaskDeadlineTextHelper("20 minutes ago", 
                 LocalDateTime.of(2016, Month.MARCH, 21, 00, 10), LocalDateTime.of(2016, Month.MARCH, 20, 23, 50));
     }
+    
+    @Test
+    public void getTaskDeadlineText_thisYearBeforeDeadline() {
+        testTaskDeadlineTextHelper("by 12 August, 12:55 PM", 
+                LocalDateTime.of(2016, Month.JANUARY, 21, 12, 00), LocalDateTime.of(2016, Month.AUGUST, 12, 12, 55));
+        testTaskDeadlineTextHelper("by 15 September, 12:00 AM",
+                LocalDateTime.of(2016, Month.SEPTEMBER, 13, 23, 59), LocalDateTime.of(2016, Month.SEPTEMBER, 15, 00, 00));
     }
     
     
