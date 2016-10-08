@@ -93,8 +93,9 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
     	if(keywords.contains("done") || keywords.contains("undone")) {
     		updateFilteredTaskList(new PredicateExpression(new ListQualifier(keywords)));
+    	} else {
+    	    updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     	}
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
