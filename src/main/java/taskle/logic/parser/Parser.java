@@ -23,6 +23,8 @@ public class Parser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
+    private static final Pattern TASK_NAME_ARGS_FORMAT = Pattern.compile("(?<targetName>.+)");
+    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
@@ -46,6 +48,9 @@ public class Parser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+        
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
@@ -126,7 +131,28 @@ public class Parser {
         }
         return new RemoveCommand(index.get());
     }
-
+        
+    /**
+     * Parses arguments in the context of the edit task command
+     * 
+     * @param arguments
+     * @return the prepared command
+     */
+    private Command prepareEdit(String arguments) {
+        String[] argumentsArray = arguments.trim().split(" ");
+        Optional<Integer> index = parseIndex(argumentsArray[0]);
+        Optional<String> name = parseName(argumentsArray[1]);
+        if(!index.isPresent() || !name.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new EditCommand(index.get(), name.get());
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+    }
+    
     /**
      * Parses arguments in the context of the select task command.
      *
@@ -157,6 +183,19 @@ public class Parser {
         }
         return Optional.of(Integer.parseInt(index));
 
+    }
+    /**
+     * Returns the specified name in the command
+     * @param command
+     * @return
+     */
+    private Optional<String> parseName(String command) {
+        final Matcher matcher = TASK_NAME_ARGS_FORMAT.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+        String name = matcher.group("targetName");
+        return Optional.of(name);
     }
 
     /**
