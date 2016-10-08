@@ -59,6 +59,23 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
+    
+    /**
+     * Adds a person to the list.
+     *
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public boolean setComplete(ReadOnlyTask toComplete) throws PersonNotFoundException {
+        assert toComplete != null;
+        for (Task i: internalList){
+        	if(i.getUniqueID()==toComplete.getUniqueID()){
+        		i.markAsComplete();
+        		return true;
+        	}
+        }
+        throw new PersonNotFoundException();
+    }
+    
 
     /**
      * Removes the equivalent person from the list.
@@ -67,18 +84,13 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean remove(ReadOnlyTask toRemove) throws PersonNotFoundException {
         assert toRemove != null;
-        boolean personFoundAndDeleted = false;
         for (Task i: internalList){
         	if(i.getUniqueID()==toRemove.getUniqueID()){
-        		personFoundAndDeleted = true;
         		internalList.remove(i);
-        		return personFoundAndDeleted;
+        		return true;
         	}
         }
-        if (!personFoundAndDeleted) {
-            throw new PersonNotFoundException();
-        }
-        return personFoundAndDeleted;
+        throw new PersonNotFoundException();
     }
 
     public ObservableList<Task> getInternalList() {
