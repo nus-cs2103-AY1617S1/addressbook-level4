@@ -15,8 +15,6 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
     
-    public static final String INVALID_DATE_MESSAGE_USAGE = "Please enter a valid date: either YYYY-MM-DD or MM-DD";
-    
     public static final String EVENT_MESSAGE_USAGE = "Event start datetime must come before end datetime";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task, deadline or event to the task manager. \n"

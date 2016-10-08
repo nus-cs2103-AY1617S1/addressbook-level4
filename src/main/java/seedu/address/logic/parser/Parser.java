@@ -133,7 +133,7 @@ public class Parser {
                         df2.parse(deadlineMatcher.group("endDate"));
                     }
                 } catch (ParseException e) {
-                	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.INVALID_DATE_MESSAGE_USAGE));
+                	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
                 }
                 return new AddCommand(
                     "deadline",
@@ -173,7 +173,7 @@ public class Parser {
                         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
                     }
                 } catch (ParseException e) {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.INVALID_DATE_MESSAGE_USAGE));
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
                 }
                 return new AddCommand(
                     "event",
