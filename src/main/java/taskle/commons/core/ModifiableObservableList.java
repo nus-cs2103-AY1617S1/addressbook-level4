@@ -30,11 +30,11 @@ public class ModifiableObservableList<E> implements ObservableList<E>{
     
     public static final String MUTATION_OP_EXCEPTION_MESSAGE = "Attempted to perform functions other than editing";
     
-    public ModifiableObservableList(ObservableList<E> backingList) {
+    public ModifiableObservableList(ObservableList<? extends E> backingList) {
         if (backingList == null) {
             throw new NullPointerException();
         }
-        this.backingList = backingList;
+        this.backingList = (ObservableList<E>) backingList;
     }
 
     @Override
