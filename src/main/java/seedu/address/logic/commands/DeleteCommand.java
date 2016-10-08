@@ -24,11 +24,11 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
+    
 
 
     @Override
     public CommandResult execute() {
-
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -45,6 +45,18 @@ public class DeleteCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+    }
+
+
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
+
+
+    @Override
+    public CommandResult executeUndo() {
+        return null;
     }
 
 }
