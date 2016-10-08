@@ -62,16 +62,7 @@ public class StorageManagerTest {
         TaskMan original = new TypicalTestTasks().getTypicalTaskMan();
         storageManager.saveTaskMan(original);
         ReadOnlyTaskMan retrieved = storageManager.readTaskMan().get();
-        TaskMan retrievedTaskMan = new TaskMan(retrieved);
-        // todo: remove this when done testin!!!
-        Logger logger = Logger.getLogger("test");
-        List<Task> orig = original.getUniqueTaskList().getInternalList();
-        List<Task> retri = retrievedTaskMan.getUniqueTaskList().getInternalList();
-        for (int i = 0; i < orig.size(); i++) {
-
-            logger.warning(i + ": " + orig.get(i).equals(retri.get(i))+ "");
-        }
-        assertEquals(original, retrievedTaskMan);
+        assertEquals(original, new TaskMan(retrieved));
         //More extensive testing of TaskMan saving/reading is done in XmlTaskManStorageTest
     }
 
