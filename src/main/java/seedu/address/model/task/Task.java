@@ -13,6 +13,8 @@ public abstract class Task {
     private Name name;
     private UniqueTagList tags;
     
+    public Task(){}
+    
     public Task(Name name, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;

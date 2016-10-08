@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+
+
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -28,6 +30,8 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
+                    + "(?<startTime>(?: start/[^/]+)*)"
+                    + "(?<endTime>(?: end/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -74,6 +78,12 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();          
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -101,6 +111,8 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.

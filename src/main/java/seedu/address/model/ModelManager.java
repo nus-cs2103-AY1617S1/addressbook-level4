@@ -4,6 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.ReadOnlyFloatingTask;
 import seedu.address.model.task.UniqueTaskList;
@@ -12,6 +13,7 @@ import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.core.ComponentManager;
 
+import java.util.ArrayDeque;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -24,7 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskList taskList;
     private final FilteredList<FloatingTask> filteredTasks;
-
+    
     /**
      * Initializes a ModelManager with the given TaskList
      * TaskList and its variables should not be null
@@ -156,7 +158,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
-	
-
+    
 }
