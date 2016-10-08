@@ -111,9 +111,9 @@ public class Parser {
         
         try {
             return new AddCommand(
-                    optionFlagNArgMap.get(nameOpt).replace(" -n ", ""),
-                    getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(" -dt ", "")),
-                    optionFlagNArgMap.get(priorityOpt).replace(" -p ", ""),
+                    optionFlagNArgMap.get(nameOpt).replace("-n ", ""),
+                    getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace("-dt ", "")),
+                    optionFlagNArgMap.get(priorityOpt).replace("-p ", ""),
                     getTagsFromArgs(optionFlagNArgMap.get(tagOpt)));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -148,7 +148,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" -t ", "").split(" -t "));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst("-t ", "").split(" -t "));
         return new HashSet<>(tagStrings);
     }
     
@@ -183,7 +183,7 @@ public class Parser {
                 endPos = pos;
 
                 if (flagsValueMap.containsKey(option)) {
-                    flagsValueMap.put(option, flagsValueMap.get(option).concat(arg));
+                    flagsValueMap.put(option, flagsValueMap.get(option).concat(" ").concat(arg));
                 } else {
                     flagsValueMap.put(option, arg);
                 }
@@ -271,7 +271,7 @@ class Option {
     public boolean hasMultiple;
 
     public Option(String flag, boolean hasMultiple) {
-        this.flag = " " + flag + " ";
+        this.flag = flag;
         this.hasMultiple = hasMultiple;
     }
     
