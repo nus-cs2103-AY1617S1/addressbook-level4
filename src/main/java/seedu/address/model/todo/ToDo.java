@@ -18,7 +18,7 @@ public class ToDo implements ReadOnlyToDo {
     private Title title;
     private DueDate dueDate;
     private DateRange dateRange;
-    private UniqueTagList tags;
+    private Set<Tag> tags;
 
     /**
      * Every field must be present and not null.
@@ -47,7 +47,7 @@ public class ToDo implements ReadOnlyToDo {
         this.dateRange = dateRange;
     }
 
-    public void setTags(UniqueTagList tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
     
@@ -63,7 +63,7 @@ public class ToDo implements ReadOnlyToDo {
         if (tags == null) {
             return new HashSet<>();
         } else {
-            return tags.toSet();
+            return tags;
         }
     }
     
