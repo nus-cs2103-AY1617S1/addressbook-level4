@@ -5,13 +5,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
-import seedu.todo.logic.Logic;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -19,93 +17,56 @@ import seedu.todo.logic.Logic;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
-    private static final String FXML = "MainWindow.fxml";
+	private static final String FXML_PATH = "MainWindow.fxml";
+    private static final String ICON_PATH = "/images/address_book_32.png";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
-
-    private Logic logic;
-
-    // Independent Ui parts residing in this Ui container
-    private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
-    private Config config;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
-
-    @FXML
-    private AnchorPane browserPlaceholder;
-
-    @FXML
-    private AnchorPane commandBoxPlaceholder;
-
+    // FXML Components
     @FXML
     private MenuItem helpMenuItem;
 
-    @FXML
-    private AnchorPane personListPanelPlaceholder;
-
-    @FXML
-    private AnchorPane resultDisplayPlaceholder;
-
-    @FXML
-    private AnchorPane statusbarPlaceholder;
-
-
+    
     public MainWindow() {
         super();
     }
 
-    @Override
-    public void setNode(Node node) {
-        rootLayout = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    public static MainWindow load(Stage primaryStage, Config config, Logic logic) {
-
+    public static MainWindow load(Stage primaryStage, Config config) {
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, logic);
+        mainWindow.configure(config);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config,
-                           Logic logic) {
-
-        //Set dependencies
-        this.logic = logic;
-        this.addressBookName = addressBookName;
-        this.config = config;
-
-        //Configure the UI
+    private void configure(Config config) {
+    	String appTitle = config.getAppTitle();
+    	
+        // Configure the UI
         setTitle(appTitle);
-        setIcon(ICON);
+        setIcon(ICON_PATH);
         setWindowMinSize();
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
+        
+        // Bind accelerators
         setAccelerators();
     }
 
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
+	@Override
+	public void setNode(Node node) {
+        rootLayout = (VBox) node;
+	}
 
-    void fillInnerParts() {
+	@Override
+	public String getFxmlPath() {
+		return FXML_PATH;
+	}
 
-    }
-
-
-    public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+    public void show() {
+        primaryStage.show();
     }
 
     public void hide() {
@@ -129,24 +90,20 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /** ================ ACCELERATORS ================== **/
+    private void setAccelerators() {
+        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+    }
+    
+    /** ================ ACTION HANDLERS ================== **/
+
     @FXML
     public void handleHelp() {
-
+    	// TODO: Auto-generated method stub
     }
 
-    public void show() {
-        primaryStage.show();
-    }
-
-    /**
-     * Closes the application.
-     */
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
-    }
-
-    public void releaseResources() {
-
     }
 }
