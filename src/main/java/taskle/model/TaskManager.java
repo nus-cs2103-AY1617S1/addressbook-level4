@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import taskle.model.person.FloatTask;
 import taskle.model.person.ModifiableTask;
+import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.Task;
 import taskle.model.person.UniqueTaskList;
@@ -23,7 +24,7 @@ import taskle.model.tag.UniqueTagList;
  * Wraps all data at the task-manager level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskManager implements ReadOnlyTaskManager, ModifiableTaskManager {
+public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -52,13 +53,6 @@ public class TaskManager implements ReadOnlyTaskManager, ModifiableTaskManager {
     /**
      * Tasks and Tags are copied into this taskmanager
      */
-    public TaskManager(ModifiableTaskManager toBeEdited) {
-        this(toBeEdited.getModifiableUniqueTaskList(), toBeEdited.getModifiableUniqueTagList());
-    }
-
-    /**
-     * Tasks and Tags are copied into this taskmanager
-     */
     public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
@@ -71,10 +65,6 @@ public class TaskManager implements ReadOnlyTaskManager, ModifiableTaskManager {
 
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
-    }
-
-    public ObservableList<ModifiableTask> getModifiableTasks() {
-        return tasks.getModifiableList();
     }
     
     public void setTasks(List<Task> tasks) {
@@ -138,6 +128,10 @@ public class TaskManager implements ReadOnlyTaskManager, ModifiableTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public void editTask(ModifiableTask key, Name newName) {
+        tasks.edit(key, newName);
+    }
 
 //// tag-level operations
 
@@ -188,24 +182,4 @@ public class TaskManager implements ReadOnlyTaskManager, ModifiableTaskManager {
         return Objects.hash(tasks, tags);
     }
     
-    @Override
-    public List<ModifiableTask> getModifiableTaskList() {
-        return tasks.getModifiableList();
-    }
-
-    @Override
-    public List<Tag> getModifiableTagList() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public UniqueTagList getModifiableUniqueTagList() {
-        return this.tags;
-    }
-
-    @Override
-    public UniqueTaskList getModifiableUniqueTaskList() {
-        return this.tasks;
-    }
 }
