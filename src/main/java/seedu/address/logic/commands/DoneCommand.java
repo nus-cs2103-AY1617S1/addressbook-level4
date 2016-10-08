@@ -1,13 +1,10 @@
 package seedu.address.logic.commands;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+
 
 public class DoneCommand extends Command {
 
