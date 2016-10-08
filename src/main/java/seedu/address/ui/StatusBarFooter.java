@@ -8,9 +8,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
 
-import seedu.address.commons.events.model.EmeraldoChangedEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.emeraldo.commons.core.LogsCenter;
+import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 
 import java.util.Date;
 import java.util.logging.Logger;

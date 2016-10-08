@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.events.model.EmeraldoChangedEvent;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniquePersonList;
@@ -10,6 +9,7 @@ import seedu.address.model.person.UniquePersonList.TaskNotFoundException;
 import seedu.emeraldo.commons.core.ComponentManager;
 import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
+import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 
 import java.util.Set;
 import java.util.logging.Logger;
