@@ -73,21 +73,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void replaceTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException {
-        taskBook.removeTask(oldTask);
-        assert !taskBook.getUniqueTaskList().contains(newTask);
-        try {
-            taskBook.addTask(newTask);
-        } catch (DuplicateTaskException e) {
-            assert false : "Logic error"; // Should not be happening
-        }
+    public synchronized void replaceTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
+//        assert taskBook.getUniqueTaskList().contains(newTask);
+//        assert !taskBook.getUniqueTaskList().contains(newTask);
+        taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -106,10 +102,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
+    private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 

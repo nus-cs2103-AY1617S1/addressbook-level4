@@ -49,7 +49,7 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask oldTask = lastShownList.get(targetIndex);
+        ReadOnlyTask oldTask = lastShownList.get(targetIndex - 1);
         
         TaskName newName = oldTask.getName();
         TaskTime newStartTime = oldTask.getStartTime();
@@ -62,7 +62,7 @@ public class EditCommand extends Command {
             for (Entry<TaskField, String> entry : fields.entrySet()) {
                 switch (entry.getKey()) {
                 case NAME:
-                        newName = new TaskName(entry.getValue());
+                    newName = new TaskName(entry.getValue());
                     break;
                 case START_TIME:
                     newStartTime = new TaskTime(entry.getValue());
@@ -96,15 +96,13 @@ public class EditCommand extends Command {
         }
         
         try {
-            model.deleteTask(oldTask);
-            model.addTask(newTask);
+            model.replaceTask(oldTask, newTask);
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
         } catch (UniqueTaskList.TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "The update task should not already exist";
         }
-
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.toString()));
     }

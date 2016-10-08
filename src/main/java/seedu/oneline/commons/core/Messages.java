@@ -1,9 +1,5 @@
 package seedu.oneline.commons.core;
 
-import static seedu.oneline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-import seedu.oneline.logic.commands.DeleteCommand;
-
 /**
  * Container for user visible messages.
  */

@@ -20,6 +20,15 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
     
+    public TestTask(ReadOnlyTask task) {
+        this.name = task.getName();
+        this.startTime = task.getStartTime();
+        this.endTime = task.getEndTime();
+        this.deadline = task.getDeadline();
+        this.recurrence = task.getRecurrence();
+        this.tags = new UniqueTagList(task.getTags());
+    }
+    
     public void setName(TaskName name) {
         this.name = name;
     }

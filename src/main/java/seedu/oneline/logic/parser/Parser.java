@@ -128,7 +128,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" #", "").split(" #"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.trim().replaceFirst(CommandConstants.TAG_PREFIX, "").split(" " + CommandConstants.TAG_PREFIX));
         return new HashSet<>(tagStrings);
     }
 
@@ -189,7 +189,7 @@ public class Parser {
             throw new IllegalCmdArgsException("Args not in format <index> <arguments>");
         }
         Integer index = Parser.getIndexFromArgs(matcher.group("index"));
-        Map<TaskField, String> fields = Parser.getTaskFieldsFromArgs(args);
+        Map<TaskField, String> fields = Parser.getTaskFieldsFromArgs(matcher.group("args"));
         return new SimpleEntry<Integer, Map<TaskField, String>>(index, fields);
     }
 
