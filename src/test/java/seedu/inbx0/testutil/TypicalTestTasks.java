@@ -1,7 +1,7 @@
 package seedu.inbx0.testutil;
 
 import seedu.inbx0.commons.exceptions.IllegalValueException;
-import seedu.inbx0.model.AddressBook;
+import seedu.inbx0.model.TaskList;
 import seedu.inbx0.model.task.*;
 
 /**
@@ -34,7 +34,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static void loadAddressBookWithSampleData(TaskList ab) {
 
         try {
             ab.addTask(new Task(alice));
@@ -53,8 +53,8 @@ public class TypicalTestTasks {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
+    public TaskList getTypicalAddressBook(){
+        TaskList ab = new TaskList();
         loadAddressBookWithSampleData(ab);
         return ab;
     }

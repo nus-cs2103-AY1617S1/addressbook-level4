@@ -11,7 +11,7 @@ import seedu.inbx0.model.tag.UniqueTagList;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyTaskList {
 
     UniqueTagList getUniqueTagList();
 
