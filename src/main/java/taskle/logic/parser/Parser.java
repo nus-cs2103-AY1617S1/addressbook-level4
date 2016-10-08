@@ -151,8 +151,6 @@ public class Parser {
         }
         String indexValue = arguments.substring(0, endIndex);
         String newName =  arguments.substring(endIndex).trim();
-       
-        System.out.println(newName);
         Optional<Integer> index = parseIndex(indexValue);
         Optional<String> name = parseName(newName);
         if(!index.isPresent() || !name.isPresent()) {
