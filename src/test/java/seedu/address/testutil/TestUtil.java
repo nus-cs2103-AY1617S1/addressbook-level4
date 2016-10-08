@@ -20,7 +20,7 @@ import seedu.address.model.ActivityManager;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableActivityManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -138,8 +138,8 @@ public class TestUtil {
         return new ActivityManager(new UniquePersonList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyActivityManager());
+    public static XmlSerializableActivityManager generateSampleStorageAddressBook() {
+        return new XmlSerializableActivityManager(generateEmptyActivityManager());
     }
 
     /**

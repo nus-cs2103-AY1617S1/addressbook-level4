@@ -16,10 +16,14 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a activity to the activity manager. ";
-//            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
-//            + "Example: " + COMMAND_WORD
-//            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a activity to the activity manager.\n"
+              + "\nUsage:\nadd ACTIVITY\n"
+              + "add ACTIVITY on DATETIME"
+              + "add ACTIVITY from DATETIME to DATETIME\n"
+              + "\nExamples:\n"
+              + "add buy bread"
+              + "add complete assignment 0 on 25 Oct 1000"
+              + "add attend conference from 23 Oct 1000 to 23 Oct 1200";
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This activity already exists in the address book";

@@ -68,7 +68,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new ActivityManager(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedAddressBook = new ActivityManager(model.getActivityManager()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -113,7 +113,7 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredActivityList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getAddressBook());
+        assertEquals(expectedAddressBook, model.getActivityManager());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
 
@@ -245,7 +245,7 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        String expectedMessage = MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Person> personList = helper.generatePersonList(2);
 
@@ -255,7 +255,7 @@ public class LogicManagerTest {
             model.addPerson(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getActivityManager(), personList);
     }
 
     @Test
@@ -278,7 +278,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_ACTIVITY_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getPersonList());
         assertEquals(1, targetedJumpIndex);

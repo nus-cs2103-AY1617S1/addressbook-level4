@@ -50,6 +50,10 @@ public class ActivityList implements Iterable<Activity> {
         return internalList;
     }
 
+    public int size() {
+        return internalList.size();
+    }
+    
     @Override
     public Iterator<Activity> iterator() {
         return internalList.iterator();

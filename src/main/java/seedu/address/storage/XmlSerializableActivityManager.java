@@ -6,8 +6,6 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.ReadOnlyActivityManager;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ActivityList;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,28 +18,28 @@ import java.util.stream.Collectors;
  * An Immutable ActivityManager that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyActivityManager {
+public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
 
     @XmlElement
-    private List<XmlAdaptedActivity> persons;
+    private List<XmlAdaptedActivity> activities;
     @XmlElement
     private List<Tag> tags;
 
     {
-        persons = new ArrayList<>();
+        activities = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableActivityManager() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyActivityManager src) {
-        persons.addAll(src.getListActivity().stream().map(XmlAdaptedActivity::new).collect(Collectors.toList()));
+    public XmlSerializableActivityManager(ReadOnlyActivityManager src) {
+        activities.addAll(src.getListActivity().stream().map(XmlAdaptedActivity::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -58,7 +56,7 @@ public class XmlSerializableAddressBook implements ReadOnlyActivityManager {
     @Override
     public ActivityList getActivityList() {
         ActivityList lists = new ActivityList();
-        for (XmlAdaptedActivity p : persons) {
+        for (XmlAdaptedActivity p : activities) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -70,7 +68,7 @@ public class XmlSerializableAddressBook implements ReadOnlyActivityManager {
 
     @Override
     public List<Activity> getListActivity() {
-        return persons.stream().map(p -> {
+        return activities.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {

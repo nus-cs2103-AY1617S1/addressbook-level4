@@ -18,7 +18,7 @@ public interface Model {
     void resetData(ReadOnlyActivityManager newData);
 
     /** Returns the ActivityManager */
-    ReadOnlyActivityManager getAddressBook();
+    ReadOnlyActivityManager getActivityManager();
 
     /** Deletes the given person. */
     void deletePerson(Activity target) throws ActivityNotFoundException;

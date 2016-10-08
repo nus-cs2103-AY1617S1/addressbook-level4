@@ -57,7 +57,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyActivityManager getAddressBook() {
+    public ReadOnlyActivityManager getActivityManager() {
         return activityManager;
     }
 

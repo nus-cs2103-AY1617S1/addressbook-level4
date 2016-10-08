@@ -16,7 +16,7 @@ public interface Logic {
      */
     CommandResult execute(String commandText);
 
-    /** Returns the filtered list of persons */
-    ObservableList<Activity> getFilteredPersonList();
+    /** Returns the filtered list of activities */
+    ObservableList<Activity> getFilteredActivitiesList();
 
 }
