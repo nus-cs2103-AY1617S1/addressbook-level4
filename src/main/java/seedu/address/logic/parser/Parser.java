@@ -27,11 +27,10 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>([^/](?<! (at|from|to|by) ))+)" 
 			+ "((?: (at|from) )(?<start>([^/](?<! (to|by) ))+))?"
-			+ "((?: (tp|by) )(?<end>([^/](?<! p/))+))?"
+			+ "((?: (to|by) )(?<end>([^/](?<! p/))+))?"
 			+ "((?: p/)(?<priority>[^/]+))?"
 			+ "(?<tagArguments>(?: t/[^/]+)*)");
-    
-    private static final Pattern FLOATING_TASK_ARGS_FORMAT = Pattern.compile("(?<name>.+)" + "p/(?<priority>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+
     private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern.compile("(?<index>(\\d+)?)|"
     		+ "(?<searchString>[^/]+)");
 
@@ -53,6 +52,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        System.out.println(arguments);
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -104,30 +104,18 @@ public class Parser {
      */
     private Command prepareAdd(String args){
         final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher floatingMatcher = FLOATING_TASK_ARGS_FORMAT.matcher(args.trim());
         
-        if (!taskMatcher.matches() && !floatingMatcher.matches()) {
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        } 
-        
-         if(floatingMatcher.matches()){
-            try {
-                return new AddCommand(
-                        floatingMatcher.group("name"),
-                        floatingMatcher.group("priority"),
-                        getTagsFromArgs(floatingMatcher.group("tagArguments"))
-                );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        }
-        
+        if (!taskMatcher.matches()) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }         
         else {
+        	String starttime = (taskMatcher.group("start")==null)?"":taskMatcher.group("start");
+        	String endtime = (taskMatcher.group("end")==null)?"":taskMatcher.group("end");
             try {
                 return new AddCommand(
                         taskMatcher.group("name"),
-                        taskMatcher.group("start"),
-                        taskMatcher.group("end"),
+                        starttime,
+                        endtime,
                         taskMatcher.group("priority"),
                         getTagsFromArgs(taskMatcher.group("tagArguments"))
                 );
