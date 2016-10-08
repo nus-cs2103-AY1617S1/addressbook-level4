@@ -434,7 +434,7 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Item generateItem(int seed) throws Exception {
-            String dateFormat = "yyyy-MM-dd";
+            String dateFormat = "MM-dd";
             String timeFormat = "HH:mm";
             LocalDateTime ldt = LocalDateTime.now();
             String startDate = ldt.format(DateTimeFormatter.ofPattern(dateFormat));
@@ -579,16 +579,13 @@ public class LogicManagerTest {
          * Generates a Item object with given name. Other fields will have some dummy values.
          */
         Item generateItemWithName(String name) throws Exception {
-        	// Generates Random Name
-            // String uuid = UUID.randomUUID().toString();
-            // System.out.println("uuid = " + uuid);
         	String itemType = "deadline";
             return new Item(
                     new ItemType(itemType),
                     new Name(name),
                     new Date(""),
                     new Time(""),
-                    new Date("2016-12-12"),
+                    new Date("2016-12-15"),
                     new Time("01:39"),
                     new UniqueTagList(new Tag("tag"))
             );

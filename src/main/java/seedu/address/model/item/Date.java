@@ -1,6 +1,8 @@
 package seedu.address.model.item;
 
 
+import java.time.LocalDateTime;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -10,7 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Item dates should be of the form YYYY-MM-DD";
+            "Item dates should be of the form YYYY-MM-DD or MM-DD (with year inferred)";
     public static final String DATE_VALIDATION_REGEX = "\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])";
 
     public final String value;
@@ -23,6 +25,15 @@ public class Date {
     public Date(String date) throws IllegalValueException {
         assert date != null;
         date = date.trim();
+        if (date != null && !date.isEmpty()) {
+            String parts[] = date.split("-");
+            // If only MM-dd
+            if (parts.length < 3) {
+                // Try adding year in front
+                LocalDateTime ldt = LocalDateTime.now();
+                date = ldt.getYear() + "-" + date;
+            }
+        }
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }

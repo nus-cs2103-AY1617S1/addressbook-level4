@@ -5,6 +5,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -124,8 +125,15 @@ public class Parser {
             } else if (deadlineMatcher.matches()) {
             	try {
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat df2 = new SimpleDateFormat("MM-dd");
                     df.setLenient(false);
-                    df.parse(deadlineMatcher.group("endDate"));
+                    String parts[] = deadlineMatcher.group("endDate").split("-");
+                    // If yyyy-MM-dd
+                    if (parts.length == 3) {
+                        df.parse(deadlineMatcher.group("endDate"));
+                    } else { // MM-dd
+                        df2.parse(deadlineMatcher.group("endDate"));
+                    }
                 } catch (ParseException e) {
                 	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.INVALID_DATE_MESSAGE_USAGE));
                 }
@@ -143,9 +151,29 @@ public class Parser {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 try {	
                     df.setLenient(false);
-                    df.parse(eventMatcher.group("endDate"));
-                    df.parse(eventMatcher.group("startDate"));
-                    if (sdf.parse(eventMatcher.group("endDate") + " " + eventMatcher.group("endTime")).before(sdf.parse(eventMatcher.group("startDate") + " " + eventMatcher.group("startTime")))) {
+                    // If yyyy-MM-dd
+                    String startDateString;
+                    String endDateString;
+                    String parts[] = eventMatcher.group("endDate").split("-");
+                    if (parts.length == 3) {
+                        endDateString = eventMatcher.group("endDate");
+                        df.parse(eventMatcher.group("endDate"));
+                    } else { // MM-dd
+                        LocalDateTime ldt = LocalDateTime.now();
+                        endDateString = ldt.getYear() + "-" + eventMatcher.group("endDate");
+                        df.parse(endDateString);
+                    }
+                    String parts2[] = eventMatcher.group("startDate").split("-");
+                    // If yyyy-MM-dd
+                    if (parts2.length == 3) {
+                        startDateString = eventMatcher.group("startDate");
+                        df.parse(eventMatcher.group("startDate"));
+                    } else { // MM-dd
+                        LocalDateTime ldt = LocalDateTime.now();
+                        startDateString = ldt.getYear() + "-" + eventMatcher.group("startDate");
+                        df.parse(startDateString);
+                    }
+                    if (sdf.parse(endDateString + " " + eventMatcher.group("endTime")).before(sdf.parse(startDateString + " " + eventMatcher.group("startTime")))) {
                         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
                     }
                 } catch (ParseException e) {

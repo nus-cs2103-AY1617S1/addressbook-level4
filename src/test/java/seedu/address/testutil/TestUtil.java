@@ -65,7 +65,7 @@ public class TestUtil {
     private static Item[] getSampleItemData() {
         try {
             return new Item[]{
-                    new Item(new ItemType("event"), new Name("Game of Life"), new Date("2016-07-07"), new Time("00:00"), new Date("2016-08-07"), new Time("12:00"), new UniqueTagList()),
+                    new Item(new ItemType("event"), new Name("Game of Life"), new Date("07-07"), new Time("00:00"), new Date("08-07"), new Time("12:00"), new UniqueTagList()),
                     new Item(new ItemType("deadline"), new Name("This is a deadline"), new Date(""), new Time(""), new Date("2017-05-05"), new Time("23:59"), new UniqueTagList()),
                     new Item(new ItemType("task"), new Name("Win at Life"), new Date(""), new Time(""), new Date(""), new Time(""), new UniqueTagList()),
                     new Item(new ItemType("event"), new Name("This is an event"), new Date("2018-05-05"), new Time("23:59"), new Date("2019-01-01"), new Time("02:30"), new UniqueTagList()),
