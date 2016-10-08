@@ -26,10 +26,7 @@ public class ListCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		if (keyword != null && !keyword.isEmpty()) {
-			if (keyword.contains("undone")) {
-				model.updateFilteredTaskList(keyword);
-				return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-			} else if (keyword.contains("done")) {
+			if (keyword.contains("undone") || keyword.contains("done")) {
 				model.updateFilteredTaskList(keyword);
 				return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
 			}
