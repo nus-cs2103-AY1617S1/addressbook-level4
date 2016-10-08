@@ -33,6 +33,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
 
+    private static final int INTERNAL_LIST_INVALID_INDEX = -1;
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
@@ -95,5 +96,22 @@ public class UniqueTaskList implements Iterable<Task> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * Update the old task with new task details.
+     * 
+     * @param oldTask that will be updated
+     * @param newTask details
+     * @throws TaskNotFoundException if the old task cannot be found in the list
+     */
+    public void updateTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException {
+        int index = internalList.indexOf(oldTask);
+        
+        if (index == INTERNAL_LIST_INVALID_INDEX) {
+            throw new TaskNotFoundException();
+        }
+        
+        internalList.set(index, newTask);
     }
 }
