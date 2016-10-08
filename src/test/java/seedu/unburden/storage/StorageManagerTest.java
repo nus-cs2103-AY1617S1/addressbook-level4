@@ -14,7 +14,7 @@ import seedu.unburden.model.UserPrefs;
 import seedu.unburden.storage.JsonUserPrefsStorage;
 import seedu.unburden.storage.Storage;
 import seedu.unburden.storage.StorageManager;
-import seedu.unburden.storage.XmlAddressBookStorage;
+import seedu.unburden.storage.XmlTaskListStorage;
 import seedu.unburden.testutil.EventsCollector;
 import seedu.unburden.testutil.TypicalTestPersons;
 
@@ -85,7 +85,7 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage{
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlTaskListStorage{
 
         public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);

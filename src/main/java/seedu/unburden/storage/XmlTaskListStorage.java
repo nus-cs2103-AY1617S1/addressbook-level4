@@ -14,13 +14,13 @@ import seedu.unburden.model.ReadOnlyAddressBook;
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements TaskListStorage {
+public class XmlTaskListStorage implements TaskListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlTaskListStorage.class);
 
     private String filePath;
 
-    public XmlAddressBookStorage(String filePath){
+    public XmlTaskListStorage(String filePath){
         this.filePath = filePath;
     }
 
@@ -36,16 +36,16 @@ public class XmlAddressBookStorage implements TaskListStorage {
     public Optional<ReadOnlyAddressBook> readTaskList(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
-        File addressBookFile = new File(filePath);
+        File taskListFile = new File(filePath);
 
-        if (!addressBookFile.exists()) {
-            logger.info("AddressBook file "  + addressBookFile + " not found");
+        if (!taskListFile.exists()) {
+            logger.info("AddressBook file "  + taskListFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyAddressBook addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyAddressBook taskListOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(addressBookOptional);
+        return Optional.of(taskListOptional);
     }
 
     /**
