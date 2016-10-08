@@ -1,7 +1,5 @@
 package seedu.todo.commons.util;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
