@@ -12,6 +12,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -128,6 +129,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
+    @Override
+    public void updateFilteredTaskList(LocalDate date){
+        updateFilteredPersonList(new PredicateExpression(new DateQualifier(date)));
+    }
+    
     private void updateFilteredPersonList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -181,6 +187,25 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class DateQualifier implements Qualifier {
+        private LocalDate date;
+
+        DateQualifier(LocalDate date) {
+            this.date = date;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return (person.getFromDate().getDate() != null && person.getFromDate().getDate().equals(date))
+                || (person.getTillDate().getDate() != null && person.getTillDate().getDate().equals(date));
+        }
+
+        @Override
+        public String toString() {
+            return "date=" + date.toString();
         }
     }
 
