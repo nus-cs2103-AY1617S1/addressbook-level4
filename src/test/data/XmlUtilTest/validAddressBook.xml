@@ -1,57 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
-    <persons>
-        <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@google.com</email>
-        <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
-        <name>Ruth Mueller</name>
-        <phone isPrivate="false">87249245</phone>
-        <email isPrivate="false">ruth@google.com</email>
-        <address isPrivate="false">81th street</address>
-    </persons>
-    <persons>
-        <name>Heinz Kurz</name>
-        <phone isPrivate="false">95352563</phone>
-        <email isPrivate="false">heinz@yahoo.com</email>
-        <address isPrivate="false">wall street</address>
-    </persons>
-    <persons>
-        <name>Cornelia Meier</name>
-        <phone isPrivate="false">87652533</phone>
-        <email isPrivate="false">cornelia@google.com</email>
-        <address isPrivate="false">10th street</address>
-    </persons>
-    <persons>
-        <name>Werner Meyer</name>
-        <phone isPrivate="false">9482224</phone>
-        <email isPrivate="false">werner@gmail.com</email>
-        <address isPrivate="false">michegan ave</address>
-    </persons>
-    <persons>
-        <name>Lydia Kunz</name>
-        <phone isPrivate="false">9482427</phone>
-        <email isPrivate="false">lydia@gmail.com</email>
-        <address isPrivate="false">little tokyo</address>
-    </persons>
-    <persons>
-        <name>Anna Best</name>
-        <phone isPrivate="false">9482442</phone>
-        <email isPrivate="false">anna@google.com</email>
-        <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
-        <name>Stefan Meier</name>
-        <phone isPrivate="false">8482424</phone>
-        <email isPrivate="false">stefan@mail.com</email>
-        <address isPrivate="false">little india</address>
-    </persons>
-    <persons>
-        <name>Martin Mueller</name>
-        <phone isPrivate="false">8482131</phone>
-        <email isPrivate="false">hans@google.com</email>
-        <address isPrivate="false">chicago ave</address>
-    </persons>
-</addressbook>
+<taskmanager>
+    <tasks>
+        <name>Buy groceries</name>
+    </tasks>
+    <tasks>
+	<name>Submit Proposal</name>
+	<date>08/10/2016</date>
+	<endTime>1730</endTime>
+    </tasks>
+    <tasks>
+       	<name>Presentation</name>
+      	<date>11/10/2016</date>
+	<startTime>1400</startTime>
+	<endTime>1700</endTime>
+    </tasks>
+    <tasks>
+        <name>Meeting on with sales dept</name>
+      	<date>16/10/2016</date>
+	<startTime>0800</startTime>
+	<endTime>1100</endTime>
+    </tasks>
+    <tasks>
+       	<name>Buy new suit for work</name>
+	<date>01/11/2016</date>
+	<endTime>2200</endTime>
+    </tasks>
+    <tasks>
+        <name>Read Clean Code</name>
+    </tasks>
+    <tasks>
+       	<name>Date with Mary</name>
+      	<date>15/10/2016</date>
+	<startTime>1800</startTime>
+	<endTime>2200</endTime>
+    </tasks>
+    <tasks>
+       	<name>Finalise product design</name>
+      	<date>25/10/2016</date>
+	<endTime>1300</endTime>
+    </tasks>
+    <tasks>
+       	<name>Product release</name>
+      	<date>18/11/2016</date>
+	<endTime>0000</endTime>
+    </tasks>
+</taskmanager>
