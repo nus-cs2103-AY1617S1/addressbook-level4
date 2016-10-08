@@ -29,6 +29,17 @@ public class Task implements ReadOnlyTask {
         this.end = end;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
+    
+    /**
+     * Copy constructor.
+     */    
+    public Task(Name name, UniqueTagList tags) {
+        this.name = name;
+        this.date = null;
+        this.start = null;
+        this.end = null;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
 
     /**
      * Copy constructor.
