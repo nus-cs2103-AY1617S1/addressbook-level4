@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.models.AddCommandModel;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -92,17 +93,7 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+        return new AddCommand(new AddCommandModel("Hello World"));
     }
 
     /**

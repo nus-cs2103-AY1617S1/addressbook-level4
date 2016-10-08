@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.task.ReadOnlyPerson;
+import seedu.address.model.task.UniquePersonList.PersonNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -45,6 +45,26 @@ public class DeleteCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+    }
+
+    /**
+     * Redo the delete command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    @Override
+    public boolean redo() {
+        // nothing required to be done
+        return true;
+    }
+
+    /**
+     * Undo the delete command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    @Override
+    public boolean undo() {
+        // nothing required to be done
+        return true;
     }
 
 }

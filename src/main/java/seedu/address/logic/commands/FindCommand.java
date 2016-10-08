@@ -27,4 +27,24 @@ public class FindCommand extends Command {
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
 
+    /**
+     * Redo the find command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    @Override
+    public boolean redo() {
+        // nothing required to be done
+        return true;
+    }
+
+    /**
+     * Undo the find command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    @Override
+    public boolean undo() {
+        // nothing required to be done
+        return true;
+    }
+
 }

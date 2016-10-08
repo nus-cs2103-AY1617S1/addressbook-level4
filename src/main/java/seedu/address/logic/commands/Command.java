@@ -43,4 +43,16 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
+    
+    /**
+     * Redo the command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    protected abstract boolean redo();
+    
+    /**
+     * Undo the command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    protected abstract boolean undo();
 }

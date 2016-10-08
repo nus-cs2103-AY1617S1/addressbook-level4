@@ -6,13 +6,13 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 /**
  * Terminates the program.
  */
-public class ExitCommand extends Command {
+public class UndoCommand extends Command {
 
-    public static final String COMMAND_WORD = "exit";
+    public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
 
-    public ExitCommand() {}
+    public UndoCommand() {}
 
     @Override
     public CommandResult execute() {

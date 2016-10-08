@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.model.task.ReadOnlyPerson;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Selects a person identified using it's last displayed index from the address book.
@@ -41,4 +41,23 @@ public class SelectCommand extends Command {
 
     }
 
+    /**
+     * Redo the select command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    @Override
+    public boolean redo() {
+        // nothing required to be done
+        return true;
+    }
+
+    /**
+     * Undo the select command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    @Override
+    public boolean undo() {
+        // nothing required to be done
+        return true;
+    }
 }
