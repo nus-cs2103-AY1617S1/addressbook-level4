@@ -87,7 +87,7 @@ public class TaskDate {
     		timeString = DateTimeUtil.prettyPrintTime(time);
     	}
     	
-    	return dateString + "" + timeString;
+    	return dateString + " " + timeString;
     }
 
     @Override

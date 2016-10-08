@@ -12,8 +12,8 @@ public class SeeCommand extends Command {
     public static final String COMMAND_WORD = "see";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": See tasks on the specified date"
-            + "Parameters: DATE (format must follow predefined format)\n"
+            + ": See tasks on the specified date. If not date in specified, see everything."
+            + "Parameters: [DATE] (format must follow predefined format)\n"
             + "Example: " + COMMAND_WORD + " 12/12/2013";
     
     public static final String MESSAGE_SUCCESS = "List all tasks";
@@ -22,13 +22,22 @@ public class SeeCommand extends Command {
     private LocalDate date;
     
     public SeeCommand(String dateString) {
-    	this.date = DateTimeUtil.parseDateString(dateString);
-    	if(this.date == null) throw new DateTimeParseException(MESSAGE_INVALID_DATE, dateString, 0);
+        if (dateString.equals("")) {
+            this.date = null;
+        } else {
+            this.date = DateTimeUtil.parseDateString(dateString);
+        }
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll();
-        return new CommandResult(MESSAGE_SUCCESS);
+        if (this.date == null) {
+            model.updateFilteredListToShowAll();
+            return new CommandResult(MESSAGE_SUCCESS);
+        } else {
+            model.updateFilteredTaskList(date);
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+        }
+        
     }
 }

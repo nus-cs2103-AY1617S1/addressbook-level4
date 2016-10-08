@@ -6,7 +6,9 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
+
 import java.util.Set;
+import java.time.LocalDate;
 
 /**
  * The API of the Model component.
@@ -42,5 +44,8 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredTaskList(LocalDate date);
 
 }
