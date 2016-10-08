@@ -16,6 +16,7 @@ public class Task implements ReadOnlyTask {
     private Detail detail;
     private TaskDate fromDate;
     private TaskDate tillDate; //deadline
+    private boolean done;
     private UniqueTagList tags;
 
     /**
@@ -27,15 +28,17 @@ public class Task implements ReadOnlyTask {
         this.detail = detail;
         this.fromDate = fromDate;
         this.tillDate = tillDate;
+        this.done = false;
         this.tags = new UniqueTagList(); // protect internal tags from changes in the arg list
     }
     
-    public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate, UniqueTagList tags) {
+    public Task(Name name, Detail detail, boolean done, TaskDate fromDate, TaskDate tillDate, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, detail, fromDate, tillDate);
         this.name = name;
         this.detail = detail;
         this.fromDate = fromDate;
         this.tillDate = tillDate;
+        this.done = done;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -43,7 +46,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDetail(), source.getFromDate(), source.getTillDate(), source.getTags());
+        this(source.getName(), source.getDetail(), source.isDone(), source.getFromDate(), source.getTillDate(), source.getTags());
     }
 
     @Override
@@ -71,6 +74,11 @@ public class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
     
+    @Override
+    public boolean isDone() {
+        return this.done;
+    }
+    
     
     public void setName(Name n) {
         this.name = n;
@@ -88,6 +96,9 @@ public class Task implements ReadOnlyTask {
         this.tillDate = td;
     }
     
+    public void setIsDone(boolean done) {
+        this.done = done;
+    }
     
     /**
      * Add a tag to the task's tag list 
