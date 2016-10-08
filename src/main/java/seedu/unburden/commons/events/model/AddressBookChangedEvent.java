@@ -3,7 +3,7 @@ package seedu.unburden.commons.events.model;
 import seedu.unburden.commons.events.BaseEvent;
 import seedu.unburden.model.ReadOnlyAddressBook;
 
-/** Indicates the AddressBook in the model has changed*/
+/** Indicates the ListOfTask in the model has changed*/
 public class AddressBookChangedEvent extends BaseEvent {
 
     public final ReadOnlyAddressBook data;

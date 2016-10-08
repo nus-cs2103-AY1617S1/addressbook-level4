@@ -14,7 +14,7 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
-    /** Returns the AddressBook */
+    /** Returns the ListOfTask */
     ReadOnlyAddressBook getAddressBook();
 
     /** Deletes the given person. */

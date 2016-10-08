@@ -1,7 +1,7 @@
 package seedu.unburden.testutil;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
-import seedu.unburden.model.AddressBook;
+import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.task.*;
 
 /**
@@ -34,7 +34,7 @@ public class TypicalTestPersons {
         }
     }
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static void loadListOfTaskWithSampleData(ListOfTask ab) {
 
         try {
             ab.addTask(new Task(alice));
@@ -53,9 +53,9 @@ public class TypicalTestPersons {
         return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
-        loadAddressBookWithSampleData(ab);
+    public ListOfTask getTypicalListOfTask(){
+        ListOfTask ab = new ListOfTask();
+        loadListOfTaskWithSampleData(ab);
         return ab;
     }
 }

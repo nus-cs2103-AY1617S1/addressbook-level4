@@ -7,7 +7,7 @@ import seedu.unburden.commons.exceptions.DataConversionException;
 import seedu.unburden.model.ReadOnlyAddressBook;
 
 /**
- * Represents a storage for {@link seedu.unburden.model.AddressBook}.
+ * Represents a storage for {@link seedu.unburden.model.ListOfTask}.
  */
 public interface TaskListStorage {
 
@@ -17,7 +17,7 @@ public interface TaskListStorage {
     String getTaskListFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
+     * Returns ListOfTask data as a {@link ReadOnlyAddressBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.

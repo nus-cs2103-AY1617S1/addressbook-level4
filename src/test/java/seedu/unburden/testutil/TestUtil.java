@@ -17,7 +17,7 @@ import seedu.unburden.TestApp;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.FileUtil;
 import seedu.unburden.commons.util.XmlUtil;
-import seedu.unburden.model.AddressBook;
+import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
 import seedu.unburden.model.task.*;
@@ -135,12 +135,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
+    public static ListOfTask generateEmptyListOfTask() {
+        return new ListOfTask(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableTaskList generateSampleStorageAddressBook() {
-        return new XmlSerializableTaskList(generateEmptyAddressBook());
+        return new XmlSerializableTaskList(generateEmptyListOfTask());
     }
 
     /**

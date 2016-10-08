@@ -9,7 +9,7 @@ import seedu.unburden.commons.events.ui.ShowHelpRequestEvent;
 import seedu.unburden.logic.Logic;
 import seedu.unburden.logic.LogicManager;
 import seedu.unburden.logic.commands.*;
-import seedu.unburden.model.AddressBook;
+import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.Model;
 import seedu.unburden.model.ModelManager;
 import seedu.unburden.model.ReadOnlyAddressBook;
@@ -51,7 +51,7 @@ public class LogicManagerTest {
 
     @Subscribe
     private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
-        latestSavedAddressBook = new AddressBook(abce.data);
+        latestSavedAddressBook = new ListOfTask(abce.data);
     }
 
     @Subscribe
@@ -72,7 +72,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempTaskListFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedAddressBook = new ListOfTask(model.getAddressBook()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -95,7 +95,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new AddressBook(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new ListOfTask(), Collections.emptyList());
     }
 
     /**
@@ -146,7 +146,7 @@ public class LogicManagerTest {
         model.addTask(helper.generateTask(2));
         model.addTask(helper.generateTask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ListOfTask(), Collections.emptyList());
     }
 
 
@@ -181,7 +181,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        ListOfTask expectedAB = new ListOfTask();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
@@ -197,7 +197,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        ListOfTask expectedAB = new ListOfTask();
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
@@ -217,7 +217,7 @@ public class LogicManagerTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAB = helper.generateAddressBook(2);
+        ListOfTask expectedAB = helper.generateListOfTask(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getPersonList();
 
         // prepare address book state
@@ -254,7 +254,7 @@ public class LogicManagerTest {
         List<Task> taskList = helper.generateTaskList(2);
 
         // set AB state to 2 persons
-        model.resetData(new AddressBook());
+        model.resetData(new ListOfTask());
         for (Task p : taskList) {
             model.addTask(p);
         }
@@ -278,7 +278,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threeTasks);
+        ListOfTask expectedAB = helper.generateListOfTask(threeTasks);
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("select 2",
@@ -306,7 +306,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threeTasks);
+        ListOfTask expectedAB = helper.generateListOfTask(threeTasks);
         expectedAB.removePerson(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
@@ -332,7 +332,7 @@ public class LogicManagerTest {
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourTasks);
+        ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourTasks);
 
@@ -351,7 +351,7 @@ public class LogicManagerTest {
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        AddressBook expectedAB = helper.generateAddressBook(fourTasks);
+        ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
 
@@ -370,7 +370,7 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        AddressBook expectedAB = helper.generateAddressBook(fourTasks);
+        ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourTasks);
 
@@ -434,37 +434,37 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an AddressBook with auto-generated persons.
+         * Generates an ListOfTask with auto-generated persons.
          */
-        AddressBook generateAddressBook(int numGenerated) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, numGenerated);
-            return addressBook;
+        ListOfTask generateListOfTask(int numGenerated) throws Exception{
+            ListOfTask listOfTask = new ListOfTask();
+            addToListOfTask(listOfTask, numGenerated);
+            return listOfTask;
         }
 
         /**
-         * Generates an AddressBook based on the list of Persons given.
+         * Generates an ListOfTask based on the list of Persons given.
          */
-        AddressBook generateAddressBook(List<Task> tasks) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, tasks);
-            return addressBook;
+        ListOfTask generateListOfTask(List<Task> tasks) throws Exception{
+            ListOfTask listOfTask = new ListOfTask();
+            addToListOfTask(listOfTask, tasks);
+            return listOfTask;
         }
 
         /**
-         * Adds auto-generated Task objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Persons will be added
+         * Adds auto-generated Task objects to the given ListOfTask
+         * @param listOfTask The ListOfTask to which the Persons will be added
          */
-        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generateTaskList(numGenerated));
+        void addToListOfTask(ListOfTask listOfTask, int numGenerated) throws Exception{
+            addToListOfTask(listOfTask, generateTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given AddressBook
+         * Adds the given list of Persons to the given ListOfTask
          */
-        void addToAddressBook(AddressBook addressBook, List<Task> tasksToAdd) throws Exception{
+        void addToListOfTask(ListOfTask listOfTask, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
-                addressBook.addTask(p);
+                listOfTask.addTask(p);
             }
         }
 

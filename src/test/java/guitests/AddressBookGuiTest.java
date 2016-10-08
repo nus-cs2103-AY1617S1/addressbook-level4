@@ -11,7 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.unburden.TestApp;
 import seedu.unburden.commons.core.EventsCenter;
-import seedu.unburden.model.AddressBook;
+import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.testutil.TestUtil;
 import seedu.unburden.testutil.TypicalTestPersons;
@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for ListOfTask.
  */
 public abstract class AddressBookGuiTest {
 
@@ -76,9 +76,9 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+    protected ListOfTask getInitialData() {
+        ListOfTask ab = TestUtil.generateEmptyListOfTask();
+        TypicalTestPersons.loadListOfTaskWithSampleData(ab);
         return ab;
     }
 

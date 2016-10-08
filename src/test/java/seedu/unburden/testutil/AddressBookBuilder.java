@@ -1,7 +1,7 @@
 package seedu.unburden.testutil;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
-import seedu.unburden.model.AddressBook;
+import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.task.Task;
 import seedu.unburden.model.task.UniqueTaskList;
@@ -9,27 +9,27 @@ import seedu.unburden.model.task.UniqueTaskList;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code ListOfTask ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private ListOfTask listOfTask;
 
-    public AddressBookBuilder(AddressBook addressBook){
-        this.addressBook = addressBook;
+    public AddressBookBuilder(ListOfTask listOfTask){
+        this.listOfTask = listOfTask;
     }
 
     public AddressBookBuilder withTask(Task task) throws UniqueTaskList.DuplicatePersonException {
-        addressBook.addTask(task);
+        listOfTask.addTask(task);
         return this;
     }
 
     public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+        listOfTask.addTag(new Tag(tagName));
         return this;
     }
 
-    public AddressBook build(){
-        return addressBook;
+    public ListOfTask build(){
+        return listOfTask;
     }
 }

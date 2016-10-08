@@ -12,7 +12,7 @@ import seedu.unburden.commons.util.FileUtil;
 import seedu.unburden.model.ReadOnlyAddressBook;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access ListOfTask data stored as an xml file on the hard disk.
  */
 public class XmlTaskListStorage implements TaskListStorage {
 
@@ -39,7 +39,7 @@ public class XmlTaskListStorage implements TaskListStorage {
         File taskListFile = new File(filePath);
 
         if (!taskListFile.exists()) {
-            logger.info("AddressBook file "  + taskListFile + " not found");
+            logger.info("ListOfTask file "  + taskListFile + " not found");
             return Optional.empty();
         }
 
