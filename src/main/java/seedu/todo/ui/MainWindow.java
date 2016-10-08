@@ -12,8 +12,6 @@ import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
-import seedu.todo.model.UserPrefs;
-import seedu.todo.model.person.ReadOnlyPerson;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,13 +27,9 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
-    private CommandBox commandBox;
     private Config config;
-    private UserPrefs userPrefs;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -76,27 +70,25 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public static MainWindow load(Stage primaryStage, Config config, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String addressBookName, Config config,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
         this.addressBookName = addressBookName;
         this.config = config;
-        this.userPrefs = prefs;
 
         //Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
-        setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
@@ -108,24 +100,9 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+
     }
 
-    private AnchorPane getCommandBoxPlaceholder() {
-        return commandBoxPlaceholder;
-    }
-
-    private AnchorPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
-    }
-
-    private AnchorPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
-    }
 
     public AnchorPane getPersonListPlaceholder() {
         return personListPanelPlaceholder;
@@ -137,18 +114,6 @@ public class MainWindow extends UiPart {
 
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
-    }
-
-    /**
-     * Sets the default size based on user preferences.
-     */
-    protected void setWindowDefaultSize(UserPrefs prefs) {
-        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
-        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
-        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
-            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
-            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
-        }
     }
 
     private void setWindowMinSize() {
@@ -166,8 +131,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load(primaryStage);
-        helpWindow.show();
+
     }
 
     public void show() {
@@ -182,15 +146,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
-    }
-
-    public void loadPersonPage(ReadOnlyPerson person) {
-        browserPanel.loadPersonPage(person);
-    }
-
     public void releaseResources() {
-        browserPanel.freeResources();
+
     }
 }
