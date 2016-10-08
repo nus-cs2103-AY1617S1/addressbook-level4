@@ -36,9 +36,9 @@ In-Charge: UI
 
 -----
 
+#### Project Mentor: [Michelle Tan](https://github.com/okkhoy)
+<img src="images/Michelle_Tan.jpg" width="150"><br>
+
 # Contributors
 
 We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
