@@ -50,6 +50,24 @@ public class TimeUtilTest {
     }
     
     @Test
+    public void getTaskDeadlineString_sameYearBeforeDeadlines() {
+        LocalDateTime inputTime1 = LocalDateTime.of(2016, Month.JUNE, 6, 17, 20, 15);
+        String expectedOutput1 = "by 6 June, 5:20 PM";
+        String generatedOutput1 = timeUtil.getTaskDeadlineString(inputTime1);
+        assertEquals(generatedOutput1, expectedOutput1);
+        
+        LocalDateTime inputTime2 = LocalDateTime.of(2016, Month.DECEMBER, 11, 11, 49, 30);
+        String expectedOutput2 = "by 11 December, 11:49 AM";
+        String generatedOutput2 = timeUtil.getTaskDeadlineString(inputTime2);
+        assertEquals(generatedOutput2, expectedOutput2);
+        
+        LocalDateTime inputTime3 = LocalDateTime.of(2016, Month.MAY, 20, 13, 15, 10);
+        String expectedOutput3 = "by 20 May, 1:15 PM";
+        String generatedOutput3 = timeUtil.getTaskDeadlineString(inputTime3);
+        assertEquals(generatedOutput3, expectedOutput3);
+    }
+    
+    @Test
     public void getTaskDeadlineString_hoursBeforeDeadlines() {
         for (long hoursLeft = 2; hoursLeft < 24; hoursLeft++) {
             LocalDateTime inputTime = pseudoCurrentTime.plusHours(hoursLeft).plusMinutes(1);
