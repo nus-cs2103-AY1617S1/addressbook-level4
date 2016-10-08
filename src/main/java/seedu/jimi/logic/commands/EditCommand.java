@@ -11,6 +11,8 @@ import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
+import seedu.jimi.model.task.UniqueTaskList;
+import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -70,17 +72,24 @@ public class EditCommand extends Command{
         try {
             model.deleteTask(taskToEdit); //delete 
             
-            UniqueTagList oldTagSet = taskToEdit.getTags();
+            UniqueTagList oldTagList = taskToEdit.getTags();
             Name oldName = taskToEdit.getName();
             
             if(newName != null && !oldName.equals(newName)){
-                
+                if(newTagList != null && !oldTagList.equals(newTagList)){
+                    model.addFloatingTask(new FloatingTask(newName, newTagList)); //change both name and tags
+                }
+                model.addFloatingTask(new FloatingTask(newName, oldTagList)); //change only name
             }
-            
+            else {
+                model.addFloatingTask(new FloatingTask(oldName, oldTagList)); //change nothing //TODO: reduce redundancy
+            }
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-
+        
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
 
