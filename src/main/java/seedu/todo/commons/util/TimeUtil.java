@@ -10,7 +10,10 @@ import java.time.LocalDateTime;
 public class TimeUtil {
     
     /* Constants */
-    private static final String PREFIX_BEFORE_DEADLINE = "in ";
+    private static final String DEADLINE_PREFIX_IN = "in ";
+    private static final String DEADLINE_PREFIX_BY = "by ";
+    private static final String DEADLINE_PREFIX_SINCE = "since ";
+    private static final String DEADLINE_SUFFIX_AGO = " ago";
     
     private static final String HOUR_SINGLE_UNIT = " hour";
     private static final String HOURS_MULTIPLE_UNIT = " hours";
@@ -60,15 +63,15 @@ public class TimeUtil {
         if (hoursToDeadline == 0) {
             
             if (minutesToDeadline == 1) {
-                return PREFIX_BEFORE_DEADLINE + "1" + MINUTE_SINGLE_UNIT;
+                return DEADLINE_PREFIX_IN + "1" + MINUTE_SINGLE_UNIT;
             } else {
-                return PREFIX_BEFORE_DEADLINE + String.valueOf(minutesToDeadline) + MINUTES_MULTIPLE_UNIT;
+                return DEADLINE_PREFIX_IN + String.valueOf(minutesToDeadline) + MINUTES_MULTIPLE_UNIT;
             }
                       
         } else if (hoursToDeadline == 1) {
-            return PREFIX_BEFORE_DEADLINE + "1" + HOUR_SINGLE_UNIT;
+            return DEADLINE_PREFIX_IN + "1" + HOUR_SINGLE_UNIT;
         } else {
-            return PREFIX_BEFORE_DEADLINE + String.valueOf(hoursToDeadline) + HOURS_MULTIPLE_UNIT;
+            return DEADLINE_PREFIX_IN + String.valueOf(hoursToDeadline) + HOURS_MULTIPLE_UNIT;
         }
     }
     
