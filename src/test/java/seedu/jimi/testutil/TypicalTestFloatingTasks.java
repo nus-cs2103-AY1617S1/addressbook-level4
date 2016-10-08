@@ -13,8 +13,8 @@ public class TypicalTestFloatingTasks {
 
     public TypicalTestFloatingTasks() {
         try {
-            water =  new TaskBuilder().withName("add water").withTags("not urgent").build();
-            ideas = new TaskBuilder().withName("brainstorm ideas").withTags("project", "task").build();
+            water =  new TaskBuilder().withName("add water").withTags("noturgent").build();
+            ideas = new TaskBuilder().withName("brainstorm ideas").withTags("project").build();
             car = new TaskBuilder().withName("catch a car").build();
             airport = new TaskBuilder().withName("drive to airport").build();
             lunch = new TaskBuilder().withName("eat lunch").build();
