@@ -47,20 +47,15 @@ public class TimeUtil {
         
         if (secondsToDeadline >= -59 && secondsToDeadline <= 0) {
             return DUE_NOW;
-        }
-        if (secondsToDeadline > 0 && secondsToDeadline <= 59) {
+        } else if (secondsToDeadline > 0 && secondsToDeadline <= 59) {
             return DUE_LESS_THAN_A_MINUTE;
-        }
-        if (minutesToDeadline == 1) {
+        } else if (minutesToDeadline == 1) {
             return DEADLINE_PREFIX_IN + "1" + MINUTE_SINGLE_UNIT;
-        }
-        if (minutesToDeadline == -1) {
+        } else if (minutesToDeadline == -1) {
             return "1" + MINUTE_SINGLE_UNIT + DEADLINE_SUFFIX_AGO;
-        }
-        if (minutesToDeadline > 1 && minutesToDeadline <= 59) {
+        } else if (minutesToDeadline > 1 && minutesToDeadline <= 59) {
             return DEADLINE_PREFIX_IN + minutesToDeadline + MINUTES_MULTIPLE_UNIT;
-        }
-        if (minutesToDeadline < -1 && minutesToDeadline >= -59) {
+        } else if (minutesToDeadline < -1 && minutesToDeadline >= -59) {
             return (-minutesToDeadline) + MINUTES_MULTIPLE_UNIT + DEADLINE_SUFFIX_AGO;
         }
         
