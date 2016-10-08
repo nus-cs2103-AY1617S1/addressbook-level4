@@ -100,11 +100,11 @@ Examples:
 Find tasks based on keywords.<br>
 Format: `find KEYWORDS`
 
-> Tasks that partly or completely match the keywords entered will be displayed.
+> Tasks that partly or completely match the keywords entered will be displayed.<br>
 > If keyword entered is a date, this command will return the same results as the view command.
 
 Examples:
-* `find homework`<br>
+* `find homework`
   > <img src="images/UIfind.png" width="600">
 
 #### Edit task details: `edit`
