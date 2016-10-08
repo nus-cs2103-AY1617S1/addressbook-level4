@@ -9,7 +9,7 @@ import seedu.address.commons.util.ObjectUtil;
  * Guarantees: immutable;
  */
 public class Deadline {
-    public static final String TO_STRING_NO_DEADLINE = "No deadline";
+    public static final String TO_STRING_NO_DEADLINE = "No deadline.";
     
     public final boolean hasDeadline;
     public final Date deadline;
