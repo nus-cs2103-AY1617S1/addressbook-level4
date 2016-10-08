@@ -11,6 +11,8 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
     public ListCommand() {}
+    
+    public ListCommand(String args) {}
 
     @Override
     public CommandResult execute() {

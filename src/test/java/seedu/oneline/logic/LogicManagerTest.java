@@ -3,6 +3,7 @@ package seedu.oneline.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.oneline.commons.core.EventsCenter;
+import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.events.model.TaskBookChangedEvent;
 import seedu.oneline.commons.events.ui.JumpToListRequestEvent;
 import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
@@ -152,7 +153,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.getInvalidCommandFormatMessage(AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
@@ -265,7 +266,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.getInvalidCommandFormatMessage(SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
 
@@ -293,7 +294,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.getInvalidCommandFormatMessage(DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
@@ -320,7 +321,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.getInvalidCommandFormatMessage(FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
 
