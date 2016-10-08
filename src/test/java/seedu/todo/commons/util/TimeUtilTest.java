@@ -22,9 +22,7 @@ public class TimeUtilTest {
         Clock clockStub = Clock.fixed(pseudoCurrentTime.toInstant(ZoneId.systemDefault().getRules().getOffset(pseudoCurrentTime)), ZoneId.systemDefault());
         timeUtil = new TimeUtil(clockStub);
     }
-    
-    
-    
+        
     @Test (expected = AssertionError.class)
     public void getTaskDeadlineString_nullEndTime() {
         timeUtil.getTaskDeadlineString(null);
