@@ -180,7 +180,7 @@ public class LogicManagerTest {
                 "add deadline n/not_numbers ed/2016-08-08 et/18:00", Name.MESSAGE_NAME_CONSTRAINTS);
         // Invalid EndDate
         assertCommandBehavior(
-                "add deadline n/12345 ed/notADate et/18:00", Date.MESSAGE_DATE_CONSTRAINTS);
+                "add deadline n/12345 ed/notADate et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.INVALID_DATE_MESSAGE_USAGE));
         // Invalid EndTime
         assertCommandBehavior(
                 "add deadline n/12345 ed/2016-08-08 et/notATime", Time.MESSAGE_TIME_CONSTRAINTS);
@@ -190,6 +190,12 @@ public class LogicManagerTest {
         // Invalid Event endDate and endTime
         assertCommandBehavior(
                 "add event n/12345 sd/2016-08-08 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+       // Invalid Date
+        assertCommandBehavior(
+                "add event n/12345 sd/2016-02-30 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.INVALID_DATE_MESSAGE_USAGE));
+       // Invalid Date
+        assertCommandBehavior(
+                "add deadline n/12345 ed/2016-11-31 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.INVALID_DATE_MESSAGE_USAGE));
 
     }
 

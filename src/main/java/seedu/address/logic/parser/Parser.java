@@ -122,6 +122,13 @@ public class Parser {
                     getTagsFromArgs(taskMatcher.group("tagArguments"))
                 );
             } else if (deadlineMatcher.matches()) {
+            	try {
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    df.setLenient(false);
+                    df.parse(deadlineMatcher.group("endDate"));
+                } catch (ParseException e) {
+                	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.INVALID_DATE_MESSAGE_USAGE));
+                }
                 return new AddCommand(
                     "deadline",
                     deadlineMatcher.group("name"),
@@ -132,14 +139,18 @@ public class Parser {
                     getTagsFromArgs(deadlineMatcher.group("tagArguments"))
                 );
             } else if (eventMatcher.matches()) {
-            	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-            	try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                try {	
+                    df.setLenient(false);
+                    df.parse(eventMatcher.group("endDate"));
+                    df.parse(eventMatcher.group("startDate"));
                     if (sdf.parse(eventMatcher.group("endDate") + " " + eventMatcher.group("endTime")).before(sdf.parse(eventMatcher.group("startDate") + " " + eventMatcher.group("startTime")))) {
                         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
                     }
-            	} catch (ParseException e) {
-            	    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-            	}
+                } catch (ParseException e) {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.INVALID_DATE_MESSAGE_USAGE));
+                }
                 return new AddCommand(
                     "event",
                     eventMatcher.group("name"),
