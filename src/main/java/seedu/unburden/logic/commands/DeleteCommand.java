@@ -1,0 +1,50 @@
+package seedu.unburden.logic.commands;
+
+import seedu.unburden.commons.core.Messages;
+import seedu.unburden.commons.core.UnmodifiableObservableList;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.UniqueTaskList.PersonNotFoundException;
+
+/**
+ * Deletes a person identified using it's last displayed index from the address book.
+ */
+public class DeleteCommand extends Command {
+
+    public static final String COMMAND_WORD = "delete";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes the task identified by the index number used in the last task listing.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
+
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
+
+    public final int targetIndex;
+
+    public DeleteCommand(int targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+
+
+    @Override
+    public CommandResult execute() {
+
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+
+        try {
+            model.deletePerson(taskToDelete);
+        } catch (PersonNotFoundException pnfe) {
+            assert false : "The target person cannot be missing";
+        }
+
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
+    }
+
+}

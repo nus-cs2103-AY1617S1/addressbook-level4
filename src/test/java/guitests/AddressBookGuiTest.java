@@ -8,12 +8,13 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestPersons;
+
+import seedu.unburden.TestApp;
+import seedu.unburden.commons.core.EventsCenter;
+import seedu.unburden.model.ListOfTask;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.testutil.TestUtil;
+import seedu.unburden.testutil.TypicalTestPersons;
 
 import java.util.concurrent.TimeoutException;
 
@@ -21,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for ListOfTask.
  */
 public abstract class AddressBookGuiTest {
 
@@ -75,9 +76,9 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+    protected ListOfTask getInitialData() {
+        ListOfTask ab = TestUtil.generateEmptyListOfTask();
+        TypicalTestPersons.loadListOfTaskWithSampleData(ab);
         return ab;
     }
 
@@ -96,7 +97,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
+    public void assertMatching(ReadOnlyTask person, PersonCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
