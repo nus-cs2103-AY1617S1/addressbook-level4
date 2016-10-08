@@ -29,6 +29,20 @@ public class TimeUtilTest {
     public void getTaskDeadlineString_nullEndTime() {
         timeUtil.getTaskDeadlineString(null);
     }
+    
+    @Test 
+    public void getTaskDeadlineString_yearsBeforeDeadlines() {
+        LocalDateTime inputTime = pseudoCurrentTime
+                .plusYears(1)
+                .plusMonths(2)
+                .plusDays(3)
+                .plusHours(4)
+                .plusMinutes(5);
+        
+        String expectedOutput = "by 6 July 2017, 5:20 PM";
+        
+        String generatedOutput = timeUtil.getTaskDeadlineString(inputTime);
+        assertEquals(generatedOutput, expectedOutput);
     }
     
     @Test
