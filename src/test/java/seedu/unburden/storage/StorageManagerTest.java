@@ -59,7 +59,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void taskListReadSave() throws Exception {
         ListOfTask original = new TypicalTestPersons().getTypicalListOfTask();
         storageManager.saveTaskList(original);
         ReadOnlyListOfTask retrieved = storageManager.readTaskList().get();
@@ -68,14 +68,14 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath(){
+    public void getTaskListFilePath(){
         assertNotNull(storageManager.getTaskListFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
+    public void handleTaskListChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        Storage storage = new StorageManager(new XmlTaskListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleListOfTaskChangedEvent(new ListOfTaskChangedEvent(new ListOfTask()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
@@ -85,9 +85,9 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlTaskListStorage{
+    class XmlTaskListStorageExceptionThrowingStub extends XmlTaskListStorage{
 
-        public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
+        public XmlTaskListStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 
