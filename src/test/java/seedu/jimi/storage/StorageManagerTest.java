@@ -16,7 +16,7 @@ import seedu.jimi.storage.Storage;
 import seedu.jimi.storage.StorageManager;
 import seedu.jimi.storage.XmlAddressBookStorage;
 import seedu.jimi.testutil.EventsCollector;
-import seedu.jimi.testutil.TypicalTestPersons;
+import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import java.io.IOException;
 
@@ -60,7 +60,7 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        TaskBook original = new TypicalTestPersons().getTypicalTaskBook();
+        TaskBook original = new TypicalTestFloatingTasks().getTypicalTaskBook();
         storageManager.saveTaskBook(original);
         ReadOnlyTaskBook retrieved = storageManager.readTaskBook().get();
         assertEquals(original, new TaskBook(retrieved));

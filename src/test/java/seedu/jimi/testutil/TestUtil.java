@@ -1,7 +1,7 @@
 package seedu.jimi.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.FloatingTaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -61,20 +61,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Task[] sampleTaskData = getSampleTaskData();
+    public static final FloatingTask[] sampleFloatingTaskData = getSampleFloatingTaskData();
 
-    private static Task[] getSampleTaskData() {
+    private static FloatingTask[] getSampleFloatingTaskData() {
         try {
-            return new Task[]{
-                    new Task(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Phone("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
+            return new FloatingTask[]{
+                    new FloatingTask(new Name("add water"), new UniqueTagList()),
+                    new FloatingTask(new Name("brainstorm ideas"), new UniqueTagList()),
+                    new FloatingTask(new Name("catch a car"), new UniqueTagList()),
+                    new FloatingTask(new Name("drive to airport"), new UniqueTagList()),
+                    new FloatingTask(new Name("eat lunch"), new UniqueTagList()),
+                    new FloatingTask(new Name("fly to spain"), new UniqueTagList()),
+                    new FloatingTask(new Name("go to the beach"), new UniqueTagList()),
+                    new FloatingTask(new Name("have a nice night"), new UniqueTagList()),
+                    new FloatingTask(new Name("into a dream"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -98,8 +98,8 @@ public class TestUtil {
         }
     }
 
-    public static List<Task> generateSampleTaskData() {
-        return Arrays.asList(sampleTaskData);
+    public static List<FloatingTask> generateSampleFloatingTaskData() {
+        return Arrays.asList(sampleFloatingTaskData);
     }
 
     /**
@@ -274,49 +274,49 @@ public class TestUtil {
     }
 
     /**
-     * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
-     * @return The modified persons after removal of the subset from persons.
+     * Removes a subset from the list of tasks.
+     * @param tasks The list of tasks
+     * @param tasksToRemove The subset of tasks.
+     * @return The modified tasks after removal of the subset from tasks.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+    public static TestFloatingTask[] removeTasksFromList(final TestFloatingTask[] tasks, TestFloatingTask... tasksToRemove) {
+        List<TestFloatingTask> listOfTasks = asList(tasks);
+        listOfTasks.removeAll(asList(tasksToRemove));
+        return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
     }
 
 
     /**
-     * Returns a copy of the list with the person at specified index removed.
+     * Returns a copy of the list with the task at specified index removed.
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    public static TestFloatingTask[] removeTaskFromList(final TestFloatingTask[] list, int targetIndexInOneIndexedFormat) {
+        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
-     * Replaces persons[i] with a person.
-     * @param persons The array of persons.
-     * @param person The replacement person
-     * @param index The index of the person to be replaced.
+     * Replaces tasks[i] with a task.
+     * @param tasks The array of tasks.
+     * @param task The replacement task
+     * @param index The index of the task to be replaced.
      * @return
      */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
-        persons[index] = person;
-        return persons;
+    public static TestFloatingTask[] replaceTaskFromList(TestFloatingTask[] tasks, TestFloatingTask task, int index) {
+        tasks[index] = task;
+        return tasks;
     }
 
     /**
-     * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
-     * @return The modified array of persons.
+     * Appends tasks to the array of tasks.
+     * @param tasks A array of tasks.
+     * @param tasksToAdd The tasks that are to be appended behind the original array.
+     * @return The modified array of tasks.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+    public static TestFloatingTask[] addTasksToList(final TestFloatingTask[] tasks, TestFloatingTask... tasksToAdd) {
+        List<TestFloatingTask> listOfTasks = asList(tasks);
+        listOfTasks.addAll(asList(tasksToAdd));
+        return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -327,8 +327,8 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
-        return card.isSamePerson(person);
+    public static boolean compareCardAndTask(FloatingTaskCardHandle card, ReadOnlyTask task) {
+        return card.isSameTask(task);
     }
 
     public static Tag[] getTagList(String tags) {

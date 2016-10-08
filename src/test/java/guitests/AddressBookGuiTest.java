@@ -14,7 +14,7 @@ import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.testutil.TestUtil;
-import seedu.jimi.testutil.TypicalTestPersons;
+import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -32,7 +32,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestFloatingTasks td = new TypicalTestFloatingTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -78,7 +78,7 @@ public abstract class AddressBookGuiTest {
      */
     protected TaskBook getInitialData() {
         TaskBook ab = TestUtil.generateEmptyTaskBook();
-        TypicalTestPersons.loadTaskBookWithSampleData(ab);
+        TypicalTestFloatingTasks.loadTaskBookWithSampleData(ab);
         return ab;
     }
 
@@ -97,8 +97,8 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyTask person, PersonCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, person));
+    public void assertMatching(ReadOnlyTask person, FloatingTaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, person));
     }
 
     /**

@@ -142,9 +142,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generateTask(1));
-        model.addTask(helper.generateTask(2));
-        model.addTask(helper.generateTask(3));
+        model.addFloatingTask(helper.generateFloatingTask(1));
+        model.addFloatingTask(helper.generateFloatingTask(2));
+        model.addFloatingTask(helper.generateFloatingTask(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
     }
@@ -168,21 +168,16 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
     }
 
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        FloatingTask toBeAdded = helper.adam();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addTask(toBeAdded);
+        expectedAB.addFloatingTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
@@ -196,12 +191,12 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        FloatingTask toBeAdded = helper.adam();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addTask(toBeAdded);
+        expectedAB.addFloatingTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
+        model.addFloatingTask(toBeAdded); // person already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -251,15 +246,15 @@ public class LogicManagerTest {
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Task> taskList = helper.generateTaskList(2);
+        List<FloatingTask> floatingTaskList = helper.generateFloatingTaskList(2);
 
         // set AB state to 2 persons
         model.resetData(new TaskBook());
-        for (Task p : taskList) {
-            model.addTask(p);
+        for (FloatingTask p : floatingTaskList) {
+            model.addFloatingTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), taskList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), floatingTaskList);
     }
 
     @Test
@@ -276,17 +271,17 @@ public class LogicManagerTest {
     @Test
     public void execute_select_jumpsToCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threeTasks = helper.generateTaskList(3);
+        List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(3);
 
-        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
-        helper.addToModel(model, threeTasks);
+        TaskBook expectedAB = helper.generateFloatingTaskBook(threeFloatingTasks);
+        helper.addToModel(model, threeFloatingTasks);
 
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
+        assertEquals(model.getFilteredTaskList().get(1), threeFloatingTasks.get(1));
     }
 
 
@@ -304,14 +299,14 @@ public class LogicManagerTest {
     @Test
     public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threeTasks = helper.generateTaskList(3);
+        List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(3);
 
-        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
-        expectedAB.removeTask(threeTasks.get(1));
-        helper.addToModel(model, threeTasks);
+        TaskBook expectedAB = helper.generateFloatingTaskBook(threeFloatingTasks);
+        expectedAB.removeTask(threeFloatingTasks.get(1));
+        helper.addToModel(model, threeFloatingTasks);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeFloatingTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -326,15 +321,15 @@ public class LogicManagerTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        FloatingTask pTarget1 = helper.generateFloatingTaskWithName("bla bla KEY bla");
+        FloatingTask pTarget2 = helper.generateFloatingTaskWithName("bla KEY bla bceofeia");
+        FloatingTask p1 = helper.generateFloatingTaskWithName("KE Y");
+        FloatingTask p2 = helper.generateFloatingTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourTasks);
+        List<FloatingTask> fourFloatingTasks = helper.generateFloatingTaskList(p1, pTarget1, p2, pTarget2);
+        TaskBook expectedAB = helper.generateFloatingTaskBook(fourFloatingTasks);
+        List<FloatingTask> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2);
+        helper.addToModel(model, fourFloatingTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -345,15 +340,15 @@ public class LogicManagerTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generateTaskWithName("key key");
-        Task p4 = helper.generateTaskWithName("KEy sduauo");
+        FloatingTask p1 = helper.generateFloatingTaskWithName("bla bla KEY bla");
+        FloatingTask p2 = helper.generateFloatingTaskWithName("bla KEY bla bceofeia");
+        FloatingTask p3 = helper.generateFloatingTaskWithName("key key");
+        FloatingTask p4 = helper.generateFloatingTaskWithName("KEy sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
-        List<Task> expectedList = fourTasks;
-        helper.addToModel(model, fourTasks);
+        List<FloatingTask> fourFloatingTasks = helper.generateFloatingTaskList(p3, p1, p4, p2);
+        TaskBook expectedAB = helper.generateFloatingTaskBook(fourFloatingTasks);
+        List<FloatingTask> expectedList = fourFloatingTasks;
+        helper.addToModel(model, fourFloatingTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -364,15 +359,15 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generateTaskWithName("key key");
-        Task p1 = helper.generateTaskWithName("sduauo");
+        FloatingTask pTarget1 = helper.generateFloatingTaskWithName("bla bla KEY bla");
+        FloatingTask pTarget2 = helper.generateFloatingTaskWithName("bla rAnDoM bla bceofeia");
+        FloatingTask pTarget3 = helper.generateFloatingTaskWithName("key key");
+        FloatingTask p1 = helper.generateFloatingTaskWithName("sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourTasks);
+        List<FloatingTask> fourFloatingTasks = helper.generateFloatingTaskList(pTarget1, p1, pTarget2, pTarget3);
+        TaskBook expectedAB = helper.generateFloatingTaskBook(fourFloatingTasks);
+        List<FloatingTask> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2, pTarget3);
+        helper.addToModel(model, fourFloatingTasks);
 
         assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -386,44 +381,35 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
+        FloatingTask adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+            return new FloatingTask(name, tags);
         }
 
         /**
          * Generates a valid person using the given seed.
          * Running this function with the same parameter values guarantees the returned person will have the same state.
-         * Each unique seed will generate a unique Task object.
+         * Each unique seed will generate a unique FloatingTask object.
          *
          * @param seed used to generate the person data field values
          */
-        Task generateTask(int seed) throws Exception {
-            return new Task(
-                    new Name("Task " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Address("House of " + seed),
+        FloatingTask generateFloatingTask(int seed) throws Exception {
+            return new FloatingTask(
+                    new Name("FloatingTask " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
         /** Generates the correct add command based on the person given */
-        String generateAddCommand(Task p) {
+        String generateAddCommand(FloatingTask p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -445,70 +431,67 @@ public class LogicManagerTest {
         /**
          * Generates an TaskBook based on the list of Persons given.
          */
-        TaskBook generateTaskBook(List<Task> tasks) throws Exception{
+        TaskBook generateFloatingTaskBook(List<FloatingTask> floatingTasks) throws Exception{
             TaskBook taskBook = new TaskBook();
-            addToTaskBook(taskBook, tasks);
+            addToFloatingTaskBook(taskBook, floatingTasks);
             return taskBook;
         }
 
         /**
-         * Adds auto-generated Task objects to the given TaskBook
+         * Adds auto-generated FloatingTask objects to the given TaskBook
          * @param taskBook The TaskBook to which the Persons will be added
          */
         void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception{
-            addToTaskBook(taskBook, generateTaskList(numGenerated));
+            addToFloatingTaskBook(taskBook, generateFloatingTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given TaskBook
          */
-        void addToTaskBook(TaskBook taskBook, List<Task> tasksToAdd) throws Exception{
-            for(Task p: tasksToAdd){
-                taskBook.addTask(p);
+        void addToFloatingTaskBook(TaskBook taskBook, List<FloatingTask> floatingTasksToAdd) throws Exception{
+            for(FloatingTask p: floatingTasksToAdd){
+                taskBook.addFloatingTask(p);
             }
         }
 
         /**
-         * Adds auto-generated Task objects to the given model
+         * Adds auto-generated FloatingTask objects to the given model
          * @param model The model to which the Persons will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception{
-            addToModel(model, generateTaskList(numGenerated));
+            addToModel(model, generateFloatingTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given model
          */
-        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
-            for(Task p: tasksToAdd){
-                model.addTask(p);
+        void addToModel(Model model, List<FloatingTask> floatingTasksToAdd) throws Exception{
+            for(FloatingTask p: floatingTasksToAdd){
+                model.addFloatingTask(p);
             }
         }
 
         /**
          * Generates a list of Persons based on the flags.
          */
-        List<Task> generateTaskList(int numGenerated) throws Exception{
-            List<Task> tasks = new ArrayList<>();
+        List<FloatingTask> generateFloatingTaskList(int numGenerated) throws Exception{
+            List<FloatingTask> floatingTasks = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
-                tasks.add(generateTask(i));
+                floatingTasks.add(generateFloatingTask(i));
             }
-            return tasks;
+            return floatingTasks;
         }
 
-        List<Task> generateTaskList(Task... persons) {
+        List<FloatingTask> generateFloatingTaskList(FloatingTask... persons) {
             return Arrays.asList(persons);
         }
 
         /**
-         * Generates a Task object with given name. Other fields will have some dummy values.
+         * Generates a FloatingTask object with given name. Other fields will have some dummy values.
          */
-        Task generateTaskWithName(String name) throws Exception {
-            return new Task(
+        FloatingTask generateFloatingTaskWithName(String name) throws Exception {
+            return new FloatingTask(
                     new Name(name),
-                    new Phone("1"),
-                    new Email("1@email"),
-                    new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

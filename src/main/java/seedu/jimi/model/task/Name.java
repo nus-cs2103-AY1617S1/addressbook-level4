@@ -3,12 +3,12 @@ package seedu.jimi.model.task;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's name in the address book.
+ * Represents a FloatingTask's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "FloatingTask names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;

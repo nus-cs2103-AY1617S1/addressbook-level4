@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JAXB-friendly version of the Task.
+ * JAXB-friendly version of the FloatingTask.
  */
 public class XmlAdaptedTask {
 
@@ -34,15 +34,12 @@ public class XmlAdaptedTask {
 
 
     /**
-     * Converts a given Task into this class for JAXB use.
+     * Converts a given FloatingTask into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -50,20 +47,17 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's FloatingTask object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
-    public Task toModelType() throws IllegalValueException {
+    public FloatingTask toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, phone, email, address, tags);
+        return new FloatingTask(name, tags);
     }
 }

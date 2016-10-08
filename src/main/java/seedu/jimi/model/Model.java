@@ -3,8 +3,8 @@ package seedu.jimi.model;
 import java.util.Set;
 
 import seedu.jimi.commons.core.UnmodifiableObservableList;
+import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
-import seedu.jimi.model.task.Task;
 import seedu.jimi.model.task.UniqueTaskList;
 
 /**
@@ -21,7 +21,7 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addFloatingTask(FloatingTask floatingTask) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
