@@ -123,18 +123,29 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
+    
+    @Override
+    public void updateFilteredListToShowAllCompleted(){
+        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier()));
+    }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
     @Override
     public void updateFilteredTaskList(LocalDate date){
-        updateFilteredPersonList(new PredicateExpression(new DateQualifier(date)));
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(date)));
     }
     
-    private void updateFilteredPersonList(Expression expression) {
+    @Override
+    public void updateFilteredTaskList(String tagName){
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagName)));
+    }
+    
+    
+    private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
@@ -177,9 +188,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask person) {
+        public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -198,9 +209,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask person) {
-            return (person.getFromDate().getDate() != null && person.getFromDate().getDate().equals(date))
-                || (person.getTillDate().getDate() != null && person.getTillDate().getDate().equals(date));
+        public boolean run(ReadOnlyTask task) {
+            return (task.getFromDate().getDate() != null && task.getFromDate().getDate().equals(date))
+                || (task.getTillDate().getDate() != null && task.getTillDate().getDate().equals(date));
         }
 
         @Override
@@ -209,4 +220,39 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    private class TagQualifier implements Qualifier {
+        private String tagName;
+
+        TagQualifier(String tagName) {
+            this.tagName = tagName;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return task.getTags().getInternalList().stream()
+                    .filter(tag -> tag.tagName.equals(tagName))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "tag name=" + tagName;
+        }
+    }
+    
+    private class CompletedQualifier implements Qualifier {
+        
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return task.isDone();
+        }
+
+        @Override
+        public String toString() {
+            return "done";
+        }
+    }
+    
 }
