@@ -10,6 +10,10 @@ import java.time.ZoneId;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests TimeUtil class
+ * In this test, today is 3 May 2016, 13:15:10
+ */
 public class TimeUtilTest {
     
     private TimeUtil timeUtil;
@@ -17,7 +21,6 @@ public class TimeUtilTest {
     
     @Before
     public void initialiseTimeUtil() {
-        //In this test, today is 3 May 2016, 13:15:10
         pseudoCurrentTime = LocalDateTime.of(2016, Month.MAY, 3, 13, 15, 10);
         Clock clockStub = Clock.fixed(pseudoCurrentTime.toInstant(ZoneId.systemDefault().getRules().getOffset(pseudoCurrentTime)), ZoneId.systemDefault());
         timeUtil = new TimeUtil(clockStub);
@@ -29,16 +32,21 @@ public class TimeUtilTest {
     }
     
     @Test 
-    public void getTaskDeadlineString_yearsBeforeDeadlines() {
+    public void getTaskDeadlineString_differentYearsBeforeDeadlines() {
         LocalDateTime inputTime1 = LocalDateTime.of(2018, Month.JUNE, 6, 17, 20, 15);
-        String expectedOutput1 = "by 6 July 2018, 5:20 PM";
+        String expectedOutput1 = "by 6 June 2018, 5:20 PM";
         String generatedOutput1 = timeUtil.getTaskDeadlineString(inputTime1);
         assertEquals(generatedOutput1, expectedOutput1);
         
-        LocalDateTime inputTime2 = LocalDateTime.of(2017, Month.DECEMBER, 11, 49, 30);
+        LocalDateTime inputTime2 = LocalDateTime.of(2017, Month.DECEMBER, 11, 11, 49, 30);
         String expectedOutput2 = "by 11 December 2017, 11:49 AM";
         String generatedOutput2 = timeUtil.getTaskDeadlineString(inputTime2);
         assertEquals(generatedOutput2, expectedOutput2);
+        
+        LocalDateTime inputTime3 = LocalDateTime.of(2017, Month.JANUARY, 3, 13, 15, 10);
+        String expectedOutput3 = "by 3 January 2017, 1:15 PM";
+        String generatedOutput3 = timeUtil.getTaskDeadlineString(inputTime3);
+        assertEquals(generatedOutput3, expectedOutput3);
     }
     
     @Test
