@@ -89,7 +89,7 @@ public class TimeUtil {
     }
     
     
-    public String getEventTimeString(LocalDateTime startTime, LocalDateTime endTime) {
+    public String getEventTimeText(LocalDateTime startTime, LocalDateTime endTime) {
         assert(startTime != null);
         assert(endTime != null);
         assert(startTime.isBefore(endTime));
