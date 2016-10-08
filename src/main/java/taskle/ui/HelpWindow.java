@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.ietf.jgss.Oid;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -18,7 +16,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -44,7 +41,7 @@ public class HelpWindow extends UiPart {
                     new CommandGuide("", "remind", "task_number", "Date [Time]"),
                     new CommandGuide("", "remind", "task_number", "null"),
                     new CommandGuide("Removing", "remove", "task_number"), 
-                    new CommandGuide("Finding", "find")));
+                    new CommandGuide("Finding", "find", "search_query")));
 
     private AnchorPane mainPane;
     private Stage dialogStage;
@@ -93,9 +90,9 @@ public class HelpWindow extends UiPart {
     private void setupNameCol() {
         TableColumn<CommandGuide, String> nameCol = 
                 new TableColumn<>(COLUMN_NAME_ACTION);
-        nameCol.prefWidthProperty().bind(helpTable.widthProperty().multiply(0.3));
-        nameCol.setResizable(false);
         bindNameColString(nameCol);
+        setNameColStyle(nameCol);
+        nameCol.setSortable(false);
         helpTable.getColumns().add(nameCol);
     }
 
@@ -103,7 +100,8 @@ public class HelpWindow extends UiPart {
         TableColumn<CommandGuide, String> formatCol = 
                 new TableColumn<>(COLUMN_NAME_FORMAT);
         bindFormatColString(formatCol);
-//        setFormatColStyle(formatCol);
+        setFormatColStyle(formatCol);
+        formatCol.setSortable(false);
         helpTable.getColumns().add(formatCol);
     }
 
@@ -134,6 +132,8 @@ public class HelpWindow extends UiPart {
     }
 
     private void setNameColStyle(TableColumn<CommandGuide, String> nameCol) {
+        nameCol.prefWidthProperty().bind(helpTable.widthProperty().multiply(0.3));
+        nameCol.setResizable(false);
     }
 
     private void setFormatColStyle(TableColumn<CommandGuide, String> formatCol) {
