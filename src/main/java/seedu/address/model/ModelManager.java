@@ -62,7 +62,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskList getAddressBook() {
+    public ReadOnlyTaskList getTaskList() {
         return taskList;
     }
 
@@ -79,8 +79,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addPerson(Task task) throws UniqueTaskList.DuplicatePersonException {
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicatePersonException {
         taskList.addPerson(task);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+    
+    @Override
+    public synchronized void markTaskAsComplete(ReadOnlyTask task) throws PersonNotFoundException {
+        taskList.markTaskAsComplete(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -98,7 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
