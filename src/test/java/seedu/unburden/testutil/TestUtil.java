@@ -21,7 +21,7 @@ import seedu.unburden.model.AddressBook;
 import seedu.unburden.model.person.*;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
-import seedu.unburden.storage.XmlSerializableAddressBook;
+import seedu.unburden.storage.XmlSerializableTaskList;
 
 import java.io.File;
 import java.io.IOException;
@@ -139,8 +139,8 @@ public class TestUtil {
         return new AddressBook(new UniquePersonList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskList generateSampleStorageAddressBook() {
+        return new XmlSerializableTaskList(generateEmptyAddressBook());
     }
 
     /**
