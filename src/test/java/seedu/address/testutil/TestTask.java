@@ -6,7 +6,7 @@ import seedu.address.model.person.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestTask implements ReadOnlyPerson {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Address address;
