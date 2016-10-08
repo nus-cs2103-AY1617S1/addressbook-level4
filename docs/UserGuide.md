@@ -23,7 +23,7 @@
    * **`list`** : lists all tasks. This is the default view.
    * **`add`**` Learn how to use DearJim` : 
      adds a task to the Task Manager.
-   * **`delete`**` 1` : deletes the 1st task shown in the current list
+   * **`delete`**` 1` : deletes the first task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -36,46 +36,91 @@
 > * The order of parameters is fixed.
 
 #### Viewing help : `help`
+Opens the user guide with a new window<br>
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding an item: `add`
 Adds an item into the task manager<br>
+Format: `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
+
+>DearJim allows you to assign your task a `PRIORITY` of low, medium or high. By default (if unspecified), tasks
+will have medium `PRIORITY`.
+> To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add/edit command, where `PRIORITY` can be replaced by low, medium or high.
+>
+> `PRIORITY` also accepts variations of low, medium and high.
+> * `-l` and `-low` means `-low`
+> * `-m`, `-med` and `-medium` means `-medium`
+> * `-h` and `-high` means `-high`
+>
+>
+> DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`.
+> To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add/edit command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
+> 
+> Supported `RECURRING_INTERVAL`
+> * `day`, `2 days`, `3 days`, ...
+> * `week`, `2 weeks`, `3 weeks`, ...
+> * `month`, `2 months`, `3 months`, ...
+
+
+
 
 *With deadline*
 
-Format: `add NAME by DUE_DATE DUE_TIME [repeat every RECURRING_INTERVAL]`
+Format: `add NAME by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIORITY]`
 >Notice the `by` keyword? We use `by` to denote a deadline.
+
+>`END_DATE` and `END_TIME` are flexible!
+>* If no `END_DATE` is specified, `END_DATE` will be assumed to be the current date
+>* `END_DATE`
+>   * `today`, `tonight` can be used to refer to the current day
+>   * `tmr`, `tomorrow` can be used to refer to the next day
+>   * `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday` and `Sunday` refers to the nearest matching day from the current date
+>* `END_TIME`
+>   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
+>   * `midnight` can be used to specify 12AM
+>   * `noon` can be used to specify 12PM
+>   * `24:00` - 24-hour clock format is also accepted
 
 Examples:
 * `add Do project proposal by 5pm tomorrow`
+* `add eat lunch by 1pm today -h`
 * `add Buy coffee for boss by 7am repeat every day`
 
 *Without deadline*
 
-Format: `add NAME [rank PRIORITY]`
->No deadlines? No worries. DearJim allows you to rank your priorities. Assign rank of 1 to 10, with 1 being the most important task. If you did not specify the priority, it will be assigned to a default value of 5.
+Format: `add NAME [-PRIORITY]`
+
+> Simply enter the name of the task!
 
 Example:
-* `add Buy coffee powder rank 1`
+* `add Buy coffee powder`
+* `add Buy coffee powder -medium`
+* `add Buy washing powder -h`
+* `add Buy baby powder -l`
 
 *With time interval*
 
-`add NAME at DATE START_TIME to [DATE] END_TIME [repeat every RECURRING_INTERVAL]` 
-> For events, meetings, we use `at`, `to` to specify the date/time interval.
+`add NAME from/at START_DATE START_TIME [to END_DATE END_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]` 
+> For events, meetings, we use `from` and `at` to indicate the start time and `to` and `by` to indicate the end time.
+> End time can be unspecified.
+
+>`START_DATE`, `START_TIME`, `END_DATE` and `END_TIME` are flexible!
+>* If no `END_DATE` is specified, `END_DATE` will be assumed to be the current date
+>* `START_DATE` and `END_DATE`
+>   * `today`, `tonight` can be used to refer to the current day
+>   * `tmr`, `tomorrow` can be used to refer to the next day
+>   * `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday` and `Sunday` refers to the nearest matching day from the current date
+>* `START_TIME` and `END_TIME`
+>   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
+>   * `midnight` can be used to specify 12AM
+>   * `noon` can be used to specify 12PM
+>   * `24:00` - 24-hour clock format is also accepted
 
 Example: 
 * `add Company meeting tonight at 7pm to 9pm`
-
-*Tentative event*
-
-Format: `add NAME (at DATE START_TIME to [DATE] END TIME...)` 
-> Sometimes, we have an unconfirmed event slot. For example, the meeting your boss wants to hold might be on 2-3pm tomorrow, or the day after. 
-> Group the list of dates inside `()` and separate each date with `,`
-
-Example: 
-* `add Company meeting (at 22 Sep 2pm to 3pm, at 23 Sep 2pm to 3pm)`
+* `add Family dinner at noon`
+* `add Meet Akshay from 1pm to 2pm -h`
 
 #### Editing an item: `edit`
 Edits any item in the task manager<br>
@@ -134,7 +179,7 @@ Format: `done INDEX`
 Shows a list of all items in the task manager.<br>
 Format: `list`
 
-#### Find an item : `find`
+#### Finding an item : `find`
 Find an item by name.<br>
 Format: `find NAME`
 
