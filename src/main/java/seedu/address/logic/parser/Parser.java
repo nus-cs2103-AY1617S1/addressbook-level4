@@ -161,15 +161,33 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
+    private Command prepareDelete(String args) {       
+        final Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ", "").split(","));
+        Iterator<String> itr = indexes.iterator();
+        ArrayList<Integer> pass = new ArrayList<Integer>();
+        
+        Optional<Integer> index = parseIndex(itr.next());
+        
+        //System.out.println(index.isPresent() + args);
+        
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+        
+        pass.add(index.get());
 
-        return new DeleteCommand(index.get());
+        while(itr.hasNext()){
+            index = parseIndex(itr.next());
+           // System.out.println(index.isPresent() + args + indexes.size());
+            if(!index.isPresent()){
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));             
+            }           
+            pass.add(index.get());
+        }
+
+        return new DeleteCommand(pass);
     }
 
     /**
@@ -179,13 +197,34 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
+        
+        final Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ", "").split(","));
+        Iterator<String> itr = indexes.iterator();
+        ArrayList<Integer> pass = new ArrayList<Integer>();
+        
+        Optional<Integer> index = parseIndex(itr.next());
+        
+        //System.out.println(index.isPresent() + args);
+        
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
+        
+        pass.add(index.get());
 
-        return new SelectCommand(index.get());
+        while(itr.hasNext()){
+            index = parseIndex(itr.next());
+           // System.out.println(index.isPresent() + args);
+            if(!index.isPresent()){
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));             
+            }           
+            pass.add(index.get());
+        }
+        
+        return new SelectCommand(pass);
+
     }
 
     /**
@@ -197,6 +236,8 @@ public class Parser {
         if (!matcher.matches()) {
             return Optional.empty();
         }
+        
+       // System.out.println(matcher.matches());
 
         String index = matcher.group("targetIndex");
         if(!StringUtil.isUnsignedInteger(index)){
