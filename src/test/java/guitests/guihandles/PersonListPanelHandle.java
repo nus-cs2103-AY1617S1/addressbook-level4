@@ -100,7 +100,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
 
-    public PersonCardHandle navigateToPerson(String name) {
+    public TaskCardHandle navigateToPerson(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!person.isPresent()) {
@@ -113,7 +113,7 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the person.
      */
-    public PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
+    public TaskCardHandle navigateToPerson(ReadOnlyPerson person) {
         int index = getPersonIndex(person);
 
         guiRobot.interact(() -> {
@@ -146,17 +146,17 @@ public class PersonListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public TaskCardHandle getPersonCardHandle(int index) {
         return getPersonCardHandle(new Person(getListView().getItems().get(index)));
     }
 
-    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
+    public TaskCardHandle getPersonCardHandle(ReadOnlyPerson person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new PersonCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
+                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
-            return new PersonCardHandle(guiRobot, primaryStage, personCardNode.get());
+            return new TaskCardHandle(guiRobot, primaryStage, personCardNode.get());
         } else {
             return null;
         }

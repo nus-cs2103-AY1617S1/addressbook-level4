@@ -6,7 +6,7 @@ import seedu.address.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends ToDoListGuiTest {
 
     @Test
     public void find_nonEmptyList() {
@@ -34,6 +34,6 @@ public class FindCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " persons listed!");
-        assertTrue(personListPanel.isListMatching(expectedHits));
+        assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }
