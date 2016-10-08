@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
     @Override
     public CommandResult execute() {
         
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getUnmodifiableFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

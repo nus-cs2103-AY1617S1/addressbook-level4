@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.ModifiableObservableList;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
@@ -76,12 +77,29 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    @Override
+    public synchronized Task getTask(ReadOnlyTask target) throws TaskNotFoundException {
+        int index = toDoList.getTasks().indexOf(target);
+        
+        if(index < 0) {
+            throw new TaskNotFoundException();
+        } else {
+            return toDoList.getTasks().get(index);
+        }
+    }
+    
 
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public ModifiableObservableList<Task> getFilteredTaskList() {
+        return new ModifiableObservableList<>(filteredTasks);
     }
 
     @Override

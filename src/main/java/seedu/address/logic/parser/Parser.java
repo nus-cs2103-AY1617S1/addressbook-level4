@@ -33,7 +33,7 @@ public class Parser {
             .compile("(?<name>[^/]+) on (?<fromDateTime>[^;]+)(?: ?; ?(?<detail>.+))?");
 
     private static final Pattern TASK_DATA_ARGS_FORMAT_BY = Pattern
-            .compile("(?<name>[^/]+) by (?<fromDateTime>[^;]+)(?: ?; ?(?<detail>.+))?");
+            .compile("(?<name>[^/]+) by (?<tillDateTime>[^;]+)(?: ?; ?(?<detail>.+))?");
 
     private static final Pattern TASK_DATA_ARGS_FORMAT_FLOAT = Pattern
             .compile("(?<name>[a-zA-Z_0-9 ]+)(?: ?; ?(?<detail>.+))?");
