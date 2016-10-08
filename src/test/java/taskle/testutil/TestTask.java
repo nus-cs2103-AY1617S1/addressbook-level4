@@ -24,7 +24,7 @@ public class TestTask implements ReadOnlyTask {
         return name;
     }
 
-    @Override
+
     public UniqueTagList getTags() {
         return tags;
     }
