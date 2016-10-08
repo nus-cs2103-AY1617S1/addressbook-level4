@@ -123,9 +123,8 @@ Example:
 * `add Meet Akshay from 1pm to 2pm -h`
 
 #### Editing an item: `edit`
-Edits any item in the task manager<br>
+Edits an item in the task manager<br>
 
-*Any type except tentative*
 
 Format: Replace 	`add` with `edit INDEX`
 >Tip: We make the edit commands similar to add commands, so that you only have to learn one of them! Simply replace `add` with `edit INDEX` to do an edit.
@@ -144,45 +143,72 @@ Example:
 
 * `edit 12 1 (at 24 Sep 8pm to 9pm) 3 (at 25 Sep 8pm to 9pm)`
 
-
-#### Confirming a tentative event: `confirm`
-Confirm a tentative event in your task manager. Must have added a tentative event first. Refer to `add` command.<br>
-
-*Tentative event*
-
-Format: `confirm INDEX SUBINDEX`
-
-Example:
-> <img src="images/confirm_ui.png" width="600">
-
-* `confirm 3 1`
-
-
 #### Deleting an item: `delete`
-Delete an item in your task manager This process is reversible with the `undo` command.<br>
-Format:
-`delete INDEX` `delete all`
+Deletes an item in your task manager.<br>
+This process is reversible with the `undo` command.<br>
+Format: `delete INDEX`
+> Check out the `undo` command below to reverse an accidental `delete`!
+
+Examples:
+* `delete 1`
+* `delete 2`
 
 #### Undoing a command: `undo`
+Reverses the effects of the previous command, if the command is a reversible one.<br>
 Format: `undo`
+> Commands that you can `undo`
+> * `add`
+> * `edit`
+> * `delete`
+> * `clear`
+> * `done`
+>
+Example:
+* `undo`
+
+#### Clearing the task manager: `clear`
+Deletes all items in your task manager.<br>
+This process is reversible with the `undo` command.<br>
+Format: `clear`
+> `clear` allows you to `delete` all items with a single command!
+
+Example:
+* `clear`
 
 
 #### Redoing a command: `redo`
+Reverses a previous `undo` command, if possible.<br>
 Format: `redo`
+> `redo` allows your to reverse your previous `undo` to get back your data!
+>
+> Note: `redo` can only remember the last `undo` if no `add`, `edit`, `delete`, `clear` or `done` commands have been entered after the last `undo`.
+
+Example: 
+* `redo`
 
 #### Archiving an item: `done`
-Archive an item in your task manager.<br>
-
+Archives an item in your task manager.<br>
 Format: `done INDEX`
+> Marks an item as `done` as sends it to the archive for future viewing.
+
+Examples:
+* `done 1`
+* `done 2`
 
 #### Listing all items : `list`
 Shows a list of all items in the task manager.<br>
 Format: `list`
+> Displays all uncompleted tasks in the task manager.
 
 #### Finding an item : `find`
 Find an item by name.<br>
 Format: `find NAME`
+> `find` is case-insensitive.
 
+Examples:
+* `find Akshay`
+* `find Michelle`
+* `find johnny`
 
 #### Saving the data 
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
