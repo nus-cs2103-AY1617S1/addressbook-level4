@@ -5,34 +5,34 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's due time in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidDueTime(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDueByTime(String)}
  */
-public class DueTime {
+public class DueByTime {
 
-    public static final String MESSAGE_DUETIME_CONSTRAINTS = "";
-    public static final String DUETIME_VALIDATION_REGEX = "";
+    public static final String MESSAGE_DUEBYTIME_CONSTRAINTS = "";
+    public static final String DUEBYTIME_VALIDATION_REGEX = "";
 
     public final String value;
 
     /**
-     * Validates given dueTime.
+     * Validates given dueByTime.
      *
-     * @throws IllegalValueException if given due time string is invalid.
+     * @throws IllegalValueException if given dueByTime string is invalid.
      */
-    public DueTime(String dueTime) throws IllegalValueException {
-        assert dueTime != null;
-        dueTime = dueTime.trim();
-        if (!isValidDueTime(dueTime)) {
-            throw new IllegalValueException(MESSAGE_DUETIME_CONSTRAINTS);
+    public DueByTime(String dueByTime) throws IllegalValueException {
+        assert dueByTime != null;
+        dueByTime = dueByTime.trim();
+        if (!isValidDueByTime(dueByTime)) {
+            throw new IllegalValueException(MESSAGE_DUEBYTIME_CONSTRAINTS);
         }
-        this.value = dueTime;
+        this.value = dueByTime;
     }
 
     /**
      * Returns if a given string is a valid due time.
      */
-    public static boolean isValidDueTime(String test) {
-        return test.matches(DUETIME_VALIDATION_REGEX);
+    public static boolean isValidDueByTime(String test) {
+        return test.matches(DUEBYTIME_VALIDATION_REGEX);
     }
 
     @Override

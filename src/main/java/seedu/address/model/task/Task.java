@@ -14,8 +14,8 @@ public class Task implements ReadOnlyTask {
 	
     private Detail detail; //name
     private Done done;
-    private DueDay dueDay; //phone
-    private DueTime dueTime; //email
+    private DueByDate dueByDate; //phone
+    private DueByTime dueByTime; //email
     private Priority priority; //address
 
     private UniqueTagList tags;
@@ -23,13 +23,13 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Detail detail, Done done, DueDay dueDay, DueTime dueTime, Priority priority, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(detail, done, dueDay, dueTime, priority, tags);
+    public Task(Detail detail, Done done, DueByDate dueByDate, DueByTime dueByTime, Priority priority, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(detail, done, dueByDate, dueByTime, priority, tags);
         
         this.detail = detail;
         this.done = done;
-        this.dueDay = dueDay;
-        this.dueTime = dueTime;
+        this.dueByDate = dueByDate;
+        this.dueByTime = dueByTime;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -38,7 +38,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDetail(), source.checkDone(), source.getDueDay(), source.getDueTime(), source.getPriority(), source.getTags());
+        this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getTags());
     }
 
     @Override
@@ -52,13 +52,13 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
-    public DueDay getDueDay() {
-        return dueDay;
+    public DueByDate getDueByDate() {
+        return dueByDate;
     }
 
     @Override
-    public DueTime getDueTime() {
-        return dueTime;
+    public DueByTime getDueByTime() {
+        return dueByTime;
     }
     
     @Override
@@ -88,7 +88,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(detail, done, dueDay, dueTime, priority, tags);
+        return Objects.hash(detail, done, dueByDate, dueByTime, priority, tags);
     }
 
     @Override

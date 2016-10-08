@@ -10,8 +10,8 @@ public interface ReadOnlyTask {
 	
     Detail getDetail();
     Done checkDone();
-    DueDay getDueDay();
-    DueTime getDueTime();
+    DueByDate getDueByDate();
+    DueByTime getDueByTime();
     Priority getPriority();
 
     /**
@@ -29,8 +29,8 @@ public interface ReadOnlyTask {
            
                 && other.getDetail().equals(this.getDetail()) // state checks here onwards
                 && other.checkDone().equals(this.checkDone())
-                && other.getDueDay().equals(this.getDueDay())
-                && other.getDueTime().equals(this.getDueTime())
+                && other.getDueByDate().equals(this.getDueByDate())
+                && other.getDueByTime().equals(this.getDueByTime())
                 && other.getPriority().equals(this.getPriority()));
     }
 
@@ -43,9 +43,9 @@ public interface ReadOnlyTask {
         		.append(" Done: ")
         		.append(checkDone())
                 .append(" Phone: ")
-                .append(getDueDay())
+                .append(getDueByDate())
                 .append(" Email: ")
-                .append(getDueTime())
+                .append(getDueByTime())
                 .append(" Address: ")
                 .append(getPriority())
                 .append(" Tags: ");
