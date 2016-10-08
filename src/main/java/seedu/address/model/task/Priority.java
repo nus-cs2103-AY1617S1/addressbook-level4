@@ -8,24 +8,26 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Priority {
     public static final String MESSAGE_NAME_CONSTRAINTS = "The priority should only be specified as 'high', 'med' or 'low'.";
-    public static final String PRIORITY_VALIDATION_REGEX = "\\b(high)|(low)|(mid)\\b";
+    public static final String PRIORITY_VALIDATION_REGEX = "\\b(high)|(low)|(med)\\b";
 
     public final String priorityLevel;
 
     public Priority(String priority) throws IllegalValueException {
-        if (priority != null)
-            priority = priority.trim();
-        if (!isPriorityLevel(priority)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+        if (priority != null){
+            priority = priority.trim().toLowerCase();
+        	if (!isPriorityLevel(priority)) {
+        		throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+	        }
+	        this.priorityLevel = priority;
+    	}
+        else {
+        	this.priorityLevel = "low";
         }
-        this.priorityLevel = priority;
+        
     }
+    
     public static boolean isPriorityLevel(String test) {
-        if (test != null) {
-            test = test.toLowerCase();
             return test.matches(PRIORITY_VALIDATION_REGEX);
-        }
-        return false;
     }
 
     public String toString() {

@@ -25,8 +25,8 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>([^/](?<! starts ))+)" 
-			+ "((?: starts )(?<start>([^/](?<! ends ))+))?"
+    private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>([^/](?<! (starts|ends|priority) ))+)" 
+			+ "((?: starts )(?<start>([^/](?<! (ends|priority) ))+))?"
 			+ "((?: ends )(?<end>([^/](?<! priority ))+))?"
 			+ "((?: priority )(?<priority>[^/]+))?"
 			+ "(?<tagArguments>(?: t/[^/]+)*)");
