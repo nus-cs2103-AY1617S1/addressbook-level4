@@ -21,10 +21,11 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD
             + "buy milk";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New %1$s task added: %2$s";
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";
     
     private final Task toAdd;
+    private String taskType;
     final Set<Tag> tagSet = new HashSet<>();
 
     /**
@@ -43,6 +44,7 @@ public class AddCommand extends Command {
                 new Time(endTime),
                 new UniqueTagList(tagSet)
         );
+        taskType = "event";
     }
     
     /**
@@ -61,6 +63,7 @@ public class AddCommand extends Command {
                 new Time(endTime),
                 new UniqueTagList(tagSet)
         );
+        taskType = "deadline";
     }
     
     /**
@@ -79,6 +82,7 @@ public class AddCommand extends Command {
                 new Time(Messages.MESSAGE_NO_END_TIME_SET),
                 new UniqueTagList(tagSet)
         );
+        taskType = "floating";
     }
 
     @Override
@@ -86,7 +90,7 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
