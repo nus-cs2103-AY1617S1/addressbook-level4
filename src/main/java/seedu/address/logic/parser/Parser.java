@@ -26,14 +26,6 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
-
     private static final Pattern TASK_FLOAT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -94,7 +86,6 @@ public class Parser {
     private Command prepareAdd(String args){
         final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "repeattime", "tag");
         HashMap<String, String> parsed = parser.parseFree(args);
-        //System.out.println(parsed.get("add") + parsed.get("tag") + parsed.get("by") + parsed.get("repeattime"));
         String name = parsed.get("add");
         String by = parsed.get("by");
         String startTime = parsed.get("from");
