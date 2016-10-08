@@ -57,215 +57,97 @@ public class TimeUtilTest {
     @Test
     public void getTaskDeadlineText_dueNow() {
         String expectedOutput = "due now";
+        LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
         
-        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
-        String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-        assertEquals(expectedOutput, generatedOutput1);
-        
-        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 59);
-        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
-        String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-        assertEquals(expectedOutput, generatedOutput2);
-        
-        LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 30);
-        LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
-        String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
-        assertEquals(expectedOutput, generatedOutput3);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 59), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 30), dueTime);
     }
     
     @Test
     public void getTaskDeadlineText_dueLessThanAMinute() {
         String expectedOutput = "in less than a minute";
+        LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
         
-        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 01);
-        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
-        String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-        assertEquals(expectedOutput, generatedOutput1);
-        
-        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 59);
-        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
-        String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-        assertEquals(expectedOutput, generatedOutput2);
-        
-        LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 30);
-        LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
-        String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
-        assertEquals(expectedOutput, generatedOutput3);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 01), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 59), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 30), dueTime);
     }
     
     @Test
     public void getTaskDeadlineText_aMinuteBeforeDeadline() {
         String expectedOutput = "in 1 minute";
+        LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
         
-        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 00);
-        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
-        String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-        assertEquals(expectedOutput, generatedOutput1);
-        
-        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 30);
-        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
-        String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-        assertEquals(expectedOutput, generatedOutput2);
-        
-        LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 01);
-        LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
-        String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
-        assertEquals(expectedOutput, generatedOutput3);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 00), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 30), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 01), dueTime);
     }
     
     @Test
     public void getTaskDeadlineText_aMinuteAfterDeadline() {
         String expectedOutput = "1 minute ago";
+        LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
         
-        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 01, 00);
-        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
-        String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-        assertEquals(expectedOutput, generatedOutput1);
-        
-        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 01, 30);
-        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
-        String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-        assertEquals(expectedOutput, generatedOutput2);
-        
-        LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 01, 59);
-        LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
-        String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
-        assertEquals(expectedOutput, generatedOutput3);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 01, 00), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 01, 30), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 01, 59), dueTime);
     }
     
     @Test
     public void getTaskDeadlineText_minutesBeforeDeadline() {
+        LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
+        
         for (int minutesLeft = 2; minutesLeft <= 59; minutesLeft++) {
             String expectedOutput = "in " + minutesLeft + " minutes";
             
-            LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-            LocalDateTime currentTime1 = dueTime1.minusMinutes(minutesLeft);
-            TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
-            String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-            assertEquals(expectedOutput, generatedOutput1);
-            
-            LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-            LocalDateTime currentTime2 = dueTime2.minusMinutes(minutesLeft).minusSeconds(30);
-            TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
-            String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-            assertEquals(expectedOutput, generatedOutput2);
-            
-            LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-            LocalDateTime currentTime3 = dueTime3.minusMinutes(minutesLeft).minusSeconds(59);
-            TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
-            String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
-            assertEquals(expectedOutput, generatedOutput3);
+            testTaskDeadlineTextHelper(expectedOutput, dueTime.minusMinutes(minutesLeft), dueTime);
+            testTaskDeadlineTextHelper(expectedOutput, dueTime.minusMinutes(minutesLeft).minusSeconds(30), dueTime);
+            testTaskDeadlineTextHelper(expectedOutput, dueTime.minusMinutes(minutesLeft).minusSeconds(59), dueTime);
         }
     }
     
     @Test
     public void getTaskDeadlineText_minutesAfterDeadline() {
+        LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
+        
         for (int minutesLater = 2; minutesLater <= 59; minutesLater++) {
             String expectedOutput = minutesLater + " minutes ago";
             
-            LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-            LocalDateTime currentTime1 = dueTime1.plusMinutes(minutesLater);
-            TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
-            String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-            assertEquals(expectedOutput, generatedOutput1);
-            
-            LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-            LocalDateTime currentTime2 = dueTime2.plusMinutes(minutesLater).plusSeconds(30);
-            TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
-            String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-            assertEquals(expectedOutput, generatedOutput2);
-            
-            LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-            LocalDateTime currentTime3 = dueTime3.plusMinutes(minutesLater).plusSeconds(59);
-            TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
-            String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
-            assertEquals(expectedOutput, generatedOutput3);
+            testTaskDeadlineTextHelper(expectedOutput, dueTime.plusMinutes(minutesLater), dueTime);
+            testTaskDeadlineTextHelper(expectedOutput, dueTime.plusMinutes(minutesLater).plusSeconds(30), dueTime);
+            testTaskDeadlineTextHelper(expectedOutput, dueTime.plusMinutes(minutesLater).plusSeconds(59), dueTime);
         }
     }
     
     @Test
     public void getTaskDeadlineText_todayBeforeDeadline() {
-        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 10, 45, 00);
-        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 17, 59, 00);
-        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
-        String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-        String expectedOutput1 = "by today, 5:59 PM";
-        assertEquals(expectedOutput1, generatedOutput1);
-        
-        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 30);
-        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 18, 00, 00);
-        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
-        String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-        String expectedOutput2 = "by tonight, 6:00 PM";
-        assertEquals(expectedOutput2, generatedOutput2);
-        
-        LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 00, 00, 00);
-        LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 00, 30, 00);
-        TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
-        String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
-        String expectedOutput3 = "in 30 minutes";
-        assertEquals(expectedOutput3, generatedOutput3);
+        testTaskDeadlineTextHelper("by today, 5:59 PM", 
+                LocalDateTime.of(2016, Month.MARCH, 20, 10, 45), LocalDateTime.of(2016, Month.MARCH, 20, 17, 59));
+        testTaskDeadlineTextHelper("by tonight, 6:00 PM", 
+                LocalDateTime.of(2016, Month.MARCH, 20, 11, 58), LocalDateTime.of(2016, Month.MARCH, 20, 18, 00));
+        testTaskDeadlineTextHelper("in 30 minutes", 
+                LocalDateTime.of(2016, Month.MARCH, 20, 00, 00), LocalDateTime.of(2016, Month.MARCH, 20, 00, 30));
     }
     
     @Test
     public void getTaskDeadlineText_todayAfterDeadline() {
-        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 18, 45, 00);
-        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
-        String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-        String expectedOutput1 = "since 12:00 PM";
-        assertEquals(expectedOutput1, generatedOutput1);
-        
-        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 23, 58, 30);
-        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 16, 50, 00);
-        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
-        String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-        String expectedOutput2 = "since 4:50 PM";
-        assertEquals(expectedOutput2, generatedOutput2);
-        
-        LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 00, 30, 00);
-        LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 00, 00, 00);
-        TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
-        String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
-        String expectedOutput3 = "30 minutes ago";
-        assertEquals(expectedOutput3, generatedOutput3);
+        testTaskDeadlineTextHelper("since 12:00 PM", 
+                LocalDateTime.of(2016, Month.MARCH, 20, 18, 45), LocalDateTime.of(2016, Month.MARCH, 20, 12, 00));
+        testTaskDeadlineTextHelper("since 4:50 PM", 
+                LocalDateTime.of(2016, Month.MARCH, 20, 23, 58), LocalDateTime.of(2016, Month.MARCH, 20, 16, 50));
+        testTaskDeadlineTextHelper("30 minutes ago", 
+                LocalDateTime.of(2016, Month.MARCH, 20, 00, 30), LocalDateTime.of(2016, Month.MARCH, 20, 00, 00));
     }
     
     @Test
     public void getTaskDeadlineText_tomorrowBeforeDeadline() {
-        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 21, 12, 00, 00);
-        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
-        String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-        String expectedOutput1 = "by tomorrow, 12:00 PM";
-        assertEquals(expectedOutput1, generatedOutput1);
-        
-        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 23, 50, 00);
-        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 21, 00, 51, 00);
-        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
-        String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-        String expectedOutput2 = "by tomorrow, 12:51 AM";
-        assertEquals(expectedOutput2, generatedOutput2);
-        
-        LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 23, 50, 00);
-        LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 21, 00, 10, 00);
-        TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
-        String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
-        String expectedOutput3 = "in 20 minutes";
-        assertEquals(expectedOutput3, generatedOutput3);
+        testTaskDeadlineTextHelper("by tomorrow, 12:00 PM", 
+                LocalDateTime.of(2016, Month.MARCH, 20, 12, 00), LocalDateTime.of(2016, Month.MARCH, 21, 12, 00));
+        testTaskDeadlineTextHelper("by tomorrow, 12:51 AM", 
+                LocalDateTime.of(2016, Month.MARCH, 20, 23, 50), LocalDateTime.of(2016, Month.MARCH, 21, 00, 51));
+        testTaskDeadlineTextHelper("in 20 minutes", 
+                LocalDateTime.of(2016, Month.MARCH, 20, 23, 50), LocalDateTime.of(2016, Month.MARCH, 21, 00, 10));
     }
     
     @Test
