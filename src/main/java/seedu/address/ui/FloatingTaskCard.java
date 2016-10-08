@@ -5,11 +5,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.person.ReadOnlyPerson;
 
 public class FloatingTaskCard extends UiPart{
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "FloatingTaskListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -42,8 +41,9 @@ public class FloatingTaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getName());
-        phone.setText(person.getPriorityValue());
+        name.setText(person.getName().name);
+        phone.setText(person.getPriorityValue().priorityValue);
+        id.setText(displayedIndex + "");
     }
 
     public HBox getLayout() {

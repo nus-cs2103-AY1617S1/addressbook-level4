@@ -3,8 +3,8 @@ package seedu.address.model.item;
 
 public interface ReadOnlyFloatingTask {
 
-    String getName();
-    String getPriorityValue();
+    Name getName();
+    Priority getPriorityValue();
     
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

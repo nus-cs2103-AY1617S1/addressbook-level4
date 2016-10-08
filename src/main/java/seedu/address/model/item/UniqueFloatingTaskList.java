@@ -1,10 +1,8 @@
-package seedu.address.model.person;
+package seedu.address.model.item;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.model.item.FloatingTask;
-import seedu.address.model.item.ReadOnlyFloatingTask;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -56,9 +54,11 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
      */
     public void add(FloatingTask toAdd) throws DuplicateFloatingTaskException {
         assert toAdd != null;
+        /*
         if (contains(toAdd)) {
             throw new DuplicateFloatingTaskException();
         }
+        */
         internalList.add(toAdd);
     }
 

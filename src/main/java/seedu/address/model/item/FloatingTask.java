@@ -1,27 +1,26 @@
 package seedu.address.model.item;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.commons.util.CollectionUtil;
 
-public class FloatingTask implements ReadOnlyFloatingTask{
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
-    public static final String MESSAGE_VALUE_CONSTRAINTS = "Priority values should be between 1 to 10 inclusive";
-    public static final String DEFAULT_PRIORITY_VALUE = "5";
+public class FloatingTask implements ReadOnlyFloatingTask {
+    
     public static final String VARIABLE_CONNECTOR = ". Rank: ";
+    public static final String DEFAULT_PRIORITY_VALUE = "5";
+
     
-    protected final String name;
-    private final String priorityValue;
+    protected final Name name;
+    private final Priority priorityValue;
     
-    public FloatingTask(String taskName) throws IllegalValueException {
-        this(taskName, DEFAULT_PRIORITY_VALUE);
+    public FloatingTask(Name taskName) throws IllegalValueException {
+        this(taskName, new Priority(DEFAULT_PRIORITY_VALUE));
     }    
     
     /**
      * Copy constructor.
      * @throws IllegalValueException 
      */
-    public FloatingTask(ReadOnlyFloatingTask source) throws IllegalValueException {
+    public FloatingTask(ReadOnlyFloatingTask source) {
         this(source.getName(), source.getPriorityValue());
     }
     
@@ -30,33 +29,12 @@ public class FloatingTask implements ReadOnlyFloatingTask{
      *
      * @throws IllegalValueException if given value is invalid.
      */
-    public FloatingTask(String taskName, String priorityValue) throws IllegalValueException {
-        assert priorityValue != null;
-        assert taskName != null;
-        if (!isValidName(taskName)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
-        }
+    public FloatingTask(Name taskName, Priority priorityValue) {
+        assert !CollectionUtil.isAnyNull(taskName, priorityValue);
         this.name = taskName;
-        if (!isValidValue(priorityValue)) {
-            throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
-        }
         this.priorityValue = priorityValue;
     }
 
-    /**
-     * Returns true if a given value is a valid priority value.
-     */
-    public static boolean isValidValue(String priorityValue) {
-        return Integer.valueOf(priorityValue) >= 0 && Integer.valueOf(priorityValue) <= 10;
-    }
-    
-    /**
-     * Returns true if a given value is a valid priority value.
-     */
-    public static boolean isValidName(String taskName) {
-        return taskName.matches(NAME_VALIDATION_REGEX);
-    }
-    
     @Override
     public String toString() {
         return name + VARIABLE_CONNECTOR + priorityValue;
@@ -70,12 +48,12 @@ public class FloatingTask implements ReadOnlyFloatingTask{
     }
 
     @Override
-    public String getName() {      
+    public Name getName() {      
         return name;
     }
 
     @Override
-    public String getPriorityValue() {
+    public Priority getPriorityValue() {
         return priorityValue;
     }  
 }

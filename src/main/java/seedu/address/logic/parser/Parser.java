@@ -25,10 +25,10 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
+    
     private static final Pattern FLOATING_TASK_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " rank (?<priorityValue>\\d+)");
+            Pattern.compile("(?i:(?<name>.*?)"
+                    + "(?:[r][a][n][k] +(?<priorityValue>\\d+))?$)");
 
     public Parser() {}
 
@@ -90,9 +90,14 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("priorityValue"));
+            if (matcher.group("priorityValue") != null) {
+                return new AddCommand(
+                        matcher.group("name"),
+                        matcher.group("priorityValue"));
+            }
+            else {
+                return new AddCommand(matcher.group("name"));
+            }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
