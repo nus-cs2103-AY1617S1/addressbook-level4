@@ -8,8 +8,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.*;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -19,6 +17,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
+import seedu.emeraldo.commons.events.ui.JumpToListRequestEvent;
+import seedu.emeraldo.commons.events.ui.ShowHelpRequestEvent;
 import seedu.emeraldo.storage.StorageManager;
 
 import java.util.ArrayList;

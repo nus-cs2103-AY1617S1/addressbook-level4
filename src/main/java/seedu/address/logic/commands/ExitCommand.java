@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.emeraldo.commons.core.EventsCenter;
+import seedu.emeraldo.commons.events.ui.ExitAppRequestEvent;
 
 /**
  * Terminates the program.

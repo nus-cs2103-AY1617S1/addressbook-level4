@@ -1,4 +1,4 @@
-package seedu.address.commons.events.ui;
+package seedu.emeraldo.commons.events.ui;
 
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.emeraldo.commons.events.BaseEvent;

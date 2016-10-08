@@ -6,9 +6,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -17,6 +14,9 @@ import seedu.emeraldo.commons.core.ComponentManager;
 import seedu.emeraldo.commons.core.Config;
 import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.commons.events.storage.DataSavingExceptionEvent;
+import seedu.emeraldo.commons.events.ui.JumpToListRequestEvent;
+import seedu.emeraldo.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.emeraldo.commons.events.ui.ShowHelpRequestEvent;
 
 import java.util.logging.Logger;
 
