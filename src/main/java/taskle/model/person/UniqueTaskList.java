@@ -34,8 +34,6 @@ public class UniqueTaskList implements Iterable<Task> {
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
     
-    private final ObservableList<ModifiableTask> internalModifiableList = FXCollections.observableArrayList();
-    
     /**
      * Constructs empty TaskList.
      */
@@ -46,7 +44,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
-        return internalList.contains(toCheck);
+        return internalList.contains(toCheck); 
     }
 
     /**
@@ -75,13 +73,20 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+    
+    /**
+     * Edits the equivalent task in the list.
+     * @param toEdit
+     * @return
+     */
+    public void edit(ModifiableTask toEdit, Name newName) {
+        int index = internalList.indexOf(toEdit);
+        toEdit.setName(newName);
+        internalList.set(index, (Task) toEdit);
+    }
 
     public ObservableList<Task> getInternalList() {
         return internalList;
-    }
-
-    public ObservableList<ModifiableTask> getModifiableList() {
-        return internalModifiableList;
     }
     
     @Override
