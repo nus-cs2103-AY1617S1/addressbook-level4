@@ -91,7 +91,7 @@ public class TimeUtilTest {
     }
     
     @Test
-    public void getTaskDeadlineText_dueInAMinute() {
+    public void getTaskDeadlineText_aMinuteBeforeDeadline() {
         String expectedOutput = "in 1 minute";
         
         LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 00);
@@ -114,7 +114,7 @@ public class TimeUtilTest {
     }
     
     @Test
-    public void getTaskDeadlineText_dueAMinuteAgo() {
+    public void getTaskDeadlineText_aMinuteAfterDeadline() {
         String expectedOutput = "1 minute ago";
         
         LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 01, 00);
