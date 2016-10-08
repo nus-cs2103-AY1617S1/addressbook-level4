@@ -81,7 +81,6 @@ public class KeywordParser {
             }
             String patternString2 = patternString + "$)"; //for last keyword before end of line
             patternString = patternString + "$^)"; //^$ match nothing
-            System.out.println(patternString);
             Pattern pattern = Pattern.compile(patternString);
             Matcher matcher = pattern.matcher(inputString);
             if(matcher.matches()){

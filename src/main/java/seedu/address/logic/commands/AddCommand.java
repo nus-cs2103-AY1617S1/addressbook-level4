@@ -43,7 +43,7 @@ public class AddCommand extends Command {
         }
         Period period = new Period();
         if((startTime != null)&&(endTime != null)){
-            period = new Period(CommandHelper.convertStringToDate(endTime), CommandHelper.convertStringToDate(endTime));
+            period = new Period(CommandHelper.convertStringToDate(startTime), CommandHelper.convertStringToDate(endTime));
         }
         Recurrence deadRecurrence = new Recurrence();
         Recurrence periodRecurrence = new Recurrence();
