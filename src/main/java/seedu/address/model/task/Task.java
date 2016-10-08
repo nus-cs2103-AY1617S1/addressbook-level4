@@ -20,20 +20,20 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, detail, tags);
+    public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate) {
+        assert !CollectionUtil.isAnyNull(name, detail);
         this.name = name;
         this.detail = detail;
         this.fromDate = fromDate;
         this.tillDate = tillDate;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(); // protect internal tags from changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDetail(), source.getFromDate(), source.getTillDate(), source.getTags());
+        this(source.getName(), source.getDetail(), source.getFromDate(), source.getTillDate());
     }
 
     @Override

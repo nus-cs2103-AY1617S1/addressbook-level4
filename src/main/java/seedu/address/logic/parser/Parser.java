@@ -107,44 +107,32 @@ public class Parser {
     	for (Pattern p : dataPatterns) {
     		matcher = p.matcher(args.trim());
     		if (matcher.matches()) {
-    			if (p.equals(TASK_DATA_ARGS_FORMAT_FT)) { 
-    				try {
-        	            return new AddCommand(
-        	                    matcher.group("name"),
-        	                    matcher.group("detail"),
-        	                    matcher.group("fromDateTime"),
-        	                    matcher.group("tillDateTime"),
-        	                    getTagsFromArgs("")
-        	            );
-        	        } catch (IllegalValueException ive) {
-        	            return new IncorrectCommand(ive.getMessage());
-        	        }
-    			} else if (p.equals(TASK_DATA_ARGS_FORMAT_ON)) {
-    				try {
-        	            return new AddCommand(
-        	                    matcher.group("name"),
-        	                    matcher.group("detail"),
-        	                    matcher.group("fromDateTime"),
-        	                    null,
-        	                    getTagsFromArgs("")
-        	            );
-        	        } catch (IllegalValueException ive) {
-        	            return new IncorrectCommand(ive.getMessage());
-        	        }
-    			} else {
-    				try {
-        	            return new AddCommand(
-        	                    matcher.group("name"),
-        	                    matcher.group("detail"),
-        	                    null,
-        	                    matcher.group("tillDateTime"),
-        	                    getTagsFromArgs("")
-        	            );
-        	        } catch (IllegalValueException ive) {
-        	            return new IncorrectCommand(ive.getMessage());
-        	        }
-    			}
-    			
+    			try {
+        			if (p.equals(TASK_DATA_ARGS_FORMAT_FT)) { 
+        			    return new AddCommand(
+            	                matcher.group("name"),
+            	                matcher.group("detail"),
+            	                matcher.group("fromDateTime"),
+            	                matcher.group("tillDateTime")
+            	        );
+        			} else if (p.equals(TASK_DATA_ARGS_FORMAT_ON)) {
+            	        return new AddCommand(
+            	                matcher.group("name"),
+            	                matcher.group("detail"),
+            	                matcher.group("fromDateTime"),
+            	                null
+            	        );
+        			} else {
+        				return new AddCommand(
+        				    matcher.group("name"),
+            	            matcher.group("detail"),
+            	            null,
+            	            matcher.group("tillDateTime")
+            	        );
+        			}
+    			} catch (IllegalValueException ive) {
+                    return new IncorrectCommand(ive.getMessage());
+                }
             }
     	}
     	

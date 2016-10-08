@@ -62,6 +62,14 @@ public class TaskDate {
     public static boolean isValidTime(String timeString) {
     	return DateTimeUtil.isValidTimeString(timeString);
     }
+    
+    public LocalDate getDate() {
+        return this.date;
+    }
+    
+    public LocalTime getTime() {
+        return this.time;
+    }
 
     @Override
     public String toString() {
