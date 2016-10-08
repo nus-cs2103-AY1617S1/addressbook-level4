@@ -28,10 +28,13 @@
                                     <Label fx:id="id" styleClass="cell_big_label"></Label>
                                     <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
                                 </HBox>
-                        		<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
                         <Label fx:id="deadline" styleClass="cell_small_label" text="\$deadline" />
+                        <Label fx:id="deadlineRecurrence" styleClass="cell_small_label" text="\$deadlineRecurrence" />
+                        <Label fx:id="period" styleClass="cell_small_label" text="\$period" />
+                        <Label fx:id="periodRecurrence" styleClass="cell_small_label" text="\$periodRecurrence" />
+                        <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                     </children>
                 </VBox>
             </children>
