@@ -60,7 +60,6 @@ public class KeywordParser {
      * @param string to be parsed
      * @return HashMap containing the keyword - associated substring pairs
      */
-    //TODO Make parsing not depend on order of input keywords
     public HashMap<String, String> parseFree(String inputString){
         HashMap<String, String> words = new HashMap<String, String>();
         for(int i = 0; i < keywords.size(); i++){
@@ -80,13 +79,23 @@ public class KeywordParser {
                     patternString = patternString + " " + keywords.get(j) + "[^/]+" + "|";
                 }
             }
-            patternString = patternString + "$)";
+            String patternString2 = patternString + "$)"; //for last keyword before end of line
+            patternString = patternString + "$^)"; //^$ match nothing
             System.out.println(patternString);
+            System.out.println(patternString2);
             Pattern pattern = Pattern.compile(patternString);
             Matcher matcher = pattern.matcher(inputString);
             if(matcher.matches()){
                 String returnString = matcher.group("returnString");
                 words.put(keyword, returnString);
+            }
+            else{
+                Pattern pattern2 = Pattern.compile(patternString2);
+                Matcher matcher2 = pattern2.matcher(inputString);
+                if(matcher2.matches()){
+                    String returnString = matcher2.group("returnString");
+                    words.put(keyword, returnString);
+                }
             }
 
         }
