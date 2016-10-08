@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * A read-only immutable interface for a to-do

@@ -6,7 +6,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.todo.ToDo;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.todo.DateRange;
 import seedu.address.model.todo.DueDate;
 import seedu.address.model.todo.ReadOnlyToDo;
@@ -78,7 +77,7 @@ public class ToDoList implements ReadOnlyToDoList {
     }
 
     public void editTags(ReadOnlyToDo todo, Set<Tag> tags) throws IllegalValueException {
-        getToDo(todo).setTags(new UniqueTagList(tags));
+        getToDo(todo).setTags(tags);
     }
     
     

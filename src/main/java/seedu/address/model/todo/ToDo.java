@@ -2,7 +2,6 @@ package seedu.address.model.todo;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 import java.util.HashSet;
 import java.util.Objects;
