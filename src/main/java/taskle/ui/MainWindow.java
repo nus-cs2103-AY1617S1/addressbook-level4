@@ -176,6 +176,11 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
+    
+    @FXML
+    private void handleSettings() {
+        
+    }
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
