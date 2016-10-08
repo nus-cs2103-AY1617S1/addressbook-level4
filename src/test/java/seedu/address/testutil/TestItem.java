@@ -6,7 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestItem implements ReadOnlyPerson {
 
     private ItemType itemType;
     private Date startDate;
@@ -16,7 +16,7 @@ public class TestPerson implements ReadOnlyPerson {
     private Name name;
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestItem() {
         tags = new UniqueTagList();
     }
 

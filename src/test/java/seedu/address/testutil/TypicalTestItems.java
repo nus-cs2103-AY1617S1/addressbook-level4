@@ -9,7 +9,7 @@ import seedu.address.model.item.*;
  */
 public class TypicalTestItems {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestItem alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
     public TypicalTestItems() {
         try {
@@ -49,8 +49,8 @@ public class TypicalTestItems {
         }
     }
 
-    public TestPerson[] getTypicalPersons() {
-        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+    public TestItem[] getTypicalPersons() {
+        return new TestItem[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public AddressBook getTypicalAddressBook(){

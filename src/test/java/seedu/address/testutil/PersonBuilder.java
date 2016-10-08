@@ -9,10 +9,10 @@ import seedu.address.model.tag.Tag;
  */
 public class PersonBuilder {
 
-    private TestPerson person;
+    private TestItem person;
 
     public PersonBuilder() {
-        this.person = new TestPerson();
+        this.person = new TestItem();
     }
 
     public PersonBuilder withItemType(String itemType) throws IllegalValueException {
@@ -52,7 +52,7 @@ public class PersonBuilder {
         return this;
     }
 
-    public TestPerson build() {
+    public TestItem build() {
         return this.person;
     }
 
