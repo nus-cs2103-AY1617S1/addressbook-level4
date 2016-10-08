@@ -36,7 +36,7 @@ In-Charge: UI
 
 -----
 
-#### Project Mentor: [Michelle Tan](https://github.com/okkhoy)
+#### Project Mentor: [Michelle Tan](https://github.com/michelletan)
 <img src="images/Michelle_Tan.jpg" width="150"><br>
 
 # Contributors
