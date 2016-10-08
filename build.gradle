@@ -54,7 +54,7 @@ allprojects {
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
 
-        //todo: clean up after ensuring it works
+        // for annotations
         compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.0'
 
         testCompile "junit:junit:$junitVersion"

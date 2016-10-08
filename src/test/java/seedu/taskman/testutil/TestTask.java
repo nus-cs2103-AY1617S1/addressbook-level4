@@ -48,13 +48,18 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Optional<Deadline> getDeadline() {
-        return Optional.ofNullable(deadline);
+    public UniqueTagList getTags() {
+        return tags;
     }
 
     @Override
     public Status getStatus() {
         return status;
+    }
+
+    @Override
+    public Optional<Deadline> getDeadline() {
+        return Optional.ofNullable(deadline);
     }
 
     @Override
@@ -65,11 +70,6 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Optional<Schedule> getSchedule() {
         return Optional.ofNullable(schedule);
-    }
-
-    @Override
-    public UniqueTagList getTags() {
-        return tags;
     }
 
     @Override
