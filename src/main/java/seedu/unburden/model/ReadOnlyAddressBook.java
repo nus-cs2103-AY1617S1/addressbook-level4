@@ -3,7 +3,7 @@ package seedu.unburden.model;
 
 import java.util.List;
 
-import seedu.unburden.model.person.ReadOnlyPerson;
+import seedu.unburden.model.person.ReadOnlyTask;
 import seedu.unburden.model.person.UniqueTaskList;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
@@ -20,7 +20,7 @@ public interface ReadOnlyAddressBook {
     /**
      * Returns an unmodifiable view of persons list
      */
-    List<ReadOnlyPerson> getPersonList();
+    List<ReadOnlyTask> getPersonList();
 
     /**
      * Returns an unmodifiable view of tags list

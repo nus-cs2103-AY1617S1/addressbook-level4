@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.ReadOnlyAddressBook;
-import seedu.unburden.model.person.ReadOnlyPerson;
+import seedu.unburden.model.person.ReadOnlyTask;
 import seedu.unburden.model.person.UniqueTaskList;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
@@ -69,7 +69,7 @@ public class XmlSerializableTaskList implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
+    public List<ReadOnlyTask> getPersonList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();

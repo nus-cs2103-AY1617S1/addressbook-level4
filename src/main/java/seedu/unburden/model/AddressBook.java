@@ -2,7 +2,7 @@ package seedu.unburden.model;
 
 import javafx.collections.ObservableList;
 import seedu.unburden.model.person.Task;
-import seedu.unburden.model.person.ReadOnlyPerson;
+import seedu.unburden.model.person.ReadOnlyTask;
 import seedu.unburden.model.person.UniqueTaskList;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
@@ -58,7 +58,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyPerson> newPersons, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
         setTasks(newPersons.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
@@ -104,7 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyPerson key) throws UniqueTaskList.PersonNotFoundException {
+    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
         if (persons.remove(key)) {
             return true;
         } else {
@@ -127,7 +127,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
+    public List<ReadOnlyTask> getPersonList() {
         return Collections.unmodifiableList(persons.getInternalList());
     }
 

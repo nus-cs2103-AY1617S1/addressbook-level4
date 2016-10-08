@@ -2,7 +2,7 @@ package seedu.unburden.logic;
 
 import javafx.collections.ObservableList;
 import seedu.unburden.logic.commands.CommandResult;
-import seedu.unburden.model.person.ReadOnlyPerson;
+import seedu.unburden.model.person.ReadOnlyTask;
 
 /**
  * API of the Logic component
@@ -16,6 +16,6 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyPerson> getFilteredPersonList();
+    ObservableList<ReadOnlyTask> getFilteredPersonList();
 
 }

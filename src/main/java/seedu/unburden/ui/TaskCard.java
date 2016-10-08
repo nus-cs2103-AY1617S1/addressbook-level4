@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.unburden.model.person.ReadOnlyPerson;
+import seedu.unburden.model.person.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 
@@ -25,14 +25,14 @@ public class TaskCard extends UiPart{
     @FXML
     private Label tags;
 
-    private ReadOnlyPerson person;
+    private ReadOnlyTask person;
     private int displayedIndex;
 
     public TaskCard(){
 
     }
 
-    public static TaskCard load(ReadOnlyPerson person, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask person, int displayedIndex){
         TaskCard card = new TaskCard();
         card.person = person;
         card.displayedIndex = displayedIndex;

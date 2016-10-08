@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 import seedu.unburden.TestApp;
 import seedu.unburden.commons.core.EventsCenter;
 import seedu.unburden.model.AddressBook;
-import seedu.unburden.model.person.ReadOnlyPerson;
+import seedu.unburden.model.person.ReadOnlyTask;
 import seedu.unburden.testutil.TestUtil;
 import seedu.unburden.testutil.TypicalTestPersons;
 
@@ -97,7 +97,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
+    public void assertMatching(ReadOnlyTask person, PersonCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
