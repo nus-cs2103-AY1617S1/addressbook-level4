@@ -78,22 +78,10 @@ public class TimeUtil {
                 return DEADLINE_PREFIX_SINCE + DUE_YESTERDAY + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
             } else if (currentTime.getYear() == endTime.getYear()) {
                 return DEADLINE_PREFIX_SINCE + endTime.format(DateTimeFormatter.ofPattern("d MMMM, h:mm a"));
+            } else {
+                return DEADLINE_PREFIX_SINCE + endTime.format(DateTimeFormatter.ofPattern("d MMMM yyyy, h:mm a"));
             }
-        }        
-               
-        
-        //Different year before deadline
-        if (currentTime.getYear() < endTime.getYear()) {
-            return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM yyyy, h:mm a"));
         }
-        
-        
-        
-        return null;
-        
-        
-        
-        
     }
     
     
