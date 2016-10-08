@@ -54,10 +54,22 @@ public class ToDoList implements ReadOnlyToDoList {
     public void setToDos(List<ToDo> ToDos) {
         list.setAll(ToDos);
     }
-    
 
+    /**
+     * Empties the list and sets it to a shallow clone (fields are references to original)
+     * of the {@param newToDos}
+     */
     public void resetData(Collection<? extends ReadOnlyToDo> newToDos) {
-        setToDos(newToDos.stream().map(ToDo::new).collect(Collectors.toList()));
+        setToDos(newToDos.stream().map(readOnlyToDo -> {
+            final ToDo todo = new ToDo(readOnlyToDo.getTitle());
+
+            // Set fields if present
+            readOnlyToDo.getDateRange().ifPresent(todo::setDateRange);
+            readOnlyToDo.getDueDate().ifPresent(todo::setDueDate);
+            todo.setTags(readOnlyToDo.getTags());
+
+            return todo;
+        }).collect(Collectors.toList()));
     }
 
     public void resetData(ReadOnlyToDoList newData) {
