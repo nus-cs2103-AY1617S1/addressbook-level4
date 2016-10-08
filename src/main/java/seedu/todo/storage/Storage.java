@@ -1,19 +1,16 @@
 package seedu.todo.storage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
-import seedu.todo.commons.events.model.AddressBookChangedEvent;
-import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.exceptions.DataConversionException;
-import seedu.todo.model.ReadOnlyAddressBook;
+import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends TodoListStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -22,18 +19,18 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    String getAddressBookFilePath();
+    String getTodoListFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ImmutableTodoList> readTodoList();
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    Optional<ImmutableTodoList> readTodoList(String filePath);
 
-    /**
-     * Saves the current version of the Address Book to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
-     */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    @Override
+    void saveTodoList(ImmutableTodoList todoList);
+
+    @Override
+    void saveTodoList(ImmutableTodoList todoList, String filePath);
+
 }

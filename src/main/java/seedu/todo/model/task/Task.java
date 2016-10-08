@@ -62,22 +62,22 @@ public class Task implements ImmutableTask {
 
     @Override
     public Optional<String> getDescription() {
-        return Optional.of(description.get());
+        return Optional.ofNullable(description.get());
     }
 
     @Override
     public Optional<String> getLocation() {
-        return Optional.of(location.get());
+        return Optional.ofNullable(location.get());
     }
 
     @Override
     public Optional<LocalDateTime> getStartTime() {
-        return Optional.of(startTime.get());
+        return Optional.ofNullable(startTime.get());
     }
 
     @Override
     public Optional<LocalDateTime> getEndTime() {
-        return Optional.of(endTime.get());
+        return Optional.ofNullable(endTime.get());
     }
 
     @Override

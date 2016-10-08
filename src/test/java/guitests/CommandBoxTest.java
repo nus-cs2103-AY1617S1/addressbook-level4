@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
+
 public class CommandBoxTest extends AddressBookGuiTest {
 
     @Test
@@ -13,6 +15,7 @@ public class CommandBoxTest extends AddressBookGuiTest {
     }
 
     @Test
+    @Ignore
     public void commandBox_commandFails_textStays(){
         commandBox.runCommand("invalid command");
         assertEquals(commandBox.getCommandInput(), "invalid command");
