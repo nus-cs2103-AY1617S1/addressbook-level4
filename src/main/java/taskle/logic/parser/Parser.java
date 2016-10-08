@@ -31,6 +31,10 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)");
 
+    private static final String[] KEYWORDS = new String[]{"by", "to", "from", "on"};
+    
+    private static final int EDIT_NUM_INPUT = 2;
+    
     public Parser() {}
 
     /**
@@ -136,12 +140,21 @@ public class Parser {
      * Parses arguments in the context of the edit task command
      * 
      * @param arguments
-     * @return the prepared command
+     * @return the prepared command with the task number and the new task name
      */
     private Command prepareEdit(String arguments) {
-        String[] argumentsArray = arguments.trim().split(" ");
-        Optional<Integer> index = parseIndex(argumentsArray[0]);
-        Optional<String> name = parseName(argumentsArray[1]);
+        arguments = arguments.trim();
+        int endIndex = arguments.indexOf(" ");
+        if(endIndex == -1) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        String indexValue = arguments.substring(0, endIndex);
+        String newName =  arguments.substring(endIndex).trim();
+       
+        System.out.println(newName);
+        Optional<Integer> index = parseIndex(indexValue);
+        Optional<String> name = parseName(newName);
         if(!index.isPresent() || !name.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
