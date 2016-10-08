@@ -3,9 +3,11 @@ package seedu.address.logic.parser;
 import java.lang.reflect.Field;
 import java.util.logging.Logger;
 
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 
+/*
+ * Iterates through all parsers to find the appropriate one for the given command input
+ */
 public class ParserType {
 		
 	private static final Class<?>[] parserTypes = CommandParserList.getList();
@@ -21,10 +23,12 @@ public class ParserType {
 				}
 			} 
 			catch (NoSuchFieldException e) {
-				logger.warning("Error: Non-parser class placed into list");
+				logger.severe("Error: Non-parser class placed into list");
+				e.printStackTrace();
 				System.exit(0);
 			} catch (Exception e) {
-				logger.warning("Exception encountered");
+				logger.severe("Exception encountered");
+				e.printStackTrace();
 				System.exit(0);			
 			}
 		}
