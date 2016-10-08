@@ -61,6 +61,8 @@ public class TimeUtil {
                         + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));  
             } else if (currentTime.toLocalDate().plusDays(1).equals(endTime.toLocalDate())) {
                 return DEADLINE_PREFIX_BY + DUE_TOMORROW + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
+            } else if (currentTime.getYear() == endTime.getYear()) {
+                return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM, h:mm a"));
             }
             
         } else {
@@ -75,16 +77,7 @@ public class TimeUtil {
             } else if (currentTime.toLocalDate().minusDays(1).equals(endTime.toLocalDate())) {
                 return DEADLINE_PREFIX_SINCE + DUE_YESTERDAY + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
             }
-        }
-        
-             
-        
-        
-        
-        //Same year before deadline
-        if (currentTime.getYear() == endTime.getYear()) {
-            return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM, h:mm a"));
-        }
+        }        
                
         
         //Different year before deadline
