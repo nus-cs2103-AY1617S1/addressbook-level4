@@ -104,12 +104,12 @@ public class TaskList implements ReadOnlyTaskList {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
-        if (tasks.remove(key)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.PersonNotFoundException();
-        }
+    public void removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+        tasks.remove(key);
+    }
+    
+    public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+    	tasks.setComplete(key);
     }
 
 //// tag-level operations
