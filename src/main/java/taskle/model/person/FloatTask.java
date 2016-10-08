@@ -4,8 +4,8 @@ import taskle.model.tag.UniqueTagList;
 
 public class FloatTask extends Task {
 
-    public FloatTask(Name name) {
-        super(name);
+    public FloatTask(Name name, UniqueTagList tags) {
+        super(name, tags);
     }
     
     /**
@@ -14,7 +14,7 @@ public class FloatTask extends Task {
     public FloatTask(ReadOnlyTask source) {
         super(source);
     }
-
+    
     /**
      * Copy constructor.
      */

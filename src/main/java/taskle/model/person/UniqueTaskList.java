@@ -1,12 +1,11 @@
 package taskle.model.person;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import taskle.commons.exceptions.DuplicateDataException;
 import taskle.commons.util.CollectionUtil;
+
+import java.util.*;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -80,11 +79,10 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param toEdit
      * @return
      */
-    public void edit(ModifiableTask toEdit, Name newName) throws DuplicateTaskException {
-        assert newName != null;
-        ModifiableTask testTask = new FloatTask(toEdit);
+    public void edit(ModifiableTask toEdit, Name newName) throws UniqueTaskList.DuplicateTaskException {
+        FloatTask testTask = new FloatTask(toEdit);
         testTask.setName(newName);
-        if(contains((Task) testTask)) {
+        if(contains(testTask)) {
             throw new DuplicateTaskException();
         }
         int index = internalList.indexOf(toEdit);

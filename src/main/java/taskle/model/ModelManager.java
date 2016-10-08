@@ -13,7 +13,6 @@ import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.Task;
 import taskle.model.person.UniqueTaskList;
-import taskle.model.person.UniqueTaskList.DuplicateTaskException;
 import taskle.model.person.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -78,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editTask(ModifiableTask target, Name newName) throws TaskNotFoundException, DuplicateTaskException {
+    public synchronized void editTask(ModifiableTask target, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         taskManager.editTask(target, newName);;
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();

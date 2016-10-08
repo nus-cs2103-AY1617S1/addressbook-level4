@@ -23,9 +23,9 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 Buy dinner";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Task Manager";
     
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Task Manager";
+
     public final int targetIndex;
     
     public final Name newName;
