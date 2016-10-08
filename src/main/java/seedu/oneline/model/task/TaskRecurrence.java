@@ -1,6 +1,7 @@
 package seedu.oneline.model.task;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.model.tag.Tag;
 
 public class TaskRecurrence {
 
@@ -45,6 +46,20 @@ public class TaskRecurrence {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+    /**
+     * Serialize field for storage
+     */
+    public String serialize() {
+        return value;
+    }
+    
+    /**
+     * Deserialize from storage
+     */
+    public static TaskRecurrence deserialize(String args) throws IllegalValueException {
+        return new TaskRecurrence(args);
     }
     
 }
