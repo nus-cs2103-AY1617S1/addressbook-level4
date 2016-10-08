@@ -77,6 +77,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public synchronized void updateTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException {
+        taskList.updateTask(oldTask, newTask);
+        updateFilteredTaskToShowAll();
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -149,5 +156,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
 }
