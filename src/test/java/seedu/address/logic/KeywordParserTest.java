@@ -11,7 +11,7 @@ import org.junit.Test;
 public class KeywordParserTest {
 
     @Test
-    public void parses_addCommand_input_onlyTask() {
+    public void parses_addCommand_input_floatingTask() {
 
         String input = "add \"Assignment\"";
         KeywordParser parser = new KeywordParser("add");
@@ -25,8 +25,9 @@ public class KeywordParserTest {
         String input = "add \"Assignment\" by friday tag important";
         KeywordParser parser = new KeywordParser("add", "by", "tag");
         HashMap<String, String> list = parser.parse(input);
-        assertTrue(list.get("add").equals("Assignment"));
-        assertTrue(list.get("by").equals("friday"));
+        assertEquals(list.get("add"), "Assignment");
+        assertEquals(list.get("by"), "friday");
+        assertEquals(list.get("tag"), "important");
     }
 
     @Test
@@ -36,8 +37,8 @@ public class KeywordParserTest {
         KeywordParser parser = new KeywordParser("add", "from", "to", "tag");
         HashMap<String, String> list = parser.parse(input);
         assertTrue(list.get("add").equals("Assignment"));
-        assertTrue(list.get("from").equals("friday"));
-        assertTrue(list.get("to").equals("saturday"));
+        assertEquals(list.get("from"), "friday");
+        assertEquals(list.get("to"), "saturday");
     }
 
     @Test
@@ -47,7 +48,24 @@ public class KeywordParserTest {
         KeywordParser parser = new KeywordParser("add", "by", "tag");
         HashMap<String, String> list = parser.parse(input);
         assertTrue(list.get("add").equals("Assignment"));
-        assertTrue(list.get("by").equals("friday"));
+        assertEquals(list.get("by"), "friday");
         assertTrue(list.get("tag").equals("important school urgent"));
+    }
+
+    @Test
+    public void parses_addCommand_optionalInputs() {
+
+        String input = "add \"Assignment\" tag important";
+        KeywordParser parser = new KeywordParser("add", "by", "tag");
+        HashMap<String, String> list = parser.parseFree(input);
+        assertEquals(list.get("add"), "Assignment");
+        assertEquals(list.get("tag"), "important");
+
+        String input2 = "add \"Assignment\" from monday to thursday";
+        KeywordParser parser2 = new KeywordParser("add", "from", "to", "tag");
+        HashMap<String, String> list2 = parser2.parseFree(input2);
+        assertEquals(list2.get("add"), "Assignment");
+        assertEquals(list2.get("from"), "monday");
+        assertEquals(list2.get("to"), "thursday");
     }
 }
