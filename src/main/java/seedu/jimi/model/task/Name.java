@@ -8,7 +8,7 @@ import seedu.jimi.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Floating task names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Floating task names can be any text.";
     public static final String NAME_VALIDATION_REGEX = ".+";
 
     public final String fullName;
