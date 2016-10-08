@@ -26,9 +26,9 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     private final int toDoIndex;
-    private Optional<Title> title = Optional.empty();
-    private Optional<DateRange> dateRange = Optional.empty();
-    private Optional<DueDate> dueDate = Optional.empty();
+    private Title title;
+    private DateRange dateRange;
+    private DueDate dueDate;
     private Set<Tag> tags = new HashSet<>();
 
     public EditCommand(int toDoIndex) {
@@ -38,14 +38,14 @@ public class EditCommand extends Command {
     public void setTitle(String title) throws IllegalValueException {
         assert title != null;
 
-        this.title = Optional.of(new Title(title));
+        this.title = new Title(title);
     }
 
     public void setDueDate(String dueDate) throws IllegalValueException {
         assert dueDate != null;
 
        try {
-           this.dueDate = Optional.of(new DueDate(new SimpleDateFormat().parse(dueDate)));
+           this.dueDate = new DueDate(new SimpleDateFormat().parse(dueDate));
        } catch (ParseException exception) {
            throw new IllegalValueException(Messages.MESSAGE_TODO_DUEDATE_INVALID_FORMAT);
        }
@@ -69,9 +69,9 @@ public class EditCommand extends Command {
             throw new IllegalValueException(Messages.MESSAGE_TODO_DATERANGE_END_INVALID_FORMAT);
         }
 
-        this.dateRange = Optional.of(new DateRange(
+        this.dateRange = new DateRange(
             formattedStartDate, formattedEndDate
-        ));
+        );
     }
 
     /**
@@ -101,16 +101,16 @@ public class EditCommand extends Command {
         ReadOnlyToDo toDoToEdit = lastShownList.get(toDoIndex - 1);
 
         try {
-            if (title.isPresent()) {
-                model.editTodoTitle(toDoToEdit, title.get());
+            if (title != null) {
+                model.editTodoTitle(toDoToEdit, title);
             }
 
-            if (dueDate.isPresent()) {
-                model.editTodoDueDate(toDoToEdit, dueDate.get());
+            if (dueDate != null) {
+                model.editTodoDueDate(toDoToEdit, dueDate);
             }
 
-            if (dateRange.isPresent()) {
-                model.editTodoDateRange(toDoToEdit, dateRange.get());
+            if (dateRange != null) {
+                model.editTodoDateRange(toDoToEdit, dateRange);
             }
 
             if (!tags.isEmpty()) {
