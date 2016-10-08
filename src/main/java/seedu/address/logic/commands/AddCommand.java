@@ -14,6 +14,8 @@ import java.util.Set;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
+    
+    public static final String EVENT_MESSAGE_USAGE = "Event Start Datetime must come before End Datetime";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task, deadline or event to the task manager. \n"
             + "Task Parameters: " + ItemType.TASK_WORD + " n/NAME \n"

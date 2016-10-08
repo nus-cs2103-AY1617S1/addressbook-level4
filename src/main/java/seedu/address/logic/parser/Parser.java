@@ -1,13 +1,14 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
-import seedu.address.model.item.ItemType;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.text.ParseException;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -131,6 +132,14 @@ public class Parser {
                     getTagsFromArgs(deadlineMatcher.group("tagArguments"))
                 );
             } else if (eventMatcher.matches()) {
+            	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            	try {
+                    if (sdf.parse(eventMatcher.group("endDate") + " " + eventMatcher.group("endTime")).before(sdf.parse(eventMatcher.group("startDate") + " " + eventMatcher.group("startTime")))) {
+                        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+                    }
+            	} catch (ParseException e) {
+            	    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            	}
                 return new AddCommand(
                     "event",
                     eventMatcher.group("name"),
