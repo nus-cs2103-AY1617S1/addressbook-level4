@@ -43,7 +43,7 @@ To get started, proceed to the Quick Start section below.
 
 ## Features
 
-> **Command Format**
+> **Command Format**<br>
 > Tasks are split into 3 categories: `todo`, `deadline`, `event`.<br>
 > `todo`: Tasks that have no specific date/time to be completed by.<br>
 > `deadline`: Tasks that have a specific date/time they must be completed by.<br>
@@ -59,7 +59,7 @@ To get started, proceed to the Quick Start section below.
 #### Viewing help : `help`
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
+> A pop-up windonw displaying the command summary will be shown. Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
 > <img src="images/UIhelp.png" width="600">
 
 #### Create a new task: `add`
@@ -71,23 +71,29 @@ Event format: `add NAME DATE START_TIME END_TIME`
 > Depending on the input format, the task will be saved into 1 of 3 categories: todo, deadline or event.
 
 Examples:
-* `add read book`<br>
-  Add a todo task with NAME as `read book`.
+* `add study for test`<br>
+  Add a todo task with NAME as `study for test`.
   > <img src="images/UItodo.png" width="600">
 
-* `add math homework 1 Jan 2015 2pm`<br>
-  Add a deadline task with NAME as `math homework`, DATE as `1 Jan 2015`, END_TIME as `1500`.
+* `add assignment 4 17 Oct 2016 2pm`<br>
+  Add a deadline task with NAME as `assignment 4`, DATE as `17 Oct 2016`, END_TIME as `2pm`.
   > <img src="images/UIdeadline.png" width="600">
 
-* `add meeting 1 Jan 2015 21:00 00:00`<br>
-  Add an event task with NAME as `meeting`, DATE as `1 Jan 2015`, START_TIME as `2100`, END_TIME as `0000`.
+* `add walk dog 5 Oct 2016 17:00 18:00`<br>
+  Add an event task with NAME as `walk dog`, DATE as `5 Oct 2016`, START_TIME as `17:00`, END_TIME as `18:00`.
   > <img src="images/UIevent.png" width="600">
+
+* `add bring dog to vet 8 Oct 2016 17:00 18:00`<br>
+  Add an event task with NAME as `walk dog`, DATE as `8 Oct 2016`, START_TIME as `17:00`, END_TIME as `18:00`.
+  > Note that this event is set in the future, so please enter `view 8 Oct 2016` to view the timetable for the added event.<br>
+  > <img src="images/UIeventFuture.png" width="600">
+  
 
 #### View all tasks: `view`
 View all tasks for the specified date and deadlines up to the specified date.<br>
 Format: `view [DATE]`
 
-> All tasks for the specified date and deadlines up to the specified date will be displayed. If no date is specified, all tasks for today and deadlines up to today will be displayed.
+> All tasks for the specified date and deadlines up to the specified date will be displayed. If no date is specified, all tasks for today and all deadlines will be displayed.
 
 Examples: 
 * `view`
@@ -104,7 +110,7 @@ Format: `find KEYWORDS`
 > If keyword entered is a date, this command will return the same results as the view command.
 
 Examples: 
-* `find homework`<br>
+* `find assignment`<br>
   > <img src="images/UIfind.png" width="600">
 
 #### Edit task details: `edit`
@@ -115,48 +121,72 @@ Format: `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 
 Examples:
 * `view`<br>
-  `edit 3 Do math homework 3pm`<br>
-  Edit the 3rd task today. Changes the NAME to `Do math homework` and END_TIME to `1500`.<br>
+  `edit d 1 assignment 2 15 Oct 2016`<br>
+  Edit the 1st task under the todo tasks section. Changes the NAME to `assignment 2` and DATE to `15 Oct 2016`.<br>
   > <img src="images/UIedit.png" width="600">
 
-* `edit 2 22:00 00:00`<br>
-  Edit the 2nd task today. Changes the START_TIME to `2200` and END_TIME to `0000`.<br>
+* `edit e 2 22:00 00:00`<br>
+  Edit the 2nd task under the events section. Changes the START_TIME to `22:00` and END_TIME to `00:00`.<br>
 
 #### Delete task: `delete`
-Delete a task inside the task list or an event inside the calendar.<br>
-Format: `delete INDEX`
+Delete a task inside the task or deadline list or an event inside the calendar.<br>
+Delete task format: `delete t INDEX`
+Delete deadline format: `delete d INDEX`
+Delete event format: `delete e INDEX`
 
-> Delete a task at the specified INDEX. The INDEX refers to the index number shown in the most recent listing.
+> Delete a task at the specified INDEX under the tasks `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.
 
 Examples:
 * `view`<br>
-  `delete 1`<br>
-  Delete the 1st task today as shown by the `view` command.
-  > <img src="images/Uidelete.png" width="600">
-
-* `view 1 Jan 2015`<br>
-  `delete 2`<br>
-  Delete the 2nd task on 1 Jan 2015 as shown by the `view` command.
+  `delete d 1`<br>
+  Delete the 1st task under the deadlines section as shown by the `view` command.
+  Before:<br>
+  > <img src="images/UIdeleteBefore.png" width="600">
+  After:<br>
+  > <img src="images/UIdeleteAfter.png" width="600">
+  
+* `view 5 Oct 2016`<br>
+  `delete e 3`<br>
+  Delete the 3rd task under the events section for 5 Oct 2016 as shown by the `view` command.
+  
+  Before:<br>
+  > <img src="images/UIdeleteBeforeDate.png" width="600">
+  After:<br>
+  > <img src="images/UIdeleteAfterDate.png" width="600">
 
 #### Mark task as done: `done`
 Mark a task in the task list as done.<br>
-Format: `done INDEX`
+Todo done format: `done t INDEX`
+Deadline done format: `done d INDEX`
+Event done format: `done e INDEX`
 
-> Marks a task at the specified INDEX as completed. The INDEX refers to the index number shown in the most recent listing.
+> Marks a todo `t`, deadline `d` or event `e` at the specified INDEX as completed. The INDEX refers to the index number shown in the most recent listing.<br>
+> Note that tasks that are done are moved to the bottom of the list in their respective sections.
 
 Examples:
 * `view`<br>
-  `done 1`<br>
-  Mark the 1st task today as shown by the `view` command as completed.
-  > <img src="images/UIdone.png" width="600">
-
+  `done t 1`<br>
+  Mark the 1st task today under the todo section shown by the `view` command as completed.
+  
+  Before:<br>
+  > <img src="images/UIdoneBefore.png" width="600">
+  After:<br>
+  > <img src="images/UIdoneAfter.png" width="600">
+  
 #### Undo previous action: `undo`
 Undo the last completed action.<br>
 Format: `undo`
 
 > The previous version will be restored.<br>
 > User can keep retyping undo to undo multiple actions.<br>
-> <img src="images/UIundo.png" width="600">
+
+Examples:
+* `undo`<br>
+  Undo the last deleted item.
+  Before:
+  > <img src="images/UIundoBefore.png" width="600">
+  After:
+  > <img src="images/UIundoAfter.png" width="600">
 
 #### Clearing all entries : `clear`
 Clear all tasks from the task manager.<br>
