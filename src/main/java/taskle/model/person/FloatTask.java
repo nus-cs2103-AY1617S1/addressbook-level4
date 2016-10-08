@@ -4,8 +4,8 @@ import taskle.model.tag.UniqueTagList;
 
 public class FloatTask extends Task {
 
-    public FloatTask(Name name, UniqueTagList tags) {
-        super(name, tags);
+    public FloatTask(Name name) {
+        super(name);
     }
     
     /**
@@ -15,6 +15,13 @@ public class FloatTask extends Task {
         super(source);
     }
 
+    /**
+     * Copy constructor.
+     */
+    public FloatTask(ModifiableTask source) {
+        super(source);
+    }
+    
     @Override
     public DateTime getDateTime() {
         // TODO Auto-generated method stub

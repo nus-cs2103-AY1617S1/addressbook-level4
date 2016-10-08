@@ -7,6 +7,7 @@ import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.person.ModifiableTask;
 import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
+import taskle.model.person.UniqueTaskList.DuplicateTaskException;
 import taskle.model.person.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -23,6 +24,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
 
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Task Manager";
+    
     public final int targetIndex;
     
     public final Name newName;
@@ -43,7 +46,11 @@ public class EditCommand extends Command {
         ModifiableTask taskToEdit = lastShownList.get(targetIndex - 1);
 
         try {
-            model.editTask(taskToEdit, newName);
+            try {
+                model.editTask(taskToEdit, newName);
+            } catch (DuplicateTaskException e) {
+                return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            }
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

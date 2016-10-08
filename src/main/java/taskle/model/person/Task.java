@@ -20,17 +20,23 @@ public abstract class Task implements ReadOnlyTask, ModifiableTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
+    public Task(Name name) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName());
+    }
+    
+    /**
+     * Copy constructor.
+     */
+    public Task(ModifiableTask source) {
+        this(source.getName());
     }
 
     @Override
@@ -39,22 +45,10 @@ public abstract class Task implements ReadOnlyTask, ModifiableTask {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-    
-    @Override
     public void setName(Name name) {
         this.name = name;
     }
 
-    /**
-     * Replaces this task's tags with the tags in the argument tag list.
-     */
-    @Override
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
-    }
 
     @Override
     public boolean equals(Object other) {
