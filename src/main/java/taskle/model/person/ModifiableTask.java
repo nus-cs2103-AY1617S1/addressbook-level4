@@ -10,6 +10,5 @@ public interface ModifiableTask {
     
     void setName(Name name);
 
-    void setTags(UniqueTagList tag);
-    
+    Name getName();
 }

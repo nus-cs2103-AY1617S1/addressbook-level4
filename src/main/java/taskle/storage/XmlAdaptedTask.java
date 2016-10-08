@@ -45,7 +45,7 @@ public class XmlAdaptedTask {
      */
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
-        return new FloatTask(name, new UniqueTagList());
+        return new FloatTask(name);
     }
 }
 

@@ -10,11 +10,6 @@ public interface ReadOnlyTask {
 
     Name getName();
 
-    /**
-     * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the task's internal tags.
-     */
-    UniqueTagList getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -32,7 +27,7 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+     
         return builder.toString();
     }
 
@@ -42,7 +37,6 @@ public interface ReadOnlyTask {
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();
         final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
         if (buffer.length() == 0) {
             return "";
         } else {
