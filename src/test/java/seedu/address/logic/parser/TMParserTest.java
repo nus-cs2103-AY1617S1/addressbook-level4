@@ -49,7 +49,15 @@ public class TMParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineNoTime_incorrectCommandReturned() {
-		String userInput = "add deadline 'submission' by 04:00";
+		String userInput = "add deadline 'submission' by 36/2/";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_addDeadlineInvalidOrder_incorrectCommandReturned() {
+		String userInput = "add deadline by 25/16/16 'submission' 4am";
 		Command command = parser.parseUserInput(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -57,7 +65,7 @@ public class TMParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineValid_nullReturned() {
-		String userInput = "add deadline 'submission' by 04:00 at 25/12/16";
+		String userInput = "add deadline 'submission' by 04:00 25/12/16";
 		Command command = parser.parseUserInput(userInput);
 
 		assertEquals(null, command);
@@ -65,15 +73,7 @@ public class TMParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineValidOrder2_nullReturned() {
-		String userInput = "add deadline 'submission' at 25/12/16 by 04:00";
-		Command command = parser.parseUserInput(userInput);
-
-		assertEquals(null, command);
-	}
-	
-	@Test
-	public void parseCommand_addDeadlineValidOrder3_nullReturned() {
-		String userInput = "add deadline at 25/16/16 'submission' by 4am";
+		String userInput = "add deadline 'submission' by 25/12/16 04:00";
 		Command command = parser.parseUserInput(userInput);
 
 		assertEquals(null, command);
@@ -81,7 +81,7 @@ public class TMParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineValidOrder4_nullReturned() {
-		String userInput = "add deadline at 25/12/16 by 04:00 'submission' ";
+		String userInput = "add deadline by 25/12/16 04:00 'submission' ";
 		Command command = parser.parseUserInput(userInput);
 
 		assertEquals(null, command);

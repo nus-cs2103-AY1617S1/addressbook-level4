@@ -33,12 +33,10 @@ public class TMParser {
 	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile("(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)\\s+(?<taskName>\\S+')");
 	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile("(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(?<taskName>\\S+')\\s+on\\s+(?<date>\\S+)");
 	
-	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>'\\S+')\\s+by\\s+(?<date>\\S+)\\s+at\\s+(?<time>\\S+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>'\\S+')\\s+at\\s+(?<time>\\S+)\\s+by\\s+(?<date>\\S+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_3 = Pattern.compile("(?i)by\\s+(?<date>\\S+)\\s+at\\s+(?<time>\\S+)\\s+(?<taskName>'\\S+')");
-	private static final Pattern DEADLINE_ARGS_FORMAT_4 = Pattern.compile("(?i)by\\s+(?<date>\\S+)\\s+(?<taskName>'\\S+')\\s+at\\s+(?<time>\\S+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_5 = Pattern.compile("(?i)at\\s+(?<time>\\S+)\\s+by\\s+(?<date>\\S+)\\s+(?<taskName>'\\S+')");
-	private static final Pattern DEADLINE_ARGS_FORMAT_6 = Pattern.compile("(?i)at\\s+(?<time>\\S+)\\s+(?<taskName>'\\S+')\\s+by\\s+(?<date>\\S+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>'\\S+')\\s+by\\s+(?<date>\\S+)\\s+(?<time>\\S+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>'\\S+')\\s+by\\s+(?<time>\\S+)\\s+(?<date>\\S+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_3 = Pattern.compile("(?i)by\\s+(?<date>\\S+)\\s+(?<time>\\S+)\\s+(?<taskName>'\\S+')");
+	private static final Pattern DEADLINE_ARGS_FORMAT_4 = Pattern.compile("(?i)by\\s+(?<time>\\S+)\\s+(?<date>\\S+)\\s+(?<taskName>'\\S+')");
 
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>\\S+)'");
 
@@ -181,8 +179,6 @@ public class TMParser {
 		matchers.add(DEADLINE_ARGS_FORMAT_2.matcher(arguments.trim()));
 		matchers.add(DEADLINE_ARGS_FORMAT_3.matcher(arguments.trim()));
 		matchers.add(DEADLINE_ARGS_FORMAT_4.matcher(arguments.trim()));
-		matchers.add(DEADLINE_ARGS_FORMAT_5.matcher(arguments.trim()));
-		matchers.add(DEADLINE_ARGS_FORMAT_6.matcher(arguments.trim()));
 
 		String taskName = null;
 		String date = null;
