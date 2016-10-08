@@ -26,25 +26,25 @@ public class EditCommand extends Command{
     public static final String MESSAGE_SUCCESS = "Updated task details: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
 
-    private final FloatingTask toEdit;
+    private final int taskIndex; //index of task/event to be edited
 
     /**
-     * Convenience constructor using raw values and assigns toEdit to the FloatingTask to be edited.
+     * Convenience constructor using raw values.
      * //TODO: change to support FloatingTask, Task and Events types as well
      * 
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, Set<String> tags, FloatingTask toEdit) throws IllegalValueException {
+    public EditCommand(String name, Set<String> tags, int taskIndex) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toEdit = toEdit;
+        this.taskIndex = taskIndex;
     }
     
     @Override
     public CommandResult execute() {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 
