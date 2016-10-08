@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.emeraldo.commons.util;
 
 import seedu.emeraldo.commons.core.Config;
 import seedu.emeraldo.commons.core.LogsCenter;

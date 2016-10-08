@@ -5,8 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.commons.util.FxViewUtil;
 import seedu.emeraldo.commons.core.LogsCenter;
+import seedu.emeraldo.commons.util.FxViewUtil;
 
 import java.util.logging.Logger;
 

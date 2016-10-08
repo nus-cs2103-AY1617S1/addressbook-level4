@@ -11,7 +11,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.*;
 import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.commons.events.ui.IncorrectCommandAttemptedEvent;
-import seedu.address.commons.util.FxViewUtil;
+import seedu.emeraldo.commons.util.FxViewUtil;
 
 import java.util.logging.Logger;
 

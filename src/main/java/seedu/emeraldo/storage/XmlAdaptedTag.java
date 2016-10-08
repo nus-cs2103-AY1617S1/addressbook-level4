@@ -1,8 +1,8 @@
 package seedu.emeraldo.storage;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.Tag;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.commons.util.CollectionUtil;
 
 import javax.xml.bind.annotation.XmlValue;
 

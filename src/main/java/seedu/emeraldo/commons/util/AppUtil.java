@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.emeraldo.commons.util;
 
 import javafx.scene.image.Image;
 import seedu.emeraldo.MainApp;

@@ -1,7 +1,7 @@
 package seedu.emeraldo.storage;
 
-import seedu.address.commons.util.XmlUtil;
 import seedu.emeraldo.commons.exceptions.DataConversionException;
+import seedu.emeraldo.commons.util.XmlUtil;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
