@@ -18,7 +18,6 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
 
     @XmlElement
     private List<XmlAdaptedToDo> toDos;
-
     {
         toDos = new ArrayList<>();
     }
@@ -47,5 +46,4 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
             }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
-
 }

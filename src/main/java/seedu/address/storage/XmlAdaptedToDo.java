@@ -8,6 +8,8 @@ import seedu.address.model.todo.ReadOnlyToDo;
 import seedu.address.model.todo.Title;
 import seedu.address.model.todo.ToDo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,17 +23,16 @@ import javax.xml.bind.annotation.XmlElement;
  * JAXB-friendly version of the to-do
  */
 public class XmlAdaptedToDo {
+    private static final SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @XmlElement(required = true)
     private String title;
     @XmlElement(required = true)
-    private Optional<DueDate> dueDate;
+    private String dueDate;
     @XmlElement(required = true)
-    private Optional<DateRange> dateRange;
-    @XmlElement(required = true, nillable=true)
-    private Date startDate;
-    @XmlElement(required = true, nillable=true)
-    private Date endDate;
+    private String dateRangeStart;
+    @XmlElement(required = true)
+    private String dateRangeEnd;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -44,16 +45,20 @@ public class XmlAdaptedToDo {
     /**
      * Converts a given to-do into this class for JAXB use.
      *
-     * @param toDo future changes to this will not affect the created XmlAdaptedToDo
+     * @param source future changes to this will not affect the created XmlAdaptedToDo
      */
     public XmlAdaptedToDo(ReadOnlyToDo source) {
         title = source.getTitle().title;
-        dueDate = source.getDueDate();
-        dateRange = source.getDateRange();
-        if(dateRange.isPresent()){
-            startDate = source.getDateRange().get().startDate;
-            endDate = source.getDateRange().get().endDate;
+
+        if (source.getDueDate().isPresent()) {
+            dueDate = DateFormat.format(source.getDueDate().get().dueDate);
         }
+
+        if (source.getDateRange().isPresent()) {
+            dateRangeStart = DateFormat.format(source.getDateRange().get().startDate);
+            dateRangeEnd = DateFormat.format(source.getDateRange().get().endDate);
+        }
+
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -61,9 +66,9 @@ public class XmlAdaptedToDo {
     }
 
     /**
-     * Converts this jaxb-friendly adapted toDo object into the model's to-do
+     * Converts this jaxb-friendly adapted ToDo object into the model's to-do
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted toDo
+     * @throws IllegalValueException if there were any data constraints violated in the adapted ToDo
      */
     public ToDo toModelType() throws IllegalValueException {
         final Title title = new Title(this.title);
@@ -75,15 +80,25 @@ public class XmlAdaptedToDo {
         }
         todo.setTags(toDoTags);
 
-        //Check if the dueDate is empty
-        if(this.dueDate.isPresent()){
-        	final DueDate dueDate = new DueDate(this.dueDate.get().dueDate);
-        	todo.setDueDate(dueDate);
+        // Check if the dueDate is empty
+        if (dueDate != null){
+        	try {
+                todo.setDueDate(new DueDate(DateFormat.parse(dueDate)));
+            } catch (ParseException exception) {
+                // invalid due date, ignore
+            }
         }
-        //Check if the dateRange is empty
-        if(this.dateRange.isPresent()){
-        	final DateRange dateRange = new DateRange(this.startDate,this.endDate);
-            todo.setDateRange(dateRange);
+
+        // Check if the dateRange is empty
+        if (dateRangeStart != null && dateRangeEnd != null){
+            try {
+                todo.setDateRange(new DateRange(
+                    DateFormat.parse(dateRangeStart),
+                    DateFormat.parse(dateRangeEnd)
+                ));
+            } catch (ParseException exception) {
+                // invalid date range, ignore
+            }
         }
         
         return todo;
