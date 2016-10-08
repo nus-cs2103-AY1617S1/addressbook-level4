@@ -36,6 +36,11 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    
+    private static final String FLAG_NAME = "-n";
+    private static final String FLAG_DATETIME = "-dt";
+    private static final String FLAG_PRIORITY = "-p";
+    private static final String FLAG_TAG = "-t";
 
     public Parser() {}
 
@@ -91,10 +96,10 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        Option nameOpt = new Option("-n", true);
-        Option priorityOpt = new Option("-p", true);
-        Option dateTimeOpt = new Option("-dt", true);
-        Option tagOpt = new Option("-t", false);
+        Option nameOpt = new Option(FLAG_NAME, true);
+        Option priorityOpt = new Option(FLAG_PRIORITY, true);
+        Option dateTimeOpt = new Option(FLAG_DATETIME, true);
+        Option tagOpt = new Option(FLAG_TAG, false);
         
         Option[] options = {
                 nameOpt, 
@@ -111,9 +116,9 @@ public class Parser {
         
         try {
             return new AddCommand(
-                    optionFlagNArgMap.get(nameOpt).replace("-n ", ""),
-                    getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace("-dt ", "")),
-                    optionFlagNArgMap.get(priorityOpt).replace("-p ", ""),
+                    optionFlagNArgMap.get(nameOpt).replace(FLAG_NAME + " ", ""),
+                    getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(FLAG_DATETIME + " ", "")),
+                    optionFlagNArgMap.get(priorityOpt).replace(FLAG_PRIORITY + " ", ""),
                     getTagsFromArgs(optionFlagNArgMap.get(tagOpt)));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -148,7 +153,9 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst("-t ", "").split(" -t "));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments
+                                                                .replaceFirst(FLAG_TAG + " ", "")
+                                                                .split(" " + FLAG_TAG + " "));
         return new HashSet<>(tagStrings);
     }
     
