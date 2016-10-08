@@ -46,15 +46,18 @@ public class TimeUtilTest {
     
     @Test
     public void getTaskDeadlineString_dueNow() {
-        TimeUtil timeUtil = new ModifiedTimeUtil(LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00));
         String expectedOutput = "due now";
         
-        LocalDateTime inputTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-        String generatedOutput1 = timeUtil.getTaskDeadlineString(inputTime1);
+        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
+        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
+        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
+        String generatedOutput1 = timeUtil1.getTaskDeadlineString(dueTime1);
         assertEquals(expectedOutput, generatedOutput1);
         
-        LocalDateTime inputTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 59);
-        String generatedOutput2 = timeUtil.getTaskDeadlineString(inputTime2);
+        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 59);
+        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
+        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
+        String generatedOutput2 = timeUtil2.getTaskDeadlineString(dueTime2);
         assertEquals(expectedOutput, generatedOutput2);
     }
     
