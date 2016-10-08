@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -7,10 +7,10 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
+public class Location {
     
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
-    public static final String ADDRESS_VALIDATION_REGEX = ".+";
+    public static final String MESSAGE_LOCATION_CONSTRAINTS = "Person addresses can be in any format";
+    public static final String LOCATION_VALIDATION_REGEX = ".+";
 
     public final String value;
 
@@ -19,19 +19,19 @@ public class Address {
      *
      * @throws IllegalValueException if given address string is invalid.
      */
-    public Address(String address) throws IllegalValueException {
-        assert address != null;
-        if (!isValidAddress(address)) {
-            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+    public Location(String location) throws IllegalValueException {
+        assert location != null;
+        if (!isValidLocation(location)) {
+            throw new IllegalValueException(MESSAGE_LOCATION_CONSTRAINTS);
         }
-        this.value = address;
+        this.value = location;
     }
 
     /**
      * Returns true if a given string is a valid person email.
      */
-    public static boolean isValidAddress(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+    public static boolean isValidLocation(String test) {
+        return test.matches(LOCATION_VALIDATION_REGEX);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && this.value.equals(((Address) other).value)); // state check
+                || (other instanceof Location // instanceof handles nulls
+                && this.value.equals(((Location) other).value)); // state check
     }
 
     @Override
