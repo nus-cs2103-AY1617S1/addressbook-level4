@@ -3,8 +3,6 @@ package guitests;
 import org.junit.Test;
 
 import seedu.address.logic.LogicManager;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import seedu.address.logic.commands.UndoCommand;
@@ -16,28 +14,23 @@ public class UndoCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("add undo test case 1");
         commandBox.runCommand("add undo test case 2");
         commandBox.runCommand("add undo test case 3");
-        commandBox.runCommand("add undo test case 4");
-        commandBox.runCommand("add undo test case 5");
-        commandsInStack = 5;
+        commandsInStack = LogicManager.numUndoableCommands();
     }
     
     @Test
     public void undo() {
         prepare();
         
-        //Undo first 3 commands
-        assertUndoSuccess(4);
+        //Undo first 2 commands
+        assertUndoSuccess(2);
 
         //Invalid inputs of undo steps
-        commandBox.runCommand("undo 2");
-        assertResultMessage(String.format(UndoCommand.MESSAGE_NUM_COMMANDS_NOT_ENOUGH, 1));
+        commandBox.runCommand("undo " + (LogicManager.numUndoableCommands() + 1));
+        assertResultMessage(
+                String.format(UndoCommand.MESSAGE_NUM_COMMANDS_NOT_ENOUGH, LogicManager.numUndoableCommands()));
         
         //Undo last command
         assertUndoSuccess(1);
-        
-        //Invalid inputs of undo steps
-        commandBox.runCommand("undo");
-        assertResultMessage(UndoCommand.MESSAGE_NO_COMMAND_ENTERED);
         
     }
 
@@ -52,7 +45,7 @@ public class UndoCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(command);
 
         //confirm the undoable command stack contains correct number of commands
-        assertTrue(commandsInStack == seedu.address.logic.LogicManager.numUndoableCommands());
+        assertTrue(commandsInStack == LogicManager.numUndoableCommands());
 
         //confirm the result message is correct
         assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS, (steps == 1) ? "command" : steps + " commands"));
