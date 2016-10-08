@@ -8,6 +8,12 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import taskle.model.help.CommandGuide;
 
+/**
+ * Custom Help Table Cell that uses TextFlow to set custom 
+ * colors for Help Window texts.
+ * @author Abel
+ *
+ */
 public class HelpTableCell extends TableCell<CommandGuide, String> {
     
     private static final String REGEX_SPACE_SPLIT = "\\s+";
@@ -27,12 +33,22 @@ public class HelpTableCell extends TableCell<CommandGuide, String> {
         }
     }
     
+    /**
+     * This method sets the style of the command word in format rows.
+     * @param flow TextFlow for the row.
+     * @param strings Strings to be binded to row.
+     */
     private void setCommandWordStyle(TextFlow flow, String[] strings) {
         Text commandText = new Text(strings[INDEX_COMMAND_WORD]);
         commandText.setFill(Color.WHITE);
         flow.getChildren().add(commandText);
     }
     
+    /**
+     * This method sets the style of the arguments in format rows.
+     * @param flow TextFlow for the row.
+     * @param strings Strings to be binded to row.
+     */
     private void setArgsStyle(TextFlow flow, String[] strings) {
         for (int i = 1; i < strings.length; i++) {
             switch (i) {
