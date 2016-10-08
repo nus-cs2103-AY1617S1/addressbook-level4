@@ -25,7 +25,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String PERSON_LIST_VIEW_ID = "#personListView";
+    private static final String PERSON_LIST_VIEW_ID = "#taskListView";
 
     public PersonListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -69,6 +69,7 @@ public class PersonListPanelHandle extends GuiHandle {
 
         // Return false if any of the persons doesn't match
         for (int i = 0; i < persons.length; i++) {
+            
             if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)){
                 return false;
             }
