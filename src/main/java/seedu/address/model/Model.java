@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.core.ModifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -20,11 +21,17 @@ public interface Model {
     /** Deletes the given person. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    /** Retrieve the give task. */
+    Task getTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
     /** Adds the given person */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
+    /** Returns the filtered person list as an {@code ModifiableObservableList<Task>} */
+    ModifiableObservableList<Task> getFilteredTaskList();
+    
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList();
 
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();
