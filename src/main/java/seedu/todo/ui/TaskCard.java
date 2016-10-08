@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
+import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.task.ImmutableTask;
 
 /**
@@ -67,6 +68,7 @@ public class TaskCard extends UiPart{
         if (task.getDescription().isPresent()) {
             descriptionLabel.setText(task.getDescription().get());
         } else {
+            descriptionBox.setManaged(false);
             descriptionBox.setVisible(false);
         }
         
@@ -85,6 +87,7 @@ public class TaskCard extends UiPart{
         if (task.getLocation().isPresent()) {
             locationLabel.setText(task.getLocation().get());
         } else {
+            locationBox.setManaged(false);
             locationBox.setVisible(false);
         }
     }
@@ -115,13 +118,14 @@ public class TaskCard extends UiPart{
         Stream<String> tagsStream = task.getTags().stream()
                 .map(tag -> tag.tagName);
         tagsStream = tagsStream.sorted();
-        String[] tags = (String[]) tagsStream.toArray();
+        String[] tags = tagsStream.toArray(String[]::new);
         
         //Label or hide the tagLabels
         for (int i = 0; i < 5; i++) {
             if (i < numberOfTags) {
                 tagLabels[i].setText(tags[i]);
             } else {
+                tagLabels[i].setManaged(false);
                 tagLabels[i].setVisible(false);
             }
         }
