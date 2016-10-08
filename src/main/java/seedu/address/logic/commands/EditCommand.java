@@ -13,9 +13,12 @@ import seedu.address.model.task.Location;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniquePersonList.DuplicatePersonException;
-import seedu.address.model.task.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList.DuplicatePersonException;
+import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 
+/**
+ * Edits a task in the task scheduler.
+ */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -52,13 +55,14 @@ public class EditCommand extends Command {
         );
     }
 
+
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
