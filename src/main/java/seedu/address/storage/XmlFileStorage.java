@@ -24,7 +24,7 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns toDoList in the file or an empty toDoList
      */
     public static XmlSerializableToDoList loadDataFromSaveFile(File file)
         throws DataConversionException, FileNotFoundException {
