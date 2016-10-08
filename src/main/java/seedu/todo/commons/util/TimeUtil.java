@@ -26,22 +26,7 @@ public class TimeUtil {
     private static final String DUE_NOW = "right now";
     
     /* Variables */
-    private final Clock clock;
-    
-    /**
-     * Constructs a TimeUil object using system clock.
-     */
-    public TimeUtil () {
-        this.clock = Clock.systemDefaultZone();
-    }
-    
-    /**
-     * Construct a TimeUtil object with a custom clock.
-     * Can be used for dependency injection in testing (to override system time)
-     */
-    public TimeUtil (Clock clock) {
-        this.clock = clock;
-    }
+    protected Clock clock = Clock.systemDefaultZone();
     
     /**
      * Gets the task deadline expression for the UI.
