@@ -11,9 +11,9 @@ import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.ActivityManager;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalTestActivities;
 
 import java.util.concurrent.TimeoutException;
 
@@ -31,7 +31,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestActivities td = new TypicalTestActivities();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -39,7 +39,7 @@ public abstract class AddressBookGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle personListPanel;
+    protected ActivityListPanelHandle personListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -77,7 +77,7 @@ public abstract class AddressBookGuiTest {
      */
     protected ActivityManager getInitialData() {
         ActivityManager ab = TestUtil.generateEmptyActivityManager();
-        TypicalTestPersons.loadActivityManagerWithSampleData(ab);
+        TypicalTestActivities.loadActivityManagerWithSampleData(ab);
         return ab;
     }
 
@@ -97,8 +97,8 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, person));
+    public void assertMatching(ReadOnlyActivity person, ActivityCardHandle card) {
+        assertTrue(TestUtil.compareCardAndActivity(card, person));
     }
 
     /**

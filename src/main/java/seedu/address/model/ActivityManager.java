@@ -77,7 +77,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
      * Also checks the new person's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the person to point to those in {@link #tags}.
      *
-     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
     public void addActivity(Activity activity) {
 //        syncTagsWithMasterList(activity);

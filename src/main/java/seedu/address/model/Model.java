@@ -24,7 +24,7 @@ public interface Model {
     void deletePerson(Activity target) throws ActivityNotFoundException;
 
     /** Adds the given person */
-    void addPerson(Activity activity);
+    void addActivity(Activity activity);
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<Activity> getFilteredActivityList();

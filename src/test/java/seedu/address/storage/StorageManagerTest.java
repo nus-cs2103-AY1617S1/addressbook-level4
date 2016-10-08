@@ -8,7 +8,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.model.ActivityManager;
 import seedu.address.model.ReadOnlyActivityManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalTestActivities;
 
 import static org.junit.Assert.assertEquals;
 
@@ -48,7 +48,7 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        ActivityManager original = new TypicalTestPersons().getTypicalActivityManager();
+        ActivityManager original = new TypicalTestActivities().getTypicalActivityManager();
         storageManager.saveAddressBook(original);
         ReadOnlyActivityManager retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new ActivityManager(retrieved));

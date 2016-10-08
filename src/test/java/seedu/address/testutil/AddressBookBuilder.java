@@ -3,13 +3,12 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.ActivityManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.activity.Activity;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code ActivityManager ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code ActivityManager ab = new AddressBookBuilder().withActivity(new Activity("buy milk")).withTag("Friend").build();}
  */
 public class AddressBookBuilder {
 
@@ -19,8 +18,8 @@ public class AddressBookBuilder {
         this.activityManager = activityManager;
     }
 
-    public AddressBookBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        activityManager.addPerson(person);
+    public AddressBookBuilder withActivity(Activity activity) {
+        activityManager.addActivity(activity);
         return this;
     }
 
