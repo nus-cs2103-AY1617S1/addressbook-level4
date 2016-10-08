@@ -21,7 +21,7 @@ public class TimeUtil {
     private static final String MINUTE_SINGLE_UNIT = " minute";
     private static final String MINUTES_MULTIPLE_UNIT = " minutes";
     
-    private static final String DUE_NOW = "right now";
+    private static final String DUE_NOW = "due now";
     
     /* Variables */
     protected Clock clock = Clock.systemDefaultZone();
