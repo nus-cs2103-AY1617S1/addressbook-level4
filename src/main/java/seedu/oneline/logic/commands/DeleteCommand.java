@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
 
     public final int targetIndex;
 
-    public DeleteCommand(String args) throws IllegalCmdArgsException {
+    public DeleteCommand(String args) throws IllegalValueException, IllegalCmdArgsException {
         Integer index = Parser.getIndexFromArgs(args);
         if (index == null) {
             throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(DeleteCommand.MESSAGE_USAGE));

@@ -69,37 +69,8 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
-//        switch (commandWord) {
-//
-//        case AddCommand.COMMAND_WORD:
-//            return prepareAdd(arguments);
-//
-//        case SelectCommand.COMMAND_WORD:
-//            return prepareSelect(arguments);
-//
-//        case DeleteCommand.COMMAND_WORD:
-//            return prepareDelete(arguments);
-//
-//        case ClearCommand.COMMAND_WORD:
-//            return new ClearCommand();
-//
-//        case FindCommand.COMMAND_WORD:
-//            return prepareFind(arguments);
-//
-//        case ListCommand.COMMAND_WORD:
-//            return new ListCommand();
-//
-//        case ExitCommand.COMMAND_WORD:
-//            return new ExitCommand();
-//
-//        case HelpCommand.COMMAND_WORD:
-//            return new HelpCommand();
-//
-//        default:
-//            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
-//        }
         
         if (!COMMAND_CLASSES.containsKey(commandWord)) {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -111,7 +82,7 @@ public class Parser {
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                 | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
-            assert false : "Every command constructor should have a Class(String) constructor";
+            assert false : "Every command constructor should have a Class(String args) constructor";
             return null;
         } catch (InvocationTargetException e) {
             return new IncorrectCommand(e.getCause().getMessage());
@@ -142,32 +113,6 @@ public class Parser {
         fields.put(TaskField.TAG_ARGUMENTS, matcher.group("tagArguments"));
         return fields;
     }
-    
-    /**
-     * Parses arguments in the context of the add task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("startTime"),
-                    matcher.group("endTime"),
-                    matcher.group("deadline"),
-                    matcher.group("recurrence"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-    }
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
@@ -188,11 +133,12 @@ public class Parser {
      *
      * @param args full command args string
      * @return the value of the index, null if invalid
+     * @throws IllegalValueException 
      */
-    public static Integer getIndexFromArgs(String args) {
+    public static Integer getIndexFromArgs(String args) throws IllegalValueException {
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
-            return null; // TODO: THROW ERROR
+            throw new IllegalValueException("Index does not parse to integer.");
         }
         return index.get();
     }
@@ -216,39 +162,6 @@ public class Parser {
     }
     
     /**
-     * Parses arguments in the context of the delete task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private static Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-
-        return new DeleteCommand(index.get());
-    }
-
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
-
-    /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
@@ -264,25 +177,6 @@ public class Parser {
         }
         return Optional.of(Integer.parseInt(index));
 
-    }
-
-    /**
-     * Parses arguments in the context of the find task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private static Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
-        }
-
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
     }
 
 }
