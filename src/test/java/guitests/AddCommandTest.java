@@ -7,6 +7,7 @@ import seedu.jimi.commons.core.Messages;
 import seedu.jimi.logic.commands.AddCommand;
 import seedu.jimi.testutil.TestFloatingTask;
 import seedu.jimi.testutil.TestUtil;
+import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -16,23 +17,23 @@ public class AddCommandTest extends AddressBookGuiTest {
     public void add() {
         //add one person
         TestFloatingTask[] currentList = td.getTypicalTasks();
-        TestFloatingTask taskToAdd = td.dream;
+        TestFloatingTask taskToAdd = TypicalTestFloatingTasks.dream;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another person
-        taskToAdd = td.dream;
+        taskToAdd = TypicalTestFloatingTasks.dream;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate person
-        commandBox.runCommand(td.dream.getAddCommand());
+        commandBox.runCommand(TypicalTestFloatingTasks.dream.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.water);
+        assertAddSuccess(TypicalTestFloatingTasks.water);
 
         //invalid command
         commandBox.runCommand("adds Johnny");

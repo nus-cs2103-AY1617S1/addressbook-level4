@@ -2,6 +2,8 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.jimi.testutil.TypicalTestFloatingTasks;
+
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends AddressBookGuiTest {
@@ -14,8 +16,8 @@ public class ClearCommandTest extends AddressBookGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.night.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.night));
+        commandBox.runCommand(TypicalTestFloatingTasks.night.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(TypicalTestFloatingTasks.night));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 
