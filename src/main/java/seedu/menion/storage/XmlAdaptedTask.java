@@ -1,9 +1,9 @@
 package seedu.menion.storage;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.model.activity.*;
 import seedu.menion.model.tag.Tag;
 import seedu.menion.model.tag.UniqueTagList;
-import seedu.menion.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(ReadOnlyTask source) {
+    public XmlAdaptedTask(ReadOnlyActivity source) {
         name = source.getName().fullName;
         deadline = source.getDeadline().value;
         reminder = source.getReminder().value;
@@ -53,7 +53,7 @@ public class XmlAdaptedTask {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
-    public Task toModelType() throws IllegalValueException {
+    public Activity toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
@@ -63,6 +63,6 @@ public class XmlAdaptedTask {
         final Reminder reminder = new Reminder(this.reminder);
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, deadline, reminder, priority, tags);
+        return new Activity(name, deadline, reminder, priority, tags);
     }
 }

@@ -17,9 +17,9 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.FileUtil;
 import seedu.menion.commons.util.XmlUtil;
 import seedu.menion.model.ActivityManager;
+import seedu.menion.model.activity.*;
 import seedu.menion.model.tag.Tag;
 import seedu.menion.model.tag.UniqueTagList;
-import seedu.menion.model.task.*;
 import seedu.menion.storage.XmlSerializableActivityManager;
 
 import java.io.File;
@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Task[] samplePersonData = getSamplePersonData();
+    public static final Activity[] samplePersonData = getSamplePersonData();
 
-    private static Task[] getSamplePersonData() {
+    private static Activity[] getSamplePersonData() {
         try {
-            return new Task[]{
-                    new Task(new Name("Ali Muster"), new Deadline("9482424"), new Reminder("hans@google.com"), new Priority("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Deadline("87249245"), new Reminder("ruth@google.com"), new Priority("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Deadline("95352563"), new Reminder("heinz@yahoo.com"), new Priority("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Deadline("87652533"), new Reminder("cornelia@google.com"), new Priority("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Reminder("werner@gmail.com"), new Priority("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Reminder("lydia@gmail.com"), new Priority("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Deadline("9482442"), new Reminder("anna@google.com"), new Priority("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Reminder("stefan@mail.com"), new Priority("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Reminder("hans@google.com"), new Priority("chicago ave"), new UniqueTagList())
+            return new Activity[]{
+                    new Activity(new Name("Ali Muster"), new Deadline("9482424"), new Reminder("hans@google.com"), new Priority("4th street"), new UniqueTagList()),
+                    new Activity(new Name("Boris Mueller"), new Deadline("87249245"), new Reminder("ruth@google.com"), new Priority("81th street"), new UniqueTagList()),
+                    new Activity(new Name("Carl Kurz"), new Deadline("95352563"), new Reminder("heinz@yahoo.com"), new Priority("wall street"), new UniqueTagList()),
+                    new Activity(new Name("Daniel Meier"), new Deadline("87652533"), new Reminder("cornelia@google.com"), new Priority("10th street"), new UniqueTagList()),
+                    new Activity(new Name("Elle Meyer"), new Deadline("9482224"), new Reminder("werner@gmail.com"), new Priority("michegan ave"), new UniqueTagList()),
+                    new Activity(new Name("Fiona Kunz"), new Deadline("9482427"), new Reminder("lydia@gmail.com"), new Priority("little tokyo"), new UniqueTagList()),
+                    new Activity(new Name("George Best"), new Deadline("9482442"), new Reminder("anna@google.com"), new Priority("4th street"), new UniqueTagList()),
+                    new Activity(new Name("Hoon Meier"), new Deadline("8482424"), new Reminder("stefan@mail.com"), new Priority("little india"), new UniqueTagList()),
+                    new Activity(new Name("Ida Mueller"), new Deadline("8482131"), new Reminder("hans@google.com"), new Priority("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,7 +97,7 @@ public class TestUtil {
         }
     }
 
-    public static List<Task> generateSamplePersonData() {
+    public static List<Activity> generateSamplePersonData() {
         return Arrays.asList(samplePersonData);
     }
 
@@ -135,7 +135,7 @@ public class TestUtil {
     }
 
     public static ActivityManager generateEmptyAddressBook() {
-        return new ActivityManager(new UniqueTaskList(), new UniqueTagList());
+        return new ActivityManager(new UniqueActivityList(), new UniqueTagList());
     }
 
     public static XmlSerializableActivityManager generateSampleStorageAddressBook() {
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
+    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyActivity person) {
         return card.isSamePerson(person);
     }
 

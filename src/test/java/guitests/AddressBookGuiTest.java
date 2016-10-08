@@ -13,7 +13,7 @@ import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestPersons;
 import seedu.menion.commons.core.EventsCenter;
 import seedu.menion.model.ActivityManager;
-import seedu.menion.model.task.ReadOnlyTask;
+import seedu.menion.model.activity.ReadOnlyActivity;
 
 import java.util.concurrent.TimeoutException;
 
@@ -97,7 +97,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyTask person, PersonCardHandle card) {
+    public void assertMatching(ReadOnlyActivity person, PersonCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 

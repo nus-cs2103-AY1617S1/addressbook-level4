@@ -2,8 +2,8 @@ package seedu.menion.logic.commands;
 
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
-import seedu.menion.model.task.ReadOnlyTask;
-import seedu.menion.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -29,14 +29,14 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyActivity> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask activityToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyActivity activityToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.deleteTask(activityToDelete);

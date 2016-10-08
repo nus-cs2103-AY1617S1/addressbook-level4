@@ -1,7 +1,7 @@
 package seedu.menion.commons.events.ui;
 
 import seedu.menion.commons.events.BaseEvent;
-import seedu.menion.model.task.ReadOnlyTask;
+import seedu.menion.model.activity.ReadOnlyActivity;
 
 /**
  * Represents a selection change in the Activity List Panel
@@ -9,9 +9,9 @@ import seedu.menion.model.task.ReadOnlyTask;
 public class ActivityPanelSelectionChangedEvent extends BaseEvent {
 
 
-    private final ReadOnlyTask newSelection;
+    private final ReadOnlyActivity newSelection;
 
-    public ActivityPanelSelectionChangedEvent(ReadOnlyTask newSelection){
+    public ActivityPanelSelectionChangedEvent(ReadOnlyActivity newSelection){
         this.newSelection = newSelection;
     }
 
@@ -20,7 +20,7 @@ public class ActivityPanelSelectionChangedEvent extends BaseEvent {
         return this.getClass().getSimpleName();
     }
 
-    public ReadOnlyTask getNewSelection() {
+    public ReadOnlyActivity getNewSelection() {
         return newSelection;
     }
 }
