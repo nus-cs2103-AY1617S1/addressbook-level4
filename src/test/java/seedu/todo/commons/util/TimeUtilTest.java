@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -47,7 +46,6 @@ public class TimeUtilTest {
     
     @Test
     public void getTaskDeadlineString_dueNow() {
-        
         TimeUtil timeUtil = new ModifiedTimeUtil(LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00));
         String expectedOutput = "due now";
         
