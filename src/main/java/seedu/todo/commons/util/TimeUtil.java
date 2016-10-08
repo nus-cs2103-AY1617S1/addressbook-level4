@@ -29,6 +29,10 @@ public class TimeUtil {
     private static final String DUE_TODAY = "today, ";
     private static final String DUE_TONIGHT = "tonight, ";
     
+    private static final String FORMAT_DATE_WITH_YEAR = "d MMMM yyyy";
+    private static final String FORMAT_DATE_NO_YEAR = "d MMMM";
+    private static final String FORMAT_TIME = "h:mm a";
+    
     /* Variables */
     protected Clock clock = Clock.systemDefaultZone();
     
@@ -56,13 +60,13 @@ public class TimeUtil {
             } else if (currentTime.toLocalDate().equals(endTime.toLocalDate())) {
                 return DEADLINE_PREFIX_BY 
                         + ((endTime.toLocalTime().isBefore(LocalTime.of(18, 00))) ? DUE_TODAY : DUE_TONIGHT) 
-                        + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));  
+                        + endTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME));
             } else if (currentTime.toLocalDate().plusDays(1).equals(endTime.toLocalDate())) {
-                return DEADLINE_PREFIX_BY + DUE_TOMORROW + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
+                return DEADLINE_PREFIX_BY + DUE_TOMORROW + endTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME));
             } else if (currentTime.getYear() == endTime.getYear()) {
-                return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM, h:mm a"));
+                return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_NO_YEAR + ", " + FORMAT_TIME));
             } else {
-                return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM yyyy, h:mm a"));
+                return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_WITH_YEAR + ", " + FORMAT_TIME));
             }
             
         } else {
@@ -89,6 +93,7 @@ public class TimeUtil {
         assert(startTime != null);
         assert(endTime != null);
         assert(startTime.isBefore(endTime));
+        
         
         return null;
     }
