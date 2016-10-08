@@ -8,7 +8,7 @@ import seedu.agendum.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should only conyain spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should only contain spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;
