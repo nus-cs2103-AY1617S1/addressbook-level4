@@ -1,5 +1,7 @@
 package seedu.agendum.testutil;
 
+import java.time.LocalDateTime;
+
 import seedu.agendum.model.tag.UniqueTagList;
 import seedu.agendum.model.task.*;
 
@@ -9,6 +11,9 @@ import seedu.agendum.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private boolean isCompleted;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -22,6 +27,21 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Name getName() {
         return name;
+    }
+    
+    @Override
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    @Override
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    @Override
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 
     @Override
@@ -40,4 +60,5 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
 }

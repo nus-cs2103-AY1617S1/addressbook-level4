@@ -111,6 +111,14 @@ public class ToDoList implements ReadOnlyToDoList {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.mark(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 
 //// tag-level operations
 
