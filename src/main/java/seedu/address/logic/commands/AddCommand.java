@@ -16,10 +16,10 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task, deadline or event to the task manager. \n"
-            + "Task Parameters: " + Type.TASK_WORD + " n/NAME \n"
-            + "Deadline Parameters: " + Type.DEADLINE_WORD + " n/NAME d/[DATE] t/[TIME] \n"
-            + "Event Parameters: " + Type.EVENT_WORD + " n/NAME sd/[DATE] st/[TIME] ed/[DATE] et/[TIME] \n"
-            + "Example (Task): " + COMMAND_WORD +  " " + Type.TASK_WORD 
+            + "Task Parameters: " + ItemType.TASK_WORD + " n/NAME \n"
+            + "Deadline Parameters: " + ItemType.DEADLINE_WORD + " n/NAME d/[DATE] t/[TIME] \n"
+            + "Event Parameters: " + ItemType.EVENT_WORD + " n/NAME sd/[DATE] st/[TIME] ed/[DATE] et/[TIME] \n"
+            + "Example (Task): " + COMMAND_WORD +  " " + ItemType.TASK_WORD 
             + " Win Facebook hackathon";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
@@ -32,13 +32,13 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String itemType, String name, String email, String address, Set<String> tags)
+    public AddCommand(String itemType, String name, String startDate, String startTime, String endDate, String endTime, Set<String> tags)
             throws IllegalValueException {
-        if (email == null) {
-            email = "PLACE@HOLDER";
+        if (endDate == null) {
+            endDate = "";
         }
-        if (address == null) {
-            address = "PLACEHOLDER";
+        if (endTime == null) {
+            endTime = "";
         }
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -47,8 +47,10 @@ public class AddCommand extends Command {
         this.toAdd = new Item(
                 new ItemType(itemType),
                 new Name(name),
-                new Date(email),
-                new Time(address),
+                new Date(startDate),
+                new Time(endTime),
+                new Date(endDate),
+                new Time(endTime),
                 new UniqueTagList(tagSet)
         );
     }

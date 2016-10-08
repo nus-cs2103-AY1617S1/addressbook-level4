@@ -69,7 +69,7 @@ public class PersonListPanelHandle extends GuiHandle {
 
         // Return false if any of the persons doesn't match
         for (int i = 0; i < persons.length; i++) {
-            if (!personsInList.get(startPosition + i).getItemType().value.equals(persons[i].getItemType().value)){
+            if (!personsInList.get(startPosition + i).getName().value.equals(persons[i].getName().value)){
                 return false;
             }
         }
@@ -102,9 +102,9 @@ public class PersonListPanelHandle extends GuiHandle {
 
     public PersonCardHandle navigateToPerson(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyPerson> person = getListView().getItems().stream().filter(p -> p.getItemType().value.equals(name)).findAny();
+        final Optional<ReadOnlyPerson> person = getListView().getItems().stream().filter(p -> p.getName().value.equals(name)).findAny();
         if (!person.isPresent()) {
-            throw new IllegalStateException("ItemType not found: " + name);
+            throw new IllegalStateException("Name not found: " + name);
         }
 
         return navigateToPerson(person.get());
@@ -132,7 +132,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public int getPersonIndex(ReadOnlyPerson targetPerson) {
         List<ReadOnlyPerson> personsInList = getListView().getItems();
         for (int i = 0; i < personsInList.size(); i++) {
-            if(personsInList.get(i).getItemType().equals(targetPerson.getItemType())){
+            if(personsInList.get(i).getName().equals(targetPerson.getName())){
                 return i;
             }
         }

@@ -13,20 +13,24 @@ public class Item implements ReadOnlyPerson {
 
     private ItemType itemType;
     private Name name;
-    private Date date;
-    private Time time;
+    private Date startDate;
+    private Time startTime;
+    private Date endDate;
+    private Time endTime;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Item(ItemType itemType, Name name, Date email, Time address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(itemType, name, email, address, tags);
+    public Item(ItemType itemType, Name name, Date startDate, Time startTime, Date endDate, Time endTime, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(itemType, name, endDate, endTime, tags);
         this.itemType = itemType;
         this.name = name;
-        this.date = email;
-        this.time = address;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,7 +38,7 @@ public class Item implements ReadOnlyPerson {
      * Copy constructor.
      */
     public Item(ReadOnlyPerson source) {
-        this(source.getItemType(), source.getName(), source.getDate(), source.getTime(), source.getTags());
+        this(source.getItemType(), source.getName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getTags());
     }
 
     @Override
@@ -48,13 +52,23 @@ public class Item implements ReadOnlyPerson {
     }
 
     @Override
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
     @Override
-    public Time getTime() {
-        return time;
+    public Time getStartTime() {
+        return startTime;
+    }    
+    
+    @Override
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    @Override
+    public Time getEndTime() {
+        return endTime;
     }
 
     @Override
@@ -79,7 +93,7 @@ public class Item implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(itemType, name, date, time, tags);
+        return Objects.hash(itemType, name, endDate, endTime, tags);
     }
 
     @Override

@@ -20,9 +20,6 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -115,6 +112,8 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
+        System.out.println(expectedShownList);
+        System.out.println(model.getFilteredPersonList().size());
         assertEquals(expectedShownList, model.getFilteredPersonList());
 
         //Confirm the state of data (saved and in-memory) is as expected
@@ -154,26 +153,40 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        // Missing Prefix
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
+        		"add event n/12345 ed/2016-08-08 et/18:00", expectedMessage);
+        // Additional Prefix
         assertCommandBehavior(
-                "add Valid ItemType 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+        		"add task n/12345 ed/2016-08-08 et/18:00", expectedMessage);
+        // No Name Prefix
         assertCommandBehavior(
-                "add Valid ItemType n/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add deadline 12345 ed/2016-08-08 et/18:00", expectedMessage);
+        // No EndDate Prefix
         assertCommandBehavior(
-                "add Valid ItemType n/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add deadline n/12345 2016-08-08 et/18:00", expectedMessage);
+        // No EndTime Prefix
+        assertCommandBehavior(
+                "add deadline n/12345 ed/2016-08-08 18:00", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
+        // Invalid ItemType
         assertCommandBehavior(
-                "add []\\[;] n/12345 e/valid@e.mail a/valid, address", ItemType.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] n/12345 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        // Invalid Name
         assertCommandBehavior(
-                "add Valid ItemType n/not_numbers e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add deadline n/not_numbers ed/2016-08-08 et/18:00", Name.MESSAGE_NAME_CONSTRAINTS);
+        // Invalid EndDate
         assertCommandBehavior(
-                "add Valid ItemType n/12345 e/notAnEmail a/valid, address", Date.MESSAGE_DATE_CONSTRAINTS);
+                "add deadline n/12345 ed/notADate et/18:00", Date.MESSAGE_DATE_CONSTRAINTS);
+        // Invalid EndTime
         assertCommandBehavior(
-                "add Valid ItemType n/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add deadline n/12345 ed/2016-08-08 et/notATime", Time.MESSAGE_TIME_CONSTRAINTS);
+        // Invalid Tag
+        assertCommandBehavior(
+                "add deadline n/12345 ed/2016-08-08 et/18:00 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -223,6 +236,10 @@ public class LogicManagerTest {
 
         // prepare address book state
         helper.addToModel(model, 2);
+        System.out.println("Expected");
+        System.out.println(expectedAB);
+        System.out.println("Actual");
+        System.out.println(expectedList);
 
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
@@ -388,14 +405,16 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Item adam() throws Exception {
-            ItemType itemType = new ItemType("Adam Brown");
+            ItemType itemType = new ItemType("deadline");
             Name privateName = new Name("111111");
-            Date email = new Date("2016-08-08");
-            Time privateTime = new Time("01:59");
+            Date startDate = new Date("");
+            Time startTime = new Time("");
+            Date endDate = new Date("2016-08-08");
+            Time endTime = new Time("01:59");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Item(itemType, privateName, email, privateTime, tags);
+            return new Item(itemType, privateName, startDate, startTime, endDate, endTime, tags);
         }
 
         /**
@@ -409,15 +428,44 @@ public class LogicManagerTest {
             String dateFormat = "yyyy-MM-dd";
             String timeFormat = "HH:mm";
             LocalDateTime ldt = LocalDateTime.now();
-            String date = ldt.format(DateTimeFormatter.ofPattern(dateFormat));
-            String time = ldt.format(DateTimeFormatter.ofPattern(timeFormat));
-            return new Item(
-                    new ItemType("Item " + seed),
+            String startDate = ldt.format(DateTimeFormatter.ofPattern(dateFormat));
+            String startTime = ldt.format(DateTimeFormatter.ofPattern(timeFormat));
+            LocalDateTime after = ldt.plusHours(12);
+            String endDate = after.format(DateTimeFormatter.ofPattern(dateFormat));
+            String endTime = after.format(DateTimeFormatter.ofPattern(timeFormat));
+            String itemTypes[] = {"task", "deadline", "event"};
+            String itemType = itemTypes[seed%3];
+            if (itemType == ItemType.TASK_WORD) {
+                return new Item(
+                    new ItemType(itemType),
                     new Name("" + Math.abs(seed)),
-                    new Date(date),
-                    new Time(time),
+                    new Date(""),
+                    new Time(""),
+                    new Date(""),
+                    new Time(""),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
-            );
+                );
+            } else if (itemType == ItemType.DEADLINE_WORD) {
+                return new Item(
+                    new ItemType(itemType),
+                    new Name("" + Math.abs(seed)),
+                    new Date(""),
+                    new Time(""),
+                    new Date(endDate),
+                    new Time(endTime),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                );
+            } else {
+                return new Item(
+                    new ItemType(itemType),
+                    new Name("" + Math.abs(seed)),
+                    new Date(startDate),
+                    new Time(startTime),
+                    new Date(endDate),
+                    new Time(endTime),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                );
+            }
         }
 
         /** Generates the correct add command based on the person given */
@@ -425,11 +473,23 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
-
-            cmd.append(p.getItemType().toString());
-            cmd.append(" n/").append(p.getName());
-            cmd.append(" e/").append(p.getDate());
-            cmd.append(" a/").append(p.getTime());
+            
+            if (p.getItemType().toString().equals(ItemType.TASK_WORD)) {
+                cmd.append(p.getItemType().toString());
+                cmd.append(" n/").append(p.getName());
+            } else if (p.getItemType().toString().equals(ItemType.DEADLINE_WORD)) {
+                cmd.append(p.getItemType().toString());
+                cmd.append(" n/").append(p.getName());
+                cmd.append(" ed/").append(p.getEndDate());
+                cmd.append(" et/").append(p.getEndTime());
+            } else if (p.getItemType().toString().equals(ItemType.EVENT_WORD)) {
+                cmd.append(p.getItemType().toString());
+                cmd.append(" n/").append(p.getName());
+                cmd.append(" sd/").append(p.getStartDate());
+                cmd.append(" st/").append(p.getStartTime());
+                cmd.append(" ed/").append(p.getEndDate());
+                cmd.append(" et/").append(p.getEndTime());
+            }
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -510,9 +570,15 @@ public class LogicManagerTest {
          * Generates a Item object with given name. Other fields will have some dummy values.
          */
         Item generateItemWithName(String name) throws Exception {
+        	// Generates Random Name
+            // String uuid = UUID.randomUUID().toString();
+            // System.out.println("uuid = " + uuid);
+        	String itemType = "deadline";
             return new Item(
-                    new ItemType(name),
-                    new Name("1"),
+                    new ItemType(itemType),
+                    new Name(name),
+                    new Date(""),
+                    new Time(""),
                     new Date("2016-12-12"),
                     new Time("01:39"),
                     new UniqueTagList(new Tag("tag"))

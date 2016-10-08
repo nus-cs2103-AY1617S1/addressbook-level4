@@ -33,6 +33,9 @@ public class Date {
      * Returns if a given string is a valid person email.
      */
     public static boolean isValidDate(String test) {
+    	if (test.equals("")) {
+    		return true;
+    	}
         return test.matches(DATE_VALIDATION_REGEX);
     }
 

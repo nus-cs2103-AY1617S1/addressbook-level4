@@ -31,6 +31,9 @@ public class Time {
      * Returns true if a given string is a valid person email.
      */
     public static boolean isValidTime(String test) {
+    	if (test.equals("")) {
+    		return true;
+    	}
         return test.matches(TIME_VALIDATION_REGEX);
     }
 

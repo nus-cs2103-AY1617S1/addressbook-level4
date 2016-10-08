@@ -9,8 +9,10 @@ import seedu.address.model.tag.UniqueTagList;
 public class TestPerson implements ReadOnlyPerson {
 
     private ItemType itemType;
-    private Time address;
-    private Date email;
+    private Date startDate;
+    private Time startTime;
+    private Date endDate;
+    private Time endTime;
     private Name name;
     private UniqueTagList tags;
 
@@ -22,12 +24,20 @@ public class TestPerson implements ReadOnlyPerson {
         this.itemType = itemType;
     }
 
-    public void setAddress(Time address) {
-        this.address = address;
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
     }
 
-    public void setDate(Date email) {
-        this.email = email;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }    
+    
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public void setName(Name name) {
@@ -45,13 +55,23 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public Date getDate() {
-        return email;
+    public Date getStartDate() {
+        return startDate;
     }
 
     @Override
-    public Time getTime() {
-        return address;
+    public Time getStartTime() {
+        return startTime;
+    }
+    
+    @Override
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    @Override
+    public Time getEndTime() {
+        return endTime;
     }
 
     @Override
@@ -66,10 +86,22 @@ public class TestPerson implements ReadOnlyPerson {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getItemType().value + " ");
-        sb.append("n/" + this.getName().value + " ");
-        sb.append("e/" + this.getDate().value + " ");
-        sb.append("a/" + this.getTime().value + " ");
+        if (this.getItemType().value.equals(ItemType.TASK_WORD)) {
+            sb.append("add " + this.getItemType().value + " ");
+            sb.append("n/" + this.getName().value + " ");
+        } else if (this.getItemType().value.equals(ItemType.DEADLINE_WORD)) {
+            sb.append("add " + this.getItemType().value + " ");
+            sb.append("n/" + this.getName().value + " ");
+            sb.append("ed/" + this.getEndDate().value + " ");
+            sb.append("et/" + this.getEndTime().value + " ");
+        } else if (this.getItemType().value.equals(ItemType.EVENT_WORD)) {
+            sb.append("add " + this.getItemType().value + " ");
+            sb.append("n/" + this.getName().value + " ");
+            sb.append("sd/" + this.getStartDate().value + " ");
+            sb.append("st/" + this.getStartTime().value + " ");
+            sb.append("ed/" + this.getEndDate().value + " ");
+            sb.append("et/" + this.getEndTime().value + " ");
+        }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

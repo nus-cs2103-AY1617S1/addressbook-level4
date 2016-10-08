@@ -19,9 +19,13 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String phone;
     @XmlElement(required = true)
-    private String email;
+    private String startDate;
     @XmlElement(required = true)
-    private String address;
+    private String startTime;
+    @XmlElement(required = true)
+    private String endDate;
+    @XmlElement(required = true)
+    private String endTime;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -40,8 +44,10 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson(ReadOnlyPerson source) {
         name = source.getItemType().value;
         phone = source.getName().value;
-        email = source.getDate().value;
-        address = source.getTime().value;
+        startDate = source.getStartDate().value;
+        startTime = source.getStartTime().value;
+        endDate = source.getEndDate().value;
+        endTime = source.getEndTime().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -60,9 +66,11 @@ public class XmlAdaptedPerson {
         }
         final ItemType itemType = new ItemType(this.name);
         final Name name = new Name(this.phone);
-        final Date email = new Date(this.email);
-        final Time address = new Time(this.address);
+        final Date startDate = new Date(this.startDate);
+        final Time startTime = new Time(this.startTime);
+        final Date endDate = new Date(this.endDate);
+        final Time endTime = new Time(this.endTime);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Item(itemType, name, email, address, tags);
+        return new Item(itemType, name, startDate, startTime, endDate, endTime, tags);
     }
 }

@@ -15,8 +15,8 @@ public class PersonBuilder {
         this.person = new TestPerson();
     }
 
-    public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setItemType(new ItemType(name));
+    public PersonBuilder withItemType(String itemType) throws IllegalValueException {
+        this.person.setItemType(new ItemType(itemType));
         return this;
     }
 
@@ -27,18 +27,28 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withTime(String time) throws IllegalValueException {
-        this.person.setAddress(new Time(time));
+    public PersonBuilder withEndDate(String endDate) throws IllegalValueException {
+        this.person.setEndDate(new Date(endDate));
+        return this;
+    }
+    
+    public PersonBuilder withEndTime(String endTime) throws IllegalValueException {
+        this.person.setEndTime(new Time(endTime));
         return this;
     }
 
-    public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setName(new Name(phone));
+    public PersonBuilder withName(String name) throws IllegalValueException {
+        this.person.setName(new Name(name));
         return this;
     }
 
-    public PersonBuilder withDate(String date) throws IllegalValueException {
-        this.person.setDate(new Date(date));
+    public PersonBuilder withStartDate(String startDate) throws IllegalValueException {
+        this.person.setStartDate(new Date(startDate));
+        return this;
+    }
+    
+    public PersonBuilder withStartTime(String startTime) throws IllegalValueException {
+        this.person.setStartTime(new Time(startTime));
         return this;
     }
 

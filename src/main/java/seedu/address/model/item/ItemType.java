@@ -8,8 +8,12 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class ItemType {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Item types should only be 'task', 'deadline' or 'event'.";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+	public static final String EVENT_WORD = "event";
+	public static final String DEADLINE_WORD = "deadline";
+	public static final String TASK_WORD = "task";
+	
+    public static final String MESSAGE_ITEMTYPE_CONSTRAINTS = "Item types should only be 'task', 'deadline' or 'event'.";
+    public static final String ITEMTYPE_VALIDATION_REGEX = EVENT_WORD + "|" + DEADLINE_WORD + "|" + TASK_WORD;
 
     public final String value;
 
@@ -21,8 +25,8 @@ public class ItemType {
     public ItemType(String itemType) throws IllegalValueException {
         assert itemType != null;
         itemType = itemType.trim();
-        if (!isValidItemType(itemType)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+        if (!isValidItemType(itemType.toLowerCase())) {
+            throw new IllegalValueException(MESSAGE_ITEMTYPE_CONSTRAINTS);
         }
         this.value = itemType;
     }
@@ -31,7 +35,7 @@ public class ItemType {
      * Returns true if a given string is a valid item type.
      */
     public static boolean isValidItemType(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
+        return test.matches(ITEMTYPE_VALIDATION_REGEX);
     }
 
 
