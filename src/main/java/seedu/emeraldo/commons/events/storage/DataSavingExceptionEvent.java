@@ -1,4 +1,4 @@
-package seedu.address.commons.events.storage;
+package seedu.emeraldo.commons.events.storage;
 
 import seedu.emeraldo.commons.events.BaseEvent;
 
