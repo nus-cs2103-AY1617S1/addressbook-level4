@@ -23,6 +23,14 @@ public class TestTask implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
+    
+    public void markAsCompleted() {
+        this.isCompleted = true;
+    }
+
+    public void markAsUncompleted() {
+        this.isCompleted = false;
+    }
 
     @Override
     public Name getName() {

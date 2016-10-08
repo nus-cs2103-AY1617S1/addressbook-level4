@@ -26,6 +26,16 @@ public class TaskBuilder {
         }
         return this;
     }
+    
+    public TaskBuilder withCompletedStatus() {
+        task.markAsCompleted();
+        return this;      
+    }
+
+    public TaskBuilder withUncompletedStatus() {
+        task.markAsUncompleted();
+        return this;      
+    }
 
     public TestTask build() {
         return this.task;
