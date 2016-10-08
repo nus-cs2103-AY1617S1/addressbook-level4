@@ -10,7 +10,7 @@ import seedu.unburden.commons.exceptions.DataConversionException;
 import seedu.unburden.commons.util.FileUtil;
 import seedu.unburden.model.AddressBook;
 import seedu.unburden.model.ReadOnlyAddressBook;
-import seedu.unburden.model.person.Person;
+import seedu.unburden.model.person.Task;
 import seedu.unburden.storage.XmlTaskListStorage;
 import seedu.unburden.testutil.TypicalTestPersons;
 
@@ -73,14 +73,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Person(TypicalTestPersons.hoon));
-        original.removePerson(new Person(TypicalTestPersons.alice));
+        original.addTask(new Task(TypicalTestPersons.hoon));
+        original.removePerson(new Task(TypicalTestPersons.alice));
         xmlTaskListStorage.saveTaskList(original, filePath);
         readBack = xmlTaskListStorage.readTaskList(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(new Person(TypicalTestPersons.ida));
+        original.addTask(new Task(TypicalTestPersons.ida));
         xmlTaskListStorage.saveTaskList(original); //file path not specified
         readBack = xmlTaskListStorage.readTaskList().get(); //file path not specified
         assertEquals(original, new AddressBook(readBack));

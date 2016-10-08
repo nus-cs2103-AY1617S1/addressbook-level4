@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.unburden.TestApp;
-import seedu.unburden.model.person.Person;
+import seedu.unburden.model.person.Task;
 import seedu.unburden.model.person.ReadOnlyPerson;
 import seedu.unburden.testutil.TestUtil;
 
@@ -147,7 +147,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public PersonCardHandle getPersonCardHandle(int index) {
-        return getPersonCardHandle(new Person(getListView().getItems().get(index)));
+        return getPersonCardHandle(new Task(getListView().getItems().get(index)));
     }
 
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {

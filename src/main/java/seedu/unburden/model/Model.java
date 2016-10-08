@@ -3,7 +3,7 @@ package seedu.unburden.model;
 import java.util.Set;
 
 import seedu.unburden.commons.core.UnmodifiableObservableList;
-import seedu.unburden.model.person.Person;
+import seedu.unburden.model.person.Task;
 import seedu.unburden.model.person.ReadOnlyPerson;
 import seedu.unburden.model.person.UniquePersonList;
 
@@ -21,7 +21,7 @@ public interface Model {
     void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
 
     /** Adds the given person */
-    void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
+    void addTask(Task task) throws UniquePersonList.DuplicatePersonException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
