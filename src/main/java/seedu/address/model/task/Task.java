@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.Tag;
 
 import java.util.Objects;
 
@@ -69,7 +70,21 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-
+    
+    /**
+     * Add a tag to the task's tag list 
+     */
+    public void addTag(Tag toAdd) throws UniqueTagList.DuplicateTagException {
+        tags.add(toAdd);
+    }
+    
+    /**
+     * Remove a tag to the task's tag list 
+     */
+    public void removeTag(Tag toRemove) throws UniqueTagList.TagNotFoundException{
+        tags.remove(toRemove);
+    }
+    
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */

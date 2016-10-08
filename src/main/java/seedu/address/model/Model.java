@@ -18,7 +18,7 @@ public interface Model {
     /** Returns the ToDoList */
     ReadOnlyToDoList getToDoList();
 
-    /** Deletes the given person. */
+    /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Retrieve the give task. */
@@ -33,10 +33,11 @@ public interface Model {
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+
+    /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
 }
