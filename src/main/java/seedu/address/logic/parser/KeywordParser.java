@@ -25,7 +25,7 @@ public class KeywordParser {
      * Keyword and associated substring put in a HashMap, with key = keyword and value = associated substring
      * If no match found then empty HashMap returned
      * @param string to be parsed
-     * @return
+     * @return HashMap containing the keyword - associated substring pairs
      */
     //TODO Make parsing not depend on order of input keywords
     public HashMap<String, String> parse(String inputString){
@@ -49,6 +49,37 @@ public class KeywordParser {
             if(matcher.matches()){
                 String returnString = matcher.group("returnString");
                 words.put(keyword, returnString);
+            }
+
+        }
+        return words;
+    }
+
+    /**
+     * Similar to parse(), but for input string with one keyword
+     * Returns first match with any keyword. Associated substring is everything after the keyword
+     * @param inputString
+     * @return HashMap containing the keyword - associated substring pair
+     */
+    public HashMap<String, String> parseOne(String inputString){
+        HashMap<String, String> words = new HashMap<String, String>();
+        for(int i = 0; i < keywords.size(); i++){
+            inputString = new String(inputString);
+            String keyword = keywords.get(i);
+            String patternString;
+            if (keyword.equals("add")) {
+                //Special case for add command, which takes ""
+                patternString = new String("[^/]*" + keyword + " " + "\"(?<returnString>[^/]+)\"");
+            }
+            else{
+                patternString = new String("[^/]*" + keyword + " " + "(?<returnString>[^/]+)");
+            }
+            Pattern pattern = Pattern.compile(patternString);
+            Matcher matcher = pattern.matcher(inputString);
+            if(matcher.matches()){
+                String returnString = matcher.group("returnString");
+                words.put(keyword, returnString);
+                return words;
             }
 
         }

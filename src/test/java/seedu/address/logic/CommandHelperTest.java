@@ -130,6 +130,24 @@ public class CommandHelperTest {
             fail();
         }
 
+        String repeatParameter2 = "none 0";
+        Recurrence recurrence2;
+        try {
+            recurrence2 = CommandHelper.getRecurrence(repeatParameter2);
+            assertEquals("No recurrence.", recurrence2.toString());
+        } catch (IllegalValueException e) {
+            fail();
+        }
     }
 
+    @Test
+    public void getRecurrence_invalidInput(){
+        String repeatParameter = "weekly 0";
+        Recurrence recurrence;
+        try {
+            recurrence = CommandHelper.getRecurrence(repeatParameter);
+            fail("Exception expected");
+        } catch (IllegalValueException e) {
+        }
+    }
 }
