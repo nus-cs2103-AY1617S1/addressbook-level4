@@ -24,7 +24,7 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns task book in the file or an empty task book
      */
     public static XmlSerializableTaskBook loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {

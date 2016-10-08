@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskbook>
+    <tasks>
+        <name>cs2103</name>
+        <description>do project</description>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>cs2106 v0.2</name>
+        <description>doing a MVP</description>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Meeting</name>
+        <description>at Utown</description>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Homework1</name>
+        <description>On ivle</description>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Shopping</name>
+        <description>buy food</description>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Sleep early tonight</name>
+        <description>no shit</description>
+        <status>false</status>
+    </tasks>
+</taskbook>

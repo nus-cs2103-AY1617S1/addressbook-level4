@@ -22,7 +22,7 @@ public class XmlAdaptedTask {
 //    private String address;
 	
 	@XmlElement(required = true)
-	private String task;
+	private String name;
 	
 	@XmlElement
 	private String description;
@@ -48,7 +48,7 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        task = source.getTask().fullName;
+        name = source.getTask().fullName;
         description = source.getDescription().value;
         status = source.getTaskStatus();
 //        deadline = source.getDealine().value;
@@ -61,7 +61,7 @@ public class XmlAdaptedTask {
      */
     public Task toModelType() throws IllegalValueException {
 
-        final Name name = new Name(this.task);
+        final Name name = new Name(this.name);
         final Description description = new Description(this.description);
         final Boolean status = new Boolean(this.status);
         
