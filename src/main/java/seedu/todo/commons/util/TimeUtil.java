@@ -76,6 +76,8 @@ public class TimeUtil {
                 return DEADLINE_PREFIX_SINCE + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
             } else if (currentTime.toLocalDate().minusDays(1).equals(endTime.toLocalDate())) {
                 return DEADLINE_PREFIX_SINCE + DUE_YESTERDAY + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
+            } else if (currentTime.getYear() == endTime.getYear()) {
+                return DEADLINE_PREFIX_SINCE + endTime.format(DateTimeFormatter.ofPattern("d MMMM, h:mm a"));
             }
         }        
                
