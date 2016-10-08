@@ -3,7 +3,7 @@ package seedu.task.logic.commands;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
 
         try {
             model.deletePerson(personToDelete);
-        } catch (PersonNotFoundException pnfe) {
+        } catch (TaskNotFoundException pnfe) {
             assert false : "The target person cannot be missing";
         }
 

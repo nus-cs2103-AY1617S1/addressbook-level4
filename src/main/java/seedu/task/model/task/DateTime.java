@@ -1,49 +1,54 @@
 package seedu.task.model.task;
 
+import java.util.Date;
+
 import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date {
+public class DateTime {
 
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Task phone numbers should only contain numbers";
-    public static final String DATE_VALIDATION_REGEX = "\\d+";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Date should be an upcoming date";
 
     public final String value;
 
     /**
-     * Validates given phone number.
+     * Validates given Date.
      *
      * @throws IllegalValueException if given phone string is invalid.
      */
-    public Date(String date) throws IllegalValueException {
+    public DateTime(Date date) throws IllegalValueException {
         assert date != null;
-        date = date.trim();
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        this.value = date;
+        this.value = date.toString();
     }
 
+    public DateTime (String date){
+        this.value = date;
+    }
+    
+    
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given Date is valid and in future
      */
-    public static boolean isValidDate(String test) {
-        return test.matches(DATE_VALIDATION_REGEX);
+    public static boolean isValidDate(Date date) {
+        return date.after(new Date());
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Date // instanceof handles nulls
-                && this.value.equals(((Date) other).value)); // state check
+                || (other instanceof DateTime // instanceof handles nulls
+                && this.value.equals(((DateTime) other).value)); // state check
     }
 
     @Override

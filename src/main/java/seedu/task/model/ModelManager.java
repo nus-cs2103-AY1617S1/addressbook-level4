@@ -9,7 +9,7 @@ import seedu.task.commons.util.StringUtil;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
-import seedu.task.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -36,7 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskBook = new TaskBook(src);
-        filteredPersons = new FilteredList<>(taskBook.getPersons());
+        filteredPersons = new FilteredList<>(taskBook.getTasks());
     }
 
     public ModelManager() {
@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         taskBook = new TaskBook(initialData);
-        filteredPersons = new FilteredList<>(taskBook.getPersons());
+        filteredPersons = new FilteredList<>(taskBook.getTasks());
     }
 
     @Override
@@ -65,14 +65,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
-        taskBook.removePerson(target);
+    public synchronized void deletePerson(ReadOnlyTask target) throws TaskNotFoundException {
+        taskBook.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskBook.addPerson(task);
+        taskBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }

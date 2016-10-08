@@ -3,7 +3,9 @@ package seedu.task.model.task;
 import java.util.Objects;
 
 import seedu.task.commons.util.CollectionUtil;
+import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * Represents a Task in the taskBook.
@@ -11,46 +13,71 @@ import seedu.task.model.tag.UniqueTagList;
  */
 public class Task implements ReadOnlyTask {
 
-    private TaskName taskName;
-    private Date date;
-    private Time time;
+    private Name name;
+    private DateTime startDate;
+    private DateTime endDate;
     private Venue venue;
-
+    private Status status = Status.ACTIVE;
+    private Priority priority = Priority.LOW; //Default priority is low
+    //Repeating, pin task
     private UniqueTagList tags;
 
+
     /**
-     * Every field must be present and not null.
+     * Only Name, Priority and Status Should not be null
      */
-    public Task(TaskName taskName, Date date, Time time, Venue venue, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(taskName, date, time, venue, tags);
-        this.taskName = taskName;
-        this.date = date;
-        this.time = time;
-        this.venue = venue;
+    public Task(Name name, DateTime startDate, DateTime endDate, Venue venue, Priority priority, Status status, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, priority, status);
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.setVenue(venue);
+        this.priority = priority;
+        this.status = status;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
+    
+    public Task(Name name, DateTime endDate, Venue venue, Priority priority, Status status, UniqueTagList tags) {
+    	this (name, new DateTime(""), endDate, venue, priority, status, tags);
+    }
+    
+    public Task(Name name, DateTime endDate, Priority priority, Status status, UniqueTagList tags) {
+    	this (name, new DateTime(""), endDate, new Venue(""), priority, status, tags);
+    }
 
+    public Task(Name name, DateTime endDate, Priority priority, Status status) {
+    	this (name, new DateTime(""), endDate, new Venue(""), priority, status, new UniqueTagList());
+    }
+    
+    public Task(Name name, Priority priority, Status status) {
+    	this (name, new DateTime(""), new DateTime(""), new Venue(""), priority, status, new UniqueTagList());
+    }
+    
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getTime(), source.getVenue(), source.getTags());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getVenue(), source.getPriority(), source.getStatus(), source.getTags());
+    }
+    
+    /**
+     * Empty Task Constructor.
+     */
+    public Task() {
+    	this.startDate = new DateTime("");
+    	this.endDate = new DateTime("");
+    	this.venue = new Venue("");
+    	this.tags = new UniqueTagList();
     }
 
     @Override
-    public TaskName getName() {
-        return taskName;
+    public Name getName() {
+        return name;
     }
-
-    @Override
-    public Date getDate() {
-        return date;
-    }
-
-    @Override
-    public Time getTime() {
-        return time;
-    }
+    
+	public void setName(Name name) {
+		this.name = name;
+	}
 
     @Override
     public Venue getVenue() {
@@ -79,12 +106,56 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskName, date, time, venue, tags);
+        return Objects.hash(getName(), getStartDate(), getEndDate(), getVenue(), getPriority(), getStatus(), getTags());
     }
 
     @Override
     public String toString() {
         return getAsText();
     }
+    
+    @Override
+	public DateTime getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(DateTime startDate) {
+		this.startDate = startDate;
+	}
+	
+    @Override
+	public DateTime getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(DateTime endDate) {
+		this.endDate = endDate;
+	}
+	
+    @Override
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+    @Override
+	public Priority getPriority() {
+		return priority;
+	}
+
+	public void setPriority(Priority priority) {
+		this.priority = priority;
+	}
+	
+	public void addTag(Tag tag) throws DuplicateTagException {
+		this.tags.add(tag);
+	}
+
+	public void setVenue(Venue venue) {
+		this.venue = venue;
+	}
 
 }

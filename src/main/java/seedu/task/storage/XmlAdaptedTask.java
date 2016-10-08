@@ -18,12 +18,17 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String date;
+    private String startDate;
     @XmlElement(required = true)
-    private String time;
+    private String endDate;
     @XmlElement(required = true)
     private String venue;
+    @XmlElement(required = true)
+    private String priority = Priority.LOW.toString();
+    @XmlElement(required = true)
+    private String status = Status.ACTIVE.toString();
 
+    
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -40,9 +45,11 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        date = source.getDate().value;
-        time = source.getTime().value;
+        startDate = source.getStartDate().value;
+        endDate = source.getEndDate().value;
         venue = source.getVenue().value;
+        priority = source.getPriority().toString();
+        status = source.getStatus().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -59,11 +66,13 @@ public class XmlAdaptedTask {
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
-        final TaskName taskName = new TaskName(this.name);
-        final Date date = new Date(this.date);
-        final Time time = new Time(this.time);
+        final Name name = new Name(this.name);
+        final DateTime startDate = new DateTime(this.startDate);
+        final DateTime endDate = new DateTime(this.endDate);
         final Venue venue = new Venue(this.venue);
+        final Priority priority = Priority.valueOf(this.priority.toUpperCase());
+        final Status status = Status.valueOf(this.status.toUpperCase());
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(taskName, date, time, venue, tags);
+        return new Task(name, startDate, endDate, venue, priority, status, tags);
     }
 }

@@ -8,10 +8,12 @@ import seedu.task.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    TaskName getName();
-    Date getDate();
-    Time getTime();
+    Name getName();
+    DateTime getStartDate();
+    DateTime getEndDate();
     Venue getVenue();
+    Priority getPriority();
+    Status getStatus();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -23,26 +25,29 @@ public interface ReadOnlyTask {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-        return other == this // short circuit if same object
-                || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getDate().equals(this.getDate())
-                && other.getTime().equals(this.getTime())
-                && other.getVenue().equals(this.getVenue()));
+        return other == this; // short circuit if same object
+                //|| (other != null); // this is first to avoid NPE below
+//                && other.getStartDate().equals(this.getStartDate())
+//                && other.getEndDate().equals(this.getEndDate()));
+        //Need to check for clash of datetime
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the Task showing all details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getDate())
-                .append(" Email: ")
-                .append(getTime())
+                .append(" startDate: ")
+                .append(getStartDate())
+                .append(" endDate: ")
+                .append(getEndDate())
                 .append(" Venue: ")
                 .append(getVenue())
+                .append(" Priority: ")
+                .append(getPriority())
+                .append(" Status: ")
+                .append(getStatus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

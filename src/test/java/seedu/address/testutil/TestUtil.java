@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new TaskName("Ali Muster"), new Date("9482424"), new Time("hans@google.com"), new Venue("4th street"), new UniqueTagList()),
-                    new Task(new TaskName("Boris Mueller"), new Date("87249245"), new Time("ruth@google.com"), new Venue("81th street"), new UniqueTagList()),
-                    new Task(new TaskName("Carl Kurz"), new Date("95352563"), new Time("heinz@yahoo.com"), new Venue("wall street"), new UniqueTagList()),
-                    new Task(new TaskName("Daniel Meier"), new Date("87652533"), new Time("cornelia@google.com"), new Venue("10th street"), new UniqueTagList()),
-                    new Task(new TaskName("Elle Meyer"), new Date("9482224"), new Time("werner@gmail.com"), new Venue("michegan ave"), new UniqueTagList()),
-                    new Task(new TaskName("Fiona Kunz"), new Date("9482427"), new Time("lydia@gmail.com"), new Venue("little tokyo"), new UniqueTagList()),
-                    new Task(new TaskName("George Best"), new Date("9482442"), new Time("anna@google.com"), new Venue("4th street"), new UniqueTagList()),
-                    new Task(new TaskName("Hoon Meier"), new Date("8482424"), new Time("stefan@mail.com"), new Venue("little india"), new UniqueTagList()),
-                    new Task(new TaskName("Ida Mueller"), new Date("8482131"), new Time("hans@google.com"), new Venue("chicago ave"), new UniqueTagList())
+                    new Task(new Name("Ali Muster"), new DateTime("9482424"), new Venue("4th street"), Priority.LOW, Status.ACTIVE, new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), new DateTime("87249245"), new Venue("81th street"), Priority.LOW, Status.ACTIVE, new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), new DateTime("95352563"), new Venue("wall street"), Priority.LOW, Status.ACTIVE, new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), new DateTime("87652533"), new Venue("10th street"), Priority.LOW, Status.ACTIVE, new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), new DateTime("9482224"), new Venue("michegan ave"), Priority.LOW, Status.ACTIVE, new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), new DateTime("9482427"), new Venue("little tokyo"), Priority.LOW, Status.ACTIVE, new UniqueTagList()),
+                    new Task(new Name("George Best"), new DateTime("9482442"), new Venue("4th street"), Priority.LOW, Status.ACTIVE, new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), new DateTime("8482424"), new Venue("little india"), Priority.LOW, Status.ACTIVE, new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), new DateTime("8482131"), new Venue("chicago ave"), Priority.LOW, Status.ACTIVE, new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

@@ -9,21 +9,17 @@ import seedu.task.commons.exceptions.IllegalValueException;
  */
 public class Venue {
     
-    public static final String MESSAGE_VENUE_CONSTRAINTS = "Task addresses can be in any format";
-    public static final String VENUE_VALIDATION_REGEX = ".+";
+    public static final String MESSAGE_VENUE_CONSTRAINTS = "Task venue can be in any format";
+    public static final String VENUE_VALIDATION_REGEX = "";
 
     public final String value;
 
     /**
-     * Validates given address.
+     * Validates given venue.
      *
-     * @throws IllegalValueException if given address string is invalid.
+     * Venue can be null
      */
-    public Venue(String venue) throws IllegalValueException {
-        assert venue != null;
-        if (!isValidVenue(venue)) {
-            throw new IllegalValueException(MESSAGE_VENUE_CONSTRAINTS);
-        }
+    public Venue(String venue) {
         this.value = venue;
     }
 

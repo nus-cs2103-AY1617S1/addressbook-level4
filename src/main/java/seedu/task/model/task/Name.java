@@ -6,7 +6,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
  * Represents a Task's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class TaskName {
+public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
@@ -18,7 +18,7 @@ public class TaskName {
      *
      * @throws IllegalValueException if given name string is invalid.
      */
-    public TaskName(String name) throws IllegalValueException {
+    public Name(String name) throws IllegalValueException {
         assert name != null;
         name = name.trim();
         if (!isValidName(name)) {
@@ -28,7 +28,7 @@ public class TaskName {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid task name.
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
@@ -43,8 +43,8 @@ public class TaskName {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskName // instanceof handles nulls
-                && this.fullName.equals(((TaskName) other).fullName)); // state check
+                || (other instanceof Name // instanceof handles nulls
+                && this.fullName.equals(((Name) other).fullName)); // state check
     }
 
     @Override

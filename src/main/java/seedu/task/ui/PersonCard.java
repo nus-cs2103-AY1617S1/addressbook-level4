@@ -41,11 +41,11 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(person.getName().fullName + " " + person.getVenue().value);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getDate().value);
-        address.setText(person.getVenue().value);
-        email.setText(person.getTime().value);
+        phone.setText("Start Date: " + person.getStartDate().value + " End Date: " + person.getEndDate().value);
+        address.setText(person.getPriority().toString());
+        email.setText(person.getStatus().toString());
         tags.setText(person.tagsString());
     }
 
