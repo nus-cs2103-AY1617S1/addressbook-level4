@@ -3,11 +3,15 @@ package seedu.jimi.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.jimi.commons.core.Messages;
+import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.Name;
+import seedu.jimi.model.task.ReadOnlyTask;
+import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * 
@@ -23,10 +27,12 @@ public class EditCommand extends Command{
             + "Example: " + COMMAND_WORD
             + "2 by 10th July at 12 pm";
 
-    public static final String MESSAGE_SUCCESS = "Updated task details: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Updated task details: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
 
     private final int taskIndex; //index of task/event to be edited
+    private UniqueTagList newTagList;
+    private Name newName; 
 
     /**
      * Convenience constructor using raw values.
@@ -40,12 +46,42 @@ public class EditCommand extends Command{
             tagSet.add(new Tag(tagName));
         }
         this.taskIndex = taskIndex;
+        
+        //if new fields are to be edited, instantiate them
+        if(name != null) {
+            this.newName = new Name(name);
+        }
+        if(tagSet != null) {
+            this.newTagList = new UniqueTagList(tagSet);
+        }
     }
     
     @Override
     public CommandResult execute() {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+        if (lastShownList.size() < taskIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
+        ReadOnlyTask taskToEdit = lastShownList.get(taskIndex - 1);
         
-        return null;
+        try {
+            model.deleteTask(taskToEdit); //delete 
+            
+            UniqueTagList oldTagSet = taskToEdit.getTags();
+            Name oldName = taskToEdit.getName();
+            
+            if(newName != null && !oldName.equals(newName)){
+                
+            }
+            
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
+
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
 
 }
