@@ -142,7 +142,7 @@ public class TimeUtilTest {
             String expectedOutput = "in " + minutesLeft + " minutes";
             
             LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
-            LocalDateTime currentTime1 = dueTime1.minusMinutes(minutesLeft);            
+            LocalDateTime currentTime1 = dueTime1.minusMinutes(minutesLeft);
             TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
             String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
             assertEquals(expectedOutput, generatedOutput1);
