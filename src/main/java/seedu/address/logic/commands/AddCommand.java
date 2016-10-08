@@ -36,7 +36,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String itemType, String name, Set<String> tags)
             throws IllegalValueException {
-        this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, Date.EMPTY_DATE, Time.EMPTY_TIME, tags);
+    	this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, Date.EMPTY_DATE, Time.EMPTY_TIME, tags);
     }
     
     /**
@@ -70,7 +70,7 @@ public class AddCommand extends Command {
                 new ItemType(itemType),
                 new Name(name),
                 new Date(startDate),
-                new Time(endTime),
+                new Time(startTime),
                 new Date(endDate),
                 new Time(endTime),
                 new UniqueTagList(tagSet)
