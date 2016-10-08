@@ -34,7 +34,7 @@ public class TimeUtil {
      * @param endTime ending time
      * @return a formatted deadline String
      */
-    public String getTaskDeadlineString(LocalDateTime endTime) {
+    public String getTaskDeadlineText(LocalDateTime endTime) {
         assert(endTime != null);
         
         LocalDateTime currentTime = LocalDateTime.now(clock);
