@@ -24,18 +24,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task |
-`* * *` | user | delete a task | remove tasks that I no longer need
-`* * *` | user | undo a command | undo a command which I accidentally made and regretted making it
-`* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
-`* * *` | user | have a one-shot approach to add tasks | minimize clicking and saves time
-`* * *` | user | indicate a completion of Task | keep track of the Tasks which I have completed
-`* * *` | user | set recurring tasks| repeatedly input the same event
-`* * *` | user | track completed/uncompleted tasks | better manage my schedule
+`* * *` | user | add a new activity |
+`* * *` | user | delete an activity | remove activities that I no longer need
+`* * *` | user | edit a command | modify the details of an activity
+`* * *` | user | undo a command | revert back to the state before I made a wrong command
+`* * *` | user | find an activity by name | locate details of activities without having to go through the entire list
+`* * *` | user | have a one-shot approach to add activities | minimize clicking and save time
+`* * *` | user | indicate a completion of an activity | keep track of activities which I have completed
+`* * *` | user | set recurring activities| add repeated activities just once
+`* * *` | user | track completed/uncompleted activities | better manage my schedule
 `* * *` | user | modify storage path | store data in my desired location
+`* * *` | user | search for my activities using keywords | locate activities quickly
 `* * *` | user | upload my schedule online and snyc them across devices | view my schedules when I am using different devices
-`* *` | user | set priorities to my tasks | prioratise tasks that are more important to me
-`* *` | user with many tasks in the address book | sort tasks by different priority/dateline | view them differently
+`* *` | user | set priorities to my activities | prioratise activities that are more important to me
+`* *` | user with many activities in the address book | sort activities by different priority/dateline | have a clearer view of what needs to be completed first
 
 {More to be added}
 
