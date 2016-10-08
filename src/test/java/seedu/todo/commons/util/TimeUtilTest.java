@@ -199,4 +199,16 @@ public class TimeUtilTest {
         testTaskDeadlineTextHelper("since 13 February 2016, 1:00 PM",
                 LocalDateTime.of(2020, Month.AUGUST, 31, 12, 35), LocalDateTime.of(2016, Month.FEBRUARY, 13, 13, 00));
     }
+    
+    @Test (expected = AssertionError.class)
+    public void getEventTimeText_nullStartTime() {
+        TimeUtil timeUtil = new TimeUtil();
+        timeUtil.getEventTimeText(null, LocalDateTime.now());
+    }
+    
+    @Test (expected = AssertionError.class)
+    public void getEventTimeText_nullEndTime() {
+        TimeUtil timeUtil = new TimeUtil();
+        timeUtil.getEventTimeText(LocalDateTime.now(), null);
+    }
 }
