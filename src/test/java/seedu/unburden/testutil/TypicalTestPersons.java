@@ -44,7 +44,7 @@ public class TypicalTestPersons {
             ab.addTask(new Task(elle));
             ab.addTask(new Task(fiona));
             ab.addTask(new Task(george));
-        } catch (UniquePersonList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicatePersonException e) {
             assert false : "not possible";
         }
     }

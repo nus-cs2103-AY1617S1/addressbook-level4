@@ -3,7 +3,7 @@ package seedu.unburden.logic.commands;
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.model.person.ReadOnlyPerson;
-import seedu.unburden.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.unburden.model.person.UniqueTaskList.PersonNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.

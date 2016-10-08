@@ -136,7 +136,7 @@ public class TestUtil {
     }
 
     public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableTaskList generateSampleStorageAddressBook() {

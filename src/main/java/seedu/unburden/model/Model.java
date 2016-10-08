@@ -5,7 +5,7 @@ import java.util.Set;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.model.person.Task;
 import seedu.unburden.model.person.ReadOnlyPerson;
-import seedu.unburden.model.person.UniquePersonList;
+import seedu.unburden.model.person.UniqueTaskList;
 
 /**
  * The API of the Model component.
@@ -18,10 +18,10 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /** Deletes the given person. */
-    void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
+    void deletePerson(ReadOnlyPerson target) throws UniqueTaskList.PersonNotFoundException;
 
     /** Adds the given person */
-    void addTask(Task task) throws UniquePersonList.DuplicatePersonException;
+    void addTask(Task task) throws UniqueTaskList.DuplicatePersonException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
