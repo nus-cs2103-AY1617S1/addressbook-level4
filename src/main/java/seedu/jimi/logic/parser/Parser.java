@@ -29,6 +29,9 @@ public class Parser {
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
 
+    private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
+            Pattern.compile("(?<targetIndex>\\d)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
+    
     public Parser() {}
 
     /**
@@ -108,18 +111,17 @@ public class Parser {
      * @return  the prepared edit command
      */
     private Command prepareEdit(String args){
-        final Matcher matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        Optional<Integer> index = parseIndex(args);
+        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args);
         
         // Validate arg string format
-        if (!matcher.matches() || !index.isPresent()) {
+        if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         try {
             return new EditCommand(
                     matcher.group("name"),
                     getTagsFromArgs(matcher.group("tagArguments")),
-                    index.get()
+                    Integer.parseInt(matcher.group("targetIndex"))
                     );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
