@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.model.task.Task;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -16,12 +18,12 @@ public class TagCommand extends Command{
     public static final String COMMAND_WORD = "tag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Tags the task identified by the index number used in the last task listing.\n"
-            + ": Tag names must be unique\n"
-            + "Parameters: INDEX TAGNAME1 [MORE TAGNAMES]"
+            + ": Tags the task identified by the index number used in the last task listing. "
+            + "Tag names must be unique\n"
+            + "Parameters: INDEX TAGNAME [MORE TAGNAMES]"
             + "Example: " + COMMAND_WORD + " 1 birthday clique";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Tagged Task: %1$s";
+    public static final String MESSAGE_TAG_TASK_SUCCESS = "Tagged Task: %1$s";
 
     public final int targetIndex;
     public final UniqueTagList tags;
@@ -35,31 +37,41 @@ public class TagCommand extends Command{
         }
         
         tags = new UniqueTagList();
-        for (String tagName : tagNames.split(" ")) {
+        for (String tagName : tagNames.trim().split(" ")) {
+            System.out.println(tagName);
+            System.out.println(tagNames);
             tags.add(new Tag(tagName));
         }
+        
     }
     
     
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getUnmodifiableFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToTag = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deleteTask(taskToDelete);
+            Task toTag = model.getTask(taskToTag);
+            
+            for (Tag tag : tags) {
+                try {
+                    toTag.addTag(tag);
+                } catch (DuplicateTagException e) {}
+            }
+            model.updateTask(taskToTag, toTag);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            assert false : "The target task cannot be found";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_TAG_TASK_SUCCESS, taskToTag));
     }
     
     

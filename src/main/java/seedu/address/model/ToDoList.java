@@ -31,6 +31,7 @@ public class ToDoList implements ReadOnlyToDoList {
      */
     public ToDoList(ReadOnlyToDoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        
     }
 
     /**
@@ -77,7 +78,6 @@ public class ToDoList implements ReadOnlyToDoList {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
         tasks.add(p);
     }
 
@@ -86,7 +86,7 @@ public class ToDoList implements ReadOnlyToDoList {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task task) {
+    public void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 

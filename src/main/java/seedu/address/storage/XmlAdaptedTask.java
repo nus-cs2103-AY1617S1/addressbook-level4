@@ -22,7 +22,9 @@ public class XmlAdaptedTask {
     private String fromDate;
     @XmlElement
     private String tillDate;
-
+    
+    @XmlElement
+    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
@@ -40,7 +42,13 @@ public class XmlAdaptedTask {
         detail = source.getDetail().toString();
         fromDate = source.getFromDate().toString();
         tillDate = source.getTillDate().toString();
-
+        
+        tagged = new ArrayList<>();
+        
+        for (Tag tag : source.getTags()) {
+            tagged.add(new XmlAdaptedTag(tag));
+        }
+        
     }
 
     /**
@@ -50,11 +58,16 @@ public class XmlAdaptedTask {
      */
     public Task toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
-
+        
+        for (XmlAdaptedTag tag : tagged) {
+            taskTags.add(tag.toModelType());
+        }
+       
         final Name name = new Name(this.name);
         final Detail detail = new Detail(this.detail);
         final TaskDate fromDate = new TaskDate(this.fromDate);
         final TaskDate tillDate = new TaskDate(this.tillDate);
-        return new Task(name, detail, fromDate, tillDate);
+        final UniqueTagList tags = new UniqueTagList(taskTags);
+        return new Task(name, detail, fromDate, tillDate, tags);
     }
 }

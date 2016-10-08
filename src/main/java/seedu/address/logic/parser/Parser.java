@@ -193,7 +193,7 @@ public class Parser {
            args = args.trim();
            String tagNames = args.substring(1);
            String index = args.substring(0, 1);
-           return new TagCommand(id, tagNames);
+           return new TagCommand(index, tagNames);
         } catch (Exception e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
