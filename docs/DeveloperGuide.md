@@ -207,8 +207,9 @@ We have two types of tests:
    
    1. _AddCommandTest_ 
    
+   
    | Case# | Event | Basis Path | Output |
-   | ---   | ---  | --- | ---  |
+   | :---:   | ---  | --- | ---  |
    | 1 | add floating task to existing task list `add eat with Hoon Meier` | 1 -> 2 | `New floating task added: eat with Hoon Meier Tags: ` |
    | 2 | add floating task to existing task list `add play with Ida Mueller` | 1 -> 2 | `New floating task added: play with Ida Mueller Tags: ` |
    | 3 | add duplicate floating task to existing task list `add eat with Hoon Meier` | 1 | `This task already exists in the task list` |
@@ -218,8 +219,9 @@ We have two types of tests:
    
    2. _ClearCommandTest_ 
    
+   
    | Case# | Event | Basis Path | Output |
-   | ---   | ---  | --- | ---  |
+   | :---:   | ---  | :---: | ---  |
    | 1 | clear existing non-empty task list `clear` | 1 -> 2 | `Task list has been cleared!` |
    | 2 | verify other commands can work after task list cleared `add eat with Hoon Meier` | 1 -> 2 | `New floating task added: eat with Hoon Meier Tags: ` |
    | 3 | add duplicate floating task `delete 1` | 1 -> 2| `Deleted Task: eat with Hoon Meier Tags: ` |
@@ -227,15 +229,17 @@ We have two types of tests:
    
    3. _CommandBoxTest_
    
+   
    | Case# | Event | Basis Path | Output |
-   | ---   | ---  | --- | ---  |
+   | :---:   | ---  | :---: | ---  |
    | 1 | command succeeds text cleared `add read book t/textBook t/weekly` | 1 -> 2 | `This task already exists in the task list` |
    | 2 | command fails text stays `invalid command` | 1 | `Unknown Command` |
    
    4. _DeleteCommandTest_
    
+   
    | Case# | Event | Basis Path | Output |
-   | ---   | ---  | --- | ---  |
+   | :---:   | ---  | :---: | ---  |
    | 1 | delete the first in the list `delete 1` | 1 -> 2 | `Deleted Task: take trash Tags: [notUrgent]` |
    | 2 | delete the last in the list `delete 6` | 1 -> 2 | `Deleted Task: visit George Best Tags: ` |
    | 3 | delete from the middle of the list `delete 2` | 1 -> 2 | `Deleted Task: do homework Tags: ` |
@@ -243,8 +247,9 @@ We have two types of tests:
    
    5. _FindCommandTest_ 
    
+   
    | Case# | Event | Basis Path | Output |
-   | ---   | ---  | --- | ---  |
+   | :---:   | ---  | :---: | ---  |
    | 1 | find in non-empty list with no results `find Mark` | 1 -> 2 | `0 tasks listed!` |
    | 2 | find in non-empty list with multiple results `find read` | 1 -> 2 | `2 tasks listed!` |
    | 3 | delete one result `delete 1` | 1 -> 2 | `Deleted Task: read book Tags: [textBook][weekly]` |
@@ -254,11 +259,22 @@ We have two types of tests:
    
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+   1. _Unit tests_ targeting the lowest level methods/classes. This includes, <br>
+      1. `seedu.address.commons.AppUtilTest`
+      2. `seedu.address.commons.ConfigUtilTest`
+      3. `seedu.address.commons.FileUtilTest`
+      4. `seedu.address.commons.JsonUtilTest`
+      5. `seedu.address.commons.StringUtilTest`
+      6. `seedu.address.commons.UrlUtilTest`
+      7. `seedu.address.commons.XmlUtilTest`
+      8. `seedu.address.model.UnmodifiableObservableListTest`
+      9. `seedu.address.commons.core.ConfigTest`
+      10. `seedu.address.commons.core.VersionTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+     (those code units are assumed to be working). This includes, <br>
+      1.  `seedu.address.storage.StorageManagerTest`
+      2. `seedu.address.storage.XmlTaskListStorageTest`
+      3. `seedu.address.storage.JsonUserPrefStorageTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
