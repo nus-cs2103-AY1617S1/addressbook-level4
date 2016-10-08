@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
 
 # DearJim
 
