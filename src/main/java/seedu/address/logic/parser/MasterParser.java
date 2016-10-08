@@ -12,13 +12,13 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 
-public class MasterCommandParser {
+public class MasterParser {
     private static final Pattern BASIC_COMMAND_FORMAT = 
             Pattern.compile("(?<header>\\S+).*");
     
     private final Map<String, CommandParser<? extends Command>> commandParsers;
     
-    public MasterCommandParser() {
+    public MasterParser() {
         this.commandParsers = new HashMap<String, CommandParser<? extends Command>>();
     }
 

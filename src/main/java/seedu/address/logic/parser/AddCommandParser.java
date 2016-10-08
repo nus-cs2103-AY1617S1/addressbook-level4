@@ -26,7 +26,7 @@ public class AddCommandParser extends CommandParser<AddCommand> {
 
     @Override
     protected AddCommand parse(String commandText) throws ParseException {
-        
+        return null;
     }
 
 }
