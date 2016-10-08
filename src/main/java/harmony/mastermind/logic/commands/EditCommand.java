@@ -33,6 +33,8 @@ public class EditCommand extends Command{
     
     public static final String MESSAGE_EDIT_TASK_PROMPT = "Edit the following task: %1$s";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task successfully edited: %1$s";
+    public static final String COMMAND_SUMMARY = "Editting a task:"
+            + "\n" + COMMAND_WORD + " INDEX NAME at/TIME on/DATE [t/TAG]...";
     
 //    private MainWindow window;
     private final int targetIndex;

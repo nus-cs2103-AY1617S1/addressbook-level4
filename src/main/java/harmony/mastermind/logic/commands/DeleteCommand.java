@@ -18,6 +18,8 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String COMMAND_SUMMARY = "Deleting a task:"
+            + "\n" + COMMAND_WORD + " INDEX";
 
     public final int targetIndex;
 

@@ -14,6 +14,9 @@ public class FindCommand extends Command {
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " dinner 2105";
+    
+    public static final String COMMAND_SUMMARY = "Searching for a task:"
+            + "\n" + COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]...";
 
     private final Set<String> keywords;
 
