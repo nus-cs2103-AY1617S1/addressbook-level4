@@ -94,8 +94,8 @@ public class TimeUtil {
         assert(endTime != null);
         assert(startTime.isBefore(endTime));
         
-        
-        return null;
+        return "from " + startTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_WITH_YEAR + ", " + FORMAT_TIME)) + " to "
+                + endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_WITH_YEAR + ", " + FORMAT_TIME));
     }
     
 }
