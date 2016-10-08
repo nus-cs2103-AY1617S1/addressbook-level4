@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.emeraldo.logic.commands;
 
 import seedu.address.model.AddressBook;
 

@@ -1,7 +1,7 @@
 package seedu.emeraldo.commons.events.ui;
 
-import seedu.address.logic.commands.Command;
 import seedu.emeraldo.commons.events.BaseEvent;
+import seedu.emeraldo.logic.commands.Command;
 
 /**
  * Indicates an attempt to execute an incorrect command

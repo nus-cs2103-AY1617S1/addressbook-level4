@@ -7,7 +7,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.logic.commands.*;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -21,6 +20,7 @@ import seedu.emeraldo.commons.events.ui.JumpToListRequestEvent;
 import seedu.emeraldo.commons.events.ui.ShowHelpRequestEvent;
 import seedu.emeraldo.logic.Logic;
 import seedu.emeraldo.logic.LogicManager;
+import seedu.emeraldo.logic.commands.*;
 import seedu.emeraldo.storage.StorageManager;
 
 import java.util.ArrayList;
