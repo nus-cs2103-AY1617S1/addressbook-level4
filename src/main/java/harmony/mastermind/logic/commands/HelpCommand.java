@@ -3,15 +3,6 @@ package harmony.mastermind.logic.commands;
 
 import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
-import seedu.addressbook.commands.AddCommand;
-import seedu.addressbook.commands.ClearCommand;
-import seedu.addressbook.commands.DeleteCommand;
-import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
-import seedu.addressbook.commands.HelpCommand;
-import seedu.addressbook.commands.ListCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
 
 /**
  * Format full help instructions for every command for display.
