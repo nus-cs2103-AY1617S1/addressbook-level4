@@ -65,15 +65,15 @@ public class TestUtil {
     private static Item[] getSampleItemData() {
         try {
             return new Item[]{
-                    new Item(new ItemType("Ali Muster"), new Name("9482424"), new Date("2016-07-07"), new Time("4th street"), new UniqueTagList()),
-                    new Item(new ItemType("Boris Mueller"), new Name("87249245"), new Date("2017-05-05"), new Time("81th street"), new UniqueTagList()),
-                    new Item(new ItemType("Carl Kurz"), new Name("95352563"), new Date("2018-01-01"), new Time("wall street"), new UniqueTagList()),
-                    new Item(new ItemType("Daniel Meier"), new Name("87652533"), new Date("2019-01-01"), new Time("10th street"), new UniqueTagList()),
-                    new Item(new ItemType("Elle Meyer"), new Name("9482224"), new Date("2020-12-30"), new Time("michegan ave"), new UniqueTagList()),
-                    new Item(new ItemType("Fiona Kunz"), new Name("9482427"), new Date("2021-06-19"), new Time("little tokyo"), new UniqueTagList()),
-                    new Item(new ItemType("George Best"), new Name("9482442"), new Date("2022-01-01"), new Time("4th street"), new UniqueTagList()),
-                    new Item(new ItemType("Hoon Meier"), new Name("8482424"), new Date("2023-03-03"), new Time("little india"), new UniqueTagList()),
-                    new Item(new ItemType("Ida Mueller"), new Name("8482131"), new Date("2016-11-21"), new Time("chicago ave"), new UniqueTagList())
+                    new Item(new ItemType("Ali Muster"), new Name("9482424"), new Date("2016-07-07"), new Time("00:00"), new UniqueTagList()),
+                    new Item(new ItemType("Boris Mueller"), new Name("87249245"), new Date("2017-05-05"), new Time("23:59"), new UniqueTagList()),
+                    new Item(new ItemType("Carl Kurz"), new Name("95352563"), new Date("2018-01-01"), new Time("01:00"), new UniqueTagList()),
+                    new Item(new ItemType("Daniel Meier"), new Name("87652533"), new Date("2019-01-01"), new Time("02:30"), new UniqueTagList()),
+                    new Item(new ItemType("Elle Meyer"), new Name("9482224"), new Date("2020-12-30"), new Time("04:49"), new UniqueTagList()),
+                    new Item(new ItemType("Fiona Kunz"), new Name("9482427"), new Date("2021-06-19"), new Time("15:50"), new UniqueTagList()),
+                    new Item(new ItemType("George Best"), new Name("9482442"), new Date("2022-01-01"), new Time("19:21"), new UniqueTagList()),
+                    new Item(new ItemType("Hoon Meier"), new Name("8482424"), new Date("2023-03-03"), new Time("14:21"), new UniqueTagList()),
+                    new Item(new ItemType("Ida Mueller"), new Name("8482131"), new Date("2016-11-21"), new Time("13:10"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

@@ -391,11 +391,11 @@ public class LogicManagerTest {
             ItemType itemType = new ItemType("Adam Brown");
             Name privateName = new Name("111111");
             Date email = new Date("2016-08-08");
-            Time privateAddress = new Time("111, alpha street");
+            Time privateTime = new Time("01:59");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Item(itemType, privateName, email, privateAddress, tags);
+            return new Item(itemType, privateName, email, privateTime, tags);
         }
 
         /**
@@ -407,13 +407,15 @@ public class LogicManagerTest {
          */
         Item generateItem(int seed) throws Exception {
             String dateFormat = "yyyy-MM-dd";
+            String timeFormat = "HH:mm";
             LocalDateTime ldt = LocalDateTime.now();
             String date = ldt.format(DateTimeFormatter.ofPattern(dateFormat));
+            String time = ldt.format(DateTimeFormatter.ofPattern(timeFormat));
             return new Item(
                     new ItemType("Item " + seed),
                     new Name("" + Math.abs(seed)),
                     new Date(date),
-                    new Time("House of " + seed),
+                    new Time(time),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -512,7 +514,7 @@ public class LogicManagerTest {
                     new ItemType(name),
                     new Name("1"),
                     new Date("2016-12-12"),
-                    new Time("House of 1"),
+                    new Time("01:39"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

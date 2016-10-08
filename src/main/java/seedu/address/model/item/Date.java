@@ -10,7 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Item emails should be 2 alphanumeric/period strings separated by '@'";
+            "Item dates should be of the form YYYY-MM-DD";
     public static final String DATE_VALIDATION_REGEX = "\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])";
 
     public final String value;
