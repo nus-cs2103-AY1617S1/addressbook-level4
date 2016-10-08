@@ -105,6 +105,11 @@ public class HelpWindow extends UiPart {
         helpTable.getColumns().add(formatCol);
     }
 
+    /**
+     * This method binds the Strings for name columns to the CommandGuide 
+     * objects.
+     * @param nameCol Name Column for help window
+     */
     private void bindNameColString(TableColumn<CommandGuide, String> nameCol) {
         nameCol.setCellValueFactory(
                 new Callback<CellDataFeatures<CommandGuide, String>, 
@@ -117,6 +122,11 @@ public class HelpWindow extends UiPart {
         });
     }
 
+    /**
+     * This method binds the Strings for format columns to the CommandGuide
+     * objects.
+     * @param formatCol Format Column for help window
+     */
     private void bindFormatColString(TableColumn<CommandGuide, String> formatCol) {
         formatCol.setCellValueFactory(
                 new Callback<CellDataFeatures<CommandGuide, String>, 
