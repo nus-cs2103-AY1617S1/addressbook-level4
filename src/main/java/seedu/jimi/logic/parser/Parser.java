@@ -108,6 +108,22 @@ public class Parser {
      * @return  the prepared edit command
      */
     private Command prepareEdit(String args){
+        final Matcher matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        Optional<Integer> index = parseIndex(args);
+        
+        // Validate arg string format
+        if (!matcher.matches() || !index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new EditCommand(
+                    matcher.group("name"),
+                    getTagsFromArgs(matcher.group("tagArguments")),
+                    index.get()
+                    );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
         
     }
     
@@ -132,7 +148,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
