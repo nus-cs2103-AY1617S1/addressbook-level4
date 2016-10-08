@@ -34,7 +34,7 @@ public class Event implements ReadOnlyEvent {
      * Copy constructor.
      */
     public Event(ReadOnlyEvent source) {
-        this(source.getEvent(), source.getDescription());
+        this(source.getEvent(), source.getDescription(), source.getDuration());
     }
 
     @Override
