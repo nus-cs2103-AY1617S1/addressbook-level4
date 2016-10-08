@@ -13,6 +13,6 @@
 
 ## Acknowledgements
 
-* This application is built upon the codebase of [*AddressBook-level4*](https://github.com/nus-cs2103-AY1617S1/addressbook-level4).
+* This application is built upon the codebase of [*AddressBook-level4*](https://github.com/nus-cs2103-AY1617S1/addressbook-level4), which was created by SE-EDU initiative at https://github.com/se-edu/
 
 ### Licence: [MIT](LICENSE)
