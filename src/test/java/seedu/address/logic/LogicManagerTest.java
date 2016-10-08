@@ -304,6 +304,33 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
 
+    @Test
+    public void execute_completeInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("complete", expectedMessage);
+    }
+
+    @Test
+    public void execute_completeIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("complete");
+    }
+    
+    @Test
+    public void execute_complete_removesCorrectPerson() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generatePersonList(3);
+
+        TaskList expectedTL = helper.generateAddressBook(threeTasks);
+        Task targetedTask = threeTasks.get(1);
+        Task completedTask = Task.convertToComplete(targetedTask);
+        expectedTL.updateTask(targetedTask, completedTask);
+        helper.addToModel(model, threeTasks);
+
+        assertCommandBehavior("complete 2",
+                String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, completedTask),
+                expectedTL,
+                expectedTL.getTaskList());
+    }
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {

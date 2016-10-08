@@ -316,6 +316,17 @@ public class TestUtil {
         tasks[index] = task;
         return tasks;
     }
+    
+    /**
+     * Marks tasks[i] as complete.
+     * @param tasks The array of tasks.
+     * @param targetIndexInOneIndexedFormat e.g. if the first element to be completed, 1 should be given as index.
+     * @return the new list with updated changes
+     */
+    public static TestTask[] markTaskInListAsComplete(TestTask[] tasks, int targetIndexInOneIndexedFormat) {
+        tasks[targetIndexInOneIndexedFormat - 1].setComplete(new Complete(true));
+        return tasks;
+    }
 
     /**
      * Appends tasks to the array of tasks.

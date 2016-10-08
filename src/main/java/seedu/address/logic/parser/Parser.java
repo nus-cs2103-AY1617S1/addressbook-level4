@@ -82,6 +82,9 @@ public class Parser {
             
         case UndoCommand.COMMAND_WORD:
             return prepareUndo(arguments);
+            
+        case CompleteCommand.COMMAND_WORD:
+            return prepareComplete(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -171,6 +174,23 @@ public class Parser {
         return new UndoCommand(index.get());
     }    
 
+    /**
+     * Parses arguments in the context of the complete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareComplete(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+
+        return new CompleteCommand(index.get());
+    }   
+    
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.

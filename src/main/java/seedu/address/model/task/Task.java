@@ -43,6 +43,26 @@ public class Task implements ReadOnlyTask {
         this(source.getName(), source.getComplete(), source.getDeadline(), source.getPeriod(),
                 source.getDeadlineRecurrence(), source.getPeriodRecurrence(), source.getTags());
     }
+    
+    /**
+     * Convert an uncompleted task to completed.
+     * 
+     * Pre-condition: taskToConvert MUST BE uncompleted.
+     * 
+     * @param taskToConvert to completed
+     * @return the same task but with completed = true
+     */
+    public static Task convertToComplete(ReadOnlyTask taskToConvert) {
+        assert taskToConvert.getComplete().isCompleted == false;
+        
+        return new Task(taskToConvert.getName(),
+                new Complete(true),
+                taskToConvert.getDeadline(),
+                taskToConvert.getPeriod(),
+                taskToConvert.getDeadlineRecurrence(),
+                taskToConvert.getPeriodRecurrence(),
+                taskToConvert.getTags());
+    }
 
     @Override
     public Name getName() {
