@@ -58,7 +58,8 @@ public class StorageManagerTest {
         TaskMan original = new TypicalTestTasks().getTypicalTaskMan();
         storageManager.saveTaskMan(original);
         ReadOnlyTaskMan retrieved = storageManager.readTaskMan().get();
-        assertEquals(original, new TaskMan(retrieved));
+        TaskMan retrievedTaskMan = new TaskMan(retrieved);
+        assertEquals(original, retrievedTaskMan);
         //More extensive testing of TaskMan saving/reading is done in XmlTaskManStorageTest
     }
 

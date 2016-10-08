@@ -5,10 +5,10 @@ import seedu.taskman.commons.core.LogsCenter;
 import seedu.taskman.commons.core.UnmodifiableObservableList;
 import seedu.taskman.commons.events.model.TaskManChangedEvent;
 import seedu.taskman.commons.util.StringUtil;
-import seedu.taskman.model.task.EventInterface;
-import seedu.taskman.model.task.Task;
-import seedu.taskman.model.task.UniqueTaskList;
-import seedu.taskman.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.taskman.model.event.ReadOnlyTask;
+import seedu.taskman.model.event.Task;
+import seedu.taskman.model.event.UniqueTaskList;
+import seedu.taskman.model.event.UniqueTaskList.TaskNotFoundException;
 import seedu.taskman.commons.core.ComponentManager;
 
 import java.util.Set;
@@ -23,6 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskMan taskMan;
     private final FilteredList<Task> filteredTasks;
+    // TODO: add filteredEvents list
 
     /**
      * Initializes a ModelManager with the given TaskMan
@@ -64,7 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(EventInterface target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskMan.removeTask(target);
         indicateTaskManChanged();
     }
@@ -79,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<EventInterface> getFilteredTaskList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
@@ -100,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(EventInterface task);
+        boolean satisfies(ReadOnlyTask task);
         String toString();
     }
 
@@ -113,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(EventInterface task) {
+        public boolean satisfies(ReadOnlyTask task) {
             return qualifier.run(task);
         }
 
@@ -124,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(EventInterface task);
+        boolean run(ReadOnlyTask task);
         String toString();
     }
 
@@ -136,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(EventInterface task) {
+        public boolean run(ReadOnlyTask task) {
             return titleKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getTitle().title, keyword))
                     .findAny()

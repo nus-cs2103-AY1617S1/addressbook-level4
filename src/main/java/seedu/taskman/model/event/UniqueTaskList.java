@@ -1,4 +1,4 @@
-package seedu.taskman.model.task;
+package seedu.taskman.model.event;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +42,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(EventInterface toCheck) {
+    public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -65,7 +65,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(EventInterface toRemove) throws TaskNotFoundException {
+    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {

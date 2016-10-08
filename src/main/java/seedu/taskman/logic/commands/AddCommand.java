@@ -3,7 +3,7 @@ package seedu.taskman.logic.commands;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,8 +15,9 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
+    // kiv: let parameters be objects. we can easily generate the usage in that case
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task man. "
-            + "Parameters: TITLE d/DEADLINE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+            + "Parameters: TITLE d/DEADLINE f/frequency s/startDate,endDate [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " John Doe d/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
 
@@ -30,7 +31,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String title, String deadline, String status, String recurrence, String schedule, Set<String> tags)
+    public AddCommand(String title, String deadline, String status, String frequency, String schedule, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -39,8 +40,7 @@ public class AddCommand extends Command {
         this.toAdd = new Task(
                 new Title(title),
                 new Deadline(deadline),
-                new Status(status),
-                new Recurrence(recurrence),
+                new Frequency(frequency),
                 new Schedule(schedule),
                 new UniqueTagList(tagSet)
         );

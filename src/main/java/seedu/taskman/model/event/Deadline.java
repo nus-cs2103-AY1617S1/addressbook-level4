@@ -1,4 +1,4 @@
-package seedu.taskman.model.task;
+package seedu.taskman.model.event;
 
 import seedu.taskman.commons.exceptions.IllegalValueException;
 
@@ -31,6 +31,7 @@ public class Deadline {
      * Returns true if a given string is a valid deadline.
      */
     public static boolean isValidDeadline(String test) {
+        // TODO: update validation
         return test.matches(DEADLINE_VALIDATION_REGEX);
     }
 

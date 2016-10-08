@@ -11,7 +11,7 @@ import org.testfx.api.FxToolkit;
 import seedu.taskman.TestApp;
 import seedu.taskman.commons.core.EventsCenter;
 import seedu.taskman.model.TaskMan;
-import seedu.taskman.model.task.EventInterface;
+import seedu.taskman.model.event.ReadOnlyTask;
 import seedu.taskman.testutil.TestUtil;
 import seedu.taskman.testutil.TypicalTestTasks;
 
@@ -96,7 +96,7 @@ public abstract class TaskManGuiTest {
     /**
      * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(EventInterface task, TaskCardHandle card) {
+    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 

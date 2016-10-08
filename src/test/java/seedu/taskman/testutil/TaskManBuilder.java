@@ -3,8 +3,8 @@ package seedu.taskman.testutil;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.model.TaskMan;
 import seedu.taskman.model.tag.Tag;
-import seedu.taskman.model.task.Task;
-import seedu.taskman.model.task.UniqueTaskList;
+import seedu.taskman.model.event.Task;
+import seedu.taskman.model.event.UniqueTaskList;
 
 /**
  * A utility class to help with building TaskMan objects.

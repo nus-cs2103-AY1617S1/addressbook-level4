@@ -3,7 +3,7 @@ package seedu.taskman.storage;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
@@ -16,14 +16,14 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String title;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     private String deadline;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     private String status;
-    @XmlElement(required = true)
-    private String recurrence;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     private String schedule;
+    @XmlElement(required = false)
+    private String frequency;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -39,12 +39,20 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(EventInterface source) {
+    public XmlAdaptedTask(ReadOnlyTask source) {
         title = source.getTitle().title;
-        deadline = ((Task) source).getDeadline().toString();
-        status = ((Task) source).getStatus().toString();
-        recurrence = source.getRecurrence().toString();
-        schedule = source.getSchedule().toString();
+        deadline = (source.getDeadline()) != null
+                ? source.getDeadline().toString()
+                : null;
+        status = (source.getStatus()) != null
+                ? source.getStatus().toString()
+                : null;
+        schedule = (source.getSchedule()) != null
+                ? source.getSchedule().toString()
+                : null;
+        frequency = (source.getFrequency()) != null
+                ? source.getFrequency().toString()
+                : null;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -61,12 +69,17 @@ public class XmlAdaptedTask {
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
+        // Todo: fix these... expect null strings to come in this.deadline & other fields
         final Title title = new Title(this.title);
         final Deadline deadline = new Deadline(this.deadline);
         final Status status = new Status(this.status);
-        final Recurrence recurrence = new Recurrence(this.recurrence);
-        final Schedule schedule = new Schedule(this.schedule);
+        final Frequency frequency = (this.frequency) != null
+                ? new Frequency(this.frequency)
+                : null;
+        final Schedule schedule = (this.schedule) != null
+                ? new Schedule(this.schedule)
+                : null;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(title, deadline, status, recurrence, schedule, tags);
+        return new Task(title, deadline, status, frequency, schedule, tags);
     }
 }

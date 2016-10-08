@@ -1,4 +1,4 @@
-package seedu.taskman.model.task;
+package seedu.taskman.model.event;
 
 import seedu.taskman.model.tag.UniqueTagList;
 
@@ -6,12 +6,12 @@ import seedu.taskman.model.tag.UniqueTagList;
  * A read-only immutable interface for an Event in the TaskMan.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface EventInterface {
+public interface ReadOnlyEvent {
 
     Title getTitle();
     boolean isRecurring();
     boolean isScheduled();
-    Recurrence getRecurrence();
+    Frequency getFrequency();
     Schedule getSchedule();
 
     /**
@@ -23,13 +23,13 @@ public interface EventInterface {
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(EventInterface other) {
+    default boolean isSameStateAs(ReadOnlyEvent other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getTitle().equals(this.getTitle()) // state checks here onwards
                 && other.isRecurring() == this.isRecurring()
         		&& other.isScheduled() == this.isScheduled()
-				&& other.getRecurrence().equals(this.getRecurrence()) // need fix
+				&& other.getFrequency().equals(this.getFrequency())
         		&& other.getSchedule().equals(this.getSchedule())
                 );
     }

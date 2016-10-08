@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.taskman.model.task.EventInterface;
+import seedu.taskman.model.event.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 
@@ -21,20 +21,20 @@ public class TaskCard extends UiPart{
     @FXML
     private Label status;
     @FXML
-    private Label recurrence;
+    private Label readOnlyTask;
     @FXML
     private Label schedule;
     @FXML
     private Label tags;
 
-    private EventInterface task;
+    private ReadOnlyTask task;
     private int displayedIndex;
 
     public TaskCard(){
 
     }
 
-    public static TaskCard load(EventInterface task, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
         TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
@@ -47,7 +47,7 @@ public class TaskCard extends UiPart{
         id.setText(displayedIndex + ". ");
         // deadline.setText(task.getDeadline().toString()); // need fix
         // status.setText(task.getStatus().toString());
-        recurrence.setText(task.getRecurrence().toString());
+        readOnlyTask.setText(task.getFrequency().toString());
         schedule.setText(task.getSchedule().toString());
         tags.setText(task.tagsString());
     }

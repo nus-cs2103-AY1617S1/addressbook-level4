@@ -1,22 +1,23 @@
 package seedu.taskman.testutil;
 
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
 
 /**
  * A mutable task object. For testing only.
  */
-public class TestTask implements EventInterface {
+public class TestTask implements ReadOnlyTask {
 
     private Title title;
     private Deadline deadline;
     private Status status;
-    private Recurrence recurrence;
+    private Frequency frequency;
     private Schedule schedule;
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
+        status = new Status("");
     }
 
     public void setTitle(Title title) {
@@ -26,13 +27,13 @@ public class TestTask implements EventInterface {
     public void setDeadline(Deadline deadline) {
         this.deadline = deadline;
     }
-    
+
     public void setStatus(Status status) {
         this.status = status;
     }
 
-    public void setRecurrence(Recurrence recurrence) {
-        this.recurrence = recurrence;
+    public void setFrequency(Frequency frequency) {
+        this.frequency = frequency;
     }
 
     public void setSchedule(Schedule schedule) {
@@ -52,9 +53,8 @@ public class TestTask implements EventInterface {
         return status;
     }
 
-    @Override
-    public Recurrence getRecurrence() {
-        return recurrence;
+    public Frequency getFrequency() {
+        return frequency;
     }
     
     @Override
@@ -77,7 +77,7 @@ public class TestTask implements EventInterface {
         sb.append("add " + this.getTitle().title + " ");
         sb.append("d/" + this.getDeadline().toString() + " ");
         sb.append("c/" + this.getStatus().toString() + " ");
-        sb.append("r/" + this.getRecurrence().toString() + " ");
+        sb.append("r/" + this.getFrequency().toString() + " ");
         sb.append("s/" + this.getSchedule().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
@@ -85,7 +85,7 @@ public class TestTask implements EventInterface {
 
 	@Override
 	public boolean isRecurring() {
-		return recurrence == null;
+		return frequency == null;
 	}
 
 	@Override

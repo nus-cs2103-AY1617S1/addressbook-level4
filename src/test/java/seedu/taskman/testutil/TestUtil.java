@@ -19,7 +19,7 @@ import seedu.taskman.commons.util.XmlUtil;
 import seedu.taskman.model.TaskMan;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
 import seedu.taskman.storage.XmlSerializableTaskMan;
 
 import java.io.File;
@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Title("Ali Muster"), new Deadline("9482424"), new Status("hans@google.com"), new Recurrence("4th street"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
-                    new Task(new Title("Boris Mueller"), new Deadline("87249245"), new Status("ruth@google.com"), new Recurrence("81th street"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
-                    new Task(new Title("Carl Kurz"), new Deadline("95352563"), new Status("heinz@yahoo.com"), new Recurrence("wall street"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
-                    new Task(new Title("Daniel Meier"), new Deadline("87652533"), new Status("cornelia@google.com"), new Recurrence("10th street"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
-                    new Task(new Title("Elle Meyer"), new Deadline("9482224"), new Status("werner@gmail.com"), new Recurrence("michegan ave"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
-                    new Task(new Title("Fiona Kunz"), new Deadline("9482427"), new Status("lydia@gmail.com"), new Recurrence("little tokyo"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
-                    new Task(new Title("George Best"), new Deadline("9482442"), new Status("anna@google.com"), new Recurrence("4th street"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
-                    new Task(new Title("Hoon Meier"), new Deadline("8482424"), new Status("stefan@mail.com"), new Recurrence("little india"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
-                    new Task(new Title("Ida Mueller"), new Deadline("8482131"), new Status("hans@google.com"), new Recurrence("chicago ave"), new Schedule("wed 10am, wed 11am"), new UniqueTagList())
+                    new Task(new Title("Ali Muster"), new Deadline("9482424"), new Frequency("1"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Boris Mueller"), new Deadline("87249245"), new Frequency("1"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Carl Kurz"), new Deadline("95352563"), new Frequency("1"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Daniel Meier"), new Deadline("87652533"), new Frequency("1"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Elle Meyer"), new Deadline("9482224"), new Frequency("1"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Fiona Kunz"), new Deadline("9482427"), new Frequency("1"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("George Best"), new Deadline("9482442"), new Frequency("1"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Hoon Meier"), new Deadline("8482424"), new Frequency("1"), new Schedule("wed 10am, wed 11am"), new UniqueTagList()),
+                    new Task(new Title("Ida Mueller"), new Deadline("8482131"), new Frequency("1"), new Schedule("wed 10am, wed 11am"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, EventInterface task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
     }
 

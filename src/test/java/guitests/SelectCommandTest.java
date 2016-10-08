@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.taskman.model.task.EventInterface;
+import seedu.taskman.model.event.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 
@@ -47,7 +47,7 @@ public class SelectCommandTest extends TaskManGuiTest {
 
     private void assertTaskSelected(int index) {
         assertEquals(taskListPanel.getSelectedTasks().size(), 1);
-        EventInterface selectedTask = taskListPanel.getSelectedTasks().get(0);
+        ReadOnlyTask selectedTask = taskListPanel.getSelectedTasks().get(0);
         assertEquals(taskListPanel.getTask(index-1), selectedTask);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }

@@ -3,8 +3,8 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.taskman.model.task.EventInterface;
-import seedu.taskman.model.task.Task;
+import seedu.taskman.model.event.ReadOnlyTask;
+import seedu.taskman.model.event.Task;
 
 /**
  * Provides a handle to a task card in the task list panel.
@@ -13,7 +13,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String TITLE_FIELD_ID = "#title";
     private static final String DEADLINE_FIELD_ID = "#deadline";
     private static final String STATUS_FIELD_ID = "#status";
-    private static final String RECURRENCE_FIELD_ID = "#recurrence";
+    private static final String ReadOnlyTask_FIELD_ID = "#readOnlyTask";
     private static final String SCHEDULE_FIELD_ID = "#schedule";
 
     private Node node;
@@ -39,19 +39,19 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(STATUS_FIELD_ID);
     }
 
-    public String getRecurrence() {
-        return getTextFromLabel(RECURRENCE_FIELD_ID);
+    public String getReadOnlyTask() {
+        return getTextFromLabel(ReadOnlyTask_FIELD_ID);
     }
     
     public String getSchedule() {
         return getTextFromLabel(SCHEDULE_FIELD_ID);
     }
     
-    public boolean isSameTask(EventInterface task){
+    public boolean isSameTask(ReadOnlyTask task){
         return getFullTitle().equals(task.getTitle().title)
         		&& getDeadline().equals(((Task) task).getDeadline().toString())
                 && getStatus().equals(((Task) task).getStatus().toString())
-                && getRecurrence().equals(task.getRecurrence().toString())
+                && getReadOnlyTask().equals(task.getFrequency().toString())
                 && getSchedule().equals(task.getSchedule().toString());
     }
 

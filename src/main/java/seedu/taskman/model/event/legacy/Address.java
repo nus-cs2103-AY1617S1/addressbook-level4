@@ -1,4 +1,4 @@
-package seedu.taskman.model.task;
+package seedu.taskman.model.event.legacy;
 
 
 import seedu.taskman.commons.exceptions.IllegalValueException;

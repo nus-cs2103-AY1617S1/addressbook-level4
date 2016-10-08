@@ -2,7 +2,7 @@ package seedu.taskman.testutil;
 
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.model.tag.Tag;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
 
 /**
  *
@@ -32,13 +32,8 @@ public class TaskBuilder {
         return this;
     }
     
-    public TaskBuilder withStatus(String status) throws IllegalValueException {
-        this.task.setStatus(new Status(status));
-        return this;
-    }
-    
-    public TaskBuilder withRecurrence(String recurrence) throws IllegalValueException {
-        this.task.setRecurrence(new Recurrence(recurrence));
+    public TaskBuilder withFrequency(String frequency) throws IllegalValueException {
+        this.task.setFrequency(new Frequency(frequency));
         return this;
     }
 

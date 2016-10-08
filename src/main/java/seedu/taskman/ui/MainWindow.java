@@ -13,7 +13,7 @@ import seedu.taskman.commons.core.GuiSettings;
 import seedu.taskman.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskman.logic.Logic;
 import seedu.taskman.model.UserPrefs;
-import seedu.taskman.model.task.EventInterface;
+import seedu.taskman.model.event.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -187,7 +187,7 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadTaskPage(EventInterface task) {
+    public void loadTaskPage(ReadOnlyTask task) {
         browserPanel.loadTaskPage(task);
     }
 

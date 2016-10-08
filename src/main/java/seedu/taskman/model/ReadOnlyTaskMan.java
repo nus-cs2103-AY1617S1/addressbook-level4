@@ -3,8 +3,8 @@ package seedu.taskman.model;
 
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.EventInterface;
-import seedu.taskman.model.task.UniqueTaskList;
+import seedu.taskman.model.event.ReadOnlyTask;
+import seedu.taskman.model.event.UniqueTaskList;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface ReadOnlyTaskMan {
     /**
      * Returns an unmodifiable view of tasks list
      */
-    List<EventInterface> getTaskList();
+    List<ReadOnlyTask> getTaskList();
 
     /**
      * Returns an unmodifiable view of tags list

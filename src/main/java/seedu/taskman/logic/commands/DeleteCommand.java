@@ -2,8 +2,8 @@ package seedu.taskman.logic.commands;
 
 import seedu.taskman.commons.core.Messages;
 import seedu.taskman.commons.core.UnmodifiableObservableList;
-import seedu.taskman.model.task.EventInterface;
-import seedu.taskman.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.taskman.model.event.ReadOnlyTask;
+import seedu.taskman.model.event.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the task man.
@@ -29,14 +29,14 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<EventInterface> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        EventInterface taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.deleteTask(taskToDelete);

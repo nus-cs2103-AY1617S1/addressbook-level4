@@ -1,6 +1,5 @@
-package seedu.taskman.model.task;
+package seedu.taskman.model.event;
 
-import seedu.taskman.commons.util.CollectionUtil;
 import seedu.taskman.model.tag.UniqueTagList;
 
 import java.util.Objects;
@@ -9,40 +8,40 @@ import java.util.Objects;
  * Represents a Task in the task man.
  * Guarantees: Title and UniqueTagList are present and not null, field values are validated.
  */
-public class Task implements EventInterface {
+public class Task extends Event implements ReadOnlyTask {
 
-    private Title title;
+    // todo: fields to be optional, & created through static newInstance method instead ??
     private Deadline deadline;
     private Status status;
-    private Recurrence recurrence;
-	private Schedule schedule;
-
-    private UniqueTagList tags;
 
     /**
      * Only title and tags field must be present and not null.
      */
     public Task(Title title, Deadline deadline,
-    		Status status, Recurrence recurrence, Schedule schedule, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(title, tags);
-        this.title = title;
+                Frequency frequency, Schedule schedule, UniqueTagList tags) {
+        super(title, frequency, schedule, tags);
+        this.deadline = deadline;
+        this.status = new Status("");
+    }
+
+    public Task(Title title, Deadline deadline, Status status,
+                Frequency frequency, Schedule schedule, UniqueTagList tags) {
+        super(title, frequency, schedule, tags);
         this.deadline = deadline;
         this.status = status;
-        this.recurrence = recurrence;
-        this.schedule = schedule;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
-    public Task(EventInterface source) {
-        this(source.getTitle(), null, null, source.getRecurrence(), source.getSchedule(), source.getTags());
+    public Task(ReadOnlyTask source) {
+        this(source.getTitle(), source.getDeadline(),
+                source.getFrequency(), source.getSchedule(), source.getTags());
     }
 
     @Override
     public Title getTitle() {
-        return title;
+        return super.getTitle();
     }
 
     public Deadline getDeadline() {
@@ -55,47 +54,53 @@ public class Task implements EventInterface {
 
 	@Override
 	public boolean isRecurring() {
-		return recurrence == null;
+        return super.isRecurring();
 	}
 
 	@Override
 	public boolean isScheduled() {
-		return schedule == null;
+        return super.isScheduled();
 	}
 
-	@Override
-	public Recurrence getRecurrence() {
-		return recurrence;
+	public Frequency getFrequency() {
+        return super.getFrequency();
 	}
 
 	@Override
 	public Schedule getSchedule() {
-		return schedule;
+        return super.getSchedule();
 	}
     
     @Override
     public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
+        return super.getTags();
     }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+        super.setTags(replacement);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EventInterface // instanceof handles nulls
-                && this.isSameStateAs((EventInterface) other));
+                || (other instanceof Task // instanceof handles nulls
+                && this.isSameStateAs((Task) other));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, deadline, status, recurrence, schedule, tags);
+        return Objects.hash(
+                super.getTitle(),
+                deadline,
+                status,
+                super.getFrequency(),
+                super.getSchedule(),
+                super.getTags()
+        );
     }
 
     @Override

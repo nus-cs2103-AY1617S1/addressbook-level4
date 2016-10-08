@@ -94,7 +94,7 @@ public class Parser {
                     matcher.group("title"),
                     matcher.group("deadline"),
                     matcher.group("status"),
-                    matcher.group("recurrence"),
+                    matcher.group("readOnlyTask"),
                     matcher.group("schedule"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );

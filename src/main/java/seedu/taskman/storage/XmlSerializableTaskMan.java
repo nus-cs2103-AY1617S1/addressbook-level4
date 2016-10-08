@@ -3,8 +3,8 @@ package seedu.taskman.storage;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.EventInterface;
-import seedu.taskman.model.task.UniqueTaskList;
+import seedu.taskman.model.event.ReadOnlyTask;
+import seedu.taskman.model.event.UniqueTaskList;
 import seedu.taskman.model.ReadOnlyTaskMan;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -68,7 +68,7 @@ public class XmlSerializableTaskMan implements ReadOnlyTaskMan {
     }
 
     @Override
-    public List<EventInterface> getTaskList() {
+    public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
             try {
                 return p.toModelType();

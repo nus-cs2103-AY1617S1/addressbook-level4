@@ -3,9 +3,9 @@ package seedu.taskman.model;
 import javafx.collections.ObservableList;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.EventInterface;
-import seedu.taskman.model.task.Task;
-import seedu.taskman.model.task.UniqueTaskList;
+import seedu.taskman.model.event.ReadOnlyTask;
+import seedu.taskman.model.event.Task;
+import seedu.taskman.model.event.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,6 +18,7 @@ public class TaskMan implements ReadOnlyTaskMan {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
+    // todo: create uniqueEventList
 
     {
         tasks = new UniqueTaskList();
@@ -28,6 +29,7 @@ public class TaskMan implements ReadOnlyTaskMan {
 
     /**
      * Tasks and Tags are copied into this taskMan
+     * // todo: add unique event list
      */
     public TaskMan(ReadOnlyTaskMan toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
@@ -40,6 +42,7 @@ public class TaskMan implements ReadOnlyTaskMan {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
+    // TODO: review, do we really need this
     public static ReadOnlyTaskMan getEmptyTaskMan() {
         return new TaskMan();
     }
@@ -54,11 +57,13 @@ public class TaskMan implements ReadOnlyTaskMan {
         this.tasks.getInternalList().setAll(tasks);
     }
 
+    // TODO: create set event
+
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends EventInterface> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
@@ -104,7 +109,7 @@ public class TaskMan implements ReadOnlyTaskMan {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(EventInterface key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -123,11 +128,12 @@ public class TaskMan implements ReadOnlyTaskMan {
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
+        // TODO: add unique event list
     }
 
+    // TODO: add unique event list
     @Override
-    public List<EventInterface> getTaskList() {
+    public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 

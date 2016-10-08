@@ -9,7 +9,7 @@ import seedu.taskman.commons.exceptions.DataConversionException;
 import seedu.taskman.commons.util.FileUtil;
 import seedu.taskman.model.TaskMan;
 import seedu.taskman.model.ReadOnlyTaskMan;
-import seedu.taskman.model.task.Task;
+import seedu.taskman.model.event.Task;
 import seedu.taskman.testutil.TypicalTestTasks;
 
 import java.io.IOException;

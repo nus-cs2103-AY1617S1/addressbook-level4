@@ -17,7 +17,8 @@ import seedu.taskman.model.ModelManager;
 import seedu.taskman.model.ReadOnlyTaskMan;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
+import seedu.taskman.model.event.legacy.Email;
 import seedu.taskman.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskMan expectedTaskMan,
-                                       List<? extends EventInterface> expectedShownList) throws Exception {
+                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
@@ -214,7 +215,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskMan expectedAB = helper.generateTaskMan(2);
-        List<? extends EventInterface> expectedList = expectedAB.getTaskList();
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare task man state
         helper.addToModel(model, 2);
@@ -386,12 +387,12 @@ public class LogicManagerTest {
             Title title = new Title("Adam Brown");
             Deadline privateDeadline = new Deadline("111111");
             Status status = new Status("y");
-            Recurrence recurrence = new Recurrence("1d");
+            Frequency frequency = new Frequency("1d");
             Schedule schedule = new Schedule("wed 10am, wed 11am");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(title, privateDeadline, status, recurrence, schedule, tags);
+            return new Task(title, privateDeadline, frequency, schedule, tags);
         }
 
         /**
@@ -405,8 +406,7 @@ public class LogicManagerTest {
             return new Task(
                     new Title("Task " + seed),
                     new Deadline("" + Math.abs(seed)),
-                    new Status((seed % 2 == 0) ? "y" : "n"),
-                    new Recurrence(seed + "d"),
+                    new Frequency(seed + "d"),
                     new Schedule("wed " + seed + "am, wed " + seed + "pm"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -421,7 +421,7 @@ public class LogicManagerTest {
             cmd.append(p.getTitle().toString());
             cmd.append(" d/").append(p.getDeadline());
             cmd.append(" c/").append(p.getStatus());
-            cmd.append(" r/").append(p.getRecurrence());
+            cmd.append(" r/").append(p.getFrequency());
     		cmd.append(" s/").append(p.getSchedule());
 
             UniqueTagList tags = p.getTags();
@@ -506,8 +506,7 @@ public class LogicManagerTest {
             return new Task(
                     new Title(title),
                     new Deadline("1"),
-                    new Status("y"),
-                    new Recurrence("7d"),
+                    new Frequency("7d"),
                     new Schedule(""),
                     new UniqueTagList(new Tag("t1"), new Tag("t2"))
             );

@@ -2,7 +2,7 @@ package seedu.taskman.testutil;
 
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.model.TaskMan;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
 
 /**
  *
@@ -13,21 +13,19 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withTitle("Alice Pauline").withStatus("123, Jurong West Ave 6, #08-111")
-                    .withRecurrence("alice@gmail.com").withDeadline("85355255")
+            alice =  new TaskBuilder().withTitle("Alice Pauline").withFrequency("22").withDeadline("85355255")
                     .withTags("friends").build();
-            benson = new TaskBuilder().withTitle("Benson Meier").withStatus("311, Clementi Ave 2, #02-25")
-                    .withRecurrence("johnd@gmail.com").withDeadline("98765432")
+            benson = new TaskBuilder().withTitle("Benson Meier").withFrequency("22").withDeadline("98765432")
                     .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withTitle("Carl Kurz").withDeadline("95352563").withRecurrence("heinz@yahoo.com").withSchedule("wall street").build();
-            daniel = new TaskBuilder().withTitle("Daniel Meier").withDeadline("87652533").withRecurrence("cornelia@google.com").withSchedule("10th street").build();
-            elle = new TaskBuilder().withTitle("Elle Meyer").withDeadline("9482224").withRecurrence("werner@gmail.com").withSchedule("michegan ave").build();
-            fiona = new TaskBuilder().withTitle("Fiona Kunz").withDeadline("9482427").withRecurrence("lydia@gmail.com").withSchedule("little tokyo").build();
-            george = new TaskBuilder().withTitle("George Best").withDeadline("9482442").withRecurrence("anna@google.com").withSchedule("4th street").build();
+            carl = new TaskBuilder().withTitle("Carl Kurz").withDeadline("95352563").withFrequency("22").withSchedule("1").build();
+            daniel = new TaskBuilder().withTitle("Daniel Meier").withDeadline("87652533").withFrequency("22").withSchedule("1").build();
+            elle = new TaskBuilder().withTitle("Elle Meyer").withDeadline("9482224").withFrequency("22").withSchedule("1").build();
+            fiona = new TaskBuilder().withTitle("Fiona Kunz").withDeadline("9482427").withFrequency("22").withSchedule("1").build();
+            george = new TaskBuilder().withTitle("George Best").withDeadline("9482442").withFrequency("22").withSchedule("1").build();
 
             //Manually added
-            hoon = new TaskBuilder().withTitle("Hoon Meier").withDeadline("8482424").withRecurrence("stefan@mail.com").withSchedule("little india").build();
-            ida = new TaskBuilder().withTitle("Ida Mueller").withDeadline("8482131").withRecurrence("hans@google.com").withSchedule("chicago ave").build();
+            hoon = new TaskBuilder().withTitle("Hoon Meier").withDeadline("8482424").withFrequency("22").withSchedule("1").build();
+            ida = new TaskBuilder().withTitle("Ida Mueller").withDeadline("8482131").withFrequency("22").withSchedule("1").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
