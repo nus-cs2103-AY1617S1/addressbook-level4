@@ -14,7 +14,7 @@ public class RemoveCommandTest extends AddressBookGuiTest {
     public void remove() {
 
         //delete the first in the list
-        TestTask[] currentList = td.getTypicalPersons();
+        TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         assertRemoveSuccess(targetIndex, currentList);
 
