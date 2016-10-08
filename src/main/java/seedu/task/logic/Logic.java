@@ -2,7 +2,7 @@ package seedu.task.logic;
 
 import javafx.collections.ObservableList;
 import seedu.task.logic.commands.CommandResult;
-import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.item.ReadOnlyTask;
 
 /**
  * API of the Logic component

@@ -1,44 +1,44 @@
-package seedu.task.model.task;
+package seedu.task.model.item;
 
 import seedu.task.commons.util.CollectionUtil;
+import seedu.task.model.item.Description;
+import seedu.task.model.item.Name;
 
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
+ * Represents a event in the task book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Event implements ReadOnlyEvent {
 
     private Name name;
     private Description description;
-//    private Deadline deadline;
-    private Boolean isTaskCompleted;
+    private Duration duration;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Description description) {
-    	this(name, description,false);    
+    public Event(Name name, Description description) {
+    	this(name, description, null);    
     }
     
-    public Task(Name name, Description description, Boolean status) {
+    public Event(Name name, Description description, Duration duration) {
         assert !CollectionUtil.isAnyNull(name, description);
         this.name = name;
         this.description = description;
-        //this.deadline = deadline;
-        isTaskCompleted = status;
+        this.duration = duration;
     }
 
     /**
      * Copy constructor.
      */
-    public Task(ReadOnlyTask source) {
-        this(source.getTask(), source.getDescription());
+    public Event(ReadOnlyEvent source) {
+        this(source.getEvent(), source.getDescription(), source.getDuration());
     }
 
     @Override
-    public Name getTask() {
+    public Name getEvent() {
         return name;
     }
 
@@ -47,21 +47,17 @@ public class Task implements ReadOnlyTask {
         return description;
     }
     
-/*    @Override
-    public Deadline getDeadline() {
-        return deadline;
-    }*/
-
     @Override
-    public Boolean getTaskStatus() {
-        return isTaskCompleted;
+    public Duration getDuration() {
+        return duration;
     }
+
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                || (other instanceof ReadOnlyEvent // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyEvent) other));
     }
 
     @Override

@@ -1,9 +1,12 @@
 package seedu.task.model;
 
 import javafx.collections.ObservableList;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList;
+import seedu.task.model.item.Event;
+import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueEventList;
+import seedu.task.model.item.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,27 +18,27 @@ import java.util.stream.Collectors;
 public class TaskBook implements ReadOnlyTaskBook {
 
     private final UniqueTaskList tasks;
-//    private final UniqueTagList tags;
+    private final UniqueEventList events;
 
     {
         tasks = new UniqueTaskList();
-//        tags = new UniqueTagList();
+        events = new UniqueEventList();
     }
 
     public TaskBook() {}
 
     /**
-     * Tasks are copied into this taskbook
+     * Tasks and Events are copied into this taskbook
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
-        this(toBeCopied.getUniqueTaskList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueEventList());
     }
 
     /**
-     * Tasks are copied into this taskbook
+     * Tasks and Events are copied into this taskbook
      */
-    public TaskBook(UniqueTaskList tasks) {
-        resetData(tasks.getInternalList());
+    public TaskBook(UniqueTaskList tasks, UniqueEventList events) {
+        resetData(tasks.getInternalList(), events.getInternalList());
     }
 
     public static ReadOnlyTaskBook getEmptyTaskBook() {
@@ -52,12 +55,21 @@ public class TaskBook implements ReadOnlyTaskBook {
         this.tasks.getInternalList().setAll(tasks);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
+    public ObservableList<Event> getEvents() {
+        return events.getInternalList();
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events.getInternalList().setAll(events);
+    }
+    
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends ReadOnlyEvent> newEvents) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setEvents(newEvents.stream().map(Event::new).collect(Collectors.toList()));
     }
 
     public void resetData(ReadOnlyTaskBook newData) {
-        resetData(newData.getTaskList());
+        resetData(newData.getTaskList(), newData.getEventList());
     }
 
 //// task-level operations
@@ -71,28 +83,6 @@ public class TaskBook implements ReadOnlyTaskBook {
         tasks.add(p);
     }
 
-//    /**
-//     * Ensures that every tag in this person:
-//     *  - exists in the master list {@link #tags}
-//     *  - points to a Tag object in the master list
-//     */
-//    private void syncTagsWithMasterList(Task person) {
-//        final UniqueTagList personTags = person.getTags();
-//        tags.mergeFrom(personTags);
-//
-//        // Create map with values = tag object references in the master list
-//        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-//        for (Tag tag : tags) {
-//            masterTagObjects.put(tag, tag);
-//        }
-//
-//        // Rebuild the list of person tags using references from the master list
-//        final Set<Tag> commonTagReferences = new HashSet<>();
-//        for (Tag tag : personTags) {
-//            commonTagReferences.add(masterTagObjects.get(tag));
-//        }
-//        person.setTags(new UniqueTagList(commonTagReferences));
-//    }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
@@ -118,6 +108,16 @@ public class TaskBook implements ReadOnlyTaskBook {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
+    }
+    
+    @Override
+    public List<ReadOnlyEvent> getEventList() {
+        return Collections.unmodifiableList(events.getInternalList());
+    }
+
+    @Override
+    public UniqueEventList getUniqueEventList() {
+        return this.events;
     }
 
     @Override

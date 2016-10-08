@@ -18,7 +18,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.FileUtil;
 import seedu.task.commons.util.XmlUtil;
 import seedu.task.model.TaskBook;
-import seedu.task.model.task.*;
+import seedu.task.model.item.*;
 import seedu.task.storage.XmlSerializableTaskBook;
 
 import java.io.File;
@@ -134,7 +134,7 @@ public class TestUtil {
     }
 
     public static TaskBook generateEmptyTaskBook() {
-        return new TaskBook(new UniqueTaskList());
+        return new TaskBook(new UniqueTaskList(), new UniqueEventList());
     }
 
     public static XmlSerializableTaskBook generateSampleStorageTaskBook() {

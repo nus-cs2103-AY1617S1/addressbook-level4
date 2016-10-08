@@ -1,7 +1,7 @@
 package seedu.task.testutil;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.task.*;
+import seedu.task.model.item.*;
 
 /**
  *

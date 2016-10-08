@@ -1,14 +1,14 @@
-package seedu.task.model.task;
+package seedu.task.model.item;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's name in the task book.
+ * Represents a Task's or an Event's name in the task book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Task/Event names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;

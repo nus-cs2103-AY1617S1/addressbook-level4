@@ -1,8 +1,8 @@
 package seedu.task.testutil;
 
 import seedu.task.model.TaskBook;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.UniqueTaskList;
+import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueTaskList;
 
 /**
  * A utility class to help with building TaskBook objects.

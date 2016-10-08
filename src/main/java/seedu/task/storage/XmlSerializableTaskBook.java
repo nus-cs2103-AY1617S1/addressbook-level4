@@ -2,8 +2,10 @@ package seedu.task.storage;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyTaskBook;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList;
+import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.UniqueEventList;
+import seedu.task.model.item.UniqueTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,12 +22,12 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-//    @XmlElement
-//    private List<Tag> tags;
+    @XmlElement
+    private List<XmlAdaptedEvent> events;
 
     {
         tasks = new ArrayList<>();
-//        tags = new ArrayList<>();
+        events = new ArrayList<>();
     }
 
     /**
@@ -38,18 +40,10 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
      */
     public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-//        tags = src.getTagList();
+        events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
     }
 
-//    @Override
-//    public UniqueTagList getUniqueTaskList() {
-//        try {
-//            return new UniqueTagList(tags);
-//        } catch (UniqueTagList.DuplicateTagException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
@@ -76,9 +70,28 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 
-//    @Override
-//    public List<Tag> getTagList() {
-//        return Collections.unmodifiableList(tags);
-//    }
+    @Override
+    public UniqueEventList getUniqueEventList() {
+        UniqueEventList lists = new UniqueEventList();
+        for (XmlAdaptedEvent t : events) {
+            try {
+                lists.add(t.toModelType());
+            } catch (IllegalValueException e) {
 
+            }
+        }
+        return lists;
+    }
+
+    @Override
+    public List<ReadOnlyEvent> getEventList() {
+        return events.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
 }
