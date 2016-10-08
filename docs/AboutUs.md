@@ -15,8 +15,8 @@ In-Charge: Logic
 #### [Edmund Mok](https://github.com/edmundmok)
 <img src="images/EM.png" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Testing and code quality <br>
-In-Charge: Storage
+Responsibilities: Jack of all trades <br>
+In-Charge: DearJim
 
 -----
 
