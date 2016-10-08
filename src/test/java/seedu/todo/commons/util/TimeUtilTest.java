@@ -271,11 +271,12 @@ public class TimeUtilTest {
     @Test
     public void getTaskDeadlineText_yesterdayAfterDeadline() {
         testTaskDeadlineTextHelper("since yesterday, 12:00 PM", 
-                LocalDateTime.of(2016, Month.MARCH, 21, 12, 00, 00), LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00));
+                LocalDateTime.of(2016, Month.MARCH, 21, 12, 00), LocalDateTime.of(2016, Month.MARCH, 20, 12, 00));
         testTaskDeadlineTextHelper("since yesterday, 12:51 AM",
-                LocalDateTime.of(2016, Month.MARCH, 21, 23, 50, 00), LocalDateTime.of(2016, Month.MARCH, 20, 00, 51, 00));
+                LocalDateTime.of(2016, Month.MARCH, 21, 23, 50), LocalDateTime.of(2016, Month.MARCH, 20, 00, 51));
         testTaskDeadlineTextHelper("20 minutes ago", 
-                LocalDateTime.of(2016, Month.MARCH, 21, 00, 10, 00), LocalDateTime.of(2016, Month.MARCH, 20, 23, 50, 00));
+                LocalDateTime.of(2016, Month.MARCH, 21, 00, 10), LocalDateTime.of(2016, Month.MARCH, 20, 23, 50));
+    }
     }
     
     
