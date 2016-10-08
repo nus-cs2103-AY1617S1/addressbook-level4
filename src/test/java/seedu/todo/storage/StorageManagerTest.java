@@ -4,13 +4,17 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.todo.model.TodoList;
 import seedu.todo.model.UserPrefs;
+import seedu.todo.model.task.ImmutableTask;
 
 public class StorageManagerTest {
 
@@ -65,5 +69,16 @@ public class StorageManagerTest {
     @Test
     public void testReadWrongPathTodoList() {
         assertFalse(storageManager.readTodoList("test").isPresent());
+    }
+
+    @Test
+    public void testSaveTodoList() {
+        final String TASK_TITLE = "test";
+
+        TodoList todoList = new TodoList(storageManager);
+        todoList.add(TASK_TITLE);
+        storageManager.saveTodoList(todoList, storageManager.getTodoListFilePath());
+        List<ImmutableTask> listOfTasks = storageManager.readTodoList("test").get().getTasks();
+        assertEquals(listOfTasks.get(0).getTitle(), TASK_TITLE);
     }
 }
