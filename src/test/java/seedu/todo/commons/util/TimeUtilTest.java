@@ -298,8 +298,6 @@ public class TimeUtilTest {
     public void getTaskDeadlineText_differentYearBeforeDeadline() {
         testTaskDeadlineTextHelper("in 1 minute", 
                 LocalDateTime.of(2016, Month.DECEMBER, 31, 23, 59), LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0));
-        testTaskDeadlineTextHelper("by tomorrow, 12:00 AM",
-                LocalDateTime.of(2016, Month.DECEMBER, 31, 00, 00), LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0));
         testTaskDeadlineTextHelper("by tomorrow, 1:15 AM",
                 LocalDateTime.of(2016, Month.DECEMBER, 31, 23, 00), LocalDateTime.of(2017, Month.JANUARY, 1, 1, 15));
         testTaskDeadlineTextHelper("by 31 January 2017, 1:05 AM",
