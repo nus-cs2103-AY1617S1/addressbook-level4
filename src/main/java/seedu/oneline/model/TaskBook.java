@@ -112,20 +112,6 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
-    /**
-     * Gets a task with the specified name
-     *
-     * @throws UniqueTaskList.TaskNotFoundException if task is not in list
-     */
-    public ReadOnlyTask getTaskByName(TaskName name) throws UniqueTaskList.TaskNotFoundException {
-        for (Task t : tasks) {
-            if (t.getName().equals(name)) {
-                return t;
-            }
-        }
-        throw new UniqueTaskList.TaskNotFoundException();
-    }
     
 //// tag-level operations
 

@@ -167,7 +167,7 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] .a A .b B .c C .d D", TaskName.MESSAGE_TASK_NAME_CONSTRAINTS);
+                "add []\\[;] .from A .to B .due C .every D", TaskName.MESSAGE_TASK_NAME_CONSTRAINTS);
         // TODO: ADD PROPER CONSTRAINTS
         //assertCommandBehavior(
         //        "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
@@ -425,10 +425,10 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" .a ").append(p.getStartTime());
-            cmd.append(" .b ").append(p.getEndTime());
-            cmd.append(" .c ").append(p.getDeadline());
-            cmd.append(" .d ").append(p.getRecurrence());
+            cmd.append(" .from ").append(p.getStartTime());
+            cmd.append(" .to ").append(p.getEndTime());
+            cmd.append(" .due ").append(p.getDeadline());
+            cmd.append(" .every ").append(p.getRecurrence());
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" #").append(t.tagName);
