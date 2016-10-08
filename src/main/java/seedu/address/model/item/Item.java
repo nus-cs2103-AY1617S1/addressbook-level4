@@ -1,9 +1,11 @@
 package seedu.address.model.item;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Represents a Item in the address book.
@@ -20,6 +22,23 @@ public class Item implements ReadOnlyItem {
 
     private UniqueTagList tags;
 
+    /**
+     * Convenience constructor for tasks. Calls primary constructor with empty fields for startDate, startTime, endDate, endTime
+     *
+     */
+    public Item(ItemType itemType, Name name, UniqueTagList tags) {
+        this(itemType, name, new Date(), new Time(), new Date(), new Time(), tags);
+    }
+    
+    /**
+     * Convenience constructor for deadlines. Calls primary constructor with empty fields for startDate and startTime
+     *
+     */
+    public Item(ItemType itemType, Name name, Date endDate, Time endTime, UniqueTagList tags) {
+        this(itemType, name, new Date(), new Time(), endDate, endTime, tags);
+    }
+    
+    
     /**
      * Every field must be present and not null.
      */
