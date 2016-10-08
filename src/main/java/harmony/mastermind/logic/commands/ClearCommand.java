@@ -8,7 +8,7 @@ import harmony.mastermind.model.TaskManager;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Schema has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Mastermind has been cleared!";
 
     public ClearCommand() {}
 

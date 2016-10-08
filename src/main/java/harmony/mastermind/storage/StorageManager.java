@@ -59,8 +59,8 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveTaskManager(ReadOnlyTaskManager addressBook) throws IOException {
-        taskManagerStorage.saveTaskManager(addressBook, taskManagerStorage.getTaskManagerFilePath());
+    public void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException {
+        taskManagerStorage.saveTaskManager(taskManager, taskManagerStorage.getTaskManagerFilePath());
     }
 
 
@@ -74,5 +74,4 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-
 }

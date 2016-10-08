@@ -16,6 +16,7 @@ import harmony.mastermind.model.task.ReadOnlyTask;
  */
 public class BrowserPanel extends UiPart{
 
+    private final String HELP_PAGE = "https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#command-summary";
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
     private WebView browser;
 
@@ -53,6 +54,10 @@ public class BrowserPanel extends UiPart{
 
     public void loadTaskPage(ReadOnlyTask task) {
         loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
+    }
+    
+    public void loadHelpPage() {
+        loadPage(HELP_PAGE);
     }
 
     public void loadPage(String url){
