@@ -41,7 +41,7 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getName().fullName;
+        name = source.getName().taskDetails;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         priority = source.getPriority().priorityLevel;
@@ -62,7 +62,7 @@ public class XmlAdaptedTask {
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
-        final Name name = new Name(this.name);
+        final TaskDetails name = new TaskDetails(this.name);
         final StartTime startTime = new StartTime(this.phone);
         final EndTime endTime = new EndTime(this.email);
         final Priority priority = new Priority(this.priority);

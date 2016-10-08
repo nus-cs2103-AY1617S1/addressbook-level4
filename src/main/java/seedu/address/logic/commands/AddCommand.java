@@ -36,7 +36,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new Task(
-                new Name(name),
+                new TaskDetails(name),
 //              new StartDate(startDate),
                 new StartTime(startTime),
 //              new EndDate(endDate),

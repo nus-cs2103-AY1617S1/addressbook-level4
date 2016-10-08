@@ -13,7 +13,7 @@ public class Task implements ReadOnlyTask {
 
 	private static int currentID = 0;
 	
-    private Name name;
+    private TaskDetails name;
     private StartTime startTime;
     private EndTime endTime;
     private Priority priority;
@@ -25,7 +25,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) {
+    public Task(TaskDetails name, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, startTime, endTime, priority, tags);
         this.name = name;
         this.startTime = startTime;
@@ -44,7 +44,7 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Name getName() {
+    public TaskDetails getName() {
         return name;
     }
 

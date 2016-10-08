@@ -8,7 +8,7 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    Name getName();
+    TaskDetails getName();
     StartTime getPhone();
     EndTime getEmail();
     Priority getPriority();

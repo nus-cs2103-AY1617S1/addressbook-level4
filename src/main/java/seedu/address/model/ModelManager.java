@@ -177,7 +177,7 @@ public class ModelManager extends ComponentManager implements Model {
 //                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
 //                    .findAny()
 //                    .isPresent();
-        	Matcher matcher = NAME_QUERY.matcher(person.getName().fullName);
+        	Matcher matcher = NAME_QUERY.matcher(person.getName().taskDetails);
         	return matcher.matches();
         }
         
