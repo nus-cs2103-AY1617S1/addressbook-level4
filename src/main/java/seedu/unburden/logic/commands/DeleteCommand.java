@@ -2,8 +2,8 @@ package seedu.unburden.logic.commands;
 
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
-import seedu.unburden.model.person.ReadOnlyTask;
-import seedu.unburden.model.person.UniqueTaskList.PersonNotFoundException;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.UniqueTaskList.PersonNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.

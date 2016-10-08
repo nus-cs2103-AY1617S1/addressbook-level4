@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
-import seedu.unburden.model.person.*;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.task.*;
 
 /**
  * Adds a person to the address book.

@@ -13,7 +13,7 @@ import seedu.unburden.commons.core.GuiSettings;
 import seedu.unburden.commons.events.ui.ExitAppRequestEvent;
 import seedu.unburden.logic.Logic;
 import seedu.unburden.model.UserPrefs;
-import seedu.unburden.model.person.ReadOnlyTask;
+import seedu.unburden.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing

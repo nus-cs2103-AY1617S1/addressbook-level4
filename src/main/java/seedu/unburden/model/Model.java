@@ -3,9 +3,9 @@ package seedu.unburden.model;
 import java.util.Set;
 
 import seedu.unburden.commons.core.UnmodifiableObservableList;
-import seedu.unburden.model.person.Task;
-import seedu.unburden.model.person.ReadOnlyTask;
-import seedu.unburden.model.person.UniqueTaskList;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.Task;
+import seedu.unburden.model.task.UniqueTaskList;
 
 /**
  * The API of the Model component.

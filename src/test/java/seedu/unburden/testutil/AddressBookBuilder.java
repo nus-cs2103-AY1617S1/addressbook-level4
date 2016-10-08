@@ -2,9 +2,9 @@ package seedu.unburden.testutil;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.AddressBook;
-import seedu.unburden.model.person.Task;
-import seedu.unburden.model.person.UniqueTaskList;
 import seedu.unburden.model.tag.Tag;
+import seedu.unburden.model.task.Task;
+import seedu.unburden.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Addressbook objects.

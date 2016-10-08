@@ -4,7 +4,7 @@ import seedu.unburden.commons.core.EventsCenter;
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.commons.events.ui.JumpToListRequestEvent;
-import seedu.unburden.model.person.ReadOnlyTask;
+import seedu.unburden.model.task.ReadOnlyTask;
 
 /**
  * Selects a person identified using it's last displayed index from the address book.

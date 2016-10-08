@@ -13,9 +13,9 @@ import seedu.unburden.model.AddressBook;
 import seedu.unburden.model.Model;
 import seedu.unburden.model.ModelManager;
 import seedu.unburden.model.ReadOnlyAddressBook;
-import seedu.unburden.model.person.*;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.task.*;
 import seedu.unburden.storage.StorageManager;
 
 import org.junit.After;

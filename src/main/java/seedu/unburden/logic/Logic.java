@@ -2,7 +2,7 @@ package seedu.unburden.logic;
 
 import javafx.collections.ObservableList;
 import seedu.unburden.logic.commands.CommandResult;
-import seedu.unburden.model.person.ReadOnlyTask;
+import seedu.unburden.model.task.ReadOnlyTask;
 
 /**
  * API of the Logic component

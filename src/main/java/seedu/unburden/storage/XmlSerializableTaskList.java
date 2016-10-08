@@ -5,10 +5,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.ReadOnlyAddressBook;
-import seedu.unburden.model.person.ReadOnlyTask;
-import seedu.unburden.model.person.UniqueTaskList;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;

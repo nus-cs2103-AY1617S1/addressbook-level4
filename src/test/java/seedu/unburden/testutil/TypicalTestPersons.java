@@ -2,7 +2,7 @@ package seedu.unburden.testutil;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.AddressBook;
-import seedu.unburden.model.person.*;
+import seedu.unburden.model.task.*;
 
 /**
  *

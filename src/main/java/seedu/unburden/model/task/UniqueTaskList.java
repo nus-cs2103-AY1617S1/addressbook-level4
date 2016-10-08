@@ -1,4 +1,4 @@
-package seedu.unburden.model.person;
+package seedu.unburden.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

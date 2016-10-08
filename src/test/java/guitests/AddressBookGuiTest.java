@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 import seedu.unburden.TestApp;
 import seedu.unburden.commons.core.EventsCenter;
 import seedu.unburden.model.AddressBook;
-import seedu.unburden.model.person.ReadOnlyTask;
+import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.testutil.TestUtil;
 import seedu.unburden.testutil.TypicalTestPersons;
 

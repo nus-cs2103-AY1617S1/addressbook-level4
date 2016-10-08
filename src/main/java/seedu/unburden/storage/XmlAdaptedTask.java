@@ -3,9 +3,9 @@ package seedu.unburden.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
-import seedu.unburden.model.person.*;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.task.*;
 
 import java.util.ArrayList;
 import java.util.List;

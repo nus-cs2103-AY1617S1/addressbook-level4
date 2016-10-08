@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.unburden.commons.core.LogsCenter;
 import seedu.unburden.commons.util.FxViewUtil;
-import seedu.unburden.model.person.ReadOnlyTask;
+import seedu.unburden.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 

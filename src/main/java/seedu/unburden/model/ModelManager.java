@@ -6,10 +6,10 @@ import seedu.unburden.commons.core.LogsCenter;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.commons.events.model.AddressBookChangedEvent;
 import seedu.unburden.commons.util.StringUtil;
-import seedu.unburden.model.person.Task;
-import seedu.unburden.model.person.ReadOnlyTask;
-import seedu.unburden.model.person.UniqueTaskList;
-import seedu.unburden.model.person.UniqueTaskList.PersonNotFoundException;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.Task;
+import seedu.unburden.model.task.UniqueTaskList;
+import seedu.unburden.model.task.UniqueTaskList.PersonNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;

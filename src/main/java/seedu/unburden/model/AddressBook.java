@@ -1,11 +1,11 @@
 package seedu.unburden.model;
 
 import javafx.collections.ObservableList;
-import seedu.unburden.model.person.Task;
-import seedu.unburden.model.person.ReadOnlyTask;
-import seedu.unburden.model.person.UniqueTaskList;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.Task;
+import seedu.unburden.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;

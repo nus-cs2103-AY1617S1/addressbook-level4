@@ -3,10 +3,10 @@ package seedu.unburden.model;
 
 import java.util.List;
 
-import seedu.unburden.model.person.ReadOnlyTask;
-import seedu.unburden.model.person.UniqueTaskList;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.UniqueTaskList;
 
 /**
  * Unmodifiable view of an address book

@@ -1,7 +1,7 @@
 package seedu.unburden.testutil;
 
-import seedu.unburden.model.person.*;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.task.*;
 
 /**
  * A mutable person object. For testing only.

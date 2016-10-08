@@ -7,7 +7,7 @@ import seedu.unburden.logic.commands.Command;
 import seedu.unburden.logic.commands.CommandResult;
 import seedu.unburden.logic.parser.Parser;
 import seedu.unburden.model.Model;
-import seedu.unburden.model.person.ReadOnlyTask;
+import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.storage.Storage;
 
 import java.util.logging.Logger;

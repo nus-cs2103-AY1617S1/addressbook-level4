@@ -7,8 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.unburden.TestApp;
-import seedu.unburden.model.person.Task;
-import seedu.unburden.model.person.ReadOnlyTask;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.Task;
 import seedu.unburden.testutil.TestUtil;
 
 import java.util.List;

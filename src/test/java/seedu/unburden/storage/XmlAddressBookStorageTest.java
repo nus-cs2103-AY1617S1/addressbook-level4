@@ -10,7 +10,7 @@ import seedu.unburden.commons.exceptions.DataConversionException;
 import seedu.unburden.commons.util.FileUtil;
 import seedu.unburden.model.AddressBook;
 import seedu.unburden.model.ReadOnlyAddressBook;
-import seedu.unburden.model.person.Task;
+import seedu.unburden.model.task.Task;
 import seedu.unburden.storage.XmlTaskListStorage;
 import seedu.unburden.testutil.TypicalTestPersons;
 

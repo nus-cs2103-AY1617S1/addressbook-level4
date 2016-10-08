@@ -18,9 +18,9 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.FileUtil;
 import seedu.unburden.commons.util.XmlUtil;
 import seedu.unburden.model.AddressBook;
-import seedu.unburden.model.person.*;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.task.*;
 import seedu.unburden.storage.XmlSerializableTaskList;
 
 import java.io.File;

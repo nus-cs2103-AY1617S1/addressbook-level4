@@ -1,7 +1,7 @@
 package seedu.unburden.commons.events.ui;
 
 import seedu.unburden.commons.events.BaseEvent;
-import seedu.unburden.model.person.ReadOnlyTask;
+import seedu.unburden.model.task.ReadOnlyTask;
 
 /**
  * Represents a selection change in the Task List Panel
