@@ -6,12 +6,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyEmeraldo;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalTestPersons;
 import seedu.emeraldo.commons.exceptions.DataConversionException;
 import seedu.emeraldo.commons.util.FileUtil;
+import seedu.emeraldo.model.AddressBook;
+import seedu.emeraldo.model.ReadOnlyEmeraldo;
 import seedu.emeraldo.storage.XmlEmeraldoStorage;
 
 import java.io.IOException;

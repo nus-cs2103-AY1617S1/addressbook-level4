@@ -8,12 +8,12 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.emeraldo.commons.core.Config;
 import seedu.emeraldo.commons.core.GuiSettings;
 import seedu.emeraldo.commons.events.ui.ExitAppRequestEvent;
 import seedu.emeraldo.logic.Logic;
+import seedu.emeraldo.model.UserPrefs;
 
 /**
  * The Main Window. Provides the basic application layout containing

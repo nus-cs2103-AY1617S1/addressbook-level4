@@ -1,6 +1,6 @@
 package seedu.emeraldo.logic.commands;
 
-import seedu.address.model.AddressBook;
+import seedu.emeraldo.model.AddressBook;
 
 /**
  * Clears the address book.

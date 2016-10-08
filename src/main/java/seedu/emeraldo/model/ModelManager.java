@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.emeraldo.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Person;

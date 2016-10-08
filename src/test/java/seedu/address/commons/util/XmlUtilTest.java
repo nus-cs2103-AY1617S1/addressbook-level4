@@ -3,11 +3,12 @@ package seedu.address.commons.util;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import seedu.address.model.AddressBook;
+
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TestUtil;
 import seedu.emeraldo.commons.util.FileUtil;
 import seedu.emeraldo.commons.util.XmlUtil;
+import seedu.emeraldo.model.AddressBook;
 import seedu.emeraldo.storage.XmlSerializableEmeraldo;
 
 import javax.xml.bind.JAXBException;

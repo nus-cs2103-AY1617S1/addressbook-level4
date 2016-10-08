@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.emeraldo.model;
 
 import java.util.Objects;
 

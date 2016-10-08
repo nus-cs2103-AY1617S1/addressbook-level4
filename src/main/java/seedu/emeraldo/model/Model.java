@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.emeraldo.model;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyTask;

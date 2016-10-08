@@ -1,13 +1,13 @@
 package seedu.emeraldo.storage;
 
-import seedu.address.model.ReadOnlyEmeraldo;
 import seedu.emeraldo.commons.exceptions.DataConversionException;
+import seedu.emeraldo.model.ReadOnlyEmeraldo;
 
 import java.io.IOException;
 import java.util.Optional;
 
 /**
- * Represents a storage for {@link seedu.address.model.AddressBook}.
+ * Represents a storage for {@link seedu.emeraldo.model.AddressBook}.
  */
 public interface EmeraldoStorage {
 

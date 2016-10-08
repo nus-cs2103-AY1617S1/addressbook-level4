@@ -1,9 +1,9 @@
 package seedu.emeraldo.logic.commands;
 
-import seedu.address.model.Model;
 import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.emeraldo.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

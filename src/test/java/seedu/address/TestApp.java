@@ -2,12 +2,12 @@ package seedu.address;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.model.ReadOnlyEmeraldo;
-import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TestUtil;
 import seedu.emeraldo.MainApp;
 import seedu.emeraldo.commons.core.Config;
 import seedu.emeraldo.commons.core.GuiSettings;
+import seedu.emeraldo.model.ReadOnlyEmeraldo;
+import seedu.emeraldo.model.UserPrefs;
 import seedu.emeraldo.storage.XmlSerializableEmeraldo;
 
 import java.util.function.Supplier;

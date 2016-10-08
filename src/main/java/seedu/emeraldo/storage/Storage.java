@@ -1,10 +1,10 @@
 package seedu.emeraldo.storage;
 
-import seedu.address.model.ReadOnlyEmeraldo;
-import seedu.address.model.UserPrefs;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.emeraldo.commons.exceptions.DataConversionException;
+import seedu.emeraldo.model.ReadOnlyEmeraldo;
+import seedu.emeraldo.model.UserPrefs;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
