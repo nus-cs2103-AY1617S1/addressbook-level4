@@ -384,8 +384,7 @@ public class LogicManagerTest {
         FloatingTask adam() throws Exception {
             Name name = new Name("Adam Brown");
             Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            UniqueTagList tags = new UniqueTagList(tag1);
             return new FloatingTask(name, tags);
         }
 
