@@ -8,8 +8,8 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.testutil.TestUtil;
-import seedu.taskmanager.model.task.ReadOnlyTask;
-import seedu.taskmanager.model.task.Task;
+import seedu.menion.model.task.ReadOnlyTask;
+import seedu.menion.model.task.Task;
 
 import java.util.List;
 import java.util.Optional;

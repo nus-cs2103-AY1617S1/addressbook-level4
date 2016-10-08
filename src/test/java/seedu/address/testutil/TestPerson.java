@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.taskmanager.model.tag.UniqueTagList;
-import seedu.taskmanager.model.task.*;
+import seedu.menion.model.tag.UniqueTagList;
+import seedu.menion.model.task.*;
 
 /**
  * A mutable person object. For testing only.
