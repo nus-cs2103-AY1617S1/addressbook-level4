@@ -7,7 +7,7 @@ import java.util.Optional;
 import seedu.unburden.commons.events.model.AddressBookChangedEvent;
 import seedu.unburden.commons.events.storage.DataSavingExceptionEvent;
 import seedu.unburden.commons.exceptions.DataConversionException;
-import seedu.unburden.model.ReadOnlyAddressBook;
+import seedu.unburden.model.ReadOnlyListOfTask;
 import seedu.unburden.model.UserPrefs;
 
 /**
@@ -25,10 +25,10 @@ public interface Storage extends TaskListStorage, UserPrefsStorage {
     String getTaskListFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readTaskList() throws DataConversionException, IOException;
+    Optional<ReadOnlyListOfTask> readTaskList() throws DataConversionException, IOException;
 
     @Override
-    void saveTaskList(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveTaskList(ReadOnlyListOfTask addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

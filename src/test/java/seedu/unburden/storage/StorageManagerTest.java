@@ -9,7 +9,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.unburden.commons.events.model.AddressBookChangedEvent;
 import seedu.unburden.commons.events.storage.DataSavingExceptionEvent;
 import seedu.unburden.model.ListOfTask;
-import seedu.unburden.model.ReadOnlyAddressBook;
+import seedu.unburden.model.ReadOnlyListOfTask;
 import seedu.unburden.model.UserPrefs;
 import seedu.unburden.storage.JsonUserPrefsStorage;
 import seedu.unburden.storage.Storage;
@@ -62,7 +62,7 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         ListOfTask original = new TypicalTestPersons().getTypicalListOfTask();
         storageManager.saveTaskList(original);
-        ReadOnlyAddressBook retrieved = storageManager.readTaskList().get();
+        ReadOnlyListOfTask retrieved = storageManager.readTaskList().get();
         assertEquals(original, new ListOfTask(retrieved));
         //More extensive testing of ListOfTask saving/reading is done in XmlAddressBookStorageTest
     }
@@ -92,7 +92,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveTaskList(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+        public void saveTaskList(ReadOnlyListOfTask addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

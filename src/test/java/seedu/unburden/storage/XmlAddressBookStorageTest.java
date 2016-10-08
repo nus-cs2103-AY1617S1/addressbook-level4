@@ -9,7 +9,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.unburden.commons.exceptions.DataConversionException;
 import seedu.unburden.commons.util.FileUtil;
 import seedu.unburden.model.ListOfTask;
-import seedu.unburden.model.ReadOnlyAddressBook;
+import seedu.unburden.model.ReadOnlyListOfTask;
 import seedu.unburden.model.task.Task;
 import seedu.unburden.storage.XmlTaskListStorage;
 import seedu.unburden.testutil.TypicalTestPersons;
@@ -34,7 +34,7 @@ public class XmlAddressBookStorageTest {
         readAddressBook(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyListOfTask> readAddressBook(String filePath) throws Exception {
         return new XmlTaskListStorage(filePath).readTaskList(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -69,7 +69,7 @@ public class XmlAddressBookStorageTest {
 
         //Save in new file and read back
         xmlTaskListStorage.saveTaskList(original, filePath);
-        ReadOnlyAddressBook readBack = xmlTaskListStorage.readTaskList(filePath).get();
+        ReadOnlyListOfTask readBack = xmlTaskListStorage.readTaskList(filePath).get();
         assertEquals(original, new ListOfTask(readBack));
 
         //Modify data, overwrite exiting file, and read back
@@ -93,7 +93,7 @@ public class XmlAddressBookStorageTest {
         saveAddressBook(null, "SomeFile.xml");
     }
 
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+    private void saveAddressBook(ReadOnlyListOfTask addressBook, String filePath) throws IOException {
         new XmlTaskListStorage(filePath).saveTaskList(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 

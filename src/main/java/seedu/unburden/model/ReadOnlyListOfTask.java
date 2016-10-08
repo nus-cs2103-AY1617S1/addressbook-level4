@@ -11,7 +11,7 @@ import seedu.unburden.model.task.UniqueTaskList;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyListOfTask {
 
     UniqueTagList getUniqueTagList();
 
@@ -20,7 +20,7 @@ public interface ReadOnlyAddressBook {
     /**
      * Returns an unmodifiable view of persons list
      */
-    List<ReadOnlyTask> getPersonList();
+    List<ReadOnlyTask> getTaskList();
 
     /**
      * Returns an unmodifiable view of tags list

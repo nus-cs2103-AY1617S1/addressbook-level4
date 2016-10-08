@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class ListOfTask implements ReadOnlyAddressBook {
+public class ListOfTask implements ReadOnlyListOfTask {
 
     private final UniqueTaskList persons;
     private final UniqueTagList tags;
@@ -29,7 +29,7 @@ public class ListOfTask implements ReadOnlyAddressBook {
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public ListOfTask(ReadOnlyAddressBook toBeCopied) {
+    public ListOfTask(ReadOnlyListOfTask toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
@@ -40,7 +40,7 @@ public class ListOfTask implements ReadOnlyAddressBook {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
+    public static ReadOnlyListOfTask getEmptyAddressBook() {
         return new ListOfTask();
     }
 
@@ -63,8 +63,8 @@ public class ListOfTask implements ReadOnlyAddressBook {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyAddressBook newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+    public void resetData(ReadOnlyListOfTask newData) {
+        resetData(newData.getTaskList(), newData.getTagList());
     }
 
 //// person-level operations
@@ -127,7 +127,7 @@ public class ListOfTask implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(persons.getInternalList());
     }
 

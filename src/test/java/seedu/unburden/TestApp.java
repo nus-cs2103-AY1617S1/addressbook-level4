@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 import seedu.unburden.MainApp;
 import seedu.unburden.commons.core.Config;
 import seedu.unburden.commons.core.GuiSettings;
-import seedu.unburden.model.ReadOnlyAddressBook;
+import seedu.unburden.model.ReadOnlyListOfTask;
 import seedu.unburden.model.UserPrefs;
 import seedu.unburden.storage.XmlSerializableTaskList;
 import seedu.unburden.testutil.TestUtil;
@@ -22,13 +22,13 @@ public class TestApp extends MainApp {
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyListOfTask> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyListOfTask> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;

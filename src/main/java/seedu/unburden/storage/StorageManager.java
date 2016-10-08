@@ -7,7 +7,7 @@ import seedu.unburden.commons.core.LogsCenter;
 import seedu.unburden.commons.events.model.AddressBookChangedEvent;
 import seedu.unburden.commons.events.storage.DataSavingExceptionEvent;
 import seedu.unburden.commons.exceptions.DataConversionException;
-import seedu.unburden.model.ReadOnlyAddressBook;
+import seedu.unburden.model.ReadOnlyListOfTask;
 import seedu.unburden.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -56,23 +56,23 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readTaskList() throws DataConversionException, IOException {
+    public Optional<ReadOnlyListOfTask> readTaskList() throws DataConversionException, IOException {
         return readTaskList(taskListStorage.getTaskListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readTaskList(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyListOfTask> readTaskList(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return taskListStorage.readTaskList(filePath);
     }
 
     @Override
-    public void saveTaskList(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveTaskList(ReadOnlyListOfTask addressBook) throws IOException {
         saveTaskList(addressBook, taskListStorage.getTaskListFilePath());
     }
 
     @Override
-    public void saveTaskList(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+    public void saveTaskList(ReadOnlyListOfTask addressBook, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         taskListStorage.saveTaskList(addressBook, filePath);
     }

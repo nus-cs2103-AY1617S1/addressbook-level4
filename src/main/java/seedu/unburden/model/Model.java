@@ -12,10 +12,10 @@ import seedu.unburden.model.task.UniqueTaskList;
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyListOfTask newData);
 
     /** Returns the ListOfTask */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyListOfTask getAddressBook();
 
     /** Deletes the given person. */
     void deletePerson(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;

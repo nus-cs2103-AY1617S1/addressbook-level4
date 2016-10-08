@@ -70,8 +70,8 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyListOfTask> addressBookOptional;
+        ReadOnlyListOfTask initialData;
         try {
             addressBookOptional = storage.readTaskList();
             if(!addressBookOptional.isPresent()){

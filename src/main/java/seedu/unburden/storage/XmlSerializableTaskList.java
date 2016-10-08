@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
-import seedu.unburden.model.ReadOnlyAddressBook;
+import seedu.unburden.model.ReadOnlyListOfTask;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
 import seedu.unburden.model.task.ReadOnlyTask;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * An Immutable ListOfTask that is serializable to XML format
  */
 @XmlRootElement(name = "tasklist")
-public class XmlSerializableTaskList implements ReadOnlyAddressBook {
+public class XmlSerializableTaskList implements ReadOnlyListOfTask {
 
     @XmlElement
     private List<XmlAdaptedTask> persons;
@@ -39,8 +39,8 @@ public class XmlSerializableTaskList implements ReadOnlyAddressBook {
     /**
      * Conversion
      */
-    public XmlSerializableTaskList(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+    public XmlSerializableTaskList(ReadOnlyListOfTask src) {
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -69,7 +69,7 @@ public class XmlSerializableTaskList implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();
