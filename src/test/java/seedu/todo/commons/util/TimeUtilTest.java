@@ -2,21 +2,40 @@ package seedu.todo.commons.util;
 
 import static org.junit.Assert.*;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class TimeUtilTest {
     
+    private TimeUtil timeUtil;
+    private LocalDateTime pseudoCurrentTime;
+    
+    @Before
+    public void initialiseTimeUtil() {
+        //In this test, today is 3 May 2016, 13:15:10
+        pseudoCurrentTime = LocalDateTime.of(2016, Month.MAY, 3, 13, 15, 10);
+        Clock clockStub = Clock.fixed(pseudoCurrentTime.toInstant(ZoneId.systemDefault().getRules().getOffset(pseudoCurrentTime)), ZoneId.systemDefault());
+        timeUtil = new TimeUtil(clockStub);
+    }
+    
+    
+    
     @Test (expected = AssertionError.class)
     public void getTaskDeadlineString_nullEndTime() {
-        TimeUtil.getTaskDeadlineString(null);
+        timeUtil.getTaskDeadlineString(null);
+    }
     }
     
     @Test
     public void getTaskDeadlineString_hoursBeforeDeadlines() {
         for (long hoursLeft = 2; hoursLeft < 24; hoursLeft++) {
-            LocalDateTime inputTime = LocalDateTime.now().plusHours(hoursLeft).plusMinutes(1);
-            String generatedOutput = TimeUtil.getTaskDeadlineString(inputTime);
+            LocalDateTime inputTime = pseudoCurrentTime.plusHours(hoursLeft).plusMinutes(1);
+            String generatedOutput = timeUtil.getTaskDeadlineString(inputTime);
             String expectedOutput = "in " + String.valueOf(hoursLeft) + " hours";
             assertEquals(generatedOutput, expectedOutput);
         }
@@ -25,16 +44,16 @@ public class TimeUtilTest {
     @Test
     public void getTaskDeadlineString_anHourBeforeDeadlines() {
         String expectedOutput = "in 1 hour";
-        LocalDateTime inputTime = LocalDateTime.now().plusHours(1);
-        String generatedOutput = TimeUtil.getTaskDeadlineString(inputTime);
+        LocalDateTime inputTime = pseudoCurrentTime.plusHours(1);
+        String generatedOutput = timeUtil.getTaskDeadlineString(inputTime);
         assertEquals(generatedOutput, expectedOutput);
     }
     
     @Test
     public void getTaskDeadlineString_minutesBeforeDeadlines() {
         for (long minutesLeft = 2; minutesLeft < 60; minutesLeft++) {
-            LocalDateTime inputTime = LocalDateTime.now().plusMinutes(minutesLeft).plusSeconds(30);
-            String generatedOutput = TimeUtil.getTaskDeadlineString(inputTime);
+            LocalDateTime inputTime = pseudoCurrentTime.plusMinutes(minutesLeft).plusSeconds(30);
+            String generatedOutput = timeUtil.getTaskDeadlineString(inputTime);
             String expectedOutput = "in " + String.valueOf(minutesLeft) + " minutes";
             assertEquals(generatedOutput, expectedOutput);
         }
@@ -43,8 +62,8 @@ public class TimeUtilTest {
     @Test
     public void getTaskDeadlineString_aMinuteBeforeDeadlines() {
         String expectedOutput = "in 1 minute";
-        LocalDateTime inputTime = LocalDateTime.now().plusMinutes(1).plusSeconds(10);
-        String generatedOutput = TimeUtil.getTaskDeadlineString(inputTime);
+        LocalDateTime inputTime = pseudoCurrentTime.plusMinutes(1).plusSeconds(10);
+        String generatedOutput = timeUtil.getTaskDeadlineString(inputTime);
         assertEquals(generatedOutput, expectedOutput);
     }
     
@@ -52,12 +71,12 @@ public class TimeUtilTest {
     public void getTaskDeadlineString_dueNow() {
         String expectedOutput = "right now";
         
-        LocalDateTime inputTime1 = LocalDateTime.now();
-        String generatedOutput1 = TimeUtil.getTaskDeadlineString(inputTime1);
+        LocalDateTime inputTime1 = pseudoCurrentTime;
+        String generatedOutput1 = timeUtil.getTaskDeadlineString(inputTime1);
         assertEquals(generatedOutput1, expectedOutput);
         
-        LocalDateTime inputTime2 = LocalDateTime.now().plusSeconds(30);
-        String generatedOutput2 = TimeUtil.getTaskDeadlineString(inputTime2);
+        LocalDateTime inputTime2 = pseudoCurrentTime.plusSeconds(30);
+        String generatedOutput2 = timeUtil.getTaskDeadlineString(inputTime2);
         assertEquals(generatedOutput2, expectedOutput);
     }
     

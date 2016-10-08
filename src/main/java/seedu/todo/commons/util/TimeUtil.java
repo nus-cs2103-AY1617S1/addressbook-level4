@@ -1,5 +1,6 @@
 package seedu.todo.commons.util;
 
+import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
  */
 public class TimeUtil {
     
+    /* Constants */
     private static final String PREFIX_BEFORE_DEADLINE = "in ";
     
     private static final String HOUR_SINGLE_UNIT = " hour";
@@ -17,15 +19,35 @@ public class TimeUtil {
     
     private static final String DUE_NOW = "right now";
     
+    /* Variables */
+    private final Clock clock;
+    
+    /**
+     * Constructs a TimeUil object using system clock.
+     */
+    public TimeUtil () {
+        this.clock = Clock.systemDefaultZone();
+    }
+    
+    /**
+     * Construct a TimeUtil object with a custom clock.
+     * Can be used for dependency injection in testing (to override system time)
+     */
+    public TimeUtil (Clock clock) {
+        this.clock = clock;
+    }
+    
+    
+    
     /**
      * Gets the task deadline expression for the UI.
      * @param endTime ending time
      * @return a formatted deadline String
      */
-    public static String getTaskDeadlineString(LocalDateTime endTime) {
+    public String getTaskDeadlineString(LocalDateTime endTime) {
         assert(endTime != null);
         
-        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime currentTime = LocalDateTime.now(clock);
         Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
         
         long hoursToDeadline = durationCurrentToEnd.toHours();
@@ -51,7 +73,7 @@ public class TimeUtil {
     }
     
     
-    public static String getEventTimeString(LocalDateTime startTime, LocalDateTime endTime) {
+    public String getEventTimeString(LocalDateTime startTime, LocalDateTime endTime) {
         assert(startTime != null);
         assert(endTime != null);
         assert(startTime.isBefore(endTime));
