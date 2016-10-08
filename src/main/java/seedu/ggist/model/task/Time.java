@@ -1,6 +1,9 @@
 package seedu.ggist.model.task;
 
 
+import java.util.regex.Matcher;
+
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 
 /**
@@ -8,10 +11,13 @@ import seedu.ggist.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@Time #isValidTime(String)}
  */
 public class Time {
+    
+    private String hour;
+    private String minute;
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Task time should be a number with 4 digits (hours and minutes)";
-    public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
+            "TIME 24-hour format is HHMM";
+    public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])([0-5][0-9])";
     public final String value;
 
     /**
@@ -22,7 +28,8 @@ public class Time {
     public Time(String time) throws IllegalValueException {
         assert time != null;
         time = time.trim();
-        if (!isValidTime(time)) {
+        if (!time.equals(Messages.MESSAGE_NO_START_TIME_SET) && !time.equals(Messages.MESSAGE_NO_END_TIME_SET)
+             && !isValidTime(time)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         this.value = time;

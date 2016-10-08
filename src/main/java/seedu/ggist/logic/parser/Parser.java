@@ -28,23 +28,23 @@ public class Parser {
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>[^,]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags;
+            Pattern.compile("(?<taskName>.*)"
+                    + "(?<tagArguments>(?: [^,]+)*)"); // variable number of tags;
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<taskName>[^,]+)"
                     + " (?<date>[^,]+)"
-                    + " (?<endTime>[^,]+)"
-                    + " (?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+                    + " (?<time>[^,]+)"
+                    + " (?<tagArguments>(?:[^,]+)*)"); // variable number of tags
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<taskName>[^,]+)"
                     + " (?<date>[^,]+)"
-                    + " (?<startTime>[^-]+)"
+                    + " (?<startTime>[^,]+)"
                     + " (?<endTime>[^,]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+                    + "(?<tagArguments>(?: [^,]+)*)"); // variable number of tags
    
     public Parser() {}
 
@@ -108,27 +108,33 @@ public class Parser {
         try {
             if(taskType.equals("eventTask")) {
                 matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-                return new AddCommand(
+                if (matcher.matches()) {
+                    return new AddCommand(
                         matcher.group("taskName"),
                         matcher.group("date"),
                         matcher.group("startTime"),
                         matcher.group("endTime"),
                         getTagsFromArgs(matcher.group("tagArguments"))
-                );    
+                     );
+                }
             } else if (taskType.equals("deadlineTask")) {
                 matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-                return new AddCommand(
+                if (matcher.matches()) {
+                    return new AddCommand(
                         matcher.group("taskName"),
                         matcher.group("date"),
-                        matcher.group("endTime"),
+                        matcher.group("time"),
                         getTagsFromArgs(matcher.group("tagArguments"))
-                        );
+                     );
+                }
             } else if (taskType.equals("floatingTask")) {
                 matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-                return new AddCommand(
+                if (matcher.matches()) {
+                    return new AddCommand(
                         matcher.group("taskName"),
                         getTagsFromArgs(matcher.group("tagArguments"))
-                );
+                    );
+                }
             }                         
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -142,12 +148,15 @@ public class Parser {
      * @return the task type in String
      */
     private String matchTaskType(String args) {
-        
-        if (EVENT_TASK_DATA_ARGS_FORMAT.matcher(args).matches()) {
+        Matcher matcher;
+        if ((matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
             return new String("eventTask");
-        } else if (DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args).matches()) {
+        } else if ((matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
+            System.out.println("task name = " + matcher.group("taskName"));
+            System.out.println("date = " + matcher.group("date"));
+            System.out.println("time = " + matcher.group("time"));
             return new String("deadlineTask");
-        } else if (FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args).matches()) {
+        } else if ((matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
             return new String("floatingTask");
         }       
         return new String("taskTypeNotFound");

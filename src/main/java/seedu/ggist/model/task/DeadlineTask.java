@@ -14,10 +14,10 @@ public class DeadlineTask extends Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public DeadlineTask(TaskName taskName, Date date, Time endTime, UniqueTagList tags) {
+    public DeadlineTask(TaskName taskName, Date date, Time startTime, Time endTime, UniqueTagList tags) {
         this.taskName = taskName;
         this.date = date;
-        this.startTime = null;
+        this.startTime = startTime;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -26,7 +26,7 @@ public class DeadlineTask extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public DeadlineTask(ReadOnlyTask source) {
-        this(source.getTaskName(), source.getDate(), source.getEndTime(), source.getTags());
+        this(source.getTaskName(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
     
     @Override
