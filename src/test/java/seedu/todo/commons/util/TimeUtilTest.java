@@ -57,4 +57,18 @@ public class TimeUtilTest {
         String generatedOutput2 = timeUtil.getTaskDeadlineString(inputTime2);
         assertEquals(expectedOutput, generatedOutput2);
     }
+    
+    @Test
+    public void getTaskDeadlineString_dueLessThanAMinute() {
+        TimeUtil timeUtil = new ModifiedTimeUtil(LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00));
+        String expectedOutput = "in less than a minute";
+        
+        LocalDateTime inputTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 01);
+        String generatedOutput1 = timeUtil.getTaskDeadlineString(inputTime1);
+        assertEquals(expectedOutput, generatedOutput1);
+        
+        LocalDateTime inputTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 59);
+        String generatedOutput2 = timeUtil.getTaskDeadlineString(inputTime2);
+        assertEquals(expectedOutput, generatedOutput2);
+    }
 }
