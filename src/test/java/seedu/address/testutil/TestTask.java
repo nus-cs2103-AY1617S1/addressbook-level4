@@ -8,50 +8,61 @@ import seedu.address.model.person.*;
  */
 public class TestTask implements ReadOnlyTask {
 
-    private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
+    private Detail detail;
+    private DueByDate dueByDate;
+    private DueByTime dueByTime;
+    private Priority priority;
+    private Done done;
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public void setDetail(Detail detail) {
+    	this.detail = detail;
     }
-
-    public void setAddress(Address address) {
-        this.address = address;
+    
+    public void setDueByDate(DueByDate dueByDate) {
+    	this.dueByDate = dueByDate;
     }
-
-    public void setEmail(Email email) {
-        this.email = email;
+    
+    public void setDueByTime(DueByTime dueByTime) {
+    	this.dueByTime = dueByTime;
     }
-
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    
+    public void setPriority(Priority priority) {
+    	this.priority = priority;
+    	
     }
-
-    @Override
-    public Name getName() {
-        return name;
-    }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
+    
+    public void setDone(Done done) {
+    	this.done = done;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public Detail getDetail() {
+        return detail;
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public DueByDate getDueByDate() {
+        return dueByDate;
+    }
+
+    @Override
+    public DueByTime getDueByTime() {
+        return dueByTime;
+    }
+
+    @Override
+    public Priority getPriority() {
+        return priority;
+    }
+    
+    @Override
+    public Done getDone() {
+    	return done;
     }
 
     @Override
@@ -66,11 +77,12 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append(this.getDetail() + " ");
+        sb.append(this.getDueByDate().value + " ");
+        sb.append(this.getDueByTime().value + " ");
+        sb.append(this.getPriority().value + " ");
+        sb.append(this.getDone().value + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("-" + s.tagName + " "));
         return sb.toString();
     }
 }
