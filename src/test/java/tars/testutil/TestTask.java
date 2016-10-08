@@ -63,7 +63,7 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().taskName + " ");
+        sb.append("add -n " + this.getName().taskName + " ");
         sb.append("-dt " + this.getDateTime().toString() + " ");
         sb.append("-p " + this.getPriority().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("-t " + s.tagName + " "));
