@@ -43,8 +43,6 @@ public class TimeUtil {
         LocalDateTime currentTime = LocalDateTime.now(clock);
         Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
         
-        long daysToDeadline = durationCurrentToEnd.toDays();
-        long hoursToDeadline = durationCurrentToEnd.toHours();
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         long secondsToDeadline = durationCurrentToEnd.getSeconds();
         
@@ -63,6 +61,8 @@ public class TimeUtil {
                 return DEADLINE_PREFIX_BY + DUE_TOMORROW + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
             } else if (currentTime.getYear() == endTime.getYear()) {
                 return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM, h:mm a"));
+            } else {
+                return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM yyyy, h:mm a"));
             }
             
         } else {
