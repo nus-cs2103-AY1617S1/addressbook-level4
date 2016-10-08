@@ -1,11 +1,11 @@
 package seedu.emeraldo.storage;
 
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.ReadOnlyEmeraldo;
 import seedu.emeraldo.model.person.ReadOnlyTask;
 import seedu.emeraldo.model.person.UniquePersonList;
+import seedu.emeraldo.model.tag.Tag;
+import seedu.emeraldo.model.tag.UniqueTagList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

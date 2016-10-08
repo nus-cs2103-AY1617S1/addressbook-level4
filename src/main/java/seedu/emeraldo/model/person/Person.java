@@ -1,7 +1,7 @@
 package seedu.emeraldo.model.person;
 
-import seedu.address.model.tag.UniqueTagList;
 import seedu.emeraldo.commons.util.CollectionUtil;
+import seedu.emeraldo.model.tag.UniqueTagList;
 
 import java.util.Objects;
 

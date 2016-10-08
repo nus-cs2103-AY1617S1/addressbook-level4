@@ -1,4 +1,4 @@
-package seedu.address.model.tag;
+package seedu.emeraldo.model.tag;
 
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;

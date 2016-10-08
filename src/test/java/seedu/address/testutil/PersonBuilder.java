@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import seedu.address.model.tag.Tag;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.person.*;
+import seedu.emeraldo.model.tag.Tag;
 
 /**
  *

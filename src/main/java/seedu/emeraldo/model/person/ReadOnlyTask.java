@@ -1,6 +1,6 @@
 package seedu.emeraldo.model.person;
 
-import seedu.address.model.tag.UniqueTagList;
+import seedu.emeraldo.model.tag.UniqueTagList;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.

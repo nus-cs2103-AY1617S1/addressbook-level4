@@ -7,8 +7,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.events.ui.JumpToListRequestEvent;
@@ -21,6 +19,8 @@ import seedu.emeraldo.model.Model;
 import seedu.emeraldo.model.ModelManager;
 import seedu.emeraldo.model.ReadOnlyEmeraldo;
 import seedu.emeraldo.model.person.*;
+import seedu.emeraldo.model.tag.Tag;
+import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.storage.StorageManager;
 
 import java.util.ArrayList;
