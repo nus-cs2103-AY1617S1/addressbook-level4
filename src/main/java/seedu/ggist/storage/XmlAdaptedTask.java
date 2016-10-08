@@ -63,6 +63,6 @@ public class XmlAdaptedTask {
         final Time startTime = new Time(this.startTime);
         final Time endTime = new Time(this.endTime);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(taskName, date, startTime, endTime, tags);
+        return new EventTask(taskName, date, startTime, endTime, tags);
     }
 }
