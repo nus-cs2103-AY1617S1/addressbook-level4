@@ -152,6 +152,11 @@ Format: `redo`
 Format: `help`
 
 > * Help is also shown if you enter an incorrect command e.g. `abcd`.
+
+#### Clear all tasks : `clear`
+Clears all tasks from the to-do list.<br>
+Format: `clear`
+
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
@@ -178,5 +183,6 @@ done | `done INDEX/TASKNAME`
 setstorage | `setstorage FILEPATH`
 undo | `undo`
 redo | `redo`
-help | `help` 
+help | `help`
+clear | `clear` 
 exit | `exit`
