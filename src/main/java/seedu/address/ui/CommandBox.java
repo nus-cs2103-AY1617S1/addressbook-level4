@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -65,10 +67,27 @@ public class CommandBox extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
+    
+    /**
+     * Attempt to parse a possibly incomplete command in the command box and display the command format matching that.
+     */
+    @FXML
+    private void handleCommandInputChanged(KeyEvent event){
+        KeyCode keyCode = event.getCode();
+        
+        // do not update tooltip if user clears textfield
+        if (commandTextField.getText().equals("")) return;
+        
+        // only update if user uses a backspace or enters a valid character
+        if (keyCode != KeyCode.BACK_SPACE && !keyCode.isDigitKey() && !keyCode.isLetterKey()) return;
+        
+        String toDisplay = logic.decideToolTip(commandTextField.getText());
+        resultDisplay.postMessage(toDisplay);
+    }
 
 
     @FXML
-    private void handleCommandInputChanged() {
+    private void handleCommandInputEntered() {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
 

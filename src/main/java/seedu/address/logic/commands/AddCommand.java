@@ -17,6 +17,10 @@ public class AddCommand extends Command {
             + "Parameters: NAME [rank PRIORITY_VALUE]\n"
             + "Example: " + COMMAND_WORD
             + " read Harry Potter and the Akshay rank 1";
+    
+    public static final String TOOL_TIP = "add NAME [rank PRIORITY]";
+    
+    public static final String MESSAGE_DUPLICATE_FLOATING_TASK = "This task already exists in the task manager";
 
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
 
@@ -41,8 +45,7 @@ public class AddCommand extends Command {
         try {
             model.addFloatingTask(toAdd);
         } catch (DuplicateFloatingTaskException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            return new CommandResult(MESSAGE_DUPLICATE_FLOATING_TASK);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

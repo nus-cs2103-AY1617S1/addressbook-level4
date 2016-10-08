@@ -108,7 +108,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        //do not show the browser area
+        //browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredFloatingTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
@@ -190,7 +191,9 @@ public class MainWindow extends UiPart {
         browserPanel.loadPersonPage(person);
     }
 
+    /*
     public void releaseResources() {
         browserPanel.freeResources();
     }
+    */
 }

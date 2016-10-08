@@ -18,4 +18,6 @@ public interface Logic {
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList();
 
+    String decideToolTip(String commandText);
+
 }

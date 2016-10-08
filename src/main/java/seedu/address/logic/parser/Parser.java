@@ -186,5 +186,63 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
+    
+    /**
+     * Parses an incomplete user input into a list of Strings (which are the command usages) to determine tooltips to show the user.
+     * 
+     * @param userInput user input string
+     * @return a list of Strings for tooltips
+     */
+    public List<String> parseIncompleteCommand(String userInput) {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        ArrayList<String> toolTips = new ArrayList<String>();
+        if (!matcher.matches()) {
+            //TODO: make this thing make sense
+            toolTips.add(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            return toolTips;
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        // reserve this maybe can use next time to match more precisely
+        // final String arguments = matcher.group("arguments");
+        updateMatchedCommands(toolTips, commandWord);
+        if (toolTips.isEmpty()){
+            toolTips.add(MESSAGE_UNKNOWN_COMMAND);
+        }
+        return toolTips;      
+    }
+
+    /**
+     * Updates the list of toolTips by checking if the user's input command word is a substring of the actual command word.
+     * @param toolTips list of tooltips
+     * @param commandWord the user input command word
+     */
+    // TODO: apply software eng to this shit
+    private void updateMatchedCommands(List<String> toolTips, final String commandWord) {
+        if (StringUtil.isSubstring(AddCommand.COMMAND_WORD, commandWord)){
+            toolTips.add(AddCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(SelectCommand.COMMAND_WORD, commandWord)){
+            toolTips.add(SelectCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(DeleteCommand.COMMAND_WORD, commandWord)){
+            toolTips.add(DeleteCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(ClearCommand.COMMAND_WORD, commandWord)){
+            toolTips.add(ClearCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(FindCommand.COMMAND_WORD, commandWord)){
+            toolTips.add(FindCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(ListCommand.COMMAND_WORD, commandWord)){
+            toolTips.add(ListCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(ExitCommand.COMMAND_WORD, commandWord)){
+            toolTips.add(ExitCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(HelpCommand.COMMAND_WORD, commandWord)){
+            toolTips.add(HelpCommand.TOOL_TIP);
+        }
+    }
 
 }

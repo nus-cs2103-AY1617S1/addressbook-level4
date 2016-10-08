@@ -54,11 +54,11 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
      */
     public void add(FloatingTask toAdd) throws DuplicateFloatingTaskException {
         assert toAdd != null;
-        /*
+        
         if (contains(toAdd)) {
             throw new DuplicateFloatingTaskException();
         }
-        */
+        
         internalList.add(toAdd);
     }
 
