@@ -7,13 +7,13 @@ import java.util.Optional;
 import seedu.inbx0.commons.events.model.AddressBookChangedEvent;
 import seedu.inbx0.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inbx0.commons.exceptions.DataConversionException;
-import seedu.inbx0.model.ReadOnlyAddressBook;
+import seedu.inbx0.model.ReadOnlyTaskList;
 import seedu.inbx0.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends TaskListStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -25,10 +25,10 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     String getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskList> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyTaskList addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.
