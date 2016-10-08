@@ -31,9 +31,24 @@ public class AddCommand extends Command {
 
     private final Item toAdd;
 
+    /**
+     * Convenience constructor for tasks. Calls primary constructor with empty fields for startDate, startTime, endDate, endTime
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
     public AddCommand(String itemType, String name, Set<String> tags)
             throws IllegalValueException {
         this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, Date.EMPTY_DATE, Time.EMPTY_TIME, tags);
+    }
+    
+    /**
+     * Convenience constructor for deadlines. Calls primary constructor with empty fields for startDate and startTime
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String itemType, String name, String endDate, String endTime, Set<String> tags)
+            throws IllegalValueException {
+        this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, endDate, endTime, tags);
     }
     
     /**

@@ -117,10 +117,6 @@ public class Parser {
                 return new AddCommand(
                     "task",
                     taskMatcher.group("name"),
-                    Date.EMPTY_DATE, // No Start Date
-                    Time.EMPTY_TIME, // No Start Time
-                    Date.EMPTY_DATE, // No End Date
-                    Time.EMPTY_TIME, // No End Time
                     getTagsFromArgs(taskMatcher.group("tagArguments"))
                 );
             } else if (deadlineMatcher.matches()) {
@@ -134,8 +130,6 @@ public class Parser {
                 return new AddCommand(
                     "deadline",
                     deadlineMatcher.group("name"),
-                    Date.EMPTY_DATE, // No Start Date
-                    Time.EMPTY_TIME, // No Start Time
                     deadlineMatcher.group("endDate"),
                     deadlineMatcher.group("endTime"),
                     getTagsFromArgs(deadlineMatcher.group("tagArguments"))
