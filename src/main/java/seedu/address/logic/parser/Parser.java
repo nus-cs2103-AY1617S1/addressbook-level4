@@ -57,7 +57,7 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return prepareAddFloating(arguments); //for adding floating tasks
+            return prepareAdd(commandWord + arguments); //for adding floating tasks
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -87,7 +87,7 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the add task command.
-     * Supports floating tasks
+     * For floating tasks only
      * @param args full command args string
      * @return the prepared command
      */
@@ -101,6 +101,29 @@ public class Parser {
             return new AddCommand(
                     matcher.group("name"),
                     getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the add task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAdd(String args){
+        final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "tag", "repeattime");
+        HashMap<String, String> parsed = parser.parseFree(args);
+        // Validate arg string format
+        /*if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }*/
+        try {
+            return new AddCommand(
+                    parsed.get("name"),
+                    getTagsFromArgs(parsed.get("tag"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

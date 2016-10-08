@@ -26,7 +26,7 @@ public class AddCommand extends Command {
     private final Task toAdd;
 
     /**
-     * Add Command for floating tasks
+     * Add Command
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
