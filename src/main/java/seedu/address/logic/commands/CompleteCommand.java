@@ -21,8 +21,8 @@ public class CompleteCommand extends Command {
             + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed Task: %1$s";
-    public static final String MESSAGE_COMPLETE_TASK_UNDO_SUCCESS = "Marked task as uncompleted: %1$1";
-    public static final String MESSAGE_COMPLETE_TASK_ALREADY_COMPLETED = "Task is already completed: %1$1";
+    public static final String MESSAGE_COMPLETE_TASK_UNDO_SUCCESS = "Marked task as uncompleted: %1$s";
+    public static final String MESSAGE_COMPLETE_TASK_ALREADY_COMPLETED = "Task is already completed: %1$s";
 
     public final int targetIndex;
 
