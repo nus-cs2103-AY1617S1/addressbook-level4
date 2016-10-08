@@ -138,7 +138,7 @@ public class TimeUtilTest {
     
     @Test
     public void getTaskDeadlineText_minutesBeforeDeadline() {
-        for (int minutesLeft = 2; minutesLeft < 59; minutesLeft++) {
+        for (int minutesLeft = 2; minutesLeft <= 59; minutesLeft++) {
             String expectedOutput = "in " + minutesLeft + " minutes";
             
             LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
@@ -163,7 +163,7 @@ public class TimeUtilTest {
     
     @Test
     public void getTaskDeadlineText_minutesAfterDeadline() {
-        for (int minutesLater = 2; minutesLater < 59; minutesLater++) {
+        for (int minutesLater = 2; minutesLater <= 59; minutesLater++) {
             String expectedOutput = minutesLater + " minutes ago";
             
             LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
