@@ -374,7 +374,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            return new FloatTask(name);
+            return new FloatTask(name, stubTagList);
         }
 
         /**
@@ -386,7 +386,7 @@ public class LogicManagerTest {
          */
         Task generateTask(int seed) throws Exception {
             return new FloatTask(
-                    new Name("Task " + seed));
+                    new Name("Task " + seed), stubTagList);
         }
 
         /** Generates the correct add command based on the person given */
@@ -469,7 +469,7 @@ public class LogicManagerTest {
          */
         Task generateTaskWithName(String name) throws Exception {
             return new FloatTask(
-                    new Name(name));
+                    new Name(name), stubTagList);
         }
     }
 }
