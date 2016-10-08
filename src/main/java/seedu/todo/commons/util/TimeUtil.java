@@ -55,7 +55,7 @@ public class TimeUtil {
                 return DEADLINE_PREFIX_IN + "1" + MINUTE_SINGLE_UNIT;
             } else if (minutesToDeadline > 1 && minutesToDeadline <= 59) {
                 return DEADLINE_PREFIX_IN + minutesToDeadline + MINUTES_MULTIPLE_UNIT;
-            } else if (currentTime.isBefore(endTime) && currentTime.toLocalDate().equals(endTime.toLocalDate())) {
+            } else if (currentTime.toLocalDate().equals(endTime.toLocalDate())) {
                 return DEADLINE_PREFIX_BY 
                         + ((endTime.toLocalTime().isBefore(LocalTime.of(18, 00))) ? DUE_TODAY : DUE_TONIGHT) 
                         + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));  
@@ -70,8 +70,10 @@ public class TimeUtil {
                 return "1" + MINUTE_SINGLE_UNIT + DEADLINE_SUFFIX_AGO;
             } else if (minutesToDeadline < -1 && minutesToDeadline >= -59) {
                 return (-minutesToDeadline) + MINUTES_MULTIPLE_UNIT + DEADLINE_SUFFIX_AGO;
-            } else if (currentTime.isAfter(endTime) && currentTime.toLocalDate().equals(endTime.toLocalDate())) {
+            } else if (currentTime.toLocalDate().equals(endTime.toLocalDate())) {
                 return DEADLINE_PREFIX_SINCE + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
+            } else if (currentTime.toLocalDate().minusDays(1).equals(endTime.toLocalDate())) {
+                return DEADLINE_PREFIX_SINCE + DUE_YESTERDAY + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
             }
         }
         
