@@ -1,4 +1,4 @@
-package seedu.task.model.event;
+package seedu.task.model.item;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 

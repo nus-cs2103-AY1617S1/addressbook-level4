@@ -11,7 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.task.TestApp;
 import seedu.task.model.TaskBook;
-import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
 import seedu.taskcommons.core.EventsCenter;

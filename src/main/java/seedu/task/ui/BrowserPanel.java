@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.task.commons.util.FxViewUtil;
-import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.LogsCenter;
 
 import java.util.logging.Logger;

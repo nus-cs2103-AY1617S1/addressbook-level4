@@ -1,12 +1,12 @@
 package seedu.task.model;
 
 import javafx.collections.ObservableList;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList;
-import seedu.task.model.event.Event;
-import seedu.task.model.event.ReadOnlyEvent;
-import seedu.task.model.event.UniqueEventList;
+import seedu.task.model.item.Event;
+import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueEventList;
+import seedu.task.model.item.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;

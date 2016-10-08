@@ -1,7 +1,7 @@
 package seedu.task.logic.commands;
 
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList.*;
+import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.UniqueTaskList.*;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 

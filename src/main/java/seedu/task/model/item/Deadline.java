@@ -1,4 +1,4 @@
-package seedu.task.model.task;
+package seedu.task.model.item;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 
@@ -7,7 +7,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
  * Represents a Task's deadline in the task book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  */
-public class Duration {
+public class Deadline {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Task deadline should be in a date format of DD-MM-YY";
     public static final String DEADLINE_VALIDATION_REGEX = "\\b[0-3]\\d-[0-1]\\d-\\d{2}\\b"; 
@@ -19,7 +19,7 @@ public class Duration {
      *
      * @throws IllegalValueException if given deadline string is invalid.
      */
-    public Duration(String deadline) throws IllegalValueException {
+    public Deadline(String deadline) throws IllegalValueException {
         assert deadline != null;
         deadline = deadline.trim();
         if (!isValidDeadline(deadline)) {
@@ -43,8 +43,8 @@ public class Duration {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Duration // instanceof handles nulls
-                && this.value.equals(((Duration) other).value)); // state check
+                || (other instanceof Deadline // instanceof handles nulls
+                && this.value.equals(((Deadline) other).value)); // state check
     }
 
     @Override

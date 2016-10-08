@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.LogsCenter;
 
 import java.util.logging.Logger;

@@ -1,4 +1,4 @@
-package seedu.task.model.task;
+package seedu.task.model.item;
 
 /**
  * A read-only immutable interface for a task in the task book.

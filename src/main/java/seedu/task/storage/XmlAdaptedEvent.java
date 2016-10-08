@@ -1,7 +1,7 @@
 package seedu.task.storage;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.event.*;
+import seedu.task.model.item.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;

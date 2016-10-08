@@ -15,10 +15,10 @@ import seedu.task.logic.Logic;
 import seedu.task.logic.LogicManager;
 import seedu.task.logic.commands.*;
 import seedu.task.model.TaskBook;
+import seedu.task.model.item.*;
 import seedu.task.model.Model;
 import seedu.task.model.ModelManager;
 import seedu.task.model.ReadOnlyTaskBook;
-import seedu.task.model.task.*;
 import seedu.task.storage.StorageManager;
 import seedu.taskcommons.core.EventsCenter;
 

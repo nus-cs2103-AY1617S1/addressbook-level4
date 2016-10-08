@@ -1,4 +1,7 @@
-package seedu.task.model.event;
+package seedu.task.model.item;
+
+import seedu.task.model.item.Description;
+import seedu.task.model.item.Name;
 
 /**
  * A read-only immutable interface for an event in the task book.

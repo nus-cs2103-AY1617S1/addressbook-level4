@@ -1,7 +1,7 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.task.*;
+import seedu.task.model.item.*;
 
 /**
  * Adds a person to the address book.

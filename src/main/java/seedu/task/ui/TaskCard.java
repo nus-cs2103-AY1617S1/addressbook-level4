@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.item.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 

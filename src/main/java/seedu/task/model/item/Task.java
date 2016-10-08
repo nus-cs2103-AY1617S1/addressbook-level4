@@ -1,42 +1,44 @@
-package seedu.task.model.event;
+package seedu.task.model.item;
 
 import seedu.task.commons.util.CollectionUtil;
 
 import java.util.Objects;
 
 /**
- * Represents a event in the task book.
+ * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Event implements ReadOnlyEvent {
+public class Task implements ReadOnlyTask {
 
     private Name name;
     private Description description;
-    private Duration duration;
+//    private Deadline deadline;
+    private Boolean isTaskCompleted;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Description description) {
-    	this(name, description, null);    
+    public Task(Name name, Description description) {
+    	this(name, description,false);    
     }
     
-    public Event(Name name, Description description, Duration duration) {
+    public Task(Name name, Description description, Boolean status) {
         assert !CollectionUtil.isAnyNull(name, description);
         this.name = name;
         this.description = description;
-        this.duration = duration;
+        //this.deadline = deadline;
+        isTaskCompleted = status;
     }
 
     /**
      * Copy constructor.
      */
-    public Event(ReadOnlyEvent source) {
-        this(source.getEvent(), source.getDescription());
+    public Task(ReadOnlyTask source) {
+        this(source.getTask(), source.getDescription());
     }
 
     @Override
-    public Name getEvent() {
+    public Name getTask() {
         return name;
     }
 
@@ -45,17 +47,21 @@ public class Event implements ReadOnlyEvent {
         return description;
     }
     
-    @Override
-    public Duration getDuration() {
-        return duration;
-    }
+/*    @Override
+    public Deadline getDeadline() {
+        return deadline;
+    }*/
 
+    @Override
+    public Boolean getTaskStatus() {
+        return isTaskCompleted;
+    }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyEvent // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyEvent) other));
+                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override

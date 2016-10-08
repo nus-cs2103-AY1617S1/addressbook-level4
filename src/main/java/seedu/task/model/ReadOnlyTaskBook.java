@@ -3,10 +3,10 @@ package seedu.task.model;
 
 import java.util.List;
 
-import seedu.task.model.event.ReadOnlyEvent;
-import seedu.task.model.event.UniqueEventList;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList;
+import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.UniqueEventList;
+import seedu.task.model.item.UniqueTaskList;
 
 /**
  * Unmodifiable view of an task book

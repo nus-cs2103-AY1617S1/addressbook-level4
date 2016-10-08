@@ -1,6 +1,6 @@
 package seedu.task.testutil;
 
-import seedu.task.model.task.*;
+import seedu.task.model.item.*;
 
 /**
  * A mutable task object. For testing only.

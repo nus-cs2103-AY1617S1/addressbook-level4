@@ -1,8 +1,8 @@
 package seedu.task.model;
 
-import seedu.task.model.task.Task;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList;
+import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueTaskList;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 import java.util.Set;

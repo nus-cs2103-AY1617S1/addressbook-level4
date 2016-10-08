@@ -1,16 +1,16 @@
-package seedu.task.model.task;
+package seedu.task.model.item;
 
 
 import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's description in the task book.
- * Can be used for recording more details about the task.
+ * Represents a Task's or Event's description in the task book.
+ * Can be used for recording more details about the task or event.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {
     
-    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Task/Event description should be spaces or alphanumeric characters";
     public static final String DESCRIPTION_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String value;

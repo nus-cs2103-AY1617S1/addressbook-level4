@@ -2,10 +2,10 @@ package seedu.task.storage;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyTaskBook;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList;
-import seedu.task.model.event.ReadOnlyEvent;
-import seedu.task.model.event.UniqueEventList;
+import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.UniqueEventList;
+import seedu.task.model.item.UniqueTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
