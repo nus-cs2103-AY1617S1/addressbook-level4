@@ -45,8 +45,6 @@ public class TimeUtil {
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         long secondsToDeadline = durationCurrentToEnd.getSeconds();
         
-        System.out.println(secondsToDeadline);
-        
         if (secondsToDeadline >= -59 && secondsToDeadline <= 0) {
             return DUE_NOW;
         }
