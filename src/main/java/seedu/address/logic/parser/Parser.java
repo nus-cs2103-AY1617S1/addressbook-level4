@@ -87,43 +87,35 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the add task command.
-     * For floating tasks only
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareAddFloating(String args){
-        final Matcher matcher = TASK_FLOAT_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-    }
-
-    /**
-     * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "tag", "repeattime");
+        final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "repeattime", "tag");
         HashMap<String, String> parsed = parser.parseFree(args);
-        // Validate arg string format
-        /*if (!matcher.matches()) {
+        //System.out.println(parsed.get("add") + parsed.get("tag") + parsed.get("by") + parsed.get("repeattime"));
+        String name = parsed.get("add");
+        String by = parsed.get("by");
+        String startTime = parsed.get("from");
+        String endTime = parsed.get("to");
+        String recurrence = parsed.get("repeattime");
+        String tags = parsed.get("tag");
+
+        if(name == null){
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }*/
+        }
+        if(tags == null){
+            tags = "";
+        }
         try {
             return new AddCommand(
-                    parsed.get("name"),
-                    getTagsFromArgs(parsed.get("tag"))
+                    name,
+                    by,
+                    startTime,
+                    endTime,
+                    recurrence,
+                    getTagsFromArgs(tags)
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -141,7 +133,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.split(" "));
         return new HashSet<>(tagStrings);
     }
 

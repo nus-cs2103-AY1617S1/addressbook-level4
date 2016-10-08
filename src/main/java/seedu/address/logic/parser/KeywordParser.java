@@ -56,7 +56,7 @@ public class KeywordParser {
     }
 
     /**
-     * Like parse, but order of keywords does not matter
+     * Like parse, but allows optional parameters
      * @param string to be parsed
      * @return HashMap containing the keyword - associated substring pairs
      */
@@ -71,7 +71,7 @@ public class KeywordParser {
                 patternString = new String("[^/]*" + keyword + " " + "\"(?<returnString>[^/]+)\"");
             }
             else{
-                patternString = new String("[^/]*" + keyword + " " + "(?<returnString>[^/]+)");
+                patternString = new String("[^/]*" + keyword + " " + "(?<returnString>[^/]+?)");
             }
             patternString = patternString + "(";
             for (int j = 0; j < keywords.size(); j++) {
@@ -82,7 +82,6 @@ public class KeywordParser {
             String patternString2 = patternString + "$)"; //for last keyword before end of line
             patternString = patternString + "$^)"; //^$ match nothing
             System.out.println(patternString);
-            System.out.println(patternString2);
             Pattern pattern = Pattern.compile(patternString);
             Matcher matcher = pattern.matcher(inputString);
             if(matcher.matches()){

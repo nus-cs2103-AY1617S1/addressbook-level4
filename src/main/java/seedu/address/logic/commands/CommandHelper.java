@@ -41,10 +41,10 @@ public class CommandHelper {
      * @throws Exception
      */
     //TODO specify exception
-    public static Date convertStringToDate(String dateInString) throws Exception{
+    public static Date convertStringToDate(String dateInString) throws IllegalValueException{
         List<Date> dates = new PrettyTimeParser().parse(dateInString);
         if(dates.size() != 1){
-            throw new Exception();
+            throw new IllegalValueException("Multiple dates found");
         }
         return dates.get(0);
     }
