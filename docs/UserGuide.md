@@ -10,7 +10,8 @@
 
 
 ##About
-TaskMan is a task management application that aims to simplify the way you work with your tasks and events. It is a Java desktop application that can work offline, without requiring Internet connection. 
+TaskMan is a task management application that aims to simplify the way you work with your tasks and events. It is a Java desktop application that can work offline, without requiring Internet connection.
+
 It has a simple graphical user interface, showing you what you really want to know. Instead of trying to find and click buttons all over the screen, you just need to type through your keyboard to give the necessary commands, and TaskMan will do the rest for you. 
 
 ## Quick Start
@@ -275,55 +276,57 @@ The file is saved in xml format, which is easy to read and write with appropriat
 
 #### Task
 Each Task is saved in the following format:
-`<tasks>
-<title>TITLE</title>
-<deadline>DD-MM-YYYY TT:TT</deadline>
-<period>DD-MM-YYYY TT:TT to DD-MM-YYYY TT:TT</period>
-<frequency>X{d/w/m/y}</frequency>
-<tagged>TAGNAME</tagged>
-<tagged>TAGNAME</tagged>
-</tasks>`
-Fields which are blank can be left out.
+> `<tasks>`<br>
+> `<title>TITLE</title>`<br>
+> `<deadline>DD-MM-YYYY TT:TT</deadline>`<br>
+> `<period>DD-MM-YYYY TT:TT to DD-MM-YYYY TT:TT</period>`<br>
+> `<frequency>X{d/w/m/y}</frequency>`<br>
+> `<tagged>TAGNAME</tagged>`<br>
+> `<tagged>TAGNAME</tagged>`<br>
+> `</tasks>`<br>
+
+Fields which are empty can be left out.<br>
 Example:
-* `<tasks>
-<title>CS2103T Tutorial HW</title>
-<deadline>11-10-2016 23:59</deadline>
-<period></period>
-<frequency>1w</frequency>
-<tagged>CS2103T</tagged>
-</tasks>`
+> `<tasks>`<br>
+> `<title>CS2103T Tutorial HW</title>`<br>
+> `<deadline>11-10-2016 23:59</deadline>`<br>
+> `<period></period>`<br>
+> `<frequency>1w</frequency>`<br>
+> `<tagged>CS2103T</tagged>`<br>
+> `</tasks>`
 
 
 #### Event
 Each Event is saved in the following format:
-`<events>
-<title>TITLE</title>
-<period>DD-MM-YYYY TT:TT to DD-MM-YYYY TT:TT</period>
-<frequency>1w</frequency>
-<tagged>TAGNAME</tagged>
-<tagged>TAGNAME</tagged>
-</events>`
-Fields which are blank can be left out.
+> `<events>`<br>
+> `<title>TITLE</title>`<br>
+> `<period>DD-MM-YYYY TT:TT to DD-MM-YYYY TT:TT</period>`<br>
+> `<frequency>1w</frequency>`<br>
+> `<tagged>TAGNAME</tagged>`<br>
+> `<tagged>TAGNAME</tagged>`<br>
+> `</events>`
+
+Fields which are empty can be left out.<br>
 Example:
-* `<events>
-<title>CS2103T Lecture</title>
-<period>01-10-2016 12:00 to 01-10-2016 14:00</period>
-<frequency>X{d/w/m/y}</frequency>
-<tagged>CS2103T</tagged>
-<tagged>lecture</tagged>
-</events>`
+> `<events>`<br>
+> `<title>CS2103T Lecture</title>`<br>
+> `<period>01-10-2016 12:00 to 01-10-2016 14:00</period>`<br>
+> `<frequency>X{d/w/m/y}</frequency>`<br>
+> `<tagged>CS2103T</tagged>`<br>
+> `<tagged>lecture</tagged>`<br>
+> `</events>`
 
 
 #### Tag
 Each Tag is saved in the following format:
-`<tags>
-<tagName>TAGNAME</tagName>
-</tags>`
+> `<tags>`<br>
+> `<tagName>TAGNAME</tagName>`<br>
+> `</tags>`
 
 Example:
-* `<tags>
-<tagName>CS2103T</tagName>
-</tags>`
+> `<tags>`<br>
+> `<tagName>CS2103T</tagName>`<br>
+> `</tags>`
 
 ## FAQ
 
