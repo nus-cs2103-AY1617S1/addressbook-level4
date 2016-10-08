@@ -1,8 +1,6 @@
 package seedu.address.logic.parser;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,7 +15,8 @@ public class Parser {
     private static final Pattern WORD_PATTERN = Pattern.compile("(?<word>\\S+)");
     private String input;
 
-    public Parser() {}
+    public Parser() {
+    }
 
     /**
      * Set the current input the parser is working on
@@ -34,19 +33,50 @@ public class Parser {
     }
 
     /**
-     * From start, extracts text from input until any keyword in the set of keywords {@param keywords}
+     * From start, extracts the text after the first occurrence of {@param keyword} from input
+     * until any keyword in the set of {@param otherKeywords}
+     * {@param keyword} and the subsequent text extracted is removed from input
+     * Similar to {@link this#extractTextFromIndex(int, String...)}
+     * Asserts {@param keyword} is non-null
+     *
+     * @return optional of text extracted from input, empty if not found
+     */
+    public Optional<String> extractTextAfterKeyword(String keyword, String... otherKeywords) {
+        assert keyword != null;
+
+        String lowerCaseInput = input.toLowerCase();
+        Matcher matcher = WORD_PATTERN.matcher(lowerCaseInput);
+
+        while (matcher.find()) {
+            // If keyword matched current word
+            if (matcher.group("word").equals(keyword.trim().toLowerCase())) {
+                // Remove keyword
+                input = input.substring(0, matcher.start()) + input.substring(matcher.end());
+
+                // Extract text from start (was end) of the keyword
+               return extractTextFromIndex(
+                   matcher.start(),
+                   otherKeywords
+               );
+            }
+        }
+
+        // Keyword not found
+        return Optional.empty();
+    }
+
+    /**
+     * From {@param startIndex}, extracts text from input until any keyword in the set of keywords {@param keywords}
      * Keywords are matched as whole words, not substrings, and as case-insensitive ("word" does not match in "keyword")
      * It can match up to the end of input, if an empty set of keywords is provided or none in
      * set is encountered
-     * Asserts {@param keywords} is non-null
+     *
      * @return optional of text extracted from input, empty if not found
      */
-    public Optional<String> extractText(String... keywords) {
-        assert keywords != null;
-
+    public Optional<String> extractTextFromIndex(int startIndex, String... keywords) {
         // Search for earliest occurrence of any keyword, case insensitive
-        int index = input.length();
-        String lowerCaseInput = input.toLowerCase();
+        int endIndex = input.length();
+        String lowerCaseInput = input.substring(startIndex).toLowerCase();
 
         Matcher matcher = WORD_PATTERN.matcher(lowerCaseInput);
         loop:
@@ -54,14 +84,21 @@ public class Parser {
             for (String keyword : keywords) {
                 // If any keyword matched current word
                 if (matcher.group("word").equals(keyword.trim().toLowerCase())) {
-                    index = matcher.start();
+                    endIndex = matcher.start() + startIndex;
                     break loop; // stop, we found the first
                 }
             }
         }
 
-        String text = input.substring(0, index).trim();
-        input = input.substring(index); // Remove extracted text
+        String text = input.substring(startIndex, endIndex).trim();
+
+        // Remove extracted text
+        if (startIndex == 0) {
+            input = input.substring(endIndex);
+        } else {
+            // Add space to account for startIndex splitting a word
+            input = input.substring(0, startIndex) + " " + input.substring(endIndex);
+        }
 
         if (text.isEmpty()) {
             return Optional.empty();
@@ -71,18 +108,27 @@ public class Parser {
     }
 
     /**
-     * Extracts all words prefixed with {@param prefix}
-     * Eg, method("#") on input = "some #tag1 #tag2 thing" returns {"tag1", "tag2"}
-     * and resulting input = "some  thing"
+     * Similar to {@link this#extractTextFromIndex(int, String...)}, but from start of input
      */
-    public Set<String> extractPrefixedWords(String prefix) {
+    public Optional<String> extractText(String... keywords) {
+        return extractTextFromIndex(0, keywords);
+    }
+
+    /**
+     * Extracts all words prefixed with {@param prefix} as a list,
+     * in the order that appears in the input
+     * Eg, method("#") on input = "some #tag1 #tag2 thing" returns ["tag1", "tag2"]
+     * and resulting input = "some  thing"
+     * Asserts {@param prefix} is non-null
+     */
+    public List<String> extractPrefixedWords(String prefix) {
         assert prefix != null;
 
-        Set<String> words = new HashSet<>();
+        List<String> words = new LinkedList<>();
 
         // Keep trying to find the next word, until cannot be found
         for (Matcher matcher = WORD_PATTERN.matcher(input);
-             matcher.find();) {
+             matcher.find(); ) {
 
             String word = matcher.group("word");
 
@@ -100,16 +146,16 @@ public class Parser {
     }
 
     /**
-     * From start, extracts a set of words in input until its end
-     * @return set of words found
+     * From start, extracts a list of words in input until its end
+     * @return list of words found, in the order that appears in input
      */
-    public Set<String> extractWords() {
-        final HashSet<String> words = new HashSet<>();
+    public List<String> extractWords() {
+        final List<String> words = new LinkedList<>();
 
         final Matcher matcher = WORD_PATTERN.matcher(input.trim());
 
         while (matcher.find()) {
-           words.add(matcher.group("word"));
+            words.add(matcher.group("word"));
         }
 
         input = ""; // empty input
@@ -119,6 +165,7 @@ public class Parser {
 
     /**
      * From start, extracts the first word in input, if found
+     *
      * @return optional of word extracted from input, empty if not found
      */
     public Optional<String> extractFirstWord() {
@@ -134,6 +181,7 @@ public class Parser {
 
     /**
      * From start, extracts first integer in input, if found
+     *
      * @return optional of found integer extracted from input, empty if not found
      */
     public Optional<Integer> extractFirstInteger() {

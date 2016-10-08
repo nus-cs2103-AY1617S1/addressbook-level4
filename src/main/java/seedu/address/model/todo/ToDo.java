@@ -1,10 +1,13 @@
 package seedu.address.model.todo;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents a to-do
@@ -56,8 +59,12 @@ public class ToDo implements ReadOnlyToDo {
         return Optional.ofNullable(dateRange);
     }
 
-    public UniqueTagList getTags() {
-        return tags;
+    public Set<Tag> getTags() {
+        if (tags == null) {
+            return new HashSet<>();
+        } else {
+            return tags.toSet();
+        }
     }
     
     @Override

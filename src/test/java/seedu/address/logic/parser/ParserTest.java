@@ -4,8 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -94,14 +94,14 @@ public class ParserTest {
     @Test
     public void execute_extractWords_1Word() throws Exception {
         parser.setInput("1Word");
-        assertEquals(prepareSet("1Word"), parser.extractWords());
+        assertEquals(prepareList("1Word"), parser.extractWords());
         assertEquals("", parser.getInput());
     }
 
     @Test
     public void execute_extractWords_2Words() throws Exception {
         parser.setInput("2 words");
-        assertEquals(prepareSet("2", "words"), parser.extractWords());
+        assertEquals(prepareList("2", "words"), parser.extractWords());
         assertEquals("", parser.getInput());
     }
 
@@ -140,22 +140,57 @@ public class ParserTest {
     @Test
     public void execute_extractPrefixedWords_allTags() throws Exception {
         parser.setInput("#tag1 #tag2 #tag3");
-        assertEquals(prepareSet("tag1", "tag2", "tag3"), parser.extractPrefixedWords("#"));
+        assertEquals(prepareList("tag1", "tag2", "tag3"), parser.extractPrefixedWords("#"));
         assertEquals("", parser.getInput().trim());
     }
 
     @Test
     public void execute_extractPrefixedWords_tagsWithOtherWords() throws Exception {
         parser.setInput("other #tag1 #tag2 words");
-        assertEquals(prepareSet("tag1", "tag2"), parser.extractPrefixedWords("#"));
-        assertEquals(prepareSet("other", "words"), parser.extractWords());
+        assertEquals(prepareList("tag1", "tag2"), parser.extractPrefixedWords("#"));
+        assertEquals(prepareList("other", "words"), parser.extractWords());
     }
 
-    private Set<String> prepareSet(String... values) {
-        Set<String> set = new HashSet<>();
+    @Test
+    public void execute_extractTextFromIndex_indexWithKeywords() throws Exception {
+        parser.setInput("Index with with keywords");
+        assertEquals("th", parser.extractTextFromIndex(8, "with", "keywords").orElse(""));
+        assertEquals(prepareList("Index", "wi", "with", "keywords"), parser.extractWords());
+    }
+
+    @Test
+    public void execute_extractTextFromIndex_indexWithoutKeywords() throws Exception {
+        parser.setInput("index without keywords");
+        assertEquals("out keywords", parser.extractTextFromIndex(10).orElse(""));
+        assertEquals(prepareList("index", "with"), parser.extractWords());
+    }
+
+    @Test
+    public void execute_extractTextAfterKeyword_keyword() throws Exception {
+        parser.setInput("extract text after keyword");
+        assertEquals("keyword", parser.extractTextAfterKeyword("after").orElse(""));
+        assertEquals(prepareList("extract","text"), parser.extractWords());
+    }
+
+    @Test
+    public void execute_extractTextAfterKeyword_keywordNotFound() throws Exception {
+        parser.setInput("keyword not found");
+        assertTrue(!parser.extractTextAfterKeyword("key").isPresent());
+        assertEquals(prepareList("keyword", "not", "found"), parser.extractWords());
+    }
+
+    @Test
+    public void execute_extractTextAfterKeyword_caseInsensitive() throws Exception {
+        parser.setInput("case InSensitive keyword");
+        assertEquals("keyword", parser.extractTextAfterKeyword("iNsensitive").orElse(""));
+        assertEquals(prepareList("case"), parser.extractWords());
+    }
+
+    private List<String> prepareList(String... values) {
+        List<String> list = new LinkedList<>();
         for (String value : values) {
-            set.add(value);
+            list.add(value);
         }
-        return set;
+        return list;
     }
 }

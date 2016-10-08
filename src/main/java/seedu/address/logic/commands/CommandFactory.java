@@ -4,8 +4,10 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.Parser;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Maps and builds commands from input strings, using {@link Parser}
@@ -86,9 +88,10 @@ public class CommandFactory {
 
     private Command buildFindCommand() {
         // Try to find keywords
-        Set<String> words = parser.extractWords();
+        List<String> words = parser.extractWords();
 
-        return new FindCommand(words);
+        // Convert to set
+        return new FindCommand(words.stream().collect(Collectors.toSet()));
     }
 
     private Command buildClearCommand() {
@@ -115,11 +118,11 @@ public class CommandFactory {
         EditCommand command = new EditCommand(index.get());
 
         // Extract tags
-        Set<String> tags = parser.extractPrefixedWords(TAG_PREFIX);
+        List<String> tags = parser.extractPrefixedWords(TAG_PREFIX);
 
         if (!tags.isEmpty()) {
             try {
-                command.setTags(tags);
+                command.setTags(tags.stream().collect(Collectors.toSet()));
             } catch (IllegalValueException exception) {
                 return new InvalidCommand(Messages.MESSAGE_TODO_TAG_CONSTRAINTS);
             }
