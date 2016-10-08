@@ -41,16 +41,14 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         title = source.getTitle().title;
-        deadline = (source.getDeadline()) != null
+        deadline = source.getDeadline().isPresent()
                 ? source.getDeadline().toString()
                 : null;
-        status = (source.getStatus()) != null
-                ? source.getStatus().toString()
-                : null;
-        schedule = (source.getSchedule()) != null
+        status = source.getStatus().toString();
+        schedule = source.getSchedule().isPresent()
                 ? source.getSchedule().toString()
                 : null;
-        frequency = (source.getFrequency()) != null
+        frequency = source.getFrequency().isPresent()
                 ? source.getFrequency().toString()
                 : null;
         tagged = new ArrayList<>();
@@ -69,17 +67,14 @@ public class XmlAdaptedTask {
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
-        // Todo: fix these... expect null strings to come in this.deadline & other fields
         final Title title = new Title(this.title);
         final Deadline deadline = new Deadline(this.deadline);
         final Status status = new Status(this.status);
-        final Frequency frequency = (this.frequency) != null
-                ? new Frequency(this.frequency)
-                : null;
-        final Schedule schedule = (this.schedule) != null
-                ? new Schedule(this.schedule)
-                : null;
+        final Frequency frequency = new Frequency(this.frequency);
+        final Schedule schedule = new Schedule(this.schedule);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(title, deadline, status, frequency, schedule, tags);
+        Task task = new Task(title, tags, deadline, frequency, schedule);
+        task.setStatus(status);
+        return task;
     }
 }

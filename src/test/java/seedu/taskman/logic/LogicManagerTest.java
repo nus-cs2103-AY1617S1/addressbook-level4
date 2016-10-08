@@ -392,7 +392,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(title, privateDeadline, frequency, schedule, tags);
+            return new Task(title, tags, privateDeadline, frequency, schedule);
         }
 
         /**
@@ -405,10 +405,9 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Title("Task " + seed),
-                    new Deadline("" + Math.abs(seed)),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))), new Deadline("" + Math.abs(seed)),
                     new Frequency(seed + "d"),
-                    new Schedule("wed " + seed + "am, wed " + seed + "pm"),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new Schedule("wed " + seed + "am, wed " + seed + "pm")
             );
         }
 
@@ -505,10 +504,9 @@ public class LogicManagerTest {
         Task generateTaskWithTitle(String title) throws Exception {
             return new Task(
                     new Title(title),
-                    new Deadline("1"),
+                    new UniqueTagList(new Tag("t1"), new Tag("t2")), new Deadline("1"),
                     new Frequency("7d"),
-                    new Schedule(""),
-                    new UniqueTagList(new Tag("t1"), new Tag("t2"))
+                    new Schedule("")
             );
         }
     }

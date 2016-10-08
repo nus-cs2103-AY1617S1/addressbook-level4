@@ -10,10 +10,14 @@ import seedu.taskman.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskman.model.TaskMan;
 import seedu.taskman.model.ReadOnlyTaskMan;
 import seedu.taskman.model.UserPrefs;
+import seedu.taskman.model.event.Task;
+import seedu.taskman.model.event.UniqueTaskList;
 import seedu.taskman.testutil.TypicalTestTasks;
 import seedu.taskman.testutil.EventsCollector;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.logging.Logger;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
@@ -59,6 +63,14 @@ public class StorageManagerTest {
         storageManager.saveTaskMan(original);
         ReadOnlyTaskMan retrieved = storageManager.readTaskMan().get();
         TaskMan retrievedTaskMan = new TaskMan(retrieved);
+        // todo: remove this when done testin!!!
+        Logger logger = Logger.getLogger("test");
+        List<Task> orig = original.getUniqueTaskList().getInternalList();
+        List<Task> retri = retrievedTaskMan.getUniqueTaskList().getInternalList();
+        for (int i = 0; i < orig.size(); i++) {
+
+            logger.warning(i + ": " + orig.get(i).equals(retri.get(i))+ "");
+        }
         assertEquals(original, retrievedTaskMan);
         //More extensive testing of TaskMan saving/reading is done in XmlTaskManStorageTest
     }

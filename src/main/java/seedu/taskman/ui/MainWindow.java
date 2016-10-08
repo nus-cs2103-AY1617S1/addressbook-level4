@@ -21,7 +21,6 @@ import seedu.taskman.model.event.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-    // TODO: ui, change app icon
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;

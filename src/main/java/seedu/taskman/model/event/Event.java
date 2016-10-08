@@ -3,7 +3,10 @@ package seedu.taskman.model.event;
 import seedu.taskman.commons.util.CollectionUtil;
 import seedu.taskman.model.tag.UniqueTagList;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a Task in the task man.
@@ -17,10 +20,8 @@ public class Event implements ReadOnlyEvent {
 
     private UniqueTagList tags;
 
-    /**
-     * Only title and tags field must be present and not null.
-     */
-    public Event(Title title, Frequency frequency, Schedule schedule, UniqueTagList tags) {
+    public Event(@Nonnull Title title, @Nonnull UniqueTagList tags,
+                 @Nullable Frequency frequency, @Nullable Schedule schedule) {
         assert !CollectionUtil.isAnyNull(title, tags);
         this.title = title;
         this.frequency = frequency;
@@ -32,7 +33,9 @@ public class Event implements ReadOnlyEvent {
      * Copy constructor.
      */
     public Event(ReadOnlyEvent source) {
-        this(source.getTitle(), source.getFrequency(), source.getSchedule(), source.getTags());
+        this(source.getTitle(), source.getTags(),
+                source.getFrequency().orElse(null),
+                source.getSchedule().orElse(null));
     }
 
     @Override
@@ -40,23 +43,13 @@ public class Event implements ReadOnlyEvent {
         return title;
     }
 
-	@Override
-	public boolean isRecurring() {
-		return frequency != null;
+	public Optional<Frequency> getFrequency() {
+		return Optional.ofNullable(frequency);
 	}
 
 	@Override
-	public boolean isScheduled() {
-		return schedule != null;
-	}
-
-	public Frequency getFrequency() {
-		return frequency;
-	}
-
-	@Override
-	public Schedule getSchedule() {
-		return schedule;
+	public Optional<Schedule> getSchedule() {
+		return Optional.ofNullable(schedule);
 	}
     
     @Override

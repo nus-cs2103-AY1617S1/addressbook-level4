@@ -2,6 +2,8 @@ package seedu.taskman.model.event;
 
 import seedu.taskman.model.tag.UniqueTagList;
 
+import java.util.Optional;
+
 /**
  * A read-only immutable interface for an Event in the TaskMan.
  * Implementations should guarantee: details are present and not null, field values are validated.
@@ -9,10 +11,8 @@ import seedu.taskman.model.tag.UniqueTagList;
 public interface ReadOnlyEvent {
 
     Title getTitle();
-    boolean isRecurring();
-    boolean isScheduled();
-    Frequency getFrequency();
-    Schedule getSchedule();
+    Optional<Frequency> getFrequency();
+    Optional<Schedule> getSchedule();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -27,8 +27,6 @@ public interface ReadOnlyEvent {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getTitle().equals(this.getTitle()) // state checks here onwards
-                && other.isRecurring() == this.isRecurring()
-        		&& other.isScheduled() == this.isScheduled()
 				&& other.getFrequency().equals(this.getFrequency())
         		&& other.getSchedule().equals(this.getSchedule())
                 );
@@ -41,8 +39,8 @@ public interface ReadOnlyEvent {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
 		        .append(" Recurring: ")
-			    .append(isRecurring())	    
-		        .append(" Scheduled: ")
+			    .append(getFrequency())
+		        .append(" Frequency: ")
 		        .append(getSchedule())
 		        .append(" Tags: ");
         getTags().forEach(builder::append);

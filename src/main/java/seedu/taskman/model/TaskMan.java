@@ -16,10 +16,11 @@ import java.util.stream.Collectors;
  */
 public class TaskMan implements ReadOnlyTaskMan {
 
+    // todo: change to UniqueActivityList
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
-    // todo: create uniqueEventList
 
+    // todo: format looks pretty weird. can we do smth about it?
     {
         tasks = new UniqueTaskList();
         tags = new UniqueTagList();
@@ -90,6 +91,7 @@ public class TaskMan implements ReadOnlyTaskMan {
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
+     *  TODO: feels like a pretty complex way to do this... can we do better?
      */
     private void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
@@ -128,10 +130,8 @@ public class TaskMan implements ReadOnlyTaskMan {
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: add unique event list
     }
 
-    // TODO: add unique event list
     @Override
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());

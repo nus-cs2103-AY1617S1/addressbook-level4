@@ -2,7 +2,11 @@ package seedu.taskman.model.event;
 
 import seedu.taskman.model.tag.UniqueTagList;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 /**
  * Represents a Task in the task man.
@@ -10,33 +14,24 @@ import java.util.Objects;
  */
 public class Task extends Event implements ReadOnlyTask {
 
-    // todo: fields to be optional, & created through static newInstance method instead ??
     private Deadline deadline;
     private Status status;
 
-    /**
-     * Only title and tags field must be present and not null.
-     */
-    public Task(Title title, Deadline deadline,
-                Frequency frequency, Schedule schedule, UniqueTagList tags) {
-        super(title, frequency, schedule, tags);
+    public Task(@Nonnull Title title, @Nonnull UniqueTagList tags,
+                @Nullable Deadline deadline, @Nullable Frequency frequency,
+                @Nullable Schedule schedule) {
+        super(title, tags, frequency, schedule);
         this.deadline = deadline;
         this.status = new Status("");
     }
 
-    public Task(Title title, Deadline deadline, Status status,
-                Frequency frequency, Schedule schedule, UniqueTagList tags) {
-        super(title, frequency, schedule, tags);
-        this.deadline = deadline;
-        this.status = status;
-    }
-
     /**
-     * Copy constructor.
+     * Copy constructor
      */
-    public Task(ReadOnlyTask source) {
-        this(source.getTitle(), source.getDeadline(),
-                source.getFrequency(), source.getSchedule(), source.getTags());
+    public Task(@Nonnull ReadOnlyTask source) {
+        this(source.getTitle(), source.getTags(), source.getDeadline().orElse(null),
+                source.getFrequency().orElse(null), source.getSchedule().orElse(null));
+        setStatus(source.getStatus());
     }
 
     @Override
@@ -44,36 +39,37 @@ public class Task extends Event implements ReadOnlyTask {
         return super.getTitle();
     }
 
-    public Deadline getDeadline() {
-        return deadline;
+    @Override
+    public Optional<Deadline> getDeadline() {
+        return Optional.ofNullable(deadline);
     }
-    
+
+    @Override
 	public Status getStatus() {
 		return status;
 	}
 
 	@Override
-	public boolean isRecurring() {
-        return super.isRecurring();
-	}
-
-	@Override
-	public boolean isScheduled() {
-        return super.isScheduled();
-	}
-
-	public Frequency getFrequency() {
+	public Optional<Frequency> getFrequency() {
         return super.getFrequency();
 	}
 
 	@Override
-	public Schedule getSchedule() {
+	public Optional<Schedule> getSchedule() {
         return super.getSchedule();
 	}
     
     @Override
     public UniqueTagList getTags() {
         return super.getTags();
+    }
+
+    public void setDeadline(Deadline deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     /**
@@ -85,9 +81,20 @@ public class Task extends Event implements ReadOnlyTask {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
+        boolean result = other == this // short circuit if same object
                 || (other instanceof Task // instanceof handles nulls
                 && this.isSameStateAs((Task) other));
+
+        // TODO: delete this after testing!!!!
+        Logger log = Logger.getAnonymousLogger();
+
+        Task other2 = (Task) other;
+                log.warning("Title: " + this.getTitle() + " , " + other2.getTitle() + " . " + other2.getTitle().equals(this.getTitle()));
+        log.warning("" + other2.getFrequency().equals(this.getFrequency()));
+        log.warning("" + other2.getSchedule().equals(this.getSchedule()));
+        log.warning("" + other2.getDeadline().equals(this.getDeadline()));
+        log.warning("" + other2.getStatus().equals(this.getStatus()));
+        return result;
     }
 
     @Override

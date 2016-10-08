@@ -1,8 +1,10 @@
 package seedu.taskman.model.event;
 
+import java.util.Optional;
+
 public interface ReadOnlyTask extends ReadOnlyEvent {
     Status getStatus();
-    Deadline getDeadline();
+    Optional<Deadline> getDeadline();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -11,8 +13,6 @@ public interface ReadOnlyTask extends ReadOnlyEvent {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getTitle().equals(this.getTitle()) // state checks here onwards
-                && other.isRecurring() == this.isRecurring()
-                && other.isScheduled() == this.isScheduled()
                 && other.getFrequency().equals(this.getFrequency())
                 && other.getSchedule().equals(this.getSchedule())
                 && other.getDeadline().equals(this.getDeadline())

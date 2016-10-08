@@ -3,6 +3,8 @@ package seedu.taskman.testutil;
 import seedu.taskman.model.tag.UniqueTagList;
 import seedu.taskman.model.event.*;
 
+import java.util.Optional;
+
 /**
  * A mutable task object. For testing only.
  */
@@ -45,21 +47,24 @@ public class TestTask implements ReadOnlyTask {
         return title;
     }
 
-    public Deadline getDeadline() {
-        return deadline;
+    @Override
+    public Optional<Deadline> getDeadline() {
+        return Optional.ofNullable(deadline);
     }
 
+    @Override
     public Status getStatus() {
         return status;
     }
 
-    public Frequency getFrequency() {
-        return frequency;
+    @Override
+    public Optional<Frequency> getFrequency() {
+        return Optional.ofNullable(frequency);
     }
     
     @Override
-    public Schedule getSchedule() {
-        return schedule;
+    public Optional<Schedule> getSchedule() {
+        return Optional.ofNullable(schedule);
     }
 
     @Override
@@ -83,13 +88,4 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
 
-	@Override
-	public boolean isRecurring() {
-		return frequency == null;
-	}
-
-	@Override
-	public boolean isScheduled() {
-		return schedule == null;
-	}
 }
