@@ -49,11 +49,10 @@ public class HelpWindow extends UiPart {
         dialogStage = createDialogStage(TITLE, null, scene);
         dialogStage.setMaximized(false); 
         setIcon(dialogStage, ICON);
-
-        WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(browser);
+    }
+    
+    public void fillInnerPart() {
+        
     }
 
     public void show() {

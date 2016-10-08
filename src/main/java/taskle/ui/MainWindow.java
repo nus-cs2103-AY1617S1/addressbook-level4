@@ -163,6 +163,7 @@ public class MainWindow extends UiPart {
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
+        helpWindow.fillInnerPart();
     }
 
     public void show() {
