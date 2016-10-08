@@ -6,7 +6,7 @@ import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Unmarks a task identified using it's last displayed index from the to do list.
+ * Unmarks a task identified using its last displayed index from the to do list.
  */
 public class UnmarkCommand extends Command {
 
