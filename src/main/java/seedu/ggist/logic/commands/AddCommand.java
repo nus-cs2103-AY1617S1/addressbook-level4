@@ -3,6 +3,7 @@ package seedu.ggist.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.tag.Tag;
 import seedu.ggist.model.tag.UniqueTagList;
@@ -15,10 +16,10 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task, task with deadline or event. "
-            + "Parameters: TASK, [DATE], [TIME]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task"
+            + "Parameters: TASK...\n"
             + "Example: " + COMMAND_WORD
-            + "add buy milk, oct 13, 1800";
+            + "buy milk";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";
@@ -27,7 +28,7 @@ public class AddCommand extends Command {
     final Set<Tag> tagSet = new HashSet<>();
 
     /**
-     * onstructor for task with start and end times using raw values.
+     * Constructor for task with start and end times using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -56,6 +57,7 @@ public class AddCommand extends Command {
         this.toAdd = new DeadlineTask(
                 new TaskName(taskName),
                 new Date(date),
+                new Time(Messages.MESSAGE_NO_START_TIME_SET),
                 new Time(endTime),
                 new UniqueTagList(tagSet)
         );
@@ -72,6 +74,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new FloatingTask(
                 new TaskName(taskName),
+                new Date(Messages.MESSAGE_NO_DATE_SPECIFIED),
+                new Time(Messages.MESSAGE_NO_START_TIME_SET),
+                new Time(Messages.MESSAGE_NO_END_TIME_SET),
                 new UniqueTagList(tagSet)
         );
     }

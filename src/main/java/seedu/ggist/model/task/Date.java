@@ -1,6 +1,7 @@
 package seedu.ggist.model.task;
 
 
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 
 /**
@@ -23,9 +24,9 @@ public class Date {
     public Date(String date) throws IllegalValueException {
         assert date != null;
         date = date.trim();
-        if (!isValidDate(date)) {
+        if (!date.equals(Messages.MESSAGE_NO_DATE_SPECIFIED) && !isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        }
+        } 
         this.value = date;
     }
 

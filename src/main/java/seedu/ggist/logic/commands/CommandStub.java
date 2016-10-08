@@ -16,8 +16,6 @@ public class CommandStub extends Command{
         System.out.println(arguments[1]);
         System.out.println(arguments[2]);
         System.out.println(arguments[3]);
-        System.out.println(arguments[4]);
-        System.out.println(arguments[5]);
     }
     
     @Override
