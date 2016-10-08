@@ -38,8 +38,6 @@ public class TagCommand extends Command{
         
         tags = new UniqueTagList();
         for (String tagName : tagNames.trim().split(" ")) {
-            System.out.println(tagName);
-            System.out.println(tagNames);
             tags.add(new Tag(tagName));
         }
         
