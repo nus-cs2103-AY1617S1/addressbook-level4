@@ -6,14 +6,12 @@ import seedu.address.model.tag.UniqueTagList;
  * A read-only immutable interface for a Item in the addressbook.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyToDo {
+public interface ReadOnlyPerson {
 
-    Type getType();
+    ItemType getItemType();
     Name getName();
-    TodoDate getStartDate();
-    TodoTime getStartTime();
-    TodoDate getEndDate();
-    TodoTime getEndTime();
+    Date getDate();
+    Time getTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -24,11 +22,13 @@ public interface ReadOnlyToDo {
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyToDo other) {
+    default boolean isSameStateAs(ReadOnlyPerson other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getType().equals(this.getType()) // state checks here onwards
-                && other.getName().equals(this.getName()));
+                && other.getItemType().equals(this.getItemType()) // state checks here onwards
+                && other.getName().equals(this.getName())
+                && other.getDate().equals(this.getDate())
+                && other.getTime().equals(this.getTime()));
     }
 
     /**
@@ -36,9 +36,13 @@ public interface ReadOnlyToDo {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getType())
+        builder.append(getItemType())
                 .append(" Name: ")
                 .append(getName())
+                .append(" Email: ")
+                .append(getDate())
+                .append(" Address: ")
+                .append(getTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

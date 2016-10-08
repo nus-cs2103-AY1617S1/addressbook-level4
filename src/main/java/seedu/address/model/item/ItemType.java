@@ -9,9 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class ItemType {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Item types should only be 'task', 'deadline' or 'event'.";
-    public static final String TASK_NAME = "task";
-    public static final String DEADLINE_NAME = "deadline";
-    public static final String EVENT_NAME = "event";
+    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String value;
 
@@ -33,10 +31,7 @@ public class ItemType {
      * Returns true if a given string is a valid item type.
      */
     public static boolean isValidItemType(String test) {
-    	if (test.equals(TASK_NAME) || test.equals(DEADLINE_NAME) || test.equals(EVENT_NAME)) {
-    		return true;
-    	}
-        return false;
+        return test.matches(NAME_VALIDATION_REGEX);
     }
 
 

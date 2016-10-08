@@ -20,7 +20,7 @@ public class AddCommand extends Command {
             + "Deadline Parameters: " + Type.DEADLINE_WORD + " n/NAME d/[DATE] t/[TIME] \n"
             + "Event Parameters: " + Type.EVENT_WORD + " n/NAME sd/[DATE] st/[TIME] ed/[DATE] et/[TIME] \n"
             + "Example (Task): " + COMMAND_WORD +  " " + Type.TASK_WORD 
-            + " n/Win Facebook hackathon";
+            + " Win Facebook hackathon";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
@@ -32,43 +32,25 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String type, String name, String startDate, String startTime, String endDate, String endTime, Set<String> tags)
+    public AddCommand(String itemType, String name, String email, String address, Set<String> tags)
             throws IllegalValueException {
+        if (email == null) {
+            email = "PLACE@HOLDER";
+        }
+        if (address == null) {
+            address = "PLACEHOLDER";
+        }
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        if (type == Type.TASK_WORD) {
-            this.toAdd = new Item(
-                new Type(type),
+        this.toAdd = new Item(
+                new ItemType(itemType),
                 new Name(name),
-                new TodoDate(""),
-                new TodoTime(""),
-                new TodoDate(""),
-                new TodoTime(""),
+                new Date(email),
+                new Time(address),
                 new UniqueTagList(tagSet)
-            );
-        } else if (type == Type.DEADLINE_WORD) {
-            this.toAdd = new Item(
-                new Type(type),
-                new Name(name),
-                new TodoDate(""),
-                new TodoTime(""),
-                new TodoDate(endDate),
-                new TodoTime(endTime),
-                new UniqueTagList(tagSet)
-            );
-        } else {
-        	this.toAdd = new Item(
-                new Type(type),
-                new Name(name),
-                new TodoDate(startDate),
-                new TodoTime(startTime),
-                new TodoDate(endDate),
-                new TodoTime(endTime),
-                new UniqueTagList(tagSet)
-            );
-        }
+        );
     }
 
     @Override

@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.address.model.item.ReadOnlyToDo;
+import seedu.address.model.item.ReadOnlyPerson;
 
-public class ToDoCard extends UiPart{
+public class PersonCard extends UiPart{
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -17,42 +17,36 @@ public class ToDoCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label type;
+    private Label phone;
+    @FXML
+    private Label address;
+    @FXML
+    private Label email;
     @FXML
     private Label tags;
-    @FXML
-    private Label startDate;
-    @FXML
-    private Label startTime;
-    @FXML
-    private Label endDate;
-    @FXML
-    private Label endTime;
 
-    private ReadOnlyToDo todo;
+    private ReadOnlyPerson person;
     private int displayedIndex;
 
-    public ToDoCard(){
+    public PersonCard(){
 
     }
 
-    public static ToDoCard load(ReadOnlyToDo todo, int displayedIndex){
-        ToDoCard card = new ToDoCard();
-        card.todo = todo;
+    public static PersonCard load(ReadOnlyPerson person, int displayedIndex){
+        PersonCard card = new PersonCard();
+        card.person = person;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(todo.getName().value);
+        name.setText(person.getItemType().value);
         id.setText(displayedIndex + ". ");
-        type.setText(todo.getType().value);
-        tags.setText(todo.tagsString());
-        startDate.setText(todo.getStartDate().value);
-        startTime.setText(todo.getStartTime().value);
-        endDate.setText(todo.getEndDate().value);
-        endTime.setText(todo.getEndTime().value);
+        phone.setText(person.getName().value);
+        address.setText(person.getTime().value);
+        email.setText(person.getDate().value);
+        tags.setText(person.tagsString());
     }
 
     public HBox getLayout() {

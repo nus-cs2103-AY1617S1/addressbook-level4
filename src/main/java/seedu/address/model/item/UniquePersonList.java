@@ -42,7 +42,7 @@ public class UniquePersonList implements Iterable<Item> {
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ReadOnlyToDo toCheck) {
+    public boolean contains(ReadOnlyPerson toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -65,7 +65,7 @@ public class UniquePersonList implements Iterable<Item> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyToDo toRemove) throws PersonNotFoundException {
+    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
         assert toRemove != null;
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {

@@ -5,10 +5,10 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A: User Stories] (#appendix-a--user-stories)
+* [Appendix B: Use Cases] (#appendix-b--use-cases)
+* [Appendix C: Non Functional Requirements] (#appendix-c--non-functional-requirements)
+* [Appendix D: Glossary] (#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
@@ -255,9 +255,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ...           | So that I can... 
 -------- | :------- | :---------------------- | :--------------- 
-`* * *`  | new iser | see usage instructions  | use the app as intended
+`* * *`  | new user | see usage instructions  | use the app as intended
 `* * *`  | user     | add a new task | add something to my todo list without a time restrictions 
-`* * *`  | user     | add a new deadline          | add something to my todo list with a deadline 
+`* * *`  | user     | add a new deadline      | add something to my todo list with a deadline 
 `* * *`  | user     | add a new event         | add something to my todo list with a start and end time 
 `* * *`  | user     | view all tasks/deadlines/events   | view my entire todo list
 `* * *`  | user     | view all undone tasks/deadlines/events | view items I need to work on
@@ -278,69 +278,54 @@ Priority | As a ... | I want to ...           | So that I can...
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Delete an task/deadline/event
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to list task/deadline/event (TDE)
+2. App shows a list of TDE
+3. User requests to delete a specific TDE in the list
+4. App deletes the TDE
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. The TDE list is empty
 
 > Use case ends
 
-3a. The given index is invalid
-
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
-
-{More to be added}
+#### Use case: Add a task/deadline/event
+1. User requests to add task/deadline/event (TDE)
+2. 
+Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 10000 TDE.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
-{More to be added}
+
 
 ## Appendix D : Glossary
 
-##### Deadline
 
-> What you need to attend to with a specific deadline (e.g homework that requires submission) 
-
-##### Task:
-
-> What you need to attend to that has no specific time/deadline (e.g call your mum to chat)
-
-##### Event:
-
-> What you need to attend to that has a start time and an end time (e.g lecture)
-
-##### Date:
-
-> Date is given in format “[date]/[month]/[year]”
-
-##### Time:
-
-> Time is given in format “[hour]:[minute]”
-
-##### Keyword:
-
-> Name of deadline, task, or event
-
-##### Mainstream OS
-
-> Windows, Linux, Unix, OS-X
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+Product Name | Strength | Weakness  
+
+Google Calendar | Understands NLP | Very slow to use, requires a lot of steps to add a simple event
+
+Todo.txt | Simplistic, works across devices | Quite complicated for new users to pick up as it has a whole range of shortcut-commands 
+
+Swipes | Simple, cross-platform | Unable to specify data storage location |
+
+Fantastical| Uses NLP, quick access in mini window | Works only on Mac/iOS platform
+
+ 
+
+
+
 

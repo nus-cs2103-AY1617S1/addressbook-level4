@@ -20,6 +20,11 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -103,7 +108,7 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyAddressBook expectedAddressBook,
-                                       List<? extends ReadOnlyToDo> expectedShownList) throws Exception {
+                                       List<? extends ReadOnlyPerson> expectedShownList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
@@ -154,21 +159,21 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid ItemType 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid ItemType p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid ItemType n/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid ItemType p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid ItemType n/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", ItemType.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] n/12345 e/valid@e.mail a/valid, address", ItemType.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid ItemType p/not_numbers e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add Valid ItemType n/not_numbers e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid ItemType p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid ItemType n/12345 e/notAnEmail a/valid, address", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid ItemType p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid ItemType n/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -214,7 +219,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         AddressBook expectedAB = helper.generateAddressBook(2);
-        List<? extends ReadOnlyToDo> expectedList = expectedAB.getPersonList();
+        List<? extends ReadOnlyPerson> expectedList = expectedAB.getPersonList();
 
         // prepare address book state
         helper.addToModel(model, 2);
@@ -288,7 +293,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteByIndexCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
@@ -303,11 +308,11 @@ public class LogicManagerTest {
         List<Item> threeItems = helper.generateItemList(3);
 
         AddressBook expectedAB = helper.generateAddressBook(threeItems);
-        expectedAB.removeItem(threeItems.get(1));
+        expectedAB.removePerson(threeItems.get(1));
         helper.addToModel(model, threeItems);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteByIndexCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeItems.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeItems.get(1)),
                 expectedAB,
                 expectedAB.getPersonList());
     }
@@ -383,16 +388,14 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Item adam() throws Exception {
-            Type type = new Type("event");
-            Name privateName = new Name("go win some stuff");
-            TodoDate startDate = new TodoDate("2016-01-01");
-            TodoTime startTime = new TodoTime("18:00");
-            TodoDate endDate = new TodoDate("2016-01-01");
-            TodoTime endTime = new TodoTime("19:00");
+            ItemType itemType = new ItemType("Adam Brown");
+            Name privateName = new Name("111111");
+            Date email = new Date("2016-08-08");
+            Time privateTime = new Time("01:59");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Item(type, privateName, startDate, startTime, endDate, endTime, tags);
+            return new Item(itemType, privateName, email, privateTime, tags);
         }
 
         /**
@@ -403,13 +406,16 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Item generateItem(int seed) throws Exception {
+            String dateFormat = "yyyy-MM-dd";
+            String timeFormat = "HH:mm";
+            LocalDateTime ldt = LocalDateTime.now();
+            String date = ldt.format(DateTimeFormatter.ofPattern(dateFormat));
+            String time = ldt.format(DateTimeFormatter.ofPattern(timeFormat));
             return new Item(
-                    new Type("Item " + seed),
+                    new ItemType("Item " + seed),
                     new Name("" + Math.abs(seed)),
-                    new TodoDate("2016-06-06"),
-                    new TodoTime("18:00"),
-                    new TodoDate("2016-07-07"),
-                    new TodoTime("19:00"),
+                    new Date(date),
+                    new Time(time),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -420,20 +426,11 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getType().toString());
-            if (p.getType().toString().equals(Type.TASK_WORD)) {
-                cmd.append(" n/").append(p.getName());
-            } else if (p.getType().toString().equals(Type.DEADLINE_WORD)) {
-                cmd.append(" n/").append(p.getName());
-                cmd.append(" d/").append(p.getEndDate());
-                cmd.append(" t/").append(p.getEndTime());
-            } else {
-                cmd.append(" n/").append(p.getName());
-                cmd.append(" sd/").append(p.getStartDate());
-                cmd.append(" st/").append(p.getStartTime());
-                cmd.append(" ed/").append(p.getEndDate());
-                cmd.append(" et/").append(p.getEndTime());
-            }
+            cmd.append(p.getItemType().toString());
+            cmd.append(" n/").append(p.getName());
+            cmd.append(" e/").append(p.getDate());
+            cmd.append(" a/").append(p.getTime());
+
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
@@ -514,12 +511,10 @@ public class LogicManagerTest {
          */
         Item generateItemWithName(String name) throws Exception {
             return new Item(
-                    new Type(name),
+                    new ItemType(name),
                     new Name("1"),
-                    new TodoDate("2016-06-06"),
-                    new TodoTime("18:00"),
-                    new TodoDate("2016-07-07"),
-                    new TodoTime("19:00"),
+                    new Date("2016-12-12"),
+                    new Time("01:39"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

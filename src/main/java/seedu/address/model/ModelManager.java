@@ -5,7 +5,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ReadOnlyToDo;
+import seedu.address.model.item.ReadOnlyPerson;
 import seedu.address.model.item.UniquePersonList;
 import seedu.address.model.item.UniquePersonList.PersonNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -65,8 +65,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteItem(ReadOnlyToDo target) throws PersonNotFoundException {
-        addressBook.removeItem(target);
+    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+        addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Item List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyToDo> getFilteredPersonList() {
+    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredItems);
     }
 
@@ -101,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyToDo person);
+        boolean satisfies(ReadOnlyPerson person);
         String toString();
     }
 
@@ -114,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyToDo person) {
+        public boolean satisfies(ReadOnlyPerson person) {
             return qualifier.run(person);
         }
 
@@ -125,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyToDo person);
+        boolean run(ReadOnlyPerson person);
         String toString();
     }
 
@@ -137,9 +137,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyToDo person) {
+        public boolean run(ReadOnlyPerson person) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getType().value, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getItemType().value, keyword))
                     .findAny()
                     .isPresent();
         }

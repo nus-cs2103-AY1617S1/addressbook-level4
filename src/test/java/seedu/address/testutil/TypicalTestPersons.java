@@ -13,28 +13,21 @@ public class TypicalTestPersons {
 
     public TypicalTestPersons() {
         try {
-            alice =  new PersonBuilder().withType("event").withName("Alice").withStartDate("2016-06-06").withStartTime("18:00")
-                    .withEndDate("2016-07-07").withEndTime("19:00")
+            alice =  new PersonBuilder().withName("Alice Pauline").withTime("12:01")
+                    .withDate("2016-08-08").withPhone("85355255")
                     .withTags("friends").build();
-            benson = new PersonBuilder().withType("event").withName("Benson").withStartDate("2016-07-07").withStartTime("08:00")
-                    .withEndDate("2016-09-16").withEndTime("13:00")
+            benson = new PersonBuilder().withName("Benson Meier").withTime("01:01")
+                    .withDate("2016-12-06").withPhone("98765432")
                     .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withType("event").withName("Carl").withStartDate("2016-10-07").withStartTime("12:00")
-                    .withEndDate("2016-11-22").withEndTime("18:00").build();
-            daniel = new PersonBuilder().withType("deadline").withName("Daniel").withStartDate("").withStartTime("")
-                    .withEndDate("2016-11-28").withEndTime("23:00").build();
-            elle = new PersonBuilder().withType("deadline").withName("Elle").withStartDate("").withStartTime("")
-                    .withEndDate("2016-09-20").withEndTime("23:59").build();
-            fiona = new PersonBuilder().withType("task").withName("Fiona").withStartDate("").withStartTime("")
-                    .withEndDate("").withEndTime("").build();
-            george = new PersonBuilder().withType("task").withName("George").withStartDate("").withStartTime("")
-                    .withEndDate("").withEndTime("").build();
+            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withDate("2015-01-01").withTime("00:00").build();
+            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withDate("2011-08-09").withTime("23:59").build();
+            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withDate("2019-09-09").withTime("10:30").build();
+            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withDate("2016-01-01").withTime("13:59").build();
+            george = new PersonBuilder().withName("George Best").withPhone("9482442").withDate("2017-01-03").withTime("15:00").build();
 
             //Manually added
-            hoon = new PersonBuilder().withType("event").withName("Hoon").withStartDate("2016-12-10").withStartTime("08:00")
-                    .withEndDate("2016-12-10").withEndTime("23:59").build();
-            ida = new PersonBuilder().withType("event").withName("Ida").withStartDate("2017-01-07").withStartTime("08:00")
-                    .withEndDate("2017-01-30").withEndTime("13:00").build();
+            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withDate("2016-09-30").withTime("21:14").build();
+            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withDate("2016-12-31").withTime("09:00").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

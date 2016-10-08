@@ -3,12 +3,12 @@ package seedu.address.model.item;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Todo's name in the Todo list.
+ * Represents a Item's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Todo names should only contain alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Item names should only contain alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String value;

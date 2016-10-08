@@ -72,7 +72,7 @@ public class XmlAddressBookStorageTest {
 
         //Modify data, overwrite exiting file, and read back
         original.addItem(new Item(TypicalTestPersons.hoon));
-        original.removeItem(new Item(TypicalTestPersons.alice));
+        original.removePerson(new Item(TypicalTestPersons.alice));
         xmlAddressBookStorage.saveAddressBook(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));

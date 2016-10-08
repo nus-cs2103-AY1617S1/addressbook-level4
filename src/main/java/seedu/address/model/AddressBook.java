@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ReadOnlyToDo;
+import seedu.address.model.item.ReadOnlyPerson;
 import seedu.address.model.item.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -58,7 +58,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyToDo> newPersons, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyPerson> newPersons, Collection<Tag> newTags) {
         setItems(newPersons.stream().map(Item::new).collect(Collectors.toList()));
         setTags(newTags);
     }
@@ -104,7 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         item.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeItem(ReadOnlyToDo key) throws UniquePersonList.PersonNotFoundException {
+    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
         if (persons.remove(key)) {
             return true;
         } else {
@@ -127,7 +127,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyToDo> getPersonList() {
+    public List<ReadOnlyPerson> getPersonList() {
         return Collections.unmodifiableList(persons.getInternalList());
     }
 
