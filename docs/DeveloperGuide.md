@@ -7,10 +7,10 @@
 * [Continuous Integration](#continuous-integration)
 * [Making a Release](#making-a-release)
 * [Managing Dependencies](#managing-dependencies)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
@@ -434,4 +434,20 @@ Cons:
 * Unable to check off completed event (only reminder can)
 * Event name gets truncated <br>
 
+#### Tsai Ti - S Planner
+Pros:
+* Able to sync with another calendar product(i.e. Google calendar)
+* Able to set notifications
+* Able to set repeat
+* Able to add notes
+* Able to add location
+* Able to set start and end time
+* Able to set different time zone
+* Able to share as text <br>
+
+Cons:
+* Unable to search events
+* Unable to view event list
+* Unable to mark event as done
+* Unable to color-code different events <br>
 
