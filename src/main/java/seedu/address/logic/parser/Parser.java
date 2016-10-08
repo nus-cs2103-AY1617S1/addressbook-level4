@@ -22,33 +22,30 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-    private static final Pattern TASK_DATA_ARGS_FORMAT_FT = 
-            Pattern.compile("(?<name>[^/]+)"
-            		+ " from (?<fromDateTime>.+)"
-            		+ " till (?<tillDateTime>[^;]+)"
-            		+ " ?; ?(?<detail>.+)");
     
-    private static final Pattern TASK_DATA_ARGS_FORMAT_ON = 
-            Pattern.compile("(?<name>[^/]+)"
-            		+ " on (?<fromDateTime>[^;]+)"
-            		+ " ?; ?(?<detail>.+)");
+    //one or more keywords separated by whitespace
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT_BY = 
-            Pattern.compile("(?<name>[^/]+)"
-            		+ " by (?<tillDateTime>[^;]+)"
-            		+ " ?; ?(?<detail>.+)");
+    private static final Pattern TASK_DATA_ARGS_FORMAT_FT = Pattern.compile(
+            "(?<name>[^/]+)" + " from (?<fromDateTime>.+)" + " till (?<tillDateTime>[^;]+)" + "(?: ?; ?(?<detail>.+))?");
+
+    private static final Pattern TASK_DATA_ARGS_FORMAT_ON = Pattern
+            .compile("(?<name>[^/]+) on (?<fromDateTime>[^;]+)(?: ?; ?(?<detail>.+))?");
+
+    private static final Pattern TASK_DATA_ARGS_FORMAT_BY = Pattern
+            .compile("(?<name>[^/]+) by (?<fromDateTime>[^;]+)(?: ?; ?(?<detail>.+))?");
+
+    private static final Pattern TASK_DATA_ARGS_FORMAT_FLOAT = Pattern
+            .compile("(?<name>[a-zA-Z_0-9 ]+)(?: ?; ?(?<detail>.+))?");
     
-    
-    public Parser() {}
+    public Parser() {
+    }
 
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput
+     *            full user input string
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
@@ -78,7 +75,7 @@ public class Parser {
 
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
-            
+
         case SearchCommand.COMMAND_WORD:
             return prepareSearch(arguments);
 
@@ -87,7 +84,6 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -101,47 +97,55 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-    	Pattern[] dataPatterns = {TASK_DATA_ARGS_FORMAT_FT, TASK_DATA_ARGS_FORMAT_BY, TASK_DATA_ARGS_FORMAT_ON};
+    	Pattern[] dataPatterns = {TASK_DATA_ARGS_FORMAT_FT, TASK_DATA_ARGS_FORMAT_BY, TASK_DATA_ARGS_FORMAT_ON, 
+    	                          TASK_DATA_ARGS_FORMAT_FLOAT};
     	
     	Matcher matcher;
-    	for (Pattern p : dataPatterns) {
-    		matcher = p.matcher(args.trim());
-    		if (matcher.matches()) {
-    			try {
-        			if (p.equals(TASK_DATA_ARGS_FORMAT_FT)) { 
-        			    return new AddCommand(
-            	                matcher.group("name"),
-            	                matcher.group("detail"),
-            	                matcher.group("fromDateTime"),
-            	                matcher.group("tillDateTime")
-            	        );
-        			} else if (p.equals(TASK_DATA_ARGS_FORMAT_ON)) {
+    	try {
+        	for (Pattern p : dataPatterns) {
+        		matcher = p.matcher(args.trim());
+        		if (matcher.matches()) {
+        		    if (p.equals(TASK_DATA_ARGS_FORMAT_FT)) { 
+        		        return new AddCommand(
+        		                matcher.group("name"),
+        		                matcher.group("detail"),
+                	            matcher.group("fromDateTime"),
+                	            matcher.group("tillDateTime")
+                	    );
+            		} else if (p.equals(TASK_DATA_ARGS_FORMAT_ON)) {
+                	    return new AddCommand(
+                	            matcher.group("name"),
+                	            matcher.group("detail"),
+                	            matcher.group("fromDateTime"),
+                	            null
+                	    );
+            	    } else if (p.equals(TASK_DATA_ARGS_FORMAT_BY)) {
+            		    return new AddCommand(
+            		            matcher.group("name"),
+            		            matcher.group("detail"),
+            		            null,
+            		            matcher.group("tillDateTime")
+                	    );
+            	    } else {
             	        return new AddCommand(
-            	                matcher.group("name"),
-            	                matcher.group("detail"),
-            	                matcher.group("fromDateTime"),
-            	                null
-            	        );
-        			} else {
-        				return new AddCommand(
-        				    matcher.group("name"),
-            	            matcher.group("detail"),
-            	            null,
-            	            matcher.group("tillDateTime")
-            	        );
-        			}
-    			} catch (IllegalValueException ive) {
-                    return new IncorrectCommand(ive.getMessage());
+                                matcher.group("name"),
+                                matcher.group("detail"),
+                                null,
+                                null
+                            );
+            	    }
                 }
-            }
-    	}
+        	}
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     	
     	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
+     * Extracts the new person's tags from the add command's tag arguments
+     * string. Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
@@ -156,57 +160,57 @@ public class Parser {
     /**
      * Parses arguments in the context of the delete person command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
 
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
         return new DeleteCommand(index.get());
     }
-    
+
     /**
      * Parses arguments in the context of the mark task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareMark(String args) {
 
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
 
         return new MarkCommand(index.get());
     }
-    
 
     /**
      * Parses arguments in the context of the select person command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareSee(String args) {
-    	try {
-    		return new SeeCommand(args);
-    	} catch (Exception e) {
-    		return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SeeCommand.MESSAGE_USAGE));
-    	}
+        try {
+            return new SeeCommand(args);
+        } catch (Exception e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SeeCommand.MESSAGE_USAGE));
+        }
 
     }
 
     /**
-     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+     * Returns the specified index in the {@code command} IF a positive unsigned
+     * integer is given as the index. Returns an {@code Optional.empty()}
+     * otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
@@ -215,7 +219,7 @@ public class Parser {
         }
 
         String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
+        if (!StringUtil.isUnsignedInteger(index)) {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
@@ -225,14 +229,14 @@ public class Parser {
     /**
      * Parses arguments in the context of the find person command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareSearch(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SearchCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
 
         // keywords delimited by whitespace
