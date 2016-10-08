@@ -11,21 +11,21 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Abdul Rahman](https://github.com/arshrahman)
-<img src="images/rahman.jpg" width="150"><br>
+<img src="images/rahman.jpeg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Logic, Code Quality
 
 -----
 
 #### [Clara Tan](https://github.com/hotchocolatemarshmallow) 
-<img src="images/clara.jpg" width="150"><br>
+<img src="images/clara.jpeg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Storage, Documentation
 
 -----
 
 #### [Chia Zhe Min](https://github.com/zhems)
-<img src="images/zhemin.jpg" width="150"><br>
+<img src="images/zhemin.jpeg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: UI, Testing
  -----
