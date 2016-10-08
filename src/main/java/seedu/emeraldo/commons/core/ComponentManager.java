@@ -1,6 +1,6 @@
 package seedu.emeraldo.commons.core;
 
-import seedu.address.commons.events.BaseEvent;
+import seedu.emeraldo.commons.events.BaseEvent;
 
 /**
  * Base class for *Manager classes

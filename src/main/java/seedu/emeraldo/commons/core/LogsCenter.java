@@ -1,9 +1,9 @@
 package seedu.emeraldo.commons.core;
 
-import seedu.address.commons.events.BaseEvent;
-
 import java.io.IOException;
 import java.util.logging.*;
+
+import seedu.emeraldo.commons.events.BaseEvent;
 
 /**
  * Configures and manages loggers and handlers, including their logging level

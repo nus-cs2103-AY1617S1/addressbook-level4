@@ -1,7 +1,7 @@
 package seedu.address.commons.events.model;
 
-import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyEmeraldo;
+import seedu.emeraldo.commons.events.BaseEvent;
 
 /** Indicates the AddressBook in the model has changed*/
 public class EmeraldoChangedEvent extends BaseEvent {

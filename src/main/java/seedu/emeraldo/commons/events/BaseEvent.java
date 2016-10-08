@@ -1,4 +1,4 @@
-package seedu.address.commons.events;
+package seedu.emeraldo.commons.events;
 
 public abstract class BaseEvent {
 

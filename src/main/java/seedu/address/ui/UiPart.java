@@ -5,9 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seedu.address.commons.events.BaseEvent;
 import seedu.address.commons.util.AppUtil;
 import seedu.emeraldo.commons.core.EventsCenter;
+import seedu.emeraldo.commons.events.BaseEvent;
 
 /**
  * Base class for UI parts.
