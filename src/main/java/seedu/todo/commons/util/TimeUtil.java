@@ -22,6 +22,9 @@ public class TimeUtil {
     private static final String MINUTES_MULTIPLE_UNIT = " minutes";
     
     private static final String DUE_NOW = "due now";
+    private static final String DUE_LESS_THAN_A_MINUTE = "in less than a minute";
+    private static final String TOMORROW = "tomorrow, ";
+    private static final String YESTERDAY = "yesterday, ";
     
     /* Variables */
     protected Clock clock = Clock.systemDefaultZone();
@@ -40,11 +43,17 @@ public class TimeUtil {
         long daysToDeadline = durationCurrentToEnd.toDays();
         long hoursToDeadline = durationCurrentToEnd.toHours();
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
+        long secondsToDeadline = durationCurrentToEnd.getSeconds();
         
+        System.out.println(secondsToDeadline);
         
-        if (minutesToDeadline == 0) {
+        if (secondsToDeadline >= -59 && secondsToDeadline <= 0) {
             return DUE_NOW;
         }
+        if (secondsToDeadline > 0 && secondsToDeadline <= 59) {
+            return DUE_LESS_THAN_A_MINUTE;
+        }
+        
         if (minutesToDeadline == 1) {
             return DEADLINE_PREFIX_IN + "1" + MINUTE_SINGLE_UNIT;
         } 
