@@ -49,6 +49,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -98,6 +101,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in context of the edit task command.
+     * 
+     * @param args Full user command input args
+     * @return  the prepared edit command
+     */
+    private Command prepareEdit(String args){
+        
+    }
+    
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
