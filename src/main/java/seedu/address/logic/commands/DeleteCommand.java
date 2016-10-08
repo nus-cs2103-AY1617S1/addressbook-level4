@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
             return new CommandResult(exception.getMessage());
         }
 
-        return new CommandResult(String.format(Messages.MESSAGE_TODO_DELETED, toDoToDelete.toString()));
+        return new CommandResult(String.format(Messages.MESSAGE_TODO_DELETED, toDoToDelete.getTitle().toString()));
     }
 
 }

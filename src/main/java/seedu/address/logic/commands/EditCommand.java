@@ -120,6 +120,6 @@ public class EditCommand extends Command {
             return new CommandResult(exception.toString());
         }
 
-        return new CommandResult(String.format(Messages.MESSAGE_TODO_EDITED, toDoToEdit.toString()));
+        return new CommandResult(String.format(Messages.MESSAGE_TODO_EDITED, toDoToEdit.getTitle().toString()));
     }
 }

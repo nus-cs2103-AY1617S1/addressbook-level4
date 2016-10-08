@@ -28,6 +28,6 @@ public class AddCommand extends Command {
         assert model != null;
 
         model.addToDo(toDo);
-        return new CommandResult(String.format(Messages.MESSAGE_TODO_ADDED, toDo));
+        return new CommandResult(String.format(Messages.MESSAGE_TODO_ADDED, toDo.getTitle().toString()));
     }
 }
