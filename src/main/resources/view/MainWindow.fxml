@@ -5,62 +5,49 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="132.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskman.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskman.ui.MainWindow">
    <children>
       <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-               </items>
-            </Menu>
-         </menus>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+            </items>
+          </Menu>
+        </menus>
       </MenuBar>
-      <AnchorPane VBox.vgrow="ALWAYS">
+      <AnchorPane fx:id="browserPlaceholder" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" styleClass="anchor-pane" VBox.vgrow="NEVER">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding></AnchorPane>
+      <AnchorPane styleClass="anchor-pane" VBox.vgrow="ALWAYS">
          <children>
-            <SplitPane fx:id="splitPane" dividerPositions="0.35451505016722407" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <items>
-                  <VBox fx:id="taskList">
-                     <children>
-                        <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-                  <VBox fx:id="io">
-                     <children>
-                        <AnchorPane fx:id="browserPlaceholder" VBox.vgrow="ALWAYS">
-                           <padding>
-                              <Insets bottom="5.0" />
-                           </padding>
-                        </AnchorPane>
-                        <AnchorPane fx:id="resultDisplayPlaceholder" minHeight="150.0" VBox.vgrow="NEVER">
-                           <padding>
-                              <Insets bottom="5.0" />
-                           </padding>
-                        </AnchorPane>
-                        <AnchorPane fx:id="commandBoxPlaceholder" minHeight="30.0" VBox.vgrow="NEVER">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </AnchorPane>
-                     </children>
-                  </VBox>
-              </items>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </SplitPane>
+            <VBox fx:id="taskList" prefHeight="200.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane fx:id="taskListPanelPlaceholder" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
          </children>
-      </AnchorPane>
-      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding></AnchorPane>
+      <AnchorPane fx:id="resultDisplayPlaceholder" styleClass="anchor-pane" VBox.vgrow="ALWAYS">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding></AnchorPane>
+      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane" VBox.vgrow="NEVER">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding></AnchorPane>
+      <AnchorPane fx:id="statusbarPlaceholder" styleClass="anchor-pane" VBox.vgrow="NEVER" />
    </children>
    <stylesheets>
       <URL value="@DarkTheme.css" />
