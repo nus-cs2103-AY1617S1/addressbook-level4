@@ -89,6 +89,27 @@ public class TimeUtilTest {
         String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
         assertEquals(expectedOutput, generatedOutput3);
     }
+    
+    @Test
+    public void getTaskDeadlineText_dueInAMinute() {
+        String expectedOutput = "in 1 minute";
+        
+        LocalDateTime currentTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 00);
+        LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
+        TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
+        String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
+        assertEquals(expectedOutput, generatedOutput1);
+        
+        LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 30);
+        LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
+        TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
+        String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
+        assertEquals(expectedOutput, generatedOutput2);
+        
+        LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 01);
+        LocalDateTime dueTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 12, 00, 00);
+        TimeUtil timeUtil3 = new ModifiedTimeUtil(currentTime3);
+        String generatedOutput3 = timeUtil3.getTaskDeadlineText(dueTime3);
         assertEquals(expectedOutput, generatedOutput3);
     }
 }
