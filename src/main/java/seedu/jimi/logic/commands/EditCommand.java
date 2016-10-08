@@ -10,19 +10,17 @@ import seedu.jimi.model.task.FloatingTask;
  */
 public class EditCommand extends Command{
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task/event in Jimi. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " edit 2 by 10th july at 12 pm";
+            + "2 by 10th July at 12 pm";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
 
-    private final FloatingTask toAdd;
+    private final FloatingTask toEdit;
 
-    
     
     @Override
     public CommandResult execute() {
