@@ -1,8 +1,11 @@
 package seedu.todo.commons.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Utility methods that deals with time.
@@ -40,8 +43,6 @@ public class TimeUtil {
         this.clock = clock;
     }
     
-    
-    
     /**
      * Gets the task deadline expression for the UI.
      * @param endTime ending time
@@ -53,8 +54,13 @@ public class TimeUtil {
         LocalDateTime currentTime = LocalDateTime.now(clock);
         Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
         
+        long daysToDeadline = durationCurrentToEnd.toDays();
         long hoursToDeadline = durationCurrentToEnd.toHours();
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
+        
+        if (currentTime.getYear() < endTime.getYear()) {
+            return DEADLINE_PREFIX_BY + endTime.format(DateTimeFormatter.ofPattern("d MMMM yyyy, h:m a"));
+        }
         
         if (minutesToDeadline == 0) {
             return DUE_NOW;
