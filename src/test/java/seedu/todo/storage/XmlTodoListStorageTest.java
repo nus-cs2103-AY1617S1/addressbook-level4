@@ -4,7 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -64,8 +66,28 @@ public class XmlTodoListStorageTest {
         readTodoList("NotXmlFormatTodoList.xml");
     }
 
+    /**
+     * Do a shallow equality test based on the titles in the two list of tasks
+     * 
+     * @param a the first list of tasks to compare
+     * @param b the second list of tasks to compare
+     * @return whether the two contains tasks with the same titles
+     */
     private static boolean isShallowEqual(List<ImmutableTask> a, List<ImmutableTask> b) {
-        return a.containsAll(b);
+        if (a.size() != b.size()) {
+            return false;
+        }
+
+        Set<String> setOfTitles = new HashSet<>();
+        for (ImmutableTask taskA : a) {
+            setOfTitles.add(taskA.getTitle());
+        }
+        for (ImmutableTask taskB : b) {
+            if (!setOfTitles.remove(taskB.getTitle())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Test
@@ -77,6 +99,7 @@ public class XmlTodoListStorageTest {
 
     @Test
     public void testDifferentTodoList() throws Exception {
+        xmlTodoListStorage.saveTodoList(original, filePath);
         ImmutableTodoList readBack = xmlTodoListStorage.readTodoList(filePath).get();
 
         original.add("test");
