@@ -30,7 +30,8 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    private static final Pattern RENAME_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)(?<name>[^/]+)");
+    private static final Pattern RENAME_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)\\s+(?<name>[^/]+)");
+
     public Parser() {}
 
     /**
@@ -187,7 +188,6 @@ public class Parser {
         }
         final String givenIndex = matcher.group("targetIndex");
         final String givenName = matcher.group("name").trim();
-        System.err.println(givenIndex);
         Optional<Integer> index = parseIndex(givenIndex);
         if(!index.isPresent()){
             return new IncorrectCommand(

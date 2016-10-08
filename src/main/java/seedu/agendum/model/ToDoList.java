@@ -114,6 +114,11 @@ public class ToDoList implements ReadOnlyToDoList {
         }
     }
 
+    /**
+     * Renames an existing task to the to-do list.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueTaskList.TaskNotFoundException if no such task could be found in the list.
+     */
     public boolean renameTask(ReadOnlyTask key, Name newTaskName)
             throws UniqueTaskList.TaskNotFoundException,
             UniqueTaskList.DuplicateTaskException {

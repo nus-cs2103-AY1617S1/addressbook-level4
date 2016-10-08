@@ -91,21 +91,18 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void scheduleTask(ReadOnlyTask target, LocalDateTime startDateTime,
             LocalDateTime endDateTime) throws UniqueTaskList.TaskNotFoundException {
         toDoList.scheduleTask(target, startDateTime, endDateTime);
-        updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
 
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         toDoList.markTask(target);
-        updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
     
     @Override
     public synchronized void unmarkTask(ReadOnlyTask target) throws TaskNotFoundException {
         toDoList.unmarkTask(target);
-        updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
 
