@@ -143,6 +143,7 @@ Examples:
   
   Before:<br>
   > <img src="images/UIdeleteBefore.png" width="600"><br>
+  
   After:<br>
   > <img src="images/UIdeleteAfter.png" width="600"><br>
   
@@ -152,6 +153,7 @@ Examples:
   
   Before:<br>
   > <img src="images/UIdeleteBeforeDate.png" width="600"><br>
+  
   After:<br>
   > <img src="images/UIdeleteAfterDate.png" width="600"><br>
 
@@ -171,6 +173,7 @@ Examples:
   
   Before:<br>
   > <img src="images/UIdoneBefore.png" width="600"><br>
+  
   After:<br>
   > <img src="images/UIdoneAfter.png" width="600"><br>
   
@@ -183,11 +186,13 @@ Format: `undo`
 
 Examples:
 * `undo`<br>
-  Undo the last deleted item.
-  Before:
-  > <img src="images/UIundoBefore.png" width="600">
-  After:
-  > <img src="images/UIundoAfter.png" width="600">
+  Undo the last deleted item.<br>
+  
+  Before:<br>
+  > <img src="images/UIundoBefore.png" width="600"><br>
+  
+  After:<br>
+  > <img src="images/UIundoAfter.png" width="600"><br>
 
 #### Clearing all entries : `clear`
 Clear all tasks from the task manager.<br>
