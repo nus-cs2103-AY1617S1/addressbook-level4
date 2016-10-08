@@ -4,8 +4,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
 import seedu.address.model.*;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -17,6 +15,8 @@ import seedu.emeraldo.commons.events.ui.ExitAppRequestEvent;
 import seedu.emeraldo.commons.exceptions.DataConversionException;
 import seedu.emeraldo.commons.util.ConfigUtil;
 import seedu.emeraldo.commons.util.StringUtil;
+import seedu.emeraldo.logic.Logic;
+import seedu.emeraldo.logic.LogicManager;
 import seedu.emeraldo.storage.Storage;
 import seedu.emeraldo.storage.StorageManager;
 

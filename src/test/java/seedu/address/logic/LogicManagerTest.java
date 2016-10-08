@@ -19,6 +19,8 @@ import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.events.ui.JumpToListRequestEvent;
 import seedu.emeraldo.commons.events.ui.ShowHelpRequestEvent;
+import seedu.emeraldo.logic.Logic;
+import seedu.emeraldo.logic.LogicManager;
 import seedu.emeraldo.storage.StorageManager;
 
 import java.util.ArrayList;

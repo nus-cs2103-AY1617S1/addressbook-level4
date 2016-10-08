@@ -1,4 +1,4 @@
-package seedu.address.logic;
+package seedu.emeraldo.logic;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
