@@ -175,7 +175,7 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         
-        pass.add(index.get());
+            pass.add(index.get());
 
         while(itr.hasNext()){
             index = parseIndex(itr.next());
@@ -184,7 +184,8 @@ public class Parser {
                 return new IncorrectCommand(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));             
             }           
-            pass.add(index.get());
+            if(!pass.contains(index.get()))
+                pass.add(index.get());
         }
 
         return new DeleteCommand(pass);
