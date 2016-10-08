@@ -70,11 +70,7 @@ public class Activity implements ReadOnlyEvent{
 
     @Override
     public boolean isSameStateAs(ReadOnlyEvent other) {
-        return activity.isSameStateAs(other);
-    }
-
-    public boolean isSameStateAs(ReadOnlyTask task) {
-        return task.isSameStateAs(activity);
+        return other.isSameStateAs(activity);
     }
 
     @Override
