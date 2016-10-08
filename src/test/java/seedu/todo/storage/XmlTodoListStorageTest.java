@@ -35,7 +35,7 @@ public class XmlTodoListStorageTest {
     private XmlTodoListStorage xmlTodoListStorage;
 
     @Before
-    public void setup() {
+    public void setUp() {
         filePath = testFolder.getRoot().getPath() + TEST_DATA_FILE;
         original = new TodoList(new MockStorage());
         xmlTodoListStorage = new XmlTodoListStorage(filePath);
