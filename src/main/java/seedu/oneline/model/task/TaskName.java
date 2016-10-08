@@ -1,6 +1,7 @@
 package seedu.oneline.model.task;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.model.tag.Tag;
 
 public class TaskName {
 
@@ -48,4 +49,17 @@ public class TaskName {
         return name.hashCode();
     }
     
+    /**
+     * Serialize field for storage
+     */
+    public String serialize() {
+        return name;
+    }
+    
+    /**
+     * Deserialize from storage
+     */
+    public static TaskName deserialize(String args) throws IllegalValueException {
+        return new TaskName(args);
+    }
 }
