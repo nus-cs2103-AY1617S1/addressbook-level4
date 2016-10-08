@@ -90,7 +90,7 @@ public class EditCommand extends Command{
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
         
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(lastShownList.size()-1)));
     }
 
 }
