@@ -64,7 +64,7 @@ public class DateTimeUtil {
 				return LocalDate.parse(dateString, DateTimeFormatter.ofPattern(formatString));
 			} catch (DateTimeParseException e) {}
 		}
-		return null; 
+		throw new DateTimeParseException("INVALID DATE FORMAT", dateString, 0); 
 	}
 	
 	public static boolean isValidTimeString(String timeString) {
@@ -91,7 +91,7 @@ public class DateTimeUtil {
 	}
 	
 	public static String prettyPrintDate(LocalDate date) {
-		return date.format(DateTimeFormatter.ofPattern("dd MMM''yy"));
+		return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
 	}
 	
 	public static String prettyPrintTime(LocalTime time) {
