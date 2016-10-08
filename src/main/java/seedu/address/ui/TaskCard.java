@@ -19,6 +19,12 @@ public class TaskCard extends UiPart{
     @FXML
     private Label deadline;
     @FXML
+    private Label deadlineRecurrence;
+    @FXML
+    private Label period;
+    @FXML
+    private Label periodRecurrence;
+    @FXML
     private Label tags;
 
     private ReadOnlyTask task;
@@ -39,8 +45,11 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
-        deadline.setText("");
-        tags.setText(task.tagsString());
+        deadline.setText("Deadline: " + task.getDeadline().toString());
+        deadlineRecurrence.setText("Deadline Repeat: " + task.getDeadlineRecurrence().toString());
+        period.setText("Period : " + task.getPeriod().toString());
+        periodRecurrence.setText("Period Repeat: " + task.getPeriodRecurrence().toString());
+        tags.setText(task.tagsString().equals("") ? "" : "Tags: " + task.tagsString());
     }
 
     public HBox getLayout() {
