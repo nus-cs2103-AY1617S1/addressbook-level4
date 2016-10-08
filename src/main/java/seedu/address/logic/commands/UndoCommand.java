@@ -37,6 +37,7 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, numCommandsToBeUndone == 1 ? 
                     "command" : numCommandsToBeUndone + " commands"));
         } catch (LogicManager.UndoableTaskNotEnoughException e) {
+            indicateAttemptToExecuteIncorrectCommand();
             int numUndoableCommands = LogicManager.numUndoableCommands();
             if (numUndoableCommands == 0) {
                 return new CommandResult(MESSAGE_NO_COMMAND_ENTERED);
