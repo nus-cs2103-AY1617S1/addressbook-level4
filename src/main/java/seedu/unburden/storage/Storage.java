@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
-import seedu.unburden.commons.events.model.AddressBookChangedEvent;
+import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
 import seedu.unburden.commons.events.storage.DataSavingExceptionEvent;
 import seedu.unburden.commons.exceptions.DataConversionException;
 import seedu.unburden.model.ReadOnlyListOfTask;
@@ -35,5 +35,5 @@ public interface Storage extends TaskListStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleListOfTaskChangedEvent(ListOfTaskChangedEvent abce);
 }

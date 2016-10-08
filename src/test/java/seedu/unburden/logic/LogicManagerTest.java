@@ -3,7 +3,7 @@ package seedu.unburden.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.unburden.commons.core.EventsCenter;
-import seedu.unburden.commons.events.model.AddressBookChangedEvent;
+import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
 import seedu.unburden.commons.events.ui.JumpToListRequestEvent;
 import seedu.unburden.commons.events.ui.ShowHelpRequestEvent;
 import seedu.unburden.logic.Logic;
@@ -50,7 +50,7 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
+    private void handleLocalModelChangedEvent(ListOfTaskChangedEvent abce) {
         latestSavedAddressBook = new ListOfTask(abce.data);
     }
 

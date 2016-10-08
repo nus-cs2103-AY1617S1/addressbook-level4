@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.unburden.commons.core.ComponentManager;
 import seedu.unburden.commons.core.LogsCenter;
-import seedu.unburden.commons.events.model.AddressBookChangedEvent;
+import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
 import seedu.unburden.commons.events.storage.DataSavingExceptionEvent;
 import seedu.unburden.commons.exceptions.DataConversionException;
 import seedu.unburden.model.ReadOnlyListOfTask;
@@ -80,7 +80,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleListOfTaskChangedEvent(ListOfTaskChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveTaskList(event.data);

@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.unburden.commons.events.model.AddressBookChangedEvent;
+import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
 import seedu.unburden.commons.events.storage.DataSavingExceptionEvent;
 import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.ReadOnlyListOfTask;
@@ -77,7 +77,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new ListOfTask()));
+        storage.handleListOfTaskChangedEvent(new ListOfTaskChangedEvent(new ListOfTask()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 

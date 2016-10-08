@@ -4,11 +4,11 @@ import seedu.unburden.commons.events.BaseEvent;
 import seedu.unburden.model.ReadOnlyListOfTask;
 
 /** Indicates the ListOfTask in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+public class ListOfTaskChangedEvent extends BaseEvent {
 
     public final ReadOnlyListOfTask data;
 
-    public AddressBookChangedEvent(ReadOnlyListOfTask data){
+    public ListOfTaskChangedEvent(ReadOnlyListOfTask data){
         this.data = data;
     }
 

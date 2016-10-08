@@ -4,7 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.unburden.commons.core.ComponentManager;
 import seedu.unburden.commons.core.LogsCenter;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
-import seedu.unburden.commons.events.model.AddressBookChangedEvent;
+import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
@@ -61,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(listOfTask));
+        raise(new ListOfTaskChangedEvent(listOfTask));
     }
 
     @Override
