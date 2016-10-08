@@ -192,14 +192,14 @@ public class TimeUtilTest {
         LocalDateTime dueTime1 = LocalDateTime.of(2016, Month.MARCH, 20, 17, 59, 00);
         TimeUtil timeUtil1 = new ModifiedTimeUtil(currentTime1);
         String generatedOutput1 = timeUtil1.getTaskDeadlineText(dueTime1);
-        String expectedOutput1 = "today, 5:59 PM";
+        String expectedOutput1 = "by today, 5:59 PM";
         assertEquals(expectedOutput1, generatedOutput1);
         
         LocalDateTime currentTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 30);
         LocalDateTime dueTime2 = LocalDateTime.of(2016, Month.MARCH, 20, 18, 00, 00);
         TimeUtil timeUtil2 = new ModifiedTimeUtil(currentTime2);
         String generatedOutput2 = timeUtil2.getTaskDeadlineText(dueTime2);
-        String expectedOutput2 = "tonight, 6:00 PM";
+        String expectedOutput2 = "by tonight, 6:00 PM";
         assertEquals(expectedOutput2, generatedOutput2);
         
         LocalDateTime currentTime3 = LocalDateTime.of(2016, Month.MARCH, 20, 00, 00, 00);
