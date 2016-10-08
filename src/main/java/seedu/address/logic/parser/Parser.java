@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
+import seedu.address.model.item.Date;
+import seedu.address.model.item.Time;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -115,18 +117,18 @@ public class Parser {
                 return new AddCommand(
                     "task",
                     taskMatcher.group("name"),
-                    "", // No Start Date
-                    "", // No Start Time
-                    "", // No End Date
-                    "", // No End Time
+                    Date.EMPTY_DATE, // No Start Date
+                    Time.EMPTY_TIME, // No Start Time
+                    Date.EMPTY_DATE, // No End Date
+                    Time.EMPTY_TIME, // No End Time
                     getTagsFromArgs(taskMatcher.group("tagArguments"))
                 );
             } else if (deadlineMatcher.matches()) {
                 return new AddCommand(
                     "deadline",
                     deadlineMatcher.group("name"),
-                    "", // No Start Date
-                    "", // No Start Time
+                    Date.EMPTY_DATE, // No Start Date
+                    Time.EMPTY_TIME, // No Start Time
                     deadlineMatcher.group("endDate"),
                     deadlineMatcher.group("endTime"),
                     getTagsFromArgs(deadlineMatcher.group("tagArguments"))

@@ -26,7 +26,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
         //add duplicate person
         commandBox.runCommand(td.deadline3.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_ITEM);
         assertTrue(personListPanel.isListMatching(currentList));
 
         //add to empty list
