@@ -9,7 +9,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
 import java.util.Set;
@@ -61,8 +61,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(toDoList));
+    public void indicateAddressBookChanged() {
+        raise(new ToDoListChangedEvent(toDoList));
     }
 
     @Override
@@ -89,6 +89,22 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    @Override
+    public synchronized void updateTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
+        int index = toDoList.getTasks().indexOf(oldTask);
+        
+        if(index < 0) {
+            throw new TaskNotFoundException();
+        } else {
+            toDoList.getTasks().get(index).setName(newTask.getName());
+            toDoList.getTasks().get(index).setDetail(newTask.getDetail());
+            toDoList.getTasks().get(index).setFromDate(newTask.getFromDate());
+            toDoList.getTasks().get(index).setTillDate(newTask.getTillDate());
+            toDoList.getTasks().get(index).setTags(newTask.getTags());
+            toDoList.syncTagsWithMasterList(toDoList.getTasks().get(index));
+            indicateAddressBookChanged();
+        }
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 

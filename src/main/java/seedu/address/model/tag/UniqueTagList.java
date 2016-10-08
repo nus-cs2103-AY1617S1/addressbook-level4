@@ -3,6 +3,8 @@ package seedu.address.model.tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -25,6 +27,13 @@ public class UniqueTagList implements Iterable<Tag> {
             super("Operation would result in duplicate tags");
         }
     }
+    
+    /**
+     * Signals that an operation targeting a specified tag in the list would fail because
+     * there is no such matching tag in the list.
+     */
+    public static class TagNotFoundException extends Exception {}
+    
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
@@ -117,6 +126,20 @@ public class UniqueTagList implements Iterable<Tag> {
             throw new DuplicateTagException();
         }
         internalList.add(toAdd);
+    }
+    
+    /**
+     * Removes the equivalent tag from the list.
+     *
+     * @throws TagNotFoundException if no such task could be found in the list.
+     */
+    public boolean remove(Tag toRemove) throws TagNotFoundException {
+        assert toRemove != null;
+        final boolean tagFoundAndDeleted = internalList.remove(toRemove);
+        if (!tagFoundAndDeleted) {
+            throw new TagNotFoundException();
+        }
+        return tagFoundAndDeleted;
     }
 
     @Override

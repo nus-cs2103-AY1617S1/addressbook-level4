@@ -81,6 +81,9 @@ public class Parser {
 
         case SeeCommand.COMMAND_WORD:
             return prepareSee(arguments);
+        
+        case TagCommand.COMMAND_WORD:
+            return prepareTag(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
@@ -91,7 +94,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -143,22 +146,9 @@ public class Parser {
     	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 
-    /**
-     * Extracts the new person's tags from the add command's tag arguments
-     * string. Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete task command.
      *
      * @param args
      *            full command args string
@@ -192,7 +182,26 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the see task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    private Command prepareTag(String args) {
+        try {
+           args = args.trim();
+           String tagNames = args.substring(1);
+           String index = args.substring(0, 1);
+           return new TagCommand(index, tagNames);
+        } catch (Exception e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
+
+    }
+    
+    /**
+     * Parses arguments in the context of the select task command.
      *
      * @param args
      *            full command args string
@@ -206,6 +215,7 @@ public class Parser {
         }
 
     }
+    
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned
@@ -227,7 +237,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find task command.
      *
      * @param args
      *            full command args string
