@@ -28,7 +28,6 @@ public class TimeUtil {
     private static final String DUE_YESTERDAY = "yesterday, ";
     private static final String DUE_TODAY = "today, ";
     private static final String DUE_TONIGHT = "tonight, ";
-    private static final String DUE_JUST_NOW = "moments ago at ";
     
     /* Variables */
     protected Clock clock = Clock.systemDefaultZone();
@@ -72,7 +71,7 @@ public class TimeUtil {
             } else if (minutesToDeadline < -1 && minutesToDeadline >= -59) {
                 return (-minutesToDeadline) + MINUTES_MULTIPLE_UNIT + DEADLINE_SUFFIX_AGO;
             } else if (currentTime.isAfter(endTime) && currentTime.toLocalDate().equals(endTime.toLocalDate())) {
-                return DUE_JUST_NOW + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
+                return DEADLINE_PREFIX_SINCE + endTime.format(DateTimeFormatter.ofPattern("h:mm a"));
             }
         }
         
