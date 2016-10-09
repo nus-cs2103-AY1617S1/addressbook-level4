@@ -3,19 +3,18 @@ package seedu.taskman.model.event;
 import com.google.common.base.Objects;
 
 import seedu.taskman.commons.exceptions.IllegalValueException;
+import seedu.taskman.model.Regex;
 
 public class Schedule {
 	
 	public static final String MESSAGE_SCHEDULE_CONSTRAINTS =
             "Task schedule should only contain dates and times in the format: " +
-                    "[this/next] tdy/tmr/mon/tue/wed/thu/fri/sat/sun HHMM (a \",\" or \"to\") " +
-                    "[this/next] tdy/tmr/mon/tue/wed/thu/fri/sat/sun HHMM.";
-    // todo: refactor, shift date_time_validation_regex to constants file
-	public static final String DATE_TIME_VALIDATION_REGEX =
-            "((tdy|tmr)|(((this)|(next))?\\s(mon|tue|wed|thu|fri|sat|sun)))\\s(((0|1)[0-9])|(2[0-3]))([0-5][0-9])";
+                    Regex.DESCRIPTION_DATE_TIME_TYPIST_FRIENDLY + " (a \",\" or \"to\") "
+                    + Regex.DESCRIPTION_DATE_TIME_TYPIST_FRIENDLY;
 	public static final String SCHEDULE_VALIDATION_REGEX =
-            DATE_TIME_VALIDATION_REGEX + "((,\\s?)|(\\s(to)\\s))" + DATE_TIME_VALIDATION_REGEX;
+            "^" + Regex.DATE_TIME_TYPIST_FRIENDLY + "((,\\s?)|(\\s(to)\\s))" + Regex.DATE_TIME_TYPIST_FRIENDLY + "$";
     // todo: add regex for other time formats, eg: DDMMYYYY:TTTT
+    // todo: add regex for START_DATETIME with DURATION
 
     // todo: save as unix time instead
     public final String start;

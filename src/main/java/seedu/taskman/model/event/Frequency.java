@@ -2,12 +2,14 @@ package seedu.taskman.model.event;
 
 import com.google.common.base.Objects;
 import seedu.taskman.commons.exceptions.IllegalValueException;
+import seedu.taskman.model.Regex;
 
 public class Frequency {
     // TODO: check for overflow of seconds because current validation allows years
     public static final String MESSAGE_FREQUENCY_CONSTRAINTS =
-            "Task frequency should only contain frequency and unit of time in the format: <number><min/hr/d/wk/mth/yr>.";
-    public static final String FREQUENCY_VALIDATION_REGEX = "([1-9]+[0-9]*)(min|hr|d|wk|mth|yr)";
+            "Task frequency should only contain frequency and unit of time in the format: " +
+                    Regex.DESCRIPTION_DURATION_TYPIST_FRIENDLY;
+    public static final String FREQUENCY_VALIDATION_REGEX = "^" + Regex.DURATION_TYPIST_FRIENDLY + "$";
 
     public final Long seconds;
 
