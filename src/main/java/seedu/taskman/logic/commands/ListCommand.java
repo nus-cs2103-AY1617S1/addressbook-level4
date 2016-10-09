@@ -25,9 +25,7 @@ public class ListCommand extends Command {
     private final Set<String> tagNames;
 
     public ListCommand(Set<String> keywords) {
-        this.filterMode = Model.FilterMode.TASK_ONLY;
-        this.keywords = keywords;
-        this.tagNames = new HashSet<>();
+        this(Model.FilterMode.TASK_ONLY, keywords, new HashSet<>());
     }
 
     public ListCommand(Model.FilterMode filterMode, Set<String> keywords, Set<String> tags){
