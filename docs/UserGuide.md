@@ -49,13 +49,15 @@ Example:
 Adds a task into the task manager<br>
 Format: `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
 
-You can assign your task a `PRIORITY` of `low`, `medium` or `high`. Tasks have `medium` `PRIORITY` by default.
-`PRIORITY` also accepts variations of `low`, `medium` and `high`.
+You can assign your task a `PRIORITY` of `low`, `medium` or `high`. Tasks have `medium` `PRIORITY` by default.<br>
+`PRIORITY` also accepts variations of `low`, `medium` and `high`.<br>
+
  |`PRIORITY` | Variations |
  | ------------- |------------|
  | `low` | `l`, `low` |
  | `medium` | `m`, `med`, `medium` |
  | `high` | `h`, `high`|
+ 
 > To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add/edit command, where `PRIORITY` can be replaced by `low`, `medium` or `high`, e.g `-low`, `-medium`, `-high`.
 
 Examples:
