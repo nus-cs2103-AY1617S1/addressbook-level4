@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.model.task.FindType;
 
 public class FindCommandParser extends CommandParser<FindCommand> {
     private static final String HEADER = "find";
@@ -34,17 +35,33 @@ public class FindCommandParser extends CommandParser<FindCommand> {
     protected FindCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            String[] keywords1 = matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE).trim().split("\\s+");
-            String[] keywords2 = matcher.group(REGEX_REF_KEYWORDS_AFTER_TYPE).trim().split("\\s+");
+            parseFindType(commandText, matcher.group(REGEX_REF_FIND_TYPE));
+            parseKeywords(commandText,
+                    matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE),
+                    matcher.group(REGEX_REF_KEYWORDS_AFTER_TYPE));
             
-            if (keywords1.length == 0 && keywords2.length == 0)
-                throw new ParseException(commandText, "Need to specify at least one keyword!");
-            
-            String[] keywords = concatArray(keywords1, keywords2);
-            
+            // TODO: Return FindCommand here (require integration).
         }
         
-        throw new ParseException(commandText);
+        throw new ParseException(commandText, getRequiredFormat());
+    }
+    
+    private FindType parseFindType(String commandText, String findTypeText) throws ParseException {
+        try {
+            return FindType.valueOfIgnoreCase(findTypeText);
+        } catch (IllegalArgumentException ex) {
+            throw new ParseException(commandText, "FIND_TYPE: Unknown type '" + findTypeText + "'");
+        }
+    }
+    
+    private String[] parseKeywords(String commandText, String keywordsBefore, String keywordsAfter) throws ParseException {
+        String[] keywordsArr1 = keywordsBefore.trim().split("\\s+");
+        String[] keywordsArr2 = keywordsAfter.trim().split("\\s+");
+
+        if (keywordsArr1.length == 0 && keywordsArr2.length == 0)
+            throw new ParseException(commandText, "KEYWORD: Need to specify at least one keyword!");
+        
+        return concatArray(keywordsArr1, keywordsArr2);
     }
 
     /**

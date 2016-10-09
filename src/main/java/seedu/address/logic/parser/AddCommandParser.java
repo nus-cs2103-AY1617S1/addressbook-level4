@@ -1,14 +1,12 @@
 package seedu.address.logic.parser;
 
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
-
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.DateParser.InferredDate;
+import seedu.address.model.task.RecurrenceType;
 
 public class AddCommandParser extends CommandParser<AddCommand> {
     private static final String HEADER = "add";
@@ -71,16 +69,17 @@ public class AddCommandParser extends CommandParser<AddCommand> {
             parseTaskName(commandText, matcher.group(REGEX_REF_TASK_NAME));
             parseLocation(commandText, matcher.group(REGEX_REF_LOCATION));
             String priority = matcher.group(REGEX_REF_PRIORITY_LEVEL);
-            String recurringType = matcher.group(REGEX_REF_RECURRING_TYPE);
+            parseRecurrenceType(commandText, matcher.group(REGEX_REF_RECURRING_TYPE));
             parseNumberOfRecurrence(commandText, matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
-            String category = matcher.group(REGEX_REF_CATEGORY);
+            parseCategory(commandText, matcher.group(REGEX_REF_CATEGORY));
             parseDescription(commandText, matcher.group(REGEX_REF_DESCRIPTION));
             
                
-               // TODO: Create AddCommand
+            // TODO: Create AddCommand here (require integration)
         }
         
-        throw new ParseException(commandText, getRequiredFormat());
+        throw new ParseException(commandText, String.format(
+                Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));
     }
 
     private String parseTaskName(String commandText, String taskNameText) throws ParseException {
@@ -107,6 +106,14 @@ public class AddCommandParser extends CommandParser<AddCommand> {
         return locationText;
     }
     
+    private RecurrenceType parseRecurrenceType(String commandText, String recurrenceTypeText) throws ParseException {
+        try {
+            return RecurrenceType.valueOfIgnoreCase(recurrenceTypeText);
+        } catch (IllegalArgumentException ex) {
+            throw new ParseException(commandText, "RECURRING_TYPE: Unknown type '" + recurrenceTypeText + "'");
+        }
+    }
+    
     private int parseNumberOfRecurrence(String commandText, String numRecurrenceText) throws ParseException {
         int numRecurrence = 0;
         boolean parseError = false;
@@ -115,7 +122,7 @@ public class AddCommandParser extends CommandParser<AddCommand> {
             numRecurrence = Integer.parseInt(numRecurrenceText);
             if (numRecurrence < 0)
                 parseError = true;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException ex) {
             parseError = true;
         }
         
@@ -125,6 +132,10 @@ public class AddCommandParser extends CommandParser<AddCommand> {
         return numRecurrence;
     }
 
+    private String parseCategory(String commandText, String categoryText) throws ParseException {
+        return categoryText;
+    }
+    
     private String parseDescription(String commandText, String descriptionText) throws ParseException {
         return descriptionText;
     }

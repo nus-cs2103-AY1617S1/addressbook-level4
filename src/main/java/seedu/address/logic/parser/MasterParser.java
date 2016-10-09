@@ -39,6 +39,7 @@ public class MasterParser {
         try {
             return parser.parse(trimmedUserInput);
         } catch (ParseException pe) {
+            /* TODO: Modify this to use ParseException's detail. */
             return new IncorrectCommand(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, parser.getRequiredFormat()));
         }
