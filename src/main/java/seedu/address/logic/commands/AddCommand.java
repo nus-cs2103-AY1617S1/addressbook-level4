@@ -22,7 +22,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " read Harry Potter and the Akshay rank 1";
     
-    public static final String TOOL_TIP = "add NAME [rank PRIORITY]";
+    public static final String TOOL_TIP = "add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]";
     
     public static final String MESSAGE_DUPLICATE_FLOATING_TASK = "This task already exists in the task manager";
 

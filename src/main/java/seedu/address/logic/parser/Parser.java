@@ -237,7 +237,7 @@ public class Parser {
         // final String arguments = matcher.group("arguments");
         updateMatchedCommands(toolTips, commandWord);
         if (toolTips.isEmpty()){
-            toolTips.add(MESSAGE_UNKNOWN_COMMAND);
+            toolTips.add(AddCommand.TOOL_TIP);
         }
         return toolTips;      
     }

@@ -46,7 +46,7 @@ public class LogicManager extends ComponentManager implements Logic {
     
     @Override
     public String decideToolTip(String commandText){
-        logger.info("----------------[INCOMPLETE USER COMMAND][" + commandText + "]");
+        //logger.info("----------------[INCOMPLETE USER COMMAND][" + commandText + "]");
         List<String> toolTips = parser.parseIncompleteCommand(commandText);
         
         // toolTips should at least have 1 item
