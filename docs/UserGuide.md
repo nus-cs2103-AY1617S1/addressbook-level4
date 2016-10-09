@@ -56,10 +56,10 @@ Adds a task to Do-Do Bird.<br>
 
 Format:
 
-* `add TASKNAME [; a line of details]`
-* `add TASKNAME by DATE [tTIME] [; a line of details]`
-* `add TASKNAME on DATE [tTIME] [; a line of details]`
-* `add TASKNAME on DATE [tTIME] by DATE [tTime] [; a line of details]`
+* `add TASK_NAME [; a line of details]`
+* `add TASK_NAME by DATE [tTIME] [; a line of details]`
+* `add TASK_NAME on DATE [tTIME] [; a line of details]`
+* `add TASK_NAME on DATE [tTIME] by DATE [tTime] [; a line of details]`
 
 
 > Date and Time formats follow the above guidelines.
@@ -135,11 +135,12 @@ Update an existing task inside Do-Do Bird.<br>
 
 Format:
 
-* `update ID; [a line of details;] [from DD/MM/YY [hh:mm];] [till DD/MM/YY [hh:mm];]`
-* `update ID; [a line of details;] [DD/MM/YY;]`
+* `update ID [NEW_NAME] [on DATE [tTime]] [by DATE [tTime]] [; a line of new details]`
+* `update ID [NEW_NAME] [-on DATE [tTime]] [-by DATE [tTime]] [-; a line of new details]`
 
 > * Date and Time formats follow the above guidelines.
-> * Update the task at the specified ID. The ID must be a positive integer 1, 2, 3, ...
+> * The ID must be a positive integer 1, 2, 3, ...
+> * To remove any pre-existing optional fields, prefix a `-` to the field specifier.
 
 Examples:
 
