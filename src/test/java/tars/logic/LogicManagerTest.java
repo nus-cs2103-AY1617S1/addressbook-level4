@@ -7,8 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import tars.logic.commands.*;
 import tars.commons.core.EventsCenter;
+import tars.commons.core.Messages;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.events.ui.JumpToListRequestEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
@@ -163,24 +163,19 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Task Name 22/04/2016 1400 to 23/04/2016 2200 -p h", expectedMessage); //No DateTime Prefix
-        assertCommandBehavior(
-                "add Valid Task Name -dt 22/04/2016 1400 23/04/2016 2200 -p h", expectedMessage); //No "to" between start and end DateTime
-        assertCommandBehavior(
-                "add Valid Task Name -dt 22/04/2016 1400 to 23/04/2016 2200 h", expectedMessage); //No Priority Prefix
+                "add -dt 22/04/2016 1400 to 23/04/2016 2200 -p h Valid Task Name", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
-        String expectedErrorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
                 "add []\\[;] -dt 05/09/2016 1400 to 06/09/2016 2200 -p m", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Task Name -dt @@@notAValidDate@@@ -p m", expectedErrorMessage);
+                "add name - hello world -dt 05/09/2016 1400 to 06/09/2016 2200 -p m", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p notAValidPriority", expectedErrorMessage);
+                "add Valid Task Name -dt @@@notAValidDate@@@ -p m", Messages.MESSAGE_INVALID_DATE);
+        assertCommandBehavior(
+                "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p medium", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p m -t invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -191,6 +186,22 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_add_float_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.floatTask();
         Tars expectedAB = new Tars();
         expectedAB.addTask(toBeAdded);
 
@@ -406,6 +417,15 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, dateTime, priority, status, tags);
         }
+        
+        Task floatTask() throws Exception {
+            Name name = new Name("Do homework");
+            DateTime dateTime = new DateTime("", "");
+            Priority priority = new Priority("");
+            Status status = new Status(false);
+            UniqueTagList tags = new UniqueTagList();
+            return new Task(name, dateTime, priority, status, tags);
+        }
 
         /**
          * Generates a valid task using the given seed.
@@ -429,11 +449,15 @@ public class LogicManagerTest {
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("add ");
-
-            cmd.append(p.getName().toString());
-            cmd.append(" -dt ").append(p.getDateTime().toString());
-            cmd.append(" -p ").append(p.getPriority().toString());
+            cmd.append("add ").append(p.getName().toString());
+            
+            if(p.getDateTime().toString().length() > 0) {
+                cmd.append(" -dt ").append(p.getDateTime().toString());
+            }
+            
+            if(p.getPriority().toString().length() > 0) {
+                cmd.append(" -p ").append(p.getPriority().toString());
+            }
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
