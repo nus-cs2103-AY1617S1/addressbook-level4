@@ -11,11 +11,11 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "ToDo App";
+    private String appTitle = "Malitio App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String malitioFilePath = "data/malitio.xml";
-    private String malitioName = "Malitio";
+    private String malitioName = "MyMalitio";
 
 
     public Config() {

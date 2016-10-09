@@ -63,7 +63,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Removes the equivalent task from the list.
      *
-     * @throws PersonNotFoundException if no such task could be found in the list.
+     * @throws TaskNotFoundException if no such task could be found in the list.
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;

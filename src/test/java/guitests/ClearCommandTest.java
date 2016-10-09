@@ -26,6 +26,6 @@ public class ClearCommandTest extends MalitioGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("malitio has been cleared!");
+        assertResultMessage("Malitio has been cleared!");
     }
 }

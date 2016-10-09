@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the application level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class Malitio implements ReadOnlyMalitio {
@@ -27,14 +27,14 @@ public class Malitio implements ReadOnlyMalitio {
     public Malitio() {}
 
     /**
-     * Persons and Tags are copied into this Malitio
+     * Tasks and Tags are copied into this Malitio
      */
     public Malitio(ReadOnlyMalitio toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this Malitio
+     * Tasks and Tags are copied into this Malitio
      */
     public Malitio(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
@@ -46,11 +46,11 @@ public class Malitio implements ReadOnlyMalitio {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getPersons() {
+    public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
 
-    public void setPersons(List<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -58,8 +58,8 @@ public class Malitio implements ReadOnlyMalitio {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -70,11 +70,11 @@ public class Malitio implements ReadOnlyMalitio {
 //// task-level operations
 
     /**
-     * Adds a task to the malitio.
+     * Adds a task to Malitio.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicatePersonException if an equivalent task already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
