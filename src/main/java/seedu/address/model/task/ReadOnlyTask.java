@@ -35,6 +35,31 @@ public interface ReadOnlyTask {
                     && other.getDeadlineRecurrence().equals(this.getDeadlineRecurrence())
                     && other.getPeriodRecurrence().equals(this.getPeriodRecurrence())));
     }
+    
+    /**
+     * Formats the task as type from its attributes.
+     */
+    default String getAsType() {
+        String typeResult = "";
+        
+        if (getComplete().isCompleted) {
+            typeResult = typeResult.concat("Completed ");
+        } else {
+            typeResult = typeResult.concat("Uncompleted ");
+        }
+        
+        if (getDeadline().hasDeadline && getPeriod().hasPeriod) {
+            typeResult = typeResult.concat("Task with Allocated Timeslot ");
+        } else if (getDeadline().hasDeadline) {
+            typeResult = typeResult.concat("Normal Task ");
+        } else if (getPeriod().hasPeriod) {
+            typeResult = typeResult.concat("Event ");
+        } else {
+            typeResult = typeResult.concat("Floating Task ");
+        }
+        
+        return typeResult;
+    }
 
     /**
      * Formats the task as text, showing all task details.
@@ -84,4 +109,5 @@ public interface ReadOnlyTask {
         }
     }
 
+    
 }
