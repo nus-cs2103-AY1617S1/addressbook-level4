@@ -32,7 +32,6 @@
 <li><a href="#ui-component">UI component</a></li>
 <li><a href="#logic-component">Logic component</a></li>
 <li><a href="#model-component">Model component</a></li>
-<li><a href="#storage-component">Storage component</a></li>
 <li><a href="#common-classes">Common classes</a></li>
 </ul>
 </li>
@@ -166,7 +165,7 @@ Two of those classes play important roles at the architecture level.</p>
 </ul>
 <p>The rest of the App consists three components.</p>
 <ul>
-<li><a href="#ui-component"><strong><code>UI</code></strong></a>: The UI of tha App, representing the view layer. </li>
+<li><a href="#ui-component"><strong><code>UI</code></strong></a>: The user facing elements of tha App, representing the view layer. </li>
 <li><a href="#logic-component"><strong><code>Logic</code></strong></a>: The parser and command executer, representing the controller </li>
 <li><a href="#model-component"><strong><code>Model</code></strong></a>: Data manipulation and storage, representing the model and data layer </li>
 </ul>
@@ -181,11 +180,16 @@ command <code>delete 3</code>.</p>
 <p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. </p>
 <p><img src="images/SDforDeletePersonEventHandling.png" width="800"></p>
-<blockquote>
-<p>Note how the event is propagated through the <code>EventsCenter</code> to the <code>Storage</code> and <code>UI</code> without <code>Model</code> having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
-  coupling between components.</p>
-</blockquote>
+<div class="admonition event">
+<p class="admonition-title">Event</p>
+</div>
+<p>Driven Design </p>
+<div class="codehilite"><pre><span></span>Note how the event is propagated through the `EventsCenter` to `UI` without `Model` having
+to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
+coupling between components.
+</pre></div>
+
+
 <p>The sections below give more details of each component.</p>
 <h3 id="ui-component">UI component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3>
 <p><img src="images/UiClassDiagram.png" width="800"></p>
@@ -222,20 +226,15 @@ the command the user called</li>
 <li>The command execution can affect the <code>Model</code> (e.g. adding a person), and/or raise events.</li>
 </ol>
 <p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code>
- API call.</p>
+ API call. See <a href="#logic">the implementation section</a> below for the implementation details of the logic component.  </p>
 <p><img src="images/DeletePersonSdForLogic.png" width="800"></p>
 <h3 id="model-component">Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3>
 <p><img src="images/ModelClassDiagram.png" width="800"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/model/Model.java"><code>Model.java</code></a></p>
-<p>The <code>Model</code>,</p>
-<ul>
-<li>stores a <code>UserPref</code> object that represents the user's preferences.</li>
-<li>stores the Todo list data and persists it to the </li>
-<li>exposes a <code>UnmodifiableObservableList&lt;ReadOnlyPerson&gt;</code> that can be 'observed' ie. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.</li>
-<li>exposes a simplified interface to the </li>
-</ul>
-<h3 id="storage-component">Storage component<a class="headerlink" href="#storage-component" title="Permanent link">#</a></h3>
+<p>The model component represents the application's data layer. It is injected into command objects through 
+the logic component, and exposes a CRUD interface to logic that allows commands to modify the application's 
+data. To ensure safety it exposes as much of it as immutable objects as possible through interfaces 
+such as <code>ImmutableTask</code>. The model also persists any changes of the </p>
 <p><img src="images/StorageClassDiagram.png" width="800"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/storage/Storage.java"><code>Storage.java</code></a></p>
 <p>The <code>Storage</code> component,</p>
@@ -270,7 +269,7 @@ implementing class for <code>TodoParser</code> can be found as an inner class in
 <h4 id="dispatcher">Dispatcher<a class="headerlink" href="#dispatcher" title="Permanent link">#</a></h4>
 <p>The <code>TodoDispatcher</code> subcomponent implements the <code>Dispatcher</code> interface, which defines a single 
 <code>dispatch</code> command. The dispatch function simply maps the provided <code>ParseResult</code> object to the 
-correct command and returns it.</p>
+correct command, instantiates a new instance of it then returns it to the caller. </p>
 <h4 id="command">Command<a class="headerlink" href="#command" title="Permanent link">#</a></h4>
 <p>All commands implement the <code>BaseCommand</code> abstract class, which provides argument binding and validation.
 To implement a new command, you can use the following template </p>
@@ -288,7 +287,7 @@ To implement a new command, you can use the following template </p>
 
     <span class="nd">@Override</span>
     <span class="kd">protected</span> <span class="n">Parameter</span><span class="o">[]</span> <span class="nf">getArguments</span><span class="o">()</span> <span class="o">{</span>
-        <span class="c1">// TODO: List all arguments inside this array</span>
+        <span class="c1">// TODO: List all command argument objects inside this array</span>
         <span class="k">return</span> <span class="k">new</span> <span class="n">Parameter</span><span class="o">[]{</span> <span class="n">index</span> <span class="o">};</span>
     <span class="o">}</span>
 
@@ -301,10 +300,16 @@ To implement a new command, you can use the following template </p>
 
 
 <p>If you need to do argument validation, you can also override the <code>validateArgument</code> command, 
-which is run after all arguments have been set.  </p>
+which is run after all arguments have been set.</p>
 <h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">#</a></h4>
 <p>Command arguments are defined using argument objects. Representing arguments as objects have several 
-benefit - it makes them declarative </p>
+benefit - it makes them declarative, it allows argument parsing and validation code to be reused across 
+multiple commands, and the fluent setter allows each individual property to be set indepently of each other. 
+The argument object's main job is to convert the user input from string into the type which the 
+command object can use, as well as contain information about the argument that the program can show to the 
+user.</p>
+<p>The generic type <code>T</code> represents the return type of the command argument. To implement a new argument 
+type, extend the abstract base class <code>Argument</code>. </p>
 <h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3>
 <p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels
 and logging destinations.</p>
@@ -383,7 +388,7 @@ as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-e
 <li><strong>Integration tests</strong> - that are checking the integration of multiple code units
  (those code units are assumed to be working).<br />
   e.g. <code>seedu.todo.storage.StorageManagerTest</code></li>
-<li>Hybrids of unit and integration tests. These test are checking multiple code units as well as
+<li><strong>Hybrids of unit and integration tests.</strong> These test are checking multiple code units as well as
   how the are connected together.<br />
   e.g. <code>seedu.todo.logic.LogicManagerTest</code></li>
 </ol>
@@ -771,6 +776,9 @@ any missing dependencies before compiling the classes.  </p>
 any missing dependencies before compiling the test classes.</p>
 <p>See <code>build.gradle</code> &gt; <code>allprojects</code> &gt; <code>dependencies</code> &gt; <code>testCompile</code> for the list of 
 dependencies required.</p>
+<ul>
+<li>[CRUD]: Create, Retrieve, Update, Delete</li>
+</ul>
 </div>
 </body>
 </html>

@@ -85,7 +85,7 @@ Two of those classes play important roles at the architecture level.
 
 The rest of the App consists three components.
 
-* [**`UI`**](#ui-component): The UI of tha App, representing the view layer. 
+* [**`UI`**](#ui-component): The user facing elements of tha App, representing the view layer. 
 * [**`Logic`**](#logic-component): The parser and command executer, representing the controller 
 * [**`Model`**](#model-component): Data manipulation and storage, representing the model and data layer 
 
@@ -107,9 +107,11 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 <img src="images/SDforDeletePersonEventHandling.png" width="800">
 
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
-  coupling between components.
+!!! Event Driven Design 
+
+    Note how the event is propagated through the `EventsCenter` to `UI` without `Model` having
+    to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
+    coupling between components.
 
 The sections below give more details of each component.
 
@@ -156,7 +158,7 @@ the command the user called
 4. The command execution can affect the `Model` (e.g. adding a person), and/or raise events.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.
+ API call. See [the implementation section](#logic) below for the implementation details of the logic component.  
  
 <img src="images/DeletePersonSdForLogic.png" width="800">
 
@@ -166,15 +168,11 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 **API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
-The `Model`,
+The model component represents the application's data layer. It is injected into command objects through 
+the logic component, and exposes a CRUD interface to logic that allows commands to modify the application's 
+data. To ensure safety it exposes as much of it as immutable objects as possible through interfaces 
+such as `ImmutableTask`. The model also persists any changes of the 
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Todo list data and persists it to the 
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' ie. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
-* exposes a simplified interface to the 
-
-### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800">
 
@@ -221,7 +219,7 @@ named:
 
 The `TodoDispatcher` subcomponent implements the `Dispatcher` interface, which defines a single 
 `dispatch` command. The dispatch function simply maps the provided `ParseResult` object to the 
-correct command and returns it.
+correct command, instantiates a new instance of it then returns it to the caller. 
 
 #### Command
 
@@ -243,7 +241,7 @@ public class YourCommand extends BaseCommand {
 
     @Override
     protected Parameter[] getArguments() {
-        // TODO: List all arguments inside this array
+        // TODO: List all command argument objects inside this array
         return new Parameter[]{ index };
     }
 
@@ -255,14 +253,19 @@ public class YourCommand extends BaseCommand {
 ```
 
 If you need to do argument validation, you can also override the `validateArgument` command, 
-which is run after all arguments have been set.  
+which is run after all arguments have been set.
 
 #### Arguments 
 
 Command arguments are defined using argument objects. Representing arguments as objects have several 
-benefit - it makes them declarative 
+benefit - it makes them declarative, it allows argument parsing and validation code to be reused across 
+multiple commands, and the fluent setter allows each individual property to be set indepently of each other. 
+The argument object's main job is to convert the user input from string into the type which the 
+command object can use, as well as contain information about the argument that the program can show to the 
+user.
 
-
+The generic type `T` represents the return type of the command argument. To implement a new argument 
+type, extend the abstract base class `Argument`. 
 
 ### Logging
 
@@ -331,7 +334,7 @@ We have two types of tests:
     2. **Integration tests** - that are checking the integration of multiple code units
      (those code units are assumed to be working).  
       e.g. `seedu.todo.storage.StorageManagerTest`
-    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
+    3. **Hybrids of unit and integration tests.** These test are checking multiple code units as well as
       how the are connected together.  
       e.g. `seedu.todo.logic.LogicManagerTest`
 
@@ -701,6 +704,8 @@ any missing dependencies before compiling the test classes.
   
 See `build.gradle` > `allprojects` > `dependencies` > `testCompile` for the list of 
 dependencies required.
+
+* [CRUD]: Create, Retrieve, Update, Delete
 
 
 [repo]: https://github.com/CS2103AUG2016-W10-C4/main/
