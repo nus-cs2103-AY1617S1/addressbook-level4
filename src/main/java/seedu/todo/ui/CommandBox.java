@@ -77,6 +77,7 @@ public class CommandBox extends UiPart {
          */
         setStyleToIndicateCorrectCommand();
         logic.execute(previousCommandTest);
+        //TODO: Display results here.
     }
 
 
