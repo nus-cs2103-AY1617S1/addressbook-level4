@@ -23,17 +23,17 @@ public class DateTimeParserTest {
     }
 
     @Test
-    public void execute_parseDateTime_emptyString() throws Exception {
+    public void parseDateTime_emptyString() throws Exception {
         assertTrue(!dateTimeParser.parseDateTime("").isPresent());
     }
 
     @Test
-    public void execute_parseDateTime_noDate() throws Exception {
+    public void parseDateTime_noDate() throws Exception {
         assertTrue(!dateTimeParser.parseDateTime("No date").isPresent());
     }
 
     @Test
-    public void execute_parseDateTime_ddMMMyyyy_HHmm() throws Exception {
+    public void parseDateTime_ddMMMyyyy_HHmm() throws Exception {
         assertDateTimeMatches(
             dateTimeParser.parseDateTime("28 Feb 2016 23:59").orElse(null),
             28, 2, 2016, 23, 59, 0
@@ -41,7 +41,7 @@ public class DateTimeParserTest {
     }
 
     @Test
-    public void execute_parseDateTime_ddMMM_HHmm() throws Exception {
+    public void parseDateTime_ddMMM_HHmm() throws Exception {
         assertDateTimeMatches(
             dateTimeParser.parseDateTime("28 Feb 23:59").orElse(null),
             28, 2, now.getYear(), 23, 59, 0
