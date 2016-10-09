@@ -9,6 +9,7 @@ import seedu.address.logic.parser.AddCommandParser;
 import seedu.address.logic.parser.MasterParser;
 import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.storage.Storage;
 
 import java.util.logging.Logger;
@@ -38,8 +39,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return model.getFilteredTaskList();
     }
     
     private void registerAllDefaultCommandParsers() {

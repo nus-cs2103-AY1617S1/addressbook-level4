@@ -16,6 +16,10 @@ public class MainGuiHandle extends GuiHandle {
     public PersonListPanelHandle getPersonListPanel() {
         return new PersonListPanelHandle(guiRobot, primaryStage);
     }
+    
+    public TaskListPanelHandle getTaskListPanel() {
+        return new TaskListPanelHandle(guiRobot, primaryStage);
+    }
 
     public ResultDisplayHandle getResultDisplay() {
         return new ResultDisplayHandle(guiRobot, primaryStage);
