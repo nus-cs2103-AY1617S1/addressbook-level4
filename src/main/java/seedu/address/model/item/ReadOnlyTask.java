@@ -23,7 +23,7 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName().name)
-                .append(", Rank: ")
+                .append(", Priority: ")
                 .append(getPriorityValue());
         return builder.toString();
     }

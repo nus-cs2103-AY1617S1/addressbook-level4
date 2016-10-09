@@ -20,7 +20,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     
     public Task(Name taskName) {
         this.taskName = taskName;
-        this.priorityValue = Priority.medium;
+        this.priorityValue = Priority.MEDIUM;
     }
 
     public Task(Name taskName, Priority priorityValue) {
@@ -33,7 +33,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName());
+        this(source.getName(), source.getPriorityValue());
     }
     
     /**

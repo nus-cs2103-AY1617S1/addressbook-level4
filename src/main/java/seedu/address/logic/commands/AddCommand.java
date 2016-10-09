@@ -36,18 +36,18 @@ public class AddCommand extends Command {
     }
     
     public AddCommand(String name, String priorityValue) throws IllegalValueException {
-        Priority priority = Priority.medium;
+        Priority priority = Priority.MEDIUM;
         String[] priorityTypes = { "low", "medium", "high" };
         String priorityString = "medium";
         for (String p: priorityTypes) {
-            if (p.contains(priorityValue)) {
+            if (p.contains(priorityValue.toLowerCase())) {
                 priorityString = p;
             }
         }
         switch (priorityString) {
-            case ("low"): priority = Priority.low; break;
-            case ("medium"): priority = Priority.medium; break;
-            case ("high"): priority = Priority.high; break;
+            case ("low"): priority = Priority.LOW; break;
+            case ("medium"): priority = Priority.MEDIUM; break;
+            case ("high"): priority = Priority.HIGH; break;
         }
         this.toAdd = new Task(new Name(name), priority);
     }

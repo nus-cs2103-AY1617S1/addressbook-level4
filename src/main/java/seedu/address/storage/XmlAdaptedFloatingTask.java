@@ -32,7 +32,7 @@ public class XmlAdaptedFloatingTask {
      */
     public XmlAdaptedFloatingTask(ReadOnlyTask source) {
         name = source.getName().name;
-        priorityValue = source.getPriorityValue().toString();        
+        priorityValue = source.getPriorityValue().toString().toLowerCase();        
     }
 
     /**
@@ -42,14 +42,14 @@ public class XmlAdaptedFloatingTask {
      */
     public Task toModelType() throws IllegalValueException {
         final String name = new String(this.name);
-        Priority priority = Priority.medium;
+        Priority priority = Priority.MEDIUM;
 
         if (this.priorityValue.equals("high")) {
-            priority = Priority.high;
+            priority = Priority.HIGH;
         } else if (this.priorityValue.equals("medium")) {
-            priority = Priority.medium;
+            priority = Priority.MEDIUM;
         } else if (this.priorityValue.equals("low")) {
-            priority = Priority.low;
+            priority = Priority.LOW;
         }
         
         return new Task(new Name(name), priority);

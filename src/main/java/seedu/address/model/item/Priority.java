@@ -1,7 +1,7 @@
 package seedu.address.model.item;
 
 public enum Priority {
-    low,
-    medium,
-    high
+    HIGH,
+    MEDIUM,
+    LOW
 }
