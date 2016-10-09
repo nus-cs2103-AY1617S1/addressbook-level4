@@ -27,7 +27,7 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
 
     private static final Pattern TASK_DATA_ARGS_FORMAT_FT = Pattern.compile(
-            "(?<name>[^/]+)" + " from (?<fromDateTime>.+)" + " till (?<tillDateTime>[^;]+)" + "(?: ?; ?(?<detail>.+))?");
+            "(?<name>[^/]+)" + " on (?<fromDateTime>.+)" + " by (?<tillDateTime>[^;]+)" + "(?: ?; ?(?<detail>.+))?");
 
     private static final Pattern TASK_DATA_ARGS_FORMAT_ON = Pattern
             .compile("(?<name>[^/]+) on (?<fromDateTime>[^;]+)(?: ?; ?(?<detail>.+))?");

@@ -65,6 +65,7 @@ public class TagCommand extends Command{
                 } catch (DuplicateTagException e) {}
             }
             model.updateTask(taskToTag, toTag);
+            model.updateFilteredListToShowAll();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
         }

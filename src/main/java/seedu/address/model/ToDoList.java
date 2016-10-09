@@ -16,47 +16,60 @@ import java.util.stream.Collectors;
  */
 public class ToDoList implements ReadOnlyToDoList {
 
-    private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
+    
+    private final Stack<UniqueTaskList> tasksHistory;
+    private final Stack<UniqueTagList> tagsHistory;
 
     {
-        tasks = new UniqueTaskList();
-        tags = new UniqueTagList();
+        tasksHistory = new Stack<>();
+        tagsHistory = new Stack<>();
     }
 
-    public ToDoList() {}
+    public ToDoList() {
+        this(new UniqueTaskList(), new UniqueTagList());
+    }
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this ToDoList
      */
     public ToDoList(ReadOnlyToDoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
-        
     }
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this ToDoList
      */
     public ToDoList(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyToDoList getEmptyAddressBook() {
+    public static ReadOnlyToDoList getEmptyToDoList() {
         return new ToDoList();
     }
 
 //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
-        return tasks.getInternalList();
+        return tasksHistory.peek().getInternalList();
     }
 
     public void setTasks(List<Task> tasks) {
-        this.tasks.getInternalList().setAll(tasks);
+        if (this.tasksHistory.isEmpty()) {
+            UniqueTaskList topList = this.createNewTaskList(tasks);
+            this.tasksHistory.push(topList);
+        } else {
+            UniqueTaskList topList = this.tasksHistory.pop();
+            UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+            
+            this.tasksHistory.push(oldList);
+            this.tasksHistory.push(topList);
+        }
+        
     }
 
     public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
+        UniqueTagList newList = this.createNewTagList(tags);
+        this.tagsHistory.push(newList);
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
@@ -78,7 +91,11 @@ public class ToDoList implements ReadOnlyToDoList {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
-        tasks.add(p);
+        UniqueTaskList topList = this.tasksHistory.pop();
+        UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+        oldList.add(p);
+        this.tasksHistory.push(oldList);
+        this.tasksHistory.push(topList);
     }
 
     /**
@@ -88,11 +105,12 @@ public class ToDoList implements ReadOnlyToDoList {
      */
     public void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
+        UniqueTagList newList = this.createNewTagList(this.tagsHistory.peek().getInternalList());
+        newList.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
+        for (Tag tag : newList) {
             masterTagObjects.put(tag, tag);
         }
 
@@ -105,45 +123,67 @@ public class ToDoList implements ReadOnlyToDoList {
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.remove(key)) {
+        UniqueTaskList topList = this.tasksHistory.pop();
+        UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+        if (topList.remove(key)) {
+            this.tasksHistory.push(oldList);
+            this.tasksHistory.push(topList);
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    /**
+     * Pop the top most UniqueTaskList.
+     * TODO : Does not handle tags as of yet
+     */
+    public boolean undo() {
+       if (this.tasksHistory.size() > 1) {
+           UniqueTaskList topList = this.tasksHistory.pop();
+           UniqueTaskList oldList = this.tasksHistory.pop();
+           topList.getInternalList().setAll(oldList.getInternalList());
+           this.tasksHistory.push(topList);
+           return true;
+       }
+       return false;
+    }
 
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
+        UniqueTagList newList = this.createNewTagList(this.tagsHistory.peek().getInternalList());
+        newList.add(t);
+        this.tagsHistory.push(newList);
     }
 
 //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasksHistory.peek().getInternalList().size() + " tasks, " 
+                + tagsHistory.peek().getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
+        return Collections.unmodifiableList(tasksHistory.peek().getInternalList());
     }
 
     @Override
     public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
+        return Collections.unmodifiableList(tagsHistory.peek().getInternalList());
     }
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
-        return this.tasks;
+        return this.tasksHistory.peek();
     }
 
     @Override
     public UniqueTagList getUniqueTagList() {
-        return this.tags;
+        return this.tagsHistory.peek();
     }
 
 
@@ -151,13 +191,36 @@ public class ToDoList implements ReadOnlyToDoList {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ToDoList // instanceof handles nulls
-                && this.tasks.equals(((ToDoList) other).tasks)
-                && this.tags.equals(((ToDoList) other).tags));
+                && this.tasksHistory.peek().equals(((ToDoList) other).tasksHistory.peek())
+                && this.tagsHistory.peek().equals(((ToDoList) other).tagsHistory.peek()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(tasksHistory.peek(), tagsHistory.peek());
     }
+    
+    private UniqueTaskList createNewTaskList(Collection<Task> old) {
+        UniqueTaskList newList = new UniqueTaskList();
+
+        for (Task t : old) {
+            try {
+                newList.add(new Task(t));
+            } catch (UniqueTaskList.DuplicateTaskException e) {}
+        }
+        return newList;
+    }
+    
+    private UniqueTagList createNewTagList(Collection<Tag> old) {
+        UniqueTagList newList = new UniqueTagList();
+        
+        for (Tag t : old) {
+            try {
+                newList.add(t);
+            } catch (UniqueTagList.DuplicateTagException e) {}
+        }
+        return newList;
+    }
+    
 }

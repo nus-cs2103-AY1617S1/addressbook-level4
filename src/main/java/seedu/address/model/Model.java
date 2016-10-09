@@ -17,6 +17,9 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyToDoList newData);
 
+    /** Move model back to previous state */
+    boolean undo();
+    
     /** Returns the ToDoList */
     ReadOnlyToDoList getToDoList();
 
