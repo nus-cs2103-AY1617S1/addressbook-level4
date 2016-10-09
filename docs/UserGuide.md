@@ -44,6 +44,7 @@ Are you ready to embrace a new way of living and have your life better organized
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
+> * Parameters must be separated by a `,`.
 
 #### Viewing help : `help`
 Format: `help`
@@ -54,32 +55,45 @@ Format: `help`
 Adds a task to GGist<br>
 General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
-<img src="images/2ndimpt.png" width="500"><br>
+> **`Date` Format**
+> * [MMM DD] or [DAY]
+> * Eg. `OCT 10` or `MON`
+ 
+> **`TIME` Format**
+> * 24-Hour [HHMM] 
+> * Eg. `2359`
 
-###### With deadline
-Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
+>**`PRIORITY` Format**
+> * `low` , `med` , `high`
 
-Examples: 
-* `add write diary, jul 10, 1300`
-* `add prepare presentation slides, mon, 1400, high`
+>**`FREQUENCY` Format**
+> * `daily` , `weekly` , `fortnightly` , `monthly` , `yearly`
 
-###### Without any deadline
+
+##### Without any deadline
 Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
 Examples: 
 * `add buy milk, low`
 * `add buy present for brother's birthday`
 
-###### With start and end time
+
+##### With deadline
 Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
 
-For this kind of task, the parameter TIME is in the format START-END.
+Examples: 
+* `add write diary, jul 10, 1300`
+* `add prepare presentation slides, mon, 1400, high`
+
+
+##### With start and end time
+> For this kind of task, the `TIME` is in the format `START-END`.
 
 Examples: 
 * `add dad's birthday celebration, jul 10, 1900-2100, high`
 * `add company's D&D, sun, 1900-2200`
 
-###### Recurring
+##### Recurring
 To make tasks repeating, simply  add the FREQUENCY parameter at the back.
 
 Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
@@ -92,8 +106,10 @@ Examples:
 Shows a list of all tasks in a particular day.<br>
 Format: `list DATE`
 
+> `list` without `DATE` shows all tasks in GGist 
+
 #### Searching tasks by keywords: `search`
-Searches and lists all tasks that contain the specified keyword.<br>
+Searches and lists all tasks that contain the specified keyword, inclusive of `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY`.<br>
 Format: `search KEYWORD`<br>
 
 > * The search is not case sensitive.
@@ -122,7 +138,7 @@ Examples:
   `delete 1`<br>
   Deletes the task indexed first in the results of the `search` command.
 
-To delete more than one task, simply add in the other indexes separated with a comma. <br>
+> To delete more than one task, simply add in the other indexes separated with a comma. <br>
 
 Example:<br>
 * `delete 1, 2, 3`
@@ -138,12 +154,12 @@ Format: `undo`
 Edits task on the displayed list.<br>
 Format: `edit INDEX PARAMETER NEW_INFORMATION`
 
-<img src="images/2ndimpt.png" width="500"><br>
+> More than 1 parameters can be edited at the same input, simplu separate them with a `,`.
 
 Examples: 
-* `edit 1 date oct 11`
+* `edit 1 date oct 11, time 1800-2000`
 * `list dec 30`<br>
-  `edit 5 task buy coconut`
+  `edit 5 task buy coconut, time 1500`
   
 To make one of the parameters (except the task name) empty, follow the format below:<br>
 Format: `edit INDEX PARAMETER clear`
@@ -151,33 +167,13 @@ Format: `edit INDEX PARAMETER clear`
 Example: 
 * `edit 3 time clear`
 
-
-#### Sorting all tasks : `sort`
-Sort all tasks according to the specified category.<br>
-Three categories: Alphabetical order, priority level, deadlines<br>
-Format: `sort CATEGORY`
-
-<img src="images/sortpic.png" width="400"><br>
-
-Example:<br>
-* `sort A`
-* `sort D`
-
-#### Reserving a time slot : `reserve`
-Reserves a time slot and prevents you from scheduling conflicting tasks.<br>
-Format: `reserve DATE, TIME`
-
-Example:<br>
-* `reserve mon, 1200-2300`
-* `reserve oct 15, 1500-1500`
-
 #### Marking a task as complete : `done`
-Marks task on displayed list as complete. Does not remove it from the list. The completed tasks will be seen striked off.<br>
+Marks task on displayed list as complete. Does not remove completely from GGist.<br>
 Format: `done INDEX`
 
 Example:<br>
 * `done 1`
-* `search oct 1`
+* `search oct 1`<br>
   `done 2`
  
 To mark more than one task as complete, simply type in the other indexes separated with a comma. <br>
@@ -186,13 +182,15 @@ Format: `done INDEX, ...`
 Example:<br>
 * `done 1, 2, 3`
 
+> To view all completed tasks, simply type  `list done`!
+
 
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Task Manager data are saved in the hard disk automatically after any command that changes the data.<br>
+All GGist data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
        
 ## Command Cheatsheet
@@ -203,10 +201,8 @@ Add     | `add TASK, DATE, TIME, PRIORITY, FREQUENCY`
 Delete  | `delete INDEX`
 Done    | `done INDEX`
 Search  | `search KEYWORD`
-Reserve | `reserve DATE, TIME`
 Edit    | `edit INDEX FIELD NEW_INFORMATION`
 List    | `list DATE`
 Undo    | `undo`
-Sort    | `sort CATEGORY`
 Help    | `help`
 Exit    | `exit`
