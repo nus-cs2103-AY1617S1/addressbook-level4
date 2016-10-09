@@ -19,7 +19,7 @@ public class TaskManBuilder {
         this.taskMan = taskMan;
     }
 
-    public TaskManBuilder withTask(Task task) throws UniqueActivityList.DuplicateTaskException {
+    public TaskManBuilder withTask(Task task) throws UniqueActivityList.DuplicateActivityException {
         taskMan.addTask(task);
         return this;
     }

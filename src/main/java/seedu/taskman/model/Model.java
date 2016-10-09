@@ -21,7 +21,7 @@ public interface Model {
     void deleteActivity(Activity target) throws UniqueActivityList.ActivityNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueActivityList.DuplicateTaskException;
+    void addTask(Task task) throws UniqueActivityList.DuplicateActivityException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Activity>} */
     UnmodifiableObservableList<Activity> getFilteredActivityList();

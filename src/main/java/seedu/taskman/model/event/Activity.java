@@ -27,12 +27,14 @@ public class Activity implements ReadOnlyEvent{
 
     public Activity(Activity source){
         switch (source.getType()){
-            case TASK:
+            case TASK: {
                 this.activity = new Task((ReadOnlyTask) source.activity);
                 break;
+            }
             case EVENT:
-            default:
+            default: {
                 this.activity = new Event(source.getEvent());
+            }
         }
         type = source.getType();
     }
@@ -54,21 +56,25 @@ public class Activity implements ReadOnlyEvent{
 
     public Optional<Status> getStatus() {
         switch(type){
-            case TASK:
-                return Optional.ofNullable(((ReadOnlyTask)activity).getStatus());
+            case TASK: {
+                return Optional.ofNullable(((ReadOnlyTask) activity).getStatus());
+            }
             case EVENT:
-            default:
-                return null;
+            default: {
+                return Optional.empty();
+            }
         }
     }
 
     public Optional<Deadline> getDeadline() {
         switch(type){
-            case TASK:
-                return ((ReadOnlyTask)activity).getDeadline();
+            case TASK: {
+                return ((ReadOnlyTask) activity).getDeadline();
+            }
             case EVENT:
-            default:
+            default: {
                 return Optional.empty();
+            }
         }
     }
 
@@ -96,11 +102,13 @@ public class Activity implements ReadOnlyEvent{
         if(type != other.type) return false;
 
         switch(type){
-            case TASK:
-                return ((ReadOnlyTask)activity).isSameStateAs((ReadOnlyTask)other.activity);
+            case TASK: {
+                return ((ReadOnlyTask) activity).isSameStateAs((ReadOnlyTask) other.activity);
+            }
             case EVENT:
-            default:
+            default: {
                 return activity.isSameStateAs(other.activity);
+            }
         }
     }
 

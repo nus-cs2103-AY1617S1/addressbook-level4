@@ -80,9 +80,9 @@ public class TaskMan implements ReadOnlyTaskMan {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueActivityList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueActivityList.DuplicateActivityException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniqueActivityList.DuplicateTaskException {
+    public void addTask(Task p) throws UniqueActivityList.DuplicateActivityException {
         syncTagsWithMasterList(p);
         activities.add(new Activity(p));
     }

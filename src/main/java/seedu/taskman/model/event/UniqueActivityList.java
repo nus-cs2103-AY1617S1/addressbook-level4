@@ -20,9 +20,9 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate tasks");
+    public static class DuplicateActivityException extends DuplicateDataException {
+        protected DuplicateActivityException() {
+            super("Operation would result in duplicate activities");
         }
     }
 
@@ -50,12 +50,12 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateActivityException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Activity toAdd) throws DuplicateTaskException {
+    public void add(Activity toAdd) throws DuplicateActivityException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicateTaskException();
+            throw new DuplicateActivityException();
         }
         internalList.add(toAdd);
     }
