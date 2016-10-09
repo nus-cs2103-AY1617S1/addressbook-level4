@@ -77,6 +77,29 @@ Format: `delete <task name>`
 Example:
 * `delete CS2103T Tutorial`
 
+#### Showing full list: `show`
+Displays all the task for the user to view.<br>
+Format: `show`
+
+#### Showing list for today: `show today`
+Displays all the task for today for the user to view.<br>
+Format: `show today`
+
+#### Showing list for tomorrow: `show tomorrow`
+Displays all the task for tomorrow for the user to view.<br>
+Format: `show tomorrow`
+
+#### Showing list for upcoming: `show upcoming`
+Displays all the task for upcoming task for the user to view.<br>
+Format: `show upcoming`
+
+#### Showing list for specific date: `show <date>`
+Displays all the task for today the user to view.<br>
+Format: `show <date>`
+
+Example:
+* `show 10/10/16`
+
 #### View: `done`
 Displays all the completed task on that day for the user to view.<br>
 Format: `show done`
