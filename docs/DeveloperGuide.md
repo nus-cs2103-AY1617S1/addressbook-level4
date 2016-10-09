@@ -110,7 +110,7 @@ The following diagram shows how the `EventsCenter` reacts to the event (`delete 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
->**_Figure 4_**: UI component - shows each part of UI
+>**_Figure 4_**: UI Diagram
 
 **API** : [`Ui.java`](../src/main/java/seedu/ggist/ui/Ui.java)
 
@@ -130,69 +130,73 @@ The `UI` component,
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
+>**_Figure 5_**: Logic Diagram
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+1. The `Logic` component uses the `Parser` class to parse the user command.
+2. This results in a `Command` object being executed by the `LogicManager`.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
+The following diagram displays the interactions within the `Logic` component for the `execute("delete 1")` API call(refer to Figure 6).<br>
+ 
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
+>**_Figure 6_**: Sequence Diagram - shows interactions within the `Logic` component for the `execute("delete 1")` API call
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
+>**_Figure 7_**: Model Diagram
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/ggist/model/Model.java)
 
-The `Model`,
+The `Model` component,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
+* stores the GGist data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI binds to this list
+  so that the UI updates automatically when the data in the list changes.
 * does not depend on any of the other three components.
 
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
+>**_Figure 8_**: Storage Diagram
 
 **API** : [`Storage.java`](../src/main/java/seedu/ggist/storage/Storage.java)
 
 The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the GGist data in xml format and read it back.
+*saves `UserPref` objects in json format and reads it back.
+*saves the GGist data in xml format and reads it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.ggist.commons` package.
 
 ## Implementation
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+`java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
+  (See [Configuration](#configuration)).
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+  the specified logging level.
+* Current log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
+* `INFO` : Information showing the noteworthy actions by the application
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g application name, logging level) through the configuration file 
 (default: `config.json`):
 
 
@@ -202,19 +206,18 @@ Tests can be found in the `./src/test/java` folder.
 
 **In Eclipse**:
 * To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
-  to run as a JUnit test.
+  `Run as` > `JUnit Test`.
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.
 
 **Using Gradle**:
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
-We have two types of tests:
+There are two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire application by simulating user actions on the GUI. 
    These are in the `guitests` package.
   
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
+2. **Non-GUI Tests** - These are tests not involving the GUI. They include: 
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.ggist.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
@@ -228,7 +231,7 @@ We have two types of tests:
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ This means that the developer can do other things on the computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
  
 #### Troubleshooting tests
@@ -261,7 +264,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, GGist depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
