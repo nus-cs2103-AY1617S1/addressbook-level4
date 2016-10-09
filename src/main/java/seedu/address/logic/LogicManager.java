@@ -9,7 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
-import seedu.address.model.item.ReadOnlyFloatingTask;
+import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.storage.Storage;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -40,7 +40,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList() {
+    public ObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
         return model.getFilteredFloatingTaskList();
     }
     

@@ -62,7 +62,7 @@
                <children>
                   <HBox GridPane.rowIndex="1">
                      <children>
-                        <Label styleClass="cell_small_label" text="Rank:" />
+                        <Label styleClass="cell_small_label" text="Priority: " />
                               <Label fx:id="priority" styleClass="cell_small_label" text="\\$priority" />
                      </children>
                   </HBox>

@@ -3,12 +3,12 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
-import seedu.address.model.item.ReadOnlyFloatingTask;
+import seedu.address.model.item.ReadOnlyTask;
 
 /**
  * A mutable floating task object. For testing only.
  */
-public class TestFloatingTask implements ReadOnlyFloatingTask {
+public class TestFloatingTask implements ReadOnlyTask {
 
     private Name name;
     private Priority priority;

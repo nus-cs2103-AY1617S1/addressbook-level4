@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import seedu.address.model.TaskManager;
-import seedu.address.model.item.FloatingTask;
-import seedu.address.model.item.UniqueFloatingTaskList;
+import seedu.address.model.item.Task;
+import seedu.address.model.item.UniqueTaskList;
 
 /**
  * A utility class to help with building TaskManager objects.
@@ -17,7 +17,7 @@ public class TaskManagerBuilder {
         this.TaskManager = TaskManager;
     }
 
-    public TaskManagerBuilder withFloatingTask(FloatingTask person) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
+    public TaskManagerBuilder withFloatingTask(Task person) throws UniqueTaskList.DuplicateTaskException {
         TaskManager.addFloatingTask(person);
         return this;
     }

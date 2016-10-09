@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.TaskManager;
 import seedu.address.model.item.*;
-import seedu.address.model.item.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 
 /**
  *
@@ -33,14 +33,14 @@ public class TypicalTestFloatingTasks {
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
         try {
-            ab.addFloatingTask(new FloatingTask(alice));
-            ab.addFloatingTask(new FloatingTask(benson));
-            ab.addFloatingTask(new FloatingTask(carl));
-            ab.addFloatingTask(new FloatingTask(daniel));
-            ab.addFloatingTask(new FloatingTask(elle));
-            ab.addFloatingTask(new FloatingTask(fiona));
-            ab.addFloatingTask(new FloatingTask(george));
-        } catch (DuplicateFloatingTaskException e) {
+            ab.addFloatingTask(new Task(alice));
+            ab.addFloatingTask(new Task(benson));
+            ab.addFloatingTask(new Task(carl));
+            ab.addFloatingTask(new Task(daniel));
+            ab.addFloatingTask(new Task(elle));
+            ab.addFloatingTask(new Task(fiona));
+            ab.addFloatingTask(new Task(george));
+        } catch (DuplicateTaskException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

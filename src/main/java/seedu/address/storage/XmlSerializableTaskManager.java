@@ -2,8 +2,8 @@ package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTaskManager;
-import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.item.UniqueFloatingTaskList;
+import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.UniqueTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -36,8 +36,8 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniqueFloatingTaskList getUniqueFloatingTaskList() {
-        UniqueFloatingTaskList lists = new UniqueFloatingTaskList();
+    public UniqueTaskList getUniqueFloatingTaskList() {
+        UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedFloatingTask p : floatingTasks) {
             try {
                 lists.add(p.toModelType());
@@ -49,7 +49,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public List<ReadOnlyFloatingTask> getFloatingTaskList() {
+    public List<ReadOnlyTask> getFloatingTaskList() {
         return floatingTasks.stream().map(p -> {
             try {
                 return p.toModelType();

@@ -1,7 +1,8 @@
 package seedu.address.model.item;
 
+import java.util.Optional;
 
-public interface ReadOnlyFloatingTask {
+public interface ReadOnlyTask {
 
     Name getName();
     Priority getPriorityValue();
@@ -9,11 +10,11 @@ public interface ReadOnlyFloatingTask {
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyFloatingTask other) {
+    default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().name.equals(this.getName().name) // state checks here onwards
-                && other.getPriorityValue().priorityValue.equals(this.getPriorityValue().priorityValue));
+                && other.getPriorityValue() == this.getPriorityValue());
     }
     
     /**
@@ -23,7 +24,7 @@ public interface ReadOnlyFloatingTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName().name)
                 .append(", Rank: ")
-                .append(getPriorityValue().priorityValue);
+                .append(getPriorityValue());
         return builder.toString();
     }
 }

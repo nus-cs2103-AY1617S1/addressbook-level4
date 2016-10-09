@@ -16,7 +16,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.item.FloatingTask;
+import seedu.address.model.item.Task;
 import seedu.address.model.TaskManager;
 import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final FloatingTask[] sampleFloatingTaskData = getSampleFloatingTaskData();
+    public static final Task[] sampleFloatingTaskData = getSampleFloatingTaskData();
 
-    private static FloatingTask[] getSampleFloatingTaskData() {
+    private static Task[] getSampleFloatingTaskData() {
         try {
-            return new FloatingTask[]{
-                    new FloatingTask(new Name("Ali Muster"), new Priority("9")),
-                    new FloatingTask(new Name("Boris Mueller"), new Priority("8")),
-                    new FloatingTask(new Name("Carl Kurz"), new Priority("9")),
-                    new FloatingTask(new Name("Daniel Meier"), new Priority("8")),
-                    new FloatingTask(new Name("Elle Meyer"), new Priority("9")),
-                    new FloatingTask(new Name("Fiona Kunz"), new Priority("9")),
-                    new FloatingTask(new Name("George Best"), new Priority("9")),
-                    new FloatingTask(new Name("Hoon Meier"), new Priority("8")),
-                    new FloatingTask(new Name("Ida Mueller"), new Priority("8"))
+            return new Task[]{
+                    new Task(new Name("Ali Muster"), new Priority("9")),
+                    new Task(new Name("Boris Mueller"), new Priority("8")),
+                    new Task(new Name("Carl Kurz"), new Priority("9")),
+                    new Task(new Name("Daniel Meier"), new Priority("8")),
+                    new Task(new Name("Elle Meyer"), new Priority("9")),
+                    new Task(new Name("Fiona Kunz"), new Priority("9")),
+                    new Task(new Name("George Best"), new Priority("9")),
+                    new Task(new Name("Hoon Meier"), new Priority("8")),
+                    new Task(new Name("Ida Mueller"), new Priority("8"))
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,7 +97,7 @@ public class TestUtil {
         }
     }
 
-    public static List<FloatingTask> generateSampleFloatingTaskData() {
+    public static List<Task> generateSampleFloatingTaskData() {
         return Arrays.asList(sampleFloatingTaskData);
     }
 
@@ -135,7 +135,7 @@ public class TestUtil {
     }
 
     public static TaskManager generateEmptyTaskManager() {
-        return new TaskManager(new UniqueFloatingTaskList());
+        return new TaskManager(new UniqueTaskList());
     }
 
     public static XmlSerializableTaskManager generateSampleStorageTaskManager() {
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(FloatingTaskCardHandle card, ReadOnlyFloatingTask floatingTask) {
+    public static boolean compareCardAndPerson(FloatingTaskCardHandle card, ReadOnlyTask floatingTask) {
         return card.isSameFloatingTask(floatingTask);
     }
 

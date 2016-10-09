@@ -6,10 +6,10 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.model.item.FloatingTask;
-import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.item.UniqueFloatingTaskList;
-import seedu.address.model.item.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.address.model.item.Task;
+import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.UniqueTaskList;
+import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -22,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<FloatingTask> filteredFloatingTasks;
+    private final FilteredList<Task> filteredFloatingTasks;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -64,13 +64,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteFloatingTask(ReadOnlyFloatingTask floatingTask) throws FloatingTaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyTask floatingTask) throws TaskNotFoundException {
         taskManager.removeFloatingTask(floatingTask);
         indicateTaskManagerChanged();
     }
 
     @Override
-    public synchronized void addFloatingTask(FloatingTask floatingTask) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
+    public synchronized void addTask(Task floatingTask) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addFloatingTask(floatingTask);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
@@ -79,7 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
         return new UnmodifiableObservableList<>(filteredFloatingTasks);
     }
 
@@ -99,7 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyFloatingTask person);
+        boolean satisfies(ReadOnlyTask person);
         String toString();
     }
 
@@ -112,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyFloatingTask person) {
+        public boolean satisfies(ReadOnlyTask person) {
             return qualifier.run(person);
         }
 
@@ -123,7 +123,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyFloatingTask person);
+        boolean run(ReadOnlyTask person);
         String toString();
     }
 
@@ -135,7 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyFloatingTask person) {
+        public boolean run(ReadOnlyTask person) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().name, keyword))
                     .findAny()

@@ -28,7 +28,7 @@ public class Parser {
     
     private static final Pattern FLOATING_TASK_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?i:(?<name>.*?)"
-                    + "(?:[r][a][n][k] +(?<priorityValue>\\d+))?$)");
+                    + "(?:-+(?<priorityValue>\\w+))?$)");
 
     public Parser() {}
 

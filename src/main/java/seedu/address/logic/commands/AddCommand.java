@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.item.FloatingTask;
+import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
-import seedu.address.model.item.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 
 /**
  * Adds a person to the address book.
@@ -24,7 +24,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
 
-    private final FloatingTask toAdd;
+    private final Task toAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -32,19 +32,32 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String name) throws IllegalValueException {
-        this.toAdd = new FloatingTask(new Name(name));
+        this.toAdd = new Task(new Name(name));
     }
     
     public AddCommand(String name, String priorityValue) throws IllegalValueException {
-       this.toAdd = new FloatingTask(new Name(name), new Priority(priorityValue));
+        Priority priority = Priority.medium;
+        String[] priorityTypes = { "low", "medium", "high" };
+        String priorityString = "medium";
+        for (String p: priorityTypes) {
+            if (p.contains(priorityValue)) {
+                priorityString = p;
+            }
+        }
+        switch (priorityString) {
+            case ("low"): priority = Priority.low; break;
+            case ("medium"): priority = Priority.medium; break;
+            case ("high"): priority = Priority.high; break;
+        }
+        this.toAdd = new Task(new Name(name), priority);
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addFloatingTask(toAdd);
-        } catch (DuplicateFloatingTaskException e) {
+            model.addTask(toAdd);
+        } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_FLOATING_TASK);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

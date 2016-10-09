@@ -1,9 +1,9 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.item.FloatingTask;
-import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.item.UniqueFloatingTaskList;
+import seedu.address.model.item.Task;
+import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.UniqueTaskList;
 
 import java.util.Set;
 
@@ -18,18 +18,20 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
 
     /** Deletes the given floating task. */
-    void deleteFloatingTask(ReadOnlyFloatingTask target) throws UniqueFloatingTaskList.FloatingTaskNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given floating task */
-    void addFloatingTask(FloatingTask floatingTask) throws UniqueFloatingTaskList.DuplicateFloatingTaskException;
+    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
 
     /** Updates the filter of the filtered floating task list to show all floating tasks */
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered floating task list to filter by the given keywords*/
     void updateFilteredFloatingTaskList(Set<String> keywords);
+
+
 
 }

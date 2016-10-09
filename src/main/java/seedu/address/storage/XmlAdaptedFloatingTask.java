@@ -1,10 +1,10 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.item.FloatingTask;
+import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
-import seedu.address.model.item.ReadOnlyFloatingTask;
+import seedu.address.model.item.ReadOnlyTask;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -30,9 +30,9 @@ public class XmlAdaptedFloatingTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedFloatingTask(ReadOnlyFloatingTask source) {
+    public XmlAdaptedFloatingTask(ReadOnlyTask source) {
         name = source.getName().name;
-        priorityValue = source.getPriorityValue().priorityValue;        
+        priorityValue = source.getPriorityValue().toString();        
     }
 
     /**
@@ -40,9 +40,18 @@ public class XmlAdaptedFloatingTask {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public FloatingTask toModelType() throws IllegalValueException {
+    public Task toModelType() throws IllegalValueException {
         final String name = new String(this.name);
-        final String priorityValue = new String(this.priorityValue);
-        return new FloatingTask(new Name(name), new Priority(priorityValue));
+        Priority priority = Priority.medium;
+
+        if (this.priorityValue.equals("high")) {
+            priority = Priority.high;
+        } else if (this.priorityValue.equals("medium")) {
+            priority = Priority.medium;
+        } else if (this.priorityValue.equals("low")) {
+            priority = Priority.low;
+        }
+        
+        return new Task(new Name(name), priority);
     }
 }
