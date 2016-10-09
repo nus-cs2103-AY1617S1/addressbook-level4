@@ -59,6 +59,13 @@ public class ModelManager extends ComponentManager implements Model {
         return taskBook;
     }
 
+    /**
+     * @return A modifiable version of the task list.
+     */
+    public FilteredList<FloatingTask> getModifiableTaskList() {
+        return filteredFloatingTasks;
+    }
+    
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(taskBook));
