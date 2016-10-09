@@ -133,7 +133,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         Task markedTask = new Task(toMark);
         markedTask.markAsCompleted();
-        internalList.set(taskIndex,markedTask);
+        internalList.set(taskIndex, markedTask);
         return taskFoundAndMarked;
     }
     
@@ -149,7 +149,9 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!taskFoundAndUnmarked) {
             throw new TaskNotFoundException();
         }
-        internalList.get(taskIndex).markAsUncompleted();
+        Task unmarkedTask = new Task(toUnmark);
+        unmarkedTask.markAsUncompleted();
+        internalList.set(taskIndex, unmarkedTask);
         return taskFoundAndUnmarked;
     }
 
