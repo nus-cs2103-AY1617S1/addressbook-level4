@@ -163,19 +163,19 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add Valid Task Name -dt 22/04/2016 1400 to 23/04/2016 2200 -p h", expectedMessage); //No Name Prefix
+                "add -dt 22/04/2016 1400 to 23/04/2016 2200 -p h Valid Task Name", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add -n []\\[;] -dt 05/09/2016 1400 to 06/09/2016 2200 -p m", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] -dt 05/09/2016 1400 to 06/09/2016 2200 -p m", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add -n Valid Task Name -dt @@@notAValidDate@@@ -p m", Messages.MESSAGE_INVALID_DATE);
+                "add Valid Task Name -dt @@@notAValidDate@@@ -p m", Messages.MESSAGE_INVALID_DATE);
         assertCommandBehavior(
-                "add -n Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p medium", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+                "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p medium", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
-                "add -n Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p m -t invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p m -t invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -447,9 +447,7 @@ public class LogicManagerTest {
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("add");
-
-            cmd.append(" -n ").append(p.getName().toString());
+            cmd.append("add ").append(p.getName().toString());
             
             if(p.getDateTime().toString().length() > 0) {
                 cmd.append(" -dt ").append(p.getDateTime().toString());
