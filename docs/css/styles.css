@@ -153,6 +153,18 @@ h4:hover .headerlink {
   border: 1px solid transparent;
   border-radius: 4px;
   font-size: 1.4rem;
+  line-height: 1.3;
+}
+
+ul .admonition, 
+ol .admonition {
+  margin-top: 1.5rem;
+}
+
+.admonition.example {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
 }
 
 .admonition.note {
@@ -173,14 +185,68 @@ h4:hover .headerlink {
   border-color: #ebccd1;
 }
 
-.admonition-title {
+.admonition .admonition-title {
   font-weight: bold;
-  margin-bottom: 0;
+  margin-bottom: .2rem;
   font-size: 1.5rem;
 }
 
 .admonition ul, 
 .admonition ol,
+.admonition dl,
 .admonition p {
   margin: 0;
+}
+
+
+.admonition dl dd {
+  margin: 0 0 .75rem 0;
+}
+
+.admonition dl dd:last-child {
+  margin-bottom: .5rem;
+}
+
+
+/* User Guide styles */
+.userguide strong + code {
+  margin-left: -.6rem;
+  border-left: 0;
+}
+
+.userguide .admonition code {
+  background: none;
+  border: 0;
+  font-size: 100%;
+  white-space: normal;
+}
+
+.userguide .admonition dt {
+  font-weight: normal;
+}
+
+.userguide .admonition p code:first-child, 
+.userguide .admonition li code:first-child, 
+.userguide .admonition dt code:first-child {
+  margin-left: -.4rem;
+}
+
+
+.userguide .admonition p code:first-child:before, 
+.userguide .admonition li code:first-child:before, 
+.userguide .admonition dt code:first-child:before {
+  content: '>> ';
+}
+
+kbd {
+  display: inline-block;
+  padding: .3rem .5rem;
+  font-size: 85%;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
 }

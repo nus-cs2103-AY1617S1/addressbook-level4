@@ -76,6 +76,7 @@ injecting the dependencies needed for each component.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
+
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
@@ -101,7 +102,8 @@ command `delete 3`.
 <img src="images\SDforDeletePerson.png" width="800">
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
+
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -112,7 +114,7 @@ The sections below give more details of each component.
 
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/UiClassDiagram.png" width="800">
 
 **API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
@@ -121,18 +123,19 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
+ that are in the `src/main/resources/view` folder. 
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/todo/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
+
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/LogicClassDiagram.png" width="800">
 
 **API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
@@ -154,11 +157,11 @@ the command the user called
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.
  
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeletePersonSdForLogic.png" width="800">
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/ModelClassDiagram.png" width="800">
 
 **API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
@@ -172,7 +175,7 @@ The `Model`,
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<img src="images/StorageClassDiagram.png" width="800">
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 

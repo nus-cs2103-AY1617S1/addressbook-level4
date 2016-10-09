@@ -8,164 +8,290 @@
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 
-<body>
+<body class="userguide">
 <div class="container">
   <h1 class="logo"><img src="images/app_logo_full.png" alt="Uncle Jim's Discount To-do List" width="600"></h1>
-  <h1 id="user-guide">User Guide<a class="headerlink" href="#user-guide" title="Permanent link">#</a></h1>
+  <h1>User Guide</h1>
+  <div class="toc">
 <ul>
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="#quick-start">Quick Start</a></li>
-<li><a href="#features">Features</a></li>
+<li><a href="#features">Features</a><ul>
+<li><a href="#intelligent-views">Intelligent Views</a></li>
+<li><a href="#events-and-tasks">Events and Tasks</a></li>
+<li><a href="#command-line-interface">Command Line Interface</a></li>
+</ul>
+</li>
+<li><a href="#commands-reference">Commands Reference</a><ul>
+<li><a href="#command-format">Command Format</a></li>
+<li><a href="#viewing-help-help">Viewing help : help</a></li>
+<li><a href="#adding-a-task-or-event-add">Adding a task or event: add</a><ul>
+<li><a href="#adding-a-task">Adding a task</a></li>
+<li><a href="#adding-an-event">Adding an event</a></li>
+<li><a href="#adding-a-deadline">Adding a deadline</a></li>
+<li><a href="#adding-a-recurring-task">Adding a recurring task</a></li>
+<li><a href="#adding-descriptions-to-a-task">Adding descriptions to a task</a></li>
+<li><a href="#pinning-a-task">Pinning a task</a></li>
+<li><a href="#organizing-tasks-using-tags">Organizing tasks using tags</a></li>
+<li><a href="#parameter-reference">Parameter reference</a></li>
+</ul>
+</li>
+<li><a href="#deleting-a-task-delete">Deleting a task: delete</a></li>
+<li><a href="#marking-a-task-complete-complete">Marking a task complete: complete</a></li>
+<li><a href="#pinning-a-task-pin">Pinning a task: pin</a></li>
+<li><a href="#editing-a-task-edit">Editing a task: edit</a></li>
+<li><a href="#switch-views-view">Switch views : view</a></li>
+<li><a href="#finding-tasks-find">Finding tasks: find</a></li>
+<li><a href="#exiting-the-program-exit">Exiting the program : exit</a></li>
+<li><a href="#undoing-an-action-undo">Undoing an action: undo</a></li>
+<li><a href="#redoing-an-action-redo">Redoing an action: redo</a></li>
+<li><a href="#loading-an-existing-data-file-load">Loading an existing data file: load</a></li>
+<li><a href="#changing-the-save-location-save">Changing the save location: save</a></li>
+</ul>
+</li>
 <li><a href="#faq">FAQ</a></li>
 <li><a href="#command-summary">Command Summary</a></li>
 </ul>
+</div>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">#</a></h2>
 <ol>
-<li>Ensure you have Java version <code>1.8.0_60</code> or later installed in your Computer.  <blockquote>
-<p>This app will not work with earlier versions of Java 8.</p>
-</blockquote>
+<li>
+<p>Ensure you have <a href="https://www.java.com/en/download/"><strong>Java version 8 update 60</strong></a> or later installed on your computer.</p>
+<div class="admonition warning">
+<p class="admonition-title">This application will not work with earlier versions of Java 8</p>
+</div>
 </li>
-<li>Download the latest <code>UJDTDL.jar</code> from the <a href="../../../releases">releases</a> tab.</li>
+<li>
+<p>Download the latest <code>UJDTDL.jar</code> from the <a href="../../../releases">releases</a> tab.</p>
+</li>
 <li>Copy the file to the folder you want to use as the home folder for the application.</li>
 <li>
-<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
-<p><img src="images\mockupV0_0.png" width="700" alt="Example of UI once launched"><br /> </p>
+<p>Double-click the file to start the app. </p>
+<p><img src="images/mockupV0_0.png" width="700" alt="Example of UI once launched"> </p>
 </li>
 <li>
 <p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br />
    E.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window. </p>
 </li>
-<li>Some example commands you can try:
-   * <strong><code>add</code></strong><code>Finish CS2103T homework -d next Friday</code> : 
-     adds a new task with the deadline set at next Friday
-   * <strong><code>delete</code></strong><code>3</code> : deletes the 3<sup>rd</sup> task shown in the current list
-   * <strong><code>exit</code></strong> : exits the app</li>
-<li>Refer to the <a href="#features">Features</a> section below for details of each command.</li>
+<li>
+<p>Some example commands you can try:</p>
+<ul>
+<li><strong><code>add</code></strong><code>Finish CS2103T homework -d next Friday</code> : 
+   adds a new task with the deadline set at next Friday</li>
+<li><strong><code>delete</code></strong><code>3</code> : deletes the 3<sup>rd</sup> task shown in the current list</li>
+<li><strong><code>exit</code></strong> : exits the app</li>
+</ul>
+</li>
+<li>
+<p>Refer to the <a href="#features">Features</a> section below for details of each command.</p>
+</li>
 </ol>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">#</a></h2>
-<h3 id="navigation">Navigation<a class="headerlink" href="#navigation" title="Permanent link">#</a></h3>
-<p>When launched the application will have several views as shown</p>
-<h4 id="command-format">Command Format<a class="headerlink" href="#command-format" title="Permanent link">#</a></h4>
+<h3 id="intelligent-views">Intelligent Views<a class="headerlink" href="#intelligent-views" title="Permanent link">#</a></h3>
+<h3 id="events-and-tasks">Events <em>and</em> Tasks<a class="headerlink" href="#events-and-tasks" title="Permanent link">#</a></h3>
+<p>Most productivity apps only allow you to manage tasks <em>or</em> events. Our application can manage both. </p>
+<h3 id="command-line-interface">Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permanent link">#</a></h3>
+<h2 id="commands-reference">Commands Reference<a class="headerlink" href="#commands-reference" title="Permanent link">#</a></h2>
+<h3 id="command-format">Command Format<a class="headerlink" href="#command-format" title="Permanent link">#</a></h3>
 <ul>
 <li>Words in <code>UPPERCASE</code> are the parameters.</li>
 <li>Items in <code>[SQUARE BRACKETS]</code> are optional.</li>
 <li>To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. <code>-f</code>) for short flags and double dash for long flags (eg. <code>--all</code>)</li>
 <li>Items with <code>...</code> after them can have multiple instances.</li>
-<li>Most commands that updates a task require an <code>INDEX</code> parameter. This is number shown to the left of the task as shown in the screenshot below</li>
+<li>Most commands that updates a task require an <code>INDEX</code>. This is number shown to the left of the task as shown in the screenshot below</li>
 </ul>
-<p><img src="images/sketch_task_index.jpg" width="350" alt="Index Number Location"><br /></p>
-<h3 id="switch-views-view">Switch views : <code>view</code><a class="headerlink" href="#switch-views-view" title="Permanent link">#</a></h3>
-<p>Switch between different views.<br />
-Format: <strong><code>view</code></strong><code>VIEW</code></p>
-<p><img src="images/sketch_task_view.jpg" width="700" alt="View of completed tasks"><br /></p>
-<p>You can also use the underlined character in the view's name as the shortcut when switching views. </p>
-<h4 id="examples">Examples:<a class="headerlink" href="#examples" title="Permanent link">#</a></h4>
-<p><strong><code>view</code></strong><code>COMPLETED</code></p>
-<h3 id="viewing-help-help">Viewing help : <code>help</code><a class="headerlink" href="#viewing-help-help" title="Permanent link">#</a></h3>
+<p><img src="images/sketch_task_index.jpg" width="350" alt="Index Number Location"></p>
+<h3 id="viewing-help-help">Viewing help : <strong><code>help</code></strong><a class="headerlink" href="#viewing-help-help" title="Permanent link">#</a></h3>
 <p>Format: <strong><code>help</code></strong></p>
-<p>Shows help window which gives list of commands and their actions.
-Help is also shown if you enter an incorrect command e.g. <code>abcd</code></p>
-<h3 id="adding-a-task-or-event-add">Adding a task or event: <code>add</code><a class="headerlink" href="#adding-a-task-or-event-add" title="Permanent link">#</a></h3>
+<p>Shows help window which gives list of commands and their actions.</p>
+<h3 id="adding-a-task-or-event-add">Adding a task or event: <strong><code>add</code></strong><a class="headerlink" href="#adding-a-task-or-event-add" title="Permanent link">#</a></h3>
 <p>Adds a new task or event.<br />
-Format: </p>
-<p><strong><code>add</code></strong><code>TASK NAME [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]</code><br />
+Format:<br />
+<strong><code>add</code></strong><code>TASK NAME [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]</code><br />
 <strong><code>add</code></strong><code>EVENT NAME -d START END [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]</code></p>
-<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">#</a></h4>
-<p>For tasks, only the name is required. Tasks will be turned into events automatically if two dates are specified under the <code>-d</code> flag. </p>
-<ul>
-<li><code>TASK/EVENT NAME</code> - The name of the task or event</li>
-<li><code>-d DEADLINE</code> - Specify a deadline for the task </li>
-<li><code>-d START END</code> - Specify the start and end time for the event </li>
-<li><code>-m DESCRIPTION</code> - Add a longer description for the task or event</li>
-<li><code>-l LOCATION</code> - Where the event is held</li>
-<li><code>-r TIME PERIOD</code> - Create a recurring task. </li>
-<li><code>-p</code> - Pins the task to the top of the list </li>
-<li><code>-t TAG 1, TAG 2, ...</code> - Tags to search for the task at a later time</li>
-</ul>
-<p>Below indicate common scenarios of when and how to use the flags. </p>
+<p>Although there are a lot of parameters, only the name is required. Tasks will be turned into events 
+automatically if two dates are specified under the <code>-d</code> flag. Here are some common scenarios</p>
+<h4 id="adding-a-task">Adding a task<a class="headerlink" href="#adding-a-task" title="Permanent link">#</a></h4>
+<p>Adding a task is as simple as giving it a name.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><strong><code>add</code></strong><code>Finish up developer guide for CS2101</code> </p>
+</div>
 <h4 id="adding-an-event">Adding an event<a class="headerlink" href="#adding-an-event" title="Permanent link">#</a></h4>
 <p>Events normally will have include a start time, end time and a location and can be phrased as follows using the <code>-d</code> and <code>-l</code> flags.</p>
-<h5 id="example">Example:<a class="headerlink" href="#example" title="Permanent link">#</a></h5>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Music at the park -d 11 Dec 6pm to 8pm -l Botanic Gardens  -p</code></p>
+</div>
 <h4 id="adding-a-deadline">Adding a deadline<a class="headerlink" href="#adding-a-deadline" title="Permanent link">#</a></h4>
-<p>Deadlines normally only require one date and time.</p>
-<h5 id="example_1">Example:<a class="headerlink" href="#example_1" title="Permanent link">#</a></h5>
-<p><strong><code>add</code></strong><code>Submit V.0.0 -d 5 Oct 2359 -t CS2103T, Week 8</code></p>
+<p>If you need something done by a specific time, add a deadline to your task.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><strong><code>add</code></strong><code>Submit V.0.0 -d 5 Oct 2359</code></p>
+</div>
 <h4 id="adding-a-recurring-task">Adding a recurring task<a class="headerlink" href="#adding-a-recurring-task" title="Permanent link">#</a></h4>
-<p>Recurring tasks only require the recurring time period. The task will be appear from the first occurrence of the specified day. If no date is specified, it will be added to today's list</p>
-<h5 id="examples_1">Examples:<a class="headerlink" href="#examples_1" title="Permanent link">#</a></h5>
-<p><strong><code>add</code></strong><code>CS2103T Tutorial -d 10am to 2pm -r every Wednesday -t Y2S1</code></p>
+<p>Recurring tasks only require the recurring time period. The task will be appear from the first occurrence 
+of the specified day. If no date is specified, it will be added to today's list</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><strong><code>add</code></strong><code>CS2103T Tutorial -d 10am to 2pm -r every Wednesday</code></p>
+</div>
 <h4 id="adding-descriptions-to-a-task">Adding descriptions to a task<a class="headerlink" href="#adding-descriptions-to-a-task" title="Permanent link">#</a></h4>
-<p>Sometimes additional details can be added to the task using the <code>-m</code> flag</p>
-<h5 id="examples_2">Examples:<a class="headerlink" href="#examples_2" title="Permanent link">#</a></h5>
+<p>More details can be added to the task using the <code>-m</code> flag</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Destroy the Earth -m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!</code></p>
+</div>
 <h4 id="pinning-a-task">Pinning a task<a class="headerlink" href="#pinning-a-task" title="Permanent link">#</a></h4>
-<p>Other than using the <code>pin</code> command, a task can straight away be pinned by adding the <code>-p</code> flag.</p>
-<h5 id="examples_3">Examples:<a class="headerlink" href="#examples_3" title="Permanent link">#</a></h5>
-<p><strong><code>add</code></strong><code>Li Kai at Friday Hacks! -d 21 Oct 1800 21 Oct 2000 -p</code></p>
-<h3 id="deleting-a-task-delete">Deleting a task: <code>delete</code><a class="headerlink" href="#deleting-a-task-delete" title="Permanent link">#</a></h3>
+<p>Important tasks can be pinned to the top of the list using the <code>-p</code> flag. See <a href="#pinning-a-task-pin">the <code>pin</code> command</a> 
+for more detail.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><strong><code>add</code></strong><code>Meet Li Kai at Friday Hacks! -d 21 Oct 6pm to 8pm -p</code></p>
+</div>
+<h4 id="organizing-tasks-using-tags">Organizing tasks using tags<a class="headerlink" href="#organizing-tasks-using-tags" title="Permanent link">#</a></h4>
+<p>If you have a lot of tasks you can use tags to organize them. See <a href="#managing-tags-tag">the <code>tag</code> command</a> 
+for more detail.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><strong><code>add</code></strong><code>Finish tutorial 6 -d 10 Oct -t CS2106, School</code></p>
+</div>
+<h4 id="parameter-reference">Parameter reference<a class="headerlink" href="#parameter-reference" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Parameter</th>
+<th>Used to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-d</code></td>
+<td><code>DEADLINE</code></td>
+<td>Specify a deadline for the task</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td><code>START END</code></td>
+<td>Specify the start and end time for the event</td>
+</tr>
+<tr>
+<td><code>-m</code></td>
+<td><code>DESCRIPTION</code></td>
+<td>Add a long description to the task or event</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td><code>LOCATION</code></td>
+<td>Add a location to the event</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td><code>PERIOD</code></td>
+<td>Create a recurring task</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>-</td>
+<td>Pins the task to the top of the list</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td><code>TAG 1, TAG 2, ...</code></td>
+<td>Tags to help organize your tasks</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deleting-a-task-delete">Deleting a task: <strong><code>delete</code></strong><a class="headerlink" href="#deleting-a-task-delete" title="Permanent link">#</a></h3>
 <p>Deletes the specified task from todo list.<br />
 Format: <strong><code>delete</code></strong><code>INDEX</code></p>
 <p>Deletes the task at the specified <code>INDEX</code>. The index refers to the index number shown in the most recent listing.</p>
-<h4 id="examples_4">Examples:<a class="headerlink" href="#examples_4" title="Permanent link">#</a></h4>
-<ul>
-<li>
-<p><strong><code>delete</code></strong><code>2</code><br />
-  Deletes the 2nd task on the list </p>
-</li>
-<li>
-<p><strong><code>find</code></strong><code>Y2S1</code><br />
-<strong><code>delete</code></strong><code>1</code><br />
-  Deletes the 1st task in the results of the <strong><code>find</code></strong><code>Y2S1</code> command.</p>
-</li>
-</ul>
-<h3 id="marking-a-task-complete-complete">Marking a task complete: <code>complete</code><a class="headerlink" href="#marking-a-task-complete-complete" title="Permanent link">#</a></h3>
-<p>Format:</p>
-<p><strong><code>complete</code></strong><code>INDEX</code><br />
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<dl>
+<dt><strong><code>delete</code></strong><code>2</code></dt>
+<dd>Deletes the 2nd task on the list </dd>
+<dt><strong><code>find</code></strong><code>Y2S1</code></dt>
+<dt><strong><code>delete</code></strong><code>1</code></dt>
+<dd>Deletes the 1st task in the results of the <strong><code>find</code></strong><code>Y2S1</code> command.</dd>
+</dl>
+</div>
+<h3 id="marking-a-task-complete-complete">Marking a task complete: <strong><code>complete</code></strong><a class="headerlink" href="#marking-a-task-complete-complete" title="Permanent link">#</a></h3>
+<p>Format:<br />
+<strong><code>complete</code></strong><code>INDEX</code><br />
 <strong><code>complete</code></strong><code>--all</code></p>
 <p>You can use this command to mark a task as completed. Completed task appear struckthrough to indicate they have been complete. Using the <code>all</code> flag will mark all tasks on the current view as completed. </p>
 <p><img src="images/sketch_task_completed.jpg" width="700" alt="Example of a Completed Task"><br /></p>
-<h3 id="pinning-a-task-pin">Pinning a task: <code>pin</code><a class="headerlink" href="#pinning-a-task-pin" title="Permanent link">#</a></h3>
-<p>Format: </p>
-<p><strong><code>pin</code></strong><code>INDEX</code></p>
+<h3 id="pinning-a-task-pin">Pinning a task: <strong><code>pin</code></strong><a class="headerlink" href="#pinning-a-task-pin" title="Permanent link">#</a></h3>
+<p>Format: <strong><code>pin</code></strong><code>INDEX</code></p>
 <p>If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. </p>
 <p><img src="images/sketch_task_pinned.jpg" width="700" alt="Pinned Task"><br /></p>
-<h3 id="editing-a-task-edit">Editing a task: <code>edit</code><a class="headerlink" href="#editing-a-task-edit" title="Permanent link">#</a></h3>
-<p>Allows you to edit a specific task. 
-Format: </p>
-<p><strong><code>edit</code></strong><code>INDEX [NAME] [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]</code><br />
+<h3 id="editing-a-task-edit">Editing a task: <strong><code>edit</code></strong><a class="headerlink" href="#editing-a-task-edit" title="Permanent link">#</a></h3>
+<p>Allows you to edit a specific task.<br />
+Format:<br />
+<strong><code>edit</code></strong><code>INDEX [NAME] [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]</code><br />
 <strong><code>edit</code></strong><code>INDEX [NAME] [-d START END] [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]</code></p>
 <p>Use the <code>edit</code> command to make changes to the task specified by <code>INDEX</code>. The command accepts the same parameters as the <code>add</code> command. Any edit is immediately saved.</p>
-<h3 id="finding-tasks-based-on-tags-or-name-find">Finding tasks based on tags or name: <code>find</code><a class="headerlink" href="#finding-tasks-based-on-tags-or-name-find" title="Permanent link">#</a></h3>
+<h3 id="switch-views-view">Switch views : <strong><code>view</code></strong><a class="headerlink" href="#switch-views-view" title="Permanent link">#</a></h3>
+<p>Switch between different views.<br />
+Format: <strong><code>view</code></strong><code>VIEW</code></p>
+<p><img src="images/sketch_task_view.jpg" width="700" alt="View of completed tasks"></p>
+<p>You can also use the underlined character in the view's name as the shortcut when switching views. </p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<dl>
+<dt><strong><code>view</code></strong><code>completed</code></dt>
+<dd>Show completed tasks only </dd>
+</dl>
+</div>
+<h3 id="finding-tasks-find">Finding tasks: <strong><code>find</code></strong><a class="headerlink" href="#finding-tasks-find" title="Permanent link">#</a></h3>
 <p>Finds tasks whose tags/name contain any of the given keywords.<br />
 Format: <strong><code>find</code></strong><code>KEYWORD [MORE KEYWORDS]</code></p>
 <p>The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and tasks matching at least one keyword will be returned.</p>
-<p>Examples: 
-<em> <strong><code>find</code></strong><code>John</code><br />
-  Returns <code>Meet John for lunch</code>
-</em> <strong><code>find</code></strong><code>Jo</code><br />
-  Returns any task having title <code>Meet John for lunch</code>, <code>Jogging at the park</code>, or <code>Josting fights at the gym</code>
-* <strong><code>find</code></strong><code>Jo Ja</code><br />
-  Returns <code>Meet John for lunch</code>, <code>Meet Jane for lunch</code>, or <code>Jack and Jane's wedding</code></p>
-<h3 id="exiting-the-program-exit">Exiting the program : <code>exit</code><a class="headerlink" href="#exiting-the-program-exit" title="Permanent link">#</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<dl>
+<dt><strong><code>find</code></strong><code>John</code></dt>
+<dd>Returns <strong>Meet John for lunch</strong></dd>
+<dt><strong><code>find</code></strong><code>Jo</code></dt>
+<dd>Returns any task with <strong>Jo</strong> in the title, such as <strong>Meet John for lunch</strong>, 
+ <strong>Jogging at the park</strong>, or <strong>Josting fights at the gym</strong></dd>
+<dt><strong><code>find</code></strong><code>Jo Ja</code></dt>
+<dd>Returns any task with either <strong>Jo</strong> or <strong>Ja</strong> in the title, such as 
+ <strong>Meet John for lunch</strong>, <strong>Meet Jane for lunch</strong>, or <strong>Jack and Jane's wedding</strong></dd>
+</dl>
+</div>
+<h3 id="exiting-the-program-exit">Exiting the program : <strong><code>exit</code></strong><a class="headerlink" href="#exiting-the-program-exit" title="Permanent link">#</a></h3>
 <p>Exits the program.<br />
 Format: <strong><code>exit</code></strong>  </p>
-<h3 id="undoing-an-action-undo">Undoing an action: <code>undo</code><a class="headerlink" href="#undoing-an-action-undo" title="Permanent link">#</a></h3>
+<h3 id="undoing-an-action-undo">Undoing an action: <strong><code>undo</code></strong><a class="headerlink" href="#undoing-an-action-undo" title="Permanent link">#</a></h3>
 <p>Undo the most recent action.<br />
 Format: <strong><code>undo</code></strong></p>
-<p>Note: Only applies to commands which have made changes to the todo list.</p>
-<h3 id="redoing-an-action-redo">Redoing an action: <code>redo</code><a class="headerlink" href="#redoing-an-action-redo" title="Permanent link">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only applies to commands which have made changes to the todo list.</p>
+</div>
+<h3 id="redoing-an-action-redo">Redoing an action: <strong><code>redo</code></strong><a class="headerlink" href="#redoing-an-action-redo" title="Permanent link">#</a></h3>
 <p>Redo the most recent action which was undone.<br />
 Format: <strong><code>redo</code></strong></p>
-<h3 id="loading-an-existing-data-file-load">Loading an existing data file : <code>load</code><a class="headerlink" href="#loading-an-existing-data-file-load" title="Permanent link">#</a></h3>
+<h3 id="loading-an-existing-data-file-load">Loading an existing data file: <strong><code>load</code></strong><a class="headerlink" href="#loading-an-existing-data-file-load" title="Permanent link">#</a></h3>
 <p>Format: <strong><code>load</code></strong><code>FILENAME</code></p>
-<p>Loads in another save file. You can use this to restore a backup or switch to different lists so you can for example have separate lists for school and home. Ensure that the file is converted into an <code>.xml</code> format for usage by the program.</p>
-<h4 id="example_2">Example:<a class="headerlink" href="#example_2" title="Permanent link">#</a></h4>
+<p>Loads in another save file. You can use this to restore a backup or switch to different lists so you can 
+(for example) have separate lists for school and home. </p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
 <p><strong><code>load</code></strong><code>"myDiscountTodo.xml"</code></p>
-<h4 id="autosave">Autosave<a class="headerlink" href="#autosave" title="Permanent link">#</a></h4>
+</div>
+<h3 id="changing-the-save-location-save">Changing the save location: <strong><code>save</code></strong><a class="headerlink" href="#changing-the-save-location-save" title="Permanent link">#</a></h3>
+<p>Format: <strong><code>save</code></strong></p>
+<p>By default, todo list data are saved in a file called <code>discountTodo.xml</code> in the <code>data</code> folder. You can change 
+the save file by specifying the file path as the first argument when running the program.</p>
+<div class="admonition note">
+<p class="admonition-title">Autosave</p>
 <p>Your todo list is saved automatically every time it is updated. There is no need to save manually.</p>
-<h3 id="changing-the-save-location-save">Changing the save location: <code>save</code><a class="headerlink" href="#changing-the-save-location-save" title="Permanent link">#</a></h3>
-<p>Format: <strong><code>save</code></strong>
-Todo list data are saved in a file called <code>discountTodo.xml</code> in the <code>data</code> folder. You can change the save file by specifying the file path as the first argument when running the program.</p>
+</div>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
 <p><strong>Q</strong>: Is my data secure?<br />
 <strong>A</strong>: Your data is stored locally on your hard drive as an <code>.xml</code> file. So, your data is as secure as your hard drive. We do not have access to your to-do list. </p>
@@ -175,7 +301,6 @@ Todo list data are saved in a file called <code>discountTodo.xml</code> in the <
 <strong>A</strong>: Simply load the <code>.xml</code> file to a cloud sync service like Dropbox or Google Drive, and all updates will be reflected to all devices using the file.</p>
 <p><strong>Q</strong>: How do I pay for this project?<br />
 <strong>A</strong>: Donations can be made via PayPal or Kashmi. Cash donations are fine too. Basically if you wish to donate we will find a way for us to receive your money.</p>
-<h3 id="_1"><a class="headerlink" href="#_1" title="Permanent link">#</a></h3>
 <h2 id="command-summary">Command Summary<a class="headerlink" href="#command-summary" title="Permanent link">#</a></h2>
 <table>
 <thead>

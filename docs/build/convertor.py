@@ -29,7 +29,7 @@ for filename, title in files.items():
         source = input.read()
 
     html = md.reset().convert(source)
-    output_content = template.format(title, html)
+    output_content = template.format(title=title, html=html, classname=filename.lower())
 
     with open(output_path, mode="w", encoding="utf-8") as output:
         output.write(output_content)
