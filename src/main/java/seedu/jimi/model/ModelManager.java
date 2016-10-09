@@ -83,6 +83,16 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    /**
+     * 
+     * @param newTask Task to be replaced with.
+     * @param targetIndex Index of oldTask to be replaced by.
+     */
+    public synchronized void editFloatingTask(FloatingTask newTask, int targetIndex) {
+        filteredFloatingTasks.add(targetIndex, newTask);
+        indicateAddressBookChanged();
+    }
 
     //=========== Filtered FloatingTask List Accessors ===============================================================
 
