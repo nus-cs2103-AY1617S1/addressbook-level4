@@ -5,11 +5,11 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix A : User Stories](#appendix-a--user-stories)
+* [Appendix B : Use Cases](#appendix-b--use-cases)
+* [Appendix C : Non Functional Requirements](#appendix-c--non-functional-requirements)
+* [Appendix D : Glossary](#appendix-d--glossary)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -213,13 +213,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `seedu.ggist.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `seedu.ggist.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.ggist.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -273,26 +273,56 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+`* * *` | user | add a task without deadline | keep track of my tasks
+`* * *` | user | Set a start and end time for a task | Have a clearer idea of my schedule
+`* * *` | user | Set a deadline for a task | Be reminded of impending deadline
+`* * *` | user | Delete a task | Totally remove task that I no longer care about
+`* * *` | user | Strike off a task | View my completed task if I want to
+`* * *` | user | Edit a task | Make changes to a task as necessary
+`* * *` | user | Undo an action | Recover unwanted changes
+`* * *` | user | View all tasks in specific day | Easily identify my remaining tasks for the day
+`* * *` | user | Search for tasks using keywords | Find all relevant tasks with ease
+`* * *` | user | Backup my data on local storage | Ensure my recorded tasks will be my lost
+`* * *` | user | Have some flexibility in my inputs | Use some variations while entering a task
+`* *` | user | Set a recurring task | Avoid constantly entering the same task for different days 
+`* *` | user | Block off time slots | Avoid scheduling conflicts tasks with unconfirmed timings
+`* *` | user | Set priority level for a task | Easily identify a task that require immediate attention
+`* *` | user | Launch the application with a keyboard shortcut | Access the application without using the mouse
+`* *` | user | View the day’s tasks when the application is launched | Know which tasks to complete for the day without any additional input
+`*` | user | Sync my data to Google Calendar | Sync my data across multiple desktops
+`*` | user | Carry forward incomplete tasks to the following day | Be reminded to complete the task the following day without any input
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `GGist` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add a task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. Users request to add a task by entering an input command
+2. GGist adds a new task to the list <br>
+
+**Extensions**
+
+1a. The input command format is not correct
+
+> GGist returns an error message with the correct input format                              
+> Use case ends
+
+1b. The new task conflicts with an existing task
+
+> GGist informs user with a message and does not add the task to the list
+>Use case ends
+
+#### Use case: Edit a task
+
+**MSS**
+
+1. User requests to list all tasks
+2. GGist shows a list of tasks
+3. User requests to change a specific feature of a specific task
+4. GGist change that task’s feature <br>
 Use case ends.
 
 **Extensions**
@@ -301,21 +331,28 @@ Use case ends.
 
 > Use case ends
 
-3a. The given index is invalid
+3a. The task is not in the list
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. GGist shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+3b. Original task does not have that feature
 
+> 3a1. Add a new feature to that task <br>
+  Use case ends
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+1. Should work on any mainstream OS as long as it has Java 1.8.0_60 or higher installed.
+2. Should be able to hold up to 1000 tasks.
+3. Should launch within 3 seconds
+4. Should be user friendly
+5. Should respond command within 1 second
+6. Should be able to work offline
+7. Should be able to launch with keyboard shortcut
+8. Should have enough capacity to store all the information and tasks
+9. Should sync with calendars such as Google calendar
+10. Should look pleasant and easy on the eyes
+11. Should be stable and reliable with as few breakdowns as possible
 
 ## Appendix D : Glossary
 
@@ -327,7 +364,70 @@ Use case ends.
 
 > A contact detail that is not meant to be shared with others
 
+
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+#### iOS Calendar
+
+**Strengths**
+
+>Set task using the “one-shot” approach
+>Syncs with Google Calendar
+>All tasks are set in calendar view
+>Alerts and prompts appear as notifications
+>Search for Keywords
+
+**Weakness**
+
+>Unable to colour code for events
+>Unable to strike off completed task
+>Able to set recurring task, but unable to set using one “one-shot” approach
+>Does not carry forwards uncompleted task 
+
+#### Errands
+
+**Strengths**
+
+>Set priority for tasks
+>Sort tasks based on priority level, due date and alphabetical order
+>Strike off finished tasks
+>Notification function
+>View tasks in a particular day
+
+**Weakness**
+
+>Cannot search for a particular task
+>Unable carry forward the incomplete tasks
+>Cannot set recurring task
+>Can only see a maximum of 10 tasks at the one time
+
+#### Fantastical
+
+**Strengths**
+
+>Natural language processing
+>Able to view tasks in day, week, month, year views
+>Syncs with calendars
+>Use shading to intensity of tasks
+>Supports fixed and floating time zones for events
+
+**Weakness**
+
+>Cannot set recurring tasks
+>Cannot transfer data to another computer
+>Unable to sync account information with other computer
+
+#### Google Calendar
+
+**Strengths**
+
+>Easy to choose a time slot and set task
+>Can have multiple calendars
+>Invite people to events
+>Set reminders for events
+
+**Weakness**
+
+>Difficult to read if too many appointments 
+>Must use with internet
 
