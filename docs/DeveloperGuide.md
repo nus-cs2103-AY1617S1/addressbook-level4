@@ -13,9 +13,9 @@ who to contact when you're lost.
 This project uses 
 
 - git - Version control 
-- Eclipse - IDE 
+- [Eclipse][eclipse] - IDE 
 - Gradle - Build automation 
-- Travis, Coveralls and Codacy - Continuous integration and quality control
+- [Travis][travis], [Coveralls][coveralls] and [Codacy][codacy] - Continuous integration and quality control
 - GitHub - Source code hosting and issue tracking 
 
 
@@ -59,8 +59,8 @@ Test driven development is encouraged but not required. All incoming code should
 
 <img src="images/Architecture.png" width="600">
 
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
+The Architecture Diagram given above explains the high-level design of the App. Here is a quick 
+overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 
@@ -80,16 +80,16 @@ The rest of the App consists three components.
 * [**`Logic`**](#logic-component): The parser and command executer, representing the controller 
 * [**`Model`**](#model-component): Data manipulation and storage, representing the model and data layer 
 
-Each of the four components defines its _API_ in an `interface` with the same name as the Component and 
+Each of the four components defines its API in an `interface` with the same name as the Component and 
 are bootstrapped at launch by `MainApp`.
  
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
+interface and exposes its functionality using the `LogicManager.java` class.
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/LogicClassDiagram.png" width="800">
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+The Sequence Diagram below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
@@ -150,6 +150,38 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
+### Model component
+
+<img src="images/ModelClassDiagram.png" width="800"><br>
+
+**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Todo list data and persists it to the 
+* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' ie. the UI can be bound to this list
+  so that the UI automatically updates when the data in the list change.
+* exposes a simplified interface to the 
+
+### Storage component
+
+<img src="images/StorageClassDiagram.png" width="800"><br>
+
+**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+
+The `Storage` component,
+* can save `UserPref` objects in json format and read it back.
+* can save the Address Book data in xml format and read it back.
+
+### Common classes
+
+Classes used by multiple components are in the `seedu.todo.commons` package.
+
+## Implementation
+
+### Logic 
+
 #### Parser 
 
 The `TodoParser` subcomponent implents the `Parser` interface, which defines a single `parse` function that 
@@ -187,34 +219,6 @@ All commands implement the `BaseCommand` abstract class, which provides argument
 
 
 
-### Model component
-
-<img src="images/ModelClassDiagram.png" width="800"><br>
-
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
-
-The `Model`,
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-### Storage component
-
-<img src="images/StorageClassDiagram.png" width="800"><br>
-
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
-
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
-
-### Common classes
-
-Classes used by multiple components are in the `seedu.todo.commons` package.
-
-## Implementation
 
 ### Logging
 
@@ -284,8 +288,6 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
-
-
 ## Dev Ops
 
 ### Build Automation
@@ -331,23 +333,23 @@ HTML, which allows greater flexibility in styling to make it more user friendly.
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
 
-Priority | As a ... | I want to ... | So that I can...
+Priority | As a ...  | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *`  | new user | see usage instructions | refer to instructions when I forget how to use the app
-`* * *`  | user | add a new task |
-`* * *`  | user | mark a task as complete | so I know which are the tasks are not complete.
-`* * *`  | user | delete a task | remove entries that I no longer need
-`* * *`  | user | edit a task | change or update details for the task
-`* * *`  | user | set a deadline for a task | track down deadlines of my tasks
-`* * *`  | user | set events with start and end dates | keep track of events that will happen
-`* * *`  | user | view tasks | see all the tasks I have
-`* * *`  | user | view incomplete tasks only | to know what are the tasks I have left to do.
+`* * *`  | new user  | see usage instructions | refer to instructions when I forget how to use the app
+`* * *`  | user      | add a new task |
+`* * *`  | user      | mark a task as complete | so I know which are the tasks are not complete.
+`* * *`  | user      | delete a task | remove entries that I no longer need
+`* * *`  | user      | edit a task | change or update details for the task
+`* * *`  | user      | set a deadline for a task | track down deadlines of my tasks
+`* * *`  | user      | set events with start and end dates | keep track of events that will happen
+`* * *`  | user      | view tasks | see all the tasks I have
+`* * *`  | user      | view incomplete tasks only | to know what are the tasks I have left to do.
 `* * *`  | user with multiple computers | save the todo list file to a specific location | move the list to other computers
-`* *`    | user | set recurring tasks | do not need to repeatedly add tasks
-`* *`    | user | sort tasks by various parameters| organize my tasks and locate a task easily
-`* *`    | user | set reminders for a task | do not need to mentally track deadlines
-`*`      | user | know the number of tasks I have left | gauge how many tasks I have left to do.
-`*`      | user | be notified about upcoming deadlines without opening the app | so that I can receive timely reminders  
+`* *`    | user      | set recurring tasks | do not need to repeatedly add tasks
+`* *`    | user      | sort tasks by various parameters| organize my tasks and locate a task easily
+`* *`    | user      | set reminders for a task | do not need to mentally track deadlines
+`*`      | user      | know the number of tasks I have left | gauge how many tasks I have left to do.
+`*`      | user      | be notified about upcoming deadlines without opening the app | so that I can receive timely reminders  
 
 
 ## Appendix B : Use Cases
@@ -450,6 +452,7 @@ Use case ends.
 3b. The given index is a task which is already complete
 
 > Use case ends
+
 ### Use case: Delete task
 
 **MSS**
@@ -552,6 +555,10 @@ Use case ends.
 
 {TODO: Add a summary of competing products}
 
+[eclipse]: https://eclipse.org/downloads/
+[travis]: https://travis-ci.org/CS2103AUG2016-W10-C4/main
+[coveralls]: https://coveralls.io/github/CS2103AUG2016-W10-C4/main
+[codacy]: https://www.codacy.com/app/Logical-Reminding-Apartment/main/dashboard 
 
 [workflow]: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/
 [issues]: https://github.com/CS2103AUG2016-W10-C4/main/issues
