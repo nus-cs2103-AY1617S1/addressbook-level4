@@ -55,6 +55,15 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList.resetData(newData);
         indicateAddressBookChanged();
     }
+    
+    @Override
+    public boolean undo() {
+        if (toDoList.undo()) {
+            indicateAddressBookChanged();
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public ReadOnlyToDoList getToDoList() {
@@ -121,6 +130,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
+        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier())); //force change
         filteredTasks.setPredicate(null);
     }
     

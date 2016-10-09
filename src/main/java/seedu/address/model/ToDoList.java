@@ -54,8 +54,17 @@ public class ToDoList implements ReadOnlyToDoList {
     }
 
     public void setTasks(List<Task> tasks) {
-        UniqueTaskList newList = this.createNewTaskList(tasks);
-        this.tasksHistory.push(newList);
+        if (this.tasksHistory.isEmpty()) {
+            UniqueTaskList topList = this.createNewTaskList(tasks);
+            this.tasksHistory.push(topList);
+        } else {
+            UniqueTaskList topList = this.tasksHistory.pop();
+            UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+            
+            this.tasksHistory.push(oldList);
+            this.tasksHistory.push(topList);
+        }
+        
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -82,9 +91,11 @@ public class ToDoList implements ReadOnlyToDoList {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
-        UniqueTaskList newList = this.createNewTaskList(this.tasksHistory.peek().getInternalList());
-        newList.add(p);
-        this.tasksHistory.push(newList);
+        UniqueTaskList topList = this.tasksHistory.pop();
+        UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+        oldList.add(p);
+        this.tasksHistory.push(oldList);
+        this.tasksHistory.push(topList);
     }
 
     /**
@@ -112,9 +123,11 @@ public class ToDoList implements ReadOnlyToDoList {
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        UniqueTaskList newList = this.createNewTaskList(this.tasksHistory.peek().getInternalList());
-        if (newList.remove(key)) {
-            this.tasksHistory.push(newList);
+        UniqueTaskList topList = this.tasksHistory.pop();
+        UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+        if (topList.remove(key)) {
+            this.tasksHistory.push(oldList);
+            this.tasksHistory.push(topList);
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -125,8 +138,15 @@ public class ToDoList implements ReadOnlyToDoList {
      * Pop the top most UniqueTaskList.
      * TODO : Does not handle tags as of yet
      */
-    public void undo() {
-       this.tasksHistory.pop();
+    public boolean undo() {
+       if (this.tasksHistory.size() > 1) {
+           UniqueTaskList topList = this.tasksHistory.pop();
+           UniqueTaskList oldList = this.tasksHistory.pop();
+           topList.getInternalList().setAll(oldList.getInternalList());
+           this.tasksHistory.push(topList);
+           return true;
+       }
+       return false;
     }
 
 //// tag-level operations
