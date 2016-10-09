@@ -1,6 +1,10 @@
 package seedu.todo.ui;
 
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
@@ -31,8 +35,13 @@ public class UiManager extends ComponentManager implements Ui {
         this.primaryStage = primaryStage;
         
         // Show main window.
-        mainWindow = MainWindow.load(primaryStage, config);
-        mainWindow.show();
+        try {
+            mainWindow = MainWindow.load(primaryStage, config);
+            mainWindow.show();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
     }
 
     @Override
@@ -46,7 +55,33 @@ public class UiManager extends ComponentManager implements Ui {
     	
     	assert primaryStage != null;
     	
-    	view.render(primaryStage);
+    	view.render(primaryStage, mainWindow.getChildrenPlaceholder());
+    }
+    
+    /** ================ DISPLAY ERRORS ================== **/
+
+
+    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+    }
+
+    private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
+                                               String contentText) {
+        final Alert alert = new Alert(type);
+        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.initOwner(owner);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+
+        alert.showAndWait();
+    }
+
+    private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
+        logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
+        showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
+        Platform.exit();
+        System.exit(1);
     }
 
 }

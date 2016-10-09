@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.Config;
@@ -19,6 +20,7 @@ public class MainWindow extends UiPart {
 
 	private static final String FXML_PATH = "MainWindow.fxml";
     private static final String ICON_PATH = "/images/address_book_32.png";
+    private static final String OPEN_HELP_KEY_COMBINATION = "F1";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
@@ -29,6 +31,8 @@ public class MainWindow extends UiPart {
     // FXML Components
     @FXML
     private MenuItem helpMenuItem;
+    @FXML
+    private AnchorPane childrenPlaceholder;
 
     
     public MainWindow() {
@@ -90,13 +94,20 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /** ================ FXML COMPONENTS ================== **/
+    
+    public AnchorPane getChildrenPlaceholder() {
+        return childrenPlaceholder;
+    }
+
     /** ================ ACCELERATORS ================== **/
+    
     private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        helpMenuItem.setAccelerator(KeyCombination.valueOf(OPEN_HELP_KEY_COMBINATION));
     }
     
     /** ================ ACTION HANDLERS ================== **/
-
+    
     @FXML
     public void handleHelp() {
     	// TODO: Auto-generated method stub

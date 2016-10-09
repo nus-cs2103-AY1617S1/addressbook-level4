@@ -2,11 +2,9 @@ package seedu.todo.ui.views;
 
 import java.util.ArrayList;
 
-import javafx.scene.Node;
-
 public class IndexView extends View {
 
-	private String FXML_PATH = "Index.fxml";
+	private String FXML_PATH = "views/IndexView.fxml";
 	
 	// Props
 	public ArrayList<Object> tasks = new ArrayList<Object>(); // stub
@@ -14,9 +12,10 @@ public class IndexView extends View {
 	// Components
 
 
+
 	@Override
-	public void setNode(Node node) {
-		
+	public String getFxmlPath() {
+		return FXML_PATH;
 	}
 	
 	

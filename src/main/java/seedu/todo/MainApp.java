@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.ui.UiManager;
+import seedu.todo.ui.views.IndexView;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.ConfigUtil;
@@ -13,7 +14,6 @@ import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.Version;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
-import seedu.todo.ui.Ui;
 
 import java.io.IOException;
 import java.util.Map;
@@ -28,7 +28,7 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(1, 0, 0, true);
 
-    protected Ui ui;
+    protected UiManager ui;
     protected Config config;
 
     public MainApp() {}
@@ -53,6 +53,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
     	ui.start(primaryStage);
+    	ui.loadView(new IndexView());
     }
 
     @Override
