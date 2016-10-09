@@ -42,7 +42,7 @@ public class TypicalTestTasks {
             ab.addTask(new Task(elle));
             ab.addTask(new Task(fiona));
             ab.addTask(new Task(george));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (UniqueActivityList.DuplicateActivityException e) {
             assert false : "not possible";
         }
     }

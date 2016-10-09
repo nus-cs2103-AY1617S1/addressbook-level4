@@ -7,7 +7,7 @@ import seedu.taskman.logic.commands.Command;
 import seedu.taskman.logic.commands.CommandResult;
 import seedu.taskman.logic.parser.Parser;
 import seedu.taskman.model.Model;
-import seedu.taskman.model.event.ReadOnlyTask;
+import seedu.taskman.model.event.Activity;
 import seedu.taskman.storage.Storage;
 
 import java.util.logging.Logger;
@@ -35,7 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return model.getFilteredTaskList();
+    public ObservableList<Activity> getFilteredActivityList() {
+        return model.getFilteredActivityList();
     }
 }
