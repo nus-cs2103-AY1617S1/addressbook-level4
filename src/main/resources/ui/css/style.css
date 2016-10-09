@@ -98,6 +98,11 @@ VBox.header {
   -fx-font-size: 20px;
 }
 
+.taglist-link-text {
+  -fx-font-size: 15px;
+  -fx-background-color: #000;
+}
+
 /* TASK LIST */
 
 .tasklist-pane {
