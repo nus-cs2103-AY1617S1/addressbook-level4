@@ -6,9 +6,11 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.FloatingTask;
+import seedu.address.model.person.Title;
+import seedu.address.model.person.Entry;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePersonList.DuplicateTaskException;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 import java.util.Set;
@@ -22,7 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Entry> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -65,14 +67,22 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+    public synchronized void deleteTask(Entry target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
+    public synchronized void addTask(Entry person) throws UniquePersonList.DuplicateTaskException {
         addressBook.addPerson(person);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void editTask(Entry task, Title newTitle)
+            throws PersonNotFoundException, DuplicateTaskException {
+        addressBook.editTask(task, newTitle);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -80,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
+    public UnmodifiableObservableList<Entry> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
@@ -101,7 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
+        boolean satisfies(Entry person);
         String toString();
     }
 
@@ -114,7 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyPerson person) {
+        public boolean satisfies(Entry person) {
             return qualifier.run(person);
         }
 
@@ -125,7 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyPerson person);
+        boolean run(Entry person);
         String toString();
     }
 
@@ -137,9 +147,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyPerson person) {
+        public boolean run(Entry entry) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(entry.getTitle().fullTitle, keyword))
                     .findAny()
                     .isPresent();
         }
