@@ -21,9 +21,11 @@ public class Deadline {
      * @throws IllegalValueException if given deadline string is invalid.
      */
     public Deadline(String deadline) throws IllegalValueException {
-        assert deadline != null;
+        // assert deadline != null; // commented out since deadline is optional
         deadline = deadline.trim();
-        if (!isValidDeadline(deadline)) {
+        if (deadline.isEmpty()) {
+        	deadline = "NIL";
+        } else if (!isValidDeadline(deadline)) {
             throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }
         this.value = deadline;
