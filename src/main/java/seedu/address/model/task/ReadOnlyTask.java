@@ -1,55 +1,60 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Person in the addressbook.
+ * A read-only immutable interface for a task in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyPerson {
-
-    Name getName();
-    Phone getPhone();
-    Email getEmail();
-    Address getAddress();
+public interface ReadOnlyTask {
+	
+    Detail getDetail();
+    Done checkDone();
+    DueByDate getDueByDate();
+    DueByTime getDueByTime();
+    Priority getPriority();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the person's internal tags.
+     * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyPerson other) {
+    default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+           
+                && other.getDetail().equals(this.getDetail()) // state checks here onwards
+                && other.checkDone().equals(this.checkDone())
+                && other.getDueByDate().equals(this.getDueByDate())
+                && other.getDueByTime().equals(this.getDueByTime())
+                && other.getPriority().equals(this.getPriority()));
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the task as text, showing all contact details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getDetail())
+        		.append(" Done: ")
+        		.append(checkDone())
                 .append(" Phone: ")
-                .append(getPhone())
+                .append(getDueByDate())
                 .append(" Email: ")
-                .append(getEmail())
+                .append(getDueByTime())
                 .append(" Address: ")
-                .append(getAddress())
+                .append(getPriority())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
 
     /**
-     * Returns a string representation of this Person's tags
+     * Returns a string representation of this Task's tags
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();
