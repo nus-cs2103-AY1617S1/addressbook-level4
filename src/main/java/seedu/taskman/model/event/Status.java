@@ -6,7 +6,7 @@ public class Status {
 
 	public final Boolean completed;
 
-	public Status(String status) {
+	public Status() {
         completed = false;
 	}
 

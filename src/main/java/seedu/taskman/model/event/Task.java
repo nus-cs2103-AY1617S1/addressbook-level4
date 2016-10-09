@@ -17,19 +17,21 @@ public class Task extends Event implements ReadOnlyTask {
     private Status status;
 
     public Task(@Nonnull Title title, @Nonnull UniqueTagList tags,
-                @Nullable Deadline deadline, @Nullable Schedule schedule,
-                @Nullable Frequency frequency) {
-        super(title, tags, frequency, schedule);
+                @Nullable Deadline deadline,
+                @Nullable Schedule schedule, @Nullable Frequency frequency) {
+        super(title, tags, schedule, frequency);
         this.deadline = deadline;
-        this.status = new Status("");
+        this.status = new Status();
     }
 
     /**
      * Copy constructor
      */
     public Task(@Nonnull ReadOnlyTask source) {
-        this(source.getTitle(), source.getTags(), source.getDeadline().orElse(null),
-        		source.getSchedule().orElse(null), source.getFrequency().orElse(null));
+        this(source.getTitle(), source.getTags(),
+                source.getDeadline().orElse(null),
+                source.getSchedule().orElse(null),
+                source.getFrequency().orElse(null));
         setStatus(source.getStatus());
     }
 

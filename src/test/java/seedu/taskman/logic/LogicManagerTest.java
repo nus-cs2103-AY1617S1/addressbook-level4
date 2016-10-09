@@ -472,13 +472,13 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Title title = new Title("Adam Brown");
             Deadline privateDeadline = new Deadline("111111");
-            Status status = new Status("y");
-            Frequency frequency = new Frequency("1");
+            Status status = new Status();
+            Frequency frequency = new Frequency("1d");
             Schedule schedule = new Schedule("wed 10am, wed 11am");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(title, tags, privateDeadline, frequency, schedule);
+            return new Task(title, tags, privateDeadline, schedule, frequency);
         }
 
         /**
@@ -492,8 +492,8 @@ public class LogicManagerTest {
             return new Task(
                     new Title("Task " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))), new Deadline("" + Math.abs(seed)),
-                    new Frequency(seed+""),
-                    new Schedule("wed " + seed + "am, wed " + seed + "pm")
+                    new Schedule("wed " + seed + "am, wed " + seed + "pm"),
+                    new Frequency(seed+"")
             );
         }
 
@@ -592,8 +592,8 @@ public class LogicManagerTest {
                     new Title(title),
                     new UniqueTagList(new Tag("t1"), new Tag("t2")),
                     new Deadline("1"),
-                    new Frequency("7"),
-                    new Schedule("")
+                    null,
+                    new Frequency("7")
             );
         }
     }

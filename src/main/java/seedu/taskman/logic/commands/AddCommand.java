@@ -15,7 +15,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    // KIV: let parameters be objects. we can easily generate the usage in that case
+    // todo, differed: let parameters be objects. we can easily generate the usage in that case
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to TaskMan. "
             + "Parameters: TITLE d/DEADLINE s/startDateTime, endDateTime f/frequency [t/TAG]...\n"
             + "Example: " + COMMAND_WORD

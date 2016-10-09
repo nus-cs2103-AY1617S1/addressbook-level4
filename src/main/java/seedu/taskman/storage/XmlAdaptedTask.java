@@ -91,7 +91,7 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Title title = new Title(this.title);
-        final Status status = new Status(this.status);
+        final Status status = new Status();
         final UniqueTagList tags = new UniqueTagList(taskTags);
         final Deadline deadline = this.frequency != null
                 ? new Deadline(this.deadline)
@@ -103,7 +103,7 @@ public class XmlAdaptedTask {
                 ? new Schedule(this.schedule)
                 : null;
 
-        Task task = new Task(title, tags, deadline, frequency, schedule);
+        Task task = new Task(title, tags, deadline, schedule, frequency);
         task.setStatus(status);
         return task;
     }

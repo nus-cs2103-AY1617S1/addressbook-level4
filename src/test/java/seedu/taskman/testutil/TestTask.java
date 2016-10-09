@@ -19,7 +19,7 @@ public class TestTask implements ReadOnlyTask {
 
     public TestTask() {
         tags = new UniqueTagList();
-        status = new Status("");
+        status = new Status();
     }
 
     public void setTitle(Title title) {
