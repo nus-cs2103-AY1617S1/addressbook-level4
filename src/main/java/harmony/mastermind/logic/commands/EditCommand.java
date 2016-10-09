@@ -1,5 +1,7 @@
 package harmony.mastermind.logic.commands;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,11 +10,8 @@ import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
-import harmony.mastermind.model.task.Date;
-import harmony.mastermind.model.task.Name;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
-import harmony.mastermind.model.task.Time;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -41,8 +40,10 @@ public class EditCommand extends Command{
     private ReadOnlyTask taskToEdit;
     private Task toEdit;
     
-    public EditCommand(int targetIndex,String name, String time, 
-            String date, Set<String> tags) throws IllegalValueException{
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyHHmm");
+    
+    public EditCommand(int targetIndex,String name, String startDate, 
+            String endDate, Set<String> tags) throws IllegalValueException, ParseException{
         this.targetIndex = targetIndex;
         
         final Set<Tag> tagSet = new HashSet<>();
@@ -50,10 +51,11 @@ public class EditCommand extends Command{
             tagSet.add(new Tag(tagName));
         }
         this.toEdit = new Task(
-                new Name(name),
-                new Time(time),
-                new Date(date),
-                new UniqueTagList(tagSet)
+                name,
+                dateFormat.parse(startDate),
+                dateFormat.parse(endDate),
+                new UniqueTagList(tagSet),
+                false
         );
     }
     

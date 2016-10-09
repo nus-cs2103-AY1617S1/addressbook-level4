@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import harmony.mastermind.commons.exceptions.DuplicateDataException;
 import harmony.mastermind.commons.util.CollectionUtil;
@@ -140,5 +141,12 @@ public class UniqueTagList implements Iterable<Tag> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+    
+    @Override
+    //@@author A0138862W
+    public String toString(){
+        // functional way to transform list of items into concatenated string joining with commas (JAVA 8)
+        return this.getInternalList().stream().map(Object::toString).collect(Collectors.joining(","));
     }
 }

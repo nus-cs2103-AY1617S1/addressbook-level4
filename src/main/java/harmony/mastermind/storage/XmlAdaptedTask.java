@@ -5,9 +5,11 @@ import javax.xml.bind.annotation.XmlElement;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
-import harmony.mastermind.model.task.*;
+import harmony.mastermind.model.task.ReadOnlyTask;
+import harmony.mastermind.model.task.Task;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,10 +20,11 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String time;
+    private Date startDate;
     @XmlElement(required = true)
-    private String date;
-
+    private Date endDate;
+    @XmlElement(required = true)
+    private boolean isArchived;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -36,10 +39,12 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
+    //@@author A0138862W
     public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getName().fullName;
-        time = source.getTime().value;
-        date = source.getDate().value;
+        name = source.getName();
+        startDate = source.getStartDate();
+        endDate = source.getEndDate();
+        isArchived = source.isArchived();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -56,10 +61,13 @@ public class XmlAdaptedTask {
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
-        final Name name = new Name(this.name);
-        final Time time = new Time(this.time);
-        final Date date = new Date(this.date);
+        
+        final String name = this.name;
+        final Date startDate = this.startDate;
+        final Date endDate = this.endDate;
+        final boolean isArchived = this.isArchived;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, time, date, tags);
+        
+        return new Task(name, startDate, endDate, tags, isArchived);
     }
 }

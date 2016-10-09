@@ -63,6 +63,7 @@ public class TestUtil {
     public static final Task[] samplePersonData = getSamplePersonData();
 
     private static Task[] getSamplePersonData() {
+        /*
         try {
             return new Task[]{
                     new Task(new Name("Ali Muster"), new Time("9482424"), new Date("hans@google.com"), new UniqueTagList()),
@@ -80,6 +81,8 @@ public class TestUtil {
             //not possible
             return null;
         }
+        */
+        return null;
     }
 
     public static final Tag[] sampleTagData = getSampleTagData();

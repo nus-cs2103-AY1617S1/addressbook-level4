@@ -12,6 +12,7 @@ public class TypicalTestTask {
     public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
     public TypicalTestTask() {
+        /*
         try {
             alice =  new TaskBuilder().withName("Alice Pauline")
                     .withDate("alice@gmail.com").withTime("85355255")
@@ -32,6 +33,7 @@ public class TypicalTestTask {
             e.printStackTrace();
             assert false : "not possible";
         }
+        */
     }
 
     public static void loadAddressBookWithSampleData(TaskManager ab) {
