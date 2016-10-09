@@ -60,12 +60,14 @@ public class AddCommand extends Command {
      */
     public AddCommand(String itemType, String name, String startDate, String startTime, String endDate, String endTime, Set<String> tags)
             throws IllegalValueException {
-        if (endDate == null) {
-            endDate = Date.EMPTY_DATE;
-        }
-        if (endTime == null) {
-            endTime = Time.EMPTY_TIME;
-        }
+        assert itemType != null;
+        assert name != null;
+        assert startDate != null;
+        assert startTime != null;
+        assert endDate != null;
+        assert endTime != null;
+        assert tags != null;
+        
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
