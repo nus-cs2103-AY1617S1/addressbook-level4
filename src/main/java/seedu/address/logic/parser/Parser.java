@@ -152,12 +152,23 @@ public class Parser {
         StringBuffer strBuf = new StringBuffer();
         for (String word : typeWords) {
             if (type.contains(word)) {
+                type = type.replaceFirst(word, "");
                 strBuf.append(word);
                 strBuf.append(" ");
             }
         }
         type = strBuf.toString();
 
+        if (type != null && type.equals(""))
+            type = null;
+        if (deadline != null && deadline.equals(""))
+            deadline = null;
+        if (startTime != null && startTime.equals(""))
+            startTime = null;
+        if (endTime != null && endTime.equals(""))
+            endTime = null;
+        if (sortingOrder != null && sortingOrder.equals(""))
+            sortingOrder = null;
         if(tags == null){
             tags = "";
         }

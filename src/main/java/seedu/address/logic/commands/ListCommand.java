@@ -74,7 +74,8 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         model.resetTaskListFilter();
-        model.addTaskListFilterByType(type);
+        if (type != null)
+            model.addTaskListFilterByType(type);
         if (deadline != null)
             model.addTaskListFilterByDeadline(deadline);
         if (startTime != null)
