@@ -210,6 +210,7 @@ and logging destinations.
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 <br>
+<br>
 
 ## Testing
 
