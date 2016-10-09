@@ -5,17 +5,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Parses a given input string
+ * Parses a given input string, part by part
  * Methods modify the input string by extracting appropriate parts of it
  */
-public class Parser {
+public class SequentialParser {
 
     private static final Pattern FIRST_WORD_PATTERN = Pattern.compile("^(?<word>\\S+)(?<tail>.*)$");
     private static final Pattern FIRST_INTEGER_PATTERN = Pattern.compile("^(?<index>\\d+)(?<tail>.*)$");
     private static final Pattern WORD_PATTERN = Pattern.compile("(?<word>\\S+)");
     private String input;
 
-    public Parser() {
+    public SequentialParser() {
     }
 
     /**
