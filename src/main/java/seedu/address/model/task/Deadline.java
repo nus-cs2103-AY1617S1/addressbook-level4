@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import java.util.Date;
+import java.util.Objects;
 
 import seedu.address.commons.util.ObjectUtil;
 
@@ -61,6 +62,6 @@ public class Deadline {
 
     @Override
     public int hashCode() {
-        return deadline.hashCode();
+        return Objects.hash(deadline);
     }
 }
