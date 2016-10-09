@@ -57,7 +57,7 @@ public class EditCommandTest extends AddressBookGuiTest{
         
         //confirm the list now contains all previous persons except the deleted person
         //TODO: change from checking last index to previous index of changed task
-        assertTrue(personListPanel.isListMatching(expectedTask));
+        assertTrue(taskListPanel.isListMatching(expectedTask));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, expectedTask));
