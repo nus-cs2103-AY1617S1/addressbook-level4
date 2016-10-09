@@ -49,7 +49,7 @@ Most productivity apps only allow you to manage tasks *or* events. Our applicati
 * Items with `...` after them can have multiple instances.
 * Most commands that updates a task require an `INDEX`. This is number shown to the left of the task as shown in the screenshot below
 
- <img src="images/sketch_task_index.jpg" width="350" alt="Index Number Location">
+ <img src="images/sketch_task_index_small.png" width="350" alt="Index Number Location">
 
 
 ### Viewing help : **`help`**
@@ -156,7 +156,7 @@ Format:
 
 You can use this command to mark a task as completed. Completed task appear struckthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
 
-<img src="images/sketch_task_completed.jpg" width="700" alt="Example of a Completed Task"><br />
+<img src="images/sketch_task_completed_small.png" width="700" alt="Example of a Completed Task"><br />
 
 ### Pinning a task: **`pin`**
 
@@ -164,7 +164,7 @@ Format: **`pin`**` INDEX`
 
 If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. 
 
-<img src="images/sketch_task_pinned.jpg" width="700" alt="Pinned Task"><br />
+<img src="images/sketch_task_pinned_small.png" width="700" alt="Pinned Task"><br />
 
 
 ### Editing a task: **`edit`**
@@ -182,7 +182,7 @@ Use the `edit` command to make changes to the task specified by `INDEX`. The com
 Switch between different views.  
 Format: **`view`**` VIEW`
 
-<img src="images/sketch_task_view.jpg" width="700" alt="View of completed tasks">
+<img src="images/sketch_task_view_small.png" width="700" alt="View of completed tasks">
 
 You can also use the underlined character in the view's name as the shortcut when switching views. 
 
