@@ -1,60 +1,38 @@
 package seedu.todo.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.person.*;
-import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList;
+import seedu.todo.logic.arguments.Argument;
+import seedu.todo.logic.arguments.FlagArgument;
+import seedu.todo.logic.arguments.Parameter;
+import seedu.todo.logic.arguments.StringArgument;
 
-/**
- * Adds a person to the address book.
- */
-public class AddCommand extends Command {
+public class AddCommand extends BaseCommand {
+    
+    private Argument<String> title = new StringArgument("title").required();
+    
+    private Argument<String> description = new StringArgument("description")
+            .flag("m");
+    
+    private Argument<Boolean> pin = new FlagArgument("pin")
+            .flag("p");
+    
+    private Argument<String> location = new StringArgument("location")
+            .flag("l");
 
-    public static final String COMMAND_WORD = "add";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
-
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
-
-    private final Person toAdd;
-
-    /**
-     * Convenience constructor using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd = new Person(
-                new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
-                new UniqueTagList(tagSet)
-        );
+    @Override
+    public Parameter[] getArguments() {
+        return new Parameter[] {
+            title, description, location, pin,
+        };
     }
 
     @Override
-    public CommandResult execute() {
-        assert model != null;
-        try {
-            model.addPerson(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniquePersonList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
-        }
-
+    public void execute() throws IllegalValueException {
+        this.model.add(title.getValue(), task -> {
+            task.setDescription(description.getValue());
+            task.setPinned(pin.getValue());
+            task.setLocation(location.getValue());
+        });
     }
 
 }
