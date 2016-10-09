@@ -287,8 +287,8 @@ Example : Help
 
  No. | Command | Format 
  -------- | :-------- | :--------- | :-----------
-1| Add event| add [event_description, date, start_time, end_time] 
-2| Add deadline | add deadline_description, date,end_time  
+1| Add event| add [event_description; date; start_time; end_time] 
+2| Add deadline | add deadline_description; date; end_time  
 3| Add to-do | add to-do_description 
 4| Add with tags and priorities | add [event_description, date, start_time, end_time] #tag !
 5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
@@ -296,6 +296,6 @@ Example : Help
 7| Done | done &lt;index&gt;&lt;index&gt;... 
 8| Undo | undo &lt;number of times to undo, up to 5&gt;
 9| Redo | redo &lt;number of times to redo, up to 5&gt;
-10| Delete | delete &lt;index&gt;&lt;index&gt; 
+10| Delete | delete &lt;index&gt; ; &lt;index&gt; 
 11| Exit | exit 
 12| help | help 
