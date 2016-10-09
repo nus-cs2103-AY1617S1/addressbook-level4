@@ -11,20 +11,13 @@ public class Done {
     public static final String MESSAGE_DONE_CONSTRAINTS = "";
     public static final String DONE_VALIDATION_REGEX = "";
 
-    public final String value;
+    public final Boolean value;
 
     /**
-     * Validates given done.
-     *
-     * @throws IllegalValueException if given done is invalid.
+     * Done is false by default.
      */
-    public Done(String done) throws IllegalValueException {
-        assert done != null;
-        done = done.trim();
-        if (!isValidDone(done)) {
-            throw new IllegalValueException(MESSAGE_DONE_CONSTRAINTS);
-        }
-        this.value = done;
+    public Done(){
+        this.value = false;
     }
 
     /**
@@ -36,7 +29,7 @@ public class Done {
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
     /*
     @Override
