@@ -31,7 +31,7 @@ public class EditCommandTest extends AddressBookGuiTest{
         assertEditTaskSuccess(currentList, targetIndex, newName);
 
         //invalid index
-        commandBox.runCommand("edit " + currentList.length + 1);
+        commandBox.runCommand("edit " + currentList.length + 1 + " Change invalid stuff");
         assertResultMessage("The task index provided is invalid");
         
         //TODO: edit the first event in the list with all details
