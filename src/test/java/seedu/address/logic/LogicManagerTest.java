@@ -19,6 +19,8 @@ import seedu.address.storage.StorageManager;
 import seedu.address.testutil.EventsCollector;
 import seedu.address.testutil.ToDoBuilder;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
@@ -38,14 +40,19 @@ public class LogicManagerTest {
     private Logic logic;
     private EventsCollector eventsCollector;
     private LocalDateTime now = LocalDateTime.now();
+    private File toDoListFile;
+    private File userPrefsFile;
 
     @Before
-    public void setup() {
+    public void setup() throws IOException {
         model = new ModelManager();
 
-        String tempToDoListFile = folder.getRoot().getPath() + "todolist.xml";
-        String tempUserPrefsFile = folder.getRoot().getPath() + "userprefs.json";
-        logic = new LogicManager(model, new StorageManager(tempToDoListFile, tempUserPrefsFile));
+        toDoListFile = folder.newFile();
+        userPrefsFile  = folder.newFile();
+        logic = new LogicManager(model, new StorageManager(
+            toDoListFile.getAbsolutePath(),
+            userPrefsFile.getAbsolutePath()
+        ));
 
         eventsCollector = new EventsCollector();
     }
