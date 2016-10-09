@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Phone("9482424"), new Priority("hans@google.com"), new Deadline("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Phone("87249245"), new Priority("ruth@google.com"), new Deadline("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Phone("95352563"), new Priority("heinz@yahoo.com"), new Deadline("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Phone("87652533"), new Priority("cornelia@google.com"), new Deadline("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Phone("9482224"), new Priority("werner@gmail.com"), new Deadline("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Phone("9482427"), new Priority("lydia@gmail.com"), new Deadline("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Phone("9482442"), new Priority("anna@google.com"), new Deadline("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Phone("8482424"), new Priority("stefan@mail.com"), new Deadline("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Phone("8482131"), new Priority("hans@google.com"), new Deadline("chicago ave"), new UniqueTagList())
+                    new Task(new Name("Task Manager v0.1"), new Deadline("06102016"), new Priority("2")),
+                    new Task(new Name("Task Manager v0.2"), new Deadline("13102016"), new Priority("1")),
+                    new Task(new Name("Task Manager v0.3"), new Deadline("20102016"), new Priority("3")),
+                    new Task(new Name("Task Manager v0.4"), new Deadline("27102016"), new Priority("4")),
+                    new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Priority("werner@gmail.com")),
+                    new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Priority("lydia@gmail.com")),
+                    new Task(new Name("George Best"), new Deadline("9482442"), new Priority("anna@google.com")),
+                    new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Priority("stefan@mail.com")),
+                    new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Priority("hans@google.com"))
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -278,10 +278,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestTask[] removePersonsFromList(final TestTask[] persons, TestTask... personsToRemove) {
+        List<TestTask> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
 
@@ -290,7 +290,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
+    public static TestTask[] removePersonFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
@@ -301,7 +301,7 @@ public class TestUtil {
      * @param index The index of the person to be replaced.
      * @return
      */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
+    public static TestTask[] replacePersonFromList(TestTask[] persons, TestTask person, int index) {
         persons[index] = person;
         return persons;
     }
@@ -312,10 +312,10 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestTask[] addPersonsToList(final TestTask[] persons, TestTask... personsToAdd) {
+        List<TestTask> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {

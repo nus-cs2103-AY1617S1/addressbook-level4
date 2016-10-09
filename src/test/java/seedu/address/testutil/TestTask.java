@@ -6,15 +6,14 @@ import seedu.address.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Deadline address;
-    private Priority email;
-    private Phone phone;
+    private Deadline deadline;
+    private Priority priority;
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
@@ -22,16 +21,12 @@ public class TestPerson implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(Deadline address) {
-        this.address = address;
+    public void setDeadline(Deadline deadline) {
+        this.deadline = deadline;
     }
 
-    public void setEmail(Priority email) {
-        this.email = email;
-    }
-
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     @Override
@@ -40,18 +35,13 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Priority getEmail() {
-        return email;
+    public Priority getPriority() {
+        return priority;
     }
 
     @Override
     public Deadline getDeadline() {
-        return address;
+        return deadline;
     }
 
     @Override
@@ -67,9 +57,8 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getDeadline().value + " ");
+        sb.append("p/" + this.getDeadline().value + " ");
+        sb.append("e/" + this.getPriority().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

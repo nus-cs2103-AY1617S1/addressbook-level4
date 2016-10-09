@@ -10,8 +10,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Priority {
 
     public static final String MESSAGE_PRIORITY_CONSTRAINTS =
-            "Task priority should be 2 alphanumeric/period strings separated by '@'";
-    public static final String PRIORITY_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+            "Task priority should be 1 numeric string";
+    public static final String PRIORITY_VALIDATION_REGEX = "[\\w\\.]+";
 
     public final String value;
 

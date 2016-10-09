@@ -6,14 +6,13 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Task in the Task Manager.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Phone phone;
-    private Priority email;
+    private Priority priority;
     private Deadline deadline;
 
     private UniqueTagList tags;
@@ -21,12 +20,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Priority email, Deadline deadline, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, deadline, tags);
+    public Task(Name name, Deadline deadline, Priority priority) {
+        assert !CollectionUtil.isAnyNull(name, deadline, priority);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
         this.deadline = deadline;
+        this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,7 +32,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getDeadline(), source.getTags());
+        this(source.getName(), source.getDeadline(), source.getPriority());
     }
 
     @Override
@@ -43,13 +41,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Priority getEmail() {
-        return email;
+    public Priority getPriority() {
+        return priority;
     }
 
     @Override
@@ -79,7 +72,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, deadline, tags);
+        return Objects.hash(name, deadline, priority);
     }
 
     @Override

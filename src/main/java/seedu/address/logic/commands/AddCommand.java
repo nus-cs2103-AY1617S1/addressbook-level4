@@ -15,13 +15,13 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
+            + "Parameters: NAME d/DEADLINE p/PRIORITY" 
+            + " Example: " + COMMAND_WORD
+            + " CS2103T Software Engineeringv0.1 d/13102016 p/1";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
 
     private final Task toAdd;
 
@@ -30,18 +30,12 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
+    public AddCommand(String name, String deadline, String priority)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
         this.toAdd = new Task(
                 new Name(name),
-                new Phone(phone),
-                new Priority(email),
-                new Deadline(address),
-                new UniqueTagList(tagSet)
+                new Deadline(deadline),
+                new Priority(priority)
         );
     }
 
@@ -52,7 +46,7 @@ public class AddCommand extends Command {
             model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePersonList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }
