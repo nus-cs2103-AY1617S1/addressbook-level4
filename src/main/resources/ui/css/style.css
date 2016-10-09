@@ -80,11 +80,11 @@ VBox.header {
 .text-area.console-textarea {
   -fx-font-size: 10px;
   -fx-border-width: 0 0 1 0;
-  -fx-border-color: #eeeeee;
+  -fx-border-color: #dddddd;
 }
 
 .text-area.console-textarea .content {
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-background-radius: 0px;
 }
 

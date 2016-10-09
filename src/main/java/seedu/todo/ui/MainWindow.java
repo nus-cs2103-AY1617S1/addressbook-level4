@@ -69,6 +69,7 @@ public class MainWindow extends View {
     }
     
     private void loadComponents() {
+    	// Load Header
     	Header header = new Header();
     	header.setHookModifyView(controller -> {
     		Header headerController = (Header) controller;
@@ -77,7 +78,10 @@ public class MainWindow extends View {
     	});
     	header.render(primaryStage, getHeaderPlaceholder());
     	
+    	// Load ConsoleInput
     	new ConsoleInput().render(primaryStage, getConsoleInputPlaceholder());
+    	
+    	// Load Console
     	new Console().render(primaryStage, getConsolePlaceholder());
     }
 
