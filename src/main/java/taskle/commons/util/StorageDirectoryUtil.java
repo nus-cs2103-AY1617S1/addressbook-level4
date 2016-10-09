@@ -17,7 +17,7 @@ public class StorageDirectoryUtil {
         try {
             new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).delete();
             new File(config.getTaskManagerFilePath()).renameTo(new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()));
-            config.setTaskManagerFilePath(selectedDirectory.getAbsolutePath());
+            config.setTaskManagerFileDirectory(selectedDirectory.getAbsolutePath());
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
             logic.changeDirectory(config.getTaskManagerFilePath());
         } catch (IOException e) {
