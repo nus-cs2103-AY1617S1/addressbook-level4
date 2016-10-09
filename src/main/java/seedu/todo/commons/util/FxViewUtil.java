@@ -1,5 +1,7 @@
 package seedu.todo.commons.util;
 
+import java.util.Optional;
+import javafx.scene.control.Label;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
@@ -21,5 +23,16 @@ public class FxViewUtil {
     public static void setCollapsed(Node node, boolean isCollapsed) {
         node.setVisible(!isCollapsed);
         node.setManaged(!isCollapsed);
+    }
+    
+    /**
+     * Set the text to UI element when available, collapse the UI element when not.
+     */
+    public static void displayTextWhenAvailable(Label labelToDisplay, Node nodeToHide, Optional<String> optionalString) {
+        if (optionalString.isPresent()) {
+            labelToDisplay.setText(optionalString.get());
+        } else {
+            setCollapsed(nodeToHide, true);
+        }
     }
 }
