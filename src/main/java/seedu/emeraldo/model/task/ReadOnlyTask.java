@@ -10,7 +10,7 @@ public interface ReadOnlyTask {
 
     Description getDescription();
     Phone getPhone();
-    Address getAddress();
+    DateTime getDateTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -26,7 +26,7 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getDescription().equals(this.getDescription()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getDateTime().equals(this.getDateTime()));
     }
 
     /**
@@ -37,8 +37,8 @@ public interface ReadOnlyTask {
         builder.append(getDescription())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" DateTime: ")
+                .append(getDateTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

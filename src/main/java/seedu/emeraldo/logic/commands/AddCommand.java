@@ -39,7 +39,7 @@ public class AddCommand extends Command {
         this.toAdd = new Task(
                 new Description(name),
                 new Phone(phone),
-                new Address(address),
+                new DateTime(address),
                 new UniqueTagList(tagSet)
         );
     }

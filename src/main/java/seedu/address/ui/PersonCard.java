@@ -42,7 +42,7 @@ public class PersonCard extends UiPart{
         name.setText(person.getDescription().fullName);
         id.setText(displayedIndex + ". ");
         phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
+        address.setText(person.getDateTime().value);
         tags.setText(person.tagsString());
     }
 

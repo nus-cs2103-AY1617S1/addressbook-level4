@@ -13,18 +13,18 @@ public class Task implements ReadOnlyTask {
 
     private Description Description;
     private Phone phone;
-    private Address address;
+    private DateTime dateTime;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Description Description, Phone phone, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(Description, phone, address, tags);
+    public Task(Description Description, Phone phone, DateTime dateTime, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(Description, phone, dateTime, tags);
         this.Description = Description;
         this.phone = phone;
-        this.address = address;
+        this.dateTime = dateTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -32,7 +32,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getPhone(), source.getAddress(), source.getTags());
+        this(source.getDescription(), source.getPhone(), source.getDateTime(), source.getTags());
     }
 
     @Override
@@ -46,8 +46,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public DateTime getDateTime() {
+        return dateTime;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(Description, phone, address, tags);
+        return Objects.hash(Description, phone, dateTime, tags);
     }
 
     @Override

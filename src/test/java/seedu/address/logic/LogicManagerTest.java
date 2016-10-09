@@ -372,11 +372,11 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Description name = new Description("Adam Brown");
             Phone privatePhone = new Phone("111111");
-            Address privateAddress = new Address("111, alpha street");
+            DateTime privateDateTime = new DateTime("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, privateAddress, tags);
+            return new Task(name, privatePhone, privateDateTime, tags);
         }
 
         /**
@@ -390,7 +390,7 @@ public class LogicManagerTest {
             return new Task(
                     new Description("Person " + seed),
                     new Phone("" + Math.abs(seed)),
-                    new Address("House of " + seed),
+                    new DateTime("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -403,7 +403,7 @@ public class LogicManagerTest {
 
             cmd.append(p.getDescription().toString());
             cmd.append(" p/").append(p.getPhone());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" a/").append(p.getDateTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -487,7 +487,7 @@ public class LogicManagerTest {
             return new Task(
                     new Description(name),
                     new Phone("1"),
-                    new Address("House of 1"),
+                    new DateTime("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

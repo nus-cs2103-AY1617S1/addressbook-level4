@@ -28,7 +28,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Address(address));
+        this.person.setDateTime(new DateTime(address));
         return this;
     }
 

@@ -9,7 +9,7 @@ import seedu.emeraldo.model.task.*;
 public class TestPerson implements ReadOnlyTask {
 
     private Description name;
-    private Address address;
+    private DateTime dateTime;
     private Phone phone;
     private UniqueTagList tags;
 
@@ -21,8 +21,8 @@ public class TestPerson implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setDateTime(DateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public void setPhone(Phone phone) {
@@ -40,8 +40,8 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public DateTime getDateTime() {
+        return dateTime;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class TestPerson implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getDescription().fullName + " ");
         sb.append("p/" + this.getPhone().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("a/" + this.getDateTime().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
