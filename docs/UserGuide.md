@@ -214,8 +214,8 @@ Examples:
 Format: none, just type a command and let DearJim provide you hints on the command format that you might want to use!
 > * DearJim provides you hints on command formats as you type the command!
 > * Examples:
->   * <img src="images/dearjim_hint_add.png" width="600"><br>Typing `add` in the command input generates the `add` command format in the result display
->   * <img src="images/dearjim_hint_delete.png" width="600">Typing `delete` in the command input generates the `delete` command format in the result display
+>   * <img src="images/dearjim_hint_add.png"><br>Typing `add` in the command input generates the `add` command format in the result display
+>   * <img src="images/dearjim_hint_delete.png"><br>Typing `delete` in the command input generates the `delete` command format in the result display
 
 #### Saving the data 
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
