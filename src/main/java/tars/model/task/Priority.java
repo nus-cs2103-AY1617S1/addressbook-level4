@@ -45,8 +45,4 @@ public class Priority {
                 && this.toString().equals(((Priority) other).toString())); // state check
     }
 
-    public void setLevel(String priorityLevel) {
-        this.priorityLevel = priorityLevel;
-    }
-
 }
