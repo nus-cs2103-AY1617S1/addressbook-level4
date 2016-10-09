@@ -17,9 +17,9 @@ public class AddCommand extends Command {
 
     // KIV: let parameters be objects. we can easily generate the usage in that case
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to TaskMan. "
-            + "Parameters: TITLE d/DEADLINE f/frequency s/startDate, endDate [t/TAG]...\n"
+            + "Parameters: TITLE d/DEADLINE s/startDateTime, endDateTime f/frequency [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Buy bday present for dad d/next fri 1800 f/1yr s/tdy 1800, tdy 2000 t/Family";
+            + " Buy bday present for dad d/next fri 1800 s/tdy 1800, tdy 2000 f/1yr t/Family";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This task already exists in TaskMan";
@@ -31,7 +31,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String title, String deadline, String frequency, String schedule, Set<String> tags)
+    public AddCommand(String title, String deadline, String schedule, String frequency, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -41,8 +41,8 @@ public class AddCommand extends Command {
                 new Title(title),
                 new UniqueTagList(tagSet),
                 new Deadline(deadline),
-                new Frequency(frequency),
-                new Schedule(schedule)
+                new Schedule(schedule),
+                new Frequency(frequency)
         );
     }
 
