@@ -117,7 +117,7 @@ public class TaskCard extends UiPart{
     private void setStyle() {
         ObservableList<String> stylesheets = taskCard.getStylesheets();
         stylesheets.add(STYLE_BASE);
-        stylesheets.add(STYLE_COLLAPSED);
+        //stylesheets.add(STYLE_COLLAPSED); Disabled until implemented
         
         if (task.isCompleted()) {
             stylesheets.add(STYLE_COMPLETED);
