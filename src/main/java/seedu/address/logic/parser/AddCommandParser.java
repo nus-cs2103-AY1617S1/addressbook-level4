@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.DateParser.InferredDate;
+import seedu.address.model.task.PriorityLevel;
 import seedu.address.model.task.RecurrenceType;
 
 public class AddCommandParser extends CommandParser<AddCommand> {
@@ -68,7 +69,7 @@ public class AddCommandParser extends CommandParser<AddCommand> {
             InferredDate endDate = parseEndDate(commandText, matcher.group(REGEX_REF_END_DATE));
             parseTaskName(commandText, matcher.group(REGEX_REF_TASK_NAME));
             parseLocation(commandText, matcher.group(REGEX_REF_LOCATION));
-            String priority = matcher.group(REGEX_REF_PRIORITY_LEVEL);
+            parsePriorityLevel(commandText, matcher.group(REGEX_REF_PRIORITY_LEVEL));
             parseRecurrenceType(commandText, matcher.group(REGEX_REF_RECURRING_TYPE));
             parseNumberOfRecurrence(commandText, matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
             parseCategory(commandText, matcher.group(REGEX_REF_CATEGORY));
@@ -104,6 +105,14 @@ public class AddCommandParser extends CommandParser<AddCommand> {
     
     private String parseLocation(String commandText, String locationText) throws ParseException {
         return locationText;
+    }
+    
+    private PriorityLevel parsePriorityLevel(String commandText, String priorityLevelText) throws ParseException {
+        try {
+            return PriorityLevel.valueOfIgnoreCase(priorityLevelText);
+        } catch (IllegalArgumentException ex) {
+            throw new ParseException(commandText, "PRIORITY_LEVEL: Unknown type '" + priorityLevelText + "'");
+        }
     }
     
     private RecurrenceType parseRecurrenceType(String commandText, String recurrenceTypeText) throws ParseException {
