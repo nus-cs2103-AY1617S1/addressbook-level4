@@ -411,9 +411,9 @@ System displays all tasks by the priority specified
 * Need to have a google account
 * Need to use a mouse to navigate most of the time
 
-**Todoist (Free version)**<br>
+**Todoist**<br>
 > Strengths:
-* The interface is clean and simple. Easy to understand. Good for personal use.
+* Interface is clean and simple. Easy to understand. Good for personal use.
 * Quick access to check on everyday's task
 * Quick add of task is particularly helpful for lazy users
 * Freedom of adding more category of task besides the default(E.g. Personal, Shopping, Work)
@@ -432,7 +432,7 @@ System displays all tasks by the priority specified
 * Good GUI. Pleasing to the eye. 
 * Ability to share events with others. (Family, Friends)
 * Reminders in place for upcoming tasks. [Alarms, email notification, notification light colour]
-* Smart Due Dates: Automatically detects words like “tomorrow” or “next week” and adds an event for that day.
+* Smart Due Dates: Automatically detects words like 'tomorrow' or 'next week' and adds an event for that day.
 * Set priority for tasks.
 * Star To-dos: Moves starred tasks to the top of the list automatically.
 * Quick add notification
@@ -441,7 +441,7 @@ System displays all tasks by the priority specified
 * Duplication of the list.
 * Completed to-do list hidden unless selected.<br>
 
->Weaknesses:
+> Weaknesses:
 * Slow in updating changes
 
 
