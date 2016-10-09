@@ -53,7 +53,9 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
     	ui.start(primaryStage);
-    	ui.loadView(new IndexView());
+    	IndexView index = new IndexView();
+    	index.indexTextValue = "HI THERE";
+    	ui.loadView(index);
     }
 
     @Override

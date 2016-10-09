@@ -1,5 +1,6 @@
 package seedu.todo.ui.views;
 
+import java.util.function.Function;
 import java.util.logging.Logger;
 
 import javafx.scene.Node;
@@ -25,16 +26,25 @@ public abstract class View extends UiPart {
      * @param primaryStage   The primary stage that contains the main application window.
      * @param placeholder    The placeholder pane where this View should reside.
      */
-	public void render(Stage primaryStage, AnchorPane placeholder) {
+	public View render(Stage primaryStage, AnchorPane placeholder, Function<View, View> modifyControllerHook) {
 		// Load FXML.
-		UiPartLoader.loadUiPart(primaryStage, placeholder, this);
+		return UiPartLoader.loadUiPart(primaryStage, placeholder, this, modifyControllerHook);
 	}
 	
-	// Overloaded method for render.
-	public void render(Stage primaryStage) {
-		render(primaryStage, null);
+	// Overloaded methods for render.
+	public View render(Stage primaryStage, Function<View, View> modifyControllerHook) {
+		return render(primaryStage, null, modifyControllerHook);
 	}
 	
+	public View render(Stage primaryStage, AnchorPane placeholder) {
+		return render(primaryStage, placeholder, (controller) -> controller);
+	}
+	
+	public View render(Stage primaryStage) {
+		return render(primaryStage, null, (controller) -> controller);
+	}
+	
+	// Lifecycle hooks
 	public void componentDidMount() {
 		// To be overwritten by View or Component definitions.
 	}

@@ -1,5 +1,7 @@
 package seedu.todo.ui;
 
+import java.util.function.Function;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -69,10 +71,13 @@ public class MainWindow extends View {
     }
     
     private void loadComponents() {
-    	Header header = new Header();
-    	header.versionString = MainApp.VERSION.toString();
-    	header.render(primaryStage, getHeaderPlaceholder());
+    	Function<View, View> modifyHeaderHook = (View controller) -> {
+    		Header headerController = (Header) controller;
+    		headerController.versionString = MainApp.VERSION.toString();
+    		return headerController;
+    	};
     	
+    	new Header().render(primaryStage, getHeaderPlaceholder(), modifyHeaderHook);
     	new ConsoleInput().render(primaryStage, getConsoleInputPlaceholder());
     	new Console().render(primaryStage, getConsolePlaceholder());
     }
