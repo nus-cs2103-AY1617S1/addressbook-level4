@@ -59,12 +59,12 @@ Examples:
 
 #### Priority tasks: `priority`
 Allows the user to set the priority of a task when creating it.<br>
-Format : `priority <priority number>`
+Format : `add <task name> priority <high/low>`
 
-> Priority 1 or 2 or 3 is based on how important the task is, with 3 being the highest priority and 1 being the lowest. It should always follow the add command.
+> Priority high or low based on how important the task is. It should always follow the add command.
 
 Example:
-* `add CS2101 by 01/01/2016 priority 3`
+* `add CS2101 by 01/01/2016 priority high`
 
 #### Undo a Task: `undo`
 Undo the most recent task entered in the command line<br>
