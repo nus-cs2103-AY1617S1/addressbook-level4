@@ -90,10 +90,10 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'task book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, ReadOnlyTaskBook, List)
+     * @see #assertTaskCommandBehavior(String, String, ReadOnlyTaskBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
+        assertTaskCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
     }
 
     /**
@@ -103,7 +103,7 @@ public class LogicManagerTest {
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedTaskBook} was saved to the storage file. <br>
      */
-    private void assertCommandBehavior(String inputCommand, String expectedMessage,
+    private void assertTaskCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskBook expectedTaskBook,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
@@ -118,6 +118,30 @@ public class LogicManagerTest {
         assertEquals(expectedTaskBook, model.getTaskBook());
         assertEquals(expectedTaskBook, latestSavedTaskBook);
     }
+    
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
+     *      - the internal task book data are same as those in the {@code expectedTaskBook} <br>
+     *      - the backing list shown by UI matches the {@code shownList} <br>
+     *      - {@code expectedTaskBook} was saved to the storage file. <br>
+     */
+    private void assertEventCommandBehavior(String inputCommand, String expectedMessage,
+                                       ReadOnlyTaskBook expectedTaskBook,
+                                       List<? extends ReadOnlyEvent> expectedShownList) throws Exception {
+
+        //Execute the command
+        CommandResult result = logic.execute(inputCommand);
+
+        //Confirm the ui display elements should contain the right data
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedShownList, model.getFilteredEventList());
+
+        //Confirm the state of data (saved and in-memory) is as expected
+        assertEquals(expectedTaskBook, model.getTaskBook());
+        assertEquals(expectedTaskBook, latestSavedTaskBook);
+    }
+    
 
     @Ignore
     @Test
@@ -147,46 +171,70 @@ public class LogicManagerTest {
         model.addTask(helper.generateTask(2));
         model.addTask(helper.generateTask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
+        assertTaskCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
     }
 
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE, AddEventCommand.MESSAGE_USAGE);
         assertCommandBehavior(
                 "add", expectedMessage);
     }
 
     @Test
-    public void execute_add_invalidTaskData() throws Exception {
+    public void execute_addTask_invalidTaskData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] /desc nil /by 30-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
 //        assertCommandBehavior(
 //                "add Valid Name /desc nil /by 30-12-111", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
     }
+    
+    @Test
+    public void execute_addEvent_invalidEventData() throws Exception {
+        assertCommandBehavior(
+                "add []\\[;] /desc nil /from 30-12-16 31-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
+//        assertCommandBehavior(
+//                "add Valid Name /desc nil /by 30-12-111", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+    }
 
     @Test
-    public void execute_add_successful() throws Exception {
+    public void execute_addTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.cs2103();
+        Task toBeAdded = helper.computingTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+        assertTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),
+                String.format(AddTaskCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
 
     }
-
+    
     @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
+    public void execute_addEvent_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.cs2103();
+        Event toBeAdded = helper.computingEvent();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addEvent(toBeAdded);
+
+        // execute command and verify result
+        assertEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),
+                String.format(AddEventCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getEventList());
+
+    }
+
+    @Test
+    public void execute_addTaskDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.computingTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
 
@@ -194,11 +242,31 @@ public class LogicManagerTest {
         model.addTask(toBeAdded); // task already in internal task book
 
         // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_TASK,
+        assertTaskCommandBehavior(
+                helper.generateAddTaskCommand(toBeAdded),
+                AddTaskCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_addEventDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Event toBeAdded = helper.computingEvent();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addEvent(toBeAdded);
+
+        // setup starting state
+        model.addEvent(toBeAdded); // event already in internal task book
+
+        // execute command and verify result
+        assertEventCommandBehavior(
+                helper.generateAddEventCommand(toBeAdded),
+                AddEventCommand.MESSAGE_DUPLICATE_EVENT,
+                expectedAB,
+                expectedAB.getEventList());
 
     }
 
@@ -213,7 +281,7 @@ public class LogicManagerTest {
         // prepare address book state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
+        assertTaskCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
@@ -249,7 +317,7 @@ public class LogicManagerTest {
             model.addTask(t);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), taskList);
+        assertTaskCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), taskList);
     }
     
     @Ignore
@@ -273,7 +341,7 @@ public class LogicManagerTest {
         TaskBook expectedAB = helper.generateTaskBook(threeTasks);
         helper.addToModel(model, threeTasks);
 
-        assertCommandBehavior("select 2",
+        assertTaskCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -301,7 +369,7 @@ public class LogicManagerTest {
         expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
-        assertCommandBehavior("delete 2",
+        assertTaskCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -328,7 +396,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY",
+        assertTaskCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -348,7 +416,7 @@ public class LogicManagerTest {
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY",
+        assertTaskCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -368,7 +436,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find key rAnDoM",
+        assertTaskCommandBehavior("find key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -380,12 +448,20 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task cs2103() throws Exception {
+        Task computingTask() throws Exception {
             Name name = new Name("Do CS2103 Project");
 //            Deadline deadline = new Deadline("01-01-16");
             Description des = new Description("post on Github");
             
             return new Task(name, des);
+        }
+        
+        Event computingEvent() throws Exception {
+            Name name = new Name("Attend CS2103 Workshop");
+            Description des = new Description("post on Github");
+            Duration dur = new Duration("12-12-12 13-12-12");
+            
+            return new Event(name, des, dur);
         }
 
         /**
@@ -402,14 +478,27 @@ public class LogicManagerTest {
                    );
         }
 
-        /** Generates the correct add command based on the task given */
-        String generateAddCommand(Task p) {
+        /** Generates the correct add task command based on the task given */
+        String generateAddTaskCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
 
             cmd.append(p.getTask().toString());
-            cmd.append(" /desc ").append(p.getDescription());
+            cmd.append(" /desc ").append(p.getDescription().toString());
+
+            return cmd.toString();
+        }
+        
+        /** Generates the correct add event command based on the event given */
+        String generateAddEventCommand(Event p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("add ");
+
+            cmd.append(p.getEvent().toString());
+            cmd.append(" /desc ").append(p.getDescription().toString());
+            cmd.append(" /from ").append(p.getDuration().toString());
 
             return cmd.toString();
         }

@@ -43,8 +43,8 @@ public class ParserManager {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddTaskParser().prepare(arguments);
+        case AddTaskCommand.COMMAND_WORD:
+            return new AddParser().prepare(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);

@@ -1,7 +1,10 @@
 package seedu.task.model;
 
+import seedu.task.model.item.Event;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
@@ -22,9 +25,15 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Adds the given event */
+    void addEvent(Event event) throws UniqueEventList.DuplicateEventException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered event list as an {@code UnmodifiableObservableList<ReadOnlyEvent>} */
+    UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();

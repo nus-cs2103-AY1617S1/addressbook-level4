@@ -72,6 +72,17 @@ public class TaskBook implements ReadOnlyTaskBook {
         resetData(newData.getTaskList(), newData.getEventList());
     }
 
+//// event-level operations
+    /**
+     * Adds an event to the task book.
+     *
+     * @throws UniqueEventList.DuplicateEventException if an equivalent event already exists.
+     */
+    public void addEvent(Event p) throws UniqueEventList.DuplicateEventException {
+        events.add(p);
+    }
+    
+    
 //// task-level operations
 
     /**

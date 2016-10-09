@@ -3,8 +3,11 @@ package seedu.task.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.util.StringUtil;
+import seedu.task.model.item.Event;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueEventList.DuplicateEventException;
 import seedu.task.model.item.UniqueTaskList;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.taskcommons.core.ComponentManager;
@@ -23,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Event> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -37,6 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskBook = new TaskBook(src);
         filteredTasks = new FilteredList<>(taskBook.getTasks());
+        filteredEvents = new FilteredList<>(taskBook.getEvents());
     }
 
     public ModelManager() {
@@ -46,6 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         taskBook = new TaskBook(initialData);
         filteredTasks = new FilteredList<>(taskBook.getTasks());
+        filteredEvents = new FilteredList<>(taskBook.getEvents());
     }
 
     @Override
@@ -76,12 +82,23 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
+    
+    @Override
+    public void addEvent(Event event) throws DuplicateEventException {
+        taskBook.addEvent(event);
+        
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList() {
+        return new UnmodifiableObservableList<>(filteredEvents);
     }
 
     @Override
@@ -149,5 +166,6 @@ public class ModelManager extends ComponentManager implements Model {
             return "task=" + String.join(", ", taskKeyWords);
         }
     }
+
 
 }

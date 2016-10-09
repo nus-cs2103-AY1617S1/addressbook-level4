@@ -3,7 +3,7 @@ package guitests;
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
-import seedu.task.logic.commands.AddCommand;
+import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.taskcommons.core.Messages;
@@ -27,7 +27,7 @@ public class AddCommandTest extends TaskBookGuiTest {
 
         //add duplicate task
         commandBox.runCommand(td.arts.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertResultMessage(AddTaskCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list

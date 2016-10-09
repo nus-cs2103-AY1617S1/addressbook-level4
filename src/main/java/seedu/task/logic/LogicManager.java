@@ -13,7 +13,7 @@ import seedu.taskcommons.core.LogsCenter;
 import java.util.logging.Logger;
 
 /**
- * The main LogicManager of the app.
+ * The main LogicManager of dowat.
  */
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
