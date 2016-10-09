@@ -35,13 +35,5 @@ public class ActiveRecordLibrary<E> {
     public boolean destroy(E record) {
         return records.remove(record);
     }
-    
-    public boolean save() {
-        return true;
-    }
-    
-    public boolean validate(E record) {
-        return true;
-    }
 
 }
