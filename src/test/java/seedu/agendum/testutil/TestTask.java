@@ -17,6 +17,9 @@ public class TestTask implements ReadOnlyTask {
     private UniqueTagList tags;
 
     public TestTask() {
+        isCompleted = false;
+        startDateTime = null;
+        endDateTime = null;
         tags = new UniqueTagList();
     }
 
