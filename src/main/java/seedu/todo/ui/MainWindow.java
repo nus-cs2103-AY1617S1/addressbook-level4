@@ -11,12 +11,14 @@ import javafx.stage.Stage;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
+import seedu.todo.ui.components.ConsoleInput;
+import seedu.todo.ui.views.View;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart {
+public class MainWindow extends View {
 
 	private static final String FXML_PATH = "MainWindow.fxml";
     private static final String ICON_PATH = "/images/address_book_32.png";
@@ -38,18 +40,13 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane consoleInputPlaceholder;
 
-    
-    public MainWindow() {
-        super();
-    }
-
     public static MainWindow load(Stage primaryStage, Config config) {
-        MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config);
-        return mainWindow;
-    }
+	    MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
+	    mainWindow.configure(config);
+	    return mainWindow;
+	}
 
-    private void configure(Config config) {
+    public void configure(Config config) {
     	String appTitle = config.getAppTitle();
     	
         // Configure the UI
@@ -61,6 +58,13 @@ public class MainWindow extends UiPart {
         
         // Bind accelerators
         setAccelerators();
+        
+        // Load other components.
+        loadComponents();
+    }
+    
+    private void loadComponents() {
+    	new ConsoleInput().render(primaryStage, getConsoleInputPlaceholder());
     }
 
 	@Override
