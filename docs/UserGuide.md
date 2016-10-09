@@ -128,7 +128,7 @@ Examples:
 
 * **`search`**` tomorrow`<br>
 **`unmark`**` 2`<br>
-Mark the task with `ID #2` in the Do-Do Bird as completed.
+Mark the task with `ID #2` in the Do-Do Bird as uncompleted.
 
 ## Updating a task: `update`
 Update an existing task inside Do-Do Bird.<br>
