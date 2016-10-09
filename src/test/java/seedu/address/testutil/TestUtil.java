@@ -373,4 +373,14 @@ public class TestUtil {
         return collect.toArray(new Tag[split.length]);
     }
 
+    public static TestTask[] updateTaskInList(TestTask[] currentList, int taskIndex,
+            TestTask newTask) {
+        List<TestTask> listOfTasks = asList(currentList);
+        
+        if (taskIndex != -1) {
+            listOfTasks.set(taskIndex, newTask);
+        }
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+
 }

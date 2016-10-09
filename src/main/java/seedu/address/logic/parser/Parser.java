@@ -77,6 +77,9 @@ public class Parser {
             
         case CompleteCommand.COMMAND_WORD:
             return prepareComplete(arguments);
+            
+        case UpdateCommand.COMMAND_WORD:
+            return prepareUpdate(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -196,12 +199,72 @@ public class Parser {
 
         return new CompleteCommand(index.get());
     }   
+
+    /**
+     * Parses arguments in the context of the update task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUpdate(String args) {
+        final KeywordParser parser = new KeywordParser(UpdateCommand.VALID_KEYWORDS);
+        HashMap<String, String> parsed = parser
+                .parseKeywordsWithoutFixedOrder(UpdateCommand.COMMAND_WORD + args);
+
+        Optional<Integer> targetIndex = parseIndex(parsed.get(UpdateCommand.COMMAND_WORD));
+        if (!targetIndex.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+        
+        String name = parsed.get(UpdateCommand.KEYWORD_NAME);
+        String by = parsed.get(UpdateCommand.KEYWORD_DEADLINE);
+        String startTime = parsed.get(UpdateCommand.KEYWORD_PERIOD_START_TIME);
+        String endTime = parsed.get(UpdateCommand.KEYWORD_PERIOD_END_TIME);
+        String deadlineRecurrence = parsed.get(UpdateCommand.KEYWORD_DEADLINE_RECURRENCE);
+        String periodRecurrence = parsed.get(UpdateCommand.KEYWORD_PERIOD_RECURRENCE);
+        String addTagsArgs = parsed.get(UpdateCommand.KEYWORD_TAG);
+
+        boolean removeDeadline = (parsed.get(UpdateCommand.KEYWORD_REMOVE_DEADLINE) != null);
+        boolean removePeriod = (parsed.get(UpdateCommand.KEYWORD_REMOVE_START_TIME) != null
+                || parsed.get(UpdateCommand.KEYWORD_REMOVE_END_TIME) != null);
+        boolean removeDeadlineRecurrence = (parsed
+                .get(UpdateCommand.KEYWORD_REMOVE_DEADLINE_RECURRENCE) != null);
+        boolean removePeriodRecurrence = (parsed.get(UpdateCommand.KEYWORD_REMOVE_PERIOD_RECURRENCE) != null);
+        String removeTagsArgs = parsed.get(UpdateCommand.KEYWORD_REMOVE_TAG);
+
+        Set<String> tagsToAdd = null;
+        try {
+            if (addTagsArgs != null) {
+                tagsToAdd = getTagsFromArgs(addTagsArgs);
+            }
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+
+        Set<String> tagsToRemove = null;
+        try {
+            if (removeTagsArgs != null) {
+                tagsToRemove = getTagsFromArgs(removeTagsArgs);
+            }
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+
+        return new UpdateCommand(targetIndex.get(), name, by, startTime, endTime, deadlineRecurrence,
+                periodRecurrence, tagsToAdd, removeDeadline, removePeriod, removeDeadlineRecurrence,
+                removePeriodRecurrence, tagsToRemove);
+    }
     
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
+        if (command == null) {
+            return Optional.empty();
+        }
+        
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
