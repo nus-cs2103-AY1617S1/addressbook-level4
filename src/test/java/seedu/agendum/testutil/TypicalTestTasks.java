@@ -13,17 +13,19 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier").withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").build();
-            elle = new TaskBuilder().withName("Elle Meyer").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").build();
-            george = new TaskBuilder().withName("George Best").build();
+            alice =  new TaskBuilder().withName("meet Alice Pauline").withUncompletedStatus()
+                    .withTags("friends").build();
+            benson = new TaskBuilder().withName("meet Benson Meier").withUncompletedStatus()
+                    .withTags("owesMoney", "friends").build();
+            carl = new TaskBuilder().withName("meet Carl Kurz").withUncompletedStatus().build();
+            daniel = new TaskBuilder().withName("meet Daniel Meier").withUncompletedStatus().build();
+            elle = new TaskBuilder().withName("meet Elle Meyer").withUncompletedStatus().build();
+            fiona = new TaskBuilder().withName("meet Fiona Kunz").withUncompletedStatus().build();
+            george = new TaskBuilder().withName("meet George Best").withUncompletedStatus().build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").build();
-            ida = new TaskBuilder().withName("Ida Mueller").build();
+            hoon = new TaskBuilder().withName("meet Hoon Meier").withUncompletedStatus().build();
+            ida = new TaskBuilder().withName("meet Ida Mueller").withUncompletedStatus().build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

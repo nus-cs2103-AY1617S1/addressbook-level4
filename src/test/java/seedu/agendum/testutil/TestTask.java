@@ -23,6 +23,17 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
 
+    /**
+     * Copy constructor.
+     */
+    public TestTask(TestTask other) {
+        this.name = other.name;
+        this.isCompleted = other.isCompleted;
+        this.startDateTime = other.startDateTime;
+        this.endDateTime = other.endDateTime;
+        this.tags = other.tags;
+    }    
+
     public void setName(Name name) {
         this.name = name;
     }
