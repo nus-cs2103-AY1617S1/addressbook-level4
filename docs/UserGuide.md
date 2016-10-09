@@ -85,8 +85,8 @@ Displays a list of all tasks/events.<br>
 
 Format: `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [sort SORTING_ORDER]`
 
-> Type can be `events`, `tasks`, `completed tasks`, `completed events`, or `free time`.
-> Sorting order includes `earliest first`, `latest first` for date and time, 
+> * Type can be `events`, `tasks`, `completed tasks`, `completed events`, or `free time`.
+> * Sorting order includes `earliest first`, `latest first` for date and time, 
 > and `a-z`, `z-a` for descriptions.
 > * Defaults to earliest first for later dates, and latest first for past dates
 >
@@ -130,8 +130,6 @@ Format: `show [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [ta
 >     positions, while other tasks/events are hidden.
 >	* If the type of task/event is not specified, all types are included.
 >	* If tag is not specified, all tasks/events are included.
-
-> <img src="images/Ui-OnlyCommand.png" width="600">
 
 Examples:
 * `list`<br>
