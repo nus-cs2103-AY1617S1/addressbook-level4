@@ -26,11 +26,11 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^,]+)"
+    private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("\\[(?<name>[^,]+)"
                     + ", (?<date>[^,]+)"
                     + ", (?<start>[^,]+)"
-                    + ", (?<end>[^#]+)"
+                    + ", (?<end>[^#]+)\\]"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
 
     private static final Pattern TODO_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -56,10 +56,10 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD: {
-        	if (TODO_DATA_ARGS_FORMAT.matcher(userInput).find())
+        	if (EVENT_DATA_ARGS_FORMAT.matcher(userInput).find())
+        		return prepareEvent(arguments);
+        	else if (TODO_DATA_ARGS_FORMAT.matcher(userInput).find())
         		return prepareToDo(arguments);
-        	else if (TASK_DATA_ARGS_FORMAT.matcher(userInput).find())
-        		return prepareAdd(arguments);
         }
             
         
@@ -117,8 +117,8 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+    private Command prepareEvent(String args){
+        final Matcher matcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
