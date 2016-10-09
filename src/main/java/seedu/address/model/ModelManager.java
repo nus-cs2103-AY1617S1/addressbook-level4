@@ -180,8 +180,7 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyToDo toDo) {
             return titleKeyWords.stream()
                     .filter(keyword -> check(toDo, keyword))
-                    .findAny()
-                    .isPresent();
+                    .count() == titleKeyWords.size();
         }
         
         private boolean check(ReadOnlyToDo toDo, String keyword){
