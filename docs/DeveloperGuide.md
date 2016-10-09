@@ -1,15 +1,27 @@
 # Developer Guide
-[TOC]
+
+## Introduction
+
+Welcome to the project! This guide will get you up to speed with how to set up your development environment, 
+the basic architecture of the application, how to perform some common development tasks as well as 
+who to contact when you're lost. 
 
 ## Setting up
 
-#### Prerequisites
+### Tooling
 
-1. **JDK `1.8.0_60`**  or later<br>
+This project uses 
 
-    > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
+- git - Version control 
+- Eclipse - IDE 
+- Gradle - Build automation 
+- Travis, Coveralls and Codacy - Continuous integration and quality control
+- GitHub - Source code hosting and issue tracking 
 
+
+### Prerequisites
+
+1. **JDK `1.8.0_60`**  or later. 
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -30,17 +42,30 @@
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  
+### Contributing 
+
+We use the [feature branch git workflow][workflow]. When working on a task please remember to assign the relavant issue 
+to yourself [on the issue tracker][issues] and branch off from `master`. When the task is complete remember to 
+push the branch to GitHub and [create a new pull request][pr] so that the integrator can review the code. 
+For large features that impact multiple parts of the code it is best to open a new issue on issue tracker
+so that the design of the code can be discussed first. 
+
+Test driven development is encouraged but not required. All incoming code should have accompanying tests. 
 
 ## Design
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/Architecture.png" width="600">
+
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
+
+* At app launch: Bootstrapping the application by initializing the components in the correct sequence and 
+injecting the dependencies needed for each component. 
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
@@ -49,27 +74,25 @@ Two of those classes play important roles at the architecture level.
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+The rest of the App consists three components.
 
-Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* [**`UI`**](#ui-component): The UI of tha App, representing the view layer. 
+* [**`Logic`**](#logic-component): The parser and command executer, representing the controller 
+* [**`Model`**](#model-component): Data manipulation and storage, representing the model and data layer 
+
+Each of the four components defines its _API_ in an `interface` with the same name as the Component and 
+are bootstrapped at launch by `MainApp`.
+ 
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
+
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
-
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
@@ -107,14 +130,62 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+The logic component is the glue sitting between the UI and the data model. It consists of three separate 
+subcomponents - 
+
+- `Parser` - turns user input into command and arguments 
+- `Dispatcher` - maps parser results to commands 
+- `Command` - validates arguments and execute command
+
+The flow of a command being executed is -
+
+1. `Logic` uses the `Parser::parse` to parse the user input into a `ParseResult` object
+2. The `ParseResult` is sent to `Dispatcher::dispatch` which instantates a new `Command` object representing
+the command the user called
+3. `Logic` binds the model and arguments to the `Command` object and executes it 
+4. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
+ API call.
+ 
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
+
+#### Parser 
+
+The `TodoParser` subcomponent implents the `Parser` interface, which defines a single `parse` function that 
+takes in the user input as a string and returns an object implementing the `ParseResult` interface. The 
+implementing class for `TodoParser` can be found as an inner class inside `TodoParser`.
+
+The parser tokenizes the user input by whitespace characters then splits it into three parts: 
+
+- Command `string` - the first word of the user input
+- Positional argument `string` - everything from the command to the first flag
+- Named argument `Map<String, String>` - a map of flags to values 
+
+For example, the command `add The Milk -d tomorrow 3pm -p` will produce 
+
+- Command: `add`
+- Positional argument: `The Milk`
+- Named argument: 
+  - `d`: `tomorrow 3pm` 
+  - `p`: - (empty string)
+  
+#### Dispatcher 
+
+The `TodoDispatcher` subcomponent implements the `Dispatcher` interface, which defines a single 
+`dispatch` command. The dispatch function simply maps the provided `ParseResult` object to the 
+correct command and returns it.
+
+#### Command
+
+All commands implement the `BaseCommand` abstract class, which provides argument binding and validation. 
+
+
+
+#### Arguments 
+
+
+
 
 ### Model component
 
@@ -141,7 +212,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.todo.commons` package.
 
 ## Implementation
 
@@ -155,6 +226,7 @@ and logging destinations.
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
+* The logs 
 
 **Logging Levels**
 
@@ -175,6 +247,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 Tests can be found in the `./src/test/java` folder.
 
 **In Eclipse**:
+
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
   as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
@@ -184,6 +257,7 @@ Tests can be found in the `./src/test/java` folder.
   to run as a JUnit test.
 
 **Using Gradle**:
+
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
@@ -202,11 +276,15 @@ We have two types of tests:
       e.g. `seedu.address.logic.LogicManagerTest`
 
 **Headless GUI Testing** :
+
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ That means the developer can do other things on the Computer while the tests are running.
+ 
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+
+
 
 ## Dev Ops
 
@@ -237,6 +315,17 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+## Documentation 
+
+Our documentation and user guides are written in [GitHub Flavor Markdown][gfm], an extension 
+to the original Markdown that contains additional support for tables and fenced code blocks that is 
+useful for documentation. We also use a small Python script to help transform the Markdown into 
+HTML, which allows greater flexibility in styling to make it more user friendly. To set up the script:
+
+1. Make sure you have Python 3.5+ installed. Run `python3 --version` to check
+2. Install the dependencies - `pip3 install markdown pygments` 
+3. Run the script - `python3 docs/build/converter.py`
+
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -244,27 +333,81 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *`  | new user | see usage instructions | refer to instructions when I forget how to use the app
+`* * *`  | user | add a new task |
+`* * *`  | user | mark a task as complete | so I know which are the tasks are not complete.
+`* * *`  | user | delete a task | remove entries that I no longer need
+`* * *`  | user | edit a task | change or update details for the task
+`* * *`  | user | set a deadline for a task | track down deadlines of my tasks
+`* * *`  | user | set events with start and end dates | keep track of events that will happen
+`* * *`  | user | view tasks | see all the tasks I have
+`* * *`  | user | view incomplete tasks only | to know what are the tasks I have left to do.
+`* * *`  | user with multiple computers | save the todo list file to a specific location | move the list to other computers
+`* *`    | user | set recurring tasks | do not need to repeatedly add tasks
+`* *`    | user | sort tasks by various parameters| organize my tasks and locate a task easily
+`* *`    | user | set reminders for a task | do not need to mentally track deadlines
+`*`      | user | know the number of tasks I have left | gauge how many tasks I have left to do.
+`*`      | user | be notified about upcoming deadlines without opening the app | so that I can receive timely reminders  
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TodoApp` and the **Actor** is the `user`, unless specified otherwise)
+### Use case: Adding an event
 
-#### Use case: Delete person
+**MSS**
+
+1. User types out an event with start time end time and location
+2. TodoApp adds event with specified fields to 'TodoList.xml'
+Use case ends.
+
+**Extensions**
+
+1a. The task has no title
+
+> 1a1. TodoApp shows an error message <br>
+  Use case resumes at step 1 
+1b. The task's date field is empty
+
+> 1b1. TodoApp creates a task with no start and end date <br>
+  
+  Use case ends
+
+1c. The task has a start time later than end time
+
+> 1c1. TodoApp shows an error message <br>
+  Use case resumes at step 1 
+  
+### Use case: Adding a deadline
+
+**MSS**
+
+1. User enters a deadline.
+2. TodoApp creates new todo item with deadline specified
+
+Use case ends.
+
+**Extensions**
+
+1a. The task has no title
+
+> 1a1. TodoApp shows an error message <br>
+  Use case resumes at step 1 
+1b. The task's date field is empty
+
+> 1b1. TodoApp creates a task with no start and end date <br>
+  
+  Use case ends
+
+### Use case: Adding a recurring task
 
 **MSS**
 
 1. User requests to list persons
-2. AddressBook shows a list of persons
+2. TodoApp shows a list of persons
 3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+4. TodoApp deletes the person  
+
 Use case ends.
 
 **Extensions**
@@ -275,38 +418,142 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. TodoApp shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+### Use case: Marking a task complete
+
+**MSS**
+
+1. User requests to list of uncompleted tasks.
+2. TodoApp shows a list of uncompleted tasks.
+3. User marks complete a specific task in the list.
+4. TodoApp marks the task as complete by striking through the task  
+
+Use case ends.
+
+**Extensions**
+1a. User uses another method to list tasks (e.g. search)
+
+> 1a1. TodoApp shows the list of tasks requested
+  Use case resumes at step 2
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TodoApp shows an error message <br>
+  Use case resumes at step 2
+
+3b. The given index is a task which is already complete
+
+> Use case ends
+### Use case: Delete task
+
+**MSS**
+
+1. User requests to list persons
+2. TodoApp shows a list of persons
+3. User requests to delete a specific person in the list
+4. TodoApp deletes the person  
+
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TodoApp shows an error message <br>
+
+  Use case resumes at step 2
+
+### Use case: Viewing a specific list of task
+
+**MSS**
+
+1. User requests to list persons
+2. TodoApp shows a list of persons
+3. User requests to delete a specific person in the list
+4. TodoApp deletes the person  
+
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TodoApp shows an error message <br>
+  Use case resumes at step 2
+4. TodoApp deletes the person  
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TodoApp shows an error message <br>
+> Use case resumes at step 2
+
+### Use case: Finding for a task
+
+
+
+### Use case: Editing a task
+
+### Use case: Pinning a task
+
+### Use case: Undoing an action
+
+### Use case: Redoing an action
+
+### Use case: 
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
+2. Should use a command line interface as the primary input mode
+3. Should have a customizable colour scheme.
+4. Should be able to hold up to 1000 todos, events and deadlines. 
+5. Should come with automated unit tests.
+6. Should have competitive performance with commands being executed within 5 seconds of typing into the CLI
+7. Code should be open source. 
 
 ## Appendix D : Glossary
 
 ##### Mainstream OS
 
-> Windows, Linux, Unix, OS-X
+> Windows, Linux, OS X
 
-##### Private contact detail
+##### Task 
 
-> A contact detail that is not meant to be shared with others
+> A single todo task, deadline or item
+
+##### Pinning
+
+> Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. 
+
+##### 
 
 ## Appendix E : Product Survey
 
 {TODO: Add a summary of competing products}
 
-```
-#!java
-public Task(String title) {
-    this.setTitle(title);
-    this.uuid = UUID.randomUUID();
-}
-```
+
+[workflow]: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/
+[issues]: https://github.com/CS2103AUG2016-W10-C4/main/issues
+[pr]: https://github.com/CS2103AUG2016-W10-C4/main/compare
+[gfm]: https://guides.github.com/features/mastering-markdown/

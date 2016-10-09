@@ -10,65 +10,24 @@
 
 <body>
 <div class="container"><h1 id="developer-guide">Developer Guide</h1>
-<div class="toc">
-<ul>
-<li><a href="#developer-guide">Developer Guide</a><ul>
-<li><a href="#setting-up">Setting up</a><ul>
-<li><a href="#prerequisites">Prerequisites</a></li>
-<li><a href="#importing-the-project-into-eclipse">Importing the project into Eclipse</a></li>
-</ul>
-</li>
-<li><a href="#design">Design</a><ul>
-<li><a href="#architecture">Architecture</a></li>
-<li><a href="#ui-component">UI component</a></li>
-<li><a href="#logic-component">Logic component</a></li>
-<li><a href="#model-component">Model component</a></li>
-<li><a href="#storage-component">Storage component</a></li>
-<li><a href="#common-classes">Common classes</a></li>
-</ul>
-</li>
-<li><a href="#implementation">Implementation</a><ul>
-<li><a href="#logging">Logging</a></li>
-<li><a href="#configuration">Configuration</a></li>
-</ul>
-</li>
-<li><a href="#testing">Testing</a></li>
-<li><a href="#dev-ops">Dev Ops</a><ul>
-<li><a href="#build-automation">Build Automation</a></li>
-<li><a href="#continuous-integration">Continuous Integration</a></li>
-<li><a href="#making-a-release">Making a Release</a></li>
-<li><a href="#managing-dependencies">Managing Dependencies</a></li>
-</ul>
-</li>
-<li><a href="#appendix-a-user-stories">Appendix A : User Stories</a></li>
-<li><a href="#appendix-b-use-cases">Appendix B : Use Cases</a><ul>
-<li><a href="#use-case-delete-person">Use case: Delete person</a></li>
-</ul>
-</li>
-<li><a href="#appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements</a></li>
-<li><a href="#appendix-d-glossary">Appendix D : Glossary</a><ul>
-<li><a href="#mainstream-os">Mainstream OS</a></li>
-<li><a href="#private-contact-detail">Private contact detail</a></li>
-</ul>
-</li>
-<li><a href="#appendix-e-product-survey">Appendix E : Product Survey</a></li>
-</ul>
-</li>
-</ul>
-</div>
+<h2 id="introduction">Introduction</h2>
+<p>Welcome to the project! This guide will get you up to speed with how to set up your development environment, 
+the basic architecture of the application, how to perform some common development tasks as well as 
+who to contact when you're lost. </p>
 <h2 id="setting-up">Setting up</h2>
-<h4 id="prerequisites">Prerequisites</h4>
+<h3 id="tooling">Tooling</h3>
+<p>This project uses </p>
+<ul>
+<li>git - Version control </li>
+<li>Eclipse - IDE </li>
+<li>Gradle - Build automation </li>
+<li>Travis, Coveralls and Codacy - Continuous integration and quality control</li>
+<li>GitHub - Source code hosting and issue tracking </li>
+</ul>
+<h3 id="prerequisites">Prerequisites</h3>
 <ol>
-<li>
-<p><strong>JDK <code>1.8.0_60</code></strong>  or later<br></p>
-<blockquote>
-<p>Having any Java 8 version is not enough. <br>
-This app will not work with earlier versions of Java 8.</p>
-</blockquote>
-</li>
-<li>
-<p><strong>Eclipse</strong> IDE</p>
-</li>
+<li><strong>JDK <code>1.8.0_60</code></strong>  or later. </li>
+<li><strong>Eclipse</strong> IDE</li>
 <li><strong>e(fx)clipse</strong> plugin for Eclipse (Do the steps 2 onwards given in
    <a href="http://www.eclipse.org/efxclipse/install.html#for-the-ambitious">this page</a>)</li>
 <li><strong>Buildship Gradle Integration</strong> plugin from the Eclipse Marketplace</li>
@@ -91,37 +50,43 @@ This app will not work with earlier versions of Java 8.</p>
 <li>If Eclipse auto-changed any settings files during the import process, you can discard those changes.</li>
 </ul>
 </blockquote>
+<h3 id="contributing">Contributing</h3>
+<p>We use the <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/">feature branch git workflow</a>. When working on a task please remember to assign the relavant issue 
+to yourself <a href="https://github.com/CS2103AUG2016-W10-C4/main/issues">on the issue tracker</a> and branch off from <code>master</code>. When the task is complete remember to 
+push the branch to GitHub and <a href="https://github.com/CS2103AUG2016-W10-C4/main/compare">create a new pull request</a> so that the integrator can review the code. 
+For large features that impact multiple parts of the code it is best to open a new issue on issue tracker
+so that the design of the code can be discussed first. </p>
+<p>Test driven development is encouraged but not required. All incoming code should have accompanying tests. </p>
 <h2 id="design">Design</h2>
 <h3 id="architecture">Architecture</h3>
-<p><img src="images/Architecture.png" width="600"><br>
-The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of the App.
+<p><img src="images/Architecture.png" width="600"></p>
+<p>The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of the App.
 Given below is a quick overview of each component.</p>
-<p><code>Main</code> has only one class called <a href="../src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,
-<em> At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-</em> At shut down: Shuts down the components and invoke cleanup method where necessary.</p>
+<p><code>Main</code> has only one class called <a href="../src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
+<ul>
+<li>At app launch: Bootstrapping the application by initializing the components in the correct sequence and 
+injecting the dependencies needed for each component. </li>
+<li>At shut down: Shuts down the components and invoke cleanup method where necessary.</li>
+</ul>
 <p><a href="#common-classes"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 <em> <code>EventsCentre</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google's Event Bus library</a>)
   is used by components to communicate with other components using events (i.e. a form of <em>Event Driven</em> design)
 </em> <code>LogsCenter</code> : Used by many classes to write log messages to the App's log file.</p>
-<p>The rest of the App consists four components.
-<em> <a href="#ui-component"><strong><code>UI</code></strong></a> : The UI of tha App.
-</em> <a href="#logic-component"><strong><code>Logic</code></strong></a> : The command executor.
-<em> <a href="#model-component"><strong><code>Model</code></strong></a> : Holds the data of the App in-memory.
-</em> <a href="#storage-component"><strong><code>Storage</code></strong></a> : Reads data from, and writes data to, the hard disk.</p>
-<p>Each of the four components
-<em> Defines its <em>API</em> in an <code>interface</code> with the same name as the Component.
-</em> Exposes its functionality using a <code>{Component Name}Manager</code> class.</p>
+<p>The rest of the App consists three components.</p>
+<ul>
+<li><a href="#ui-component"><strong><code>UI</code></strong></a>: The UI of tha App, representing the view layer. </li>
+<li><a href="#logic-component"><strong><code>Logic</code></strong></a>: The parser and command executer, representing the controller </li>
+<li><a href="#model-component"><strong><code>Model</code></strong></a>: Data manipulation and storage, representing the model and data layer </li>
+</ul>
+<p>Each of the four components defines its <em>API</em> in an <code>interface</code> with the same name as the Component and 
+are bootstrapped at launch by <code>MainApp</code>.</p>
 <p>For example, the <code>Logic</code> component (see the class diagram given below) defines it's API in the <code>Logic.java</code>
-interface and exposes its functionality using the <code>LogicManager.java</code> class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br></p>
+interface and exposes its functionality using the <code>LogicManager.java</code> class.<br></p>
+<p><img src="images/LogicClassDiagram.png" width="800"><br></p>
 <p>The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the
 command <code>delete 3</code>.</p>
 <p><img src="images\SDforDeletePerson.png" width="800"></p>
-<blockquote>
-<p>Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</code> when the Address Book data are changed,
- instead of asking the <code>Storage</code> to save the updates to the hard disk.</p>
-</blockquote>
 <p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\SDforDeletePersonEventHandling.png" width="800"></p>
@@ -148,15 +113,49 @@ and they can be loaded using the <code>UiPartLoader</code>.</p>
 <h3 id="logic-component">Logic component</h3>
 <p><img src="images/LogicClassDiagram.png" width="800"><br></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+<p>The logic component is the glue sitting between the UI and the data model. It consists of three separate 
+subcomponents - </p>
+<ul>
+<li><code>Parser</code> - turns user input into command and arguments </li>
+<li><code>Dispatcher</code> - maps parser results to commands </li>
+<li><code>Command</code> - validates arguments and execute command</li>
+</ul>
+<p>The flow of a command being executed is -</p>
 <ol>
-<li><code>Logic</code> uses the <code>Parser</code> class to parse the user command.</li>
-<li>This results in a <code>Command</code> object which is executed by the <code>LogicManager</code>.</li>
+<li><code>Logic</code> uses the <code>Parser::parse</code> to parse the user input into a <code>ParseResult</code> object</li>
+<li>The <code>ParseResult</code> is sent to <code>Dispatcher::dispatch</code> which instantates a new <code>Command</code> object representing
+the command the user called</li>
+<li><code>Logic</code> binds the model and arguments to the <code>Command</code> object and executes it </li>
 <li>The command execution can affect the <code>Model</code> (e.g. adding a person) and/or raise events.</li>
-<li>The result of the command execution is encapsulated as a <code>CommandResult</code> object which is passed back to the <code>Ui</code>.</li>
 </ol>
 <p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code>
- API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br></p>
+ API call.</p>
+<p><img src="images/DeletePersonSdForLogic.png" width="800"><br></p>
+<h4 id="parser">Parser</h4>
+<p>The <code>TodoParser</code> subcomponent implents the <code>Parser</code> interface, which defines a single <code>parse</code> function that 
+takes in the user input as a string and returns an object implementing the <code>ParseResult</code> interface. The 
+implementing class for <code>TodoParser</code> can be found as an inner class inside <code>TodoParser</code>.</p>
+<p>The parser tokenizes the user input by whitespace characters then splits it into three parts: </p>
+<ul>
+<li>Command <code>string</code> - the first word of the user input</li>
+<li>Positional argument <code>string</code> - everything from the command to the first flag</li>
+<li>Named argument <code>Map&lt;String, String&gt;</code> - a map of flags to values </li>
+</ul>
+<p>For example, the command <code>add The Milk -d tomorrow 3pm -p</code> will produce </p>
+<ul>
+<li>Command: <code>add</code></li>
+<li>Positional argument: <code>The Milk</code></li>
+<li>Named argument: </li>
+<li><code>d</code>: <code>tomorrow 3pm</code> </li>
+<li><code>p</code>: - (empty string)</li>
+</ul>
+<h4 id="dispatcher">Dispatcher</h4>
+<p>The <code>TodoDispatcher</code> subcomponent implements the <code>Dispatcher</code> interface, which defines a single 
+<code>dispatch</code> command. The dispatch function simply maps the provided <code>ParseResult</code> object to the 
+correct command and returns it.</p>
+<h4 id="command">Command</h4>
+<p>All commands implement the <code>BaseCommand</code> abstract class, which provides argument binding and validation. </p>
+<h4 id="arguments">Arguments</h4>
 <h3 id="model-component">Model component</h3>
 <p><img src="images/ModelClassDiagram.png" width="800"><br></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
@@ -173,7 +172,7 @@ and they can be loaded using the <code>UiPartLoader</code>.</p>
 <em> can save <code>UserPref</code> objects in json format and read it back.
 </em> can save the Address Book data in xml format and read it back.</p>
 <h3 id="common-classes">Common classes</h3>
-<p>Classes used by multiple components are in the <code>seedu.addressbook.commons</code> package.</p>
+<p>Classes used by multiple components are in the <code>seedu.todo.commons</code> package.</p>
 <h2 id="implementation">Implementation</h2>
 <h3 id="logging">Logging</h3>
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels
@@ -184,6 +183,7 @@ and logging destinations.</p>
 <li>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to
   the specified logging level</li>
 <li>Currently log messages are output through: <code>Console</code> and to a <code>.log</code> file.</li>
+<li>The logs </li>
 </ul>
 <p><strong>Logging Levels</strong></p>
 <ul>
@@ -209,8 +209,10 @@ and logging destinations.</p>
 <li>To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.</li>
 </ul>
-<p><strong>Using Gradle</strong>:
-* See <a href="UsingGradle.md">UsingGradle.md</a> for how to run tests using Gradle.</p>
+<p><strong>Using Gradle</strong>:</p>
+<ul>
+<li>See <a href="UsingGradle.md">UsingGradle.md</a> for how to run tests using Gradle.</li>
+</ul>
 <p>We have two types of tests:</p>
 <ol>
 <li>
@@ -229,12 +231,12 @@ and logging destinations.</p>
       how the are connected together.<br>
       e.g. <code>seedu.address.logic.LogicManagerTest</code></li>
 </ol>
-<p><strong>Headless GUI Testing</strong> :
-Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use,
+<p><strong>Headless GUI Testing</strong> :</p>
+<p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use,
  our GUI tests can be run in the <em>headless</em> mode.
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
- See <a href="UsingGradle.md#running-tests">UsingGradle.md</a> to learn how to run tests in headless mode.</p>
+ That means the developer can do other things on the Computer while the tests are running.</p>
+<p>See <a href="UsingGradle.md#running-tests">UsingGradle.md</a> to learn how to run tests in headless mode.</p>
 <h2 id="dev-ops">Dev Ops</h2>
 <h3 id="build-automation">Build Automation</h3>
 <p>See <a href="UsingGradle.md">UsingGradle.md</a> to learn how to use Gradle for build automation.</p>
@@ -256,6 +258,16 @@ can be automated using Gradle. For example, Gradle can download the dependencies
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br></p>
+<h2 id="documentation">Documentation</h2>
+<p>Our documentation and user guides are written in <a href="https://guides.github.com/features/mastering-markdown/">GitHub Flavor Markdown</a>, an extension 
+to the original Markdown that contains additional support for tables and fenced code blocks that is 
+useful for documentation. We also use a small Python script to help transform the Markdown into 
+HTML, which allows greater flexibility in styling to make it more user friendly. To set up the script:</p>
+<ol>
+<li>Make sure you have Python 3.5+ installed. Run <code>python3 --version</code> to check</li>
+<li>Install the dependencies - <code>pip3 install markdown pygments</code> </li>
+<li>Run the script - <code>python3 docs/build/converter.py</code></li>
+</ol>
 <h2 id="appendix-a-user-stories">Appendix A : User Stories</h2>
 <p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have)  - <code>* *</code>,  Low (unlikely to have) - <code>*</code></p>
 <table>
@@ -272,52 +284,142 @@ b. Require developers to download those libraries manually (this creates extra w
 <td><code>* * *</code></td>
 <td align="left">new user</td>
 <td align="left">see usage instructions</td>
-<td align="left">refer to instructions when I forget how to use the App</td>
+<td align="left">refer to instructions when I forget how to use the app</td>
 </tr>
 <tr>
 <td><code>* * *</code></td>
 <td align="left">user</td>
-<td align="left">add a new person</td>
+<td align="left">add a new task</td>
 <td align="left"></td>
 </tr>
 <tr>
 <td><code>* * *</code></td>
 <td align="left">user</td>
-<td align="left">delete a person</td>
+<td align="left">mark a task as complete</td>
+<td align="left">so I know which are the tasks are not complete.</td>
+</tr>
+<tr>
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">delete a task</td>
 <td align="left">remove entries that I no longer need</td>
 </tr>
 <tr>
 <td><code>* * *</code></td>
 <td align="left">user</td>
-<td align="left">find a person by name</td>
-<td align="left">locate details of persons without having to go through the entire list</td>
+<td align="left">edit a task</td>
+<td align="left">change or update details for the task</td>
+</tr>
+<tr>
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">set a deadline for a task</td>
+<td align="left">track down deadlines of my tasks</td>
+</tr>
+<tr>
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">set events with start and end dates</td>
+<td align="left">keep track of events that will happen</td>
+</tr>
+<tr>
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">view tasks</td>
+<td align="left">see all the tasks I have</td>
+</tr>
+<tr>
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">view incomplete tasks only</td>
+<td align="left">to know what are the tasks I have left to do.</td>
+</tr>
+<tr>
+<td><code>* * *</code></td>
+<td align="left">user with multiple computers</td>
+<td align="left">save the todo list file to a specific location</td>
+<td align="left">move the list to other computers</td>
 </tr>
 <tr>
 <td><code>* *</code></td>
 <td align="left">user</td>
-<td align="left">hide <a href="#private-contact-detail">private contact details</a> by default</td>
-<td align="left">minimize chance of someone else seeing them by accident</td>
+<td align="left">set recurring tasks</td>
+<td align="left">do not need to repeatedly add tasks</td>
+</tr>
+<tr>
+<td><code>* *</code></td>
+<td align="left">user</td>
+<td align="left">sort tasks by various parameters</td>
+<td align="left">organize my tasks and locate a task easily</td>
+</tr>
+<tr>
+<td><code>* *</code></td>
+<td align="left">user</td>
+<td align="left">set reminders for a task</td>
+<td align="left">do not need to mentally track deadlines</td>
 </tr>
 <tr>
 <td><code>*</code></td>
-<td align="left">user with many persons in the address book</td>
-<td align="left">sort persons by name</td>
-<td align="left">locate a person easily</td>
+<td align="left">user</td>
+<td align="left">know the number of tasks I have left</td>
+<td align="left">gauge how many tasks I have left to do.</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td align="left">user</td>
+<td align="left">be notified about upcoming deadlines without opening the app</td>
+<td align="left">so that I can receive timely reminders</td>
 </tr>
 </tbody>
 </table>
-<p>{More to be added}</p>
 <h2 id="appendix-b-use-cases">Appendix B : Use Cases</h2>
-<p>(For all use cases below, the <strong>System</strong> is the <code>AddressBook</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
-<h4 id="use-case-delete-person">Use case: Delete person</h4>
+<p>(For all use cases below, the <strong>System</strong> is the <code>TodoApp</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
+<h3 id="use-case-adding-an-event">Use case: Adding an event</h3>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User types out an event with start time end time and location</li>
+<li>TodoApp adds event with specified fields to 'TodoList.xml'
+Use case ends.</li>
+</ol>
+<p><strong>Extensions</strong></p>
+<p>1a. The task has no title</p>
+<blockquote>
+<p>1a1. TodoApp shows an error message <br>
+  Use case resumes at step 1 
+1b. The task's date field is empty</p>
+<p>1b1. TodoApp creates a task with no start and end date <br></p>
+</blockquote>
+<p>Use case ends</p>
+<p>1c. The task has a start time later than end time</p>
+<blockquote>
+<p>1c1. TodoApp shows an error message <br>
+  Use case resumes at step 1 </p>
+</blockquote>
+<h3 id="use-case-adding-a-deadline">Use case: Adding a deadline</h3>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User enters a deadline.</li>
+<li>TodoApp creates new todo item with deadline specified</li>
+</ol>
+<p>Use case ends.</p>
+<p><strong>Extensions</strong></p>
+<p>1a. The task has no title</p>
+<blockquote>
+<p>1a1. TodoApp shows an error message <br>
+  Use case resumes at step 1 
+1b. The task's date field is empty</p>
+<p>1b1. TodoApp creates a task with no start and end date <br></p>
+</blockquote>
+<p>Use case ends</p>
+<h3 id="use-case-adding-a-recurring-task">Use case: Adding a recurring task</h3>
 <p><strong>MSS</strong></p>
 <ol>
 <li>User requests to list persons</li>
-<li>AddressBook shows a list of persons</li>
+<li>TodoApp shows a list of persons</li>
 <li>User requests to delete a specific person in the list</li>
-<li>AddressBook deletes the person <br>
-Use case ends.</li>
+<li>TodoApp deletes the person  </li>
 </ol>
+<p>Use case ends.</p>
 <p><strong>Extensions</strong></p>
 <p>2a. The list is empty</p>
 <blockquote>
@@ -325,37 +427,118 @@ Use case ends.</li>
 </blockquote>
 <p>3a. The given index is invalid</p>
 <blockquote>
-<p>3a1. AddressBook shows an error message <br>
+<p>3a1. TodoApp shows an error message <br>
   Use case resumes at step 2</p>
 </blockquote>
-<p>{More to be added}</p>
+<h3 id="use-case-marking-a-task-complete">Use case: Marking a task complete</h3>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User requests to list of uncompleted tasks.</li>
+<li>TodoApp shows a list of uncompleted tasks.</li>
+<li>User marks complete a specific task in the list.</li>
+<li>TodoApp marks the task as complete by striking through the task  </li>
+</ol>
+<p>Use case ends.</p>
+<p><strong>Extensions</strong>
+1a. User uses another method to list tasks (e.g. search)</p>
+<blockquote>
+<p>1a1. TodoApp shows the list of tasks requested
+  Use case resumes at step 2</p>
+</blockquote>
+<p>2a. The list is empty</p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<p>3a. The given index is invalid</p>
+<blockquote>
+<p>3a1. TodoApp shows an error message <br>
+  Use case resumes at step 2</p>
+</blockquote>
+<p>3b. The given index is a task which is already complete</p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<h3 id="use-case-delete-task">Use case: Delete task</h3>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User requests to list persons</li>
+<li>TodoApp shows a list of persons</li>
+<li>User requests to delete a specific person in the list</li>
+<li>TodoApp deletes the person  </li>
+</ol>
+<p>Use case ends.</p>
+<p><strong>Extensions</strong></p>
+<p>2a. The list is empty</p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<p>3a. The given index is invalid</p>
+<blockquote>
+<p>3a1. TodoApp shows an error message <br></p>
+</blockquote>
+<p>Use case resumes at step 2</p>
+<h3 id="use-case-viewing-a-specific-list-of-task">Use case: Viewing a specific list of task</h3>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User requests to list persons</li>
+<li>TodoApp shows a list of persons</li>
+<li>User requests to delete a specific person in the list</li>
+<li>TodoApp deletes the person  </li>
+</ol>
+<p>Use case ends.</p>
+<p><strong>Extensions</strong></p>
+<p>2a. The list is empty</p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<p>3a. The given index is invalid</p>
+<blockquote>
+<p>3a1. TodoApp shows an error message <br>
+  Use case resumes at step 2
+4. TodoApp deletes the person<br />
+Use case ends.</p>
+</blockquote>
+<p><strong>Extensions</strong></p>
+<p>2a. The list is empty</p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<p>3a. The given index is invalid</p>
+<blockquote>
+<p>3a1. TodoApp shows an error message <br>
+Use case resumes at step 2</p>
+</blockquote>
+<h3 id="use-case-finding-for-a-task">Use case: Finding for a task</h3>
+<h3 id="use-case-editing-a-task">Use case: Editing a task</h3>
+<h3 id="use-case-pinning-a-task">Use case: Pinning a task</h3>
+<h3 id="use-case-undoing-an-action">Use case: Undoing an action</h3>
+<h3 id="use-case-redoing-an-action">Use case: Redoing an action</h3>
+<h3 id="use-case">Use case:</h3>
 <h2 id="appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements</h2>
 <ol>
-<li>Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java <code>1.8.0_60</code> or higher installed.</li>
-<li>Should be able to hold up to 1000 persons.</li>
-<li>Should come with automated unit tests and open source code.</li>
-<li>Should favor DOS style commands over Unix-style commands.</li>
+<li>Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java 8 or higher installed.</li>
+<li>Should use a command line interface as the primary input mode</li>
+<li>Should have a customizable colour scheme.</li>
+<li>Should be able to hold up to 1000 todos, events and deadlines. </li>
+<li>Should come with automated unit tests.</li>
+<li>Should have competitive performance with commands being executed within 5 seconds of typing into the CLI</li>
+<li>Code should be open source. </li>
 </ol>
-<p>{More to be added}</p>
 <h2 id="appendix-d-glossary">Appendix D : Glossary</h2>
 <h5 id="mainstream-os">Mainstream OS</h5>
 <blockquote>
-<p>Windows, Linux, Unix, OS-X</p>
+<p>Windows, Linux, OS X</p>
 </blockquote>
-<h5 id="private-contact-detail">Private contact detail</h5>
+<h5 id="task">Task</h5>
 <blockquote>
-<p>A contact detail that is not meant to be shared with others</p>
+<p>A single todo task, deadline or item</p>
 </blockquote>
+<h5 id="pinning">Pinning</h5>
+<blockquote>
+<p>Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. </p>
+</blockquote>
+<h5 id="_1"></h5>
 <h2 id="appendix-e-product-survey">Appendix E : Product Survey</h2>
-<p>{TODO: Add a summary of competing products}</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="nf">Task</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="n">title</span><span class="o">);</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">uuid</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
-<span class="o">}</span>
-</pre></div>
-</td></tr></table></div>
+<p>{TODO: Add a summary of competing products}</p></div>
 </body>
 </html>
