@@ -67,16 +67,85 @@ public class CommandFactory {
 
     private Command buildAddCommand() {
         // Try to find title
-        Optional<String> title = sequentialParser.extractText();
+        Optional<String> title = sequentialParser.extractText(
+            KEYWORD_DATERANGE_START,
+            KEYWORD_DATERANGE_END,
+            KEYWORD_DUEDATE
+        );
+
         if (!title.isPresent()) {
             return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_TITLE);
         }
 
+        AddCommand command;
         try {
-            return new AddCommand(title.get());
+            command = new AddCommand(title.get());
         } catch (IllegalValueException exception) {
             return new InvalidCommand(Messages.MESSAGE_TODO_TITLE_CONSTRAINTS);
         }
+
+        // Extract tags
+        List<String> tags = sequentialParser.extractPrefixedWords(TAG_PREFIX);
+
+        if (!tags.isEmpty()) {
+            try {
+                command.setTags(tags.stream().collect(Collectors.toSet()));
+            } catch (IllegalValueException exception) {
+                return new InvalidCommand(exception.getMessage());
+            }
+        }
+
+        // Extract due date, if exists
+        Optional<String> dueDateString = sequentialParser.extractTextAfterKeyword(KEYWORD_DUEDATE,
+            KEYWORD_DATERANGE_START,
+            KEYWORD_DATERANGE_END
+        );
+
+        Optional<Date> dueDate = dateTimeParser.parseDateTime(dueDateString.orElse(""));
+
+        if (dueDate.isPresent()) {
+            try {
+                command.setDueDate(dueDate.get());
+            } catch (IllegalValueException exception) {
+                return new InvalidCommand(exception.getMessage());
+            }
+        }
+
+        // Extract date range, if exists
+        Optional<String> startDateString = sequentialParser.extractTextAfterKeyword(KEYWORD_DATERANGE_START,
+            KEYWORD_DATERANGE_END,
+            KEYWORD_DUEDATE
+        );
+        Optional<String> endDateString = sequentialParser.extractTextAfterKeyword(KEYWORD_DATERANGE_END,
+            KEYWORD_DATERANGE_START,
+            KEYWORD_DUEDATE
+        );
+
+        if (startDateString.isPresent() || startDateString.isPresent()) {
+            if (endDateString.isPresent() && !startDateString.isPresent()) {
+                return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_DATERANGE_START);
+            } else if (startDateString.isPresent() && !endDateString.isPresent()) {
+                return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_DATERANGE_END);
+            }
+
+            Optional<Date> startDate = dateTimeParser.parseDateTime(startDateString.orElse(""));
+            Optional<Date> endDate = dateTimeParser.parseDateTime(endDateString.orElse(""));
+
+            if (!startDate.isPresent()) {
+                return new InvalidCommand(Messages.MESSAGE_TODO_DATERANGE_START_INVALID_FORMAT);
+            } else if (!endDate.isPresent()) {
+                return new InvalidCommand(Messages.MESSAGE_TODO_DATERANGE_END_INVALID_FORMAT);
+            }
+
+            // Here, startDate and endDate exist and are valid
+            try {
+                command.setDateRange(startDate.get(), endDate.get());
+            } catch (IllegalValueException exception) {
+                return new InvalidCommand(exception.getMessage());
+            }
+        }
+
+        return command;
     }
 
     private Command buildDeleteCommand() {
