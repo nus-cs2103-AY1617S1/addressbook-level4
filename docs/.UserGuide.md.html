@@ -663,8 +663,8 @@ function setDocumentScrollTop(ypos)
   <ul> 
    <li> <strong><code>list</code></strong> : lists all tasks. This is the default view.</li> 
    <li> <strong><code>add</code></strong><code>Learn how to use DearJim</code> : adds a task to the Task Manager.</li> 
-   <li> <strong><code>delete</code></strong><code>1</code> : deletes the first task shown in the current list</li> 
-   <li> <strong><code>exit</code></strong> : exits the app</li> 
+   <li> <strong><code>delete</code></strong><code>1</code> : deletes the first task shown in the current list.</li> 
+   <li> <strong><code>exit</code></strong> : exits the app.</li> 
   </ul> </li> 
  <li>Refer to the <a href="#features">Features</a> section below for details of each command.<br /> </li> 
 </ol> 
@@ -678,7 +678,7 @@ function setDocumentScrollTop(ypos)
  </ul> 
 </blockquote> 
 <h3> <a id="viewing-help--help" class="anchor" href="#viewing-help--help" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Viewing help : <code>help</code> </h3> 
-<p>Opens the user guide with a new window<br /> Format: <code>help</code><br /></p> 
+<p>Opens the user guide with a new window.<br /> Format: <code>help</code><br /></p> 
 <p>Example:</p> 
 <blockquote> 
  <p><a href="images/dearjim_help.png" target="_blank"><img src="images/dearjim_help.png" style="max-width:100%;" /></a><br /></p> 
@@ -687,9 +687,10 @@ function setDocumentScrollTop(ypos)
  <li><code>help</code></li> 
 </ul> 
 <h3> <a id="adding-a-task-add" class="anchor" href="#adding-a-task-add" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adding a task: <code>add</code> </h3> 
-<p>Adds a task into the task manager<br /> Format: <code>add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]</code></p> 
+<p>Adds a task into the task manager.<br /> Format: <code>add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]</code></p> 
 <p><strong><em>Specifying task priority</em></strong></p> 
-<p>You can assign your task a <code>PRIORITY</code> of <code>low</code>, <code>medium</code> or <code>high</code>. Tasks have <code>medium</code> <code>PRIORITY</code> by default.<br /> <code>PRIORITY</code> also accepts variations of <code>low</code>, <code>medium</code> and <code>high</code>.</p> 
+<p>You can assign your task a <code>PRIORITY</code> of <code>low</code>, <code>medium</code> or <code>high</code>. <br /> Tasks have <code>medium</code> <code>PRIORITY</code> by default.<br /> Format: <code>-PRIORITY</code></p> 
+<p><code>PRIORITY</code> also accepts variations of <code>low</code>, <code>medium</code> and <code>high</code>.</p> 
 <table> 
  <thead> 
   <tr> 
@@ -723,16 +724,16 @@ function setDocumentScrollTop(ypos)
  <li><code>edit ... -high</code></li> 
 </ul> 
 <p><strong><em>Specifying repeated tasks</em></strong></p> 
-<p>DearJim also allows you to specify tasks that need to be repeated at a specific <code>RECURRING_INTERVAL</code>.</p> 
+<p>DearJim also allows you to specify tasks that need to be repeated at a specific <code>RECURRING_INTERVAL</code>. <br /> Format: <code>repeat every RECURRING_INTERVAL</code></p> 
 <blockquote> 
  <p>To assign a <code>RECURRING_INTERVAL</code>, simply enter <code>repeat every RECURRING_INTERVAL</code> as part of the add/edit command, where <code>RECURRING_INTERVAL</code> can be replaced by the appropriate <code>RECURRING_INTERVAL</code> below.</p> 
- <p>Supported <code>RECURRING_INTERVAL</code></p> 
- <ul> 
-  <li> <code>day</code>, <code>2 days</code>, <code>3 days</code>, ...</li> 
-  <li> <code>week</code>, <code>2 weeks</code>, <code>3 weeks</code>, ...</li> 
-  <li> <code>month</code>, <code>2 months</code>, <code>3 months</code>, ...</li> 
- </ul> 
 </blockquote> 
+<p>Supported <code>RECURRING_INTERVAL</code></p> 
+<ul> 
+ <li> <code>day</code>, <code>2 days</code>, <code>3 days</code>, ...</li> 
+ <li> <code>week</code>, <code>2 weeks</code>, <code>3 weeks</code>, ...</li> 
+ <li> <code>month</code>, <code>2 months</code>, <code>3 months</code>, ...</li> 
+</ul> 
 <p>Examples: </p> 
 <ul> 
  <li><code>add ... repeat every 2 days</code></li> 
@@ -781,7 +782,7 @@ function setDocumentScrollTop(ypos)
 <p><strong><em>Adding a task with time interval</em></strong></p> 
 <p><code>add NAME from/at START_DATE START_TIME [to END_DATE END_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]</code> </p> 
 <blockquote> 
- <p>For events, meetings, we use <code>from</code> and <code>at</code> to indicate the start time and <code>to</code> and <code>by</code> to indicate the end time. <code>END_DATE</code> and <code>END_TIME</code> can be unspecified.</p> 
+ <p>For events, meetings, use <code>from</code> and <code>at</code> to indicate the start time and <code>to</code> and <code>by</code> to indicate the end time. <code>END_DATE</code> and <code>END_TIME</code> can be unspecified.</p> 
  <p><code>START_DATE</code>, <code>START_TIME</code>, <code>END_DATE</code> and <code>END_TIME</code> are flexible!</p> 
  <ul> 
   <li>If no <code>END_DATE</code> is specified, <code>END_DATE</code> will be assumed to be the current date</li> 
@@ -809,7 +810,7 @@ function setDocumentScrollTop(ypos)
 <h3> <a id="editing-a-task-edit" class="anchor" href="#editing-a-task-edit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Editing a task: <code>edit</code> </h3> 
 <p>Edits an existing task in the task manager<br /> Format: <code>edit INDEX [from/at START_DATE START_TIME][to/by END_DATE END_TIME][-PRIORITY][repeat every RECURRING_INTERVAL]</code></p> 
 <blockquote> 
- <p>Notice that this is similar to the <code>add</code> command format! </p> 
+ <p><code>INDEX</code> refers to the task number in the current displayed list.<br /> Notice that this is similar to the <code>add</code> command format! </p> 
 </blockquote> 
 <p>Examples:</p> 
 <ul> 
@@ -819,7 +820,7 @@ function setDocumentScrollTop(ypos)
 <h3> <a id="deleting-a-task-delete" class="anchor" href="#deleting-a-task-delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deleting a task: <code>delete</code> </h3> 
 <p>Deletes an existing task in your task manager.<br /> Format: <code>delete INDEX</code></p> 
 <blockquote> 
- <p>Check out the <code>undo</code> command below to reverse an accidental <code>delete</code>!</p> 
+ <p><code>INDEX</code> refers to the task number in the current displayed list.<br /> Check out the <code>undo</code> command below to reverse an accidental <code>delete</code>!</p> 
 </blockquote> 
 <p>Examples:</p> 
 <ul> 
@@ -837,11 +838,11 @@ function setDocumentScrollTop(ypos)
   <li><code>clear</code></li> 
   <li><code>done</code></li> 
  </ul> 
- <p>Example:</p> 
- <ul> 
-  <li><code>undo</code></li> 
- </ul> 
 </blockquote> 
+<p>Example:</p> 
+<ul> 
+ <li><code>undo</code></li> 
+</ul> 
 <h3> <a id="clearing-the-task-manager-clear" class="anchor" href="#clearing-the-task-manager-clear" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Clearing the task manager: <code>clear</code> </h3> 
 <p>Deletes all tasks in your task manager.<br /> This process is reversible with the <code>undo</code> command.<br /> Format: <code>clear</code></p> 
 <blockquote> 
@@ -864,7 +865,7 @@ function setDocumentScrollTop(ypos)
 <h3> <a id="archiving-an-task-done" class="anchor" href="#archiving-an-task-done" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Archiving an task: <code>done</code> </h3> 
 <p>Archives a task in your task manager.<br /> Format: <code>done INDEX</code></p> 
 <blockquote> 
- <p>Marks a task as <code>done</code> as sends it to the archive for future viewing.</p> 
+ <p>Marks a task as <code>done</code> as sends it to the archive for future viewing. <code>INDEX</code> refers to the task number in the current displayed list.</p> 
 </blockquote> 
 <p>Examples:</p> 
 <ul> 

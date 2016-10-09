@@ -23,8 +23,8 @@
    * **`list`** : lists all tasks. This is the default view.
    * **`add`**` Learn how to use DearJim` : 
      adds a task to the Task Manager.
-   * **`delete`**` 1` : deletes the first task shown in the current list
-   * **`exit`** : exits the app
+   * **`delete`**` 1` : deletes the first task shown in the current list.
+   * **`exit`** : exits the app.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
@@ -36,7 +36,7 @@
 > * The order of parameters is fixed.
 
 ### Viewing help : `help`
-Opens the user guide with a new window<br>
+Opens the user guide with a new window.<br>
 Format: `help`<br>
 
 Example:
@@ -46,12 +46,15 @@ Example:
 
  
 ### Adding a task: `add`
-Adds a task into the task manager<br>
+Adds a task into the task manager.<br>
 Format: `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
 
 **_Specifying task priority_**
 
-You can assign your task a `PRIORITY` of `low`, `medium` or `high`. Tasks have `medium` `PRIORITY` by default.<br>
+You can assign your task a `PRIORITY` of `low`, `medium` or `high`. <br>
+Tasks have `medium` `PRIORITY` by default.<br>
+Format: `-PRIORITY`
+
 `PRIORITY` also accepts variations of `low`, `medium` and `high`.
 
 `PRIORITY` | Variations  
@@ -70,9 +73,10 @@ Examples:
 
 **_Specifying repeated tasks_**
 
-DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`.
+DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`. <br>
+Format: `repeat every RECURRING_INTERVAL`
 > To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add/edit command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
->
+
 Supported `RECURRING_INTERVAL`
 * `day`, `2 days`, `3 days`, ...
 * `week`, `2 weeks`, `3 weeks`, ...
@@ -120,7 +124,7 @@ Example:
 **_Adding a task with time interval_**
 
 `add NAME from/at START_DATE START_TIME [to END_DATE END_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]` 
-> For events, meetings, we use `from` and `at` to indicate the start time and `to` and `by` to indicate the end time.
+> For events, meetings, use `from` and `at` to indicate the start time and `to` and `by` to indicate the end time.
 > `END_DATE` and `END_TIME` can be unspecified.
 
 >`START_DATE`, `START_TIME`, `END_DATE` and `END_TIME` are flexible!
@@ -143,6 +147,7 @@ Example:
 ### Editing a task: `edit`
 Edits an existing task in the task manager<br>
 Format: `edit INDEX [from/at START_DATE START_TIME][to/by END_DATE END_TIME][-PRIORITY][repeat every RECURRING_INTERVAL]`
+> `INDEX` refers to the task number in the current displayed list.<br>
 > Notice that this is similar to the `add` command format! 
 
 Examples:
@@ -153,6 +158,7 @@ Examples:
 ### Deleting a task: `delete`
 Deletes an existing task in your task manager.<br>
 Format: `delete INDEX`
+> `INDEX` refers to the task number in the current displayed list.<br>
 > Check out the `undo` command below to reverse an accidental `delete`!
 
 Examples:
@@ -168,7 +174,7 @@ Format: `undo`
 > * `delete`
 > * `clear`
 > * `done`
->
+
 Example:
 * `undo`
 
@@ -196,6 +202,7 @@ Example:
 Archives a task in your task manager.<br>
 Format: `done INDEX`
 > Marks a task as `done` as sends it to the archive for future viewing.
+> `INDEX` refers to the task number in the current displayed list.
 
 Examples:
 * `done 1`
