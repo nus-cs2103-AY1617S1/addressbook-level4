@@ -129,24 +129,24 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+    private class DetailQualifier implements Qualifier {
+        private Set<String> detailKeyWords;
 
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
+        DetailQualifier(Set<String> detailKeyWords) {
+            this.detailKeyWords = detailKeyWords;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+            return detailKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDetail().details, keyword))
                     .findAny()
                     .isPresent();
         }
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
+            return "detail=" + String.join(", ", detailKeyWords);
         }
     }
 
