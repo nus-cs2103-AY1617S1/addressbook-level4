@@ -1,6 +1,11 @@
 package seedu.taskitty.model.task;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import seedu.taskitty.commons.exceptions.IllegalValueException;
+import seedu.taskitty.commons.util.DateUtil;
 
 /**
  * Represents a Task's date in the task manager.
@@ -12,6 +17,7 @@ public class TaskDate {
             "Task dates should be in the format dd/mm/yyyy or ddmmyyyy or dd monthname yyyy";
     public static final String MESSAGE_DATE_INVALID =
             "Task date provided is invalid!";
+    public static final String DATE_DISPLAY_FORMAT = "dd/MM/yyyy";
     
     //format: dd/mm/yyyy
     private static final String DATE_VALIDATION_REGEX_FORMAT_1 =
@@ -28,7 +34,7 @@ public class TaskDate {
             DATE_VALIDATION_REGEX_FORMAT_2,
             DATE_VALIDATION_REGEX_FORMAT_3 };
 
-    public final String date;
+    public final LocalDate date;
 
     /**
      * Validates given name.
@@ -41,7 +47,12 @@ public class TaskDate {
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        this.date = date;
+        
+        try {
+            this.date = DateUtil.parseDate(date);
+        } catch (DateTimeException dateTimeException) {
+            throw new IllegalValueException(MESSAGE_DATE_INVALID);
+        }
     }
 
     /**
@@ -59,7 +70,7 @@ public class TaskDate {
 
     @Override
     public String toString() {
-        return date;
+        return date.format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
     }
 
     @Override
