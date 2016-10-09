@@ -5,7 +5,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends ActivityManagerGuiTest {
 
 
     @Test
@@ -45,14 +45,14 @@ public class SelectCommandTest extends AddressBookGuiTest {
     }
 
     private void assertPersonSelected(int index) {
-        assertEquals(personListPanel.getSelectedPersons().size(), 1);
-        ReadOnlyActivity selectedPerson = personListPanel.getSelectedPersons().get(0);
-        assertEquals(personListPanel.getActivity(index-1), selectedPerson);
+        assertEquals(activityListPanel.getSelectedPersons().size(), 1);
+        ReadOnlyActivity selectedPerson = activityListPanel.getSelectedPersons().get(0);
+        assertEquals(activityListPanel.getActivity(index-1), selectedPerson);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
     private void assertNoPersonSelected() {
-        assertEquals(personListPanel.getSelectedPersons().size(), 0);
+        assertEquals(activityListPanel.getSelectedPersons().size(), 0);
     }
 
 }

@@ -9,7 +9,7 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends ActivityManagerGuiTest {
 
     @Test
     public void add() {
@@ -27,7 +27,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         //add duplicate person
         commandBox.runCommand(td.hoon.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        assertTrue(personListPanel.isListMatching(currentList));
+        assertTrue(activityListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -42,12 +42,12 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(personToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        ActivityCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName());
+        ActivityCardHandle addedCard = activityListPanel.navigateToPerson(personToAdd.getName());
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
         TestActivity[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
-        assertTrue(personListPanel.isListMatching(expectedList));
+        assertTrue(activityListPanel.isListMatching(expectedList));
     }
 
 }

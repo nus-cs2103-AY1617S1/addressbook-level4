@@ -41,13 +41,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyActivityManager latestSavedAddressBook;
+    private ReadOnlyActivityManager latestSavedActivityManager;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(ActivityManagerChangedEvent abce) {
-        latestSavedAddressBook = new ActivityManager(abce.data);
+        latestSavedActivityManager = new ActivityManager(abce.data);
     }
 
     @Subscribe
@@ -63,12 +63,12 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempActivityManagerFile = saveFolder.getRoot().getPath() + "TempActivityManager.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempActivityManagerFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new ActivityManager(model.getActivityManager()); // last saved assumed to be up to date before.
+        latestSavedActivityManager = new ActivityManager(model.getActivityManager()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -87,7 +87,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'activity manager' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyActivityManager, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -97,12 +97,12 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     *      - the internal activity manager data are same as those in the {@code expectedAddressBook} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedAddressBook} was saved to the storage file. <br>
+     *      - {@code expectedActivityManager} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyActivityManager expectedAddressBook,
+                                       ReadOnlyActivityManager expectedActivityManager,
                                        List<? extends ReadOnlyActivity> expectedShownList) throws Exception {
 
         //Execute the command
@@ -113,14 +113,16 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredActivityList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getActivityManager());
-        assertEquals(expectedAddressBook, latestSavedAddressBook);
+        System.out.println(expectedActivityManager.toString());
+        System.out.println(model.getActivityManager().toString());
+        assertTrue(expectedActivityManager.toString().equals(model.getActivityManager().toString()));
+        assertTrue(expectedActivityManager.toString().equals(latestSavedActivityManager.toString()));
     }
     
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-            ReadOnlyActivityManager expectedAddressBook,
+            ReadOnlyActivityManager expectedActivityManager,
             ActivityList expectedShownList) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, expectedAddressBook, (List<? extends ReadOnlyActivity>)expectedShownList);
+        assertCommandBehavior(inputCommand, expectedMessage, expectedActivityManager, (List<? extends ReadOnlyActivity>)expectedShownList);
     }
 
 

@@ -10,7 +10,7 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.*;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the activity-manager level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class ActivityManager implements ReadOnlyActivityManager {
@@ -66,7 +66,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
 //        resetData(newData.getPersonList(), newData.getTagList());
     }
 
-//// person-level operations
+//// activity-level operations
 
     /**
      * Adds a person to the address book.
@@ -120,7 +120,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
 
     @Override
     public String toString() {
-        return activities.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return activities.getInternalList().size() + " activities, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
