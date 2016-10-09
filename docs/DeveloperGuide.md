@@ -60,32 +60,33 @@
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
->**_Figure 1_**: Architecture Diagram - explains the high-level design of the application<br>
+>**_Figure 1_**: Architecture Diagram - explains the high-level design of the application
 
 The following content is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+[**`Main`**] has only one class called `MainApp`(../src/main/java/seedu/address/MainApp.java). It is responsible for,
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
+[**`Commons`**](#common-classes) represents a collection of classes used by other components.
+Two of these classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : This class is used by other classes to write log messages to the application's log file.
 
-The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+The remaining four components of the application are:
+* [**`UI`**](#ui-component) : The UI of the application.
 * [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+* [**`Model`**](#model-component) : Holds the data of the application in-memory.
+* [**`Storage`**](#storage-component) : Reads data from, and writes data to the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its _API_ in an `interface` with the same name.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
+For example, the `Logic` component  defines its API in the `Logic.java`
+interface and exposes its functionality using the `LogicManager.java` class (refer to Figure 2).<br>
+
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
