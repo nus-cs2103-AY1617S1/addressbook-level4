@@ -237,16 +237,17 @@ and logging destinations.
   (See [Configuration](#configuration))
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* Currently log messages are output through: Console and to a log file.
 * The logs 
 
-**Logging Levels**
+#### Logging Levels
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size
+Level      | Used for
+---------- | -------------------------------------------------
+ `SEVERE`  | Critical problem detected which may possibly cause the termination of the application
+ `WARNING` | Can continue, but with caution
+ `INFO`    | Information showing the noteworthy actions by the App
+ `FINE`    | Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 ### Configuration
 
@@ -272,7 +273,7 @@ Tests can be found in the `./src/test/java` folder.
 
 ### Using Gradle
 
-See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+See [UsingGradle.md](#appendix-f-using-gradle) for how to run tests using Gradle.
 
 We have two types of tests:
 
@@ -280,13 +281,13 @@ We have two types of tests:
    These are in the `guitests` package.
 
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-    1. _Unit tests_ targeting the lowest level methods/classes. <br>
+    1. **Unit tests** - targeting the lowest level methods/classes.  
       e.g. `seedu.todo.commons.UrlUtilTest`
-    2. _Integration tests_ that are checking the integration of multiple code units
-     (those code units are assumed to be working).<br>
+    2. **Integration tests** - that are checking the integration of multiple code units
+     (those code units are assumed to be working).  
       e.g. `seedu.todo.storage.StorageManagerTest`
     3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
-      how the are connected together.<br>
+      how the are connected together.  
       e.g. `seedu.todo.logic.LogicManagerTest`
 
 ### Headless GUI Testing 
@@ -302,11 +303,16 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
 
 ### Build Automation
 
-See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+We use [Gradle][gradle] for build automation. Gradle handles project dependencies, build tasks and testing.
+If you have configured Eclipse by importing the project as shown in the [setting up](#setting-up) section
+Gradle should already be properly configured and can be executing from within Eclipse to build, test and 
+package the project from the Run menu.
+
+See the appendix [Using Gradle](#appendix-f-using-gradle) for all of the details and Gradle commands. 
 
 ### Continuous Integration
 
-We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
+We use [Travis CI][travis] to perform Continuous Integration on our projects.
 See [UsingTravis.md](UsingTravis.md) for more details.
 
 ### Making a Release
@@ -320,19 +326,17 @@ Here are the steps to create a new release.
 
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+Our project depends on third-party libraries. We use Gradle to automate our dependency management. 
+To add a new dependency to the project, 
+
 
 ## Documentation 
 
-Our documentation and user guides are written in [GitHub Flavor Markdown][gfm], an extension 
-to the original Markdown that contains additional support for tables and fenced code blocks that is 
-useful for documentation. We also use a small Python script to help transform the Markdown into 
-HTML, which allows greater flexibility in styling to make it more user friendly. To set up the script:
+Our documentation and user guides are written in [GitHub Flavor Markdown][gfm] with a number of 
+extensions including tables, definition lists and warning blocks that help enable richer styling options
+for our documentation. These extensions are documented on the [Extensions page of the Python Markdown package][py-markdown],
+the package we use to help transform the Markdown into HTML. We use HTML because it allows greater 
+flexibility in styling and is generally more user friendly than raw Markdown. To set up the script:
 
 1. Make sure you have Python 3.5+ installed. Run `python3 --version` to check
 2. Install the dependencies - `pip3 install markdown pygments` 
@@ -365,6 +369,7 @@ Priority | As a ...  | I want to ... | So that I can...
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TodoApp` and the **Actor** is the `user`, unless specified otherwise)
+
 ### Use case: Adding an event
 
 **MSS**
@@ -537,13 +542,15 @@ Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
-2. Should use a command line interface as the primary input mode
-3. Should have a customizable colour scheme.
-4. Should be able to hold up to 1000 todos, events and deadlines. 
-5. Should come with automated unit tests.
-6. Should have competitive performance with commands being executed within 5 seconds of typing into the CLI
-7. Code should be open source. 
+The project should -
+
+1. work on any mainstream OS as long as it has Java 8 or higher installed.
+2. use a command line interface as the primary input mode
+3. have a customizable colour scheme.
+4. be able to hold up to 1000 todos, events and deadlines. 
+5. come with automated unit tests.
+6. have competitive performance with commands being executed within 5 seconds of typing into the CLI
+7. be open source. 
 
 ## Appendix D : Glossary
 
@@ -564,14 +571,103 @@ Pinning
 
 {TODO: Add a summary of competing products}
 
+## Appendix F: Using Gradle 
+
+[Gradle][gradle] is a build automation tool for Java projects. It can automate build-related tasks such as
+ 
+* Running tests
+* Managing library dependencies
+* Analyzing code for style compliance
+* Packaging code for release
+
+The gradle configuration for this project is defined in the build script [`build.gradle`](../build.gradle).
+ 
+!!! note 
+    To learn more about gradle build scripts refer to 
+    [Build Scripts Basics](https://docs.gradle.org/current/userguide/tutorial_using_tasks.html).
+
+### Running Gradle Commands
+
+To run a Gradle command, open a command window on the project folder and enter the Gradle command.
+Gradle commands look like this:
+
+* On Windows :`gradlew <task1> <task2> ...` e.g. `gradlew clean allTests`
+* On Mac/Linux: `./gradlew <task1> <task2>...`  e.g. `./gradlew clean allTests`
+
+!!! note
+    If you do not specify any tasks, Gradlew will run the default tasks `clean` `headless` `allTests` `coverage`
+
+### Cleaning the Project
+
+**`clean`** - Deletes the files created during the previous build tasks (e.g. files in the `build` folder).<br>
+e.g. `./gradlew clean`
+  
+!!! note "`clean` to force Gradle to execute a task"
+    When running a Gradle task, Gradle will try to figure out if the task needs running at all. 
+    If Gradle determines that the output of the task will be same as the previous time, it will not run
+    the task. For example, it will not build the JAR file again if the relevant source files have not changed
+    since the last time the JAR file was built. If we want to force Gradle to run a task, we can combine
+    that task with `clean`. Once the build files have been `clean`ed, Gradle has no way to determine if
+    the output will be same as before, so it will be forced to execute the task.
+    
+### Creating the JAR file
+
+**`shadowJar`** - Creates the `addressbook.jar` file in the `build/jar` folder, if the current file is outdated.  
+e.g. `./gradlew shadowJar`
+
+To force Gradle to create the JAR file even if the current one is up-to-date, you can '`clean`' first.  
+e.g. `./gradlew clean shadowJar` 
+
+!!! note "Why do we create a fat JAR?"
+    If we package only our own class files into the JAR file, it will not work properly unless the user has all the other
+    JAR files (i.e. third party libraries) our classes depend on, which is rather inconvenient. 
+    Therefore, we package all dependencies into a single JAR files, creating what is also known as a _fat_ JAR file. 
+    To create a fat JAR file, we use the [shadow jar](https://github.com/johnrengelman/shadow) Gradle plugin.
+
+### Running Tests
+
+**`allTests`** - Runs all tests.
+
+**`guiTests`** - Runs all tests in the `guitests` package
+  
+**`nonGuiTests`** - Runs all non-GUI tests in the `seedu.address` package
+  
+**`headless`** - Sets the test mode as _headless_. 
+  The mode is effective for that Gradle run only so it should be combined with other test tasks.
+  
+Here are some examples:
+
+* `./gradlew headless allTests` -- Runs all tests in headless mode
+* `./gradlew clean nonGuiTests` -- Cleans the project and runs non-GUI tests
+
+
+### Updating Dependencies
+
+There is no need to run these Gradle tasks manually as they are called automatically by other 
+relevant Gradle tasks.
+
+**`compileJava`** - Checks whether the project has the required dependencies to compile and run the main program, and download 
+any missing dependencies before compiling the classes.  
+
+See `build.gradle` > `allprojects` > `dependencies` > `compile` for the list of dependencies required.
+
+**`compileTestJava`** - Checks whether the project has the required dependencies to perform testing, and download 
+any missing dependencies before compiling the test classes.
+  
+See `build.gradle` > `allprojects` > `dependencies` > `testCompile` for the list of 
+dependencies required.
+
+
 [repo]: https://github.com/CS2103AUG2016-W10-C4/main/
 
 [eclipse]: https://eclipse.org/downloads/
 [travis]: https://travis-ci.org/CS2103AUG2016-W10-C4/main
 [coveralls]: https://coveralls.io/github/CS2103AUG2016-W10-C4/main
-[codacy]: https://www.codacy.com/app/Logical-Reminding-Apartment/main/dashboard 
+[codacy]: https://www.codacy.com/app/Logical-Reminding-Apartment/main/dashboard
+[gradle]: https://gradle.org/ 
 
 [workflow]: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/
 [issues]: https://github.com/CS2103AUG2016-W10-C4/main/issues
 [pr]: https://github.com/CS2103AUG2016-W10-C4/main/compare
 [gfm]: https://guides.github.com/features/mastering-markdown/
+[py-markdown]: https://pythonhosted.org/Markdown/extensions/index.html

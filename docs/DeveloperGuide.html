@@ -43,7 +43,10 @@
 <li><a href="#arguments">Arguments</a></li>
 </ul>
 </li>
-<li><a href="#logging">Logging</a></li>
+<li><a href="#logging">Logging</a><ul>
+<li><a href="#logging-levels">Logging Levels</a></li>
+</ul>
+</li>
 <li><a href="#configuration">Configuration</a></li>
 </ul>
 </li>
@@ -80,6 +83,14 @@
 <li><a href="#appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements</a></li>
 <li><a href="#appendix-d-glossary">Appendix D : Glossary</a></li>
 <li><a href="#appendix-e-product-survey">Appendix E : Product Survey</a></li>
+<li><a href="#appendix-f-using-gradle">Appendix F: Using Gradle</a><ul>
+<li><a href="#running-gradle-commands">Running Gradle Commands</a></li>
+<li><a href="#cleaning-the-project">Cleaning the Project</a></li>
+<li><a href="#creating-the-jar-file">Creating the JAR file</a></li>
+<li><a href="#running-tests">Running Tests</a></li>
+<li><a href="#updating-dependencies">Updating Dependencies</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2>
@@ -263,17 +274,36 @@ and logging destinations.</p>
   (See <a href="#configuration">Configuration</a>)</li>
 <li>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to
   the specified logging level</li>
-<li>Currently log messages are output through: <code>Console</code> and to a <code>.log</code> file.</li>
+<li>Currently log messages are output through: Console and to a log file.</li>
 <li>The logs </li>
 </ul>
-<p><strong>Logging Levels</strong></p>
-<ul>
-<li><code>SEVERE</code> : Critical problem detected which may possibly cause the termination of the application</li>
-<li><code>WARNING</code> : Can continue, but with caution</li>
-<li><code>INFO</code> : Information showing the noteworthy actions by the App</li>
-<li><code>FINE</code> : Details that is not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size</li>
-</ul>
+<h4 id="logging-levels">Logging Levels<a class="headerlink" href="#logging-levels" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SEVERE</code></td>
+<td>Critical problem detected which may possibly cause the termination of the application</td>
+</tr>
+<tr>
+<td><code>WARNING</code></td>
+<td>Can continue, but with caution</td>
+</tr>
+<tr>
+<td><code>INFO</code></td>
+<td>Information showing the noteworthy actions by the App</td>
+</tr>
+<tr>
+<td><code>FINE</code></td>
+<td>Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size</td>
+</tr>
+</tbody>
+</table>
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h3>
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: <code>config.json</code>):</p>
@@ -292,7 +322,7 @@ and logging destinations.</p>
 as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option">in this Stack Overflow question</a>.</p>
 </div>
 <h3 id="using-gradle">Using Gradle<a class="headerlink" href="#using-gradle" title="Permanent link">#</a></h3>
-<p>See <a href="UsingGradle.md">UsingGradle.md</a> for how to run tests using Gradle.</p>
+<p>See <a href="#appendix-f-using-gradle">UsingGradle.md</a> for how to run tests using Gradle.</p>
 <p>We have two types of tests:</p>
 <ol>
 <li>
@@ -302,13 +332,13 @@ as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-e
 <li>
 <p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
 <ol>
-<li><em>Unit tests</em> targeting the lowest level methods/classes. <br>
+<li><strong>Unit tests</strong> - targeting the lowest level methods/classes.<br />
   e.g. <code>seedu.todo.commons.UrlUtilTest</code></li>
-<li><em>Integration tests</em> that are checking the integration of multiple code units
- (those code units are assumed to be working).<br>
+<li><strong>Integration tests</strong> - that are checking the integration of multiple code units
+ (those code units are assumed to be working).<br />
   e.g. <code>seedu.todo.storage.StorageManagerTest</code></li>
 <li>Hybrids of unit and integration tests. These test are checking multiple code units as well as
-  how the are connected together.<br>
+  how the are connected together.<br />
   e.g. <code>seedu.todo.logic.LogicManagerTest</code></li>
 </ol>
 </li>
@@ -321,9 +351,13 @@ as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-e
 <p>See <a href="UsingGradle.md#running-tests">UsingGradle.md</a> to learn how to run tests in headless mode.</p>
 <h2 id="dev-ops">Dev Ops<a class="headerlink" href="#dev-ops" title="Permanent link">#</a></h2>
 <h3 id="build-automation">Build Automation<a class="headerlink" href="#build-automation" title="Permanent link">#</a></h3>
-<p>See <a href="UsingGradle.md">UsingGradle.md</a> to learn how to use Gradle for build automation.</p>
+<p>We use <a href="https://gradle.org/">Gradle</a> for build automation. Gradle handles project dependencies, build tasks and testing.
+If you have configured Eclipse by importing the project as shown in the <a href="#setting-up">setting up</a> section
+Gradle should already be properly configured and can be executing from within Eclipse to build, test and 
+package the project from the Run menu.</p>
+<p>See the appendix <a href="#appendix-f-using-gradle">Using Gradle</a> for all of the details and Gradle commands. </p>
 <h3 id="continuous-integration">Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permanent link">#</a></h3>
-<p>We use <a href="https://travis-ci.org/">Travis CI</a> to perform <em>Continuous Integration</em> on our projects.
+<p>We use <a href="https://travis-ci.org/CS2103AUG2016-W10-C4/main">Travis CI</a> to perform Continuous Integration on our projects.
 See <a href="UsingTravis.md">UsingTravis.md</a> for more details.</p>
 <h3 id="making-a-release">Making a Release<a class="headerlink" href="#making-a-release" title="Permanent link">#</a></h3>
 <p>Here are the steps to create a new release.</p>
@@ -334,17 +368,14 @@ See <a href="UsingTravis.md">UsingTravis.md</a> for more details.</p>
     and upload the JAR file your created.</li>
 </ol>
 <h3 id="managing-dependencies">Managing Dependencies<a class="headerlink" href="#managing-dependencies" title="Permanent link">#</a></h3>
-<p>A project often depends on third-party libraries. For example, Address Book depends on the
-<a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em>
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br></p>
+<p>Our project depends on third-party libraries. We use Gradle to automate our dependency management. 
+To add a new dependency to the project, </p>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">#</a></h2>
-<p>Our documentation and user guides are written in <a href="https://guides.github.com/features/mastering-markdown/">GitHub Flavor Markdown</a>, an extension 
-to the original Markdown that contains additional support for tables and fenced code blocks that is 
-useful for documentation. We also use a small Python script to help transform the Markdown into 
-HTML, which allows greater flexibility in styling to make it more user friendly. To set up the script:</p>
+<p>Our documentation and user guides are written in <a href="https://guides.github.com/features/mastering-markdown/">GitHub Flavor Markdown</a> with a number of 
+extensions including tables, definition lists and warning blocks that help enable richer styling options
+for our documentation. These extensions are documented on the <a href="https://pythonhosted.org/Markdown/extensions/index.html">Extensions page of the Python Markdown package</a>,
+the package we use to help transform the Markdown into HTML. We use HTML because it allows greater 
+flexibility in styling and is generally more user friendly than raw Markdown. To set up the script:</p>
 <ol>
 <li>Make sure you have Python 3.5+ installed. Run <code>python3 --version</code> to check</li>
 <li>Install the dependencies - <code>pip3 install markdown pygments</code> </li>
@@ -597,14 +628,15 @@ Use case resumes at step 2</p>
 <h3 id="use-case-redoing-an-action">Use case: Redoing an action<a class="headerlink" href="#use-case-redoing-an-action" title="Permanent link">#</a></h3>
 <h3 id="use-case">Use case:<a class="headerlink" href="#use-case" title="Permanent link">#</a></h3>
 <h2 id="appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements<a class="headerlink" href="#appendix-c-non-functional-requirements" title="Permanent link">#</a></h2>
+<p>The project should -</p>
 <ol>
-<li>Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java 8 or higher installed.</li>
-<li>Should use a command line interface as the primary input mode</li>
-<li>Should have a customizable colour scheme.</li>
-<li>Should be able to hold up to 1000 todos, events and deadlines. </li>
-<li>Should come with automated unit tests.</li>
-<li>Should have competitive performance with commands being executed within 5 seconds of typing into the CLI</li>
-<li>Code should be open source. </li>
+<li>work on any mainstream OS as long as it has Java 8 or higher installed.</li>
+<li>use a command line interface as the primary input mode</li>
+<li>have a customizable colour scheme.</li>
+<li>be able to hold up to 1000 todos, events and deadlines. </li>
+<li>come with automated unit tests.</li>
+<li>have competitive performance with commands being executed within 5 seconds of typing into the CLI</li>
+<li>be open source. </li>
 </ol>
 <h2 id="appendix-d-glossary">Appendix D : Glossary<a class="headerlink" href="#appendix-d-glossary" title="Permanent link">#</a></h2>
 <dl>
@@ -623,6 +655,76 @@ Use case resumes at step 2</p>
 </dl>
 <h2 id="appendix-e-product-survey">Appendix E : Product Survey<a class="headerlink" href="#appendix-e-product-survey" title="Permanent link">#</a></h2>
 <p>{TODO: Add a summary of competing products}</p>
+<h2 id="appendix-f-using-gradle">Appendix F: Using Gradle<a class="headerlink" href="#appendix-f-using-gradle" title="Permanent link">#</a></h2>
+<p><a href="https://gradle.org/">Gradle</a> is a build automation tool for Java projects. It can automate build-related tasks such as</p>
+<ul>
+<li>Running tests</li>
+<li>Managing library dependencies</li>
+<li>Analyzing code for style compliance</li>
+<li>Packaging code for release</li>
+</ul>
+<p>The gradle configuration for this project is defined in the build script <a href="../build.gradle"><code>build.gradle</code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To learn more about gradle build scripts refer to 
+<a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html">Build Scripts Basics</a>.</p>
+</div>
+<h3 id="running-gradle-commands">Running Gradle Commands<a class="headerlink" href="#running-gradle-commands" title="Permanent link">#</a></h3>
+<p>To run a Gradle command, open a command window on the project folder and enter the Gradle command.
+Gradle commands look like this:</p>
+<ul>
+<li>On Windows :<code>gradlew &lt;task1&gt; &lt;task2&gt; ...</code> e.g. <code>gradlew clean allTests</code></li>
+<li>On Mac/Linux: <code>./gradlew &lt;task1&gt; &lt;task2&gt;...</code>  e.g. <code>./gradlew clean allTests</code></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you do not specify any tasks, Gradlew will run the default tasks <code>clean</code> <code>headless</code> <code>allTests</code> <code>coverage</code></p>
+</div>
+<h3 id="cleaning-the-project">Cleaning the Project<a class="headerlink" href="#cleaning-the-project" title="Permanent link">#</a></h3>
+<p><strong><code>clean</code></strong> - Deletes the files created during the previous build tasks (e.g. files in the <code>build</code> folder).<br>
+e.g. <code>./gradlew clean</code></p>
+<div class="admonition note">
+<p class="admonition-title"><code>clean</code> to force Gradle to execute a task</p>
+<p>When running a Gradle task, Gradle will try to figure out if the task needs running at all. 
+If Gradle determines that the output of the task will be same as the previous time, it will not run
+the task. For example, it will not build the JAR file again if the relevant source files have not changed
+since the last time the JAR file was built. If we want to force Gradle to run a task, we can combine
+that task with <code>clean</code>. Once the build files have been <code>clean</code>ed, Gradle has no way to determine if
+the output will be same as before, so it will be forced to execute the task.</p>
+</div>
+<h3 id="creating-the-jar-file">Creating the JAR file<a class="headerlink" href="#creating-the-jar-file" title="Permanent link">#</a></h3>
+<p><strong><code>shadowJar</code></strong> - Creates the <code>addressbook.jar</code> file in the <code>build/jar</code> folder, if the current file is outdated.<br />
+e.g. <code>./gradlew shadowJar</code></p>
+<p>To force Gradle to create the JAR file even if the current one is up-to-date, you can '<code>clean</code>' first.<br />
+e.g. <code>./gradlew clean shadowJar</code> </p>
+<div class="admonition note">
+<p class="admonition-title">Why do we create a fat JAR?</p>
+<p>If we package only our own class files into the JAR file, it will not work properly unless the user has all the other
+JAR files (i.e. third party libraries) our classes depend on, which is rather inconvenient. 
+Therefore, we package all dependencies into a single JAR files, creating what is also known as a <em>fat</em> JAR file. 
+To create a fat JAR file, we use the <a href="https://github.com/johnrengelman/shadow">shadow jar</a> Gradle plugin.</p>
+</div>
+<h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">#</a></h3>
+<p><strong><code>allTests</code></strong> - Runs all tests.</p>
+<p><strong><code>guiTests</code></strong> - Runs all tests in the <code>guitests</code> package</p>
+<p><strong><code>nonGuiTests</code></strong> - Runs all non-GUI tests in the <code>seedu.address</code> package</p>
+<p><strong><code>headless</code></strong> - Sets the test mode as <em>headless</em>. 
+  The mode is effective for that Gradle run only so it should be combined with other test tasks.</p>
+<p>Here are some examples:</p>
+<ul>
+<li><code>./gradlew headless allTests</code> -- Runs all tests in headless mode</li>
+<li><code>./gradlew clean nonGuiTests</code> -- Cleans the project and runs non-GUI tests</li>
+</ul>
+<h3 id="updating-dependencies">Updating Dependencies<a class="headerlink" href="#updating-dependencies" title="Permanent link">#</a></h3>
+<p>There is no need to run these Gradle tasks manually as they are called automatically by other 
+relevant Gradle tasks.</p>
+<p><strong><code>compileJava</code></strong> - Checks whether the project has the required dependencies to compile and run the main program, and download 
+any missing dependencies before compiling the classes.  </p>
+<p>See <code>build.gradle</code> &gt; <code>allprojects</code> &gt; <code>dependencies</code> &gt; <code>compile</code> for the list of dependencies required.</p>
+<p><strong><code>compileTestJava</code></strong> - Checks whether the project has the required dependencies to perform testing, and download 
+any missing dependencies before compiling the test classes.</p>
+<p>See <code>build.gradle</code> &gt; <code>allprojects</code> &gt; <code>dependencies</code> &gt; <code>testCompile</code> for the list of 
+dependencies required.</p>
 </div>
 </body>
 </html>
