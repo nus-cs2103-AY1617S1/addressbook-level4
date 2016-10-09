@@ -1,9 +1,17 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
+import seedu.address.model.ToDoList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Detail;
+import seedu.address.model.task.Done;
+import seedu.address.model.task.DueByDate;
+import seedu.address.model.task.DueByTime;
+import seedu.address.model.task.Priority;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +49,7 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Detail(details),
+                new Done("no"),
                 new DueByDate(dueByDate),
                 new DueByTime(dueByTime),
                 new Priority(priority),
@@ -59,7 +68,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            toDoList.addTask(toAdd);
+            model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

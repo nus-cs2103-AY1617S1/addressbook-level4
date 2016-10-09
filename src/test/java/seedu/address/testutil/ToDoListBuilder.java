@@ -2,14 +2,14 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.ToDoList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building ToDoList objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code ToDoList ab = new ToDoListBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
 public class ToDoListBuilder {
 
@@ -19,8 +19,8 @@ public class ToDoListBuilder {
         this.toDoList = toDoList;
     }
 
-    public ToDoListBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        toDoList.addPerson(person);
+    public ToDoListBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        toDoList.addTask(task);
         return this;
     }
 
