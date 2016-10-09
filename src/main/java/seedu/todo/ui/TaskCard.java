@@ -68,8 +68,7 @@ public class TaskCard extends UiPart{
         if (task.getDescription().isPresent()) {
             descriptionLabel.setText(task.getDescription().get());
         } else {
-            descriptionBox.setManaged(false);
-            descriptionBox.setVisible(false);
+            FxViewUtil.setCollapsed(descriptionBox, true);
         }
         
         //Display time when available
@@ -79,16 +78,14 @@ public class TaskCard extends UiPart{
         } else if (!task.isEvent() && task.getEndTime().isPresent()) {
             dateLabel.setText(timeUtil.getTaskDeadlineText(task.getEndTime().get()));
         } else {
-            dateBox.setManaged(false);
-            dateBox.setVisible(false);
+            FxViewUtil.setCollapsed(dateBox, true);
         }
         
         //Display location when available
         if (task.getLocation().isPresent()) {
             locationLabel.setText(task.getLocation().get());
         } else {
-            locationBox.setManaged(false);
-            locationBox.setVisible(false);
+            FxViewUtil.setCollapsed(locationBox, true);
         }
     }
 
@@ -125,8 +122,7 @@ public class TaskCard extends UiPart{
             if (i < numberOfTags) {
                 tagLabels[i].setText(tags[i]);
             } else {
-                tagLabels[i].setManaged(false);
-                tagLabels[i].setVisible(false);
+                FxViewUtil.setCollapsed(tagLabels[i], true);
             }
         }
     }
