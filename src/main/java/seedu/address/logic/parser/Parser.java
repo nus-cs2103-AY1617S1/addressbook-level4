@@ -27,14 +27,14 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+            Pattern.compile("(?<name>[^/]+)");
+//                    + " (?<isDatePrivate>p?)p/(?<date>[^/]+)"
+//                    + " (?<isTimePrivate>p?)e/(?<time>[^/]+)"
+//                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+//                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
-
+ 
     /**
      * Parses user input into command for execution.
      *
@@ -66,8 +66,8 @@ public class Parser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ShowCommand.COMMAND_WORD:
+            return new ShowCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -81,7 +81,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -94,11 +94,11 @@ public class Parser {
         }
         try {
             return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    matcher.group("name")
+//                    matcher.group("date"),
+//                    matcher.group("time"),
+//                    matcher.group("address"),
+//                    getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -106,7 +106,7 @@ public class Parser {
     }
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
+     * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -120,7 +120,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -137,7 +137,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the select task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -171,7 +171,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find task command.
      *
      * @param args full command args string
      * @return the prepared command
