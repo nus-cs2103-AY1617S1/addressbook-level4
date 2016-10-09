@@ -41,10 +41,10 @@ public class CommandHelper {
      * @throws Exception
      */
     //TODO specify exception
-    public static Date convertStringToDate(String dateInString) throws Exception{
+    public static Date convertStringToDate(String dateInString) throws IllegalValueException{
         List<Date> dates = new PrettyTimeParser().parse(dateInString);
         if(dates.size() != 1){
-            throw new Exception();
+            throw new IllegalValueException("Multiple dates found");
         }
         return dates.get(0);
     }
@@ -58,7 +58,7 @@ public class CommandHelper {
     public static Recurrence getRecurrence(String repeatParameter) throws IllegalValueException{
         String parseThis = repeatParameter.toLowerCase();
         KeywordParser kp = new KeywordParser("daily","weekly","monthly","yearly");
-        HashMap<String, String> parameters = kp.parseOne(parseThis);
+        HashMap<String, String> parameters = kp.parseForOneKeyword(parseThis);
         if(parameters.containsKey("daily")){
             try {
                 Recurrence recurrence = new Recurrence(Recurrence.Pattern.DAILY, Integer.parseInt(parameters.get("daily")));

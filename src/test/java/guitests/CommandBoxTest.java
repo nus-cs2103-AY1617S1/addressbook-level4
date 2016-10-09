@@ -8,7 +8,7 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand("add Watch Movie");
+        commandBox.runCommand("add \"Watch Movie\"");
         assertEquals(commandBox.getCommandInput(), "");
     }
 

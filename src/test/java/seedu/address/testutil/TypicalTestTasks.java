@@ -28,7 +28,7 @@ public class TypicalTestTasks {
         	date6 = sdf.parse("03/11/2016 12:04:05");
             submitPrototype =  new TaskBuilder().withName("Submit prototype")
                     .withTags("urgent").withCompleteStatus(false).build();
-            submitProgressReport = new TaskBuilder().withCompleteStatus(true).withDeadline(date1)
+            submitProgressReport = new TaskBuilder().withCompleteStatus(false).withDeadline(date1)
             		.withName("Submit progress report").withTags("finance", "urgent").build();
             developerMeeting = new TaskBuilder().withName("Attend developer meeting").withDeadline(date5)
             		.withDeadlineRecurrence(Recurrence.Pattern.DAILY, 3).build();

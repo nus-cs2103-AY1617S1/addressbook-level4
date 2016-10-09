@@ -158,9 +158,9 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add abc!d", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add \"abc,d\"", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add \"valid\" tag invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -404,14 +404,14 @@ public class LogicManagerTest {
         //Edited for floating tasks
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            
+
             // TODO update test case
             Complete complete = new Complete(false);
             Deadline deadline = new Deadline();
             Period period = new Period();
             Recurrence deadlineRecurrence = new Recurrence();
             Recurrence periodRecurrence = new Recurrence();
-            
+
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -439,17 +439,17 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the person given */
-        //Edited for floating tasks
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
+            cmd.append( "\"" + p.getName().toString() + "\" ");
 
             UniqueTagList tags = p.getTags();
+            cmd.append("tag ");
             for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(t.tagName + " ");
             }
 
             return cmd.toString();
@@ -521,7 +521,7 @@ public class LogicManagerTest {
         List<Task> generatePersonList(Task... persons) {
             return Arrays.asList(persons);
         }
-        
+
         // TODO update test case
         /**
          * Generates a Person object with given name. Other fields will have some dummy values.
