@@ -61,6 +61,7 @@
 ### Architecture
 
 <img src="images/UML_Architecture.png" width="600"><br>
+<br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -112,7 +113,6 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 The sections below give more details of each component.
 
 <br>
-<br>
 ### UI component
 
 <img src="images/UML_UI.png" width="800"><br>
@@ -148,7 +148,7 @@ The `UI` component,
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <br>
-<img src="images/UML_seq3.png" width="800"><br>
+<img src="images/UML_Seq3.png" width="800"><br>
 <br>
 
 ### Model component
@@ -163,6 +163,7 @@ The `Model`,
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+<br>
 <br>
 
 ### Storage component
@@ -179,6 +180,7 @@ The `Storage` component,
 ### Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
+<br>
 <br>
 
 ## Implementation
