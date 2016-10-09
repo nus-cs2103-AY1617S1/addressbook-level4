@@ -39,23 +39,23 @@ Displays more ways(eg: shortcuts) to use the add command
 #### Adding a Task: `add`
 Adds a task to the task manager<br>
 Format : `add <task name>`<br>
- 	 `add <task name> by <date/day>` <br>
-	 `add <task name> by <date/day> at <time>`<br>
+ 	 `add <task name> d/<date/day>` <br>
+	 `add <task name> d/<date/day> t/<time>`<br>
 
-Date Format: dd/mm/yyyy
+Date Format: dd/mm/yy
 Time Format: 12-hour clock ( Eg: 10am, 5pm, etc)
 
-> If the date and time are not mentioned, the task is passed as a “Floating Task” and would be displayed separately.
-> For the date/day, the user can type either the date, which would add the task to that specific day or type the day, which would add the task to the nearest day of the week which matches ‘day’
+> If the date and time are not mentioned, the task is passed as a Floating Task.
+> For the date/day, the user can type either the date, which would add the task to that specific day or type the day, which would add the task to the nearest day of the week which matches day.
 
 Examples:
 * `add Read Harry Potter`
-* `add CS2103T Tutorial by 01/10/2016`
-* `add CS2101 reflection by Friday` 
+* `add CS2103T Tutorial d/01/10/16`
+* `add CS2101 reflection d/Friday` 
 	(if you type this on a Wednesday, it marks the slot for the coming Friday, that is, day after tomorrow)
-* `add EE2021 assignment by next Thursday`
+* `add EE2021 assignment d/next Thursday`
 	(if you type this on a Wednesday, it marks the slot not for the next day, but for the Thursday after that, that is, 8 days later)
-* `add EE2020 project by 30/10/2016 at 6pm`
+* `add EE2020 project d/30/10/16 t/6pm`
 
 #### Priority tasks: `priority`
 Allows the user to set the priority of a task when creating it.<br>
