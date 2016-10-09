@@ -56,8 +56,7 @@ public class RenameCommand extends Command {
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                Integer.toString(targetIndex), newTaskName));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex, newTaskName));
 
     }
 
