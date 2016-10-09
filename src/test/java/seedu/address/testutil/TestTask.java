@@ -1,7 +1,12 @@
 package seedu.address.testutil;
 
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.person.*;
+import seedu.address.model.task.Detail;
+import seedu.address.model.task.Done;
+import seedu.address.model.task.DueByDate;
+import seedu.address.model.task.DueByTime;
+import seedu.address.model.task.Priority;
+import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * A mutable person object. For testing only.
@@ -61,7 +66,7 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
-    public Done getDone() {
+    public Done checkDone() {
     	return done;
     }
 
@@ -81,7 +86,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append(this.getDueByDate().value + " ");
         sb.append(this.getDueByTime().value + " ");
         sb.append(this.getPriority().value + " ");
-        sb.append(this.getDone().value + " ");
+        sb.append(this.checkDone().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("-" + s.tagName + " "));
         return sb.toString();
     }

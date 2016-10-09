@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ToDoList;
 import seedu.address.model.ReadOnlyToDoList;
-import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.TypicalTestTasks;
 
 import java.io.IOException;
@@ -71,8 +71,8 @@ public class XmlToDoListStorageTest {
         assertEquals(original, new ToDoList(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Person(TypicalTestTasks.hoon));
-        original.removePerson(new Person(TypicalTestTasks.alice));
+        original.addTask(new Task(TypicalTestTasks.car));
+        original.removeTask(new Task(TypicalTestTasks.dog));
         xmlToDoListStorage.saveToDoList(original, filePath);
         readBack = xmlToDoListStorage.readToDoList(filePath).get();
         assertEquals(original, new ToDoList(readBack));
