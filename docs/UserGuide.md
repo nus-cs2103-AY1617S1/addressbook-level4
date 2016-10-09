@@ -48,9 +48,6 @@ Organising your life is important. Compartmentalising them allows you to priorit
 ### Events *and* Tasks
 Deadlines and events are equally important. However, most productivity apps only allow you to manage either tasks *or* events. Therefore, our application can help you to manage both of them at the same time. There is no longer necessary to use two applications to achieve the same thing.
 
-
-
-
  
 ## Commands Reference
 
@@ -59,8 +56,8 @@ Deadlines and events are equally important. However, most productivity apps only
 * Words in `UPPERCASE` are the parameters.
 * Items in `[SQUARE BRACKETS]` are optional.
 * To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. `-f`) for short flags and double dash for long flags (eg. `--all`)
-* Items with `...` after them can have multiple instances.
-* Most commands that updates a task require an `INDEX`. This is number shown to the left of the task as shown in the screenshot below
+* Items with `...` within each parameter means you can add more items within the same parameters than specified.
+* Most commands that refer to a particular task or event in the list require an `INDEX`. This is a number indicated on the left of a task or event as shown in the screenshot below:
 
  <img src="images/sketch_task_index_small.png" width="350" alt="Index Number Location">
 
@@ -68,7 +65,7 @@ Deadlines and events are equally important. However, most productivity apps only
 ### Viewing help : **`help`**
 Format: **`help`**
 
-Shows help window which gives list of commands and their actions.
+Shows you a help window, which contains a list of commands and their actions.
  
 ### Adding a task or event: **`add`**
 
@@ -77,12 +74,12 @@ Format:
 **`add`**` TASK NAME [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]`  
 **`add`**` EVENT NAME -d START END [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]`
 
-Although there are a lot of parameters, only the name is required. Tasks will be turned into events 
-automatically if two dates are specified under the `-d` flag. Here are some common scenarios
+Although there are many parameters, you are only required to provide a name of your task or event. 
+Tasks will be turned into events automatically if there are two dates specified under the `-d` flag. Here are some common scenarios:
 
 #### Adding a task
 
-Adding a task is as simple as giving it a name.
+Adding a task can be simply giving a name.
 
 !!! example
     **`add`**` Finish up developer guide for CS2101` 
