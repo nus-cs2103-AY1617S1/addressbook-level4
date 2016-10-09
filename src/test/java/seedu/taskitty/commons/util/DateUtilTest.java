@@ -4,17 +4,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.taskitty.commons.util.StringUtil;
-
-import java.io.FileNotFoundException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class DateUtilTest {
 
@@ -49,12 +42,4 @@ public class DateUtilTest {
         thrown.expect(DateTimeException.class);
         DateUtil.parseDate("10invalid2016");
     }
-
-    /*@Test
-    public void getDetails_nullGiven_assertionError(){
-        thrown.expect(AssertionError.class);
-        StringUtil.getDetails(null);
-    }*/
-
-
 }
