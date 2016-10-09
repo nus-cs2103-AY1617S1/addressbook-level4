@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
@@ -19,11 +20,19 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.TaskBuilder;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.swing.text.DateFormatter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -150,9 +159,9 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add /wrong args wrong args", expectedMessage);
+                "add /wrong args wrong args", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/tag_wrong_prefix", expectedMessage);
+                "add Valid Name s/tag_wrong_prefix", Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
@@ -276,7 +285,87 @@ public class LogicManagerTest {
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
+    
 
+
+    @Test
+    public void execute_updateInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("update", expectedMessage);
+    }
+
+    @Test
+    public void execute_updateIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("update");
+    }
+    
+    @Test
+    public void execute_update_updatesCorrectTaskWithDeletedInfo() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        
+        List<Task> threeTasks = helper.generatePersonList(3);
+        helper.addToModel(model, threeTasks);
+        
+        final int taskIndexToUpdate = 1;
+        
+        UniqueTagList newTagList = threeTasks.get(taskIndexToUpdate).getTags();
+        Tag tagToRemove = newTagList.iterator().next();        
+        newTagList.remove(tagToRemove);
+
+        TaskList expectedTaskList = helper.generateAddressBook(threeTasks);     
+        Task newTask = new Task(threeTasks.get(taskIndexToUpdate).getName(),
+                new Complete(false),
+                new Deadline(), 
+                new Period(), new Recurrence(), 
+                new Recurrence(), 
+                newTagList);
+        expectedTaskList.updateTask(threeTasks.get(taskIndexToUpdate), newTask);
+        
+        String inputString = "update 2 removeby removefrom removeto removerepeatdeadline " 
+                + "removerepeattime removetag " + tagToRemove.tagName;
+                
+        assertCommandBehavior(inputString,
+                String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, newTask),
+                expectedTaskList,
+                expectedTaskList.getTaskList());
+    }
+
+    @Test
+    public void execute_update_updatesCorrectTaskWithNewInfo() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        
+        List<Task> threeTasks = helper.generatePersonList(3);
+        helper.addToModel(model, threeTasks);
+        
+        final int taskIndexToUpdate = 1;
+        
+        String deadlineString = "12 May 2000 00:00:00";
+        String startTimeString = "9 May 2000 00:00:00";
+        String endTimeString = "10 May 2000 00:00:00";
+        
+        Date deadline = CommandHelper.convertStringToDate(deadlineString);
+        Date startTime = CommandHelper.convertStringToDate(startTimeString);
+        Date endTime = CommandHelper.convertStringToDate(endTimeString);
+
+        UniqueTagList newTagList = threeTasks.get(taskIndexToUpdate).getTags();
+        newTagList.add(new Tag("Hey"));
+
+        TaskList expectedTaskList = helper.generateAddressBook(threeTasks);     
+        Task newTask = new Task(new Name("New Val"), new Complete(false), new Deadline(deadline), 
+                new Period(startTime, endTime), new Recurrence(Recurrence.Pattern.DAILY, 3), 
+                new Recurrence(Recurrence.Pattern.MONTHLY, 5), 
+                newTagList);
+        expectedTaskList.updateTask(threeTasks.get(taskIndexToUpdate), newTask);
+        
+        String inputString = "update 2 name New Val by " + deadlineString + " from "
+                + startTimeString + " to " + endTimeString
+                + " repeatdeadline daily 3 repeattime monthly 5 tag Hey";
+                
+        assertCommandBehavior(inputString,
+                String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, newTask),
+                expectedTaskList,
+                expectedTaskList.getTaskList());
+    }
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
