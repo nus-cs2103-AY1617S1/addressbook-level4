@@ -1,23 +1,35 @@
 package taskle.ui;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import taskle.commons.core.Config;
 import taskle.commons.core.GuiSettings;
 import taskle.commons.events.ui.ExitAppRequestEvent;
+import taskle.commons.util.ConfigUtil;
+import taskle.commons.util.StorageDirectoryUtil;
 import taskle.logic.Logic;
+import taskle.logic.commands.CommandResult;
 import taskle.model.UserPrefs;
 import taskle.model.person.ReadOnlyTask;
+import taskle.storage.StorageManager;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart {
 
@@ -41,7 +53,8 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String taskManagerName;
-
+    private CommandResult mostRecentResult;
+    
     @FXML
     private AnchorPane commandBoxPlaceholder;
 
@@ -56,8 +69,8 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-
-
+    
+    
     public MainWindow() {
         super();
     }
@@ -176,14 +189,25 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
-    
+
+    /**
+     * Change storage file location
+     */
     @FXML
     private void handleSettings() {
-        
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(primaryStage);
+        if (selectedDirectory == null) {
+        } else if ((selectedDirectory.getAbsolutePath()).equals(config.getTaskManagerFileDirectory())) {
+        } else if (new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
+            ExistingFileDialog.load(primaryStage, config, logic, selectedDirectory);
+        } else {
+            StorageDirectoryUtil.updateDirectory(config, logic, selectedDirectory);
+        }
     }
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-    
+
 }
