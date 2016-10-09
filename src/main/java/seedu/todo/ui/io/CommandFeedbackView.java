@@ -3,6 +3,9 @@ package seedu.todo.ui.io;
 import javafx.scene.Node;
 import seedu.todo.ui.UiPart;
 
+/**
+ * Display textual feedback to command input via this view.
+ */
 public class CommandFeedbackView extends UiPart {
 
     @Override
