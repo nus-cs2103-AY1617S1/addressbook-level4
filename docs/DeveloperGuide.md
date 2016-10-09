@@ -56,10 +56,12 @@
 
 ## Design
 
+
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
 >**_Figure 1_**: Architecture Diagram - explains the high-level design of the application
+
 
 The following content is a quick overview of each component.
 
