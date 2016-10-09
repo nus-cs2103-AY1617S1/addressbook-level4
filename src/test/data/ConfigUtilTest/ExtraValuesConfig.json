@@ -2,7 +2,7 @@
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
-  "emeraldoFilePath" : "addressbook.xml",
+  "emeraldoFilePath" : "emeraldo.xml",
   "emeraldoName" : "TypicalTaskManagerName",
   "extra" : "extra value"
 }
