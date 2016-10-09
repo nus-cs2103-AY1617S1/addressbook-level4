@@ -20,6 +20,8 @@
 
 * Some parts of this sample application were inspired by the excellent
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*.
-* The sample project created by SE-EDU initiative at https://github.com/se-edu/
+
+* This project is an extension to the original project addressbook-level4
+created by SE-EDU initiative at https://github.com/nus-cs2103-AY1617S1/addressbook-level4
 
 #### Licence : [MIT](LICENSE)
