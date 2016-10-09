@@ -34,7 +34,7 @@ public class RelocateCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public RelocateCommand(String newFilePath) {
-        this.newFilePath = newFilePath;
+        this.newFilePath = newFilePath.trim();
     }
 
     @Override

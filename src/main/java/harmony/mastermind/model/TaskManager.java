@@ -2,10 +2,12 @@ package harmony.mastermind.model;
 
 import javafx.collections.ObservableList;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
+import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ArchiveTaskList;
@@ -70,6 +72,13 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public void resetData(ReadOnlyTaskManager newData) {
         resetData(newData.getTaskList(), newData.getTagList());
+    }
+
+    public void relocateSaveLocation(String newFilePath) throws FolderDoesNotExistException {
+        File file = new File(newFilePath);
+        if (!(file.exists() && file.isDirectory())) {
+            throw new FolderDoesNotExistException(newFilePath + " does not exist");
+        }
     }
 
 //// task-level operations
@@ -177,4 +186,5 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
 }

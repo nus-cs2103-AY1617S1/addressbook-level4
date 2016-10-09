@@ -6,7 +6,7 @@ package harmony.mastermind.commons.exceptions;
  * Signals that the input file path does not exist
  */
 public class FolderDoesNotExistException extends Exception {
-    public FolderDoesNotExistException(String filePath) {
-        super (filePath + " does not exist!");
+    public FolderDoesNotExistException(String message) {
+        super (message);
     }
 }
