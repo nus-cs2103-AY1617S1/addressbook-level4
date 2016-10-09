@@ -63,4 +63,190 @@
 .codehilite .vg { color: #19177C } /* Name.Variable.Global */
 .codehilite .vi { color: #19177C } /* Name.Variable.Instance */
 .codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */
-.toc { font-size: 2rem; }
+
+/* Make the TOC tigher than normal lists */
+.toc ul {
+  list-style: none;
+  counter-reset: toc;
+}
+
+.toc ul li:before {
+  display: inline-block;
+  width: 1.75rem;
+  margin-right: 0.5rem;
+  text-align: right;
+  counter-increment: toc;
+  content: counters(toc, '.') '. ';
+}
+
+.toc ul li {
+  margin-bottom: .1rem;
+}
+
+.toc ul li li:before {
+  width: 3rem;
+}
+
+.toc ul li li li:before {
+  width: 3.75rem;
+}
+
+
+.toc ul ul {
+  margin: .1rem 0 .5rem .25rem;
+}
+
+/*  */
+
+body {
+  counter-reset: h2;
+}
+
+h2:before, h3:before, h4:before {
+  display: inline-block;
+  position: absolute;
+  margin-left: -1rem;
+  color: #999;
+  transform: translateX(-100%);
+}
+
+h2:before {
+  counter-increment: h2;
+  content: counter(h2) '. ';
+}
+
+h2 {
+  counter-reset: h3;
+}
+
+h3:before {
+  counter-increment: h3;
+  content: counter(h2) '.' counter(h3) '. ';
+}
+
+h3 {
+  counter-reset: h4;
+}
+
+h4:before {
+  counter-increment: h4;
+  content: counter(h2) '.' counter(h3) '.' counter(h4) '. ';
+}
+
+.headerlink {
+  padding: 0 .5rem;
+  text-decoration: none;
+  display: none;
+}
+
+
+h2:hover .headerlink, 
+h3:hover .headerlink, 
+h4:hover .headerlink {
+  display: inline-block;
+}
+
+/* Admonition styles */
+.admonition {
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+
+ul .admonition, 
+ol .admonition {
+  margin-top: 1.5rem;
+}
+
+.admonition.example {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.admonition.note {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.admonition.warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.admonition.danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.admonition .admonition-title {
+  font-weight: bold;
+  margin-bottom: .2rem;
+  font-size: 1.5rem;
+}
+
+.admonition ul, 
+.admonition ol,
+.admonition dl,
+.admonition p {
+  margin: 0;
+}
+
+
+.admonition dl dd {
+  margin: 0 0 .75rem 0;
+}
+
+.admonition dl dd:last-child {
+  margin-bottom: .5rem;
+}
+
+
+/* User Guide styles */
+.userguide strong + code {
+  margin-left: -.6rem;
+  border-left: 0;
+}
+
+.userguide .admonition code {
+  background: none;
+  border: 0;
+  font-size: 100%;
+  white-space: normal;
+}
+
+.userguide .admonition dt {
+  font-weight: normal;
+}
+
+.userguide .admonition p code:first-child, 
+.userguide .admonition li code:first-child, 
+.userguide .admonition dt code:first-child {
+  margin-left: -.4rem;
+}
+
+
+.userguide .admonition p code:first-child:before, 
+.userguide .admonition li code:first-child:before, 
+.userguide .admonition dt code:first-child:before {
+  content: '>> ';
+}
+
+kbd {
+  display: inline-block;
+  padding: .3rem .5rem;
+  font-size: 85%;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}

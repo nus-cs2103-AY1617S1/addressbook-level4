@@ -2,22 +2,20 @@ package seedu.todo.logic.commands;
 
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
+import seedu.todo.logic.arguments.Parameter;
 
 /**
  * Terminates the program.
  */
-public class ExitCommand extends Command {
-
-    public static final String COMMAND_WORD = "exit";
-
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
-
-    public ExitCommand() {}
+public class ExitCommand extends BaseCommand {
+    @Override
+    public void execute() {
+        EventsCenter.getInstance().post(new ExitAppRequestEvent());
+    }
 
     @Override
-    public CommandResult execute() {
-        EventsCenter.getInstance().post(new ExitAppRequestEvent());
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    protected Parameter[] getArguments() {
+        return new Parameter[]{};
     }
 
 }
