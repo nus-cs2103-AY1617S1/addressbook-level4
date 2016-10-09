@@ -17,6 +17,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
 **Component-In-Charge:** Model
 
 #### [Cherlynn Cha](https://github.com/Cherc)
+<img src="https://avatars0.githubusercontent.com/u/11135802?v=3&s=400" width="150"><br>
 **Role:** Developer<br>
 **Responsibilities:** Deliverables (Scheduling & Deadlines Adherences)<br>
 **Component-In-Charge:** Logic
