@@ -19,17 +19,22 @@ public class EditCommandTest extends AddressBookGuiTest{
         //edit the first task in list with all details
         int targetIndex = 1;
         
-        assertEditTaskSuccess(targetIndex, currentList);
+        //task to be changed to
+        final String newName = "Get rich or die coding";
+        TestFloatingTask expectedTask = new TestFloatingTask();
+        expectedTask.setName(new Name(newName)); //set up newTask with changed name
+        
+        assertEditTaskSuccess(currentList, expectedTask, targetIndex);
 
         //edit the last task in list with only name changes
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList, expectedTask, targetIndex);
         targetIndex = currentList.length;
-        assertEditTaskSuccess(targetIndex, currentList);
+        assertEditTaskSuccess(currentList, expectedTask, targetIndex);
 
         //edit the middle task of the list with only name changes
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList, expectedTask, targetIndex);
         targetIndex = currentList.length/2;
-        assertEditTaskSuccess(targetIndex, currentList);
+        assertEditTaskSuccess(currentList, expectedTask, targetIndex);
 
         //invalid index
         commandBox.runCommand("edit " + currentList.length + 1);
@@ -46,14 +51,10 @@ public class EditCommandTest extends AddressBookGuiTest{
      * @param currentList List of tasks to be edited.
      * @throws IllegalValueException 
      */
-    private void assertEditTaskSuccess(int targetIndex, TestFloatingTask... currentList) throws IllegalValueException{
+    private void assertEditTaskSuccess(TestFloatingTask[] currentList,TestFloatingTask expectedTask, int targetIndex) throws IllegalValueException{
 
-        final String newName = "Get rich or die coding";
-        TestFloatingTask expectedTask = new TestFloatingTask();
-        expectedTask.setName(new Name(newName)); //set up newTask with changed name
-        
         //edit the name of the target task with the newName
-        commandBox.runCommand("edit " + targetIndex + " " + newName);
+        commandBox.runCommand("edit " + targetIndex + " Get rich or die coding");
         
         //confirm the list now contains all previous persons except the deleted person
         //TODO: change from checking last index to previous index of changed task
