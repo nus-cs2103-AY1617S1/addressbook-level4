@@ -35,7 +35,7 @@
 > * Fields in `SQUARE_BRACKETS` are optional.
 > * The order of parameters is fixed.
 
-#### Viewing help : `help`
+### Viewing help : `help`
 Opens the user guide with a new window<br>
 Format: `help`<br>
 
@@ -45,31 +45,41 @@ Example:
 * `help`
 
  
-#### Adding a task: `add`
+### Adding a task: `add`
 Adds a task into the task manager<br>
 Format: `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
 
->DearJim allows you to assign your task a `PRIORITY` of low, medium or high. Tasks have mediumd `PRIORITY` by default.
-> To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add/edit command, where `PRIORITY` can be replaced by low, medium or high.
->
-> `PRIORITY` also accepts variations of low, medium and high.
-> * `-l` and `-low` means `-low`
-> * `-m`, `-med` and `-medium` means `-medium`
-> * `-h` and `-high` means `-high`
->
->
-> DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`.
+You can assign your task a `PRIORITY` of `low`, `medium` or `high`. Tasks have `medium` `PRIORITY` by default.
+`PRIORITY` also accepts variations of `low`, `medium` and `high`.
+ |`PRIORITY` | Variations |
+ | ------------- |------------|
+ | `low` | `l`, `low` |
+ | `medium` | `m`, `med`, `medium` |
+ | `high` | `h`, `high`|
+> To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add/edit command, where `PRIORITY` can be replaced by `low`, `medium` or `high`, e.g `-low`, `-medium`, `-high`.
+
+Examples:
+* `add ... -l`
+* `add ... -low`
+* `edit ... -med`
+* `edit ... -high`
+
+DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`.
 > To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add/edit command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
 > 
-> Supported `RECURRING_INTERVAL`
-> * `day`, `2 days`, `3 days`, ...
-> * `week`, `2 weeks`, `3 weeks`, ...
-> * `month`, `2 months`, `3 months`, ...
+Supported `RECURRING_INTERVAL`
+* `day`, `2 days`, `3 days`, ...
+* `week`, `2 weeks`, `3 weeks`, ...
+* `month`, `2 months`, `3 months`, ...
+
+Examples: 
+* `add ... repeat every 2 days`
+* `edit ... repeat every week`
 
 
 
 
-*With deadline*
+**_With deadline_**
 
 Format: `add NAME by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIORITY]`
 >Notice the `by` keyword? We use `by` to denote a deadline.
@@ -91,7 +101,7 @@ Examples:
 * `add eat lunch by 1pm today -h`
 * `add Buy coffee for boss by 7am repeat every day`
 
-*Without deadline*
+**_Without deadline_**
 
 Format: `add NAME [-PRIORITY]`
 
@@ -103,7 +113,7 @@ Example:
 * `add Buy washing powder -h`
 * `add Buy baby powder -l`
 
-*With time interval*
+**_With time interval_**
 
 `add NAME from/at START_DATE START_TIME [to END_DATE END_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]` 
 > For events, meetings, we use `from` and `at` to indicate the start time and `to` and `by` to indicate the end time.
@@ -126,7 +136,7 @@ Example:
 * `add Family dinner at noon`
 * `add Meet Akshay from 1pm to 2pm -h`
 
-#### Editing a task: `edit`
+### Editing a task: `edit`
 Edits an existing task in the task manager<br>
 
 
@@ -137,17 +147,8 @@ Examples:
 * `edit 10 Company meeting tomorrow morning at 7am to 9am`
 * `edit 3 Buy coffee for boss by 7am repeat every 2 days`
 
-*Tentative events*
 
-Format: Replace `add` with  `edit INDEX (new OR SUB-INDEX)`
->Note: If you want to confirm the time slot, use the `confirm` command instead.
-
-Example:
-> <img src="images/edit_tentative_ui.png" width="600">
-
-* `edit 12 1 (at 24 Sep 8pm to 9pm) 3 (at 25 Sep 8pm to 9pm)`
-
-#### Deleting a task: `delete`
+### Deleting a task: `delete`
 Deletes an existing task in your task manager.<br>
 This process is reversible with the `undo` command.<br>
 Format: `delete INDEX`
@@ -157,7 +158,7 @@ Examples:
 * `delete 1`
 * `delete 2`
 
-#### Undoing a command: `undo`
+### Undoing a command: `undo`
 Reverses the effects of the previous command, if the command is a reversible one.<br>
 Format: `undo`
 > Commands that you can `undo`
@@ -170,7 +171,7 @@ Format: `undo`
 Example:
 * `undo`
 
-#### Clearing the task manager: `clear`
+### Clearing the task manager: `clear`
 Deletes all tasks in your task manager.<br>
 This process is reversible with the `undo` command.<br>
 Format: `clear`
@@ -180,7 +181,7 @@ Example:
 * `clear`
 
 
-#### Redoing a command: `redo`
+### Redoing a command: `redo`
 Reverses a previous `undo` command, if possible.<br>
 Format: `redo`
 > `redo` allows your to reverse your previous `undo` to get back your data!
@@ -190,7 +191,7 @@ Format: `redo`
 Example: 
 * `redo`
 
-#### Archiving an task: `done`
+### Archiving an task: `done`
 Archives a task in your task manager.<br>
 Format: `done INDEX`
 > Marks a task as `done` as sends it to the archive for future viewing.
@@ -199,12 +200,12 @@ Examples:
 * `done 1`
 * `done 2`
 
-#### Listing all tasks : `list`
+### Listing all tasks : `list`
 Shows a list of all tasks in the task manager.<br>
 Format: `list`
 > Displays all uncompleted tasks in the task manager.
 
-#### Finding a task : `find`
+### Finding a task : `find`
 Find an existing task by name.<br>
 Format: `find NAME`
 > `find` is case-insensitive.
@@ -214,14 +215,14 @@ Examples:
 * `find Michelle`
 * `find johnny`
 
-#### Getting hints for command format
+### Getting hints for command format
 Format: none, just type a command and let DearJim provide you hints on the command format that you might want to use!
 > * DearJim provides you hints on command formats as you type the command!
 > * Examples:
 >   * <img src="images/dearjim_hint_add.png"><br>Typing `add` in the command input generates the `add` command format in the result display
 >   * <img src="images/dearjim_hint_delete.png"><br>Typing `delete` in the command input generates the `delete` command format in the result display
 
-#### Saving the data 
+### Saving the data 
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
