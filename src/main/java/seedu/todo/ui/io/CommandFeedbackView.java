@@ -11,10 +11,9 @@ import seedu.todo.ui.UiPartLoader;
  * Display textual feedback to command input via this view with {@link #displayMessage(String)}.
  */
 public class CommandFeedbackView extends UiPart {
-    /*Constants*/
+
     private static final String FXML = "CommandFeedbackView.fxml";
     
-    /*Variables*/
     private Label commandFeedbackLabel;
     
     public void displayMessage(String message) {
