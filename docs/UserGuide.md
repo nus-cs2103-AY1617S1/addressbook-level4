@@ -88,7 +88,7 @@ If you are ever lost, you can bring up the help menu to display all possible com
 
     2.4 Add Recurring Tasks
 
-    Command format: `add <name> .every <day / week>`
+    Command format: `add <name> .every <period>`
 
     This command allows you to add tasks that has to be completed periodically. 
 
@@ -96,7 +96,8 @@ If you are ever lost, you can bring up the help menu to display all possible com
     `add Grab coffee .every day`  
     `add Record TV show .every Monday`  
 
-    > Creates a task with deadline or event stipulated by `<day / week>`
+    > Creates a task with deadline or event stipulated by `<period>`
+    > Note: `period` is either the keyword `day` or the field `<day>` (Monday, Tuesday, Wednesday, etc.)
 
     2.5 Add Tasks with Category
 
@@ -222,7 +223,9 @@ Command format: `save <new path>`
     
 10. Exit OneLine: `exit` 
 
-## Supported Date Formats
+## Supported Formats
+
+### Supported Date Formats
 You can choose to enter only the first 3 letters of any month or day when entering commands, and dates are not case-sensitive. For example, `oct` and `October` are both accepted for October.  
 
 | Examples | Interpretation |
@@ -234,7 +237,7 @@ You can choose to enter only the first 3 letters of any month or day when enteri
 | today | today | 
 | tomorrow <br /> tmr | tomorrow |
 
-## Supported Time Formats
+### Supported Time Formats
 Both 24 hour and 12 hour formats are accepted for time, and time entires are not case-sensitive. For example, `10.30pm` and `1030PM` and `2230` are all accepted for 10.30pm.  
 
 | Examples | Interpretation | 
@@ -242,6 +245,12 @@ Both 24 hour and 12 hour formats are accepted for time, and time entires are not
 |10.30pm <br /> 1030pm <br /> 2230 <br /> | 10:30pm |
 |11am <br /> 1100 | 11am | 
 
+### Supported Day Formats
+You can choose to enter only the first 3 letters of any day when entering commands, and days are not case-sensitive. For example, `mon`, `monday`, and `Monday` are all accepted for Monday.
+
+| Examples | Interpretation | 
+|----------|----------------|
+| mon <br /> Monday <br /> monday <br /> | Monday |
 
 ## FAQ
 Q: How do I transfer my data to another Computer?
@@ -252,7 +261,7 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 | Command | Format |
 | ------- | ------ |
 | help | `help` |
-| add | `add <name> [.due <date>] [#<cat>] [#<cat>] ...` <br /> `add <name> [.from <date><time> .to <date><time>] ...` <br /> `add <name> .every <day / week> ...` |
+| add | `add <name> [.due <date>] [#<cat>] [#<cat>] ...` <br /> `add <name> [.from <date><time> .to <date><time>] ...` <br /> `add <name> .every <period> ...` |
 | edit | `edit <index> [.due <date>]`<br />`edit #<oldCat> [#<newCat>] [.c <colour>]` |
 | list | `list` <br /> `list today` <br /> `list week` <br /> `list float`<br />`list #<cat>`<br />`list done` |
 | done | `done <index>` |
