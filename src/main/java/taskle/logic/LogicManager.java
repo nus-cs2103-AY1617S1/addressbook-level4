@@ -20,10 +20,12 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Parser parser;
-
+    private final Storage storage;
+    
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new Parser();
+        this.storage = storage;
     }
 
     @Override
@@ -37,5 +39,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+    
+    @Override
+    public void changeDirectory(String filePath) {
+        logger.info("----------------[CHANGE DIRECTORY][" + filePath + "]");
+        storage.setTaskManagerFilePath(filePath);
     }
 }
