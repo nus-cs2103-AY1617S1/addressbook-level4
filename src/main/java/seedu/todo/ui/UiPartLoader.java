@@ -10,7 +10,7 @@ import seedu.todo.MainApp;
  * A utility class to load UiParts from FXML files.
  */
 public class UiPartLoader {
-    private final static String FXML_FILE_FOLDER = "/view/";
+    private final static String FXML_FILE_FOLDER = "/ui/";
 
     public static <T extends UiPart> T loadUiPart(Stage primaryStage, T controllerSeed) {
         return loadUiPart(primaryStage, null, controllerSeed);
