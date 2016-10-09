@@ -93,6 +93,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new TitleQualifier(keywords)));
     }
 
+    @Override
+    public void updateFilteredActivityList(FilterMode filterMode, Set<String> keywords, Set<String> tagNames) {
+
+    }
+
     private void updateFilteredTaskList(Expression expression) {
         filteredActivities.setPredicate(expression::satisfies);
     }
