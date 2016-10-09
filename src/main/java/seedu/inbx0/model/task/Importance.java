@@ -9,8 +9,8 @@ import seedu.inbx0.commons.exceptions.IllegalValueException;
 
 public class Importance {
     
-    public static final String MESSAGE_IMPORTANCE_CONSTRAINTS = "Start Time has to be alphabetical format";
-    public static final String IMPORTANCE_VALIDATION_REGEX = "[\\p{Alnum}]";
+    public static final String MESSAGE_IMPORTANCE_CONSTRAINTS = "Importance has to be alphabetical format";
+    public static final String IMPORTANCE_VALIDATION_REGEX = "[\\p{Alpha}]";
     public static final int NUM_OF_STRINGS_IN_ALLOWED_IMPORTANCE_NAMES = 6;
     public static final String [] ALLOWED_IMPORTANCE_NAMES = {"g", "green",
                                                               "y", "yellow",
@@ -40,10 +40,10 @@ public class Importance {
     public static boolean isValidImportance(String test) {
         
         if(test.matches(IMPORTANCE_VALIDATION_REGEX)) {
-            for(int i = 0; i < NUM_OF_STRINGS_IN_ALLOWED_IMPORTANCE_NAMES; i++) {
-                if(test == ALLOWED_IMPORTANCE_NAMES[i])
+ //           for(int i = 0; i < NUM_OF_STRINGS_IN_ALLOWED_IMPORTANCE_NAMES; i++) {
+  //              if(test == ALLOWED_IMPORTANCE_NAMES[i])
                     return true;
-            }       
+ //           }       
         }
         
         return false;
@@ -52,5 +52,10 @@ public class Importance {
     @Override
     public String toString() {
         return value;
+    }
+    
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 }

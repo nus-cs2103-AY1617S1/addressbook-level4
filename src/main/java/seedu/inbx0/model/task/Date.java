@@ -11,7 +11,7 @@ public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Date has to be either a alphanumeric string, numeric string or alphabet string";
     public static final String DATE_NUMERIC_VALIDATION_REGEX = "\\d+";
-    public static final String DATE_ALPHANUMERIC_VALIDATION_REGEX = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)";
+/*    public static final String DATE_ALPHANUMERIC_VALIDATION_REGEX = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)";
     public static final String DATE_ALPHABETICAL_VALIDATION_REGEX = "[\\p{Alpha} ]+";
     public static final String SPLIT_NUM_AND_ALPHABET_REGEX = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)";
     public static final int NUM_OF_STRINGS_IN_ALLOWED_DATE_EXPRESSIONS = 5;
@@ -43,7 +43,7 @@ public class Date {
                                                          "dec", "december"
                                                          };
                                                            
-    
+  */  
     public final String value;
     
     /**
@@ -55,7 +55,7 @@ public class Date {
     public Date(String date) throws IllegalValueException {
         assert date != null;
         date = date.trim();
-        if (!isValidDate(date) && (date != "")) {
+        if (!isValidDate(date) &&  (date != "")) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         this.value = date;
@@ -65,7 +65,9 @@ public class Date {
      * Returns true if a given string is a valid task date.
      */
     public static boolean isValidDate(String test) {
-        boolean numericCheck = false;
+        return test.matches(DATE_NUMERIC_VALIDATION_REGEX);
+    }
+ /*       boolean numericCheck = false;
         boolean alphanumericCheck = false;
         boolean alphabeticalCheck = false;
         
@@ -129,10 +131,15 @@ public class Date {
         } 
             
         return (numericCheck | alphanumericCheck | alphabeticalCheck);
-    }
+    } */
     
     @Override
     public String toString() {
         return value;
+    }
+    
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 }

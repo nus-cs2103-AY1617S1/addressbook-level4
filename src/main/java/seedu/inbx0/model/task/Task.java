@@ -12,21 +12,25 @@ import seedu.inbx0.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
+    private Date startDate;
+    private Time startTime;
+    private Date endDate;
+    private Time endTime;
+    private Importance level;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+    public Task(Name name, Date startDate, Time startTime, Date endDate, Time endTime, Importance level, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startDate, startTime, endDate, endTime, level, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.level = level;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
@@ -35,29 +39,39 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getLevel(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
     }
-
+    
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Date getStartDate() {
+        return startDate;
     }
-
+    
     @Override
-    public Email getEmail() {
-        return email;
+    public Time getStartTime() {
+        return startTime;
     }
-
+    
     @Override
-    public Address getAddress() {
-        return address;
+    public Date getEndDate() {
+        return endDate;
     }
-
+    
+    @Override
+    public Time getEndTime() {
+        return endTime;
+    }
+    
+    @Override
+    public Importance getLevel() {
+        return level;
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -69,6 +83,27 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
+    
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setLevel(Importance level) {
+        this.level = level;
+    }
+
 
     @Override
     public boolean equals(Object other) {
@@ -80,7 +115,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, startDate, startTime, endDate, endTime, level, tags);
     }
 
     @Override

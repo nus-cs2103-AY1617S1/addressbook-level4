@@ -28,9 +28,11 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+                    + " s/(?<startDate>[^/]+)"
+                    + " st/(?<startTime>[^/]+)"
+                    + " e/(?<endDate>[^/]+)"
+                    + " et/(?<endTime>[^/]+)"
+                    + " i/(?<level>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -103,9 +105,11 @@ public class Parser {
             if(matcher.matches()) {
             return new AddCommand(
                     matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
+                    matcher.group("startDate"),
+                    matcher.group("startTime"),
+                    matcher.group("endDate"),
+                    matcher.group("endTime"),
+                    matcher.group("level"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
             } 

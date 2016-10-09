@@ -52,4 +52,9 @@ public class Time {
     public String toString() {
         return value;
     }
+    
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }
