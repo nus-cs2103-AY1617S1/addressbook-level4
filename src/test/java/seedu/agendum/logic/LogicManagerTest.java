@@ -304,6 +304,61 @@ public class LogicManagerTest {
 
 
     @Test
+    public void execute_markInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("mark", expectedMessage);
+    }
+
+    @Test
+    public void execute_markIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("mark");
+    }
+
+    @Test
+    public void execute_mark_marksCorrectTaskAsCompleted() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+
+        ToDoList expectedTDL = helper.generateToDoList(threeTasks);
+        expectedTDL.markTask(threeTasks.get(1));
+        helper.addToModel(model, threeTasks);
+
+        assertCommandBehavior("mark 2",
+                String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, threeTasks.get(1)),
+                expectedTDL,
+                expectedTDL.getTaskList());
+    }
+
+
+    @Test
+    public void execute_unmarkInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("unmark", expectedMessage);
+    }
+
+    @Test
+    public void execute_unmarkIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("unmark");
+    }
+
+    @Test
+    public void execute_unmark_UnmarksCorrectTaskAsCompleted() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(2);
+        threeTasks.add(helper.generateCompletedTask(3));
+
+        //expectedTDL does not have any tasks marked as completed
+        ToDoList expectedTDL = helper.generateToDoList(threeTasks);
+        expectedTDL.unmarkTask(threeTasks.get(2));
+        helper.addToModel(model, threeTasks);
+
+        assertCommandBehavior("unmark 3",
+                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, threeTasks.get(2)),
+                expectedTDL,
+                expectedTDL.getTaskList());
+    }
+
+    @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
@@ -392,6 +447,15 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
+        }
+        
+        /**
+         * Generates a valid completed task with the given seed
+         */
+        Task generateCompletedTask(int seed) throws Exception {
+            Task newTask = generateTask(seed);
+            newTask.markAsCompleted();
+            return newTask;
         }
 
         /** Generates the correct add command based on the task given */
