@@ -14,6 +14,7 @@ public class TestItem implements ReadOnlyItem {
     private Date endDate;
     private Time endTime;
     private Name name;
+    private boolean done;
     private UniqueTagList tags;
 
     public TestItem() {
@@ -82,6 +83,20 @@ public class TestItem implements ReadOnlyItem {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    @Override
+    public boolean getDone() {
+        return done;
+    }
+    
+    @Override
+    public void setDone() {
+        done = true;
+    }
+    
+    public void setUndone() {
+        done = false;
     }
 
     public String getAddCommand() {

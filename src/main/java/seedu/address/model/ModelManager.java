@@ -9,6 +9,7 @@ import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.model.item.UniquePersonList;
 import seedu.address.model.item.UniquePersonList.PersonNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.ChangeDoneEvent;
 import seedu.address.commons.core.ComponentManager;
 
 import java.util.Set;
@@ -57,6 +58,20 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+    
+    @Override
+    public synchronized void setDone(ReadOnlyItem target) throws PersonNotFoundException {
+        addressBook.setDone(target);
+        raise(new ChangeDoneEvent());
+        indicateAddressBookChanged();
+    }
+    
+    @Override
+    public synchronized void setUndone(ReadOnlyItem target) throws PersonNotFoundException {
+        addressBook.setUndone(target);
+        raise(new ChangeDoneEvent());
+        indicateAddressBookChanged();
     }
 
     /** Raises an event to indicate the model has changed */

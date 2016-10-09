@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.Logic;
 
 import java.util.logging.Logger;
 
@@ -24,10 +25,11 @@ public class PersonListPanel extends UiPart {
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private Logic logic;
 
     @FXML
     private ListView<ReadOnlyItem> personListView;
-
+    
     public PersonListPanel() {
         super();
     }
@@ -48,10 +50,11 @@ public class PersonListPanel extends UiPart {
     }
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyItem> personList) {
+                                       ObservableList<ReadOnlyItem> personList, Logic logic) {
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
         personListPanel.configure(personList);
+        personListPanel.logic = logic;
         return personListPanel;
     }
 
@@ -86,9 +89,13 @@ public class PersonListPanel extends UiPart {
             personListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
+    public void updateIndex() {
+        personListView.setCellFactory(listView -> new PersonListViewCell());
+    }
 
     class PersonListViewCell extends ListCell<ReadOnlyItem> {
-
+    	
         public PersonListViewCell() {
         }
 
@@ -100,7 +107,7 @@ public class PersonListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(PersonCard.load(person, getIndex() + 1, logic).getLayout());
             }
         }
     }

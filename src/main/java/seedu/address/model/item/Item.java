@@ -1,11 +1,9 @@
 package seedu.address.model.item;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Represents a Item in the address book.
@@ -19,6 +17,7 @@ public class Item implements ReadOnlyItem {
     private Time startTime;
     private Date endDate;
     private Time endTime;
+    private boolean done;
 
     private UniqueTagList tags;
 
@@ -43,13 +42,29 @@ public class Item implements ReadOnlyItem {
      * Every field must be present and not null.
      */
     public Item(ItemType itemType, Name name, Date startDate, Time startTime, Date endDate, Time endTime, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(itemType, name, endDate, endTime, tags);
+        assert !CollectionUtil.isAnyNull(itemType, name, startDate, startTime, endDate, endTime, tags);
         this.itemType = itemType;
         this.name = name;
         this.startDate = startDate;
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
+        this.done = false;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    
+    /**
+     * Every field must be present and not null.
+     */
+    public Item(ItemType itemType, Name name, Date startDate, Time startTime, Date endDate, Time endTime, boolean done, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(itemType, name, startDate, startTime, endDate, endTime, done, tags);
+        this.itemType = itemType;
+        this.name = name;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.done = done;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -57,7 +72,7 @@ public class Item implements ReadOnlyItem {
      * Copy constructor.
      */
     public Item(ReadOnlyItem source) {
-        this(source.getItemType(), source.getName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getTags());
+        this(source.getItemType(), source.getName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getDone(), source.getTags());
     }
 
     @Override
@@ -89,6 +104,21 @@ public class Item implements ReadOnlyItem {
     public Time getEndTime() {
         return endTime;
     }
+    
+    @Override
+    public boolean getDone() {
+        return done;
+    }
+    
+    @Override
+    public void setDone() {
+        done = true;
+    }
+    
+    @Override
+    public void setUndone() {
+        done = false;
+    }
 
     @Override
     public UniqueTagList getTags() {
@@ -104,15 +134,14 @@ public class Item implements ReadOnlyItem {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyItem // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyItem) other));
+        return other instanceof ReadOnlyItem // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyItem) other);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(itemType, name, endDate, endTime, tags);
+        return Objects.hash(itemType, name, startDate, startTime, endDate, endTime, done, tags);
     }
 
     @Override

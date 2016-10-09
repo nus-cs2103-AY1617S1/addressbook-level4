@@ -25,7 +25,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public AddressBook() {}
-
+    
     /**
      * Persons and Tags are copied into this addressbook
      */
@@ -110,6 +110,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         } else {
             throw new UniquePersonList.PersonNotFoundException();
         }
+    }
+    
+    /**
+     * Set Item as done
+     */
+    public void setDone(ReadOnlyItem key) throws UniquePersonList.PersonNotFoundException {
+        persons.setDone(key);
+    }
+    
+    /**
+     * Set Item as undone
+     */
+    public void setUndone(ReadOnlyItem key) throws UniquePersonList.PersonNotFoundException {
+        persons.setUndone(key);
     }
 
 //// tag-level operations

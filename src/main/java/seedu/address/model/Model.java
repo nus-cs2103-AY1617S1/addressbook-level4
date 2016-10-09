@@ -31,5 +31,11 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
+    
+    /** Sets item as done */
+    void setDone(ReadOnlyItem target) throws UniquePersonList.PersonNotFoundException;
+    
+    /** Sets item as undone */
+    void setUndone(ReadOnlyItem target) throws UniquePersonList.PersonNotFoundException;
 
 }

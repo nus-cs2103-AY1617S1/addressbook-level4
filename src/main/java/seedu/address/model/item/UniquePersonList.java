@@ -73,6 +73,26 @@ public class UniquePersonList implements Iterable<Item> {
         }
         return personFoundAndDeleted;
     }
+    
+    public void setDone(ReadOnlyItem toEdit) throws PersonNotFoundException {
+        assert toEdit != null;
+        if (internalList.contains(toEdit)) {
+            int idx = internalList.indexOf(toEdit);
+            internalList.get(idx).setDone();
+        } else {
+        	throw new PersonNotFoundException();
+        }
+    }
+    
+    public void setUndone(ReadOnlyItem toEdit) throws PersonNotFoundException {
+        assert toEdit != null;
+        if (internalList.contains(toEdit)) {
+            int idx = internalList.indexOf(toEdit);
+            internalList.get(idx).setUndone();
+        } else {
+        	throw new PersonNotFoundException();
+        }
+    }
 
     public ObservableList<Item> getInternalList() {
         return internalList;
