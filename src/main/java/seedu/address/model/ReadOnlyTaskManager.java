@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface ReadOnlyTaskManager {
 
-    UniqueTaskList getUniqueFloatingTaskList();
+    UniqueTaskList getUniqueTaskList();
 
     /**
      * Returns an unmodifiable view of persons list
      */
-    List<ReadOnlyTask> getFloatingTaskList();
+    List<ReadOnlyTask> getTaskList();
 
 }

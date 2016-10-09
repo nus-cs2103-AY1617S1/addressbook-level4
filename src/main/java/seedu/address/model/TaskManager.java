@@ -28,7 +28,7 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
      * FloatingTasks and Tags are copied into this addressbook
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniqueFloatingTaskList());
+        this(toBeCopied.getUniqueTaskList());
     }
 
     /**
@@ -59,7 +59,7 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getFloatingTaskList());
+        resetData(newData.getTaskList());
     }
 
 //// person-level operations
@@ -93,13 +93,13 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
     }
 
     @Override
-    public List<ReadOnlyTask> getFloatingTaskList() {
+    public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(floatingTasks.getInternalList());
     }
 
 
     @Override
-    public UniqueTaskList getUniqueFloatingTaskList() {
+    public UniqueTaskList getUniqueTaskList() {
         return this.floatingTasks;
     }
 

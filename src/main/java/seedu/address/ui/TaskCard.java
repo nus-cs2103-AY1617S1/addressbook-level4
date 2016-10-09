@@ -72,6 +72,9 @@ public class TaskCard extends UiPart{
             endTimeText = timeFormatter.format(task.getEndDate().get());
         }
         
+        System.out.println("At UI side: "+ task.getStartDate());
+        System.out.println("At UI side: " +task.getEndDate());
+        
         startDate.setText(startDateText);
         startTime.setText(startTimeText);
         endDate.setText(endDateText);

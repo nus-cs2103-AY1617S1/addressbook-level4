@@ -5,24 +5,33 @@ import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.RecurrenceRate;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 
 /**
  * JAXB-friendly version of the Person.
  */
-public class XmlAdaptedFloatingTask {
+public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
     private String priorityValue;
+    @XmlElement
+    private String startDate;
+    @XmlElement
+    private String endDate;
 
 
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedFloatingTask() {}
+    public XmlAdaptedTask() {}
 
 
     /**
@@ -30,17 +39,28 @@ public class XmlAdaptedFloatingTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedFloatingTask(ReadOnlyTask source) {
+    public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().name;
         priorityValue = source.getPriorityValue().toString().toLowerCase();        
+        if (source.getStartDate().isPresent()){
+            startDate = source.getStartDate().get().toString();
+        }
+        if (source.getEndDate().isPresent()){
+            endDate = source.getEndDate().get().toString();
+        }
     }
 
     /**
      * Converts this jaxb-friendly adapted person object into the model's Person object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws ParseException 
      */
-    public Task toModelType() throws IllegalValueException {
+    public Task toModelType() throws IllegalValueException, ParseException {
+        SimpleDateFormat dateParser = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+        Date startDateForModel = null, endDateForModel = null;
+        RecurrenceRate recurrenceRate =  null;
+        
         final String name = new String(this.name);
         Priority priority = Priority.MEDIUM;
 
@@ -52,6 +72,15 @@ public class XmlAdaptedFloatingTask {
             priority = Priority.LOW;
         }
         
-        return new Task(new Name(name), priority);
+        if (this.startDate != null){
+            startDateForModel = dateParser.parse(this.startDate);
+        }
+        if (this.endDate != null){
+            endDateForModel = dateParser.parse(this.endDate);
+        }
+    
+        System.out.println("At Storage side:" + startDateForModel);
+        System.out.println("At Storage side:" + endDateForModel);
+        return new Task(new Name(name), startDateForModel, endDateForModel, recurrenceRate, priority);
     }
 }

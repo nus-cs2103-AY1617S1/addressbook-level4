@@ -33,7 +33,19 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPriorityValue());
+        Date tempStartDate = null, tempEndDate = null;
+        if (source.getStartDate().isPresent()){
+            tempStartDate = source.getStartDate().get();
+        }
+        if (source.getEndDate().isPresent()){
+            tempEndDate = source.getEndDate().get();
+        }
+        
+        this.taskName = source.getName();
+        this.startDate = tempStartDate;
+        this.endDate = tempEndDate;
+        this.recurrenceRate = null;
+        this.priorityValue = source.getPriorityValue();
     }
     
     /**
