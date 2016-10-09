@@ -46,8 +46,7 @@ We observed that sometimes, the use of mouse clicks to create a new task could b
 Organising your life is important. Compartmentalising them allows you to prioritise which tasks are more important than the others. This is why we baked in the ability for you to set custom categories with "tags" for each of your tasks and events. UDJTDL will then intelligently filter out relevant categories at your command, and sort them in order of importance, so you know which activity you should start working.
 
 ### Events *and* Tasks
-
-Most productivity apps only allow you to manage tasks *or* events. Our application can manage both. 
+Deadlines and events are equally important. However, most productivity apps only allow you to manage either tasks *or* events. Therefore, our application can help you to manage both of them at the same time. There is no longer necessary to use two applications to achieve the same thing.
 
 
 
