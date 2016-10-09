@@ -73,6 +73,8 @@ public class Parser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
@@ -100,7 +102,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add item command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -192,6 +194,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the edit item command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        return null;
+    }
+    
     /**
      * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
