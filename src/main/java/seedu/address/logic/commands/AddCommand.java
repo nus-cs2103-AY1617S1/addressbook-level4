@@ -26,10 +26,12 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " [siloso beach party, 120716, 1600, 2200]";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String EVENT_SUCCESS = "New event added: %1$s";
+    public static final String TODO_SUCCESS = "New todo added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Simply";
 
     private final Task toAdd;
+    private int taskCategory = 0;
 
     /**
      * Convenience constructor using raw values.
@@ -49,6 +51,7 @@ public class AddCommand extends Command {
                 new End(end),
                 new UniqueTagList(tagSet)
         );
+        taskCategory = 1;
     }
     
     public AddCommand(String name, Set<String> tags)
@@ -64,6 +67,7 @@ public class AddCommand extends Command {
                 new End(""),
                 new UniqueTagList(tagSet)
         );
+        taskCategory = 2;
     }
 
 
@@ -72,7 +76,10 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            if (taskCategory ==1) 
+            	return new CommandResult(String.format(EVENT_SUCCESS, toAdd));
+            else
+            	return new CommandResult(String.format(TODO_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicatePersonException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
