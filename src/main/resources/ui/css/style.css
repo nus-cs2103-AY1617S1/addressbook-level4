@@ -1,9 +1,20 @@
-#childrenPlaceholder {
-  -fx-background-color: #f5f5f5;
+.text-field.console-input-textfield, .text-area.console-textarea {
+  -fx-border-width: 0px;
+  -fx-border-radius: 0px;
+  -fx-background-radius: 0px;
 }
 
-.console-textarea {
-  -fx-border-width: 0px;
+.text-field.console-input-textfield:focused, .text-area.console-textarea:focused {
+  -fx-effect: none;
+}
+
+.text-area.console-textarea {
   -fx-font-size: 10px;
-  -fx-background-color: #cccccc;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: #eeeeee;
+}
+
+.text-area.console-textarea .content {
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 0px;
 }
