@@ -9,25 +9,25 @@ import seedu.address.model.task.*;
  */
 public class TypicalTestPersons {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
     public TypicalTestPersons() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
+            alice =  new TaskBuilder().withName("Alice Pauline").withDeadline("123, Jurong West Ave 6, #08-111")
+                    .withPriority("alice@gmail.com")
                     .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
+            benson = new TaskBuilder().withName("Benson Meier").withDeadline("311, Clementi Ave 2, #02-25")
+                    .withPriority("johnd@gmail.com")
                     .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withAddress("little tokyo").build();
-            george = new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
+            carl = new TaskBuilder().withName("Carl Kurz").withPriority("heinz@yahoo.com").withDeadline("wall street").build();
+            daniel = new TaskBuilder().withName("Daniel Meier").withPriority("cornelia@google.com").withDeadline("10th street").build();
+            elle = new TaskBuilder().withName("Elle Meyer").withPriority("werner@gmail.com").withDeadline("michegan ave").build();
+            fiona = new TaskBuilder().withName("Fiona Kunz").withPriority("lydia@gmail.com").withDeadline("little tokyo").build();
+            george = new TaskBuilder().withName("George Best").withPriority("anna@google.com").withDeadline("4th street").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
+            hoon = new TaskBuilder().withName("Hoon Meier").withPriority("stefan@mail.com").withDeadline("little india").build();
+            ida = new TaskBuilder().withName("Ida Mueller").withPriority("hans@google.com").withDeadline("chicago ave").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -49,8 +49,8 @@ public class TypicalTestPersons {
         }
     }
 
-    public TestPerson[] getTypicalPersons() {
-        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+    public TestTask[] getTypicalPersons() {
+        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public AddressBook getTypicalAddressBook(){

@@ -202,7 +202,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getPersonList());
 
@@ -384,13 +384,12 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Priority email = new Priority("adam@gmail.com");
-            Deadline privateAddress = new Deadline("111, alpha street");
+            Deadline deadline = new Deadline("111111");
+            Priority priority = new Priority("5");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+            return new Task(name, deadline, priority, tags);
         }
 
         /**
@@ -403,9 +402,8 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Name("Person " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Priority(seed + "@email"),
-                    new Deadline("House of " + seed),
+                    new Deadline(seed + "29102016"),
+                    new Priority("" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -417,8 +415,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
+            cmd.append(" a/").append(p.getDeadline());
             cmd.append(" a/").append(p.getDeadline());
 
             UniqueTagList tags = p.getTags();
@@ -502,9 +499,8 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Phone("1"),
-                    new Priority("1@email"),
-                    new Deadline("House of 1"),
+                    new Deadline("19102016"),
+                    new Priority("1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
