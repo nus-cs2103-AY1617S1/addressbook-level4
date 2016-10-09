@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="800.0" stylesheets="@../style/taskcardstyles/TaskCardBaseStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" stylesheets="@../style/taskcardstyles/TaskCardBaseStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <StackPane>
          <children>
@@ -39,7 +39,7 @@
             </HBox>
          </children>
       </StackPane>
-      <HBox alignment="CENTER_LEFT">
+      <HBox fx:id="tagsBox" alignment="CENTER_LEFT">
          <children>
             <Label fx:id="typeLabel0" alignment="TOP_LEFT" text="Event" textFill="WHITE">
                <font>

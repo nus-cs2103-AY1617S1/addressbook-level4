@@ -1,3 +1,7 @@
+#taskCard {
+    -fx-fit-to-width: true;
+}
+
 #titleLabel {
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Semibold";
