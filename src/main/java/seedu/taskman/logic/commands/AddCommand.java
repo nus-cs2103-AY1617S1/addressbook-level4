@@ -17,9 +17,9 @@ public class AddCommand extends Command {
 
     // kiv: let parameters be objects. we can easily generate the usage in that case
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task man. "
-            + "Parameters: TITLE d/DEADLINE f/frequency s/startDate,endDate [t/TAG]...\n"
+            + "Parameters: TITLE d/DEADLINE f/frequency s/startDate, endDate [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe d/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " Buy bday present for dad d/next fri 1800 f/1yr s/tdy 1800, tdy 2000 t/Family";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task man";

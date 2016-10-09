@@ -11,11 +11,11 @@ public class ListCommandTest extends TaskManGuiTest {
     //@Test
     public void list_nonEmptyList() {
         assertListResult("list Mark"); //no results
-        assertListResult("list Meier", td.benson, td.daniel); //multiple results
+        assertListResult("list Meier", td.benson, td.taskCS3244); //multiple results
 
         //list after deleting one result
         commandBox.runCommand("delete 1");
-        assertListResult("list Meier",td.daniel);
+        assertListResult("list Meier",td.taskCS3244);
     }
 
     //@Test

@@ -35,7 +35,7 @@ public class AddCommandTest extends TaskManGuiTest {
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.alice);
+        assertAddSuccess(td.taskCS2101);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
