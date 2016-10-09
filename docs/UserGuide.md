@@ -1,13 +1,18 @@
 [TOC]
 
 ## Introduction
-Life is messy. There are always so many tasks, deadlines, events anniversaries to keep up with. Ever wish you had an assistant to help manage all your tasks in an orderly fashion? Well look no further because Uncle Jim's Discount Todo List (UJDTL for short) is just what the doctor ordered.
+In today's hectic society, there are so many activities that happen in our daily lives. With a never-ending list of tasks, deadlines, events and anniversaries to keep up with, your life is in such a disorganised mess.
 
-UJDTL is a personal task manager which helps you organize your tasks in a variety of manners so that you can see what has been done and what has yet to be done in the coming days and weeks. In addition, UJDTL is intelligent enough to schedule tasks for you in case you don't have a fixed time for them and even serves up reminders for impending deadlines.
+Tracking these daily activities on a to-do list application can be daunting. Clicking so many buttons only to type in what is essential for the activities is so cumbersome that it is hard for you to maintain it as a habit to organise your life.
 
-UJDTL is also revolutionary compared to other task managers in the sense that almost anything can be done with one command. Gone are the days where you had to use several mouse clicks just to add a simple task to your schedule. The command line interface is not only flexible but phenomenally easy to use. Just type out the command hit enter!
+Have you ever wish for a nifty tool that you can use to manage all your daily activities in distinct categories, and suggest to you which one you want to complete first? Well, look no further as Uncle Jim's Discount To-do List is here to save your day.
 
-Are you ready? Let's go!
+Uncle Jim's Discount To-do List (UJDTDL) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities with a single command. Gone are the days where you had to use several mouse clicks, navigating through sophisticated and unintuitive interface just to add a simple task to your schedule. The command line interface is not only flexible but remarkably easy to use. Just type out the command hit enter!
+
+Moreover, we know that you understand your activities better. So, we built UJDTDL that enables you to create your very own categories to organise your activities. At the same time, UJDTDL is capable of scheduling floating tasks for you if you do not have a fixed time for them. Lastly, our unique product is intelligent to sieve out urgent deadlines that you are concerned about and serve up reminders for you, so you will no longer overlook another significant activity.
+
+So, if you are excited, let's get started with our user guide.
+
 
 ## Quick Start
 
