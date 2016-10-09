@@ -27,6 +27,7 @@ public class AddCommand extends Command {
             + " [siloso beach party, 120716, 1600, 2200]";
 
     public static final String EVENT_SUCCESS = "New event added: %1$s";
+    public static final String DEADLINE_SUCCESS = "New deadline added: %1$s";
     public static final String TODO_SUCCESS = "New todo added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Simply";
 
@@ -52,7 +53,7 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
         taskCategory = 1;
-    }
+    }   
     
     public AddCommand(String name, Set<String> tags)
             throws IllegalValueException {
@@ -70,6 +71,22 @@ public class AddCommand extends Command {
         taskCategory = 2;
     }
 
+    
+    public AddCommand(String name, String date, String end, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Name(name),
+                new Date(date),
+                new Start(""),
+                new End(end),
+                new UniqueTagList(tagSet)
+        );
+        taskCategory = 3;
+    }
 
     @Override
     public CommandResult execute() {
@@ -78,8 +95,11 @@ public class AddCommand extends Command {
             model.addTask(toAdd);
             if (taskCategory ==1) 
             	return new CommandResult(String.format(EVENT_SUCCESS, toAdd));
-            else
+            else if (taskCategory ==2)
             	return new CommandResult(String.format(TODO_SUCCESS, toAdd));
+            else
+            	return new CommandResult(String.format(DEADLINE_SUCCESS, toAdd));
+
         } catch (UniqueTaskList.DuplicatePersonException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
