@@ -22,7 +22,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`ls`** : lists all tasks
-   * **`add`**` add Complete CS2103 Quiz 3 -dt 23/09/2016 -p H -t Quiz -t CS2103` : 
+   * **`add`**` Complete CS2103 Quiz 3 -dt 23/09/2016 -p H -t Quiz -t CS2103` : 
      adds a task `Complete CS2103 Quiz 3` to the TARS list.
    * **`del`**` 3` : deletes the 3rd task shown in the TARS list
    * **`exit`** : exits the app
