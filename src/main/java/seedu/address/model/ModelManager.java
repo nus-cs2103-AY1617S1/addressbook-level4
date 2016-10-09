@@ -291,6 +291,8 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             if (task.getPeriod().hasPeriod) {
                 return startTime.before(task.getPeriod().endTime);
+            } else if (task.getDeadline().hasDeadline) {
+                return startTime.before(task.getDeadline().deadline);
             }
             return true;
         }
@@ -312,6 +314,8 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             if (task.getPeriod().hasPeriod) {
                 return endTime.after(task.getPeriod().startTime);
+            } else if (task.getDeadline().hasDeadline) {
+                return endTime.after(task.getDeadline().deadline);
             }
             return true;
         }
