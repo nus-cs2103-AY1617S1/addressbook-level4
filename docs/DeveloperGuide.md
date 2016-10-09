@@ -85,14 +85,15 @@ Each of the four components
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component  defines its API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class (refer to Figure 2).<br>
+interface, and it exposes its functionality using the `LogicManager.java` class (refer to Figure 2).<br>
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+###An overview of interactions between components
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+The following diagram shows how components interact with each other when the user issues the
+command `delete 3` (refer to Figure 3).
 
 <img src="images\SDforDeletePerson.png" width="800">
+>**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command 'delete 3'
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
