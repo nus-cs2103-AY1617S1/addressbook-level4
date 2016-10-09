@@ -171,6 +171,8 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] -dt 05/09/2016 1400 to 06/09/2016 2200 -p m", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
+                "add name - hello world -dt 05/09/2016 1400 to 06/09/2016 2200 -p m", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehavior(
                 "add Valid Task Name -dt @@@notAValidDate@@@ -p m", Messages.MESSAGE_INVALID_DATE);
         assertCommandBehavior(
                 "add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p medium", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
