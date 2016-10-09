@@ -29,7 +29,6 @@ public class AddCommand extends Command {
             + " n/Win at Life sd/1900-01-01 st/00:07 ed/2300-01-01 et/12:34";
 
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the task manager";
 
     private final Item toAdd;
 
