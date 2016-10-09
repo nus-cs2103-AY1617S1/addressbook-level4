@@ -22,13 +22,13 @@ public interface Storage extends ActivityManagerStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    String getAddressBookFilePath();
+    String getActivityManagerFilePath();
 
     @Override
-    Optional<ReadOnlyActivityManager> readAddressBook() throws DataConversionException, FileNotFoundException;
+    Optional<ReadOnlyActivityManager> readActivityManager() throws DataConversionException, FileNotFoundException;
 
     @Override
-    void saveAddressBook(ReadOnlyActivityManager addressBook) throws IOException;
+    void saveActivityManager(ReadOnlyActivityManager addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

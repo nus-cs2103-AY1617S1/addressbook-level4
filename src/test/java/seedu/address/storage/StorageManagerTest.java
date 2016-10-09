@@ -1,6 +1,8 @@
 package seedu.address.storage;
 
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -9,8 +11,6 @@ import seedu.address.model.ActivityManager;
 import seedu.address.model.ReadOnlyActivityManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TypicalTestActivities;
-
-import static org.junit.Assert.assertEquals;
 
 public class StorageManagerTest {
 
@@ -22,7 +22,7 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
+        storageManager = new StorageManager(getTempFilePath("am"), getTempFilePath("prefs"));
     }
 
 
@@ -47,11 +47,11 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void activityManagerReadSave() throws Exception {
         ActivityManager original = new TypicalTestActivities().getTypicalActivityManager();
-        storageManager.saveAddressBook(original);
-        ReadOnlyActivityManager retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new ActivityManager(retrieved));
+        storageManager.saveActivityManager(original);
+        ReadOnlyActivityManager retrieved = storageManager.readActivityManager().get();
+        assertTrue(original.toString().equals((new ActivityManager(retrieved)).toString()));
         //More extensive testing of ActivityManager saving/reading is done in XmlAddressBookStorageTest
     }
 

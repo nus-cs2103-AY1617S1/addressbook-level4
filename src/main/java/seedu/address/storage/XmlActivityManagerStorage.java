@@ -24,50 +24,50 @@ public class XmlActivityManagerStorage implements ActivityManagerStorage {
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getActivityManagerFilePath(){
         return filePath;
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readActivityManager()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyActivityManager> readAddressBook(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyActivityManager> readActivityManager(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
-        File addressBookFile = new File(filePath);
+        File activityManagerFile = new File(filePath);
 
-        if (!addressBookFile.exists()) {
-            logger.info("ActivityManager file "  + addressBookFile + " not found");
+        if (!activityManagerFile.exists()) {
+            logger.info("ActivityManager file "  + activityManagerFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyActivityManager addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyActivityManager activityManagerOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(addressBookOptional);
+        return Optional.of(activityManagerOptional);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyActivityManager)}
+     * Similar to {@link #saveActivityManager(ReadOnlyActivityManager)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyActivityManager addressBook, String filePath) throws IOException {
-        assert addressBook != null;
+    public void saveActivityManager(ReadOnlyActivityManager activityManager, String filePath) throws IOException {
+        assert activityManager != null;
         assert filePath != null;
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableActivityManager(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableActivityManager(activityManager));
     }
 
     @Override
-    public Optional<ReadOnlyActivityManager> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyActivityManager> readActivityManager() throws DataConversionException, IOException {
+        return readActivityManager(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyActivityManager addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveActivityManager(ReadOnlyActivityManager activityManager) throws IOException {
+        saveActivityManager(activityManager, filePath);
     }
 }

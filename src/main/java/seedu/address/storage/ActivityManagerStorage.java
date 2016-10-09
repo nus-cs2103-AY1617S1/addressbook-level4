@@ -14,7 +14,7 @@ public interface ActivityManagerStorage {
     /**
      * Returns the file path of the data file.
      */
-    String getAddressBookFilePath();
+    String getActivityManagerFilePath();
 
     /**
      * Returns ActivityManager data as a {@link ReadOnlyActivityManager}.
@@ -22,13 +22,13 @@ public interface ActivityManagerStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyActivityManager> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyActivityManager> readActivityManager() throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyActivityManager} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyActivityManager addressBook) throws IOException;
+    void saveActivityManager(ReadOnlyActivityManager addressBook) throws IOException;
 
 }

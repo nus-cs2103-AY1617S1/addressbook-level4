@@ -33,7 +33,7 @@ public class FindCommandTest extends ActivityManagerGuiTest {
     private void assertFindResult(String command, TestActivity... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " persons listed!");
+        assertResultMessage(expectedHits.length + " activities listed!");
         assertTrue(activityListPanel.isListMatching(expectedHits));
     }
 }

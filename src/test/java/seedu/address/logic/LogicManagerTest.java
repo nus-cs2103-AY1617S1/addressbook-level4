@@ -113,8 +113,8 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredActivityList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertTrue(expectedActivityManager.toString().equals(model.getActivityManager().toString()));
-        assertTrue(expectedActivityManager.toString().equals(latestSavedActivityManager.toString()));
+        assertEquals(expectedActivityManager, model.getActivityManager());
+        assertEquals(expectedActivityManager, latestSavedActivityManager);
     }
     
     private void assertCommandBehavior(String inputCommand, String expectedMessage,

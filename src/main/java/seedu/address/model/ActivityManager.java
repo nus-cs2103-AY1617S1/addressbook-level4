@@ -149,8 +149,11 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ActivityManager // instanceof handles nulls
-                && this.activities.equals(((ActivityManager) other).activities)
-                /* && this.tags.equals(((ActivityManager) other).tags) */);
+                && this.toString().equals(other.toString()));
+                // TODO: Re-implement correct equality when tags are corrected
+                /*this.activities.equals(((ActivityManager) other).activities)
+                 && this.tags.equals(((ActivityManager) other).tags) );*/               
+                
     }
 
     @Override

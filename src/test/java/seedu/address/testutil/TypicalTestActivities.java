@@ -9,13 +9,17 @@ import seedu.address.model.activity.*;
  */
 public class TypicalTestActivities {
 
-    public static TestActivity groceries, reading, guitar;
+    public static TestActivity groceries, reading, guitar, tidy;
 
     public TypicalTestActivities() {
         try {
+            // Automated activities
             groceries =  new ActivityBuilder().withName("Buy groceries").build();
             reading = new ActivityBuilder().withName("Read favourite book").build();
             guitar = new ActivityBuilder().withName("Practice playing guitar").build();
+            
+            // Manual activities
+            tidy = new ActivityBuilder().withName("Tidy study desk").build();
             
         } catch (IllegalValueException e) {
             e.printStackTrace();

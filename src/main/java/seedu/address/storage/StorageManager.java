@@ -46,20 +46,20 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ ActivityManager methods ==============================
 
     @Override
-    public String getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public String getActivityManagerFilePath() {
+        return addressBookStorage.getActivityManagerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyActivityManager> readAddressBook() throws DataConversionException, FileNotFoundException {
-        logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyActivityManager> readActivityManager() throws DataConversionException, FileNotFoundException {
+        logger.fine("Attempting to read data from file: " + addressBookStorage.getActivityManagerFilePath());
 
-        return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return addressBookStorage.readActivityManager(addressBookStorage.getActivityManagerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyActivityManager addressBook) throws IOException {
-        addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveActivityManager(ReadOnlyActivityManager addressBook) throws IOException {
+        addressBookStorage.saveActivityManager(addressBook, addressBookStorage.getActivityManagerFilePath());
     }
 
 
@@ -68,7 +68,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleActivityManagerChangedEvent(ActivityManagerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveActivityManager(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

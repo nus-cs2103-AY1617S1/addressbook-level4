@@ -73,7 +73,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyActivityManager> addressBookOptional;
         ReadOnlyActivityManager initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readActivityManager();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty ActivityManager");
             }
