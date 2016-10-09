@@ -49,14 +49,16 @@ Example:
 Adds a task into the task manager<br>
 Format: `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
 
-You can assign your task a `PRIORITY` of `low`, `medium` or `high`. Tasks have `medium` `PRIORITY` by default.<br>
-`PRIORITY` also accepts variations of `low`, `medium` and `high`.<br>
+**_Specifying task priority_**
 
- |`PRIORITY` | Variations |
- | ------------- |------------|
- | `low` | `l`, `low` |
- | `medium` | `m`, `med`, `medium` |
- | `high` | `h`, `high`|
+You can assign your task a `PRIORITY` of `low`, `medium` or `high`. Tasks have `medium` `PRIORITY` by default.<br>
+`PRIORITY` also accepts variations of `low`, `medium` and `high`.
+
+`PRIORITY` | Variations  
+-------- | :--------:
+`low` | `l`, `low`
+`medium` | `m`, `med`, `medium`
+`high` | `h`, `high`
  
 > To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add/edit command, where `PRIORITY` can be replaced by `low`, `medium` or `high`, e.g `-low`, `-medium`, `-high`.
 
@@ -66,9 +68,11 @@ Examples:
 * `edit ... -med`
 * `edit ... -high`
 
+**_Specifying repeated tasks_**
+
 DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`.
 > To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add/edit command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
-> 
+>
 Supported `RECURRING_INTERVAL`
 * `day`, `2 days`, `3 days`, ...
 * `week`, `2 weeks`, `3 weeks`, ...
@@ -79,12 +83,10 @@ Examples:
 * `edit ... repeat every week`
 
 
-
-
-**_With deadline_**
+**_Adding a task with deadline_**
 
 Format: `add NAME by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIORITY]`
->Notice the `by` keyword? We use `by` to denote a deadline.
+> The `by` keyword denotes a deadline.
 
 >`END_DATE` and `END_TIME` are flexible!
 >* If no `END_DATE` is specified, `END_DATE` will be assumed to be the current date
@@ -103,7 +105,7 @@ Examples:
 * `add eat lunch by 1pm today -h`
 * `add Buy coffee for boss by 7am repeat every day`
 
-**_Without deadline_**
+**_Adding a task without deadline_**
 
 Format: `add NAME [-PRIORITY]`
 
@@ -115,11 +117,11 @@ Example:
 * `add Buy washing powder -h`
 * `add Buy baby powder -l`
 
-**_With time interval_**
+**_Adding a task with time interval_**
 
 `add NAME from/at START_DATE START_TIME [to END_DATE END_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]` 
 > For events, meetings, we use `from` and `at` to indicate the start time and `to` and `by` to indicate the end time.
-> End time can be unspecified.
+> `END_DATE` and `END_TIME` can be unspecified.
 
 >`START_DATE`, `START_TIME`, `END_DATE` and `END_TIME` are flexible!
 >* If no `END_DATE` is specified, `END_DATE` will be assumed to be the current date
@@ -140,10 +142,8 @@ Example:
 
 ### Editing a task: `edit`
 Edits an existing task in the task manager<br>
-
-
-Format: Replace 	`add` with `edit INDEX`
->Tip: We make the edit commands similar to add commands, so that you only have to learn one of them! Simply replace `add` with `edit INDEX` to do an edit.
+Format: `edit INDEX [from/at START_DATE START_TIME][to/by END_DATE END_TIME][-PRIORITY][repeat every RECURRING_INTERVAL]`
+> Notice that this is similar to the `add` command format! 
 
 Examples:
 * `edit 10 Company meeting tomorrow morning at 7am to 9am`
@@ -152,7 +152,6 @@ Examples:
 
 ### Deleting a task: `delete`
 Deletes an existing task in your task manager.<br>
-This process is reversible with the `undo` command.<br>
 Format: `delete INDEX`
 > Check out the `undo` command below to reverse an accidental `delete`!
 
@@ -207,6 +206,10 @@ Shows a list of all tasks in the task manager.<br>
 Format: `list`
 > Displays all uncompleted tasks in the task manager.
 
+Example:
+> <img src="images/dearjim_list.png">
+* `list`
+
 ### Finding a task : `find`
 Find an existing task by name.<br>
 Format: `find NAME`
@@ -241,10 +244,8 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add/Edit | `add`/`edit INDEX` `NAME by DUE_DATE DUE_TIME [repeat every RECURRING_INTERVAL]`
-Add/Edit | `add`/`edit INDEX` `NAME [rank PRIORITY]`
-Add/Edit | `add`/`edit INDEX` `NAME at DATE START_TIME to [DATE] END_TIME [repeat every RECURRING_INTERVAL]` 
-Add/Edit | `add`/`edit INDEX (new OR SUB-INDEX)` `NAME (at DATE START_TIME to [DATE] END TIME)`
+Add | `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
+Edit | `edit INDEX ...`
 Confirm | `confirm INDEX SUB-INDEX`
 Delete | `delete INDEX`
 Undo | `undo`
