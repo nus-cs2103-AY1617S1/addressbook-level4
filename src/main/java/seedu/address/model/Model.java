@@ -55,9 +55,6 @@ public interface Model {
     /** Updates the filtered task list by the added filters */
     void updateFilteredTaskListByFilter();
 
-    /** Updates the filtered task list by the added filters, but negated */
-    void updateFilteredTaskListByNegatedFilter();
-
     /** Updates the old task with new task details. */
     void updateTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException;
 }

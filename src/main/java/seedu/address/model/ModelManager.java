@@ -139,11 +139,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskListByFilter() {
         updateFilteredTaskList(taskListFilter);
     }
-    
-    @Override
-    public void updateFilteredTaskListByNegatedFilter() {
-        filteredTasks.setPredicate(taskListFilter::notSatisfies);
-    }
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
@@ -153,7 +148,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
-        boolean notSatisfies(ReadOnlyTask task);
         String toString();
     }
 
@@ -193,16 +187,6 @@ public class ModelManager extends ComponentManager implements Model {
                 it = it.and;
             }
             return true;
-        }
-        
-        @Override
-        /**
-         * Checks if NOT satisfies. (Negation method of satisfies)
-         * @param task Task to check
-         * @return true if all predicates are NOT satisfied
-         */
-        public boolean notSatisfies(ReadOnlyTask task) {
-            return !satisfies(task);
         }
 
         @Override
