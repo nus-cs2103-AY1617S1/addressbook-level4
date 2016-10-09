@@ -6,9 +6,9 @@ import seedu.taskman.commons.exceptions.IllegalValueException;
 
 public class Schedule {
 	
-	public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "Task schedule should only contain dates and times in the format: [this/next] tdy/tmr/mon/tue/wed/thu/fri/sat/sun HHMM to [this/next] tdy/tmr/mon/tue/wed/thu/fri/sat/sun HHMM.";
+	public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "Task schedule should only contain dates and times in the format: [this/next] tdy/tmr/mon/tue/wed/thu/fri/sat/sun HHMM (a comma or \"to\") [this/next] tdy/tmr/mon/tue/wed/thu/fri/sat/sun HHMM.";
 	public static final String DATE_TIME_VALIDATION_REGEX = "((tdy|tmr)|(((this)|(next))?\\s(mon|tue|wed|thu|fri|sat|sun)))\\s(((0|1)[0-9])|(2[0-3]))([0-5][0-9])";
-	public static final String SCHEDULE_VALIDATION_REGEX = DATE_TIME_VALIDATION_REGEX + "\\s(to)\\s" + DATE_TIME_VALIDATION_REGEX;
+	public static final String SCHEDULE_VALIDATION_REGEX = DATE_TIME_VALIDATION_REGEX + "((,\\s?)|(\\s(to)\\s))" + DATE_TIME_VALIDATION_REGEX;
 
     public final String start;
     public final String end;
