@@ -9,7 +9,7 @@
   fx:controller="seedu.todo.ui.components.TagList">
   <children>
   
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" />
+    <Text fx:id="titleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" />
     
   </children>
 </VBox>

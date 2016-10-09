@@ -43,6 +43,11 @@ public class IndexView extends View {
 		TagList tagList = new TagList();
 		tagList.setHookModifyView(v -> {
 			TagList view = (TagList) v;
+			
+			// Temp
+			tags.add("tag1");
+			tags.add("tag2");
+			
 			view.tags = tags;
 			return view;
 		});
