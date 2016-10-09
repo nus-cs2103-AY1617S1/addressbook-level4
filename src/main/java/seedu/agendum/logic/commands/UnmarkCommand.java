@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_MARK_TASK_SUCCESS = "Unmarked Task: %1$s";
+    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarked Task: %1$s";
 
     public final int targetIndex;
 
@@ -44,7 +44,7 @@ public class UnmarkCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToUnmark));
+        return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
     }
 
 }
