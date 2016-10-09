@@ -1,8 +1,13 @@
 [TOC]
 
 ## Introduction
+Life is messy. There are always so many tasks, deadlines, events anniversaries to keep up with. Ever wish you had an assistant to help manage all your tasks in an orderly fashion? Well look no further because Uncle Jim's Discount Todo List (UJDTL for short) is just what the doctor ordered.
 
+UJDTL is a personal task manager which helps you organize your tasks in a variety of manners so that you can see what has been done and what has yet to be done in the coming days and weeks. In addition, UJDTL is intelligent enough to schedule tasks for you in case you don't have a fixed time for them and even serves up reminders for impending deadlines.
 
+UJDTL is also revolutionary compared to other task managers in the sense that almost anything can be done with one command. Gone are the days where you had to use several mouse clicks just to add a simple task to your schedule. The command line interface is not only flexible but phenomenally easy to use. Just type out the command hit enter!
+
+Are you ready? Let's go!
 
 ## Quick Start
 
@@ -169,6 +174,7 @@ If a particular task or event is important, you can pin it to the top of every l
 
 <img src="images/sketch_task_pinned_small.png" width="700" alt="Pinned Task"><br />
 
+### Managing tags: **`tag`**
 
 ### Editing a task: **`edit`**
 
