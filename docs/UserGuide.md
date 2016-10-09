@@ -77,9 +77,9 @@ Format: `delete <task name>`
 Example:
 * `delete CS2103T Tutorial`
 
-#### View: `donelist`
+#### View: `done`
 Displays all the completed task on that day for the user to view.<br>
-Format: `donelist`
+Format: `show done`
 
 #### Editing a Task: `edit`
 Allows the user to edit a particular task<br>
