@@ -14,8 +14,8 @@ import seedu.todo.ui.UiPartLoader;
 public abstract class View extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 	
-    private AnchorPane placeHolderPane;
-    private VBox mainNode;
+    protected AnchorPane placeHolderPane;
+    protected VBox mainNode;
 	
     /**
      * This method renders the View as specified in the FXML file, in the placeholder pane.
@@ -35,7 +35,7 @@ public abstract class View extends UiPart {
 		render(primaryStage, null);
 	}
 	
-	public void onViewMount() {
+	public void componentDidMount() {
 		// To be overwritten by View or Component definitions.
 	}
 
@@ -59,7 +59,7 @@ public abstract class View extends UiPart {
         placeHolderPane.getChildren().setAll(mainNode);
 		
 		// Callback once view is loaded.
-		onViewMount();
+		componentDidMount();
     }
 	
 }
