@@ -36,9 +36,6 @@ public interface Model {
     /** Updates the filter of the filtered activity list to show all activities */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered activity list to filter by the given keywords*/
-    void updateFilteredActivityList(Set<String> keywords);
-
     /** Updates the filter of the filtered activity list to filter by the given mode, the given keywords and the given tag names*/
     void updateFilteredActivityList(FilterMode filterMode, Set<String> keywords, Set<String> tagNames);
 

@@ -91,11 +91,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredActivityList(Set<String> keywords){
-        updateFilteredActivityList(new PredicateExpression(new ActivityQualifier(keywords)));
-    }
-
-    @Override
     public void updateFilteredActivityList(FilterMode filterMode, Set<String> keywords, Set<String> tagNames) {
         updateFilteredActivityList(new PredicateExpression(new ActivityQualifier(filterMode, keywords, tagNames)));
     }
@@ -139,10 +134,6 @@ public class ModelManager extends ComponentManager implements Model {
         private Set<String> titleKeyWords;
         private Set<String> tagNames;
         private FilterMode filterMode = FilterMode.ALL;
-
-        ActivityQualifier(Set<String> titleKeyWords) {
-            this.titleKeyWords = titleKeyWords;
-        }
 
         ActivityQualifier(FilterMode filterMode, Set<String> titleKeyWords, Set<String> tagNames) {
             this.filterMode = filterMode;
