@@ -43,4 +43,43 @@ public class MasterParser {
                     MESSAGE_INVALID_COMMAND_FORMAT, parser.getRequiredFormat()));
         }
     }
+    
+    /**
+     * Registers a command parser that will be used by the master parser.
+     * The header of this command parser must not be used by any other command parsers
+     * that are currently registered into the master parser. Use {@link #isCommandParserRegistered(String)
+     * isCommandParserRegistered } method to check if such a command parser is already registered.
+     * 
+     * Parameter commandParser should not be null.
+     * 
+     * @param commandParser the command parser
+     */
+    public void registerCommandParser(CommandParser<? extends Command> commandParser) {
+        assert commandParser != null;
+        assert commandParsers.get(commandParser.getHeader()) != null;
+        
+        commandParsers.put(commandParser.getHeader(), commandParser);        
+    }
+    
+    /**
+     * Checks if a command parser with the specified header is already 
+     * registered into the master parser.
+     * 
+     * @param header the header to check against
+     * @return true if such a command parser is registered, false otherwise
+     */
+    public boolean isCommandParserRegistered(String header) {
+        return (commandParsers.get(header) != null);
+    }
+    
+    /**
+     * Unregisters and returns the command parser that uses the specified header.
+     * If such a parser is not registered, null is returned.
+     * 
+     * @param header the header to check against
+     * @return the CommandParser object that uses the specified header.
+     */
+    public CommandParser<? extends Command> unregisterCommandParser(String header) {
+        return commandParsers.remove(header);
+    }
 }
