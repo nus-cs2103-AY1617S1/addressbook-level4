@@ -5,8 +5,9 @@ import seedu.taskman.commons.exceptions.IllegalValueException;
 
 public class Frequency {
     // TODO: check for overflow of seconds because current validation allows years
-    public static final String MESSAGE_FREQUENCY_CONSTRAINTS = "Task frequency should only contain frequency and unit of time in the format: <number><min/hr/d/wk/mth/yr>.";
-    public static final String FREQUENCY_VALIDATION_REGEX = "([1-9]|([1-9]+[0-9]*[0-9]))(min|hr|d|wk|mth|yr)";
+    public static final String MESSAGE_FREQUENCY_CONSTRAINTS =
+            "Task frequency should only contain frequency and unit of time in the format: <number><min/hr/d/wk/mth/yr>.";
+    public static final String FREQUENCY_VALIDATION_REGEX = "([1-9]+[0-9]*)(min|hr|d|wk|mth|yr)";
 
     public final Long seconds;
 

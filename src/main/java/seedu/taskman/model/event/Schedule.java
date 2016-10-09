@@ -6,14 +6,21 @@ import seedu.taskman.commons.exceptions.IllegalValueException;
 
 public class Schedule {
 	
-	public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "Task schedule should only contain dates and times in the format: [this/next] tdy/tmr/mon/tue/wed/thu/fri/sat/sun HHMM (a comma or \"to\") [this/next] tdy/tmr/mon/tue/wed/thu/fri/sat/sun HHMM.";
-	public static final String DATE_TIME_VALIDATION_REGEX = "((tdy|tmr)|(((this)|(next))?\\s(mon|tue|wed|thu|fri|sat|sun)))\\s(((0|1)[0-9])|(2[0-3]))([0-5][0-9])";
-	public static final String SCHEDULE_VALIDATION_REGEX = DATE_TIME_VALIDATION_REGEX + "((,\\s?)|(\\s(to)\\s))" + DATE_TIME_VALIDATION_REGEX;
+	public static final String MESSAGE_SCHEDULE_CONSTRAINTS =
+            "Task schedule should only contain dates and times in the format: " +
+                    "[this/next] tdy/tmr/mon/tue/wed/thu/fri/sat/sun HHMM (a \",\" or \"to\") " +
+                    "[this/next] tdy/tmr/mon/tue/wed/thu/fri/sat/sun HHMM.";
+    // todo: refactor, shift date_time_validation_regex to constants file
+	public static final String DATE_TIME_VALIDATION_REGEX =
+            "((tdy|tmr)|(((this)|(next))?\\s(mon|tue|wed|thu|fri|sat|sun)))\\s(((0|1)[0-9])|(2[0-3]))([0-5][0-9])";
+	public static final String SCHEDULE_VALIDATION_REGEX =
+            DATE_TIME_VALIDATION_REGEX + "((,\\s?)|(\\s(to)\\s))" + DATE_TIME_VALIDATION_REGEX;
+    // todo: add regex for other time formats, eg: DDMMYYYY:TTTT
 
+    // todo: save as unix time instead
     public final String start;
     public final String end;
-    public final String value;
-    
+
     public Schedule(String schedule) throws IllegalValueException {
     	if (!isValidSchedule(schedule)) {
             throw new IllegalValueException(MESSAGE_SCHEDULE_CONSTRAINTS);
@@ -26,7 +33,6 @@ public class Schedule {
         	start = split[1];
         	end = split[0];
         }
-        this.value = schedule;
     }
     
     /**
@@ -54,7 +60,8 @@ public class Schedule {
     public int hashCode() {
         return Objects.hashCode(this.toString());
     }
-    
+
+    // todo: implement datetime comparison
     /**
      * Returns true if dateTime1 is a date/time earlier than dateTime2, else returns false.
      * 
