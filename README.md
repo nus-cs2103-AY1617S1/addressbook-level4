@@ -21,7 +21,7 @@
 
 #### Acknowledgements
 
-The sample project created by SE-EDU initiative at https://github.com/se-edu/
+The [Address Book Level 4](https://github.com/se-edu/addressbook-level4) sample project created by SE-EDU initiative.
 
 
 #### Licence : [MIT](LICENSE)
