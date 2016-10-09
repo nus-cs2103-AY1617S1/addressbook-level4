@@ -255,7 +255,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see user instructions | learn how to use the application
-`* * *` | new user | see user instructions | refer to instructions when I forget how to use the App
+`* * *` | user | see user instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a new task | write down tasks that I have to do
 `* * *` | user | delete a task | remove completed or unwanted tasks
 `* * *` | user | find a task by task description | locate the specific task without having to go through the entire list
@@ -288,71 +288,65 @@ Actor: User
 
 1. User requests to add a task into the system<br>
 2. System adds this task into its list of tasks<br>
+3. System show the updated list of tasks
+4. System highlights the new task that was added<br>
   Use case ends<br>
 
 **Extensions**<br>
 
-2a. The task is already existing<br>
-  >2a1. System displays `task is already existing` message.<br>
+1a. The task is already existing<br>
+  >1a1. System displays `task already exists` message.<br>
   >Use case ends<br>
 
-2b. The given syntax is invalid<br>
-  >2b1. System displays `Invalid syntax` error message.<br>
-  >2b2. `help` command is launched.<br>
-  >2b3. System awaits user input.<br>
+1b. The given syntax is invalid<br>
+  >1b1. `help` command is launched.<br>
+  >1b2. System awaits user input.<br>
   >Use case ends<br>
 
 #### **Use case: List task**
 **MSS**<br>
 
-1. User requests to add an incoming into the system<br>
-2. System adds this task into its list of tasks<br>
+1. User requests to list the tasks following the specific keyword<br>
+2. System displays the list of all tasks of that keyword<br>
   Use case ends<br>
 
 **Extensions**<br>
 
-2a. The task is already existing<br>
-  >2a1. System displays `task already exists` message.<br>
+2a. If there are no tasks that match the keyword<br>
+  >2a1. System displays `no tasks` message.<br>
   >Use case ends<br>
 
 2b. The given syntax is invalid<br>
-  >2b1. System displays `Invalid syntax` error message.<br>
-  >2b2. `help` command is launched.<br>
-  >2b3. System awaits user input.<br>
+  >2b1.`help` command is launched.<br>
+  >2b2. System awaits user input.<br>
   >Use case ends<br>
 
 #### **Use case: Delete task**
 **MSS**<br>
 
-1. User requests to list all the tasks<br>
-2. System shows a list of task<br>
-3. User requests to delete a specific task in the list<br>
-4. System deletes the task<br>
+1. User requests to delete a specific task in the list<br>
+2. System deletes the task<br>
   Use case ends<br>
 
 **Extensions**<br>
 
-2a. The list is empty<br>
+1a. The list is empty<br>
   >Use case ends<br>
 
-3a. The given index is invalid<br>
-  >3a1. System displays an error message<br>
-     Use case ends at step 2<br>
+1b. The given index is invalid<br>
+  >1b1. System displays an error message<br>
+     Use case ends<br>
 
-#### **Use case: Recurring task**
-**MSS**<br>
-
-1. User adds a recurring task.<br>
-2. System asks for date period and time.<br> 
-3. User inputs date and time.<br>
-4. System creates a recurring task.<br>
-Use case ends.<br>
+1c. The user wants to delete a completed task. <br>
+  >1c1. The user requests to list all the completed tasks.<br>
+  >1c2. The System lists all completed tasks.<br>
+  Use case resumes at step 1.<br>
 
 #### **Use case: Undo**
 **MSS**<br>
 
-1. User requests to revert back to the state the system was previously in.<br>
-2. System reverts to the state before the user has entered a command<br>
+1. User requests to revert back to the state before the previous action.<br>
+2. System reverts to the state before the user entered the previous command<br>
 
 **Extensions**<br>
 
@@ -363,8 +357,8 @@ Use case ends.<br>
 #### **Use case: Redo**
 **MSS**<br>
 
-1. User requests to revert back to the state that the system was previously in during `undo`<br>
-2. System reverts to the state of `redo`<br>
+1. User requests to revert back to the state that the system was previously in before `undo`<br>
+2. System reverts the `undo` that was done<br>
 
 **Extensions**<br>
 
@@ -375,9 +369,9 @@ Use case ends.<br>
 #### **Use case: Search for a task**
 **MSS**<br>
 
-1. User requests to search a particular task.<br>
-2. System goes through every task to find the target task.<br>
-3. System displays the task along with its details.<br>
+1. User requests to search a particular task with one or more keywords.<br>
+2. System goes through every task to find tasks with at least one matching keyword in its details.<br>
+3. System displays the search results in a popup window.<br>
 
 **Extensions**<br>
 
@@ -398,6 +392,9 @@ Use case ends.<br>
   >1a1. System displays `No such task` message<br>
   >Use case ends<br>
 
+1b. There are no such priority levels.<br>
+  >1a1. System displays `Invalid priority level` message<br>
+  >Use case ends<br>
 
 {More to be added}
 
@@ -426,25 +423,25 @@ Use case ends.<br>
 
 **Google Calendar**<br>
 Strengths:
-* Free
-* Automatic syncs to all devices
-* Reminders can be configured<br>
+* Free.
+* Automatic syncs to all devices.
+* Reminders can be configured.<br>
 
 Weaknesses:
-* Cannot edit offline
-* Need to have a google account
-* Need to use a mouse to navigate most of the time
+* Cannot edit offline.
+* Need to have a google account.
+* Need to use a mouse to navigate most of the time.
 
-**Todoist (Free version)**<br>
+**Todoist**<br>
 Strengths:
-* The interface is clean and simple. Easy to understand. Good for personal use.
-* Quick access to check on everyday's task
-* Quick add of task is particularly helpful for lazy users
-* Freedom of adding more category of task besides the default(E.g. Personal, Shopping, Work)
-* Allows user to have an immediate view of the task lying ahead on current day or week
-* Additional feature of showing productivity of user is useful to motivate user to be on the ball
-* Priority can be set for every task to help decision making in performing task
-* Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday"<br>
+* Interface is clean and simple. Easy to understand. Good for personal use.
+* Quick access to check on everyday's task.
+* Quick add of task is particularly helpful for lazy users.
+* Freedom of adding more category of task besides the default. (E.g. Personal, Shopping, Work)
+* Allows user to have an immediate view of the task lying ahead on current day or week.
+* Additional feature of showing productivity of user is useful to motivate user to be on the ball.
+* Priority can be set for every task to help decision making in performing task.
+* Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday".<br>
 
 Weaknesses:
 * Free version may be limited as we are unable to add to labels to all tasks.
@@ -456,11 +453,11 @@ Strengths:
 * Good GUI. Pleasing to the eye. 
 * Ability to share events with others. (Family, Friends)
 * Reminders in place for upcoming tasks. [Alarms, email notification, notification light colour]
-* Smart Due Dates: Automatically detects words like “tomorrow” or “next week” and adds an event for that day.
+* Smart Due Dates: Automatically detects words like 'tomorrow' or 'next week' and adds an event for that day.
 * Set priority for tasks.
 * Star To-dos: Moves starred tasks to the top of the list automatically.
-* Quick add notification
-* Different personalizable folders (Family, Private, School, Work, …).
+* Quick add notification.
+* Different personalizable folders. (Family, Private, School, Work, etc)
 * Connects to Facebook and Google account.
 * Duplication of the list.
 * Completed to-do list hidden unless selected.<br>
@@ -473,12 +470,12 @@ Weaknesses:
 Strengths:
 * There is a free version.
 * Available in web, desktop and mobile applications.
-* Able to edit offline
+* Able to edit offline.
 * Auto-sync between all devices.
 * Integration with Gmail, Google Calendar and Evernote.
 * Able to see upcoming tasks in the Today, Tomorrow and This Week view.
-* Extra keyboard shortcuts for quicker experience. Shortcut menu is open by just clicking on the key ?.<br>
+* Extra keyboard shortcuts for quicker experience. Shortcut menu is open by just clicking on the key '?'.<br>
 
 Weaknesses:
 * Most of the things need to be done with a mouse.
-* Many features are only available in the paid version
+* Many features are only available in the paid version.
