@@ -1,23 +1,38 @@
 package seedu.todo.ui.io;
 
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import seedu.todo.ui.UiPart;
+import seedu.todo.ui.UiPartLoader;
 
 /**
- * Display textual feedback to command input via this view.
+ * Display textual feedback to command input via this view with {@link #displayMessage(String)}.
  */
 public class CommandFeedbackView extends UiPart {
+    /*Constants*/
+    private static final String FXML = "CommandFeedbackView.fxml";
+    
+    /*Variables*/
+    private Label commandFeedbackLabel;
+    
+    public void displayMessage(String message) {
+        commandFeedbackLabel.setText(message);
+    }
 
+    public static CommandFeedbackView load(Stage primaryStage, AnchorPane placeHolder) {
+        CommandFeedbackView feedbackView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandFeedbackView());
+        return feedbackView;
+    }
+    
     @Override
     public void setNode(Node node) {
-        // TODO Auto-generated method stub
-        
+        this.commandFeedbackLabel = (Label) node;
     }
 
     @Override
     public String getFxmlPath() {
-        // TODO Auto-generated method stub
-        return null;
+        return FXML;
     }
-
 }
