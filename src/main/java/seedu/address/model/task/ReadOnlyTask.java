@@ -25,7 +25,7 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPriority().equals(this.getPriority()))
+                && other.getDeadline().equals(this.getDeadline()))
                 && other.getPriority().equals(this.getPriority());
     }
 
@@ -36,7 +36,7 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Deadline: ")
-                .append(getPriority())
+                .append(getDeadline())
                 .append(" Priority: ")
                 .append(getPriority());
         getTags().forEach(builder::append);
