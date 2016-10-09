@@ -1,11 +1,14 @@
 package seedu.address.logic.parser;
 
+import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.parser.DateParser.InferredDate;
 
 public class AddCommandParser extends CommandParser<AddCommand> {
     private static final String HEADER = "add";
@@ -39,10 +42,10 @@ public class AddCommandParser extends CommandParser<AddCommand> {
             "(d/(?<"+REGEX_REF_DESCRIPTION+">[^/]+?)(?!.*\\sd/))" +
             ")(?=\\s|$)){0,10}", Pattern.CASE_INSENSITIVE);
     
-    private Parser dateParser;
+    private DateParser dateParser;
     
     public AddCommandParser() {
-        this.dateParser = new Parser();
+        this.dateParser = new DateParser();
     }
     
     @Override
@@ -59,21 +62,71 @@ public class AddCommandParser extends CommandParser<AddCommand> {
     protected AddCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-               String taskName = matcher.group(REGEX_REF_TASK_NAME);
-               String startDate = matcher.group(REGEX_REF_START_DATE);
-               String startTime = matcher.group(REGEX_REF_START_TIME);
-               String endDate = matcher.group(REGEX_REF_END_DATE);
-               String endTime = matcher.group(REGEX_REF_END_TIME);
-               String location = matcher.group(REGEX_REF_LOCATION);
-               String priority = matcher.group(REGEX_REF_PRIORITY_LEVEL);
-               String recurringType = matcher.group(REGEX_REF_RECURRING_TYPE);
-               String numRecurrence = matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE);
-               String category = matcher.group(REGEX_REF_CATEGORY);
-               String description = matcher.group(REGEX_REF_DESCRIPTION);
+            /* Pending changes to startTime and endTime */
+            //String startTime = matcher.group(REGEX_REF_START_TIME);
+            //String endTime = matcher.group(REGEX_REF_END_TIME);
+            
+            InferredDate startDate = parseStartDate(commandText, matcher.group(REGEX_REF_START_DATE));
+            InferredDate endDate = parseEndDate(commandText, matcher.group(REGEX_REF_END_DATE));
+            parseTaskName(commandText, matcher.group(REGEX_REF_TASK_NAME));
+            parseLocation(commandText, matcher.group(REGEX_REF_LOCATION));
+            String priority = matcher.group(REGEX_REF_PRIORITY_LEVEL);
+            String recurringType = matcher.group(REGEX_REF_RECURRING_TYPE);
+            parseNumberOfRecurrence(commandText, matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
+            String category = matcher.group(REGEX_REF_CATEGORY);
+            parseDescription(commandText, matcher.group(REGEX_REF_DESCRIPTION));
+            
+               
                // TODO: Create AddCommand
         }
         
-        throw new ParseException(commandText);
+        throw new ParseException(commandText, getRequiredFormat());
+    }
+
+    private String parseTaskName(String commandText, String taskNameText) throws ParseException {
+        return taskNameText;
+    }
+    
+    private InferredDate parseStartDate(String commandText, String dateText) throws ParseException {
+        try {
+            return dateParser.parseSingle(dateText);
+        } catch (ParseException ex) {
+            throw new ParseException(commandText, "START_DATE: " + ex.getFailureDetails());
+        }
+    }
+    
+    private InferredDate parseEndDate(String commandText, String dateText) throws ParseException {
+        try {
+            return dateParser.parseSingle(dateText);
+        } catch (ParseException ex) {
+            throw new ParseException(commandText, "END_DATE: " + ex.getFailureDetails());
+        }
+    }
+    
+    private String parseLocation(String commandText, String locationText) throws ParseException {
+        return locationText;
+    }
+    
+    private int parseNumberOfRecurrence(String commandText, String numRecurrenceText) throws ParseException {
+        int numRecurrence = 0;
+        boolean parseError = false;
+        
+        try {
+            numRecurrence = Integer.parseInt(numRecurrenceText);
+            if (numRecurrence < 0)
+                parseError = true;
+        } catch (NumberFormatException e) {
+            parseError = true;
+        }
+        
+        if (parseError)
+            throw new ParseException(commandText, "NUMBER_OF_RECURRENCE: Must be a nonnegative whole number!");
+        
+        return numRecurrence;
+    }
+
+    private String parseDescription(String commandText, String descriptionText) throws ParseException {
+        return descriptionText;
     }
 
 }
