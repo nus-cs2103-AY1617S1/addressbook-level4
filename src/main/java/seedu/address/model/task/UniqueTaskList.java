@@ -59,7 +59,23 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
-
+    /**
+     * Updates a task to the list.
+     * 
+     * @throws TaskNotFoundException if the task cannot be found on the list.
+     */
+    
+    public void update(Task toUpdate) throws TaskNotFoundException {
+        assert toUpdate != null;
+        
+        int index=internalList.indexOf(toUpdate.getName());
+        if (index<0) {
+            throw new TaskNotFoundException();
+        }
+        
+        internalList.set(index,toUpdate);
+    }
+    
     /**
      * Removes the equivalent task from the list.
      *
