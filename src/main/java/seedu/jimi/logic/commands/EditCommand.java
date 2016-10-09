@@ -3,9 +3,11 @@ package seedu.jimi.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.FloatingTask;
@@ -49,10 +51,11 @@ public class EditCommand extends Command{
         }
         this.taskIndex = taskIndex;
         
-        //if new fields are to be edited, instantiate them
+        //if new fields are to be edited, instantiate them, else set them to the oldName
         if(name != null) {
             this.newName = new Name(name);
-        }
+        } 
+
         if(tagSet != null) {
             this.newTagList = new UniqueTagList(tagSet);
         }
@@ -60,37 +63,26 @@ public class EditCommand extends Command{
     
     @Override
     public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        FilteredList<FloatingTask> lastShownList = ((ModelManager) model).getModifiableTaskList();
 
         if (lastShownList.size() < taskIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToEdit = lastShownList.get(taskIndex - 1);
+        FloatingTask taskToEdit = lastShownList.get(taskIndex - 1);
         
-        try {
-            model.deleteTask(taskToEdit); //delete 
+        if(newName != null) {
+            taskToEdit.setName(newName);
+        }
             
-            UniqueTagList oldTagList = taskToEdit.getTags();
-            Name oldName = taskToEdit.getName();
-            
-            if(newName != null && !oldName.equals(newName)){
-                if(newTagList != null && !oldTagList.equals(newTagList)){
-                    model.addFloatingTask(new FloatingTask(newName, newTagList)); //change both name and tags
-                }
-                model.addFloatingTask(new FloatingTask(newName, oldTagList)); //change only name
-            }
-            else {
-                model.addFloatingTask(new FloatingTask(oldName, oldTagList)); //change nothing //TODO: reduce redundancy
-            }
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        if(newTagList != null) {
+            taskToEdit.setTags(newTagList);
         }
         
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(lastShownList.size()-1)));
+        ((ModelManager) model).editFloatingTask(taskToEdit, taskIndex - 1);
+        
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
 
 }
