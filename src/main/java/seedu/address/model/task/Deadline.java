@@ -31,11 +31,9 @@ public class Deadline {
     }
 
     public boolean equals(Object other) {
-        if (other instanceof Deadline) {
-            Deadline otherObject = (Deadline) other;
-            return otherObject.equals(time);
-        }
-        return false;
+        return other == this // short circuit if same object
+                || (other instanceof Deadline // instanceof handles nulls
+                && this.time.equals(((Deadline) other).time)); // state check
     }
 
     public int hashCode() {
