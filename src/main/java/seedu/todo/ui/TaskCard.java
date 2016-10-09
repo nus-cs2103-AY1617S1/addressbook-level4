@@ -3,6 +3,8 @@ package seedu.todo.ui;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -127,14 +129,23 @@ public class TaskCard extends UiPart{
     }
     
     private void displayTimings() {
+        String displayTimingOutput = "";
         TimeUtil timeUtil = new TimeUtil();
+        Optional<LocalDateTime> startTime = task.getStartTime();
+        Optional<LocalDateTime> endTime = task.getEndTime();
         
-        if (task.isEvent() && task.getStartTime().isPresent() && task.getEndTime().isPresent()) {
-            dateLabel.setText(timeUtil.getEventTimeText(task.getStartTime().get(), task.getEndTime().get()));
-        } else if (!task.isEvent() && task.getEndTime().isPresent()) {
-            dateLabel.setText(timeUtil.getTaskDeadlineText(task.getEndTime().get()));
+        boolean isEventWithTime = task.isEvent() && startTime.isPresent() && endTime.isPresent();
+        boolean isTaskWithTime = !task.isEvent() && endTime.isPresent();
+        
+        if (isEventWithTime) {
+            displayTimingOutput = timeUtil.getEventTimeText(startTime.get(), endTime.get());
+        } else if (isTaskWithTime) {
+            displayTimingOutput = timeUtil.getTaskDeadlineText(endTime.get());
         } else {
             FxViewUtil.setCollapsed(dateBox, true);
+            return;
         }
+        
+        dateLabel.setText(displayTimingOutput);
     }
 }
