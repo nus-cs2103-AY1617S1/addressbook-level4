@@ -82,7 +82,7 @@ Supported `RECURRING_INTERVAL`
 * `month`, `2 months`, `3 months`, ...
 
 Examples: 
-* `add ... repeat every 2 days`
+* `add Go run at track repeat every 3 days`
 
 
 **_Adding a task with deadline_**
@@ -100,7 +100,7 @@ Format: `add NAME by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIORI
 >   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
 >   * `midnight` can be used to specify 12AM
 >   * `noon` can be used to specify 12PM
->   * `24:00` - 24-hour clock format is also accepted
+>   * `20:15` - 24-hour clock format is also accepted
 
 Examples:
 * `add Do project proposal by 5pm tomorrow`
@@ -149,7 +149,10 @@ Format: `edit INDEX [from/at START_DATE START_TIME][to/by END_DATE END_TIME][-PR
 > Notice that this is similar to the `add` command format! 
 
 Examples:
+* `add Company meeting tonight at 7pm to 9pm`
 * `edit 10 Company meeting tomorrow morning at 7am to 9am -high`
+
+* `add Buy coffee for boss by 8am repeat every day`
 * `edit 3 Buy coffee for boss by 7am repeat every 2 days`
 
 ### Deleting a task: `delete`
@@ -198,7 +201,7 @@ Reverses a previous `undo` command, if possible.<br>
 Format: `redo`
 > `redo` allows your to reverse your previous `undo` to get back your data!
 >
-> Note: `redo` can only remember the last `undo` if no `add`, `edit`, `delete`, `clear` or `done` commands have been entered after the last `undo`.
+> Note: `redo` only works if no `add`, `edit`, `delete`, `clear` or `done` commands have been entered after the last `undo`.
 
 Example: 
 * `redo`
@@ -216,12 +219,21 @@ Example:
 ### Finding a task : `find`
 Find an existing task by name.<br>
 Format: `find NAME`
-> `find` is case-insensitive.
+> `find` is case-insensitive - `find AKSHAY` will match `find akshay`
+> If no NAME is provided, all uncompleted tasks will be displayed
 
 Examples:
 * `find Akshay`
 * `find Michelle`
 * `find johnny`
+
+### Exiting the application: `exit`
+Closes the application.<br>
+Format: `exit`
+
+Example: 
+* `exit`
+
 
 ### Getting hints for command format
 Format: none, just type a command and let DearJim provide you hints on the command format that you might want to use!
@@ -263,3 +275,4 @@ Done | `done INDEX`
 List | `list`
 Find | `find NAME`
 Help | `help`
+Exit | `exit`
