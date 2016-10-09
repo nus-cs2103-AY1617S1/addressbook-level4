@@ -17,6 +17,11 @@ public class IncorrectCommand extends Command {
         indicateAttemptToExecuteIncorrectCommand();
         return new CommandResult(feedbackToUser);
     }
+    
+    @Override
+    protected boolean canUndo() {
+        return false;
+    }
 
     /**
      * Redo the "incorrect" command

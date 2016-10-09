@@ -1,13 +1,13 @@
-package seedu.address.model.person;
+package seedu.address.testutil;
 
 import java.util.Date;
-import java.util.Objects;
+import seedu.address.model.person.*;
 
 /**
- * Represents a Task in the task list.
+ * A mutable task object. For testing only.
  */
-public class Task implements ReadOnlyTask {
-
+public class TestTask implements ReadOnlyTask {
+    
     private String taskName;
     private Date startDateTime;
     private Date endDateTime;
@@ -18,31 +18,7 @@ public class Task implements ReadOnlyTask {
     private int category;
     private String description;
 
-    public Task(String taskName, Date startDateTime, Date endDateTime, String location,
-            int priority, int recurringType, int numberOfRecurrence, int category, String description) {
-        //assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
-        this.taskName = taskName;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-        this.location = location;
-        this.priority = priority;
-        this.recurringType = recurringType;
-        this.numberOfRecurrence = numberOfRecurrence;
-        this.category = category;
-        this.description = description;
-    }
-    
-    public Task(String taskName) {
-        this.taskName = taskName;
-    }
-
-    /**
-     * Copy constructor.
-     */
-    public Task(ReadOnlyTask source) {
-        this(source.getTaskName(), source.getStartDateTime(), source.getEndDateTime(), 
-                source.getLocation(), source.getPriority(), source.getRecurringType(),
-                source.getNumberOfRecurrence(), source.getCategory(), source.getDescription());
+    public TestTask() {
     }
 
     @Override
@@ -127,21 +103,13 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskName);
-    }
-
-    @Override
     public String toString() {
         return getAsText();
     }
 
+    public String getAddCommand() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("add " + this.getTaskName());
+        return sb.toString();
+    }
 }

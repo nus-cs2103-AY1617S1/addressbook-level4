@@ -1,27 +1,28 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-
 /**
  * Terminates the program.
  */
 public class RedoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
+    public static final String MESSAGE_REDO_ACKNOWLEDGEMENT = "Redo last command as requested ...";
 
     public RedoCommand() {}
 
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new ExitAppRequestEvent());
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+        return new CommandResult(MESSAGE_REDO_ACKNOWLEDGEMENT);
+    }
+    
+    @Override
+    protected boolean canUndo() {
+        return false;
     }
 
     /**
-     * Redo the exit command
+     * Redo the redo command
      * @return true if the operation completed successfully, false otherwise
      */
     @Override
@@ -31,7 +32,7 @@ public class RedoCommand extends Command {
     }
 
     /**
-     * Undo the exit command
+     * Undo the redo command
      * @return true if the operation completed successfully, false otherwise
      */
     @Override

@@ -22,6 +22,11 @@ public class ListCommand extends Command {
         model.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    
+    @Override
+    protected boolean canUndo() {
+        return false;
+    }
 
     /**
      * Redo the list command

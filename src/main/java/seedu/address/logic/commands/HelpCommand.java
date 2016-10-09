@@ -23,6 +23,11 @@ public class HelpCommand extends Command {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
+    
+    @Override
+    protected boolean canUndo() {
+        return false;
+    }
 
     /**
      * Redo the help command

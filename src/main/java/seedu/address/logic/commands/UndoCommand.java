@@ -1,27 +1,28 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-
 /**
- * Terminates the program.
+ * Command to undo the last action performed
  */
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
+    public static final String MESSAGE_UNDO_ACKNOWLEDGEMENT = "Undo last command as requested ...";
 
     public UndoCommand() {}
 
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new ExitAppRequestEvent());
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+        return new CommandResult(MESSAGE_UNDO_ACKNOWLEDGEMENT);
+    }
+    
+    @Override
+    protected boolean canUndo() {
+        return false;
     }
 
     /**
-     * Redo the exit command
+     * Redo the undo command
      * @return true if the operation completed successfully, false otherwise
      */
     @Override
@@ -31,7 +32,7 @@ public class UndoCommand extends Command {
     }
 
     /**
-     * Undo the exit command
+     * Undo the undo command
      * @return true if the operation completed successfully, false otherwise
      */
     @Override
