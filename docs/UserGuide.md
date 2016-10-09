@@ -39,7 +39,7 @@ Format: `help`
  
 <br>
 #### Adding a task: `add`
-Adds a task to the task manager <br>
+Adds a task to the Emeraldo <br>
 Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_TIME] [from START_TIME] [to END_TIME] [#TAGS]...`
 
 <img src="../assets/add_1.png" width="1000"><br>
@@ -61,21 +61,21 @@ Examples:
 
 <br>
 #### Listing all tasks : `list`
-Shows a list of all tasks in the Task Manager.<br>
+Shows a list of all tasks in the Emeraldo.<br>
 Format: `list`
 
 
 <br>
 #### Listing all tasks by categories : `list`
-Shows a list of all tasks in the Task Manager according to a stated category
+Shows a list of all tasks in the Emeraldo according to a stated category
 Format: `list [CATEGORIES]`
 
-> By default, Tasks will be sorted in order of task, floating, event, and then by index
+> By default, tasks will be sorted in order of task, floating, event, and then by index
 > Alternatively, list will be sorted by the category requested on top first, then by index.
 >
 > Categories can be either **Pre-defined categories** or **User-defined tags**: 
->   Pre-defined categories include: today, tomorrow, priority, completed
->   User-defined tags
+> Pre-defined categories include: today, tomorrow, priority, completed
+> User-defined tags
 
 Examples:
 * `list today`
@@ -106,7 +106,7 @@ Examples:
 
 <br> 
 #### Deleting a task : `delete`
-Deletes the specified task from the Task Manager.<br>
+Deletes the specified task from the Emeraldo.<br>
 Format: `delete INDEX`
 
 > Task will be removed from the list
@@ -124,7 +124,7 @@ Examples:
 Undo the previous action
 Format: `undo`
 
-> Task Manager will revert the last action done
+> Emeraldo will revert the last action done
 
 Examples: 
 * `delete 2`<br>
@@ -139,21 +139,21 @@ Examples:
 Marks a task as completed as a normal tag
 Format: `completed INDEX`
 
-> Task Manager will mark task as completed with a predefined tag “completed” 
+> Emeraldo will mark task as completed with a predefined tag “completed” 
 
 <br>
 #### Clearing all entries : `clear`
-Clears all entries from the Task Manager in the save data.<br>
+Clears all entries from the Emeraldo in the save data.<br>
 Format: `clear`  
 
 <br>
 #### Exiting the program : `exit`
 Exits the program.<br>
-Format: `exit`  
+Format: `exit`
 
 <br>
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Emeraldo data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 > The file name must end in `.txt` for it to be acceptable to the program.
@@ -179,8 +179,7 @@ Delete | `delete INDEX`
 Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 Help | `help`
-List | `list`
-Listby | `listby CATEGORIES`
+List | `list [CATEGORIES]`
 Undo | `undo`
 
 
