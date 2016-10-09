@@ -27,7 +27,7 @@ public class TypicalTestTasks {
         	date5 = sdf.parse("02/03/2017 14:20:05");
         	date6 = sdf.parse("03/11/2016 12:04:05");
             submitPrototype =  new TaskBuilder().withName("Submit prototype")
-                    .withTags("urgent").withCompleteStatus(true).build();
+                    .withTags("urgent").withCompleteStatus(false).build();
             submitProgressReport = new TaskBuilder().withCompleteStatus(false).withDeadline(date1)
             		.withName("Submit progress report").withTags("finance", "urgent").build();
             developerMeeting = new TaskBuilder().withName("Attend developer meeting").withDeadline(date5)

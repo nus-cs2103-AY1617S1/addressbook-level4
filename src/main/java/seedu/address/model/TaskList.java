@@ -112,6 +112,17 @@ public class TaskList implements ReadOnlyTaskList {
         }
     }
 
+    /**
+     * Update the old task with new task details.
+     * 
+     * @param oldTask that will be updated
+     * @param newTask details
+     * @throws UniqueTaskList.TaskNotFoundException if the old task cannot be found in the list
+     */
+    public void updateTask(ReadOnlyTask oldTask, Task newTask) throws UniqueTaskList.TaskNotFoundException {
+        tasks.updateTask(oldTask, newTask);
+    }
+
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
