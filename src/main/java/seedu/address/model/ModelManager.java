@@ -357,7 +357,7 @@ public class ModelManager extends ComponentManager implements Model {
                 return startTime.before(task.getDeadline().deadline) &&
                         endTime.after(task.getDeadline().deadline);
             }
-            return true;
+            return false;
         }
 
         @Override
