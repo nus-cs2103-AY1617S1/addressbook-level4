@@ -13,6 +13,7 @@
 
 ## Acknowledgements
 
-* This application is built upon the codebase of [*AddressBook-level4*](https://github.com/nus-cs2103-AY1617S1/addressbook-level4), which was created by SE-EDU initiative at https://github.com/se-edu/
+* This application was built upon the codebase of [_AddressBook-level4_](https://github.com/nus-cs2103-AY1617S1/addressbook-level4), which had been created by [_SE-EDU initiative_](https://github.com/se-edu/)
+* We are using an awesome natural language date parser [_Natty_](http://natty.joestelmach.com/)
 
 ### Licence: [MIT](LICENSE)
