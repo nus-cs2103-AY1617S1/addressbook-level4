@@ -90,7 +90,7 @@ interface, and it exposes its functionality using the `LogicManager.java` class 
 ###An overview of interactions between components
 
 The following diagram shows how components interact with each other when the user issues the
-command `delete 3` (refer to Figure 3).
+command `delete 3` (refer to Figure 2).
 
 <img src="images\SDforDeletePerson.png" width="800">
 >**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command `delete 3`
@@ -98,35 +98,34 @@ command `delete 3` (refer to Figure 3).
 >Note how the `Model` simply raises a `TaskMangerChangedEvent` when the GGist data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The following diagram shows how the `EventsCenter` reacts to the event(`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time.<br>
+The following diagram shows how the `EventsCenter` reacts to the event (`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time (refer to Figure 3).<br>
 
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
+>**_Figure 3_**: EventsCentre Diagram - shows how EventsCentre reacts to the event (`delete 3`)
 
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
-  coupling between components.
+> Note how the event passes through the `EventsCenter` to the `Storage` and `UI`. This process is done without `Model` being coupled to other components. Thus, this Event Driven approach helps us to reduce direct coupling between components.
 
-The sections below give more details of each component.
+###Additional details of each component.
 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
+>**_Figure 4_**: UI component - shows each part of UI
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/ggist/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The `UI` consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`,`PersonListPanel`,
+`StatusBarFooter` and `BrowserPanel`.These UI parts inherit from the abstract `UiPart` class ,and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ which are in the `src/main/resources/view` folder.<br>
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/ggist/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 * Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` changes.
+* Responds to events raised from various parts of the application and updates the UI accordingly.
 
 ### Logic component
 
