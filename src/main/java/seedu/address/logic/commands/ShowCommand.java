@@ -24,6 +24,7 @@ public class ShowCommand extends Command {
     private final Date startTime;
     private final Date endTime;
     private final Set<String> tags;
+    private final boolean hasDate;
     
     /**
      * Show Command
@@ -39,6 +40,7 @@ public class ShowCommand extends Command {
         }
         
         if (date != null) {
+            hasDate = true;
             Date convertedDate = CommandHelper.convertStringToDate(date);
             Calendar c = Calendar.getInstance();
             c.setTime(convertedDate);
@@ -53,6 +55,7 @@ public class ShowCommand extends Command {
             c.set(Calendar.MILLISECOND, 999);
             this.endTime = c.getTime();
         } else {
+            hasDate = false;
             if (startTime != null) {
                 this.startTime = CommandHelper.convertStringToDate(startTime);
             } else {
@@ -79,10 +82,14 @@ public class ShowCommand extends Command {
             model.addTaskListFilterByType(type, false);
         if (deadline != null)
             model.addTaskListFilterByDeadline(deadline, false);
-        if (startTime != null)
-            model.addTaskListFilterByStartTime(startTime, false);
-        if (endTime != null)
-            model.addTaskListFilterByEndTime(endTime, false);
+        if (hasDate) {
+            model.addTaskListFilterByStartToEndTime(startTime, endTime, false);
+        } else {
+            if (startTime != null)
+                model.addTaskListFilterByStartTime(startTime, false);
+            if (endTime != null)
+                model.addTaskListFilterByEndTime(endTime, false);
+        }
         if (!tags.isEmpty())
             model.addTaskListFilterByTags(tags, false);
         model.updateFilteredTaskListByFilter();
