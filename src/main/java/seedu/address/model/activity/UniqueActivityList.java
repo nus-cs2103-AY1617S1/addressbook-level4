@@ -1,8 +1,10 @@
-package seedu.address.model.person;
+package seedu.address.model.activity;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -12,16 +14,16 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#equals(Object)
+ * @see Activity#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniqueActivityList implements Iterable<Activity> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicatePersonException extends DuplicateDataException {
-        protected DuplicatePersonException() {
+    public static class DuplicateActivityException extends DuplicateDataException {
+        protected DuplicateActivityException() {
             super("Operation would result in duplicate persons");
         }
     }
@@ -30,19 +32,19 @@ public class UniquePersonList implements Iterable<Person> {
      * Signals that an operation targeting a specified person in the list would fail because
      * there is no such matching person in the list.
      */
-    public static class PersonNotFoundException extends Exception {}
+    public static class ActivityNotFoundException extends Exception {}
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Activity> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
      */
-    public UniquePersonList() {}
+    public UniqueActivityList() {}
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ReadOnlyPerson toCheck) {
+    public boolean contains(ReadOnlyActivity toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -50,12 +52,12 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Adds a person to the list.
      *
-     * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
+     * @throws DuplicateActivityException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(Person toAdd) throws DuplicatePersonException {
+    public void add(Activity toAdd) throws DuplicateActivityException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateActivityException();
         }
         internalList.add(toAdd);
     }
@@ -63,32 +65,32 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Removes the equivalent person from the list.
      *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * @throws ActivityNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public boolean remove(ReadOnlyActivity toRemove) throws ActivityNotFoundException {
         assert toRemove != null;
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
-            throw new PersonNotFoundException();
+        final boolean activityFoundAndDeleted = internalList.remove(toRemove);
+        if (!activityFoundAndDeleted) {
+            throw new ActivityNotFoundException();
         }
-        return personFoundAndDeleted;
+        return activityFoundAndDeleted;
     }
 
-    public ObservableList<Person> getInternalList() {
+    public ObservableList<Activity> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Activity> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
+                || (other instanceof UniqueActivityList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniquePersonList) other).internalList));
+                ((UniqueActivityList) other).internalList));
     }
 
     @Override

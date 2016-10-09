@@ -41,7 +41,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String activityManagerName;
+    private String addressBookName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -88,7 +88,7 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.activityManagerName = addressBookName;
+        this.addressBookName = addressBookName;
         this.config = config;
         this.userPrefs = prefs;
 

@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.UniquePersonList;
 
 public class ActivityList implements Iterable<Activity> {
 	
@@ -58,7 +57,7 @@ public class ActivityList implements Iterable<Activity> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
+                || (other instanceof UniqueActivityList // instanceof handles nulls
                 && this.internalList.equals(
                 ((ActivityList) other).internalList));
     }
