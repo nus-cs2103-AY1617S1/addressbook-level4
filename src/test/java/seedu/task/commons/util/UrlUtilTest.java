@@ -2,7 +2,7 @@ package seedu.task.commons.util;
 
 import org.junit.Test;
 
-import seedu.task.commons.util.UrlUtil;
+import seedu.todolist.commons.util.UrlUtil;
 
 import java.net.MalformedURLException;
 import java.net.URL;

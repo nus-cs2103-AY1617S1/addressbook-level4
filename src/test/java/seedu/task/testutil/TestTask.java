@@ -1,7 +1,7 @@
 package seedu.task.testutil;
 
-import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.task.*;
+import seedu.todolist.model.tag.UniqueTagList;
+import seedu.todolist.model.task.*;
 
 /**
  * A mutable task object. For testing only.

@@ -1,8 +1,8 @@
 package seedu.task.testutil;
 
-import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.AddressBook;
-import seedu.task.model.task.*;
+import seedu.todolist.commons.exceptions.IllegalValueException;
+import seedu.todolist.model.AddressBook;
+import seedu.todolist.model.task.*;
 
 /**
  *

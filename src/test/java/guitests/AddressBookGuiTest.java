@@ -10,11 +10,11 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
 import seedu.task.TestApp;
-import seedu.task.commons.core.EventsCenter;
-import seedu.task.model.AddressBook;
-import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
+import seedu.todolist.commons.core.EventsCenter;
+import seedu.todolist.model.AddressBook;
+import seedu.todolist.model.task.ReadOnlyTask;
 
 import java.util.concurrent.TimeoutException;
 

@@ -6,11 +6,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.task.model.AddressBook;
-import seedu.task.model.ReadOnlyAddressBook;
-import seedu.task.model.UserPrefs;
-import seedu.task.storage.StorageManager;
 import seedu.task.testutil.TypicalTestTasks;
+import seedu.todolist.model.AddressBook;
+import seedu.todolist.model.ReadOnlyAddressBook;
+import seedu.todolist.model.UserPrefs;
+import seedu.todolist.storage.StorageManager;
 
 import static org.junit.Assert.assertEquals;
 

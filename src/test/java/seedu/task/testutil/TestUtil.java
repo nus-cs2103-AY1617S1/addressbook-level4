@@ -14,14 +14,14 @@ import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 
 import seedu.task.TestApp;
-import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.commons.util.FileUtil;
-import seedu.task.commons.util.XmlUtil;
-import seedu.task.model.AddressBook;
-import seedu.task.model.tag.Tag;
-import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.task.*;
-import seedu.task.storage.XmlSerializableAddressBook;
+import seedu.todolist.commons.exceptions.IllegalValueException;
+import seedu.todolist.commons.util.FileUtil;
+import seedu.todolist.commons.util.XmlUtil;
+import seedu.todolist.model.AddressBook;
+import seedu.todolist.model.tag.Tag;
+import seedu.todolist.model.tag.UniqueTagList;
+import seedu.todolist.model.task.*;
+import seedu.todolist.storage.XmlSerializableAddressBook;
 
 import java.io.File;
 import java.io.IOException;
