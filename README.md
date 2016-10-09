@@ -7,8 +7,8 @@
 *CommanDo* is developed by group CS2103T-W13-C3 as the project for CS2103T.
   
 ## Site Map
-* [User Guide](https://rawgit.com/CS2103AUG2016-W13-C3/main/gh-pages/index.html) 
-* [Developer Guide](docs/DeveloperGuide.md) 
+* [User Guide](https://cs2103aug2016-w13-c3.github.io/main/user) 
+* [Developer Guide](https://cs2103aug2016-w13-c3.github.io/main/developer) 
 * [About Us](docs/AboutUs.md)
 
 ## Acknowledgements
