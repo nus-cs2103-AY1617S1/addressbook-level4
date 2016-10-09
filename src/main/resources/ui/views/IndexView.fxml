@@ -6,10 +6,10 @@
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="100" minWidth="100" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.views.IndexView">
   <children>
-    <SplitPane fx:id="splitPane" dividerPositions="0.3">
+    <SplitPane fx:id="splitPane" dividerPositions="0.3" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane fx:id="tagsPane" />
-        <AnchorPane fx:id="tasksPane" />
+        <AnchorPane fx:id="tagsPane" styleClass="taglist-pane" />
+        <AnchorPane fx:id="tasksPane" styleClass="tasklist-pane" />
       </items>
     </SplitPane>
   </children>
