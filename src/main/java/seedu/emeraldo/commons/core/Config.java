@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "Emeraldo";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/addressbook.xml";
+    private String emeraldoFilePath = "data/addressbook.xml";
     private String addressBookName = "MyAddressBook";
 
 
@@ -46,11 +46,11 @@ public class Config {
     }
 
     public String getAddressBookFilePath() {
-        return addressBookFilePath;
+        return emeraldoFilePath;
     }
 
     public void setAddressBookFilePath(String addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+        this.emeraldoFilePath = addressBookFilePath;
     }
 
     public String getAddressBookName() {
@@ -76,13 +76,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
+                && Objects.equals(emeraldoFilePath, o.emeraldoFilePath)
                 && Objects.equals(addressBookName, o.addressBookName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, addressBookFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, emeraldoFilePath, addressBookName);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + emeraldoFilePath);
         sb.append("\nAddressBook name : " + addressBookName);
         return sb.toString();
     }
