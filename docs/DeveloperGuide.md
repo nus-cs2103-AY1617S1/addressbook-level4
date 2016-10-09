@@ -66,21 +66,21 @@
 
 #### High Priority `* * *`
 
-As a ... | I want to... | so that ...
+As a ... | I want to ... | so that ...
 ---------|--------------|------------
 new user | see usage instructions | I can refer to instructions when i use the Task Manager.<br>
-As a new user | view more information about a particular command | I can learn how to use various commands.<br>
+new user | view more information about a particular command | I can learn how to use various commands.<br>
 user | add a task by specifying a task description and the date and time | I can record tasks that need to be done by that date and time.<br>
 user | add a scheduled event by specifying the event name and duration and location | I can record events that I need to attend.<br>
 user | add a task by specifying a task description only | I can record tasks that need to be done ‘some day’.<br>
 user | delete a task | I can remove entries that I no longer need.<br>
 user | list all tasks | I can see my tasks in a glance.<br>
-user | edit the task descriptions | date and time | I can update the details of my tasks.<br>
+user | edit the task descriptions, date or time | I can update the details of my tasks.<br>
 
 <br>
 #### Medium Priority `* *`
 
-As a ... | I want to... | so that ...
+As a ... | I want to ... | so that ...
 ---------|--------------|------------
 user | undo my previous actions | I can revert any mistakes made.<br>
 user | sort the tasks by the date and time | I can see my tasks according to their urgency.<br>
@@ -91,7 +91,7 @@ user | specify a folder for data storage location | I can store the data file in
 <br>
 #### Low Priority `*`
 
-As a ... | I want to... | so that ...
+As a ... | I want to ... | so that ...
 ---------|--------------|------------
 user | add tags to my task | I can categorise my tasks.<br>
 user | input my dates and days in any format that I want | | it is easier for my usage.<br>
