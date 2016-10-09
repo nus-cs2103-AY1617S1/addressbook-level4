@@ -2,41 +2,52 @@
 
 ## Introduction
 
+In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many todo list apps have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.
+
+Ever wished for a tool that can manage all your daily activities in distinct categories, and suggest to you which one you want to complete first? Well, look no further as Uncle Jim's Discount To-do List is here to save your day.
+
+Uncle Jim's Discount To-do List (UJDTDL) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days where you had to click through several pages of menus, navigating through unintuitive interface just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type out the command hit enter!
+
+Moreover, we know that you understand your activities better. So UJDTDL allows you to create your very own categories to organise your activities. At the same time, UJDTDL is capable of scheduling floating tasks for you if you do not have a fixed time for them. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
+
+Sounds exciting? Then let's get started!
+
+
 ## Quick Start
 
 1. Ensure you have [**Java version 8 update 60**][java] or later installed on your computer.
 
     !!! warning "This application will not work with earlier versions of Java 8"
 
-2. Download the latest `UJDTDL.jar` from the [releases](../../../releases) tab.
-3. Copy the file to the folder you want to use as the home folder for the application.
-4. Double-click the file to start the app. 
+2. Download the latest copy of `UJDTDL.jar` from the [releases](../../../releases) tab.
+3. Save the file to the folder you want to use for this application.
+4. Double-click the file to start the application.
 
     <img src="images/mockupV0_0.png" width="700" alt="Example of UI once launched"> 
     
-5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.  
-   E.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. 
 6. Some example commands you can try:
 
-     * **`add`**` Finish CS2103T homework -d next Friday` : 
+     * **`add`**` Finish CS2103T homework -d next Friday` - 
        adds a new task with the deadline set at next Friday
-     * **`delete`**` 3` : deletes the 3<sup>rd</sup> task shown in the current list
-     * **`exit`** : exits the app
+     * **`delete`**` 3` - deletes the 3<sup>rd</sup> task shown in the current list
+     * **`exit`** - exits the app
      
-7. Refer to the [Features](#features) section below for details of each command.
+7. Refer to the [commands reference](#commands-reference) section below for details of each command.
 
 ## Features
 
-### Intelligent Views
+### Command Line Interface
 
+Time is precious. That's why you're use a productivity app to save time, not to fiddle around with the interface. Our app allows you to create and organize tasks at the speed of thought - just typing, no frails. Put that mouse away, because all you need is your trusty keyboard. 
 
+### Custom Tags and Intelligent Views
 
+Organising your life is important. Compartmentalisation allows you to prioritise which tasks are more important. This is why we baked in the ability to tags each of your tasks and events. UDJTDL will then intelligently filter out relevant categories at your command, and sort them in order of importance so you know what you should be working on at any time.
 
 ### Events *and* Tasks
 
-Most productivity apps only allow you to manage tasks *or* events. Our application can manage both. 
-
-### Command Line Interface
+Deadlines and events are equally important. However, most productivity apps only allow you to manage either tasks *or* events. Our application can help you to manage both of them at the same time. No more having to constantly switch between your calendar and todo list applications to be productive. 
 
  
 ## Commands Reference
@@ -46,16 +57,16 @@ Most productivity apps only allow you to manage tasks *or* events. Our applicati
 * Words in `UPPERCASE` are the parameters.
 * Items in `[SQUARE BRACKETS]` are optional.
 * To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. `-f`) for short flags and double dash for long flags (eg. `--all`)
-* Items with `...` after them can have multiple instances.
-* Most commands that updates a task require an `INDEX`. This is number shown to the left of the task as shown in the screenshot below
+* Items with `...` within each parameter means you can add more items within the same parameters than specified.
+* Most commands that refer to a particular task or event in the list require an `INDEX`. This is a number indicated on the left of a task or event as shown in the screenshot below:
 
- <img src="images/sketch_task_index.jpg" width="350" alt="Index Number Location">
+ <img src="images/sketch_task_index_small.png" width="350" alt="Index Number Location">
 
 
 ### Viewing help : **`help`**
 Format: **`help`**
 
-Shows help window which gives list of commands and their actions.
+Shows you a help window, which contains a list of commands and their actions.
  
 ### Adding a task or event: **`add`**
 
@@ -64,12 +75,12 @@ Format:
 **`add`**` TASK NAME [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]`  
 **`add`**` EVENT NAME -d START END [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]`
 
-Although there are a lot of parameters, only the name is required. Tasks will be turned into events 
-automatically if two dates are specified under the `-d` flag. Here are some common scenarios
+Although there are many parameters, you are only required to provide a name of your task or event. 
+Tasks will be turned into events automatically if there are two dates specified under the `-d` flag. Here are some common scenarios:
 
 #### Adding a task
 
-Adding a task is as simple as giving it a name.
+Adding a task can be simply giving a name.
 
 !!! example
     **`add`**` Finish up developer guide for CS2101` 
@@ -156,7 +167,7 @@ Format:
 
 You can use this command to mark a task as completed. Completed task appear struckthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
 
-<img src="images/sketch_task_completed.jpg" width="700" alt="Example of a Completed Task"><br />
+<img src="images/sketch_task_completed_small.png" width="700" alt="Example of a Completed Task">
 
 ### Pinning a task: **`pin`**
 
@@ -164,8 +175,9 @@ Format: **`pin`**` INDEX`
 
 If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. 
 
-<img src="images/sketch_task_pinned.jpg" width="700" alt="Pinned Task"><br />
+<img src="images/sketch_task_pinned_small.png" width="700" alt="Pinned Task">
 
+### Managing tags: **`tag`**
 
 ### Editing a task: **`edit`**
 
@@ -182,7 +194,7 @@ Use the `edit` command to make changes to the task specified by `INDEX`. The com
 Switch between different views.  
 Format: **`view`**` VIEW`
 
-<img src="images/sketch_task_view.jpg" width="700" alt="View of completed tasks">
+<img src="images/sketch_task_view_small.png" width="700" alt="View of completed tasks">
 
 You can also use the underlined character in the view's name as the shortcut when switching views. 
 
@@ -252,13 +264,13 @@ the save file by specifying the file path as the first argument when running the
 ## FAQ
 
 **Q**: Is my data secure?  
-**A**: Your data is stored locally on your hard drive as an `.xml` file. So, your data is as secure as your hard drive. We do not have access to your to-do list. 
+**A**: Your data is stored locally on your hard drive. So, your data is as secure as your hard drive. We do not have access to your to-do list. 
 
 **Q**: How do I back up my data?  
-**A**: As your data is saved to a `.xml` file that you specified, you can simply copy this file to a back up storage of your choice.
+**A**: As your data is saved to the file that you specified, you can simply copy this file to a back up storage of your choice.
 
 **Q**: How do I sync my data with multiple devices?  
-**A**: Simply load the `.xml` file to a cloud sync service like Dropbox or Google Drive, and all updates will be reflected to all devices using the file.
+**A**: Simply load the file to a cloud sync service like Dropbox or Google Drive, and all updates will be reflected automatically to all devices using the file.
 
 **Q**: How do I pay for this project?  
 **A**: Donations can be made via PayPal or Kashmi. Cash donations are fine too. Basically if you wish to donate we will find a way for us to receive your money.
