@@ -2,6 +2,7 @@ package seedu.taskman.model.event;
 
 import seedu.taskman.model.tag.UniqueTagList;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -26,6 +27,15 @@ public class Activity implements ReadOnlyEvent{
 
     public ActivityType getType(){
         return type;
+    }
+
+    public ReadOnlyTask getTask(){
+        assert type == ActivityType.TASK;
+        return (ReadOnlyTask) activity;
+    }
+
+    public ReadOnlyEvent getEvent(){
+        return activity;
     }
 
     public Optional<Status> getStatus() {
@@ -68,9 +78,36 @@ public class Activity implements ReadOnlyEvent{
         return activity.getTags();
     }
 
+    public boolean isSameStateAs(Activity other){
+        if(type != other.type) return false;
+
+        switch(type){
+            case TASK:
+                return getTask().isSameStateAs(other.getTask());
+            case EVENT:
+            default:
+                return activity.isSameStateAs(other.activity);
+        }
+    }
+
     @Override
-    public boolean isSameStateAs(ReadOnlyEvent other) {
-        return other.isSameStateAs(activity);
+    public boolean equals(Object other){
+        return other == this // short circuit if same object
+                || (other instanceof Activity // instanceof handles nulls
+                && this.isSameStateAs((Activity) other));
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(
+                getTitle(),
+                getDeadline(),
+                getStatus(),
+                getFrequency(),
+                getSchedule(),
+                getTags()
+        );
     }
 
     @Override
