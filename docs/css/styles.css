@@ -80,7 +80,7 @@
 }
 
 .toc ul li {
-  margin-bottom: 0;
+  margin-bottom: .1rem;
 }
 
 .toc ul li li:before {
@@ -93,7 +93,7 @@
 
 
 .toc ul ul {
-  margin: 0 0 .5rem .5rem;
+  margin: .1rem 0 .5rem .25rem;
 }
 
 /*  */

@@ -204,8 +204,8 @@ For example, the command `add The Milk -d tomorrow 3pm -p` will produce
 - Command: `add`
 - Positional argument: `The Milk`
 - Named argument: 
-  - `d`: `tomorrow 3pm` 
-  - `p`: - (empty string)
+    - `d`: `tomorrow 3pm` 
+    - `p`: - (empty string)
   
 #### Dispatcher 
 
