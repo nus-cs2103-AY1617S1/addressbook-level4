@@ -1,5 +1,4 @@
 .codehilite .hll { background-color: #ffffcc }
-.codehilite  { background: #f8f8f8; }
 .codehilite .c { color: #408080; font-style: italic } /* Comment */
 .codehilite .err { border: 1px solid #FF0000 } /* Error */
 .codehilite .k { color: #008000; font-weight: bold } /* Keyword */
@@ -63,6 +62,12 @@
 .codehilite .vg { color: #19177C } /* Name.Variable.Global */
 .codehilite .vi { color: #19177C } /* Name.Variable.Instance */
 .codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+pre {
+  font-size: 80%;
+  background: #eee;
+  padding: .5rem 1rem;
+}
 
 /* Make the TOC tigher than normal lists */
 .toc ul {
