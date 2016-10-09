@@ -124,7 +124,7 @@ public class ToDoList implements ReadOnlyToDoList {
             UniqueTaskList.DuplicateTaskException {
         return tasks.rename(key, newTaskName);
     }
-  
+
     public boolean scheduleTask(ReadOnlyTask key, LocalDateTime startDateTime,
             LocalDateTime endDateTime) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.schedule(key, startDateTime, endDateTime)) {
@@ -141,7 +141,7 @@ public class ToDoList implements ReadOnlyToDoList {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
+
     public boolean unmarkTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.unmark(key)) {
             return true;

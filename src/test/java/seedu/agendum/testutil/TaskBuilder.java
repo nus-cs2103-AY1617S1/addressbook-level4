@@ -29,18 +29,18 @@ public class TaskBuilder {
 
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
-            task.getTags().add(new Tag(tag));
+            this.task.getTags().add(new Tag(tag));
         }
         return this;
     }
     
     public TaskBuilder withCompletedStatus() {
-        task.markAsCompleted();
+        this.task.markAsCompleted();
         return this;
     }
 
     public TaskBuilder withUncompletedStatus() {
-        task.markAsUncompleted();
+        this.task.markAsUncompleted();
         return this;
     }
 
