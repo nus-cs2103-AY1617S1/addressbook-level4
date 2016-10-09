@@ -211,7 +211,7 @@ public class LogicManagerTest {
     }
 
 
-    //@Test
+    @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
@@ -261,18 +261,18 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskMan(), expectedList);
     }
 
-    //@Test
+    @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
 
-    //@Test
+    @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
 
-    //@Test
+    @Test
     public void execute_select_jumpsToCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
@@ -285,22 +285,22 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getActivityList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredActivityList().get(1), threeTasks.get(1));
+        assertEquals(model.getFilteredActivityList().get(1), new Activity(threeTasks.get(1)));
     }
 
 
-    //@Test
+    @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
-    //@Test
+    @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete");
     }
 
-    //@Test
+    @Test
     public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
@@ -317,13 +317,13 @@ public class LogicManagerTest {
     }
 
 
-    //@Test
+    @Test
     public void execute_list_emptyArgsFormat() throws Exception {
         String expectedMessage = ListCommand.MESSAGE_SUCCESS;
         assertCommandBehavior("list ", expectedMessage);
     }
 
-    //@Test
+    @Test
     public void execute_list_onlyMatchesFullWordsInTitles() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithTitle("bla bla KEY bla");
@@ -343,7 +343,7 @@ public class LogicManagerTest {
                 expectedList);
     }
 
-    //@Test
+    @Test
     public void execute_list_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithTitle("bla bla KEY bla");
@@ -363,7 +363,7 @@ public class LogicManagerTest {
                 expectedList);
     }
 
-    //@Test
+    @Test
     public void execute_list_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithTitle("bla bla KEY bla");
@@ -393,7 +393,7 @@ public class LogicManagerTest {
             Title title = new Title("Adam Brown");
             Deadline privateDeadline = new Deadline("111111");
             Status status = new Status("y");
-            Frequency frequency = new Frequency("1d");
+            Frequency frequency = new Frequency("1");
             Schedule schedule = new Schedule("wed 10am, wed 11am");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -412,7 +412,7 @@ public class LogicManagerTest {
             return new Task(
                     new Title("Task " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))), new Deadline("" + Math.abs(seed)),
-                    new Frequency(seed + "d"),
+                    new Frequency(seed+""),
                     new Schedule("wed " + seed + "am, wed " + seed + "pm")
             );
         }
@@ -510,8 +510,9 @@ public class LogicManagerTest {
         Task generateTaskWithTitle(String title) throws Exception {
             return new Task(
                     new Title(title),
-                    new UniqueTagList(new Tag("t1"), new Tag("t2")), new Deadline("1"),
-                    new Frequency("7d"),
+                    new UniqueTagList(new Tag("t1"), new Tag("t2")),
+                    new Deadline("1"),
+                    new Frequency("7"),
                     new Schedule("")
             );
         }
