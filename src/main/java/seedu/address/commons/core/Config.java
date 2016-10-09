@@ -53,7 +53,7 @@ public class Config {
         this.appDataFilePath = activityManagerFilePath;
     }
 
-    public String getAddressBookName() {
+    public String getActivityManagerName() {
         return appName;
     }
 
@@ -72,7 +72,7 @@ public class Config {
         }
 
         Config o = (Config)other;
-
+        
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
