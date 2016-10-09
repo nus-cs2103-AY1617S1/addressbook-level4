@@ -54,7 +54,13 @@ Format: `help`
 Adds a task to GGist<br>
 General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
-<img src="images/2ndimpt.png" width="500"><br>
+> **'DATE' Format**
+> *<MMM DD> or <'DAY'>
+> *Eg. 'OCT 10' or 'MON'
+> 
+> **'TIME' Format**
+> *24-Hour <HHMM> 
+> *Eg. 2359
 
 ###### With deadline
 Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
@@ -137,8 +143,6 @@ Format: `undo`
 #### Editing a task : `edit`
 Edits task on the displayed list.<br>
 Format: `edit INDEX PARAMETER NEW_INFORMATION`
-
-<img src="images/2ndimpt.png" width="500"><br>
 
 Examples: 
 * `edit 1 date oct 11`
