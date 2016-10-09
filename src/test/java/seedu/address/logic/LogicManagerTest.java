@@ -211,7 +211,7 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void execute_list_showsDefaultUncompletedTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskList expectedAB = helper.generateAddressBook(2);
@@ -225,7 +225,146 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_list_showsCompletedTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.adam();
+        Task task2 = helper.john();
+        task2 = Task.convertToComplete(task2);
+        List<Task> list = helper.generatePersonList(task1, task2);
+        TaskList expectedAB = helper.generateAddressBook(list);
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
 
+        // prepare address book state
+        helper.addToModel(model, list);
+
+        assertCommandBehavior("list completed",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsByDeadline() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.adam();
+        Task task2 = helper.john();
+        task2 = Task.convertToComplete(task2);
+        List<Task> list = helper.generatePersonList(task1, task2);
+        TaskList expectedAB = helper.generateAddressBook(list);
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
+
+        // prepare address book state
+        helper.addToModel(model, list);
+
+        assertCommandBehavior("list by 1 jan 2015",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsFromStartTime() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.adam();
+        Task task2 = helper.john();
+        task2 = Task.convertToComplete(task2);
+        List<Task> list = helper.generatePersonList(task1, task2);
+        TaskList expectedAB = helper.generateAddressBook(list);
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
+
+        // prepare address book state
+        helper.addToModel(model, list);
+
+        assertCommandBehavior("list from 1 jan 2020",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsToEndTime() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.adam();
+        Task task2 = helper.john();
+        task2 = Task.convertToComplete(task2);
+        List<Task> list = helper.generatePersonList(task1, task2);
+        TaskList expectedAB = helper.generateAddressBook(list);
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
+
+        // prepare address book state
+        helper.addToModel(model, list);
+
+        assertCommandBehavior("list to 1 jan 1950",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsOneTag() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.adam();
+        Task task2 = helper.john();
+        task2 = Task.convertToComplete(task2);
+        List<Task> list = helper.generatePersonList(task1, task2);
+        TaskList expectedAB = helper.generateAddressBook(list);
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
+
+        // prepare address book state
+        helper.addToModel(model, list);
+
+        assertCommandBehavior("list tag tag1",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsMultipleTags() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.adam();
+        Task task2 = helper.john();
+        task2 = Task.convertToComplete(task2);
+        List<Task> list = helper.generatePersonList(task1, task2);
+        TaskList expectedAB = helper.generateAddressBook(list);
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1, task2);
+
+        // prepare address book state
+        helper.addToModel(model, list);
+
+        assertCommandBehavior("list tag tag1 tag2 tag3 tag4",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_MultipleFilters_showsCompletedFromStartTimeOneTag() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.adam();
+        Task task2 = helper.john();
+        task2 = Task.convertToComplete(task2);
+        List<Task> list = helper.generatePersonList(task1, task2);
+        TaskList expectedAB = helper.generateAddressBook(list);
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
+
+        // prepare address book state
+        helper.addToModel(model, list);
+
+        assertCommandBehavior("list completed from 1 jan 1998 tag tag3",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -503,6 +642,28 @@ public class LogicManagerTest {
 
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
+        }
+        
+        // This is a copy of Adam Brown with slightly different values
+        Task john() throws Exception {
+            Name name = new Name("John Doe");
+
+            // TODO update test case
+            Complete complete = new Complete(false);
+            Calendar c = Calendar.getInstance();
+            c.set(2000, 12, 27, 12, 0, 0);
+            Date d1 = c.getTime();
+            c.set(2000, 12, 30, 12, 0, 0);
+            Date d2 = c.getTime();
+            Deadline deadline = new Deadline(d1);
+            Period period = new Period(d1, d2);
+            Recurrence deadlineRecurrence = new Recurrence();
+            Recurrence periodRecurrence = new Recurrence();
+
+            Tag tag1 = new Tag("tag2");
+            Tag tag2 = new Tag("tag3");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
         }
