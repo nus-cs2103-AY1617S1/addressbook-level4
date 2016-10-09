@@ -8,6 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.todo.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -52,11 +53,11 @@ public class AddCommand extends Command {
         return new CommandResult(String.format(Messages.MESSAGE_TODO_ADDED, toDo.getTitle().toString()));
     }
 
-    public void setDueDate(Date dueDate) throws IllegalValueException {
+    public void setDueDate(LocalDateTime dueDate) throws IllegalValueException {
         this.dueDate = new DueDate(dueDate);
     }
 
-    public void setDateRange(Date startDate, Date endDate) throws IllegalValueException {
+    public void setDateRange(LocalDateTime startDate, LocalDateTime endDate) throws IllegalValueException {
         this.dateRange = new DateRange(startDate, endDate);
     }
 

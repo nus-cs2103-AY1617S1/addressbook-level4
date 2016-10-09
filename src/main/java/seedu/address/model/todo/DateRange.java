@@ -1,5 +1,6 @@
 package seedu.address.model.todo;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import seedu.address.commons.core.Messages;
@@ -8,17 +9,17 @@ import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Represents the Date Range of a to-do
- * Guarantees: immutable; is valid as declared in {@link #isValid(Date, Date)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(LocalDateTime, LocalDateTime)}
  */
 public class DateRange {
 
-    public final Date startDate, endDate;
+    public final LocalDateTime startDate, endDate;
 
     /**
      * Constructor for a date range
      * @throws IllegalValueException if given title is invalid
      */
-    public DateRange(Date startDate, Date endDate) throws IllegalValueException {
+    public DateRange(LocalDateTime startDate, LocalDateTime endDate) throws IllegalValueException {
         if (!isValid(startDate, endDate)) {
             throw new IllegalValueException(Messages.MESSAGE_TODO_DATERANGE_CONSTRAINTS);
         }
@@ -27,7 +28,7 @@ public class DateRange {
         this.endDate = endDate;
     }
     
-    public static boolean isValid(Date startDate, Date endDate) {
+    public static boolean isValid(LocalDateTime startDate, LocalDateTime endDate) {
         if (CollectionUtil.isAnyNull(startDate, endDate)) {
             return false;
         }

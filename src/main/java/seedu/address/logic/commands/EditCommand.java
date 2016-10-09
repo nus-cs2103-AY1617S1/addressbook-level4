@@ -11,7 +11,7 @@ import seedu.address.model.todo.DueDate;
 import seedu.address.model.todo.ReadOnlyToDo;
 import seedu.address.model.todo.Title;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,11 +38,11 @@ public class EditCommand extends Command {
         this.title = new Title(title);
     }
 
-    public void setDueDate(Date dueDate) throws IllegalValueException {
+    public void setDueDate(LocalDateTime dueDate) throws IllegalValueException {
         this.dueDate = new DueDate(dueDate);
     }
 
-    public void setDateRange(Date startDate, Date endDate) throws IllegalValueException {
+    public void setDateRange(LocalDateTime startDate, LocalDateTime endDate) throws IllegalValueException {
         this.dateRange = new DateRange(startDate, endDate);
     }
 
