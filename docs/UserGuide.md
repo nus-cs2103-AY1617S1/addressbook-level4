@@ -66,10 +66,9 @@ Format: `-PRIORITY`
 > To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add/edit command, where `PRIORITY` can be replaced by `low`, `medium` or `high`, e.g `-low`, `-medium`, `-high`.
 
 Examples:
-* `add ... -l`
-* `add ... -low`
-* `edit ... -med`
-* `edit ... -high`
+* `add Do something later -l`
+* `add Do something later -low`
+
 
 **_Specifying repeated tasks_**
 
@@ -84,7 +83,6 @@ Supported `RECURRING_INTERVAL`
 
 Examples: 
 * `add ... repeat every 2 days`
-* `edit ... repeat every week`
 
 
 **_Adding a task with deadline_**
@@ -151,19 +149,36 @@ Format: `edit INDEX [from/at START_DATE START_TIME][to/by END_DATE END_TIME][-PR
 > Notice that this is similar to the `add` command format! 
 
 Examples:
-* `edit 10 Company meeting tomorrow morning at 7am to 9am`
+* `edit 10 Company meeting tomorrow morning at 7am to 9am -high`
 * `edit 3 Buy coffee for boss by 7am repeat every 2 days`
-
 
 ### Deleting a task: `delete`
 Deletes an existing task in your task manager.<br>
 Format: `delete INDEX`
 > `INDEX` refers to the task number in the current displayed list.<br>
-> Check out the `undo` command below to reverse an accidental `delete`!
 
 Examples:
 * `delete 1`
 * `delete 2`
+
+### Clearing the task manager: `clear`
+Deletes all tasks in your task manager.<br>
+This process is reversible with the `undo` command.<br>
+Format: `clear`
+> `clear` allows you to `delete` all tasks with a single command!
+
+Example:
+* `clear`
+
+### Archiving a task: `done`
+Archives a task in your task manager.<br>
+Format: `done INDEX`
+> Marks a task as `done` as sends it to the archive for future viewing.
+> `INDEX` refers to the task number in the current displayed list.
+
+Examples:
+* `done 1`
+* `done 3`
 
 ### Undoing a command: `undo`
 Reverses the effects of the previous command, if the command is a reversible one.<br>
@@ -178,16 +193,6 @@ Format: `undo`
 Example:
 * `undo`
 
-### Clearing the task manager: `clear`
-Deletes all tasks in your task manager.<br>
-This process is reversible with the `undo` command.<br>
-Format: `clear`
-> `clear` allows you to `delete` all tasks with a single command!
-
-Example:
-* `clear`
-
-
 ### Redoing a command: `redo`
 Reverses a previous `undo` command, if possible.<br>
 Format: `redo`
@@ -197,16 +202,6 @@ Format: `redo`
 
 Example: 
 * `redo`
-
-### Archiving an task: `done`
-Archives a task in your task manager.<br>
-Format: `done INDEX`
-> Marks a task as `done` as sends it to the archive for future viewing.
-> `INDEX` refers to the task number in the current displayed list.
-
-Examples:
-* `done 1`
-* `done 2`
 
 ### Listing all tasks : `list`
 Shows a list of all tasks in the task manager.<br>
@@ -259,7 +254,7 @@ There is no need to save manually.
 Command | Format  
 -------- | :-------- 
 Add | `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
-Edit | `edit INDEX ...`
+Edit | `edit INDEX NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
 Confirm | `confirm INDEX SUB-INDEX`
 Delete | `delete INDEX`
 Undo | `undo`
