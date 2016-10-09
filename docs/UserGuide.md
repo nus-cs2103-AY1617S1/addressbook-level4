@@ -30,18 +30,18 @@ There are three variations to the add command. You are able to choose a task to 
 
 ####1.1 Add an event
 
->Format : **Add** [&lt;event description&gt;, &lt;date(DDMMYY)&gt;, &lt;start time&gt;, &lt;end time&gt;]
+>Format : **Add** [&lt;event description&gt;; &lt;date(DDMMYY)&gt;; &lt;start time&gt;; &lt;end time&gt;]
 
-Example: Add [Sam's birthday party, 20/12/16 , 9pm]
+Example: Add [Sam's birthday party; 20/12/16 ; 9pm]
 
 >Note: The start time and end time is optional when adding an event.
 Important: The square brackets are compulsory when adding an event.
 
 ####1.2 Add a deadline
 
->Format: **Add** &lt;deadline description&gt;, &lt;date(DDMMYY)&gt;, &lt;end time&gt;
+>Format: **Add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt;
 
-Example: Add complete report, 120916, 1900
+Example: Add complete report; 120916; 1900
 
 >Important: The date and end time are compulsory when adding an deadline
 
@@ -68,11 +68,11 @@ The multiple edit task functions allow you to update specific task details.
 
 ####2.1 Edit all task details in one go
 
->Format: **Edit** &lt;index&gt; [&lt;event description&gt;, &lt;date&gt;, &lt;start time&gt;, &lt;end time&gt;, &lt;tags&gt;, !] 
+>Format: **Edit** &lt;index&gt; [&lt;event description&gt;; &lt;date&gt;; &lt;start time&gt;; &lt;end time&gt;; &lt;tags&gt;; !] 
 
->Format: **Edit** &lt;index&gt; &lt;deadline description&gt;, &lt;date&gt;, &lt;end time&gt;, &lt;tags&gt; 
+>Format: **Edit** &lt;index&gt; &lt;deadline description&gt;; &lt;date&gt;; &lt;end time&gt;; &lt;tags&gt; 
  
->Format: **Edit** &lt;index&gt; &lt;to-do description&gt; !
+>Format: **Edit** &lt;index&gt; &lt;to-do description&gt;; !
 
 To add certain task details like start time, simply add their corresponding sections in the command format.
 
@@ -140,22 +140,22 @@ Example: Edit T1 pri !
 
 >Note: High priority tasks are color coded blue.
  
-###3 Search Task by Partial Keyword
+###3 Find Task by Partial Keyword
 
-The search by partial keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task have not been entered, an error message will be shown.
+The find by partial keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task is not found, an error message will be shown.
 
-> Format: **Search** &lt;keyword&gt;
+> Format: **Find** &lt;keyword&gt;
 
 
 Example: 
 
-Search **siloso**
+Find **siloso**
 
-Search 050316
+Find 050316
 
-Search 2359
+Find 2359
 
-Search #CS2103
+Find #CS2103
 
 
 Only the tasks with the keyword are displayed.
@@ -168,7 +168,7 @@ When you are done with tasks, enter this command to mark them as done and hide t
 
 > Format: Done &lt;index&gt;-&lt;index&gt;
 
-> Format: Done &lt;index&gt;, &lt;index&gt;
+> Format: Done &lt;index&gt;; &lt;index&gt;
     
     
 Example: 
@@ -177,10 +177,10 @@ Done T1
 
 Done T1-T3
 
-Done T1, T3
+Done T1; T3
 
 
->Note: if you want to select more than one task to complete, you can separated the task by a - to complete all tasks that are within the range. In addition, you also separate the task by a , to individually delete them.
+>Note: if you want to select more than one task to complete, you can separated the task by a - to complete all tasks that are within the range. In addition, you also need to separate the task by a ; to individually delete them.
 
 ###5 Display tasks
 
@@ -241,7 +241,7 @@ The delete command enables you to delete the tasks that you no longer need.
 
 > Format: Delete &lt;index&gt;-&lt;index&gt;
 
-> Format: Delete &lt;index&gt;, &lt;index&gt; 
+> Format: Delete &lt;index&gt;; &lt;index&gt; 
 
 
 Example: 
@@ -250,7 +250,7 @@ Delete T3
 
 Delete T1-T3
 
-Delete T1, T3
+Delete T1; T3
 
 
 >Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a -, Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a , Simply will delete the tasks entered individually. 
