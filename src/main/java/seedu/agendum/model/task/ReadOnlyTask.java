@@ -29,8 +29,10 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName())) // state checks here onwards
                 && (other.isCompleted() == this.isCompleted())
-                && other.getStartDateTime().equals(this.getStartDateTime())
-                && other.getEndDateTime().equals(this.getEndDateTime());
+                && (other.getStartDateTime() == this.getStartDateTime() 
+                || other.getStartDateTime().equals(this.getStartDateTime()))
+                && (other.getEndDateTime() == this.getEndDateTime() 
+                || other.getEndDateTime().equals(this.getEndDateTime()));
     }
 
     /**
