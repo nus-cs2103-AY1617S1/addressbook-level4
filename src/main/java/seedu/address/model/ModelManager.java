@@ -11,6 +11,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -23,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
+    private PredicateExpression taskListFilter;
 
     /**
      * Initializes a ModelManager with the given TaskList
@@ -37,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
+        taskListFilter = new PredicateExpression(new AllQualifier());
     }
 
     public ModelManager() {
@@ -100,6 +103,41 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    @Override
+    public void resetTaskListFilter() {
+        taskListFilter = new PredicateExpression(new AllQualifier());
+    }
+    
+    @Override
+    public void addTaskListFilterByType(String type) {
+        taskListFilter.and(new PredicateExpression(new TypeQualifier(type)));
+    }
+    
+    @Override
+    public void addTaskListFilterByDeadline(Date deadline) {
+        taskListFilter.and(new PredicateExpression(new DeadlineQualifier(deadline)));
+    }
+    
+    @Override
+    public void addTaskListFilterByStartTime(Date startTime) {
+        taskListFilter.and(new PredicateExpression(new StartTimeQualifier(startTime)));
+    }
+    
+    @Override
+    public void addTaskListFilterByEndTime(Date endTime) {
+        taskListFilter.and(new PredicateExpression(new EndTimeQualifier(endTime)));
+    }
+    
+    @Override
+    public void addTaskListFilterByTags(Set<String> tags) {
+        taskListFilter.and(new PredicateExpression(new TagQualifier(tags)));
+    }
+    
+    @Override
+    public void updateFilteredTaskListByFilter() {
+        filteredTasks.setPredicate(taskListFilter::satisfies);
+    }
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
@@ -115,14 +153,39 @@ public class ModelManager extends ComponentManager implements Model {
     private class PredicateExpression implements Expression {
 
         private final Qualifier qualifier;
+        private PredicateExpression and;
 
         PredicateExpression(Qualifier qualifier) {
             this.qualifier = qualifier;
+            this.and = null;
+        }
+        
+        /**
+         * Chains the predicate using logical AND of this predicate and another.
+         * @param and The other predicate
+         */
+        public void and(PredicateExpression other) {
+            PredicateExpression tail = this;
+            while (tail.and != null) {
+                tail = tail.and;
+            }
+            tail.and = other;
         }
 
         @Override
+        /**
+         * Runs all the chained predicates using logical AND.
+         * @param task Task to check
+         * @return true if all predicates are satisfied
+         */
         public boolean satisfies(ReadOnlyTask task) {
-            return qualifier.run(task);
+            PredicateExpression it = this;
+            while (it != null) {
+                if (it.qualifier.run(task) == false)
+                    return false;
+                it = it.and;
+            }
+            return true;
         }
 
         @Override
@@ -134,6 +197,20 @@ public class ModelManager extends ComponentManager implements Model {
     interface Qualifier {
         boolean run(ReadOnlyTask task);
         String toString();
+    }
+    
+    private class AllQualifier implements Qualifier {
+        AllQualifier() {}
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return true;
+        }
+
+        @Override
+        public String toString() {
+            return "all qualifier";
+        }
     }
 
     private class NameQualifier implements Qualifier {
@@ -154,6 +231,119 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class TypeQualifier implements Qualifier {
+        private String type;
+
+        TypeQualifier(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            String[] typeWords = type.split(" ");
+            String taskType = task.getAsType();
+            
+            for (String typeWord : typeWords) {
+                if (!StringUtil.containsIgnoreCase(taskType, typeWord))
+                    return false;
+            }
+            return true;
+        }
+
+        @Override
+        public String toString() {
+            return "type=" + type;
+        }
+    }
+    
+    private class DeadlineQualifier implements Qualifier {
+        private Date deadline;
+
+        DeadlineQualifier(Date deadline) {
+            this.deadline = deadline;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if (task.getDeadline().hasDeadline == false) {
+                return false;
+            }
+            return deadline.after(task.getDeadline().deadline);
+        }
+
+        @Override
+        public String toString() {
+            return "deadline=" + deadline;
+        }
+    }
+    
+    private class StartTimeQualifier implements Qualifier {
+        private Date startTime;
+
+        StartTimeQualifier(Date startTime) {
+            this.startTime = startTime;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if (task.getPeriod().hasPeriod) {
+                return startTime.before(task.getPeriod().endTime);
+            }
+            return true;
+        }
+
+        @Override
+        public String toString() {
+            return "startTime=" + startTime;
+        }
+    }
+    
+    private class EndTimeQualifier implements Qualifier {
+        private Date endTime;
+
+        EndTimeQualifier(Date endTime) {
+            this.endTime = endTime;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if (task.getPeriod().hasPeriod) {
+                return endTime.after(task.getPeriod().startTime);
+            }
+            return true;
+        }
+
+        @Override
+        public String toString() {
+            return "endTime=" + endTime;
+        }
+    }
+    
+    private class TagQualifier implements Qualifier {
+        private Set<String> tagNames;
+
+        TagQualifier(Set<String> tagNames) {
+            this.tagNames = tagNames;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            String taskTagsString = task.tagsString();
+            taskTagsString = taskTagsString.replace("[", "");
+            taskTagsString = taskTagsString.replace("]", "");
+            String source = taskTagsString.replace(",", "");
+            return tagNames.stream()
+                    .filter(tagName -> StringUtil.containsIgnoreCase(source, tagName))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "tags=" + String.join(", ", tagNames);
         }
     }
 }
