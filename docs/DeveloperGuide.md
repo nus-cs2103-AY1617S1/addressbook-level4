@@ -56,112 +56,119 @@
 
 ## Design
 
+
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
->**_Figure 1_**: Architecture Diagram - refers to the high-level design of the application
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
+>**_Figure 1_**: Architecture Diagram - explains the high-level design of the application
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/ggist/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+###An overview of each component.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
+**`Main`** has only one class called [`MainApp`](../src/main/java/seedu/ggist/MainApp.java). It is responsible for,
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+[**`Commons`**](#common-classes) represents a collection of classes used by other components.
+Two of these classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : This class is used by other classes to write log messages to the application's log file.
 
-The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+The remaining four components of the application are:
+* [**`UI`**](#ui-component) : The UI of the application.
 * [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+* [**`Model`**](#model-component) : Holds the data of the application in-memory.
+* [**`Storage`**](#storage-component) : Reads data from, and writes data to the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its _API_ in an `interface` with the same name.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+For example, the `Logic` component  defines its API in the `Logic.java`
+interface, and it exposes its functionality using the `LogicManager.java` class (refer to Figure 2).<br>
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+###An overview of interactions between components
+
+The following diagram shows how components interact with each other when the user issues the
+command `delete 3` (refer to Figure 2).
 
 <img src="images\SDforDeleteTask.png" width="800">
+>**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command `delete 3`
 
->Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskMangerChangedEvent` when the GGist data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+The following diagram shows how the `EventsCenter` reacts to the event (`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time (refer to Figure 3).<br>
+
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
+>**_Figure 3_**: EventsCentre Diagram - shows how EventsCentre reacts to the event (`delete 3`)
 
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
-  coupling between components.
+> Note how the event passes through the `EventsCenter` to the `Storage` and `UI`. This process is done without `Model` being coupled to other components. Thus, this Event Driven approach helps us to reduce direct coupling between components.
 
-The sections below give more details of each component.
+###Additional details of each component.
 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
+>**_Figure 4_**: UI Diagram
 
 **API** : [`Ui.java`](../src/main/java/seedu/ggist/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/ggist/ui/MainWindow.java) is specified in
- [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+The `UI` consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`,`PersonListPanel`,
+`StatusBarFooter` and `BrowserPanel`.These UI parts inherit from the abstract `UiPart` class ,and they can be loaded using the `UiPartLoader`.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files which are in the `src/main/resources/view` folder.<br>
+
+For example, the layout of the [`MainWindow`](../src/main/java/seedu/ggist/ui/MainWindow.java) is specified in [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 * Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` changes.
+* Responds to events raised from various parts of the application and updates the UI accordingly.
 
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
+>**_Figure 5_**: Logic Diagram
 
 **API** : [`Logic.java`](../src/main/java/seedu/ggist/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+1. The `Logic` component uses the `Parser` class to parse the user command.
+2. This results in a `Command` object being executed by the `LogicManager`.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
+The following diagram displays the interactions within the `Logic` component for the `execute("delete 1")` API call(refer to Figure 6).<br>
+ 
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
+>**_Figure 6_**: Sequence Diagram - shows interactions within the `Logic` component for the `execute("delete 1")` API call
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
+>**_Figure 7_**: Model Diagram
 
 **API** : [`Model.java`](../src/main/java/seedu/ggist/model/Model.java)
 
-The `Model`,
+The `Model` component,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
+<<<<<<< HEAD
+* stores the GGist data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI binds to this list
+  so that the UI updates automatically when the data in the list changes.
 * does not depend on any of the other three components.
 
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
+>**_Figure 8_**: Storage Diagram
 
 **API** : [`Storage.java`](../src/main/java/seedu/ggist/storage/Storage.java)
 
 The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the GGist data in xml format and read it back.
+*saves `UserPref` objects in json format and reads it back.
+*saves the GGist data in xml format and reads it back.
 
 ### Common classes
 
@@ -171,26 +178,26 @@ Classes used by multiple components are in the `seedu.ggist.commons` package.
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+`java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
+  (See [Configuration](#configuration)).
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+  the specified logging level.
+* Current log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
+* `INFO` : Information showing the noteworthy actions by the application
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g application name, logging level) through the configuration file 
 (default: `config.json`):
 
 
@@ -200,19 +207,18 @@ Tests can be found in the `./src/test/java` folder.
 
 **In Eclipse**:
 * To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
-  to run as a JUnit test.
+  `Run as` > `JUnit Test`.
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.
 
 **Using Gradle**:
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
-We have two types of tests:
+There are two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire application by simulating user actions on the GUI. 
    These are in the `guitests` package.
   
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
+2. **Non-GUI Tests** - These are tests not involving the GUI. They include: 
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.ggist.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
@@ -226,7 +232,7 @@ We have two types of tests:
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ This means that the developer can do other things on the computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
  
 #### Troubleshooting tests
@@ -259,7 +265,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, GGist depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
