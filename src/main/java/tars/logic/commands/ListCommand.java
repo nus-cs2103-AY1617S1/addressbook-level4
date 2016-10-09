@@ -1,25 +1,37 @@
 package tars.logic.commands;
 
+import java.util.HashSet;
 import java.util.Set;
+
+import tars.commons.exceptions.IllegalValueException;
 
 /**
  * Lists all tasks in tars to the user.
  */
 public class ListCommand extends Command {
 
-	public static final String COMMAND_WORD = "list";
-	
-	public static final String COMMAND_WORD_ADVANCE = "ls";
+	public static final String COMMAND_WORD = "ls";
 
-	public static final String MESSAGE_SUCCESS = "Listed all tasks";
+	public static final String MESSAGE_SUCCESS = "Listed all undone tasks";
+	public static final String MESSAGE_SUCCESS_ALL = "Listed all tasks";
+	public static final String MESSAGE_SUCCESS_DONE = "Listed all done tasks";
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD
 			+ ": Lists all task with the specified keywords and displays them as a list with index numbers.\n"
-			+ "Parameters: [KEYWORD] " + "Example: " + COMMAND_WORD + "/" + COMMAND_WORD_ADVANCE + " undone";
+			+ "Parameters: [KEYWORD] " + "Example: " + COMMAND_WORD + " done";
+	
+	private static final String LIST_ARG_DONE = "-d";
+	private static final String LIST_ARG_ALL = "-all";
+	private static final String LIST_KEYWORD_DONE = "done";
+	private static final String LIST_KEYWORD_UNDONE = "undone";
+
 
 	private Set<String> keyword;
 
-	public ListCommand() {};
+	public ListCommand() {
+		keyword = new HashSet<String>();
+		keyword.add(LIST_KEYWORD_UNDONE);
+	}
 
 	public ListCommand(Set<String> arguments) {
 		this.keyword = arguments;
@@ -27,14 +39,19 @@ public class ListCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-		if (keyword != null && !keyword.isEmpty()) {
-			if (keyword.contains("undone") || keyword.contains("done")) {
-				model.updateFilteredTaskList(keyword);
-				return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-			}
+		
+		if (keyword.contains(LIST_ARG_DONE)) {
+			keyword.add(LIST_KEYWORD_DONE);
+			model.updateFilteredTaskList(keyword);
+			return new CommandResult(MESSAGE_SUCCESS_DONE);
+		}
+		
+		if(keyword.contains(LIST_ARG_ALL)) {
+			model.updateFilteredListToShowAll();
+			return new CommandResult(MESSAGE_SUCCESS_ALL);
 		}
 
-		model.updateFilteredListToShowAll();
+		model.updateFilteredTaskList(keyword);
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 }

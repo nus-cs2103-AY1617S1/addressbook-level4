@@ -23,6 +23,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Tars tars;
     private final FilteredList<Task> filteredTasks;
+    
+    private static final String LIST_KEYWORD_DONE = "done";
+	private static final String LIST_KEYWORD_UNDONE = "undone";
+
 
     /**
      * Initializes a ModelManager with the given Tars
@@ -91,7 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-    	if(keywords.contains("done") || keywords.contains("undone")) {
+    	if(keywords.contains(LIST_KEYWORD_DONE) || keywords.contains(LIST_KEYWORD_UNDONE)) {
     		updateFilteredTaskList(new PredicateExpression(new ListQualifier(keywords)));
     	} else {
     	    updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
