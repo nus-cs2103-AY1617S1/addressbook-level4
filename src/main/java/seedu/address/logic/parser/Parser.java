@@ -208,10 +208,16 @@ public class Parser {
      */
     private Command prepareUpdate(String args) {
         final KeywordParser parser = new KeywordParser(UpdateCommand.VALID_KEYWORDS);
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
+        HashMap<String, String> parsed = parser
+                .parseKeywordsWithoutFixedOrder(UpdateCommand.COMMAND_WORD + args);
 
-        int targetIndex = 1; // TODO to be fixed
-        String name = parsed.get(UpdateCommand.COMMAND_WORD);
+        Optional<Integer> targetIndex = parseIndex(parsed.get(UpdateCommand.COMMAND_WORD));
+        if (!targetIndex.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+        
+        String name = parsed.get(UpdateCommand.KEYWORD_NAME);
         String by = parsed.get(UpdateCommand.KEYWORD_DEADLINE);
         String startTime = parsed.get(UpdateCommand.KEYWORD_PERIOD_START_TIME);
         String endTime = parsed.get(UpdateCommand.KEYWORD_PERIOD_END_TIME);
@@ -245,7 +251,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
 
-        return new UpdateCommand(targetIndex, name, by, startTime, endTime, deadlineRecurrence,
+        return new UpdateCommand(targetIndex.get(), name, by, startTime, endTime, deadlineRecurrence,
                 periodRecurrence, tagsToAdd, removeDeadline, removePeriod, removeDeadlineRecurrence,
                 removePeriodRecurrence, tagsToRemove);
     }

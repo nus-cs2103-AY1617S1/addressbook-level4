@@ -36,6 +36,7 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s";
     public static final String PREFIX_REMOVE = "remove";
     
+    public static final String KEYWORD_NAME = "name";
     public static final String KEYWORD_DEADLINE = "by";
     public static final String KEYWORD_PERIOD_START_TIME = "from";
     public static final String KEYWORD_PERIOD_END_TIME = "to";
@@ -50,15 +51,16 @@ public class UpdateCommand extends Command {
             + KEYWORD_DEADLINE_RECURRENCE;
     public static final String KEYWORD_REMOVE_PERIOD_RECURRENCE = PREFIX_REMOVE + KEYWORD_PERIOD_RECURRENCE;
     public static final String KEYWORD_REMOVE_TAG = PREFIX_REMOVE + KEYWORD_TAG;
-    
-    public static final String[] VALID_KEYWORDS = { COMMAND_WORD,
-            KEYWORD_DEADLINE, KEYWORD_PERIOD_START_TIME, KEYWORD_PERIOD_END_TIME, KEYWORD_DEADLINE_RECURRENCE,
-            KEYWORD_PERIOD_RECURRENCE, KEYWORD_TAG, KEYWORD_REMOVE_DEADLINE, KEYWORD_REMOVE_START_TIME,
-            KEYWORD_REMOVE_END_TIME, KEYWORD_REMOVE_DEADLINE_RECURRENCE, KEYWORD_REMOVE_PERIOD_RECURRENCE,
-            KEYWORD_REMOVE_TAG };
 
-    private static final String MESSAGE_PERIOD_NEED_BOTH_START_AND_END_TIME = "Period needs to have both start and end time.";
-    
+    public static final String[] VALID_KEYWORDS = { COMMAND_WORD, KEYWORD_NAME, KEYWORD_DEADLINE,
+            KEYWORD_PERIOD_START_TIME, KEYWORD_PERIOD_END_TIME, KEYWORD_DEADLINE_RECURRENCE,
+            KEYWORD_PERIOD_RECURRENCE, KEYWORD_TAG, KEYWORD_REMOVE_DEADLINE,
+            KEYWORD_REMOVE_START_TIME, KEYWORD_REMOVE_END_TIME, KEYWORD_REMOVE_DEADLINE_RECURRENCE,
+            KEYWORD_REMOVE_PERIOD_RECURRENCE, KEYWORD_REMOVE_TAG };
+
+    private static final String MESSAGE_PERIOD_NEED_BOTH_START_AND_END_TIME = 
+            "Period needs to have both start and end time.";
+
     public final int targetIndex;
     
     public final String updatedName;
