@@ -416,7 +416,7 @@ Strengths:
 * Interface is clean and simple. Easy to understand. Good for personal use.
 * Quick access to check on everyday's task.
 * Quick add of task is particularly helpful for lazy users.
-* Freedom of adding more category of task besides the default.(E.g. Personal, Shopping, Work)
+* Freedom of adding more category of task besides the default. (E.g. Personal, Shopping, Work)
 * Allows user to have an immediate view of the task lying ahead on current day or week.
 * Additional feature of showing productivity of user is useful to motivate user to be on the ball.
 * Priority can be set for every task to help decision making in performing task.
@@ -436,7 +436,7 @@ Strengths:
 * Set priority for tasks.
 * Star To-dos: Moves starred tasks to the top of the list automatically.
 * Quick add notification.
-* Different personalizable folders(Family, Private, School, Work, etc).
+* Different personalizable folders. (Family, Private, School, Work, etc)
 * Connects to Facebook and Google account.
 * Duplication of the list.
 * Completed to-do list hidden unless selected.<br>
