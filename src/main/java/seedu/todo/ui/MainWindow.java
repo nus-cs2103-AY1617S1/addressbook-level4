@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
+import seedu.todo.ui.components.Console;
 import seedu.todo.ui.components.ConsoleInput;
 import seedu.todo.ui.views.View;
 
@@ -65,6 +66,7 @@ public class MainWindow extends View {
     
     private void loadComponents() {
     	new ConsoleInput().render(primaryStage, getConsoleInputPlaceholder());
+    	new Console().render(primaryStage, getConsolePlaceholder());
     }
 
 	@Override
