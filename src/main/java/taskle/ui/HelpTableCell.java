@@ -1,7 +1,5 @@
 package taskle.ui;
 
-import org.junit.Assert;
-
 import javafx.scene.control.TableCell;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -54,7 +52,7 @@ public class HelpTableCell extends TableCell<CommandGuide, String> {
             switch (i) {
             case 1:
                 Text argText = new Text(SPACE + strings[i]);
-                argText.setFill(Color.DODGERBLUE);
+                argText.setFill(Color.DARKORANGE);
                 argText.setWrappingWidth(Double.MAX_VALUE);
                 flow.getChildren().add(argText);
                 break;
