@@ -3,5 +3,5 @@
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
   "emeraldoFilePath" : "addressbook.xml",
-  "addressBookName" : "TypicalAddressBookName"
+  "emeraldoName" : "TypicalTaskManagerName"
 }

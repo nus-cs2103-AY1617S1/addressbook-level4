@@ -15,7 +15,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String emeraldoFilePath = "data/addressbook.xml";
-    private String addressBookName = "MyAddressBook";
+    private String emeraldoName = "MyTaskManager";
 
 
     public Config() {
@@ -49,16 +49,16 @@ public class Config {
         return emeraldoFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
+    public void setEmeraldoFilePath(String addressBookFilePath) {
         this.emeraldoFilePath = addressBookFilePath;
     }
 
-    public String getAddressBookName() {
-        return addressBookName;
+    public String getEmeraldoName() {
+        return emeraldoName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.addressBookName = addressBookName;
+    public void setEmeraldoName(String addressBookName) {
+        this.emeraldoName = addressBookName;
     }
 
 
@@ -77,12 +77,12 @@ public class Config {
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(emeraldoFilePath, o.emeraldoFilePath)
-                && Objects.equals(addressBookName, o.addressBookName);
+                && Objects.equals(emeraldoName, o.emeraldoName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, emeraldoFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, emeraldoFilePath, emeraldoName);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + emeraldoFilePath);
-        sb.append("\nAddressBook name : " + addressBookName);
+        sb.append("\nEmeraldo name : " + emeraldoName);
         return sb.toString();
     }
 
