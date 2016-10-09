@@ -152,6 +152,8 @@ public class LogicManagerTest {
     }
 
 
+    // TODO: Re-implement invalid argument checking when more arguments can be potentially out of place
+    /*
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
@@ -164,6 +166,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
+    */
 
 //    @Test
 //    public void execute_add_invalidPersonData() throws Exception {
@@ -188,7 +191,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
                 expectedAM,
                 expectedAM.getActivityList());
 
@@ -221,7 +224,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         ActivityManager expectedAM = helper.generateActivityManager(2);
         List<? extends ReadOnlyActivity> expectedList = (List<? extends ReadOnlyActivity>)expectedAM.getActivityList().getInternalList();
-        // prepare address book state
+        // prepare activity manager state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
