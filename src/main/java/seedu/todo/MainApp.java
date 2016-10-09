@@ -54,7 +54,11 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
     	ui.start(primaryStage);
     	IndexView index = new IndexView();
-    	index.indexTextValue = "HI THERE";
+    	index.setHookModifyView(view -> {
+    		IndexView modifyView = (IndexView) view;
+    		modifyView.indexTextValue = "Dynamic text passed to IndexView";
+    		return modifyView;
+    	});
     	ui.loadView(index);
     }
 

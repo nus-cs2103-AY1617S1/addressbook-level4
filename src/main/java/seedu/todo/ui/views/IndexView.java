@@ -29,7 +29,6 @@ public class IndexView extends View {
 	
 	@Override
 	public void componentDidMount() {
-		System.out.println(indexTextValue);
 		indexText.setText(indexTextValue);
 	}
 	

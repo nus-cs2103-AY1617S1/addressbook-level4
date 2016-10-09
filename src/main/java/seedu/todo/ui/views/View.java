@@ -17,6 +17,12 @@ public abstract class View extends UiPart {
 	
     protected AnchorPane placeHolderPane;
     protected VBox mainNode;
+    
+    private Function<View, View> modifyViewHook;
+    
+    public void setHookModifyView(Function<View, View> modifyViewHook) {
+    	this.modifyViewHook = modifyViewHook;
+    }
 	
     /**
      * This method renders the View as specified in the FXML file, in the placeholder pane.
@@ -26,22 +32,17 @@ public abstract class View extends UiPart {
      * @param primaryStage   The primary stage that contains the main application window.
      * @param placeholder    The placeholder pane where this View should reside.
      */
-	public View render(Stage primaryStage, AnchorPane placeholder, Function<View, View> modifyControllerHook) {
+	public View render(Stage primaryStage, AnchorPane placeholder) {
 		// Load FXML.
-		return UiPartLoader.loadUiPart(primaryStage, placeholder, this, modifyControllerHook);
+		if (modifyViewHook != null)
+			return UiPartLoader.loadUiPart(primaryStage, placeholder, this, modifyViewHook);
+		else
+			return UiPartLoader.loadUiPart(primaryStage, placeholder, this);
 	}
 	
 	// Overloaded methods for render.
-	public View render(Stage primaryStage, Function<View, View> modifyControllerHook) {
-		return render(primaryStage, null, modifyControllerHook);
-	}
-	
-	public View render(Stage primaryStage, AnchorPane placeholder) {
-		return render(primaryStage, placeholder, (controller) -> controller);
-	}
-	
 	public View render(Stage primaryStage) {
-		return render(primaryStage, null, (controller) -> controller);
+		return render(primaryStage, null);
 	}
 	
 	// Lifecycle hooks
