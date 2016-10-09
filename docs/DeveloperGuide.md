@@ -149,6 +149,9 @@ subcomponents, each of which also defines their own API using interfaces or abst
 - `Dispatcher` - maps parser results to commands 
 - `Command` - validates arguments and execute command
 
+When the logic component is instantated each of these subcomponents is injected via dependency injection.
+This allows them to be tested more easily. 
+
 The flow of a command being executed is -
 
 1. `Logic` parse the user input into a `ParseResult` object
@@ -168,11 +171,19 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 **API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
-The model component represents the application's data layer. It is injected into command objects through 
-the logic component, and exposes a CRUD interface to logic that allows commands to modify the application's 
-data. To ensure safety it exposes as much of it as immutable objects as possible through interfaces 
-such as `ImmutableTask`. The model also persists any changes of the 
+The model component represents the application's data layer. It consists of two subcomponents - 
 
+- `TodoModel` - representing the application's internal memory state  
+- `Storage` - representing the application's data on disk  
+
+The model interface is injected into command objects by the logic component, and exposes a 
+CRUD interface that allows commands to modify the application's data. To avoid tight coupling with 
+the command classes, the model exposes only a small set of generic functions. The UI component 
+binds to the  the model through the `getObservableList` function which returns an `UnmodifiableObseravbleList`
+object that the UI can bind to.
+
+The model ensure safety by exposing as much of its internal state as possible as immutable objects 
+using interfaces such as `ImmutableTask`.
 
 <img src="images/StorageClassDiagram.png" width="800">
 
@@ -214,12 +225,14 @@ named:
   d: "tomorrow 3pm"
   p: "" # Empty String
 ```
+
+This is then passed on to the dispatcher. 
   
 #### Dispatcher 
 
 The `TodoDispatcher` subcomponent implements the `Dispatcher` interface, which defines a single 
-`dispatch` command. The dispatch function simply maps the provided `ParseResult` object to the 
-correct command, instantiates a new instance of it then returns it to the caller. 
+`dispatch` function. The dispatch function simply maps the provided `ParseResult` object to the 
+correct command class, instantiates a new instance of it then returns it to the caller. 
 
 #### Command
 
@@ -265,7 +278,33 @@ command object can use, as well as contain information about the argument that t
 user.
 
 The generic type `T` represents the return type of the command argument. To implement a new argument 
-type, extend the abstract base class `Argument`. 
+type, extend the abstract base class `Argument`, then implement the `setValue` function. Remember to 
+call the super class's `setValue` function so that the `required` argument check works. 
+
+```java
+package seedu.todo.logic.arguments;
+
+import seedu.todo.commons.exceptions.IllegalValueException;
+
+public class MyArgument extends Argument<T> {
+    // TODO: Replace the generic type T here and below with a concrete type  
+
+    public FlagArgument(String name) {
+        super(name);
+        this.value = false;
+    }
+
+    public FlagArgument(String name, T defaultValue) {
+        super(name, defaultValue);
+    }
+
+    @Override
+    public void setValue(String input) throws IllegalValueException {
+        // TODO: Implement the argument parsing logic. Do not remove the super call below
+        super.setValue(input);
+    }
+}
+```
 
 ### Logging
 
@@ -375,7 +414,6 @@ Here are the steps to create a new release.
 ### Managing Dependencies
 
 Our project depends on third-party libraries. We use Gradle to automate our dependency management. 
-To add a new dependency to the project, 
 
 
 ## Documentation 

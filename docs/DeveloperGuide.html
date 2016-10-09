@@ -217,6 +217,8 @@ subcomponents, each of which also defines their own API using interfaces or abst
 <li><code>Dispatcher</code> - maps parser results to commands </li>
 <li><code>Command</code> - validates arguments and execute command</li>
 </ul>
+<p>When the logic component is instantated each of these subcomponents is injected via dependency injection.
+This allows them to be tested more easily. </p>
 <p>The flow of a command being executed is -</p>
 <ol>
 <li><code>Logic</code> parse the user input into a <code>ParseResult</code> object</li>
@@ -231,10 +233,18 @@ the command the user called</li>
 <h3 id="model-component">Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3>
 <p><img src="images/ModelClassDiagram.png" width="800"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/model/Model.java"><code>Model.java</code></a></p>
-<p>The model component represents the application's data layer. It is injected into command objects through 
-the logic component, and exposes a CRUD interface to logic that allows commands to modify the application's 
-data. To ensure safety it exposes as much of it as immutable objects as possible through interfaces 
-such as <code>ImmutableTask</code>. The model also persists any changes of the </p>
+<p>The model component represents the application's data layer. It consists of two subcomponents - </p>
+<ul>
+<li><code>TodoModel</code> - representing the application's internal memory state  </li>
+<li><code>Storage</code> - representing the application's data on disk  </li>
+</ul>
+<p>The model interface is injected into command objects by the logic component, and exposes a 
+CRUD interface that allows commands to modify the application's data. To avoid tight coupling with 
+the command classes, the model exposes only a small set of generic functions. The UI component 
+binds to the  the model through the <code>getObservableList</code> function which returns an <code>UnmodifiableObseravbleList</code>
+object that the UI can bind to.</p>
+<p>The model ensure safety by exposing as much of its internal state as possible as immutable objects 
+using interfaces such as <code>ImmutableTask</code>.</p>
 <p><img src="images/StorageClassDiagram.png" width="800"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/storage/Storage.java"><code>Storage.java</code></a></p>
 <p>The <code>Storage</code> component,</p>
@@ -266,10 +276,11 @@ implementing class for <code>TodoParser</code> can be found as an inner class in
 </pre></div>
 
 
+<p>This is then passed on to the dispatcher. </p>
 <h4 id="dispatcher">Dispatcher<a class="headerlink" href="#dispatcher" title="Permanent link">#</a></h4>
 <p>The <code>TodoDispatcher</code> subcomponent implements the <code>Dispatcher</code> interface, which defines a single 
-<code>dispatch</code> command. The dispatch function simply maps the provided <code>ParseResult</code> object to the 
-correct command, instantiates a new instance of it then returns it to the caller. </p>
+<code>dispatch</code> function. The dispatch function simply maps the provided <code>ParseResult</code> object to the 
+correct command class, instantiates a new instance of it then returns it to the caller. </p>
 <h4 id="command">Command<a class="headerlink" href="#command" title="Permanent link">#</a></h4>
 <p>All commands implement the <code>BaseCommand</code> abstract class, which provides argument binding and validation.
 To implement a new command, you can use the following template </p>
@@ -309,7 +320,33 @@ The argument object's main job is to convert the user input from string into the
 command object can use, as well as contain information about the argument that the program can show to the 
 user.</p>
 <p>The generic type <code>T</code> represents the return type of the command argument. To implement a new argument 
-type, extend the abstract base class <code>Argument</code>. </p>
+type, extend the abstract base class <code>Argument</code>, then implement the <code>setValue</code> function. Remember to 
+call the super class's <code>setValue</code> function so that the <code>required</code> argument check works. </p>
+<div class="codehilite"><pre><span></span><span class="kn">package</span> <span class="nn">seedu.todo.logic.arguments</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">seedu.todo.commons.exceptions.IllegalValueException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyArgument</span> <span class="kd">extends</span> <span class="n">Argument</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="c1">// TODO: Replace the generic type T here and below with a concrete type  </span>
+
+    <span class="kd">public</span> <span class="nf">FlagArgument</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">FlagArgument</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">T</span> <span class="n">defaultValue</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">defaultValue</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IllegalValueException</span> <span class="o">{</span>
+        <span class="c1">// TODO: Implement the argument parsing logic. Do not remove the super call below</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
 <h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3>
 <p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels
 and logging destinations.</p>
@@ -419,8 +456,7 @@ See <a href="UsingTravis.md">UsingTravis.md</a> for more details.</p>
     and upload the JAR file your created.</li>
 </ol>
 <h3 id="managing-dependencies">Managing Dependencies<a class="headerlink" href="#managing-dependencies" title="Permanent link">#</a></h3>
-<p>Our project depends on third-party libraries. We use Gradle to automate our dependency management. 
-To add a new dependency to the project, </p>
+<p>Our project depends on third-party libraries. We use Gradle to automate our dependency management. </p>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">#</a></h2>
 <p>Our documentation and user guides are written in <a href="https://guides.github.com/features/mastering-markdown/">GitHub Flavor Markdown</a> with a number of 
 extensions including tables, definition lists and warning blocks that help enable richer styling options
