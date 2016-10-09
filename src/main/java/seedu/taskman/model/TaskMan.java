@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
  */
 public class TaskMan implements ReadOnlyTaskMan {
 
-    // todo: change to UniqueActivityList
     private final UniqueActivityList activities;
     private final UniqueTagList tags;
 
@@ -30,7 +29,6 @@ public class TaskMan implements ReadOnlyTaskMan {
 
     /**
      * Tasks and Tags are copied into this taskMan
-     * // todo: add unique event list
      */
     public TaskMan(ReadOnlyTaskMan toBeCopied) {
         this(toBeCopied.getUniqueActivityList(), toBeCopied.getUniqueTagList());

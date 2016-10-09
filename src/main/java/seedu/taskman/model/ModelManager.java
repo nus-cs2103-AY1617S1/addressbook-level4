@@ -23,7 +23,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskMan taskMan;
     private final FilteredList<Activity> filteredActivities;
-    // TODO: add filteredEvents list
 
     /**
      * Initializes a ModelManager with the given TaskMan
