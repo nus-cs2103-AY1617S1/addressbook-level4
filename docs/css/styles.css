@@ -102,6 +102,14 @@ body {
   counter-reset: h2;
 }
 
+h2:before, h3:before, h4:before {
+  display: inline-block;
+  position: absolute;
+  margin-left: -1rem;
+  color: #999;
+  transform: translateX(-100%);
+}
+
 h2:before {
   counter-increment: h2;
   content: counter(h2) '. ';
@@ -125,3 +133,15 @@ h4:before {
   content: counter(h2) '.' counter(h3) '.' counter(h4) '. ';
 }
 
+.headerlink {
+  padding: 0 .5rem;
+  text-decoration: none;
+  display: none;
+}
+
+
+h2:hover .headerlink, 
+h3:hover .headerlink, 
+h4:hover .headerlink {
+  display: inline-block;
+}

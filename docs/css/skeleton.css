@@ -31,7 +31,7 @@
 .container {
   position: relative;
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 0 20px;
   box-sizing: border-box; }
@@ -131,12 +131,12 @@ body {
 /* Typography
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
-  margin-bottom: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: 300; }
-h1 { font-size: 3rem; line-height: 1.2; }
-h2 { font-size: 2.6rem; line-height: 1.25; }
-h3 { font-size: 2.2rem; line-height: 1.3;  }
+h1 { font-size: 3rem; line-height: 1.2; margin-top: 3.5rem; }
+h2 { font-size: 2.6rem; line-height: 1.25; margin-top: 3.5rem; }
+h3 { font-size: 2.2rem; line-height: 1.3; margin-top: 2rem; }
 h4 { font-size: 1.8rem; line-height: 1.35; }
 h5 { font-size: 1.5rem; line-height: 1.5; }
 
@@ -147,9 +147,9 @@ p {
 /* Links
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 a {
-  color: #1EAEDB; }
+  color: #1EAEDB; text-decoration: none; }
 a:hover {
-  color: #0FA0CE; }
+  color: #0FA0CE; text-decoration: underline; }
 
 
 /* Buttons
@@ -300,9 +300,9 @@ ul p, ol p {
 /* Code
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 code {
-  padding: .1rem .5rem;
+  padding: .15rem .5rem;
   margin: 0 .2rem;
-  font-size: 90%;
+  font-size: 80%;
   white-space: nowrap;
   background: #F1F1F1;
   border: 1px solid #E1E1E1;
@@ -347,11 +347,15 @@ blockquote,
 dl,
 figure,
 table,
+form {
+  margin-bottom: 2rem; }
+  
 p,
 ul,
-ol,
-form {
-  margin-bottom: 2.5rem; }
+ol {
+  margin-botton: 1rem;
+}
+
 
 
 /* Utilities

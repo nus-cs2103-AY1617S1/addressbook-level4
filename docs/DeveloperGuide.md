@@ -1,4 +1,4 @@
-# Developer Guide
+[TOC]
 
 ## Introduction
 
@@ -12,11 +12,11 @@ who to contact when you're lost.
 
 This project uses 
 
-- git - Version control 
-- [Eclipse][eclipse] - IDE 
-- Gradle - Build automation 
-- [Travis][travis], [Coveralls][coveralls] and [Codacy][codacy] - Continuous integration and quality control
-- GitHub - Source code hosting and issue tracking 
+- **git** - Version control 
+- **[Eclipse][eclipse]** - IDE 
+- **Gradle** - Build automation 
+- **[Travis][travis], [Coveralls][coveralls] and [Codacy][codacy]** - Continuous integration and quality control
+- **[GitHub][repo]** - Source code hosting and issue tracking 
 
 
 ### Prerequisites
@@ -51,7 +51,12 @@ push the branch to GitHub and [create a new pull request][pr] so that the integr
 For large features that impact multiple parts of the code it is best to open a new issue on issue tracker
 so that the design of the code can be discussed first. 
 
-Test driven development is encouraged but not required. All incoming code should have accompanying tests. 
+Test driven development is encouraged but not required. All incoming code should have accompanying tests.
+
+### Coding Style
+
+We use the Java coding standard found at <https://oss-generic.github.io/process/codingstandards/coding-standards-java.html>.
+ 
 
 ## Design
 
@@ -270,12 +275,12 @@ We have two types of tests:
    These are in the `guitests` package.
 
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
+    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units
+    2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
+    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
 
@@ -330,26 +335,26 @@ HTML, which allows greater flexibility in styling to make it more user friendly.
 
 ## Appendix A : User Stories
 
-Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
+Priorities: High (must have) - ★★★ , Medium (nice to have) - ★★ ,  Low (unlikely to have) - ★
 
 
 Priority | As a ...  | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *`  | new user  | see usage instructions | refer to instructions when I forget how to use the app
-`* * *`  | user      | add a new task |
-`* * *`  | user      | mark a task as complete | so I know which are the tasks are not complete.
-`* * *`  | user      | delete a task | remove entries that I no longer need
-`* * *`  | user      | edit a task | change or update details for the task
-`* * *`  | user      | set a deadline for a task | track down deadlines of my tasks
-`* * *`  | user      | set events with start and end dates | keep track of events that will happen
-`* * *`  | user      | view tasks | see all the tasks I have
-`* * *`  | user      | view incomplete tasks only | to know what are the tasks I have left to do.
-`* * *`  | user with multiple computers | save the todo list file to a specific location | move the list to other computers
-`* *`    | user      | set recurring tasks | do not need to repeatedly add tasks
-`* *`    | user      | sort tasks by various parameters| organize my tasks and locate a task easily
-`* *`    | user      | set reminders for a task | do not need to mentally track deadlines
-`*`      | user      | know the number of tasks I have left | gauge how many tasks I have left to do.
-`*`      | user      | be notified about upcoming deadlines without opening the app | so that I can receive timely reminders  
+★★★      | new user  | see usage instructions | refer to instructions when I forget how to use the app
+★★★      | user      | add a new task |
+★★★      | user      | mark a task as complete | so I know which are the tasks are not complete.
+★★★      | user      | delete a task | remove entries that I no longer need
+★★★      | user      | edit a task | change or update details for the task
+★★★      | user      | set a deadline for a task | track down deadlines of my tasks
+★★★      | user      | set events with start and end dates | keep track of events that will happen
+★★★      | user      | view tasks | see all the tasks I have
+★★★      | user      | view incomplete tasks only | to know what are the tasks I have left to do.
+★★★      | user with multiple computers | save the todo list file to a specific location | move the list to other computers
+★★       | user      | set recurring tasks | do not need to repeatedly add tasks
+★★       | user      | sort tasks by various parameters| organize my tasks and locate a task easily
+★★       | user      | set reminders for a task | do not need to mentally track deadlines
+★        | user      | know the number of tasks I have left | gauge how many tasks I have left to do.
+★        | user      | be notified about upcoming deadlines without opening the app | so that I can receive timely reminders  
 
 
 ## Appendix B : Use Cases
@@ -554,6 +559,8 @@ Use case ends.
 ## Appendix E : Product Survey
 
 {TODO: Add a summary of competing products}
+
+[repo]: https://github.com/CS2103AUG2016-W10-C4/main/
 
 [eclipse]: https://eclipse.org/downloads/
 [travis]: https://travis-ci.org/CS2103AUG2016-W10-C4/main

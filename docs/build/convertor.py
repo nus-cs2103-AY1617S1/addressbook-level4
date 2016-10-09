@@ -1,4 +1,5 @@
 import markdown
+from markdown.extensions.toc import TocExtension
 from os import path
 
 files = {
@@ -12,7 +13,7 @@ output_dir = path.join(base, "../")
 md = markdown.Markdown(extensions=[
     "markdown.extensions.extra",
     "markdown.extensions.codehilite",
-    "markdown.extensions.toc",
+    TocExtension(permalink='#'),
     "markdown.extensions.sane_lists",
 ])
 
