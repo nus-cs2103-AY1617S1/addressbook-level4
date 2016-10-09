@@ -59,6 +59,19 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
         }
         internalList.add(toAdd);
     }
+    
+    /**
+     * Adds a task to the list at a specified index.
+     *
+     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     */
+    public void add(FloatingTask toAdd, int idx) throws DuplicateTaskException {
+        assert toAdd != null;
+        if (contains(toAdd)) {
+            throw new DuplicateTaskException();
+        }
+        internalList.add(idx, toAdd);
+    }
 
     /**
      * Removes the equivalent task from the list.
@@ -95,4 +108,5 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
 }
