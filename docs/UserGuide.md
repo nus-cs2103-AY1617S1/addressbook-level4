@@ -77,6 +77,13 @@ Format: `delete <task name>`
 Example:
 * `delete CS2103T Tutorial`
 
+#### Finding a Task: `Find`
+Finds tasks in the task manager. Task manager will display all task with the input keywords<br>
+Format: `find <task name>`
+
+Example:
+*`find project`
+
 #### Showing full list: `show`
 Displays all the task for the user to view.<br>
 Format: `show`
