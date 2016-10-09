@@ -23,7 +23,7 @@
    * **`add`**`meeting`: adds a task named CS2103 Tutorial
    * **`find`**`meeting `: searches the task named tutorial   
    * **`delete`**`presentation`: delete a task named Quiz
-   * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00
+   * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
    * **`undo`** : undo previous action
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
