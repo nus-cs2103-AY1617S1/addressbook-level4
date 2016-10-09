@@ -23,7 +23,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " report, 120516, 1200.\n" + COMMAND_WORD + ": Adds a event task to Simply. "
             + "Parameters: [Task details, date, start time, end time] "
-            + "Example:" + COMMAND_WORD
+            + "Example: " + COMMAND_WORD
             + " [siloso beach party, 120716, 1600, 2200]";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
