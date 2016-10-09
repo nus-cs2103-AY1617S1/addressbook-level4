@@ -37,7 +37,6 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
-    private static final String FLAG_NAME = "-n";
     private static final String FLAG_DATETIME = "-dt";
     private static final String FLAG_PRIORITY = "-p";
     private static final String FLAG_TAG = "-t";
@@ -96,27 +95,33 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        Option nameOpt = new Option(FLAG_NAME, true);
+        String name = "";
         Option priorityOpt = new Option(FLAG_PRIORITY, true);
         Option dateTimeOpt = new Option(FLAG_DATETIME, true);
         Option tagOpt = new Option(FLAG_TAG, false);
         
         Option[] options = {
-                nameOpt, 
                 priorityOpt, 
                 dateTimeOpt, 
                 tagOpt
         };
         
-        HashMap<Option, String> optionFlagNArgMap = getOptionFlagNArg(args, options);
-        if (optionFlagNArgMap.get(nameOpt) == null || optionFlagNArgMap.get(nameOpt).equals("")) {
+        TreeMap<Integer, Option> flagsPosMap = getFlagPos(args, options);
+        HashMap<Option, String> optionFlagNArgMap = getOptionFlagNArg(args, options, flagsPosMap);
+        
+        if(flagsPosMap.size() == 0) {
+            name = args;
+        } else if (flagsPosMap.firstKey() == 0) {
+         // name should be the first argument
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        } else {
+            name = args.substring(0, flagsPosMap.firstKey()).trim();
         }
         
         try {
             return new AddCommand(
-                    optionFlagNArgMap.get(nameOpt).replace(FLAG_NAME + " ", ""),
+                    name,
                     getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(FLAG_DATETIME + " ", "")),
                     optionFlagNArgMap.get(priorityOpt).replace(FLAG_PRIORITY + " ", ""),
                     getTagsFromArgs(optionFlagNArgMap.get(tagOpt)));
@@ -139,7 +144,7 @@ public class Parser {
             String endDateTime = taskArguments.substring(toIndex + 2).trim();
             return new String[] {startDateTime, endDateTime};
         } else {
-            return new String[] {"", taskArguments};
+            return new String[] {"", taskArguments.trim()};
         }
     }
 
@@ -160,16 +165,15 @@ public class Parser {
     }
     
     /**
-     * Extracts the option's flag and arg from arguments string.
+     * Gets all flag position from arguments string
      */
-    private static HashMap<Option, String> getOptionFlagNArg(String args, Option[] options) {
+    private static TreeMap<Integer, Option> getFlagPos(String args, Option[] options) {
+        args = args.trim();
         TreeMap<Integer, Option> flagsPosMap = new TreeMap<Integer, Option>();
-        HashMap<Option, String> flagsValueMap = new HashMap<Option, String>();
-
+        
         if (args != null && args.length() > 0 && options.length > 0) {
             for (int i = 0; i < options.length; i++) {
                 int indexOf = -1;
-                flagsValueMap.put(options[i], "");
                 do {
                     indexOf = args.indexOf(options[i].flag, indexOf + 1);
                     if (indexOf >= 0) {
@@ -180,11 +184,32 @@ public class Parser {
                     }
                 } while (indexOf >= 0);
             }
+        }
+        
+        return flagsPosMap;
+    }
+    
+    /**
+     * Extracts the option's flag and arg from arguments string.
+     */
+    private static HashMap<Option, String> getOptionFlagNArg(String args, Option[] options, TreeMap<Integer, Option> flagsPosMap) {
+        args = args.trim();
+        HashMap<Option, String> flagsValueMap = new HashMap<Option, String>();
+        
+        if (args != null && args.length() > 0 && options.length > 0) {
+            // initialize the flagsValueMap
+            for (int i = 0; i < options.length; i++) {
+                flagsValueMap.put(options[i], "");
+            }
 
             int endPos = args.length();
             for (Map.Entry<Integer, Option> entry : flagsPosMap.descendingMap().entrySet()) {
                 Option option = entry.getValue();
                 Integer pos = entry.getKey();
+                
+                if(pos == -1) {
+                    continue;
+                }
 
                 String arg = args.substring(pos, endPos);
                 endPos = pos;

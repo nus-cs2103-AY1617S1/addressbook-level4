@@ -7,7 +7,6 @@ import tars.model.tag.UniqueTagList;
 
 import java.time.DateTimeException;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -18,16 +17,12 @@ public class AddCommand extends Command {
 	public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to tars. "
-            + "Parameters: -n NAME [-dt DATETIME] [-p PRIORITY] [-t TAG]...\n"
+            + "Parameters: NAME [-dt DATETIME] [-p PRIORITY] [-t TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " -n cs2103 project meeting -dt 05/09/2016 1400 to 06/09/2016 2200 -p h -t project";
+            + " cs2103 project meeting -dt 05/09/2016 1400 to 06/09/2016 2200 -p h -t project";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK= "This task already exists in tars";
-    
-    private static final int DATETIME_INDEX_OF_ENDDATE = 1;
-	private static final int DATETIME_INDEX_OF_STARTDATE = 0;
-	private static final int DATETIME_INDEX_OF_DEADLINE = 0;
 
     private final Task toAdd;
     
