@@ -1,6 +1,7 @@
 package seedu.todo.ui.components;
 
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public abstract class MultiComponent extends Component {
@@ -17,5 +18,9 @@ public abstract class MultiComponent extends Component {
 		// Callback once view is loaded.
 		componentDidMount();
     }
+	
+	public static void reset(Pane placeholder) {
+		placeholder.getChildren().clear();
+	}
 
 }

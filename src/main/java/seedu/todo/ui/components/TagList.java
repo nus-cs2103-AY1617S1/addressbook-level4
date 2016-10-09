@@ -39,6 +39,8 @@ public class TagList extends Component {
 		titleText.setText("Tags (" + tags.size() + ")");
 		
 		// Load TagListLinks
+		TagListLink.reset(tagListLinksPlaceholder);
+		
 		String[] linkLabels = { TASKS_LABEL, OVERDUE_LABEL, EVENTS_LABEL, COMPLETED_LABEL };
 		String[] linkIconPaths = { TASKS_ICON_PATH, OVERDUE_ICON_PATH, EVENTS_ICON_PATH, COMPLETED_ICON_PATH };
 		
