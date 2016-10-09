@@ -44,7 +44,6 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
-        System.out.println(internalList.contains(toCheck));
         return internalList.contains(toCheck);
     }
 
@@ -55,7 +54,6 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
-        System.out.println(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
