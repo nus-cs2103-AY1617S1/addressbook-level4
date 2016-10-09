@@ -99,7 +99,6 @@ public class TimeUtil {
         return stringJoiner.toString();
     }
     
-    
     public String getEventTimeText(LocalDateTime startTime, LocalDateTime endTime) {
         assert(startTime != null);
         assert(endTime != null);
