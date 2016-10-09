@@ -8,12 +8,14 @@ import java.util.Set;
 public class ListCommand extends Command {
 
 	public static final String COMMAND_WORD = "list";
+	
+	public static final String COMMAND_WORD_ADVANCE = "ls";
 
 	public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD
 			+ ": Lists all task with the specified keywords and displays them as a list with index numbers.\n"
-			+ "Parameters: KEYWORD " + "Example: " + COMMAND_WORD + " undone";
+			+ "Parameters: [KEYWORD] " + "Example: " + COMMAND_WORD + "/" + COMMAND_WORD_ADVANCE + " undone";
 
 	private Set<String> keyword;
 

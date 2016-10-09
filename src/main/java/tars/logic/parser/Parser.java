@@ -83,6 +83,13 @@ public class Parser {
         	} else {
         		return new ListCommand();
         	}
+        	
+        case ListCommand.COMMAND_WORD_ADVANCE:
+        	if(arguments != null && !arguments.isEmpty()) {
+        		return prepareList(arguments);
+        	} else {
+        		return new ListCommand();
+        	}
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
