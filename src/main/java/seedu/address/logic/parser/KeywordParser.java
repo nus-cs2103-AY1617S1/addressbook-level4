@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,43 +62,51 @@ public class KeywordParser {
      * @return HashMap containing the keyword - associated substring pairs
      */
     public HashMap<String, String> parseKeywordsWithoutFixedOrder(String inputString){
-        HashMap<String, String> words = new HashMap<String, String>();
-        for(int i = 0; i < keywords.size(); i++){
-            inputString = new String(inputString);
-            String keyword = keywords.get(i);
-            String patternString;
-            if (keyword.equals("add")) {
-                //Special case for add command, which takes ""
-                patternString = new String("[^/]*" + keyword + " " + "\"(?<returnString>[^/]+)\"");
-            }
-            else{
-                patternString = new String("[^/]*" + keyword + " " + "(?<returnString>[^/]+?)");
-            }
-            patternString = patternString + "(";
-            for (int j = 0; j < keywords.size(); j++) {
-                if (!keyword.equals(keywords.get(j))) {
-                    patternString = patternString + " " + keywords.get(j) + "[^/]+" + "|";
-                }
-            }
-            String patternString2 = patternString + "$)"; //for last keyword before end of line
-            patternString = patternString + "$^)"; //^$ match nothing
-            Pattern pattern = Pattern.compile(patternString);
-            Matcher matcher = pattern.matcher(inputString);
-            if(matcher.matches()){
-                String returnString = matcher.group("returnString");
-                words.put(keyword, returnString);
-            }
-            else{
-                Pattern pattern2 = Pattern.compile(patternString2);
-                Matcher matcher2 = pattern2.matcher(inputString);
-                if(matcher2.matches()){
-                    String returnString = matcher2.group("returnString");
-                    words.put(keyword, returnString);
-                }
-            }
-
+        HashSet<String> keywordsInHashSet = new HashSet<String>();
+        for (String kw : keywords) {
+            keywordsInHashSet.add(kw);
         }
-        return words;
+        
+        HashMap<String, String> entryPairs = new HashMap<String, String>();
+        String[] parts = inputString.split(" ");
+        
+        for (int i = 0; i < parts.length; i++) {
+            if (stringIsAKeyword(keywordsInHashSet, parts[i])) {
+
+                String currentKeyword = parts[i];
+                StringBuilder stringBuilder = new StringBuilder();
+
+                int nextPartToCheck = i + 1;
+                while (nextPartToCheck < parts.length
+                        && !stringIsAKeyword(keywordsInHashSet, parts[nextPartToCheck])) {
+                    stringBuilder.append(parts[nextPartToCheck] + " ");
+                    nextPartToCheck++;
+                }
+
+                String finalValue = stringBuilder.toString().trim();
+                finalValue = stripOpenAndCloseQuotationMarks(finalValue);
+
+                entryPairs.put(currentKeyword, finalValue);
+                i = nextPartToCheck - 1;
+            }
+        }
+        
+        return entryPairs;
+    }
+    
+    private boolean stringIsAKeyword(HashSet<String> allKeywords, String string) {
+        return allKeywords.contains(string);
+    }
+    
+    private String stripOpenAndCloseQuotationMarks(String input) {
+        if (input.startsWith("\"")) {
+            input = input.substring(1);
+        }
+        
+        if (input.endsWith("\"")) {
+            input = input.substring(0, input.length() - 1);
+        }
+        return input;
     }
 
     /**
