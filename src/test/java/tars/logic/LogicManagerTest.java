@@ -7,7 +7,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import tars.logic.commands.*;
 import tars.commons.core.EventsCenter;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.events.ui.JumpToListRequestEvent;
