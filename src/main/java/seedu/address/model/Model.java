@@ -23,6 +23,9 @@ public interface Model {
     /** Adds the given item */
     void addItem(Item item) throws UniquePersonList.DuplicatePersonException;
 
+    /** Replaces the given item */
+    void replaceItem(ReadOnlyItem target, Item toReplace) throws UniquePersonList.PersonNotFoundException, UniquePersonList.DuplicatePersonException;
+    
     /** Returns the filtered item list as an {@code UnmodifiableObservableList<ReadOnlyItem>} */
     UnmodifiableObservableList<ReadOnlyItem> getFilteredPersonList();
 
