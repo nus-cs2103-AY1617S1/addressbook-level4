@@ -1,15 +1,34 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.*;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.exceptions.IllegalValueException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import com.opencsv.CSVParser;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SelectCommand;
 
 /**
  * Parses user input.
@@ -189,4 +208,32 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    /**
+     * splits multi-arguments into a nice ArrayList of strings
+     * @param params
+     *      comma-separated parameters
+     * @param delimiter
+     *      delimiting character
+     * @return
+     *      ArrayList<String> of parameters
+     * @author darren
+     */
+     public static ArrayList<String> parseMultipleParameters(String params, char delimiter) {
+         CSVParser parser = new CSVParser(delimiter);
+
+         try {
+             String[] tokens = parser.parseLine(params);
+
+             // strip leading and trailing whitespaces
+             for(int i = 0; i < tokens.length; i++) {
+                 tokens[i] = tokens[i].trim();
+             }
+
+             return new ArrayList<String>(Arrays.asList(tokens));
+         } catch (IOException ioe) {
+             System.out.println(ioe.getMessage());
+         }
+
+         return null;
+     }
 }
