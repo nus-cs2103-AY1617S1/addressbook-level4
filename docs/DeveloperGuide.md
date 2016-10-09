@@ -4,9 +4,7 @@
 
 Welcome to the project! This guide will get you up to speed with how to set up your development environment, 
 the basic architecture of the application, how to perform some common development tasks as well as 
-who to contact when you're lost. 
-
-## Setting up
+who to contact when you're lost.
 
 ### Tooling
 
@@ -16,8 +14,9 @@ This project uses
 - **[Eclipse][eclipse]** - IDE 
 - **Gradle** - Build automation 
 - **[Travis][travis], [Coveralls][coveralls] and [Codacy][codacy]** - Continuous integration and quality control
-- **[GitHub][repo]** - Source code hosting and issue tracking 
+- **[GitHub][repo]** - Source code hosting and issue tracking  
 
+## Setting up
 
 ### Prerequisites
 
@@ -38,10 +37,12 @@ This project uses
 4. Click `Browse`, then locate the project's directory
 5. Click `Finish`
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+!!! note
+    
+    * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+    * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+    * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
   
 ### Contributing 
 
@@ -185,7 +186,9 @@ Classes used by multiple components are in the `seedu.todo.commons` package.
 
 ## Implementation
 
-### Logic 
+### Logic
+
+See the [Logic component architecture](#logic-component) section for the high level overview of the Logic component.  
 
 #### Parser 
 
@@ -255,19 +258,21 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 Tests can be found in the `./src/test/java` folder.
 
-**In Eclipse**:
-
-> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
-  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+### In Eclipse
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
-**Using Gradle**:
+!!! note
+    If you are not using a recent Eclipse version (Neon or later), enable assertions in JUnit tests
+    as described [in this Stack Overflow question](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+
+### Using Gradle
+
+See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
 
@@ -284,7 +289,7 @@ We have two types of tests:
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
 
-**Headless GUI Testing** :
+### Headless GUI Testing 
 
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode.

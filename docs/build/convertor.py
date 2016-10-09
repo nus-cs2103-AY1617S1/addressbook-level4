@@ -13,6 +13,7 @@ output_dir = path.join(base, "../")
 md = markdown.Markdown(extensions=[
     "markdown.extensions.extra",
     "markdown.extensions.codehilite",
+    "markdown.extensions.admonition",
     TocExtension(permalink='#'),
     "markdown.extensions.sane_lists",
 ])
