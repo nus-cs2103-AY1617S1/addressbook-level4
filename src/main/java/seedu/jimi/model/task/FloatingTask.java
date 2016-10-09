@@ -43,6 +43,14 @@ public class FloatingTask implements ReadOnlyTask {
     }
 
     /**
+     * Replaces this floating task's name with name provided.
+     * @param name Name to be replaced by.
+     */
+    public void setName(Name name){
+        this.name = name;
+    }
+    
+    /**
      * Replaces this floating task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
