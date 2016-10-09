@@ -62,6 +62,12 @@ General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 > * 24-Hour [HHMM] 
 > * Eg. `2359`
 
+>**`PRIORITY` Format**
+> * `low` , `med' , `high`
+
+>**`FREQUENCY` Format**
+> * `daily` , `weekly` , `fortnightly` , `monthly` , `yearly`
+
 ###### With deadline
 Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
 
