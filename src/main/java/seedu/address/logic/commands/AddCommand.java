@@ -1,9 +1,13 @@
 package seedu.address.logic.commands;
 
+import java.util.Date;
+
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.DateParser;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
+import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 
 /**
@@ -35,7 +39,7 @@ public class AddCommand extends Command {
         this.toAdd = new Task(new Name(name));
     }
     
-    public AddCommand(String name, String priorityValue) throws IllegalValueException {
+    public AddCommand(String name, String startDate, String endDate, String priorityValue) throws IllegalValueException {
         Priority priority = Priority.MEDIUM;
         String[] priorityTypes = { "low", "medium", "high" };
         String priorityString = "medium";
@@ -49,7 +53,19 @@ public class AddCommand extends Command {
             case ("medium"): priority = Priority.MEDIUM; break;
             case ("high"): priority = Priority.HIGH; break;
         }
-        this.toAdd = new Task(new Name(name), priority);
+        Date start = null;
+        Date end = null;
+        
+        if (startDate!=null) {
+            DateParser dp = new DateParser(startDate);
+            start = dp.parseDate();
+        }
+        if (endDate!=null) {
+            DateParser dp = new DateParser(endDate);
+            end = dp.parseDate();
+        }
+        
+        this.toAdd = new Task(new Name(name), start, end, new RecurrenceRate(0), priority);
     }
 
     @Override

@@ -130,4 +130,16 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public Optional<Date> getStartDate() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Optional<Date> getEndDate() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -52,7 +52,17 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public String toString() {
-        return taskName + VARIABLE_CONNECTOR + priorityValue;
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName().name)
+                .append(", Priority: ")
+                .append(getPriorityValue());
+        if (getStartDate().isPresent()) {
+            builder.append(", StartDate: ").append(getStartDate().get());
+        }
+        if (getEndDate().isPresent()) {
+            builder.append(", EndDate: ").append(getEndDate().get());
+        }
+        return builder.toString();
     }
 
     @Override
@@ -112,5 +122,22 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public Priority getPriorityValue() {
         return priorityValue;
-    }  
+    }
+    
+    @Override
+    public Optional<Date> getStartDate() {
+        if (startDate!=null) {
+            return Optional.of(startDate);
+        }
+        return Optional.empty();
+    }
+    
+    @Override
+    public Optional<Date> getEndDate() {
+        if (endDate!=null) {
+            return Optional.of(endDate);
+        }
+        return Optional.empty();    
+    }
+    
 }
