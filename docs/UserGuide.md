@@ -150,8 +150,7 @@ Format: `edit INDEX [from/at START_DATE START_TIME][to/by END_DATE END_TIME][-PR
 
 Examples:
 * `add Company meeting tonight at 7pm to 9pm`
-* `edit 10 Company meeting tomorrow morning at 7am to 9am -high`
-
+* `edit 2 Company meeting tomorrow morning at 7am to 9am -high`
 * `add Buy coffee for boss by 8am repeat every day`
 * `edit 3 Buy coffee for boss by 7am repeat every 2 days`
 
@@ -220,6 +219,7 @@ Example:
 Find an existing task by name.<br>
 Format: `find NAME`
 > `find` is case-insensitive - `find AKSHAY` will match `find akshay`
+>
 > If no NAME is provided, all uncompleted tasks will be displayed
 
 Examples:
