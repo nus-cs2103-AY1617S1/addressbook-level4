@@ -30,7 +30,7 @@ public class AddCommandTest extends TaskManGuiTest {
         for(int i = 0; i < expectedList.length; i++){
             expectedList[i] = new Activity(currentList[i]);
         }
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_EVENT);
         assertTrue(taskListPanel.isListMatching(expectedList));
 
         //add to empty list
