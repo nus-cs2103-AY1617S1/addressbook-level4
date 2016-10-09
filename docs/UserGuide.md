@@ -42,9 +42,8 @@ So, if you are excited, let's get started with our user guide.
 ### Command Line Interface
 We observed that sometimes, the use of mouse clicks to create a new task could be so inconvenient that you may be deterred to use a to-do list. We also understand that entering a new task to your to-do list should be as efficient as possible, so you can focus on what is more important in your life. This is why we built UDJTDL with the command line as the primary source of input. In fact, you do even not need a mouse to use this application. All you need is your trusty keyboard.
 
-
-### Intelligent Views
-
+### Custom Tags and Intelligent Views
+Organising your life is important. Compartmentalising them allows you to prioritise which tasks are more important than the others. This is why we baked in the ability for you to set custom categories with "tags" for each of your tasks and events. UDJTDL will then intelligently filter out relevant categories at your command, and sort them in order of importance, so you know which activity you should start working.
 
 ### Events *and* Tasks
 
