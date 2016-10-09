@@ -9,6 +9,9 @@ import seedu.taskitty.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
+    TaskDate getDate();
+    TaskTime getStartTime();
+    TaskTime getEndTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
