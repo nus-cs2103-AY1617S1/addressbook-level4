@@ -28,7 +28,7 @@ public class Activity implements ReadOnlyEvent{
     public Activity(Activity source){
         switch (source.getType()){
             case TASK:
-                this.activity = new Task(source.getTask());
+                this.activity = new Task((ReadOnlyTask) source.activity);
                 break;
             case EVENT:
             default:
@@ -41,9 +41,11 @@ public class Activity implements ReadOnlyEvent{
         return type;
     }
 
-    public ReadOnlyTask getTask(){
-        assert type == ActivityType.TASK;
-        return (ReadOnlyTask) activity;
+    public Optional<ReadOnlyTask> getTask(){
+        if(type != ActivityType.TASK){
+            return Optional.empty();
+        }
+        return Optional.of((ReadOnlyTask) activity);
     }
 
     public ReadOnlyEvent getEvent(){
@@ -95,7 +97,7 @@ public class Activity implements ReadOnlyEvent{
 
         switch(type){
             case TASK:
-                return getTask().isSameStateAs(other.getTask());
+                return ((ReadOnlyTask)activity).isSameStateAs((ReadOnlyTask)other.activity);
             case EVENT:
             default:
                 return activity.isSameStateAs(other.activity);
