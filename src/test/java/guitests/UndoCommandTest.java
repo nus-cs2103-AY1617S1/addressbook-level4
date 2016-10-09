@@ -11,15 +11,14 @@ public class UndoCommandTest extends AddressBookGuiTest {
     public static int commandsInStack;
     
     public void prepare() {
-        commandBox.runCommand("add undo test case 1");
-        commandBox.runCommand("add undo test case 2");
-        commandBox.runCommand("add undo test case 3");
+        commandBox.runCommand("add \"undo test case 1\"");
+        commandBox.runCommand("add \"undo test case 2\"");
+        commandBox.runCommand("add \"undo test case 3\"");
         commandsInStack = LogicManager.numUndoableCommands();
     }
     
     @Test
     public void undo() {
-        /*
         prepare();
         
         //Undo first 2 commands
@@ -32,7 +31,6 @@ public class UndoCommandTest extends AddressBookGuiTest {
         
         //Undo last command
         assertUndoSuccess(1);
-        */
     }
 
     /**
