@@ -9,7 +9,6 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
-
     /**
      * Case-insensitive check if a given (whole) word exists in a string
      */

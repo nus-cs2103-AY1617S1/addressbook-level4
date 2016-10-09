@@ -8,6 +8,7 @@ import org.junit.rules.TemporaryFolder;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,31 +20,31 @@ public class XmlUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void getDataFromFile_nullFile_AssertionError() throws Exception {
+    public void getDataFromFile_nullFile_AssertionError() throws FileNotFoundException, JAXBException {
         thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(null, XmlSerializable.class);
     }
 
     @Test
-    public void getDataFromFile_nullClass_AssertionError() throws Exception {
+    public void getDataFromFile_nullClass_AssertionError() throws IOException, JAXBException {
         thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(folder.newFile(), null);
     }
 
     @Test
-    public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
+    public void getDataFromFile_missingFile_FileNotFoundException() throws FileNotFoundException, JAXBException {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.getDataFromFile(new File("file/missing/for/sure"), XmlSerializable.class);
     }
 
     @Test
-    public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
+    public void getDataFromFile_emptyFile_DataFormatMismatchException() throws IOException, JAXBException {
         thrown.expect(JAXBException.class);
         XmlUtil.getDataFromFile(folder.newFile(), XmlSerializable.class);
     }
 
     @Test
-    public void getDataFromFile_validFile_validResult() throws Exception {
+    public void getDataFromFile_validFile_validResult() throws IOException, JAXBException {
        JsonSerializable test = new JsonSerializable();
         test.setTestValues();
 
@@ -57,25 +58,25 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void saveDataToFile_nullFile_AssertionError() throws Exception {
+    public void saveDataToFile_nullFile_AssertionError() throws FileNotFoundException, JAXBException {
         thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(null, new XmlSerializable());
     }
 
     @Test
-    public void saveDataToFile_nullClass_AssertionError() throws Exception {
+    public void saveDataToFile_nullClass_AssertionError() throws IOException, JAXBException {
         thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(folder.newFile(), null);
     }
 
     @Test
-    public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
+    public void saveDataToFile_missingFile_FileNotFoundException() throws FileNotFoundException, JAXBException {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.saveDataToFile(new File("file/missing/for/sure"), new XmlSerializable());
     }
 
     @Test
-    public void saveDataToFile_validFile_dataSaved() throws Exception {
+    public void saveDataToFile_validFile_dataSaved() throws IOException, JAXBException {
         File file = folder.newFile();
         XmlSerializable dataToWrite = new XmlSerializable();
         XmlUtil.saveDataToFile(file, dataToWrite);
