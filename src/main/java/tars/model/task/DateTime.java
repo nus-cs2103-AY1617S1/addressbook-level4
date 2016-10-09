@@ -38,9 +38,6 @@ public class DateTime {
      */
     public DateTime(String startDate, String endDate)
             throws DateTimeException, IllegalDateException {
-        this.endDate = LocalDateTime.parse(endDate, formatter);
-        this.endDateString = this.endDate.format(stringFormatter);
-
         if (endDate != null && endDate.length() > 0) {
             this.endDate = LocalDateTime.parse(endDate, formatter);
             this.endDateString = this.endDate.format(stringFormatter);
@@ -53,7 +50,6 @@ public class DateTime {
                 throw new IllegalDateException("End dateTime should be after start dateTime.");
             }
         }
-
     }
 
     @Override
