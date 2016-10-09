@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import java.util.Objects;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -49,7 +51,7 @@ public class Name {
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return Objects.hash(name);
     }
 
 }

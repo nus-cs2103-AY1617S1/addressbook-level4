@@ -3,6 +3,7 @@ package seedu.address.model.tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -119,6 +120,19 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Removes a Tag from the list.
+     * 
+     * @throws TagNotFoundException if no such tag exist in the list.
+     */
+    public void remove(Tag toRemove) throws TagNotFoundException {
+        assert toRemove != null;
+        if (!contains(toRemove)) {
+            throw new TagNotFoundException();
+        }        
+        internalList.remove(toRemove);
+    }
+    
     @Override
     public Iterator<Tag> iterator() {
         return internalList.iterator();

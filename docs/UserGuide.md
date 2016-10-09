@@ -165,7 +165,7 @@ Examples:
 
 #### Change the details of a task/event: `update`
 Updates a task or event.<br>
-Format: `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
+Format: `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
 
 > Updates the specified task with the given information.<br>
 > The index refers to the index number shown in the most recent listing.<br>
@@ -179,7 +179,7 @@ Format: `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeat
   
 Examples: 
 * `list`<br>
-  `update 1 "Submit Proposal" by 23 Sep 3pm.`<br>
+  `update 1 name "Submit Proposal" by 23 Sep 3pm.`<br>
   Update the details of the first task in the list.<br>
 * `update 2 from 23 Sep 3pm to 5pm`
 * `update 1 by 20 Sep 5pm, tag "Not that important"`
@@ -271,7 +271,7 @@ List | `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]
 Find | `find KEYWORD...`
 Show | `show [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]]  [tag "TAG"...]`
 Hide | `hide [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]`
-Update | `update INDEX [NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
+Update | `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
 Delete | `delete INDEX`
 Complete | `complete INDEX`
 Undo | `undo [last STEPS]`

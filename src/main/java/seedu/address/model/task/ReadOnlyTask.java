@@ -29,11 +29,11 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && (other.getName().equals(this.getName()) // state checks here onwards
-                    && other.getComplete().equals(this.getComplete())
-                    && other.getDeadline().equals(this.getDeadline())
-                    && other.getPeriod().equals(this.getPeriod()) 
-                    && other.getDeadlineRecurrence().equals(this.getDeadlineRecurrence())
-                    && other.getPeriodRecurrence().equals(this.getPeriodRecurrence())));
+                   && other.getComplete().equals(this.getComplete())
+                   && other.getDeadline().equals(this.getDeadline())
+                   && other.getPeriod().equals(this.getPeriod())
+                   && other.getDeadlineRecurrence().equals(this.getDeadlineRecurrence())
+                   && other.getPeriodRecurrence().equals(this.getPeriodRecurrence())));
     }
     
     /**

@@ -68,4 +68,14 @@ public class KeywordParserTest {
         assertEquals(list2.get("from"), "monday");
         assertEquals(list2.get("to"), "thursday");
     }
+    
+    @Test
+    public void parses_removeKeyword_hasNoValue() {
+        String input = "update 1 removefrom removeby removeto";
+        KeywordParser parser = new KeywordParser("update", "removefrom", "removeby", "removeto");
+        HashMap<String, String> list = parser.parseKeywordsWithoutFixedOrder(input);
+        assertEquals("", list.get("removefrom"));
+        assertEquals("", list.get("removeto"));
+        assertEquals("", list.get("removeby"));
+    }
 }
