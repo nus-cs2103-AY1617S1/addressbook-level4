@@ -7,8 +7,10 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.FloatingTask;
+import seedu.address.model.person.Title;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePersonList.DuplicateTaskException;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 import java.util.Set;
@@ -22,7 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<FloatingTask> filteredPersons;
+    private final FilteredList<Entry> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -71,8 +73,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(FloatingTask person) throws UniquePersonList.DuplicatePersonException {
+    public synchronized void addTask(Entry person) throws UniquePersonList.DuplicateTaskException {
         addressBook.addPerson(person);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void editTask(Entry task, Title newTitle)
+            throws PersonNotFoundException, DuplicateTaskException {
+        addressBook.editTask(task, newTitle);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
