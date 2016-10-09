@@ -39,7 +39,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String todoListName;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -75,12 +75,11 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           Logic logic) {
+    private void configure(String appTitle, String todoListName, Config config, UserPrefs prefs, Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.todoListName = todoListName;
         this.config = config;
         this.userPrefs = prefs;
 
