@@ -31,7 +31,7 @@ public class Task implements ReadOnlyTask {
     }
     
     /**
-     * Copy constructor.
+     * Copy constructor for todo.
      */    
     public Task(Name name, UniqueTagList tags) {
         this.name = name;
@@ -40,6 +40,18 @@ public class Task implements ReadOnlyTask {
         this.end = null;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
+    
+    /**
+     * Copy constructor for deadline.
+     */    
+    public Task(Name name, Date date, End end, UniqueTagList tags) {
+        this.name = name;
+        this.date = date;
+        this.start = null;
+        this.end = end;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+
 
     /**
      * Copy constructor.
