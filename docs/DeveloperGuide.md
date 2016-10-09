@@ -59,9 +59,9 @@
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
->**_Figure 1_**: Architecture Diagram - refers to the high-level design of the application
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
+>**_Figure 1_**: Architecture Diagram - explains the high-level design of the application
+
+The following content is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
