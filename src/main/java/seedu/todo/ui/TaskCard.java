@@ -1,15 +1,18 @@
 package seedu.todo.ui;
 
-import java.time.format.DateTimeFormatter;
-import java.util.stream.Stream;
-
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.LinkedList;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
+import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.commons.util.TimeUtil;
+import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 
 /**
