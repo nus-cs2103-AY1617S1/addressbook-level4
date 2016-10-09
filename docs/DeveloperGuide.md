@@ -404,7 +404,8 @@ System displays all tasks by the priority specified
 > Strengths:
 * Free
 * Automatic syncs to all devices
-* Reminders can be configured
+* Reminders can be configured<br>
+
 > Weakness:
 * Cannot edit offline
 * Need to have a google account
@@ -419,7 +420,7 @@ System displays all tasks by the priority specified
 * Allows user to have an immediate view of the task lying ahead on current day or week
 * Additional feature of showing productivity of user is useful to motivate user to be on the ball
 * Priority can be set for every task to help decision making in performing task
-* Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday"
+* Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday"<br>
 > Weakness:
 * Free version may be limited as we are unable to add to labels to all tasks.
 * Reminders are not available in the free version.
@@ -437,7 +438,7 @@ System displays all tasks by the priority specified
 * Different taskalizable folders (Family, Private, School, Work, …).
 * Connects to Facebook and Google account.
 * Duplication of the list.
-* Completed to-do list hidden unless selected.
+* Completed to-do list hidden unless selected. <br>
 > Weakness:
 * Slow in updating changes
 
