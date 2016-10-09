@@ -29,8 +29,8 @@ public class ListCommand extends Command {
             model.updateFilteredListToShowAll();
             return new CommandResult(MESSAGE_SUCCESS);
         } else {
-            model.updateFilteredTaskList(keywords);
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+            model.updateFilteredActivityList(keywords);
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredActivityList().size()));
         }
     }
 

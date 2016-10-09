@@ -25,6 +25,18 @@ public class Activity implements ReadOnlyEvent{
         type = ActivityType.TASK;
     }
 
+    public Activity(Activity source){
+        switch (source.getType()){
+            case TASK:
+                this.activity = new Task(source.getTask());
+                break;
+            case EVENT:
+            default:
+                this.activity = new Event(source.getEvent());
+        }
+        type = source.getType();
+    }
+
     public ActivityType getType(){
         return type;
     }

@@ -13,7 +13,7 @@ import seedu.taskman.commons.core.GuiSettings;
 import seedu.taskman.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskman.logic.Logic;
 import seedu.taskman.model.UserPrefs;
-import seedu.taskman.model.event.ReadOnlyTask;
+import seedu.taskman.model.event.Activity;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -109,7 +109,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredActivityList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -186,7 +186,7 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
+    public void loadTaskPage(Activity task) {
         browserPanel.loadTaskPage(task);
     }
 

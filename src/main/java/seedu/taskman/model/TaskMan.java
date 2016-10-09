@@ -1,11 +1,11 @@
 package seedu.taskman.model;
 
 import javafx.collections.ObservableList;
+import seedu.taskman.model.event.Activity;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.event.ReadOnlyTask;
 import seedu.taskman.model.event.Task;
-import seedu.taskman.model.event.UniqueTaskList;
+import seedu.taskman.model.event.UniqueActivityList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 public class TaskMan implements ReadOnlyTaskMan {
 
     // todo: change to UniqueActivityList
-    private final UniqueTaskList tasks;
+    private final UniqueActivityList activities;
     private final UniqueTagList tags;
 
     // todo: format looks pretty weird. can we do smth about it?
     {
-        tasks = new UniqueTaskList();
+        activities = new UniqueActivityList();
         tags = new UniqueTagList();
     }
 
@@ -33,14 +33,14 @@ public class TaskMan implements ReadOnlyTaskMan {
      * // todo: add unique event list
      */
     public TaskMan(ReadOnlyTaskMan toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueActivityList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Tasks and Tags are copied into this taskMan
      */
-    public TaskMan(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+    public TaskMan(UniqueActivityList activities, UniqueTagList tags) {
+        resetData(activities.getInternalList(), tags.getInternalList());
     }
 
     // TODO: review, do we really need this
@@ -50,12 +50,12 @@ public class TaskMan implements ReadOnlyTaskMan {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
-        return tasks.getInternalList();
+    public ObservableList<Activity> getActivities() {
+        return activities.getInternalList();
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks.getInternalList().setAll(tasks);
+    public void setActivities(List<Activity> activities) {
+        this.activities.getInternalList().setAll(activities);
     }
 
     // TODO: create set event
@@ -64,13 +64,13 @@ public class TaskMan implements ReadOnlyTaskMan {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends Activity> newActivities, Collection<Tag> newTags) {
+        setActivities(newActivities.stream().map(Activity::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskMan newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getActivityList(), newData.getTagList());
     }
 
 //// task-level operations
@@ -80,11 +80,11 @@ public class TaskMan implements ReadOnlyTaskMan {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueActivityList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task p) throws UniqueActivityList.DuplicateTaskException {
         syncTagsWithMasterList(p);
-        tasks.add(p);
+        activities.add(new Activity(p));
     }
 
     /**
@@ -111,11 +111,11 @@ public class TaskMan implements ReadOnlyTaskMan {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.remove(key)) {
+    public boolean removeActivity(Activity key) throws UniqueActivityList.ActivityNotFoundException {
+        if (activities.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
 
@@ -129,12 +129,12 @@ public class TaskMan implements ReadOnlyTaskMan {
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return activities.getInternalList().size() + " activities, " + tags.getInternalList().size() +  " tags";
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
+    public List<Activity> getActivityList() {
+        return Collections.unmodifiableList(activities.getInternalList());
     }
 
     @Override
@@ -143,8 +143,8 @@ public class TaskMan implements ReadOnlyTaskMan {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
-        return this.tasks;
+    public UniqueActivityList getUniqueActivityList() {
+        return this.activities;
     }
 
     @Override
@@ -157,13 +157,13 @@ public class TaskMan implements ReadOnlyTaskMan {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskMan // instanceof handles nulls
-                && this.tasks.equals(((TaskMan) other).tasks)
+                && this.activities.equals(((TaskMan) other).activities)
                 && this.tags.equals(((TaskMan) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(activities, tags);
     }
 }

@@ -135,7 +135,7 @@ public class TestUtil {
     }
 
     public static TaskMan generateEmptyTaskMan() {
-        return new TaskMan(new UniqueTaskList(), new UniqueTagList());
+        return new TaskMan(new UniqueActivityList(), new UniqueTagList());
     }
 
     public static XmlSerializableTaskMan generateSampleStorageTaskMan() {
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, Activity task) {
         return card.isSameTask(task);
     }
 

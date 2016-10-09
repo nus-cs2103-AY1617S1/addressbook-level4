@@ -58,6 +58,28 @@ public class XmlAdaptedTask {
         }
     }
 
+    //TODO: remove after XmlAdaptedEvent is completed.
+    public XmlAdaptedTask(Activity source) {
+        title = source.getTitle().title;
+        deadline = source.getDeadline().isPresent()
+                ? source.getDeadline().get().toString()
+                : null;
+        status = source.getStatus().isPresent()
+                ? source.getStatus().get().toString()
+                : null;
+        schedule = source.getSchedule().isPresent()
+                ? source.getSchedule().get().toString()
+                : null;
+        frequency = source.getFrequency().isPresent()
+                ? source.getFrequency().get().toString()
+                : null;
+        tagged = new ArrayList<>();
+        for (Tag tag : source.getTags()) {
+            tagged.add(new XmlAdaptedTag(tag));
+        }
+    }
+
+
     /**
      * Converts this JAXB-friendly adapted task object into the model's Task object.
      *

@@ -1,7 +1,7 @@
 package guitests;
 
-import org.junit.Test;
 import seedu.taskman.commons.core.Messages;
+import seedu.taskman.model.event.Activity;
 import seedu.taskman.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
@@ -32,8 +32,12 @@ public class ListCommandTest extends TaskManGuiTest {
 
     private void assertListResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
-        assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " tasks listed!");
-        assertTrue(taskListPanel.isListMatching(expectedHits));
+        Activity[] expectedActivities = new Activity[expectedHits.length];
+        for(int i = 0; i < expectedHits.length; i++){
+            expectedActivities[i] = new Activity(expectedHits[i]);
+        }
+        assertListSize(expectedActivities.length);
+        assertResultMessage(expectedActivities.length + " tasks listed!");
+        assertTrue(taskListPanel.isListMatching(expectedActivities));
     }
 }

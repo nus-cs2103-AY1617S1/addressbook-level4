@@ -9,6 +9,7 @@ import seedu.taskman.commons.exceptions.DataConversionException;
 import seedu.taskman.commons.util.FileUtil;
 import seedu.taskman.model.TaskMan;
 import seedu.taskman.model.ReadOnlyTaskMan;
+import seedu.taskman.model.event.Activity;
 import seedu.taskman.model.event.Task;
 import seedu.taskman.testutil.TypicalTestTasks;
 
@@ -72,7 +73,7 @@ public class XmlTaskManStorageTest {
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.hoon));
-        original.removeTask(new Task(TypicalTestTasks.alice));
+        original.removeActivity(new Activity(new Task(TypicalTestTasks.alice)));
         xmlTaskManStorage.saveTaskMan(original, filePath);
         readBack = xmlTaskManStorage.readTaskMan(filePath).get();
         assertEquals(original, new TaskMan(readBack));

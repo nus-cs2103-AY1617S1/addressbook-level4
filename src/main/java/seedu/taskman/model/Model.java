@@ -1,9 +1,9 @@
 package seedu.taskman.model;
 
 import seedu.taskman.commons.core.UnmodifiableObservableList;
-import seedu.taskman.model.event.ReadOnlyTask;
+import seedu.taskman.model.event.Activity;
 import seedu.taskman.model.event.Task;
-import seedu.taskman.model.event.UniqueTaskList;
+import seedu.taskman.model.event.UniqueActivityList;
 
 import java.util.Set;
 
@@ -17,19 +17,19 @@ public interface Model {
     /** Returns the TaskMan */
     ReadOnlyTaskMan getTaskMan();
 
-    /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    /** Deletes the given activity. */
+    void deleteActivity(Activity target) throws UniqueActivityList.ActivityNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task) throws UniqueActivityList.DuplicateTaskException;
 
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<Activity>} */
+    UnmodifiableObservableList<Activity> getFilteredActivityList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredActivityList(Set<String> keywords);
 
 }

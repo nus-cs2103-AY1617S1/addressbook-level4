@@ -10,14 +10,10 @@ import seedu.taskman.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskman.model.TaskMan;
 import seedu.taskman.model.ReadOnlyTaskMan;
 import seedu.taskman.model.UserPrefs;
-import seedu.taskman.model.event.Task;
-import seedu.taskman.model.event.UniqueTaskList;
 import seedu.taskman.testutil.TypicalTestTasks;
 import seedu.taskman.testutil.EventsCollector;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.logging.Logger;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
