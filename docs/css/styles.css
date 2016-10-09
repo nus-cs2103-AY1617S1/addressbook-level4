@@ -68,6 +68,11 @@
 .toc ul {
   list-style: none;
   counter-reset: toc;
+  line-height: 1.4;
+}
+
+.toc > ul {
+  padding-left: 0;
 }
 
 .toc ul li:before {

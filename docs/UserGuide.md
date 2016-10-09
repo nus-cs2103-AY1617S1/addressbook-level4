@@ -10,7 +10,7 @@ Uncle Jim's Discount To-do List (UJDTDL) is a revolutionary mouse-free personal 
 
 Moreover, we know that you understand your activities better. So UJDTDL allows you to create your very own categories to organise your activities. At the same time, UJDTDL is capable of scheduling floating tasks for you if you do not have a fixed time for them. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
 
-So if you are excited, then let's get started!
+Sounds exciting? Then let's get started!
 
 
 ## Quick Start
@@ -25,16 +25,15 @@ So if you are excited, then let's get started!
 
     <img src="images/mockupV0_0.png" width="700" alt="Example of UI once launched"> 
     
-5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.  
-   E.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. 
 6. Some example commands you can try:
 
-     * **`add`**` Finish CS2103T homework -d next Friday` : 
+     * **`add`**` Finish CS2103T homework -d next Friday` - 
        adds a new task with the deadline set at next Friday
-     * **`delete`**` 3` : deletes the 3<sup>rd</sup> task shown in the current list
-     * **`exit`** : exits the app
+     * **`delete`**` 3` - deletes the 3<sup>rd</sup> task shown in the current list
+     * **`exit`** - exits the app
      
-7. Refer to the [Features](#features) section below for details of each command.
+7. Refer to the [commands reference](#commands-reference) section below for details of each command.
 
 ## Features
 
@@ -168,7 +167,7 @@ Format:
 
 You can use this command to mark a task as completed. Completed task appear struckthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
 
-<img src="images/sketch_task_completed_small.png" width="700" alt="Example of a Completed Task"><br />
+<img src="images/sketch_task_completed_small.png" width="700" alt="Example of a Completed Task">
 
 ### Pinning a task: **`pin`**
 
@@ -176,7 +175,7 @@ Format: **`pin`**` INDEX`
 
 If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. 
 
-<img src="images/sketch_task_pinned_small.png" width="700" alt="Pinned Task"><br />
+<img src="images/sketch_task_pinned_small.png" width="700" alt="Pinned Task">
 
 ### Managing tags: **`tag`**
 
