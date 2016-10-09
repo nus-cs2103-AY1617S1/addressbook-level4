@@ -47,22 +47,26 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getTaskManagerFileDirectory() {
-        return taskManagerFileDirectory;
-    }
-
     public String getTaskManagerFileName() {
         return taskManagerFileName;
+    }
+    
+    public void setTaskManagerFileName(String taskManagerFileName) {
+        this.taskManagerFileName = taskManagerFileName;
     }
     
     public String getTaskManagerFilePath() {
         return taskManagerFileDirectory + DIRECTORY_DELIMITER + taskManagerFileName;
     }
     
-    public void setTaskManagerFilePath(String taskManagerFileDirectory) {
+    public void setTaskManagerFileDirectory(String taskManagerFileDirectory) {
         this.taskManagerFileDirectory = taskManagerFileDirectory;
     }
 
+    public String getTaskManagerFileDirectory() {
+        return taskManagerFileDirectory;
+    }
+    
     public String getTaskManagerName() {
         return taskManagerName;
     }
