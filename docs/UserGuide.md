@@ -15,7 +15,7 @@
 1. Download the latest `dearjim.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/dearjim_initial.png" width="600">
+   > <img src="images/dearjim_initial.png">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -37,7 +37,10 @@
 
 #### Viewing help : `help`
 Opens the user guide with a new window<br>
-Format: `help`
+Format: `help`<br>
+Example:
+> <img src="images/dearjim_help.png"><br>
+* `help`
 
  
 #### Adding an item: `add`
