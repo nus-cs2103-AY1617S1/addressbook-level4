@@ -195,20 +195,9 @@ Command format: `done <index>`
     
 6. Find: ` find `   
 <img src="images/find.png" width="600"><br>
-
-    6.1 Find Tasks 
-
-    Command format: `find <keyword>`
-    
-    If you only remember a certain word in a task name, you can search for it using that word. 
-    
-    `find girlfriend` 
-
-    6.2 Find Categories 
-    
-    Command format: `find #<keyword>`
-    
-    You can search for categories in the same way you search for a task, simply add a `#` symbol before the keyword. 
+Command format: `find <keyword>`  
+<p>If you only remember a certain word in a task name, you can search for it using that word. </p> 
+`find girlfriend` 
 	
 7. Delete: ` del `   
 <img src="images/delete.png" width="600"><br> 
@@ -267,7 +256,7 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 | edit | `edit <index> [.due <date>]`<br />`edit #<oldCat> [#<newCat>] [.c <colour>]` |
 | list | `list` <br /> `list today` <br /> `list week` <br /> `list float`<br />`list #<cat>`<br />`list done` |
 | done | `done <index>` |
-| find | `find <keyword>` <br /> `find #<keyword>` |
+| find | `find <keyword>` |
 | delete | `del <index>` <br /> `del #<cat>`|
 | storage | `save <path>` |
 | exit | `exit` |
