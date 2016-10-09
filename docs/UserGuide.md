@@ -1,14 +1,16 @@
 [TOC]
 
+## Introduction
+
 ## Quick Start
 
-1. Ensure you have Java version 1.8.0_60 or later installed on your computer.
+1. Ensure you have [**Java version 8 update 60**][java] or later installed on your computer.
 
-    !!! warning "This application will not work with earlier versions of Java 1.8"
+    !!! warning "This application will not work with earlier versions of Java 8"
 
 2. Download the latest `UJDTDL.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for the application.
-4. Double-click the file to start the app. The GUI should appear in a few seconds.
+4. Double-click the file to start the app. 
 
     <img src="images/mockupV0_0.png" width="700" alt="Example of UI once launched"> 
     
@@ -25,9 +27,19 @@
 
 ## Features
 
-### Navigation
+### Intelligent Views
 
-When launched the application will have several views as shown
+
+
+
+### Events *and* Tasks
+
+Most productivity apps only allow you to manage tasks *or* events. Our application can manage both. 
+
+### Command Line Interface
+
+ 
+## Commands Reference
 
 ### Command Format
 
@@ -35,30 +47,17 @@ When launched the application will have several views as shown
 * Items in `[SQUARE BRACKETS]` are optional.
 * To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. `-f`) for short flags and double dash for long flags (eg. `--all`)
 * Items with `...` after them can have multiple instances.
-* Most commands that updates a task require an `INDEX` parameter. This is number shown to the left of the task as shown in the screenshot below
+* Most commands that updates a task require an `INDEX`. This is number shown to the left of the task as shown in the screenshot below
 
  <img src="images/sketch_task_index.jpg" width="350" alt="Index Number Location">
- 
-## Commands Reference
 
-### Switch views : `view`
-Switch between different views.  
-Format: **`view`**` VIEW`
 
-<img src="images/sketch_task_view.jpg" width="700" alt="View of completed tasks">
-
-You can also use the underlined character in the view's name as the shortcut when switching views. 
-
-!!! example
-    **`view`**` completed`
-    :    Show completed tasks only 
-
-### Viewing help : `help`
+### Viewing help : **`help`**
 Format: **`help`**
 
 Shows help window which gives list of commands and their actions.
  
-### Adding a task or event: `add`
+### Adding a task or event: **`add`**
 
 Adds a new task or event.  
 Format:  
@@ -133,7 +132,7 @@ Flag | Parameter        | Used to
 `-p` | -                | Pins the task to the top of the list
 `-t` | `TAG 1, TAG 2, ...` | Tags to help organize your tasks 
 
-### Deleting a task: `delete`
+### Deleting a task: **`delete`**
 
 Deletes the specified task from todo list.  
 Format: **`delete`**` INDEX`
@@ -149,7 +148,7 @@ Deletes the task at the specified `INDEX`. The index refers to the index number 
     **`delete`**` 1`  
     :    Deletes the 1st task in the results of the **`find`**` Y2S1` command.
 
-### Marking a task complete: `complete`
+### Marking a task complete: **`complete`**
 
 Format:  
 **`complete`**` INDEX`  
@@ -159,7 +158,7 @@ You can use this command to mark a task as completed. Completed task appear stru
 
 <img src="images/sketch_task_completed.jpg" width="700" alt="Example of a Completed Task"><br />
 
-### Pinning a task: `pin`
+### Pinning a task: **`pin`**
 
 Format: **`pin`**` INDEX`
 
@@ -168,7 +167,7 @@ If a particular task or event is important, you can pin it to the top of every l
 <img src="images/sketch_task_pinned.jpg" width="700" alt="Pinned Task"><br />
 
 
-### Editing a task: `edit`
+### Editing a task: **`edit`**
 
 Allows you to edit a specific task.  
 Format:  
@@ -177,7 +176,23 @@ Format:
 
 Use the `edit` command to make changes to the task specified by `INDEX`. The command accepts the same parameters as the `add` command. Any edit is immediately saved.
 
-### Finding tasks based on tags or name: `find`
+
+### Switch views : **`view`**
+
+Switch between different views.  
+Format: **`view`**` VIEW`
+
+<img src="images/sketch_task_view.jpg" width="700" alt="View of completed tasks">
+
+You can also use the underlined character in the view's name as the shortcut when switching views. 
+
+!!! example
+    **`view`**` completed`
+    :    Show completed tasks only 
+
+
+### Finding tasks: **`find`**
+
 Finds tasks whose tags/name contain any of the given keywords.  
 Format: **`find`**` KEYWORD [MORE KEYWORDS]`
 
@@ -195,38 +210,40 @@ The search is case insensitive and the order of the keywords does not matter. On
     :    Returns any task with either **Jo** or **Ja** in the title, such as 
          **Meet John for lunch**, **Meet Jane for lunch**, or **Jack and Jane's wedding**
 
-### Exiting the program : `exit`
+### Exiting the program : **`exit`**
 Exits the program.  
 Format: **`exit`**  
 
-### Undoing an action: `undo`
+### Undoing an action: **`undo`**
 
 Undo the most recent action.  
 Format: **`undo`**
 
-Note: Only applies to commands which have made changes to the todo list.
+!!! note
+    Only applies to commands which have made changes to the todo list.
 
-### Redoing an action: `redo`
+### Redoing an action: **`redo`**
 
 Redo the most recent action which was undone.  
 Format: **`redo`**
 
-### Loading an existing data file : `load`
+### Loading an existing data file: **`load`**
 
 Format: **`load`**` FILENAME`
 
-Loads in another save file. You can use this to restore a backup or switch to different lists so you can for example have separate lists for school and home. Ensure that the file is converted into an `.xml` format for usage by the program.
+Loads in another save file. You can use this to restore a backup or switch to different lists so you can 
+(for example) have separate lists for school and home. 
 
 !!! example
 
     **`load`**` "myDiscountTodo.xml"`
 
-### Changing the save location: `save`
+### Changing the save location: **`save`**
 
 Format: **`save`**
 
-Todo list data are saved in a file called `discountTodo.xml` in the `data` folder. You can change the save file by specifying the file path as the first argument when running the program.
-
+By default, todo list data are saved in a file called `discountTodo.xml` in the `data` folder. You can change 
+the save file by specifying the file path as the first argument when running the program.
 
 !!! note "Autosave"
     Your todo list is saved automatically every time it is updated. There is no need to save manually.
@@ -262,3 +279,5 @@ Redo     | **`redo`**
 Load     | **`load`**` FILENAME`
 Save     | **`save`**
 View     | **`view`**` VIEW`
+
+[java]: https://www.java.com/en/download/
