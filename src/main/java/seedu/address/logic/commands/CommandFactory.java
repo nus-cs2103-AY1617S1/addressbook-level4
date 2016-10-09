@@ -67,6 +67,9 @@ public class CommandFactory {
     }
 
     private Command buildAddCommand() {
+        // Extract tags
+        List<String> tags = sequentialParser.extractPrefixedWords(TAG_PREFIX);
+
         // Try to find title
         Optional<String> title = sequentialParser.extractText(
             KEYWORD_DATERANGE_START,
@@ -85,9 +88,7 @@ public class CommandFactory {
             return new InvalidCommand(Messages.MESSAGE_TODO_TITLE_CONSTRAINTS);
         }
 
-        // Extract tags
-        List<String> tags = sequentialParser.extractPrefixedWords(TAG_PREFIX);
-
+        // Put in tags
         if (!tags.isEmpty()) {
             try {
                 command.setTags(tags.stream().collect(Collectors.toSet()));

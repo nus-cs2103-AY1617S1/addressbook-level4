@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
         UnmodifiableObservableList<ReadOnlyToDo> lastShownList = model.getFilteredToDoList();
 
         if (lastShownList.size() < toDoIndex) {
-            return new CommandResult(String.format(Messages.MESSAGE_TODO_ITEM_INDEX_INVALID, toDoIndex));
+            return new CommandResult(String.format(Messages.MESSAGE_TODO_ITEM_INDEX_INVALID, toDoIndex), true);
         }
 
         ReadOnlyToDo toDoToDelete = lastShownList.get(toDoIndex - 1);
@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
         try {
             model.deleteToDo(toDoToDelete);
         } catch (IllegalValueException exception) {
-            return new CommandResult(exception.getMessage());
+            return new CommandResult(exception.getMessage(), true);
         }
 
         return new CommandResult(String.format(Messages.MESSAGE_TODO_DELETED, toDoToDelete.getTitle().toString()));

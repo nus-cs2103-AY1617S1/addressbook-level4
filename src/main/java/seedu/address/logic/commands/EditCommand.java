@@ -67,7 +67,7 @@ public class EditCommand extends Command {
         UnmodifiableObservableList<ReadOnlyToDo> lastShownList = model.getFilteredToDoList();
 
         if (lastShownList.size() < toDoIndex) {
-            return new CommandResult(String.format(Messages.MESSAGE_TODO_ITEM_INDEX_INVALID, toDoIndex));
+            return new CommandResult(String.format(Messages.MESSAGE_TODO_ITEM_INDEX_INVALID, toDoIndex), true);
         }
 
         ReadOnlyToDo toDoToEdit = lastShownList.get(toDoIndex - 1);
@@ -89,7 +89,7 @@ public class EditCommand extends Command {
                 model.editTodoTags(toDoToEdit, tags);
             }
         } catch (IllegalValueException exception) {
-            return new CommandResult(exception.toString());
+            return new CommandResult(exception.toString(), true);
         }
 
         return new CommandResult(String.format(Messages.MESSAGE_TODO_EDITED, toDoToEdit.getTitle().toString()));
