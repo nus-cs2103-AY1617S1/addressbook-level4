@@ -11,7 +11,8 @@ Responsibilities: Model
 
 -----
 
-#### [Wu Cheuk Kwan Carina](https://github.com/carinackwu)
+#### [Wu Cheuk Kwan Carina](https://github.com/carinackwu) <br>
+<img src="images/Carina.JPG" width="150"><br>
 Role: Team Lead, Developer <br>  
 Responsibilities: Logic
 
