@@ -1,4 +1,4 @@
-# Developer Guide 
+﻿# Developer Guide 
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -450,4 +450,24 @@ Cons:
 * Unable to view event list
 * Unable to mark event as done
 * Unable to color-code different events <br>
+
+#### Carina - Cal
+Pros:
+* With a very convenient interface for setting events’ date and time quickly
+* Able to add other participants’ contacts in an event
+* Able to send or receive invitation of an event to others directly through the app
+* Able to include map when adding location of an event
+* Able to provide recommendation when deciding the location of an event 
+* Able to set alarm to an event
+* Able to set repeat to an event
+* Able to connect with Facebook and import Facebook friends’ birthdays into the calendar
+* Able to sync with another calendar product (eg. Google calendar) <br>
+
+Cons:
+* Does not have a task function itself so it requires to work together with another app Any.do
+* Unable to show events of the following days directly through the calendar
+* Unable to show events that last for a few days in the calendar
+* Does not show public holidays in the calendar
+* Unable to add additional notes in an event <br>
+
 
