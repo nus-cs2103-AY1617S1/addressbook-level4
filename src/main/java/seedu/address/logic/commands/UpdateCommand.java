@@ -28,7 +28,7 @@ public class UpdateCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer) [NAME] [by DEADLINE] "
+            + "Parameters: INDEX (must be a positive integer) [name NAME] [by DEADLINE] "
             + "[from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] "
             + "[repeattime FREQUENCY COUNT] [tag \"TAG\"...]\n" + "Example: " + COMMAND_WORD
             + " 1 by 15 Sep 3pm";
