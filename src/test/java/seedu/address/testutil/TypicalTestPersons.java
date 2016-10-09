@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.AddressBook;
-import seedu.emeraldo.model.person.*;
+import seedu.emeraldo.model.task.*;
 
 /**
  *
@@ -37,13 +37,13 @@ public class TypicalTestPersons {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addPerson(new Person(alice));
-            ab.addPerson(new Person(benson));
-            ab.addPerson(new Person(carl));
-            ab.addPerson(new Person(daniel));
-            ab.addPerson(new Person(elle));
-            ab.addPerson(new Person(fiona));
-            ab.addPerson(new Person(george));
+            ab.addPerson(new Task(alice));
+            ab.addPerson(new Task(benson));
+            ab.addPerson(new Task(carl));
+            ab.addPerson(new Task(daniel));
+            ab.addPerson(new Task(elle));
+            ab.addPerson(new Task(fiona));
+            ab.addPerson(new Task(george));
         } catch (UniquePersonList.DuplicateTaskException e) {
             assert false : "not possible";
         }

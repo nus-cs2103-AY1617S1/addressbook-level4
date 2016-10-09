@@ -1,9 +1,9 @@
 package seedu.emeraldo.model;
 
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
-import seedu.emeraldo.model.person.Person;
-import seedu.emeraldo.model.person.ReadOnlyTask;
-import seedu.emeraldo.model.person.UniquePersonList;
+import seedu.emeraldo.model.task.ReadOnlyTask;
+import seedu.emeraldo.model.task.Task;
+import seedu.emeraldo.model.task.UniquePersonList;
 
 import java.util.Set;
 
@@ -21,7 +21,7 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniquePersonList.TaskNotFoundException;
 
     /** Adds the given person */
-    void addPerson(Person person) throws UniquePersonList.DuplicateTaskException;
+    void addPerson(Task person) throws UniquePersonList.DuplicateTaskException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();

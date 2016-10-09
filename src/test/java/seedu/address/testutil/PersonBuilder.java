@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
-import seedu.emeraldo.model.person.*;
 import seedu.emeraldo.model.tag.Tag;
+import seedu.emeraldo.model.task.*;
 
 /**
  *
@@ -16,7 +16,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+        this.person.setName(new Description(name));
         return this;
     }
 

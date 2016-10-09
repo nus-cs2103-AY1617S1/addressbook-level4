@@ -3,7 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.emeraldo.model.person.ReadOnlyTask;
+import seedu.emeraldo.model.task.ReadOnlyTask;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -38,7 +38,7 @@ public class PersonCardHandle extends GuiHandle {
 
 
     public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName().fullName) 
+        return getFullName().equals(person.getDescription().fullName) 
                  && getPhone().equals(person.getPhone().value)
                  && getAddress().equals(person.getAddress().value);
     }

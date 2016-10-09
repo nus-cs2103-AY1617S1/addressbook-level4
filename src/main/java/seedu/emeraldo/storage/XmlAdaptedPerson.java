@@ -1,9 +1,9 @@
 package seedu.emeraldo.storage;
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
-import seedu.emeraldo.model.person.*;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
+import seedu.emeraldo.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class XmlAdaptedPerson {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
-        name = source.getName().fullName;
+        name = source.getDescription().fullName;
         phone = source.getPhone().value;
         address = source.getAddress().value;
         tagged = new ArrayList<>();
@@ -50,15 +50,15 @@ public class XmlAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Person toModelType() throws IllegalValueException {
+    public Task toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
-        final Name name = new Name(this.name);
+        final Description name = new Description(this.name);
         final Phone phone = new Phone(this.phone);
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Person(name, phone, address, tags);
+        return new Task(name, phone, address, tags);
     }
 }

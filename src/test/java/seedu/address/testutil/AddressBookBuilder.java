@@ -2,9 +2,9 @@ package seedu.address.testutil;
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.AddressBook;
-import seedu.emeraldo.model.person.Person;
-import seedu.emeraldo.model.person.UniquePersonList;
 import seedu.emeraldo.model.tag.Tag;
+import seedu.emeraldo.model.task.Task;
+import seedu.emeraldo.model.task.UniquePersonList;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -19,7 +19,7 @@ public class AddressBookBuilder {
         this.addressBook = addressBook;
     }
 
-    public AddressBookBuilder withPerson(Person person) throws UniquePersonList.DuplicateTaskException {
+    public AddressBookBuilder withPerson(Task person) throws UniquePersonList.DuplicateTaskException {
         addressBook.addPerson(person);
         return this;
     }

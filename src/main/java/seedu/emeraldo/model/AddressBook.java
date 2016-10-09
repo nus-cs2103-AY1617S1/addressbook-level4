@@ -1,11 +1,11 @@
 package seedu.emeraldo.model;
 
 import javafx.collections.ObservableList;
-import seedu.emeraldo.model.person.Person;
-import seedu.emeraldo.model.person.ReadOnlyTask;
-import seedu.emeraldo.model.person.UniquePersonList;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
+import seedu.emeraldo.model.task.ReadOnlyTask;
+import seedu.emeraldo.model.task.Task;
+import seedu.emeraldo.model.task.UniquePersonList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -46,11 +46,11 @@ public class AddressBook implements ReadOnlyEmeraldo {
 
 //// list overwrite operations
 
-    public ObservableList<Person> getPersons() {
+    public ObservableList<Task> getPersons() {
         return persons.getInternalList();
     }
 
-    public void setPersons(List<Person> persons) {
+    public void setPersons(List<Task> persons) {
         this.persons.getInternalList().setAll(persons);
     }
 
@@ -59,7 +59,7 @@ public class AddressBook implements ReadOnlyEmeraldo {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Person::new).collect(Collectors.toList()));
+        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -76,7 +76,7 @@ public class AddressBook implements ReadOnlyEmeraldo {
      *
      * @throws UniquePersonList.DuplicateTaskException if an equivalent person already exists.
      */
-    public void addPerson(Person p) throws UniquePersonList.DuplicateTaskException {
+    public void addPerson(Task p) throws UniquePersonList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         persons.add(p);
     }
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyEmeraldo {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person person) {
+    private void syncTagsWithMasterList(Task person) {
         final UniqueTagList personTags = person.getTags();
         tags.mergeFrom(personTags);
 

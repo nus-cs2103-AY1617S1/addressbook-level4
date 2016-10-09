@@ -13,7 +13,7 @@ import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestPersons;
 import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.model.AddressBook;
-import seedu.emeraldo.model.person.ReadOnlyTask;
+import seedu.emeraldo.model.task.ReadOnlyTask;
 
 import java.util.concurrent.TimeoutException;
 

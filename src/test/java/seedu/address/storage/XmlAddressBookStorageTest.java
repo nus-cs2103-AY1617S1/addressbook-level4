@@ -11,7 +11,7 @@ import seedu.emeraldo.commons.exceptions.DataConversionException;
 import seedu.emeraldo.commons.util.FileUtil;
 import seedu.emeraldo.model.AddressBook;
 import seedu.emeraldo.model.ReadOnlyEmeraldo;
-import seedu.emeraldo.model.person.Person;
+import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.storage.XmlEmeraldoStorage;
 
 import java.io.IOException;
@@ -73,14 +73,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Person(TypicalTestPersons.hoon));
-        original.removePerson(new Person(TypicalTestPersons.alice));
+        original.addPerson(new Task(TypicalTestPersons.hoon));
+        original.removePerson(new Task(TypicalTestPersons.alice));
         xmlAddressBookStorage.saveEmeraldo(original, filePath);
         readBack = xmlAddressBookStorage.readEmeraldo(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(new Person(TypicalTestPersons.ida));
+        original.addPerson(new Task(TypicalTestPersons.ida));
         xmlAddressBookStorage.saveEmeraldo(original); //file path not specified
         readBack = xmlAddressBookStorage.readEmeraldo().get(); //file path not specified
         assertEquals(original, new AddressBook(readBack));

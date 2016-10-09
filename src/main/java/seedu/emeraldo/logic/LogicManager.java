@@ -7,7 +7,7 @@ import seedu.emeraldo.logic.commands.Command;
 import seedu.emeraldo.logic.commands.CommandResult;
 import seedu.emeraldo.logic.parser.Parser;
 import seedu.emeraldo.model.Model;
-import seedu.emeraldo.model.person.ReadOnlyTask;
+import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.storage.Storage;
 
 import java.util.logging.Logger;

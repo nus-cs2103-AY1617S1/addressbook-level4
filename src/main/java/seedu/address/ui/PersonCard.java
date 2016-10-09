@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.emeraldo.model.person.ReadOnlyTask;
+import seedu.emeraldo.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart{
 
@@ -39,7 +39,7 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(person.getDescription().fullName);
         id.setText(displayedIndex + ". ");
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);

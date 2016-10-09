@@ -1,9 +1,9 @@
 package seedu.emeraldo.logic.commands;
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
-import seedu.emeraldo.model.person.*;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
+import seedu.emeraldo.model.task.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
-    private final Person toAdd;
+    private final Task toAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -36,8 +36,8 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Person(
-                new Name(name),
+        this.toAdd = new Task(
+                new Description(name),
                 new Phone(phone),
                 new Address(address),
                 new UniqueTagList(tagSet)

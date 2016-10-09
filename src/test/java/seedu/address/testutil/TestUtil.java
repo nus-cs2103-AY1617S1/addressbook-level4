@@ -17,9 +17,9 @@ import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.FileUtil;
 import seedu.emeraldo.commons.util.XmlUtil;
 import seedu.emeraldo.model.AddressBook;
-import seedu.emeraldo.model.person.*;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
+import seedu.emeraldo.model.task.*;
 import seedu.emeraldo.storage.XmlSerializableEmeraldo;
 
 import java.io.File;
@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Person[] samplePersonData = getSamplePersonData();
+    public static final Task[] samplePersonData = getSamplePersonData();
 
-    private static Person[] getSamplePersonData() {
+    private static Task[] getSamplePersonData() {
         try {
-            return new Person[]{
-                    new Person(new Name("Ali Muster"), new Phone("9482424"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Boris Mueller"), new Phone("87249245"), new Address("81th street"), new UniqueTagList()),
-                    new Person(new Name("Carl Kurz"), new Phone("95352563"), new Address("wall street"), new UniqueTagList()),
-                    new Person(new Name("Daniel Meier"), new Phone("87652533"), new Address("10th street"), new UniqueTagList()),
-                    new Person(new Name("Elle Meyer"), new Phone("9482224"), new Address("michegan ave"), new UniqueTagList()),
-                    new Person(new Name("Fiona Kunz"), new Phone("9482427"), new Address("little tokyo"), new UniqueTagList()),
-                    new Person(new Name("George Best"), new Phone("9482442"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Hoon Meier"), new Phone("8482424"), new Address("little india"), new UniqueTagList()),
-                    new Person(new Name("Ida Mueller"), new Phone("8482131"), new Address("chicago ave"), new UniqueTagList())
+            return new Task[]{
+                    new Task(new Description("Ali Muster"), new Phone("9482424"), new Address("4th street"), new UniqueTagList()),
+                    new Task(new Description("Boris Mueller"), new Phone("87249245"), new Address("81th street"), new UniqueTagList()),
+                    new Task(new Description("Carl Kurz"), new Phone("95352563"), new Address("wall street"), new UniqueTagList()),
+                    new Task(new Description("Daniel Meier"), new Phone("87652533"), new Address("10th street"), new UniqueTagList()),
+                    new Task(new Description("Elle Meyer"), new Phone("9482224"), new Address("michegan ave"), new UniqueTagList()),
+                    new Task(new Description("Fiona Kunz"), new Phone("9482427"), new Address("little tokyo"), new UniqueTagList()),
+                    new Task(new Description("George Best"), new Phone("9482442"), new Address("4th street"), new UniqueTagList()),
+                    new Task(new Description("Hoon Meier"), new Phone("8482424"), new Address("little india"), new UniqueTagList()),
+                    new Task(new Description("Ida Mueller"), new Phone("8482131"), new Address("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,7 +97,7 @@ public class TestUtil {
         }
     }
 
-    public static List<Person> generateSamplePersonData() {
+    public static List<Task> generateSamplePersonData() {
         return Arrays.asList(samplePersonData);
     }
 

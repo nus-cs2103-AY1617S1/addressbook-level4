@@ -2,7 +2,7 @@ package seedu.emeraldo.logic;
 
 import javafx.collections.ObservableList;
 import seedu.emeraldo.logic.commands.CommandResult;
-import seedu.emeraldo.model.person.ReadOnlyTask;
+import seedu.emeraldo.model.task.ReadOnlyTask;
 
 /**
  * API of the Logic component

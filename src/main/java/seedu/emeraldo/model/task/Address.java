@@ -1,4 +1,4 @@
-package seedu.emeraldo.model.person;
+package seedu.emeraldo.model.task;
 
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;

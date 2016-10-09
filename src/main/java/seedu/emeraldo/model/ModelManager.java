@@ -6,10 +6,10 @@ import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.util.StringUtil;
-import seedu.emeraldo.model.person.Person;
-import seedu.emeraldo.model.person.ReadOnlyTask;
-import seedu.emeraldo.model.person.UniquePersonList;
-import seedu.emeraldo.model.person.UniquePersonList.TaskNotFoundException;
+import seedu.emeraldo.model.task.ReadOnlyTask;
+import seedu.emeraldo.model.task.Task;
+import seedu.emeraldo.model.task.UniquePersonList;
+import seedu.emeraldo.model.task.UniquePersonList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -22,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Task> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -71,7 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicateTaskException {
+    public synchronized void addPerson(Task person) throws UniquePersonList.DuplicateTaskException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -139,7 +139,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask person) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getDescription().fullName, keyword))
                     .findAny()
                     .isPresent();
         }
