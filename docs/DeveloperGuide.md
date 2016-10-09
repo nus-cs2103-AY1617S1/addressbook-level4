@@ -92,7 +92,7 @@ interface, and it exposes its functionality using the `LogicManager.java` class 
 The following diagram shows how components interact with each other when the user issues the
 command `delete 3` (refer to Figure 2).
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SDforDeleteTask.png" width="800">
 >**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command `delete 3`
 
 >Note how the `Model` simply raises a `TaskMangerChangedEvent` when the GGist data are changed,
@@ -114,13 +114,13 @@ The following diagram shows how the `EventsCenter` reacts to the event (`delete 
 
 **API** : [`Ui.java`](../src/main/java/seedu/ggist/ui/Ui.java)
 
+
 The `UI` consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`,`PersonListPanel`,
 `StatusBarFooter` and `BrowserPanel`.These UI parts inherit from the abstract `UiPart` class ,and they can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- which are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/ggist/ui/MainWindow.java) is specified in
- [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files which are in the `src/main/resources/view` folder.<br>
+
+For example, the layout of the [`MainWindow`](../src/main/java/seedu/ggist/ui/MainWindow.java) is specified in [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 * Executes user commands using the `Logic` component.
@@ -132,7 +132,7 @@ The `UI` component,
 <img src="images/LogicClassDiagram.png" width="800"><br>
 >**_Figure 5_**: Logic Diagram
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/ggist/logic/Logic.java)
 
 1. The `Logic` component uses the `Parser` class to parse the user command.
 2. This results in a `Command` object being executed by the `LogicManager`.
@@ -141,7 +141,7 @@ The `UI` component,
 
 The following diagram displays the interactions within the `Logic` component for the `execute("delete 1")` API call(refer to Figure 6).<br>
  
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 >**_Figure 6_**: Sequence Diagram - shows interactions within the `Logic` component for the `execute("delete 1")` API call
 
 ### Model component
@@ -153,6 +153,7 @@ The following diagram displays the interactions within the `Logic` component for
 
 The `Model` component,
 * stores a `UserPref` object that represents the user's preferences.
+<<<<<<< HEAD
 * stores the GGist data.
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI binds to this list
   so that the UI updates automatically when the data in the list changes.
@@ -346,6 +347,7 @@ Use case ends.
 
 > 3a1. Add a new feature to that task <br>
   Use case ends
+  
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any mainstream OS as long as it has Java 1.8.0_60 or higher installed.
