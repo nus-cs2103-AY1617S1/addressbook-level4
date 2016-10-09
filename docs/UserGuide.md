@@ -1,17 +1,16 @@
 [TOC]
 
 ## Introduction
-In today's hectic society, there are so many activities that happen in our daily lives. With a never-ending list of tasks, deadlines, events and anniversaries to keep up with, your life is in such a disorganised mess.
 
-Tracking these daily activities on a to-do list application can be daunting. Clicking so many buttons only to type in what is essential for the activities is so cumbersome that it is hard for you to maintain it as a habit to organise your life.
+In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many todo list apps have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.
 
-Have you ever wish for a nifty tool that you can use to manage all your daily activities in distinct categories, and suggest to you which one you want to complete first? Well, look no further as Uncle Jim's Discount To-do List is here to save your day.
+Ever wished for a tool that can manage all your daily activities in distinct categories, and suggest to you which one you want to complete first? Well, look no further as Uncle Jim's Discount To-do List is here to save your day.
 
-Uncle Jim's Discount To-do List (UJDTDL) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities with a single command. Gone are the days where you had to use several mouse clicks, navigating through sophisticated and unintuitive interface just to add a simple task to your schedule. The command line interface is not only flexible but remarkably easy to use. Just type out the command hit enter!
+Uncle Jim's Discount To-do List (UJDTDL) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days where you had to click through several pages of menus, navigating through unintuitive interface just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type out the command hit enter!
 
-Moreover, we know that you understand your activities better. So, we built UJDTDL that enables you to create your very own categories to organise your activities. At the same time, UJDTDL is capable of scheduling floating tasks for you if you do not have a fixed time for them. Lastly, our unique product is intelligent to sieve out urgent deadlines that you are concerned about and serve up reminders for you, so you will no longer overlook another significant activity.
+Moreover, we know that you understand your activities better. So UJDTDL allows you to create your very own categories to organise your activities. At the same time, UJDTDL is capable of scheduling floating tasks for you if you do not have a fixed time for them. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
 
-So, if you are excited, let's get started with our user guide.
+So if you are excited, then let's get started!
 
 
 ## Quick Start
@@ -40,13 +39,16 @@ So, if you are excited, let's get started with our user guide.
 ## Features
 
 ### Command Line Interface
-We observed that sometimes, the use of mouse clicks to create a new task could be so inconvenient that you may be deterred to use a to-do list. We also understand that entering a new task to your to-do list should be as efficient as possible, so you can focus on what is more important in your life. This is why we built UDJTDL with the command line as the primary source of input. In fact, you do even not need a mouse to use this application. All you need is your trusty keyboard.
+
+Time is precious. That's why you're use a productivity app to save time, not to fiddle around with the interface. Our app allows you to create and organize tasks at the speed of thought - just typing, no frails. Put that mouse away, because all you need is your trusty keyboard. 
 
 ### Custom Tags and Intelligent Views
-Organising your life is important. Compartmentalising them allows you to prioritise which tasks are more important than the others. This is why we baked in the ability for you to set custom categories with "tags" for each of your tasks and events. UDJTDL will then intelligently filter out relevant categories at your command, and sort them in order of importance, so you know which activity you should start working.
+
+Organising your life is important. Compartmentalisation allows you to prioritise which tasks are more important. This is why we baked in the ability to tags each of your tasks and events. UDJTDL will then intelligently filter out relevant categories at your command, and sort them in order of importance so you know what you should be working on at any time.
 
 ### Events *and* Tasks
-Deadlines and events are equally important. However, most productivity apps only allow you to manage either tasks *or* events. Therefore, our application can help you to manage both of them at the same time. There is no longer necessary to use two applications to achieve the same thing.
+
+Deadlines and events are equally important. However, most productivity apps only allow you to manage either tasks *or* events. Our application can help you to manage both of them at the same time. No more having to constantly switch between your calendar and todo list applications to be productive. 
 
  
 ## Commands Reference
@@ -263,13 +265,13 @@ the save file by specifying the file path as the first argument when running the
 ## FAQ
 
 **Q**: Is my data secure?  
-**A**: Your data is stored locally on your hard drive as an `.xml` file. So, your data is as secure as your hard drive. We do not have access to your to-do list. 
+**A**: Your data is stored locally on your hard drive. So, your data is as secure as your hard drive. We do not have access to your to-do list. 
 
 **Q**: How do I back up my data?  
-**A**: As your data is saved to a `.xml` file that you specified, you can simply copy this file to a back up storage of your choice.
+**A**: As your data is saved to the file that you specified, you can simply copy this file to a back up storage of your choice.
 
 **Q**: How do I sync my data with multiple devices?  
-**A**: Simply load the `.xml` file to a cloud sync service like Dropbox or Google Drive, and all updates will be reflected to all devices using the file.
+**A**: Simply load the file to a cloud sync service like Dropbox or Google Drive, and all updates will be reflected automatically to all devices using the file.
 
 **Q**: How do I pay for this project?  
 **A**: Donations can be made via PayPal or Kashmi. Cash donations are fine too. Basically if you wish to donate we will find a way for us to receive your money.
