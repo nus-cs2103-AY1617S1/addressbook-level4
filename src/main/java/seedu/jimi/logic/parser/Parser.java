@@ -15,7 +15,7 @@ import seedu.jimi.logic.commands.*;
  * Parses user input.
  */
 public class Parser {
-
+    
     /**
      * Used for initial separation of command word and args.
      */
@@ -29,6 +29,9 @@ public class Parser {
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
 
+    private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
+            Pattern.compile("(?<targetIndex>\\d+)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
+    
     public Parser() {}
 
     /**
@@ -49,6 +52,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -99,6 +105,32 @@ public class Parser {
     }
 
     /**
+     * Parses arguments in context of the edit task command.
+     * 
+     * @param args Full user command input args
+     * @return  the prepared edit command
+     */
+    private Command prepareEdit(String args){
+        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new EditCommand(
+                    matcher.group("name"),
+                    getTagsFromArgs(matcher.group("tagArguments")),
+                    Integer.parseInt(matcher.group("targetIndex"))
+                    );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+        
+    }
+    
+    /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
@@ -119,7 +151,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
