@@ -69,6 +69,9 @@ public class Parser {
         case ShowCommand.COMMAND_WORD:
             return prepareShow(commandWord + arguments);
 
+        case HideCommand.COMMAND_WORD:
+            return prepareHide(commandWord + arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -237,6 +240,55 @@ public class Parser {
         }
         try {
             return new ShowCommand(
+                    type,
+                    date,
+                    deadline,
+                    startTime,
+                    endTime,
+                    getTagsFromArgs(tags)
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    /**
+     * Parses arguments in the context of the hide command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareHide(String args){
+        if (args.trim().equals("hide")) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE));
+        }
+        
+        final KeywordParser parser = new KeywordParser("hide", "on", "by", "from", "to", "tag");
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
+        String type = parsed.get("hide");
+        String date = parsed.get("on");
+        String deadline = parsed.get("by");
+        String startTime = parsed.get("from");
+        String endTime = parsed.get("to");
+        String tags = parsed.get("tag");
+
+        type = parseTaskTypeString(type);
+
+        if (type != null && type.equals(""))
+            type = null;
+        if (date != null && date.equals(""))
+            date = null;
+        if (deadline != null && deadline.equals(""))
+            deadline = null;
+        if (startTime != null && startTime.equals(""))
+            startTime = null;
+        if (endTime != null && endTime.equals(""))
+            endTime = null;
+        if(tags == null){
+            tags = "";
+        }
+        try {
+            return new HideCommand(
                     type,
                     date,
                     deadline,
