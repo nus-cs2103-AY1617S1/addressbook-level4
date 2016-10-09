@@ -110,7 +110,7 @@ public class Parser {
      * @param args Full user command input args
      * @return  the prepared edit command
      */
-    private Command prepareEdit(String args){
+    private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         
         // Validate arg string format
@@ -123,11 +123,10 @@ public class Parser {
                     matcher.group("name"),
                     getTagsFromArgs(matcher.group("tagArguments")),
                     Integer.parseInt(matcher.group("targetIndex"))
-                    );
+            );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        }
-        
+        } 
     }
     
     /**
