@@ -32,23 +32,24 @@
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
+> * Fields in `SQUARE_BRACKETS` are optional.
 > * The order of parameters is fixed.
 
 #### Viewing help : `help`
 Opens the user guide with a new window<br>
 Format: `help`<br>
+
 Example:
 > <img src="images/dearjim_help.png"><br>
+
 * `help`
 
  
-#### Adding an item: `add`
-Adds an item into the task manager<br>
+#### Adding a task: `add`
+Adds a task into the task manager<br>
 Format: `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
 
->DearJim allows you to assign your task a `PRIORITY` of low, medium or high. By default (if unspecified), tasks
-will have medium `PRIORITY`.
+>DearJim allows you to assign your task a `PRIORITY` of low, medium or high. Tasks have mediumd `PRIORITY` by default.
 > To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add/edit command, where `PRIORITY` can be replaced by low, medium or high.
 >
 > `PRIORITY` also accepts variations of low, medium and high.
@@ -125,8 +126,8 @@ Example:
 * `add Family dinner at noon`
 * `add Meet Akshay from 1pm to 2pm -h`
 
-#### Editing an item: `edit`
-Edits an item in the task manager<br>
+#### Editing a task: `edit`
+Edits an existing task in the task manager<br>
 
 
 Format: Replace 	`add` with `edit INDEX`
@@ -146,8 +147,8 @@ Example:
 
 * `edit 12 1 (at 24 Sep 8pm to 9pm) 3 (at 25 Sep 8pm to 9pm)`
 
-#### Deleting an item: `delete`
-Deletes an item in your task manager.<br>
+#### Deleting a task: `delete`
+Deletes an existing task in your task manager.<br>
 This process is reversible with the `undo` command.<br>
 Format: `delete INDEX`
 > Check out the `undo` command below to reverse an accidental `delete`!
@@ -170,10 +171,10 @@ Example:
 * `undo`
 
 #### Clearing the task manager: `clear`
-Deletes all items in your task manager.<br>
+Deletes all tasks in your task manager.<br>
 This process is reversible with the `undo` command.<br>
 Format: `clear`
-> `clear` allows you to `delete` all items with a single command!
+> `clear` allows you to `delete` all tasks with a single command!
 
 Example:
 * `clear`
@@ -189,22 +190,22 @@ Format: `redo`
 Example: 
 * `redo`
 
-#### Archiving an item: `done`
-Archives an item in your task manager.<br>
+#### Archiving an task: `done`
+Archives a task in your task manager.<br>
 Format: `done INDEX`
-> Marks an item as `done` as sends it to the archive for future viewing.
+> Marks a task as `done` as sends it to the archive for future viewing.
 
 Examples:
 * `done 1`
 * `done 2`
 
-#### Listing all items : `list`
-Shows a list of all items in the task manager.<br>
+#### Listing all tasks : `list`
+Shows a list of all tasks in the task manager.<br>
 Format: `list`
 > Displays all uncompleted tasks in the task manager.
 
-#### Finding an item : `find`
-Find an item by name.<br>
+#### Finding a task : `find`
+Find an existing task by name.<br>
 Format: `find NAME`
 > `find` is case-insensitive.
 
