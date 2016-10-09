@@ -145,11 +145,11 @@ Format:
 Examples:
 
 * **`search`**` tomorrow`<br>
-  **`update`**` 4; CS1234; from 14/10/17; till 18/10/17;` <br>
-  Update the task with `ID #2` in the Do-Do Bird.
+  **`update`**` 2 on 14/10/17 by 18/10/17;` <br>
+  Update the task with `ID #2` to reflect new dates/
 * **`search`**` 25/10/17`<br>
-  **`update`**` 3; CS1234; 25/10/17;` <br>
-  Update the task with `ID #3` in the Do-Do Bird.
+  **`update`**` 3 -on 25/10/17;` <br>
+  Update the task with `ID #3` to remove old on date.
 
 
 ## Deleting a task : `delete`
