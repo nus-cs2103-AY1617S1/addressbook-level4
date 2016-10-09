@@ -7,7 +7,7 @@
   fx:controller="seedu.todo.ui.components.Console">
   
   <children>
-    <TextArea fx:id="consoleTextArea" editable="false" mouseTransparent="true" promptText="Console text" 
-      styleClass="console-textarea" stylesheets="@../css/style.css" wrapText="true" />
+    <TextArea fx:id="consoleTextArea" editable="false" focusTraversable="false" mouseTransparent="true"  
+      promptText="Console text" styleClass="console-textarea" stylesheets="@../css/style.css" wrapText="true" />
   </children>
 </VBox>
