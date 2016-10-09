@@ -12,7 +12,9 @@ public class FindCommandTest extends TarsGuiTest {
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Meeting"); //no results
-        assertFindResult("find Task B", 
+        assertFindResult("find Task B",
+                td.taskB); //single result
+        assertFindResult("find Task", 
                 td.taskA, td.taskB,
                 td.taskC, td.taskD,
                 td.taskE, td.taskF,
