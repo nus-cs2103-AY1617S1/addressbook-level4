@@ -1,7 +1,7 @@
 package seedu.emeraldo.commons.events.ui;
 
 import seedu.emeraldo.commons.events.BaseEvent;
-import seedu.emeraldo.model.person.ReadOnlyTask;
+import seedu.emeraldo.model.task.ReadOnlyTask;
 
 /**
  * Represents a selection change in the Person List Panel

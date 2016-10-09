@@ -13,7 +13,7 @@ import seedu.emeraldo.commons.core.GuiSettings;
 import seedu.emeraldo.commons.events.ui.ExitAppRequestEvent;
 import seedu.emeraldo.logic.Logic;
 import seedu.emeraldo.model.UserPrefs;
-import seedu.emeraldo.model.person.ReadOnlyTask;
+import seedu.emeraldo.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing

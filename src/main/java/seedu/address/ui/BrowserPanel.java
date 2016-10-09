@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.commons.util.FxViewUtil;
-import seedu.emeraldo.model.person.ReadOnlyTask;
+import seedu.emeraldo.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 
@@ -51,7 +51,7 @@ public class BrowserPanel extends UiPart{
     }
 
     public void loadPersonPage(ReadOnlyTask person) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
+        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getDescription().fullName.replaceAll(" ", "+"));
     }
 
     public void loadPage(String url){

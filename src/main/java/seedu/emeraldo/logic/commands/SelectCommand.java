@@ -4,7 +4,7 @@ import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.events.ui.JumpToListRequestEvent;
-import seedu.emeraldo.model.person.ReadOnlyTask;
+import seedu.emeraldo.model.task.ReadOnlyTask;
 
 /**
  * Selects a person identified using it's last displayed index from the address book.

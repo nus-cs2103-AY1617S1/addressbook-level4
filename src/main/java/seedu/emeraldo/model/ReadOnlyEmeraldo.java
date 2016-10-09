@@ -1,10 +1,10 @@
 package seedu.emeraldo.model;
 
 
-import seedu.emeraldo.model.person.ReadOnlyTask;
-import seedu.emeraldo.model.person.UniquePersonList;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
+import seedu.emeraldo.model.task.ReadOnlyTask;
+import seedu.emeraldo.model.task.UniquePersonList;
 
 import java.util.List;
 

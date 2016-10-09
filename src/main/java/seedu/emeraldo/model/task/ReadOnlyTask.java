@@ -1,4 +1,4 @@
-package seedu.emeraldo.model.person;
+package seedu.emeraldo.model.task;
 
 import seedu.emeraldo.model.tag.UniqueTagList;
 
@@ -8,7 +8,7 @@ import seedu.emeraldo.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    Name getName();
+    Description getDescription();
     Phone getPhone();
     Address getAddress();
 
@@ -24,7 +24,7 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getDescription().equals(this.getDescription()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
                 && other.getAddress().equals(this.getAddress()));
     }
@@ -34,7 +34,7 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getDescription())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Address: ")

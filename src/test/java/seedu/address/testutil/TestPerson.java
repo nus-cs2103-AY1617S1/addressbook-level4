@@ -1,14 +1,14 @@
 package seedu.address.testutil;
 
-import seedu.emeraldo.model.person.*;
 import seedu.emeraldo.model.tag.UniqueTagList;
+import seedu.emeraldo.model.task.*;
 
 /**
  * A mutable person object. For testing only.
  */
 public class TestPerson implements ReadOnlyTask {
 
-    private Name name;
+    private Description name;
     private Address address;
     private Phone phone;
     private UniqueTagList tags;
@@ -17,7 +17,7 @@ public class TestPerson implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
+    public void setName(Description name) {
         this.name = name;
     }
 
@@ -30,7 +30,7 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Name getName() {
+    public Description getDescription() {
         return name;
     }
 
@@ -56,7 +56,7 @@ public class TestPerson implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
+        sb.append("add " + this.getDescription().fullName + " ");
         sb.append("p/" + this.getPhone().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));

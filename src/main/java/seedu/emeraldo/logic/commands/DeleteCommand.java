@@ -2,8 +2,8 @@ package seedu.emeraldo.logic.commands;
 
 import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
-import seedu.emeraldo.model.person.ReadOnlyTask;
-import seedu.emeraldo.model.person.UniquePersonList.TaskNotFoundException;
+import seedu.emeraldo.model.task.ReadOnlyTask;
+import seedu.emeraldo.model.task.UniquePersonList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
