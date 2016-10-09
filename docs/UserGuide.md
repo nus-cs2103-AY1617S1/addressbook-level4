@@ -63,26 +63,26 @@ General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 > * Eg. `2359`
 
 >**`PRIORITY` Format**
-> * `low` , `med' , `high`
+> * `low` , `med` , `high`
 
 >**`FREQUENCY` Format**
 > * `daily` , `weekly` , `fortnightly` , `monthly` , `yearly`
 
-###### With deadline
+##### With deadline
 Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
 
 Examples: 
 * `add write diary, jul 10, 1300`
 * `add prepare presentation slides, mon, 1400, high`
 
-###### Without any deadline
+##### Without any deadline
 Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
 Examples: 
 * `add buy milk, low`
 * `add buy present for brother's birthday`
 
-###### With start and end time
+##### With start and end time
 Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
 
 For this kind of task, the parameter TIME is in the format START-END.
@@ -91,7 +91,7 @@ Examples:
 * `add dad's birthday celebration, jul 10, 1900-2100, high`
 * `add company's D&D, sun, 1900-2200`
 
-###### Recurring
+##### Recurring
 To make tasks repeating, simply  add the FREQUENCY parameter at the back.
 
 Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
@@ -163,11 +163,14 @@ Example:
 
 
 #### Sorting all tasks : `sort`
-Sort all tasks according to the specified category.<br>
+Sorts all tasks according to the specified category.<br>
 Three categories: Alphabetical order, priority level, deadlines<br>
 Format: `sort CATEGORY`
 
-<img src="images/sortpic.png" width="400"><br>
+> **Input Categories**
+> * `A` sorts tasks by alphabetical order
+> * `D` sorts tasks by deadlines
+> * `P` sorts tasks by priority
 
 Example:<br>
 * `sort A`
