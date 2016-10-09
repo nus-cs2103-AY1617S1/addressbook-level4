@@ -22,6 +22,9 @@ public interface Model {
 
     /** Adds the given task */
     void addFloatingTask(FloatingTask floatingTask) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Adds the given task at a specified index in the task book */
+    void addFloatingTask(FloatingTask floatingTask, int targetIndex) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
