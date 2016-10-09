@@ -21,21 +21,20 @@ import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
  *
  * Edits an existing task/event in Jimi.
  */
-public class EditCommand extends Command{
-
+public class EditCommand extends Command {
+    
     public static final String COMMAND_WORD = "edit";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task/event in Jimi. \n"
-            + "Example: " + COMMAND_WORD
-            + " 2 by 10th July at 12 pm";
-
+    
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task/event in Jimi. \n" + "Example: "
+            + COMMAND_WORD + " 2 by 10th July at 12 pm";
+    
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Updated task details: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
-
+    
     private final int taskIndex; //index of task/event to be edited
     private UniqueTagList newTagList;
-    private Name newName; 
-
+    private Name newName;
+    
     /**
      * Convenience constructor using raw values.
      * //TODO: change to support FloatingTask, Task and Events types as well
@@ -50,10 +49,10 @@ public class EditCommand extends Command{
         this.taskIndex = taskIndex;
         
         //if new fields are to be edited, instantiate them
-        if(name != null) {
+        if (name != null) {
             this.newName = new Name(name);
         }
-        if(tagSet != null) {
+        if (tagSet != null) {
             this.newTagList = new UniqueTagList(tagSet);
         }
     }
@@ -61,12 +60,12 @@ public class EditCommand extends Command{
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
+        
         if (lastShownList.size() < taskIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
+        
         ReadOnlyTask taskToEdit = lastShownList.get(taskIndex - 1);
         
         try {
@@ -75,22 +74,21 @@ public class EditCommand extends Command{
             UniqueTagList oldTagList = taskToEdit.getTags();
             Name oldName = taskToEdit.getName();
             
-            if(newName != null && !oldName.equals(newName)){
-                if(newTagList != null && !oldTagList.equals(newTagList)){
+            if (newName != null && !oldName.equals(newName)) {
+                if (newTagList != null && !oldTagList.equals(newTagList)) {
                     model.addFloatingTask(new FloatingTask(newName, newTagList)); //change both name and tags
                 }
                 model.addFloatingTask(new FloatingTask(newName, oldTagList)); //change only name
-            }
-            else {
+            } else {
                 model.addFloatingTask(new FloatingTask(oldName, oldTagList)); //change nothing //TODO: reduce redundancy
             }
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            assert false : "Target task not found.";
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
         
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(lastShownList.size()-1)));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(lastShownList.size() - 1)));
     }
-
+    
 }
