@@ -52,7 +52,6 @@ public class TaskCard extends UiPart{
     private int displayedIndex;
 
     public TaskCard(){
-
     }
 
     public static TaskCard load(ImmutableTask task, int displayedIndex){
@@ -64,44 +63,15 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        setStyle();
-                
         titleLabel.setText(String.valueOf(displayedIndex) + ". " + task.getTitle());
         pinImage.setVisible(task.isPinned());
-        
-        if (task.isEvent()) {
-            typeLabel0.setText(EVENT_TYPE);
-            typeLabel1.setText(EVENT_TYPE);
-        } else {
-            typeLabel0.setText(TASK_TYPE);
-            typeLabel1.setText(TASK_TYPE);
-        }
-        
+        typeLabel0.setText(task.isEvent() ? EVENT_TYPE : TASK_TYPE);
+        typeLabel1.setText(task.isEvent() ? EVENT_TYPE : TASK_TYPE);
+        FxViewUtil.displayTextWhenAvailable(descriptionLabel, descriptionBox, task.getDescription());
+        FxViewUtil.displayTextWhenAvailable(locationLabel, locationBox, task.getLocation());        
         displayTags();
-        
-        //Display task description when available
-        if (task.getDescription().isPresent()) {
-            descriptionLabel.setText(task.getDescription().get());
-        } else {
-            FxViewUtil.setCollapsed(descriptionBox, true);
-        }
-        
-        //Display time when available
-        TimeUtil timeUtil = new TimeUtil();
-        if (task.isEvent() && task.getStartTime().isPresent() && task.getEndTime().isPresent()) {
-            dateLabel.setText(timeUtil.getEventTimeText(task.getStartTime().get(), task.getEndTime().get()));
-        } else if (!task.isEvent() && task.getEndTime().isPresent()) {
-            dateLabel.setText(timeUtil.getTaskDeadlineText(task.getEndTime().get()));
-        } else {
-            FxViewUtil.setCollapsed(dateBox, true);
-        }
-        
-        //Display location when available
-        if (task.getLocation().isPresent()) {
-            locationLabel.setText(task.getLocation().get());
-        } else {
-            FxViewUtil.setCollapsed(locationBox, true);
-        }
+        displayTimings();
+        setStyle();
     }
 
     public VBox getLayout() {
@@ -119,7 +89,7 @@ public class TaskCard extends UiPart{
     }
     
     /**
-     * Displays the tags with tag labels sorted lexicographically, ignoring case.
+     * Displays the tags in lexicographical order, ignoring case.
      */
     private void displayTags(){
         Label[] tagLabels = {tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4};
@@ -153,6 +123,18 @@ public class TaskCard extends UiPart{
             stylesheets.add(STYLE_COMPLETED);
         } else if (task.getEndTime().isPresent() && task.getEndTime().get().isBefore(LocalDateTime.now())) {
             stylesheets.add(STYLE_OVERDUE);
+        }
+    }
+    
+    private void displayTimings() {
+        TimeUtil timeUtil = new TimeUtil();
+        
+        if (task.isEvent() && task.getStartTime().isPresent() && task.getEndTime().isPresent()) {
+            dateLabel.setText(timeUtil.getEventTimeText(task.getStartTime().get(), task.getEndTime().get()));
+        } else if (!task.isEvent() && task.getEndTime().isPresent()) {
+            dateLabel.setText(timeUtil.getTaskDeadlineText(task.getEndTime().get()));
+        } else {
+            FxViewUtil.setCollapsed(dateBox, true);
         }
     }
 }
