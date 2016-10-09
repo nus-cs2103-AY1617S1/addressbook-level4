@@ -400,8 +400,8 @@ System displays all tasks by the priority specified
 
 ## Appendix E : Product Survey
 
-**Google Calendar**
-> Strengths:
+**Google Calendar**<br>
+Strengths:
 * Free
 * Automatic syncs to all devices
 * Reminders can be configured<br>
@@ -411,8 +411,8 @@ System displays all tasks by the priority specified
 * Need to have a google account
 * Need to use a mouse to navigate most of the time
 
-**Todoist (Free version)**
-> Strengths:
+**Todoist**<br>
+Strengths:
 * The interface is clean and simple. Easy to understand. Good for taskal use.
 * Quick access to check on everyday's task
 * Quick add of task is particularly helpful for lazy users
@@ -421,13 +421,13 @@ System displays all tasks by the priority specified
 * Additional feature of showing productivity of user is useful to motivate user to be on the ball
 * Priority can be set for every task to help decision making in performing task
 * Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday"<br>
-> Weakness:
+Weakness:
 * Free version may be limited as we are unable to add to labels to all tasks.
 * Reminders are not available in the free version.
 * Unable to add notes/details onto the specific task in free version.
 
-**Wunderlist**
-> Strengths:
+**Wunderlist**<br>
+Strengths:
 * Good GUI. Pleasing to the eye. 
 * Ability to share events with others. (Family, Friends)
 * Reminders in place for upcoming tasks. [Alarms, email notification, notification light colour]
@@ -439,12 +439,12 @@ System displays all tasks by the priority specified
 * Connects to Facebook and Google account.
 * Duplication of the list.
 * Completed to-do list hidden unless selected. <br>
-> Weakness:
+Weakness:
 * Slow in updating changes
 
 **Remember The Milk**
-> Strengths:
+Strengths:
 
-> Weakness:
+Weakness:
 
 
