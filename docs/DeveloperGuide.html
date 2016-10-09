@@ -192,21 +192,15 @@ coupling between components.
 
 <p>The sections below give more details of each component.</p>
 <h3 id="ui-component">UI component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3>
-<p><img src="images/UiClassDiagram.png" width="800"></p>
+<p><img src="diagrams/Ui Component.png" class="u-max-full-width"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/ui/Ui.java"><code>Ui.java</code></a></p>
-<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>,
-<code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class
-and they can be loaded using the <code>UiPartLoader</code>.</p>
-<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files
- that are in the <code>src/main/resources/view</code> folder. 
- For example, the layout of the <a href="../src/main/java/seedu/todo/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
+<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandInputView</code>, <code>CommandFeedbackView</code>, <code>TodoListPanel</code>, <code>StatusBarFooter</code>, etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class and they can be loaded using the <code>UiPartLoader</code>.</p>
+<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="../src/main/java/seedu/todo/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
  <a href="../src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
-<p>The <code>UI</code> component,</p>
-<ul>
-<li>Executes user commands using the <code>Logic</code> component.</li>
-<li>Binds itself to some data in the <code>Model</code> so that the UI can auto-update when data in the <code>Model</code> change.</li>
-<li>Responds to events raised from various parts of the App and updates the UI accordingly.</li>
-</ul>
+<p>The <code>UI</code> component,
+<em> Executes user commands using the <code>Logic</code> component.
+</em> Binds itself to some data in the <code>Model</code> so that the UI can auto-update when data in the <code>Model</code> change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.</p>
 <h3 id="logic-component">Logic component<a class="headerlink" href="#logic-component" title="Permanent link">#</a></h3>
 <p><img src="images/LogicClassDiagram.png" width="800"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/logic/Logic.java"><code>Logic.java</code></a></p>
@@ -231,7 +225,7 @@ the command the user called</li>
  API call. See <a href="#logic">the implementation section</a> below for the implementation details of the logic component.  </p>
 <p><img src="images/DeletePersonSdForLogic.png" width="800"></p>
 <h3 id="model-component">Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3>
-<p><img src="images/ModelClassDiagram.png" width="800"></p>
+<p><img src="diagrams/Model Component.png" class="container u-max-full-width"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/model/Model.java"><code>Model.java</code></a></p>
 <p>The model component represents the application's data layer. It consists of two subcomponents - </p>
 <ul>
@@ -245,7 +239,7 @@ binds to the  the model through the <code>getObservableList</code> function whic
 object that the UI can bind to.</p>
 <p>The model ensure safety by exposing as much of its internal state as possible as immutable objects 
 using interfaces such as <code>ImmutableTask</code>.</p>
-<p><img src="images/StorageClassDiagram.png" width="800"></p>
+<p><img src="diagrams/Storage Component.png" class="container u-max-full-width"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/storage/Storage.java"><code>Storage.java</code></a></p>
 <p>The <code>Storage</code> component,</p>
 <ul>
