@@ -55,11 +55,11 @@ Adds a task to GGist<br>
 General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
 > **`Date` Format**
-> * <MMM DD> or <DAY>
-> * Eg. `OCT 10' or `MON`
+> * [MMM DD] or [DAY]
+> * Eg. `OCT 10` or `MON`
  
 > **`TIME` Format**
-> * 24-Hour <HHMM> 
+> * 24-Hour [HHMM] 
 > * Eg. `2359`
 
 ###### With deadline
