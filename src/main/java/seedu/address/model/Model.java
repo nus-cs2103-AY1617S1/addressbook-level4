@@ -2,11 +2,7 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.ActivityList;
 import seedu.address.model.activity.ActivityList.ActivityNotFoundException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
 
 import java.util.Set;
 

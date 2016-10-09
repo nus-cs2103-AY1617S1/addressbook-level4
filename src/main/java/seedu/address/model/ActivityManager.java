@@ -4,14 +4,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ActivityList;
 import seedu.address.model.activity.FloatingActivity;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Wraps all data at the address-book level
@@ -49,11 +45,11 @@ public class ActivityManager implements ReadOnlyActivityManager {
 
 //// list overwrite operations
 
-    public ObservableList<Activity> getPersons() {
+    public ObservableList<Activity> getActivities() {
         return activities.getInternalList();
     }
 
-    public void setPersons(List<Activity> activities) {
+    public void setActivties(List<Activity> activities) {
         this.activities.getInternalList().setAll(activities);
     }
 
@@ -62,7 +58,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
 
     public void resetData(Collection<? extends Activity> newActivities, Collection<Tag> newTags) {
-        setPersons(new ArrayList(newActivities));
+        setActivties(new ArrayList<Activity>(newActivities));
         setTags(newTags);
     }
 

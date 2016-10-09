@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.activity.Activity;
-import seedu.address.model.person.ReadOnlyPerson;
 
 public class ActivityCard extends UiPart{
 

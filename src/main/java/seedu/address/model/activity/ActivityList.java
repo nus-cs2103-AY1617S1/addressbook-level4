@@ -4,11 +4,7 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 public class ActivityList implements Iterable<Activity> {
 	

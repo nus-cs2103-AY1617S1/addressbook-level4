@@ -14,7 +14,6 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.activity.Activity;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -42,7 +41,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String activityManagerName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -89,7 +88,7 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.activityManagerName = addressBookName;
         this.config = config;
         this.userPrefs = prefs;
 

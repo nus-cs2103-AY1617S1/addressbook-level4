@@ -8,10 +8,6 @@ import seedu.address.commons.events.model.ActivityManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ActivityList.ActivityNotFoundException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -38,7 +34,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         activityManager = new ActivityManager(src);
-        filteredActivities = new FilteredList<>(activityManager.getPersons());
+        filteredActivities = new FilteredList<>(activityManager.getActivities());
     }
 
     public ModelManager() {
@@ -47,7 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyActivityManager initialData, UserPrefs userPrefs) {
         activityManager = new ActivityManager(initialData);
-        filteredActivities = new FilteredList<>(activityManager.getPersons());
+        filteredActivities = new FilteredList<>(activityManager.getActivities());
     }
 
     @Override
