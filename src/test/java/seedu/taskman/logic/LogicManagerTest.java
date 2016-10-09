@@ -222,7 +222,7 @@ public class LogicManagerTest {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -320,7 +320,7 @@ public class LogicManagerTest {
     @Test
     public void execute_list_emptyArgsFormat() throws Exception {
         String expectedMessage = ListCommand.MESSAGE_SUCCESS;
-        assertCommandBehavior("list ", expectedMessage);
+        assertCommandBehavior("list ", Command.getMessageForTaskListShownSummary(0));
     }
 
     @Test
@@ -378,6 +378,88 @@ public class LogicManagerTest {
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("list key rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_list_filter_events_only() throws Exception{
+        // prepare expectations
+        //TODO: update test when events are properly implemented
+        TestDataHelper helper = new TestDataHelper();
+        TaskMan expectedAB = helper.generateTaskMan(2);
+        List<Activity> expectedList = Collections.EMPTY_LIST;
+
+        // prepare task man state
+        helper.addToModel(model, 2);
+
+        assertCommandBehavior("list e/",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_list_filter_all() throws Exception{
+        // prepare expectations
+        //TODO: update test when events are properly implemented
+        TestDataHelper helper = new TestDataHelper();
+        TaskMan expectedAB = helper.generateTaskMan(2);
+        List<? extends Activity> expectedList = expectedAB.getActivityList();
+
+        // prepare task man state
+        helper.addToModel(model, 2);
+
+        assertCommandBehavior("list all/",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_list_filter_tags() throws Exception{
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+
+        // prepare task man state
+        helper.addToModel(model, 4);
+
+        TaskMan expectedAB = helper.generateTaskMan(4);
+        List<Activity> expectedList = expectedAB.getActivityList().subList(0,2);
+        assertCommandBehavior("list t/tag2",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+
+        assertCommandBehavior("list t/tag6",
+                Command.getMessageForTaskListShownSummary(0),
+                expectedAB,
+                Collections.EMPTY_LIST);
+
+        expectedList = new ArrayList<>(expectedAB.getActivities());
+        expectedList.remove(1);
+        assertCommandBehavior("list t/tag1 t/tag4",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_list_filter_keywords_with_tags() throws Exception{
+        // prepare expectations
+        //TODO: update test when events are properly implemented
+        TestDataHelper helper = new TestDataHelper();
+        TaskMan expectedAB = helper.generateTaskMan(5);
+        List<Activity> expectedList = expectedAB.getActivityList();
+
+        // prepare task man state
+        helper.addToModel(model, 5);
+
+        expectedList = new ArrayList<>(expectedAB.getActivityList());
+        expectedList.remove(3);
+        expectedList.remove(2);
+        assertCommandBehavior("list 1 2 t/tag6",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
