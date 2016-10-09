@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`list`** : lists all events and tasks
-   * **`add`**` Lecture s/7/10/2016-14 e/7/10/2016-16 t/CS2103 p/3` :
+   * **`add`**` Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103 p/3` :
      adds a event named `Lecture` to the Task Manager.
    * **`delete`**` 3` : deletes the 3rd event/task shown in the current list
    * **`exit`** : exits the app
@@ -51,8 +51,8 @@ Format: `add TASK_NAME [d/DEADLINE] [t/TAG]... [p/PRIORITY_LEVEL]`
 > Events and tasks can have any number of tags (including 0)
 
 Examples:
-* `add Lecture s/7/10/2016-14 e/7/10/2016-16 t/CS2103 p/3 `
-* `add Project Deadline d/14/10/2016 t/CS2103 p/3`
+* `add Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103 p/3 `
+* `add Project Deadline d/14.10.2016 t/CS2103 p/3`
 * `add Read Book`
 
 #### Listing all events and tasks : `list`
@@ -103,8 +103,8 @@ Format: `edit EVENT_NAME s/START_DATE e/END_DATE [t/TAG] [p/PRIORITY_LEVEL]`<br>
 
 Example:
 
-* `edit Lecture s/7/10/2016-14 e/7/10/2016-16 t/CS2103 p/3 `
-* `edit Project Deadline d/14/10/2016 t/CS2103 p/3`
+* `edit Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103 p/3 `
+* `edit Project Deadline d/14.10.2016 t/CS2103 p/3`
 * `edit Read Book`
 
 #### Mark as done : `done`
@@ -148,8 +148,8 @@ Filter list for attributes such as event or task, done or yet to be done, start 
 Format: `filter [n/EVENT/TASK] [s/START_DATE] [d/DEADLINE] [c/DONE/UNDONE] [t/TAG] [p/PRIORITY_LEVEL]` 
 
 Examples:
-* `filter n/event s/7/10/2016-14 t/CS2103 `
-  List events that start from 7/10/2016-14 and have tag CS2103.
+* `filter n/event s/7.10.2016-14 t/CS2103 `
+  List events that start from 7.10.2016-14 and have tag CS2103.
 * `filter n/task c/undone p/3 `
   List tasks that are yet to be done and have priority 3.
 
