@@ -400,7 +400,7 @@ public class LogicManagerTest {
         task2 = Task.convertToComplete(task2);
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
-        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList();
 
         // prepare address book state
         helper.addToModel(model, list);
@@ -566,7 +566,7 @@ public class LogicManagerTest {
         task2 = Task.convertToComplete(task2);
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
-        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList();
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1, task2);
 
         // prepare address book state
         helper.addToModel(model, list);
