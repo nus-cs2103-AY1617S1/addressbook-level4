@@ -4,9 +4,9 @@ import com.google.common.base.Objects;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 
 public class Frequency {
-    // TODO: write proper constrain message
-    public static final String MESSAGE_FREQUENCY_CONSTRAINTS = "Placeholder for now!";
-    public static final String FREQUENCY_VALIDATION_REGEX = "\\d+";
+    // TODO: check for overflow of seconds because current validation allows years
+    public static final String MESSAGE_FREQUENCY_CONSTRAINTS = "Task frequency should only contain frequency and unit of time in the format: <number><h/d/w/m/y>.";
+    public static final String FREQUENCY_VALIDATION_REGEX = "([1-9]|([1-9]+[0-9]*[0-9]))(h|d|w|m|y)";
 
     public final Long seconds;
 
@@ -20,8 +20,7 @@ public class Frequency {
     }
 
     public static boolean isValidFrequency(String test) {
-        // TODO: write proper validation
-
+    	// TODO: improve on validation, see above
         return test.matches(FREQUENCY_VALIDATION_REGEX);
     }
 
