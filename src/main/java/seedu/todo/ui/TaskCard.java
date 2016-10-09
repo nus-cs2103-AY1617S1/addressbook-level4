@@ -29,7 +29,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label titleLabel;
     @FXML
-    private Label typeLabel;
+    private Label typeLabel0, typeLabel1;
     @FXML
     private Label tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4;
     @FXML
@@ -61,7 +61,7 @@ public class TaskCard extends UiPart{
         //Fill the details of the task into the views as required. 
         titleLabel.setText(String.valueOf(displayedIndex) + ". " + task.getTitle());
         pinImage.setVisible(task.isPinned());
-        typeLabel.setText((task.isEvent()) ? EVENT_TYPE : TASK_TYPE);
+        typeLabel0.setText((task.isEvent()) ? EVENT_TYPE : TASK_TYPE);
         //TODO: displayTags();
         
         //Display task description when available

@@ -2,36 +2,46 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="785.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="800.0" stylesheets="@../style/taskcardstyles/TaskCardBaseStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT">
+      <StackPane>
          <children>
-            <Label fx:id="titleLabel" text="1. Tasking Title">
-               <font>
-                  <Font name="Segoe UI Semibold" size="30.0" />
-               </font>
-            </Label>
-            <AnchorPane maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+            <ImageView fx:id="pinImage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT" />
+            <HBox alignment="CENTER_LEFT">
                <children>
-                  <ImageView fx:id="pinImage" fitHeight="32.0" fitWidth="32.0" layoutX="514.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1.0">
-                     <image>
-                        <Image url="@../images/gold_star.png" />
-                     </image>
-                  </ImageView>
+                  <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" text="1. Tasking Title">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="30.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="4.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="typeLabel1" text="Event" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semilight" size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="8.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
-            </AnchorPane>
+            </HBox>
          </children>
-      </HBox>
+      </StackPane>
       <HBox alignment="CENTER_LEFT">
          <children>
-            <Label fx:id="typeLabel" alignment="TOP_LEFT" style="-fx-background-color: #00A4FF; -fx-background-radius: 100;" text="Event" textFill="WHITE">
+            <Label fx:id="typeLabel0" alignment="TOP_LEFT" text="Event" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -42,7 +52,7 @@
                   <Insets right="4.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="tagLabel0" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 0" textFill="WHITE">
+            <Label fx:id="tagLabel0" alignment="TOP_LEFT" text="Long Label 0" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -53,7 +63,7 @@
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="tagLabel1" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 1" textFill="WHITE">
+            <Label fx:id="tagLabel1" alignment="TOP_LEFT" text="Long Label 1" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -64,7 +74,7 @@
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="tagLabel2" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 2" textFill="WHITE">
+            <Label fx:id="tagLabel2" alignment="TOP_LEFT" text="Long Label 2" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -75,7 +85,7 @@
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="tagLabel3" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 3" textFill="WHITE">
+            <Label fx:id="tagLabel3" alignment="TOP_LEFT" text="Long Label 3" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -86,7 +96,7 @@
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="tagLabel4" alignment="TOP_LEFT" style="-fx-background-color: #2D2D2D; -fx-background-radius: 100;" text="Long Label 4" textFill="WHITE">
+            <Label fx:id="tagLabel4" alignment="TOP_LEFT" text="Long Label 4" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -99,12 +109,15 @@
             </Label>
          </children>
          <VBox.margin>
-            <Insets bottom="8.0" />
+            <Insets />
          </VBox.margin>
+         <padding>
+            <Insets bottom="4.0" />
+         </padding>
       </HBox>
       <HBox fx:id="descriptionBox">
          <children>
-            <Label maxHeight="1.7976931348623157E308" minWidth="4.0" style="-fx-background-color: #00A4FF; -fx-background-radius: 100;" />
+            <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" minWidth="4.0" />
             <Label fx:id="descriptionLabel" lineSpacing="1.0" text="Task description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id iaculis arcu. Curabitur at dapibus magna, at molestie diam. Integer posuere." wrapText="true">
                <HBox.margin>
                   <Insets left="8.0" />
@@ -115,58 +128,53 @@
             </Label>
          </children>
          <VBox.margin>
-            <Insets bottom="8.0" />
+            <Insets />
          </VBox.margin>
          <padding>
             <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
          </padding>
       </HBox>
-      <HBox fx:id="dateBox">
+      <FlowPane>
          <children>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/clock_black.png" />
-               </image>
-               <HBox.margin>
-                  <Insets right="8.0" />
-               </HBox.margin>
-            </ImageView>
-            <Label fx:id="dateLabel" maxHeight="1.7976931348623157E308" text="from 31 October 2016 3:45 PM to 4:15 PM">
-               <font>
-                  <Font name="Segoe UI Italic" size="16.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Label>
+            <HBox fx:id="dateBox" maxWidth="-Infinity" minWidth="-Infinity">
+               <children>
+                  <ImageView fx:id="dateImage" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets right="4.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="dateLabel" maxHeight="1.7976931348623157E308" text="from 31 October 2016 3:45 PM to 4:15 PM">
+                     <font>
+                        <Font name="Segoe UI Italic" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <FlowPane.margin>
+                  <Insets right="16.0" />
+               </FlowPane.margin>
+            </HBox>
+            <HBox fx:id="locationBox" maxWidth="-Infinity">
+               <children>
+                  <ImageView fx:id="locationImage" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets right="4.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" text="at Some Specific Location">
+                     <font>
+                        <Font name="Segoe UI Italic" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
          </children>
-         <VBox.margin>
-            <Insets bottom="2.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox fx:id="locationBox">
-         <children>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/location_black.png" />
-               </image>
-               <HBox.margin>
-                  <Insets right="8.0" />
-               </HBox.margin>
-            </ImageView>
-            <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" text="at Some Specific Location">
-               <font>
-                  <Font name="Segoe UI Italic" size="16.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Label>
-         </children>
-         <VBox.margin>
-            <Insets bottom="2.0" top="2.0" />
-         </VBox.margin>
-      </HBox>
+      </FlowPane>
       <HBox />
    </children>
    <opaqueInsets>
