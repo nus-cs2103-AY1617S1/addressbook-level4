@@ -90,7 +90,8 @@ public class ModelManager extends ComponentManager implements Model {
      * @param targetIndex Index of oldTask to be replaced by.
      */
     public synchronized void editFloatingTask(FloatingTask newTask, int targetIndex) {
-        filteredFloatingTasks.add(targetIndex, newTask);
+        taskBook.editTask(targetIndex, newTask);
+        updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 
