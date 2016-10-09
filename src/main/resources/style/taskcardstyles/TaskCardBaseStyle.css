@@ -16,6 +16,10 @@
     -fx-background-color: #00A4FF;
 }
 
+#typeLabel1 {
+    visibility: hidden;
+}
+
 #tagLabel0, #tagLabel1, #tagLabel2, #tagLabel3, #tagLabel4 {
     -fx-background-color: #2D2D2D;
 }
