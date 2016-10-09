@@ -1,5 +1,8 @@
 package seedu.taskman.logic.commands;
 
+import seedu.taskman.model.Model;
+
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,21 +20,26 @@ public class ListCommand extends Command {
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
+    private final Model.FilterMode filterMode;
     private final Set<String> keywords;
+    private final Set<String> tagNames;
 
     public ListCommand(Set<String> keywords) {
+        this.filterMode = Model.FilterMode.TASK_ONLY;
         this.keywords = keywords;
+        this.tagNames = new HashSet<>();
+    }
+
+    public ListCommand(Model.FilterMode filterMode, Set<String> keywords, Set<String> tags){
+        this.filterMode = filterMode;
+        this.keywords = keywords;
+        this.tagNames = tags;
     }
 
     @Override
     public CommandResult execute() {
-        if (keywords.isEmpty()) {
-            model.updateFilteredListToShowAll();
-            return new CommandResult(MESSAGE_SUCCESS);
-        } else {
-            model.updateFilteredActivityList(keywords);
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredActivityList().size()));
-        }
+        model.updateFilteredActivityList(filterMode,keywords,tagNames);
+        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredActivityList().size()));
     }
 
 }
