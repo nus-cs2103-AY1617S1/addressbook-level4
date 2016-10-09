@@ -21,8 +21,8 @@ public class MainWindow extends UiPart {
 	private static final String FXML_PATH = "MainWindow.fxml";
     private static final String ICON_PATH = "/images/address_book_32.png";
     private static final String OPEN_HELP_KEY_COMBINATION = "F1";
-    public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final int MIN_HEIGHT = 800;
+    public static final int MIN_WIDTH = 1000;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
