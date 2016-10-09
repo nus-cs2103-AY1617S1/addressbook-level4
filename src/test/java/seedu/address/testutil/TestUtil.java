@@ -290,7 +290,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestActivity[] removePersonFromList(final TestActivity[] list, int targetIndexInOneIndexedFormat) {
+    public static TestActivity[] removeActivityFromList(final TestActivity[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 

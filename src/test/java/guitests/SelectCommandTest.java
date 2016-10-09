@@ -15,7 +15,7 @@ public class SelectCommandTest extends ActivityManagerGuiTest {
         assertNoPersonSelected();
 
         assertSelectionSuccess(1); //first person in the list
-        int personCount = td.getTypicalPersons().length;
+        int personCount = ta.getTypicalActivities().length;
         assertSelectionSuccess(personCount); //last person in the list
         int middleIndex = personCount / 2;
         assertSelectionSuccess(middleIndex); //a person in the middle of the list

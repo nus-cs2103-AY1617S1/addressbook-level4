@@ -113,8 +113,6 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredActivityList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        System.out.println(expectedActivityManager.toString());
-        System.out.println(model.getActivityManager().toString());
         assertTrue(expectedActivityManager.toString().equals(model.getActivityManager().toString()));
         assertTrue(expectedActivityManager.toString().equals(latestSavedActivityManager.toString()));
     }
@@ -122,7 +120,7 @@ public class LogicManagerTest {
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
             ReadOnlyActivityManager expectedActivityManager,
             ActivityList expectedShownList) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, expectedActivityManager, (List<? extends ReadOnlyActivity>)expectedShownList);
+        assertCommandBehavior(inputCommand, expectedMessage, expectedActivityManager, (List<? extends ReadOnlyActivity>)expectedShownList.getInternalList());
     }
 
 
@@ -184,15 +182,15 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Activity toBeAdded = helper.adam();
-        ActivityManager expectedAB = new ActivityManager();
-        expectedAB.addActivity(toBeAdded);
+        Activity toBeAdded = helper.sampleActivity();
+        ActivityManager expectedAM = new ActivityManager();
+        expectedAM.addActivity(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getActivityList());
+                expectedAM,
+                expectedAM.getActivityList());
 
     }
 
@@ -200,9 +198,9 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Activity toBeAdded = helper.adam();
-        ActivityManager expectedAB = new ActivityManager();
-        expectedAB.addActivity(toBeAdded);
+        Activity toBeAdded = helper.sampleActivity();
+        ActivityManager expectedAM = new ActivityManager();
+        expectedAM.addActivity(toBeAdded);
 
         // setup starting state
         model.addActivity(toBeAdded); // person already in internal address book
@@ -210,26 +208,25 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
-                expectedAB,
-                expectedAB.getActivityList());
+                AddCommand.MESSAGE_DUPLICATE_ACTIVITY,
+                expectedAM,
+                expectedAM.getActivityList());
 
     }
 
 
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void execute_list_showsAllActivities() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        ActivityManager expectedAB = helper.generateActivityManager(2);
-        List<? extends ReadOnlyActivity> expectedList = (List<? extends ReadOnlyActivity>)expectedAB.getActivityList();
-
+        ActivityManager expectedAM = helper.generateActivityManager(2);
+        List<? extends ReadOnlyActivity> expectedList = (List<? extends ReadOnlyActivity>)expectedAM.getActivityList().getInternalList();
         // prepare address book state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
+                expectedAM,
                 expectedList);
     }
 
@@ -255,7 +252,7 @@ public class LogicManagerTest {
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Activity> personList = helper.generatePersonList(2);
+        List<Activity> personList = helper.generateActivityList(2);
 
         // set AB state to 2 persons
         model.resetData(new ActivityManager());
@@ -277,21 +274,22 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("select");
     }
 
+    /* TODO: remove select command tests if unnecessary 
     @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
+    public void execute_select_jumpsToCorrectActivity() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Activity> threePersons = helper.generatePersonList(3);
+        List<Activity> threeActivities = helper.generateActivityList(3);
 
-        ActivityManager expectedAB = helper.generateActivityManager(threePersons);
-        helper.addToModel(model, threePersons);
+        ActivityManager expectedAM = helper.generateActivityManager(threeActivities);
+        helper.addToModel(model, threeActivities);
 
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_ACTIVITY_SUCCESS, 2),
-                expectedAB,
-                expectedAB.getActivityList());
+                expectedAM,
+                expectedAM.getActivityList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredActivityList().get(1), threePersons.get(1));
-    }
+        assertEquals(model.getFilteredActivityList().get(1), threeActivities.get(1));
+    } */
 
 
     @Test
@@ -306,18 +304,18 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
+    public void execute_delete_removesCorrectActivity() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Activity> threePersons = helper.generatePersonList(3);
+        List<Activity> threeActivities = helper.generateActivityList(3);
 
-        ActivityManager expectedAB = helper.generateActivityManager(threePersons);
-        expectedAB.removeActivity(threePersons.get(1));
-        helper.addToModel(model, threePersons);
+        ActivityManager expectedAM = helper.generateActivityManager(threeActivities);
+        expectedAM.removeActivity(threeActivities.get(1));
+        helper.addToModel(model, threeActivities);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, threePersons.get(1)),
-                expectedAB,
-                expectedAB.getActivityList());
+                String.format(DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, threeActivities.get(1).getName()),
+                expectedAM,
+                expectedAM.getActivityList());
     }
 
 
@@ -330,14 +328,14 @@ public class LogicManagerTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Activity pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Activity pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Activity p1 = helper.generatePersonWithName("KE Y");
-        Activity p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
+        Activity pTarget1 = helper.generateActivityWithName("bla bla KEY bla");
+        Activity pTarget2 = helper.generateActivityWithName("bla KEY bla bceofeia");
+        Activity p1 = helper.generateActivityWithName("KE Y");
+        Activity p2 = helper.generateActivityWithName("KEYKEYKEY sduauo");
 
-        List<Activity> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        List<Activity> fourPersons = helper.generateActivityList(p1, pTarget1, p2, pTarget2);
         ActivityManager expectedAB = helper.generateActivityManager(fourPersons);
-        List<Activity> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        List<Activity> expectedList = helper.generateActivityList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
@@ -349,12 +347,12 @@ public class LogicManagerTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Activity p1 = helper.generatePersonWithName("bla bla KEY bla");
-        Activity p2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Activity p3 = helper.generatePersonWithName("key key");
-        Activity p4 = helper.generatePersonWithName("KEy sduauo");
+        Activity p1 = helper.generateActivityWithName("bla bla KEY bla");
+        Activity p2 = helper.generateActivityWithName("bla KEY bla bceofeia");
+        Activity p3 = helper.generateActivityWithName("key key");
+        Activity p4 = helper.generateActivityWithName("KEy sduauo");
 
-        List<Activity> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
+        List<Activity> fourPersons = helper.generateActivityList(p3, p1, p4, p2);
         ActivityManager expectedAB = helper.generateActivityManager(fourPersons);
         List<Activity> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
@@ -368,14 +366,14 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Activity pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Activity pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
-        Activity pTarget3 = helper.generatePersonWithName("key key");
-        Activity p1 = helper.generatePersonWithName("sduauo");
+        Activity pTarget1 = helper.generateActivityWithName("bla bla KEY bla");
+        Activity pTarget2 = helper.generateActivityWithName("bla rAnDoM bla bceofeia");
+        Activity pTarget3 = helper.generateActivityWithName("key key");
+        Activity p1 = helper.generateActivityWithName("sduauo");
 
-        List<Activity> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
+        List<Activity> fourPersons = helper.generateActivityList(pTarget1, p1, pTarget2, pTarget3);
         ActivityManager expectedAB = helper.generateActivityManager(fourPersons);
-        List<Activity> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
+        List<Activity> expectedList = helper.generateActivityList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find key rAnDoM",
@@ -390,8 +388,8 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Activity adam() throws Exception {
-            String name = "Adam Brown";
+        Activity sampleActivity() throws Exception {
+            String name = "My Activity";
             return new Activity(name);
         }
 
@@ -406,13 +404,13 @@ public class LogicManagerTest {
             return new Activity("Activity " + seed);
         }
 
-        /** Generates the correct add command based on the person given */
-        String generateAddCommand(Activity p) {
+        /** Generates the correct add command based on the activity given */
+        String generateAddCommand(Activity activity) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
+            cmd.append(activity.getName().toString());
 
 //            UniqueTagList tags = p.getTags();
 //            for(Tag t: tags){
@@ -434,9 +432,9 @@ public class LogicManagerTest {
         /**
          * Generates an ActivityManager based on the list of Persons given.
          */
-        ActivityManager generateActivityManager(List<Activity> persons) throws Exception{
+        ActivityManager generateActivityManager(List<Activity> activities) throws Exception{
             ActivityManager activityManager = new ActivityManager();
-            addToActivityManager(activityManager, persons);
+            addToActivityManager(activityManager, activities);
             return activityManager;
         }
 
@@ -445,14 +443,14 @@ public class LogicManagerTest {
          * @param activityManager The ActivityManager to which the Persons will be added
          */
         void addToActivityManager(ActivityManager activityManager, int numGenerated) throws Exception{
-            addToActivityManager(activityManager, generatePersonList(numGenerated));
+            addToActivityManager(activityManager, generateActivityList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given ActivityManager
          */
-        void addToActivityManager(ActivityManager activityManager, List<Activity> personsToAdd) throws Exception{
-            for(Activity p: personsToAdd){
+        void addToActivityManager(ActivityManager activityManager, List<Activity> activitiesToAdd) throws Exception{
+            for(Activity p: activitiesToAdd){
                 activityManager.addActivity(p);
             }
         }
@@ -462,14 +460,14 @@ public class LogicManagerTest {
          * @param model The model to which the Persons will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception{
-            addToModel(model, generatePersonList(numGenerated));
+            addToModel(model, generateActivityList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given model
          */
-        void addToModel(Model model, List<Activity> personsToAdd) throws Exception{
-            for(Activity p: personsToAdd){
+        void addToModel(Model model, List<Activity> activtiesToAdd) throws Exception{
+            for(Activity p: activtiesToAdd){
                 model.addActivity(p);
             }
         }
@@ -477,22 +475,22 @@ public class LogicManagerTest {
         /**
          * Generates a list of Persons based on the flags.
          */
-        List<Activity> generatePersonList(int numGenerated) throws Exception{
-            List<Activity> persons = new ArrayList<>();
+        List<Activity> generateActivityList(int numGenerated) throws Exception{
+            List<Activity> activity = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
-                persons.add(generateActivity(i));
+                activity.add(generateActivity(i));
             }
-            return persons;
+            return activity;
         }
 
-        List<Activity> generatePersonList(Activity... persons) {
-            return Arrays.asList(persons);
+        List<Activity> generateActivityList(Activity... activities) {
+            return Arrays.asList(activities);
         }
 
         /**
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
-        Activity generatePersonWithName(String name) throws Exception {
+        Activity generateActivityWithName(String name) throws Exception {
             return new Activity(name);
         }
     }

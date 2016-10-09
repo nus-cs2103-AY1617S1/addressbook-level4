@@ -31,7 +31,7 @@ public abstract class ActivityManagerGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestActivities td = new TypicalTestActivities();
+    protected TypicalTestActivities ta = new TypicalTestActivities();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -76,9 +76,9 @@ public abstract class ActivityManagerGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected ActivityManager getInitialData() {
-        ActivityManager ab = TestUtil.generateEmptyActivityManager();
-        TypicalTestActivities.loadActivityManagerWithSampleData(ab);
-        return ab;
+        ActivityManager am = TestUtil.generateEmptyActivityManager();
+        TypicalTestActivities.loadActivityManagerWithSampleData(am);
+        return am;
     }
 
     /**
@@ -97,16 +97,16 @@ public abstract class ActivityManagerGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyActivity person, ActivityCardHandle card) {
-        assertTrue(TestUtil.compareCardAndActivity(card, person));
+    public void assertMatching(ReadOnlyActivity activity, ActivityCardHandle card) {
+        assertTrue(TestUtil.compareCardAndActivity(card, activity));
     }
 
     /**
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = activityListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+        int numberOfActivities = activityListPanel.getNumberOfActivities();
+        assertEquals(size, numberOfActivities);
     }
 
     /**

@@ -8,7 +8,7 @@ public class CommandBoxTest extends ActivityManagerGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(ta.groceries.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

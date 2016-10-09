@@ -13,40 +13,41 @@ public class AddCommandTest extends ActivityManagerGuiTest {
 
     @Test
     public void add() {
-        //add one person
-        TestActivity[] currentList = td.getTypicalPersons();
-        TestActivity personToAdd = td.hoon;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+        //add one activity
+        TestActivity[] currentList = ta.getTypicalActivities();
+        TestActivity activityToAdd = ta.groceries;
+        assertAddSuccess(activityToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
 
-        //add another person
-        personToAdd = td.ida;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+        //add another activity
+        activityToAdd = ta.reading;
+        assertAddSuccess(activityToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
 
-        //add duplicate person
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        //add duplicate activity
+        commandBox.runCommand(ta.groceries.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_ACTIVITY);
         assertTrue(activityListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.alice);
+        assertAddSuccess(ta.groceries);
+        // TODO: check if groceries is correct
 
         //invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestActivity personToAdd, TestActivity... currentList) {
-        commandBox.runCommand(personToAdd.getAddCommand());
+    private void assertAddSuccess(TestActivity activityToAdd, TestActivity... currentList) {
+        commandBox.runCommand(activityToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        ActivityCardHandle addedCard = activityListPanel.navigateToPerson(personToAdd.getName());
-        assertMatching(personToAdd, addedCard);
+        ActivityCardHandle addedCard = activityListPanel.navigateToPerson(activityToAdd.getName());
+        assertMatching(activityToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestActivity[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
+        TestActivity[] expectedList = TestUtil.addPersonsToList(currentList, activityToAdd);
         assertTrue(activityListPanel.isListMatching(expectedList));
     }
 

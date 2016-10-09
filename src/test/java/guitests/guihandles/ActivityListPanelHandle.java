@@ -24,7 +24,7 @@ public class ActivityListPanelHandle extends GuiHandle {
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String ACTIVITY_LIST_VIEW_ID = "#personListView";
+    private static final String ACTIVITY_LIST_VIEW_ID = "#activityListView";
 
     public ActivityListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -41,10 +41,10 @@ public class ActivityListPanelHandle extends GuiHandle {
 
     /**
      * Returns true if the list is showing the person details correctly and in correct order.
-     * @param persons A list of person in the correct order.
+     * @param activities A list of person in the correct order.
      */
-    public boolean isListMatching(ReadOnlyActivity... persons) {
-        return this.isListMatching(0, persons);
+    public boolean isListMatching(ReadOnlyActivity... activities) {
+        return this.isListMatching(0, activities);
     }
     
     /**
@@ -79,19 +79,19 @@ public class ActivityListPanelHandle extends GuiHandle {
     /**
      * Returns true if the list is showing the person details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
-     * @param persons A list of person in the correct order.
+     * @param activities A list of person in the correct order.
      */
-    public boolean isListMatching(int startPosition, ReadOnlyActivity... persons) throws IllegalArgumentException {
-        if (persons.length + startPosition != getListView().getItems().size()) {
+    public boolean isListMatching(int startPosition, ReadOnlyActivity... activities) throws IllegalArgumentException {
+        if (activities.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " persons");
+                    "Expected " + (getListView().getItems().size() - 1) + " activities");
         }
-        assertTrue(this.containsInOrder(startPosition, persons));
-        for (int i = 0; i < persons.length; i++) {
+        assertTrue(this.containsInOrder(startPosition, activities));
+        for (int i = 0; i < activities.length; i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndActivity(getActivityCardHandle(startPosition + i), persons[i])) {
+            if (!TestUtil.compareCardAndActivity(getActivityCardHandle(startPosition + i), activities[i])) {
                 return false;
             }
         }
@@ -165,7 +165,7 @@ public class ActivityListPanelHandle extends GuiHandle {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
-    public int getNumberOfPeople() {
+    public int getNumberOfActivities() {
         return getListView().getItems().size();
     }
 }

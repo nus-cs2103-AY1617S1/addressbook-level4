@@ -39,7 +39,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         resetData(activities.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyActivityManager getEmptyAddressBook() {
+    public static ReadOnlyActivityManager getEmptyActivityManager() {
         return new ActivityManager();
     }
 
@@ -63,7 +63,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
 
     public void resetData(ReadOnlyActivityManager newData) {
-//        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getActivityList().getInternalList(), newData.getTagList());
     }
 
 //// activity-level operations
@@ -150,7 +150,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         return other == this // short circuit if same object
                 || (other instanceof ActivityManager // instanceof handles nulls
                 && this.activities.equals(((ActivityManager) other).activities)
-                && this.tags.equals(((ActivityManager) other).tags));
+                /* && this.tags.equals(((ActivityManager) other).tags) */);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class AddCommand extends Command {
               + "add attend conference from 23 Oct 1000 to 23 Oct 1200";
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This activity already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the address book";
 
     private final Activity toAdd;
 

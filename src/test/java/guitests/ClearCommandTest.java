@@ -10,12 +10,12 @@ public class ClearCommandTest extends ActivityManagerGuiTest {
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(activityListPanel.isListMatching(td.getTypicalPersons()));
+        assertTrue(activityListPanel.isListMatching(ta.getTypicalActivities()));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertTrue(activityListPanel.isListMatching(td.hoon));
+        commandBox.runCommand(ta.groceries.getAddCommand());
+        assertTrue(activityListPanel.isListMatching(ta.groceries));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 
@@ -26,6 +26,6 @@ public class ClearCommandTest extends ActivityManagerGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage("Your activities have been removed!");
     }
 }
