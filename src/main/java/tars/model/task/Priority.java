@@ -7,7 +7,7 @@ import tars.commons.exceptions.IllegalValueException;
  */
 public class Priority {
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority should be h / m / l";
-    public static final String PRIORITY_VALIDATION_REGEX = "[\\p{Lower} ]+";
+    public static final String PRIORITY_VALIDATION_REGEX = "^[hml]$";
 
     public String priorityLevel;
 
@@ -43,10 +43,6 @@ public class Priority {
         return other == this // short circuit if same object
                 || (other instanceof Priority // instanceof handles nulls
                 && this.toString().equals(((Priority) other).toString())); // state check
-    }
-
-    public void setLevel(String priorityLevel) {
-        this.priorityLevel = priorityLevel;
     }
 
 }
