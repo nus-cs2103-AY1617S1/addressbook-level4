@@ -94,10 +94,10 @@ public abstract class TaskManGuiTest {
     }
 
     /**
-     * Asserts the task shown in the card is same as the given task
+     * Asserts the task shown in the row is same as the given task
      */
-    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndTask(card, task));
+    public void assertMatching(ReadOnlyTask task, TaskRowHandle row) {
+        assertTrue(TestUtil.compareRowAndTask(row, task));
     }
 
     /**

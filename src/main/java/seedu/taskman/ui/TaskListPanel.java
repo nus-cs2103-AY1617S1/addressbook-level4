@@ -4,9 +4,13 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,19 +26,23 @@ import java.util.logging.Logger;
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     private static final String FXML = "TaskListPanel.fxml";
-    private VBox panel;
+    private AnchorPane panel;
     private AnchorPane placeHolderPane;
-
+    
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
-
+    private TableView<ReadOnlyTask> taskListView;
+    @FXML
+    private TableColumn<ReadOnlyTask, String> titleColumn; 
+    @FXML
+    private TableColumn<ReadOnlyTask, String> deadlineColumn;
+    
     public TaskListPanel() {
         super();
     }
 
     @Override
     public void setNode(Node node) {
-        panel = (VBox) node;
+        panel = (AnchorPane) node;
     }
 
     @Override
@@ -59,18 +67,23 @@ public class TaskListPanel extends UiPart {
         setConnections(taskList);
         addToPlaceholder();
     }
-
+    
+    // TODO Resolve generic type issue.
+    @SuppressWarnings("unchecked")
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
+        taskListView.setItems(taskList);       
+        titleColumn = new TableColumn<ReadOnlyTask,String>("Title");
+        titleColumn.setCellValueFactory(new PropertyValueFactory<ReadOnlyTask, String>("title"));
+        deadlineColumn = new TableColumn<ReadOnlyTask,String>("Deadline");
+        deadlineColumn.setCellValueFactory(new PropertyValueFactory<ReadOnlyTask, String>("deadline"));
+        taskListView.getColumns().setAll(titleColumn, deadlineColumn);
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
-
+    // TODO Edit
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -79,30 +92,12 @@ public class TaskListPanel extends UiPart {
             }
         });
     }
-
+    // TODO Edit
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);
             taskListView.getSelectionModel().clearAndSelect(index);
         });
-    }
-
-    class TaskListViewCell extends ListCell<ReadOnlyTask> {
-
-        public TaskListViewCell() {
-        }
-
-        @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
-            }
-        }
     }
 
 }

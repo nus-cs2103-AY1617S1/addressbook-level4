@@ -10,7 +10,7 @@ public class HelpWindowTest extends TaskManGuiTest {
     @Test
     public void openHelpWindow() {
 
-        taskListPanel.clickOnListView();
+        taskListPanel.clickOnTableView();
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 

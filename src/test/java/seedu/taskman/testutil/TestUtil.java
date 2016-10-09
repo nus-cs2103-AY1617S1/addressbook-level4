@@ -1,7 +1,7 @@
 package seedu.taskman.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.TaskRowHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -326,8 +326,8 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
-        return card.isSameTask(task);
+    public static boolean compareRowAndTask(TaskRowHandle row, ReadOnlyTask task) {
+        return row.isSameTask(task);
     }
 
     public static Tag[] getTagList(String tags) {

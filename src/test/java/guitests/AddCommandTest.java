@@ -1,6 +1,6 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.TaskRowHandle;
 import org.junit.Test;
 import seedu.taskman.logic.commands.AddCommand;
 import seedu.taskman.commons.core.Messages;
@@ -41,9 +41,9 @@ public class AddCommandTest extends TaskManGuiTest {
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
-        //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getTitle().title);
-        assertMatching(taskToAdd, addedCard);
+        //confirm the new row contains the right data
+        TaskRowHandle addedRow = taskListPanel.navigateToTask(taskToAdd.getTitle().title);
+        assertMatching(taskToAdd, addedRow);
 
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
