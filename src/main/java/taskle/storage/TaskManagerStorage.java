@@ -16,6 +16,7 @@ public interface TaskManagerStorage {
      */
     String getTaskManagerFilePath();
 
+    void setTaskManagerFilePath(String filePath);
     /**
      * Returns AddressBook data as a {@link ReadOnlyTaskManager}.
      *   Returns {@code Optional.empty()} if storage file is not found.
