@@ -28,6 +28,7 @@ public interface ReadOnlyTask {
     }
 
     /**
+     * Temporary
      * Formats the task as text, showing all details.
      */
     default String getAsText() {
