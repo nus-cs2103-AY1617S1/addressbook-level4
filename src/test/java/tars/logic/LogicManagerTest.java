@@ -233,7 +233,7 @@ public class LogicManagerTest {
         // prepare tars state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
+        assertCommandBehavior("ls",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
