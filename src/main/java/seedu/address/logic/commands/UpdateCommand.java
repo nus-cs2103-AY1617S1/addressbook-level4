@@ -34,6 +34,11 @@ public class UpdateCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 by 15 Sep 3pm";
 
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s";
+    private static final String MESSAGE_UPDATE_TASK_UNDO_SUCCESS =
+            "Changes to task was reverted. Now: %1$s";
+    private static final String MESSAGE_PERIOD_NEED_BOTH_START_AND_END_TIME = 
+            "Period needs to have both start and end time.";
+
     public static final String PREFIX_REMOVE = "remove";
     
     public static final String KEYWORD_NAME = "name";
@@ -57,9 +62,6 @@ public class UpdateCommand extends Command {
             KEYWORD_PERIOD_RECURRENCE, KEYWORD_TAG, KEYWORD_REMOVE_DEADLINE,
             KEYWORD_REMOVE_START_TIME, KEYWORD_REMOVE_END_TIME, KEYWORD_REMOVE_DEADLINE_RECURRENCE,
             KEYWORD_REMOVE_PERIOD_RECURRENCE, KEYWORD_REMOVE_TAG };
-
-    private static final String MESSAGE_PERIOD_NEED_BOTH_START_AND_END_TIME = 
-            "Period needs to have both start and end time.";
 
     public final int targetIndex;
     
@@ -137,14 +139,20 @@ public class UpdateCommand extends Command {
 
     @Override
     public boolean canUndo() {
-        // TODO Finish this
-        return false;
+        return true;
     }
 
     @Override
     public CommandResult executeUndo() {
-        // TODO Finish this
-        return null;
+        Task oldTask = new Task(oldReadOnlyTask);
+        
+        try {
+            model.updateTask(newTask, oldTask);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
+
+        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_UNDO_SUCCESS, oldTask));
     }
 
     /**
