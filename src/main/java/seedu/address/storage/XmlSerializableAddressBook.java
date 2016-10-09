@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.ReadOnlyDatedTask;
+import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniquePersonList;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -67,7 +67,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyDatedTask> getPersonList() {
+    public List<ReadOnlyTask> getPersonList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();
@@ -97,7 +97,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyDatedTask> getUndatedTaskList() {
+    public List<ReadOnlyTask> getUndatedTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();

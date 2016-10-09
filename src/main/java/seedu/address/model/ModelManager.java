@@ -7,7 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.Task;
-import seedu.address.model.person.ReadOnlyDatedTask;
+import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
@@ -68,7 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyDatedTask target) throws PersonNotFoundException {
+    public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
@@ -83,12 +83,12 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyDatedTask> getFilteredPersonList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyDatedTask> getFilteredUndatedTaskList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredUndatedTaskList() {
         return new UnmodifiableObservableList<>(filteredUndatedTasks);
     }
 
@@ -111,7 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyDatedTask person);
+        boolean satisfies(ReadOnlyTask person);
         String toString();
     }
 
@@ -124,7 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyDatedTask person) {
+        public boolean satisfies(ReadOnlyTask person) {
             return qualifier.run(person);
         }
 
@@ -135,7 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyDatedTask person);
+        boolean run(ReadOnlyTask person);
         String toString();
     }
 
@@ -147,7 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyDatedTask person) {
+        public boolean run(ReadOnlyTask person) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
                     .findAny()

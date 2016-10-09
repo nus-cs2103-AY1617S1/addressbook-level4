@@ -1,7 +1,7 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.person.ReadOnlyDatedTask;
+import seedu.address.model.person.ReadOnlyTask;
 
 /**
  * Represents a selection change in the Person List Panel
@@ -9,9 +9,9 @@ import seedu.address.model.person.ReadOnlyDatedTask;
 public class PersonPanelSelectionChangedEvent extends BaseEvent {
 
 
-    private final ReadOnlyDatedTask newSelection;
+    private final ReadOnlyTask newSelection;
 
-    public PersonPanelSelectionChangedEvent(ReadOnlyDatedTask newSelection){
+    public PersonPanelSelectionChangedEvent(ReadOnlyTask newSelection){
         this.newSelection = newSelection;
     }
 
@@ -20,7 +20,7 @@ public class PersonPanelSelectionChangedEvent extends BaseEvent {
         return this.getClass().getSimpleName();
     }
 
-    public ReadOnlyDatedTask getNewSelection() {
+    public ReadOnlyTask getNewSelection() {
         return newSelection;
     }
 }

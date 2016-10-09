@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.Task;
-import seedu.address.model.person.ReadOnlyDatedTask;
+import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniquePersonList;
 
 import java.util.Set;
@@ -18,16 +18,16 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /** Deletes the given person. */
-    void deletePerson(ReadOnlyDatedTask target) throws UniquePersonList.PersonNotFoundException;
+    void deletePerson(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException;
 
     /** Adds the given person */
     void addPerson(Task person) throws UniquePersonList.DuplicatePersonException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyDatedTask> getFilteredPersonList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
     
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyDatedTask> getFilteredUndatedTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredUndatedTaskList();
 
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();

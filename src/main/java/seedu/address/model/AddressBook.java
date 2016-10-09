@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Task;
-import seedu.address.model.person.ReadOnlyDatedTask;
+import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -68,8 +68,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyDatedTask> newPersons, 
-            Collection<? extends ReadOnlyDatedTask> newUndatedTasks,
+    public void resetData(Collection<? extends ReadOnlyTask> newPersons, 
+            Collection<? extends ReadOnlyTask> newUndatedTasks,
             Collection<Tag> newTags) {
         setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
         setPersons(newUndatedTasks.stream().map(Task::new).collect(Collectors.toList()));
@@ -99,7 +99,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
     
-    private boolean checkIfDated(ReadOnlyDatedTask d){
+    private boolean checkIfDated(ReadOnlyTask d){
         if(d.getDate().toString().equals("") && d.getTime().toString().equals("")){
             return false;
         }
@@ -131,7 +131,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyDatedTask key) throws UniquePersonList.PersonNotFoundException {       
+    public boolean removePerson(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {       
         if (persons.remove(key)) {
             return true;
         } 
@@ -158,12 +158,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyDatedTask> getPersonList() {
+    public List<ReadOnlyTask> getPersonList() {
         return Collections.unmodifiableList(persons.getInternalList());
     }
     
     @Override
-    public List<ReadOnlyDatedTask> getUndatedTaskList() {
+    public List<ReadOnlyTask> getUndatedTaskList() {
         return Collections.unmodifiableList(undatedList.getInternalList());
     }
 
