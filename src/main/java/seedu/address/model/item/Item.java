@@ -70,6 +70,10 @@ public class Item implements ReadOnlyItem {
         return name;
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+    
     @Override
     public Date getStartDate() {
         return startDate;
