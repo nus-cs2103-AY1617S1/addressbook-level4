@@ -6,6 +6,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -32,7 +33,28 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    /** Removes all filters of the filtered task list */
+    void resetTaskListFilter();
 
-    /** Update the old task with new task details. */
+    /** Adds the filter of the filtered task list by the given type*/
+    void addTaskListFilterByType(String type);
+
+    /** Adds the filter of the filtered task list by the given deadline*/
+    void addTaskListFilterByDeadline(Date deadline);
+    
+    /** Adds the filter of the filtered task list by the given start time*/
+    void addTaskListFilterByStartTime(Date startTime);
+    
+    /** Adds the filter of the filtered task list by the given end time*/
+    void addTaskListFilterByEndTime(Date endTime);
+    
+    /** Adds the filter of the filtered task list by the given tag names*/
+    void addTaskListFilterByTags(Set<String> tags);
+    
+    /** Updates the filtered task list by the added filters */
+    void updateFilteredTaskListByFilter();
+
+    /** Updates the old task with new task details. */
     void updateTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException;
 }

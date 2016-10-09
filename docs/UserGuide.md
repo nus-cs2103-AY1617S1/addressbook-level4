@@ -83,7 +83,7 @@ Examples:
 #### List all tasks/events with specified conditions: `list`
 Displays a list of all tasks/events.<br>
 
-Format: `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [SORTING_ORDER]`
+Format: `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [sort SORTING_ORDER]`
 
 > * Type can be `events`, `tasks`, `completed tasks`, `completed events`, or `free time`.
 > * Sorting order includes `earliest first`, `latest first` for date and time, 
@@ -101,7 +101,7 @@ Examples:
   If no parameters are specified, the command will show a list of uncompleted tasks
   and upcoming events.
 * `list events by 18 Sep`
-* `list completed tasks, tag "Important", earliest first`
+* `list completed tasks, tag "Important", sort earliest first`
 * `list free time from 20 Sep 10am to 8pm`
 
 #### Finding tasks/events which match keywords: `find`
@@ -265,7 +265,7 @@ Command | Format
 -------- | :-------- 
 Help | `help`
 Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
-List | `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [SORTING_ORDER]`
+List | `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [sort SORTING_ORDER]`
 Find | `find KEYWORD...`
 Show | `show [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]]  [tag "TAG"...]`
 Hide | `hide [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]`

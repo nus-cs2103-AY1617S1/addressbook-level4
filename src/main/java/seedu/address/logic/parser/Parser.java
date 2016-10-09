@@ -64,7 +64,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(commandWord + arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -121,10 +121,73 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    /**
+     * Parses arguments in the context of the list task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareList(String args){
+        // No parameter, use defaults
+        if (args.trim().equals("list")) {
+            try {
+                return new ListCommand();
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }
+        
+        final KeywordParser parser = new KeywordParser("list", "by", "from", "to", "tag", "sort");
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
+        String type = parsed.get("list");
+        String deadline = parsed.get("by");
+        String startTime = parsed.get("from");
+        String endTime = parsed.get("to");
+        String tags = parsed.get("tag");
+        String sortingOrder = parsed.get("sort");
 
+        String[] typeWords = {"uncompleted", "completed", "task", "event", 
+                            "floating", "normal", "timeslot", "free time"};
+        StringBuffer strBuf = new StringBuffer();
+        for (String word : typeWords) {
+            if (type.contains(word)) {
+                type = type.replaceFirst(word, "");
+                strBuf.append(word);
+                strBuf.append(" ");
+            }
+        }
+        type = strBuf.toString();
+
+        if (type != null && type.equals(""))
+            type = null;
+        if (deadline != null && deadline.equals(""))
+            deadline = null;
+        if (startTime != null && startTime.equals(""))
+            startTime = null;
+        if (endTime != null && endTime.equals(""))
+            endTime = null;
+        if (sortingOrder != null && sortingOrder.equals(""))
+            sortingOrder = null;
+        if(tags == null){
+            tags = "";
+        }
+        try {
+            return new ListCommand(
+                    type,
+                    deadline,
+                    startTime,
+                    endTime,
+                    getTagsFromArgs(tags),
+                    sortingOrder
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
 
     /**
-     * Extracts the new task's tags from the add command's tag arguments string.
+     * Extracts the new task's tags from the add/list command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
