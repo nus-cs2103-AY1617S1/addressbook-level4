@@ -4,7 +4,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.testutil.SerializableTestClass;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,26 +39,26 @@ public class FileUtilTest {
 
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
-        SerializableTestClass serializableTestClass = new SerializableTestClass();
-        serializableTestClass.setTestValues();
+        JsonSerializable jsonSerializable = new JsonSerializable();
+        jsonSerializable.setTestValues();
 
         File file = folder.newFile();
-        FileUtil.serializeObjectToJsonFile(file, serializableTestClass);
+        FileUtil.serializeObjectToJsonFile(file, jsonSerializable);
 
-        assertEquals(FileUtil.readFromFile(file), SerializableTestClass.JSON_STRING_REPRESENTATION);
+        assertEquals(FileUtil.readFromFile(file), JsonSerializable.JSON_STRING_REPRESENTATION);
     }
 
     @Test
     public void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
         File file = folder.newFile();
 
-        FileUtil.writeToFile(file, SerializableTestClass.JSON_STRING_REPRESENTATION);
+        FileUtil.writeToFile(file, JsonSerializable.JSON_STRING_REPRESENTATION);
 
-        SerializableTestClass serializableTestClass = FileUtil
-                .deserializeObjectFromJsonFile(file, SerializableTestClass.class);
+        JsonSerializable jsonSerializable = FileUtil
+                .deserializeObjectFromJsonFile(file, JsonSerializable.class);
 
-        assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
-        assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());
-        assertEquals(serializableTestClass.getMapOfIntegerToString(), SerializableTestClass.getHashMapTestValues());
+        assertEquals(jsonSerializable.getName(), JsonSerializable.getNameTestValue());
+        assertEquals(jsonSerializable.getListOfLocalDateTimes(), JsonSerializable.getListTestValues());
+        assertEquals(jsonSerializable.getMapOfIntegerToString(), JsonSerializable.getHashMapTestValues());
     }
 }
