@@ -10,7 +10,8 @@ import tars.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String DATETIME_FIELD_ID = "#datetime";
+    private static final String STARTDATE_FIELD_ID = "#startDate";
+    private static final String ENDDATE_FIELD_ID = "#endDate";
     private static final String PRIORITY_FIELD_ID = "#priority";
     private static final String STATUS_FIELD_ID = "#status";
 
@@ -29,8 +30,12 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getDateTime() {
-        return getTextFromLabel(DATETIME_FIELD_ID);
+    public String getStartDate() {
+        return getTextFromLabel(STARTDATE_FIELD_ID);
+    }
+    
+    public String getEndDate() {
+        return getTextFromLabel(ENDDATE_FIELD_ID);
     }
 
     public String getPriority() {
@@ -43,7 +48,8 @@ public class TaskCardHandle extends GuiHandle {
 
     public boolean isSameTask(ReadOnlyTask task) {
         return gettaskName().equals(task.getName().taskName) && getPriority().equals(task.priorityString())
-                && getDateTime().equals(task.getDateTime().toString()) && getStatus().equals(task.getStatus().toString());
+                && getStartDate().equals(task.getDateTime().startDateString) && getEndDate().equals(task.getDateTime().endDateString) 
+                && getStatus().equals(task.getStatus().toString());
     }
 
     @Override
@@ -51,13 +57,14 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return gettaskName().equals(handle.gettaskName())
-                    && getDateTime().equals(handle.getDateTime()); //TODO: compare the rest
+                    && getStartDate().equals(handle.getStartDate())
+                    && getEndDate().equals(handle.getEndDate()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return gettaskName() + " " + getDateTime();
+        return gettaskName() + " " + getStartDate() + " " + getEndDate();
     }
 }

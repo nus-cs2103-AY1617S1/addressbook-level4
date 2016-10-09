@@ -41,21 +41,29 @@ public class DateTime {
         this.endDate = LocalDateTime.parse(endDate, formatter);
         this.endDateString = this.endDate.format(stringFormatter);
 
-        if (startDate != null) {
+        if (endDate != null && endDate.length() > 0) {
+            this.endDate = LocalDateTime.parse(endDate, formatter);
+            this.endDateString = this.endDate.format(stringFormatter);
+        }
+
+        if (startDate != null && startDate.length() > 0) {
             this.startDate = LocalDateTime.parse(startDate, formatter);
             this.startDateString = this.startDate.format(stringFormatter);
             if (this.endDate.isBefore(this.startDate) || this.endDate.isEqual(this.startDate)) {
                 throw new IllegalDateException("End dateTime should be after start dateTime.");
             }
         }
+
     }
 
     @Override
     public String toString() {
-        if (this.startDate == null) {
+        if (this.startDate != null && this.endDate != null) {
+            return startDateString + " to " + endDateString;
+        } else if (this.startDate == null && this.endDate != null) {
             return endDateString;
         } else {
-            return startDateString + " to " + endDateString;
+            return "";
         }
     }
     

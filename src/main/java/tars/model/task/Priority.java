@@ -30,7 +30,7 @@ public class Priority {
      * Returns true if a given string is a valid task priority level.
      */
     public static boolean isValidPriorityLevel(String level) {
-        return level.matches(PRIORITY_VALIDATION_REGEX);
+        return level.equals("") ? true : level.matches(PRIORITY_VALIDATION_REGEX);
     }
 
     @Override
