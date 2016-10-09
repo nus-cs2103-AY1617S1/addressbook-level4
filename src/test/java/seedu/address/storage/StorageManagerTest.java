@@ -10,12 +10,9 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-<<<<<<< HEAD
+
 import seedu.address.testutil.TypicalTestTasks;
-=======
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.address.testutil.EventsCollector;
->>>>>>> 386c3c108ff4a554d43a8ad38b8be6d56f6d9fcc
 
 import java.io.IOException;
 

@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends AddressBookGuiTest {
 
+    /*
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Mark"); //no results
@@ -17,7 +18,8 @@ public class FindCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("delete 1");
         assertFindResult("find Meier",td.daniel);
     }
-
+    */
+    
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
