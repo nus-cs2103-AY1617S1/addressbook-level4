@@ -11,16 +11,19 @@ We are just four students trying to make a decent todo app.
 <img src="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Jasmine%20Ang.jpg" width="166" height="213" />
 - Documentation 
 - Testing 
+- Model 
 
 ### [Kenneth](https://github.com/Kenneth-LJS) 
 <img src="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Kenneth%20Loh.jpg" width="166" height="213" />
 - Deliverables & Deadlines 
 - Scheduling & Tracking 
+- Logic 
 
 ### [Ka-Shing](https://github.com/ongks)
 <img src="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Ong%20Ka-Shing.jpg" width="166" height="213" />
 - Code Quality 
 - Integration 
+- Storage 
 
 ### Damith Rajapakse
 ![Damith](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/DamithRajapakse.jpg)

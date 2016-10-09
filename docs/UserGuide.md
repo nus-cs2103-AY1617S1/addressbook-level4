@@ -6,8 +6,6 @@
 
 ## Getting Started
 1. Ensure you have Java version 1.8.0_60 or later installed in your Computer.
-	> Having any Java 8 version is not enough.  
-	> This app will not work with earlier versions of Java 8.
 2. Download the latest OneLine.jar from the releases tab.
 3. Copy the file to the folder you want to use as the home folder for OneLine.
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -15,52 +13,74 @@
 
 
 ## Features
-1. Viewing Help: ` help ` 
-2. Adding a Task / Event: ` add `  
-	- ` add <task name> due <date> in <category> priority <high / med / low> `
-    - `add <event name> from <start date / time> to <end date / time>` 
+> [Square brackets] indicate that a field is optional  
+> \<Angled brackets> indicate command parameters 
+
+1. Viewing Help: ` help `
+> Displays list of available commmands and descriptions 
+
+2. Adding a Task / Event: ` add `   
+    <img src="images/add.png" width="600">
     
-3. Editing: ` edit ` 
-	- ` edit <task name> <new task name> due <new date> in <new cat> priority <new priority> ` : edit task
-	- ` edit <category name> <new cat name> ` : edit category name 
+    - `add <name> [.due <date>] [#<cat>] [#<cat>] ...` 
+> eg ` add User guide .due Wednesday #cs2103 ` 
+> If no date is specified, task will be set as a floating task   
+
+    - `add <name> [.on <date>] [-at <location>]...`  
+
+    - `add <name> [.from <date><time> .to <date><time>] ...`
+> If no date is specified, date will be set to the current day, or the next day if set time has passed  
+> If no time is specified, start times will be set to 0000 and end times to 2359 
+
+	- `add <name> .every <day / week> ...` : sets task to be a recurring task
+> eg `add Go jogging .every Friday ` 
+
+3. Editing: ` edit `    
+<img src="images/edit.png" width="600">
+
+    - `edit <index> [.due <date>]` : edits task specified by index
+> eg `edit 2 .due Tuesday ` 
+
+    - `edit #<oldCat> [#<newCat>] [.c <colour>]` : edits category name and / or colour
     
 4. Listing All Tasks: ` list `  
-    - ` list all ` :  lists all undone tasks sorted by priority, followed by deadline  
-    - ` list <day / week / month> ` : list undone tasks / events with deadlines in the day / week / month  
-    - ` list floating `: lists undone tasks with no deadline
-    - ` list <category name>` : lists undone tasks in category
-	- ` list done `: lists all done tasks 
+    <img src="images/list.png" width="600"><br>  
+
+    - `list` :  lists all undone tasks sorted by by deadline  
+    - `list <day / week>` : lists undone tasks with deadline in the current day / next 7 days  
+    - `list float` : lists undone tasks with no deadline
+    - `list #<cat>` : lists undone tasks in category
+    - `list done` : lists tasks done within the past 7 days  
     
 5. Mark Task as Done: ` done `  
-	- ` done <task name> ` 
+<img src="images/done.png" width="600"><br>  
+
+    - `done <index>` : marks task specified by index as done 
     
-5. Unmark Done Task: ` undone `   
-    - ` undone <task name> `
+6. Find: ` find `   
+<img src="images/find.png" width="600"><br> 
+
+    - `find <keyword>` : returns list of tasks with names similar to keyword
+    - `find #<keyword>` : returns list of categories with names similar to keyword
 	
-6. Deleting a Task: ` del `   
-    - ` del <task name> ` 
+7. Deleting a Task: ` del `   
+<img src="images/delete.png" width="600"><br> 
 
-7. Undo: ` undo ` 
-8. Redo: ` redo `
+    - `del <index>` : deletes task spcified by index 
+    - `del #<cat>` : deletes category 
 
-9. Change Storage: ` storage ` 
-	- `storage <new path> ` : changes the storage file to the file specified by new path 
+8. Undo: ` undo `   
+<img src="images/undo.png" width="600"><br> 
+
+9. Redo: ` redo `   
+<img src="images/redo.png" width="600"><br> 
+
+10. Change Storage: ` save `    
+<img src="images/save.png" width="600"><br> 
+
+	- `save <new path>` : changes the storage file to the file specified by new path 
     
-10. Search: ` find `
-	- `find <search term>`: returns tasks with names similar to search term
-    
-11. Exiting Program : ` exit ` 
-
-## User Stories
-
-| As a... | I want... | So that I...  | Conditions |
-|------|--------------|------------------|------------|
-| user | to Create/View/Update/Delete tasks | - | - |
-| user | to be able to view tasks easily | can focus on tasks | good user interface that doesn't clutter tasks |
-| user | intuitive commands | don't have to remember commands | - |
-| user | to mark tasks as done | can keep track of my progress | - |
-| user | undo any mistakes I have made | don't have to worry about making irreversible moves | - |
-| user | change storage location | can store tasks in a portable device | - |
+11. Exiting Program: ` exit ` 
 
 ## FAQ
 Q: How do I transfer my data to another Computer?
@@ -71,12 +91,11 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 | Command | Format |
 | ------- | ------ |
 | help | `help` |
-| add | `add <task> due <date> priority <high/med/low>` <br /> `add <event> from <start date/time> to <end date/time>` |
-| edit | `edit <task> <new task name> due <date date> in <new category> priority <new priority>`<br />`edit <category name> <new category name>` |
-| list | `list all`<br /> `list <day/week/month>`<br />`list floating`<br /> `list <category>` <br /> `list done` |
-| done | `done <task>` |
-| undone | `undone <task>` |
-| delete | `del <task> ` |
-| storage | `storage <path>` |
-| search | `find <search term>` |
+| add | `add <name> [.due <date>] [#<cat>] [#<cat>] ...` <br /> `add <name> [.on <date>] [.at <location>]...` <br />`add <name> [.from <date><time> .to <date><time>] ...` <br /> `add <name> .every <day / week> ...` |
+| edit | `edit <index> [.due <date>]`<br />`edit #<oldCat> [#<newCat>] [.c <colour>]` |
+| list | `list` <br /> `list <day / week>` <br /> `list float`<br />`list #<cat>`<br />`list done` |
+| done | `done <index>` |
+| find | `find <keyword>` <br /> `find #<keyword>` |
+| delete | `del <index>` <br /> `del #<cat>`|
+| storage | `save <path>` |
 | exit | `exit` |

@@ -253,29 +253,58 @@ b. Require developers to download those libraries manually (this creates extra w
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
 
-Priority | As a ... | I want to ... | So that I can...
--------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+| Priority | As a... | I want...                          | So that I...  |
+|----------|---------|------------------------------------|---------------|
+| `* * *`  | user    | to Create/View/Update/Delete tasks | -             |
+| `* * *`  | user    | to mark tasks as done              | can keep track of my progress |
+| `* * *`  | user    | to search for tasks I have entered | - |
+| `* * *`  | user    | to block off time slots for events | will not accidentally enter into clashing events | 
+| `* *`    | user    | different views for tasks          | can get a better overview of which tasks I should focus on |
+| `* *`    | user    | to categorise my tasks             | can group similar tasks together |
+| `* *`    | user    | to change storage location         | can store tasks in a portable device |
+| `* *`    | user    | intuitive commands                 | don't have to remember commands |
+| `*`      | user    | to undo any mistakes I have made   | - |
+| `*`      | user    | to keep track of recurring tasks   | - |
+| `*`      | user    | to be reminded of the tasks I need to complete | - |
+| `*`      | user    | my commands to be auto-completed   | - |  
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `OneLine` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User adds task
+2. OneLine creates the task <br>
+Use case ends
+
+**Extensions**
+
+1a. User requests to add task with a new category
+>   1a1. OneLine creates the category <br>
+    Use case resumes from step 2.
+
+1b. OneLine detects an error in the data entered
+>   1b1. OneLine requests for the correct data
+    1b2. User enters new data <br>
+    Steps 1b1-1b2 are repeated until data contains no errors
+    Use case resumes from step 2.
+
+1c. OneLine detects a time clash in task entered
+>   1c1. OneLine creates the task
+    1c2. OneLine marks the task in task pane to show time clash.<br>
+    Use case ends
+
+#### Use case: Delete task
+
+**MSS**
+
+1. User requests to list tasks
+2. OneLine shows a list of tasks
+3. User requests to delete a specific task in the list
+4. OneLine deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -286,19 +315,138 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+> 3a1. OneLine shows an error message <br>
+  Use case resumes from step 2
 
-{More to be added}
+
+#### Use case: Edit task
+
+**MSS**
+
+1. User requests to list tasks
+2. OneLine shows a list of tasks
+3. User requests to edit a specific task in the list
+4. OneLine edits the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. OneLine shows an error message <br>
+  Use case resumes from step 2
+
+3b. User requests to tag a task with a category that is not currently in the system
+>   3b1. OneLine creates the category <br>
+    Use case resumes from step 4.
+
+3c. OneLine detects an error in the data entered
+>   3c1. OneLine requests for the correct data
+    3c2. User enters new data <br>
+    Steps 3c1-3c2 are repeated until data contains no errors
+    Use case resumes from step 4.
+
+#### Use case: Mark task as done
+
+**MSS**
+
+1. User requests to list tasks
+2. OneLine shows a list of tasks
+3. User requests to mark a task as done
+4. OneLine marks task as done <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. OneLine shows an error message <br>
+  Use case resumes from step 2
+  
+
+#### Use case: Add Category 
+
+**MSS**
+
+1. User adds category
+2. OneLine creates the category 
+3. New category is shown in the UI's sidebar, with a default colour <br>
+Use case ends
+
+**Extensions**
+
+1a. User requests to add a category that already exists 
+> 1a1. OneLine shows an error message. <br> 
+  Use case ends.
+
+#### Use case: Delete Category 
+
+**MSS**
+
+1. User requests to delete category
+2. OneLine deletes the category <br>
+Use case ends
+
+**Extensions**
+
+1a. User requests to delete a category that does not exist  
+> 1a1. OneLine shows an error message. <br>
+ Use case ends.
+
+#### Use case: Edit Category 
+
+**MSS**
+
+1. User requests to edit category 
+2. OneLine edits the category
+3. UI's sidebar updates to reflect the new changes <br>
+Use case ends
+
+**Extensions**
+
+1a. User requests to edit a category that does not exist  
+> 1a1. OneLine shows an error message. <br>
+ Use case ends.
+
+1b. OneLine detects an error in the data entered
+> 1b1. OneLine requests for the correct data
+ 1b2. User enters new data 
+ Steps 1b1-1b2 are repeated until data contains no errors<br>
+ Use case resumes from step 2.
+
+#### Use case: Find 
+
+**MSS** 
+
+1. User requests to find task / category by keyword
+2. OneLine finds a list of tasks / categories which are similar to, or contain the keyword 
+3. OneLine shows the list of tasks / categories <br>
+Use case ends 
+
+**Extensions** 
+
+2a. List is empty 
+> Use case ends. 
+
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+4. Should minimise keystrokes on commands.
+5. Should be able to handle all invalid inputs. 
+6. Should have an initial load time of less than 2000ms 
+7. Should be easy for a user with no command line experience to use 
+8. Should be written in clear, well-documented code which is easy to understand, reusable and maintainable  
 
 ## Appendix D : Glossary
 
@@ -306,11 +454,108 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Floating task
 
-> A contact detail that is not meant to be shared with others
+> Tasks that do not have a specific deadline
+
+##### Event-based task
+
+> Tasks that have a specific timeslot. i.e. Meeting from 1pm to 2pm.
+
+##### Category
+
+> User-defined tags used to categorise tasks
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+**Todoist**
+- Strengths
+    - Clean interface  
+    - Simple usage
+    - Project hierachy
+    - Handles multiple date/time formats
+- Weaknesses
+    - 1 page of tasks: No scrolling
+    - Heavily relies on mouse usage: not many keyboard shortcuts
+    - No calendar display
 
+**Wunderlist**
+- Strengths
+    - Interface is elegant
+    - Display updates in real time
+    - Sound feedback
+    - Manages recurring tasks
+    - Sort by due date
+    - Filter by date range
+- Weaknesses
+    - Misleading icons and buttons
+    - No clendar display
+    - Does not open on startup
+    - Deadline notification through email, not the app
+
+**Google Calendar Quick Add**
+- Strengths
+    - Intuitive shortcuts and commands
+    - Different command formats are acceptable
+    - Clean interface
+    - Task dependency cycles are detected when cyclic inputs are used
+- Weaknesses
+    - No view/edit/delete/search
+    - Rigid settings
+
+**Todo.txt**
+- Strengths
+    - Search function works for phrases, case-insensitive
+    - - flag like in google search to filter certain texts
+    - Command history
+- Weaknesses
+    - Difficult setup
+    - -h does not provide full list of commands
+    - Tasks marked done are deleted permanently
+    - Command formats are rigid
+    - No undo of previous actions.
+    - Too minimalistic, such as no time/date support
+
+**Trello**
+- Strengths
+    - Cross-platform usage
+    - Integrates with other calendars
+    - Collaboration support
+    - Hierachy of tasks
+- Weaknesses
+    - A lot of fields to fill in
+    - Recurring tasks have to be manually added
+    - One rigid view, no option for summary/overview/timeline views
+    - Many features, which are not immediately apparent
+
+**Apple Calendar**
+- Strengths
+    - Cross-platform support
+    - Color-coding for tasks
+    - Day, month and year view
+- Weaknesses
+    - No collaboration
+    - Rigid fields for adding
+
+**S Planner**
+- Strengths
+    - Syncs to many calendar platforms
+    - Google map support for locations
+    - Supports recurring events
+    - Collaboration support
+- Weaknesses
+    - Mobile-only
+    - Floating tasks only available in Agenda view
+    - Many clicks required to add tasks
+
+**Any.do**
+- Strengths
+    - Interface is clean and intuitive
+    - Syncs between mobile devices and PC
+    - Descriptions can be added to tasks
+    - Support for recurring tasks
+- Weaknesses
+    - Internet connection is required to access tasks
+    - Fields need to be filled in to add tasks
+    - Time/date is not easy to change
+    - No alarm support
