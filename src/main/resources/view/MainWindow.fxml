@@ -28,4 +28,8 @@
       <Text layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." textAlignment="CENTER" />
     </AnchorPane>
   </children>
+  <stylesheets>
+    <URL value="@css/bootstrap3.css" />
+    <URL value="@css/style.css" />
+  </stylesheets>
 </VBox>
