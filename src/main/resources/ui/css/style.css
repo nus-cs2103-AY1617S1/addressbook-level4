@@ -1,29 +1,47 @@
 @font-face {
-  font-family: "Roboto";
+  font-family: "Roboto Thin";
   font-weight: 100;
   src: url("../fonts/Roboto-Thin.ttf");
 }
 
 @font-face {
-  font-family: "Roboto";
+  font-family: "Roboto Light";
   font-weight: 300;
   src: url("../fonts/Roboto-Light.ttf");
 }
 
 @font-face {
   font-family: "Roboto";
-  font-weight: 400;
   src: url("../fonts/Roboto-Regular.ttf");
 }
 
 @font-face {
-  font-family: "Roboto";
+  font-family: "Roboto Medium";
   font-weight: 500;
   src: url("../fonts/Roboto-Medium.ttf");
 }
 
-.root {
+.main-window {
   -fx-font-family: "Roboto";
+}
+
+.font-100 {
+  -fx-font-family: "Roboto Thin";
+  -fx-font-weight: 100;
+}
+
+.font-300 {
+  -fx-font-family: "Roboto Light";
+  -fx-font-weight: 300;
+}
+
+.font-400 {
+  -fx-font-family: "Roboto";
+}
+
+.font-500 {
+  -fx-font-family: "Roboto Medium";
+  -fx-font-weight: 500;
 }
 
 /* MENUBAR */
