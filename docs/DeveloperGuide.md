@@ -64,7 +64,7 @@
 
 The following content is a quick overview of each component.
 
-[**`Main`**] has only one class called `MainApp`(../src/main/java/seedu/address/MainApp.java). It is responsible for,
+**`Main`** has only one class called `MainApp`(../src/main/java/seedu/ggist/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
