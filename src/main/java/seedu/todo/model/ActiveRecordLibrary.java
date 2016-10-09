@@ -11,6 +11,10 @@ public class ActiveRecordLibrary<E extends ActiveRecordBase> {
         return records.add(record);
     }
     
+    public List<E> all() {
+        return new ArrayList<E>(records);
+    }
+    
     public List<E> where(Function<E, Boolean> pred) {
         List<E> result = new ArrayList<E>();
         for (E record : records) {
