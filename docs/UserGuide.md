@@ -29,7 +29,7 @@ It uses a simple graphical user interface to display your events and tasks. Inst
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`list`**: lists all tasks
-   * **`add`**` CS2103T Tutorial d/wed 9.59am start/tue 11.59pm end/wed 4am` :
+   * **`add`**` CS2103T Tutorial d/wed 0959 start/tue 2359 end/wed 4am` :
      adds a task titled `CS2103T Tutorial` to TaskMan
    * **`delete`**` 3`: deletes the 3rd task shown in the current list
    * **`exit`**: exits the app
@@ -52,40 +52,40 @@ Command Format: `help`
  
 #### Adding a task: `add`
 Adds a task to TaskMan<br>
-Command Format: `add TITLE [d/DEADLINE] [p/PERIOD] [c/] [r/FREQUENCY] [t/TAG]...`
+Command Format: `add TITLE [d/DEADLINE] [s/SCHEDULE] [f/FREQUENCY] [t/TAG]...`
 
 Parameter | Format
 -------- | :-------- 
-`PERIOD` | `DATETIME`, `DATETIME to DATETIME` or `DATETIME for X{h/d/w}’ where X is a number (non-negative integer or decimal) and h is hour, d is day, w is week. Event is taken to be 1 hour long if not specified. 
-`DEADLINE` and `DATETIME` | `[next] ddd [hh[.mm]{am/pm}]` or `DD-MM-YYYY TT:TT`
-`FREQUENCY` | `X{d/w/m/y}` where X is a natural number, d is day, m is month, and y is year.
+`SCHEDULE` | `DATETIME`, `DATETIME to DATETIME` or `DATETIME for X{hr/d/wk/mth/yr}` where X is a number (non-negative integer or decimal) and h is hour, d is day, w is week. Event is taken to be 1 hour long if not specified. 
+`DEADLINE` and `DATETIME` | `[this/next] ddd [hhmm]` (more flexibility will be expected in later versions)
+`FREQUENCY` | `X{hr/d/wk/mth/yr}` where X is a natural number, hr is hour, d is day, wk is week, mth is month, and yr is year.
 
-The `PERIOD` represents the period of time the task is scheduled to be worked on. The presence of just `c/` will mark the task as completed.
+The `SCHEDULE` represents the period of time the task is scheduled to be worked on. The presence of just `c/` will mark the task as completed.
 
 > Tasks can have any number of tags. Tags may contain spaces and are case-insensitive (i.e. tags "school", "School", and "SCHOOL" are the same tags).
 
 Examples:
-* `add CS2103T Pre-Tutorial Work d/wed 9.59am p/tue 11.59pm to wed 4am`
-* `add CS2101 HW d/next mon 11.59am t/CS2101 t/V0.0`
-* `add Take a shower d/thu 12am p/thu 12am to fri 12.30am r/1d t/Life`
+* `add CS2103T Pre-Tutorial Work d/wed 0959 s/tue 2359 to wed 4am`
+* `add CS2101 HW d/next mon 1159 t/CS2101 t/V0.0`
+* `add Take a shower d/thu 0200 s/thu 0200 to fri 0030 f/1d t/Life`
 
-#### Adding an event: ‘add e ’
+#### Adding an event: 'add e'
 Adds a task to TaskMan<br>
-Command Format: `add e TITLE [p/PERIOD] [r/FREQUENCY] [t/TAG]...`
+Command Format: `add e TITLE [s/SCHEDULE] [f/FREQUENCY] [t/TAG]...`
 
 Parameter | Format
 -------- | :-------- 
-`PERIOD` | `DATETIME`, `DATETIME to DATETIME` or `DATETIME for X{h/d/w}’ where X is a number (non-negative integer or decimal) and h is hour, d is day, w is week. Event is taken to be 1 hours long if not specified. 
-`DATETIME` | `[next] ddd [hh[.mm]{am/pm}]` or `DD-MM-YYYY TT:TT`
-`FREQUENCY` | `X{d/w/m/y}` where X is a natural number, d is day, m is month, and y is year.
+`SCHEDULE` | `DATETIME`, `DATETIME to DATETIME` or `DATETIME for X{hr/d/wk/mth/yr}` where X is a number (non-negative integer or decimal) and h is hour, d is day, w is week. Event is taken to be 1 hour long if not specified. 
+`DATETIME` | `[this/next] ddd [hhmm]` (more flexibility will be expected in later versions)
+`FREQUENCY` | `X{hr/d/wk/mth/yr}` where X is a natural number, hr is hour, d is day, wk is week, mth is month, and yr is year.
 
-The `PERIOD` represents the period of time which the event is occurring.
+The `SCHEDULE` represents the period of time which the event is occurring.
 
 > Similarly like tasks, events can have any number of tags. Tags may contain spaces and are case-insensitive (i.e. tags "school", "School", and "SCHOOL" are the same tags).
 
 Examples:
-* `add CS2103T Lecture p/fri 2pm to fri 4pm r/1w t/CS2103T`
-* `add Project Meeting p/mon 12pm to mon 2pm t/CS2101 t/lunch time`
+* `add CS2103T Lecture s/fri 1400 to fri 1600 f/1wk t/CS2103T`
+* `add Project Meeting s/mon 1400 to mon 1400 t/CS2101 t/Lunch Time`
 
 ####Changing the View: `view`
 Shows a different view based on the parameters entered.<br>
@@ -127,25 +127,25 @@ Command Format: `complete INDEX` or `complete list`
 #### Editing a task/event: `edit`
 Edits a task or event to TaskMan<br>
 ##### For a Task:
-Command Format: `edit INDEX TITLE [d/DEADLINE] [p/PERIOD] [c/STATUS] [r/FREQUENCY] [t/TAG]...`
+Command Format: `edit INDEX TITLE [d/DEADLINE] [s/SCHEDULE] [c/STATUS] [f/FREQUENCY] [t/TAG]...`
 ##### For an Event:
-Command Format: `edit INDEX TITLE [p/PERIOD] [c/STATUS] [r/FREQUENCY] [t/TAG]...`
+Command Format: `edit INDEX TITLE [s/SCHEDULE] [f/FREQUENCY] [t/TAG]...`
 
 Parameter | Format
 -------- | :-------- 
-`PERIOD` | `DATETIME`, `DATETIME to DATETIME` or `DATETIME for X{h/d/w}’ where X is a number (non-negative integer or decimal) and h is hour, d is day, w is week. Event is taken to be 1 hours long if not specified. 
-`DATETIME` | `[next] ddd [hh[.mm]{am/pm}]` or `DD-MM-YYYY TT:TT`
+`SCHEDULE` | `DATETIME`, `DATETIME to DATETIME` (or `DATETIME for X{hr/d/wk/mth/yr}` in later versions) where X is a number (non-negative integer or decimal) and h is hour, d is day, w is week. Event is taken to be 1 hour long if not specified. 
+`DATETIME` | `[this/next] ddd [hhmm]` (more flexibility will be expected in later versions)
 `STATUS` | `y/n` where y denotes complete and n denotes incomplete
-`FREQUENCY` | `X{d/w/m/y}` where X is a natural number, d is day, m is month, and y is year.
+`FREQUENCY` | `X{hr/d/wk/mth/yr}` where X is a natural number, hr is hour, d is day, wk is week, mth is month, and yr is year.
 
 
 Fields which are not present are assumed to stay unchanged. By adding tags, previous tags are removed and the new tags are added to the task/event.
 
 Examples:
 * `list`<br>
-  `edit 1 CS2103T Tutorial p/mon 10pm to tue 2am`<br>
-  Changes title of the 1st task/event to `CS2103T Tutorial` and the period to `mon 10pm to tue 2am`
-* `edit CS2101 Tutorial d/thu 11.59am`
+  `edit 1 CS2103T Tutorial s/mon 2200 to tue 0200`<br>
+  Changes title of the 1st task/event to `CS2103T Tutorial` and the schedule to `mon 2200 to tue 0200`
+* `edit CS2101 Tutorial d/thu 1159`
 
 #### Deleting a task: `delete`
 Deletes the specified task from TaskMan. Irreversible.<br>
@@ -275,8 +275,8 @@ Each Task is saved in the following format:
 > `<tasks>`<br>
 > `<title>TITLE</title>`<br>
 > `<deadline>DD-MM-YYYY TT:TT</deadline>`<br>
-> `<period>DD-MM-YYYY TT:TT to DD-MM-YYYY TT:TT</period>`<br>
-> `<frequency>X{d/w/m/y}</frequency>`<br>
+> `<schedule>DD-MM-YYYY TT:TT to DD-MM-YYYY TT:TT</schedule>`<br>
+> `<frequency>X{hr/d/wk/mth/yr}</frequency>`<br>
 > `<tagged>TAGNAME</tagged>`<br>
 > `<tagged>TAGNAME</tagged>`<br>
 > `</tasks>`<br>
@@ -286,8 +286,8 @@ Example:
 > `<tasks>`<br>
 > `<title>CS2103T Tutorial HW</title>`<br>
 > `<deadline>11-10-2016 23:59</deadline>`<br>
-> `<period></period>`<br>
-> `<frequency>1w</frequency>`<br>
+> `<schedule></schedule>`<br>
+> `<frequency>1wk</frequency>`<br>
 > `<tagged>CS2103T</tagged>`<br>
 > `</tasks>`
 
@@ -296,8 +296,8 @@ Example:
 Each Event is saved in the following format:
 > `<events>`<br>
 > `<title>TITLE</title>`<br>
-> `<period>DD-MM-YYYY TT:TT to DD-MM-YYYY TT:TT</period>`<br>
-> `<frequency>1w</frequency>`<br>
+> `<schedule>DD-MM-YYYY TT:TT to DD-MM-YYYY TT:TT</schedule>`<br>
+> `<frequency>1wk</frequency>`<br>
 > `<tagged>TAGNAME</tagged>`<br>
 > `<tagged>TAGNAME</tagged>`<br>
 > `</events>`
@@ -306,8 +306,8 @@ Fields which are empty can be left out.<br>
 Example:
 > `<events>`<br>
 > `<title>CS2103T Lecture</title>`<br>
-> `<period>01-10-2016 12:00 to 01-10-2016 14:00</period>`<br>
-> `<frequency>X{d/w/m/y}</frequency>`<br>
+> `<schedule>01-10-2016 12:00 to 01-10-2016 14:00</schedule>`<br>
+> `<frequency>X{hr/d/wk/mth/yr}</frequency>`<br>
 > `<tagged>CS2103T</tagged>`<br>
 > `<tagged>lecture</tagged>`<br>
 > `</events>`
@@ -333,12 +333,12 @@ Example:
 
 Command | Format
 -------- | :--------
-Add | `add TITLE [d/DEADLINE] [p/PERIOD] [c/] [r/FREQUENCY] [t/TAG]...    `
-Add Event | `add e TITLE [p/PERIOD] [r/FREQUENCY] [t/TAG]...    `
+Add | `add TITLE [d/DEADLINE] [s/SCHEDULE] [f/FREQUENCY] [t/TAG]...    `
+Add Event | `add e TITLE [s/SCHEDULE] [f/FREQUENCY] [t/TAG]...    `
 Clear | `clear`
 Complete | `complete`
 Delete | `delete INDEX` or `delete list`
-Edit | `edit INDEX TITLE [d/DEADLINE] [p/PERIOD] [c/STATUS] [r/FREQUENCY] [t/TAG]...`
+Edit | `edit INDEX TITLE [d/DEADLINE] [s/SCHEDULE] [c/STATUS] [f/FREQUENCY] [t/TAG]...`
 Exit | `exit`
 Help | `help`
 History | `history`
