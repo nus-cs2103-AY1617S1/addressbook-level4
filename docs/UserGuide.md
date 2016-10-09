@@ -77,12 +77,6 @@ Format: `delete <task name>`
 Example:
 * `delete CS2103T Tutorial`
 
-#### Adding a subtask: `add-s`
-Adds a subtask to a main task<br>
-Format: `add-s <main task name> <subtask>`
-Example: 
-* `add-s CS2103Tutorial Question1`
-
 #### View: `donelist`
 Displays all the completed task on that day for the user to view.<br>
 Format: `donelist`
