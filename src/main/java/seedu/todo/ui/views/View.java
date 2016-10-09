@@ -1,21 +1,16 @@
 package seedu.todo.ui.views;
 
 import java.util.function.Function;
-import java.util.logging.Logger;
 
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.ui.UiManager;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
 
 public abstract class View extends UiPart {
-    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-	
-    protected AnchorPane placeHolderPane;
+    protected Pane placeHolderPane;
     protected VBox mainNode;
     
     private Function<View, View> modifyViewHook;
@@ -32,7 +27,7 @@ public abstract class View extends UiPart {
      * @param primaryStage   The primary stage that contains the main application window.
      * @param placeholder    The placeholder pane where this View should reside.
      */
-	public View render(Stage primaryStage, AnchorPane placeholder) {
+	public View render(Stage primaryStage, Pane placeholder) {
 		// Load FXML.
 		if (modifyViewHook != null)
 			return UiPartLoader.loadUiPart(primaryStage, placeholder, this, modifyViewHook);
@@ -55,7 +50,7 @@ public abstract class View extends UiPart {
 	}
 
     @Override
-    public void setPlaceholder(AnchorPane pane) {
+    public void setPlaceholder(Pane pane) {
         this.placeHolderPane = pane;
     }
 

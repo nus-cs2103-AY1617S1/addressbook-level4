@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-public class TagListLink extends Component {
+public class TagListLink extends MultiComponent {
 
 	private static final String FXML_PATH = "components/TagListLink.fxml";
 	

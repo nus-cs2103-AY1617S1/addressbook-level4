@@ -2,14 +2,9 @@ package seedu.todo.ui.components;
 
 import java.util.ArrayList;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
-import seedu.todo.ui.views.View;
 
 public class TagList extends Component {
 	
@@ -32,7 +27,7 @@ public class TagList extends Component {
 	@FXML
 	private Text titleText;
 	@FXML
-	private ListView<View> tagListLinksListView;
+	private VBox tagListLinksPlaceholder;
 
 	@Override
 	public String getFxmlPath() {
@@ -46,7 +41,6 @@ public class TagList extends Component {
 		// Load TagListLinks
 		String[] linkLabels = { TASKS_LABEL, OVERDUE_LABEL, EVENTS_LABEL, COMPLETED_LABEL };
 		String[] linkIconPaths = { TASKS_ICON_PATH, OVERDUE_ICON_PATH, EVENTS_ICON_PATH, COMPLETED_ICON_PATH };
-		ArrayList<View> links = new ArrayList<View>();
 		
 		for (int i = 0; i < linkLabels.length; i++) {
 			TagListLink link = new TagListLink();
@@ -60,32 +54,7 @@ public class TagList extends Component {
 				return comp;
 			});
 			
-			links.add(link.render(primaryStage));
-		}
-		
-		ObservableList<View> linksObservableList = FXCollections.observableList(links);
-		
-		tagListLinksListView.setItems(linksObservableList);
-		
-		tagListLinksListView.setCellFactory(new Callback<ListView<View>, ListCell<View>>() {
-			@Override
-			public ListCell<View> call(ListView<View> param) {
-				return new RenderedView();
-			}
-		});
-	}
-	
-	static class RenderedView extends ListCell<View> {
-		@Override
-		public void updateItem(View item, boolean empty) {
-			super.updateItem(item, empty);
-			
-			if (empty || item == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-				setGraphic(item.getNode());
-            }
+			link.render(primaryStage, tagListLinksPlaceholder);
 		}
 	}
 
