@@ -9,18 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of an Activity.
  */
 public class XmlAdaptedActivity {
 
     @XmlElement(required = true)
     private String name;
-    @XmlElement(required = true)
-    private String phone;
-    @XmlElement(required = true)
-    private String email;
-    @XmlElement(required = true)
-    private String address;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -38,6 +32,7 @@ public class XmlAdaptedActivity {
      */
     public XmlAdaptedActivity(Activity source) {
         name = source.name;
+        // TODO: implement other required fields if necessary
 //        phone = source.getPhone().value;
 //        email = source.getEmail().value;
 //        address = source.getAddress().value;
@@ -53,10 +48,11 @@ public class XmlAdaptedActivity {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Activity toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> activityTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            activityTags.add(tag.toModelType());
         }
+        // TODO: implement for other fields if necessary
 //        final Name name = new Name(this.name);
 //        final Phone phone = new Phone(this.phone);
 //        final Email email = new Email(this.email);

@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
 /**
  * An Immutable ActivityManager that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "activitymanager")
 public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
 
-    @XmlElement
+    @XmlElement(name = "activity")
     private List<XmlAdaptedActivity> activities;
     @XmlElement
     private List<Tag> tags;
