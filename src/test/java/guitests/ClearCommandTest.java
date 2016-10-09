@@ -20,8 +20,8 @@ public class ClearCommandTest extends TaskManGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(new Activity(td.hoon)));
+        commandBox.runCommand(td.taskCS2102.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(new Activity(td.taskCS2102)));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 

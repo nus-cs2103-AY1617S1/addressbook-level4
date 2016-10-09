@@ -15,10 +15,10 @@ public class TypicalTestTasks {
         try {
             taskCS2101 =  new TaskBuilder().withTitle("CS2101").withFrequency("3d").withDeadline("mon 1200")
                     .withTags("User Guide").build();
-            taskCS2103T = new TaskBuilder().withTitle("CS2103T").withFrequency("1w").withDeadline("wed 1000")
+            taskCS2103T = new TaskBuilder().withTitle("CS2103T Project").withFrequency("1w").withDeadline("wed 1000")
                     .withTags("Super Shag", "V0.2").build();
             taskCS2309 = new TaskBuilder().withTitle("CS2309").withDeadline("fri 0900").withFrequency("1w").withSchedule("fri 0000 to fri 0300").build();
-            taskCS3244 = new TaskBuilder().withTitle("CS3244").withDeadline("thu 1400").withFrequency("1w").withSchedule("thu 1400 to thu 1500").build();
+            taskCS3244 = new TaskBuilder().withTitle("CS3244 Project").withDeadline("thu 1400").withFrequency("1w").withSchedule("thu 1400 to thu 1500").build();
             taskCS2105 = new TaskBuilder().withTitle("CS2105").withDeadline("mon 1600").withFrequency("1w").withSchedule("mon 1400, mon 1600").build();
             taskCS2106 = new TaskBuilder().withTitle("CS2106").withDeadline("fri 1200").withFrequency("1y").withSchedule("fri 1200, fri 1400").build();
             taskCS2107 = new TaskBuilder().withTitle("CS2107").withDeadline("fri 1800").withFrequency("2y").withSchedule("fri 1600, sat 1600").build();
@@ -42,7 +42,7 @@ public class TypicalTestTasks {
             ab.addTask(new Task(taskCS2105));
             ab.addTask(new Task(taskCS2106));
             ab.addTask(new Task(taskCS2107));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (UniqueActivityList.DuplicateActivityException e) {
             assert false : "not possible";
         }
     }
