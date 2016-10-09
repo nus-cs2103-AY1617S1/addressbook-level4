@@ -25,11 +25,12 @@ public class EditCommand extends Command {
     
     public static final String COMMAND_WORD = "edit";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task/event in Jimi. \n" + "Example: "
-            + COMMAND_WORD + " 2 by 10th July at 12 pm";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task/event in Jimi. \n" 
+            + "Parameters: INDEX(must be a positive integer) EDITS_TO_MAKE\n" 
+            + "Example: " + COMMAND_WORD + " 2 clear trash";
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Updated task details: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi.";
     
     private final int taskIndex; //index of task/event to be edited
     private UniqueTagList newTagList;
@@ -74,14 +75,12 @@ public class EditCommand extends Command {
             UniqueTagList oldTagList = taskToEdit.getTags();
             Name oldName = taskToEdit.getName();
             
-            if (newName != null && !oldName.equals(newName)) {
-                if (newTagList != null && !oldTagList.equals(newTagList)) {
-                    model.addFloatingTask(new FloatingTask(newName, newTagList)); //change both name and tags
-                }
-                model.addFloatingTask(new FloatingTask(newName, oldTagList)); //change only name
-            } else {
-                model.addFloatingTask(new FloatingTask(oldName, oldTagList)); //change nothing //TODO: reduce redundancy
-            }
+            FloatingTask toAdd = new FloatingTask(
+                    (newName == null || oldName.equals(newName)) ? oldName : newName,
+                    (newTagList == null || oldTagList.equals(newTagList)) ? oldTagList : newTagList
+            );
+            
+            model.addFloatingTask(toAdd, taskIndex - 1);
         } catch (TaskNotFoundException pnfe) {
             assert false : "Target task not found.";
         } catch (UniqueTaskList.DuplicateTaskException e) {
