@@ -45,20 +45,20 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getAddressBookFilePath() {
+    public String getActivityManagerFilePath() {
         return appDataFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.appDataFilePath = addressBookFilePath;
+    public void setActivityManagerFilePath(String activityManagerFilePath) {
+        this.appDataFilePath = activityManagerFilePath;
     }
 
     public String getAddressBookName() {
         return appName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.appName = addressBookName;
+    public void setActivityManagerName(String activityManagerName) {
+        this.appName = activityManagerName;
     }
 
 

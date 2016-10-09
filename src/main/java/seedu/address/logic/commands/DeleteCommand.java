@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
         Activity activityToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deletePerson(activityToDelete);
+            model.deleteActivity(activityToDelete);
         } catch (ActivityNotFoundException anfe) {
             assert false : "The target activity cannot be found";
         }

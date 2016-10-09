@@ -21,7 +21,7 @@ public interface Model {
     ReadOnlyActivityManager getActivityManager();
 
     /** Deletes the given person. */
-    void deletePerson(Activity target) throws ActivityNotFoundException;
+    void deleteActivity(Activity target) throws ActivityNotFoundException;
 
     /** Adds the given person */
     void addActivity(Activity activity);

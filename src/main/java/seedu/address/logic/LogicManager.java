@@ -8,7 +8,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.storage.Storage;
 
 import java.util.logging.Logger;

@@ -24,7 +24,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredActivityList(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredActivityList().size()));
+        return new CommandResult(getMessageForActivityListShownSummary(model.getFilteredActivityList().size()));
     }
 
 }

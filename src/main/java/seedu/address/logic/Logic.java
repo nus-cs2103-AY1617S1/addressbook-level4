@@ -3,7 +3,6 @@ package seedu.address.logic;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.activity.Activity;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * API of the Logic component
