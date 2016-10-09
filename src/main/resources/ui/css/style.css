@@ -1,3 +1,14 @@
+/* MENUBAR */
+
+.menu-bar {
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: #eeeeee;
+}
+
+.menu-button {
+  -fx-font-size: 12px;
+}
+
 /* HEADER */
 
 VBox.header {
