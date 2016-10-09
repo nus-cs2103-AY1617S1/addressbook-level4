@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.testutil.TestFloatingTask;
+import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -12,11 +13,11 @@ public class FindCommandTest extends AddressBookGuiTest {
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Mark"); //no results
-        assertFindResult("find to", td.flight, td.airport, td.beach); //multiple results
+        assertFindResult("find to", TypicalTestFloatingTasks.airport, TypicalTestFloatingTasks.flight, TypicalTestFloatingTasks.beach); //multiple results
         
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find to", td.airport, td.beach);
+        assertFindResult("find to", TypicalTestFloatingTasks.flight, TypicalTestFloatingTasks.beach);
     }
     
     @Test
@@ -35,6 +36,6 @@ public class FindCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " task(s) listed!");
-        assertTrue(personListPanel.isListMatching(expectedHits));
+        assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }

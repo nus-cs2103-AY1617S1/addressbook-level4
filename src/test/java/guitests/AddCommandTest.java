@@ -7,6 +7,7 @@ import seedu.jimi.commons.core.Messages;
 import seedu.jimi.logic.commands.AddCommand;
 import seedu.jimi.testutil.TestFloatingTask;
 import seedu.jimi.testutil.TestUtil;
+import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,25 +15,25 @@ public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
     public void add() {
-        //add one person
+        //add one task
         TestFloatingTask[] currentList = td.getTypicalTasks();
-        TestFloatingTask taskToAdd = td.dream;
+        TestFloatingTask taskToAdd = TypicalTestFloatingTasks.dream;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add another person
-        taskToAdd = td.dream;
+        //add another task
+        taskToAdd = TypicalTestFloatingTasks.night;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add duplicate person
-        commandBox.runCommand(td.dream.getAddCommand());
+        //add duplicate task
+        commandBox.runCommand(TypicalTestFloatingTasks.dream.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(personListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.water);
+        assertAddSuccess(TypicalTestFloatingTasks.beach);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
@@ -43,12 +44,12 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        FloatingTaskCardHandle addedCard = personListPanel.navigateToPerson(taskToAdd.getName().fullName);
+        FloatingTaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
         assertMatching(taskToAdd, addedCard);
 
-        //confirm the list now contains all previous persons plus the new person
+        //confirm the list now contains all previous tasks plus the new task
         TestFloatingTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(personListPanel.isListMatching(expectedList));
+        assertTrue(taskListPanel.isListMatching(expectedList));
     }
 
 }
