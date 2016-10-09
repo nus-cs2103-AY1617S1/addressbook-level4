@@ -37,6 +37,7 @@ public class TodoLogic implements Logic {
         
         try {
             BaseCommand command = dispatcher.dispatch(parseResult);
+            command.setArguments(parseResult);
             command.setModel(model);
             command.execute();
         } catch (IllegalValueException e) {

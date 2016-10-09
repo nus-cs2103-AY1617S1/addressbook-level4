@@ -11,7 +11,7 @@ import seedu.todo.model.task.ImmutableTask;
 public class DeleteCommandTest extends CommandTest {
     @Override
     protected BaseCommand commandUnderTest() {
-        return new DeleteTodoCommand();
+        return new DeleteCommand();
     }
 
     @Before

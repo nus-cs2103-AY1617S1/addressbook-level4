@@ -9,7 +9,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 public class AddCommandTest extends CommandTest {
     @Override
     protected BaseCommand commandUnderTest() {
-        return new AddTodoCommand();
+        return new AddCommand();
     }
 
     @Test
