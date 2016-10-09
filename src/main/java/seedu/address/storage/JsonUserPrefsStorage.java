@@ -56,7 +56,6 @@ public class JsonUserPrefsStorage implements UserPrefsStorage{
             logger.warning("Error reading from prefs file " + prefsFile + ": " + e);
             throw new DataConversionException(e);
         }
-
         return Optional.of(prefs);
     }
 

@@ -25,6 +25,8 @@ With our task manager, you can add, delete and edit tasks without a fuss. Throug
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
 
+ > <img src="images/UiMockup.png" width="600"><br>
+
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
@@ -52,7 +54,7 @@ Format: `help`
 
 <br>
 #### Adding a task: `add`
-Adds a task to the task manager<br>
+Adds a task to the task manager.<br>
 Format: `add TASK, (DATE,TIME) / DEADLINE`
 
 Examples:
@@ -60,7 +62,7 @@ Examples:
 
 <br>
 #### Adding a recurring task: `add daily/weekly/monthly/yearly`
-Adds a recurring task to the task manager<br>
+Adds a recurring task to the task manager.<br>
 Format: `add daily/weekly/monthly/yearly TASK, (DATE,TIME) / DEADLINE`
 
 Examples:
@@ -69,7 +71,7 @@ Examples:
 
 <br>
 #### Favoriting a task: `favorite`
-Favorites the person at the specified INDEX. The index refers to the index number shown in the most recent listing. <br>
+Favorites the person at the specified INDEX. The index refers to the index number shown in the most recent listing.<br>
 The favorited task will appear at the top of any lists that include it. <br>
 Format: `favorite INDEX`
 
@@ -93,7 +95,7 @@ Examples:
 
 <br>
 #### Searching for tasks using keywords: `find`
-Finds tasks that contian any of the given keywords.<br>
+Finds tasks that contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > Finds all the tasks with the keywords. <br>
@@ -150,7 +152,7 @@ Examples:
 * `am` <br>
   Typing `am, July 10, 5-6` is the same as `add Meeting, July 10, 5-6`
 * `alias s search Dinner`
-* `s`
+* `s` <br>
   Typing `s` is the same as `search Dinner`
 
 <br>
@@ -203,7 +205,9 @@ Examples:
 <br>
 ## Google Integration
 
-At any time, add a Google account to sync tasks with by entering `sync` as a command and following the on-screen instructions. Once added, any present and future tasks will be synchronized bidirectionally and automatically with the given account’s Google Calendar. If the same task is edited locally and on Google Calendar, changes made on Google Calendar will be prioritized during synchronization.
+At any time, you can enter `sync` as a command and follow the on-screen instructions to begin automatically synchronizing your in-app tasks with Google Calendar.
+
+Any of your present and future tasks will be synchronized bidirectionally and automatically. If the same task is edited locally and on Google Calendar, changes made on Google Calendar will be prioritized during synchronization.
 
 <br>
 ## FAQ
