@@ -6,10 +6,12 @@ We are from [School of Computing, National University of Singapore](http://www.c
 ## TaSc Project Team
 
 #### [Akshay Narayan](https://github.com/okkhoy)
+<img src="https://avatars3.githubusercontent.com/u/1023494?v=3&s=400" width="150"><br>
 **Role:** Supervisor<br>
 **Responsibilities:** Team Advisor
 
 #### [Tan Wang Leng](https://github.com/yamgent)
+<img src="https://avatars3.githubusercontent.com/u/3168908?v=3&s=400" width="150"><br>
 **Role:** Project Lead, Developer<br>
 **Responsibilities:** Integration, Work Breakdown<br>
 **Component-In-Charge:** Model
@@ -25,6 +27,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
 **Component-In-Charge:** Storage
 
 #### [Ong Heng Le](https://github.com/initialshl)
+<img src="https://avatars0.githubusercontent.com/u/19281538?v=3&s=400" width="150"><br>
 **Role:** Developer<br>
 **Responsibilities:** Code Quality, Documentation Formatting<br>
 **Component-In-Charge:** UI
