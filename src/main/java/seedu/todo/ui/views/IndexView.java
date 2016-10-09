@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class IndexView extends View {
 
-	private String FXML_PATH = "views/IndexView.fxml";
+	private static final String FXML_PATH = "views/IndexView.fxml";
 	
 	// Props
 	public ArrayList<Object> tasks = new ArrayList<Object>(); // stub
