@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+  xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
+  fx:controller="seedu.todo.ui.components.TaskList">
+  <children>
+  
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks" />
+    
+  </children>
+</VBox>
