@@ -19,7 +19,7 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : Taskle\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data/taskmanager.xml\n" +
+                "Local data file location : data\\taskmanager.xml\n" +
                 "TaskManager name : MyTaskManager";
 
         assertEquals(defaultConfigAsString, new Config().toString());
