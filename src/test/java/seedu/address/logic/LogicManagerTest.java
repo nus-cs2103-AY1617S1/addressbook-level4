@@ -182,7 +182,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.EVENT_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getPersonList());
 
