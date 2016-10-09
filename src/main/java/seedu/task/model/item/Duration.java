@@ -10,7 +10,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 public class Duration {
 
     public static final String MESSAGE_DURATION_CONSTRAINTS = "event duration should be in a date format of DD-MM-YY DD-MM-YY";
-    public static final String DURATION_VALIDATION_REGEX = "\\b[0-3]\\d-[0-1]\\d-\\d{2}\\b"; 
+    public static final String DURATION_VALIDATION_REGEX = "([0-9]{2})[-]([0-9]{2})[-]([0-9]{2})\\s?(([0-9]{2})[-]([0-9]{2})[-]([0-9]{2}))?"; 
 
     public final String value;
 
