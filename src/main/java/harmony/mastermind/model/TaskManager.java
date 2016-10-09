@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ArchiveTaskList;
@@ -132,10 +133,6 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
-    }
-    
-    public void relocateSaveLocation(String directory) {
-        
     }
 
 //// util methods

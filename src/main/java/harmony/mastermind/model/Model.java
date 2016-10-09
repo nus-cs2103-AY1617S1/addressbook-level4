@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ReadOnlyTask;
@@ -30,7 +31,7 @@ public interface Model {
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
     /** Relocates save location to given directory */
-    void relocateSaveLocation(String directory);
+    void relocateSaveLocation(String directory) throws FolderDoesNotExistException;
     
     /** Returns the stack of command history */
     Stack<Command> getCommandHistory();

@@ -5,8 +5,11 @@ import com.google.common.eventbus.Subscribe;
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
+import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
+import harmony.mastermind.commons.events.storage.FileDoesNotExistEvent;
 import harmony.mastermind.commons.exceptions.DataConversionException;
+import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.model.ReadOnlyTaskManager;
 import harmony.mastermind.model.UserPrefs;
 
@@ -72,6 +75,18 @@ public class StorageManager extends ComponentManager implements Storage {
             saveTaskManager(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
+        }
+    }
+    
+    //@author A0139194X
+    @Subscribe
+    public void handleRelocateEvent(RelocateFilePathEvent event) {
+        assert event.newFilePath != null;
+        try {
+            taskManagerStorage.checkIfFolderExist(event.newFilePath);
+            taskManagerStorage.setTaskManagerFilePath(event.newFilePath);
+        } catch (FolderDoesNotExistException fdnee) {
+            raise(new FileDoesNotExistEvent(event.newFilePath));
         }
     }
 }

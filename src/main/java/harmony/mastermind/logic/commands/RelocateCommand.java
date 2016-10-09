@@ -4,12 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
 
 /**
+ * @author A0139194X
  * Adds a task to the task manager.
  */
 public class RelocateCommand extends Command {
@@ -31,18 +33,18 @@ public class RelocateCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public RelocateCommand(String newFilePath) throws IllegalValueException {
+    public RelocateCommand(String newFilePath) {
         this.newFilePath = newFilePath;
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.relocateSaveLocation(newFilePath);
-        model.getCommandHistory().push(this);
-            
-        return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
-        
-
+        try {
+            model.relocateSaveLocation(newFilePath);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
+        } catch (FolderDoesNotExistException fdnee) {
+            return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
+        }
     }
 }

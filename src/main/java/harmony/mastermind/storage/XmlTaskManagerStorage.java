@@ -3,11 +3,14 @@ package harmony.mastermind.storage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.exceptions.DataConversionException;
+import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.util.FileUtil;
 import harmony.mastermind.model.ReadOnlyTaskManager;
 
@@ -74,5 +77,13 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     @Override
     public void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException {
         saveTaskManager(taskManager, filePath);
+    }
+    
+    //@author: A0139194X
+    public void checkIfFolderExist(String newFilePath) throws FolderDoesNotExistException {
+        File folder = new File(newFilePath);
+        if (!folder.exists()) {
+            throw new FolderDoesNotExistException(newFilePath);
+        }
     }
 }

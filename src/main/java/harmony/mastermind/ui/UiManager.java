@@ -88,5 +88,4 @@ public class UiManager extends ComponentManager implements Ui {
     private void handlePersonPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
-
 }
