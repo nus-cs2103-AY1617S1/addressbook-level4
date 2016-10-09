@@ -111,28 +111,28 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void addTaskListFilterByType(String type) {
-        taskListFilter.and(new PredicateExpression(new TypeQualifier(type)));
+    public void addTaskListFilterByType(String type, boolean negated) {
+        taskListFilter.and(new PredicateExpression(new TypeQualifier(type), negated));
     }
     
     @Override
-    public void addTaskListFilterByDeadline(Date deadline) {
-        taskListFilter.and(new PredicateExpression(new DeadlineQualifier(deadline)));
+    public void addTaskListFilterByDeadline(Date deadline, boolean negated) {
+        taskListFilter.and(new PredicateExpression(new DeadlineQualifier(deadline), negated));
     }
     
     @Override
-    public void addTaskListFilterByStartTime(Date startTime) {
-        taskListFilter.and(new PredicateExpression(new StartTimeQualifier(startTime)));
+    public void addTaskListFilterByStartTime(Date startTime, boolean negated) {
+        taskListFilter.and(new PredicateExpression(new StartTimeQualifier(startTime), negated));
     }
     
     @Override
-    public void addTaskListFilterByEndTime(Date endTime) {
-        taskListFilter.and(new PredicateExpression(new EndTimeQualifier(endTime)));
+    public void addTaskListFilterByEndTime(Date endTime, boolean negated) {
+        taskListFilter.and(new PredicateExpression(new EndTimeQualifier(endTime), negated));
     }
     
     @Override
-    public void addTaskListFilterByTags(Set<String> tags) {
-        taskListFilter.and(new PredicateExpression(new TagQualifier(tags)));
+    public void addTaskListFilterByTags(Set<String> tags, boolean negated) {
+        taskListFilter.and(new PredicateExpression(new TagQualifier(tags), negated));
     }
     
     @Override
@@ -155,10 +155,16 @@ public class ModelManager extends ComponentManager implements Model {
 
         private final Qualifier qualifier;
         private PredicateExpression and;
+        private boolean isNegated;
 
         PredicateExpression(Qualifier qualifier) {
+            this(qualifier, false);
+        }
+        
+        PredicateExpression(Qualifier qualifier, boolean negated) {
             this.qualifier = qualifier;
             this.and = null;
+            this.isNegated = negated;
         }
         
         /**
@@ -182,8 +188,9 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean satisfies(ReadOnlyTask task) {
             PredicateExpression it = this;
             while (it != null) {
-                if (it.qualifier.run(task) == false)
+                if (it.qualifier.run(task) == it.isNegated) {
                     return false;
+                }
                 it = it.and;
             }
             return true;
