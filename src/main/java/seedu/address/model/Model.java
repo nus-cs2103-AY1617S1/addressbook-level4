@@ -18,10 +18,12 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /** Deletes the given person. */
-    void deletePerson(Entry target) throws UniquePersonList.PersonNotFoundException;
+    void deleteTask(Entry target) throws UniquePersonList.PersonNotFoundException;
+
+    void editTask(Entry task);
 
     /** Adds the given person */
-    void addPerson(FloatingTask entry) throws UniquePersonList.DuplicatePersonException;
+    void addTask(FloatingTask entry) throws UniquePersonList.DuplicatePersonException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<Entry> getFilteredPersonList();
