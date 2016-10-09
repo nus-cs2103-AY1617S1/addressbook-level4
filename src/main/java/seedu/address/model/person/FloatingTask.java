@@ -6,8 +6,8 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated.
+ * Represents a Floating Task in the Task Manager. Guarantees: details are
+ * present and not null, field values are validated.
  */
 public class FloatingTask implements Entry {
 
@@ -34,6 +34,10 @@ public class FloatingTask implements Entry {
     @Override
     public Title getTitle() {
         return title;
+    }
+
+    public void setTitle(Title newTitle) {
+        this.title = newTitle;
     }
 
     @Override
