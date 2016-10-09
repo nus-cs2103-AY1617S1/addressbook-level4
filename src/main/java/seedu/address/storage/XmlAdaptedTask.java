@@ -79,8 +79,6 @@ public class XmlAdaptedTask {
             endDateForModel = dateParser.parse(this.endDate);
         }
     
-        System.out.println("At Storage side:" + startDateForModel);
-        System.out.println("At Storage side:" + endDateForModel);
         return new Task(new Name(name), startDateForModel, endDateForModel, recurrenceRate, priority);
     }
 }
