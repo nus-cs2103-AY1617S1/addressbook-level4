@@ -24,7 +24,7 @@ public class ExistingFileDialog {
     private static final String DIALOG_HEADER = "A Taskle data file currently exists in the specified folder.";
     private static final String DIALOG_CONTENT = "Replace existing file?";
     
-    public static void load(Stage stage, Config config, Logic logic, File selectedDirectory) {
+    public static void load(ResultDisplay resultDisplay, Stage stage, Config config, Logic logic, File selectedDirectory) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle(config.getAppTitle());
         alert.setHeaderText(DIALOG_HEADER);
@@ -34,6 +34,7 @@ public class ExistingFileDialog {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             StorageDirectoryUtil.updateDirectory(config, logic, selectedDirectory);
+            resultDisplay.postMessage("Directory changed to: " + config.getTaskManagerFileDirectory());
         } 
     }
 }

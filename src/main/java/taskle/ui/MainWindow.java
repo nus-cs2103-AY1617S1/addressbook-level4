@@ -200,9 +200,10 @@ public class MainWindow extends UiPart {
         if (selectedDirectory == null) {
         } else if ((selectedDirectory.getAbsolutePath()).equals(config.getTaskManagerFileDirectory())) {
         } else if (new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
-            ExistingFileDialog.load(primaryStage, config, logic, selectedDirectory);
+            ExistingFileDialog.load(resultDisplay, primaryStage, config, logic, selectedDirectory);
         } else {
             StorageDirectoryUtil.updateDirectory(config, logic, selectedDirectory);
+            resultDisplay.postMessage("Directory changed to: " + config.getTaskManagerFileDirectory());
         }
     }
 
