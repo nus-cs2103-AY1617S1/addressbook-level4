@@ -84,11 +84,7 @@ public class XmlUtilTest {
         //TODO: use equality instead of string comparisons
 
         AddressBookBuilder builder = new AddressBookBuilder(new ActivityManager());
-<<<<<<< HEAD
-        dataToWrite = new XmlSerializableActivityManager(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
-=======
-        dataToWrite = new XmlSerializableAddressBook(builder.withActivity(TestUtil.generateSampleActivityData().get(0)).withTag("Friends").build());
->>>>>>> da1844c5dfea72cce70810518ff477d061b6520c
+        dataToWrite = new XmlSerializableActivityManager(builder.withActivity(TestUtil.generateSampleActivityData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableActivityManager.class);
