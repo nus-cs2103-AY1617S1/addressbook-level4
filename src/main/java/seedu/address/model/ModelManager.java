@@ -131,6 +131,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public void addTaskListFilterByStartToEndTime(Date startTime, Date endTime, boolean negated) {
+        taskListFilter.and(new PredicateExpression(new StartToEndTimeQualifier(startTime, endTime), negated));
+    }
+    
+    @Override
     public void addTaskListFilterByTags(Set<String> tags, boolean negated) {
         taskListFilter.and(new PredicateExpression(new TagQualifier(tags), negated));
     }
@@ -331,6 +336,33 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "endTime=" + endTime;
+        }
+    }
+    
+    private class StartToEndTimeQualifier implements Qualifier {
+        private Date startTime;
+        private Date endTime;
+
+        StartToEndTimeQualifier(Date startTime, Date endTime) {
+            this.startTime = startTime;
+            this.endTime = endTime;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if (task.getPeriod().hasPeriod) {
+                return startTime.before(task.getPeriod().endTime) &&
+                        endTime.after(task.getPeriod().startTime);
+            } else if (task.getDeadline().hasDeadline) {
+                return startTime.before(task.getDeadline().deadline) &&
+                        endTime.after(task.getDeadline().deadline);
+            }
+            return true;
+        }
+
+        @Override
+        public String toString() {
+            return "startTime=" + startTime + ",endTime=" + endTime;
         }
     }
     

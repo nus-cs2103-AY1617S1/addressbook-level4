@@ -45,9 +45,12 @@ public interface Model {
     
     /** Adds the filter of the filtered task list by the given start time */
     void addTaskListFilterByStartTime(Date startTime, boolean negated);
-    
+
     /** Adds the filter of the filtered task list by the given end time */
     void addTaskListFilterByEndTime(Date endTime, boolean negated);
+    
+    /** Adds the filter of the filtered task list by between start time and end time */
+    void addTaskListFilterByStartToEndTime(Date startTime, Date endTime, boolean negated);
     
     /** Adds the filter of the filtered task list by the given tag names */
     void addTaskListFilterByTags(Set<String> tags, boolean negated);
