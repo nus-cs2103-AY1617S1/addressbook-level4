@@ -217,24 +217,42 @@ public class LogicManagerTest {
 
 
     /**
-     * Confirms the 'invalid argument index number behaviour' for the given command
+     * Confirms the 'incorrect index format behaviour' for the given command
      * targeting a single task in the shown list, using visible index.
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     * @param wordsAfterIndex contains a string that will usually follow the command
+     * 
+     * This (overloaded) method is created for rename/schedule
+     */
+    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage, String wordsAfterIndex)
+            throws Exception {
+        assertCommandBehavior(commandWord + " " + wordsAfterIndex, expectedMessage); //index missing
+        assertCommandBehavior(commandWord + " +1 " + wordsAfterIndex, expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " -1 " + wordsAfterIndex, expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " 0 " + wordsAfterIndex, expectedMessage); //index cannot be 0
+        assertCommandBehavior(commandWord + " not_a_number " + wordsAfterIndex, expectedMessage);
+    }
+    
+    /**
+     *  Confirms the 'incorrect index format behaviour' for the given command
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     * 
+     * This (overloaded) method is created for delete/mark/unmark.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
-        assertCommandBehavior(commandWord , expectedMessage); //index missing
-        assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
-        assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand(commandWord, expectedMessage, " ");
     }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single task in the shown list, using visible index.
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     * @param wordsAfterIndex contains a string that will usually follow the command
+     * 
+     * This (overloaded) method is created for rename/schedule
      */
-    private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
+    private void assertIndexNotFoundBehaviorForCommand(String commandWord, String wordsAfterIndex) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
@@ -245,7 +263,18 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getToDoList(), taskList);
+        assertCommandBehavior(commandWord + " 3 " + wordsAfterIndex, expectedMessage, model.getToDoList(), taskList);
+    }
+    
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     * 
+     * This (overloaded) method is created for delete/mark/unmark.
+     */
+    private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
+        assertIndexNotFoundBehaviorForCommand(commandWord, "");
     }
 
     @Test
@@ -357,6 +386,80 @@ public class LogicManagerTest {
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
+
+
+    @Test
+    public void execute_renameInvalidArgsFormat_errorMessageShown() throws Exception {
+        //invalid index format
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("rename", expectedMessage, "new task name");
+        
+        //invalid new task name format e.g. task name is not provided
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> taskList = helper.generateTaskList(2);
+
+        // set AB state to 2 tasks
+        model.resetData(new ToDoList());
+        for (Task p : taskList) {
+            model.addTask(p);
+        }
+        assertCommandBehavior("rename 1 ", expectedMessage, model.getToDoList(), taskList);
+        
+    }
+
+    @Test
+    public void execute_renameIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("rename", "new task name");
+    }
+
+    @Test
+    public void  execute_renameToGetDuplicate_notAllowed() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeDuplicated = helper.adam();
+        Task toBeRenamed = helper.generateTask(1);
+        ToDoList expectedTDL = new ToDoList();
+        expectedTDL.addTask(toBeDuplicated);
+        expectedTDL.addTask(toBeRenamed);
+
+        model.resetData(new ToDoList());
+        model.addTask(toBeDuplicated); // task already in internal to do list
+        model.addTask(toBeRenamed);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                "rename 2 " + toBeDuplicated.getName().toString(),
+                RenameCommand.MESSAGE_DUPLICATE_TASK,
+                expectedTDL,
+                expectedTDL.getTaskList());
+    }
+
+    @Test
+    public void execute_rename_RenamesCorrectTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(2);
+        Task taskToRename = helper.generateCompletedTask(3);
+        //TODO: replace taskToRename with a task with deadlines etc. Check if other attributes are preserved
+        String originalTaskName = taskToRename.getName().toString();
+        String newTaskName = "a brand new task name";
+        
+        threeTasks.add(taskToRename);
+
+        ToDoList expectedTDL = helper.generateToDoList(threeTasks);
+        expectedTDL.renameTask(taskToRename, new Name(newTaskName));
+        model.resetData(new ToDoList());
+        helper.addToModel(model, threeTasks);
+
+        assertCommandBehavior("rename 3 a brand new task name",
+                String.format(RenameCommand.MESSAGE_SUCCESS, "3", newTaskName),
+                expectedTDL,
+                expectedTDL.getTaskList());
+        
+        //Check if attributes are preserved
+        //rename task back to original name
+        expectedTDL.renameTask(expectedTDL.getTaskList().get(2), new Name(originalTaskName));
+        assertTrue(expectedTDL.getTasks().contains(taskToRename));
+    }
+
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
