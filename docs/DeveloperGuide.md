@@ -263,7 +263,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | choose my data storage location | have the flexibility to use the program on multiple computers as they can read from the same file stored on the cloud e.g. Google Drive
 `* *` | user | add a tag on tasks | categorize my task
 `* *` | user | edit a tag | rename the tag without the need to delete and add it again
-`* *` | user | mark my tasks as done or undone | so that I can change the status of the task
 `* *` | user | view tasks by tags/priority/date | group my tasks based on a field of my choice
 `* *` | user | reserve dates for a task/event | block out time slots and add them upon confirmation of the time and date details
 `*` | user | have flexibility in entering commands | type in commands without having to remember the exact format
