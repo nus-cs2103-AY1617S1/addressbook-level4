@@ -76,6 +76,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    @Override
+    public synchronized void addFloatingTask(FloatingTask floatingTask, int targetIndex) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.addFloatingTask(floatingTask, targetIndex);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
 
     //=========== Filtered FloatingTask List Accessors ===============================================================
 
