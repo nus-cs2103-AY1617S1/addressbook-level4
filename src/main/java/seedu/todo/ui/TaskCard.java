@@ -80,7 +80,7 @@ public class TaskCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        taskCard = (VBox)node;
+        taskCard = (VBox) node;
     }
 
     @Override
