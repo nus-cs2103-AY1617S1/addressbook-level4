@@ -5,6 +5,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.DateTimeParser;
 import seedu.address.logic.parser.SequentialParser;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -66,6 +67,9 @@ public class CommandFactory {
     }
 
     private Command buildAddCommand() {
+        // Extract tags
+        List<String> tags = sequentialParser.extractPrefixedWords(TAG_PREFIX);
+
         // Try to find title
         Optional<String> title = sequentialParser.extractText(
             KEYWORD_DATERANGE_START,
@@ -84,9 +88,7 @@ public class CommandFactory {
             return new InvalidCommand(Messages.MESSAGE_TODO_TITLE_CONSTRAINTS);
         }
 
-        // Extract tags
-        List<String> tags = sequentialParser.extractPrefixedWords(TAG_PREFIX);
-
+        // Put in tags
         if (!tags.isEmpty()) {
             try {
                 command.setTags(tags.stream().collect(Collectors.toSet()));
@@ -101,7 +103,7 @@ public class CommandFactory {
             KEYWORD_DATERANGE_END
         );
 
-        Optional<Date> dueDate = dateTimeParser.parseDateTime(dueDateString.orElse(""));
+        Optional<LocalDateTime> dueDate = dateTimeParser.parseDateTime(dueDateString.orElse(""));
 
         if (dueDate.isPresent()) {
             try {
@@ -128,8 +130,8 @@ public class CommandFactory {
                 return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_DATERANGE_END);
             }
 
-            Optional<Date> startDate = dateTimeParser.parseDateTime(startDateString.orElse(""));
-            Optional<Date> endDate = dateTimeParser.parseDateTime(endDateString.orElse(""));
+            Optional<LocalDateTime> startDate = dateTimeParser.parseDateTime(startDateString.orElse(""));
+            Optional<LocalDateTime> endDate = dateTimeParser.parseDateTime(endDateString.orElse(""));
 
             if (!startDate.isPresent()) {
                 return new InvalidCommand(Messages.MESSAGE_TODO_DATERANGE_START_INVALID_FORMAT);
@@ -221,7 +223,7 @@ public class CommandFactory {
             KEYWORD_DATERANGE_END
         );
 
-        Optional<Date> dueDate = dateTimeParser.parseDateTime(dueDateString.orElse(""));
+        Optional<LocalDateTime> dueDate = dateTimeParser.parseDateTime(dueDateString.orElse(""));
 
         if (dueDate.isPresent()) {
             try {
@@ -248,8 +250,8 @@ public class CommandFactory {
                 return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_DATERANGE_END);
             }
 
-            Optional<Date> startDate = dateTimeParser.parseDateTime(startDateString.orElse(""));
-            Optional<Date> endDate = dateTimeParser.parseDateTime(endDateString.orElse(""));
+            Optional<LocalDateTime> startDate = dateTimeParser.parseDateTime(startDateString.orElse(""));
+            Optional<LocalDateTime> endDate = dateTimeParser.parseDateTime(endDateString.orElse(""));
 
             if (!startDate.isPresent()) {
                 return new InvalidCommand(Messages.MESSAGE_TODO_DATERANGE_START_INVALID_FORMAT);

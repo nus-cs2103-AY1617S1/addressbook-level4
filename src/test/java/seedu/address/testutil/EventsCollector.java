@@ -6,11 +6,13 @@ import seedu.address.commons.events.BaseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * A class that collects events raised by other classes.
  */
-public class EventsCollector{
+public class EventsCollector {
     List<BaseEvent> events = new ArrayList<BaseEvent>();
 
     public EventsCollector(){
@@ -33,9 +35,17 @@ public class EventsCollector{
     }
 
     /**
-     * Returns the event at the specified index
+     * Check if event type has been collected
      */
-    public BaseEvent get(int index){
-        return events.get(index);
+    public boolean hasCollectedEvent(Class<? extends BaseEvent> eventClass) {
+        return events.stream().filter(eventClass::isInstance).count() > 0;
+    }
+
+    /**
+     * Get the first collected event of type
+     */
+    public <T extends BaseEvent> Optional<T> getCollectedEvent(Class<T> eventClass) {
+        List<BaseEvent> matched = events.stream().filter(eventClass::isInstance).collect(Collectors.toList());
+        return matched.size() > 0 ? Optional.of((T)matched.get(0)) : Optional.empty();
     }
 }

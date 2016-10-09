@@ -8,6 +8,7 @@ import java.time.*;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class DateTimeParserTest {
@@ -23,43 +24,41 @@ public class DateTimeParserTest {
     }
 
     @Test
-    public void execute_parseDateTime_emptyString() throws Exception {
-        assertTrue(!dateTimeParser.parseDateTime("").isPresent());
+    public void parseDateTime_emptyString()  {
+        assertFalse(dateTimeParser.parseDateTime("").isPresent());
     }
 
     @Test
-    public void execute_parseDateTime_noDate() throws Exception {
-        assertTrue(!dateTimeParser.parseDateTime("No date").isPresent());
+    public void parseDateTime_noDate()  {
+        assertFalse(dateTimeParser.parseDateTime("No date").isPresent());
     }
 
     @Test
-    public void execute_parseDateTime_ddMMMyyyy_HHmm() throws Exception {
-        assertDateTimeMatches(
-            dateTimeParser.parseDateTime("28 Feb 2016 23:59").orElse(null),
-            28, 2, 2016, 23, 59, 0
+    public void parseDateTime_ddMMMyyyy_HHmm()  {
+        assertEquals(
+            LocalDateTime.of(2016, 2, 28, 23, 59),
+            dateTimeParser.parseDateTime("28 Feb 2016 23:59").orElse(null)
         );
     }
 
     @Test
-    public void execute_parseDateTime_ddMMM_HHmm() throws Exception {
-        assertDateTimeMatches(
-            dateTimeParser.parseDateTime("28 Feb 23:59").orElse(null),
-            28, 2, now.getYear(), 23, 59, 0
+    public void parseDateTime_ddMMM_HHmm()  {
+        assertEquals(
+            LocalDateTime.of(now.getYear(), 2, 28, 23, 59),
+            dateTimeParser.parseDateTime("28 Feb 2016 23:59").orElse(null)
+        );
+    }
+
+    @Test
+    public void parseDateTime_ddMMM()  {
+        // Time should be default, if no time specified
+        assertEquals(
+            LocalDateTime.of(now.getYear(), 2, 28,
+                DateTimeParser.DefaultLocalTime.getHour(),
+                DateTimeParser.DefaultLocalTime.getMinute()),
+            dateTimeParser.parseDateTime("28 Feb 2016").orElse(null)
         );
     }
 
     // TODO: Add more datetime format tests
-
-    private void assertDateTimeMatches(Date date, int day, int month, int year, int hours, int mins, int secs) {
-        assertTrue(date != null);
-
-        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneOffset.systemDefault());
-
-        assertEquals(day, dateTime.getDayOfMonth());
-        assertEquals(month, dateTime.getMonthValue());
-        assertEquals(year, dateTime.getYear());
-        assertEquals(hours, dateTime.getHour());
-        assertEquals(mins, dateTime.getMinute());
-        assertEquals(secs, dateTime.getSecond());
-    }
 }

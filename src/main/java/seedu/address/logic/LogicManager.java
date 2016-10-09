@@ -20,12 +20,10 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final SequentialParser sequentialParser;
     private final Storage storage;
     private final CommandFactory commandFactory;
     {
         commandFactory = new CommandFactory();
-        sequentialParser = new SequentialParser();
     }
 
     public LogicManager(Model model, Storage storage) {

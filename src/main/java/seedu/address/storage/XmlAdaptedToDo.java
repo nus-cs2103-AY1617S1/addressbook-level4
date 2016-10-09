@@ -8,13 +8,12 @@ import seedu.address.model.todo.ReadOnlyToDo;
 import seedu.address.model.todo.Title;
 import seedu.address.model.todo.ToDo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -23,7 +22,7 @@ import javax.xml.bind.annotation.XmlElement;
  * JAXB-friendly version of the to-do
  */
 public class XmlAdaptedToDo {
-    private static final SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @XmlElement(required = true)
     private String title;
@@ -51,12 +50,12 @@ public class XmlAdaptedToDo {
         title = source.getTitle().title;
 
         if (source.getDueDate().isPresent()) {
-            dueDate = DateFormat.format(source.getDueDate().get().dueDate);
+            dueDate = dateFormatter.format(source.getDueDate().get().dueDate);
         }
 
         if (source.getDateRange().isPresent()) {
-            dateRangeStart = DateFormat.format(source.getDateRange().get().startDate);
-            dateRangeEnd = DateFormat.format(source.getDateRange().get().endDate);
+            dateRangeStart = dateFormatter.format(source.getDateRange().get().startDate);
+            dateRangeEnd = dateFormatter.format(source.getDateRange().get().endDate);
         }
 
         tagged = new ArrayList<>();
@@ -83,8 +82,8 @@ public class XmlAdaptedToDo {
         // Check if the dueDate is empty
         if (dueDate != null){
         	try {
-                todo.setDueDate(new DueDate(DateFormat.parse(dueDate)));
-            } catch (ParseException exception) {
+                todo.setDueDate(new DueDate(LocalDateTime.parse(dueDate, dateFormatter)));
+            } catch (DateTimeParseException exception) {
                 // invalid due date, ignore
             }
         }
@@ -93,10 +92,10 @@ public class XmlAdaptedToDo {
         if (dateRangeStart != null && dateRangeEnd != null){
             try {
                 todo.setDateRange(new DateRange(
-                    DateFormat.parse(dateRangeStart),
-                    DateFormat.parse(dateRangeEnd)
+                    LocalDateTime.parse(dateRangeStart, dateFormatter),
+                    LocalDateTime.parse(dateRangeEnd, dateFormatter)
                 ));
-            } catch (ParseException exception) {
+            } catch (DateTimeParseException exception) {
                 // invalid date range, ignore
             }
         }

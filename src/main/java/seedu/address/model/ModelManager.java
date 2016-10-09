@@ -189,8 +189,9 @@ public class ModelManager extends ComponentManager implements Model {
             boolean flag = false;
             while (itr.hasNext()){
                 Tag element = itr.next();
-                if (StringUtil.substringIgnoreCase(element.tagName, keyword))
+                if (StringUtil.substringIgnoreCase(element.tagName, keyword)) {
                     flag = true;
+                }
             }
             return flag || StringUtil.substringIgnoreCase(toDo.getTitle().title, keyword);
         }

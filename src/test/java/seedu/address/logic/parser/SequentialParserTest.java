@@ -22,21 +22,21 @@ public class SequentialParserTest {
     }
 
     @Test
-    public void execute_extractText_noKeywords() throws Exception {
+    public void extractText_noKeywords()  {
         sequentialParser.setInput("No keywords");
         assertEquals("No keywords", sequentialParser.extractText().orElse(""));
         assertEquals("", sequentialParser.getInput());
     }
 
     @Test
-    public void execute_extractText_trims() throws Exception {
+    public void extractText_trims()  {
         sequentialParser.setInput(" trims   ");
         assertEquals("trims", sequentialParser.extractText().orElse(""));
         assertEquals("", sequentialParser.getInput());
     }
 
     @Test
-    public void execute_extractText_1Keyword() throws Exception {
+    public void extractText_1Keyword()  {
         sequentialParser.setInput("1 keyword only");
 
         assertEquals("1", sequentialParser.extractText(
@@ -46,7 +46,7 @@ public class SequentialParserTest {
     }
 
     @Test
-    public void execute_extractText_2Keywords() throws Exception {
+    public void extractText_2Keywords()  {
         sequentialParser.setInput("2 keywords, not just 1");
 
         assertEquals("2 keywords,", sequentialParser.extractText(
@@ -56,7 +56,7 @@ public class SequentialParserTest {
     }
 
     @Test
-    public void execute_extractText_caseInsensitiveKeywords() throws Exception {
+    public void extractText_caseInsensitiveKeywords()  {
         sequentialParser.setInput("Case iN Sens itive");
 
         assertEquals("Case", sequentialParser.extractText(
@@ -66,7 +66,7 @@ public class SequentialParserTest {
     }
 
     @Test
-    public void execute_extractText_noMatchingKeywords() throws Exception {
+    public void extractText_noMatchingKeywords()  {
         sequentialParser.setInput("No matching keywords");
 
         assertEquals("No matching keywords", sequentialParser.extractText(
@@ -76,7 +76,7 @@ public class SequentialParserTest {
     }
 
     @Test
-    public void execute_extractText_notMatchSubstrings() throws Exception {
+    public void extractText_notMatchSubstrings()  {
         sequentialParser.setInput("Don't match substrings");
 
         assertEquals("Don't match substrings", sequentialParser.extractText(
@@ -86,101 +86,101 @@ public class SequentialParserTest {
     }
 
     @Test
-    public void execute_extractWords_noWords() throws Exception {
+    public void extractWords_noWords()  {
         sequentialParser.setInput("");
         assertTrue(sequentialParser.extractWords().isEmpty());
     }
 
     @Test
-    public void execute_extractWords_1Word() throws Exception {
+    public void extractWords_1Word()  {
         sequentialParser.setInput("1Word");
         assertEquals(prepareList("1Word"), sequentialParser.extractWords());
         assertEquals("", sequentialParser.getInput());
     }
 
     @Test
-    public void execute_extractWords_2Words() throws Exception {
+    public void extractWords_2Words()  {
         sequentialParser.setInput("2 words");
         assertEquals(prepareList("2", "words"), sequentialParser.extractWords());
         assertEquals("", sequentialParser.getInput());
     }
 
     @Test
-    public void execute_extractFirstWord_noWord() throws Exception {
+    public void extractFirstWord_noWord()  {
         sequentialParser.setInput("");
         assertTrue(!sequentialParser.extractFirstWord().isPresent());
     }
 
     @Test
-    public void execute_extractFirstWord_firstWord() throws Exception {
+    public void extractFirstWord_firstWord()  {
         sequentialParser.setInput("command word");
         assertEquals("command", sequentialParser.extractFirstWord().orElse(""));
         assertEquals("word", sequentialParser.getInput().trim());
     }
 
     @Test
-    public void execute_extractFirstInteger_noInteger() throws Exception {
+    public void extractFirstInteger_noInteger()  {
         sequentialParser.setInput("no index");
         assertTrue(!sequentialParser.extractFirstInteger().isPresent());
     }
 
     @Test
-    public void execute_extractFirstInteger_integer() throws Exception {
+    public void extractFirstInteger_integer()  {
         sequentialParser.setInput("1 index");
         assertTrue(1 == sequentialParser.extractFirstInteger().orElse(-1));
     }
 
     @Test
-    public void execute_extractPrefixedWords_noMatches() throws Exception {
+    public void extractPrefixedWords_noMatches()  {
         sequentialParser.setInput("no matches");
         assertTrue(sequentialParser.extractPrefixedWords("#").isEmpty());
         assertEquals("no matches", sequentialParser.getInput());
     }
 
     @Test
-    public void execute_extractPrefixedWords_allTags() throws Exception {
+    public void extractPrefixedWords_allTags()  {
         sequentialParser.setInput("#tag1 #tag2 #tag3");
         assertEquals(prepareList("tag1", "tag2", "tag3"), sequentialParser.extractPrefixedWords("#"));
         assertEquals("", sequentialParser.getInput().trim());
     }
 
     @Test
-    public void execute_extractPrefixedWords_tagsWithOtherWords() throws Exception {
+    public void extractPrefixedWords_tagsWithOtherWords()  {
         sequentialParser.setInput("other #tag1 #tag2 words");
         assertEquals(prepareList("tag1", "tag2"), sequentialParser.extractPrefixedWords("#"));
         assertEquals(prepareList("other", "words"), sequentialParser.extractWords());
     }
 
     @Test
-    public void execute_extractTextFromIndex_indexWithKeywords() throws Exception {
+    public void extractTextFromIndex_indexWithKeywords()  {
         sequentialParser.setInput("Index with with keywords");
         assertEquals("th", sequentialParser.extractTextFromIndex(8, "with", "keywords").orElse(""));
         assertEquals(prepareList("Index", "wi", "with", "keywords"), sequentialParser.extractWords());
     }
 
     @Test
-    public void execute_extractTextFromIndex_indexWithoutKeywords() throws Exception {
+    public void extractTextFromIndex_indexWithoutKeywords()  {
         sequentialParser.setInput("index without keywords");
         assertEquals("out keywords", sequentialParser.extractTextFromIndex(10).orElse(""));
         assertEquals(prepareList("index", "with"), sequentialParser.extractWords());
     }
 
     @Test
-    public void execute_extractTextAfterKeyword_keyword() throws Exception {
+    public void extractTextAfterKeyword_keyword()  {
         sequentialParser.setInput("extract text after keyword");
         assertEquals("keyword", sequentialParser.extractTextAfterKeyword("after").orElse(""));
         assertEquals(prepareList("extract","text"), sequentialParser.extractWords());
     }
 
     @Test
-    public void execute_extractTextAfterKeyword_keywordNotFound() throws Exception {
+    public void extractTextAfterKeyword_keywordNotFound()  {
         sequentialParser.setInput("keyword not found");
         assertTrue(!sequentialParser.extractTextAfterKeyword("key").isPresent());
         assertEquals(prepareList("keyword", "not", "found"), sequentialParser.extractWords());
     }
 
     @Test
-    public void execute_extractTextAfterKeyword_caseInsensitive() throws Exception {
+    public void extractTextAfterKeyword_caseInsensitive()  {
         sequentialParser.setInput("case InSensitive keyword");
         assertEquals("keyword", sequentialParser.extractTextAfterKeyword("iNsensitive").orElse(""));
         assertEquals(prepareList("case"), sequentialParser.extractWords());

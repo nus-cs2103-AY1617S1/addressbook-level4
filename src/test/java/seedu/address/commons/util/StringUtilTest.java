@@ -18,7 +18,7 @@ public class StringUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void isUnsignedPositiveInteger() {
+    public void isUnsignedPositiveInteger_false() {
         assertFalse(StringUtil.isUnsignedInteger(null));
         assertFalse(StringUtil.isUnsignedInteger(""));
         assertFalse(StringUtil.isUnsignedInteger("a"));
@@ -31,7 +31,10 @@ public class StringUtilTest {
         assertFalse(StringUtil.isUnsignedInteger(" 10")); //should not contain whitespaces
         assertFalse(StringUtil.isUnsignedInteger("10 ")); //should not contain whitespaces
         assertFalse(StringUtil.isUnsignedInteger("1 0")); //should not contain whitespaces
+    }
 
+    @Test
+    public void isUnsignedPositiveInteger_true() {
         assertTrue(StringUtil.isUnsignedInteger("1"));
         assertTrue(StringUtil.isUnsignedInteger("10"));
     }
@@ -48,5 +51,23 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
+    @Test
+    public void substringIgnoreCase_true() {
+        assertTrue(StringUtil.substringIgnoreCase("IgNore Case", "iGN"));
+    }
 
+    @Test
+    public void substringIgnoreCase_false() {
+        assertFalse(StringUtil.substringIgnoreCase("IgNore Case", "eCase"));
+    }
+
+    @Test
+    public void containsIgnoreCase_true() {
+        assertTrue(StringUtil.containsIgnoreCase("IgNore Case", "iGnOrE"));
+    }
+
+    @Test
+    public void containsIgnoreCase_false() {
+        assertFalse(StringUtil.containsIgnoreCase("IgNore Case", "aSe"));
+    }
 }

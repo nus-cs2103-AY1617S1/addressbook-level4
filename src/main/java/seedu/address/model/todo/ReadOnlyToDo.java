@@ -22,7 +22,10 @@ public interface ReadOnlyToDo {
     default boolean isSameStateAs(ReadOnlyToDo other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getTitle().equals(this.getTitle())); // state checks here onwards
+                && other.getTitle().equals(getTitle())
+                && other.getDateRange().equals(getDateRange())
+                && other.getDueDate().equals(getDueDate())
+                && other.getTags().equals(getTags())); // state checks here onwards
     }
 
     /**

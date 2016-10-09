@@ -9,16 +9,22 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    /**
+     * Case-insensitive check if a given (whole) word exists in a string
+     */
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
         return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
     }
-    
+
+    /**
+     * Case-insensitive check if a given substring exists in a string
+     */
     public static boolean substringIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
-        return strings.stream().filter(s -> s.indexOf(query.toLowerCase())>-1  ).count() > 0;
+        return strings.stream().filter(s -> s.contains(query.toLowerCase())).count() > 0;
     }
     
     /**
