@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a DatedTask in the to-do-list.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class DatedTask implements ReadOnlyDatedTask {
+public class Task implements ReadOnlyTask {
 
     private Name name;
     private Description description;
@@ -21,7 +21,7 @@ public class DatedTask implements ReadOnlyDatedTask {
     /**
      * Every field must be present and not null.
      */
-    public DatedTask(Name name, Description phone, Date email, Time address, UniqueTagList tags) {
+    public Task(Name name, Description phone, Date email, Time address, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
         this.name = name;
         this.description = phone;
@@ -33,7 +33,7 @@ public class DatedTask implements ReadOnlyDatedTask {
     /**
      * Copy constructor.
      */
-    public DatedTask(ReadOnlyDatedTask source) {
+    public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDescription(), source.getDate(), source.getTime(), source.getTags());
     }
 
@@ -72,8 +72,8 @@ public class DatedTask implements ReadOnlyDatedTask {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyDatedTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyDatedTask) other));
+                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override

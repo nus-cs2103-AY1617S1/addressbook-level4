@@ -21,7 +21,10 @@ public class Time {
      * @throws IllegalValueException if given time string is invalid.
      */
     public Time(String time) throws IllegalValueException {
-        assert time != null;
+        if (time == null){
+            this.value = "";
+            return;
+        }
         if (!isValidAddress(time)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }

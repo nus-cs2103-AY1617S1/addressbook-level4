@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final DatedTask[] samplePersonData = getSamplePersonData();
+    public static final Task[] samplePersonData = getSamplePersonData();
 
-    private static DatedTask[] getSamplePersonData() {
+    private static Task[] getSamplePersonData() {
         try {
-            return new DatedTask[]{
-                    new DatedTask(new Name("Ali Muster"), new Description("9482424"), new Date("hans@google.com"), new Time("4th street"), new UniqueTagList()),
-                    new DatedTask(new Name("Boris Mueller"), new Description("87249245"), new Date("ruth@google.com"), new Time("81th street"), new UniqueTagList()),
-                    new DatedTask(new Name("Carl Kurz"), new Description("95352563"), new Date("heinz@yahoo.com"), new Time("wall street"), new UniqueTagList()),
-                    new DatedTask(new Name("Daniel Meier"), new Description("87652533"), new Date("cornelia@google.com"), new Time("10th street"), new UniqueTagList()),
-                    new DatedTask(new Name("Elle Meyer"), new Description("9482224"), new Date("werner@gmail.com"), new Time("michegan ave"), new UniqueTagList()),
-                    new DatedTask(new Name("Fiona Kunz"), new Description("9482427"), new Date("lydia@gmail.com"), new Time("little tokyo"), new UniqueTagList()),
-                    new DatedTask(new Name("George Best"), new Description("9482442"), new Date("anna@google.com"), new Time("4th street"), new UniqueTagList()),
-                    new DatedTask(new Name("Hoon Meier"), new Description("8482424"), new Date("stefan@mail.com"), new Time("little india"), new UniqueTagList()),
-                    new DatedTask(new Name("Ida Mueller"), new Description("8482131"), new Date("hans@google.com"), new Time("chicago ave"), new UniqueTagList())
+            return new Task[]{
+                    new Task(new Name("Ali Muster"), new Description("9482424"), new Date("hans@google.com"), new Time("4th street"), new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), new Description("87249245"), new Date("ruth@google.com"), new Time("81th street"), new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), new Description("95352563"), new Date("heinz@yahoo.com"), new Time("wall street"), new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), new Description("87652533"), new Date("cornelia@google.com"), new Time("10th street"), new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), new Description("9482224"), new Date("werner@gmail.com"), new Time("michegan ave"), new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), new Description("9482427"), new Date("lydia@gmail.com"), new Time("little tokyo"), new UniqueTagList()),
+                    new Task(new Name("George Best"), new Description("9482442"), new Date("anna@google.com"), new Time("4th street"), new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), new Description("8482424"), new Date("stefan@mail.com"), new Time("little india"), new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), new Description("8482131"), new Date("hans@google.com"), new Time("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,7 +97,7 @@ public class TestUtil {
         }
     }
 
-    public static List<DatedTask> generateSamplePersonData() {
+    public static List<Task> generateSamplePersonData() {
         return Arrays.asList(samplePersonData);
     }
 
@@ -135,7 +135,7 @@ public class TestUtil {
     }
 
     public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+        return new AddressBook(new UniquePersonList(), new UniquePersonList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
@@ -278,10 +278,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestTask[] removePersonsFromList(final TestTask[] persons, TestTask... personsToRemove) {
+        List<TestTask> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
 
@@ -290,7 +290,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
+    public static TestTask[] removePersonFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
@@ -301,7 +301,7 @@ public class TestUtil {
      * @param index The index of the person to be replaced.
      * @return
      */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
+    public static TestTask[] replacePersonFromList(TestTask[] persons, TestTask person, int index) {
         persons[index] = person;
         return persons;
     }
@@ -312,10 +312,10 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestTask[] addPersonsToList(final TestTask[] persons, TestTask... personsToAdd) {
+        List<TestTask> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyDatedTask person) {
+    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
         return card.isSamePerson(person);
     }
 

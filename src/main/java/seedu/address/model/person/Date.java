@@ -5,7 +5,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
 
@@ -20,19 +20,23 @@ public class Date {
      *
      * @throws IllegalValueException if given email address string is invalid.
      */
-    public Date(String email) throws IllegalValueException {
-        assert email != null;
-        email = email.trim();
-        if (!isValidEmail(email)) {
+    public Date(String date) throws IllegalValueException {
+        if (date == null){
+            this.value = "";
+            return;
+        }
+            
+        date = date.trim();
+        if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
         }
-        this.value = email;
+        this.value = date;
     }
 
     /**
      * Returns if a given string is a valid person email.
      */
-    public static boolean isValidEmail(String test) {
+    public static boolean isValidDate(String test) {
         return test.matches(EMAIL_VALIDATION_REGEX);
     }
 
