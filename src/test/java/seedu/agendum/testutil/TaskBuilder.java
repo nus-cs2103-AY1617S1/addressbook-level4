@@ -29,12 +29,12 @@ public class TaskBuilder {
     
     public TaskBuilder withCompletedStatus() {
         task.markAsCompleted();
-        return this;      
+        return this;
     }
 
     public TaskBuilder withUncompletedStatus() {
         task.markAsUncompleted();
-        return this;      
+        return this;
     }
 
     public TestTask build() {
