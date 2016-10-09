@@ -2,15 +2,17 @@
 
 ## Introduction
 
+
+
 ## Quick Start
 
 1. Ensure you have [**Java version 8 update 60**][java] or later installed on your computer.
 
     !!! warning "This application will not work with earlier versions of Java 8"
 
-2. Download the latest `UJDTDL.jar` from the [releases](../../../releases) tab.
-3. Copy the file to the folder you want to use as the home folder for the application.
-4. Double-click the file to start the app. 
+2. Download the latest copy of `UJDTDL.jar` from the [releases](../../../releases) tab.
+3. Save the file to the folder you want to use for this application.
+4. Double-click the file to start the application.
 
     <img src="images/mockupV0_0.png" width="700" alt="Example of UI once launched"> 
     
@@ -37,6 +39,7 @@
 Most productivity apps only allow you to manage tasks *or* events. Our application can manage both. 
 
 ### Command Line Interface
+
 
  
 ## Commands Reference
