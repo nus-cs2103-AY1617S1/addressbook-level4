@@ -62,7 +62,7 @@
 <img src="images/Architecture.png" width="600"><br>
 >**_Figure 1_**: Architecture Diagram - explains the high-level design of the application
 
-The following content is a quick overview of each component.
+###An overview of each component.
 
 **`Main`** has only one class called [`MainApp`](../src/main/java/seedu/ggist/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
@@ -93,13 +93,13 @@ The following diagram shows how components interact with each other when the use
 command `delete 3` (refer to Figure 3).
 
 <img src="images\SDforDeletePerson.png" width="800">
->**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command 'delete 3'
+>**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command `delete 3`
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskMangerChangedEvent` when the GGist data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+The following diagram shows how the `EventsCenter` reacts to the event(`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time.<br>
+
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
