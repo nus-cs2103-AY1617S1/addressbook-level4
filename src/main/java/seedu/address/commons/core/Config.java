@@ -8,7 +8,6 @@ import java.util.logging.Level;
  * Collection of static, application-specific config constants used globally
  */
 public class Config {
-
     public static final String ApplicationTitle = "CommanDo";
     public static final String ApplicationName = "CommanDo";
     public static final Level LogLevel = Level.INFO;
