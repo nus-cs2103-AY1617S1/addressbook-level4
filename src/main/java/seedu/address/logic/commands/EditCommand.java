@@ -18,8 +18,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the item identified by the index number used in the last item listing.\n"
-            + "Parameters: INDEX (must be a positive integer)" + "n/NAME" + "\n"
-            + "Example: " + COMMAND_WORD + " 1" + "buy milk";
+            + "Parameters: INDEX (must be a positive integer)" + " n/NAME" + "\n"
+            + "Example: " + COMMAND_WORD + " 1" + " buy milk";
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
     
@@ -27,7 +27,7 @@ public class EditCommand extends Command {
     public final Name newName;
 
     /*
-     * Deletes deadline, task, or event by index.
+     * Edits deadline, task, or event by index.
      *      
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -47,21 +47,18 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyItem itemToDelete = lastShownList.get(targetIndex - 1);
-        Item itemToAdd = new Item(itemToDelete);
-        itemToAdd.setName(newName);
-        try {
-            model.deleteItem(itemToDelete);
-        } catch (PersonNotFoundException pnfe) {
-            assert false : "The target item cannot be missing";
-        }
+        ReadOnlyItem itemToEdit = lastShownList.get(targetIndex - 1);
+        Item itemToReplace = new Item(itemToEdit);
+        itemToReplace.setName(newName);
         
         try {
-            model.addItem(itemToAdd);
-            return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToAdd));
+            model.replaceItem(itemToEdit, itemToReplace);
+        } catch (PersonNotFoundException pnfe) {
+            assert false : "The target item cannot be missing";
         } catch (UniquePersonList.DuplicatePersonException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ITEM);
         }
+        return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
     }
 
 }
