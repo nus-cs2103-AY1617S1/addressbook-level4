@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox styleClass="header" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.components.Header">
+  
+  <children>
+    <Text styleClass="header-text" text="GetShitDone">
+      <VBox.margin>
+        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+      </VBox.margin>
+    </Text>
+    <Text fx:id="headerVersionText" styleClass="header-version-text">
+      <VBox.margin>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+      </VBox.margin>
+    </Text>
+  </children>
+  
+</VBox>

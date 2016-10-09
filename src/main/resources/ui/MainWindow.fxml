@@ -26,6 +26,8 @@
       </menus>
     </MenuBar>
     
+    <AnchorPane fx:id="headerPlaceholder" VBox.vgrow="NEVER" />
+    
     <AnchorPane fx:id="childrenPlaceholder" VBox.vgrow="ALWAYS">
       <Text layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." textAlignment="CENTER" />
     </AnchorPane>

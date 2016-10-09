@@ -1,3 +1,15 @@
+/* HEADER */
+
+VBox.header {
+  -fx-background-color: #ffffff;
+}
+
+.header-text {
+  -fx-font-size: 24px;
+}
+
+/* CONSOLE */
+
 .text-field.console-input-textfield, .text-area.console-textarea {
   -fx-border-width: 0px;
   -fx-border-radius: 0px;

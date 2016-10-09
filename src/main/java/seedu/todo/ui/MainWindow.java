@@ -8,11 +8,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.ui.components.Console;
 import seedu.todo.ui.components.ConsoleInput;
+import seedu.todo.ui.components.Header;
 import seedu.todo.ui.views.View;
 
 /**
@@ -40,6 +42,8 @@ public class MainWindow extends View {
     private AnchorPane consolePlaceholder;
     @FXML
     private AnchorPane consoleInputPlaceholder;
+    @FXML
+    private AnchorPane headerPlaceholder;
 
     public static MainWindow load(Stage primaryStage, Config config) {
 	    MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
@@ -65,6 +69,10 @@ public class MainWindow extends View {
     }
     
     private void loadComponents() {
+    	Header header = new Header();
+    	header.versionString = MainApp.VERSION.toString();
+    	header.render(primaryStage, getHeaderPlaceholder());
+    	
     	new ConsoleInput().render(primaryStage, getConsoleInputPlaceholder());
     	new Console().render(primaryStage, getConsolePlaceholder());
     }
@@ -115,7 +123,11 @@ public class MainWindow extends View {
     }
     
     public AnchorPane getConsoleInputPlaceholder() {
-        return consoleInputPlaceholder;
+    	return consoleInputPlaceholder;
+    }
+    
+    public AnchorPane getHeaderPlaceholder() {
+        return headerPlaceholder;
     }
 
     /** ================ ACCELERATORS ================== **/
