@@ -58,6 +58,7 @@ public class XmlAdaptedPerson {
         final Name name = new Name(this.name);
         final Deadline deadline = new Deadline(this.deadline);
         final Priority priority = new Priority(this.priority);
-        return new Task(name, deadline, priority);
+        final UniqueTagList tags = new UniqueTagList(personTags);
+        return new Task(name, deadline, priority, tags);
     }
 }

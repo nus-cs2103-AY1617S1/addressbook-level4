@@ -386,7 +386,10 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             Deadline deadline = new Deadline("111111");
             Priority priority = new Priority("5");
-            return new Task(name, deadline, priority);
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, deadline, priority, tags);
         }
 
         /**
@@ -400,7 +403,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Person " + seed),
                     new Deadline(seed + "29102016"),
-                    new Priority("" + seed)
+                    new Priority("" + seed),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
@@ -496,7 +500,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Deadline("19102016"),
-                    new Priority("1")
+                    new Priority("1"),
+                    new UniqueTagList(new Tag("tag"))
             );
         }
     }

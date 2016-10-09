@@ -4,6 +4,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Represents a Task in the Task Manager.
@@ -20,19 +21,19 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Deadline deadline, Priority priority) {
+    public Task(Name name, Deadline deadline, Priority priority, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, deadline, priority);
         this.name = name;
         this.deadline = deadline;
         this.priority = priority;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = tags;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDeadline(), source.getPriority());
+        this(source.getName(), source.getDeadline(), source.getPriority(), source.getTags());
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the task manager.
  */
 public class AddCommand extends Command {
 
@@ -30,12 +30,17 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String deadline, String priority)
+    public AddCommand(String name, String deadline, String priority, Set<String> tags)
             throws IllegalValueException {
+    	final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
         this.toAdd = new Task(
                 new Name(name),
                 new Deadline(deadline),
-                new Priority(priority)
+                new Priority(priority),
+                new UniqueTagList(tagSet)
         );
     }
 
