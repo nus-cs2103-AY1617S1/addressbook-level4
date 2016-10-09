@@ -66,6 +66,9 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             return prepareList(commandWord + arguments);
 
+        case ShowCommand.COMMAND_WORD:
+            return prepareShow(commandWord + arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -123,6 +126,27 @@ public class Parser {
     }
     
     /**
+     * Parses a raw String of task type into correct task type.
+     * Example: UNCOMPLETEDDD many tasks i have -> uncompleted task
+     * @param typeString Raw task type string
+     * @return correct task type string
+     */
+    private String parseTaskTypeString(String typeString) {
+        String[] typeWords = {"uncompleted", "completed", "task", "event", 
+                            "floating", "normal", "timeslot", "free time"};
+        typeString = typeString.toLowerCase();
+        StringBuffer strBuf = new StringBuffer();
+        for (String word : typeWords) {
+            if (typeString.contains(word)) {
+                typeString = typeString.replaceFirst(word, "");
+                strBuf.append(word);
+                strBuf.append(" ");
+            }
+        }
+        return strBuf.toString();
+    }
+    
+    /**
      * Parses arguments in the context of the list task command.
      *
      * @param args full command args string
@@ -146,18 +170,8 @@ public class Parser {
         String endTime = parsed.get("to");
         String tags = parsed.get("tag");
         String sortingOrder = parsed.get("sort");
-
-        String[] typeWords = {"uncompleted", "completed", "task", "event", 
-                            "floating", "normal", "timeslot", "free time"};
-        StringBuffer strBuf = new StringBuffer();
-        for (String word : typeWords) {
-            if (type.contains(word)) {
-                type = type.replaceFirst(word, "");
-                strBuf.append(word);
-                strBuf.append(" ");
-            }
-        }
-        type = strBuf.toString();
+        
+        type = parseTaskTypeString(type);
 
         if (type != null && type.equals(""))
             type = null;
@@ -186,6 +200,55 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the show command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareShow(String args){
+        if (args.trim().equals("show")) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+        }
+        
+        final KeywordParser parser = new KeywordParser("show", "on", "by", "from", "to", "tag");
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
+        String type = parsed.get("show");
+        String date = parsed.get("on");
+        String deadline = parsed.get("by");
+        String startTime = parsed.get("from");
+        String endTime = parsed.get("to");
+        String tags = parsed.get("tag");
+
+        type = parseTaskTypeString(type);
+
+        if (type != null && type.equals(""))
+            type = null;
+        if (date != null && date.equals(""))
+            date = null;
+        if (deadline != null && deadline.equals(""))
+            deadline = null;
+        if (startTime != null && startTime.equals(""))
+            startTime = null;
+        if (endTime != null && endTime.equals(""))
+            endTime = null;
+        if(tags == null){
+            tags = "";
+        }
+        try {
+            return new ShowCommand(
+                    type,
+                    date,
+                    deadline,
+                    startTime,
+                    endTime,
+                    getTagsFromArgs(tags)
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
     /**
      * Extracts the new task's tags from the add/list command's tag arguments string.
      * Merges duplicate tag strings.
