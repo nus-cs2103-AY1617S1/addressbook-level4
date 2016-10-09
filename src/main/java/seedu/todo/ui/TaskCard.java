@@ -47,10 +47,6 @@ public class TaskCard extends UiPart{
     @FXML
     private HBox descriptionBox, dateBox, locationBox;
     
-    private Label[] tagLabels = {
-            tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4
-    };
-    
     /*Variables*/
     private ImmutableTask task;
     private int displayedIndex;
@@ -72,8 +68,16 @@ public class TaskCard extends UiPart{
                 
         titleLabel.setText(String.valueOf(displayedIndex) + ". " + task.getTitle());
         pinImage.setVisible(task.isPinned());
-        typeLabel0.setText((task.isEvent()) ? EVENT_TYPE : TASK_TYPE);
-        //TODO: displayTags();
+        
+        if (task.isEvent()) {
+            typeLabel0.setText(EVENT_TYPE);
+            typeLabel1.setText(EVENT_TYPE);
+        } else {
+            typeLabel0.setText(TASK_TYPE);
+            typeLabel1.setText(TASK_TYPE);
+        }
+        
+        displayTags();
         
         //Display task description when available
         if (task.getDescription().isPresent()) {
@@ -115,25 +119,27 @@ public class TaskCard extends UiPart{
     }
     
     /**
-     * Displays the tags with tag labels sorted lexicographically.
+     * Displays the tags with tag labels sorted lexicographically, ignoring case.
      */
     private void displayTags(){
-        //Obtain and verify that there are at most 5 tags.
+        Label[] tagLabels = {tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4};
+        
         int numberOfTags = task.getTags().size();
         assert (numberOfTags <= 5);
         
-        //Extract tag names, and sort the tags lexicographically.
-        Stream<String> tagsStream = task.getTags().stream()
-                .map(tag -> tag.tagName);
-        tagsStream = tagsStream.sorted();
-        String[] tags = tagsStream.toArray(String[]::new);
+        LinkedList<Tag> tagList = new LinkedList<>(task.getTags());
+        tagList.sort(new Comparator<Tag>(){
+            @Override
+            public int compare(Tag o1, Tag o2) {
+                return o1.toString().compareToIgnoreCase(o2.toString());
+            }
+        });
         
-        //Label or hide the tagLabels
-        for (int i = 0; i < 5; i++) {
-            if (i < numberOfTags) {
-                tagLabels[i].setText(tags[i]);
+        for (Label label : tagLabels) {
+            if (tagList.isEmpty()) {
+                FxViewUtil.setCollapsed(label, true);
             } else {
-                FxViewUtil.setCollapsed(tagLabels[i], true);
+                label.setText(tagList.poll().tagName);
             }
         }
     }
