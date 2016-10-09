@@ -45,6 +45,10 @@ public abstract class View extends UiPart {
 		return render(primaryStage, null);
 	}
 	
+	public Node getNode() {
+		return mainNode;
+	}
+	
 	// Lifecycle hooks
 	public void componentDidMount() {
 		// To be overwritten by View or Component definitions.
@@ -59,15 +63,10 @@ public abstract class View extends UiPart {
     public void setNode(Node node) {
         mainNode = (VBox) node;
         
-        if (placeHolderPane == null) {
-        	logger.severe("View cannot setNode: placeHolderPane is null.");
-        	return;
+        if (placeHolderPane != null) {
+    		// Replace placeholder children with node.
+            placeHolderPane.getChildren().setAll(mainNode);
         }
-        
-        assert placeHolderPane != null;
-		
-		// Replace placeholder children with node.
-        placeHolderPane.getChildren().setAll(mainNode);
 		
 		// Callback once view is loaded.
 		componentDidMount();

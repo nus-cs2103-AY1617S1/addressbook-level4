@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -11,15 +9,22 @@
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" 
   xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
-  fx:controller="seedu.todo.ui.components.TagList">
+  fx:controller="seedu.todo.ui.components.TagListLink">
   <children>
   
-    <ListView fx:id="tagListLinksListView" />
-  
-    <Text fx:id="titleText" styleClass="taglist-title" text="Tags" />
+    <HBox>
+      <children>
+        <ImageView fitHeight="32.0" fitWidth="32.0" fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
+        <Text fx:id="labelText" styleClass="taglist-link">
+          <HBox.margin>
+            <Insets left="5.0" />
+          </HBox.margin>
+        </Text>
+      </children>
+    </HBox>
     
   </children>
   <padding>
-    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
   </padding>
 </VBox>
