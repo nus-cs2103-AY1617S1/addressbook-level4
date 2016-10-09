@@ -33,4 +33,13 @@ public class StringUtil {
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
+    
+    public static int findNextOccuranceOfInteger(String s, int indexFrom) {
+        for (int i = indexFrom; i < s.length(); i++) {
+            if (isUnsignedInteger(s.substring(i, i+1))) {
+                return i;
+            }
+        }
+        return s.length();
+    }
 }

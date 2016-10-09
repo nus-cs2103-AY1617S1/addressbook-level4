@@ -9,6 +9,10 @@ import seedu.taskitty.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private TaskDate date;
+    private TaskTime startTime;
+    private TaskTime endTime;
+    
     private UniqueTagList tags;
 
     public TestTask() {
@@ -22,6 +26,21 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Name getName() {
         return name;
+    }
+    
+    @Override
+    public TaskDate getDate() {
+        return date;
+    }
+
+    @Override
+    public TaskTime getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public TaskTime getEndTime() {
+        return endTime;
     }
 
     @Override
