@@ -223,7 +223,7 @@ Examples:
 
 ### Getting hints for command format
 Format: none, just type a command and let DearJim provide you hints on the command format that you might want to use!
-> * DearJim provides you hints on command formats as you type the command!
+>DearJim provides you hints on command formats as you type the command!
 
 Examples:
 ><img src="images/dearjim_hint_add.png">
