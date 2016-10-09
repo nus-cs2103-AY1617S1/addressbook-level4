@@ -24,9 +24,13 @@
         </Menu>
       </menus>
     </MenuBar>
+    
     <AnchorPane fx:id="childrenPlaceholder">
       <Text layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." textAlignment="CENTER" />
     </AnchorPane>
+    
+    <AnchorPane fx:id="consolePlaceholder" VBox.vgrow="NEVER" />
+    <AnchorPane fx:id="consoleInputPlaceholder" VBox.vgrow="NEVER" />
   </children>
   <stylesheets>
     <URL value="@css/bootstrap3.css" />

@@ -33,6 +33,10 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
     @FXML
     private AnchorPane childrenPlaceholder;
+    @FXML
+    private AnchorPane consolePlaceholder;
+    @FXML
+    private AnchorPane consoleInputPlaceholder;
 
     
     public MainWindow() {
@@ -98,6 +102,14 @@ public class MainWindow extends UiPart {
     
     public AnchorPane getChildrenPlaceholder() {
         return childrenPlaceholder;
+    }
+    
+    public AnchorPane getConsolePlaceholder() {
+        return consolePlaceholder;
+    }
+    
+    public AnchorPane getConsoleInputPlaceholder() {
+        return consoleInputPlaceholder;
     }
 
     /** ================ ACCELERATORS ================== **/

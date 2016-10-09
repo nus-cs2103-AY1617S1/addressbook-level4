@@ -1,3 +1,7 @@
 #childrenPlaceholder {
   -fx-background-color: #f5f5f5;
 }
+
+#consoleInputPlaceholder {
+  -fx-background-color: #ffffff;
+}
