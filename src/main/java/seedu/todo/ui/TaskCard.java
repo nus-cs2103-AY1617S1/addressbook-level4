@@ -21,6 +21,13 @@ import seedu.todo.model.task.ImmutableTask;
 public class TaskCard extends UiPart{
     /*Constants*/
     private static final String FXML = "TaskCard.fxml";
+    
+    private static final String STYLE_BASE = "/style/taskcardstyles/TaskCardBaseStyle.css";
+    private static final String STYLE_COLLAPSED = "/style/taskcardstyles/TaskCardCollapsedStyle.css";
+    private static final String STYLE_COMPLETED = "/style/taskcardstyles/TaskCardCompletedStyle.css";
+    private static final String STYLE_OVERDUE = "/style/taskcardstyles/TaskCardOverdueStyle.css";
+    private static final String STYLE_SELECTED = "/style/taskcardstyles/TaskCardSelectedStyle.css";
+    
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
     
@@ -61,7 +68,8 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        //Fill the details of the task into the views as required. 
+        setStyle();
+                
         titleLabel.setText(String.valueOf(displayedIndex) + ". " + task.getTitle());
         pinImage.setVisible(task.isPinned());
         typeLabel0.setText((task.isEvent()) ? EVENT_TYPE : TASK_TYPE);
@@ -127,6 +135,18 @@ public class TaskCard extends UiPart{
             } else {
                 FxViewUtil.setCollapsed(tagLabels[i], true);
             }
+        }
+    }
+    
+    private void setStyle() {
+        ObservableList<String> stylesheets = taskCard.getStylesheets();
+        stylesheets.add(STYLE_BASE);
+        stylesheets.add(STYLE_COLLAPSED);
+        
+        if (task.isCompleted()) {
+            stylesheets.add(STYLE_COMPLETED);
+        } else if (task.getEndTime().isPresent() && task.getEndTime().get().isBefore(LocalDateTime.now())) {
+            stylesheets.add(STYLE_OVERDUE);
         }
     }
 }
