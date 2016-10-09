@@ -11,6 +11,23 @@ public class ActiveRecordLibrary<E> {
         return records.add(record);
     }
     
+    public List<E> where(Function<E, Boolean> pred) {
+        List<E> result = new ArrayList<E>();
+        for (E record : records) {
+            if (pred.apply(record))
+                result.add(record);
+        }
+        return result;
+    }
+    
+    public E find(Function<E, Boolean> pred) throws RecordNotFoundException {
+        for (E record : records) {
+            if (pred.apply(record))
+                return record;
+        }
+        throw new RecordNotFoundException();
+    }
+    
     public boolean save(E record) {
         return true;
     }
