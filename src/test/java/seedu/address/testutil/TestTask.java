@@ -10,7 +10,7 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Complete complete;
-    
+
     private Deadline deadline;
     private Period period;
     private Recurrence deadlineRecurrence;
@@ -24,7 +24,7 @@ public class TestTask implements ReadOnlyTask {
         period = new Period();
         deadlineRecurrence = new Recurrence();
         periodRecurrence = new Recurrence();
-        
+
         tags = new UniqueTagList();
     }
 
@@ -76,12 +76,12 @@ public class TestTask implements ReadOnlyTask {
     public Recurrence getDeadlineRecurrence() {
         return deadlineRecurrence;
     }
-    
+
     @Override
     public Recurrence getPeriodRecurrence() {
         return periodRecurrence;
     }
-    
+
     @Override
     public UniqueTagList getTags() {
         return tags;
@@ -94,8 +94,8 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().name + " ");
-        
+        sb.append("add " + "\"" + this.getName().name + "\" ");
+
         if (this.getDeadline().hasDeadline) {
             sb.append("by " + this.getDeadline().deadline + " ");
         }
@@ -105,14 +105,17 @@ public class TestTask implements ReadOnlyTask {
         }
 
         if (this.getDeadlineRecurrence().hasRecurrence) {
-            sb.append("repeatdeadline " + this.getDeadlineRecurrence().frequency + " ");
+            sb.append("repeattime " + this.getDeadlineRecurrence().frequency + " ");
         }
 
         if (this.getPeriodRecurrence().hasRecurrence) {
-            sb.append("repeatperiod " + this.getPeriodRecurrence().frequency + " ");
+            sb.append("repeattime " + this.getPeriodRecurrence().frequency + " ");
         }
-        
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/ " + s.tagName + " "));
+
+        if (this.getTags().iterator().hasNext()){
+            sb.append("tag ");
+        }
+        this.getTags().getInternalList().stream().forEach(s -> sb.append(s.tagName + " "));
         return sb.toString();
     }
 

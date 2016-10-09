@@ -26,14 +26,6 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
-
     private static final Pattern TASK_FLOAT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -57,7 +49,7 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return prepareAddFloating(arguments); //for adding floating tasks
+            return prepareAdd(commandWord + arguments); //for adding floating tasks
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -79,6 +71,12 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return prepareUndo(arguments);
+            
+        case CompleteCommand.COMMAND_WORD:
+            return prepareComplete(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -87,20 +85,34 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the add task command.
-     * Supports floating tasks
+     *
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAddFloating(String args){
-        final Matcher matcher = TASK_FLOAT_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
+    private Command prepareAdd(String args){
+        final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "repeattime", "tag");
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
+        String name = parsed.get("add");
+        String by = parsed.get("by");
+        String startTime = parsed.get("from");
+        String endTime = parsed.get("to");
+        String recurrence = parsed.get("repeattime");
+        String tags = parsed.get("tag");
+
+        if(name == null){
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        if(tags == null){
+            tags = "";
         }
         try {
             return new AddCommand(
-                    matcher.group("name"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    name,
+                    by,
+                    startTime,
+                    endTime,
+                    recurrence,
+                    getTagsFromArgs(tags)
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -118,7 +130,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.split(" "));
         return new HashSet<>(tagStrings);
     }
 
@@ -154,7 +166,37 @@ public class Parser {
 
         return new SelectCommand(index.get());
     }
+    
+    private Command prepareUndo(String args) {
+        if (args.equals("")) {
+            return new UndoCommand(1);
+        }
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE));
+        }
 
+        return new UndoCommand(index.get());
+    }    
+
+    /**
+     * Parses arguments in the context of the complete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareComplete(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+
+        return new CompleteCommand(index.get());
+    }   
+    
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
