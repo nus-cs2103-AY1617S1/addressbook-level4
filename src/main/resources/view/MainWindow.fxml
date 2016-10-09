@@ -34,23 +34,32 @@
                <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
            </padding>
        </AnchorPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-         <items>
-            <VBox fx:id="personList" minWidth="340" prefWidth="340">
-                <padding>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                </padding>
-               <children>
-                  <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-               </children>
-            </VBox>
-            <AnchorPane fx:id="browserPlaceholder" prefWidth="340" >
-                <padding>
-                    <Insets top="10" bottom="10" left="10" right="10"/>
-                </padding>
-            </AnchorPane>
-         </items>
-      </SplitPane>
+       
+       <AnchorPane VBox.vgrow="NEVER" fx:id="personListPanelPlaceholder" styleClass="anchor-pane-with-border" minHeight="200" prefHeight="900" maxHeight="1200">
+       		<padding>
+               <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
+           </padding>
+       </AnchorPane>
+       
+<!--       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS"> -->
+<!--          <items> -->
+<!--             <VBox fx:id="personList" minWidth="340" prefWidth="340"> -->
+<!--                 <padding> -->
+<!--                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/> -->
+<!--                 </padding> -->
+<!--                <children> -->
+<!--                   <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/> -->
+<!--                </children> -->
+<!--             </VBox> -->
+<!--             <AnchorPane fx:id="browserPlaceholder" prefWidth="340" > -->
+<!--                 <padding> -->
+<!--                     <Insets top="10" bottom="10" left="10" right="10"/> -->
+<!--                 </padding> -->
+<!--             </AnchorPane> -->
+<!--          </items> -->
+<!--       </SplitPane> -->
+      
+      
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
 </VBox>
