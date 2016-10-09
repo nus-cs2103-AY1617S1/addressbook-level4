@@ -78,13 +78,7 @@
 </ul>
 </li>
 <li><a href="#appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements</a></li>
-<li><a href="#appendix-d-glossary">Appendix D : Glossary</a><ul>
-<li><a href="#mainstream-os">Mainstream OS</a></li>
-<li><a href="#task">Task</a></li>
-<li><a href="#pinning">Pinning</a></li>
-<li><a href="#_1"></a></li>
-</ul>
-</li>
+<li><a href="#appendix-d-glossary">Appendix D : Glossary</a></li>
 <li><a href="#appendix-e-product-survey">Appendix E : Product Survey</a></li>
 </ul>
 </div>
@@ -143,7 +137,7 @@ so that the design of the code can be discussed first. </p>
 <p><img src="images/Architecture.png" width="600"></p>
 <p>The Architecture Diagram given above explains the high-level design of the App. Here is a quick 
 overview of each component.</p>
-<p><code>Main</code> has only one class called <a href="../src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
+<p><code>Main</code> has only one class called <a href="../src/main/java/seedu/todo/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
 <ul>
 <li>At app launch: Bootstrapping the application by initializing the components in the correct sequence and 
 injecting the dependencies needed for each component. </li>
@@ -179,13 +173,13 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 <p>The sections below give more details of each component.</p>
 <h3 id="ui-component">UI component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3>
 <p><img src="images/UiClassDiagram.png" width="800"><br></p>
-<p><strong>API</strong> : <a href="../src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/todo/ui/Ui.java"><code>Ui.java</code></a></p>
 <p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>,
 <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class
 and they can be loaded using the <code>UiPartLoader</code>.</p>
 <p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files
  that are in the <code>src/main/resources/view</code> folder.<br>
- For example, the layout of the <a href="../src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
+ For example, the layout of the <a href="../src/main/java/seedu/todo/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
  <a href="../src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
 <p>The <code>UI</code> component,
 <em> Executes user commands using the <code>Logic</code> component.
@@ -193,7 +187,7 @@ and they can be loaded using the <code>UiPartLoader</code>.</p>
 * Responds to events raised from various parts of the App and updates the UI accordingly.</p>
 <h3 id="logic-component">Logic component<a class="headerlink" href="#logic-component" title="Permanent link">#</a></h3>
 <p><img src="images/LogicClassDiagram.png" width="800"><br></p>
-<p><strong>API</strong> : <a href="../src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/todo/logic/Logic.java"><code>Logic.java</code></a></p>
 <p>The logic component is the glue sitting between the UI and the data model. It consists of three separate 
 subcomponents - </p>
 <ul>
@@ -214,7 +208,7 @@ the command the user called</li>
 <p><img src="images/DeletePersonSdForLogic.png" width="800"><br></p>
 <h3 id="model-component">Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3>
 <p><img src="images/ModelClassDiagram.png" width="800"><br></p>
-<p><strong>API</strong> : <a href="../src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/todo/model/Model.java"><code>Model.java</code></a></p>
 <p>The <code>Model</code>,</p>
 <ul>
 <li>stores a <code>UserPref</code> object that represents the user's preferences.</li>
@@ -225,7 +219,7 @@ the command the user called</li>
 </ul>
 <h3 id="storage-component">Storage component<a class="headerlink" href="#storage-component" title="Permanent link">#</a></h3>
 <p><img src="images/StorageClassDiagram.png" width="800"><br></p>
-<p><strong>API</strong> : <a href="../src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/todo/storage/Storage.java"><code>Storage.java</code></a></p>
 <p>The <code>Storage</code> component,
 <em> can save <code>UserPref</code> objects in json format and read it back.
 </em> can save the Address Book data in xml format and read it back.</p>
@@ -309,13 +303,13 @@ as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-e
 <p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
 <ol>
 <li><em>Unit tests</em> targeting the lowest level methods/classes. <br>
-  e.g. <code>seedu.address.commons.UrlUtilTest</code></li>
+  e.g. <code>seedu.todo.commons.UrlUtilTest</code></li>
 <li><em>Integration tests</em> that are checking the integration of multiple code units
  (those code units are assumed to be working).<br>
-  e.g. <code>seedu.address.storage.StorageManagerTest</code></li>
+  e.g. <code>seedu.todo.storage.StorageManagerTest</code></li>
 <li>Hybrids of unit and integration tests. These test are checking multiple code units as well as
   how the are connected together.<br>
-  e.g. <code>seedu.address.logic.LogicManagerTest</code></li>
+  e.g. <code>seedu.todo.logic.LogicManagerTest</code></li>
 </ol>
 </li>
 </ol>
@@ -613,19 +607,20 @@ Use case resumes at step 2</p>
 <li>Code should be open source. </li>
 </ol>
 <h2 id="appendix-d-glossary">Appendix D : Glossary<a class="headerlink" href="#appendix-d-glossary" title="Permanent link">#</a></h2>
-<h5 id="mainstream-os">Mainstream OS<a class="headerlink" href="#mainstream-os" title="Permanent link">#</a></h5>
-<blockquote>
+<dl>
+<dt>Mainstream OS</dt>
+<dd>
 <p>Windows, Linux, OS X</p>
-</blockquote>
-<h5 id="task">Task<a class="headerlink" href="#task" title="Permanent link">#</a></h5>
-<blockquote>
+</dd>
+<dt>Task </dt>
+<dd>
 <p>A single todo task, deadline or item</p>
-</blockquote>
-<h5 id="pinning">Pinning<a class="headerlink" href="#pinning" title="Permanent link">#</a></h5>
-<blockquote>
+</dd>
+<dt>Pinning</dt>
+<dd>
 <p>Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. </p>
-</blockquote>
-<h5 id="_1"><a class="headerlink" href="#_1" title="Permanent link">#</a></h5>
+</dd>
+</dl>
 <h2 id="appendix-e-product-survey">Appendix E : Product Survey<a class="headerlink" href="#appendix-e-product-survey" title="Permanent link">#</a></h2>
 <p>{TODO: Add a summary of competing products}</p>
 </div>

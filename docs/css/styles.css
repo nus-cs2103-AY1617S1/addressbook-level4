@@ -161,6 +161,18 @@ h4:hover .headerlink {
   border-color: #bce8f1;
 }
 
+.admonition.warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.admonition.danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
 .admonition-title {
   font-weight: bold;
   margin-bottom: 0;

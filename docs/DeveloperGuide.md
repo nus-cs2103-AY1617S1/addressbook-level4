@@ -68,7 +68,7 @@ We use the Java coding standard found at <https://oss-generic.github.io/process/
 The Architecture Diagram given above explains the high-level design of the App. Here is a quick 
 overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/todo/MainApp.java). It is responsible for,
 
 * At app launch: Bootstrapping the application by initializing the components in the correct sequence and 
 injecting the dependencies needed for each component. 
@@ -114,7 +114,7 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -122,7 +122,7 @@ and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/todo/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -134,7 +134,7 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
 The logic component is the glue sitting between the UI and the data model. It consists of three separate 
 subcomponents - 
@@ -160,7 +160,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
 The `Model`,
 
@@ -174,7 +174,7 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -281,13 +281,13 @@ We have two types of tests:
 
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
     1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `seedu.todo.commons.UrlUtilTest`
     2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `seedu.todo.storage.StorageManagerTest`
     3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.todo.logic.LogicManagerTest`
 
 ### Headless GUI Testing 
 
@@ -547,19 +547,18 @@ Use case ends.
 
 ## Appendix D : Glossary
 
-##### Mainstream OS
+Mainstream OS
 
-> Windows, Linux, OS X
+:   Windows, Linux, OS X
 
-##### Task 
+Task 
 
-> A single todo task, deadline or item
+:   A single todo task, deadline or item
 
-##### Pinning
+Pinning
 
-> Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. 
+:   Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. 
 
-##### 
 
 ## Appendix E : Product Survey
 
