@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.*;
 import seedu.todo.commons.exceptions.*;
 
-public class ActiveRecordLibrary<E> {
+public class ActiveRecordLibrary<E extends ActiveRecordBase> {
     private Set<E> records = new HashSet<E>();
     
     public boolean add(E record) {
@@ -28,8 +28,10 @@ public class ActiveRecordLibrary<E> {
         throw new RecordNotFoundException();
     }
     
-    public boolean save(E record) {
-        return true;
+    public boolean save(E record) throws RecordInvalidException {
+        if (record.validate())
+            return true; // TODO
+        throw new RecordInvalidException();
     }
     
     public boolean destroy(E record) {
