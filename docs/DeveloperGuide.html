@@ -180,10 +180,10 @@ command <code>delete 3</code>.</p>
 <p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. </p>
 <p><img src="images/SDforDeletePersonEventHandling.png" width="800"></p>
-<div class="admonition event">
-<p class="admonition-title">Event</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 </div>
-<p>Driven Design </p>
+<p>Event Driven Design </p>
 <div class="codehilite"><pre><span></span>Note how the event is propagated through the `EventsCenter` to `UI` without `Model` having
 to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
 coupling between components.

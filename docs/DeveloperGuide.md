@@ -107,7 +107,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 <img src="images/SDforDeletePersonEventHandling.png" width="800">
 
-!!! Event Driven Design 
+!!! note Event Driven Design 
 
     Note how the event is propagated through the `EventsCenter` to `UI` without `Model` having
     to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
