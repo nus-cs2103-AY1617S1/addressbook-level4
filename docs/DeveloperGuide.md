@@ -19,7 +19,7 @@
 1. **JDK `1.8.0_60`**  or later<br>
 
     > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
+    This application will not work with earlier versions of Java 8.
     
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
@@ -37,15 +37,15 @@
 4. Click `Browse`, then locate the project's directory
 5. Click `Finish`
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+  > * If you are asked whether to 'keep' or 'overwrite' configuration files, choose to 'keep'.
+  > * Depending on your connection speed and server load, it can take up to 30 minutes for the set up to complete
       (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  > * If Eclipse auto-change any settings files during the importing process, you can discard those changes.
   
 #### Troubleshooting project setup
 
-**Problem: Eclipse reports compile errors after new commits are pulled from Git**
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
+**Problem: Eclipse reports compilation errors after new commits are pulled from Git**
+* Reason: Eclipse fails to recognize new files pulled from Git. 
 * Solution: Refresh the project in Eclipse:<br> 
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
   
@@ -59,6 +59,7 @@
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
+>**_Figure 1_**: Architecture Diagram - refers to the high-level design of the application
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -156,11 +157,11 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/ggist/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the GGist data in xml format and read it back.
 
 ### Common classes
 
