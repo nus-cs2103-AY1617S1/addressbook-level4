@@ -30,7 +30,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
 
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
-            Pattern.compile("(?<targetIndex>\\d+)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
+            Pattern.compile("(?<targetIndex>\\d+\\s)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
     
     public Parser() {}
 
@@ -122,7 +122,7 @@ public class Parser {
             return new EditCommand(
                     matcher.group("name"),
                     getTagsFromArgs(matcher.group("tagArguments")),
-                    Integer.parseInt(matcher.group("targetIndex"))
+                    Integer.parseInt(matcher.group("targetIndex").trim())
                     );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
