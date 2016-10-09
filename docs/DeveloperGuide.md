@@ -52,7 +52,9 @@ push the branch to GitHub and [create a new pull request][pr] so that the integr
 For large features that impact multiple parts of the code it is best to open a new issue on issue tracker
 so that the design of the code can be discussed first. 
 
-Test driven development is encouraged but not required. All incoming code should have accompanying tests.
+[Test driven development][tdd] is encouraged but not required. All incoming code should have 100% 
+accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage 
+to fall.
 
 ### Coding Style
 
@@ -65,7 +67,7 @@ We use the Java coding standard found at <https://oss-generic.github.io/process/
 
 <img src="images/Architecture.png" width="600">
 
-The Architecture Diagram given above explains the high-level design of the App. Here is a quick 
+The Architecture Diagram above explains the high-level design of the App. Here is a quick 
 overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/todo/MainApp.java). It is responsible for,
@@ -87,9 +89,8 @@ The rest of the App consists three components.
 * [**`Logic`**](#logic-component): The parser and command executer, representing the controller 
 * [**`Model`**](#model-component): Data manipulation and storage, representing the model and data layer 
 
-Each of the four components defines its API in an `interface` with the same name as the Component and 
+Each of the three components defines its API in an `interface` with the same name and 
 are bootstrapped at launch by `MainApp`.
- 
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.
@@ -99,12 +100,12 @@ interface and exposes its functionality using the `LogicManager.java` class.
 The Sequence Diagram below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images/SDforDeletePerson.png" width="800">
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
 
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images/SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
@@ -140,7 +141,7 @@ The `UI` component,
 **API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
 The logic component is the glue sitting between the UI and the data model. It consists of three separate 
-subcomponents - 
+subcomponents, each of which also defines their own API using interfaces or abstract classes - 
 
 - `Parser` - turns user input into command and arguments 
 - `Dispatcher` - maps parser results to commands 
@@ -148,11 +149,11 @@ subcomponents -
 
 The flow of a command being executed is -
 
-1. `Logic` uses the `Parser::parse` to parse the user input into a `ParseResult` object
-2. The `ParseResult` is sent to `Dispatcher::dispatch` which instantates a new `Command` object representing
+1. `Logic` parse the user input into a `ParseResult` object
+2. The `ParseResult` is sent to the dispatcher which instantates a new `Command` object representing
 the command the user called
 3. `Logic` binds the model and arguments to the `Command` object and executes it 
-4. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+4. The command execution can affect the `Model` (e.g. adding a person), and/or raise events.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.
@@ -180,6 +181,7 @@ The `Model`,
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
 The `Storage` component,
+
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
 
@@ -207,11 +209,13 @@ The parser tokenizes the user input by whitespace characters then splits it into
 
 For example, the command `add The Milk -d tomorrow 3pm -p` will produce 
 
-- Command: `add`
-- Positional argument: `The Milk`
-- Named argument: 
-    - `d`: `tomorrow 3pm` 
-    - `p`: - (empty string)
+``` yaml
+command: "add"
+positional: "The Milk" 
+named: 
+  d: "tomorrow 3pm"
+  p: "" # Empty String
+```
   
 #### Dispatcher 
 
@@ -221,19 +225,48 @@ correct command and returns it.
 
 #### Command
 
-All commands implement the `BaseCommand` abstract class, which provides argument binding and validation. 
+All commands implement the `BaseCommand` abstract class, which provides argument binding and validation.
+To implement a new command, you can use the following template 
 
+```java
+package seedu.todo.logic.commands;
 
+import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.logic.arguments.Argument;
+import seedu.todo.logic.arguments.IntArgument;
+import seedu.todo.logic.arguments.Parameter;
+import seedu.todo.model.task.ImmutableTask;
+
+public class YourCommand extends BaseCommand {
+    // TODO: Define additional parameters here
+    private Argument<Integer> index = new IntArgument("index").required();
+
+    @Override
+    protected Parameter[] getArguments() {
+        // TODO: List all arguments inside this array
+        return new Parameter[]{ index };
+    }
+
+    @Override
+    public void execute() throws IllegalValueException {
+        // TOOD: Complete this command stub
+    }
+}
+```
+
+If you need to do argument validation, you can also override the `validateArgument` command, 
+which is run after all arguments have been set.  
 
 #### Arguments 
 
-
+Command arguments are defined using argument objects. Representing arguments as objects have several 
+benefit - it makes them declarative 
 
 
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+We are using the [`java.util.logging`][jul] package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
@@ -241,7 +274,16 @@ and logging destinations.
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
 * Currently log messages are output through: Console and to a log file.
-* The logs 
+* The logs rolls over at 5MB such that every log file is smaller than 5MB. Five log files are 
+kept, after which the oldest will be deleted. 
+
+To use the logger in your code, simply include 
+
+``` java
+private static final Logger logger = LogsCenter.getLogger(<YOUR CLASS>.class);
+```
+
+at the top of your class, and replace `<YOUR CLASS>` with the class the logger is used in.
 
 #### Logging Levels
 
@@ -672,5 +714,9 @@ dependencies required.
 [workflow]: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/
 [issues]: https://github.com/CS2103AUG2016-W10-C4/main/issues
 [pr]: https://github.com/CS2103AUG2016-W10-C4/main/compare
+[tdd]: https://en.wikipedia.org/wiki/Test-driven_development
+
+[jul]: https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html
+
 [gfm]: https://guides.github.com/features/mastering-markdown/
 [py-markdown]: https://pythonhosted.org/Markdown/extensions/index.html
