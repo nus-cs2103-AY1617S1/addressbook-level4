@@ -3,10 +3,10 @@ package guitests;
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
-import seedu.task.commons.core.Messages;
-import seedu.task.logic.commands.AddCommand;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
+import seedu.todolist.commons.core.Messages;
+import seedu.todolist.logic.commands.AddCommand;
 
 import static org.junit.Assert.assertTrue;
 

@@ -2,13 +2,13 @@ package seedu.task;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.task.MainApp;
-import seedu.task.commons.core.Config;
-import seedu.task.commons.core.GuiSettings;
-import seedu.task.model.ReadOnlyAddressBook;
-import seedu.task.model.UserPrefs;
-import seedu.task.storage.XmlSerializableAddressBook;
 import seedu.task.testutil.TestUtil;
+import seedu.todolist.MainApp;
+import seedu.todolist.commons.core.Config;
+import seedu.todolist.commons.core.GuiSettings;
+import seedu.todolist.model.ReadOnlyAddressBook;
+import seedu.todolist.model.UserPrefs;
+import seedu.todolist.storage.XmlSerializableAddressBook;
 
 import java.util.function.Supplier;
 

@@ -7,21 +7,21 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.task.commons.core.EventsCenter;
-import seedu.task.commons.events.model.AddressBookChangedEvent;
-import seedu.task.commons.events.ui.JumpToListRequestEvent;
-import seedu.task.commons.events.ui.ShowHelpEvent;
-import seedu.task.logic.Logic;
-import seedu.task.logic.LogicManager;
-import seedu.task.logic.commands.*;
-import seedu.task.model.AddressBook;
-import seedu.task.model.Model;
-import seedu.task.model.ModelManager;
-import seedu.task.model.ReadOnlyAddressBook;
-import seedu.task.model.tag.Tag;
-import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.task.*;
-import seedu.task.storage.StorageManager;
+import seedu.todolist.commons.core.EventsCenter;
+import seedu.todolist.commons.events.model.AddressBookChangedEvent;
+import seedu.todolist.commons.events.ui.JumpToListRequestEvent;
+import seedu.todolist.commons.events.ui.ShowHelpEvent;
+import seedu.todolist.logic.Logic;
+import seedu.todolist.logic.LogicManager;
+import seedu.todolist.logic.commands.*;
+import seedu.todolist.model.AddressBook;
+import seedu.todolist.model.Model;
+import seedu.todolist.model.ModelManager;
+import seedu.todolist.model.ReadOnlyAddressBook;
+import seedu.todolist.model.tag.Tag;
+import seedu.todolist.model.tag.UniqueTagList;
+import seedu.todolist.model.task.*;
+import seedu.todolist.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.task.commons.core.Messages.*;
+import static seedu.todolist.commons.core.Messages.*;
 
 public class LogicManagerTest {
 

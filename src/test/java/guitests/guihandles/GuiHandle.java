@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.task.TestApp;
-import seedu.task.commons.core.LogsCenter;
+import seedu.todolist.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 

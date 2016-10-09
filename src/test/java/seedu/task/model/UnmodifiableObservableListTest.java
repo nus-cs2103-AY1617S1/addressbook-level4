@@ -1,7 +1,7 @@
 package seedu.task.model;
 
 import javafx.collections.FXCollections;
-import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.todolist.commons.core.UnmodifiableObservableList;
 
 import org.junit.Before;
 import org.junit.Rule;

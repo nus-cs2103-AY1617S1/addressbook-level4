@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.task.commons.core.Version;
+import seedu.todolist.commons.core.Version;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -5,9 +5,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.task.commons.util.FileUtil;
 import seedu.task.testutil.SerializableTestClass;
 import seedu.task.testutil.TestUtil;
+import seedu.todolist.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;

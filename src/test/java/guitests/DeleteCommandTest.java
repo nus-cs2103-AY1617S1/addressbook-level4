@@ -6,7 +6,7 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.task.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static seedu.todolist.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
 

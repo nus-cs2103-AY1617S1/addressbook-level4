@@ -4,12 +4,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.task.commons.util.FileUtil;
-import seedu.task.commons.util.XmlUtil;
-import seedu.task.model.AddressBook;
-import seedu.task.storage.XmlSerializableAddressBook;
 import seedu.task.testutil.AddressBookBuilder;
 import seedu.task.testutil.TestUtil;
+import seedu.todolist.commons.util.FileUtil;
+import seedu.todolist.commons.util.XmlUtil;
+import seedu.todolist.model.AddressBook;
+import seedu.todolist.storage.XmlSerializableAddressBook;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
