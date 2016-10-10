@@ -56,5 +56,19 @@ public class Tag {
     public String toString() {
         return '[' + tagName + ']';
     }
+    
+    /**
+     * Serialize field for storage
+     */
+    public String serialize() {
+        return tagName;
+    }
+    
+    /**
+     * Deserialize from storage
+     */
+    public static Tag deserialize(String args) throws IllegalValueException {
+        return new Tag(args);
+    }
 
 }
