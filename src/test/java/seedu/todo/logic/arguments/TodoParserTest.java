@@ -1,10 +1,13 @@
-package seedu.todo.logic.parser;
+package seedu.todo.logic.arguments;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.logic.parser.ParseResult;
+import seedu.todo.logic.parser.Parser;
+import seedu.todo.logic.parser.TodoParser;
 
 public class TodoParserTest {
     private Parser parser = new TodoParser();
