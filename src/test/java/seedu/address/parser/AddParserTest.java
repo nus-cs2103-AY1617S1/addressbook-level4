@@ -87,9 +87,9 @@ public class AddParserTest {
 		String arguments = "complete cs2103t by: 10-08-2016 1900 n:important";
 		
 		assertEquals("complete cs2103t ", AddParser.parseCommand(arguments).get(1));
-		assertEquals("10-08-2016", AddParser.parseCommand(arguments).get(2));
-		assertEquals("1900", AddParser.parseCommand(arguments).get(3));
-		assertEquals("important", AddParser.parseCommand(arguments).get(4));
+		assertEquals("important", AddParser.parseCommand(arguments).get(2));
+		assertEquals("10-08-2016", AddParser.parseCommand(arguments).get(3));
+		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
 		
 	}
 	
