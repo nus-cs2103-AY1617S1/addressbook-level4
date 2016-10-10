@@ -67,11 +67,7 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        titleLabel.setText(String.valueOf(displayedIndex) + ". " + task.getTitle());
-        pinImage.setVisible(task.isPinned());
-        typeLabel.setText(task.isEvent() ? EVENT_TYPE : TASK_TYPE);
-        FxViewUtil.displayTextWhenAvailable(descriptionLabel, descriptionBox, task.getDescription());
-        FxViewUtil.displayTextWhenAvailable(locationLabel, locationBox, task.getLocation());        
+        displayEverythingElse();
         displayTags();
         displayTimings();
         setStyle();
@@ -89,6 +85,17 @@ public class TaskCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    /**
+     * Displays all other view elements, including title, type label, pin image, description and location texts.
+     */
+    private void displayEverythingElse() {
+        titleLabel.setText(String.valueOf(displayedIndex) + ". " + task.getTitle());
+        pinImage.setVisible(task.isPinned());
+        typeLabel.setText(task.isEvent() ? EVENT_TYPE : TASK_TYPE);
+        FxViewUtil.displayTextWhenAvailable(descriptionLabel, descriptionBox, task.getDescription());
+        FxViewUtil.displayTextWhenAvailable(locationLabel, locationBox, task.getLocation());
     }
     
     /**
@@ -113,6 +120,9 @@ public class TaskCard extends UiPart{
         }
     }
     
+    /**
+     * Sets style according to the status (e.g. completed, overdue, etc) of the task.
+     */
     private void setStyle() {
         ObservableList<String> styleClasses = taskCard.getStyleClass();
         boolean isCompleted = task.isCompleted();
@@ -127,6 +137,9 @@ public class TaskCard extends UiPart{
         //styleClasses .add(STYLE_COLLAPSED); TODO: Disabled until implemented
     }
     
+    /**
+     * Displays formatted task or event timings in the time field.
+     */
     private void displayTimings() {
         String displayTimingOutput = "";
         Optional<LocalDateTime> startTime = task.getStartTime();
