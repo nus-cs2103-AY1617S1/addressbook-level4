@@ -51,7 +51,7 @@ public class EditCommand extends Command {
         ReadOnlyTask toEdit = lastShownList.get(targetIndex - 1);
 
         try {
-            Task editedTask = model.editTask(toEdit, targetIndex, this.argsToEdit);
+            Task editedTask = model.editTask(toEdit, this.argsToEdit);
             toEdit = editedTask;
         } catch (TaskNotFoundException tnfe) {
             return new CommandResult(MESSAGE_MISSING_TASK);

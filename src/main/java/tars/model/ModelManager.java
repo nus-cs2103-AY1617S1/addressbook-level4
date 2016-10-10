@@ -80,9 +80,9 @@ public class ModelManager extends ComponentManager implements Model {
      * @throws TagNotFoundException if no such tag could be found.
      * @throws IllegalValueException if argument(s) in argsToEdit is/are invalid.
      */
-    public synchronized Task editTask(ReadOnlyTask toEdit, int targetIndex, String[] argsToEdit) throws TaskNotFoundException, 
+    public synchronized Task editTask(ReadOnlyTask toEdit, String[] argsToEdit) throws TaskNotFoundException, 
     DateTimeException, IllegalDateException, DuplicateTagException, TagNotFoundException, IllegalValueException {
-        Task editedTask = tars.editTask(toEdit, targetIndex, argsToEdit); 
+        Task editedTask = tars.editTask(toEdit, argsToEdit); 
         indicateTarsChanged();
         return editedTask;
     }
