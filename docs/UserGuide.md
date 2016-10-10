@@ -63,7 +63,7 @@ Format: `-PRIORITY`
 `medium` | `m`, `med`, `medium`
 `high` | `h`, `high`
  
-> To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add/edit command, where `PRIORITY` can be replaced by `low`, `medium` or `high`, e.g `-low`, `-medium`, `-high`.
+> To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add command, where `PRIORITY` can be replaced by `low`, `medium` or `high`, e.g `-low`, `-medium`, `-high`.
 
 Examples:
 * `add Do something later -l`
@@ -82,13 +82,14 @@ Supported `RECURRING_INTERVAL`
 * `month`, `2 months`, `3 months`, ...
 
 Examples: 
-* `add Go run at track repeat every 3 days`
+* `add Go run at track, repeat every 3 days`
 
 
 **_Adding a task with deadline_**
 
-Format: `add NAME by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIORITY]`
+Format: `add NAME, by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIORITY]`
 > The `by` keyword denotes a deadline.
+> Take note of the `,` after the `NAME`, it is use to mark the end of your task's name.
 
 >`END_DATE` and `END_TIME` are flexible!
 >* If no `END_DATE` is specified, `END_DATE` will be assumed to be the current date
@@ -103,9 +104,9 @@ Format: `add NAME by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIORI
 >   * `20:15` - 24-hour clock format is also accepted
 
 Examples:
-* `add Do project proposal by 5pm tomorrow`
-* `add eat lunch by 1pm today -h`
-* `add Buy coffee for boss by 7am repeat every day`
+* `add Do project proposal, by 5pm tomorrow`
+* `add eat lunch, by 1pm today -h`
+* `add Buy coffee for boss, by 7am repeat every day`
 
 **_Adding a task without deadline_**
 
@@ -121,8 +122,9 @@ Example:
 
 **_Adding a task with time interval_**
 
-`add NAME from/at START_DATE START_TIME [to END_DATE END_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]` 
+`add NAME, from/at START_DATE START_TIME [to END_DATE END_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]` 
 > For events, meetings, use `from` and `at` to indicate the start time and `to` and `by` to indicate the end time.
+> Take note of the `,` after the `NAME`, it is use to mark the end of your task's name.
 > `END_DATE` and `END_TIME` can be unspecified.
 
 >`START_DATE`, `START_TIME`, `END_DATE` and `END_TIME` are flexible!
@@ -138,22 +140,22 @@ Example:
 >   * `20:15` - 24-hour clock format is also accepted
 
 Example: 
-* `add Company meeting tonight at 7pm to 9pm`
-* `add Family dinner at noon`
-* `add Meet Akshay from 1pm to 2pm -h`
+* `add Company meeting tonight, at 7pm to 9pm`
+* `add Family dinner, at noon`
+* `add Meet Akshay, from 1pm to 2pm -h`
 
 ### Editing a task: `edit`
 Edits an existing task in the task manager<br>
-Format: `edit INDEX [from/at START_DATE START_TIME][to/by END_DATE END_TIME][-PRIORITY][repeat every RECURRING_INTERVAL]`
+Format: `edit INDEX NAME, [from/at START_DATE START_TIME][to/by END_DATE END_TIME][-PRIORITY][repeat every RECURRING_INTERVAL]`
 > `INDEX` refers to the task number in the current displayed list.<br>
 > Notice that this is similar to the `add` command format! 
 
 Examples:
-* `add Company meeting tonight at 7pm to 9pm`
-* `edit 2 Company meeting tomorrow morning at 7am to 9am -high`
-* `add Buy coffee for boss by 8am repeat every day`
-* `edit 3 Buy coffee for boss by 7am repeat every 2 days`
-* `edit 3 Buy coffee for boss for the last time! by 7am`
+* `add Company meeting tonight, at 7pm to 9pm`
+* `edit 2 Company meeting tomorrow morning, at 7am to 9am -high`
+* `add Buy coffee for boss, by 8am repeat every day`
+* `edit 3 Buy coffee for boss, by 7am repeat every 2 days`
+* `edit 3 Buy coffee for boss for the last time, by 7am`
 
 ### Deleting a task: `delete`
 Deletes an existing task in your task manager.<br>
@@ -267,9 +269,8 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
-Edit | `edit INDEX NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
-Confirm | `confirm INDEX SUB-INDEX`
+Add | `add NAME, [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
+Edit | `edit INDEX NAME, [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
 Delete | `delete INDEX`
 Undo | `undo`
 Redo | `redo`
