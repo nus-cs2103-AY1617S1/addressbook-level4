@@ -13,6 +13,8 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,8 +41,8 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String details,
-                      String dueByDate,
-                      String dueByTime,
+                      LocalDate dueByDate,
+                      LocalTime dueByTime,
                       String priority,
                       Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
@@ -49,8 +51,7 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Detail(details),
-                new Done("no"),
-                new DueByDate(dueByDate),
+                new DueByDate (dueByDate),
                 new DueByTime(dueByTime),
                 new Priority(priority),
                 new UniqueTagList(tagSet)
