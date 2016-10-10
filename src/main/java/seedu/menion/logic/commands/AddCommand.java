@@ -2,12 +2,9 @@ package seedu.menion.logic.commands;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.*;
-import seedu.menion.model.tag.Tag;
-import seedu.menion.model.tag.UniqueTagList;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
  * Adds a task to the task manager.
