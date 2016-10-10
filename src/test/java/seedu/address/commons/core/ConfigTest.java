@@ -17,8 +17,8 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : Remindaroo\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data/reminadroo.xml\n" +
-                "ActivityManager name : Remindaroo";
+                "Local data file location : data/remindaroo.xml\n" +
+                "Application name : Remindaroo";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }

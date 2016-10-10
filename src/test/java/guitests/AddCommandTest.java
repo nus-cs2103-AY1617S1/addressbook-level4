@@ -25,9 +25,10 @@ public class AddCommandTest extends ActivityManagerGuiTest {
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
 
         //add duplicate activity
-        commandBox.runCommand(ta.groceries.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_ACTIVITY);
-        assertTrue(activityListPanel.isListMatching(currentList));
+        // TODO: Re-implement only if duplicate entries are not allowed
+        // commandBox.runCommand(ta.groceries.getAddCommand());
+        // assertResultMessage(AddCommand.MESSAGE_DUPLICATE_ACTIVITY);
+        // assertTrue(activityListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");

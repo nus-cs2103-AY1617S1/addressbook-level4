@@ -56,10 +56,11 @@ public class ActivityList implements Iterable<Activity> {
     }
     
     /**
-     * Signals that an operation targeting a specified person in the list would fail because
-     * there is no such matching person in the list.
+     * Signals that an operation targeting a specified activity in the list would fail because
+     * there is no such matching activity in the list.
      */
     public static class ActivityNotFoundException extends Exception {}
+    
 	
     public ObservableList<Activity> getInternalList() {
         return internalList;

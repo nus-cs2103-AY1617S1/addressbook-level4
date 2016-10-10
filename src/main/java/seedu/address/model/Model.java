@@ -3,6 +3,7 @@ package seedu.address.model;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ActivityList.ActivityNotFoundException;
+import seedu.address.model.activity.UniqueActivityList.DuplicateActivityException;
 
 import java.util.Set;
 

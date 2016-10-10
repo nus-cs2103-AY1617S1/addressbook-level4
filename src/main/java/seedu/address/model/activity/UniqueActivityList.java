@@ -24,7 +24,7 @@ public class UniqueActivityList implements Iterable<Activity> {
      */
     public static class DuplicateActivityException extends DuplicateDataException {
         protected DuplicateActivityException() {
-            super("Operation would result in duplicate persons");
+            super("Operation would result in duplicate activities");
         }
     }
 

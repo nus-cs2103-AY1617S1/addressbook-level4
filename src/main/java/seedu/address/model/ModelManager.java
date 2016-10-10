@@ -62,6 +62,11 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateActivityManagerChanged() {
         raise(new ActivityManagerChangedEvent(activityManager));
     }
+    
+    /** Raises an event to indicate that the list of activities need to be updated */
+    private void indicateActivityPanelUpdate(Activity updatedActivity) {
+        raise(new ActivityPanelUpdateEvent(updatedActivity));
+    }
 
     @Override
     public synchronized void deleteActivity(Activity target) throws ActivityNotFoundException {
@@ -80,7 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void updateActivity(Activity activity, String newName) throws ActivityNotFoundException {
         activityManager.updateActivity(activity, newName);
         updateFilteredListToShowAll();
-        raise(new ActivityPanelUpdateEvent(activity));
+        indicateActivityPanelUpdate(activity);
         indicateActivityManagerChanged();
     }
 
