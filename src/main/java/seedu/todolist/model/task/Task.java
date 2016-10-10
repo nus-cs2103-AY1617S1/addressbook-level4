@@ -13,21 +13,24 @@ public class Task implements ReadOnlyTask {
     private Name name;
     
     private LocationParameter locationParameter;
+    
+    private RemarksParameter remarksParameter;
 
     /**
      * Only Name field must be present and not null. Other fields can be null.
      */
-    public Task(Name name, LocationParameter location) {
+    public Task(Name name, LocationParameter location, RemarksParameter remarks) {
         assert !CollectionUtil.isAnyNull(name);
         this.name = name;
         this.locationParameter = location;
+        this.remarksParameter = remarks;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getLocationParameter());
+        this(source.getName(), source.getLocationParameter(), source.getRemarksParameter());
     }
 
     @Override
@@ -40,6 +43,11 @@ public class Task implements ReadOnlyTask {
     public LocationParameter getLocationParameter() {
         return locationParameter;
     }
+    
+    @Override
+    public RemarksParameter getRemarksParameter() {
+    	return remarksParameter;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -51,7 +59,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, locationParameter);
+        return Objects.hash(name, locationParameter, remarksParameter);
     }
 
     @Override
