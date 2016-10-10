@@ -19,7 +19,6 @@ import seedu.todolist.model.Model;
 import seedu.todolist.model.ModelManager;
 import seedu.todolist.model.ReadOnlyAddressBook;
 import seedu.todolist.model.tag.Tag;
-import seedu.todolist.model.tag.UniqueTagList;
 import seedu.todolist.model.task.*;
 import seedu.todolist.storage.StorageManager;
 
@@ -383,10 +382,8 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags);
+            LocationParameter location = new LocationParameter("home");
+            return new Task(name, location);
         }
 
         /**
@@ -399,7 +396,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new LocationParameter("at" + seed)
             );
         }
 
@@ -411,10 +408,7 @@ public class LogicManagerTest {
 
             cmd.append(p.getName().toString());
 
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
+	        cmd.append(p.getLocationParameter().toString());
 
             return cmd.toString();
         }
@@ -492,7 +486,7 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new UniqueTagList(new Tag("tag"))
+                    new LocationParameter("location")
             );
         }
     }

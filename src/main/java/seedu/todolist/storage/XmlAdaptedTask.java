@@ -1,13 +1,9 @@
 package seedu.todolist.storage;
 
 import seedu.todolist.commons.exceptions.IllegalValueException;
-import seedu.todolist.model.tag.Tag;
-import seedu.todolist.model.tag.UniqueTagList;
 import seedu.todolist.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * JAXB-friendly version of the Task.
@@ -18,7 +14,7 @@ public class XmlAdaptedTask {
     private String name;
 
     @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    private String locationParameter;
 
     /**
      * No-arg constructor for JAXB use.
@@ -33,10 +29,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
+        locationParameter = source.getLocationParameter().toString();
     }
 
     /**
@@ -45,12 +38,8 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> taskTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            taskTags.add(tag.toModelType());
-        }
         final Name name = new Name(this.name);
-        final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, tags);
+        final LocationParameter location = new LocationParameter(this.locationParameter);
+        return new Task(name, location);
     }
 }

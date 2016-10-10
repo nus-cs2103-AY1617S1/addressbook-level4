@@ -13,8 +13,8 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier").withTags("owesMoney", "friends").build();
+            alice =  new TaskBuilder().withName("Alice Pauline").withLocationParameter("home").build();
+            benson = new TaskBuilder().withName("Benson Meier").withLocationParameter("Kent Ridge MRT Station").build();
             carl = new TaskBuilder().withName("Carl Kurz").build();
             daniel = new TaskBuilder().withName("Daniel Meier").build();
             elle = new TaskBuilder().withName("Elle Meyer").build();
