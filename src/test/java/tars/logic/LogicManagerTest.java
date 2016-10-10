@@ -398,6 +398,7 @@ public class LogicManagerTest {
     public void execute_edit_invalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
         assertCommandBehavior("edit ", expectedMessage);
+        assertCommandBehavior("edit 1 -invalidFlag invalidArg", expectedMessage);
     }
 
     @Test
