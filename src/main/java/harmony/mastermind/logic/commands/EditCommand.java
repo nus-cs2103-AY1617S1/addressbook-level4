@@ -38,15 +38,19 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_SUMMARY = "Editting a task:"
                                                  + "\n"
+                                                 + "("
                                                  + COMMAND_KEYWORD_EDIT
-                                                 + " INDEX NAME at/TIME on/DATE [t/TAG]...";
+                                                 + " | "
+                                                 + COMMAND_KEYWORD_UPDATE
+                                                 + ") "
+                                                 + "<index> [name/\"<task_name>\"] [startDate/\"<start_date\">] [endDate/\"<end_date\">] [tags/<comma_spearated_tags>]";
 
-    public static final String MESSAGE_USAGE = COMMAND_KEYWORD_EDIT
-                                               + ": Edits the task identified by the index number used in the last task listing.\n"
-                                               + "Parameters: INDEX NAME at/TIME on/DATE [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_SUMMARY
+                                               + "\n"
+                                               + "Edits the task identified by the index number used in the last task listing.\n"
                                                + "Example: "
                                                + COMMAND_KEYWORD_EDIT
-                                               + " 1 task at/1000 on/0110";
+                                               + " 1 name/\"I change the task name to this, unspecified field are preserved.";
 
     public static final String MESSAGE_EDIT_TASK_PROMPT = "Edit the following task: %1$s";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task successfully edited: %1$s";

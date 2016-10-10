@@ -51,7 +51,9 @@ public class AddCommand extends Command implements Undoable {
                                                  + ") "
                                                  + " name/\"<taskName>\" [startDate/\"<start_date\">] [endDate/\"<end_date\">] [tags/<comma_spearated_tags>]";
 
-    public static final String MESSAGE_USAGE = "Example: "
+    public static final String MESSAGE_USAGE = COMMAND_SUMMARY
+                                               + "\n"
+                                               + "Example: "
                                                + COMMAND_KEYWORD_ADD
                                                + " name/\"do laundry\" startDate/\"today\" endDate/\"next friday 6pm\"";
 
@@ -69,15 +71,13 @@ public class AddCommand extends Command implements Undoable {
      */
     // event
     // @@author A0138862W
-    public AddCommand(String name, String startDate, String endDate, Set<String> tags)
-            throws IllegalValueException, ParseException {
+    public AddCommand(String name, String startDate, String endDate, Set<String> tags) throws IllegalValueException, ParseException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
 
-        this.toAdd = new Task(name, prettyTimeParser.parse(startDate).get(0), prettyTimeParser.parse(endDate).get(0),
-                new UniqueTagList(tagSet), false);
+        this.toAdd = new Task(name, prettyTimeParser.parse(startDate).get(0), prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet), false);
 
     }
 
