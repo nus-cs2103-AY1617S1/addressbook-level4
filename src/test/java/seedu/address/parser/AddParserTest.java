@@ -74,11 +74,11 @@ public class AddParserTest {
 		String arguments = "meet prof damith from: 10-08-2016 1900 to: 11-08-2016 1900 n:he is fierce";
 		
 		assertEquals("meet prof damith ", AddParser.parseCommand(arguments).get(1));
-		assertEquals("10-08-2016", AddParser.parseCommand(arguments).get(2));
-		assertEquals("1900", AddParser.parseCommand(arguments).get(3));
-		assertEquals("11-08-2016", AddParser.parseCommand(arguments).get(4));
-		assertEquals("1900", AddParser.parseCommand(arguments).get(5));
-		assertEquals("he is fierce", AddParser.parseCommand(arguments).get(6));
+		assertEquals("he is fierce", AddParser.parseCommand(arguments).get(2));
+		assertEquals("10-08-2016", AddParser.parseCommand(arguments).get(3));
+		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
+		assertEquals("11-08-2016", AddParser.parseCommand(arguments).get(5));
+		assertEquals("1900", AddParser.parseCommand(arguments).get(6));
 	}
 	
 	@Test
