@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.lifekeeper;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
@@ -70,8 +70,8 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyLifeKeeper> addressBookOptional;
+        ReadOnlyLifeKeeper initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if(!addressBookOptional.isPresent()){

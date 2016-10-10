@@ -87,11 +87,11 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `AddressBookChangedEvent` when the Lifekeeper data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -110,7 +110,7 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
@@ -132,7 +132,7 @@ The `UI` component,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
@@ -147,8 +147,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* stores the Lifekeeper data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -160,7 +160,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Lifekeeper data in xml format and read it back.
 
 ### Common classes
 
@@ -258,7 +258,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Lifekeeper depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -272,62 +272,156 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
+`* * *` | user | be able to quickly make changes onto his calendar with just one single step | focus on tasks at hand
+`* * *` | user | be able to set reminders for tasks | track his schedule despite being overwhelmed by work
+`* * *` | user | mark out completed task | remove entries that I no longer need
+`* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
+`* * *` | user | be able to view his schedule in a visual display |  understand the flow of tasks.
+`* * *` | user |  see uncompleted tasks that are overdue marked out in red
+`* *` | user | be able to block out multiple possible timings and confirm the exact timeslot at a later time
+`* *` | user | have access to his schedule even without internet access.
+`* *` | user | find out the next upcoming task without having to scan through the calendar or the task list.
+`* *` | user | see his tasks ranked in terms of priority
+`*` | user | share tasks with other colleagues working on the same tasks.
+`*` | user | see how his tasks are interrelated, since many of the tasks have prerequisites.
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Lifekeeper` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+
+#### Use case: Delete task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+Prerequisite steps:
+1. User requests to search for task that (s)he wishes to delete
+2. Lifekeeper shows an indexed list of tasks that matches the search 
+
+Preconditions:
+Lifekeeper has returned an indexed list of tasks that matches the search
+
+1. User finds the index of the task (s)he wants to delete and enters the index of the task to be deleted
+2. Lifekeeper asks the user to confirm the decision.
+3. User enters 'Yes' into the CLI
+4. Lifekeeper deletes the task, shows an acknowledgement message to user. <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. User cannot find the index of the task that (s)he wants to delete
 
-> Use case ends
+> 1a1. User types in command to go back to the previous menu. <br>
+  Users repeats the prerequisite steps 1-2. <br>
+  Use case ends
+
+1b. User does not want to delete any task
+
+> 1b1. User types in command to go back to previous menu
+  Use case ends
+
+1c. User keys in invalid index
+
+> 1c1. Lifekeeper gives an error message and returns an empty Command Box
+  Use case resumes at step 1
+
+3a. User types 'No' into the CLI
+
+> 3a1. Lifekeeper returns to the indexed list of tasks that was searched by the user. <br>
+  Use case ends
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. Lifekeeper shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+#### Use case: Edit task
+
+**MSS**
+
+Prerequisite steps:
+1. User requests to search for task that (s)he wishes to edit
+2. Lifekeeper shows an indexed list of tasks that matches the search
+3. User selects the correct task that (s)he wants to edit by entering the index of task
+
+Preconditions:
+User has already selected the task that (s)he wants to edit.
+
+Editing steps:
+1. Lifekeeper will return the Task with its corresponding parameters onto the CLI for users to directly edit.
+2. User will edit the Task parameters directly through the CLI, or add new parameters through the CLI
+3. Lifekeeper will update the Task parameters accordingly, and then show the updated Task and its parameters to the user.
+Use case ends.
+
+**Extensions**
+
+2a. Parameters input by user is invalid
+
+> 2a1. Lifekeeper shows the relevant error message to user (depending on the error found by Lifekeeper).
+> 2a2. Lifekeeper return the Task with its corresponding parameters onto the CLI for users to directly edit, and highlights the parameter that is causing the error
+> 2a3. User makes edits the parameters by changing the words on the CLI
+Repeat steps 2a1-2a3 until Lifekeeper judges that the input parameters are all valid
+Use case resumes from step 3.
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+5. Should be able to be opened by hotkey
+6. Should have clear documentations
+7. Should be user-friendly with neat layout
+8. Output should be exportable to another computer (example through XML files)
 
 ## Appendix D : Glossary
+
 
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### User-Friendly
 
-> A contact detail that is not meant to be shared with others
+> Intuitive to majority of the targeted users, they should be able to use the software with ease.
+
+##### Command-Line Interface
+
+> interface which works based on taking string of command as input
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+#### Google Calendar
 
+> 1. Reminder: allows user to set reminder ahead of the time of event/task
+
+> 2. Calendar display: user can view tasks in a calendar format
+
+#### Todoist
+
+> 1. Prioritize: allows user to set priority to see what tasks should be done first
+
+> 2. Categorization: user can categorize tasks, so that tasks can be viewed by categories
+
+#### Trello
+
+> 1. Selective visibility: enables members to view only the projects or tasks that are relevant to them
+
+> 2. Detailed categorisation: allows 3 levels of categorisations for tasks
+
+> 3. Message boards: permits members delegated to a certain task to hold discussions or ask questions
+
+#### Fantastical
+
+
+
+> 1. Widget on desktop/phone: users have an overview of the upcoming tasks without opening the application
+
+
+
+> 2. Calendar Sets: users can toggle between different calendars for different purposes - for example a work calendar and a family calendar
+
+
+
+> 3. Add events using Natural Language: users can add tasks and events using natural language and expect the details to be interpret and input automatically
