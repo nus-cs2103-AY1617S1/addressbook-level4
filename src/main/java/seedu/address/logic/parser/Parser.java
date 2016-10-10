@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
+import seedu.address.model.item.RecurrenceRate;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -10,6 +13,8 @@ import java.util.regex.Pattern;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import com.joestelmach.natty.*;
 
 /**
  * Parses user input.
@@ -26,13 +31,22 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
-    private static final Pattern FLOATING_TASK_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?i:(?<name>.*?)"
-                    + "(?:-+(?<priorityValue>\\w+))?$)");
+    //TODO: Parser failing test case "add complete stuff by mon, at myhouse, from 8am" because of ", at..."
+    final Pattern TASK_ARGS_FORMAT = Pattern.compile("(?i:(?<taskName>.*?)"
+                                                        +"(?:"
+                                                        +"(?:, by +(?<endDateFormatOne>.*?))"
+                                                        +"|(?:, from (?<startDateFormatOne>.*?))"
+                                                        +"|(?:, at (?<startDateFormatTwo>.*?))"
+                                                        +")?"
+                                                        +"(?: to (?<endDateFormatTwo>.*?))?"
+                                                        +"(?: repeat every (?<recurrenceRate>.*?))?"
+                                                        +"(?: -(?<priority>.*?))?)");
+    
+    final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?:.*?)?(?<rate>\\d+)(?:.*?)?");
 
     //TODO: Parser not fully functioning: case: eat bingsu by myself by 31 Sep (i.e repeat by)
-    //private static final Pattern TASK_ARGS_FORMAT = Pattern.compile("(?i:(?<name>.*))(?:by +((?<deadline1>.*)(?= repeat every +(?<interval>.*))|(?<deadline2>.*))(?:-+(?<priorityValue>\\w+))?$)");
-    //Pattern.compile("(?i:(?<name>.*))(?:by +(?<date>[^ ]*)(?: *(repeat every +(?<interval>.*)))?)$");
+    //private static final Pattern TASK_ARGS_FORMAT = Pattern.compile("(?i:(?<name>.*))(?:by +((?<deadline1>.*)(?= repeat every +(?<recurrenceRate>.*))|(?<deadline2>.*))(?:-+(?<priority>\\w+))?$)");
+    //Pattern.compile("(?i:(?<name>.*))(?:by +(?<date>[^ ]*)(?: *(repeat every +(?<recurrenceRate>.*)))?)$");
     
     public Parser() {}
 
@@ -88,49 +102,68 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = FLOATING_TASK_ARGS_FORMAT.matcher(args.trim());
-        //Validate arg string format
+        final Matcher matcher = TASK_ARGS_FORMAT.matcher(args.trim());
+
+        String taskName = null;
+        String startDate = null;
+        String endDate = null;
+        String recurrenceRate = null;
+        String priority = null;  
+        
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        String input = matcher.group("name").trim().toLowerCase();
-        String priority = matcher.group("priorityValue");
-        // format to use for now: -start -end to denote startdate enddate
-        // TODO: improve parsing
-        if (priority == null) {
-            priority = "medium";
-        }
+        
         try {
-            if (input.contains("-start") && input.contains("-end")) {
+            taskName = matcher.group("taskName");
+            
+            if (matcher.group("startDateFormatOne") != null) {
+                startDate = matcher.group("startDateFormatOne");
+            } else if (matcher.group("startDateFormatTwo") != null) {
+                startDate = matcher.group("startDateFormatTwo");
+            } 
+            
+            if (matcher.group("endDateFormatOne") != null) {
+                endDate = matcher.group("endDateFormatOne"); 
+            } else if (matcher.group("endDateFormatTwo") != null) {
+                endDate = matcher.group("endDateFormatTwo");
+            } 
+
+            if (matcher.group("recurrenceRate") != null) {
+                String tempRecurrenceRate = matcher.group("recurrenceRate");
+                int multiplier = generateMultiplier(tempRecurrenceRate);
                 
-                String name = input.substring(0, input.indexOf("-start"));
-                String startDate = input.substring(input.indexOf("-start")+6, input.indexOf("-end"));
-                String endDate = input.substring(input.indexOf("-end")+4);
-                
-                return new AddCommand(name, startDate, endDate, priority);
-                
-            } else if (input.contains("-start")) {
-                
-                String name = input.substring(0, input.indexOf("-start"));
-                String startDate = input.substring(input.indexOf("-start")+6);
-                
-                return new AddCommand(name, startDate, null, priority);
-                
-            } else if (input.contains("-end")) {
-                
-                String name = input.substring(0, input.indexOf("-end"));
-                String endDate = input.substring(input.indexOf("-end")+4);
-                
-                return new AddCommand(name, null, endDate, priority);
-                
+                final Matcher matcherRecurrence = RECURRENCE_RATE_ARGS_FORMAT.matcher(tempRecurrenceRate);
+                if (!matcherRecurrence.matches()) {
+                    recurrenceRate = Integer.toString(multiplier);
+                } else { //TODO: Else-if?
+                    recurrenceRate = Integer.toString(multiplier * Integer.parseInt(matcherRecurrence.group("rate")));
+                }
+            } 
+
+            if (matcher.group("priority") != null) {
+                priority = matcher.group("priority");
             } else {
-                String name = input;
-                return new AddCommand(name, null, null, priority);
+                priority = "medium";
             }
+            return new AddCommand(taskName, startDate, endDate, recurrenceRate, priority);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
+    }
+
+    //TODO: Comments
+    private int generateMultiplier(String tempRecurrenceRate) {
+        if (tempRecurrenceRate.contains("day")) {
+            return 1;
+        } else if (tempRecurrenceRate.contains("week")) {
+            return 7;
+        } else if (tempRecurrenceRate.contains("month")) { //TODO: This is problematic. 
+            return 30;
+        } else {
+            return -1;
+        }
     }
 
     /**
