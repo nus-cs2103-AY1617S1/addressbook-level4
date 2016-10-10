@@ -22,6 +22,8 @@ import java.util.logging.Logger;
 public class PersonListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
+    public static final int DATED_DISPLAY_INDEX_OFFSET = 0;
+    public static final int UNDATED_DISPLAY_INDEX_OFFSET = 10;
     private VBox panel;
     private AnchorPane placeHolderPane;
     private int indexOffset;

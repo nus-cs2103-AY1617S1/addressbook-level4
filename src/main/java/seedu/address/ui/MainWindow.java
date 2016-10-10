@@ -20,8 +20,8 @@ import seedu.address.model.UserPrefs;
  */
 public class MainWindow extends UiPart {
 
-    private static final int DATED_DISPLAY_INDEX_OFFSET = 0;
-    private static final int UNDATED_DISPLAY_INDEX_OFFSET = 10;
+    public static final int DATED_DISPLAY_INDEX_OFFSET = 0;
+    public static final int UNDATED_DISPLAY_INDEX_OFFSET = 10;
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
@@ -111,8 +111,10 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         // browserPanel = BrowserPanel.load(browserPlaceholder);
-        undatedListPanel = PersonListPanel.load(primaryStage, browserPlaceholder , logic.getFilteredPersonList(), UNDATED_DISPLAY_INDEX_OFFSET);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUndatedTaskList(), DATED_DISPLAY_INDEX_OFFSET);
+        undatedListPanel = PersonListPanel.load(primaryStage, browserPlaceholder,
+                logic.getFilteredPersonList(), PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET);
+        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(),
+                logic.getFilteredUndatedTaskList(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
