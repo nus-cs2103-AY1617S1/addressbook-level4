@@ -1,7 +1,10 @@
 package seedu.address.model.task;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
 import java.util.Date;
 import java.util.Objects;
@@ -73,6 +76,19 @@ public class Task implements ReadOnlyTask {
     public void setLocation(Location address) {
         this.address = address;
     }
+    
+
+    /**
+     * Add completed tag to indicate task done.
+     */
+    public void markComplete() throws DuplicateTagException {
+        try {
+            this.tags.add(new Tag("Completed"));
+        } catch (IllegalValueException ive) {
+            assert false : "The tag cannot be illegal value";
+        }
+    }
+    
     
     public void copyField(Task task) {
         setName(task.getName());

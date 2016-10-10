@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -93,6 +94,20 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
         tasks.edit(oldTask, newTask);
         syncTagsWithMasterList(newTask);
 
+    }
+    
+    /**
+     * Marks a task in the task scheduler as completed
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *g
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws DuplicateTagException 
+     */
+    public void markTask(ReadOnlyTask task) 
+            throws UniqueTaskList.TaskNotFoundException, DuplicateTagException {
+        syncTagsWithMasterList((Task)task);
+        tasks.mark(task);
     }
 
     /**

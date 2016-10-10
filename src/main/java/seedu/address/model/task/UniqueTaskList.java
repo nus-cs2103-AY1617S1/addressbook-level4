@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -75,6 +76,23 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
         internalList.set(index, toCopy);
+    }
+    
+    /**
+     * Marks a task to the list as completed.
+     *
+     * @throws TaskNotFoundException
+     * @throws DuplicateTagException if the task is already complete.
+     */
+    public void mark(ReadOnlyTask toMark) throws TaskNotFoundException, DuplicateTagException{
+        assert toMark != null;
+        int index = internalList.indexOf(toMark);
+        if (index < 0) {
+            throw new TaskNotFoundException();
+        }
+        Task newTask = new Task(toMark);
+        newTask.markComplete();
+        internalList.set(index, newTask);
     }
 
     /**

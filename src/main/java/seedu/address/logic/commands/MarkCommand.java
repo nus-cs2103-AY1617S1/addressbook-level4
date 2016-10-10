@@ -2,30 +2,29 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
-/**
- * Deletes a person identified using it's last displayed index from the address book.
- */
-public class DeleteCommand extends Command {
-
-    public static final String COMMAND_WORD = "delete";
+public class MarkCommand extends Command {
+    
+    public static final String COMMAND_WORD = "mark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last tasks listing.\n"
+            + ": Marks the task identified by the index number used in the last tasks listing as completed.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Completed Task: %1$s";
+    public static final String MESSAGE_MARK_TASK_FAIL = "This task is already completed.";
 
     public final int targetIndex;
 
-    public DeleteCommand(int targetIndex) {
+    public MarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-
-
+    
     @Override
     public CommandResult execute() {
 
@@ -36,15 +35,16 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deleteTask(taskToDelete);
+            model.markTask(taskToMark);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
+        } catch (DuplicateTagException e) {
+            return new CommandResult(MESSAGE_MARK_TASK_FAIL);
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }
-
 }

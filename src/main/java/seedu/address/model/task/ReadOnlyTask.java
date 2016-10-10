@@ -45,9 +45,9 @@ public interface ReadOnlyTask {
                 .append(" Due Date: ")
                 .append(DateFormatter.convertDateToDisplayString(getEndDate()))
                 .append(" Location: ")
-                .append(getLocation())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getLocation());
+//                .append(" Tags: ");
+//        getTags().forEach(builder::append);
         return builder.toString();
     }
 
