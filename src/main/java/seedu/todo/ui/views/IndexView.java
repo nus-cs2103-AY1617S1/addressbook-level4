@@ -41,7 +41,7 @@ public class IndexView extends View {
 	private void loadComponents() {
 		// Render TagList
 		TagList tagList = new TagList();
-		tagList.setHookModifyView(v -> {
+		tagList.passInProps(v -> {
 			TagList view = (TagList) v;
 			
 			// Temp
@@ -74,7 +74,7 @@ public class IndexView extends View {
 		
 		// Render TaskList
 		TaskList taskList = new TaskList();
-		taskList.setHookModifyView(v -> {
+		taskList.passInProps(v -> {
 			TaskList view = (TaskList) v;
 			view.tasks = tasks;
 			return view;

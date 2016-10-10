@@ -13,10 +13,10 @@ public abstract class View extends UiPart {
     protected Pane placeHolderPane;
     protected VBox mainNode;
     
-    private Function<View, View> modifyViewHook;
+    private Function<View, View> setPropsCallback;
     
-    public void setHookModifyView(Function<View, View> modifyViewHook) {
-    	this.modifyViewHook = modifyViewHook;
+    public void passInProps(Function<View, View> setPropsCallback) {
+    	this.setPropsCallback = setPropsCallback;
     }
 	
     /**
@@ -29,8 +29,8 @@ public abstract class View extends UiPart {
      */
 	public View render(Stage primaryStage, Pane placeholder) {
 		// Load FXML.
-		if (modifyViewHook != null)
-			return UiPartLoader.loadUiPart(primaryStage, placeholder, this, modifyViewHook);
+		if (setPropsCallback != null)
+			return UiPartLoader.loadUiPart(primaryStage, placeholder, this, setPropsCallback);
 		else
 			return UiPartLoader.loadUiPart(primaryStage, placeholder, this);
 	}

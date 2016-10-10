@@ -71,7 +71,7 @@ public class MainWindow extends View {
     private void loadComponents() {
     	// Load Header
     	Header header = new Header();
-    	header.setHookModifyView(controller -> {
+    	header.passInProps(controller -> {
     		Header headerController = (Header) controller;
     		headerController.versionString = MainApp.VERSION.toString();
     		return headerController;

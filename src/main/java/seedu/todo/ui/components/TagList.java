@@ -58,7 +58,7 @@ public class TagList extends Component {
 			String label = linkLabels[i];
 			String iconPath = linkIconPaths[i];
 			
-			link.setHookModifyView(c -> {
+			link.passInProps(c -> {
 				TagListLink comp = (TagListLink) c;
 				comp.linkLabel = label;
 				comp.iconPath = iconPath;
@@ -75,7 +75,7 @@ public class TagList extends Component {
 		for (String tag : tags) {
 			TagListItem item = new TagListItem();
 
-			item.setHookModifyView(c -> {
+			item.passInProps(c -> {
 				TagListItem comp = (TagListItem) c;
 				comp.tag = tag;
 				return comp;
