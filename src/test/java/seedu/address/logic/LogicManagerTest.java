@@ -2,21 +2,21 @@ package seedu.address.logic;
 
 import com.google.common.eventbus.Subscribe;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.model.TaskListChangedEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.*;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.TaskList;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.*;
-import seedu.address.storage.StorageManager;
+import seedu.tasklist.commons.core.EventsCenter;
+import seedu.tasklist.commons.events.model.TaskListChangedEvent;
+import seedu.tasklist.commons.events.ui.JumpToListRequestEvent;
+import seedu.tasklist.commons.events.ui.ShowHelpRequestEvent;
+import seedu.tasklist.logic.Logic;
+import seedu.tasklist.logic.LogicManager;
+import seedu.tasklist.logic.commands.*;
+import seedu.tasklist.model.Model;
+import seedu.tasklist.model.ModelManager;
+import seedu.tasklist.model.ReadOnlyTaskList;
+import seedu.tasklist.model.TaskList;
+import seedu.tasklist.model.tag.Tag;
+import seedu.tasklist.model.tag.UniqueTagList;
+import seedu.tasklist.model.task.*;
+import seedu.tasklist.storage.StorageManager;
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +31,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.tasklist.commons.core.Messages.*;
 
 public class LogicManagerTest {
 

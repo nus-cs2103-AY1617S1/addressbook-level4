@@ -6,10 +6,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.core.Config;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.FileUtil;
+import seedu.tasklist.commons.core.Config;
+import seedu.tasklist.commons.exceptions.DataConversionException;
+import seedu.tasklist.commons.util.ConfigUtil;
+import seedu.tasklist.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,8 +79,8 @@ public class ConfigUtilTest {
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setAddressBookFilePath("addressbook.xml");
-        config.setAddressBookName("TypicalAddressBookName");
+        config.setTaskListFilePath("addressbook.xml");
+        config.setTaskListName("TypicalAddressBookName");
         return config;
     }
 
