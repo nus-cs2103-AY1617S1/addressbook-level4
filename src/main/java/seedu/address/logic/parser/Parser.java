@@ -51,6 +51,10 @@ public class Parser {
                     + " ed/(?<endDate>[^/]+)"
                     + " et/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<targetIndex>.+)"
+                    + " n/(?<name>[^/]+)");
 
     public Parser() {}
 
@@ -73,6 +77,8 @@ public class Parser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
@@ -100,7 +106,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add item command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -193,6 +199,28 @@ public class Parser {
     }
 
     /**
+     * Parses arguments in the context of the edit item command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
+        if (matcher.matches()) {
+            Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+            if(index.isPresent()){
+                try {
+                    return new EditCommand(index.get(), matcher.group("name"));
+                } catch (IllegalValueException ive) {
+                    return new IncorrectCommand(ive.getMessage());
+                }
+            }
+        }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    }
+    
+
+    /**
      * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
@@ -238,7 +266,7 @@ public class Parser {
 
         return new SelectCommand(index.get());
     }
-
+    
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.

@@ -10,7 +10,9 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
     protected Model model;
-
+    
+    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the task manager";
+    
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *
@@ -18,7 +20,7 @@ public abstract class Command {
      * @return summary message for persons displayed
      */
     public static String getMessageForPersonListShownSummary(int displaySize) {
-        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displaySize);
+        return String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, displaySize);
     }
 
     /**

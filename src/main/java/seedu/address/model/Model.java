@@ -17,19 +17,22 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given person. */
+    /** Deletes the given item. */
     void deleteItem(ReadOnlyItem target) throws UniquePersonList.PersonNotFoundException;
 
-    /** Adds the given person */
+    /** Adds the given item */
     void addItem(Item item) throws UniquePersonList.DuplicatePersonException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyItem>} */
+    /** Replaces the given item */
+    void replaceItem(ReadOnlyItem target, Item toReplace) throws UniquePersonList.PersonNotFoundException, UniquePersonList.DuplicatePersonException;
+    
+    /** Returns the filtered item list as an {@code UnmodifiableObservableList<ReadOnlyItem>} */
     UnmodifiableObservableList<ReadOnlyItem> getFilteredPersonList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Updates the filter of the filtered person list to show all items */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    /** Updates the filter of the filtered item list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
 
 }

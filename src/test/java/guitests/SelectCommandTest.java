@@ -5,6 +5,8 @@ import org.junit.Test;
 import seedu.address.model.item.ReadOnlyItem;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
+
 
 public class SelectCommandTest extends TaskManagerGuiTest {
 
@@ -36,7 +38,7 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("The person index provided is invalid");
+        assertResultMessage(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
 
     private void assertSelectionSuccess(int index) {

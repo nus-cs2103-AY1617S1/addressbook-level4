@@ -76,6 +76,14 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    @Override
+    public synchronized void replaceItem(ReadOnlyItem target, Item toReplace) 
+            throws PersonNotFoundException, UniquePersonList.DuplicatePersonException {
+        addressBook.replaceItem(target, toReplace);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
 
     //=========== Filtered Item List Accessors ===============================================================
 

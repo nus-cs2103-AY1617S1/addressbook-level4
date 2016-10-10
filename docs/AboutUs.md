@@ -31,7 +31,7 @@ Responsibilities: Model
 -----
 
 #### [Yeo Kai Yan](http://github.com/kaiyanyeo)
-<img src="images/KaiYan_Pic.jpg" width="150"><br>
+<img src="images/KaiYan_Pic.jpg" width="150" height="150"><br>
 Role: Code Quality / Eclipse Expert <br>
 Responsibilities: Storage
 
