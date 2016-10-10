@@ -12,12 +12,11 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
 	
-    private Detail detail; //name
-    private Done done;
-    private DueByDate dueByDate; //phone
-    private DueByTime dueByTime; //email
-    private Priority priority; //address
-
+    private Detail detail;
+    private Done done = new Done();
+    private DueByDate dueByDate;
+    private DueByTime dueByTime; 
+    private Priority priority;
     private UniqueTagList tags;
 
     /**
@@ -32,7 +31,7 @@ public class Task implements ReadOnlyTask {
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
-
+    
     /**
      * Copy constructor.
      */
