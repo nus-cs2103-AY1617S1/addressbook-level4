@@ -233,11 +233,15 @@ If you know the index of the task
 
 To store in an absolute path
 
-1.Type ‘store /path/to/storage/folder’.
-2.Press Enter.
+1. Type ‘store /path/to/storage/folder’.
+<br>
+
+2. Press Enter.
 
 To store in a relative path
 
-1.Type ‘store path/to/storage/folder’
-2.Press Enter.
+1. Type ‘store path/to/storage/folder’
+<br>
+
+2. Press Enter.
 
