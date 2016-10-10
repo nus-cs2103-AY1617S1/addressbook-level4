@@ -34,8 +34,8 @@ public class TimeUtilTest {
          * Is only used for dependency injection in testing time sensitive components.
          */
         public ModifiedTimeUtil (LocalDateTime pseudoCurrentTime) {
-            this.clock = Clock.fixed(pseudoCurrentTime.toInstant(
-                    ZoneId.systemDefault().getRules().getOffset(pseudoCurrentTime)), ZoneId.systemDefault());
+            this(Clock.fixed(pseudoCurrentTime.toInstant(
+                    ZoneId.systemDefault().getRules().getOffset(pseudoCurrentTime)), ZoneId.systemDefault()));
         }
     }
     
@@ -211,4 +211,25 @@ public class TimeUtilTest {
         TimeUtil timeUtil = new TimeUtil();
         timeUtil.getEventTimeText(LocalDateTime.now(), null);
     }
+    
+    @Test (expected = AssertionError.class)
+    public void isOverdue_nullEndTime() {
+        TimeUtil timeUtil = new TimeUtil();
+        timeUtil.isOverdue(null);
+    }
+    
+    @Test
+    public void isOverdue_endTimeAfterNow() {
+        TimeUtil timeUtil = new ModifiedTimeUtil(LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 34));
+        LocalDateTime laterEndTime = LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 35);
+        assertFalse(timeUtil.isOverdue(laterEndTime));
+    }
+    
+    @Test
+    public void isOverdue_endTimeBeforeNow() {
+        TimeUtil timeUtil = new ModifiedTimeUtil(LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 36));
+        LocalDateTime laterEndTime = LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 35);
+        assertTrue(timeUtil.isOverdue(laterEndTime));
+    }
+    
 }

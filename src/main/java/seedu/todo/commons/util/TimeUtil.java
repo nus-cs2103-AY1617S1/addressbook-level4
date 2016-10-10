@@ -124,4 +124,9 @@ public class TimeUtil {
     private boolean isSameYear(LocalDateTime dateTime1, LocalDateTime dateTime2) {
         return dateTime1.getYear() == dateTime2.getYear();
     }
+    
+    public boolean isOverdue(LocalDateTime endTime) {
+        assert (endTime != null);
+        return endTime.isBefore(LocalDateTime.now(clock));
+    }
 }
