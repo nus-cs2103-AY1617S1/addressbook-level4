@@ -8,17 +8,17 @@ import seedu.menion.model.tag.UniqueTagList;
  */
 public class TestPerson implements ReadOnlyActivity {
 
-    private Name name;
+    private ActivityName name;
     private Priority address;
     private Reminder email;
-    private Deadline phone;
+    private DeadlineDate phone;
     private UniqueTagList tags;
 
     public TestPerson() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
+    public void setName(ActivityName name) {
         this.name = name;
     }
 
@@ -30,17 +30,17 @@ public class TestPerson implements ReadOnlyActivity {
         this.email = email;
     }
 
-    public void setPhone(Deadline phone) {
+    public void setPhone(DeadlineDate phone) {
         this.phone = phone;
     }
 
     @Override
-    public Name getName() {
+    public ActivityName getName() {
         return name;
     }
 
     @Override
-    public Deadline getDeadline() {
+    public DeadlineDate getDeadline() {
         return phone;
     }
 

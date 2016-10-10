@@ -11,8 +11,8 @@ import java.util.Objects;
  */
 public class Activity implements ReadOnlyActivity {
 
-    private Name name;
-    private Deadline deadline;
+    private ActivityName name;
+    private DeadlineDate deadline;
     private Reminder reminder;
     private Priority priority;
 
@@ -21,7 +21,7 @@ public class Activity implements ReadOnlyActivity {
     /**
      * Every field must be present and not null.
      */
-    public Activity(Name name, Deadline deadline, Reminder reminder, Priority priority, UniqueTagList tags) {
+    public Activity(ActivityName name, DeadlineDate deadline, Reminder reminder, Priority priority, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, deadline, reminder, priority, tags);
         this.name = name;
         this.deadline = deadline;
@@ -38,12 +38,12 @@ public class Activity implements ReadOnlyActivity {
     }
 
     @Override
-    public Name getName() {
+    public ActivityName getName() {
         return name;
     }
 
     @Override
-    public Deadline getDeadline() {
+    public DeadlineDate getDeadline() {
         return deadline;
     }
 

@@ -8,8 +8,8 @@ import seedu.menion.model.tag.UniqueTagList;
  */
 public interface ReadOnlyActivity {
 
-    Name getName();
-    Deadline getDeadline();
+    ActivityName getName();
+    DeadlineDate getDeadline();
     Reminder getReminder();
     Priority getPriority();
 
