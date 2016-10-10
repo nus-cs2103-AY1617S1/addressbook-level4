@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
