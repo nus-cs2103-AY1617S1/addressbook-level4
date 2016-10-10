@@ -20,11 +20,14 @@ This project uses
 
 ### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later. 
-2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+1. **A git client**. If you're on Linux you should already have one installed on your command line. For Windows 
+and OS X you can use [SourceTree][sourcetree] if you are more comfortable with using GUI
+2. [**JDK 1.8.0_60**][jdk]  or later. Please use Oracle's because it comes with JavaFX, which is needed for 
+developing the application's UI.
+3. **Eclipse** IDE
+4. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+5. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 
 #### Importing the project into Eclipse
@@ -107,7 +110,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 <img src="images/SDforDeletePersonEventHandling.png" width="800">
 
-!!! note Event Driven Design 
+!!! note "Event Driven Design" 
 
     Note how the event is propagated through the `EventsCenter` to `UI` without `Model` having
     to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
@@ -738,11 +741,14 @@ any missing dependencies before compiling the test classes.
 See `build.gradle` > `allprojects` > `dependencies` > `testCompile` for the list of 
 dependencies required.
 
-* [CRUD]: Create, Retrieve, Update, Delete
-
+*[CRUD]: Create, Retrieve, Update, Delete
+*[GUI]: Graphical User Interface
+*[UI]: User interface
 
 [repo]: https://github.com/CS2103AUG2016-W10-C4/main/
 
+[sourcetree]: https://www.sourcetreeapp.com/
+[jdk]: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 [eclipse]: https://eclipse.org/downloads/
 [travis]: https://travis-ci.org/CS2103AUG2016-W10-C4/main
 [coveralls]: https://coveralls.io/github/CS2103AUG2016-W10-C4/main

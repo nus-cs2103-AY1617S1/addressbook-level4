@@ -109,7 +109,10 @@ who to contact when you're lost.</p>
 <h2 id="setting-up">Setting up<a class="headerlink" href="#setting-up" title="Permanent link">#</a></h2>
 <h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h3>
 <ol>
-<li><strong>JDK <code>1.8.0_60</code></strong>  or later. </li>
+<li><strong>A git client</strong>. If you're on Linux you should already have one installed on your command line. For Windows 
+and OS X you can use <a href="https://www.sourcetreeapp.com/">SourceTree</a> if you are more comfortable with using <abbr title="Graphical User Interface">GUI</abbr></li>
+<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"><strong>JDK 1.8.0_60</strong></a>  or later. Please use Oracle's because it comes with JavaFX, which is needed for 
+developing the application's <abbr title="User interface">UI</abbr>.</li>
 <li><strong>Eclipse</strong> IDE</li>
 <li><strong>e(fx)clipse</strong> plugin for Eclipse (Do the steps 2 onwards given in
    <a href="http://www.eclipse.org/efxclipse/install.html#for-the-ambitious">this page</a>)</li>
@@ -178,33 +181,29 @@ interface and exposes its functionality using the <code>LogicManager.java</code>
 command <code>delete 3</code>.</p>
 <p><img src="images/SDforDeletePerson.png" width="800"></p>
 <p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. </p>
+being saved to the hard disk and the status bar of the <abbr title="User interface">UI</abbr> being updated to reflect the 'Last Updated' time. </p>
 <p><img src="images/SDforDeletePersonEventHandling.png" width="800"></p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-</div>
-<p>Event Driven Design </p>
-<div class="codehilite"><pre><span></span>Note how the event is propagated through the `EventsCenter` to `UI` without `Model` having
+<p class="admonition-title">Event Driven Design</p>
+<p>Note how the event is propagated through the <code>EventsCenter</code> to <code>UI</code> without <code>Model</code> having
 to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
-coupling between components.
-</pre></div>
-
-
+coupling between components.</p>
+</div>
 <p>The sections below give more details of each component.</p>
-<h3 id="ui-component">UI component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3>
+<h3 id="ui-component"><abbr title="User interface">UI</abbr> component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3>
 <p><img src="diagrams/Ui Component.png" class="u-max-full-width"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/ui/Ui.java"><code>Ui.java</code></a></p>
-<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandInputView</code>, <code>CommandFeedbackView</code>, <code>TodoListPanel</code>, <code>StatusBarFooter</code>, etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class and they can be loaded using the <code>UiPartLoader</code>.</p>
-<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="../src/main/java/seedu/todo/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
+<p>The <abbr title="User interface">UI</abbr> consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandInputView</code>, <code>CommandFeedbackView</code>, <code>TodoListPanel</code>, <code>StatusBarFooter</code>, etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class and they can be loaded using the <code>UiPartLoader</code>.</p>
+<p>The <code>UI</code> component uses JavaFx <abbr title="User interface">UI</abbr> framework. The layout of these <abbr title="User interface">UI</abbr> parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="../src/main/java/seedu/todo/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
  <a href="../src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
 <p>The <code>UI</code> component,
 <em> Executes user commands using the <code>Logic</code> component.
-</em> Binds itself to some data in the <code>Model</code> so that the UI can auto-update when data in the <code>Model</code> change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.</p>
+</em> Binds itself to some data in the <code>Model</code> so that the <abbr title="User interface">UI</abbr> can auto-update when data in the <code>Model</code> change.
+* Responds to events raised from various parts of the App and updates the <abbr title="User interface">UI</abbr> accordingly.</p>
 <h3 id="logic-component">Logic component<a class="headerlink" href="#logic-component" title="Permanent link">#</a></h3>
 <p><img src="images/LogicClassDiagram.png" width="800"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/logic/Logic.java"><code>Logic.java</code></a></p>
-<p>The logic component is the glue sitting between the UI and the data model. It consists of three separate 
+<p>The logic component is the glue sitting between the <abbr title="User interface">UI</abbr> and the data model. It consists of three separate 
 subcomponents, each of which also defines their own API using interfaces or abstract classes - </p>
 <ul>
 <li><code>Parser</code> - turns user input into command and arguments </li>
@@ -233,10 +232,10 @@ the command the user called</li>
 <li><code>Storage</code> - representing the application's data on disk  </li>
 </ul>
 <p>The model interface is injected into command objects by the logic component, and exposes a 
-CRUD interface that allows commands to modify the application's data. To avoid tight coupling with 
-the command classes, the model exposes only a small set of generic functions. The UI component 
+<abbr title="Create, Retrieve, Update, Delete">CRUD</abbr> interface that allows commands to modify the application's data. To avoid tight coupling with 
+the command classes, the model exposes only a small set of generic functions. The <abbr title="User interface">UI</abbr> component 
 binds to the  the model through the <code>getObservableList</code> function which returns an <code>UnmodifiableObseravbleList</code>
-object that the UI can bind to.</p>
+object that the <abbr title="User interface">UI</abbr> can bind to.</p>
 <p>The model ensure safety by exposing as much of its internal state as possible as immutable objects 
 using interfaces such as <code>ImmutableTask</code>.</p>
 <p><img src="diagrams/Storage Component.png" class="container u-max-full-width"></p>
@@ -408,11 +407,11 @@ as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-e
 <p>We have two types of tests:</p>
 <ol>
 <li>
-<p><strong>GUI Tests</strong> - These are <em>System Tests</em> that test the entire App by simulating user actions on the GUI.
+<p><strong><abbr title="Graphical User Interface">GUI</abbr> Tests</strong> - These are <em>System Tests</em> that test the entire App by simulating user actions on the <abbr title="Graphical User Interface">GUI</abbr>.
    These are in the <code>guitests</code> package.</p>
 </li>
 <li>
-<p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
+<p><strong>Non-<abbr title="Graphical User Interface">GUI</abbr> Tests</strong> - These are tests not involving the <abbr title="Graphical User Interface">GUI</abbr>. They include,</p>
 <ol>
 <li><strong>Unit tests</strong> - targeting the lowest level methods/classes.<br />
   e.g. <code>seedu.todo.commons.UrlUtilTest</code></li>
@@ -425,10 +424,10 @@ as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-e
 </ol>
 </li>
 </ol>
-<h3 id="headless-gui-testing">Headless GUI Testing<a class="headerlink" href="#headless-gui-testing" title="Permanent link">#</a></h3>
+<h3 id="headless-gui-testing">Headless <abbr title="Graphical User Interface">GUI</abbr> Testing<a class="headerlink" href="#headless-gui-testing" title="Permanent link">#</a></h3>
 <p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use,
- our GUI tests can be run in the <em>headless</em> mode.
- In the headless mode, GUI tests do not show up on the screen.
+ our <abbr title="Graphical User Interface">GUI</abbr> tests can be run in the <em>headless</em> mode.
+ In the headless mode, <abbr title="Graphical User Interface">GUI</abbr> tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.</p>
 <p>See <a href="UsingGradle.md#running-tests">UsingGradle.md</a> to learn how to run tests in headless mode.</p>
 <h2 id="dev-ops">Dev Ops<a class="headerlink" href="#dev-ops" title="Permanent link">#</a></h2>
@@ -788,13 +787,13 @@ To create a fat JAR file, we use the <a href="https://github.com/johnrengelman/s
 <h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">#</a></h3>
 <p><strong><code>allTests</code></strong> - Runs all tests.</p>
 <p><strong><code>guiTests</code></strong> - Runs all tests in the <code>guitests</code> package</p>
-<p><strong><code>nonGuiTests</code></strong> - Runs all non-GUI tests in the <code>seedu.address</code> package</p>
+<p><strong><code>nonGuiTests</code></strong> - Runs all non-<abbr title="Graphical User Interface">GUI</abbr> tests in the <code>seedu.address</code> package</p>
 <p><strong><code>headless</code></strong> - Sets the test mode as <em>headless</em>. 
   The mode is effective for that Gradle run only so it should be combined with other test tasks.</p>
 <p>Here are some examples:</p>
 <ul>
 <li><code>./gradlew headless allTests</code> -- Runs all tests in headless mode</li>
-<li><code>./gradlew clean nonGuiTests</code> -- Cleans the project and runs non-GUI tests</li>
+<li><code>./gradlew clean nonGuiTests</code> -- Cleans the project and runs non-<abbr title="Graphical User Interface">GUI</abbr> tests</li>
 </ul>
 <h3 id="updating-dependencies">Updating Dependencies<a class="headerlink" href="#updating-dependencies" title="Permanent link">#</a></h3>
 <p>There is no need to run these Gradle tasks manually as they are called automatically by other 
@@ -806,9 +805,6 @@ any missing dependencies before compiling the classes.  </p>
 any missing dependencies before compiling the test classes.</p>
 <p>See <code>build.gradle</code> &gt; <code>allprojects</code> &gt; <code>dependencies</code> &gt; <code>testCompile</code> for the list of 
 dependencies required.</p>
-<ul>
-<li>[CRUD]: Create, Retrieve, Update, Delete</li>
-</ul>
 </div>
 </body>
 </html>
