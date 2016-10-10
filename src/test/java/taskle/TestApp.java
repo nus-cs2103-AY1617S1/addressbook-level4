@@ -18,7 +18,8 @@ import java.util.function.Supplier;
  */
 public class TestApp extends MainApp {
 
-    public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final String SAVE_FILE_FOR_TESTING = "sampleData.xml";
+    public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder(SAVE_FILE_FOR_TESTING);
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
@@ -45,7 +46,8 @@ public class TestApp extends MainApp {
     protected Config initConfig(String configFilePath) {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
-        config.setTaskManagerFileDirectory(saveFileLocation);
+        config.setTaskManagerFileDirectory(TestUtil.SANDBOX_FOLDER);
+        config.setTaskManagerFileName(SAVE_FILE_FOR_TESTING);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
         config.setTaskManagerName(ADDRESS_BOOK_NAME);
         return config;
