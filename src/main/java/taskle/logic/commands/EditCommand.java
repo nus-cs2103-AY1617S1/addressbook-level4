@@ -44,7 +44,7 @@ public class EditCommand extends Command {
         }
 
         ModifiableTask taskToEdit = lastShownList.get(targetIndex - 1);
-        String name = taskToEdit.getName().fullName;
+        String oldName = taskToEdit.getName().fullName;
         try {
             try {
                 model.editTask(taskToEdit, newName);
@@ -55,7 +55,7 @@ public class EditCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, name));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, oldName + " -> " + newName));
     }
 
 }

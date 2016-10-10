@@ -326,7 +326,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helperTest.generateEditCommand(index, taskName),
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, oldName),
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, oldName + " -> " + taskName),
                 expectedAB,
                 expectedAB.getTaskList());
     }

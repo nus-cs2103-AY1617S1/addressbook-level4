@@ -29,7 +29,8 @@ public class EditCommandTest extends AddressBookGuiTest{
         String newTaskName = "Buy Groceries";
         Name newName = new Name(newTaskName);
         String command = buildCommand("1", newTaskName);
-        assertEditResultSuccess(command, newTaskName);
+        String oldName = td.attendMeeting.getName().fullName;
+        assertEditResultSuccess(command, oldName + " -> " + newTaskName);
         TaskCardHandle addedCard = taskListPanel.navigateToPerson(newTaskName);
         FloatTask newTask = new FloatTask(newName, new UniqueTagList());
         assertMatching(newTask, addedCard);
