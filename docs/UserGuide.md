@@ -19,7 +19,7 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`display`**` today` : lists all tasks scheduled for today
+   * **`show`**` today` : lists all tasks scheduled for today
    * **`add`**` buy eggs by 5pm today` : 
      remind yourself to get some eggs by 5pm today
    * **`delete`**` 1` : deletes the first task shown in the to-do list
