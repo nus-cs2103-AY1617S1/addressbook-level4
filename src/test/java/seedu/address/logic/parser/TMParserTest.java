@@ -14,9 +14,10 @@ public class TMParserTest {
 
 	private TMParser parser = new TMParser();
 	private IncorrectCommand incorrectCommand = new IncorrectCommand("test");
+	
 
 	@Test
-	public void parseCommand_userInput_incorrectCommandReturned() {
+	public void parseCommand_whitespaceInput_incorrectCommandReturned() {
 		String userInput = "       ";
 		Command command = parser.parseUserInput(userInput);
 
@@ -31,62 +32,10 @@ public class TMParserTest {
 		assertEquals(incorrectCommand.getClass(), command.getClass());
 	}
 	
-	@Test
-	public void parseCommand_addDeadlineNoArgs_incorrectCommandReturned() {
-		String userInput = "add deadline";
-		Command command = parser.parseUserInput(userInput);
-
-		assertEquals(incorrectCommand.getClass(), command.getClass());
-	}
 	
-	@Test
-	public void parseCommand_addDeadlineNoDate_incorrectCommandReturned() {
-		String userInput = "add deadline 'submission' at 5:00pm";
-		Command command = parser.parseUserInput(userInput);
-
-		assertEquals(incorrectCommand.getClass(), command.getClass());
-	}
-	
-	@Test
-	public void parseCommand_addDeadlineNoTime_incorrectCommandReturned() {
-		String userInput = "add deadline 'submission' by 36/2/";
-		Command command = parser.parseUserInput(userInput);
-
-		assertEquals(incorrectCommand.getClass(), command.getClass());
-	}
-	
-	@Test
-	public void parseCommand_addDeadlineInvalidOrder_incorrectCommandReturned() {
-		String userInput = "add deadline by 25/16/16 'submission' 4am";
-		Command command = parser.parseUserInput(userInput);
-
-		assertEquals(incorrectCommand.getClass(), command.getClass());
-	}
-	
-	@Test
-	public void parseCommand_addDeadlineValid_nullReturned() {
-		String userInput = "add deadline 'submission' by 04:00 25/12/16";
-		Command command = parser.parseUserInput(userInput);
-
-		assertEquals(null, command);
-	}
-	
-	@Test
-	public void parseCommand_addDeadlineValidOrder2_nullReturned() {
-		String userInput = "add deadline 'submission' by 25/12/16 04:00";
-		Command command = parser.parseUserInput(userInput);
-
-		assertEquals(null, command);
-	}
-	
-	@Test
-	public void parseCommand_addDeadlineValidOrder4_nullReturned() {
-		String userInput = "add deadline by 25/12/16 04:00 'submission' ";
-		Command command = parser.parseUserInput(userInput);
-
-		assertEquals(null, command);
-	}
-	
+	/*
+	 * Tests for the `add event` command
+	 */
 	@Test
 	public void parseCommand_addEventNoArgs_incorrectCommandReturned() {
 		String userInput = "add event";
@@ -136,7 +85,7 @@ public class TMParserTest {
 	}
 
 	@Test
-	public void parseCommand_addEventValid_nullReturned() {
+	public void parseCommand_addEventValidOrder_nullReturned() {
 		String userInput = "add event 'party' from 5:00 to 27:00 on 12/12/12";
 		Command command = parser.parseUserInput(userInput);
 
@@ -159,6 +108,70 @@ public class TMParserTest {
 		assertEquals(null, command);
 	}
 	
+	
+	/*
+	 * Tests for the `add deadline` command
+	 */
+	@Test
+	public void parseCommand_addDeadlineNoArgs_incorrectCommandReturned() {
+		String userInput = "add deadline";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_addDeadlineNoDate_incorrectCommandReturned() {
+		String userInput = "add deadline 'submission' at 5:00pm";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_addDeadlineNoTime_incorrectCommandReturned() {
+		String userInput = "add deadline 'submission' by 36/2/";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_addDeadlineInvalidOrder_incorrectCommandReturned() {
+		String userInput = "add deadline by 25/16/16 'submission' 4am";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_addDeadlineValidOrder_nullReturned() {
+		String userInput = "add deadline 'submission' by 04:00 25/12/16";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
+	
+	@Test
+	public void parseCommand_addDeadlineValidOrder2_nullReturned() {
+		String userInput = "add deadline 'submission' by 25/12/16 04:00";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
+	
+	@Test
+	public void parseCommand_addDeadlineValidOrder4_nullReturned() {
+		String userInput = "add deadline by 25/12/16 04:00 'submission' ";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
+	
+	
+	/*
+	 * Tests for the `add someday` command
+	 */
 	@Test
 	public void parseCommand_addSomedayNoArgs_incorrectCommandReturned() {
 		String userInput = "add someday";
@@ -176,7 +189,7 @@ public class TMParserTest {
 	}
 	
 	@Test
-	public void parseCommand_addSomedayValid_nullReturned() {
+	public void parseCommand_addSomedayValidOrder_nullReturned() {
 		String userInput = "add someday 'dance'";
 		Command command = parser.parseUserInput(userInput);
 
@@ -186,6 +199,58 @@ public class TMParserTest {
 	@Test
 	public void parseCommand_addSomedayValidOrder2_nullReturned() {
 		String userInput = "add 'dance' someday";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
+	
+	
+	/*
+	 * Tests for the `list` command
+	 */
+	@Test
+	public void parseCommand_listInvalidArgs_incorrectCommandReturned() {
+		String userInput = "list hello";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_listNoArgs_nullReturned() {
+		String userInput = "list";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
+	
+	@Test
+	public void parseCommand_listDone_nullReturned() {
+		String userInput = "list done";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
+	
+	@Test
+	public void parseCommand_listValidEvent_nullReturned() {
+		String userInput = "list event";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
+	
+	@Test
+	public void parseCommand_listValidOrder_nullReturned() {
+		String userInput = "list   deadline not-done";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
+	
+	@Test
+	public void parseCommand_listValidOrder2_nullReturned() {
+		String userInput = "list not-done	 someday";
 		Command command = parser.parseUserInput(userInput);
 
 		assertEquals(null, command);

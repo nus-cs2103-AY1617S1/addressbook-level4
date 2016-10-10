@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,6 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
-
 
 public class TMParser {
 
@@ -32,7 +32,7 @@ public class TMParser {
 	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile("(?i)on\\s+(?<date>\\S+)\\s+(?<taskName>\\S+')\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
 	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile("(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)\\s+(?<taskName>\\S+')");
 	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile("(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(?<taskName>\\S+')\\s+on\\s+(?<date>\\S+)");
-	
+
 	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>'\\S+')\\s+by\\s+(?<date>\\S+)\\s+(?<time>\\S+)");
 	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>'\\S+')\\s+by\\s+(?<time>\\S+)\\s+(?<date>\\S+)");
 	private static final Pattern DEADLINE_ARGS_FORMAT_3 = Pattern.compile("(?i)by\\s+(?<date>\\S+)\\s+(?<time>\\S+)\\s+(?<taskName>'\\S+')");
@@ -40,9 +40,9 @@ public class TMParser {
 
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>\\S+)'");
 
-	
-	public TMParser() {};
-	
+	public TMParser() {
+	};
+
 	public Command parseUserInput(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
@@ -58,39 +58,44 @@ public class TMParser {
 		switch (commandWord) {
 		case AddCommand.COMMAND_WORD:
 			return prepareAdd(arguments);
-
-			//		case SelectCommand.COMMAND_WORD:
-			//            return prepareSelect(arguments);
-			//
-			//        case DeleteCommand.COMMAND_WORD:
-			//            return prepareDelete(arguments);
-			//
-			//        case ClearCommand.COMMAND_WORD:
-			//            return new ClearCommand();
-			//
-			//        case FindCommand.COMMAND_WORD:
-			//            return prepareFind(arguments);
-			//
-			//        case ListCommand.COMMAND_WORD:
-			//            return new ListCommand();
-			//
-			//        case ExitCommand.COMMAND_WORD:
-			//            return new ExitCommand();
-			//
-			//        case HelpCommand.COMMAND_WORD:
-			//            return new HelpCommand();
+			
+		case ListCommand.COMMAND_WORD:
+			if (arguments.equals("")) {
+				// TODO return new listcommand()
+				return null;
+			}
+			else {
+				return prepareList(arguments);
+			}
+		// case SelectCommand.COMMAND_WORD:
+		// return prepareSelect(arguments);
+		//
+		// case DeleteCommand.COMMAND_WORD:
+		// return prepareDelete(arguments);
+		//
+		// case ClearCommand.COMMAND_WORD:
+		// return new ClearCommand();
+		//
+		// case FindCommand.COMMAND_WORD:
+		// return prepareFind(arguments); 
+		//
+		// case ExitCommand.COMMAND_WORD:
+		// return new ExitCommand();
+		//
+		// case HelpCommand.COMMAND_WORD:
+		// return new HelpCommand();
 
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
 
-
 	private Command prepareAdd(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(ADD_COMMAND_FORMAT_1.matcher(arguments.trim()));
 		matchers.add(ADD_COMMAND_FORMAT_2.matcher(arguments.trim()));
-
+		
+		// Null values will always be overwritten if the matcher matches.
 		String taskType = null;
 		String addTaskArgs = null;
 
@@ -111,7 +116,6 @@ public class TMParser {
 		System.out.println("task type: " + taskType);
 		System.out.println("add args: " + addTaskArgs);
 
-
 		switch (taskType) {
 		// TODO change hardcoded strings to references to strings in command classes
 		case "event":
@@ -123,13 +127,13 @@ public class TMParser {
 		case "someday":
 			return prepareAddSomeday(addTaskArgs);
 
-		default: 
+		default:
 			// TODO better error message
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
 
-	private Command prepareAddEvent(String arguments) {		
+	private Command prepareAddEvent(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments.trim()));
 		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments.trim()));
@@ -137,7 +141,8 @@ public class TMParser {
 		matchers.add(EVENT_ARGS_FORMAT_4.matcher(arguments.trim()));
 		matchers.add(EVENT_ARGS_FORMAT_5.matcher(arguments.trim()));
 		matchers.add(EVENT_ARGS_FORMAT_6.matcher(arguments.trim()));
-
+		
+		// Null values will always be overwritten if the matcher matches.
 		String taskName = null;
 		String date = null;
 		String startTime = null;
@@ -172,14 +177,14 @@ public class TMParser {
 		return null;
 	}
 
-
 	private Command prepareAddDeadline(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(DEADLINE_ARGS_FORMAT_1.matcher(arguments.trim()));
 		matchers.add(DEADLINE_ARGS_FORMAT_2.matcher(arguments.trim()));
 		matchers.add(DEADLINE_ARGS_FORMAT_3.matcher(arguments.trim()));
 		matchers.add(DEADLINE_ARGS_FORMAT_4.matcher(arguments.trim()));
-
+		
+		// Null values will always be overwritten if the matcher matches.
 		String taskName = null;
 		String date = null;
 		String time = null;
@@ -210,7 +215,6 @@ public class TMParser {
 		return null;
 	}
 
-
 	private Command prepareAddSomeday(String arguments) {
 		final Matcher matcher = SOMEDAY_ARGS_FORMAT.matcher(arguments.trim());
 		if (!matcher.matches()) {
@@ -223,10 +227,43 @@ public class TMParser {
 		// TODO return new addsomedaycommand
 		return null;
 	}
-
+	
+	// Only supports task type and done|not-done options.
+	private Command prepareList(String arguments) {
+		String[] args = arguments.split(" ");
+		
+		System.out.println(Arrays.toString(args));
+		
+		String taskType = null;
+		String done = null;
+		for (int i=0; i<args.length; i++) {
+			switch(args[i].trim()) {
+			case "event":
+			case "deadline":
+			case "someday":
+				taskType = args[i];
+				break;
+			case "done":
+			case "not-done":
+				done = args[i];
+				break;
+			default:
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+			}
+		}
+		
+		System.out.println("task type: " + taskType);
+		System.out.println("done: " + done);
+		
+		// TODO return new listcommand(taskType, done)
+		// Since both taskType and done may be supplied as the only parameter to the listcommand constructor, 
+		// the listcommand constructor must make null checks. Alternatively, the parameters can be encapsulated in an object
+		// and the constructor overloaded.
+		return null;
+	}
 
 	public static void main(String[] args) {
-		String userInput = "add event 'Read 50 Shades of Grey' fRom 05:00 to 06:00 on 25/12/2001";
+		String userInput = "list";
 		TMParser p = new TMParser();
 		p.parseUserInput(userInput);
 	}
