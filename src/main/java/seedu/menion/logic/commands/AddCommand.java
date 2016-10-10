@@ -25,7 +25,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This activity already exists in the Menion";
 
     private final Activity toAdd = null;
-    public final EventStub  eventStub;
+    public final EventStub eventStub;
+    public final TaskStub taskStub;
     /**
      * Convenience constructor using raw values.
      *
@@ -36,6 +37,7 @@ public class AddCommand extends Command {
     	
     	//this.toAdd = new Activity(details);
         this.eventStub = new EventStub(details);
+        this.taskStub = new TaskStub(details);
     }
 
     @Override
