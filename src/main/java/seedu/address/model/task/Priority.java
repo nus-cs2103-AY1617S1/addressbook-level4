@@ -11,6 +11,11 @@ public class Priority {
     
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority should /low, /medium or /high";
 //    public static final String PRIORITY_VALIDATION_REGEX = "(high|medium|low)";
+    
+    public static final String HIGH = "high";
+    public static final String MEDIUM = "medium";
+    public static final String LOW = "low";
+    public static final String NONE = "";
 
     public final String value;
 
@@ -20,7 +25,7 @@ public class Priority {
      * @author A0139661Y
      */
     public Priority() {
-    	value = "low";
+    	value = LOW;
     }
     
     /**
@@ -44,7 +49,7 @@ public class Priority {
     public static boolean isValidPriority(String testString) {
 //        return test.matches(PRIORITY_VALIDATION_REGEX);
     	String test = testString.toLowerCase();
-    	if (test.equals("high") || test.equals(("medium")) || test.equals("low") || test.equals(""))
+    	if (test.equals(HIGH) || test.equals((MEDIUM)) || test.equals(LOW) || test.equals(NONE))
     		return true;
     	return false;
     }
