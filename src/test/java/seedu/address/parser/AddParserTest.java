@@ -93,5 +93,15 @@ public class AddParserTest {
 		
 	}
 	
+	@Test
+	public void checkFloatingTaskArguments_returnsCorrectArguments(){
+		
+		String arguments = "complete cs2103t n: important";
+		
+		assertEquals("complete cs2103t ", AddParser.parseCommand(arguments).get(1));
+		assertEquals("important", AddParser.parseCommand(arguments).get(2));
+		
+	}
+	
 	
 }
