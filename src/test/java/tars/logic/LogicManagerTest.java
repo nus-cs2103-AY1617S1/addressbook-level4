@@ -281,14 +281,15 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        if (commandWord == "edit") {  //Only For Edit Command
+        if (commandWord == "edit") { // Only For Edit Command
             assertCommandBehavior(commandWord + " 3 -n changeTaskName", expectedMessage, model.getTars(), taskList);
-        } else {  //For Select & Delete Commands
+        } else { // For Select & Delete Commands
             assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTars(), taskList);
         }
     }
-    
-    private void assertCommandBehaviorForEditCommand(String inputCommand, String expectedMessage) throws Exception {
+
+    private void assertInvalidInputBehaviorForEditCommand(String inputCommand, String expectedMessage)
+            throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
 
@@ -297,7 +298,7 @@ public class LogicManagerTest {
         for (Task p : taskList) {
             model.addTask(p);
         }
-        
+
         assertCommandBehavior(inputCommand, expectedMessage, model.getTars(), taskList);
     }
 
@@ -410,22 +411,46 @@ public class LogicManagerTest {
     @Test
     public void execute_edit_invalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
-       
-        assertCommandBehaviorForEditCommand("edit ", expectedMessage);
-        assertCommandBehaviorForEditCommand("edit 1 -invalidFlag invalidArg", expectedMessage);
+
+        assertInvalidInputBehaviorForEditCommand("edit ", expectedMessage);
+        assertInvalidInputBehaviorForEditCommand("edit 1 -invalidFlag invalidArg", expectedMessage);
     }
 
     @Test
     public void execute_edit_indexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("edit");
     }
-    
+
     @Test
     public void execute_edit_invalidTaskData() throws Exception {
-        assertCommandBehaviorForEditCommand("edit 1 -n []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehaviorForEditCommand("edit 1 -dt @@@notAValidDate@@@", Messages.MESSAGE_INVALID_DATE);
-        assertCommandBehaviorForEditCommand("edit 1 -p medium",Priority.MESSAGE_PRIORITY_CONSTRAINTS);
-        assertCommandBehaviorForEditCommand("edit 1 -n validName -dt invalidDate", Messages.MESSAGE_INVALID_DATE);
+        assertInvalidInputBehaviorForEditCommand("edit 1 -n []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertInvalidInputBehaviorForEditCommand("edit 1 -dt @@@notAValidDate@@@", Messages.MESSAGE_INVALID_DATE);
+        assertInvalidInputBehaviorForEditCommand("edit 1 -p medium", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+        assertInvalidInputBehaviorForEditCommand("edit 1 -n validName -dt invalidDate", Messages.MESSAGE_INVALID_DATE);
+        assertInvalidInputBehaviorForEditCommand("edit 1 -tr $#$", Tag.MESSAGE_TAG_CONSTRAINTS);
+    }
+
+    @Test
+    public void execute_edit_editsCorrectTask() throws Exception {
+       
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();        
+        Task taskToAdd = helper.meetAdam();
+        List<Task> listToEdit = new ArrayList<Task>();
+        listToEdit.add(taskToAdd);
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(taskToAdd);
+        
+        // edit task
+        String[] argsToEdit = {"1", "-n Meet Betty Green", "-dt 20/09/2016 1800 to 21/09/2016 1800", "-p h", "-tr tag2", "-ta tag3"};
+        Task taskToEdit = taskToAdd;
+        Task editedTask = expectedAB.editTask(taskToEdit, argsToEdit);
+        helper.addToModel(model, listToEdit);
+        
+        String inputCommand = "edit 1 -n Meet Betty Green -dt 20/09/2016 1800 "
+                + "to 21/09/2016 1800 -p h -tr tag2 -ta tag3";
+        // execute command
+        assertCommandBehavior(inputCommand, String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask), expectedAB, expectedAB.getTaskList());
     }
 
     /**
@@ -435,7 +460,7 @@ public class LogicManagerTest {
 
         Task meetAdam() throws Exception {
             Name name = new Name("Meet Adam Brown");
-            DateTime dateTime = new DateTime("01/09/2016 1400", "02/09/2016 2200");
+            DateTime dateTime = new DateTime("01/09/2016 1400", "01/09/2016 1500");
             Priority priority = new Priority("m");
             Status status = new Status(false);
             Tag tag1 = new Tag("tag1");
