@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     
     public static final String CATEGORY_CHARS = "t|d|e";
     
-    public static final int TODO_INDEX = 0;
+    public static final int DEFAULT_INDEX = 0;
     
     public static final String[] CATEGORIES = {"Todo", "Deadline", "Event"};
 
@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
     
     public DeleteCommand(int targetIndex) {
         // default to Todo category if no given category
-        this(targetIndex, TODO_INDEX);
+        this(targetIndex, DEFAULT_INDEX);
     }
     
     public DeleteCommand(int targetIndex, int categoryIndex) {
