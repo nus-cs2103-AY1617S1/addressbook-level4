@@ -7,6 +7,7 @@ import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.StringUtil;
+import tars.logic.commands.Command;
 import tars.model.task.Task;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
@@ -17,6 +18,7 @@ import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.DateTimeException;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -28,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Tars tars;
     private final FilteredList<Task> filteredTasks;
+    private final Stack<Command> undoableCmdHistStack;
 
     /**
      * Initializes a ModelManager with the given Tars
@@ -42,6 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         tars = new Tars(src);
         filteredTasks = new FilteredList<>(tars.getTasks());
+        undoableCmdHistStack = new Stack<>();
     }
 
     public ModelManager() {
@@ -51,6 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTars initialData, UserPrefs userPrefs) {
         tars = new Tars(initialData);
         filteredTasks = new FilteredList<>(tars.getTasks());
+        undoableCmdHistStack = new Stack<>();
     }
 
     @Override
@@ -62,6 +67,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyTars getTars() {
         return tars;
+    }
+    
+    @Override
+    public Stack<Command> getUndoableCmdHist() {
+        return undoableCmdHistStack;
     }
 
     /** Raises an event to indicate the model has changed */
