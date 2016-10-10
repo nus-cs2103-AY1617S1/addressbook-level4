@@ -1,5 +1,7 @@
 package seedu.inbx0.model.task;
 
+import java.util.Arrays;
+
 import seedu.inbx0.commons.exceptions.IllegalValueException;
 
 /**
@@ -10,11 +12,12 @@ import seedu.inbx0.commons.exceptions.IllegalValueException;
 public class Importance {
     
     public static final String MESSAGE_IMPORTANCE_CONSTRAINTS = "Importance has to be alphabetical format";
-    public static final String IMPORTANCE_VALIDATION_REGEX = "[\\p{Alpha}]";
-    public static final int NUM_OF_STRINGS_IN_ALLOWED_IMPORTANCE_NAMES = 6;
-    public static final String [] ALLOWED_IMPORTANCE_NAMES = {"g", "green",
-                                                              "y", "yellow",
-                                                               "r", "red"                                                            
+    public static final String IMPORTANCE_VALIDATION_REGEX = "[a-zA-Z]+";
+    public static final int NUM_OF_STRINGS_IN_ALLOWED_IMPORTANCE_NAMES = 12;
+    public static final String [] ALLOWED_IMPORTANCE_NAMES = new String [] {
+                                                              "g", "G", "green", "Green",
+                                                              "y", "Y", "yellow", "Yellow",
+                                                               "r", "R", "red", "Red"                                                            
                                                              };
     
     public final String value;
@@ -40,10 +43,8 @@ public class Importance {
     public static boolean isValidImportance(String test) {
         
         if(test.matches(IMPORTANCE_VALIDATION_REGEX)) {
- //           for(int i = 0; i < NUM_OF_STRINGS_IN_ALLOWED_IMPORTANCE_NAMES; i++) {
-  //              if(test == ALLOWED_IMPORTANCE_NAMES[i])
-                    return true;
- //           }       
+            if(Arrays.asList(ALLOWED_IMPORTANCE_NAMES).contains(test)) 
+                return true;           
         }
         
         return false;
@@ -57,5 +58,9 @@ public class Importance {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    public String getLevel() {
+        return value;
     }
 }

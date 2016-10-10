@@ -69,7 +69,13 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.removeTask(target);
         indicateAddressBookChanged();
     }
-
+    
+    @Override
+    public synchronized void editTask(ReadOnlyTask target, Task task) throws TaskNotFoundException {
+        taskList.editTask(target, task);
+        indicateAddressBookChanged();
+    }
+    
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskList.addTask(task);

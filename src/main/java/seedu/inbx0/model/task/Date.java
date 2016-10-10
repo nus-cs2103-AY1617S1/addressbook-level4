@@ -139,7 +139,18 @@ public class Date {
     }
     
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Date // instanceof handles nulls
+                && this.value.equals(((Date) other).value)); // state check
+    }
+    
+    @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    public String getDate() {
+        return value;
     }
 }

@@ -35,7 +35,7 @@ public class Time {
         boolean hourCheck = false;
         boolean minCheck = false;
         
-        if(test.matches(TIME_VALIDATION_REGEX)) {
+        if(test.matches(TIME_VALIDATION_REGEX) && (test.length() == 4)) {
             if((Integer.parseInt(test) / 100) < 24) {
                 hourCheck = true;
             }
@@ -53,8 +53,20 @@ public class Time {
         return value;
     }
     
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Time // instanceof handles nulls
+                && this.value.equals(((Time) other).value)); // state check
+    }
+    
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    public String getTime() {
+        return value;
     }
 }

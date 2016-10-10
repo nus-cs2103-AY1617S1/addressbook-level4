@@ -39,6 +39,16 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    private static final Pattern TASK_EDIT_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<targetIndex>[^/]+)"
+                    + " n/(?<name>[^/]+)");
+                  /*  + "(?<name>(?: n/[^/]+))"
+                    + "(?<startDate>(?: s/[^/]+))"
+                    + "(?<startTime>(?: st/[^/]+))"
+                    + "(?<endDate>(?: e/[^/]+))"
+                    + "(?<endTime>(?: et/[^/]+))"
+                    + "(?<level>(?: i/[^/]+))"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); */
     
     public Parser() {}
 
@@ -63,6 +73,9 @@ public class Parser {
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -138,7 +151,46 @@ public class Parser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
-
+    
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+    //    final Matcher matcher = TASK_EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+    /*    if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        */
+       // Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        String [] argumentsForEdit = new String [6];
+        try {
+            // argumentsForEdit[0] = matcher.group("name");
+     /*        argumentsForEdit[1] = matcher.group("startDate");
+             argumentsForEdit[2] = matcher.group("startTime");
+             argumentsForEdit[3] = matcher.group("endDate");
+             argumentsForEdit[4] = matcher.group("endTime");
+             argumentsForEdit[5] = matcher.group("level");
+            
+             */
+             return new EditCommand(
+                    index.get(),
+                    argumentsForEdit,
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );            
+            } catch (IllegalValueException ive) {
+        return new IncorrectCommand(ive.getMessage());
+            }
+    }
+    
     /**
      * Parses arguments in the context of the delete task command.
      *

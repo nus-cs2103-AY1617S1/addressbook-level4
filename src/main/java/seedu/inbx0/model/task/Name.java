@@ -52,4 +52,8 @@ public class Name {
         return fullName.hashCode();
     }
 
+    public String getName() {
+        return fullName;
+    }
+
 }
