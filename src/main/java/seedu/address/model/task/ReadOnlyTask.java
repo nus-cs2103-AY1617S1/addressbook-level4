@@ -79,7 +79,7 @@ public interface ReadOnlyTask {
             .append(" ")  
             .append(getLocation())  
             .append(" ");  
-        getTags().forEach(builder::append);  
+        getTags().forEach(b -> builder.append(b.tagName + " "));  
         return builder.toString();  
     }  
 

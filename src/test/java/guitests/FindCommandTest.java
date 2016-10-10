@@ -30,7 +30,11 @@ public class FindCommandTest extends AddressBookGuiTest {
     
     @Test
     public void find_tag() {
-        assertFindResult("find Priority", td.alice, td.benson, td.carl, td.daniel);
+        commandBox.runCommand("mark 1");
+        commandBox.runCommand("mark 2");
+        commandBox.runCommand("mark 3");
+        commandBox.runCommand("mark 4");
+        assertFindResult("find Completed", td.alice, td.benson, td.carl, td.daniel);
     }
 
     @Test
