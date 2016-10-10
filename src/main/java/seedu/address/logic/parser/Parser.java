@@ -43,7 +43,20 @@ public class Parser {
                                                         +"(?: -(?<priority>.*?))?)");
     
     final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?:.*?)?(?<rate>\\d+)(?:.*?)?");
-
+    
+    //TODO:Parser not functioning
+    //final Pattern EDIT_ARGS_FORMAT = Pattern.compile("(?<index>\\d+) (?<words>.*?)");
+    /*
+    final Pattern EDIT_ARGS_FORMAT = Pattern.compile("(?i:(?<taskName>.*?)"
+            											+"(?:"
+            											+"(?:, by +(?<endDateFormatOne>.*?))"
+            											+"|(?:, from (?<startDateFormatOne>.*?))"
+            											+"|(?:, at (?<startDateFormatTwo>.*?))"
+            											+")?"
+            											+"(?: to (?<endDateFormatTwo>.*?))?"
+            											+"(?: repeat every (?<recurrenceRate>.*?))?"
+            											+"(?: -(?<priority>.*?))?)");
+    */
     //TODO: Parser not fully functioning: case: eat bingsu by myself by 31 Sep (i.e repeat by)
     //private static final Pattern TASK_ARGS_FORMAT = Pattern.compile("(?i:(?<name>.*))(?:by +((?<deadline1>.*)(?= repeat every +(?<recurrenceRate>.*))|(?<deadline2>.*))(?:-+(?<priority>\\w+))?$)");
     //Pattern.compile("(?i:(?<name>.*))(?:by +(?<date>[^ ]*)(?: *(repeat every +(?<recurrenceRate>.*)))?)$");
@@ -90,12 +103,15 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
+
         default:
             return prepareAdd(commandWord + arguments);
         }
     }
 
-    /**
+	/**
      * Parses arguments in the context of the add person command.
      *
      * @param args full command args string
@@ -178,6 +194,80 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+    
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+		
+    	 //TODO parse the index and args
+    	 int index = 0;
+    	 if(index == -1){ //index not present
+    	 	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    	 }
+    	 
+    	 String[] parts = args.split(" ");
+    	 String indexNum = parts[1];
+    	 
+    	 index = Integer.parseInt(indexNum);
+    	 
+    	 args = args.substring(3);
+    	 
+    	 final Matcher matcher = TASK_ARGS_FORMAT.matcher(args.trim());
+
+         String taskName = null;
+         String startDate = null;
+         String endDate = null;
+         String recurrenceRate = null;
+         String priority = null;  
+         
+         if (!matcher.matches()) {
+             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+         }
+         
+         try {
+        	 
+        	 if (matcher.group("taskName") != null) {
+                 taskName = matcher.group("taskName");
+             }
+             
+             if (matcher.group("startDateFormatOne") != null) {
+                 startDate = matcher.group("startDateFormatOne");
+             } else if (matcher.group("startDateFormatTwo") != null) {
+                 startDate = matcher.group("startDateFormatTwo");
+             } 
+             
+             if (matcher.group("endDateFormatOne") != null) {
+                 endDate = matcher.group("endDateFormatOne"); 
+             } else if (matcher.group("endDateFormatTwo") != null) {
+                 endDate = matcher.group("endDateFormatTwo");
+             } 
+
+             if (matcher.group("recurrenceRate") != null) {
+                 String tempRecurrenceRate = matcher.group("recurrenceRate");
+                 int multiplier = generateMultiplier(tempRecurrenceRate);
+                 
+                 final Matcher matcherRecurrence = RECURRENCE_RATE_ARGS_FORMAT.matcher(tempRecurrenceRate);
+                 if (!matcherRecurrence.matches()) {
+                     recurrenceRate = Integer.toString(multiplier);
+                 } else { //TODO: Else-if?
+                     recurrenceRate = Integer.toString(multiplier * Integer.parseInt(matcherRecurrence.group("rate")));
+                 }
+             } 
+
+             if (matcher.group("priority") != null) {
+                 priority = matcher.group("priority");
+             } else {
+                 priority = "medium";
+             }
+             return new EditCommand(index, taskName, startDate, endDate, recurrenceRate, priority);
+         } catch (IllegalValueException ive) {
+             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+         }	
     }
 
     /**

@@ -75,6 +75,11 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
         floatingTasks.add(f);
     }
 
+	public void editFloatingTask(Task floatingTask) {
+		// TODO Auto-generated method stub
+		
+	}
+    
     public boolean removeFloatingTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (floatingTasks.remove(key)) {
             return true;
@@ -142,4 +147,5 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
         // TODO Auto-generated method stub
         return null;
     }
+
 }

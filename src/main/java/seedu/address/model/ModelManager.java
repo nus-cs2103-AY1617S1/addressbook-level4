@@ -76,6 +76,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
+    @Override
+    public synchronized void editTask(Task floatingTask) throws UniqueTaskList.DuplicateTaskException {
+        taskManager.editFloatingTask(floatingTask);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
