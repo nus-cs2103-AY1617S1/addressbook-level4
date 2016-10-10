@@ -64,7 +64,7 @@ public class IndexView extends View {
 			LocalDateTime date = LocalDateTime.now().minus(3, ChronoUnit.DAYS);
 			for (int i = 1; i <= 10; i++) {
 				tasks.add(new TaskStub(date, "Task " + i));
-				date = date.plus(1, ChronoUnit.DAYS);
+				date = date.plus(2, ChronoUnit.DAYS);
 			}
 			
 			view.tasks = tasks;

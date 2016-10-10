@@ -1,11 +1,13 @@
 package seedu.todo.ui.components;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
+import seedu.todo.commons.util.DateUtil;
 import seedu.todo.ui.views.IndexView.TaskStub;
 
 public class TaskList extends Component {
@@ -32,15 +34,15 @@ public class TaskList extends Component {
 	private void loadTasks() {
 		TaskListDateItem.reset(taskListDateItemsPlaceholder);
 		
-		HashMap<LocalDate, ArrayList<TaskStub>> tasksByDate = getTasksByDate(tasks);
+		HashMap<LocalDateTime, ArrayList<TaskStub>> tasksByDate = getTasksByDate(tasks);
 		
 		// Get unique task dates and sort them
-		ArrayList<LocalDate> taskDates = new ArrayList<LocalDate>();
+		ArrayList<LocalDateTime> taskDates = new ArrayList<LocalDateTime>();
 		taskDates.addAll(tasksByDate.keySet());
 		java.util.Collections.sort(taskDates);
 		
 		// For each dateTime, individually the ArrayList of Tasks.
-		for (LocalDate dateTime : taskDates) {
+		for (LocalDateTime dateTime : taskDates) {
 			TaskListDateItem item = new TaskListDateItem();
 			ArrayList<TaskStub> tasksForDate = tasksByDate.get(dateTime);
 			
@@ -55,10 +57,10 @@ public class TaskList extends Component {
 		}
 	}
 	
-	private static HashMap<LocalDate, ArrayList<TaskStub>> getTasksByDate(ArrayList<TaskStub> tasks) {
-		HashMap<LocalDate, ArrayList<TaskStub>> tasksByDate = new HashMap<LocalDate, ArrayList<TaskStub>>();
+	private static HashMap<LocalDateTime, ArrayList<TaskStub>> getTasksByDate(ArrayList<TaskStub> tasks) {
+		HashMap<LocalDateTime, ArrayList<TaskStub>> tasksByDate = new HashMap<LocalDateTime, ArrayList<TaskStub>>();
 		for (TaskStub task : tasks) {
-			LocalDate taskDate = task.dateTime.toLocalDate();
+			LocalDateTime taskDate = DateUtil.floorDate(task.dateTime);
 			
 			// Creates ArrayList if not already exists.
 			if (!tasksByDate.containsKey(taskDate)) 

@@ -1,11 +1,12 @@
 package seedu.todo.ui.components;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import seedu.todo.commons.util.DateUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.ui.views.IndexView.TaskStub;
 
@@ -14,7 +15,7 @@ public class TaskListDateItem extends MultiComponent {
 	private static final String FXML_PATH = "components/TaskListDateItem.fxml";
 	
 	// Props
-	public LocalDate dateTime;
+	public LocalDateTime dateTime;
 	public ArrayList<TaskStub> tasks;
 	
 	// FXML
@@ -30,9 +31,10 @@ public class TaskListDateItem extends MultiComponent {
 	
 	@Override
 	public void componentDidMount() {
-		// Set header
-		dateText.setText(String.format("%s (%d %s)", 
-						 dateTime.toString(), tasks.size(), StringUtil.pluralizer(tasks.size(), "task", "tasks") ));
+		// Set header for DateItem
+		String dateHeader = String.format("%s (%d %s)", DateUtil.formatDay(dateTime), tasks.size(), 
+										  StringUtil.pluralizer(tasks.size(), "task", "tasks"));
+		dateText.setText(dateHeader);
 	}
 
 }
