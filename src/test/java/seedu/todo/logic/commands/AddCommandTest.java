@@ -56,7 +56,7 @@ public class AddCommandTest extends CommandTest {
     @Test
     public void testAddPinnedTask() throws IllegalValueException {
         setParameter("Li Kai's Presentation");
-        setParameter("p",null);
+        setParameter("p", null);
         execute();
         ImmutableTask pinnedAddedTask=getTaskAt(1);
         assertTotalTaskCount(1);
@@ -69,7 +69,7 @@ public class AddCommandTest extends CommandTest {
     @Test
     public void testAddMultipleParameters() throws IllegalValueException {
         setParameter("Task 1");
-        setParameter("p",null);
+        setParameter("p", null);
         setParameter("l","COM1");
         setParameter("m","Useless task");
         execute();

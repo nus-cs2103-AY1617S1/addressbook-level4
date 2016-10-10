@@ -17,10 +17,13 @@ public class EditCommandTest extends CommandTest {
     @Before
     public void setUp() throws Exception {
     	//TODO fix sorting problems when adding tasks
-        model.add("Task 1", task->{task.setDescription(null); task.setPinned(true);task.setLocation("NUS");});
-        model.add("Task 3", task->{task.setDescription("Description"); task.setPinned(false);task.setLocation(null);});
+        model.add("Task 1", task->{task.setDescription(null); 
+        						   task.setPinned(true);
+        						   task.setLocation("NUS");});
+        model.add("Task 3", task->{task.setDescription("Description"); 
+        						   task.setPinned(false);
+        						   task.setLocation(null);});
         model.add("Task 2");
-        System.out.println(getTaskAt(1).getTitle()+","+getTaskAt(2).getTitle()+","+getTaskAt(3).getTitle());
         
     }
     
