@@ -1,5 +1,8 @@
 package seedu.todo.logic.arguments;
 
+import java.util.logging.Logger;
+
+import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 
 abstract public class Argument<T> implements Parameter {
@@ -11,6 +14,11 @@ abstract public class Argument<T> implements Parameter {
     
     protected T value;
     protected T defaultValue;
+    
+    private static final String REQUIRED_ERROR_FORMAT = "The %s parameter is required";
+    private String requiredErrorMessage;
+    
+    private static final Logger logger = LogsCenter.getLogger(Argument.class);
     
     public Argument(String name) {
         this.name = name;
@@ -39,11 +47,6 @@ abstract public class Argument<T> implements Parameter {
     public String getName() {
         return name;
     }
-    
-    public Argument<T> name(String name) {
-        this.name = name;
-        return this;
-    }
 
     public String getDescription() {
         return description;
@@ -57,9 +60,14 @@ abstract public class Argument<T> implements Parameter {
     public String getFlag() {
         return flag;
     }
-
+    
     public Argument<T> flag(String flag) {
-        this.flag = flag;
+        this.flag = flag.trim().toLowerCase();
+        
+        if (!this.flag.equals(flag)) {
+            logger.warning("Flag argument has uppercase or whitespace characters. These have been ignored.");
+        }
+        
         return this;
     }
 
@@ -70,8 +78,21 @@ abstract public class Argument<T> implements Parameter {
     public boolean hasBoundValue() {
         return boundValue;
     }
-
+    
+    /**
+     * Sets the field as required
+     */
     public Argument<T> required() {
+        this.optional = false;
+        return this;
+    }
+    
+    /**
+     * Sets the field as required and specify an error message to show if it is not provided
+     * @param errorMessage shown to the user when the parameter is not provided 
+     */
+    public Argument<T> required(String errorMessage) {
+        requiredErrorMessage = errorMessage;
         this.optional = false;
         return this;
     }
@@ -81,4 +102,12 @@ abstract public class Argument<T> implements Parameter {
         return flag == null;
     }
     
+    @Override
+    public void checkRequired() throws IllegalValueException {
+        if (!isOptional() && !hasBoundValue()) {
+            String error = requiredErrorMessage == null ? 
+                    String.format(Argument.REQUIRED_ERROR_FORMAT, name) : requiredErrorMessage;
+            throw new IllegalValueException(error);
+        }
+    }
 }

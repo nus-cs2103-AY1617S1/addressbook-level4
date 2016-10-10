@@ -20,4 +20,6 @@ public interface Parameter {
     public String getName();
     
     public String getDescription();
+    
+    public void checkRequired() throws IllegalValueException;
 }

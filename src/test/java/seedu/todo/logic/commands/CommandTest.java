@@ -8,6 +8,7 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.model.TodoList;
 import seedu.todo.model.task.ImmutableTask;
@@ -143,8 +144,9 @@ public abstract class CommandTest {
     /**
      * Executes the command
      * @throws IllegalValueException
+     * @throws ValidationException 
      */
-    protected void execute() throws IllegalValueException {
+    protected void execute() throws IllegalValueException, ValidationException {
         command.setArguments(params);
         command.setModel(model);
         command.execute();

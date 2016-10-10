@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.task.ImmutableTask;
 
 public class AddCommandTest extends CommandTest {
@@ -14,7 +13,7 @@ public class AddCommandTest extends CommandTest {
     }
 
     @Test
-    public void testAddTask() throws IllegalValueException {
+    public void testAddTask() throws Exception {
         setParameter("Hello World");
         execute();
         
@@ -27,7 +26,7 @@ public class AddCommandTest extends CommandTest {
     }
     
     @Test
-    public void testAddTaskWithLocation() throws IllegalValueException {
+    public void testAddTaskWithLocation() throws Exception {
         setParameter("Hello NUS");
         setParameter("l", "NUS");
         execute();
@@ -41,7 +40,7 @@ public class AddCommandTest extends CommandTest {
     }
     
     @Test
-    public void testAddTaskWithDescription() throws IllegalValueException {
+    public void testAddTaskWithDescription() throws Exception {
         setParameter("Destroy World");
         setParameter("m", "Remember to get Dynamites on sale!");
         execute();
@@ -55,7 +54,7 @@ public class AddCommandTest extends CommandTest {
     }
     
     @Test
-    public void testAddPinnedTask() throws IllegalValueException {
+    public void testAddPinnedTask() throws Exception {
         setParameter("Li Kai's Presentation");
         setParameter("p", null);
         execute();
@@ -69,7 +68,7 @@ public class AddCommandTest extends CommandTest {
     }
     
     @Test
-    public void testAddMultipleParameters() throws IllegalValueException {
+    public void testAddMultipleParameters() throws Exception {
         setParameter("Task 1");
         setParameter("p", null);
         setParameter("l", "COM1");

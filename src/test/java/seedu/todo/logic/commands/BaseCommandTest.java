@@ -7,6 +7,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.FlagArgument;
 import seedu.todo.logic.arguments.IntArgument;
@@ -62,7 +63,7 @@ public class BaseCommandTest extends CommandTest {
     }
     
     @Test
-    public void testSetParameter() throws IllegalValueException {
+    public void testSetParameter() throws IllegalValueException, ValidationException {
         this.setParameter("required")
             .setParameter("f", "")
             .setParameter("i", "20")
@@ -75,14 +76,13 @@ public class BaseCommandTest extends CommandTest {
         assertTrue(testCommand.getFlag());
     }
 
-    @Test(expected=IllegalValueException.class)
-    @Ignore  // Currently required arguments don't trigger exceptions 
-    public void testMissingRequiredArgument() throws IllegalValueException {
+    @Test(expected=ValidationException.class)
+    public void testMissingRequiredArgument() throws IllegalValueException, ValidationException {
         execute();
     }
     
     @Test(expected=IllegalValueException.class)
-    public void testInvalidGetTaskAt() throws IllegalValueException {
+    public void testInvalidGetTaskAt() throws IllegalValueException, ValidationException {
         this.setParameter("required");
         execute();
         testCommand.accessInvalidIndex();

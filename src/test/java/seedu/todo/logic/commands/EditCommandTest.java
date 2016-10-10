@@ -32,14 +32,14 @@ public class EditCommandTest extends CommandTest {
     
     
     @Test(expected=IllegalValueException.class)
-    public void testEditInvalidIndex() throws IllegalValueException {
+    public void testEditInvalidIndex() throws Exception {
         setParameter("4");
         setParameter("l", "If this prints out this might hurt");
         execute();
     }
     
     @Test
-    public void testEditPinned() throws IllegalValueException{
+    public void testEditPinned() throws Exception{
         ImmutableTask toEditPin = getTaskAt(1);
         setParameter("1");
         setParameter("p", null);
@@ -53,7 +53,7 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void testEditLocation() throws IllegalValueException {
+    public void testEditLocation() throws Exception {
     	ImmutableTask toEditLocation = getTaskAt(3);
         setParameter("3");
         setParameter("l", "NTU");
@@ -67,7 +67,7 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void testEditDescription() throws IllegalValueException {
+    public void testEditDescription() throws Exception {
         ImmutableTask toEditDesc = getTaskAt(2);
         setParameter("2");
         setParameter("m", "Some other description");
@@ -81,10 +81,10 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void testDeleteField() throws IllegalValueException{
+    public void testDeleteField() throws Exception {
         ImmutableTask toDeleteField = getTaskAt(2);
         setParameter("2");
-        setParameter("m", null);
+        setParameter("m", "");
         execute();
         
         toDeleteField = getTaskAt(2);
@@ -95,7 +95,7 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void testEditMoreThanOneParameter() throws IllegalValueException{
+    public void testEditMoreThanOneParameter() throws Exception{
         ImmutableTask toEditTwoThings = getTaskAt(1);
         setParameter("1");
         setParameter("m", "New description");

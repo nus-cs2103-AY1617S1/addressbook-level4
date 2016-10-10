@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 
 public class DeleteCommandTest extends CommandTest {
@@ -23,13 +24,13 @@ public class DeleteCommandTest extends CommandTest {
     
     
     @Test(expected=IllegalValueException.class)
-    public void testInvalidDelete() throws IllegalValueException{
+    public void testInvalidDelete() throws Exception {
         setParameter("4");
         execute();
     }
 
     @Test
-    public void testDeleteFirst() throws IllegalValueException {
+    public void testDeleteFirst() throws Exception {
         ImmutableTask toDelete = getTaskAt(1);
         setParameter("1");
         execute();
@@ -37,7 +38,7 @@ public class DeleteCommandTest extends CommandTest {
     }
     
     @Test
-    public void testSuccessiveDeletes() throws IllegalValueException {
+    public void testSuccessiveDeletes() throws Exception {
         ImmutableTask toDeleteFirst = getTaskAt(1);
         ImmutableTask toDeleteNext = getTaskAt(2);
         ImmutableTask toDeleteLast = getTaskAt(3);
