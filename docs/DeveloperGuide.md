@@ -255,7 +255,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add events, tasks and deadlines | 
+`* * *` | user | add events, deadlines and [floating tasks] (#floating-tasks)| 
 `* * *` | user | mark a task as complete | 
 `* * *` | user | view events by category (overdue, today, tomorrow, next 7 days, floating, other tasks) or by date | keep track of upcoming events
 `* * *` | user | view incomplete tasks | decide the next task to do
@@ -263,7 +263,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | edit event details | keep my task list updated
 `* * *` | user | delete tasks | discard tasks that cannot be done
 `* * *` | user | sort the event by name, date or priority | easily view events that requires immediate attention
-`* * *` | user | add [floating tasks] (#floating-tasks) as notes | add tasks with no fixed date/time
 `* *` | busy user | mark tasks as priority | display them at the top of my tasks
 `* *` | busy user | search for empty slots | add tasks easily
 `* *` | user | block multiple slots for tasks | reserve multiple time slots where the exact timing of the task is not certain and release the extra slots when the time is finalized
@@ -285,12 +284,12 @@ Priority | As a ... | I want to ... | So that I can...
 Precondition: Parameters such as date, time and keywords entered should be valid.  
 
 Guarantees: 
-* Event or task or note added 
+* Event or deadline or note added 
 
-1. User enters task name with an optional start date and time and an optional end date and time.
+1. User enters deadline name with an optional start date and time and an optional end date and time.
 2. User enters event name, start date and time followed by end date and time.
-3. User enters descriptions in the form of notes. 
-4. Task/event/note is added into the storage file. 
+3. User enters floating task name. 
+4. Deadline/event/floating task is added into the storage file. 
 5. System displays message conveying that the input task has been added.
 
 **Extensions**
@@ -300,13 +299,13 @@ Guarantees:
 User can ignore collision or replace existing task with current task or reschedule task or cancel operation.
 
 
-#### Use case UC02 - View events
+#### Use case UC02 - Show events
 
 **MSS**
 
 Precondition: Event/Task category entered should be valid
 
-1. User enters display command and event category.
+1. User enters show command and event category.
 2. System shows list of events under the category entered.
 Use case ends.
 
@@ -338,13 +337,13 @@ Use case ends.
 > 3b1. System shows an error message.
 Use case resumes at step 2.
 
-#### Use case UC04 - Search events
+#### Use case UC04 - Find events
 
 **MSS**
 
 Precondition: Only events stored in the storage file can be searched.
 
-1. User enters a keyword or the task index.
+1. User enters find command and a keyword or the task index.
 2. If task index was entered, go to Step 4. Else the system returns the user a list of all matching tasks.
 3. If a keyword was entered, the user selects a task from the list of matching tasks.
 4. The system displays the details of that task to the user.
@@ -355,27 +354,27 @@ Precondition: Only events stored in the storage file can be searched.
 > 2a1. The system shows an error message <br>
   Use case resumes at Step 1
 
-2a. The list is empty
+2b. The list is empty
 > Use case ends
 
 4a. User selects invalid task from the list
 > 4a1. The system shows an error message <br>
    Use case resumes at Step 3
 
-#### Use case UC05 - Edit event details
+#### Use case UC05 - Update event details
 
 **MSS**
 
-Precondition: Event has to exist in the storage file to edit. 
+Precondition: Event has to exist in the storage file to update. 
 
 Guarantees:  
 * The corresponding event details will be updated to their new values. 
 
-The user searches for the event (UC04) to be updated. 
-System will display an indexed list of the event(s). 
-User enters index of event to be updated, field to be changed and the new value for the field.
-Updates get stored in the storage file. 
-System prints message showing the updated entry. 
+1. The user searches for the event (UC04) to be updated. 
+2. System will display an indexed list of the event(s). 
+3. User enters index of event to be updated, field to be changed and the new value for the field.
+4. Updates get stored in the storage file. 
+5. System prints message showing the updated entry. 
 
 **Extensions**
 
