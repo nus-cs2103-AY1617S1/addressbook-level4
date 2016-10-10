@@ -8,28 +8,24 @@
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-> Having any Java 8 version is not enough. <br>
-This app will not work with earlier versions of Java 8.
-
+   > Having any Java 8 version is not enough. <br>
+   This app will not work with earlier versions of Java 8.
+   
 1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+2. Copy the file to the folder you want to use as the home folder for your Scheduler.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-> <img src="images/MockUpUi.png" width="600">
+   > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-* **`list`** : lists all tasks
-* **`add`**` `add Do Homework d/ 19/02/12 t/13:43 n/ cs2103 homework` : 
-adds a task named `Do Homework` to the Task List.
-* **`delete`**` 3` : deletes the 3rd task shown in the task list
-* **`exit`** : exits the app
+   * **`list`** : lists all items
+   * **`add`**` `add Meeting st/ 19-02-12 13:00 et/19-02-12 14:00` : 
+     adds an item named `Meeting` to the scheduler.
+   * **`delete`**` 3` : deletes the 3rd item shown in the scheduler
+   * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-
-Synchronization capability to other task management sites (ex: Google calendar)
-Back-up data that can be used to recover if original copy gets deleted
-Able to migrate all items into .txt file
 
 ## Features
 
@@ -110,28 +106,32 @@ Examples:
 Exits the program.<br>
 Format: `exit`  
 
-#### Saving the data: `path`
-Scheduler data are saved in the hard disk automatically after any command that changes the data. File path can be manually changed to a user-specified location.<br>
+#### Saving the data: `save`
+Scheduler data are saved in the hard disk automatically after any command that changes the data. Data is saved at path previously assigned by the user.<br>
+Format: `path FILE_SAVE`
+
+#### Changing the file save path: `path`
+File path can be manually changed to a user-specified location.<br>
 Format: `path FILE_PATH`
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-the file that contains the data of your previous Address Book folder.
-
+       the file that contains the data of your previous Scheduler folder.
+       
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME d/DATE t/TIME n/NOTE...`
-Clear | `clear`
+Add | `add NAME st/START_DATE_TIME et/END_DATE_TIME`
+Add | `add NAME d/DATE`  
+Add | `add NAME`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
+Edit | `edit INDEX NAME st/START_DATE_TIME et/END_DATE_TIME`
+Edit | `edit INDEX NAME d/DATE` 
+Edit | `edit INDEX NAME` 
+List | `list [by/SORT_CATEGORY]`
+Path | `path FILE_PATH`
 Help | `help`
-Edit | `INDEX tn/TASK_NAME d/DATE t/TIME n/NOTE r/REMINDER`
-Sort | `sort`
-Upcoming | `upcoming`
-Group | `group GROUP_NAME [INDEX_DELIMITED_BY_COMMAS]`
-
