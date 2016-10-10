@@ -15,8 +15,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the activity manager data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the activity manager data. All changes to
+ * any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -71,13 +71,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException {
-        activityManager.addTask(task);
+    public synchronized void addTask(Activity activity) throws UniqueActivityList.DuplicateTaskException {
+        activityManager.addTask(activity);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
 
-    //=========== Filtered Task List Accessors ===============================================================
+    // =========== Filtered activity List Accessors
+    // ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList() {
@@ -90,7 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
@@ -98,10 +99,12 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+    // ========== Inner classes/interfaces used for filtering
+    // ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyActivity task);
+        boolean satisfies(ReadOnlyActivity activity);
+
         String toString();
     }
 
@@ -114,8 +117,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyActivity task) {
-            return qualifier.run(task);
+        public boolean satisfies(ReadOnlyActivity activity) {
+            return qualifier.run(activity);
         }
 
         @Override
@@ -125,7 +128,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyActivity task);
+        boolean run(ReadOnlyActivity activity);
+
         String toString();
     }
 
@@ -137,10 +141,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyActivity task) {
+        public boolean run(ReadOnlyActivity activity) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(activity.getActivityName().fullName, keyword)).findAny()
                     .isPresent();
         }
 

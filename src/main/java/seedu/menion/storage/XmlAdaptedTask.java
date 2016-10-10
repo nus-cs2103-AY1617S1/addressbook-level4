@@ -10,18 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JAXB-friendly version of the Task.
+ * JAXB-friendly version of the Activity.
  */
 public class XmlAdaptedTask {
 
     @XmlElement(required = true)
+    private String activityType;
+    @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String deadline;
-    @XmlElement(required = true)
-    private String reminder;
-    @XmlElement(required = true)
-    private String priority;
+    private String note;
+    @XmlElement(required = false)
+    private String startDate;
+    @XmlElement(required = false)
+    private String startTime;
+    @XmlElement(required = false)
+    private String endDate;
+    @XmlElement(required = false)
+    private String endTime;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -33,36 +39,60 @@ public class XmlAdaptedTask {
 
 
     /**
-     * Converts a given Task into this class for JAXB use.
+     * Converts a given Activity into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyActivity source) {
-        name = source.getName().fullName;
-        deadline = source.getDeadline().value;
-        reminder = source.getReminder().value;
-        priority = source.getPriority().value;
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
+        
+        if (source.getActivityType() == Activity.FLOATING_TASK_TYPE) {
+            activityType = source.getActivityType().toString();
+            name = source.getActivityName().fullName;
+            note = source.getNote().toString();
+        } else if (source.getActivityType() == Activity.TASK_TYPE) {
+            activityType = source.getActivityType().toString();
+            name = source.getActivityName().fullName;
+            note = source.getNote().toString();
+            startDate = source.getActivityStartDate().toString();
+            startTime = source.getActivityStartTime().toString();
+        } else if (source.getActivityType() == Activity.EVENT_TYPE) {
+            activityType = source.getActivityType().toString();
+            name = source.getActivityName().fullName;
+            note = source.getNote().toString();
+            startDate = source.getActivityStartDate().toString();
+            startTime = source.getActivityStartTime().toString();
+            endDate = source.getActivityEndDate().toString();
+            endTime = source.getActivityEndTime().toString();
         }
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted Activity object into the model's Activity object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted task
+     * @throws IllegalValueException if there were any data constraints violated in the adapted Activity
      */
     public Activity toModelType() throws IllegalValueException {
-        final List<Tag> taskTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            taskTags.add(tag.toModelType());
+        if (this.activityType == Activity.FLOATING_TASK_TYPE) {
+            final String type = this.activityType;
+            final ActivityName name = new ActivityName(this.name);
+            final Note note = new Note(this.note);
+            return new Activity(type, name, note);
+        } else if (this.activityType == Activity.TASK_TYPE) {
+            final String type = this.activityType;
+            final ActivityName name = new ActivityName(this.name);
+            final Note note = new Note(this.note);
+            final ActivityDate startDate = new ActivityDate(this.startDate);
+            final ActivityTime startTime = new ActivityTime(this.startTime);
+            return new Activity(type, name, note, startDate, startTime);
+        } else {
+            final String type = this.activityType;
+            final ActivityName name = new ActivityName(this.name);
+            final Note note = new Note(this.note);
+            final ActivityDate startDate = new ActivityDate(this.startDate);
+            final ActivityTime startTime = new ActivityTime(this.startTime);
+            final ActivityDate endDate = new ActivityDate(this.endDate);
+            final ActivityTime endTime = new ActivityTime(this.endTime);
+            return new Activity(type, name, note, startDate, startTime, endDate, endTime);
         }
-        final ActivityName name = new ActivityName(this.name);
-        final ActivityDate deadline = new ActivityDate(this.deadline);
-        final ActivityTime reminder = new ActivityTime(this.reminder);
-        final Note priority = new Note(this.priority);
-        final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Activity(name, deadline, reminder, priority, tags);
     }
 }
