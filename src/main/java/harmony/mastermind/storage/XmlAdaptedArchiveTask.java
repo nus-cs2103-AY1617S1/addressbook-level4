@@ -14,8 +14,9 @@ import java.util.List;
 
 /**
  * JAXB-friendly version of the Task.
- * @@author A0124797R
+ * 
  */
+//@@author A0124797R
 public class XmlAdaptedArchiveTask {
 
     @XmlElement(required = true)
@@ -49,11 +50,11 @@ public class XmlAdaptedArchiveTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's ReadOnlyTask object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
-    public Task toModelType() throws IllegalValueException {
+    public ReadOnlyTask toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
@@ -64,6 +65,6 @@ public class XmlAdaptedArchiveTask {
         final Date endDate = this.endDate;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, startDate, endDate, tags);
+        return (ReadOnlyTask) new Task(name, startDate, endDate, tags);
     }
 }

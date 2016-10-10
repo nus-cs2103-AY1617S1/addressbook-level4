@@ -18,6 +18,8 @@ public interface ReadOnlyTaskManager {
     UniqueTagList getUniqueTagList();
 
     UniqueTaskList getUniqueTaskList();
+    
+    ArchiveTaskList getUniqueArchiveList();
 
     /**
      * Returns an unmodifiable view of tasks list
@@ -34,6 +36,7 @@ public interface ReadOnlyTaskManager {
      * Returns an unmodifiable view of tags list
      */
     List<Tag> getTagList();
+
 
 
 
