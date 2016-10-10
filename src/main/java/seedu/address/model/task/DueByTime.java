@@ -2,6 +2,8 @@ package seedu.address.model.task;
 
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -23,7 +25,7 @@ public class DueByTime {
      */
     public DueByTime(LocalTime dueByTime) throws IllegalValueException {
         assert dueByTime != null;
-        this.value = dueByTime;
+        this.value = dueByTime.truncatedTo(ChronoUnit.MINUTES);
     }
 
     @Override
