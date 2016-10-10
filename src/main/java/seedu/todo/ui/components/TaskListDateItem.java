@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.ui.views.IndexView.TaskStub;
 
 public class TaskListDateItem extends MultiComponent {
@@ -29,7 +30,9 @@ public class TaskListDateItem extends MultiComponent {
 	
 	@Override
 	public void componentDidMount() {
-		dateText.setText(dateTime.toString() + " (" + tasks.size() + " tasks)");
+		// Set header
+		dateText.setText(String.format("%s (%d %s)", 
+						 dateTime.toString(), tasks.size(), StringUtil.pluralizer(tasks.size(), "task", "tasks") ));
 	}
 
 }
