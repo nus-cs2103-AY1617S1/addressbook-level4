@@ -20,6 +20,8 @@ public class AddTaskCommand extends Command {
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
 
+	private static final Boolean DEFAULT_STATUS = false;
+
 	private final Task toAdd;
 
 	/**
@@ -30,8 +32,9 @@ public class AddTaskCommand extends Command {
 	 * @throws IllegalValueException
 	 *             if any of the raw values are invalid
 	 */
+
 	public AddTaskCommand(String name, String description) throws IllegalValueException {
-		this.toAdd = new Task(new Name(name), new Description(description)); //TODO: more flexible of tasks type
+		this.toAdd = new Task(new Name(name), new Description(description), DEFAULT_STATUS); //TODO: more flexible of tasks type
 	}
 
 	@Override
