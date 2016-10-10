@@ -18,7 +18,7 @@ public class ConfigTest {
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
                 "Local data file location : data/taskmanager.xml\n" +
-                "TaskManager name : Amethyst";
+                "TaskManager name : MyTaskManager";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }
