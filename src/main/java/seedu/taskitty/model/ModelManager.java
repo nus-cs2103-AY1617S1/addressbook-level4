@@ -76,6 +76,15 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+        taskManager.removeTask(target);
+        indicateTaskManagerChanged();
+        taskManager.addTask(task);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
 
     //=========== Filtered Person List Accessors ===============================================================
 

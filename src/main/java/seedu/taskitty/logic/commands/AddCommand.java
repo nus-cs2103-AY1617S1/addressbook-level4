@@ -9,13 +9,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the task manager.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the task manager. "
             + "Parameters: NAME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " finish CS2103T t/friends t/owesMoney";
