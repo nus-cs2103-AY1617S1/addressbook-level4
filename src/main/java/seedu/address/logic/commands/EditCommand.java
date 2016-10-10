@@ -2,7 +2,12 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.task.TMReadOnlyTask;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.SomedayTask;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -17,34 +22,47 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (positive integer) [MORE_INDICES] ... \n"
             + "Example: " + COMMAND_WORD + " 1 'chill for the day'";
  
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+
 
     public final int targetIndex;
+    private final Name toEdit;
 
-    public EditCommand(int targetIndex) {
+    /**
+     * For editing name of task
+     * @throws IllegalValueException 
+     */
+    public EditCommand(int targetIndex, String name) throws IllegalValueException {
         this.targetIndex = targetIndex;
+        this.toEdit = new Name(name);
     }
 
 
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<TMReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        TMReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deleteTask(taskToDelete);
+        	// TODO: use getStatus from TMReadOnlyTask instead
+        	SomedayTask postEdit = new SomedayTask(toEdit, new Status());
+        	if(lastShownList.contains(postEdit)) {
+        		return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        	}
+            model.editTask(targetIndex, postEdit);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
 
 }

@@ -2,7 +2,9 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.SomedayTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -110,6 +112,15 @@ public class TaskManager implements ReadOnlyTaskManager {
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
+    }
+    
+    public boolean editTask(int key, SomedayTask task) throws UniqueTaskList.TaskNotFoundException {
+        //syncTagsWithMasterList(p);
+    	if (tasks.set(key, task)) {
+    		return true;
+    	} else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
     }
 
 //// tag-level operations

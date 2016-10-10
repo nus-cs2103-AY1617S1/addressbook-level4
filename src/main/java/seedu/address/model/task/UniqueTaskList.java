@@ -73,6 +73,20 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+    
+    /**
+     * set the equivalent task to the specified index of the list
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */ 			
+    public boolean set(int key, SomedayTask Task) throws TaskNotFoundException {
+        assert Task != null;
+        // TODO: settle 'Task' data type
+        final boolean taskFoundAndEdited = internalList.set(key, Task);
+        if (!taskFoundAndEdited) {
+            throw new TaskNotFoundException();
+        }
+        return taskFoundAndEdited;
+    }
 
     public ObservableList<Task> getInternalList() {
         return internalList;
