@@ -11,27 +11,27 @@ public class Task implements ReadOnlyTask {
     private Date endDate;
     private UniqueTagList tags;
 
-    private boolean mark;
+    private boolean isMarked;
 
     // event
     // @@author A0138862W
-    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, boolean isArchived) {
+    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, boolean isMarked) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags = tags;
-        this.mark = false;
+        this.isMarked = isMarked;
     }
 
     // deadline
     // @@author A0138862W
-    public Task(String name, Date endDate, UniqueTagList tags, boolean isArchived) {
-        this(name, null, endDate, tags, isArchived);
+    public Task(String name, Date endDate, UniqueTagList tags, boolean isMarked) {
+        this(name, null, endDate, tags, isMarked);
     }
 
     // floating
     // @@author A0138862W
-    public Task(String name, UniqueTagList tags, boolean isArchived) {
+    public Task(String name, UniqueTagList tags, boolean isMarked) {
         this(name, null, null, tags, false);
     }
 
@@ -84,14 +84,14 @@ public class Task implements ReadOnlyTask {
         this.tags = tags;
     }
 
-    // @@author A0124797R
+    // @@author generated
     public boolean isMarked() {
-        return mark;
+        return isMarked;
     }
 
     // @@author A0124797R
     public void archive() {
-        this.mark = true;
+        this.isMarked = true;
     }
 
     @Override

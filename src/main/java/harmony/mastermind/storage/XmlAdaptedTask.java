@@ -24,7 +24,7 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private Date endDate;
     @XmlElement(required = true)
-    private boolean isArchived;
+    private boolean isMarked;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -44,6 +44,8 @@ public class XmlAdaptedTask {
         name = source.getName();
         startDate = source.getStartDate();
         endDate = source.getEndDate();
+        isMarked = source.isMarked();
+
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -64,9 +66,9 @@ public class XmlAdaptedTask {
         final String name = this.name;
         final Date startDate = this.startDate;
         final Date endDate = this.endDate;
-        final boolean isArchived = this.isArchived;
+        final boolean isMarked = this.isMarked;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, startDate, endDate, tags, isArchived);
+        return new Task(name, startDate, endDate, tags, isMarked);
     }
 }
