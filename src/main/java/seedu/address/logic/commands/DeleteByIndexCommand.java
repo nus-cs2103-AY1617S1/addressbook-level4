@@ -17,12 +17,12 @@ public class DeleteByIndexCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Item: %1$s";
 
     public final int targetIndex;
 
     /*
-     * Deletes deadline, task, or event by index.
+     * Deletes deadline, task, or event by keyword.
      */
     public DeleteByIndexCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -46,7 +46,7 @@ public class DeleteByIndexCommand extends Command {
             assert false : "The target item cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
 }

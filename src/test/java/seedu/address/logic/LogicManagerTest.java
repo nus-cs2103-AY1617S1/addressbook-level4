@@ -338,7 +338,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeItems);
 
         assertCommandBehavior("deleteByIndex 2",
-                String.format(DeleteByIndexCommand.MESSAGE_DELETE_ITEM_SUCCESS, threeItems.get(1)),
+                String.format(DeleteByIndexCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeItems.get(1)),
                 expectedAB,
                 expectedAB.getPersonList());
     }
