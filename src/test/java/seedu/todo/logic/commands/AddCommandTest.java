@@ -18,9 +18,9 @@ public class AddCommandTest extends CommandTest {
         execute();
         assertTotalTaskCount(1);
         assertEquals("Hello World", this.getTaskAt(1).getTitle());
-        assertEquals(false, this.getTaskAt(1).isPinned());
-        assertEquals(false, this.getTaskAt(1).getDescription().isPresent());
-        assertEquals(false, this.getTaskAt(1).getLocation().isPresent());
+        assertFalse(this.getTaskAt(1).isPinned());
+        assertFalse(this.getTaskAt(1).getDescription().isPresent());
+        assertFalse(this.getTaskAt(1).getLocation().isPresent());
     }
     
     @Test
@@ -30,9 +30,9 @@ public class AddCommandTest extends CommandTest {
         execute();
         assertTotalTaskCount(1);
         assertEquals("Hello NUS", this.getTaskAt(1).getTitle());
-        assertEquals(false, this.getTaskAt(1).isPinned());
-        assertEquals(false, this.getTaskAt(1).getDescription().isPresent());      
-        assertEquals(true, this.getTaskAt(1).getLocation().isPresent());
+        assertFalse(this.getTaskAt(1).isPinned());
+        assertFalse(this.getTaskAt(1).getDescription().isPresent());      
+        assertTrue(this.getTaskAt(1).getLocation().isPresent());
         assertEquals("NUS", this.getTaskAt(1).getLocation().get());
     }
     
@@ -43,9 +43,9 @@ public class AddCommandTest extends CommandTest {
         execute();
         assertTotalTaskCount(1);
         assertEquals("Destroy World", this.getTaskAt(1).getTitle());
-        assertEquals(false, this.getTaskAt(1).isPinned());
-        assertEquals(true, this.getTaskAt(1).getDescription().isPresent());      
-        assertEquals(false, this.getTaskAt(1).getLocation().isPresent());
+        assertFalse(this.getTaskAt(1).isPinned());
+        assertTrue(this.getTaskAt(1).getDescription().isPresent());      
+        assertFalse(this.getTaskAt(1).getLocation().isPresent());
         assertEquals("Remember to get Dynamites on sale!", this.getTaskAt(1).getDescription().get());
     }
     
@@ -56,9 +56,9 @@ public class AddCommandTest extends CommandTest {
         execute();
         assertTotalTaskCount(1);
         assertEquals("Li Kai's Presentation", this.getTaskAt(1).getTitle());
-        assertEquals(true, this.getTaskAt(1).isPinned());
-        assertEquals(false, this.getTaskAt(1).getDescription().isPresent());      
-        assertEquals(false, this.getTaskAt(1).getLocation().isPresent());
+        assertTrue(this.getTaskAt(1).isPinned());
+        assertFalse(this.getTaskAt(1).getDescription().isPresent());      
+        assertFalse(this.getTaskAt(1).getLocation().isPresent());
     }
     
     @Test
@@ -70,10 +70,10 @@ public class AddCommandTest extends CommandTest {
         execute();
         assertTotalTaskCount(1);
         assertEquals("Task 1", this.getTaskAt(1).getTitle());
-        assertEquals(true, this.getTaskAt(1).isPinned());
-        assertEquals(true, this.getTaskAt(1).getDescription().isPresent());      
-        assertEquals(true, this.getTaskAt(1).getLocation().isPresent());
+        assertTrue(this.getTaskAt(1).isPinned());
+        assertTrue(this.getTaskAt(1).getDescription().isPresent());      
+        assertTrue(this.getTaskAt(1).getLocation().isPresent());
         assertEquals("COM1", this.getTaskAt(1).getLocation().get());
-        assertEquals("Useless task", this.getTaskAt(1).getLocation().get());
+        assertEquals("Useless task", this.getTaskAt(1).getDescription().get());
     }
 }
