@@ -42,12 +42,12 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public StartTime getPhone() {
+    public StartTime getStartTime() {
         return startTime;
     }
 
     @Override
-    public EndTime getEmail() {
+    public EndTime getEndTime() {
         return endTime;
     }
 
@@ -73,8 +73,8 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskDetails + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
+        sb.append("p/" + this.getStartTime().value + " ");
+        sb.append("e/" + this.getEndTime().value + " ");
         sb.append("a/" + this.getUniqueID() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();

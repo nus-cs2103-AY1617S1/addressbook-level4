@@ -39,7 +39,7 @@ public class XmlTaskListStorage implements TaskListStorage {
         File taskListFile = new File(filePath);
 
         if (!taskListFile.exists()) {
-            logger.info("AddressBook file "  + taskListFile + " not found");
+            logger.info("TaskList file "  + taskListFile + " not found");
             return Optional.empty();
         }
 

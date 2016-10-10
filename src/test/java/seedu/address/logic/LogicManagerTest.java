@@ -188,7 +188,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
 
     }
 
@@ -208,7 +208,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
 
     }
 
@@ -273,7 +273,7 @@ public class LogicManagerTest {
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
     }
 
 
@@ -381,8 +381,8 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
+            cmd.append(" p/").append(p.getStartTime());
+            cmd.append(" e/").append(p.getEndTime());
             cmd.append(" a/").append(p.getUniqueID());
 
             UniqueTagList tags = p.getTags();
