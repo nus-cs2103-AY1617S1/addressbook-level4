@@ -39,13 +39,13 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getDescription().toString();
-        phone = source.getDeadline().value;
+        phone = source.getDate().toString();
         email = "placeholder";
         address = source.getLocation().value;
         tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
+//        for (Tag tag : source.getTags()) {
+//            tagged.add(new XmlAdaptedTag(tag));
+//        }
     }
 
     /**
@@ -62,6 +62,6 @@ public class XmlAdaptedTask {
        
         final Location address = new Location(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(desc, address, tags);
+        return new Task(desc, address);
     }
 }

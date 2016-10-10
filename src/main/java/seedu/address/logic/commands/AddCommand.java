@@ -5,6 +5,7 @@ import seedu.address.model.task.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,34 +27,23 @@ public class AddCommand extends Command {
     private final Task toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * Due to all the optional arguments, varargs is most useful.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String description, String address, Set<String> tags)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd = new Task(
-                new Description(description),
-                new Location(address),
-                new UniqueTagList(tagSet)
-        );
-    }
 
-    public AddCommand(String description, Set<String> tags) throws IllegalValueException
-    {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd = new Task(
-                new Description(description),
-                new UniqueTagList(tagSet)
-        );
+    public AddCommand(String description, Object ... objects) throws IllegalValueException{
+    	if(objects.length > 3){//f**k in this case - this should never happen b/c we control parser.
+    		throw new IllegalArgumentException();
+    	}
+//      final Set<Tag> tagSet = new HashSet<>();
+//      for (String tagName : tags) {
+//          tagSet.add(new Tag(tagName));
+//      }
+   
+    	this.toAdd = new Task(new Description(description), objects);
     }
+ 
 
     @Override
     public CommandResult execute() {

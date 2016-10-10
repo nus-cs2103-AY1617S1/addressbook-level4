@@ -4,6 +4,9 @@ import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,10 +31,10 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<description>[^/]+)"
-//                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
+                    + " by\\s(?<deadline>[^/]+)");
 //                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
 //                    + " (?<isAddressPrivate>p?)a/(?<location>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+//                    + "(?<tagArguments>(?: t/[^/]+)*)"); // va	riable number of tags
 
     public Parser() {}
 
@@ -43,11 +46,16 @@ public class Parser {
      */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+//        if (!matcher.matches()) {
+//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+//        }
+        String commandWord;
+        
+        commandWord = matcher.group("commandWord");
+        if(commandWord == null) {
+        	commandWord = AddCommand.COMMAND_WORD;
         }
-
-        final String commandWord = matcher.group("commandWord");
+        
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
@@ -89,14 +97,21 @@ public class Parser {
     private Command prepareAdd(String args){
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+//        if (!matcher.matches()) {
+//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+//        }
+        LocalDateTime ldt = null;
+        if(matcher.group("deadline") != null){
+        	String date = matcher.group("deadline");
+        	DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL).withLocale(Locale.ENGLISH);
+        	ldt = LocalDateTime.parse(date, formatter);
         }
         try {
             return new AddCommand(
                     matcher.group("description"),
+                    ldt
     //                matcher.group("location"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+   //                 getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

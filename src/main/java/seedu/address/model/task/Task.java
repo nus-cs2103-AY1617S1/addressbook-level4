@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Location;
@@ -23,7 +24,25 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 	private Priority pri;
  //   private UniqueTagList tags;
 
-
+	public Task(Description description, Object ... objects) throws IllegalValueException{
+		this.descr = description;
+		this.loc = null;
+		this.dueDate = null;
+		this.pri = new Priority(0);
+		for(int i = 0; i < objects.length; i++){
+    		Object o = objects[i];
+    		if(o instanceof String){
+    			this.loc = new Location((String)o);
+    		} else if(o instanceof LocalDateTime){
+    			this.dueDate = (LocalDateTime)o;
+    		} else if(o instanceof Integer){
+    			this.pri = new Priority((Integer)o);
+    		}
+    	}
+		
+		
+	}
+	
     public Task(Description description, Location location, LocalDateTime due, Priority p) {
     	assert !CollectionUtil.isAnyNull(description, location, due);
     	this.descr = description;
@@ -31,7 +50,6 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     	this.dueDate = due;
     	this.pri = p;
   //      this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        
     }
 
     /**
@@ -40,28 +58,7 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getDescription(), source.getLocation(), source.getDate(), source.getPriority());
     }
-    public Task(Description description, Location location){
-    	assert !CollectionUtil.isAnyNull(description, location);
-    	this.descr = description;
-    	this.loc = location;
-    }
-    public Task(Description description) {
-    	assert !CollectionUtil.isAnyNull(description);
-        this.descr = description;
-        
- //   	this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-
-    @Override
-    public Description getDescription() {
-        return this.descr;
-    }
-
-    @Override
-    public Location getLocation() {
-        return this.loc;
-    }
-
+   
 //    @Override
 //    public UniqueTagList getTags() {
 //        return new UniqueTagList(tags);
@@ -91,7 +88,16 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+    
+    @Override
+    public Description getDescription() {
+        return this.descr;
+    }
 
+    @Override
+    public Location getLocation() {
+        return this.loc;
+    }
 
 	@Override
 	public LocalDateTime getDate() {

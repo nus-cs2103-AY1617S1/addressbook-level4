@@ -77,7 +77,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
+      //  syncTagsWithMasterList(p);
         tasks.add(p);
     }
 
@@ -86,23 +86,23 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of task tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
-    }
+//    private void syncTagsWithMasterList(Task task) {
+//        final UniqueTagList taskTags = task.getTags();
+//        tags.mergeFrom(taskTags);
+//
+//        // Create map with values = tag object references in the master list
+//        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+//        for (Tag tag : tags) {
+//            masterTagObjects.put(tag, tag);
+//        }
+//
+//        // Rebuild the list of task tags using references from the master list
+//        final Set<Tag> commonTagReferences = new HashSet<>();
+//        for (Tag tag : taskTags) {
+//            commonTagReferences.add(masterTagObjects.get(tag));
+//        }
+//        task.setTags(new UniqueTagList(commonTagReferences));
+//    }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
