@@ -77,13 +77,13 @@ Each of the four components
 For example, the `Logic` component (illustrated in Figure 2) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
-_Figure 2: Class Diagram of the* `Logic `*component_
+_Figure 2: Class Diagram of the `Logic `component_
 
 The _Sequence Diagram_ (Figure 3) below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
-_Figure 3: Sequence Diagram for delete command._
+_Figure 3: Sequence Diagram for delete command_
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
