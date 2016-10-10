@@ -50,7 +50,6 @@ public class DateTime {
                 throw new IllegalDateException("End dateTime should be after start dateTime.");
             }
         }
-
     }
 
     @Override

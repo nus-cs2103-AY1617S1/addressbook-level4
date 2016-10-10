@@ -164,6 +164,8 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior("add -dt 22/04/2016 1400 to 23/04/2016 2200 -p h Valid Task Name", expectedMessage);
+        assertCommandBehavior("add", expectedMessage);
+
     }
 
     @Test
@@ -392,16 +394,16 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+    public void execute_find_matchesIfAllKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generateTaskWithName("key key");
+        Task pTarget3 = helper.generateTaskWithName("key key rAnDoM");
         Task p1 = helper.generateTaskWithName("sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
         Tars expectedAB = helper.generateTars(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
+        List<Task> expectedList = helper.generateTaskList(pTarget3);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find key rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -432,25 +434,27 @@ public class LogicManagerTest {
 
     @Test
     public void execute_edit_editsCorrectTask() throws Exception {
-       
+
         // setup expectations
-        TestDataHelper helper = new TestDataHelper();        
+        TestDataHelper helper = new TestDataHelper();
         Task taskToAdd = helper.meetAdam();
         List<Task> listToEdit = new ArrayList<Task>();
         listToEdit.add(taskToAdd);
         Tars expectedAB = new Tars();
         expectedAB.addTask(taskToAdd);
-        
+
         // edit task
-        String[] argsToEdit = {"1", "-n Meet Betty Green", "-dt 20/09/2016 1800 to 21/09/2016 1800", "-p h", "-tr tag2", "-ta tag3"};
+        String[] argsToEdit = { "1", "-n Meet Betty Green", "-dt 20/09/2016 1800 to 21/09/2016 1800", "-p h",
+                "-tr tag2", "-ta tag3" };
         Task taskToEdit = taskToAdd;
         Task editedTask = expectedAB.editTask(taskToEdit, argsToEdit);
         helper.addToModel(model, listToEdit);
-        
+
         String inputCommand = "edit 1 -n Meet Betty Green -dt 20/09/2016 1800 "
                 + "to 21/09/2016 1800 -p h -tr tag2 -ta tag3";
         // execute command
-        assertCommandBehavior(inputCommand, String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask), expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior(inputCommand, String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
+                expectedAB, expectedAB.getTaskList());
     }
 
     /**

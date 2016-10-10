@@ -258,7 +258,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | clear all the data | remove all my information
 `* *` | user | prioritize my task | do the more important ones first
 `* *` | user | search for a task by keywords | view the details of task and complete it
-`* *` | user | undo a command | revert back to the previous state
+`* *` | user | undo a command | unexecute the last action that I just performed
 `* *` | user | add recurring tasks | save time entering the same task over multiple dates
 `* *` | user | choose my data storage location | have the flexibility to use the program on multiple computers as they can read from the same file stored on the cloud e.g. Google Drive
 `* *` | user | add a tag on tasks | categorize my task
@@ -430,6 +430,24 @@ Use case ends.
 1. User requests to list tags
 2. TARS shows a list of tags<br>
 Use case ends.
+
+#### Use case: UC09 - Undo a previous command
+
+**MSS**
+
+1. User requests to undo a previous command
+2. TARS unexecutes (undo) the last command in the history list
+Use case ends.
+
+**Extensions**
+
+2a. The previous command can not be reserved (e.g. list, help)
+
+> 2a1. Use case ends
+
+2b. The history list is empty
+
+> 2b1. Use case ends
 
 {More to be added}
 
