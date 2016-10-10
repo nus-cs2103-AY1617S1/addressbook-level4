@@ -81,9 +81,11 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     }
     
     /**
+     * 
      * Runs the delete command to delete the person at specified index and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of persons (before deletion).
+     * @param category the category in which to delete from
+     * @param currentList A copy of the current list of persons (before deletion).     
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, String category, final TestTask[] currentList) {
         TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
