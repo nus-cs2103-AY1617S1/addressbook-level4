@@ -12,6 +12,7 @@ We are a group of Computer Engineering students taking CS2103T Software Engineer
  -----
 
 #### [Irwin Mah](https://github.com/chooxy) <br>
+<img src="images/IrwinMah.jpg" width="150"><br>
 Role: Developer <br>
 Responsibilities: 
 
