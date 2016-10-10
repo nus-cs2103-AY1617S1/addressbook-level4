@@ -35,6 +35,7 @@ public class CommandBox extends UiPart {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
+        commandBox.commandTextField.setPromptText("What would you like to do today?");
         return commandBox;
     }
 
