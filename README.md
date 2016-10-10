@@ -5,17 +5,11 @@
 
 <img src="docs/images/Ui.png" width="600"><br>
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
-  a CLI (Command Line Interface).
+* This is a CLI (Command Line Interface) Task Scheduler application project by Techies with Gremlins.
 * It is a Java sample application intended for students learning Software Engineering while using Java as 
   the main programming language. 
-* It is **written in OOP fashion**. It provides a **reasonably well-written** code example that is 
-  **significantly bigger** (around 6 KLoC)than what students usually write in beginner-level SE modules. 
-* What's different from [level 3](https://github.com/se-edu/addressbook-level3):
-    * A more sophisticated GUI that includes a list panel and an in-built Browser.
-    * More test cases, including automated GUI testing.
-    * Support for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
-
+* It is **written in OOP fashion**, in Java and JavaFX for the GUI. 
+* It is based on [Addressbook Level 4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4).
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
