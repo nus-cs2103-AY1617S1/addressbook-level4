@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the category character and index number used in the last task listing.\n"
-            + "Parameters: CATEGORY(default to 't' if not given) INDEX (must be a positive integer)\n"
+            + "Parameters: CATEGORY(default to 't' if not given or incorrect) INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " " + CATEGORY_CHARS + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted" + " %1$s: %2$s";
