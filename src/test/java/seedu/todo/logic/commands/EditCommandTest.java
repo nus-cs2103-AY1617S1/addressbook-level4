@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.model.task.ImmutableTask;
 
 public class EditCommandTest extends CommandTest {
     @Override
@@ -33,62 +34,67 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testEditPinned() throws IllegalValueException{
+    	ImmutableTask toEditPin=getTaskAt(1);
     	this.setParameter("1");
     	this.setParameter("p", null);
     	execute();
-    	assertEquals("Task 1", this.getTaskAt(1).getTitle());
-        assertTrue(this.getTaskAt(1).isPinned());
-        assertFalse(this.getTaskAt(1).getDescription().isPresent());
-        assertFalse(this.getTaskAt(1).getLocation().isPresent());
+    	assertEquals("Task 1", toEditPin.getTitle());
+        assertTrue(toEditPin.isPinned());
+        assertFalse(toEditPin.getDescription().isPresent());
+        assertFalse(toEditPin.getLocation().isPresent());
     }
     
     @Test
     public void testEditLocation() throws IllegalValueException {
+    	ImmutableTask toEditLocation=getTaskAt(3);
         this.setParameter("3");
         this.setParameter("l", "NTU");
         execute();
-        assertEquals("Task 3", this.getTaskAt(3).getTitle());
-        assertFalse(this.getTaskAt(3).isPinned());
-        assertFalse(this.getTaskAt(3).getDescription().isPresent());
-        assertTrue(this.getTaskAt(3).getLocation().isPresent());
-        assertEquals("NTU", this.getTaskAt(3).getLocation().get());
+        assertEquals("Task 3", toEditLocation.getTitle());
+        assertFalse(toEditLocation.isPinned());
+        assertFalse(toEditLocation.getDescription().isPresent());
+        assertTrue(toEditLocation.getLocation().isPresent());
+        assertEquals("NTU", toEditLocation.getLocation().get());
     }
     
     @Test
     public void testEditDescription() throws IllegalValueException {
+    	ImmutableTask toEditDesc=getTaskAt(2);
         this.setParameter("2");
         this.setParameter("m", "Some other description");
         execute();
-        assertEquals("Task 2", this.getTaskAt(2).getTitle());
-        assertFalse(this.getTaskAt(2).isPinned());
-        assertTrue(this.getTaskAt(2).getDescription().isPresent());
-        assertFalse(this.getTaskAt(2).getLocation().isPresent());
-        assertEquals("Some other description", this.getTaskAt(2).getDescription().get());
+        assertEquals("Task 2", toEditDesc.getTitle());
+        assertFalse(toEditDesc.isPinned());
+        assertTrue(toEditDesc.getDescription().isPresent());
+        assertFalse(toEditDesc.getLocation().isPresent());
+        assertEquals("Some other description", toEditDesc.getDescription().get());
     }
     
     @Test
     public void testDeleteField() throws IllegalValueException{
+    	ImmutableTask toDeleteField=getTaskAt(2);
     	this.setParameter("2");
     	this.setParameter("m", null);
     	execute();
-    	assertEquals("Task 2", this.getTaskAt(2).getTitle());
-        assertFalse(this.getTaskAt(2).isPinned());
-        assertFalse(this.getTaskAt(2).getDescription().isPresent());
-        assertFalse(this.getTaskAt(2).getLocation().isPresent());
+    	assertEquals("Task 2", toDeleteField.getTitle());
+        assertFalse(toDeleteField.isPinned());
+        assertFalse(toDeleteField.getDescription().isPresent());
+        assertFalse(toDeleteField.getLocation().isPresent());
     }
     
     @Test
     public void testEditMoreThanOneParameter() throws IllegalValueException{
-    	this.setParameter("2");
+    	ImmutableTask toEditTwoThings=getTaskAt(1);
+    	this.setParameter("1");
     	this.setParameter("m", "New description");
     	this.setParameter("l", "Singapura");
     	execute();
-    	assertEquals("Task 2", this.getTaskAt(2).getTitle());
-        assertFalse(this.getTaskAt(2).isPinned());
-        assertTrue(this.getTaskAt(2).getDescription().isPresent());
-        assertTrue(this.getTaskAt(2).getLocation().isPresent());
-        assertEquals("New description", this.getTaskAt(2).getDescription().get());
-        assertEquals("Singapura", this.getTaskAt(2).getLocation().get());
+    	assertEquals("Task 1", toEditTwoThings.getTitle());
+        assertFalse(toEditTwoThings.isPinned());
+        assertTrue(toEditTwoThings.getDescription().isPresent());
+        assertTrue(toEditTwoThings.getLocation().isPresent());
+        assertEquals("New description", toEditTwoThings.getDescription().get());
+        assertEquals("Singapura", toEditTwoThings.getLocation().get());
         
     }
 }
