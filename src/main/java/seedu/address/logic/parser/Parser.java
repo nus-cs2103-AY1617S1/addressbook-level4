@@ -146,7 +146,7 @@ public class Parser {
 		    // If yyyy-MM-dd
 		    String startDateString;
 		    String endDateString;
-		    String parts[] = eventMatcher.group("endDate").split("-");
+		    String[] parts = eventMatcher.group("endDate").split("-");
 		    if (parts.length == 3) {
 		        endDateString = eventMatcher.group("endDate");
 		        df.parse(eventMatcher.group("endDate"));
@@ -155,7 +155,7 @@ public class Parser {
 		        endDateString = ldt.getYear() + "-" + eventMatcher.group("endDate");
 		        df.parse(endDateString);
 		    }
-		    String parts2[] = eventMatcher.group("startDate").split("-");
+		    String[] parts2 = eventMatcher.group("startDate").split("-");
 		    // If yyyy-MM-dd
 		    if (parts2.length == 3) {
 		        startDateString = eventMatcher.group("startDate");
@@ -187,7 +187,7 @@ public class Parser {
 		    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		    SimpleDateFormat df2 = new SimpleDateFormat("MM-dd");
 		    df.setLenient(false);
-		    String parts[] = deadlineMatcher.group("endDate").split("-");
+		    String[] parts = deadlineMatcher.group("endDate").split("-");
 		    // If yyyy-MM-dd
 		    if (parts.length == 3) {
 		        df.parse(deadlineMatcher.group("endDate"));
