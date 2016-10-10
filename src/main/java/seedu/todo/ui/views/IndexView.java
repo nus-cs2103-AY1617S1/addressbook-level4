@@ -3,7 +3,7 @@ package seedu.todo.ui.views;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.components.TagList;
 import seedu.todo.ui.components.TaskList;
@@ -14,9 +14,9 @@ public class IndexView extends View {
 	
 	// FXML
 	@FXML
-	private AnchorPane tagsPane;
+	private Pane tagsPane;
 	@FXML
-	private AnchorPane tasksPane;
+	private Pane tasksPane;
 	
 	// Props
 	public ArrayList<Object> tasks = new ArrayList<Object>(); // stub
