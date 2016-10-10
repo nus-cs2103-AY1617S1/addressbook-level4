@@ -164,6 +164,8 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
                 "add -dt 22/04/2016 1400 to 23/04/2016 2200 -p h Valid Task Name", expectedMessage);
+        assertCommandBehavior(
+                "add", expectedMessage);
     }
 
     @Test
