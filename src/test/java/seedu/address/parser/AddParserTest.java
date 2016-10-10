@@ -18,4 +18,11 @@ public class AddParserTest {
 
 	}
 
+	@Test
+	public void checkIsTask_returnsFalse(){
+		
+		String arguments = "by: 10-08-16 9999";
+		
+		assertFalse(AddParser.isTask(arguments));
+	}
 }
