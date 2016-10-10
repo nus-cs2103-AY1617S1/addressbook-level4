@@ -25,7 +25,7 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(getLocationParameter());
+                .append(" at ").append(getLocationParameter());
         return builder.toString();
     }
 

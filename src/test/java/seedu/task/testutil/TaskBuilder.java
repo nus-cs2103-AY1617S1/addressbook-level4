@@ -1,7 +1,6 @@
 package seedu.task.testutil;
 
 import seedu.todolist.commons.exceptions.IllegalValueException;
-import seedu.todolist.model.tag.Tag;
 import seedu.todolist.model.task.*;
 
 /**
@@ -20,10 +19,8 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
-            task.getTags().add(new Tag(tag));
-        }
+    public TaskBuilder withLocationParameter(String locationParameter) throws IllegalValueException {
+    	this.task.setLocationParameter(new LocationParameter(locationParameter));
         return this;
     }
 

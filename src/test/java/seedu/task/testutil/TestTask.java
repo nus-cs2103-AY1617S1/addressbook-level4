@@ -1,6 +1,5 @@
 package seedu.task.testutil;
 
-import seedu.todolist.model.tag.UniqueTagList;
 import seedu.todolist.model.task.*;
 
 /**
@@ -9,14 +8,14 @@ import seedu.todolist.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private UniqueTagList tags;
-
-    public TestTask() {
-        tags = new UniqueTagList();
-    }
+    private LocationParameter locationParameter;
 
     public void setName(Name name) {
         this.name = name;
+    }
+    
+    public void setLocationParameter(LocationParameter locationParameter) {
+        this.locationParameter = locationParameter;
     }
 
     @Override
@@ -25,8 +24,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return tags;
+    public LocationParameter getLocationParameter() {
+        return locationParameter;
     }
 
     @Override
@@ -37,7 +36,7 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("at " + this.getLocationParameter());
         return sb.toString();
     }
 }
