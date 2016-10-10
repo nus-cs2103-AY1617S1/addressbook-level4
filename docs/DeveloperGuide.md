@@ -120,7 +120,7 @@ The sections below give more details of each component.
 
 ### UI component
 
-<img src="diagrams/Ui Component.png" class="u-max-full-width">
+<img src="diagrams/Ui Component.svg" class="u-max-full-width">
 
 **API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
@@ -165,7 +165,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 ### Model component
 
-<img src="diagrams/Model Component.png" class="container u-max-full-width">
+<img src="diagrams/Model Component.svg" class="container u-max-full-width">
 
 **API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
@@ -183,7 +183,7 @@ object that the UI can bind to.
 The model ensure safety by exposing as much of its internal state as possible as immutable objects 
 using interfaces such as `ImmutableTask`.
 
-<img src="diagrams/Storage Component.png" class="container u-max-full-width">
+<img src="diagrams/Storage Component.svg" class="container u-max-full-width">
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
