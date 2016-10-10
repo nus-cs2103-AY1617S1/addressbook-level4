@@ -89,6 +89,8 @@ public class AddCommandParser extends CommandParser<AddCommand> {
     
     private InferredDate parseStartDate(String commandText, String dateText) throws ParseException {
         try {
+            if (dateText == null)
+                return null;
             return dateParser.parseSingle(dateText);
         } catch (ParseException ex) {
             throw new ParseException(commandText, "START_DATE: " + ex.getFailureDetails());
@@ -97,6 +99,8 @@ public class AddCommandParser extends CommandParser<AddCommand> {
     
     private InferredDate parseEndDate(String commandText, String dateText) throws ParseException {
         try {
+            if (dateText == null)
+                return null;
             return dateParser.parseSingle(dateText);
         } catch (ParseException ex) {
             throw new ParseException(commandText, "END_DATE: " + ex.getFailureDetails());
@@ -109,6 +113,8 @@ public class AddCommandParser extends CommandParser<AddCommand> {
     
     private PriorityLevel parsePriorityLevel(String commandText, String priorityLevelText) throws ParseException {
         try {
+            if (priorityLevelText == null)
+                return null;
             return PriorityLevel.valueOfIgnoreCase(priorityLevelText);
         } catch (IllegalArgumentException ex) {
             throw new ParseException(commandText, "PRIORITY_LEVEL: Unknown type '" + priorityLevelText + "'");
@@ -117,13 +123,18 @@ public class AddCommandParser extends CommandParser<AddCommand> {
     
     private RecurrenceType parseRecurrenceType(String commandText, String recurrenceTypeText) throws ParseException {
         try {
+            if (recurrenceTypeText == null)
+                return null;
             return RecurrenceType.valueOfIgnoreCase(recurrenceTypeText);
         } catch (IllegalArgumentException ex) {
             throw new ParseException(commandText, "RECURRING_TYPE: Unknown type '" + recurrenceTypeText + "'");
         }
     }
     
-    private int parseNumberOfRecurrence(String commandText, String numRecurrenceText) throws ParseException {
+    private Integer parseNumberOfRecurrence(String commandText, String numRecurrenceText) throws ParseException {
+        if (numRecurrenceText == null)
+            return null;
+        
         int numRecurrence = 0;
         boolean parseError = false;
         

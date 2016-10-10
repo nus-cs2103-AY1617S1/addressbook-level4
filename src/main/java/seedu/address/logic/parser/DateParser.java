@@ -63,6 +63,7 @@ public class DateParser {
      * @throws ParseException if the input contains multiple dates or no dates.
      */
     public InferredDate parseSingle(String input) throws ParseException {
+        assert input != null;
         List<DateGroup> dateGroups = this.nattyParser.parse(input);
         int totalDates = countDates(dateGroups);
         
