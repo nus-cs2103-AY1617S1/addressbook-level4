@@ -21,6 +21,6 @@
 
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
-
+* Most of the code is reused from [Addressbook Level 4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4).
 
 #### Licence : [MIT](LICENSE)
