@@ -103,19 +103,88 @@ public class Parser {
      * @return the fields specified in the args
      */
     public static Map<TaskField, String> getTaskFieldsFromArgs(String args) throws IllegalCmdArgsException {
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        Map<TaskField, String> fields = new HashMap<TaskField, String>();
-        // Validate arg string format
-        if (!matcher.matches()) {
-            throw new IllegalCmdArgsException("Invalid format for command arguments"); // TODO: THROW ERROR
+        // Clear extra whitespace characters
+        args = args.trim();
+        while (args.contains("  ")) {
+            args = args.replaceAll("  ", " "); // get rid of double-spaces
         }
-        fields.put(TaskField.NAME, matcher.group("name"));
-        fields.put(TaskField.START_TIME, matcher.group("startTime"));
-        fields.put(TaskField.END_TIME, matcher.group("endTime"));
-        fields.put(TaskField.DEADLINE, matcher.group("deadline"));
-        fields.put(TaskField.RECURRENCE, matcher.group("recurrence"));
-        fields.put(TaskField.TAG_ARGUMENTS, matcher.group("tagArguments"));
-        return fields;
+        // Get the indexes of all task fields
+        String[] splitted = args.split(" ");
+        List<Entry<TaskField, Integer>> fieldIndexes = new ArrayList<>();
+        TaskField[] fields = new TaskField[] { TaskField.START_TIME, TaskField.END_TIME,
+                                               TaskField.DEADLINE, TaskField.RECURRENCE };
+        for (TaskField tf : fields) {
+            Integer index = getIndexesOfKeyword(splitted, tf.getKeyword());
+            if (index != null) {
+                fieldIndexes.add(new SimpleEntry<TaskField, Integer>(tf, index));
+            }
+        }
+        for (int i = 0; i < splitted.length; i++) {
+            if (splitted[i].toLowerCase().startsWith(CommandConstants.TAG_PREFIX)) {
+                for (int j = i; j < splitted.length; j++) {
+                    if (!splitted[j].startsWith(CommandConstants.TAG_PREFIX)) {
+                        throw new IllegalCmdArgsException("Hashtags should be the last fields in command.");
+                    }
+                }
+                fieldIndexes.add(new SimpleEntry<TaskField, Integer>(TaskField.TAG_ARGUMENTS, i));
+                break;
+            }
+        }
+        // Arrange the indexes of task fields in sorted order
+        Collections.sort(fieldIndexes, new Comparator<Entry<TaskField, Integer>>() {
+            @Override
+            public int compare(Entry<TaskField, Integer> a, Entry<TaskField, Integer> b) {
+                return a.getValue().compareTo(b.getValue());
+            } });
+        // Extract the respective task fields into results map
+        Map<TaskField, String> result = new HashMap<TaskField, String>();
+        if (fieldIndexes.size() == 0) {
+            return result;
+        }
+        Integer firstIndex = fieldIndexes.get(0).getValue();
+        if (firstIndex > 0) {
+            String[] subArr = Arrays.copyOfRange(splitted, 0, firstIndex);
+            result.put(TaskField.NAME, String.join(" ", subArr));
+        }
+        for (int i = 0; i < fieldIndexes.size(); i++) {
+            if (fieldIndexes.get(i).getKey() == TaskField.TAG_ARGUMENTS && i != fieldIndexes.size() - 1) {
+                throw new IllegalCmdArgsException("Hashtags should be the last fields in command.");
+            }
+            String[] subArr = Arrays.copyOfRange(splitted,
+                                (fieldIndexes.get(i).getKey() == TaskField.TAG_ARGUMENTS) ?
+                                    fieldIndexes.get(i).getValue() :
+                                    fieldIndexes.get(i).getValue() + 1,
+                                (i == fieldIndexes.size() - 1) ?
+                                    splitted.length : fieldIndexes.get(i + 1).getValue());
+            result.put(fieldIndexes.get(i).getKey(), String.join(" ", subArr));
+        }
+        return result;
+    }
+    
+    /**
+     * Finds the location of the specified keyword in the array of args
+     *
+     * @param args fields to be checked
+     * @return index of where the keyword is found
+     * @throws IllegalCmdArgsException if command is not found
+     */
+    private static Integer getIndexesOfKeyword(String[] args, String keyword) throws IllegalCmdArgsException {
+        keyword = keyword.toLowerCase();
+        String curKeyword = CommandConstants.KEYWORD_PREFIX + keyword.toLowerCase();
+        List<Integer> indexes = new ArrayList<Integer>();
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].toLowerCase().equals(curKeyword)) {
+                indexes.add(i);
+            }
+        }
+        if (indexes.size() > 1) {
+            throw new IllegalCmdArgsException("There are more than 1 instances of " +
+                                CommandConstants.KEYWORD_PREFIX + keyword + " in the command.");
+        } else if (indexes.size() < 1) {
+            return null;
+        }
+        // We allow multiple interpretations of the command if no clear keywords are used
+        return indexes.get(0);
     }
 
     /**
