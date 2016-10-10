@@ -25,6 +25,7 @@ Responsibilities:
 -----
 
 #### [Xie Jihui](https://github.com/xjh666) 
+<img src="images/XieJihui.JPG" width="150"><br>
 Role: Developer <br>  
 Responsibilities: 
 
