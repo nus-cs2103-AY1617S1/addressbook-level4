@@ -20,6 +20,13 @@ public class DeleteCommandTest extends CommandTest {
         model.add("Task 2");
         model.add("Task 1");
     }
+    
+    
+    @Test(expected=IllegalValueException.class)
+    public void testInvalidDelete() throws IllegalValueException{
+        setParameter("4");
+        execute();
+    }
 
     @Test
     public void testDeleteFirst() throws IllegalValueException {
@@ -28,4 +35,22 @@ public class DeleteCommandTest extends CommandTest {
         execute();
         assertTaskNotExist(toDelete);
     }
+    
+    @Test
+    public void testSuccessiveDeletes() throws IllegalValueException {
+        ImmutableTask toDeleteFirst = getTaskAt(1);
+        ImmutableTask toDeleteNext = getTaskAt(1);
+        ImmutableTask toDeleteLast = getTaskAt(1);
+        setParameter("1");
+        execute();
+        assertTaskNotExist(toDeleteFirst);
+        setParameter("1");
+        execute();
+        assertTaskNotExist(toDeleteNext);
+        setParameter("1");
+        execute();
+        assertTaskNotExist(toDeleteLast);
+    }
+    
+    
 }
