@@ -100,7 +100,14 @@ VBox.header {
 
 .taglist-link-text {
   -fx-font-size: 15px;
-  -fx-background-color: #000;
+}
+
+.taglist-item-text {
+  -fx-font-size: 13px;
+}
+
+.taglist-item-bullet {
+  -fx-fill-color: #999999;
 }
 
 /* TASK LIST */

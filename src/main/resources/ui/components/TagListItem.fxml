@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
 
@@ -14,12 +14,17 @@
   
     <HBox styleClass="taglist-item">
       <children>
+        <Circle fx:id="labelBullet" styleClass="taglist-item-bullet" radius="4">
+          <HBox.margin>
+            <Insets left="5.0" right="10.0" top="4.0" />
+          </HBox.margin>
+        </Circle>
         <Text fx:id="labelText" styleClass="taglist-item-text" HBox.hgrow="ALWAYS" />
       </children>
     </HBox>
     
   </children>
   <padding>
-    <Insets left="20.0" right="20.0" top="10.0" />
+    <Insets left="5.0" right="20.0" top="10.0" />
   </padding>
 </VBox>

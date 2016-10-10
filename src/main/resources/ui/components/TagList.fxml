@@ -9,19 +9,15 @@
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.components.TagList">
   <children>
     
-    <AnchorPane>
-      <VBox fx:id="tagListLinksPlaceholder" />
-    </AnchorPane>
+    <VBox fx:id="tagListLinksPlaceholder" />
   
     <Text fx:id="titleText" styleClass="font-300, taglist-title" text="Tags">
       <VBox.margin>
-        <Insets top="20.0" />
+        <Insets left="5.0" top="20.0" />
       </VBox.margin>
     </Text>
   
-    <AnchorPane>
-      <VBox fx:id="tagListTagsPlaceholder" />
-    </AnchorPane>
+    <VBox fx:id="tagListTagsPlaceholder" />
     
   </children>
   <padding>
