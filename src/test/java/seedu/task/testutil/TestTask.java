@@ -9,6 +9,7 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private LocationParameter locationParameter;
+    private RemarksParameter remarksParameter;
 
     public void setName(Name name) {
         this.name = name;
@@ -18,6 +19,10 @@ public class TestTask implements ReadOnlyTask {
         this.locationParameter = locationParameter;
     }
 
+    public void setRemarksParameter(RemarksParameter remarksParameter) {
+    	this.remarksParameter = remarksParameter;
+    }
+    
     @Override
     public Name getName() {
         return name;
@@ -26,6 +31,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public LocationParameter getLocationParameter() {
         return locationParameter;
+    }
+    
+    @Override
+    public RemarksParameter getRemarksParameter() {
+    	return remarksParameter;
     }
 
     @Override
@@ -36,7 +46,8 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("at " + this.getLocationParameter());
+        sb.append("at " + this.getLocationParameter() + " ");
+        sb.append("remarks " + this.getRemarksParameter());
         return sb.toString();
     }
 }

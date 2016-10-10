@@ -383,7 +383,8 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             LocationParameter location = new LocationParameter("home");
-            return new Task(name, location);
+            RemarksParameter remarks = new RemarksParameter("buy flowers");
+            return new Task(name, location, remarks);
         }
 
         /**
@@ -396,7 +397,8 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new LocationParameter("at" + seed)
+                    new LocationParameter("at" + seed),
+                    new RemarksParameter("remarks" + seed)
             );
         }
 
@@ -486,7 +488,8 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new LocationParameter("location")
+                    new LocationParameter("location"),
+                    new RemarksParameter("remarks")
             );
         }
     }
