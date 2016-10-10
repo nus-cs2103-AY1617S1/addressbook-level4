@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class End {
     
-    public static final String MESSAGE_END_CONSTRAINTS = "Task's end time must be in 24 hour format.";
+    public static final String MESSAGE_END_CONSTRAINTS = "Task start time should be 4 numbers keyed in together in 24 hour format.";
     public static final String END_VALIDATION_REGEX = "\\d{4}";
 
     public final String value;
