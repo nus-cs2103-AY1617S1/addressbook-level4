@@ -26,7 +26,8 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>(?:\\d\\D*)+)");
+    private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)"); // single number of index
+    private static final Pattern ITEM_INDEXES_ARGS_FORMAT = Pattern.compile("(?<targetIndex>(?:\\d\\D*)+)"); // variable number of indexes
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -214,15 +215,13 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
         
+        final Matcher itemIndexesMatcher = ITEM_INDEXES_ARGS_FORMAT.matcher(args.trim());
         final Matcher itemIndexMatcher = ITEM_INDEX_ARGS_FORMAT.matcher(args.trim());
         
-        if(itemIndexMatcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "test"));
+        if(itemIndexesMatcher.matches()) {
+            return new IncorrectCommand(String.format("test"));
         }
-//        if(!itemIndexMatcher.matches()) {
-//            return prepareFind(args);
-//        }
-        else {
+        else if(itemIndexMatcher.matches()) {
             Optional<Integer> index = parseIndex(args);
             if(!index.isPresent()){
                 return new IncorrectCommand(
@@ -231,6 +230,10 @@ public class Parser {
 
             return new DeleteByIndexCommand(index.get());
         }
+        else {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteByIndexCommand.MESSAGE_USAGE));
+        }
+
     }
 
     /**
