@@ -324,10 +324,10 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. System prompts the user to enter a command
-2. User enters an add command with the task name into the input box.
+1. System prompts the Actor to enter a command
+2. Actor enters an add command with the task name into the input box.
 3. System adds the task.
-4. System shows a feedback message (“Task <name> added”) and displays the updated list containing the new task on the interface.
+4. System shows a feedback message (“Task <name> added”) and displays the updated list.
 5. Use case ends.
 
 **Extensions**
@@ -350,7 +350,7 @@ Priority | As a ... | I want to ... | So that I can...
 2. System shows a list of tasks
 3. Actor requests to delete a specific task in the list by its index
 4. System deletes the task.
-5. System shows a feedback message (“Task <index> deleted”) and displays the updated list without the deleted task.
+5. System shows a feedback message (“Task <index> deleted”) and displays the updated list.
 6. Use case ends.
 
 **Extensions**
@@ -370,9 +370,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Actor requests to list tasks
 2. System shows a list of tasks
-3. Actor requests to rename a specific task in the list by its index and also input the new task name
+3. Actor inputs index followed by new name of task to be modified
 4. System updates the task 
-5. System shows a feedback message (“Task <index> updated”) and displays the updated list with the edited task name.
+5. System shows a feedback message (“Task <index> updated”) and displays the updated list.
 6. Use case ends.
 
 **Extensions**
@@ -402,9 +402,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Actor requests to list tasks
 2. System shows a list of tasks
-3. Actor requests to set time of a specific task in the list by its index and also input the new start/end time or deadline
+3. Actor inputs index followed by the new start/end time or deadline
 4. System updates the task 
-5. System shows a feedback message (“Task <index> ’s time updated”) and displays the updated list on the interface.
+5. System shows a feedback message (“Task <index> ’s time updated”) and displays the updated list.
 6. Use case ends.
 
 **Extensions**
@@ -428,9 +428,9 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. Actor enters an undo command
-2. System finds the latest command that modified the task list
-3. System undo the identified command
-4. System shows a feedback message (“The command <last-command> has been undone”) and displays the updated list on the interface.
+2. System finds the most recent command that modified the task list
+3. System undoes the identified command
+4. System shows a feedback message (“The command <last-command> has been undone”) and displays the updated list.
 5. Use case ends.
 
 **Extensions**
@@ -446,7 +446,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Actor requests to list tasks
 2. System show a list of tasks
-3. Actor requests to mark a task specified by its index in the list as completed
+3. Actor inputs index of the task to be marked
 4. System updates the task
 5. System shows a feedback message (“Task <index> is marked as completed”) and hides the marked task.
 6. Use case ends
@@ -466,8 +466,8 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. Actor enters a alias command and specify the name and new alias name of the command
-2. System alias the command
+1. Actor enters an alias command followed by the original command
+2. System stores the new alias
 3. System shows a feedback message (“The command <original-command> can now be keyed in as <new-command>”)
 4. Use case ends.
 
@@ -498,12 +498,11 @@ Priority | As a ... | I want to ... | So that I can...
 ## Appendix C : Non Functional Requirements
 
 1.  Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2.	Should be able to hold up to 500 tasks.
+2.	Should be able to hold up to 1000 total tasks.
 3.	Should come with automated unit tests.
 4.	Should use a Continuous Integration server for real time status of master’s health.
 5.	Should be kept open source code.
 6.	Should favour DOS style commands over Unix-style commands.
-7.	Should be able to accept minor mistakes in the commands entered.
 8.	Should adopt an object oriented design.
 9.	Should not violate any copyrights.
 10.	Should have a response time of less than 1 second, for every action performed.
@@ -527,7 +526,7 @@ Priority | As a ... | I want to ... | So that I can...
 #### Wunderlist
 
 Strengths:
-- Clearly display tasks that have not been completed
+- Clearly displays tasks that have not been completed
 - Tasks can be categorized under different lists
 - Tasks can have sub tasks
 - Possible to highlight tasks by marking as important (starred) or pinning tasks
