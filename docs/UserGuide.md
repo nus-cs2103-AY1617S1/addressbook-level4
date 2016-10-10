@@ -25,15 +25,14 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
     - `list deadline`
     See all tasks that are deadlines arranged earliest first.
     - `find lab homework, boy`
-    See all tasks with keywords "lab homework" or "boy" in their names.
+    See all tasks with keywords 'lab homework' or 'boy' in their names.
 
 <br>
 ## 2. Features
 
 **Command Format**
 - Words in `UPPER_CASE` are user inputs. <br>
-- Items in `SQUARE_BRACKETS` are optional. <br>
-- Single quotes `' '` and doubel quotes `" "` are interchangeable. Each may be nested within the other. <br>
+- Items in `[]` are optional. <br>
 - A pipe `|` between items indicates an either-or relationship between them. <br>
 - Items with `...` after them can have multiple instances. <br>
 - The order of parameters is not fixed. <br>
@@ -52,18 +51,18 @@ Format: `help`
 #### 2.2. Adding a task: `add`
 Adds a task to the address book. Three different types of tasks are supported.<br>
 ##### Events
-Format: `add event "NAME" from hh:mm to hh:mm on dd-mm-yy`
+Format: `add event 'NAME from hh:mm to hh:mm on dd-mm-yy`
 ##### Deadlines
-Format: `add deadline "NAME" by hh:mm on dd-mm-yy`
+Format: `add deadline 'NAME' by hh:mm on dd-mm-yy`
 ##### Tasks to be completed someday
-Format: `add someday "NAME"`
+Format: `add someday 'NAME'`
 
 Examples:
-* `add event "dinner with wife" on 25-12-16 from 7:00pm to 9:00pm` <br>
+* `add event 'dinner with wife' on 25-12-16 from 7:00pm to 9:00pm` <br>
 Note that the date and time can be written in any order.
 * `add deadline 'Lab Report' by 16:00 on 03-Mar-15`
-* `add someday "Read EL James' book 50 Shades of Grey"`
-* `add someday "Learn "artistic" sarcasm"` is invalid since double quotes are used both to enclose the task name and within the name itself.
+* `add someday 'Learn "artistic" sarcasm'` is invalid since double quotes should not be used.
+* `add someday 'Read EL James' book 50 Shades of Grey'` is invalid since single quotes are used both to enclose the task name and indicate apostrophe.
 
 
 <br>
@@ -91,7 +90,7 @@ Format: `find KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2 [KEYPHRASE_ONLY_ONE_WORD, MORE,
 > * The order of the keywords within each phrase matters. e.g. `Hans Bo` will not match `Bo Hans`
 > * The order of the keyphrases does not matter. e.g. `Bo, Hans` will match `Hans Swagtacular Bo`
 > * Only the name is searched.
-> * Partial phrases will be matched e.g. `ns B` will match `"Hans Bo`
+> * Partial phrases will be matched e.g. `ns B` will match `Hans Bo`
 
 Examples:
 * `find meeting`<br>
@@ -130,7 +129,7 @@ See 'Deleting a task'.
 <br>
 #### 2.7. Updating a task: `update`
 Overwrites specified attributes of the specified task. <br>
-Format: `update INDEX ["NEWNAME"] [from hh:mm to hh:mm|by hh:mm] [dd-mm-yy] [done|not-done]`
+Format: `update INDEX ['NEWNAME'] [from hh:mm to hh:mm|by hh:mm] [dd-mm-yy] [done|not-done]`
 
 > The `from` and `to` updates are only valid for events.
 > The `by` update is only valid for deadlines.
@@ -172,7 +171,7 @@ Example:
 <br>
 #### 2.11. Setting an alias for existing commands: `add-alias`
 Adds a new shortcut for existing commands. <br>
-Format: `add-alias "COMMAND_ALIAS"="COMMAND_PHRASE"`
+Format: `add-alias 'COMMAND_ALIAS'='COMMAND_PHRASE'`
 
 > On pressing enter, the entire string specified on the right-hand side of the equals sign will replace the alias.
 > If an alias is typed within quotes, however, it will _not_ be replaced.
@@ -180,9 +179,9 @@ Format: `add-alias "COMMAND_ALIAS"="COMMAND_PHRASE"`
 Examples:
 * `add-alias 'del'='delete'` <br>
   The command `del` can be used in place of `delete`.
-* `add-alias "add-dl"="add deadline"` <br>
-  The command `add-dl "Clean the garage"` can be used in place of `add someday="Clean the garage"`. <br>
-  However, `add deadline "buy add-dl a cake" by 4:00pm on 12-Oct-16` does not become `add deadline "buy add deadline a cake" by 4:00pm on 12-Oct-16`, since `add-dl` was enclosed by quotation marks.
+* `add-alias 'add-dl'='add deadline'` <br>
+  The command `add-dl 'Clean the garage'` can be used in place of `add someday='Clean the garage'`. <br>
+  However, `add deadline 'buy add-dl a cake' by 4:00pm on 12-Oct-16` does not become `add deadline 'buy add deadline a cake' by 4:00pm on 12-Oct-16`, since `add-dl` was enclosed by quotation marks.
 
 
 <br>
@@ -212,18 +211,18 @@ Format: `exit`
   
 | Command            | Format           |
 |--------------------|:-----------------|
-|add event           |`add event "NAME" from hh:mm to hh:mm on dd-mm-yy`|
-|add deadline        |`add deadline "NAME" at hh:mm by dd-mm-yy`|
-|add task to be done someday         |`add someday "NAME"`|
+|add event           |`add event 'NAME' from hh:mm to hh:mm on dd-mm-yy`|
+|add deadline        |`add deadline 'NAME' by hh:mm dd-mm-yy`|
+|add task to be done someday         |`add someday 'NAME'`|
 |list                |`list [dd-mm-yy] [TASK_TYPE] [done|not-done] [hh:mm]`|
 |find                |`find KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2 [KEYPHRASE_ONLY_ONE_WORD, MORE, ...]`|
 |delete              |`delete INDEX [MORE_INDICES...]`|
-|update              |`update INDEX ["NEWNAME"] [from hh:mm to hh:mm | by hh:mm] [dd-mm-yy] [done|not-done]` |
+|update              |`update INDEX ['NEWNAME'] [from hh:mm to hh:mm | by hh:mm] [dd-mm-yy] [done|not-done]` |
 |mark done           |`done INDEX [MORE_INDICES...]`|
 |undo                |`undo` |
 |clear               |`clear`|
 |set storage location|`set-storage FILEPATH`|
-|add command alias   |`add-alias "COMMAND_ALIAS"="COMMAND_PHRASE"`|
+|add command alias   |`add-alias 'COMMAND_ALIAS'='COMMAND_PHRASE'`|
 |list command aliases|`list-alias`|
 |delete command alias|`(delete-alias | remove-alias) INDEX [MORE_INDICES...]`|
 |help                |`help`|

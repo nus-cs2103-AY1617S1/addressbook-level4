@@ -52,8 +52,8 @@ public class ConfigUtilTest {
     public void read_fileInOrder_successfullyRead() throws DataConversionException {
 
         Config expected = getTypicalConfig();
-
         Config actual = read("TypicalConfig.json").get();
+        
         assertEquals(expected, actual);
     }
 
@@ -67,7 +67,7 @@ public class ConfigUtilTest {
     public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         Config expected = getTypicalConfig();
         Config actual = read("ExtraValuesConfig.json").get();
-
+        
         assertEquals(expected, actual);
     }
 
