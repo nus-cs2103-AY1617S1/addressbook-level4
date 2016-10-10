@@ -37,7 +37,7 @@
 
 #### Adding a task : `add`
 Adds a task, deadline, event or a floating task to the list. <br>
-Format: `add TASKNAME [at/from TIMEDATE] [by/to TIMEDATE] p/[PRIORITY]` 
+Format: `add TASKNAME [at/from TIMEDATE] [by/to TIMEDATE] [p/PRIORITY]`
 
 > * For tasks and events, at least one of the two TIMEDATE values must be included.<br>
 > * For floating tasks, none of the TIMEDATE values are specified.<br>
@@ -104,7 +104,7 @@ Examples:
 
 #### Updating a task : `update`
 Updates information for a task referred by its index.<br>
-Format: `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [PRIORITY]`
+Format: `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [p/PRIORITY]`
 
 > * Replaces the entered information for the task at the specified index
 > * If updated START_TIME/DATE exceeds END_TIME/DATE of the task, the update will not be successful
@@ -117,6 +117,10 @@ Examples:
 * `update 1 from 13/09/2016 4pm to 13/09/2016 6pm`
 
 > * `Meeting at 13/09/2016 5pm` will be replaced with `Meeting from 13/09/2016 4pm to 13/09/2016 6pm`
+
+* `update 1 p/high`<br>
+
+> * The priority of the task at index 1 is updated to high.
 
 #### Marking a task as complete : `done`
 Marks a task as complete.<br>
@@ -172,15 +176,15 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-add | `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE] [PRIORITY]`
+add | `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE] [p/PRIORITY]`
 show | `show [TYPE]`
 find | `find SEARCHSTRING`
 delete | `delete INDEX/TASKNAME`
-update | `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [PRIORITY]`
+update | `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [p/PRIORITY]`
 done | `done INDEX/TASKNAME`
 setstorage | `setstorage FILEPATH`
 undo | `undo`
 redo | `redo`
 help | `help`
-clear | `clear` 
+clear | `clear`
 exit | `exit`
