@@ -286,10 +286,10 @@ Precondition: Parameters such as date, time and keywords entered should be valid
 Guarantees: 
 * Event or deadline or note added 
 
-1. User enters deadline name with an optional start date and time and an optional end date and time.
+1. User enters task/deadline name with an optional start date and time and an optional end date and time.
 2. User enters event name, start date and time followed by end date and time.
 3. User enters floating task name. 
-4. Deadline/event/floating task is added into the storage file. 
+4. Task is added into the storage file. 
 5. System displays message conveying that the input task has been added.
 
 **Extensions**
