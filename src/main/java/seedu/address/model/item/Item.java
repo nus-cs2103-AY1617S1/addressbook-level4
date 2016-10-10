@@ -70,8 +70,8 @@ public class Item implements ReadOnlyItem {
         return name;
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public void setName(String name) throws IllegalValueException {
+        this.name = new Name(name);
     }
     
     @Override
@@ -89,6 +89,10 @@ public class Item implements ReadOnlyItem {
         return endDate;
     }
 
+    public void setEndDate(String endDate) throws IllegalValueException {
+        this.endDate = new Date(endDate);
+    }
+    
     @Override
     public Time getEndTime() {
         return endTime;
