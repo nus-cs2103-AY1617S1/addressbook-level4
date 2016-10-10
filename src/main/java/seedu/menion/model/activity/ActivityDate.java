@@ -3,14 +3,14 @@ package seedu.menion.model.activity;
 import seedu.menion.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's deadline in the task manager.
+ * Represents a Activity's deadline date in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  */
-public class DeadlineDate {
+public class ActivityDate {
 
-    public static final String MESSAGE_DEADLINEDATE_CONSTRAINTS = "Activity deadline should be in dd-mm-yy or dd-mm-yyyy format";
-    public static final String DEADLINEDATE_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-2][0][0-9][0-9]$";
-    public static final String DEADLINEDATE_SECOND_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-9][0-9]$";     
+    public static final String MESSAGE_ACTIVITYDATE_CONSTRAINTS = "Activity date should be in dd-mm-yy or dd-mm-yyyy format";
+    public static final String ACTIVITYDATE_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-2][0][0-9][0-9]$";
+    public static final String ACTIVITYDATE_SECOND_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-9][0-9]$";     
 
     public final String value;
 
@@ -19,11 +19,11 @@ public class DeadlineDate {
      *
      * @throws IllegalValueException if given deadline string is invalid.
      */
-    public DeadlineDate(String deadline) throws IllegalValueException {
+    public ActivityDate(String deadline) throws IllegalValueException {
         assert deadline != null;
         deadline = deadline.trim();
         if (!isValidDeadline(deadline)) {
-            throw new IllegalValueException(MESSAGE_DEADLINEDATE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_ACTIVITYDATE_CONSTRAINTS);
         }
         this.value = deadline;
     }
@@ -34,7 +34,7 @@ public class DeadlineDate {
     public static boolean isValidDeadline(String test) {
         boolean result = false;
         
-        if (test.matches(DEADLINEDATE_SECOND_VALIDATION_REGEX) || test.matches(DEADLINEDATE_VALIDATION_REGEX)) {
+        if (test.matches(ACTIVITYDATE_SECOND_VALIDATION_REGEX) || test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
             result = true;
         }
         return result;
@@ -48,8 +48,8 @@ public class DeadlineDate {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeadlineDate // instanceof handles nulls
-                && this.value.equals(((DeadlineDate) other).value)); // state check
+                || (other instanceof ActivityDate // instanceof handles nulls
+                && this.value.equals(((ActivityDate) other).value)); // state check
     }
 
     @Override

@@ -11,7 +11,7 @@ public class TestPerson implements ReadOnlyActivity {
     private ActivityName name;
     private Priority address;
     private Reminder email;
-    private DeadlineDate phone;
+    private ActivityDate phone;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -30,7 +30,7 @@ public class TestPerson implements ReadOnlyActivity {
         this.email = email;
     }
 
-    public void setPhone(DeadlineDate phone) {
+    public void setPhone(ActivityDate phone) {
         this.phone = phone;
     }
 
@@ -40,7 +40,7 @@ public class TestPerson implements ReadOnlyActivity {
     }
 
     @Override
-    public DeadlineDate getDeadline() {
+    public ActivityDate getDeadline() {
         return phone;
     }
 

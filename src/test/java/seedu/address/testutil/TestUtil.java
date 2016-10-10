@@ -65,15 +65,15 @@ public class TestUtil {
     private static Activity[] getSamplePersonData() {
         try {
             return new Activity[]{
-                    new Activity(new ActivityName("Ali Muster"), new DeadlineDate("9482424"), new Reminder("hans@google.com"), new Priority("4th street"), new UniqueTagList()),
-                    new Activity(new ActivityName("Boris Mueller"), new DeadlineDate("87249245"), new Reminder("ruth@google.com"), new Priority("81th street"), new UniqueTagList()),
-                    new Activity(new ActivityName("Carl Kurz"), new DeadlineDate("95352563"), new Reminder("heinz@yahoo.com"), new Priority("wall street"), new UniqueTagList()),
-                    new Activity(new ActivityName("Daniel Meier"), new DeadlineDate("87652533"), new Reminder("cornelia@google.com"), new Priority("10th street"), new UniqueTagList()),
-                    new Activity(new ActivityName("Elle Meyer"), new DeadlineDate("9482224"), new Reminder("werner@gmail.com"), new Priority("michegan ave"), new UniqueTagList()),
-                    new Activity(new ActivityName("Fiona Kunz"), new DeadlineDate("9482427"), new Reminder("lydia@gmail.com"), new Priority("little tokyo"), new UniqueTagList()),
-                    new Activity(new ActivityName("George Best"), new DeadlineDate("9482442"), new Reminder("anna@google.com"), new Priority("4th street"), new UniqueTagList()),
-                    new Activity(new ActivityName("Hoon Meier"), new DeadlineDate("8482424"), new Reminder("stefan@mail.com"), new Priority("little india"), new UniqueTagList()),
-                    new Activity(new ActivityName("Ida Mueller"), new DeadlineDate("8482131"), new Reminder("hans@google.com"), new Priority("chicago ave"), new UniqueTagList())
+                    new Activity(new ActivityName("Ali Muster"), new ActivityDate("9482424"), new Reminder("hans@google.com"), new Priority("4th street"), new UniqueTagList()),
+                    new Activity(new ActivityName("Boris Mueller"), new ActivityDate("87249245"), new Reminder("ruth@google.com"), new Priority("81th street"), new UniqueTagList()),
+                    new Activity(new ActivityName("Carl Kurz"), new ActivityDate("95352563"), new Reminder("heinz@yahoo.com"), new Priority("wall street"), new UniqueTagList()),
+                    new Activity(new ActivityName("Daniel Meier"), new ActivityDate("87652533"), new Reminder("cornelia@google.com"), new Priority("10th street"), new UniqueTagList()),
+                    new Activity(new ActivityName("Elle Meyer"), new ActivityDate("9482224"), new Reminder("werner@gmail.com"), new Priority("michegan ave"), new UniqueTagList()),
+                    new Activity(new ActivityName("Fiona Kunz"), new ActivityDate("9482427"), new Reminder("lydia@gmail.com"), new Priority("little tokyo"), new UniqueTagList()),
+                    new Activity(new ActivityName("George Best"), new ActivityDate("9482442"), new Reminder("anna@google.com"), new Priority("4th street"), new UniqueTagList()),
+                    new Activity(new ActivityName("Hoon Meier"), new ActivityDate("8482424"), new Reminder("stefan@mail.com"), new Priority("little india"), new UniqueTagList()),
+                    new Activity(new ActivityName("Ida Mueller"), new ActivityDate("8482131"), new Reminder("hans@google.com"), new Priority("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

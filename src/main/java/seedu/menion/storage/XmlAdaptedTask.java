@@ -59,7 +59,7 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final ActivityName name = new ActivityName(this.name);
-        final DeadlineDate deadline = new DeadlineDate(this.deadline);
+        final ActivityDate deadline = new ActivityDate(this.deadline);
         final Reminder reminder = new Reminder(this.reminder);
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);

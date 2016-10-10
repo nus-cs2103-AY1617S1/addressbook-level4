@@ -38,7 +38,7 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Activity(
                 new ActivityName(name),
-                new DeadlineDate(deadline),
+                new ActivityDate(deadline),
                 new Reminder(reminder),
                 new Priority(priority),
                 new UniqueTagList(tagSet)

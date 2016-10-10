@@ -9,7 +9,7 @@ import seedu.menion.model.tag.UniqueTagList;
 public interface ReadOnlyActivity {
 
     ActivityName getName();
-    DeadlineDate getDeadline();
+    ActivityDate getDeadline();
     Reminder getReminder();
     Priority getPriority();
 
