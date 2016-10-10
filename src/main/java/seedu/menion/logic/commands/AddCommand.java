@@ -15,13 +15,13 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the menion. "
-            + "Parameters: NAME d/DEADLINE r/REMINDER p/PRIORITY  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " Homework 1 d/12-12-12 r/11-11-12 p/low t/friends t/owesMoney";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an activity to the Menion. "
+    		+ "Adding a Floating Task: "+ COMMAND_WORD + "buy lunch n:hawker food\n"
+            + "Adding a Task: "+ COMMAND_WORD + "complete cs2103t by: 10-08-2016 1900 n:must complete urgent\n"
+    		+ "Adding a Event: "+ COMMAND_WORD + "project meeting from: 10-10-2016 1400 to: 10-10-2016 1800 n:celebrate\n";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+    public static final String MESSAGE_SUCCESS = "New activity added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This activity already exists in the Menion";
 
     private final Activity toAdd;
 
