@@ -1,9 +1,15 @@
 package seedu.address.logic.commands.taskcommands;
 
+import java.util.Date;
+
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.task.*;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.DeadlineTask;
+import seedu.address.model.task.EventTask;
 
 /**
  * Adds a task to TaskManager.
@@ -21,10 +27,11 @@ public class AddTaskCommand extends TaskCommand {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in TaskManager";
     public static final String MESSAGE_EMPTY_TASK = "There is no description for the task";
 
-    private final Task toAdd;
+    private Task toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * A FloatingTask has only one parameter, description.
+     * This AddTaskCommand constructor takes in a description and adds a FloatingTask.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -33,7 +40,59 @@ public class AddTaskCommand extends TaskCommand {
     	if (description == null || description.isEmpty()) {
     		throw new IllegalValueException("Description to AddTaskCommand constructor is empty.");
     	}
-        this.toAdd = new FloatingTask(new Description(description));
+    	this.toAdd = new FloatingTask(new Description(description));
+    }
+    
+    /**
+     * A DeadlineTask has only two parameters, description and a deadline.
+     * This AddTaskCommand constructor takes in a description and a deadline, and adds a DeadlineTask.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddTaskCommand(String description, Date deadline)
+            throws IllegalValueException {
+    	if (description == null || description.isEmpty()) {
+    		throw new IllegalValueException("Description to AddTaskCommand constructor is empty.");
+    	}
+    	this.toAdd = new DeadlineTask(description, deadline);
+    }
+    
+    /**
+     * An EventTask has only three parameter, description, startDate and endDate.
+     * This AddTaskCommand constructor takes in a description, startDate and endDate, and adds an EventTask.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddTaskCommand(String description, Date startDate, Date endDate)
+            throws IllegalValueException {
+    	if (description == null || description.isEmpty()) {
+    		throw new IllegalValueException("Description to AddTaskCommand constructor is empty.");
+    	}
+    	this.toAdd = new EventTask(description, startDate, endDate);
+    }
+    
+    /**
+     * Retrieve the details of the task for testing purposes
+     */
+    public String getTaskDetails() {
+    	// Find the correct instance of toAdd task and return a string comprising of the task's details
+    	if (toAdd instanceof FloatingTask) {
+    		FloatingTask task = (FloatingTask) toAdd;
+    		return String.format("[Floating Task][Description: %s]", task.getDescription());
+    		
+    	} else if (toAdd instanceof DeadlineTask) {
+    		DeadlineTask task = (DeadlineTask) toAdd;
+    		return String.format("[Deadline Task][Description: %s][Deadline: %s]", 
+    				task.getDescription(), task.getDeadline());
+    		
+    	} else if (toAdd instanceof EventTask) {
+    		EventTask task = (EventTask) toAdd;
+    		return String.format("[Event Task][Description: %s][Start date: %s][End date: %s]", 
+    				task.getDescription(), task.getStartDate(), task.getEndDate());
+    		
+    	} else {
+    		return "No task has been added.";
+    	}
     }
 
     @Override

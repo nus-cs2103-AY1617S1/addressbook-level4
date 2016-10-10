@@ -20,14 +20,11 @@ public class FloatingTask extends Task implements FavoritableTask {
 	@Override
 	public void setIsFavorite(boolean isFavorite) {
 		this.isFavorite = isFavorite;
-		
 	}
 
 	@Override
 	public boolean getIsFavorite() {
 		return isFavorite;
 	}
-
-	
 	
 }
