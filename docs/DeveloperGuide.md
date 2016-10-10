@@ -494,48 +494,64 @@ Use case ends.
 
   Use case resumes at step 2
 
-### Use case: Viewing a specific list of task
+### Use case: Viewing a specific tab (i.e. intelligent views)
 
 **MSS**
 
-1. User requests to list persons
-2. TodoApp shows a list of persons
-3. User requests to delete a specific person in the list
-4. TodoApp deletes the person  
+1. User requests to view specific tab
+2. TodoApp shows a list of ToDo items under specific tag
 
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. User enters invalid view command
 
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. TodoApp shows an error message <br>
-  Use case resumes at step 2
-4. TodoApp deletes the person  
-Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. TodoApp shows an error message <br>
-> Use case resumes at step 2
+> 1a1. TodoApp shows an error message <br>
+  Use case ends
 
 ### Use case: Finding for a task
 
+**MSS**
 
+1. User searches for task with specific tag or fragmented title
+2. TodoApp returns a list of tasks matching search fragment
+
+Use case ends.
+**Extensions**
+
+1a. User enters an invalid tag/ search fragment
+
+>1a1. TodoApp returns an empty list
+Use case ends
 
 ### Use case: Editing a task
 
+
+
 ### Use case: Pinning a task
+
+**MSS**
+
+1. User searches for specific task to pin using find command
+2. TodoApp returns a list of tasks matching search field.
+3. User selects specific task to pin
+4. TodoApp pins selected task
+
+Use case ends.
+**Extensions**
+
+2a. List returned by TodoApp is empty
+>Use case ends
+
+3a. Selected task is already pinned
+>3a1. TodoApp unpins selected task
+>Use case ends
+
+3b. User provides an invalid index
+>3b1. TodoApp shows an error message<br>
+> Use case resumes at Step 3
+
 
 ### Use case: Undoing an action
 
