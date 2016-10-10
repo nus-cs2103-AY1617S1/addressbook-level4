@@ -30,16 +30,16 @@ public class EditCommandTest extends CommandTest {
     
     @Test(expected=IllegalValueException.class)
     public void testEditInvalidIndex() throws IllegalValueException {
-    	this.setParameter("4");
-    	this.setParameter("l", "If this prints out this might hurt");
+    	setParameter("4");
+    	setParameter("l", "If this prints out this might hurt");
     	execute();
     }
     
     @Test
     public void testEditPinned() throws IllegalValueException{
     	ImmutableTask toEditPin=getTaskAt(1);
-    	this.setParameter("1");
-    	this.setParameter("p", null);
+    	setParameter("1");
+    	setParameter("p", null);
     	execute();
     	assertEquals("Task 1", toEditPin.getTitle());
         assertTrue(toEditPin.isPinned());
@@ -50,8 +50,8 @@ public class EditCommandTest extends CommandTest {
     @Test
     public void testEditLocation() throws IllegalValueException {
     	ImmutableTask toEditLocation=getTaskAt(3);
-        this.setParameter("3");
-        this.setParameter("l", "NTU");
+        setParameter("3");
+        setParameter("l", "NTU");
         execute();
         assertEquals("Task 3", toEditLocation.getTitle());
         assertFalse(toEditLocation.isPinned());
@@ -63,8 +63,8 @@ public class EditCommandTest extends CommandTest {
     @Test
     public void testEditDescription() throws IllegalValueException {
     	ImmutableTask toEditDesc=getTaskAt(2);
-        this.setParameter("2");
-        this.setParameter("m", "Some other description");
+        setParameter("2");
+        setParameter("m", "Some other description");
         execute();
         assertEquals("Task 2", toEditDesc.getTitle());
         assertFalse(toEditDesc.isPinned());
@@ -76,8 +76,8 @@ public class EditCommandTest extends CommandTest {
     @Test
     public void testDeleteField() throws IllegalValueException{
     	ImmutableTask toDeleteField=getTaskAt(2);
-    	this.setParameter("2");
-    	this.setParameter("m", null);
+    	setParameter("2");
+    	setParameter("m", null);
     	execute();
     	assertEquals("Task 2", toDeleteField.getTitle());
         assertFalse(toDeleteField.isPinned());
@@ -88,9 +88,9 @@ public class EditCommandTest extends CommandTest {
     @Test
     public void testEditMoreThanOneParameter() throws IllegalValueException{
     	ImmutableTask toEditTwoThings=getTaskAt(1);
-    	this.setParameter("1");
-    	this.setParameter("m", "New description");
-    	this.setParameter("l", "Singapura");
+    	setParameter("1");
+    	setParameter("m", "New description");
+    	setParameter("l", "Singapura");
     	execute();
     	assertEquals("Task 1", toEditTwoThings.getTitle());
         assertFalse(toEditTwoThings.isPinned());
