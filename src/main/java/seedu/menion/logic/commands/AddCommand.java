@@ -24,8 +24,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New activity added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This activity already exists in the Menion";
 
-    private final Activity toAdd;
-
+    private final Activity toAdd = null;
+    public final EventStub  eventStub;
     /**
      * Convenience constructor using raw values.
      *
@@ -33,8 +33,9 @@ public class AddCommand extends Command {
      */
     public AddCommand(ArrayList<String> details) 
             throws IllegalValueException {
-
-        this.toAdd = new Activity(details);
+    	
+    	//this.toAdd = new Activity(details);
+        this.eventStub = new EventStub(details);
     }
 
     @Override
