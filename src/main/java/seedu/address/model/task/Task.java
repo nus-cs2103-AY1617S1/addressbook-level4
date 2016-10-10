@@ -6,67 +6,73 @@ import seedu.address.model.task.Location;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Deadline;
-import java.util.Objects;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Objects;
+import java.time.LocalDateTime;
 /**
  * Represents a task in the JYM program.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task extends TaskManagerItem implements ReadOnlyTask {
 
-    private Description description;
-   
-    private Location location;
+	private Description descr;
+	private Location loc;
+	private LocalDateTime dueDate;
+	private Priority pri;
+ //   private UniqueTagList tags;
 
 
-    private UniqueTagList tags;
-
-    /**
-     * Every field must be present and not null.
-     */
-    public Task(Description description, Location location, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(description, location, tags);
-        this.description = description;
-     
-        this.location = location;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    public Task(Description description, Location location, LocalDateTime due, Priority p) {
+    	assert !CollectionUtil.isAnyNull(description, location, due);
+    	this.descr = description;
+    	this.loc = location;
+    	this.dueDate = due;
+    	this.pri = p;
+  //      this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getLocation(), source.getTags());
+        this(source.getDescription(), source.getLocation(), source.getDate(), source.getPriority());
     }
-
-    public Task(Description description, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(description, tags);
-        this.description = description;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        this.location = null;
+    public Task(Description description, Location location){
+    	assert !CollectionUtil.isAnyNull(description, location);
+    	this.descr = description;
+    	this.loc = location;
+    }
+    public Task(Description description) {
+    	assert !CollectionUtil.isAnyNull(description);
+        this.descr = description;
+        
+ //   	this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
     @Override
     public Description getDescription() {
-        return description;
+        return this.descr;
     }
 
     @Override
     public Location getLocation() {
-        return location;
+        return this.loc;
     }
 
-    @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
+//    @Override
+//    public UniqueTagList getTags() {
+//        return new UniqueTagList(tags);
+//    }
 
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
-    }
+//    public void setTags(UniqueTagList replacement) {
+//        tags.setTags(replacement);
+//    }
 
     @Override
     public boolean equals(Object other) {
@@ -78,7 +84,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, location, tags);
+        return Objects.hash(this.descr, this.loc, this.dueDate);
     }
 
     @Override
@@ -87,11 +93,15 @@ public class Task implements ReadOnlyTask {
     }
 
 
-    @Override
-    public Deadline getDeadline() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public LocalDateTime getDate() {
+		return this.dueDate;
+	}
+
+	@Override
+	public Priority getPriority() {
+		return this.pri;
+	}
 
 
 }

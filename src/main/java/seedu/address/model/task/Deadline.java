@@ -1,6 +1,9 @@
 package seedu.address.model.task;
 
 
+import java.util.Calendar;
+import java.util.Date;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -13,20 +16,16 @@ public class Deadline {
             "Person deadlines should be 2 alphanumeric/period strings separated by '@'";
     public static final String DEADLINE_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";  // need to work on the deadline format
 
-    public final String value;
+    public final Date value;
 
     /**
      * Validates given email.
      *
      * @throws IllegalValueException if given email address string is invalid.
      */
-    public Deadline(String deadline) throws IllegalValueException {
-        assert deadline != null;
-        deadline = deadline.trim();
-        if (!isValidDeadline(deadline)) {
-            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
-        }
-        this.value = deadline;
+    public Deadline(Date d) {
+        assert d != null;
+        this.value = d;
     }
 
     /**
@@ -38,7 +37,7 @@ public class Deadline {
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 
     @Override
