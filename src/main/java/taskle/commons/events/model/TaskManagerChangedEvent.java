@@ -3,7 +3,7 @@ package taskle.commons.events.model;
 import taskle.commons.events.BaseEvent;
 import taskle.model.ReadOnlyTaskManager;
 
-/** Indicates the AddressBook in the model has changed*/
+/** Indicates the TaskManager in the model has changed*/
 public class TaskManagerChangedEvent extends BaseEvent {
 
     public final ReadOnlyTaskManager data;

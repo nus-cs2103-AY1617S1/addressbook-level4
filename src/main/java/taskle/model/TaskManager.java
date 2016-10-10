@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import taskle.model.person.FloatTask;
+import taskle.model.person.ModifiableTask;
+import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.Task;
 import taskle.model.person.UniqueTaskList;
@@ -37,10 +39,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Tasks and Tags are copied into this taskmanager
      */
+    public TaskManager(TaskManager toBeCopied) {
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+    }
+    
+    /**
+     * Tasks and Tags are copied into this taskmanager
+     */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
-
+    
     /**
      * Tasks and Tags are copied into this taskmanager
      */
@@ -57,7 +66,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
-
+    
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
@@ -119,6 +128,10 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public void editTask(ModifiableTask key, Name newName) throws UniqueTaskList.DuplicateTaskException {
+        tasks.edit(key, newName);
+    }
 
 //// tag-level operations
 
@@ -168,4 +181,5 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+    
 }

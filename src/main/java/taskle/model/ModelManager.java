@@ -1,11 +1,15 @@
 package taskle.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
+import taskle.commons.core.ModifiableObservableList;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.util.StringUtil;
+import taskle.model.person.ModifiableTask;
+import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.Task;
 import taskle.model.person.UniqueTaskList;
@@ -47,6 +51,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
+    
+
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
@@ -69,7 +75,14 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
-
+    
+    @Override
+    public synchronized void editTask(ModifiableTask target, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+        taskManager.editTask(target, newName);;
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
@@ -83,7 +96,12 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-
+    
+    @Override
+    public ModifiableObservableList<ModifiableTask> getModifiableTaskList() {
+        return new ModifiableObservableList<>(filteredTasks);
+    }
+    
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);

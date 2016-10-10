@@ -14,7 +14,14 @@ public class FloatTask extends Task {
     public FloatTask(ReadOnlyTask source) {
         super(source);
     }
-
+    
+    /**
+     * Copy constructor.
+     */
+    public FloatTask(ModifiableTask source) {
+        super(source);
+    }
+    
     @Override
     public DateTime getDateTime() {
         // TODO Auto-generated method stub
