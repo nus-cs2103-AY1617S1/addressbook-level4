@@ -72,11 +72,15 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted Activity
      */
     public Activity toModelType() throws IllegalValueException {
-        if (this.activityType == Activity.FLOATING_TASK_TYPE) {
+        if (this.activityType == Activity.EVENT_TYPE) {
             final String type = this.activityType;
             final ActivityName name = new ActivityName(this.name);
             final Note note = new Note(this.note);
-            return new Activity(type, name, note);
+            final ActivityDate startDate = new ActivityDate(this.startDate);
+            final ActivityTime startTime = new ActivityTime(this.startTime);
+            final ActivityDate endDate = new ActivityDate(this.endDate);
+            final ActivityTime endTime = new ActivityTime(this.endTime);
+            return new Activity(type, name, note, startDate, startTime, endDate, endTime);
         } else if (this.activityType == Activity.TASK_TYPE) {
             final String type = this.activityType;
             final ActivityName name = new ActivityName(this.name);
@@ -88,11 +92,7 @@ public class XmlAdaptedTask {
             final String type = this.activityType;
             final ActivityName name = new ActivityName(this.name);
             final Note note = new Note(this.note);
-            final ActivityDate startDate = new ActivityDate(this.startDate);
-            final ActivityTime startTime = new ActivityTime(this.startTime);
-            final ActivityDate endDate = new ActivityDate(this.endDate);
-            final ActivityTime endTime = new ActivityTime(this.endTime);
-            return new Activity(type, name, note, startDate, startTime, endDate, endTime);
+            return new Activity(type, name, note);
         }
     }
 }
