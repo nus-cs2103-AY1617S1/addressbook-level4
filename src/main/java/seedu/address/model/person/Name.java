@@ -3,12 +3,13 @@ package seedu.address.model.person;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a task's name in the to-do-list.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = 
+            "Names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;
@@ -28,7 +29,7 @@ public class Name {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid task name.
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);

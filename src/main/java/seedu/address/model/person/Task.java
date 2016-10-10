@@ -6,35 +6,35 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
+ * Represents a DatedTask in the to-do-list.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Person implements ReadOnlyPerson {
+public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
+    private Description description;
+    private Date date;
+    private Time time;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
+    public Task(Name name, Description phone, Date email, Time address, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.description = phone;
+        this.date = email;
+        this.time = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
-    public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+    public Task(ReadOnlyTask source) {
+        this(source.getName(), source.getDescription(), source.getDate(), source.getTime(), source.getTags());
     }
 
     @Override
@@ -43,18 +43,18 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Description getDescription() {
+        return description;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public Date getDate() {
+        return date;
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public Time getTime() {
+        return time;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
@@ -72,14 +72,14 @@ public class Person implements ReadOnlyPerson {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyPerson // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyPerson) other));
+                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, description, date, time, tags);
     }
 
     @Override

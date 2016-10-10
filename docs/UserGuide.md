@@ -11,124 +11,175 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+1. Download the latest `DoMePlease.jar` from the 'releases' tab.
+2. Copy the file to the folder you want to use as the home folder for your To-do List.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
+    `add Feed the Parrot d/Feed timmy the parrot with corn` : Add a floating task.
+    `listall` : List all the floating tasks, deadline and events in the application.
+    `delete 3` : Deletes the 3rd task shown in the current list.
+    `exit` : Exits the application.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
-
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
 
 #### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding a task: `add`
+Adds a floating task to DoMePlease<br>
+Format: `add TASKNAME d/TASK_DESCRIPTION t/TAG...` 
 
-> Persons can have any number of tags (including 0)
+Adds a deadline to DoMePlease<br>
+Format: `add TASKNAME d/TASK_DESCRIPTION @/DATE TIME [t/TAG...]` 
+
+Adds an event to DoMePlease<br>
+Format: `add TASKNAME d/TASK_DESCRIPTION @/STARTDATE STARTTIME ENDDATE ENDTIME [t/TAG...]` <br>
+Format: `add TASKNAME d/TASK_DESCRIPTION @/DATE STARTTIME ENDTIME [t/TAG...]` <br>
+Format: `add TASKNAME d/TASK_DESCRIPTION @/STARTDATE ENDDATE TIME [t/TAG...]` <br>
+
+\*\* <i>Refer to appendix for Possible formats for DATE & TIME</i>
+ 
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+> items with `...` after them can have multiple instances. Order of parameters are fixed. 
+> 
+>
+> Tasks can have any number of tags (including 0)
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `add Buy pencil d/Pencil to shade OAS sheet`
+* `add Wash Clothes d/Wash with detergent @/27.9.2016 9pm t/!!!`
+* `add Meeting d/Meet with Jim @/today 5pm 6pm t/!!! t/jim`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+#### Edit task in the application: `edit`
+Edit the details of the floating task, deadline and event. <br>
+Format: `edit INDEX`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
+> Edits the task at the specified `INDEX`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
+Examples:
+* `listall`<br>
+*  `edit 2`<br>
+*  Edit the 2nd floating task in DoMePlease. Example Buy Pencil.
+*  The format whereby the 2nd floating task was entered by user in the past will be populated on the command line.
+* `add Buy pencil d/Pencil to shade OAS sheet` <br>
+* User will edit the inputs accordingly and submit the edit field.
+* A message will be displayed to inform the user that the task is edited.
+
+#### Listing all tasks : `listall`
+Shows a list of all floating tasks, deadline and events in the application.<br>
+Format: `listall`
+
+#### Listing all overdue deadlines: `listod`
+Shows a list of all overdue deadlines. <br>
+Format: `listod`
+
+#### Listing all completed tasks: `listdone`
+Shows a list of completed floating tasks, deadlines and events. <br>
+Format: `listdone`
+
+#### Finding all floating tasks, deadlines and events containing any keyword in their name and tags: `find`
+Finds all floating tasks, deadlines and events which names and tags contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+> The search is case insensitive, the order of the keywords does not matter, only the name and tag is searched, 
+and task matching at least one keyword will be returned (i.e. `OR` search). <br>
+> Only full words will be matched e.g. `Program` will not match `Programming`.
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `find EE2020`<br>
+*  Returns “EE2020” and “ee2020”
+  
+#### Navigating through Calendar: `select`
+Populate the list of deadlines and events on the input DATA of current month on the calendar panel <br>
+Format: `select DATE`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+> The calendar panel of the application will list out all the deadlines on the day and events that start, ends or is on-going on the date. <br>
+
+Examples:
+* `select 5` <br>
+* Assume that the calendar panel on the application is on the month of June.
+* Output the full list of deadlines on the day and events that start, ends or is on-going on 5th June.
+
+#### Deleting a task : `delete`
+Deletes the specified task from DoMePlease. Irreversible <br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
+> Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+* `listall`<br>
+*  `delete 2`<br>
+*  Deletes the 2nd task in DoMePlease.
+* `find Laundry`<br> 
+*  `delete 1`<br>
+*  Deletes the 1st person in the result of the `find` command.
+  
+#### Undoing a move: `undo`
+Undo the previous command entered by user.<br>
+A message will be displayed to inform the user that the previous command has been undone. <br>
+Format: `undo`
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+#### Marking floating tasks and deadlines as done: `done`
+Marking a completed a floating task and deadline as done. <br>
+Format: `done INDEX`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+
+> Marks the floating tasks or deadline as done at the specified `index` <br>
+  The index refers to the index number shown in the most recent listing. <br>
+  The index **must be a positive integer** 1,2,3, .. <br>
+  The completed task will be moved to the archive list <br>
 
 Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
-
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+* `list` <br>
+  `done 2` <br>
+   Mark the 2nd task in DoMePlease as completed.
+  
 
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+DoMePlease data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous DoMePlease.
        
 ## Command Summary
 
 Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
+-------- | -------- 
+
+Add | `add TASKNAME d/TASK_DESCRIPTION @/DATE TIME [t/TAG...]`
+
 Delete | `delete INDEX`
+
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
+
+List | `listall` , `listod`, `listdone`
+
 Help | `help`
+
 Select | `select INDEX`
+
+Done | `done INDEX`
+
+Undo | `undo`
+
+Edit | `edit INDEX`

@@ -13,7 +13,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -21,6 +20,8 @@ import seedu.address.model.person.ReadOnlyPerson;
  */
 public class MainWindow extends UiPart {
 
+    public static final int DATED_DISPLAY_INDEX_OFFSET = 0;
+    public static final int UNDATED_DISPLAY_INDEX_OFFSET = 10;
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
@@ -29,7 +30,8 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    // private BrowserPanel browserPanel;
+    private PersonListPanel undatedListPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -108,8 +110,11 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+        // browserPanel = BrowserPanel.load(browserPlaceholder);
+        undatedListPanel = PersonListPanel.load(primaryStage, browserPlaceholder,
+                logic.getFilteredPersonList(), PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET);
+        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(),
+                logic.getFilteredUndatedTaskList(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -185,12 +190,13 @@ public class MainWindow extends UiPart {
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
     }
-
-    public void loadPersonPage(ReadOnlyPerson person) {
+/*
+    public void loadPersonPage(ReadOnlyDatedTask person) {
         browserPanel.loadPersonPage(person);
     }
 
     public void releaseResources() {
         browserPanel.freeResources();
     }
+*/
 }
