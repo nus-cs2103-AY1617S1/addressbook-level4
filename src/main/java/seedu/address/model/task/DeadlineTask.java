@@ -6,33 +6,36 @@ import java.util.Objects;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
-public class SomedayTask implements TMReadOnlyTask {
-	
+public class DeadlineTask implements TMReadOnlyTask{
 	private Name name;
+	private Date date;
     private Status status;
+
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public SomedayTask(Name name, Status status, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, status, tags);
+    public DeadlineTask(Name name, Date date, Status status, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, date, status, tags);
         this.name = name;
+        this.date = date;
         this.status = status;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
-    public SomedayTask(Name name, Status status) {
-    	assert !CollectionUtil.isAnyNull(name, status);
+    public DeadlineTask(Name name, Date date, Status status) {
+        assert !CollectionUtil.isAnyNull(name, date, status);
         this.name = name;
+        this.date = date;
         this.status = status;
     }
 
     /**
      * Copy constructor.
      */
-    public SomedayTask(TMReadOnlyTask source) {
-        this(source.getName(), source.getStatus(), source.getTags());
+    public DeadlineTask(TMReadOnlyTask source) {
+        this(source.getName(), source.getDate(), source.getStatus(), source.getTags());
     }
     
     @Override
@@ -40,9 +43,9 @@ public class SomedayTask implements TMReadOnlyTask {
         return name;
     }
     
-    @Override 
+    @Override
     public Date getDate() {
-    	return new Date(0);
+        return date;
     }
     
     @Override
@@ -72,7 +75,7 @@ public class SomedayTask implements TMReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, status, tags);
+        return Objects.hash(name, date, status, tags);
     }
 
     @Override
