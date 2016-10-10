@@ -28,6 +28,7 @@ public interface ReadOnlyActivity {
     // An arrayList having parameters of an activity.
     ArrayList<String> getActivityDetails();
     void setActivityDetails();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.

@@ -9,8 +9,7 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 public class ActivityDate {
 
     public static final String MESSAGE_ACTIVITYDATE_CONSTRAINTS = "Activity date should be in dd-mm-yy or dd-mm-yyyy format";
-    public static final String ACTIVITYDATE_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-2][0][0-9][0-9]$";
-    public static final String ACTIVITYDATE_SECOND_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-9][0-9]$";     
+    public static final String ACTIVITYDATE_VALIDATION_REGEX = "(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9])";
 
     public final String value;
 
@@ -34,7 +33,7 @@ public class ActivityDate {
     public static boolean isValidDate(String test) {
         boolean result = false;
         
-        if (test.matches(ACTIVITYDATE_SECOND_VALIDATION_REGEX) || test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
+        if (test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
             result = true;
         }
         return result;

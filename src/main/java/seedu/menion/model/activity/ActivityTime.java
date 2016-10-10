@@ -10,8 +10,8 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 public class ActivityTime {
 
     public static final String ACTIVITY_TIME_CONSTRAINTS = "Activity time should be in 24-hour format";
-    public static final String REMINDER_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-2][0][0-9][0-9]$";
-    public static final String REMINDER_SECOND_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-9][0-9]$"; 
+    public static final String ACTIVITY_TIME_VALIDATION_REGEX = "^[0-2][0-9][0-6][0-9]$";
+    
     public final String value;
 
     /**
@@ -34,7 +34,7 @@ public class ActivityTime {
     public static boolean isValidTime(String test) {
         boolean result = false;
         
-        if (test.matches(REMINDER_SECOND_VALIDATION_REGEX) || test.matches(REMINDER_VALIDATION_REGEX)) {
+        if (test.matches(ACTIVITY_TIME_VALIDATION_REGEX)) {
             result = true;
         }
         return result;
