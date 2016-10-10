@@ -21,8 +21,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New activity added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This activity already exists in the Menion";
 
-    private final Activity toAdd = null;
-    public final EventStub eventStub;
+    private final Activity toAdd;
+    public final EventStub eventStub = null;
 
     private ActivityName name;
     private ActivityDate startDate;
@@ -38,7 +38,7 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(ArrayList<String> activityDetails) throws IllegalValueException {
-        /**
+
         if (activityDetails.size() == Activity.FLOATING_TASK_LENGTH) {
             activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
             name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
@@ -61,8 +61,7 @@ public class AddCommand extends Command {
             endTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_ENDTIME));
             this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime);
         }
-        **/
-        this.eventStub = new EventStub(activityDetails);
+      //  this.eventStub = new EventStub(activityDetails);
     }
 
     @Override
