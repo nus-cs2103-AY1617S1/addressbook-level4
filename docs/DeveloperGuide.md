@@ -20,11 +20,14 @@ This project uses
 
 ### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later. 
-2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+1. **A git client**. If you're on Linux you should already have one installed on your command line. For Windows 
+and OS X you can use [SourceTree][sourcetree] if you are more comfortable with using GUI
+2. [**JDK 1.8.0_60**][jdk]  or later. Please use Oracle's because it comes with JavaFX, which is needed for 
+developing the application's UI.
+3. **Eclipse** IDE
+4. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+5. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 
 #### Importing the project into Eclipse
@@ -52,7 +55,9 @@ push the branch to GitHub and [create a new pull request][pr] so that the integr
 For large features that impact multiple parts of the code it is best to open a new issue on issue tracker
 so that the design of the code can be discussed first. 
 
-Test driven development is encouraged but not required. All incoming code should have accompanying tests.
+[Test driven development][tdd] is encouraged but not required. All incoming code should have 100% 
+accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage 
+to fall.
 
 ### Coding Style
 
@@ -65,7 +70,7 @@ We use the Java coding standard found at <https://oss-generic.github.io/process/
 
 <img src="images/Architecture.png" width="600">
 
-The Architecture Diagram given above explains the high-level design of the App. Here is a quick 
+The Architecture Diagram above explains the high-level design of the App. Here is a quick 
 overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/todo/MainApp.java). It is responsible for,
@@ -83,13 +88,12 @@ Two of those classes play important roles at the architecture level.
 
 The rest of the App consists three components.
 
-* [**`UI`**](#ui-component): The UI of tha App, representing the view layer. 
+* [**`UI`**](#ui-component): The user facing elements of tha App, representing the view layer. 
 * [**`Logic`**](#logic-component): The parser and command executer, representing the controller 
 * [**`Model`**](#model-component): Data manipulation and storage, representing the model and data layer 
 
-Each of the four components defines its API in an `interface` with the same name as the Component and 
+Each of the three components defines its API in an `interface` with the same name and 
 are bootstrapped at launch by `MainApp`.
- 
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.
@@ -99,36 +103,33 @@ interface and exposes its functionality using the `LogicManager.java` class.
 The Sequence Diagram below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images/SDforDeletePerson.png" width="800">
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
 
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images/SDforDeletePersonEventHandling.png" width="800">
 
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
-  coupling between components.
+!!! note "Event Driven Design" 
+
+    Note how the event is propagated through the `EventsCenter` to `UI` without `Model` having
+    to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
+    coupling between components.
 
 The sections below give more details of each component.
 
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800">
+<img src="diagrams/Ui Component.svg" class="u-max-full-width">
 
 **API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandInputView`, `CommandFeedbackView`, `TodoListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder. 
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/todo/ui/MainWindow.java) is specified in
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](../src/main/java/seedu/todo/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
-
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
@@ -140,46 +141,54 @@ The `UI` component,
 **API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
 The logic component is the glue sitting between the UI and the data model. It consists of three separate 
-subcomponents - 
+subcomponents, each of which also defines their own API using interfaces or abstract classes - 
 
 - `Parser` - turns user input into command and arguments 
 - `Dispatcher` - maps parser results to commands 
 - `Command` - validates arguments and execute command
 
+When the logic component is instantated each of these subcomponents is injected via dependency injection.
+This allows them to be tested more easily. 
+
 The flow of a command being executed is -
 
-1. `Logic` uses the `Parser::parse` to parse the user input into a `ParseResult` object
-2. The `ParseResult` is sent to `Dispatcher::dispatch` which instantates a new `Command` object representing
+1. `Logic` parse the user input into a `ParseResult` object
+2. The `ParseResult` is sent to the dispatcher which instantates a new `Command` object representing
 the command the user called
 3. `Logic` binds the model and arguments to the `Command` object and executes it 
-4. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+4. The command execution can affect the `Model` (e.g. adding a person), and/or raise events.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.
+ API call. See [the implementation section](#logic) below for the implementation details of the logic component.  
  
 <img src="images/DeletePersonSdForLogic.png" width="800">
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800">
+<img src="diagrams/Model Component.svg" class="container u-max-full-width">
 
 **API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
-The `Model`,
+The model component represents the application's data layer. It consists of two subcomponents - 
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Todo list data and persists it to the 
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' ie. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
-* exposes a simplified interface to the 
+- `TodoModel` - representing the application's internal memory state  
+- `Storage` - representing the application's data on disk  
 
-### Storage component
+The model interface is injected into command objects by the logic component, and exposes a 
+CRUD interface that allows commands to modify the application's data. To avoid tight coupling with 
+the command classes, the model exposes only a small set of generic functions. The UI component 
+binds to the  the model through the `getObservableList` function which returns an `UnmodifiableObseravbleList`
+object that the UI can bind to.
 
-<img src="images/StorageClassDiagram.png" width="800">
+The model ensure safety by exposing as much of its internal state as possible as immutable objects 
+using interfaces such as `ImmutableTask`.
+
+<img src="diagrams/Storage Component.svg" class="container u-max-full-width">
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
 The `Storage` component,
+
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
 
@@ -207,33 +216,97 @@ The parser tokenizes the user input by whitespace characters then splits it into
 
 For example, the command `add The Milk -d tomorrow 3pm -p` will produce 
 
-- Command: `add`
-- Positional argument: `The Milk`
-- Named argument: 
-    - `d`: `tomorrow 3pm` 
-    - `p`: - (empty string)
+``` yaml
+command: "add"
+positional: "The Milk" 
+named: 
+  d: "tomorrow 3pm"
+  p: "" # Empty String
+```
+
+This is then passed on to the dispatcher. 
   
 #### Dispatcher 
 
 The `TodoDispatcher` subcomponent implements the `Dispatcher` interface, which defines a single 
-`dispatch` command. The dispatch function simply maps the provided `ParseResult` object to the 
-correct command and returns it.
+`dispatch` function. The dispatch function simply maps the provided `ParseResult` object to the 
+correct command class, instantiates a new instance of it then returns it to the caller. 
 
 #### Command
 
-All commands implement the `BaseCommand` abstract class, which provides argument binding and validation. 
+All commands implement the `BaseCommand` abstract class, which provides argument binding and validation.
+To implement a new command, you can use the following template 
 
+```java
+package seedu.todo.logic.commands;
 
+import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.logic.arguments.Argument;
+import seedu.todo.logic.arguments.IntArgument;
+import seedu.todo.logic.arguments.Parameter;
+import seedu.todo.model.task.ImmutableTask;
+
+public class YourCommand extends BaseCommand {
+    // TODO: Define additional parameters here
+    private Argument<Integer> index = new IntArgument("index").required();
+
+    @Override
+    protected Parameter[] getArguments() {
+        // TODO: List all command argument objects inside this array
+        return new Parameter[]{ index };
+    }
+
+    @Override
+    public void execute() throws IllegalValueException {
+        // TOOD: Complete this command stub
+    }
+}
+```
+
+If you need to do argument validation, you can also override the `validateArgument` command, 
+which is run after all arguments have been set.
 
 #### Arguments 
 
+Command arguments are defined using argument objects. Representing arguments as objects have several 
+benefit - it makes them declarative, it allows argument parsing and validation code to be reused across 
+multiple commands, and the fluent setter allows each individual property to be set indepently of each other. 
+The argument object's main job is to convert the user input from string into the type which the 
+command object can use, as well as contain information about the argument that the program can show to the 
+user.
 
+The generic type `T` represents the return type of the command argument. To implement a new argument 
+type, extend the abstract base class `Argument`, then implement the `setValue` function. Remember to 
+call the super class's `setValue` function so that the `required` argument check works. 
 
+```java
+package seedu.todo.logic.arguments;
 
+import seedu.todo.commons.exceptions.IllegalValueException;
+
+public class MyArgument extends Argument<T> {
+    // TODO: Replace the generic type T here and below with a concrete type  
+
+    public FlagArgument(String name) {
+        super(name);
+        this.value = false;
+    }
+
+    public FlagArgument(String name, T defaultValue) {
+        super(name, defaultValue);
+    }
+
+    @Override
+    public void setValue(String input) throws IllegalValueException {
+        // TODO: Implement the argument parsing logic. Do not remove the super call below
+        super.setValue(input);
+    }
+}
+```
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+We are using the [`java.util.logging`][jul] package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
@@ -241,7 +314,16 @@ and logging destinations.
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
 * Currently log messages are output through: Console and to a log file.
-* The logs 
+* The logs rolls over at 5MB such that every log file is smaller than 5MB. Five log files are 
+kept, after which the oldest will be deleted. 
+
+To use the logger in your code, simply include 
+
+``` java
+private static final Logger logger = LogsCenter.getLogger(<YOUR CLASS>.class);
+```
+
+at the top of your class, and replace `<YOUR CLASS>` with the class the logger is used in.
 
 #### Logging Levels
 
@@ -289,7 +371,7 @@ We have two types of tests:
     2. **Integration tests** - that are checking the integration of multiple code units
      (those code units are assumed to be working).  
       e.g. `seedu.todo.storage.StorageManagerTest`
-    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
+    3. **Hybrids of unit and integration tests.** These test are checking multiple code units as well as
       how the are connected together.  
       e.g. `seedu.todo.logic.LogicManagerTest`
 
@@ -330,7 +412,6 @@ Here are the steps to create a new release.
 ### Managing Dependencies
 
 Our project depends on third-party libraries. We use Gradle to automate our dependency management. 
-To add a new dependency to the project, 
 
 
 ## Documentation 
@@ -660,9 +741,14 @@ any missing dependencies before compiling the test classes.
 See `build.gradle` > `allprojects` > `dependencies` > `testCompile` for the list of 
 dependencies required.
 
+*[CRUD]: Create, Retrieve, Update, Delete
+*[GUI]: Graphical User Interface
+*[UI]: User interface
 
 [repo]: https://github.com/CS2103AUG2016-W10-C4/main/
 
+[sourcetree]: https://www.sourcetreeapp.com/
+[jdk]: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 [eclipse]: https://eclipse.org/downloads/
 [travis]: https://travis-ci.org/CS2103AUG2016-W10-C4/main
 [coveralls]: https://coveralls.io/github/CS2103AUG2016-W10-C4/main
@@ -672,5 +758,9 @@ dependencies required.
 [workflow]: https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/
 [issues]: https://github.com/CS2103AUG2016-W10-C4/main/issues
 [pr]: https://github.com/CS2103AUG2016-W10-C4/main/compare
+[tdd]: https://en.wikipedia.org/wiki/Test-driven_development
+
+[jul]: https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html
+
 [gfm]: https://guides.github.com/features/mastering-markdown/
 [py-markdown]: https://pythonhosted.org/Markdown/extensions/index.html

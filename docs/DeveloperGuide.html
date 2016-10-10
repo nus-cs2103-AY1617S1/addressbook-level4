@@ -32,7 +32,6 @@
 <li><a href="#ui-component">UI component</a></li>
 <li><a href="#logic-component">Logic component</a></li>
 <li><a href="#model-component">Model component</a></li>
-<li><a href="#storage-component">Storage component</a></li>
 <li><a href="#common-classes">Common classes</a></li>
 </ul>
 </li>
@@ -110,7 +109,10 @@ who to contact when you're lost.</p>
 <h2 id="setting-up">Setting up<a class="headerlink" href="#setting-up" title="Permanent link">#</a></h2>
 <h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h3>
 <ol>
-<li><strong>JDK <code>1.8.0_60</code></strong>  or later. </li>
+<li><strong>A git client</strong>. If you're on Linux you should already have one installed on your command line. For Windows 
+and OS X you can use <a href="https://www.sourcetreeapp.com/">SourceTree</a> if you are more comfortable with using <abbr title="Graphical User Interface">GUI</abbr></li>
+<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"><strong>JDK 1.8.0_60</strong></a>  or later. Please use Oracle's because it comes with JavaFX, which is needed for 
+developing the application's <abbr title="User interface">UI</abbr>.</li>
 <li><strong>Eclipse</strong> IDE</li>
 <li><strong>e(fx)clipse</strong> plugin for Eclipse (Do the steps 2 onwards given in
    <a href="http://www.eclipse.org/efxclipse/install.html#for-the-ambitious">this page</a>)</li>
@@ -141,13 +143,15 @@ to yourself <a href="https://github.com/CS2103AUG2016-W10-C4/main/issues">on the
 push the branch to GitHub and <a href="https://github.com/CS2103AUG2016-W10-C4/main/compare">create a new pull request</a> so that the integrator can review the code. 
 For large features that impact multiple parts of the code it is best to open a new issue on issue tracker
 so that the design of the code can be discussed first. </p>
-<p>Test driven development is encouraged but not required. All incoming code should have accompanying tests.</p>
+<p><a href="https://en.wikipedia.org/wiki/Test-driven_development">Test driven development</a> is encouraged but not required. All incoming code should have 100% 
+accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage 
+to fall.</p>
 <h3 id="coding-style">Coding Style<a class="headerlink" href="#coding-style" title="Permanent link">#</a></h3>
 <p>We use the Java coding standard found at <a href="https://oss-generic.github.io/process/codingstandards/coding-standards-java.html">https://oss-generic.github.io/process/codingstandards/coding-standards-java.html</a>.</p>
 <h2 id="design">Design<a class="headerlink" href="#design" title="Permanent link">#</a></h2>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">#</a></h3>
 <p><img src="images/Architecture.png" width="600"></p>
-<p>The Architecture Diagram given above explains the high-level design of the App. Here is a quick 
+<p>The Architecture Diagram above explains the high-level design of the App. Here is a quick 
 overview of each component.</p>
 <p><code>Main</code> has only one class called <a href="../src/main/java/seedu/todo/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
 <ul>
@@ -164,81 +168,83 @@ Two of those classes play important roles at the architecture level.</p>
 </ul>
 <p>The rest of the App consists three components.</p>
 <ul>
-<li><a href="#ui-component"><strong><code>UI</code></strong></a>: The UI of tha App, representing the view layer. </li>
+<li><a href="#ui-component"><strong><code>UI</code></strong></a>: The user facing elements of tha App, representing the view layer. </li>
 <li><a href="#logic-component"><strong><code>Logic</code></strong></a>: The parser and command executer, representing the controller </li>
 <li><a href="#model-component"><strong><code>Model</code></strong></a>: Data manipulation and storage, representing the model and data layer </li>
 </ul>
-<p>Each of the four components defines its API in an <code>interface</code> with the same name as the Component and 
+<p>Each of the three components defines its API in an <code>interface</code> with the same name and 
 are bootstrapped at launch by <code>MainApp</code>.</p>
 <p>For example, the <code>Logic</code> component (see the class diagram given below) defines it's API in the <code>Logic.java</code>
 interface and exposes its functionality using the <code>LogicManager.java</code> class.</p>
 <p><img src="images/LogicClassDiagram.png" width="800"></p>
 <p>The Sequence Diagram below shows how the components interact for the scenario where the user issues the
 command <code>delete 3</code>.</p>
-<p><img src="images\SDforDeletePerson.png" width="800"></p>
+<p><img src="images/SDforDeletePerson.png" width="800"></p>
 <p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. </p>
-<p><img src="images\SDforDeletePersonEventHandling.png" width="800"></p>
-<blockquote>
-<p>Note how the event is propagated through the <code>EventsCenter</code> to the <code>Storage</code> and <code>UI</code> without <code>Model</code> having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
-  coupling between components.</p>
-</blockquote>
+being saved to the hard disk and the status bar of the <abbr title="User interface">UI</abbr> being updated to reflect the 'Last Updated' time. </p>
+<p><img src="images/SDforDeletePersonEventHandling.png" width="800"></p>
+<div class="admonition note">
+<p class="admonition-title">Event Driven Design</p>
+<p>Note how the event is propagated through the <code>EventsCenter</code> to <code>UI</code> without <code>Model</code> having
+to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
+coupling between components.</p>
+</div>
 <p>The sections below give more details of each component.</p>
-<h3 id="ui-component">UI component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3>
-<p><img src="images/UiClassDiagram.png" width="800"></p>
+<h3 id="ui-component"><abbr title="User interface">UI</abbr> component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3>
+<p><img src="diagrams/Ui Component.svg" class="u-max-full-width"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/ui/Ui.java"><code>Ui.java</code></a></p>
-<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>,
-<code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class
-and they can be loaded using the <code>UiPartLoader</code>.</p>
-<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files
- that are in the <code>src/main/resources/view</code> folder. 
- For example, the layout of the <a href="../src/main/java/seedu/todo/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
+<p>The <abbr title="User interface">UI</abbr> consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandInputView</code>, <code>CommandFeedbackView</code>, <code>TodoListPanel</code>, <code>StatusBarFooter</code>, etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class and they can be loaded using the <code>UiPartLoader</code>.</p>
+<p>The <code>UI</code> component uses JavaFx <abbr title="User interface">UI</abbr> framework. The layout of these <abbr title="User interface">UI</abbr> parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="../src/main/java/seedu/todo/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
  <a href="../src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
-<p>The <code>UI</code> component,</p>
-<ul>
-<li>Executes user commands using the <code>Logic</code> component.</li>
-<li>Binds itself to some data in the <code>Model</code> so that the UI can auto-update when data in the <code>Model</code> change.</li>
-<li>Responds to events raised from various parts of the App and updates the UI accordingly.</li>
-</ul>
+<p>The <code>UI</code> component,
+<em> Executes user commands using the <code>Logic</code> component.
+</em> Binds itself to some data in the <code>Model</code> so that the <abbr title="User interface">UI</abbr> can auto-update when data in the <code>Model</code> change.
+* Responds to events raised from various parts of the App and updates the <abbr title="User interface">UI</abbr> accordingly.</p>
 <h3 id="logic-component">Logic component<a class="headerlink" href="#logic-component" title="Permanent link">#</a></h3>
 <p><img src="images/LogicClassDiagram.png" width="800"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/logic/Logic.java"><code>Logic.java</code></a></p>
-<p>The logic component is the glue sitting between the UI and the data model. It consists of three separate 
-subcomponents - </p>
+<p>The logic component is the glue sitting between the <abbr title="User interface">UI</abbr> and the data model. It consists of three separate 
+subcomponents, each of which also defines their own API using interfaces or abstract classes - </p>
 <ul>
 <li><code>Parser</code> - turns user input into command and arguments </li>
 <li><code>Dispatcher</code> - maps parser results to commands </li>
 <li><code>Command</code> - validates arguments and execute command</li>
 </ul>
+<p>When the logic component is instantated each of these subcomponents is injected via dependency injection.
+This allows them to be tested more easily. </p>
 <p>The flow of a command being executed is -</p>
 <ol>
-<li><code>Logic</code> uses the <code>Parser::parse</code> to parse the user input into a <code>ParseResult</code> object</li>
-<li>The <code>ParseResult</code> is sent to <code>Dispatcher::dispatch</code> which instantates a new <code>Command</code> object representing
+<li><code>Logic</code> parse the user input into a <code>ParseResult</code> object</li>
+<li>The <code>ParseResult</code> is sent to the dispatcher which instantates a new <code>Command</code> object representing
 the command the user called</li>
 <li><code>Logic</code> binds the model and arguments to the <code>Command</code> object and executes it </li>
-<li>The command execution can affect the <code>Model</code> (e.g. adding a person) and/or raise events.</li>
+<li>The command execution can affect the <code>Model</code> (e.g. adding a person), and/or raise events.</li>
 </ol>
 <p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code>
- API call.</p>
+ API call. See <a href="#logic">the implementation section</a> below for the implementation details of the logic component.  </p>
 <p><img src="images/DeletePersonSdForLogic.png" width="800"></p>
 <h3 id="model-component">Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3>
-<p><img src="images/ModelClassDiagram.png" width="800"></p>
+<p><img src="diagrams/Model Component.svg" class="container u-max-full-width"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/model/Model.java"><code>Model.java</code></a></p>
-<p>The <code>Model</code>,</p>
+<p>The model component represents the application's data layer. It consists of two subcomponents - </p>
 <ul>
-<li>stores a <code>UserPref</code> object that represents the user's preferences.</li>
-<li>stores the Todo list data and persists it to the </li>
-<li>exposes a <code>UnmodifiableObservableList&lt;ReadOnlyPerson&gt;</code> that can be 'observed' ie. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.</li>
-<li>exposes a simplified interface to the </li>
+<li><code>TodoModel</code> - representing the application's internal memory state  </li>
+<li><code>Storage</code> - representing the application's data on disk  </li>
 </ul>
-<h3 id="storage-component">Storage component<a class="headerlink" href="#storage-component" title="Permanent link">#</a></h3>
-<p><img src="images/StorageClassDiagram.png" width="800"></p>
+<p>The model interface is injected into command objects by the logic component, and exposes a 
+<abbr title="Create, Retrieve, Update, Delete">CRUD</abbr> interface that allows commands to modify the application's data. To avoid tight coupling with 
+the command classes, the model exposes only a small set of generic functions. The <abbr title="User interface">UI</abbr> component 
+binds to the  the model through the <code>getObservableList</code> function which returns an <code>UnmodifiableObseravbleList</code>
+object that the <abbr title="User interface">UI</abbr> can bind to.</p>
+<p>The model ensure safety by exposing as much of its internal state as possible as immutable objects 
+using interfaces such as <code>ImmutableTask</code>.</p>
+<p><img src="diagrams/Storage Component.svg" class="container u-max-full-width"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/storage/Storage.java"><code>Storage.java</code></a></p>
-<p>The <code>Storage</code> component,
-<em> can save <code>UserPref</code> objects in json format and read it back.
-</em> can save the Address Book data in xml format and read it back.</p>
+<p>The <code>Storage</code> component,</p>
+<ul>
+<li>can save <code>UserPref</code> objects in json format and read it back.</li>
+<li>can save the Address Book data in xml format and read it back.</li>
+</ul>
 <h3 id="common-classes">Common classes<a class="headerlink" href="#common-classes" title="Permanent link">#</a></h3>
 <p>Classes used by multiple components are in the <code>seedu.todo.commons</code> package.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">#</a></h2>
@@ -255,24 +261,87 @@ implementing class for <code>TodoParser</code> can be found as an inner class in
 <li>Named argument <code>Map&lt;String, String&gt;</code> - a map of flags to values </li>
 </ul>
 <p>For example, the command <code>add The Milk -d tomorrow 3pm -p</code> will produce </p>
-<ul>
-<li>Command: <code>add</code></li>
-<li>Positional argument: <code>The Milk</code></li>
-<li>Named argument: <ul>
-<li><code>d</code>: <code>tomorrow 3pm</code> </li>
-<li><code>p</code>: - (empty string)</li>
-</ul>
-</li>
-</ul>
+<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">command</span><span class="p p-Indicator">:</span> <span class="s">&quot;add&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">positional</span><span class="p p-Indicator">:</span> <span class="s">&quot;The</span><span class="nv"> </span><span class="s">Milk&quot;</span> 
+<span class="l l-Scalar l-Scalar-Plain">named</span><span class="p p-Indicator">:</span> 
+  <span class="l l-Scalar l-Scalar-Plain">d</span><span class="p p-Indicator">:</span> <span class="s">&quot;tomorrow</span><span class="nv"> </span><span class="s">3pm&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">p</span><span class="p p-Indicator">:</span> <span class="s">&quot;&quot;</span> <span class="c1"># Empty String</span>
+</pre></div>
+
+
+<p>This is then passed on to the dispatcher. </p>
 <h4 id="dispatcher">Dispatcher<a class="headerlink" href="#dispatcher" title="Permanent link">#</a></h4>
 <p>The <code>TodoDispatcher</code> subcomponent implements the <code>Dispatcher</code> interface, which defines a single 
-<code>dispatch</code> command. The dispatch function simply maps the provided <code>ParseResult</code> object to the 
-correct command and returns it.</p>
+<code>dispatch</code> function. The dispatch function simply maps the provided <code>ParseResult</code> object to the 
+correct command class, instantiates a new instance of it then returns it to the caller. </p>
 <h4 id="command">Command<a class="headerlink" href="#command" title="Permanent link">#</a></h4>
-<p>All commands implement the <code>BaseCommand</code> abstract class, which provides argument binding and validation. </p>
+<p>All commands implement the <code>BaseCommand</code> abstract class, which provides argument binding and validation.
+To implement a new command, you can use the following template </p>
+<div class="codehilite"><pre><span></span><span class="kn">package</span> <span class="nn">seedu.todo.logic.commands</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">seedu.todo.commons.exceptions.IllegalValueException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">seedu.todo.logic.arguments.Argument</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">seedu.todo.logic.arguments.IntArgument</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">seedu.todo.logic.arguments.Parameter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">seedu.todo.model.task.ImmutableTask</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">YourCommand</span> <span class="kd">extends</span> <span class="n">BaseCommand</span> <span class="o">{</span>
+    <span class="c1">// TODO: Define additional parameters here</span>
+    <span class="kd">private</span> <span class="n">Argument</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">index</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntArgument</span><span class="o">(</span><span class="s">&quot;index&quot;</span><span class="o">).</span><span class="na">required</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Parameter</span><span class="o">[]</span> <span class="nf">getArguments</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// TODO: List all command argument objects inside this array</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Parameter</span><span class="o">[]{</span> <span class="n">index</span> <span class="o">};</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IllegalValueException</span> <span class="o">{</span>
+        <span class="c1">// TOOD: Complete this command stub</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>If you need to do argument validation, you can also override the <code>validateArgument</code> command, 
+which is run after all arguments have been set.</p>
 <h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">#</a></h4>
+<p>Command arguments are defined using argument objects. Representing arguments as objects have several 
+benefit - it makes them declarative, it allows argument parsing and validation code to be reused across 
+multiple commands, and the fluent setter allows each individual property to be set indepently of each other. 
+The argument object's main job is to convert the user input from string into the type which the 
+command object can use, as well as contain information about the argument that the program can show to the 
+user.</p>
+<p>The generic type <code>T</code> represents the return type of the command argument. To implement a new argument 
+type, extend the abstract base class <code>Argument</code>, then implement the <code>setValue</code> function. Remember to 
+call the super class's <code>setValue</code> function so that the <code>required</code> argument check works. </p>
+<div class="codehilite"><pre><span></span><span class="kn">package</span> <span class="nn">seedu.todo.logic.arguments</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">seedu.todo.commons.exceptions.IllegalValueException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyArgument</span> <span class="kd">extends</span> <span class="n">Argument</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="c1">// TODO: Replace the generic type T here and below with a concrete type  </span>
+
+    <span class="kd">public</span> <span class="nf">FlagArgument</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">FlagArgument</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">T</span> <span class="n">defaultValue</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">defaultValue</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IllegalValueException</span> <span class="o">{</span>
+        <span class="c1">// TODO: Implement the argument parsing logic. Do not remove the super call below</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
 <h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3>
-<p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels
+<p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels
 and logging destinations.</p>
 <ul>
 <li>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file
@@ -280,8 +349,15 @@ and logging destinations.</p>
 <li>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to
   the specified logging level</li>
 <li>Currently log messages are output through: Console and to a log file.</li>
-<li>The logs </li>
+<li>The logs rolls over at 5MB such that every log file is smaller than 5MB. Five log files are 
+kept, after which the oldest will be deleted. </li>
 </ul>
+<p>To use the logger in your code, simply include </p>
+<div class="codehilite"><pre><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LogsCenter</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(&lt;</span><span class="n">YOUR</span> <span class="n">CLASS</span><span class="o">&gt;.</span><span class="na">class</span><span class="o">);</span>
+</pre></div>
+
+
+<p>at the top of your class, and replace <code>&lt;YOUR CLASS&gt;</code> with the class the logger is used in.</p>
 <h4 id="logging-levels">Logging Levels<a class="headerlink" href="#logging-levels" title="Permanent link">#</a></h4>
 <table>
 <thead>
@@ -331,27 +407,27 @@ as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-e
 <p>We have two types of tests:</p>
 <ol>
 <li>
-<p><strong>GUI Tests</strong> - These are <em>System Tests</em> that test the entire App by simulating user actions on the GUI.
+<p><strong><abbr title="Graphical User Interface">GUI</abbr> Tests</strong> - These are <em>System Tests</em> that test the entire App by simulating user actions on the <abbr title="Graphical User Interface">GUI</abbr>.
    These are in the <code>guitests</code> package.</p>
 </li>
 <li>
-<p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
+<p><strong>Non-<abbr title="Graphical User Interface">GUI</abbr> Tests</strong> - These are tests not involving the <abbr title="Graphical User Interface">GUI</abbr>. They include,</p>
 <ol>
 <li><strong>Unit tests</strong> - targeting the lowest level methods/classes.<br />
   e.g. <code>seedu.todo.commons.UrlUtilTest</code></li>
 <li><strong>Integration tests</strong> - that are checking the integration of multiple code units
  (those code units are assumed to be working).<br />
   e.g. <code>seedu.todo.storage.StorageManagerTest</code></li>
-<li>Hybrids of unit and integration tests. These test are checking multiple code units as well as
+<li><strong>Hybrids of unit and integration tests.</strong> These test are checking multiple code units as well as
   how the are connected together.<br />
   e.g. <code>seedu.todo.logic.LogicManagerTest</code></li>
 </ol>
 </li>
 </ol>
-<h3 id="headless-gui-testing">Headless GUI Testing<a class="headerlink" href="#headless-gui-testing" title="Permanent link">#</a></h3>
+<h3 id="headless-gui-testing">Headless <abbr title="Graphical User Interface">GUI</abbr> Testing<a class="headerlink" href="#headless-gui-testing" title="Permanent link">#</a></h3>
 <p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use,
- our GUI tests can be run in the <em>headless</em> mode.
- In the headless mode, GUI tests do not show up on the screen.
+ our <abbr title="Graphical User Interface">GUI</abbr> tests can be run in the <em>headless</em> mode.
+ In the headless mode, <abbr title="Graphical User Interface">GUI</abbr> tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.</p>
 <p>See <a href="UsingGradle.md#running-tests">UsingGradle.md</a> to learn how to run tests in headless mode.</p>
 <h2 id="dev-ops">Dev Ops<a class="headerlink" href="#dev-ops" title="Permanent link">#</a></h2>
@@ -373,8 +449,7 @@ See <a href="UsingTravis.md">UsingTravis.md</a> for more details.</p>
     and upload the JAR file your created.</li>
 </ol>
 <h3 id="managing-dependencies">Managing Dependencies<a class="headerlink" href="#managing-dependencies" title="Permanent link">#</a></h3>
-<p>Our project depends on third-party libraries. We use Gradle to automate our dependency management. 
-To add a new dependency to the project, </p>
+<p>Our project depends on third-party libraries. We use Gradle to automate our dependency management. </p>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">#</a></h2>
 <p>Our documentation and user guides are written in <a href="https://guides.github.com/features/mastering-markdown/">GitHub Flavor Markdown</a> with a number of 
 extensions including tables, definition lists and warning blocks that help enable richer styling options
@@ -712,13 +787,13 @@ To create a fat JAR file, we use the <a href="https://github.com/johnrengelman/s
 <h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">#</a></h3>
 <p><strong><code>allTests</code></strong> - Runs all tests.</p>
 <p><strong><code>guiTests</code></strong> - Runs all tests in the <code>guitests</code> package</p>
-<p><strong><code>nonGuiTests</code></strong> - Runs all non-GUI tests in the <code>seedu.address</code> package</p>
+<p><strong><code>nonGuiTests</code></strong> - Runs all non-<abbr title="Graphical User Interface">GUI</abbr> tests in the <code>seedu.address</code> package</p>
 <p><strong><code>headless</code></strong> - Sets the test mode as <em>headless</em>. 
   The mode is effective for that Gradle run only so it should be combined with other test tasks.</p>
 <p>Here are some examples:</p>
 <ul>
 <li><code>./gradlew headless allTests</code> -- Runs all tests in headless mode</li>
-<li><code>./gradlew clean nonGuiTests</code> -- Cleans the project and runs non-GUI tests</li>
+<li><code>./gradlew clean nonGuiTests</code> -- Cleans the project and runs non-<abbr title="Graphical User Interface">GUI</abbr> tests</li>
 </ul>
 <h3 id="updating-dependencies">Updating Dependencies<a class="headerlink" href="#updating-dependencies" title="Permanent link">#</a></h3>
 <p>There is no need to run these Gradle tasks manually as they are called automatically by other 

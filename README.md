@@ -14,8 +14,8 @@
 
   
 #### Site Map
-* [User Guide](docs/UserGuide.md) 
-* [Developer Guide](docs/DeveloperGuide.md) 
+* [User Guide](https://cs2103aug2016-w10-c4.github.io/main/UserGuide.html) 
+* [Developer Guide](https://cs2103aug2016-w10-c4.github.io/main/DeveloperGuide.html) 
 * [About Us](docs/AboutUs.md)
 * [Contact Us](docs/ContactUs.md)
 
