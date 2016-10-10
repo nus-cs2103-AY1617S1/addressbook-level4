@@ -44,11 +44,17 @@ public class DeleteCommandTest extends CommandTest {
         setParameter("1");
         execute();
         assertTaskNotExist(toDeleteFirst);
+        assertTaskExist(toDeleteNext);
+        assertTaskExist(toDeleteLast);
         setParameter("1");
         execute();
+        assertTaskNotExist(toDeleteFirst);
         assertTaskNotExist(toDeleteNext);
+        assertTaskExist(toDeleteLast);
         setParameter("1");
         execute();
+        assertTaskNotExist(toDeleteFirst);
+        assertTaskNotExist(toDeleteNext);
         assertTaskNotExist(toDeleteLast);
     }
     
