@@ -15,6 +15,11 @@ public interface ReadOnlyFloatingTask {
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
+    
+    TaskDate getStartDate();
+    TaskDate getEndDate();
+    
+    TaskType getType();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

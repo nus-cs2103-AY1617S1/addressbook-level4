@@ -3,12 +3,15 @@ package seedu.address.logic.parser;
 
 
 import seedu.address.logic.commands.*;
+import seedu.address.model.task.TaskDate;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.joestelmach.natty.DateGroup;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -28,12 +31,17 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<startTime>(?: start/[^/]+)*)"
                     + "(?<endTime>(?: end/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
+    
+    private static final Pattern NON_FLOATING_TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<name>[^/]+)"
+                    +" from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
     public Parser() {}
 
     /**
@@ -52,8 +60,8 @@ public class Parser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddFloatingCommand.COMMAND_WORD:
-            return prepareAddFloating(arguments);
+        case AddCommand.COMMAND_WORD:
+            return prepareAdd(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -96,9 +104,18 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAddFloating(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+    private Command prepareAdd(String args){
+        Matcher matcher = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
+        if (!matcher.matches()) {
+//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFloatingCommand.MESSAGE_USAGE));
+            return prepareAddFloating(args);
+        }
+        return prepareAddNonFloating(args);
+    }
+    
+    private Command prepareAddFloating(String args) {
+        final Matcher matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFloatingCommand.MESSAGE_USAGE));
         }
@@ -113,6 +130,27 @@ public class Parser {
     }
     
 
+    
+    private Command prepareAddNonFloating(String args) {
+        Matcher matcher = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
+        }
+        try {
+            
+            String startInput = matcher.group("startdate");
+            String endInput = matcher.group("enddate");
+            
+            return new AddNonFloatingCommand(
+                    matcher.group("name"),
+                    getTagsFromArgs(matcher.group("tagArguments")),
+                    new TaskDate(startInput, getDateFromString(startInput)),
+                    new TaskDate(startInput, getDateFromString(endInput))
+                    );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
@@ -196,6 +234,13 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    private Date getDateFromString(String dateInput) {
+        final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
+        List<DateGroup> dateGroups = nattyParser.parse(dateInput);
+        
+        return dateGroups.get(0).getDates().get(0);
     }
 
 }

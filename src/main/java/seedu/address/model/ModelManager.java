@@ -4,9 +4,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.Command;
-import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.ReadOnlyFloatingTask;
+import seedu.address.model.task.Task;
+
+import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskListChangedEvent;
@@ -25,7 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskList taskList;
-    private final FilteredList<FloatingTask> filteredTasks;
+    private final FilteredList<Task> filteredTasks;
     
     /**
      * Initializes a ModelManager with the given TaskList
@@ -74,11 +74,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(FloatingTask task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskList.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
+
     
     @Override
 	public void changeDirectory(String filePath) {

@@ -12,10 +12,10 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see FloatingTask#equals(Object)
+ * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<FloatingTask> {
+public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -32,7 +32,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
      */
     public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
@@ -52,7 +52,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(FloatingTask toAdd) throws DuplicateTaskException {
+    public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
@@ -74,12 +74,12 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
         return taskFoundAndDeleted;
     }
 
-    public ObservableList<FloatingTask> getInternalList() {
+    public ObservableList<Task> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<FloatingTask> iterator() {
+    public Iterator<Task> iterator() {
         return internalList.iterator();
     }
 
