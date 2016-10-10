@@ -54,7 +54,7 @@ Examples:
 
 #### Displaying tasks : `show`
 Displays tasks and their indexes in the specified timeframe.<br>
-Format: `show [TYPE]`
+Format: `show TYPE`
 
 > * TYPE can be replaced with p/high, p/med, p/low, complete, all, overdue, floating, today, tomorrow, upcoming, or any specific date.
 > * p/high, p/med, p/low stand for tasks with high priority, medium priority and low priority respectively.
