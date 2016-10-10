@@ -32,7 +32,7 @@ public class AddCommandTest {
 		assertEquals(details.get(6), test.eventStub.notes);
 	}
 	
-	@Test
+	/*@Test
 	public void testIsTaskObjectCreatedSuccessfully() throws IllegalValueException {
 		ArrayList<String> details = new ArrayList<String>();
 		
@@ -48,6 +48,6 @@ public class AddCommandTest {
 		assertEquals(details.get(2), test.taskStub.deadlineDate);
 		assertEquals(details.get(3), test.taskStub.deadlineTime);
 		assertEquals(details.get(4), test.taskStub.notes);
-	}
+	}*/
 
 }

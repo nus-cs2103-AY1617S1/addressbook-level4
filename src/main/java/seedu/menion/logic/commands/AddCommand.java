@@ -26,6 +26,7 @@ public class AddCommand extends Command {
 
     private final Activity toAdd = null;
     public final EventStub  eventStub;
+    
     /**
      * Convenience constructor using raw values.
      *
