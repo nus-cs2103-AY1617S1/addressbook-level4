@@ -31,7 +31,6 @@ public class Tars implements ReadOnlyTars {
     
     private static final int DATETIME_INDEX_OF_ENDDATE = 1;
     private static final int DATETIME_INDEX_OF_STARTDATE = 0;
-    private static final int DISPLAYED_INDEX_OFFSET = 1;
 
     {
         tasks = new UniqueTaskList();
@@ -67,6 +66,23 @@ public class Tars implements ReadOnlyTars {
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
+    /**
+     * Replaces task in tars internal list
+     * @param toReplace
+     * @param replacement
+     */
+            
+    public void replaceTask(ReadOnlyTask toReplace, Task replacement) {
+        ObservableList<Task> list = this.tasks.getInternalList();
+        int toReplaceIndex = -1;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).isSameStateAs(toReplace)){
+                toReplaceIndex = i;
+                break;
+            }
+        }
+        list.set(toReplaceIndex, replacement);
+}
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
@@ -103,7 +119,7 @@ public class Tars implements ReadOnlyTars {
      * @throws TagNotFoundException if no such tag could be found.
      * @throws IllegalValueException if argument(s) in argsToEdit is/are invalid.
      */
-    public Task editTask(ReadOnlyTask toEdit, int targetIndex, String[] argsToEdit) throws TaskNotFoundException, DateTimeException, 
+    public Task editTask(ReadOnlyTask toEdit, String[] argsToEdit) throws TaskNotFoundException, DateTimeException, 
     DuplicateTagException, TagNotFoundException, IllegalValueException {
         if (!tasks.getInternalList().contains(toEdit)) {
             throw new TaskNotFoundException();
@@ -145,8 +161,8 @@ public class Tars implements ReadOnlyTars {
                 taskToEdit.setTags(modified);
                 break;
             }
-        }        
-        tasks.getInternalList().set(targetIndex - DISPLAYED_INDEX_OFFSET, taskToEdit);
+        }
+        replaceTask(toEdit, taskToEdit);
         syncTagsWithMasterList(taskToEdit);
         return taskToEdit;
     }

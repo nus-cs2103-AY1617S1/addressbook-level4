@@ -21,7 +21,7 @@ public interface Model {
     ReadOnlyTars getTars();
     
     /** Edits the given task and returns the edited task */
-    Task editTask(ReadOnlyTask target, int targetIndex, String[] argsToEdit) throws UniqueTaskList.TaskNotFoundException, 
+    Task editTask(ReadOnlyTask toEdit, String[] argsToEdit) throws UniqueTaskList.TaskNotFoundException, 
     DateTimeException, IllegalValueException, TagNotFoundException;
 
     /** Deletes the given task. */
