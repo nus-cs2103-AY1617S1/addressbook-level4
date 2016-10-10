@@ -24,9 +24,9 @@ public class TaskTime {
     private static final String TIME_VALIDATION_REGEX_FORMAT_1 = "[\\p{Digit}]{1,2}:[\\p{Digit}]{2}";
     //format: hhmm
     private static final String TIME_VALIDATION_REGEX_FORMAT_2 = "[\\p{Digit}]{4}";
-    public static final String[] TIME_VALIDATION_REGEXES = {
-            TIME_VALIDATION_REGEX_FORMAT_1,
-            TIME_VALIDATION_REGEX_FORMAT_2, };
+    public static final String TIME_VALIDATION_REGEX_FORMAT =
+            TIME_VALIDATION_REGEX_FORMAT_1 + "|"
+            + TIME_VALIDATION_REGEX_FORMAT_2;
 
     public final LocalTime time;
 
@@ -53,12 +53,7 @@ public class TaskTime {
      * Returns true if a given string is a valid person name.
      */
     public static boolean isValidName(String test) {
-        for (String format : TIME_VALIDATION_REGEXES) {
-            if (test.matches(format)) {
-                return true;
-            }
-        }
-        return false;
+        return test.matches(TIME_VALIDATION_REGEX_FORMAT);
     }
 
 

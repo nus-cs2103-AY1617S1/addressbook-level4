@@ -29,10 +29,10 @@ public class TaskDate {
     //Shortest allowed monthname is 3 characters, longest monthname is September (9 characters)
     private static final String DATE_VALIDATION_REGEX_FORMAT_3 =
             "[\\p{Digit}]{1,2}[ ]?[\\p{Alpha}]{3,9}[ ]?[\\p{Digit}]{4}";
-    public static final String[] DATE_VALIDATION_REGEXES = {
-            DATE_VALIDATION_REGEX_FORMAT_1,
-            DATE_VALIDATION_REGEX_FORMAT_2,
-            DATE_VALIDATION_REGEX_FORMAT_3 };
+    public static final String DATE_VALIDATION_REGEX_FORMAT = 
+            DATE_VALIDATION_REGEX_FORMAT_1 + "|"
+            + DATE_VALIDATION_REGEX_FORMAT_2 + "|"
+            + DATE_VALIDATION_REGEX_FORMAT_3;
 
     public final LocalDate date;
 
@@ -59,12 +59,7 @@ public class TaskDate {
      * Returns true if a given string is a valid person name.
      */
     public static boolean isValidDate(String test) {
-        for (String format : DATE_VALIDATION_REGEXES) {
-            if (test.matches(format)) {
-                return true;
-            }
-        }
-        return false;
+        return test.matches(DATE_VALIDATION_REGEX_FORMAT);
     }
 
 

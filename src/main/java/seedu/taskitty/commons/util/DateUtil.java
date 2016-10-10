@@ -119,7 +119,7 @@ public class DateUtil {
     public static String getFullMonthName(String month) throws DateTimeException {
         assert month != null;
         
-        String fullMonthName = "";
+        String fullMonthName;
         month = month.toUpperCase();
         if (month.startsWith(MONTH_NAME_SHORT_JANUARY)) {
             fullMonthName = MONTH_NAME_LONG_JANUARY;
@@ -146,7 +146,7 @@ public class DateUtil {
         } else if (month.startsWith(MONTH_NAME_SHORT_DECEMBER)) {
             fullMonthName = MONTH_NAME_LONG_DECEMBER;
         } else {
-            throw new DateTimeException("Unable to find month " + fullMonthName);
+            throw new DateTimeException("Unable to find month " + month);
         }
         return fullMonthName;
     }
