@@ -87,19 +87,11 @@ public class ActivityParser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+    	
+        ArrayList<String> details = AddParser.parseCommand(args);
+        
         try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("deadline"),
-                    matcher.group("reminder"),
-                    matcher.group("priority"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
+            return new AddCommand(details);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
