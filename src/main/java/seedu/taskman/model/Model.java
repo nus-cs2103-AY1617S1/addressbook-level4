@@ -23,6 +23,8 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueActivityList.DuplicateActivityException;
 
+    void addActivity(Activity activity) throws  UniqueActivityList.DuplicateActivityException;
+
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Activity>} */
     UnmodifiableObservableList<Activity> getFilteredActivityList();
 

@@ -87,7 +87,19 @@ public class TaskMan implements ReadOnlyTaskMan {
     }
 
     /**
-     * Ensures that every tag in this task:
+     * Adds a activity to the task man.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueActivityList.DuplicateActivityException if an equivalent task already exists.
+     */
+    public void addActivity(Activity activity) throws UniqueActivityList.DuplicateActivityException {
+        syncTagsWithMasterList(activity);
+        activities.add(activity);
+    }
+
+    /**
+     * Ensures that every tag in this event:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      *  TODO: feels like a pretty complex way to do this... can we do better?

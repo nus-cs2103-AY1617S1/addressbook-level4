@@ -76,6 +76,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManChanged();
     }
 
+    @Override
+    public synchronized void addActivity(Activity activity) throws UniqueActivityList.DuplicateActivityException {
+        taskMan.addActivity(activity);
+        updateFilteredListToShowAll();
+        indicateTaskManChanged();
+    }
+
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
