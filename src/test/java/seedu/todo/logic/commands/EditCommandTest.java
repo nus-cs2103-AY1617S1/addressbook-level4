@@ -30,17 +30,17 @@ public class EditCommandTest extends CommandTest {
     
     @Test(expected=IllegalValueException.class)
     public void testEditInvalidIndex() throws IllegalValueException {
-    	setParameter("4");
-    	setParameter("l", "If this prints out this might hurt");
-    	execute();
+        setParameter("4");
+        setParameter("l", "If this prints out this might hurt");
+        execute();
     }
     
     @Test
     public void testEditPinned() throws IllegalValueException{
-    	ImmutableTask toEditPin=getTaskAt(1);
-    	setParameter("1");
-    	setParameter("p", null);
-    	execute();
+        ImmutableTask toEditPin=getTaskAt(1);
+        setParameter("1");
+        setParameter("p", null);
+        execute();
     	assertEquals("Task 1", toEditPin.getTitle());
         assertTrue(toEditPin.isPinned());
         assertFalse(toEditPin.getDescription().isPresent());

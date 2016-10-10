@@ -32,8 +32,8 @@ public class TodoDispatcher implements Dispatcher {
             break;
         case "edit":
         case "e":
-        	command=new EditCommand();
-        	break;
+            command=new EditCommand();
+            break;
             
         
         default:

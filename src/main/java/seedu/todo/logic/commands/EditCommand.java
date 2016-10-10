@@ -10,7 +10,7 @@ import seedu.todo.model.task.ImmutableTask;
 
 public class EditCommand extends BaseCommand {
 	
-	private Argument<Integer> index = new IntArgument("index").required();
+    private Argument<Integer> index = new IntArgument("index").required();
 	
     
     private Argument<String> description = new StringArgument("description")
