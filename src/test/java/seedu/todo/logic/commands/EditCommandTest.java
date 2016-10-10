@@ -37,7 +37,7 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testEditPinned() throws IllegalValueException{
-        ImmutableTask toEditPin=getTaskAt(1);
+        ImmutableTask toEditPin = getTaskAt(1);
         setParameter("1");
         setParameter("p", null);
         execute();
@@ -49,7 +49,7 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testEditLocation() throws IllegalValueException {
-    	ImmutableTask toEditLocation=getTaskAt(3);
+    	ImmutableTask toEditLocation = getTaskAt(3);
         setParameter("3");
         setParameter("l", "NTU");
         execute();
@@ -62,7 +62,7 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testEditDescription() throws IllegalValueException {
-        ImmutableTask toEditDesc=getTaskAt(2);
+        ImmutableTask toEditDesc = getTaskAt(2);
         setParameter("2");
         setParameter("m", "Some other description");
         execute();
@@ -75,7 +75,7 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testDeleteField() throws IllegalValueException{
-        ImmutableTask toDeleteField=getTaskAt(2);
+        ImmutableTask toDeleteField = getTaskAt(2);
         setParameter("2");
         setParameter("m", null);
         execute();
@@ -87,7 +87,7 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testEditMoreThanOneParameter() throws IllegalValueException{
-        ImmutableTask toEditTwoThings=getTaskAt(1);
+        ImmutableTask toEditTwoThings = getTaskAt(1);
         setParameter("1");
         setParameter("m", "New description");
         setParameter("l", "Singapura");

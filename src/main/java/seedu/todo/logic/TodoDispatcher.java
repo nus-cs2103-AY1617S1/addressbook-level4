@@ -32,7 +32,7 @@ public class TodoDispatcher implements Dispatcher {
             break;
         case "edit":
         case "e":
-            command=new EditCommand();
+            command = new EditCommand();
             break;
             
         

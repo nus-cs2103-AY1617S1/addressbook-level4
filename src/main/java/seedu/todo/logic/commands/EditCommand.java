@@ -28,7 +28,7 @@ public class EditCommand extends BaseCommand {
 
     @Override
     public void execute() throws IllegalValueException {
-        ImmutableTask toEdit=this.getTaskAt(index.getValue());
+        ImmutableTask toEdit = this.getTaskAt(index.getValue());
         this.model.update(toEdit, task -> {task.setDescription(description.getValue());
             task.setPinned(pin.getValue());
             task.setLocation(location.getValue());

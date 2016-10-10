@@ -18,7 +18,7 @@ public class AddCommandTest extends CommandTest {
         setParameter("Hello World");
         execute();
         assertTotalTaskCount(1);
-        ImmutableTask addedTask=getTaskAt(1);
+        ImmutableTask addedTask = getTaskAt(1);
         assertEquals("Hello World", this.getTaskAt(1).getTitle());
         assertFalse(addedTask.isPinned());
         assertFalse(addedTask.getDescription().isPresent());
@@ -30,7 +30,7 @@ public class AddCommandTest extends CommandTest {
         setParameter("Hello NUS");
         setParameter("l", "NUS");
         execute();
-        ImmutableTask taskWithLocation=getTaskAt(1);
+        ImmutableTask taskWithLocation = getTaskAt(1);
         assertTotalTaskCount(1);
         assertEquals("Hello NUS", taskWithLocation.getTitle());
         assertFalse(taskWithLocation.isPinned());
@@ -44,7 +44,7 @@ public class AddCommandTest extends CommandTest {
         setParameter("Destroy World");
         setParameter("m", "Remember to get Dynamites on sale!");
         execute();
-        ImmutableTask taskWithDescription=getTaskAt(1);
+        ImmutableTask taskWithDescription = getTaskAt(1);
         assertTotalTaskCount(1);
         assertEquals("Destroy World", taskWithDescription.getTitle());
         assertFalse(taskWithDescription.isPinned());
@@ -58,7 +58,7 @@ public class AddCommandTest extends CommandTest {
         setParameter("Li Kai's Presentation");
         setParameter("p", null);
         execute();
-        ImmutableTask pinnedAddedTask=getTaskAt(1);
+        ImmutableTask pinnedAddedTask = getTaskAt(1);
         assertTotalTaskCount(1);
         assertEquals("Li Kai's Presentation", pinnedAddedTask.getTitle());
         assertTrue(pinnedAddedTask.isPinned());
@@ -73,7 +73,7 @@ public class AddCommandTest extends CommandTest {
         setParameter("l","COM1");
         setParameter("m","Useless task");
         execute();
-        ImmutableTask taskWithParams=getTaskAt(1);
+        ImmutableTask taskWithParams = getTaskAt(1);
         assertTotalTaskCount(1);
         assertEquals("Task 1", taskWithParams.getTitle());
         assertTrue(taskWithParams.isPinned());
