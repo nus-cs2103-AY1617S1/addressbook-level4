@@ -77,7 +77,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
      * @throws UniqueActivityList.DuplicateTaskException if an equivalent tasks already exists.
      */
     public void addTask(Activity t) throws UniqueActivityList.DuplicateTaskException {
-        syncTagsWithMasterList(t);
+        //syncTagsWithMasterList(t);
         tasks.add(t);
     }
 

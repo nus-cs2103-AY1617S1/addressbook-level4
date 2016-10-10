@@ -9,7 +9,7 @@ import seedu.menion.model.activity.ReadOnlyActivity;
 
 public class ActivityCard extends UiPart{
 
-    private static final String FXML = "ActivityListCard.fxml";
+    private static final String FXML = "ActivityCard.fxml";
 
     @FXML
     private HBox cardPane;
