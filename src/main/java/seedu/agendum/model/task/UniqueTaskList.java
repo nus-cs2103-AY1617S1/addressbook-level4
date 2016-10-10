@@ -104,8 +104,8 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
     */
-    public boolean schedule(ReadOnlyTask toSchedule, LocalDateTime startDateTime,
-            LocalDateTime endDateTime) throws TaskNotFoundException {
+    public boolean schedule(ReadOnlyTask toSchedule, Optional<LocalDateTime> startDateTime,
+            Optional<LocalDateTime> endDateTime) throws TaskNotFoundException {
         assert toSchedule != null;
         final int taskIndex = internalList.indexOf(toSchedule);
         final boolean taskFoundAndScheduled = (taskIndex != -1);

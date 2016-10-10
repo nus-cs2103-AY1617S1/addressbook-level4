@@ -76,15 +76,18 @@ public class Task implements ReadOnlyTask {
     public Name getName() {
         return name;
     }
-    
+
+    @Override
     public boolean isCompleted() {
         return isCompleted;
     }
-    
+
+    @Override
     public Optional<LocalDateTime> getStartDateTime() {
         return Optional.ofNullable(startDateTime);
     }
-    
+
+    @Override
     public Optional<LocalDateTime> getEndDateTime() {
         return Optional.ofNullable(endDateTime);
     }
@@ -108,12 +111,12 @@ public class Task implements ReadOnlyTask {
         this.isCompleted = false;
     }
     
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
+    public void setStartDateTime(Optional<LocalDateTime> startDateTime) {
+        this.startDateTime = startDateTime.orElse(null);
     }
     
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = startDateTime;
+    public void setEndDateTime(Optional<LocalDateTime> endDateTime) {
+        this.endDateTime = endDateTime.orElse(null);
     }
 
     /**

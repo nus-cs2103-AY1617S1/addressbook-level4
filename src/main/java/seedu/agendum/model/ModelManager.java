@@ -13,6 +13,7 @@ import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.core.ComponentManager;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -88,8 +89,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void scheduleTask(ReadOnlyTask target, LocalDateTime startDateTime,
-            LocalDateTime endDateTime) throws UniqueTaskList.TaskNotFoundException {
+    public synchronized void scheduleTask(ReadOnlyTask target, Optional<LocalDateTime> startDateTime,
+            Optional<LocalDateTime> endDateTime) throws UniqueTaskList.TaskNotFoundException {
         toDoList.scheduleTask(target, startDateTime, endDateTime);
         indicateToDoListChanged();
     }

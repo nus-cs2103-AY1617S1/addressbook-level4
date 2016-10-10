@@ -47,6 +47,14 @@ public class TestTask implements ReadOnlyTask {
         this.isCompleted = false;
     }
 
+    public void setStartDateTime(Optional<LocalDateTime> startDateTime) {
+        this.startDateTime = startDateTime.orElse(null);
+    }
+    
+    public void setEndDateTime(Optional<LocalDateTime> endDateTime) {
+        this.endDateTime = endDateTime.orElse(null);
+    }
+
     @Override
     public Name getName() {
         return name;

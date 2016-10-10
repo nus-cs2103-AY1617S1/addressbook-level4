@@ -5,8 +5,10 @@ import seedu.agendum.model.task.Name;
 import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.Task;
 import seedu.agendum.model.task.UniqueTaskList;
+import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -30,8 +32,8 @@ public interface Model {
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
     
     /**Schedules the given task */
-    void scheduleTask(ReadOnlyTask target, LocalDateTime startDateTime, LocalDateTime endDateTime)
-            throws UniqueTaskList.TaskNotFoundException;
+    void scheduleTask(ReadOnlyTask target, Optional<LocalDateTime> startDateTime,
+            Optional<LocalDateTime> endDateTime) throws UniqueTaskList.TaskNotFoundException;
        
     /** Marks the given task as completed */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

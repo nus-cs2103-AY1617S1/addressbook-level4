@@ -125,8 +125,8 @@ public class ToDoList implements ReadOnlyToDoList {
         return tasks.rename(key, newTaskName);
     }
 
-    public boolean scheduleTask(ReadOnlyTask key, LocalDateTime startDateTime,
-            LocalDateTime endDateTime) throws UniqueTaskList.TaskNotFoundException {
+    public boolean scheduleTask(ReadOnlyTask key, Optional<LocalDateTime> startDateTime,
+            Optional<LocalDateTime> endDateTime) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.schedule(key, startDateTime, endDateTime)) {
             return true;
         } else {
