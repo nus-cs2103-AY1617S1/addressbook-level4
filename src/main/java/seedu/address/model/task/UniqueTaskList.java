@@ -3,7 +3,10 @@ package seedu.address.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 
@@ -80,12 +83,28 @@ public class UniqueTaskList implements Iterable<Task> {
      */ 			
     public boolean set(int key, SomedayTask Task) throws TaskNotFoundException {
         assert Task != null;
-        // TODO: settle 'Task' data type
-        final boolean taskFoundAndEdited = internalList.set(key, Task);
-        if (!taskFoundAndEdited) {
+        boolean isFound = false;
+		// TODO: settle 'Task' data type
+        Task stub;
+		try {
+			stub = new Task(
+			        new Name("Travis"),
+			        new Phone("38"),
+			        new Email("travisucks@gmail.com"),
+			        new Address("no where good"),
+			        new UniqueTagList(new Tag())
+			);
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+        if (internalList.size()-1 < key) {
             throw new TaskNotFoundException();
+        } else {
+        	isFound = true;
         }
-        return taskFoundAndEdited;
+        return isFound;
     }
 
     public ObservableList<Task> getInternalList() {
