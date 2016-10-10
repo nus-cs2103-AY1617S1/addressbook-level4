@@ -1,107 +1,38 @@
 /***TaskCard Styles Start***/
-/*TaskCard: Background*/
-.taskCard.selected {
-    -fx-background-color: #00A4FF;
-}
-
-/*TaskCard: Title Label*/
-.taskCard .titleLabel {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Semibold";
+/*Default and Base*/
+.taskCard .label {
     -fx-text-fill: #2D2D2D;
     -fx-font-smoothing-type: lcd;
 }
 
-.taskCard.completed .titleLabel {
-    -fx-text-fill: #7F7F7F;
+.taskCard .titleLabel {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Semibold";
 }
 
-.taskCard.completed .titleLabel .text {
-    -fx-strikethrough: true;
+.taskCard .descriptionLabel {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI";
 }
 
-.taskCard.overdue .titleLabel {
-    -fx-text-fill: #FF6464;
+.taskCard .footnoteLabel {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-style: italic;
 }
 
-.taskCard.selected .titleLabel {
-    -fx-text-fill: #FFFFFF;
-}
-
-/*TaskCard: Round Labels for Types and Tags, and Border Decoration*/
 .taskCard .roundLabel {
     -fx-background-radius: 10;
     -fx-text-fill: #ffffff;
+    -fx-background-color: #2D2D2D;
     -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI Semilight";
 }
 
-.taskCard .roundLabel.typeLabel {
+.taskCard .highlightedBackground {
     -fx-background-color: #00A4FF;
 }
 
-.taskCard .roundLabel.borderDecoration {
-    -fx-background-color: #00A4FF;
-}
-
-.taskCard .roundLabel.tagLabel {
-    -fx-background-color: #2D2D2D;
-}
-
-.taskCard.completed .roundLabel {
-    -fx-background-color: #7F7F7F;
-    -fx-text-fill: #ffffff;
-}
-
-.taskCard.overdue .roundLabel.typeLabel {
-    -fx-background-color: #FF6464;
-}
-
-.taskCard.overdue .roundLabel.borderDecoration {
-    -fx-background-color: #FF6464;
-}
-
-.taskCard.selected .roundLabel {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #00A4FF;
-}
-
-/*TaskCard: DescriptionLabel*/
-.taskCard .descriptionLabel {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI";
-    -fx-text-fill: #2D2D2D;
-}
-
-.taskCard.completed .descriptionLabel {
-    -fx-text-fill: #7F7F7F;
-}
-
-.taskCard.selected .descriptionLabel {
-    -fx-text-fill: #FFFFFF;
-}
-
-/*TaskCard: FootnoteLabel for time and location*/
-.taskCard .footnoteLabel {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semilight";
-    -fx-text-fill: #2D2D2D;
-    -fx-font-style: italic;
-}
-
-.taskCard.completed .footnoteLabel {
-    -fx-text-fill: #7F7F7F;
-}
-
-.taskCard.overdue .timeLabel {
-    -fx-text-fill: #FF6464;
-}
-
-.taskCard.selected .footnoteLabel {
-    -fx-text-fill: #FFFFFF;
-}
-
-/*TaskCard: images*/
 .taskCard .pinImage {
     -fx-image: url("../images/star_gold.png");
 }
@@ -114,32 +45,81 @@
     -fx-image: url("../images/location_black.png");
 }
 
-.taskCard.completed .pinImage {
-    -fx-image: url("../images/star_grey.png");
+/*Selected*/
+.selected {
+    -fx-background-color: #00A4FF;
 }
 
-.taskCard.completed .dateImage {
-    -fx-image: url("../images/clock_grey.png");
+.selected .label {
+    -fx-text-fill: #FFFFFF;
 }
 
-.taskCard.completed .locationImage {
-    -fx-image: url("../images/location_grey.png");
+.selected .roundLabel {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #00A4FF;
 }
 
-.taskCard.overdue .dateImage {
-    -fx-image: url("../images/clock_red.png");
-}
-
-.taskCard.selected .pinImage {
+.selected .pinImage {
     -fx-image: url("../images/star_white.png");
 }
 
-.taskCard.selected .dateImage {
+.selected .dateImage {
     -fx-image: url("../images/clock_white.png");
 }
 
-.taskCard.selected .locationImage {
+.selected .locationImage {
     -fx-image: url("../images/location_white.png");
 }
 
+/*Completed*/
+.completed .label{
+    -fx-text-fill: #7F7F7F;
+}
+
+.completed .titleLabel .text {
+    -fx-strikethrough: true;
+}
+
+.completed .roundLabel {
+    -fx-background-color: #7F7F7F;
+    -fx-text-fill: #ffffff;
+}
+
+.completed .pinImage {
+    -fx-image: url("../images/star_grey.png");
+}
+
+.completed .dateImage {
+    -fx-image: url("../images/clock_grey.png");
+}
+
+.completed .locationImage {
+    -fx-image: url("../images/location_grey.png");
+}
+
+/*Overdue*/
+.overdue {
+    -fx-background-color: #FF6464;
+}
+
+.overdue .label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.overdue .roundLabel {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #FF6464;
+}
+
+.overdue .pinImage {
+    -fx-image: url("../images/star_white.png");
+}
+
+.overdue .dateImage {
+    -fx-image: url("../images/clock_white.png");
+}
+
+.overdue .locationImage {
+    -fx-image: url("../images/location_white.png");
+}
 /***TaskCard Styles End***/
