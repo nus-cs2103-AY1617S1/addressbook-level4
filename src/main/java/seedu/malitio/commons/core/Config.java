@@ -12,7 +12,7 @@ public class Config {
     public static final String DEFAULT_FILE_PATH = "data/malitio.xml";
 
     // Config values customizable through config file
-    private String appTitle = "Malitio App";
+    private String appTitle = "Malitio";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String malitioFilePath = DEFAULT_FILE_PATH;

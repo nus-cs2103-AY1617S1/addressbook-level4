@@ -159,7 +159,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting malitio " + MainApp.VERSION);
+        logger.info("Starting Malitio " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
