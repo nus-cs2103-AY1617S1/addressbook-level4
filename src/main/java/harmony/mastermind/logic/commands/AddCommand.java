@@ -77,7 +77,7 @@ public class AddCommand extends Command implements Undoable {
             tagSet.add(new Tag(tagName));
         }
 
-        this.toAdd = new Task(name, prettyTimeParser.parse(startDate).get(0), prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet), false);
+        this.toAdd = new Task(name, prettyTimeParser.parse(startDate).get(0), prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet));
 
     }
 
@@ -89,7 +89,7 @@ public class AddCommand extends Command implements Undoable {
             tagSet.add(new Tag(tagName));
         }
 
-        this.toAdd = new Task(name, prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet), false);
+        this.toAdd = new Task(name, prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet));
     }
 
     // floating
@@ -100,7 +100,7 @@ public class AddCommand extends Command implements Undoable {
             tagSet.add(new Tag(tagName));
         }
 
-        this.toAdd = new Task(name, new UniqueTagList(tagSet), false);
+        this.toAdd = new Task(name, new UniqueTagList(tagSet));
     }
 
     @Override

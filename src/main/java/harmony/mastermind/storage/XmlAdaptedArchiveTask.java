@@ -64,6 +64,6 @@ public class XmlAdaptedArchiveTask {
         final Date endDate = this.endDate;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, startDate, endDate, tags, true);
+        return new Task(name, startDate, endDate, tags);
     }
 }

@@ -63,12 +63,6 @@ public class TestTask implements ReadOnlyTask {
         // TODO Auto-generated method stub
         return false;
     }
-
-    @Override
-    public boolean isMarked() {
-        // TODO Auto-generated method stub
-        return false;
-    }
     
     
 }
