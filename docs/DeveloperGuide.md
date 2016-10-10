@@ -1,5 +1,5 @@
 # Developer Guide 
-* [Introduction](#setting-up)
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -50,8 +50,9 @@ This guide describes the design and implementation of RubyTask. It will help you
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
+_Figure 1: Components of RubyTask and their dependencies._ <br>
+
+Figure 1 gives a high-level design overview of the RubyTask, and a quick overview of each component follows.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
@@ -73,31 +74,35 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the `Logic` component (illustrated in Figure 2) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
+_Figure 2: Class Diagram of the* `Logic `*component_
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+The _Sequence Diagram_ (Figure 3) below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
+_Figure 3: Sequence Diagram for delete command._
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+The next Sequence Diagram (Figure 4) shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
+_Figure 4: Sequence Diagram of_ `EventsCenter`
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
 
-The sections below give more details of each component.
+We will now elaborate on the details of each component.
 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
+_Figure 5: Class Diagram of the_ `UI `_component_
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -118,21 +123,24 @@ The `UI` component,
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
+_Figure 6: Class Diagram of the_ `Logic `_component_
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+* `Logic` uses the `Parser` class to parse the user command.
+* This results in a `Command` object which is executed by the `LogicManager`.
+* The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+* The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Figure 7 below illustrates the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
+_Figure 7: Sequence Diagram of interactions within the `Logic` component_
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
+_Figure 8: Class Diagram of the_ `Model `_component_
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -146,6 +154,7 @@ The `Model`,
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
+_Figure 9: Class Diagram of the_ `Storage `_component_
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
