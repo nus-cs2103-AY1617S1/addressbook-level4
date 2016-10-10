@@ -37,5 +37,20 @@ public class AddParser {
 		
 	}
 	
+	/**
+	 * This method checks if the input arguments satisfy the requirements to be a Event.
+	 * @return
+	 */
+	public static Boolean isEvents(String args){
+		matcher = EVENTS_REGEX.matcher(args);
+		
+		if (matcher.find()){
+			return true;
+		}
+		
+		return false;
+	
+	}
+	
 	
 }
