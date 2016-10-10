@@ -61,7 +61,7 @@ public class DoneCommand extends Command {
             catch (PersonNotFoundException e){
                 assert false: "The target task cannot be missing";
             }
-            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getName()));
+            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getTaskDetails()));
         }
     }
 
@@ -87,7 +87,7 @@ public class DoneCommand extends Command {
 				assert false: "The target task cannot be missing";
 			}
     		model.updateFilteredListToShowAll();
-    		return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getName()));
+    		return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getTaskDetails()));
     	} 
     	
     	//More than 1 task matches string

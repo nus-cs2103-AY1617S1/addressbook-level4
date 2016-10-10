@@ -13,7 +13,7 @@ public class Task implements ReadOnlyTask {
 
 	private static int currentID = 0;
 	
-    private TaskDetails name;
+    private TaskDetails taskDetails;
     private StartTime startTime;
     private EndTime endTime;
     private Priority priority;
@@ -25,9 +25,9 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskDetails name, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime, priority, tags);
-        this.name = name;
+    public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(taskDetails, startTime, endTime, priority, tags);
+        this.taskDetails = taskDetails;
         this.startTime = startTime;
         this.endTime = endTime;
         this.priority = priority;
@@ -40,12 +40,12 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getPriority(), source.getTags());
+        this(source.getTaskDetails(), source.getStartTime(), source.getEndTime(), source.getPriority(), source.getTags());
     }
 
     @Override
-    public TaskDetails getName() {
-        return name;
+    public TaskDetails getTaskDetails() {
+        return taskDetails;
     }
 
     @Override
@@ -93,6 +93,22 @@ public class Task implements ReadOnlyTask {
         isComplete = true;
     }
     
+    public void setTaskDetails(TaskDetails taskDetails){
+        this.taskDetails = taskDetails;
+    }
+    
+    public void setStartTime(StartTime startTime){
+        this.startTime = startTime;
+    }
+    
+    public void setEndTime(EndTime endTime){
+        this.endTime = endTime;
+    }
+    
+    public void setPriority(Priority priority){
+        this.priority = priority;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -103,7 +119,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startTime, endTime, priority, uniqueID, tags);
+        return Objects.hash(taskDetails, startTime, endTime, priority, uniqueID, tags);
     }
 
     @Override

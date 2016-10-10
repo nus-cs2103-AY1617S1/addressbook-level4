@@ -380,7 +380,7 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
+            cmd.append(p.getTaskDetails().toString());
             cmd.append(" p/").append(p.getStartTime());
             cmd.append(" e/").append(p.getEndTime());
             cmd.append(" a/").append(p.getUniqueID());
