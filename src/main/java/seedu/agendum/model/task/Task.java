@@ -78,10 +78,6 @@ public class Task implements ReadOnlyTask {
         return isCompleted;
     }
     
-    public boolean isNotCompleted() {
-        return (isCompleted == false);
-    }
-    
     public LocalDateTime getStartDateTime() {
         return startDateTime;
     }
