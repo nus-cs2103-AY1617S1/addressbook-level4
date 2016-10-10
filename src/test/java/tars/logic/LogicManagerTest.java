@@ -287,6 +287,19 @@ public class LogicManagerTest {
             assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTars(), taskList);
         }
     }
+    
+    private void assertCommandBehaviorForEditCommand(String inputCommand, String expectedMessage) throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> taskList = helper.generateTaskList(2);
+
+        // set AB state to 2 tasks
+        model.resetData(new Tars());
+        for (Task p : taskList) {
+            model.addTask(p);
+        }
+        
+        assertCommandBehavior(inputCommand, expectedMessage, model.getTars(), taskList);
+    }
 
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -397,13 +410,22 @@ public class LogicManagerTest {
     @Test
     public void execute_edit_invalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
-        assertCommandBehavior("edit ", expectedMessage);
-        assertCommandBehavior("edit 1 -invalidFlag invalidArg", expectedMessage);
+       
+        assertCommandBehaviorForEditCommand("edit ", expectedMessage);
+        assertCommandBehaviorForEditCommand("edit 1 -invalidFlag invalidArg", expectedMessage);
     }
 
     @Test
     public void execute_edit_indexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("edit");
+    }
+    
+    @Test
+    public void execute_edit_invalidTaskData() throws Exception {
+        assertCommandBehaviorForEditCommand("edit 1 -n []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehaviorForEditCommand("edit 1 -dt @@@notAValidDate@@@", Messages.MESSAGE_INVALID_DATE);
+        assertCommandBehaviorForEditCommand("edit 1 -p medium",Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+        assertCommandBehaviorForEditCommand("edit 1 -n validName -dt invalidDate", Messages.MESSAGE_INVALID_DATE);
     }
 
     /**
