@@ -114,6 +114,12 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
+    
+    @Override
+	public void updateFilteredTaskListToShowWithStatus(boolean status) {
+		updateFilteredTaskList(new PredicateExpression(new StatusQualifier(status)));
+		
+	}
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -166,6 +172,23 @@ public class ModelManager extends ComponentManager implements Model {
             return "task=" + String.join(", ", taskKeyWords);
         }
     }
-
-
+    
+    private class StatusQualifier implements Qualifier {
+    	private Boolean status;
+    	
+    	StatusQualifier(boolean status){
+    		this.status = status;
+    	}
+    	
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			return task.getTaskStatus() == status;
+		}
+		
+		@Override 
+		public String toString() {
+			return "task is" + (status ? "completed" : "not yet completed");  
+		}
+    	
+    }
 }

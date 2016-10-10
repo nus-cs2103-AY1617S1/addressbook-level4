@@ -57,31 +57,31 @@ Examples:
 
 
 #### Listing tasks
-Shows a list of all tasks that are marked done. <br>
-Format: `list task [all]`
+Shows a list of tasks that are not marked done. <br>
+Format: `list -t [-a]`
 
 > Tasks that are marked done will not be shown by default.
 > An [all] optional flag will request the TaskBook to list all tasks, both marked done and not yet marked done. 
 
 Examples: 
-* `list task`  
+* `list -t`  
   Lists tasks that are not marked done.
-* `list task all`  
+* `list -t -a`  
   All tasks will be shown.
 
 
 #### Listing event
-Shows a list of all tasks that are marked done. <br>
-Format: `list task [all]`
+Shows a list of all events that are completed. <br>
+Format: `list -e [-a]`
 
-> Tasks that are marked done will not be shown by default.
-> An [all] optional flag will request the TaskBook to list all tasks, both marked done and not yet marked done. 
+> Events that are completed will not be shown by default.
+> An [-a] optional flag will request the TaskBook to list all events, both completed  and passed. 
 
 Examples: 
-* `list task `<br>
-  Lists tasks that are not marked done.
-* `list task all` <br>
-  All tasks will be shown.
+* `list -t `<br>
+  Lists events that are not completed yet. 
+* `list -t -a` <br>
+  All events will be shown.
 
 
 

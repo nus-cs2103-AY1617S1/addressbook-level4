@@ -65,7 +65,7 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempTaskBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempTaskBookFile = saveFolder.getRoot().getPath() + "TempTaskBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
         logic = new LogicManager(model, new StorageManager(tempTaskBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
@@ -109,7 +109,8 @@ public class LogicManagerTest {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
-
+        
+        
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
@@ -270,23 +271,47 @@ public class LogicManagerTest {
 
     }
 
-    @Ignore
+    @Test
+    public void execute_list_showsUncompletedTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task tTarget1 = helper.generateTaskWithName("Task1");
+        Task tTarget2 = helper.generateTaskWithName("Task2");
+        Task tTarget3 = helper.completedTask();
+        
+        List<Task> threeTasks = helper.generateTaskList(tTarget1, tTarget2, tTarget3);
+        TaskBook expectedTB = helper.generateTaskBook(threeTasks);
+        List<Task> expectedList = helper.generateTaskList(tTarget1, tTarget2);
+
+        // prepare address book state
+        helper.addToModel(model, threeTasks);
+
+        assertTaskCommandBehavior("list -t",
+                ListTaskCommand.MESSAGE_INCOMPLETED_SUCCESS,
+                expectedTB,
+                expectedList);
+    }
+
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateTaskBook(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        Task tTarget1 = helper.generateTaskWithName("Task1");
+        Task tTarget2 = helper.generateTaskWithName("Task2");
+        Task tTarget3 = helper.completedTask();
+        
+        List<Task> threeTasks = helper.generateTaskList(tTarget1, tTarget2, tTarget3);
+        TaskBook expectedTB = helper.generateTaskBook(threeTasks);
+        List<Task> expectedList = helper.generateTaskList(tTarget1, tTarget2,tTarget3);
 
         // prepare address book state
-        helper.addToModel(model, 2);
+        helper.addToModel(model, threeTasks);
 
-        assertTaskCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
+        assertTaskCommandBehavior("list -t -a",
+                ListTaskCommand.MESSAGE_ALL_SUCCESS,
+                expectedTB,
                 expectedList);
     }
-
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -453,7 +478,14 @@ public class LogicManagerTest {
 //            Deadline deadline = new Deadline("01-01-16");
             Description des = new Description("post on Github");
             
-            return new Task(name, des);
+            return new Task(name, des, false);
+        }
+        
+        Task completedTask() throws Exception {
+        	Name name = new Name("Run tests");
+        	Description des = new Description("for task");
+        	
+        	return new Task(name, des, true);
         }
         
         Event computingEvent() throws Exception {
@@ -474,7 +506,8 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Description("Description" + Math.abs(seed))
+                    new Description("Description" + Math.abs(seed)),
+                    false
                    );
         }
 
@@ -576,7 +609,8 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Description("dummy description")
+                    new Description("dummy description"),
+                    false
             );
         }
     }

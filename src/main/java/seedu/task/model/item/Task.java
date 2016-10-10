@@ -18,9 +18,9 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Description description) {
-    	this(name, description,false);    
-    }
+//    public Task(Name name, Description description) {
+//    	this(name, description,false);    
+//    }
     
     public Task(Name name, Description description, Boolean status) {
         assert !CollectionUtil.isAnyNull(name, description);
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getTask(), source.getDescription());
+        this(source.getTask(), source.getDescription(), source.getTaskStatus());
     }
 
     @Override
@@ -55,6 +55,10 @@ public class Task implements ReadOnlyTask {
     @Override
     public Boolean getTaskStatus() {
         return isTaskCompleted;
+    }
+    
+    public void setCompleted() {
+    	isTaskCompleted = !isTaskCompleted;
     }
 
     @Override

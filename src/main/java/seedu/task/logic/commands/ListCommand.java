@@ -1,20 +1,26 @@
 package seedu.task.logic.commands;
 
-
 /**
- * Lists all persons in the address book to the user.
+ * Abstract class to represent generic list operations.  
+ * @author xuchen
  */
-public class ListCommand extends Command {
-
-    public static final String COMMAND_WORD = "list";
-
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
-
-    public ListCommand() {}
-
-    @Override
-    public CommandResult execute() {
-        model.updateFilteredListToShowAll();
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
+public abstract class ListCommand extends Command {
+	public static final String COMMAND_WORD = "list";
+	
+	/** fields to indicate if all items should be displayed **/
+	protected boolean showAll;
+	
+	/**
+	 * Executes the command and returns the result message.
+	 * @return feedback message of the operation result for display
+	 */
+	public abstract CommandResult execute();
+	
+	/**
+	 * Determine if the list operations should show all items. 
+	 * @return if all items should be shown
+	 */
+	protected boolean shouldShowAll() {
+		return this.showAll;
+	}
 }
