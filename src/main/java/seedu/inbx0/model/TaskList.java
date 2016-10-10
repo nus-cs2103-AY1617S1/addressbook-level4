@@ -5,6 +5,7 @@ import seedu.inbx0.model.task.Task;
 import seedu.inbx0.model.task.ReadOnlyTask;
 import seedu.inbx0.model.task.UniqueTaskList;
 import seedu.inbx0.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.model.tag.Tag;
 import seedu.inbx0.model.tag.UniqueTagList;
 
@@ -60,7 +61,14 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(t -> {
+            try {
+                return new Task(t);
+            } catch (IllegalValueException e) {
+              System.out.println(Task.MESSAGE_TIME_CONSTRAINTS);
+            }
+            return null;
+        }).collect(Collectors.toList()));
         setTags(newTags);
     }
 

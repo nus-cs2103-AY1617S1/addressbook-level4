@@ -159,13 +159,12 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
-    //    final Matcher matcher = TASK_EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
-    /*    if (!matcher.matches()) {
+        final Matcher matcher = TASK_EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        */
-       // Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
-        Optional<Integer> index = parseIndex(args);
+        
+        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));

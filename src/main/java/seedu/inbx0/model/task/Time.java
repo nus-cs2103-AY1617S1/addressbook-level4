@@ -8,7 +8,7 @@ import seedu.inbx0.commons.exceptions.IllegalValueException;
  */
 public class Time {
 
-    public static final String MESSAGE_TIME_CONSTRAINTS = "Start Time has to be in 24 hour format";
+    public static final String MESSAGE_TIME_CONSTRAINTS = "Time has to be in 24 hour format";
     public static final String TIME_VALIDATION_REGEX = "\\d+";
     
     public final String value;
