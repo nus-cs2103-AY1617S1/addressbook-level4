@@ -45,7 +45,7 @@ This guide describes the design and implementation of RubyTask. It will help you
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
-## Design
+## DESIGN
 
 ### Architecture
 
@@ -285,7 +285,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Add task
+### Use case: Add task
 
 **MSS**
 
@@ -297,7 +297,7 @@ Priority | As a ... | I want to ... | So that I can...
 1a. Invalid syntax for command
 > 1a1. RubyTask shows an error message. Use case ends
 
-#### Use case: Find task with keywords
+### Use case: Find task with keywords
 
 **MSS**
 
@@ -309,7 +309,7 @@ Priority | As a ... | I want to ... | So that I can...
 2a. No matching tasks
 > 2a1. RubyTask shows an error message. Use case ends
 
-#### Use case: Delete task
+### Use case: Delete task
 
 **MSS**
 
@@ -327,7 +327,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 3a1. RubyTask shows an error message.\
 > 3a2. Use case resumes at step 2.
 
-#### Use case: Undo latest command
+### Use case: Undo latest command
 
 **MSS**
 
