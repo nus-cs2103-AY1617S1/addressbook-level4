@@ -21,6 +21,7 @@ public class Importance {
                                                              };
     
     public final String value;
+    public final int level;
     
     /**
      * Validates given importance.
@@ -34,9 +35,29 @@ public class Importance {
         if (!isValidImportance(importance) && (importance != "")) {
             throw new IllegalValueException(MESSAGE_IMPORTANCE_CONSTRAINTS);
         }
-        this.value = importance;
+        
+        this.value = changeStringIntoProperColorName(importance);
+        
+        if (value.equals("Green"))
+            level = 1;
+        else if(value.equals("Yellow"))
+            level = 2;
+        else if (value.equals("Red"))
+            level = 3;
+        else
+            level = 0;
     }
     
+    private String changeStringIntoProperColorName(String importance) {
+        if(importance.equals("g") | importance.equals("G") | importance.equals("green"))
+            importance = "Green";
+        else if (importance.equals("y") | importance.equals("Y") | importance.equals("yellow"))
+            importance = "Yellow";
+        else if (importance.equals("r") | importance.equals("R") | importance.equals("red"))
+            importance = "Red";
+        return importance;
+    }
+
     /**
      * Returns true if a given string is a valid task start time.
      */
@@ -62,5 +83,9 @@ public class Importance {
 
     public String getLevel() {
         return value;
+    }
+    
+    public int getNumberLevel() {
+        return level;
     }
 }

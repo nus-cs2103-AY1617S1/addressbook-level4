@@ -25,8 +25,6 @@ public class TaskCard extends UiPart{
     @FXML
     private Label endTime;
     @FXML
-    private Label level;
-    @FXML
     private Label tags;
 
     private ReadOnlyTask task;
@@ -51,8 +49,15 @@ public class TaskCard extends UiPart{
         startTime.setText(task.getStartTime().value);
         endDate.setText(task.getEndDate().value);
         endTime.setText(task.getEndTime().value);
-        level.setText(task.getLevel().value);
         tags.setText(task.tagsString());
+        
+        if(task.getLevel().getNumberLevel() == 1) 
+            cardPane.setStyle("-fx-background-color: #7CFC00;");
+        else if(task.getLevel().getNumberLevel() == 2)
+            cardPane.setStyle("-fx-background-color: #FFFF00;");
+        else if(task.getLevel().getNumberLevel() == 3)
+            cardPane.setStyle("-fx-background-color: #FF4500;");
+                    
     }
 
     public HBox getLayout() {
