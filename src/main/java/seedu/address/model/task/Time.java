@@ -15,7 +15,7 @@ public class Time {
     public final String value;
 
     /**
-     * Validates given deadline.
+     * Validates given time.
      *
      * @throws IllegalValueException if given time string is invalid.
      */
