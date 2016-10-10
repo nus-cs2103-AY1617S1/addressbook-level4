@@ -28,7 +28,10 @@ public class EditCommand extends Command {
     
     public final int targetIndex;
     public final String newName;
+    public final String newStartDate;
+    public final String newStartTime;
     public final String newEndDate;
+    public final String newEndTime;
 
     /*
      * Edits deadline, task, or event by index.
@@ -39,7 +42,10 @@ public class EditCommand extends Command {
             throws IllegalValueException {
         this.targetIndex = targetIndex;
         this.newName = name;
+        this.newStartDate = startDate;
+        this.newStartTime = startTime;
         this.newEndDate = endDate;
+        this.newEndTime = endTime;
         logger.info("EditCommand object successfully created!");
     }
 
@@ -58,8 +64,18 @@ public class EditCommand extends Command {
         try {
             if (newName != null) {
                 itemToReplace.setName(newName);
-            } else if (newEndDate != null) {
+            }
+            if (newStartDate != null) {
+                itemToReplace.setEndDate(newStartDate);
+            }
+            if (newStartTime != null) {
+                itemToReplace.setEndDate(newStartTime);
+            }
+            if (newEndDate != null) {
                 itemToReplace.setEndDate(newEndDate);
+            }
+            if (newEndTime != null) {
+                itemToReplace.setEndDate(newEndTime);
             }
         } catch (IllegalValueException ive) {
             return new CommandResult(ive.getMessage());
