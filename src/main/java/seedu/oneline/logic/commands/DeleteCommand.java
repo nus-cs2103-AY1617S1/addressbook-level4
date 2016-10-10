@@ -2,6 +2,9 @@ package seedu.oneline.logic.commands;
 
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.core.UnmodifiableObservableList;
+import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
+import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -20,6 +23,19 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
 
     public final int targetIndex;
+
+    public DeleteCommand(String args) throws IllegalCmdArgsException {
+        Integer index = null;
+        try {
+            index = Parser.getIndexFromArgs(args);
+        } catch (IllegalValueException e) {
+            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+        }
+        if (index == null) {
+            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+        }
+        this.targetIndex = index;
+    }
 
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;

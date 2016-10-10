@@ -26,7 +26,7 @@ public class Tag {
         assert name != null;
         name = name.trim();
         if (!isValidTagName(name)) {
-            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS + " : " + name);
         }
         this.tagName = name;
     }

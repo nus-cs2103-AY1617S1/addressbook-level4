@@ -12,6 +12,7 @@ public class ClearCommand extends Command {
 
     public ClearCommand() {}
 
+    public ClearCommand(String args) {}
 
     @Override
     public CommandResult execute() {

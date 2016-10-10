@@ -8,7 +8,9 @@ import seedu.oneline.commons.events.model.TaskBookChangedEvent;
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
+import seedu.oneline.model.task.TaskName;
 import seedu.oneline.model.task.UniqueTaskList;
+import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -71,8 +73,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskBook.addTask(task);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void replaceTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
+//        assert taskBook.getUniqueTaskList().contains(newTask);
+//        assert !taskBook.getUniqueTaskList().contains(newTask);
+        taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -91,10 +102,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
+    private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 

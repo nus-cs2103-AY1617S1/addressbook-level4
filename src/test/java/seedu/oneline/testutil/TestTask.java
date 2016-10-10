@@ -20,6 +20,15 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
     
+    public TestTask(ReadOnlyTask task) {
+        this.name = task.getName();
+        this.startTime = task.getStartTime();
+        this.endTime = task.getEndTime();
+        this.deadline = task.getDeadline();
+        this.recurrence = task.getRecurrence();
+        this.tags = new UniqueTagList(task.getTags());
+    }
+    
     public void setName(TaskName name) {
         this.name = name;
     }
@@ -78,10 +87,10 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().toString() + " ");
-        sb.append(".a " + this.getStartTime().toString() + " ");
-        sb.append(".b " + this.getEndTime().toString() + " ");
-        sb.append(".c " + this.getDeadline().toString() + " ");
-        sb.append(".d " + this.getRecurrence().toString() + " ");
+        sb.append(".from " + this.getStartTime().toString() + " ");
+        sb.append(".to " + this.getEndTime().toString() + " ");
+        sb.append(".due " + this.getDeadline().toString() + " ");
+        sb.append(".every " + this.getRecurrence().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
         return sb.toString();
     }
