@@ -2,9 +2,9 @@
 
 ## Introduction
 
-TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events with options such as deadline, recurrence, and tags. TaSc is a desktop application written in Java, and does not require an active Internet connection to work.
+TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events with options such as deadline, recurrence, and tags. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
 
-In this guide, you will find all necessary information about the design and implementation of TaSc to join the development of TaSc. Each section starts with a high-level overview of a component, which goes into further details in its subsections. You may skip 
+This guide contains all necessary information for both new and experienced contributors to the development of TaSc. Each section provides an overview on the topic, which goes into further details in its subsections. Throughout your development of TaSc, as each subsection is relatively self-contained, you may revisit the topics that most interest you.
 
 ## Table of Contents
 
