@@ -2,7 +2,12 @@ package seedu.address.model.task;
 
 import seedu.address.model.tag.UniqueTagList;
 
-public interface ReadOnlyNonFloatingTask {
+/**
+ * A read-only immutable interface for a Task in the task list.
+ * Implementations should guarantee: details are present and not null, field values are validated.
+ */
+public interface ReadOnlyTask {
+
     Name getName();
 
     /**
@@ -10,30 +15,31 @@ public interface ReadOnlyNonFloatingTask {
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
-
-    DateAndTime getStartDateAndTime();
-    DateAndTime getEndDateAndTime();
     
+    TaskDate getStartDate();
+    TaskDate getEndDate();
+    
+    TaskType getType();
+
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyNonFloatingTask other) {
+    default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getStartDateAndTime().equals(this.getStartDateAndTime())
-                && other.getEndDateAndTime().equals(this.getEndDateAndTime())
+                && other.getStartDate().equals(this.getStartDate())
+                && other.getEndDate().equals(this.getEndDate())
+                && other.getType().equals(this.getType())
                 );
     }
 
     /**
-     * Formats the task as text, showing all non floating task details.
+     * Formats the task as text, showing all contact details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Start Date: " + getStartDateAndTime().toString())
-                .append(" End Date: " + getEndDateAndTime().toString())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

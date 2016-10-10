@@ -1,0 +1,109 @@
+package seedu.address.model.task;
+
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.UniqueTagList;
+
+import java.util.Objects;
+
+/**
+ * Represents a floating task in the task list.
+ * Guarantees: details are present and not null, field values are validated.
+ */
+<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775:src/main/java/seedu/address/model/task/FloatingTask.java
+public class FloatingTask extends Task implements ReadOnlyFloatingTask {
+=======
+public class Task implements ReadOnlyTask {
+>>>>>>> Re code add non floating task to a simpler way.:src/main/java/seedu/address/model/task/Task.java
+
+    private Name name;
+    private UniqueTagList tags;
+    
+    private TaskDate startDate, endDate;
+    private TaskType type;
+    
+    /**
+     * Every field must be present and not null.
+     */
+<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775:src/main/java/seedu/address/model/task/FloatingTask.java
+    public FloatingTask(){}
+    
+    public FloatingTask(Name name, UniqueTagList tags) {
+        super(name, tags);
+    }
+    
+    /**
+     * Copy constructor.
+     */
+    public FloatingTask(ReadOnlyFloatingTask source) {
+=======
+    public Task(Name name, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, tags);
+        this.name = name;
+        this.tags = tags;
+        type = TaskType.FLOATING;
+    }
+    
+    public Task(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
+        this(name, tags);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        type = TaskType.NON_FLOATING;
+    }
+    
+    public Task(){}
+
+    /**
+     * Copy constructor.
+     */
+    public Task(ReadOnlyTask source) {
+>>>>>>> Re code add non floating task to a simpler way.:src/main/java/seedu/address/model/task/Task.java
+        this(source.getName(), source.getTags());
+    }
+
+    @Override
+<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775:src/main/java/seedu/address/model/task/FloatingTask.java
+=======
+    public Name getName() {
+        return name;
+    }
+
+    @Override
+    public UniqueTagList getTags() {
+        return new UniqueTagList(tags);
+    }
+    
+    @Override
+    public TaskDate getStartDate() {
+        return startDate;
+    }
+
+    @Override
+    public TaskDate getEndDate() {
+        return endDate;
+    }
+
+    public TaskType getType() {
+        return type;
+    }
+    
+    /**
+     * Replaces this task's tags with the tags in the argument tag list.
+     */
+    public void setTags(UniqueTagList replacement) {
+        tags.setTags(replacement);
+    }
+
+    @Override
+>>>>>>> Re code add non floating task to a simpler way.:src/main/java/seedu/address/model/task/Task.java
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReadOnlyFloatingTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyFloatingTask) other));
+    }
+
+    @Override
+    public String toString() {
+        return getAsText();
+    }
+
+}

@@ -3,7 +3,7 @@ package seedu.address.storage;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.ReadOnlyFloatingTask;
+import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.ReadOnlyTaskList;
 import javax.xml.bind.annotation.XmlElement;
@@ -66,7 +66,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     }
 
     @Override
-    public List<ReadOnlyFloatingTask> getTaskList() {
+    public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
             try {
                 return p.toModelType();

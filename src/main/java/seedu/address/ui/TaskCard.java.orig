@@ -4,8 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775
+import seedu.address.model.task.ReadOnlyFloatingTask;
+=======
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskType;
+>>>>>>> Re code add non floating task to a simpler way.
 
 public class TaskCard extends UiPart{
 
@@ -24,12 +28,12 @@ public class TaskCard extends UiPart{
     @FXML
     private Label endDate;
 
-    private ReadOnlyTask task;
+    private ReadOnlyFloatingTask task;
     private int displayedIndex;
 
     public TaskCard() {}
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+    public static TaskCard load(ReadOnlyFloatingTask task, int displayedIndex){
         TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;

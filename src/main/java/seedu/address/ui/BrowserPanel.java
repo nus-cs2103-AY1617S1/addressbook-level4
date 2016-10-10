@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.address.commons.util.FxViewUtil;
-import seedu.address.model.task.ReadOnlyFloatingTask;
+import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -50,7 +50,7 @@ public class BrowserPanel extends UiPart{
         return browserPanel;
     }
 
-    public void loadTaskPage(ReadOnlyFloatingTask task) {
+    public void loadTaskPage(ReadOnlyTask task) {
         loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
     }
 

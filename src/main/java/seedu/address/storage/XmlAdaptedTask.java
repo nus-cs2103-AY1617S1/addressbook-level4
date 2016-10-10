@@ -36,7 +36,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(ReadOnlyFloatingTask source) {
+    public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {

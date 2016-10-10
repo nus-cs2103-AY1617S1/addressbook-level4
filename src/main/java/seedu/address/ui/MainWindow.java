@@ -13,7 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.ReadOnlyFloatingTask;
+import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -186,7 +186,7 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyFloatingTask task) {
+    public void loadTaskPage(ReadOnlyTask task) {
         browserPanel.loadTaskPage(task);
     }
 
