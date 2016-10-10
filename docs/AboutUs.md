@@ -36,6 +36,7 @@ Responsibilities: Responsible for overall project coordination.
 -----
 
 #### [Henderson](http://github.com/takukou)
+<img src="images/hendersenlam.jpg" width="150"><br>
 Role: Testing Manager <br>  
 Responsibilities: Ensures the testing of the project is done properly and on time.
 
