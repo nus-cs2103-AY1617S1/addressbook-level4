@@ -1,5 +1,7 @@
 # Developer Guide 
 
+## Table of Contents
+
 * [Setting Up](#setting-up)
     * [Prerequisites](#prerequisites)
     * [Importing the project into Eclipse](#importing-the-project-into-eclipse)
