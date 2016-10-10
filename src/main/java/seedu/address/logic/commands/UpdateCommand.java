@@ -8,6 +8,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +24,7 @@ public class UpdateCommand extends Command {
     
   //TODO: o/OPENTIME c/CLOSETIME i/IMPORTANCE t/tag
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s"; 
-    //public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
     
     public final int targetIndex;
     private final Task toUpdate;
@@ -49,17 +51,26 @@ public class UpdateCommand extends Command {
     @Override
     public CommandResult execute() {
 
-    	assert model != null;
-        try {
-            model.updateTask(toUpdate);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+        ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
+        
+		assert model != null;
+		try {
+			model.updateTask(taskToUpdate, toUpdate);
+		} catch (TaskNotFoundException pnfe) {
+			assert false : "The target task cannot be missing";
+		} /*catch (DuplicateTaskException e) {
+			return new CommandResult(MESSAGE_DUPLICATE_TASK);
+		}*/
+        
+        
         return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, toUpdate));
     }
     
-    
-	
 	
 }

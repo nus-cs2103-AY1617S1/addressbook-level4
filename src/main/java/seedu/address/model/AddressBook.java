@@ -89,9 +89,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws UniqueTaskList.TaskNotFoundException if the task can not be found in the list.
      */
     
-    public void updateTask(Task p) throws UniqueTaskList.TaskNotFoundException{
-    	syncTagsWithMasterList(p);
-    	tasks.update(p);
+    public void updateTask(ReadOnlyTask originalTask,Task updateTask) throws UniqueTaskList.TaskNotFoundException{
+    	syncTagsWithMasterList(updateTask);
+    	tasks.update(originalTask,updateTask);
     }
     
     

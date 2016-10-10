@@ -17,7 +17,7 @@ public class TestTask implements ReadOnlyTask {
     public TestTask() {
         tags = new UniqueTagList();
     }
-
+    
     public void setName(Name name) {
         this.name = name;
     }
@@ -67,6 +67,16 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskName + " ");
+//        sb.append("p/" + this.getPhone().value + " ");
+//        sb.append("e/" + this.getEmail().value + " ");
+//        sb.append("a/" + this.getAddress().value + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        return sb.toString();
+    }
+    
+    public String getArgs() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" " + this.getName().taskName + " ");
 //        sb.append("p/" + this.getPhone().value + " ");
 //        sb.append("e/" + this.getEmail().value + " ");
 //        sb.append("a/" + this.getAddress().value + " ");
