@@ -16,6 +16,7 @@ import tars.model.task.UniqueTaskList;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.DateTimeException;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -98,6 +99,13 @@ public class ModelManager extends ComponentManager implements Model {
         tars.addTask(task);
         updateFilteredListToShowAll();
         indicateTarsChanged();
+    }
+    
+    @Override
+    public void mark(ArrayList<ReadOnlyTask> toMarkList, String status) {
+        tars.mark(toMarkList, status);
+        indicateTarsChanged();
+        
     }
 
     //=========== Filtered Task List Accessors ===============================================================

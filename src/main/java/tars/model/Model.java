@@ -8,6 +8,7 @@ import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
 
 import java.time.DateTimeException;
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -29,7 +30,10 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-
+    
+    /** Marks tasks as done or undone. */
+    void mark(ArrayList<ReadOnlyTask> toMarkList, String status);
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
