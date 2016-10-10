@@ -135,7 +135,7 @@ Example:
 >   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
 >   * `midnight` can be used to specify 12AM
 >   * `noon` can be used to specify 12PM
->   * `24:00` - 24-hour clock format is also accepted
+>   * `20:15` - 24-hour clock format is also accepted
 
 Example: 
 * `add Company meeting tonight at 7pm to 9pm`
@@ -153,6 +153,7 @@ Examples:
 * `edit 2 Company meeting tomorrow morning at 7am to 9am -high`
 * `add Buy coffee for boss by 8am repeat every day`
 * `edit 3 Buy coffee for boss by 7am repeat every 2 days`
+* `edit 3 Buy coffee for boss for the last time! by 7am`
 
 ### Deleting a task: `delete`
 Deletes an existing task in your task manager.<br>
@@ -225,7 +226,8 @@ Format: `find NAME`
 Examples:
 * `find Akshay`
 * `find Michelle`
-* `find johnny`
+* `find company meeting`
+* `find`
 
 ### Exiting the application: `exit`
 Closes the application.<br>
