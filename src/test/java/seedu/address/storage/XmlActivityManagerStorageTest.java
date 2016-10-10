@@ -59,7 +59,7 @@ public class XmlActivityManagerStorageTest {
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveActivityManager_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempActivityManager.xml";
         TypicalTestActivities ta = new TypicalTestActivities();
         ActivityManager original = ta.getTypicalActivityManager();
@@ -73,7 +73,7 @@ public class XmlActivityManagerStorageTest {
         //Modify data, overwrite exiting file, and read back
         original.addActivity(new Activity(TypicalTestActivities.tidy));
         original.removeActivity(new Activity(TypicalTestActivities.tidy));
-        original.updateActivity(new Activity(TypicalTestActivities.tidy), "Clean cupboard");
+        original.updateActivity(new Activity(TypicalTestActivities.groceries), "Buy Bread");
         xmlActivityManagerStorage.saveActivityManager(original, filePath);
         readBack = xmlActivityManagerStorage.readActivityManager(filePath).get();
         assertEquals(original, new ActivityManager(readBack));
