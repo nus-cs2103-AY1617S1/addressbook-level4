@@ -165,11 +165,11 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", ActivityName.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", ActivityDate.MESSAGE_DEADLINE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Reminder.MESSAGE_REMINDER_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnEmail a/valid, address", ActivityTime.MESSAGE_REMINDER_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -386,10 +386,10 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Activity adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Deadline privatePhone = new Deadline("111111");
-            Reminder email = new Reminder("adam@gmail.com");
-            Priority privateAddress = new Priority("111, alpha street");
+            ActivityName name = new ActivityName("Adam Brown");
+            ActivityDate privatePhone = new ActivityDate("111111");
+            ActivityTime email = new ActivityTime("adam@gmail.com");
+            Note privateAddress = new Note("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -405,10 +405,10 @@ public class LogicManagerTest {
          */
         Activity generatePerson(int seed) throws Exception {
             return new Activity(
-                    new Name("Person " + seed),
-                    new Deadline("" + Math.abs(seed)),
-                    new Reminder(seed + "@email"),
-                    new Priority("House of " + seed),
+                    new ActivityName("Person " + seed),
+                    new ActivityDate("" + Math.abs(seed)),
+                    new ActivityTime(seed + "@email"),
+                    new Note("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -504,10 +504,10 @@ public class LogicManagerTest {
          */
         Activity generatePersonWithName(String name) throws Exception {
             return new Activity(
-                    new Name(name),
-                    new Deadline("1"),
-                    new Reminder("1@email"),
-                    new Priority("House of 1"),
+                    new ActivityName(name),
+                    new ActivityDate("1"),
+                    new ActivityTime("1@email"),
+                    new Note("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

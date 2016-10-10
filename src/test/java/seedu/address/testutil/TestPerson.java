@@ -8,49 +8,49 @@ import seedu.menion.model.tag.UniqueTagList;
  */
 public class TestPerson implements ReadOnlyActivity {
 
-    private Name name;
-    private Priority address;
-    private Reminder email;
-    private Deadline phone;
+    private ActivityName name;
+    private Note address;
+    private ActivityTime email;
+    private ActivityDate phone;
     private UniqueTagList tags;
 
     public TestPerson() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
+    public void setName(ActivityName name) {
         this.name = name;
     }
 
-    public void setAddress(Priority address) {
+    public void setAddress(Note address) {
         this.address = address;
     }
 
-    public void setEmail(Reminder email) {
+    public void setEmail(ActivityTime email) {
         this.email = email;
     }
 
-    public void setPhone(Deadline phone) {
+    public void setPhone(ActivityDate phone) {
         this.phone = phone;
     }
 
     @Override
-    public Name getName() {
+    public ActivityName getName() {
         return name;
     }
 
     @Override
-    public Deadline getDeadline() {
+    public ActivityDate getDeadline() {
         return phone;
     }
 
     @Override
-    public Reminder getReminder() {
+    public ActivityTime getReminder() {
         return email;
     }
 
     @Override
-    public Priority getPriority() {
+    public Note getPriority() {
         return address;
     }
 

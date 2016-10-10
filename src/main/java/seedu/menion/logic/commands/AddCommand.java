@@ -22,18 +22,47 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This activity already exists in the Menion";
 
     private final Activity toAdd = null;
-    public final EventStub  eventStub;
-    
+    public final EventStub eventStub;
+
+    private ActivityName name;
+    private ActivityDate startDate;
+    private ActivityTime startTime;
+    private ActivityDate endDate;
+    private ActivityTime endTime;
+    private Note note;
+    private String activityType;
+
     /**
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(ArrayList<String> details) 
-            throws IllegalValueException {
-    	
-    	//this.toAdd = new Activity(details);
-        this.eventStub = new EventStub(details);
+    public AddCommand(ArrayList<String> activityDetails) throws IllegalValueException {
+        /**
+        if (activityDetails.size() == Activity.FLOATING_TASK_LENGTH) {
+            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+            name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
+            note = new Note(activityDetails.get(Activity.INDEX_ACTIVITY_NOTE));
+            this.toAdd = new Activity(activityType, name, note);
+        } else if (activityDetails.size() == Activity.TASK_LENGTH) {
+            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+            name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
+            note = new Note(activityDetails.get(Activity.INDEX_ACTIVITY_NOTE));
+            startDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_STARTDATE));
+            startTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_STARTTIME));
+            this.toAdd = new Activity(activityType, name, note, startDate, startTime);
+        } else {
+            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+            name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
+            note = new Note(activityDetails.get(Activity.INDEX_ACTIVITY_NOTE));
+            startDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_STARTDATE));
+            startTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_STARTTIME));
+            endDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_ENDDATE));
+            endTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_ENDTIME));
+            this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime);
+        }
+        **/
+        this.eventStub = new EventStub(activityDetails);
     }
 
     @Override

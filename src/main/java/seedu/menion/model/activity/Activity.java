@@ -1,90 +1,203 @@
 package seedu.menion.model.activity;
 
+import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.CollectionUtil;
 import seedu.menion.model.tag.UniqueTagList;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated.
+ * Represents a Person in the address book. Guarantees: details are present and
+ * not null, field values are validated.
  */
 public class Activity implements ReadOnlyActivity {
 
-    private Name name;
-    private Deadline deadline;
-    private Reminder reminder;
-    private Priority priority;
+    // Types of Activity
+    public static final String FLOATING_TASK_TYPE = "Floating Task";
+    public static final String TASK_TYPE = "Task";
+    public static final String EVENT_TYPE = "Event";
 
+    public static final Integer FLOATING_TASK_LENGTH = 3; // ActivityType,
+                                                          // ActivityName, Note
+    public static final Integer TASK_LENGTH = 5; // ActivityType, Note,
+                                                 // ActivityName StartDate,
+                                                 // StartTime
+    public static final Integer EVENT_LENGTH = 7; // ActivityType, Note,
+                                                  // ActivityName, StartDate,
+                                                  // StartTime, EndDate, EndTime
+
+    // Indexes of the parameters to retrieve from the constructor.
+    public static final Integer INDEX_ACTIVITY_TYPE = 0;
+    public static final Integer INDEX_ACTIVITY_NAME = 1;
+    public static final Integer INDEX_ACTIVITY_NOTE = 2;
+    public static final Integer INDEX_ACTIVITY_STARTDATE = 3;
+    public static final Integer INDEX_ACTIVITY_STARTTIME = 4;
+    public static final Integer INDEX_ACTIVITY_ENDDATE = 5;
+    public static final Integer INDEX_ACTIVITY_ENDTIME = 6;
+
+    private ActivityName name;
+    private ActivityDate startDate;
+    private ActivityTime startTime;
+    private ActivityDate endDate;
+    private ActivityTime endTime;
+    private Note note;
+    private String activityType;
+
+    // Every Activity Object will have an array list of it's details for ease of
+    // accessibility
+    private ArrayList<String> activityDetails;
     private UniqueTagList tags;
 
     /**
+     * For floatingTask
      * Every field must be present and not null.
      */
-    public Activity(Name name, Deadline deadline, Reminder reminder, Priority priority, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, deadline, reminder, priority, tags);
+    public Activity(String type, ActivityName name, Note note) {
+        this.activityType = type;
         this.name = name;
-        this.deadline = deadline;
-        this.reminder = reminder;
-        this.priority = priority;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.note = note;
+        setActivityDetails();
     }
+    
+    /**
+     * For Task
+     * Every field must be present and not null.
+     */
+    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime) {
+        this.activityType = type;
+        this.name = name;
+        this.note = note;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        setActivityDetails();
+    }
+    
+    /**
+     * For Event
+     * Every field must be present and not null.
+     */
+    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, ActivityDate endDate, ActivityTime endTime) {
+        this.activityType = type;
+        this.name = name;
+        this.note = note;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        setActivityDetails();
+    }
+    
 
     /**
      * Copy constructor.
+     * 
      */
     public Activity(ReadOnlyActivity source) {
-        this(source.getName(), source.getDeadline(), source.getReminder(), source.getPriority(), source.getTags());
+        
+        if (source.getActivityType() == FLOATING_TASK_TYPE) {
+            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+            name = source.getActivityName();
+            note = source.getNote();
+        } else if (source.getActivityType() == TASK_TYPE) {
+            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+            name = source.getActivityName();
+            note = source.getNote();
+            startDate = source.getActivityStartDate();
+            startTime = source.getActivityStartTime();
+        } else if (source.getActivityType() == EVENT_TYPE) {
+            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+            name = source.getActivityName();
+            note = source.getNote();
+            startDate = source.getActivityStartDate();
+            startTime = source.getActivityStartTime();
+            endDate = source.getActivityEndDate();
+            endTime = source.getActivityEndTime();
+        }
+        this.activityDetails = source.getActivityDetails();
+
     }
 
     @Override
-    public Name getName() {
-        return name;
+    public ActivityName getActivityName() {
+        return this.name;
     }
 
     @Override
-    public Deadline getDeadline() {
-        return deadline;
+    public Note getNote() {
+        return this.note;
     }
 
     @Override
-    public Reminder getReminder() {
-        return reminder;
+    public ActivityDate getActivityStartDate() {
+        return this.startDate;
     }
 
     @Override
-    public Priority getPriority() {
-        return priority;
+    public ActivityTime getActivityStartTime() {
+        return this.startTime;
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
+    public ActivityDate getActivityEndDate() {
+        return this.endDate;
+    }
+
+    @Override
+    public ActivityTime getActivityEndTime() {
+        return this.endTime;
+    }
+
+    @Override
+    public String getActivityType() {
+        return this.activityType;
+    }
+
+    @Override
+    public void setActivityDetails() {
+        if (activityType == FLOATING_TASK_TYPE) {
+            activityDetails = new ArrayList<String>(3);
+            activityDetails.set(INDEX_ACTIVITY_TYPE, activityType);
+            activityDetails.set(INDEX_ACTIVITY_NAME, name.toString());
+            activityDetails.set(INDEX_ACTIVITY_NOTE, note.toString());
+        } else if (activityType == TASK_TYPE) {
+            activityDetails = new ArrayList<String>(5);
+            activityDetails.set(INDEX_ACTIVITY_TYPE, activityType);
+            activityDetails.set(INDEX_ACTIVITY_NAME, name.toString());
+            activityDetails.set(INDEX_ACTIVITY_NOTE, note.toString());
+            activityDetails.set(INDEX_ACTIVITY_STARTDATE, startDate.toString());
+            activityDetails.set(INDEX_ACTIVITY_STARTTIME, startTime.toString());
+        } else if (activityType == EVENT_TYPE) {
+            activityDetails = new ArrayList<String>(7);
+            activityDetails.set(INDEX_ACTIVITY_TYPE, activityType);
+            activityDetails.set(INDEX_ACTIVITY_NAME, name.toString());
+            activityDetails.set(INDEX_ACTIVITY_NOTE, note.toString());
+            activityDetails.set(INDEX_ACTIVITY_STARTDATE, startDate.toString());
+            activityDetails.set(INDEX_ACTIVITY_STARTTIME, startTime.toString());
+            activityDetails.set(INDEX_ACTIVITY_ENDDATE, endDate.toString());
+            activityDetails.set(INDEX_ACTIVITY_ENDTIME, endTime.toString());
+        }
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * returns the arrayList consisting of an activity's details.
      */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+    @Override
+    public ArrayList<String> getActivityDetails() {
+        return activityDetails;
     }
 
+    // USELESS?
+    
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyActivity // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyActivity) other));
+    public UniqueTagList getTags() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, deadline, reminder, priority, tags);
-    }
-
-    @Override
-    public String toString() {
-        return getAsText();
+    public void setTags(UniqueTagList uniqueTagList) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

@@ -1,5 +1,7 @@
 package seedu.menion.model.activity;
 
+import java.util.ArrayList;
+
 import seedu.menion.model.tag.UniqueTagList;
 
 /**
@@ -7,49 +9,132 @@ import seedu.menion.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyActivity {
-
-    Name getName();
-    Deadline getDeadline();
-    Reminder getReminder();
-    Priority getPriority();
-
+    
+    // Floating Task parameters
+    ActivityName getActivityName();   
+    Note getNote();
+    
+    // Task additional parameters, on top of Floating Task
+    ActivityDate getActivityStartDate();
+    ActivityTime getActivityStartTime();
+    
+    // Event additional parameters, on top of Task
+    ActivityDate getActivityEndDate();
+    ActivityTime getActivityEndTime();
+    
+    // Finding Activity Type; Can be a Floating Task, Task, or Event
+    String getActivityType();
+    
+    // An arrayList having parameters of an activity.
+    ArrayList<String> getActivityDetails();
+    void setActivityDetails();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
 
+    
     /**
+     * For Floating Task
+     * Only checks for: Name, Note
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyActivity other) {
+    default boolean isFloatingTaskSameStateAs(ReadOnlyActivity other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getDeadline().equals(this.getDeadline())
-                && other.getReminder().equals(this.getReminder())
-                && other.getPriority().equals(this.getPriority()));
+                && other.getActivityName().equals(this.getActivityName()) // state checks here onwards
+                && other.getNote().equals(this.getNote()));
     }
 
     /**
-     * Formats the task as text, showing all task details.
+     * For Task
+     * Only checks for: Name, StartDate, StartTime & Note.
+     * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default String getAsText() {
+    default boolean isTaskSameStateAs(ReadOnlyActivity other) {
+        return other == this // short circuit if same object
+                || (other != null // this is first to avoid NPE below
+                && other.getActivityName().equals(this.getActivityName()) // state checks here onwards
+                && other.getActivityStartDate().equals(this.getActivityStartDate())
+                && other.getActivityStartTime().equals(this.getActivityStartTime())
+                && other.getNote().equals(this.getNote()));
+    }
+
+    /**
+     * For Event
+     * Only checks for: Name, StartDate, StartTime, EndDate, EndTime & Note.
+     * Returns true if both have the same state. (interfaces cannot override .equals)
+     */
+    default boolean isEventSameStateAs(ReadOnlyActivity other) {
+        return other == this // short circuit if same object
+                || (other != null // this is first to avoid NPE below
+                && other.getActivityName().equals(this.getActivityName()) // state checks here onwards
+                && other.getActivityStartDate().equals(this.getActivityStartDate())
+                && other.getActivityStartTime().equals(this.getActivityStartTime())
+                && other.getActivityEndDate().equals(this.getActivityEndDate())
+                && other.getActivityEndTime().equals(this.getActivityEndTime())
+                && other.getNote().equals(this.getNote()));
+    }
+    
+    /**
+     * For Floating Task
+     * Formats the Activity as text, showing all activity details.
+     */
+    default String getFloatingTaskAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Deadline: ")
-                .append(getDeadline())
-                .append(" Reminder: ")
-                .append(getReminder())
-                .append(" Priority: ")
-                .append(getPriority())
+        builder.append(getActivityName())
+                .append(" Note: ")
+                .append(getNote())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
+    
     /**
-     * Returns a string representation of this Task's tags
+     * For Task
+     * Formats the Activity as text, showing all activity details.
+     */
+    default String getTaskAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getActivityName())
+                .append(" By: ")
+                .append(getActivityStartDate())
+                .append(" at: ")
+                .append(getActivityStartTime())
+                .append(" Note: ")
+                .append(getNote())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
+    
+    /**
+     * For Event
+     * Formats the Activity as text, showing all activity details.
+     */
+    default String getEventAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getActivityName())
+                .append(" Starting at: ")
+                .append(getActivityStartDate())
+                .append(" at: ")
+                .append(getActivityStartTime())
+                .append(" Ending at: ")
+                .append(getActivityEndDate())
+                .append(" at: ")
+                .append(getActivityEndTime())
+                .append(" Note: ")
+                .append(getNote())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
+    
+    
+    /**
+     * Returns a string representation of this Activity's tags
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();

@@ -16,7 +16,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+        this.person.setName(new ActivityName(name));
         return this;
     }
 
@@ -28,17 +28,17 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Priority(address));
+        this.person.setAddress(new Note(address));
         return this;
     }
 
     public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new Deadline(phone));
+        this.person.setPhone(new ActivityDate(phone));
         return this;
     }
 
     public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Reminder(email));
+        this.person.setEmail(new ActivityTime(email));
         return this;
     }
 
