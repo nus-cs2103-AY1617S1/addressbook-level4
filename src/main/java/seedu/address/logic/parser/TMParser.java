@@ -5,9 +5,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -67,11 +69,8 @@ public class TMParser {
 			else {
 				return prepareList(arguments);
 			}
-		// case SelectCommand.COMMAND_WORD:
-		// return prepareSelect(arguments);
-		//
-		// case DeleteCommand.COMMAND_WORD:
-		// return prepareDelete(arguments);
+		case DeleteCommand.COMMAND_WORD:
+			return prepareDelete(arguments);
 		//
 		// case ClearCommand.COMMAND_WORD:
 		// return new ClearCommand();
@@ -261,9 +260,56 @@ public class TMParser {
 		// and the constructor overloaded.
 		return null;
 	}
+	
+	/**
+     * Parses arguments in the context of the delete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDelete(String args) {
+        ArrayList<Optional<Integer>> indexOptionals = parseIndices(args);
+        
+        int[] indices = new int[indexOptionals.size()];
+        int i=0;
+        for (Optional<Integer> index : indexOptionals) {
+        	if(!index.isPresent()){
+        		return new IncorrectCommand(
+        				String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        	}
+        	indices[i] = index.get();
+        	i++;
+        }
+        
+        System.out.println("indices: " + Arrays.toString(indices));
+
+        //return new TMDeleteCommand(indices);
+        return null;
+    }
+    
+    /**
+     * Returns an ArrayList of the specified indices in the {@code command} IF positive unsigned integers are given.
+     * Returns an ArrayList with a single element {@code Optional.empty()} otherwise.
+     */
+    private ArrayList<Optional<Integer>> parseIndices(String args) {
+    	String[] indices = args.split(" ");
+    	ArrayList<Optional<Integer>> optionals = new ArrayList<>();
+    	
+    	for (int i=0; i<indices.length; i++) {
+    		if(!StringUtil.isUnsignedInteger(indices[i].trim())){
+    			optionals = new ArrayList<>();
+    			optionals.add(Optional.empty());
+                return optionals;
+            }
+    		
+    		optionals.add(Optional.of(Integer.parseInt(indices[i])));
+    	}
+    	
+    	return optionals;
+    }
 
 	public static void main(String[] args) {
-		String userInput = "list";
+		String userInput = "delete 5 6 r";
 		TMParser p = new TMParser();
 		p.parseUserInput(userInput);
 	}
