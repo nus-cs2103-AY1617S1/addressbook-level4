@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -36,7 +37,8 @@ public class AddCommand extends Command implements Undoable {
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?:.*?name\\/\"(?<name>.+?)\"))"
                                                          + "(?=(?:.*?startDate\\/\"(?<startDate>.+?)\")?)"
                                                          + "(?=(?:.*?endDate\\/\"(?<endDate>.+?)\")?)"
-                                                         + "(?=(?:.*tags\\/(?<tags>\\w+(?:,\\w+)*)?)?).*";
+                                                         + "(?=(?:.*tags\\/(?<tags>\\w+(?:,\\w+)*)?)?)"
+                                                         + ".*";
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
 
@@ -56,8 +58,6 @@ public class AddCommand extends Command implements Undoable {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Add Command] Task deleted: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Mastermind";
-
-    public static final PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
 
     private final Task toAdd;
 

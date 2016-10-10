@@ -13,6 +13,7 @@ import com.google.common.base.Strings;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.*;
+import harmony.mastermind.model.ModelManager;
 import harmony.mastermind.model.tag.Tag;
 
 /**
@@ -94,7 +95,8 @@ public class Parser {
             case MarkCommand.COMMAND_WORD:
                 return prepareMark(arguments);
 
-            case EditCommand.COMMAND_WORD:
+            case EditCommand.COMMAND_KEYWORD_EDIT:
+            case EditCommand.COMMAND_KEYWORD_UPDATE:
                 return prepareEdit(arguments);
 
             case UndoCommand.COMMAND_WORD:
@@ -118,7 +120,7 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
-    //@@author A0138862W
+    // @@author A0138862W
     private Command prepareAdd(String args) {
         final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
 
@@ -128,28 +130,80 @@ public class Parser {
         }
 
         try {
-            
-            final String name = matcher.group("name"); // mandatory
-            final String startDate = (Strings.isNullOrEmpty(matcher.group("startDate")))? "": matcher.group("startDate"); //optional
-            final String endDate = (Strings.isNullOrEmpty(matcher.group("endDate")))? "": matcher.group("endDate"); //optional
-            final String tags = (Strings.isNullOrEmpty(matcher.group("tags")))? "": matcher.group("tags"); //optional
-            
-            if(Strings.isNullOrEmpty(startDate) && Strings.isNullOrEmpty(endDate)){
-                // floating
-                return new AddCommand(name, getTagsFromArgs(tags));
-            }else if(Strings.isNullOrEmpty(startDate) && !Strings.isNullOrEmpty(endDate)){
-                // deadline
-                return new AddCommand(name, endDate, getTagsFromArgs(tags));
-            }else{
+
+            // mandatory
+            // there's no need to check for existence as the regex only capture full match of mandatory components
+            final String name = matcher.group("name");
+
+            // optionals
+            final Optional<String> startDate = Optional.ofNullable(matcher.group("startDate"));
+            final Optional<String> endDate = Optional.ofNullable(matcher.group("endDate"));
+            final Optional<String> tags = Optional.ofNullable(matcher.group("tags"));
+
+            // return internal value if present. else, return empty string
+            Set<String> tagSet = getTagsFromArgs(tags.map(val -> val).orElse(""));
+
+            if (startDate.isPresent() && endDate.isPresent()) {
                 // event
-                return new AddCommand(name, startDate, endDate, getTagsFromArgs(tags));
+                return new AddCommand(name, startDate.get(), endDate.get(), tagSet);
+            } else if (!startDate.isPresent() && endDate.isPresent()) {
+                // deadline
+                return new AddCommand(name, endDate.get(), tagSet);
+            } else if (startDate.isPresent() && !endDate.isPresent()) {
+                // task with only startdate is not supported.
+                throw new IllegalValueException("Cannot create a task with only start date.");
+            } else {
+                // floating
+                return new AddCommand(name, tagSet);
             }
+
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (ParseException pe){
+        } catch (ParseException pe) {
             pe.printStackTrace();
             return new IncorrectCommand(pe.getMessage());
         }
+    }
+    
+    /**
+     * Parses arguments in the context of the edit task command.
+     * 
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        final Matcher matcher = EditCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            
+            // mandatory
+            // regex accept only numbers in index field, encountering NumberFormatException is impossible
+            final int index = Integer.parseInt(matcher.group("index"));
+            
+            //optional
+            final Optional<String> name = Optional.ofNullable(matcher.group("name"));
+            final Optional<String> startDate = Optional.ofNullable(matcher.group("startDate"));
+            final Optional<String> endDate = Optional.ofNullable(matcher.group("endDate"));
+            final Optional<String> tags = Optional.ofNullable(matcher.group("tags"));
+            
+            Optional<Set<String>> tagSet = Optional.empty();
+            if(tags.isPresent()){
+                tagSet = Optional.ofNullable(getTagsFromArgs(tags.get()));
+            };
+            
+            return new EditCommand(index, name, startDate, endDate, tagSet);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        } catch (ParseException pe) {
+            return new IncorrectCommand(pe.getMessage());
+
+        }
+
     }
 
     /**
@@ -200,37 +254,6 @@ public class Parser {
         Command result = new MarkCommand(index.get());
 
         return result;
-    }
-
-    /**
-     * Parses arguments in the context of the edit task command.
-     * 
-     * @param args
-     *            full command args string
-     * @return the prepared command
-     */
-    private Command prepareEdit(String args) {
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-
-        Optional<Integer> index = parseIndex(args.substring(1, 2));
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-
-        try {
-            return new EditCommand(index.get(), matcher.group("name").substring(2), matcher.group("time"),
-                    matcher.group("date"), getTagsFromArgs(matcher.group("tagArguments")));
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        } catch (ParseException pe) {
-            return new IncorrectCommand(pe.getMessage());
-            
-        }
-
     }
 
     /**

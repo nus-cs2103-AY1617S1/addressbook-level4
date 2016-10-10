@@ -2,6 +2,8 @@ package harmony.mastermind.logic.commands;
 
 import java.text.SimpleDateFormat;
 
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
+
 import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -12,9 +14,9 @@ import harmony.mastermind.model.Model;
  */
 public abstract class Command {
     
-    // all Command should use the same date format
+    // Social date parser
     // @@author A0138862W
-    protected static final SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyHHmm");
+    protected static final PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
     
     protected Model model;
 
