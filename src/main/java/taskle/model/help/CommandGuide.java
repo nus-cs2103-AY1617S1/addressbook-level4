@@ -1,13 +1,5 @@
 package taskle.model.help;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.Assert;
-
-import javafx.beans.property.SimpleStringProperty;
-
 /**
  * Model class to encapsulate the information provided
  * by each row in the help window.
