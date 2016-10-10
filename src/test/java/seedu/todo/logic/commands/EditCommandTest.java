@@ -45,6 +45,7 @@ public class EditCommandTest extends CommandTest {
         setParameter("p", null);
         execute();
         
+        toEditPin = getTaskAt(1);
         assertEquals("Task 1", toEditPin.getTitle());
         assertTrue(toEditPin.isPinned());
         assertFalse(toEditPin.getDescription().isPresent());
@@ -58,6 +59,7 @@ public class EditCommandTest extends CommandTest {
         setParameter("l", "NTU");
         execute();
         
+        toEditLocation = getTaskAt(3);
         assertEquals("Task 3", toEditLocation.getTitle());
         assertFalse(toEditLocation.isPinned());
         assertFalse(toEditLocation.getDescription().isPresent());
@@ -71,6 +73,7 @@ public class EditCommandTest extends CommandTest {
         setParameter("m", "Some other description");
         execute();
         
+        toEditDesc = getTaskAt(2);
         assertEquals("Task 2", toEditDesc.getTitle());
         assertFalse(toEditDesc.isPinned());
         assertFalse(toEditDesc.getLocation().isPresent());
@@ -84,6 +87,7 @@ public class EditCommandTest extends CommandTest {
         setParameter("m", null);
         execute();
         
+        toDeleteField = getTaskAt(2);
         assertEquals("Task 2", toDeleteField.getTitle());
         assertFalse(toDeleteField.isPinned());
         assertFalse(toDeleteField.getDescription().isPresent());
@@ -98,6 +102,7 @@ public class EditCommandTest extends CommandTest {
         setParameter("l", "Singapura");
         execute();
         
+        toEditTwoThings = getTaskAt(1);
         assertEquals("Task 1", toEditTwoThings.getTitle());
         assertFalse(toEditTwoThings.isPinned());
         assertEquals("New description", toEditTwoThings.getDescription().get());
