@@ -27,6 +27,7 @@ import taskle.logic.commands.AddCommand;
 import taskle.logic.commands.ClearCommand;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.CommandResult;
+import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.ExitCommand;
 import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.HelpCommand;
@@ -38,6 +39,7 @@ import taskle.model.ModelManager;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.TaskManager;
 import taskle.model.person.FloatTask;
+import taskle.model.person.ModifiableTask;
 import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.Task;
@@ -132,7 +134,6 @@ public class LogicManagerTest {
         assertEquals(expectedTaskManager, latestSavedTaskManager);
     }
 
-
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
@@ -196,7 +197,7 @@ public class LogicManagerTest {
 
     }
 
-
+ 
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
@@ -299,8 +300,56 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
     }
+    
+    @Test
+    public void execute_edit_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        assertCommandBehavior("edit ", expectedMessage);
+    }
+    
+    @Test
+    public void execute_edit_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        TestDataHelper helperTest = new TestDataHelper();
+        List<Task> threePersons = helperTest.generateTaskList(3);
+        List<Task> threePersonsTest = helperTest.generateTaskList(3);
 
+        TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        String index = "1";
+        String taskName = "Eat dinner";
+        Name newName = new Name(taskName);
+        ModifiableTask taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(Integer.parseInt(index) - 1);
+        String oldName = taskToEdit.getName().fullName;
+        expectedAB.editTask(taskToEdit, newName);
+        helperTest.addToModel(model, threePersonsTest);
+        // execute command and verify result
+        assertCommandBehavior(
+                helperTest.generateEditCommand(index, taskName),
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, oldName),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
 
+    @Test
+    public void execute_edit_duplicate() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generateTaskList(3);
+
+        TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        String index = "1";
+        String taskName = "Task 3";
+        Name newName = new Name(taskName);
+        helper.addToModel(model, threePersons);
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateEditCommand(index, taskName),
+                EditCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
@@ -396,7 +445,13 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             return cmd.toString();
         }
-
+        
+        String generateEditCommand(String index, String newName) {
+            StringBuffer cmd = new StringBuffer();
+            cmd.append("edit ");
+            cmd.append(index).append(" ").append(newName);
+            return cmd.toString();
+        }
         /**
          * Generates an TaskManager with auto-generated persons.
          */
