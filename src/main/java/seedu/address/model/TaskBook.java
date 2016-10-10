@@ -77,7 +77,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      * @throws UniqueTaskList.DuplicatePersonException if an equivalent person already exists.
      */
     public void addPerson(Task p) throws UniqueTaskList.DuplicatePersonException {
-  //      syncTagsWithMasterList(p);
+        syncTagsWithMasterList(p);
         persons.add(p);
     }
 
@@ -86,7 +86,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-/*    private void syncTagsWithMasterList(Task person) {
+    private void syncTagsWithMasterList(Task person) {
         final UniqueTagList personTags = person.getTags();
         tags.mergeFrom(personTags);
 
@@ -103,7 +103,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
         person.setTags(new UniqueTagList(commonTagReferences));
     }
-*/
+
     public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
         if (persons.remove(key)) {
             return true;

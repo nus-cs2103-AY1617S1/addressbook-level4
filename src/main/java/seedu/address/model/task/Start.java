@@ -10,7 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Start {
 
     public static final String MESSAGE_START_CONSTRAINTS =
-            "Task start time should be 6 numbers keyed in together.";
+            "Task start time should be 4 numbers keyed in together in 24 hour format.";
     public static final String START_VALIDATION_REGEX = "\\d{4}";
 
     public final String value;
