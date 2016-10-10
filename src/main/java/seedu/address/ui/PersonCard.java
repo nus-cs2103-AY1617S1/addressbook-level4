@@ -8,7 +8,7 @@ import seedu.address.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart{
 
-    private static final String FXML = "TaskListCard.fxml";
+    private static final String FXML = "PersonListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -22,8 +22,8 @@ public class PersonCard extends UiPart{
     private Label priority;
 //    @FXML
 //    private Label email;
-//    @FXML
-//    private Label tags;
+    @FXML
+    private Label tags;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -44,8 +44,8 @@ public class PersonCard extends UiPart{
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         deadline.setText(task.getDeadline().value);
-        priority.setText(task.getDeadline().value);
-        //tags.setText(person.tagsString());
+        priority.setText(task.getPriority().value);
+        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {
