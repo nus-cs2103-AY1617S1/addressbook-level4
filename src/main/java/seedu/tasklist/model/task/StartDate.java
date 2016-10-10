@@ -9,7 +9,7 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 public class StartDate {
 
     public static final String MESSAGE_STARTDATE_CONSTRAINTS = "StartDate should be digits only";
-    public static final String DATE_VALIDATION_REGEX = "\\d+";
+    public static final String DATE_VALIDATION_REGEX = "^(?:\\d+|)$";
 
     public final String startDate;
 

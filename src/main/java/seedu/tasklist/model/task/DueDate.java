@@ -10,7 +10,7 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 public class DueDate {
     
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "DueDate should be numeric only";
-    public static final String DATE_VALIDATION_REGEX = "\\d+";
+    public static final String DATE_VALIDATION_REGEX = "^(?:\\d+|)$";
 
     public final String dueDate;
 
