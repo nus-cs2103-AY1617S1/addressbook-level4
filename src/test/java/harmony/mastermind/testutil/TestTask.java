@@ -8,61 +8,78 @@ import harmony.mastermind.model.task.*;
 /**
  * A mutable task object. For testing only.
  */
+//@@author A0124797R
 public class TestTask implements ReadOnlyTask {
-
+    
+    private String name;
+    private Date startDate;
+    private Date endDate;
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
     }
     
-    @Override
-    public UniqueTagList getTags() {
-        return tags;
+    //@@author A0124797R
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    //@@author A0124797R
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    
+    //@@author A0124797R
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
 
+    //@@author A0124797R
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("\"add " + this.getName() + "\" ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("tags/\"" + s.tagName + "\" "));
         return sb.toString();
     }
 
+    //@@author A0124797R
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
-        return null;
+        return name;
     }
 
+    //@@author A0124797R
     @Override
     public Date getStartDate() {
-        // TODO Auto-generated method stub
-        return null;
+        return startDate;
     }
 
+    //@@author A0124797R
     @Override
     public Date getEndDate() {
-        // TODO Auto-generated method stub
-        return null;
+        return endDate;
     }
 
     @Override
     public boolean isFloating() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean isDeadline() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean isEvent() {
-        // TODO Auto-generated method stub
         return false;
     }
     
+    @Override
+    public UniqueTagList getTags() {
+        return tags;
+    }
     
 }

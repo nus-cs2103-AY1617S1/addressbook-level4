@@ -9,55 +9,52 @@ import harmony.mastermind.model.task.*;
  */
 public class TypicalTestTask {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask task1, task2, task3, task4, task5;
 
+    //@@author A0124797R
     public TypicalTestTask() {
-        /*
+        
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline")
-                    .withDate("alice@gmail.com").withTime("85355255")
-                    .withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier")
-                    .withDate("johnd@gmail.com").withTime("98765432")
-                    .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").withTime("95352563").withDate("heinz@yahoo.com").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").withTime("87652533").withDate("cornelia@google.com").build();
-            elle = new TaskBuilder().withName("Elle Meyer").withTime("9482224").withDate("werner@gmail.com").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").withTime("9482427").withDate("lydia@gmail.com").build();
-            george = new TaskBuilder().withName("George Best").withTime("9482442").withDate("anna@google.com").build();
-
-            //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withTime("8482424").withDate("stefan@mail.com").build();
-            ida = new TaskBuilder().withName("Ida Mueller").withTime("8482131").withDate("hans@google.com").build();
+            task1 =  new TaskBuilder().withName("do laundry")
+                    .withTags("chores").build();
+            task2 = new TaskBuilder().withName("finish assignment").build();
+            task3 = new TaskBuilder().withName("do past year papers")
+                    .withTags("examPrep").build();
+            task4 = new TaskBuilder().withName("complete cs2103 lecture quiz")
+                    .withTags("homework").build();
+            task5 = new TaskBuilder().withName("complete cs2105 assignment")
+                    .withTags("homework").build();
+            
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
         }
-        */
+        
     }
 
-    public static void loadAddressBookWithSampleData(TaskManager ab) {
+    //@@author A0124797R
+    public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
+            ab.addTask(new Task(task1));
+            ab.addTask(new Task(task2));
+            ab.addTask(new Task(task3));
+            ab.addTask(new Task(task4));
+            ab.addTask(new Task(task5));
+            
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
-    public TestTask[] getTypicalPersons() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+    //@@author A0124797R
+    public TestTask[] getTypicalTasks() {
+        return new TestTask[]{task1, task2, task3, task4};
     }
 
-    public TaskManager getTypicalAddressBook(){
-        TaskManager ab = new TaskManager();
-        loadAddressBookWithSampleData(ab);
-        return ab;
+    public TaskManager getTypicalTaskManager(){
+        TaskManager tm = new TaskManager();
+        loadTaskManagerWithSampleData(tm);
+        return tm;
     }
 }
