@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
 import seedu.address.model.item.Date;
-import seedu.address.model.item.Time;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -54,7 +53,13 @@ public class Parser {
     
     private static final Pattern EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>.+)"
-                    + " n/(?<name>[^/]+)");
+                            + "("
+                            + "(n/(?<name>[^/]+))|"
+                            + "(sd/(?<startDate>[^/]+))|"
+                            + "(st/(?<startTime>[^/]+))|"
+                            + "(ed/(?<endDate>[^/]+))|"
+                            + "(et/(?<endTime>[^/]+))"
+                            + ")");
 
     public Parser() {}
 
@@ -216,9 +221,14 @@ public class Parser {
         final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
         if (matcher.matches()) {
             Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
-            if(index.isPresent()){
+            if(index.isPresent()) {
                 try {
-                    return new EditCommand(index.get(), matcher.group("name"));
+                    return new EditCommand(index.get(), 
+                                           matcher.group("name"),
+                                           matcher.group("startDate"),
+                                           matcher.group("startTime"),
+                                           matcher.group("endDate"),
+                                           matcher.group("endTime"));
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
