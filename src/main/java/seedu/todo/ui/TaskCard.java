@@ -1,14 +1,20 @@
 package seedu.todo.ui;
 
-import java.time.format.DateTimeFormatter;
-import java.util.stream.Stream;
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
+import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.commons.util.TimeUtil;
+import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 
 /**
@@ -17,6 +23,13 @@ import seedu.todo.model.task.ImmutableTask;
 public class TaskCard extends UiPart{
     /*Constants*/
     private static final String FXML = "TaskCard.fxml";
+    
+    private static final String STYLE_BASE = "/style/taskcardstyles/TaskCardBaseStyle.css";
+    private static final String STYLE_COLLAPSED = "/style/taskcardstyles/TaskCardCollapsedStyle.css";
+    private static final String STYLE_COMPLETED = "/style/taskcardstyles/TaskCardCompletedStyle.css";
+    private static final String STYLE_OVERDUE = "/style/taskcardstyles/TaskCardOverdueStyle.css";
+    private static final String STYLE_SELECTED = "/style/taskcardstyles/TaskCardSelectedStyle.css";
+    
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
     
@@ -28,7 +41,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label titleLabel;
     @FXML
-    private Label typeLabel;
+    private Label typeLabel0, typeLabel1;
     @FXML
     private Label tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4;
     @FXML
@@ -36,16 +49,11 @@ public class TaskCard extends UiPart{
     @FXML
     private HBox descriptionBox, dateBox, locationBox;
     
-    private Label[] tagLabels = {
-            tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4
-    };
-    
     /*Variables*/
     private ImmutableTask task;
     private int displayedIndex;
 
     public TaskCard(){
-
     }
 
     public static TaskCard load(ImmutableTask task, int displayedIndex){
@@ -57,39 +65,15 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        //Fill the details of the task into the views as required. 
         titleLabel.setText(String.valueOf(displayedIndex) + ". " + task.getTitle());
         pinImage.setVisible(task.isPinned());
-        typeLabel.setText((task.isEvent()) ? EVENT_TYPE : TASK_TYPE);
-        //TODO: displayTags();
-        
-        //Display task description when available
-        if (task.getDescription().isPresent()) {
-            descriptionLabel.setText(task.getDescription().get());
-        } else {
-            descriptionBox.setVisible(false);
-        }
-        
-        //Display time when available
-        if (task.getStartTime().isPresent() || task.getEndTime().isPresent()) {
-            //TODO: Temporary implementation. To upgrade to a better one.
-            StringBuilder timeString = new StringBuilder();
-            if (task.getStartTime().isPresent()) {
-                timeString.append("Start: ").append(task.getStartTime().get().format(DateTimeFormatter.ISO_DATE_TIME));
-            }
-            if (task.getEndTime().isPresent()) {
-                timeString.append("End: ").append(task.getEndTime().get().format(DateTimeFormatter.ISO_DATE_TIME));
-            }
-        } else {
-            dateBox.setVisible(false);
-        }
-        
-        //Display location when available
-        if (task.getLocation().isPresent()) {
-            locationLabel.setText(task.getLocation().get());
-        } else {
-            locationBox.setVisible(false);
-        }
+        typeLabel0.setText(task.isEvent() ? EVENT_TYPE : TASK_TYPE);
+        typeLabel1.setText(task.isEvent() ? EVENT_TYPE : TASK_TYPE);
+        FxViewUtil.displayTextWhenAvailable(descriptionLabel, descriptionBox, task.getDescription());
+        FxViewUtil.displayTextWhenAvailable(locationLabel, locationBox, task.getLocation());        
+        displayTags();
+        displayTimings();
+        setStyle();
     }
 
     public VBox getLayout() {
@@ -98,7 +82,7 @@ public class TaskCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        taskCard = (VBox)node;
+        taskCard = (VBox) node;
     }
 
     @Override
@@ -107,26 +91,61 @@ public class TaskCard extends UiPart{
     }
     
     /**
-     * Displays the tags with tag labels sorted lexicographically.
+     * Displays the tags in lexicographical order, ignoring case.
      */
     private void displayTags(){
-        //Obtain and verify that there are at most 5 tags.
+        Label[] tagLabels = {tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4};
+        
         int numberOfTags = task.getTags().size();
         assert (numberOfTags <= 5);
         
-        //Extract tag names, and sort the tags lexicographically.
-        Stream<String> tagsStream = task.getTags().stream()
-                .map(tag -> tag.tagName);
-        tagsStream = tagsStream.sorted();
-        String[] tags = (String[]) tagsStream.toArray();
+        LinkedList<Tag> tagList = new LinkedList<>(task.getTags());
+        tagList.sort(new Comparator<Tag>(){
+            @Override
+            public int compare(Tag o1, Tag o2) {
+                return o1.toString().compareToIgnoreCase(o2.toString());
+            }
+        });
         
-        //Label or hide the tagLabels
-        for (int i = 0; i < 5; i++) {
-            if (i < numberOfTags) {
-                tagLabels[i].setText(tags[i]);
+        for (Label label : tagLabels) {
+            if (tagList.isEmpty()) {
+                FxViewUtil.setCollapsed(label, true);
             } else {
-                tagLabels[i].setVisible(false);
+                label.setText(tagList.poll().tagName);
             }
         }
+    }
+    
+    private void setStyle() {
+        ObservableList<String> stylesheets = taskCard.getStylesheets();
+        stylesheets.add(STYLE_BASE);
+        //stylesheets.add(STYLE_COLLAPSED); Disabled until implemented
+        
+        if (task.isCompleted()) {
+            stylesheets.add(STYLE_COMPLETED);
+        } else if (task.getEndTime().isPresent() && task.getEndTime().get().isBefore(LocalDateTime.now())) {
+            stylesheets.add(STYLE_OVERDUE);
+        }
+    }
+    
+    private void displayTimings() {
+        String displayTimingOutput = "";
+        TimeUtil timeUtil = new TimeUtil();
+        Optional<LocalDateTime> startTime = task.getStartTime();
+        Optional<LocalDateTime> endTime = task.getEndTime();
+        
+        boolean isEventWithTime = task.isEvent() && startTime.isPresent() && endTime.isPresent();
+        boolean isTaskWithTime = !task.isEvent() && endTime.isPresent();
+        
+        if (isEventWithTime) {
+            displayTimingOutput = timeUtil.getEventTimeText(startTime.get(), endTime.get());
+        } else if (isTaskWithTime) {
+            displayTimingOutput = timeUtil.getTaskDeadlineText(endTime.get());
+        } else {
+            FxViewUtil.setCollapsed(dateBox, true);
+            return;
+        }
+        
+        dateLabel.setText(displayTimingOutput);
     }
 }
