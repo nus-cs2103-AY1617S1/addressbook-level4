@@ -1,9 +1,30 @@
 package seedu.address.testutil;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.taskcommands.AddTaskCommand;
+import seedu.address.model.task.InMemoryTaskList;
+import seedu.address.model.task.TaskManager;
+
 /**
  * A utility class for test cases.
  */
 public class TestUtil {
+
+	public static InMemoryTaskList setupEmptyTaskList() {
+		return new TaskManager();
+	}
+	
+	// Setting up tasks in the TaskList in order to find them in the tests
+	public static InMemoryTaskList setupSomeTasksInTaskList(int n) throws IllegalValueException {
+		InMemoryTaskList newTaskList = new TaskManager();
+		// Add 3 tasks into the task manager
+		for (int i = 0; i < n; i++) {
+			AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
+			command.setData(newTaskList);
+			command.execute();
+		}
+		return newTaskList;
+	}
 // TODO: DISABLED TESTUTIL
 //    public static String LS = System.lineSeparator();
 //
