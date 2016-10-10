@@ -3,6 +3,8 @@ package seedu.taskitty.logic.parser;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.logic.commands.*;
+import seedu.taskitty.model.task.TaskDate;
+import seedu.taskitty.model.task.TaskTime;
 
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -181,6 +183,59 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Returns the date found from the arguments as a String or null if no date is found
+     * 
+     * @param args full command args string
+     */
+    private String findDate(String args) {
+        Pattern datePattern = Pattern.compile(TaskDate.DATE_VALIDATION_REGEX_FORMAT);
+        Matcher dateMatcher = datePattern.matcher(args);
+        
+        //Max of 2 dates
+        String date = null;
+        if (dateMatcher.find()) {
+            date = dateMatcher.group();
+        }
+
+        return date;
+    }
+    
+    /**
+     * Returns the times found from the arguments as a String array
+     * The length of the array represents the number of times found
+     * 
+     * @param args full command args string
+     */
+    private String[] findTimes(String args) {
+        Pattern timePattern = Pattern.compile(TaskTime.TIME_VALIDATION_REGEX_FORMAT);
+        Matcher timeMatcher = timePattern.matcher(args);
+        
+        //Max of 2 dates
+        int timesArraySize = 0;
+        String firstTime = null;
+        if (timeMatcher.find()) {
+            timesArraySize++;
+            firstTime = timeMatcher.group();
+        }
+        
+        String secondTime = null;
+        if (timeMatcher.find()) {
+            timesArraySize++;
+            secondTime = timeMatcher.group();
+        }
+        
+        String[] times = new String[timesArraySize];
+        if (timesArraySize == 1) {
+            times[0] = firstTime;
+        } else if (timesArraySize == 2){
+            times[0] = firstTime;
+            times[1] = secondTime;
+        }
+        
+        return times;
     }
 
 }
