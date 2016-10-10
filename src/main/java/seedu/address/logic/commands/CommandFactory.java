@@ -47,6 +47,8 @@ public class CommandFactory {
                 return buildAddCommand();
             case DeleteCommand.COMMAND_WORD:
                 return buildDeleteCommand();
+            case FinishCommand.COMMAND_WORD:
+                return buildFinishCommand();
             case FindCommand.COMMAND_WORD:
                 return buildFindCommand();
             case ExitCommand.COMMAND_WORD:
@@ -158,6 +160,15 @@ public class CommandFactory {
         }
 
         return new DeleteCommand(index.get());
+    }
+    
+    private Command buildFinishCommand(){
+        Optional<Integer> index = sequentialParser.extractFirstInteger();
+        if (!index.isPresent()) {
+            return new InvalidCommand(Messages.MESSAGE_MISSING_TODO_ITEM_INDEX);
+        }
+
+        return new FinishCommand(index.get());
     }
 
     private Command buildFindCommand() {
