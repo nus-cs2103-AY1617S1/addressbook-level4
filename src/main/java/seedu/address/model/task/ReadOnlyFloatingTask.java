@@ -28,6 +28,9 @@ public interface ReadOnlyFloatingTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getStartDate().equals(this.getStartDate())
+                && other.getEndDate().equals(this.getEndDate())
+                && other.getType().equals(this.getType())
                 );
     }
 

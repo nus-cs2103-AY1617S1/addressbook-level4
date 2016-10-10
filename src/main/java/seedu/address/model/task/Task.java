@@ -29,9 +29,11 @@ public class Task implements ReadOnlyTask {
     
     public Task(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
         this(name, tags);
-        this.startDate = startDate;
-        this.endDate = endDate;
-        type = TaskType.NON_FLOATING;
+        if (endDate != null) {
+            this.startDate = startDate;
+            this.endDate = endDate;
+            type = TaskType.NON_FLOATING;
+        }
     }
     
     public Task(){}
@@ -40,7 +42,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getTags(), source.getStartDate(), source.getEndDate());
     }
 
     @Override

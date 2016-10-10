@@ -12,13 +12,27 @@ public class TaskDate {
         this.date = date;
     }
     
+    public TaskDate(Date date) {
+        this.date = date;
+        this.rawInputDate = getRawCommandInput();
+    }
+    
     public TaskDate(TaskDate copy) {
         this.date = copy.date;
         this.rawInputDate = copy.rawInputDate;
     }
     
     public String getFormattedDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hhmma");
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma");
         return formatter.format(date);
     }
+
+    public String getRawCommandInput() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM hh.mma");
+        return formatter.format(date);
+    }
+
+    public long getDate() {
+        return date.getTime();
+    }   
 }

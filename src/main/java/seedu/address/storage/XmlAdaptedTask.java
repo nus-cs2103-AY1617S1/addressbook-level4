@@ -1,12 +1,14 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.Parser;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,9 +21,9 @@ public class XmlAdaptedTask {
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
     @XmlElement
-    private String startDate;
+    private long startDate;
     @XmlElement
-    private String endDate;
+    private long endDate;
     
     /**
      * No-arg constructor for JAXB use.
@@ -40,8 +42,14 @@ public class XmlAdaptedTask {
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
-        startDate = source.getStartDate().getFormattedDate();
-        endDate = source.getEndDate().getFormattedDate();
+        if (source.getType() == TaskType.NON_FLOATING) {
+            startDate = source.getStartDate().getDate();
+            endDate = source.getEndDate().getDate();
+        }
+        if (source.getType() == TaskType.FLOATING) {
+            startDate = -1;
+            endDate = -1;
+        }
     }
 
     /**
@@ -56,6 +64,11 @@ public class XmlAdaptedTask {
         }
         final Name name = new Name(this.name);
         final UniqueTagList tags = new UniqueTagList(taskTags);
+        if (endDate != -1) {
+            final TaskDate taskStartDate = new TaskDate(new Date(startDate) );
+            final TaskDate taskEndDate = new TaskDate(new Date(endDate));
+            return new Task(name, tags, taskStartDate, taskEndDate);
+        }
         return new Task(name, tags);
     }
 }
