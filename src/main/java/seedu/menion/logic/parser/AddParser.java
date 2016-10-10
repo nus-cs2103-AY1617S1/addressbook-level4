@@ -77,11 +77,23 @@ public class AddParser {
 		
 	}
 
+	/**
+	 * Input the arguments into the parsedArguments ArrayList.
+	 * list(1) = Event Name
+	 * list(2) = Event Notes
+	 * list(3) = Event Start Date
+	 * list(4) = Event Start Time
+	 * list(5) = Event End Date
+	 * list(6) = Event End Time
+	 */
 	public static void inputEventArguments() {
 
-		for (int i = 1; i < 7; i++) {
-			parsedArguments.add(matcher.group(i));
-		}
+		parsedArguments.add(1, matcher.group(1));
+		parsedArguments.add(2, matcher.group(6));
+		parsedArguments.add(3, matcher.group(2));
+		parsedArguments.add(4, matcher.group(3));
+		parsedArguments.add(5, matcher.group(4));
+		parsedArguments.add(6, matcher.group(5));
 
 	}
 
