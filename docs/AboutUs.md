@@ -15,28 +15,29 @@ Role: Project Mentor<br>
 
 #### [Chankyu Oh](github.com/chankyuoh) <br>
 <img src="images/profilePicture.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Integration
+Role: Code Quality Manager <br>  
+Responsibilities: Look after code quality, ensures adherence to coding standards, etc.
+Deliverables and deadlines: Ensure project deliverables are done on time and in the right format.
 
 -----
 
 #### [Leow Zheng Yu](http://github.com/zhengyu92)
 <img src="images/ZhengYu.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+Role: Integration Manager <br>  
+Responsibilities: In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
 
 -----
 
 #### [Niveetha](http://github.com/niveetha)
 <img src="images/PD1.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+Role: Team Lead<br>  
+Responsibilities: Responsible for overall project coordination.
 
 -----
 
 #### [Henderson](http://github.com/takukou)
-Role: Developer <br>  
-Responsibilities: Storage
+Role: Testing Manager <br>  
+Responsibilities: Ensures the testing of the project is done properly and on time.
 
  
  -----
