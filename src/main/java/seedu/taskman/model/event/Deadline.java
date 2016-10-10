@@ -1,7 +1,7 @@
 package seedu.taskman.model.event;
 
 import seedu.taskman.commons.exceptions.IllegalValueException;
-import seedu.taskman.model.Regex;
+import seedu.taskman.logic.parser.DateTimeParser;
 
 /**
  * Represents a deadline in task man.
@@ -10,9 +10,10 @@ import seedu.taskman.model.Regex;
 public class Deadline {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS =
-            "Deadline should only contain dates and times in the format: " + Regex.DESCRIPTION_DATE_TIME_TYPIST_FRIENDLY;
-    public static final String DEADLINE_VALIDATION_REGEX =
-            "^" + Regex.DATE_TIME_TYPIST_FRIENDLY + "$";
+            "Deadline should only contain dates and times in the format: " +
+                    DateTimeParser.DESCRIPTION_DATE_TIME;
+    public static final String DEADLINE_VALIDATION_REGEX = "";
+    // todo: update to use new parser
     // todo: add regex for other time formats, eg: DDMMYYYY:TTTT
 
     public final String value;

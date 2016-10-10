@@ -57,6 +57,9 @@ allprojects {
         // for annotations
         compile "com.google.code.findbugs:jsr305:$findBugsVersion"
 
+        // for natural language datetime parsing
+        compile group: 'com.joestelmach', name: 'natty', version: '0.12'
+
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
         testCompile "org.testfx:testfx-junit:$testFxVersion"
