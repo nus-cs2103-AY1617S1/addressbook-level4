@@ -3,7 +3,7 @@ package seedu.menion.model.activity;
 import seedu.menion.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Activity's deadline date in the task manager.
+ * Represents a Activity's date date in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  */
 public class ActivityDate {
@@ -15,23 +15,23 @@ public class ActivityDate {
     public final String value;
 
     /**
-     * Validates given deadline.
+     * Validates given date.
      *
-     * @throws IllegalValueException if given deadline string is invalid.
+     * @throws IllegalValueException if given date string is invalid.
      */
-    public ActivityDate(String deadline) throws IllegalValueException {
-        assert deadline != null;
-        deadline = deadline.trim();
-        if (!isValidDeadline(deadline)) {
+    public ActivityDate(String date) throws IllegalValueException {
+        assert date != null;
+        date = date.trim();
+        if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_ACTIVITYDATE_CONSTRAINTS);
         }
-        this.value = deadline;
+        this.value = date;
     }
 
     /**
-     * Returns true if a given string is a valid task deadline.
+     * Returns true if a given string is a valid task date.
      */
-    public static boolean isValidDeadline(String test) {
+    public static boolean isValidDate(String test) {
         boolean result = false;
         
         if (test.matches(ACTIVITYDATE_SECOND_VALIDATION_REGEX) || test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
