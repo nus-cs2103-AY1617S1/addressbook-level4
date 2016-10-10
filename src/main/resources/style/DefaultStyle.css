@@ -1,0 +1,133 @@
+.roundLabel {
+    -fx-background-radius: 10;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2D2D2D;
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
+/***TaskCard Styles Start***/
+/*Default and Base*/
+.taskCard .label {
+    -fx-text-fill: #2D2D2D;
+    -fx-font-smoothing-type: lcd;
+}
+
+.taskCard .titleLabel {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.taskCard .descriptionLabel {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI";
+}
+
+.taskCard .footnoteLabel {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-style: italic;
+}
+
+.taskCard .highlightedBackground {
+    -fx-background-color: #00A4FF;
+}
+
+.taskCard .pinImage {
+    -fx-image: url("../images/star_gold.png");
+}
+
+.taskCard .dateImage {
+    -fx-image: url("../images/clock_black.png");
+}
+
+.taskCard .locationImage {
+    -fx-image: url("../images/location_black.png");
+}
+
+/*Selected*/
+.selected {
+    -fx-background-color: #00A4FF;
+}
+
+.selected .label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.selected .roundLabel {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #00A4FF;
+}
+
+.selected .pinImage {
+    -fx-image: url("../images/star_white.png");
+}
+
+.selected .dateImage {
+    -fx-image: url("../images/clock_white.png");
+}
+
+.selected .locationImage {
+    -fx-image: url("../images/location_white.png");
+}
+
+/*Completed*/
+.completed .label{
+    -fx-text-fill: #7F7F7F;
+}
+
+.completed .titleLabel .text {
+    -fx-strikethrough: true;
+}
+
+.completed .roundLabel {
+    -fx-background-color: #7F7F7F;
+    -fx-text-fill: #ffffff;
+}
+
+.completed .pinImage {
+    -fx-image: url("../images/star_grey.png");
+}
+
+.completed .dateImage {
+    -fx-image: url("../images/clock_grey.png");
+}
+
+.completed .locationImage {
+    -fx-image: url("../images/location_grey.png");
+}
+
+/*Overdue*/
+.overdue {
+    -fx-background-color: #FF6464;
+}
+
+.overdue .label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.overdue .roundLabel {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #FF6464;
+}
+
+.overdue .pinImage {
+    -fx-image: url("../images/star_white.png");
+}
+
+.overdue .dateImage {
+    -fx-image: url("../images/clock_white.png");
+}
+
+.overdue .locationImage {
+    -fx-image: url("../images/location_white.png");
+}
+
+/*Collapse*/
+.collapsed .collapsible {
+    visibility: collapse;
+    -fx-pref-height: 0px;
+    -fx-min-height: 0px;
+}
+
+/***TaskCard Styles End***/

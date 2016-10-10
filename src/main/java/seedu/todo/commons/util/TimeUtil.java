@@ -19,8 +19,8 @@ public class TimeUtil {
     private static final String DEADLINE_PREFIX_SINCE = "since";
     private static final String DEADLINE_SUFFIX_AGO = "ago";
 
-    private static final String MINUTE_SINGLE_UNIT = "minute";
-    private static final String MINUTES_MULTIPLE_UNIT = "minutes";
+    private static final String UNIT_MINUTE = "minute";
+    private static final String UNIT_MINUTES = "minutes";
     
     private static final String DUE_NOW = "due now";
     private static final String DUE_LESS_THAN_A_MINUTE = "in less than a minute";
@@ -50,15 +50,14 @@ public class TimeUtil {
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         long secondsToDeadline = durationCurrentToEnd.getSeconds();
         
-        
         if (currentTime.isBefore(endTime)) {
             if (secondsToDeadline <= 59) {
                 return DUE_LESS_THAN_A_MINUTE;
             } else if (minutesToDeadline == 1) {
-                stringJoiner.add(DEADLINE_PREFIX_IN).add("1").add(MINUTE_SINGLE_UNIT);
+                stringJoiner.add(DEADLINE_PREFIX_IN).add("1").add(UNIT_MINUTE);
             } else if (minutesToDeadline > 1 && minutesToDeadline <= 59) {
                 stringJoiner.add(DEADLINE_PREFIX_IN).add(String.valueOf(minutesToDeadline))
-                        .add(MINUTES_MULTIPLE_UNIT);
+                        .add(UNIT_MINUTES);
             } else if (isToday(currentTime, endTime)) {
                 stringJoiner.add(DEADLINE_PREFIX_BY)
                         .add(((endTime.toLocalTime().isBefore(LocalTime.of(18, 00))) ? DUE_TODAY : DUE_TONIGHT))
@@ -73,27 +72,26 @@ public class TimeUtil {
                 stringJoiner.add(DEADLINE_PREFIX_BY)
                         .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_WITH_YEAR + ", " + FORMAT_TIME)));
             }
-            
         } else {
             if (secondsToDeadline >= -59) {
                 return DUE_NOW;
             } else if (minutesToDeadline == -1) {
-                stringJoiner.add("1").add(MINUTE_SINGLE_UNIT).add(DEADLINE_SUFFIX_AGO);
+                stringJoiner.add("1").add(UNIT_MINUTE).add(DEADLINE_SUFFIX_AGO);
             } else if (minutesToDeadline < -1 && minutesToDeadline >= -59) {
-                stringJoiner.add(String.valueOf(-minutesToDeadline)).add(MINUTES_MULTIPLE_UNIT)
+                stringJoiner.add(String.valueOf(-minutesToDeadline)).add(UNIT_MINUTES)
                         .add(DEADLINE_SUFFIX_AGO);
             } else if (isToday(currentTime, endTime)) {
                 stringJoiner.add(DEADLINE_PREFIX_SINCE)
-                        .add(endTime.format(DateTimeFormatter.ofPattern("h:mm a")));
+                        .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME)));
             } else if (isYesterday(currentTime, endTime)) {
                 stringJoiner.add(DEADLINE_PREFIX_SINCE).add(DUE_YESTERDAY)
-                        .add(endTime.format(DateTimeFormatter.ofPattern("h:mm a")));
+                        .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME)));
             } else if (isSameYear(currentTime, endTime)) {
                 stringJoiner.add(DEADLINE_PREFIX_SINCE)
-                        .add(endTime.format(DateTimeFormatter.ofPattern("d MMMM, h:mm a")));
+                        .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_NO_YEAR + ", " + FORMAT_TIME)));
             } else {
                 stringJoiner.add(DEADLINE_PREFIX_SINCE)
-                        .add(endTime.format(DateTimeFormatter.ofPattern("d MMMM yyyy, h:mm a")));
+                        .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_WITH_YEAR + ", " + FORMAT_TIME)));
             }
         }        
         return stringJoiner.toString();
@@ -103,7 +101,6 @@ public class TimeUtil {
         assert(startTime != null);
         assert(endTime != null);
         assert(startTime.isBefore(endTime));
-        
         return "from " + startTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_WITH_YEAR + ", " + FORMAT_TIME)) + " to "
                 + endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_WITH_YEAR + ", " + FORMAT_TIME));
     }
@@ -126,5 +123,10 @@ public class TimeUtil {
     
     private boolean isSameYear(LocalDateTime dateTime1, LocalDateTime dateTime2) {
         return dateTime1.getYear() == dateTime2.getYear();
+    }
+    
+    public boolean isOverdue(LocalDateTime endTime) {
+        assert (endTime != null);
+        return endTime.isBefore(LocalDateTime.now(clock));
     }
 }
