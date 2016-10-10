@@ -44,8 +44,8 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         phone.setText(task.getDetail().value);
-        address.setText(task.getFromDate().toString());
-        email.setText(task.getTillDate().toString());
+        address.setText(task.getOnDate().toString());
+        email.setText(task.getByDate().toString());
         tags.setText(task.tagsString());
     }
 

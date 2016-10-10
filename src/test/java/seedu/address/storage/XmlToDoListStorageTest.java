@@ -27,13 +27,13 @@ public class XmlToDoListStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_assertionFailure() throws Exception {
+    public void readToDoList_nullFilePath_assertionFailure() throws Exception {
         thrown.expect(AssertionError.class);
-        readAddressBook(null);
+        readToDoList(null);
     }
 
-    private java.util.Optional<ReadOnlyToDoList> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyToDoList> readToDoList(String filePath) throws Exception {
+        return new XmlToDoListStorage(filePath).readToDoList(addToTestDataPathIfNotNull(filePath));
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -44,14 +44,14 @@ public class XmlToDoListStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readToDoList("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readToDoList("NotXmlFormatToDoList.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -59,46 +59,46 @@ public class XmlToDoListStorageTest {
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
+    public void readAndSaveToDoList_allInOrder_success() throws Exception {
+        String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         ToDoList original = td.getTypicalToDoList();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyToDoList readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlToDoListStorage.saveToDoList(original, filePath);
+        ReadOnlyToDoList readBack = xmlToDoListStorage.readToDoList(filePath).get();
         assertEquals(original, new ToDoList(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.hoon));
         original.removeTask(new Task(TypicalTestTasks.alice));
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlToDoListStorage.saveToDoList(original, filePath);
+        readBack = xmlToDoListStorage.readToDoList(filePath).get();
         assertEquals(original, new ToDoList(readBack));
 
         //Save and read without specifying file path
         original.addTask(new Task(TypicalTestTasks.ida));
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
+        xmlToDoListStorage.saveToDoList(original); //file path not specified
+        readBack = xmlToDoListStorage.readToDoList().get(); //file path not specified
         assertEquals(original, new ToDoList(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_assertionFailure() throws IOException {
+    public void saveToDoList_nullToDoList_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveToDoList(null, "SomeFile.xml");
     }
 
-    private void saveAddressBook(ReadOnlyToDoList addressBook, String filePath) throws IOException {
-        new XmlAddressBookStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void saveToDoList(ReadOnlyToDoList addressBook, String filePath) throws IOException {
+        new XmlToDoListStorage(filePath).saveToDoList(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_assertionFailure() throws IOException {
+    public void saveToDoList_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(new ToDoList(), null);
+        saveToDoList(new ToDoList(), null);
     }
 
 

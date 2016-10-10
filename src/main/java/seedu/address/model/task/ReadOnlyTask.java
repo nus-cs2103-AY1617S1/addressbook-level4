@@ -10,8 +10,8 @@ public interface ReadOnlyTask {
 
     Name getName();
     Detail getDetail();
-    TaskDate getFromDate();
-    TaskDate getTillDate();
+    TaskDate getOnDate();
+    TaskDate getByDate();
     boolean isDone();
 
     /**
@@ -28,8 +28,8 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getDetail().equals(this.getDetail())
-                && other.getFromDate().equals(this.getFromDate())
-                && other.getTillDate().equals(this.getTillDate()));
+                && other.getOnDate().equals(this.getOnDate())
+                && other.getByDate().equals(this.getByDate()));
     }
 
     /**
@@ -41,9 +41,9 @@ public interface ReadOnlyTask {
                 .append(" Details: ")
                 .append(getDetail())
                 .append(" From: ")
-                .append(getFromDate())
+                .append(getOnDate())
                 .append(" Till: ")
-                .append(getTillDate())
+                .append(getByDate())
                 .append(" Tags: ");
         //getTags().forEach(builder::append);
         return builder.toString();

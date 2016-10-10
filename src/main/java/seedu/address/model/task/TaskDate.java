@@ -14,8 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class TaskDate {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Tasks' dates and time need to follow predefined format.";
-    private static final int DATE_TIME_STRING_DATE_INDEX = 0;
-    private static final int DATE_TIME_STRING_TIME_INDEX = 1;
+    
     
     private LocalDate date;
     private LocalTime time;
@@ -26,23 +25,21 @@ public class TaskDate {
      * @throws IllegalValueException if given date and time string is invalid.
      */
     public TaskDate(String dateTimeString) throws IllegalValueException {
-        if (dateTimeString == null || dateTimeString.equals("") || dateTimeString.equals(" ")) {
+        if (DateTimeUtil.isNotEmptyDateTimeString(dateTimeString)) {
         	this.date = null;
         	this.time = null;
         } else {
-        	dateTimeString = dateTimeString.trim();
-        	String[] dateAndTime = dateTimeString.split("t");
         	
-            if (!isValidDate(dateAndTime[DATE_TIME_STRING_DATE_INDEX])) {
+            if (!isValidDate(DateTimeUtil.getDateString(dateTimeString))) {
                 throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
             }
-            this.date = DateTimeUtil.parseDateString(dateAndTime[DATE_TIME_STRING_DATE_INDEX]);
+            this.date = DateTimeUtil.parseDateString(DateTimeUtil.getDateString(dateTimeString));
             
-            if(dateAndTime.length > 1) {
-            	if (!isValidTime(dateAndTime[DATE_TIME_STRING_TIME_INDEX])) {
+            if(!DateTimeUtil.getTimeString(dateTimeString).isEmpty()) {
+            	if (!isValidTime(DateTimeUtil.getTimeString(dateTimeString))) {
             		throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
             	}
-            	this.time = DateTimeUtil.parseTimeString(dateAndTime[DATE_TIME_STRING_TIME_INDEX]);
+            	this.time = DateTimeUtil.parseTimeString(DateTimeUtil.getTimeString(dateTimeString));
             } else {
             	this.time = null;
             }
@@ -94,7 +91,8 @@ public class TaskDate {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskDate // instanceof handles nulls
-                || this.toString().equals(other.toString()));
+                || DateTimeUtil.combineLocalDateAndTime(this.date, this.time)
+                    .equals(DateTimeUtil.combineLocalDateAndTime(((TaskDate) other).date, ((TaskDate) other).time)));
     }
 
     @Override

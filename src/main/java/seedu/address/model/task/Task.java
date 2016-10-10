@@ -14,8 +14,8 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private Detail detail;
-    private TaskDate fromDate;
-    private TaskDate tillDate; //deadline
+    private TaskDate onDate;
+    private TaskDate byDate; //deadline
     private boolean done;
     private UniqueTagList tags;
 
@@ -26,8 +26,8 @@ public class Task implements ReadOnlyTask {
         assert !CollectionUtil.isAnyNull(name, detail, fromDate, tillDate);
         this.name = name;
         this.detail = detail;
-        this.fromDate = fromDate;
-        this.tillDate = tillDate;
+        this.onDate = fromDate;
+        this.byDate = tillDate;
         this.done = false;
         this.tags = new UniqueTagList(); // protect internal tags from changes in the arg list
     }
@@ -36,8 +36,8 @@ public class Task implements ReadOnlyTask {
         assert !CollectionUtil.isAnyNull(name, detail, fromDate, tillDate);
         this.name = name;
         this.detail = detail;
-        this.fromDate = fromDate;
-        this.tillDate = tillDate;
+        this.onDate = fromDate;
+        this.byDate = tillDate;
         this.done = done;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -46,7 +46,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDetail(), source.isDone(), source.getFromDate(), source.getTillDate(), source.getTags());
+        this(source.getName(), source.getDetail(), source.isDone(), source.getOnDate(), source.getByDate(), source.getTags());
     }
 
     @Override
@@ -60,13 +60,13 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public TaskDate getFromDate() {
-        return this.fromDate;
+    public TaskDate getOnDate() {
+        return this.onDate;
     }
 
     @Override
-    public TaskDate getTillDate() {
-        return this.tillDate;
+    public TaskDate getByDate() {
+        return this.byDate;
     }
 
     @Override
@@ -88,12 +88,12 @@ public class Task implements ReadOnlyTask {
         this.detail = d;
     }
 
-    public void setFromDate(TaskDate fd) {
-        this.fromDate = fd;
+    public void setOnDate(TaskDate fd) {
+        this.onDate = fd;
     }
 
-    public void setTillDate(TaskDate td) {
-        this.tillDate = td;
+    public void setByDate(TaskDate td) {
+        this.byDate = td;
     }
     
     public void setIsDone(boolean done) {
@@ -131,7 +131,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, detail, fromDate, tillDate, tags);
+        return Objects.hash(name, detail, onDate, byDate, tags);
     }
 
     @Override

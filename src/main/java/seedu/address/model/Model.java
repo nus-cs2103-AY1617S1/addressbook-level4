@@ -8,7 +8,7 @@ import seedu.address.model.task.UniqueTaskList;
 
 
 import java.util.Set;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * The API of the Model component.
@@ -48,13 +48,24 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all completed tasks */
     void updateFilteredListToShowAllCompleted();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    /** Updates the filter of the filtered task list to show all not completed tasks */
+    void updateFilteredListToShowAllNotCompleted();
     
-    /** Updates the filter of the filtered task list to filter by the given date*/
-    void updateFilteredTaskList(LocalDate date);
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredTaskListByKeywords(Set<String> keywords);
     
     /** Updates the filter of the filtered task list to filter by the given tag name*/
-    void updateFilteredTaskList(String tagName);
+    void updateFilteredTaskListByTag(String tagName);
 
+    /** Updates the filter of the filtered task list to filter by the given date*/
+    void updateFilteredTaskListOnDate(LocalDateTime datetime);
+    
+    /** Updates the filter of the filtered task list to filter by the given before date*/
+    void updateFilteredTaskListBeforeDate(LocalDateTime datetime);
+    
+    /** Updates the filter of the filtered task list to filter by the given after date*/
+    void updateFilteredTaskListAfterDate(LocalDateTime datetime);
+    
+    /** Updates the filter of the filtered task list to filter by the given from and till dates*/
+    void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime);
 }

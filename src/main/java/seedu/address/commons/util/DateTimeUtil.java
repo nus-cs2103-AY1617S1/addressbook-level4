@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
  */
 public class DateTimeUtil {
 
+    private static final int DATE_TIME_STRING_DATE_INDEX = 0;
+    private static final int DATE_TIME_STRING_TIME_INDEX = 1;
+    
 	private static final String[] dateFormats = {
 			"yyyy-M-d",
 			"yyyy/M/d",
@@ -44,6 +47,44 @@ public class DateTimeUtil {
 			"H:mm",
 			"H:m:ss",
 			"H:m"};
+	
+	public static boolean isNotEmptyDateTimeString(String dateTimeString) {
+	    return (dateTimeString == null || dateTimeString.equals("") || dateTimeString.equals(" "));
+	}
+	
+	public static String getDateString(String dateTimeString) {
+	    dateTimeString = dateTimeString.trim();
+        String[] dateAndTime = dateTimeString.split(" t");
+        return dateAndTime[DATE_TIME_STRING_DATE_INDEX].trim();
+	}
+	
+	public static String getTimeString(String dateTimeString) {
+        dateTimeString = dateTimeString.trim();
+        String[] dateAndTime = dateTimeString.split(" t");
+        return dateAndTime.length > 1 ? dateAndTime[DATE_TIME_STRING_TIME_INDEX].trim() : "";
+    }
+	
+	public static LocalDateTime parseDateTimeString(String dateTimeString) {
+	    assert isNotEmptyDateTimeString(dateTimeString);
+	    
+	    LocalDate date;
+	    LocalTime time;
+	    try {
+	        date = parseDateString(getDateString(dateTimeString)); 
+	    } catch (DateTimeParseException e) {
+	        return null;
+	    }
+	    
+	    if (isValidTimeString(getTimeString(dateTimeString))) {
+	        time = parseTimeString(getTimeString(dateTimeString));
+	    } else {
+	        time = null;
+	    }
+	    
+	    return combineLocalDateAndTime(date, time);
+	    
+	}
+	
 	
 	public static boolean isValidDateString(String dateString) {
 		dateString = dateString.trim();
@@ -89,6 +130,16 @@ public class DateTimeUtil {
 		
 		return null; 
 	}
+
+	public static LocalDateTime combineLocalDateAndTime(LocalDate date, LocalTime time) {
+	    assert date != null;
+	    if (time == null) {
+	        return LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 0, 0);
+	    } else {
+	        return LocalDateTime.of(date, time);
+	    }
+	}
+	
 	
 	public static String prettyPrintDate(LocalDate date) {
 		return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));

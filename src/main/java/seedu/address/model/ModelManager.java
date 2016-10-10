@@ -4,15 +4,18 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.ModifiableObservableList;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.model.qualifiers.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -84,6 +87,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         toDoList.addTask(task);
+        System.out.print(task.getName());
+        System.out.print(toDoList.getTaskList().size());
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -108,8 +113,8 @@ public class ModelManager extends ComponentManager implements Model {
         } else {
             toDoList.getTasks().get(index).setName(newTask.getName());
             toDoList.getTasks().get(index).setDetail(newTask.getDetail());
-            toDoList.getTasks().get(index).setFromDate(newTask.getFromDate());
-            toDoList.getTasks().get(index).setTillDate(newTask.getTillDate());
+            toDoList.getTasks().get(index).setOnDate(newTask.getOnDate());
+            toDoList.getTasks().get(index).setByDate(newTask.getByDate());
             toDoList.getTasks().get(index).setTags(newTask.getTags());
             toDoList.syncTagsWithMasterList(toDoList.getTasks().get(index));
             indicateAddressBookChanged();
@@ -130,28 +135,49 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier())); //force change
+        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true))); //force change
         filteredTasks.setPredicate(null);
     }
     
     @Override
     public void updateFilteredListToShowAllCompleted(){
-        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier()));
+        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true)));
+    }
+    
+    @Override
+    public void updateFilteredListToShowAllNotCompleted(){
+        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(false)));
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredTaskListByKeywords(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
     @Override
-    public void updateFilteredTaskList(LocalDate date){
-        updateFilteredTaskList(new PredicateExpression(new DateQualifier(date)));
+    public void updateFilteredTaskListByTag(String tagName){
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagName)));
     }
     
     @Override
-    public void updateFilteredTaskList(String tagName){
-        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagName)));
+    public void updateFilteredTaskListOnDate(LocalDateTime datetime){
+        
+        updateFilteredTaskList(new PredicateExpression(new OnDateQualifier(datetime)));
+    }
+    
+    @Override
+    public void updateFilteredTaskListBeforeDate(LocalDateTime datetime){
+        updateFilteredTaskList(new PredicateExpression(new BeforeDateQualifier(datetime)));
+    }
+    
+    @Override
+    public void updateFilteredTaskListAfterDate(LocalDateTime datetime){
+        updateFilteredTaskList(new PredicateExpression(new AfterDateQualifier(datetime)));
+    }
+    
+    @Override
+    public void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime){
+        updateFilteredTaskList(new PredicateExpression(new FromTillDateQualifier(fromDateTime, tillDateTime)));
     }
     
     
@@ -182,86 +208,6 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return qualifier.toString();
-        }
-    }
-
-    interface Qualifier {
-        boolean run(ReadOnlyTask person);
-        String toString();
-    }
-
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
-    }
-    
-    private class DateQualifier implements Qualifier {
-        private LocalDate date;
-
-        DateQualifier(LocalDate date) {
-            this.date = date;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return (task.getFromDate().getDate() != null && task.getFromDate().getDate().equals(date))
-                || (task.getTillDate().getDate() != null && task.getTillDate().getDate().equals(date));
-        }
-
-        @Override
-        public String toString() {
-            return "date=" + date.toString();
-        }
-    }
-
-    private class TagQualifier implements Qualifier {
-        private String tagName;
-
-        TagQualifier(String tagName) {
-            this.tagName = tagName;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return task.getTags().getInternalList().stream()
-                    .filter(tag -> tag.tagName.equals(tagName))
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "tag name=" + tagName;
-        }
-    }
-    
-    private class CompletedQualifier implements Qualifier {
-        
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return task.isDone();
-        }
-
-        @Override
-        public String toString() {
-            return "done";
         }
     }
     
