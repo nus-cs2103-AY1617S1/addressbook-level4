@@ -78,4 +78,16 @@ public class AddParserTest {
 		assertEquals("11-08-2016", AddParser.parseCommand(arguments).get(3));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
 	}
+	
+	@Test
+	public void checkTaskArguments_returnsCorrectArguments(){
+		
+		String arguments = "by: 10-08-2016 1900";
+		
+		assertEquals("10-08-2016", AddParser.parseCommand(arguments).get(1));
+		assertEquals("1900", AddParser.parseCommand(arguments).get(2));
+		
+	}
+	
+	
 }
