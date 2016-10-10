@@ -179,7 +179,7 @@ public class Parser {
      * Returns the specified index in the {@code command} IF a valid category character was given.
      *   else return the default index
      */
-    private int parseCategory(String command) {
+    public static int parseCategory(String command) {
         switch(command) {
             case("d"): 
                 return 1;
