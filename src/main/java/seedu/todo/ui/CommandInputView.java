@@ -18,8 +18,8 @@ public class CommandInputView extends UiPart {
     private static final String FXML = "CommandBox.fxml";
 
     private AnchorPane placeHolderPane;
-    private ResultDisplay resultDisplay;
     private AnchorPane commandInputPane;
+    private CommandFeedbackView commandFeedbackView;
     String previousCommandText;
 
     private Logic logic;
@@ -29,15 +29,16 @@ public class CommandInputView extends UiPart {
     private CommandResult mostRecentResult;
 
     public static CommandInputView load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic) {
-        CommandInputView commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandInputView());
-        commandBox.configure(resultDisplay, logic);
-        commandBox.addToPlaceholder();
-        return commandBox;
+                                        CommandFeedbackView commandFeedbackView, Logic logic) {
+        
+        CommandInputView commandInputView = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandInputView());
+        commandInputView.configure(commandFeedbackView, logic);
+        commandInputView.addToPlaceholder();
+        return commandInputView;
     }
 
-    public void configure(ResultDisplay resultDisplay, Logic logic) {
-        this.resultDisplay = resultDisplay;
+    public void configure(CommandFeedbackView commandFeedbackView, Logic logic) {
+        this.commandFeedbackView = commandFeedbackView;
         this.logic = logic;
         registerAsAnEventHandler(this);
     }
