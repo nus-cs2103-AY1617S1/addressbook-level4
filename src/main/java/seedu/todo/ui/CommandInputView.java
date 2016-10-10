@@ -75,8 +75,10 @@ public class CommandInputView extends UiPart {
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
-        //TODO: Display results here.
         logic.execute(previousCommandText);
+        commandFeedbackView.displayMessage("Command " + previousCommandText.substring(0, 10) 
+                + "... executed successfully.");
+        //TODO: Update the command output with actual implementation.
     }
 
 
