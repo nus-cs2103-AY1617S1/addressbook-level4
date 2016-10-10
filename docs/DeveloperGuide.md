@@ -5,10 +5,10 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
@@ -272,12 +272,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | search for tasks | review the details of the task. 
+`* * *` | user | delete a task | can get rid of tasks that I no longer care to track. 
+`* * *` | user | view more information about various command | learn how to use those commands. 
+`* * *` | user | edit the details of a specific task | reschedule the task if the deadline has changed.
+`* * *` | new user | view the availability of all the possible commands | understand what features there are in the product.
+`* * *` | user | view all my tasks | I have an idea about the pending tasks.
+`* * *` | user | mark a task as done | it will be removed from my list of things to do.
+`* * *` | user | add floating tasks without date or time | I can do that task whenever I want.
+`* *` | user | undo a command | go back to the previous command if I have made a mistake.
+`* *` | user | rearrange my task based on certain commands | make my schedule more flexible.
+`* *` | user | set the priority of the task when I�m adding a new task | know the urgency of the task.
+`*` | user | have a �done� list | see what has been done for the day to know how productive I�ve been.
+`*` | user | sort my task according to the priority | can work on the important task first.
+
+
+
 
 {More to be added}
 
@@ -305,29 +315,284 @@ Use case ends.
 
 > 3a1. AddressBook shows an error message <br>
   Use case resumes at step 2
+  
+Appendix B: Use Cases
+(For all the use cases below, the **System** is the `ForgetMeNot` and the **Actor** is the `user`, unless specified otherwise)
+
+	
+#### Use Case: Add task
+
+**MSS**
+1. User types in a task to be added.
+2. ForgetMeNot adds the task in the list of tasks
+      Use case ends.
+
+**Extensions**
+
+1a. User enters an incorrect command
+
+> 1a1. ForgetMeNot shows an error and help message
+
+
+
+#### Use Case: Delete Task
+
+**MSS**
+
+1. User requests to list tasks
+2. ForgetMeNot shows the list of tasks to the user
+3. User requests to delete a particular task
+4. ForgetMeNot deletes the task
+      Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. Use case ends
+
+3a. The task is not found
+
+> 3a1. ForgetMeNot displays an error message
+> Use case resumes at step 2
+
+#### Use Case: View information on various commands
+
+**MSS**
+
+1. User requests help to find information about various commands
+2. ForgetMeNot shows the user the list of commands the user can use, along with the format in which they are supposed to be used
+3. User requests to view more information about a particular command
+4. ForgetMeNot show the user more examples on how the particular command can be used
+     Use case ends.
+
+**Extensions**
+
+3a. Invalid command entered
+
+> 3a1. ForgetMeNot displays an error message
+
+> 3a1. Use case resumes at step 2
+
+#### Use case: Sort tasks
+
+**MSS**
+
+1. User requests to sort
+2. ForgetMeNot displays a list of sort options
+3. User requests to sort in a specific way
+4. ForgetMeNot displays the list of tasks after sorting
+      Use case ends
+      
+**Extensions**
+	1a. List of tasks is empty
+	
+> ForgetMeNot shows list is empty message
+
+	3a. Requested sorting manner does not exists
+	
+> ForgetMeNot shows error message
+
+#### Use case: Edit a task
+
+**MSS**
+
+1. User requests to edit a task.
+2. System prompts for confirmation.
+3. User confirms.
+4. System shows user that the task is edited.
+	 Use case ends.
+
+**Extensions**
+
+	1a. Input command incorrect.
+	
+> System shows help message
+
+	1b. The task does not exist.
+	
+> System suggests user to check the input or add a new task
+
+	2a. User changed his mind
+	
+> Command is removed.
+
+#### Use case: List Commands
+
+**MSS**
+
+1. User requests to view a list of commands.
+2. System shows list of commands
+	 Use case ends.
+	 
+**Extensions**
+
+	1a. Input command incorrect.
+	
+> System shows help message
+
+#### Use case: Mark task as done
+
+**MSS**
+1. User request to mark a specific task as done.
+2. System prompts for confirmation.
+3. User confirms.
+4. System shows user that the task is marked as done.
+       Use case ends
+**Extensions**
+
+    1a. Input command incorrect.
+    
+> System shows help message.
+
+	1b. Task entered does not exist
+	
+> System prompts user to check input or add a new task
+	
+	2a. User changed his mind
+	
+> Command is removed.
+
+#### Use case: List task
+
+**MSS**
+
+1. User request to list tasks.
+2. System shows user the list of task.
+      Use case ends
+**Extensions**
+
+	1a. Input command incorrect.
+	
+> System shows help message.
+	
+    1b. No task inside the list.
+    
+> System shows error message
+> Prompt user to add tasks
+
+#### Use Case: Rearrange task
+
+**MSS**
+
+1. User request to rearrange tasks
+2. ForgetMeNot rearrages task
+3. ForgetMeNot displays the tasks after rearranging
+      Use case ends
+**Extensions** 
+    
+    1b. Task to be rearranged does not exist 
+    
+> ForgetMeNot tells User to check the name of the task to be arranged
+
+    1c. No priority was specified during creation of all tasks in schedule.
+          
+> ForgetMeNot tells User no priority was set for all tasks
+
+#### Use Case: Priority task
+
+**MSS**
+
+1. User adds a priority to the task when creating it
+2. ForgetMeNot creates the task with the specific priority
+     Use case ends
+     
+**Extensions**
+
+    1a. User enters an invalid input
+           
+> ForgetMeNot shows help message
+
+    1b. User enters a priority that is not �1� �2� or �3�
+           
+> ForgetMeNot tells User that only priorities �1� �2� or �3� is useable
+
+#### Use Case: Undo a task
+
+**MSS**
+
+1. User undo a task
+2. ForgetMeNot undo the most recent command executed
+
+**Extension**
+
+	1a. No command to be undone
+	
+> ForgetMeNot shows error message
+
+	1b. User input an invalid input
+	
+> ForgetMeNot shows help message
+
+
+
+	
+
+
+
 
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+1. Should be able to hold up to 100 tasks.
+2. Should be able to display request under 0.5 seconds.
+3. Should work on any mainstream OS as long as it has Java 8 or higher installed.
+4. Should be able to add task up to 1 year ahead.
+5. Should be able to operate without internet connection.
+6. Should come with automated unit tests.
+7. Should be able to use the product efficiently after using it for 30 minutes.
+
 
 {More to be added}
 
 ## Appendix D : Glossary
 
-##### Mainstream OS
-
+Mainstream OS: 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
 
-> A contact detail that is not meant to be shared with others
+Day:
+> From 0000 to 2359 of the current day
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+1. **Fantastical**
+
+1a. It has a good and clean UI, really simple to use
+1b. It has integration with all iOS products, i.e. mac, iphone, ipad etc.
+1c. Includes all CRUD features
+1d. It has a reminder function
+1e. Has a list of all upcoming tasks for the week at the left hand side
+1f. Has natural language processing, can add events using Siri
+1g. Locations added when creating events are automatically shown in google/apple map when clicked
+1h. Automatically syncs with apple calendar, updates and syncs on the go.
+
+2. **Google Cal**
+
+2a. It has CRUD features.
+2b. It can link to external applications such as Gmail and Contacts.
+2c. It has cross-platform features.
+2d. It has a reminder function.
+2e. It can support multiple accounts in one device.
+2f. It can create Event, Reminder or Goal.
+2g. All task created are automatically grouped and colour coded.
+2h Clean and simple UI.
+3i. It can be used online or offline.
+3j. It has different kind of viewing options such as Day, 3-day, Week and Month.
+
+3. **Any.do**
+
+3a. It has support for events, deadlines(Today category/Notification reminder), floating task(Someday category)
+3b. It has CRUD
+3c. It has a search function
+3d. It has a way to keep track of which items are done and yet to be done reminders
+3e. It has CRUD features.
+3f. It has a search function.
+3g. It has different tabs for today, tomorrow and date-wise events.
+3h. It allows to set priorities for different tasks.
+3i. It allows to repeat reminders on a periodic basis.
+3j. It can show all previous events which are marked �done�.
+
+
 
