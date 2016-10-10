@@ -43,8 +43,8 @@ public class XmlAdaptedTask {
         name = source.getName().fullName;
         detail = source.getDetail().toString();
         done = new Boolean(source.isDone()).toString();
-        fromDate = source.getFromDate().toString();
-        tillDate = source.getTillDate().toString();
+        fromDate = source.getOnDate().toString();
+        tillDate = source.getByDate().toString();
         
         
         tagged = new ArrayList<>();

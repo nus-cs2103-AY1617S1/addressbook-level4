@@ -93,7 +93,7 @@ public class ToDoList implements ReadOnlyToDoList {
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         UniqueTaskList topList = this.tasksHistory.pop();
         UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
-        oldList.add(p);
+        topList.add(p);
         this.tasksHistory.push(oldList);
         this.tasksHistory.push(topList);
     }
