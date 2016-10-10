@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.item.ReadOnlyPerson;
 
 public class PersonCard extends UiPart{
 
@@ -41,11 +41,11 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(person.getItemType().value);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+        phone.setText(person.getName().value);
+        address.setText(person.getEndTime().value);
+        email.setText(person.getEndDate().value);
         tags.setText(person.tagsString());
     }
 

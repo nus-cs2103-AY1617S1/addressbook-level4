@@ -17,7 +17,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.*;
+import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Person[] samplePersonData = getSamplePersonData();
+    public static final Item[] sampleItemData = getSampleItemData();
 
-    private static Person[] getSamplePersonData() {
+    private static Item[] getSampleItemData() {
         try {
-            return new Person[]{
-                    new Person(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Person(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Person(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Person(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Person(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Person(new Name("George Best"), new Phone("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Person(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
+            return new Item[]{
+                    new Item(new ItemType("event"), new Name("Ali Muster"), new Date("2016-07-07"), new Time("00:00"), new Date("2016-08-07"), new Time("12:00"), new UniqueTagList()),
+                    new Item(new ItemType("deadline"), new Name("Boris Mueller"), new Date(""), new Time(""), new Date("2017-05-05"), new Time("23:59"), new UniqueTagList()),
+                    new Item(new ItemType("task"), new Name("Carl Kurz"), new Date(""), new Time(""), new Date(""), new Time(""), new UniqueTagList()),
+                    new Item(new ItemType("event"), new Name("Daniel Meier"), new Date("2018-05-05"), new Time("23:59"), new Date("2019-01-01"), new Time("02:30"), new UniqueTagList()),
+                    new Item(new ItemType("deadline"), new Name("Elle Meyer"), new Date(""), new Time(""), new Date("2020-12-30"), new Time("04:49"), new UniqueTagList()),
+                    new Item(new ItemType("task"), new Name("Fiona Kunz"), new Date(""), new Time(""), new Date(""), new Time(""), new UniqueTagList()),
+                    new Item(new ItemType("event"), new Name("George Best"), new Date("2018-05-05"), new Time("21:59"), new Date("2022-01-01"), new Time("19:21"), new UniqueTagList()),
+                    new Item(new ItemType("deadline"), new Name("Hoon Meier"), new Date(""), new Time(""), new Date("2023-03-03"), new Time("14:21"), new UniqueTagList()),
+                    new Item(new ItemType("task"), new Name("Ida Mueller"), new Date(""), new Time(""), new Date("2016-11-21"), new Time("13:10"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,8 +97,8 @@ public class TestUtil {
         }
     }
 
-    public static List<Person> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
+    public static List<Item> generateSampleItemData() {
+        return Arrays.asList(sampleItemData);
     }
 
     /**

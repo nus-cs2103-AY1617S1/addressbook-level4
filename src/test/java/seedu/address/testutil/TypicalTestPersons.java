@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.*;
+import seedu.address.model.item.*;
 
 /**
  *
@@ -13,21 +13,21 @@ public class TypicalTestPersons {
 
     public TypicalTestPersons() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
+            alice =  new PersonBuilder().withItemType("event").withStartDate("2016-06-06").withStartTime("05:00").withEndTime("12:01")
+                    .withEndDate("2016-08-08").withName("Alice Pauline")
                     .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
+            benson = new PersonBuilder().withItemType("deadline").withStartDate("").withStartTime("").withEndTime("01:01")
+                    .withEndDate("2016-12-06").withName("Benson Meier")
                     .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withAddress("little tokyo").build();
-            george = new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
+            carl = new PersonBuilder().withItemType("task").withName("Carl Kurz").withStartDate("").withStartTime("").withEndDate("").withEndTime("").build();
+            daniel = new PersonBuilder().withItemType("event").withName("Daniel Meier").withStartDate("2015-01-01").withStartTime("00:00").withEndDate("2015-01-01").withEndTime("23:59").build();
+            elle = new PersonBuilder().withItemType("deadline").withName("Elle Meyer").withStartDate("").withStartTime("").withEndDate("2019-09-09").withEndTime("10:30").build();
+            fiona = new PersonBuilder().withItemType("task").withName("Fiona Kunz").withStartDate("").withStartTime("").withEndDate("").withEndTime("").build();
+            george = new PersonBuilder().withItemType("event").withName("George Best").withStartDate("2016-01-01").withStartTime("13:59").withEndDate("2017-01-03").withEndTime("15:00").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
+            hoon = new PersonBuilder().withItemType("deadline").withName("Hoon Meier").withStartDate("").withStartTime("").withEndDate("2016-09-30").withEndTime("21:14").build();
+            ida = new PersonBuilder().withItemType("task").withName("Ida Mueller").withStartDate("").withStartTime("").withEndDate("").withEndTime("").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -37,13 +37,13 @@ public class TypicalTestPersons {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addPerson(new Person(alice));
-            ab.addPerson(new Person(benson));
-            ab.addPerson(new Person(carl));
-            ab.addPerson(new Person(daniel));
-            ab.addPerson(new Person(elle));
-            ab.addPerson(new Person(fiona));
-            ab.addPerson(new Person(george));
+            ab.addItem(new Item(alice));
+            ab.addItem(new Item(benson));
+            ab.addItem(new Item(carl));
+            ab.addItem(new Item(daniel));
+            ab.addItem(new Item(elle));
+            ab.addItem(new Item(fiona));
+            ab.addItem(new Item(george));
         } catch (UniquePersonList.DuplicatePersonException e) {
             assert false : "not possible";
         }

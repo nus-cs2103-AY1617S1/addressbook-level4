@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.person.*;
 
 /**
  *
@@ -15,8 +15,8 @@ public class PersonBuilder {
         this.person = new TestPerson();
     }
 
-    public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+    public PersonBuilder withItemType(String itemType) throws IllegalValueException {
+        this.person.setItemType(new ItemType(itemType));
         return this;
     }
 
@@ -27,18 +27,28 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Address(address));
+    public PersonBuilder withEndDate(String endDate) throws IllegalValueException {
+        this.person.setEndDate(new Date(endDate));
+        return this;
+    }
+    
+    public PersonBuilder withEndTime(String endTime) throws IllegalValueException {
+        this.person.setEndTime(new Time(endTime));
         return this;
     }
 
-    public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new Phone(phone));
+    public PersonBuilder withName(String name) throws IllegalValueException {
+        this.person.setName(new Name(name));
         return this;
     }
 
-    public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Email(email));
+    public PersonBuilder withStartDate(String startDate) throws IllegalValueException {
+        this.person.setStartDate(new Date(startDate));
+        return this;
+    }
+    
+    public PersonBuilder withStartTime(String startTime) throws IllegalValueException {
+        this.person.setStartTime(new Time(startTime));
         return this;
     }
 

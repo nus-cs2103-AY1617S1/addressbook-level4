@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
+import seedu.address.model.item.ItemType;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -21,16 +22,30 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(T|t)(A|a)(S|s)(K|k)"
+                    + " n/(?<name>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    private static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(D|d)(E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e)"
+                    + " n/(?<name>[^/]+)"
+                    + " ed/(?<endDate>[^/]+)"
+                    + " et/(?<endTime>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(E|e)(V|v)(E|e)(N|n)(T|t)"
+                    + " n/(?<name>[^/]+)"
+            		+ "sd/(?<startDate>[^/]+)"
+                    + "st/(?<startTime>[^/]+)"
+                    + " ed/(?<endDate>[^/]+)"
+                    + " et/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -87,19 +102,47 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher deadlineMatcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        if (!taskMatcher.matches() && !deadlineMatcher.matches() && !eventMatcher.matches()) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
+            if (taskMatcher.matches()) {
+                return new AddCommand(
+                    "task",
+                    taskMatcher.group("name"),
+                    "", // No Start Date
+                    "", // No Start Time
+                    "", // No End Date
+                    "", // No End Time
+                    getTagsFromArgs(taskMatcher.group("tagArguments"))
+                );
+            } else if (deadlineMatcher.matches()) {
+                return new AddCommand(
+                    "deadline",
+                    deadlineMatcher.group("name"),
+                    "", // No Start Date
+                    "", // No Start Time
+                    deadlineMatcher.group("endDate"),
+                    deadlineMatcher.group("endTime"),
+                    getTagsFromArgs(deadlineMatcher.group("tagArguments"))
+                );
+            } else if (eventMatcher.matches()) {
+                return new AddCommand(
+                    "event",
+                    eventMatcher.group("name"),
+                    eventMatcher.group("startDate"),
+                    eventMatcher.group("startTime"),
+                    eventMatcher.group("endDate"),
+                    eventMatcher.group("endTime"),
+                    getTagsFromArgs(eventMatcher.group("tagArguments"))
+                );
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -157,7 +200,7 @@ public class Parser {
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }

@@ -1,10 +1,10 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.item.ReadOnlyPerson;
 
 /**
- * Represents a selection change in the Person List Panel
+ * Represents a selection change in the Item List Panel
  */
 public class PersonPanelSelectionChangedEvent extends BaseEvent {
 

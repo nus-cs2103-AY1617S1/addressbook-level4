@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.item;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
@@ -6,35 +6,44 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Item in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Person implements ReadOnlyPerson {
+public class Item implements ReadOnlyPerson {
 
+    private ItemType itemType;
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
+    private Date startDate;
+    private Time startTime;
+    private Date endDate;
+    private Time endTime;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+    public Item(ItemType itemType, Name name, Date startDate, Time startTime, Date endDate, Time endTime, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(itemType, name, endDate, endTime, tags);
+        this.itemType = itemType;
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
-    public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+    public Item(ReadOnlyPerson source) {
+        this(source.getItemType(), source.getName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getTags());
+    }
+
+    @Override
+    public ItemType getItemType() {
+        return itemType;
     }
 
     @Override
@@ -43,18 +52,23 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Date getStartDate() {
+        return startDate;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public Time getStartTime() {
+        return startTime;
+    }    
+    
+    @Override
+    public Date getEndDate() {
+        return endDate;
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public Time getEndTime() {
+        return endTime;
     }
 
     @Override
@@ -79,7 +93,7 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(itemType, name, endDate, endTime, tags);
     }
 
     @Override
