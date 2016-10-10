@@ -1,5 +1,8 @@
 package seedu.todo.logic.arguments;
 
+import java.util.logging.Logger;
+
+import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 
 abstract public class Argument<T> implements Parameter {
@@ -14,6 +17,8 @@ abstract public class Argument<T> implements Parameter {
     
     private static final String REQUIRED_ERROR_FORMAT = "The %s parameter is required";
     private String requiredErrorMessage;
+    
+    private static final Logger logger = LogsCenter.getLogger(Argument.class);
     
     public Argument(String name) {
         this.name = name;
@@ -55,9 +60,14 @@ abstract public class Argument<T> implements Parameter {
     public String getFlag() {
         return flag;
     }
-
+    
     public Argument<T> flag(String flag) {
-        this.flag = flag;
+        this.flag = flag.trim().toLowerCase();
+        
+        if (!this.flag.equals(flag)) {
+            logger.warning("Flag argument has uppercase or whitespace characters. These have been ignored.");
+        }
+        
         return this;
     }
 
@@ -82,6 +92,7 @@ abstract public class Argument<T> implements Parameter {
      * @param errorMessage shown to the user when the parameter is not provided 
      */
     public Argument<T> required(String errorMessage) {
+        requiredErrorMessage = errorMessage;
         this.optional = false;
         return this;
     }
