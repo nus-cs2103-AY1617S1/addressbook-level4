@@ -4,7 +4,7 @@ import seedu.todo.model.ErrorBag;
 
 public class ValidationException extends Exception {
 
-    ErrorBag errors;
+    private ErrorBag errors;
     
     public ValidationException(String message, ErrorBag errors) {
         super(message);
