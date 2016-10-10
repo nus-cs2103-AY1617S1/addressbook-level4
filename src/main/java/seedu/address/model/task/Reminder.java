@@ -22,14 +22,13 @@ public class Reminder {
      */
     public Reminder(String date) throws IllegalValueException {
         assert date != null;
-            if (date.equals("today"))
-                date = DateValidation.TodayDate();
-            else if (date == "tomorrow")
-                date = DateValidation.TomorrowDate();
-        /*
-         * if (!isValidReminder(date)) { throw new
-         * IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS); }
-         */
+        if (date.equals("today"))
+            date = DateValidation.TodayDate();
+        else if (date.equals("tomorrow"))
+            date = DateValidation.TomorrowDate();
+        if (!isValidReminder(date)) {
+            throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
+        }
         this.value = date;
     }
 

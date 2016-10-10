@@ -4,8 +4,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateValidation;
 
 /**
- * Represents a Task's DueDate in the Lifekeeper.
- * Guarantees: immutable; is valid as declared in {@link #isValidDueDate(String)}
+ * Represents a Task's DueDate in the Lifekeeper. Guarantees: immutable; is
+ * valid as declared in {@link #isValidDueDate(String)}
  */
 public class DueDate {
 
@@ -16,24 +16,29 @@ public class DueDate {
     /**
      * Validates given Due Date.
      *
-     * @throws IllegalValueException if given due date string is invalid.
+     * @throws IllegalValueException
+     *             if given due date string is invalid.
      */
     public DueDate(String date) throws IllegalValueException {
         assert date != null;
-        date = date.trim();
+        if (date.equals("today"))
+            date = DateValidation.TodayDate();
+        else if (date.equals("tomorrow"))
+            date = DateValidation.TomorrowDate();
         if (!isValidDueDate(date)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
+
         this.value = date;
     }
 
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given string is a valid task reminder.
      */
     public static boolean isValidDueDate(String test) {
-        if((DateValidation.validate(test)) || (test== "today") || (test == "tomorrow"))
+        if ((DateValidation.validate(test)))
             return true;
-        else 
+        else
             return false;
     }
 
@@ -46,7 +51,8 @@ public class DueDate {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DueDate // instanceof handles nulls
-                && this.value.equals(((DueDate) other).value)); // state check
+                        && this.value.equals(((DueDate) other).value)); // state
+                                                                        // check
     }
 
     @Override

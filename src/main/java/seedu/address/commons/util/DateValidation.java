@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,21 +72,29 @@ public class DateValidation {
     // Return today's date
     public static String TodayDate() {
         String todaydate;
-        todaydate = DateFormatChange();
+        todaydate = DateFormatToday();
         return todaydate;
     }
 
     // Return tomorrow's date
     public static String TomorrowDate() {
         String tomorrowdate;
-        tomorrowdate = DateFormatChange();
+        tomorrowdate = DateFormatTomorrow();
         return tomorrowdate;
     }
 
-    public static String DateFormatChange() {
+    public static String DateFormatToday() {
         String strDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         return strDate;
-
+    }
+    
+    public static String DateFormatTomorrow() {
+        Date today = new Date();
+        Date dayafter = new Date(today.getTime() + TimeUnit.DAYS.toMillis( 1 ));
+        String strDate = new SimpleDateFormat("dd-MM-yyyy").format(dayafter);
+        
+        return strDate;
+        
     }
 
 }
