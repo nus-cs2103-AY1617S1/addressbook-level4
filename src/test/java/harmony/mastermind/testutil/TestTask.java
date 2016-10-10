@@ -47,7 +47,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public boolean isArchived() {
+    public boolean isMarked() {
         // TODO Auto-generated method stub
         return false;
     }

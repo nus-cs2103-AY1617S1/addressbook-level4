@@ -103,10 +103,10 @@ public class EditCommand extends Command {
             }
             return tagSet;
         }).orElse(taskToEdit.getTags().toSet()));
-        boolean toEditIsArchived = taskToEdit.isArchived();
+        boolean toEditIsMarked = taskToEdit.isMarked();
 
         // initialize the new task with edited values
-        this.toEdit = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags, toEditIsArchived);
+        this.toEdit = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags, toEditIsMarked);
 
         try {
             model.deleteTask(taskToEdit);
