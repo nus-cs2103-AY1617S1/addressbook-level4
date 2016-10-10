@@ -187,6 +187,7 @@ The `Model` interface allows you to request for any model-related operations, su
 in the task list, without having to know anything about the implementation of the `ModelManager` class.
 
 Notable APIs
+
 Return type | Method and Description
 ----------- | ----------------------
 void | `resetData(ReadOnlyTaskList newData)`: Replaces the entire task list with the one provided by `newData`.
