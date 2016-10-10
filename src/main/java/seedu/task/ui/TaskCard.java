@@ -57,7 +57,7 @@ public class TaskCard extends UiPart{
             dateTime.setText(task.getStartDate().value + " till " + task.getEndDate().value);        
         } else {
             if(task.getEndDate().value.isEmpty()){
-                dateTime.setText("Floating task");
+                dateTime.setText("");
             } else {
                 dateTime.setText("Due by: " + task.getEndDate().value); 
             }
@@ -66,7 +66,7 @@ public class TaskCard extends UiPart{
 
     private void setTextForVenue() {
         if(task.getVenue().value.isEmpty()){
-            venue.setText("No venue");
+            venue.setText("");
         } else {
             venue.setText("Venue: " + task.getVenue().value);
         }
