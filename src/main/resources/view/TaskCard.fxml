@@ -44,71 +44,7 @@
             <ImageView fx:id="pinImage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" StackPane.alignment="CENTER_RIGHT" />
          </children>
       </StackPane>
-      <HBox fx:id="tagsBox" alignment="CENTER_LEFT" styleClass="collapsible">
-         <children>
-            <Label fx:id="tagLabel0" alignment="TOP_LEFT" styleClass="roundLabel" text="Long Label 0" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Semilight" size="16.0" />
-               </font>
-               <padding>
-                  <Insets left="8.0" right="8.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="4.0" right="4.0" />
-               </HBox.margin>
-            </Label>
-            <Label fx:id="tagLabel1" alignment="TOP_LEFT" styleClass="roundLabel" text="Long Label 1" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Semilight" size="16.0" />
-               </font>
-               <padding>
-                  <Insets left="8.0" right="8.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="4.0" right="4.0" />
-               </HBox.margin>
-            </Label>
-            <Label fx:id="tagLabel2" alignment="TOP_LEFT" styleClass="roundLabel" text="Long Label 2" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Semilight" size="16.0" />
-               </font>
-               <padding>
-                  <Insets left="8.0" right="8.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="4.0" right="4.0" />
-               </HBox.margin>
-            </Label>
-            <Label fx:id="tagLabel3" alignment="TOP_LEFT" styleClass="roundLabel" text="Long Label 3" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Semilight" size="16.0" />
-               </font>
-               <padding>
-                  <Insets left="8.0" right="8.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="4.0" right="4.0" />
-               </HBox.margin>
-            </Label>
-            <Label fx:id="tagLabel4" alignment="TOP_LEFT" styleClass="roundLabel" text="Long Label 4" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Semilight" size="16.0" />
-               </font>
-               <padding>
-                  <Insets left="8.0" right="8.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="4.0" right="4.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-         <padding>
-            <Insets bottom="4.0" />
-         </padding>
-      </HBox>
+      <FlowPane fx:id="tagsBox" />
       <HBox fx:id="descriptionBox" styleClass="collapsible">
          <children>
             <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" minWidth="4.0">

@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.image.ImageView;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.commons.util.TimeUtil;
@@ -28,6 +29,7 @@ public class TaskCard extends UiPart{
     private static final String STYLE_COMPLETED = "completed";
     private static final String STYLE_OVERDUE = "overdue";
     private static final String STYLE_SELECTED = "selected";
+    private static final String STYLE_ROUND_LABEL = "roundLabel";
     
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
@@ -42,11 +44,11 @@ public class TaskCard extends UiPart{
     @FXML
     private Label typeLabel;
     @FXML
-    private Label tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4;
-    @FXML
     private Label descriptionLabel, dateLabel, locationLabel;
     @FXML
     private HBox descriptionBox, dateBox, locationBox;
+    @FXML
+    private FlowPane tagsBox;
     
     /*Variables*/
     private ImmutableTask task;
@@ -94,10 +96,6 @@ public class TaskCard extends UiPart{
      * Displays the tags in lexicographical order, ignoring case.
      */
     private void displayTags(){
-        Label[] tagLabels = {tagLabel0, tagLabel1, tagLabel2, tagLabel3, tagLabel4};
-        
-        int numberOfTags = task.getTags().size();
-        assert (numberOfTags <= 5);
         
         LinkedList<Tag> tagList = new LinkedList<>(task.getTags());
         tagList.sort(new Comparator<Tag>(){
@@ -107,12 +105,11 @@ public class TaskCard extends UiPart{
             }
         });
         
-        for (Label label : tagLabels) {
-            if (tagList.isEmpty()) {
-                FxViewUtil.setCollapsed(label, true);
-            } else {
-                label.setText(tagList.poll().tagName);
-            }
+        for (Tag tag : tagList) {
+            Label tagLabel = new Label();
+            tagLabel.setText(tag.tagName);
+            tagLabel.getStyleClass().add(STYLE_ROUND_LABEL);
+            tagsBox.getChildren().add(tagLabel);
         }
     }
     
