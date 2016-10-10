@@ -8,7 +8,7 @@ import seedu.task.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart{
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TaskListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -25,7 +25,7 @@ public class PersonCard extends UiPart{
     @FXML
     private Label tags;
 
-    private ReadOnlyTask person;
+    private ReadOnlyTask task;
     private int displayedIndex;
 
     public PersonCard(){
@@ -34,19 +34,19 @@ public class PersonCard extends UiPart{
 
     public static PersonCard load(ReadOnlyTask person, int displayedIndex){
         PersonCard card = new PersonCard();
-        card.person = person;
+        card.task = person;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName + " " + person.getVenue().value);
+        name.setText(task.getName().fullName + " " + task.getVenue().value);
         id.setText(displayedIndex + ". ");
-        dateTime.setText("Start Date: " + person.getStartDate().value + " End Date: " + person.getEndDate().value);
-        priority.setText(person.getPriority().toString());
-        status.setText(person.getStatus().toString());
-        tags.setText(person.tagsString());
+        dateTime.setText("Start Date: " + task.getStartDate().value + " End Date: " + task.getEndDate().value);
+        priority.setText(task.getPriority().toString());
+        status.setText(task.getStatus().toString());
+        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {
