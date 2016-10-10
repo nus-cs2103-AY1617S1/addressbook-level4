@@ -26,6 +26,6 @@ public class ClearCommandTest extends TaskListGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("DueDate book has been cleared!");
+        assertResultMessage("Task list has been cleared!");
     }
 }
