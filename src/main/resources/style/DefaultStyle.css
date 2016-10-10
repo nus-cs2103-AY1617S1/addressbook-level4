@@ -122,4 +122,12 @@
 .overdue .locationImage {
     -fx-image: url("../images/location_white.png");
 }
+
+/*Collapse*/
+.collapsed .collapsible {
+    visibility: collapse;
+    -fx-pref-height: 0px;
+    -fx-min-height: 0px;
+}
+
 /***TaskCard Styles End***/

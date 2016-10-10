@@ -24,7 +24,7 @@
                         <Insets bottom="4.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="typeLabel1" text="Event" textFill="WHITE">
+                  <Label fx:id="typeLabel" text="Event" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
@@ -35,8 +35,8 @@
                         <Insets left="8.0" />
                      </HBox.margin>
                      <styleClass>
+                        <String fx:value="highlightedBackground" />
                         <String fx:value="roundLabel" />
-                        <String fx:value="typeLabel" />
                      </styleClass>
                   </Label>
                </children>
@@ -44,24 +44,9 @@
             <ImageView fx:id="pinImage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" StackPane.alignment="CENTER_RIGHT" />
          </children>
       </StackPane>
-      <HBox fx:id="tagsBox" alignment="CENTER_LEFT">
+      <HBox fx:id="tagsBox" alignment="CENTER_LEFT" styleClass="collapsible">
          <children>
-            <Label fx:id="typeLabel0" alignment="TOP_LEFT" text="Event" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Semilight" size="16.0" />
-               </font>
-               <padding>
-                  <Insets left="8.0" right="8.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets right="4.0" />
-               </HBox.margin>
-               <styleClass>
-                  <String fx:value="roundLabel" />
-                  <String fx:value="typeLabel" />
-               </styleClass>
-            </Label>
-            <Label fx:id="tagLabel0" alignment="TOP_LEFT" text="Long Label 0" textFill="WHITE">
+            <Label fx:id="tagLabel0" alignment="TOP_LEFT" styleClass="roundLabel" text="Long Label 0" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -71,12 +56,8 @@
                <HBox.margin>
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
-               <styleClass>
-                  <String fx:value="roundLabel" />
-                  <String fx:value="tagLabel" />
-               </styleClass>
             </Label>
-            <Label fx:id="tagLabel1" alignment="TOP_LEFT" text="Long Label 1" textFill="WHITE">
+            <Label fx:id="tagLabel1" alignment="TOP_LEFT" styleClass="roundLabel" text="Long Label 1" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -86,12 +67,8 @@
                <HBox.margin>
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
-               <styleClass>
-                  <String fx:value="roundLabel" />
-                  <String fx:value="tagLabel" />
-               </styleClass>
             </Label>
-            <Label fx:id="tagLabel2" alignment="TOP_LEFT" text="Long Label 2" textFill="WHITE">
+            <Label fx:id="tagLabel2" alignment="TOP_LEFT" styleClass="roundLabel" text="Long Label 2" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -101,12 +78,8 @@
                <HBox.margin>
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
-               <styleClass>
-                  <String fx:value="roundLabel" />
-                  <String fx:value="tagLabel" />
-               </styleClass>
             </Label>
-            <Label fx:id="tagLabel3" alignment="TOP_LEFT" text="Long Label 3" textFill="WHITE">
+            <Label fx:id="tagLabel3" alignment="TOP_LEFT" styleClass="roundLabel" text="Long Label 3" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -116,12 +89,8 @@
                <HBox.margin>
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
-               <styleClass>
-                  <String fx:value="roundLabel" />
-                  <String fx:value="tagLabel" />
-               </styleClass>
             </Label>
-            <Label fx:id="tagLabel4" alignment="TOP_LEFT" text="Long Label 4" textFill="WHITE">
+            <Label fx:id="tagLabel4" alignment="TOP_LEFT" styleClass="roundLabel" text="Long Label 4" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -131,10 +100,6 @@
                <HBox.margin>
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
-               <styleClass>
-                  <String fx:value="roundLabel" />
-                  <String fx:value="tagLabel" />
-               </styleClass>
             </Label>
          </children>
          <VBox.margin>
@@ -144,12 +109,12 @@
             <Insets bottom="4.0" />
          </padding>
       </HBox>
-      <HBox fx:id="descriptionBox">
+      <HBox fx:id="descriptionBox" styleClass="collapsible">
          <children>
             <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" minWidth="4.0">
                <styleClass>
+                  <String fx:value="highlightedBackground" />
                   <String fx:value="roundLabel" />
-                  <String fx:value="borderDecoration" />
                </styleClass></Label>
             <Label fx:id="descriptionLabel" lineSpacing="1.0" styleClass="descriptionLabel" text="Task description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id iaculis arcu. Curabitur at dapibus magna, at molestie diam. Integer posuere." wrapText="true">
                <HBox.margin>
@@ -176,17 +141,13 @@
                         <Insets right="4.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="dateLabel" maxHeight="1.7976931348623157E308" text="from 31 October 2016 3:45 PM to 4:15 PM">
+                  <Label fx:id="dateLabel" maxHeight="1.7976931348623157E308" styleClass="footnoteLabel" text="from 31 October 2016 3:45 PM to 4:15 PM">
                      <font>
                         <Font name="Segoe UI Italic" size="16.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
-                     <styleClass>
-                        <String fx:value="footnoteLabel" />
-                        <String fx:value="timeLabel" />
-                     </styleClass>
                   </Label>
                </children>
                <FlowPane.margin>
