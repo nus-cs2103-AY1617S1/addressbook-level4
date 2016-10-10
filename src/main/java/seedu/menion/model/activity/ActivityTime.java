@@ -7,31 +7,31 @@ import seedu.menion.commons.exceptions.IllegalValueException;
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidReminder(String)}
  */
-public class Reminder {
+public class ActivityTime {
 
-    public static final String MESSAGE_REMINDER_CONSTRAINTS = "Task reminder should be in dd-mm-yy or dd-mm-yyyy format";
+    public static final String ACTIVITY_TIME_CONSTRAINTS = "Activity time should be in 24-hour format";
     public static final String REMINDER_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-2][0][0-9][0-9]$";
     public static final String REMINDER_SECOND_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-9][0-9]$"; 
     public final String value;
 
     /**
-     * Validates given reminder date.
+     * Validates given time date.
      *
-     * @throws IllegalValueException if given reminder date string is invalid.
+     * @throws IllegalValueException if given time date string is invalid.
      */
-    public Reminder(String reminder) throws IllegalValueException {
-        assert reminder != null;
-        reminder = reminder.trim();
-        if (!isValidReminder(reminder)) {
-            throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
+    public ActivityTime(String time) throws IllegalValueException {
+        assert time != null;
+        time = time.trim();
+        if (!isValidTime(time)) {
+            throw new IllegalValueException(ACTIVITY_TIME_CONSTRAINTS);
         }
-        this.value = reminder;
+        this.value = time;
     }
 
     /**
-     * Returns if a given string is a valid task reminder date.
+     * Returns if a given string is a valid activity time.
      */
-    public static boolean isValidReminder(String test) {
+    public static boolean isValidTime(String test) {
         boolean result = false;
         
         if (test.matches(REMINDER_SECOND_VALIDATION_REGEX) || test.matches(REMINDER_VALIDATION_REGEX)) {
@@ -48,8 +48,8 @@ public class Reminder {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Reminder // instanceof handles nulls
-                && this.value.equals(((Reminder) other).value)); // state check
+                || (other instanceof ActivityTime // instanceof handles nulls
+                && this.value.equals(((ActivityTime) other).value)); // state check
     }
 
     @Override

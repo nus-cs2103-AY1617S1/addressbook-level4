@@ -169,7 +169,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", ActivityDate.MESSAGE_DEADLINE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Reminder.MESSAGE_REMINDER_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnEmail a/valid, address", ActivityTime.MESSAGE_REMINDER_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -388,7 +388,7 @@ public class LogicManagerTest {
         Activity adam() throws Exception {
             ActivityName name = new ActivityName("Adam Brown");
             ActivityDate privatePhone = new ActivityDate("111111");
-            Reminder email = new Reminder("adam@gmail.com");
+            ActivityTime email = new ActivityTime("adam@gmail.com");
             Priority privateAddress = new Priority("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -407,7 +407,7 @@ public class LogicManagerTest {
             return new Activity(
                     new ActivityName("Person " + seed),
                     new ActivityDate("" + Math.abs(seed)),
-                    new Reminder(seed + "@email"),
+                    new ActivityTime(seed + "@email"),
                     new Priority("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -506,7 +506,7 @@ public class LogicManagerTest {
             return new Activity(
                     new ActivityName(name),
                     new ActivityDate("1"),
-                    new Reminder("1@email"),
+                    new ActivityTime("1@email"),
                     new Priority("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );

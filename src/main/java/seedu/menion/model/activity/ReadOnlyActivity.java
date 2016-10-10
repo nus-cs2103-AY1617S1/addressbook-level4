@@ -10,7 +10,7 @@ public interface ReadOnlyActivity {
 
     ActivityName getName();
     ActivityDate getDeadline();
-    Reminder getReminder();
+    ActivityTime getReminder();
     Priority getPriority();
 
     /**

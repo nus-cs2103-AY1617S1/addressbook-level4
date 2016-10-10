@@ -38,7 +38,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Reminder(email));
+        this.person.setEmail(new ActivityTime(email));
         return this;
     }
 
