@@ -6,21 +6,21 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Wrapper for both ReadOnlyEvent and ReadOnlyTask
+ * Wrapper for both Event and Task
  */
-public class Activity implements ReadOnlyEvent{
+public class Activity implements ReadOnlyEvent, MutableTagsEvent{
 
-    public enum ActivityType {EVENT, TASK};
+    public enum ActivityType {EVENT, TASK}
 
-    private ReadOnlyEvent activity;
+    private MutableTagsEvent activity;
     private ActivityType type;
 
-    public Activity(ReadOnlyEvent event){
+    public Activity(Event event){
         activity = event;
         type = ActivityType.EVENT;
     }
 
-    public Activity(ReadOnlyTask task){
+    public Activity(Task task){
         activity = task;
         type = ActivityType.TASK;
     }
@@ -91,6 +91,11 @@ public class Activity implements ReadOnlyEvent{
     @Override
     public Optional<Schedule> getSchedule() {
         return activity.getSchedule();
+    }
+
+    @Override
+    public void setTags(UniqueTagList replacement) {
+        activity.setTags(replacement);
     }
 
     @Override
