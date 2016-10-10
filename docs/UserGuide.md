@@ -56,13 +56,14 @@ Examples:
 Displays tasks and their indexes in the specified timeframe.<br>
 Format: `show [TYPE]`
 
-> * TYPE format: complete, all, overdue, floating, today, tomorrow, upcoming, or DATE.
-> * Except for show complete, all other inputs for TYPE will only display the incomplete tasks, i.e., the tasks which have not been marked as done
+> * TYPE can be replaced with p/high, p/med, p/low, complete, all, overdue, floating, today, tomorrow, upcoming, or any specific date.
+> * p/high, p/med, p/low stand for tasks with high priority, medium priority and low priority respectively.
+> * Except for show complete, all other inputs for TYPE will only display the incomplete tasks, i.e., the tasks which have not been marked as done.
 
 Examples:
-* `show floating`<br>
+* `show p/high`<br>
 
-> * Lists all the floating tasks
+> * Lists all tasks marked as high priority
 
 * `show tomorrow`<br>
 
