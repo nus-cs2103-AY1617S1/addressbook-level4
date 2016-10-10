@@ -267,9 +267,63 @@ The `UniqueTaskList` class provides a task list with no duplicate tasks.
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
-The `Storage` component,
+The `Storage` component
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
+* depends on `Model` component, but `Logic` and `UI` components depend on it.
+
+**`Storage` Interface:**
+
+The `Storage` interface allows you to request for any storage-related operations, such as reading and saving user's preferences and tasklist.
+
+Notable APIs
+
+Return type | Method and Description
+----------- | ----------------------
+Optional<`UserPrefs`> | `readUserPrefs()`: Reads User's Preferences.
+void | `saveUserPrefs(UserPrefs userPrefs)`: Saves User's Preferences.
+Optional<`ReadOnlyTaskList`> | `readTaskList()`: Reads the tasklist.
+void | `saveTaskList(ReadOnlyTaskList taskList)`: Saves the tasklist.
+
+**`StorageManager` Class:**
+
+The `StorageManager` class implements the `Storage` interface, and provides all the services and functionality
+specified in the `Storage` interface. 
+
+Other components should reference this class indirectly by using the `Storage` interface. You should not
+directly use this class outside the `Storage` component.
+
+**`TaskListStorage` Interface:**
+
+The `TaskListStorage` interface represents a storage for `TaskList`.
+
+**`UserPrefsStorage` Interface:**
+
+The `UserPrefsStorage` interface represents a storage for `UserPrefs`.
+
+**`JsonUserPrefsStorage` Class:**
+
+The `JsonUserPrefsStorage` class is provided for accessing `UserPrefs` stored in the hard disk as a json file.
+
+**`XmlAdaptedTag` Class:**
+
+The `XmlAdaptedTag` is a JAXB-friendly adapted version of the Tag.
+
+**`XmlAdaptedTask` Class:**
+
+The `XmlAdaptedTask` is a JAXB-friendly version of the Task.
+
+**`XmlFileStorage` Class:**
+
+The `XmlFileStorage` class Stores tasklist data in an XML file.
+
+**`XmlSerializableTaskList` Class:**
+
+The `XmlSerializableTaskList` is an immutable taskList that is serializable to XML format.
+
+**`XmlTaskListStorage` Class:**
+
+The `XmlTaskListStorage` is a class to access TaskList data stored as an xml file on the hard disk.
 
 ### Common classes
 
