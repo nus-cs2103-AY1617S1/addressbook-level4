@@ -38,7 +38,10 @@ public class Priority {
         if (!isValidPriority(priority)) {
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
-        this.value = priority.toLowerCase();
+        // Test-case manual add
+        if (!priority.equals("")) {
+        	this.value = priority.toLowerCase();
+        } else this.value = LOW;
     }
 
     /**
