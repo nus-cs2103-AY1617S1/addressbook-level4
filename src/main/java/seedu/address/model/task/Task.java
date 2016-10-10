@@ -37,6 +37,15 @@ public class Task implements ReadOnlyTask {
     }
     
     public Task(){}
+    
+    public boolean isValidTimeSlot(){
+    	if(startDate!=null && endDate!=null){
+    		return endDate.getParsedDate().after(startDate.getParsedDate());
+    	}else{
+    		return true;
+    	}
+    	
+    }
 
     /**
      * Copy constructor.

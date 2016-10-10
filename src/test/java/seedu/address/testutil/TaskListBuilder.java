@@ -4,6 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.model.TaskList;
 
 /**
@@ -19,7 +20,7 @@ public class TaskListBuilder {
         this.taskList = taskList;
     }
 
-    public TaskListBuilder withTask(Task person) throws UniqueTaskList.DuplicateTaskException {
+    public TaskListBuilder withTask(Task person) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskList.addTask(person);
         return this;
     }

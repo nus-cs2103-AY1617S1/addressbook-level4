@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.TaskList;
 import seedu.address.model.task.*;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 /**
  *
@@ -30,7 +31,7 @@ public class TypicalTestFloatingTasks {
         }
     }
 
-    public static void loadTaskListWithSampleData(TaskList ab) {
+    public static void loadTaskListWithSampleData(TaskList ab) throws TimeslotOverlapException {
 
         try {
             ab.addTask(new Task(trash));
@@ -49,7 +50,7 @@ public class TypicalTestFloatingTasks {
         return new TestFloatingTask[]{trash, book, homework, lecture, meeting, jogging, george};
     }
 
-    public TaskList getTypicalTaskList(){
+    public TaskList getTypicalTaskList() throws TimeslotOverlapException{
         TaskList ab = new TaskList();
         loadTaskListWithSampleData(ab);
         return ab;

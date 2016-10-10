@@ -34,5 +34,9 @@ public class TaskDate {
 
     public long getDate() {
         return date.getTime();
-    }   
+    } 
+    
+    public Date getParsedDate(){
+    	return date;
+    }
 }
