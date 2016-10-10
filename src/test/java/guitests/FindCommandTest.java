@@ -15,7 +15,22 @@ public class FindCommandTest extends AddressBookGuiTest {
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Flunk",td.daniel);
+        assertFindResult("find Flunk", td.daniel);
+    }
+    
+    @Test
+    public void find_Date() {
+        assertFindResult("find 14102016", td.benson, td.carl);
+    }
+    
+    @Test
+    public void find_address() {
+        assertFindResult("find hall", td.daniel, td.elle);
+    }
+    
+    @Test
+    public void find_tag() {
+        assertFindResult("find Priority", td.alice, td.benson, td.carl, td.daniel);
     }
 
     @Test
