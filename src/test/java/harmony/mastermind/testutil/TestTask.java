@@ -1,5 +1,7 @@
 package harmony.mastermind.testutil;
 
+import java.util.Date;
+
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
 
@@ -8,58 +10,65 @@ import harmony.mastermind.model.task.*;
  */
 public class TestTask implements ReadOnlyTask {
 
-    private Name name;
-    private Date date;
-    private Time time;
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
     }
-
-    public void setName(Name name) {
-        this.name = name;
-    }
-
-    public void setDate(Date email) {
-        this.date = email;
-    }
-
-    public void setTime(Time phone) {
-        this.time = phone;
-    }
-
-    @Override
-    public Name getName() {
-        return name;
-    }
-
-    @Override
-    public Time getTime() {
-        return time;
-    }
-
-    @Override
-    public Date getDate() {
-        return date;
-    }
-
+    
     @Override
     public UniqueTagList getTags() {
         return tags;
     }
 
-    @Override
-    public String toString() {
-        return getAsText();
-    }
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("at/" + this.getTime().value + " ");
-        sb.append("on/" + this.getDate().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Date getStartDate() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Date getEndDate() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean isArchived() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isFloating() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isDeadline() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isEvent() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    
+    
 }

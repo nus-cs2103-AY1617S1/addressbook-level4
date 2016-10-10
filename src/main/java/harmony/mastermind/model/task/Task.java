@@ -1,83 +1,127 @@
 package harmony.mastermind.model.task;
 
-import java.util.Objects;
+import java.util.Date;
 
-import harmony.mastermind.commons.util.CollectionUtil;
 import harmony.mastermind.model.tag.UniqueTagList;
 
-/**
- * Represents a Task in the task manager.
- * Guarantees: details are present and not null, field values are validated.
- */
 public class Task implements ReadOnlyTask {
 
-    private Name name;
-    private Time time;
-    private Date date;
-
+    private String name;
+    private Date startDate;
+    private Date endDate;
     private UniqueTagList tags;
 
-    /**
-     * Every field must be present and not null.
-     */
-    public Task(Name name, Time time, Date date, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, time, date, tags);
+    private boolean isArchived;
+
+    private boolean isMarked;
+
+    // event
+    // @@author A0138862W
+    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, boolean isArchived) {
         this.name = name;
-        this.time = time;
-        this.date = date;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.tags = tags;
+        this.isArchived = isArchived;
     }
 
-    /**
-     * Copy constructor.
-     */
+    // deadline
+    // @@author A0138862W
+    public Task(String name, Date endDate, UniqueTagList tags, boolean isArchived) {
+        this(name, null, endDate, tags, isArchived);
+    }
+
+    // floating
+    // @@author A0138862W
+    public Task(String name, UniqueTagList tags, boolean isArchived) {
+        this(name, null, null, tags, false);
+    }
+
+    // @@author A0138862W
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTime(), source.getDate(), source.getTags());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.isArchived());
     }
 
     @Override
-    public Name getName() {
+    // @@author generated
+    public String getName() {
         return name;
     }
 
-    @Override
-    public Time getTime() {
-        return time;
+    // @@author generated
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
-    public Date getDate() {
-        return date;
-    }
-
-    @Override
+    // @@author generated
     public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-
-    /**
-     * Replaces this task's tags with the tags in the argument tag list.
-     */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+        return tags;
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+    // @@author generated
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    // @@author generated
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, time, date, tags);
+    // @@author generated
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    // @@author generated
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    // @@author generated
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
     }
 
     @Override
-    public String toString() {
-        return getAsText();
+    // @@author generated
+    public boolean isArchived() {
+        return isArchived;
     }
 
+    // @@author generated
+    public void setArchived(boolean isArchived) {
+        this.isArchived = isArchived;
+    }
+
+    // @@author generated
+    public boolean isMarked() {
+        return isMarked;
+    }
+
+    // @@author generated
+    public void setMarked(boolean isMarked) {
+        this.isMarked = isMarked;
+    }
+
+    @Override
+    // @@author A0138862W
+    public boolean isFloating() {
+        return startDate == null && endDate == null;
+    }
+
+    @Override
+    // @@author A0138862W
+    public boolean isDeadline() {
+        return startDate == null && endDate != null;
+    }
+
+    @Override
+    // @@author A0138862W
+    public boolean isEvent() {
+        return startDate != null && endDate != null;
+    }
 }
