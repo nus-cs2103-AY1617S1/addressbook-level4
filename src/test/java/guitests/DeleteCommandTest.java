@@ -2,13 +2,13 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.taskitty.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 import static seedu.taskitty.logic.commands.DeleteCommand.CATEGORIES;
-import static seedu.taskitty.logic.parser.Parser.parseCategory;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
@@ -91,7 +91,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
         commandBox.runCommand("delete " + category + " " + targetIndexOneIndexed);
-        int categoryIndex = parseCategory(category);
+        int categoryIndex = StringUtil.getCategoryIndex(category);
         //confirm the list now contains all previous persons except the deleted person
         assertTrue(personListPanel.isListMatching(expectedRemainder));
 

@@ -137,7 +137,7 @@ public class Parser {
         if (splitArgs.length == 1) {
             return new DeleteCommand(index.get());
         } else {
-            return new DeleteCommand(index.get(), parseCategory(splitArgs[0]));
+            return new DeleteCommand(index.get(), StringUtil.getCategoryIndex(splitArgs[0]));
         }
     }
 
@@ -173,25 +173,7 @@ public class Parser {
         }
         return Optional.of(Integer.parseInt(index));
 
-    }
-    
-    /**
-     * Returns the specified index in the {@code command} IF a valid category character was given.
-     *   else return the default index
-     */
-    public static int parseCategory(String command) {
-        switch(command) {
-            case("d"): 
-                return 1;
-            
-            case("e"): 
-                return 2;
-            
-            default: 
-                return 0;
-            
-        }
-    }
+    }    
     
     /**
      * Parses arguments in the context of the find person command.
