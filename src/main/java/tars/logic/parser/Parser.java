@@ -15,6 +15,7 @@ import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
+import tars.logic.commands.MarkCommand;
 import tars.logic.commands.SelectCommand;
 
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -40,9 +41,6 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
-    private static final String FLAG_DATETIME = "-dt";
-    private static final String FLAG_PRIORITY = "-p";
-    private static final String FLAG_TAG = "-t";
 
     public Parser() {
     }
@@ -50,8 +48,7 @@ public class Parser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput
-     *            full user input string
+     * @param userInput full user input string
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
@@ -84,6 +81,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+        
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -99,15 +99,14 @@ public class Parser {
     /**
      * Parses arguments in the context of the add task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
         String name = "";
-        Option priorityOpt = new Option(FLAG_PRIORITY, true);
-        Option dateTimeOpt = new Option(FLAG_DATETIME, true);
-        Option tagOpt = new Option(FLAG_TAG, false);
+        Option priorityOpt = new Option(Prefixes.PRIORITY, true);
+        Option dateTimeOpt = new Option(Prefixes.DATETIME, true);
+        Option tagOpt = new Option(Prefixes.TAG, false);
         
         Option[] options = {
                 priorityOpt, 
@@ -131,8 +130,8 @@ public class Parser {
         try {
             return new AddCommand(
                     name,
-                    DateTimeUtil.getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(FLAG_DATETIME + " ", "")),
-                    optionFlagNArgMap.get(priorityOpt).replace(FLAG_PRIORITY + " ", ""),
+                    DateTimeUtil.getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(Prefixes.DATETIME + " ", "")),
+                    optionFlagNArgMap.get(priorityOpt).replace(Prefixes.PRIORITY + " ", ""),
                     getTagsFromArgs(optionFlagNArgMap.get(tagOpt)));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -152,8 +151,8 @@ public class Parser {
         }
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments
-                                                                .replaceFirst(FLAG_TAG + " ", "")
-                                                                .split(" " + FLAG_TAG + " "));
+                                                                .replaceFirst(Prefixes.TAG + " ", "")
+                                                                .split(" " + Prefixes.TAG + " "));
         return new HashSet<>(tagStrings);
     }
     
@@ -221,8 +220,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the edit task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
@@ -249,8 +247,7 @@ public class Parser {
      * remove], name, dateTime, priority, tag to add and tag to remove positions
      * can be swapped and are optional.
      *
-     * @param args
-     *            full command args string from the user
+     * @param args full command args string from the user
      * @return whether format of edit command arguments allows parsing into
      *         individual arguments
      */
@@ -277,12 +274,45 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
+    
+    /**
+     * Parses arguments in the context of the mark task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMark(String arguments) {
+        int doneIndex = arguments.indexOf(Prefixes.DONE);
+        int undoneIndex = arguments.indexOf(Prefixes.UNDONE);
+                
+        if (doneIndex == -1 & undoneIndex == -1) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        } else {
+            String markDone = "";
+            String markUndone = "";
+            
+            if (doneIndex == -1 & undoneIndex != -1) {
+                // only has tasks to mark as undone
+                markUndone = arguments.substring(undoneIndex).trim();
+            } else if (doneIndex != -1 & undoneIndex == -1) {
+                // only has tasks to mark as done
+                markDone = arguments.substring(doneIndex).trim();
+            } else if (doneIndex < undoneIndex) {
+                // mark as done tasks come before undone 
+                markDone = arguments.substring(doneIndex, undoneIndex).trim();
+                markUndone = arguments.substring(undoneIndex).trim();
+            } else {
+                markUndone = arguments.substring(undoneIndex, doneIndex).trim();
+                markDone = arguments.substring(doneIndex).trim();
+            }
+            return new MarkCommand(markDone, markUndone);
+        }
+    }
 
     /**
      * Parses arguments in the context of the select task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
@@ -316,8 +346,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the find task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareFind(String args) {
