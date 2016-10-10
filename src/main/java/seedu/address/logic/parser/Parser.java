@@ -52,7 +52,6 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        System.out.println(arguments);
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -107,7 +106,7 @@ public class Parser {
         
         if (!taskMatcher.matches()) {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }         
+        }
         else {
         	String starttime = (taskMatcher.group("start")==null)?"":taskMatcher.group("start");
         	String endtime = (taskMatcher.group("end")==null)?"":taskMatcher.group("end");
