@@ -58,7 +58,9 @@ public class DateUtil {
 			return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US);
 		
 		// Otherwise, dates should be a relative days ago/from now format.
-		return String.format("%d days %s", Math.abs(daysDifference), daysDifference > 0 ? fromNow : tillNow);
+		return String.format("%d %s %s", Math.abs(daysDifference), 
+							 StringUtil.pluralizer((int) Math.abs(daysDifference), "day", "days"), 
+							 daysDifference > 0 ? fromNow : tillNow);
 	}
 	
 }
