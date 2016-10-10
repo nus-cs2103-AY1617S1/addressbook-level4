@@ -62,6 +62,9 @@ public class Parser {
         
         case TagCommand.COMMAND_WORD:
             return prepareTag(arguments);
+            
+        case UntagCommand.COMMAND_WORD:
+            return prepareUntag(arguments);
 
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmark(arguments);
@@ -177,7 +180,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the see task command.
+     * Parses arguments in the context of the tag task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -188,6 +191,24 @@ public class Parser {
            String tagNames = args.substring(1);
            String index = args.substring(0, 1);
            return new TagCommand(index, tagNames);
+        } catch (Exception e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
+
+    }
+    
+    /**
+     * Parses arguments in the context of the untag task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUntag(String args) {
+        try {
+           args = args.trim();
+           String tagNames = args.substring(1);
+           String index = args.substring(0, 1);
+           return new UntagCommand(index, tagNames);
         } catch (Exception e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
