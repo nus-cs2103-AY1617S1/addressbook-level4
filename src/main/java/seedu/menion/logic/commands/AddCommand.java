@@ -5,6 +5,7 @@ import seedu.menion.model.activity.*;
 import seedu.menion.model.tag.Tag;
 import seedu.menion.model.tag.UniqueTagList;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,19 +31,10 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String deadline, String reminder, String priority, Set<String> tags)
+    public AddCommand(ArrayList<String> details) 
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd = new Activity(
-                new Name(name),
-                new Deadline(deadline),
-                new Reminder(reminder),
-                new Priority(priority),
-                new UniqueTagList(tagSet)
-        );
+
+        this.toAdd = new Activity(details);
     }
 
     @Override
