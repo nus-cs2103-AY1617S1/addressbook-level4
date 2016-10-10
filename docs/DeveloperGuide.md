@@ -260,7 +260,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-## Appendix A : User Stories
+## APPENDIX A: USER STORIES
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -281,32 +281,71 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | have a backup of my schedule | make a recovery from the backup in case of a software or hardware crash
 
 
-## Appendix B : Use Cases
+## APPENDIX B: USE CASES
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+1.  User requests to add task
+2.  RubyTask adds the task. Use case ends.
+
+**Extensions**
+
+1a. Invalid syntax for command
+> 1a1. RubyTask shows an error message. Use case ends
+
+#### Use case: Find task with keywords
+
+**MSS**
+
+1.  User requests to list tasks matching keywords
+2.  RubyTask shows a list of tasks matching keywords. Use case ends.
+
+**Extensions**
+
+2a. No matching tasks
+> 2a1. RubyTask shows an error message. Use case ends
+
+#### Use case: Delete task
+
+**MSS**
+
+1.  User requests to list tasks
+2.  RubyTask shows a list of tasks
+3.  User requests to delete a specific task in the list
+4.  RubyTask deletes the task. Use case ends.
 
 **Extensions**
 
 2a. The list is empty
-
-> Use case ends
+> 2a1. Use case ends.
 
 3a. The given index is invalid
+> 3a1. RubyTask shows an error message.\
+> 3a2. Use case resumes at step 2.
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+#### Use case: Undo latest command
 
-{More to be added}
+**MSS**
+
+1.  User requests to add or delete task.
+2.  User requests to undo latest command.
+3.  RubyTask undoes the latest command. Use case ends.
+
+**Extensions**
+
+2a. Latest command is add task
+> 2a1. RubyTask delete last added task. Use case ends.
+
+2b. Latest command is delete task
+> 2b1. RubyTask adds last deleted task. Use case ends.
+
+2c. Latest command is invalid
+> 2c1. Use case ends.
+
 
 ## Appendix C : Non Functional Requirements
 
