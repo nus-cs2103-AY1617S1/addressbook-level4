@@ -44,7 +44,7 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
-        venue.setText(task.getVenue().value);
+        venue.setText("Venue: " + task.getVenue().value);
         id.setText(displayedIndex + ". ");
         dateTime.setText("Start Date: " + task.getStartDate().value + " End Date: " + task.getEndDate().value);
         priority.setText(task.getPriority().toString());
