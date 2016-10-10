@@ -264,15 +264,15 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | edit tasks | update tasks if things change.
 `* * *` | user | undo recent commands | revert tasks/events created by mistake.
 `* * *` | user | receive reminders for upcoming tasks | don't forget about tasks
+`* * *` | user | specify the location to place the data storage | do things with it, like sync it to my Dropbox.
 `* *` | user | add tasks through plain English | type more naturally than having to write in commands and flags.
 `* *` | user | view tasks in a calendar format | figure out what events/tasks I have upcoming more easily.
-`* *` | user | specify the location to place the data storage | do things with it, like sync it to my Dropbox.
 `* *` | user | bring up the program with a hotkey | pull it up quickly and conveniently when I need to add a task.
 `* *` | user | schedule multiple time blocks with one task | schedule tasks or events that have multiple and different deadlines or dates.
-`* *` | user | auto-complete certain tasks | save time instead of having to type out the whole command.
+`* *` | user | auto-complete certain commands (complete, clear, anything longer than about 5 letters) | save time instead of having to type out the whole command.
 `*` | user | manipulate the schedule with a mouse | save time manipulating the calendar directly as opposed to having to go back to the CLI and type in more command rescheduling events (e.g. drag-drop vs. retyping event details)
 `*` | user | view list or calendar in a pop out window | look at it more easily while working on other items.
-`*` | user | have a nice GUI | have an easier time manipulating the information and let the program be more pleasing to my eyes.
+`*` | user | customize the GUI if need (manipulate color schemes, move text boxes/output boxes to various locations, etc.) | have an easier time manipulating the information and let the program be more pleasing to my eyes.
 
 {More to be added}
 
@@ -287,8 +287,7 @@ Priority | As a ... | I want to ... | So that I can...
 1. User requests to view list of active tasks
 2. System shows list of tasks
 3. User requests to mark a task as completed from the list.
-4. System marks task as completed
-5. System removes task from list of active tasks. <br>
+4. System marks task as completed <br>
 Use case ends.
 
 **Extensions**
@@ -338,7 +337,8 @@ Use case ends.
 4. Should hold up to 1000 tasks/events on the active task list at any time
 5. Comes with automated unit tests.
 6. Commands should be intuitive and easy to use.
-7. Interface is simple and easy to understand.
+7. Interface is simple and easy to understand for beginners (i.e. people seeing it for the first time are not confused by what box does what).
+
 
 {More to be added}
 
