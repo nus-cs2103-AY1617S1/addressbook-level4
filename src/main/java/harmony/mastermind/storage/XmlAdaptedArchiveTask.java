@@ -14,8 +14,9 @@ import java.util.List;
 
 /**
  * JAXB-friendly version of the Task.
+ * @@author A0124797R
  */
-public class XmlAdaptedTask {
+public class XmlAdaptedArchiveTask {
 
     @XmlElement(required = true)
     private String name;
@@ -23,15 +24,13 @@ public class XmlAdaptedTask {
     private Date startDate;
     @XmlElement(required = true)
     private Date endDate;
-    @XmlElement(required = true)
-    private boolean isArchived;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
+    public XmlAdaptedArchiveTask() {}
 
 
     /**
@@ -39,8 +38,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    //@@author A0138862W
-    public XmlAdaptedTask(ReadOnlyTask source) {
+    public XmlAdaptedArchiveTask(ReadOnlyTask source) {
         name = source.getName();
         startDate = source.getStartDate();
         endDate = source.getEndDate();
@@ -64,9 +62,8 @@ public class XmlAdaptedTask {
         final String name = this.name;
         final Date startDate = this.startDate;
         final Date endDate = this.endDate;
-        final boolean isArchived = this.isArchived;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, startDate, endDate, tags, isArchived);
+        return new Task(name, startDate, endDate, tags, true);
     }
 }

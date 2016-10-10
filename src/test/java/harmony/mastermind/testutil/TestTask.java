@@ -47,12 +47,6 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public boolean isArchived() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
     public boolean isFloating() {
         // TODO Auto-generated method stub
         return false;
@@ -66,6 +60,12 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public boolean isEvent() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isMarked() {
         // TODO Auto-generated method stub
         return false;
     }

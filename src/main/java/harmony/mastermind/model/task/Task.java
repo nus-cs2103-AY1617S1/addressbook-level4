@@ -11,9 +11,7 @@ public class Task implements ReadOnlyTask {
     private Date endDate;
     private UniqueTagList tags;
 
-    private boolean isArchived;
-
-    private boolean isMarked;
+    private boolean mark;
 
     // event
     // @@author A0138862W
@@ -22,7 +20,7 @@ public class Task implements ReadOnlyTask {
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags = tags;
-        this.isArchived = isArchived;
+        this.mark = false;
     }
 
     // deadline
@@ -39,7 +37,7 @@ public class Task implements ReadOnlyTask {
 
     // @@author A0138862W
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.isArchived());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.isMarked());
     }
 
     @Override
@@ -86,25 +84,14 @@ public class Task implements ReadOnlyTask {
         this.tags = tags;
     }
 
-    @Override
-    // @@author generated
-    public boolean isArchived() {
-        return isArchived;
-    }
-
-    // @@author generated
-    public void setArchived(boolean isArchived) {
-        this.isArchived = isArchived;
-    }
-
-    // @@author generated
+    // @@author A0124797R
     public boolean isMarked() {
-        return isMarked;
+        return mark;
     }
 
-    // @@author generated
-    public void setMarked(boolean isMarked) {
-        this.isMarked = isMarked;
+    // @@author A0124797R
+    public void archive() {
+        this.mark = true;
     }
 
     @Override

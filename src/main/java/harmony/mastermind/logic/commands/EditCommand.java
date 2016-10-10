@@ -103,7 +103,7 @@ public class EditCommand extends Command {
             }
             return tagSet;
         }).orElse(taskToEdit.getTags().toSet()));
-        boolean toEditIsArchived = taskToEdit.isArchived();
+        boolean toEditIsArchived = taskToEdit.isMarked();
 
         // initialize the new task with edited values
         this.toEdit = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags, toEditIsArchived);

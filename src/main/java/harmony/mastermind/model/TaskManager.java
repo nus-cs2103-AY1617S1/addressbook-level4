@@ -118,6 +118,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     /**
      * Removes the task from TaskManager and adds into Archive list
+     * @@author A0124797R
      */
     public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
@@ -148,6 +149,12 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
+    }
+    
+    //@@author A0124797R
+    @Override
+    public List<ReadOnlyTask> getArchiveList() {
+        return archivedTasks.getInternalList();
     }
 
     @Override

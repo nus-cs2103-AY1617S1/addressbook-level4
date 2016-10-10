@@ -24,11 +24,15 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     @XmlElement
     private List<XmlAdaptedTask> tasks;
     @XmlElement
+    private List<XmlAdaptedArchiveTask> archivedTasks;
+    @XmlElement
     private List<Tag> tags;
+    
 
     {
         tasks = new ArrayList<>();
         tags = new ArrayList<>();
+        archivedTasks = new ArrayList<>();
     }
 
     /**
@@ -38,10 +42,14 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     /**
      * Conversion
+     * 
      */
+    //@@author A0124797R
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
+        archivedTasks.addAll(src.getArchiveList().stream()
+                .map(XmlAdaptedArchiveTask::new).collect(Collectors.toList()));
     }
 
     @Override
@@ -70,6 +78,19 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     @Override
     public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
+    
+    //@@author A0124797R 
+    @Override
+    public List<ReadOnlyTask> getArchiveList() {
+        return archivedTasks.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
