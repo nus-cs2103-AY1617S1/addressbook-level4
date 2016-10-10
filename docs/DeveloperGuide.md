@@ -1,5 +1,5 @@
 # Developer Guide 
-
+* [Introduction](#setting-up)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -11,8 +11,11 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
+## INTRODUCTION
+RubyTask is a simple tool for busy professionals to schedule and manage their daily to-do tasks! It is a Java desktop application that allows efficient interaction with a GUI and does not require connection to the Internet.
+This guide describes the design and implementation of RubyTask. It will help you understand how RubyTask works and how you can further contribute to its development.
 
-## Setting up
+## SETTING UP
 
 #### Prerequisites
 
