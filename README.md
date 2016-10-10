@@ -3,7 +3,7 @@
 
 # Task!t
 
-<img src="docs/images/Task!t_Ui.png" width="600"><br>
+<img src="docs/images/UImockup.png" width="600"><br>
 
 * This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).

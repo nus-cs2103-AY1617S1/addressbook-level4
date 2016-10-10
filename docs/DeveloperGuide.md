@@ -282,29 +282,9 @@ Use case ends.
 > 2a1. Task!t shows a 'invalid command' message and display the expected format. <br>
 > Use case ends
 
-#### Use case: Edit task
-
-**MSS**
-
-1. User requests to view tasks for a particular date/week/month/date
-2. Task!t displays the list of tasks for that date sorted by date and/or time
-3. User request to edit a specific task in the list based on task’s index with certain details
-6. Task!t updates the task details<br>
-Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-> 2a1. Task!t shows a 'no task found' message.<br>
-> Use case ends
-
-3a. The given index is invalid
-> 3a1. Task!t shows a 'invalid index' message <br>
-> Use case resumes at step 2
-
-3b. The command format is invalid
-> 3b1. Task!t shows a 'invalid command' message and display the expected format.<br>
-> Use case resumes at step 2
+2b. The task already exist
+> 2b1. Task!t shows a 'the task already exist' message. <br>
+> Use case resumes at step 1
 
 #### Use case: View task
 
@@ -330,8 +310,51 @@ Use case ends.
 
 **Extensions**
 
+1a. No parameter entered after command word
+> Task!t shows a 'no parameter entered' message.<br>
+> Use case resumes at step 1
+
+
 2a. The list is empty
 > 2a1. Task!t shows a 'no task found' message.<br>
+> Use case ends
+
+#### Use case: Edit task
+
+**MSS**
+
+1. User requests to **view** tasks for a particular date/week/month/date
+2. Task!t displays the list of tasks for that date sorted by date and/or time
+3. User request to edit a specific task in the list based on task’s index with certain details
+6. Task!t updates the task details<br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+> 2a1. Task!t shows a 'no task found' message.<br>
+> Use case ends
+
+3a. The given index is invalid
+> 3a1. Task!t shows a 'invalid index' message <br>
+> Use case resumes at step 2
+
+3b. The command format is invalid
+> 3b1. Task!t shows a 'invalid command' message and display the expected format.<br>
+> Use case resumes at step 2
+
+#### Use case: Undo action
+
+**MSS**
+
+1. User requests to undo last action performed
+2. Task!t undo the last action <br>
+Use case ends.
+
+**Extensions**
+
+2a. There is no last action
+> 2a1. Task!t shows a 'there is no last action' message.<br>
 > Use case ends
 
 #### Use case: Mark task as done
@@ -362,11 +385,34 @@ Use case ends.
 > 3c1. Task!t shows a 'task already marked' message.<br>
 > Use case resumes at step 3
 
+###Use case: Remove the done mark of task
+
+**MSS**
+
+1. User requests to **view** tasks for a particular date
+2. Task!t displays a list of tasks for that date sorted by time
+3. User request to remove the done mark of the specific task in the list based on task’s index
+4. Task!t removes the done mark of  the specific task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+> Use case ends
+
+3a. The given index is invalid
+> 3a1. Task!t shows a 'invalid index' message <br>
+> Use case resumes at step 2
+
+3b. The task is not marked as done
+> 3b1. Task!t shows a 'the task is not marked as done' message <br>
+> Use case resumes at step 2
+
 #### Use case: Delete task
 
 **MSS**
 
-1. User requests to view tasks for a particular date/week/month/date
+1. User requests to **view** tasks for a particular date/week/month/date
 2. Task!t displays the list of tasks for that date sorted by date and/or time
 3. User requests to delete a specific task in the list based on task’s index
 4. Task!t deletes the task <br>
@@ -403,10 +449,15 @@ Use case ends.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 5. Should display response within 1 second.
-6. Should work stand-alone.
+6. Should work stand-alone and should not be a plug-in to another software.
 7. Should work without internet connection.
 8. Should store data in text file.
 9. Should work without requiring an installer.
+10. Should work only with Command Line Interface as the main input with minimal use of mouse/clicking.
+11. Should follow the Object-oriented paradigm.
+12. Should be free and come with open source code
+
+
 
 ## Appendix D : Glossary
 
