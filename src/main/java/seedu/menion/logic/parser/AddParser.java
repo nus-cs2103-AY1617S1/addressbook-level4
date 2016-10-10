@@ -61,12 +61,20 @@ public class AddParser {
 
 	}
 
+	/**
+	 * Input the arguments into the parsedArguments ArrayList. 
+	 * list(1) = Task Name
+	 * list(2) = Task Notes
+	 * list(3) = Task Start Date
+	 * list(4) = Task Start Time
+	 */
 	public static void inputTaskArguments() {
 
-		for (int i = 1; i < 5; i++) {
-			parsedArguments.add(matcher.group(i));
-
-		}
+		parsedArguments.add(1, matcher.group(1));
+		parsedArguments.add(2, matcher.group(4));
+		parsedArguments.add(3, matcher.group(2));
+		parsedArguments.add(4, matcher.group(3));		
+		
 	}
 
 	public static void inputEventArguments() {
