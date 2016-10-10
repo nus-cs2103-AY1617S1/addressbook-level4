@@ -1,20 +1,20 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the task-manager level
+ * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskManager implements ReadOnlyTaskManager {
+public class ToDoList implements ReadOnlyToDoList {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -24,24 +24,24 @@ public class TaskManager implements ReadOnlyTaskManager {
         tags = new UniqueTagList();
     }
 
-    public TaskManager() {}
+    public ToDoList() {}
 
     /**
-     * Tasks and Tags are copied into this task manager
+     * Tasks and Tags are copied into this ToDoList
      */
-    public TaskManager(ReadOnlyTaskManager toBeCopied) {
+    public ToDoList(ReadOnlyToDoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Tasks and Tags are copied into this task manager
+     * Tasks and Tags are copied into this ToDoList
      */
-    public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
+    public ToDoList(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskManager getEmptyAddressBook() {
-        return new TaskManager();
+    public static ReadOnlyToDoList getEmptyToDoList() {
+        return new ToDoList();
     }
 
 //// list overwrite operations
@@ -63,14 +63,14 @@ public class TaskManager implements ReadOnlyTaskManager {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyTaskManager newData) {
+    public void resetData(ReadOnlyToDoList newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
-//// person-level operations
+//// Task-level operations
 
     /**
-     * Adds a task to the task manager.
+     * Adds a Task to the address book.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
@@ -96,7 +96,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             masterTagObjects.put(tag, tag);
         }
 
-        // Rebuild the list of person tags using references from the master list
+        // Rebuild the list of task tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
         for (Tag tag : taskTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
@@ -150,9 +150,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskManager // instanceof handles nulls
-                && this.tasks.equals(((TaskManager) other).tasks)
-                && this.tags.equals(((TaskManager) other).tags));
+                || (other instanceof ToDoList // instanceof handles nulls
+                && this.tasks.equals(((ToDoList) other).tasks)
+                && this.tags.equals(((ToDoList) other).tags));
     }
 
     @Override

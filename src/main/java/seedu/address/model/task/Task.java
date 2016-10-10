@@ -12,33 +12,31 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
 	
-    private Detail detail; //name
-    private Done done;
-    private DueByDate dueByDate; //phone
-    private DueByTime dueByTime; //email
-    private Priority priority; //address
-
+    private Detail detail;
+    private Done done = new Done();
+    private DueByDate dueByDate;
+    private DueByTime dueByTime; 
+    private Priority priority;
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Detail detail, Done done, DueByDate dueByDate, DueByTime dueByTime, Priority priority, UniqueTagList tags) {
+    public Task(Detail detail, DueByDate dueByDate, DueByTime dueByTime, Priority priority, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(detail, done, dueByDate, dueByTime, priority, tags);
         
         this.detail = detail;
-        this.done = done;
         this.dueByDate = dueByDate;
         this.dueByTime = dueByTime;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
-
+    
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getTags());
+        this(source.getDetail(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getTags());
     }
 
     @Override
