@@ -39,11 +39,11 @@ public class MarkCommand extends Command {
 
         try {
             model.markTask(taskToMark);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
         } catch (DuplicateTagException e) {
             return new CommandResult(MESSAGE_MARK_TASK_FAIL);
-        }
+        }catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        } 
 
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }

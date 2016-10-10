@@ -91,6 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void markTask(ReadOnlyTask task) 
             throws TaskNotFoundException, DuplicateTagException {
+    
         taskScheduler.markTask(task);
         updateFilteredListToShowAll();
         indicateTaskSchedulerChanged();

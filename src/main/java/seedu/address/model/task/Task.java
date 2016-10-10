@@ -84,6 +84,8 @@ public class Task implements ReadOnlyTask {
     public void markComplete() throws DuplicateTagException {
         try {
             this.tags.add(new Tag("Completed"));
+        } catch (DuplicateTagException dte) { 
+            throw dte;
         } catch (IllegalValueException ive) {
             assert false : "The tag cannot be illegal value";
         }
