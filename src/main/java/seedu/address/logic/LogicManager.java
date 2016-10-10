@@ -10,6 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.storage.Storage;
 
+import java.text.ParseException;
 import java.util.logging.Logger;
 
 /**
@@ -27,7 +28,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) {
+    public CommandResult execute(String commandText) throws ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);

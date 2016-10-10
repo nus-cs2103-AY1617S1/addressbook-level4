@@ -5,6 +5,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
+import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
             + "Parameters: NAME d/DEADLINE p/PRIORITY" 
             + " Example: " + COMMAND_WORD
-            + " CS2103T Software Engineeringv0.1 d/13102016 p/1";
+            + " CS2103T Software Engineeringv0.1 d/131016 p/1";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
@@ -29,6 +30,7 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
+     * @throws ParseException 
      */
     public AddCommand(String name, String deadline, String priority, Set<String> tags)
             throws IllegalValueException {
