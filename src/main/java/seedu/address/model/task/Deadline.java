@@ -2,6 +2,9 @@ package seedu.address.model.task;
 
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Represents a Task's deadline in the address book.
@@ -9,8 +12,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Deadline {
     
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task deadline can be in any format";
-    public static final String DEADLINE_VALIDATION_REGEX = ".+";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task deadline must be in ddmmyy format.";
+    public static final String DEADLINE_VALIDATION_REGEX = "\\d+";
 
     public final String value;
 
@@ -21,10 +24,10 @@ public class Deadline {
      */
     public Deadline(String deadline) throws IllegalValueException {
         assert deadline != null;
-        if (!isValidDeadline(deadline)) {
+        if (!isValidDeadline(deadline) || (deadline.length() != 6)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        this.value = deadline;
+        this.value = mutateToDash(deadline);
     }
 
     /**
@@ -49,6 +52,18 @@ public class Deadline {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+    private String mutateToDash(String deadline) throws IllegalValueException {
+    	try{
+	    	DateFormat input = new SimpleDateFormat("ddMMyy");
+	    	DateFormat output = new SimpleDateFormat("dd-MM-yy");
+	    	String result = output.format(input.parse(deadline));
+	    	return result;
+    	}
+    	catch (ParseException e){
+    		throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+    	}
     }
 
 }
