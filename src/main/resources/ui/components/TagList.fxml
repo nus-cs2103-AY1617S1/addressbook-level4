@@ -15,7 +15,15 @@
       <VBox fx:id="tagListLinksPlaceholder" />
     </AnchorPane>
   
-    <Text fx:id="titleText" styleClass="taglist-title" text="Tags" />
+    <Text fx:id="titleText" styleClass="font-300, taglist-title" text="Tags">
+      <VBox.margin>
+        <Insets top="20.0" />
+      </VBox.margin>
+    </Text>
+  
+    <AnchorPane>
+      <VBox fx:id="tagListTagsPlaceholder" />
+    </AnchorPane>
     
   </children>
   <padding>

@@ -21,13 +21,15 @@ public class TagList extends Component {
 	private static final String COMPLETED_ICON_PATH = "/images/icon-tick.png";
 	
 	// Props
-	public ArrayList<Object> tags; // stub
+	public ArrayList<String> tags; // stub
 	
 	// FXML
 	@FXML
 	private Text titleText;
 	@FXML
 	private VBox tagListLinksPlaceholder;
+	@FXML
+	private VBox tagListTagsPlaceholder;
 
 	@Override
 	public String getFxmlPath() {
@@ -39,6 +41,13 @@ public class TagList extends Component {
 		titleText.setText("Tags (" + tags.size() + ")");
 		
 		// Load TagListLinks
+		loadLinks();
+		
+		// Load Tags
+		loadTags();
+	}
+	
+	private void loadLinks() {
 		TagListLink.reset(tagListLinksPlaceholder);
 		
 		String[] linkLabels = { TASKS_LABEL, OVERDUE_LABEL, EVENTS_LABEL, COMPLETED_LABEL };
@@ -57,6 +66,22 @@ public class TagList extends Component {
 			});
 			
 			link.render(primaryStage, tagListLinksPlaceholder);
+		}
+	}
+	
+	private void loadTags() {
+		TagListItem.reset(tagListTagsPlaceholder);
+		
+		for (String tag : tags) {
+			TagListItem item = new TagListItem();
+
+			item.setHookModifyView(c -> {
+				TagListItem comp = (TagListItem) c;
+				comp.tag = tag;
+				return comp;
+			});
+			
+			item.render(primaryStage, tagListTagsPlaceholder);
 		}
 	}
 

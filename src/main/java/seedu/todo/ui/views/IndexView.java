@@ -20,7 +20,7 @@ public class IndexView extends View {
 	
 	// Props
 	public ArrayList<Object> tasks = new ArrayList<Object>(); // stub
-	public ArrayList<Object> tags = new ArrayList<Object>(); // stub
+	public ArrayList<String> tags = new ArrayList<String>(); // stub
 	public String indexTextValue;
 
 
@@ -47,6 +47,8 @@ public class IndexView extends View {
 			// Temp
 			tags.add("tag1");
 			tags.add("tag2");
+			tags.add("tag3");
+			tags.add("tag4");
 			
 			view.tags = tags;
 			return view;
