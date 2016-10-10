@@ -8,9 +8,9 @@ import seedu.menion.commons.exceptions.IllegalValueException;
  */
 public class DeadlineDate {
 
-    public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Task deadline should be in dd-mm-yy or dd-mm-yyyy format";
-    public static final String DEADLINE_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-2][0][0-9][0-9]$";
-    public static final String DEADLINE_SECOND_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-9][0-9]$";     
+    public static final String MESSAGE_DEADLINEDATE_CONSTRAINTS = "Activity deadline should be in dd-mm-yy or dd-mm-yyyy format";
+    public static final String DEADLINEDATE_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-2][0][0-9][0-9]$";
+    public static final String DEADLINEDATE_SECOND_VALIDATION_REGEX = "^[0-3][0-9]-[0-1][0-9]-[0-9][0-9]$";     
 
     public final String value;
 
@@ -23,7 +23,7 @@ public class DeadlineDate {
         assert deadline != null;
         deadline = deadline.trim();
         if (!isValidDeadline(deadline)) {
-            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_DEADLINEDATE_CONSTRAINTS);
         }
         this.value = deadline;
     }
@@ -34,7 +34,7 @@ public class DeadlineDate {
     public static boolean isValidDeadline(String test) {
         boolean result = false;
         
-        if (test.matches(DEADLINE_SECOND_VALIDATION_REGEX) || test.matches(DEADLINE_VALIDATION_REGEX)) {
+        if (test.matches(DEADLINEDATE_SECOND_VALIDATION_REGEX) || test.matches(DEADLINEDATE_VALIDATION_REGEX)) {
             result = true;
         }
         return result;
