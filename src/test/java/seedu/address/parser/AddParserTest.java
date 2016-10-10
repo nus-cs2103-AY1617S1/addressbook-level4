@@ -29,7 +29,7 @@ public class AddParserTest {
 	@Test
 	public void checkIsEvent_returnsTrue(){
 		
-		String arguments = "from: 10-08-2016 1900 to: 11-08-2016 1900";
+		String arguments = "meet prof damith from: 10-08-2016 1900 to: 11-08-2016 1900 n:he is fierce";
 		
 		assertTrue(AddParser.isEvents(arguments));
 	}
@@ -37,7 +37,7 @@ public class AddParserTest {
 	@Test
 	public void checkIsEvent_returnsFalse(){
 		
-		String arguments = "from: 10-08-2016 1900 by: 11-08-2016 1900";
+		String arguments = "meet prof damith from: 10-08-2016 1900 by: 11-08-2016 1900 n:he is fierce";
 	
 		assertFalse(AddParser.isEvents(arguments));
 	
@@ -55,7 +55,7 @@ public class AddParserTest {
 	@Test
 	public void checkTypeOfActivity_returnsEvents(){
 		
-		String arguments = "from: 10-08-2016 1900 to: 11-08-2016 1900";
+		String arguments = "meet prof damith from: 10-08-2016 1900 to: 11-08-2016 1900 n:he is fierce";
 		
 		assertEquals("event", AddParser.parseCommand(arguments).get(0));
 	}
@@ -71,12 +71,14 @@ public class AddParserTest {
 	@Test
 	public void checkEventArguments_returnsCorrectArguments(){
 		
-		String arguments = "from: 10-08-2016 1900 to: 11-08-2016 1900";
+		String arguments = "meet prof damith from: 10-08-2016 1900 to: 11-08-2016 1900 n:he is fierce";
 		
-		assertEquals("10-08-2016", AddParser.parseCommand(arguments).get(1));
-		assertEquals("1900", AddParser.parseCommand(arguments).get(2));
-		assertEquals("11-08-2016", AddParser.parseCommand(arguments).get(3));
-		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
+		assertEquals("meet prof damith ", AddParser.parseCommand(arguments).get(1));
+		assertEquals("10-08-2016", AddParser.parseCommand(arguments).get(2));
+		assertEquals("1900", AddParser.parseCommand(arguments).get(3));
+		assertEquals("11-08-2016", AddParser.parseCommand(arguments).get(4));
+		assertEquals("1900", AddParser.parseCommand(arguments).get(5));
+		assertEquals("he is fierce", AddParser.parseCommand(arguments).get(6));
 	}
 	
 	@Test
