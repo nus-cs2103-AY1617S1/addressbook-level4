@@ -31,14 +31,6 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^#]+)"
-                    + " \\.from (?<startTime>[^#]+)"
-                    + " \\.to (?<endTime>[^#]+)"
-                    + " \\.due (?<deadline>[^#]+)"
-                    + " \\.every (?<recurrence>[^#]+)"
-                    + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
-
     private static final Pattern EDIT_COMMAND_ARGS_FORMAT =
             Pattern.compile("(?<index>-?[\\d]+)" // index
                     + " (?<args>.+)"); // the other arguments
