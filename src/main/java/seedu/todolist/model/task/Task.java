@@ -1,7 +1,6 @@
 package seedu.todolist.model.task;
 
 import seedu.todolist.commons.util.CollectionUtil;
-import seedu.todolist.model.tag.UniqueTagList;
 
 import java.util.Objects;
 
@@ -12,23 +11,23 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-
-    private UniqueTagList tags;
+    
+    private LocationParameter locationParameter;
 
     /**
-     * Every field must be present and not null.
+     * Only Name field must be present and not null. Other fields can be null.
      */
-    public Task(Name name, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, tags);
+    public Task(Name name, LocationParameter location) {
+        assert !CollectionUtil.isAnyNull(name);
         this.name = name;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.locationParameter = location;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getLocationParameter());
     }
 
     @Override
@@ -38,15 +37,8 @@ public class Task implements ReadOnlyTask {
 
 
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-
-    /**
-     * Replaces this task's tags with the tags in the argument tag list.
-     */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+    public LocationParameter getLocationParameter() {
+        return locationParameter;
     }
 
     @Override
@@ -59,7 +51,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, tags);
+        return Objects.hash(name, locationParameter);
     }
 
     @Override
