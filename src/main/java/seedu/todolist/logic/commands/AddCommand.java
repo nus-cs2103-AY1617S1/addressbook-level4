@@ -1,12 +1,7 @@
 package seedu.todolist.logic.commands;
 
 import seedu.todolist.commons.exceptions.IllegalValueException;
-import seedu.todolist.model.tag.Tag;
-import seedu.todolist.model.tag.UniqueTagList;
 import seedu.todolist.model.task.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Adds a task to the to-do list.
@@ -15,13 +10,13 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the to-do list. "
-            + "Parameters: NAME [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to Task!t. "
+            + "Parameters: NAME [at LOCATION]\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe t/friends t/owesMoney";
+            + " dinner with mom at home";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to-do list";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Task!t";
 
     private final Task toAdd;
 
@@ -30,15 +25,11 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, Set<String> tags)
+    public AddCommand(String name, String location)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
         this.toAdd = new Task(
                 new Name(name),
-                new UniqueTagList(tagSet)
+                new LocationParameter(location)
         );
     }
 
