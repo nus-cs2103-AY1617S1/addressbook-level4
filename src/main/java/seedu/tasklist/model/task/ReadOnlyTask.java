@@ -9,8 +9,8 @@ import seedu.tasklist.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     TaskDetails getName();
-    StartTime getPhone();
-    EndTime getEmail();
+    StartTime getStartTime();
+    EndTime getEndTime();
     Priority getPriority();
     int getUniqueID();
     boolean isComplete();
@@ -28,8 +28,8 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
+                && other.getStartTime().equals(this.getStartTime())
+                && other.getEndTime().equals(this.getEndTime())
                 && other.getPriority().equals(this.getPriority())
                 && (other.getUniqueID()==this.getUniqueID()));
     }
@@ -41,9 +41,9 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Phone: ")
-                .append(getPhone())
+                .append(getStartTime())
                 .append(" Email: ")
-                .append(getEmail())
+                .append(getEndTime())
                 .append(" Priority: ")
                 .append(getPriority())
                 .append(" UniqueID: ")

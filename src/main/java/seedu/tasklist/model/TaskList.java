@@ -30,7 +30,7 @@ public class TaskList implements ReadOnlyTaskList {
      * tasks and Tags are copied into this addressbook
      */
     public TaskList(ReadOnlyTaskList toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
@@ -64,7 +64,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     public void resetData(ReadOnlyTaskList newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTagList());
     }
 
 //// person-level operations
@@ -127,7 +127,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 
@@ -137,7 +137,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
     }
 

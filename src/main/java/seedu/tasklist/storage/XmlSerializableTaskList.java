@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 public class XmlSerializableTaskList implements ReadOnlyTaskList {
 
     @XmlElement
-    private List<XmlAdaptedTask> persons;
+    private List<XmlAdaptedTask> tasks;
     @XmlElement
     private List<Tag> tags;
 
     {
-        persons = new ArrayList<>();
+        tasks = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -40,7 +40,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
      * Conversion
      */
     public XmlSerializableTaskList(ReadOnlyTaskList src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -55,9 +55,9 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : persons) {
+        for (XmlAdaptedTask p : tasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -68,8 +68,8 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
-        return persons.stream().map(p -> {
+    public List<ReadOnlyTask> getTaskList() {
+        return tasks.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {

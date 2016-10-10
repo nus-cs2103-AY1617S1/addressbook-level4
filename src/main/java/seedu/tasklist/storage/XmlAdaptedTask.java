@@ -18,9 +18,9 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String startTime;
     @XmlElement(required = true)
-    private String email;
+    private String endTime;
     @XmlElement(required = true)
     private String priority;
     @XmlElement(required = true)
@@ -42,8 +42,8 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().taskDetails;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
+        startTime = source.getStartTime().value;
+        endTime = source.getEndTime().value;
         priority = source.getPriority().priorityLevel;
         uniqueID = source.getUniqueID();
         tagged = new ArrayList<>();
@@ -58,16 +58,16 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            taskTags.add(tag.toModelType());
         }
         final TaskDetails name = new TaskDetails(this.name);
-        final StartTime startTime = new StartTime(this.phone);
-        final EndTime endTime = new EndTime(this.email);
+        final StartTime startTime = new StartTime(this.startTime);
+        final EndTime endTime = new EndTime(this.endTime);
         final Priority priority = new Priority(this.priority);
         final int uniqueID = this.uniqueID;
-        final UniqueTagList tags = new UniqueTagList(personTags);
+        final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, startTime, endTime, priority, tags);
     }
 }
