@@ -5,6 +5,7 @@ import seedu.agendum.model.tag.UniqueTagList;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a Task in the to do list.
@@ -36,24 +37,25 @@ public class Task implements ReadOnlyTask {
     /**
      * Constructor for a task with deadline only
      */
-    public Task(Name name, LocalDateTime deadline, UniqueTagList tags) {
+    public Task(Name name, Optional<LocalDateTime> deadline, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.isCompleted = false;
         this.startDateTime = null;
-        this.endDateTime = deadline;
+        this.endDateTime = deadline.orElse(null);
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
     /**
      * Constructor for a task (event) with both a start and end time
      */
-    public Task(Name name, LocalDateTime startDateTime, LocalDateTime endDateTime, UniqueTagList tags) {
+    public Task(Name name, Optional<LocalDateTime> startDateTime,
+            Optional<LocalDateTime> endDateTime, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.isCompleted = false;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.startDateTime = startDateTime.orElse(null);
+        this.endDateTime = endDateTime.orElse(null);
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -61,7 +63,8 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDateTime(), source.getEndDateTime(), source.getTags());
+        this(source.getName(), source.getStartDateTime(),
+                source.getEndDateTime(), source.getTags());
         if (source.isCompleted()) {
             this.markAsCompleted();
         }
@@ -78,12 +81,12 @@ public class Task implements ReadOnlyTask {
         return isCompleted;
     }
     
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
+    public Optional<LocalDateTime> getStartDateTime() {
+        return Optional.ofNullable(startDateTime);
     }
     
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
+    public Optional<LocalDateTime> getEndDateTime() {
+        return Optional.ofNullable(endDateTime);
     }
 
     @Override

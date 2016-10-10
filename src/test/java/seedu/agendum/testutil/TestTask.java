@@ -1,6 +1,7 @@
 package seedu.agendum.testutil;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import seedu.agendum.model.tag.UniqueTagList;
 import seedu.agendum.model.task.*;
@@ -57,13 +58,13 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
+    public Optional<LocalDateTime> getStartDateTime() {
+        return Optional.ofNullable(startDateTime);
     }
 
     @Override
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
+    public Optional<LocalDateTime> getEndDateTime() {
+        return Optional.ofNullable(endDateTime);
     }
 
     @Override

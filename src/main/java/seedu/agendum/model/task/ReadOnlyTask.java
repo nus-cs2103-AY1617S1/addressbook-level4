@@ -1,6 +1,7 @@
 package seedu.agendum.model.task;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import seedu.agendum.model.tag.UniqueTagList;
 
@@ -12,8 +13,8 @@ public interface ReadOnlyTask {
 
     Name getName();
     boolean isCompleted();
-    LocalDateTime getStartDateTime();
-    LocalDateTime getEndDateTime();
+    Optional<LocalDateTime> getStartDateTime();
+    Optional<LocalDateTime> getEndDateTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
