@@ -60,4 +60,20 @@ public class AddCommandTest extends CommandTest {
         assertEquals(false, this.getTaskAt(1).getDescription().isPresent());      
         assertEquals(false, this.getTaskAt(1).getLocation().isPresent());
     }
+    
+    @Test
+    public void testAddMultipleParameters() throws IllegalValueException {
+        setParameter("Task 1");
+        setParameter("p",null);
+        setParameter("l","COM1");
+        setParameter("m","Useless task");
+        execute();
+        assertTotalTaskCount(1);
+        assertEquals("Task 1", this.getTaskAt(1).getTitle());
+        assertEquals(true, this.getTaskAt(1).isPinned());
+        assertEquals(true, this.getTaskAt(1).getDescription().isPresent());      
+        assertEquals(true, this.getTaskAt(1).getLocation().isPresent());
+        assertEquals("COM1", this.getTaskAt(1).getLocation().get());
+        assertEquals("Useless task", this.getTaskAt(1).getLocation().get());
+    }
 }
