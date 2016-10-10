@@ -19,6 +19,7 @@ import tars.logic.commands.ClearCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.CommandResult;
 import tars.logic.commands.DeleteCommand;
+import tars.logic.commands.EditCommand;
 import tars.logic.commands.ExitCommand;
 import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
@@ -400,8 +401,13 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
-
+    
+    @Test
+    public void execute_edit_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        assertCommandBehavior("edit ", expectedMessage);
+    }
+    
     /**
      * A utility class to generate test data.
      */
