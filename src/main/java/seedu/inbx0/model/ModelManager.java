@@ -9,6 +9,7 @@ import seedu.inbx0.commons.util.StringUtil;
 import seedu.inbx0.model.task.Task;
 import seedu.inbx0.model.task.ReadOnlyTask;
 import seedu.inbx0.model.task.UniqueTaskList;
+import seedu.inbx0.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.inbx0.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -71,7 +72,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editTask(ReadOnlyTask target, Task task) throws TaskNotFoundException {
+    public synchronized void editTask(ReadOnlyTask target, Task task) throws TaskNotFoundException, DuplicateTaskException {
         taskList.editTask(target, task);
         indicateAddressBookChanged();
     }

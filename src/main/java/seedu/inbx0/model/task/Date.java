@@ -65,7 +65,13 @@ public class Date {
      //   date = date.trim();
         String tellDate = date;
      
-        if(date != "" | date.length() != 0 | date != null) {
+        if(date == "" | date.length() == 0 | date == null) {
+            this.day = 0;
+            this.month = 0;
+            this.year = 0;
+            tellDate = "";
+        }
+        else {
             List<java.util.Date> dates = new Parser().parse(tellDate.replaceAll("\\D+","")).get(0).getDates();             
             SimpleDateFormat ft = new SimpleDateFormat ("E, dd.MM.yyyy");
             tellDate = ft.format(dates.get(0));
@@ -76,11 +82,7 @@ public class Date {
             this.year = digitsOnly % 10000;
             
         }
-        else {
-            this.day = 0;
-            this.month = 0;
-            this.year = 0;
-        }
+        
        
  /*       if (!isValidDate(date) &&  (date != "")) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
