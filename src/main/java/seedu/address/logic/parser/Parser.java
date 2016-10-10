@@ -21,7 +21,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern ACTIVITY_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern ACTIVITY_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\S+)(?<arguments>.*)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -137,15 +137,19 @@ public class Parser {
      */
     
     private Command prepareUpdate(String args) {
-    	
+    	int index;
     	final Matcher matcher = ACTIVITY_INDEX_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
-
-        String [] splitArgs = (matcher.group("targetIndex")).split(" ", 2);
-        return new UpdateCommand(Integer.parseInt(splitArgs[0]), splitArgs[1]);
+        
+        try {
+        	index = Integer.parseInt(matcher.group("targetIndex"));
+        } catch (NumberFormatException nfe) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+        return new UpdateCommand(index, matcher.group("arguments"));
     }
 
 
