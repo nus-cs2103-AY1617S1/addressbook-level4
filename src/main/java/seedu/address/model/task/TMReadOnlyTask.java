@@ -5,14 +5,14 @@ import java.util.Date;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Task in the Statusbook.
+ * A read-only immutable interface for a Task in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface TMReadOnlyTask {
 
     Name getName();
     Date getDate();
-    boolean getStatus();
+    Status getStatus();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -28,7 +28,7 @@ public interface TMReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getDate().equals(this.getDate())
-                && other.getStatus() == this.getStatus());
+                && other.getStatus().equals(getStatus()));
     }
 
     /**
@@ -40,7 +40,7 @@ public interface TMReadOnlyTask {
                 .append(" Date: ")
                 .append(getDate().toString())
                 .append(" Status: ")
-                .append(getStatus())
+                .append(getStatus().toString())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
