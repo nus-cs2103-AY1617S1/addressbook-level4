@@ -9,7 +9,7 @@ import seedu.menion.commons.exceptions.IllegalValueException;
  */
 public class Note {
     
-    public String value = "No notes for this activity.";
+    public String value = "-";
 
     /**
      * Constructor for a note, takes in new String as note.
