@@ -39,11 +39,6 @@ abstract public class Argument<T> implements Parameter {
     public String getName() {
         return name;
     }
-    
-    public Argument<T> name(String name) {
-        this.name = name;
-        return this;
-    }
 
     public String getDescription() {
         return description;
