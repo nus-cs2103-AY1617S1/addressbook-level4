@@ -1,7 +1,7 @@
 package seedu.address.model.task;
 
 public class Status {
-	private enum DoneStatus {
+	public enum DoneStatus {
 		DONE, NOT_DONE
 	}
 	
