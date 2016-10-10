@@ -97,6 +97,8 @@ Examples:
 * `add "Check sufficient toilet rolls" by 21 Sep 5pm, tag "Important"`
 * `add "Lecture" from 7 Oct 2pm to 4pm, repeattime weekly, tag "Important"`
 
+> <img src="images/Ui-Add.png" width="600">
+
 #### List all tasks/events with specified conditions: `list`
 Displays a list of all tasks/events.<br>
 
@@ -110,8 +112,8 @@ Format: `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...
 > If no parameters are specified, the command will show a list of uncompleted tasks
 > and upcoming events.
 
-> <img src="images/Ui-ListCommand.png" width="600">
-> <img src="images/Ui-ListCommand2.png" width="600">
+> <img src="images/Ui-List.png" width="600">
+> <img src="images/Ui-List2.png" width="600">
 
 Examples:
 * `list`<br>
@@ -169,8 +171,6 @@ Format: `hide [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [ta
 > Can only be used when the output window is showing a list of tasks/events. 
 >	* Matching tasks/events will be hidden from the previous results.
 
-> <img src="images/Ui-HideCommand.png" width="600">
-
 Examples:
 * `list`<br>
   `hide completed events from 24 Sep, tag "CS2010"`
@@ -225,7 +225,7 @@ Format: `complete INDEX`
 > The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, ...<br>
 
-> <img src="images/Ui-CompleteCommand.png" width="600">
+> <img src="images/Ui-Complete.png" width="600">
 
 Example:
 * `list`<br>

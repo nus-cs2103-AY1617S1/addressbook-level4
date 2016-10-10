@@ -187,12 +187,93 @@ The `Command` class takes input arguments from the `Parser`class, and produces a
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
-The `Model`,
+The `Model`
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+    * but other components are heavily dependent on this component.
+
+**`Model` Interface:**
+
+The `Model` interface allows you to request for any model-related operations, such as retrieving and modifying task
+in the task list, without having to know anything about the implementation of the `ModelManager` class.
+
+Notable APIs
+
+Return type | Method and Description
+----------- | ----------------------
+void | `resetData(ReadOnlyTaskList newData)`: Replaces the entire task list with the one provided by `newData`.
+ReadOnlyTaskList | `getTaskList()`: Retrieves the entire task list.
+void | `addTask(Task task)`: Adds a task to the list.
+void | `updateTask(ReadOnlyTask oldTask, Task newTask)`: Update the details of the old task with the new task given.
+void | `deleteTask(ReadOnlyTask target)`: Deletes the `target` task.
+void | `resetTaskListFilter()`: Resets all filters that was utilized to view only a certain subset of the task list.
+
+**`ModelManager` Class:**
+
+The `ModelManager` class implements the `Model` interface, and provides all the services and functionality
+specifed in the `Model` interface. 
+
+Other components should reference this class indirectly by using the `Model` interface. You should not
+directly use this class outside the model component.
+
+**`ReadOnlyTaskList` Interface:**
+
+The `ReadOnlyTaskList` interface provides a read-only version of the task list. You can retrieve the tasks
+and tags used in the entire task list.
+
+**`TaskList` Class:**
+
+The `TaskList` class is responsible for maintaining the task list required by the program. You should not call
+any methods of this class directly. Instead, you should request for retrieval and modification via the
+`ModelManager`. The `ModelManager` will return a `ReadOnlyTaskList` when requesting for tasks in the task list.
+
+**`UserPrefs` Class:**
+
+The `UserPrefs` class stores the program settings. 
+
+> The program settings and user configuration settings are different.
+
+**`ReadOnlyTask` Inteface:**
+
+The `ReadOnlyTask` interface allows you to retrieve tasks, but not modify them.
+
+**`Task` Class:**
+
+The `Task` class contains all the task details. (e.g. name, deadlines, tags, ...)
+
+For each individual detail, the class will always store a reference to an object. Therefore, even
+if the detail for such task is blank (e.g. there is no deadline for a task), the reference to the
+details is **never `null`**. Instead, a `Deadline()` will be created to represent that there is no
+deadline for the task (usually, you would use `Deadline(Date date)` if the task has a deadline).
+
+**`Name`, `Complete`, `Deadline`, `Period`, `Recurrence`, `Tag` Classes:**
+
+The classes mentioned represents the details of the task. Do note that some
+classes have multiple constructors (for details that are not filled in, use the default constructor)
+
+Methods | Description
+------- | -----------
+Name(String name) | Name of the task
+Complete(boolean complete) | Completion status of the task
+Deadline() | There is no deadline for this task
+Deadline(Date date) | The deadline for the task is `date`
+Period() | There is no period for this task
+Period(Date startTime, Date endTime) | The time slot for the task is `startTime` to `endTime`
+Recurrence() | There is no recurrence for this task
+Recurrence(Pattern type, int frequency) | The task repeats for `frequency` times, in a daily, weekly or monthly fashion
+Tag(String name) | One of the tags for this task
+
+**`UniqueTagList` Class:**
+
+The `UniqueTagList` class stores the unique tag list for a task. It is guaranteed that there will
+be no duplicate tags in the list.
+
+**`UniqueTaskList` Class:**
+
+The `UniqueTaskList` class provides a task list with no duplicate tasks.
 
 ### Storage component
 
