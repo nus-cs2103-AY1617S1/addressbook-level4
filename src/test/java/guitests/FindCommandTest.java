@@ -1,8 +1,9 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestPerson;
+
+import seedu.unburden.commons.core.Messages;
+import seedu.unburden.testutil.TestPerson;
 
 import static org.junit.Assert.assertTrue;
 
