@@ -19,7 +19,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the item identified by the index number used in the last item listing.\n"
             + "Parameters: INDEX (must be a positive integer)" + " n/NAME" + "\n"
-            + "Example: " + COMMAND_WORD + " 1" + " buy milk";
+            + "Example: " + COMMAND_WORD + " 1" + " n/buy milk";
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
     
