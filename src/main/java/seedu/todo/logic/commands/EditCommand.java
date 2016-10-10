@@ -23,13 +23,15 @@ public class EditCommand extends BaseCommand {
 
     @Override
     protected Parameter[] getArguments() {
-        return new Parameter[] {index,description, pin, location};
+        return new Parameter[] { index, description, pin, location };
     }
 
     @Override
     public void execute() throws IllegalValueException {
         ImmutableTask toEdit = this.getTaskAt(index.getValue());
-        this.model.update(toEdit, task -> {task.setDescription(description.getValue());
+        
+        this.model.update(toEdit, task -> {
+            task.setDescription(description.getValue());
             task.setPinned(pin.getValue());
             task.setLocation(location.getValue());
         });

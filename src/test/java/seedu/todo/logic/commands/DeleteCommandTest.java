@@ -41,22 +41,24 @@ public class DeleteCommandTest extends CommandTest {
         ImmutableTask toDeleteFirst = getTaskAt(1);
         ImmutableTask toDeleteNext = getTaskAt(1);
         ImmutableTask toDeleteLast = getTaskAt(1);
+        
         setParameter("1");
         execute();
         assertTaskNotExist(toDeleteFirst);
         assertTaskExist(toDeleteNext);
         assertTaskExist(toDeleteLast);
+        
         setParameter("1");
         execute();
         assertTaskNotExist(toDeleteFirst);
         assertTaskNotExist(toDeleteNext);
         assertTaskExist(toDeleteLast);
+        
         setParameter("1");
         execute();
         assertTaskNotExist(toDeleteFirst);
         assertTaskNotExist(toDeleteNext);
         assertTaskNotExist(toDeleteLast);
     }
-    
     
 }

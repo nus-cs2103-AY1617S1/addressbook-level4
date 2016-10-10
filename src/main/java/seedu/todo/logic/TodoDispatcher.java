@@ -20,19 +20,19 @@ public class TodoDispatcher implements Dispatcher {
         case "a":
             command = new AddCommand();
             break;
-            
+
+        case "edit":
+        case "e":
+            command = new EditCommand();
+            break;
+
         case "delete":
         case "d":
             command = new DeleteCommand();
             break;
         
-
         case "exit":
             command = new ExitCommand();
-            break;
-        case "edit":
-        case "e":
-            command = new EditCommand();
             break;
             
         
