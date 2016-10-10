@@ -6,6 +6,7 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteByIndexCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
@@ -29,7 +30,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
 
         //invalid index
         commandBox.runCommand("deleteByIndex " + currentList.length + 1);
-        assertResultMessage("The person index provided is invalid");
+        assertResultMessage(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
     }
 

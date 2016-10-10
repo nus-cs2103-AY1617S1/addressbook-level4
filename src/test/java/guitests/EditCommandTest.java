@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_ITEM_SUCCESS;
 import static seedu.address.logic.commands.EditCommand.MESSAGE_USAGE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 public class EditCommandTest extends TaskManagerGuiTest {
@@ -53,7 +53,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         
         //invalid index
         commandBox.runCommand("edit " + currentList.length + 1 + " n/valid name");
-        assertResultMessage(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertResultMessage(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
     }
 
