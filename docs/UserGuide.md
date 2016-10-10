@@ -105,7 +105,7 @@ Examples:
 
 #### Updating a task : `update`
 Updates information for a task referred by its index.<br>
-Format: `update INDEX [TASK DETAILS] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [p/PRIORITY]`
+Format: `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [p/PRIORITY]`
 
 > * Replaces the entered information for the task at the specified index
 > * If updated START_TIME/DATE exceeds END_TIME/DATE of the task, the update will not be successful
