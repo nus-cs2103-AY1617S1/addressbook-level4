@@ -364,7 +364,36 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Windows, Linux, Unix, OS-X
 
-## Appendix E : Product Survey
+## APPENDIX E: PRODUCT SURVEY
 
-{TODO: Add a summary of competing products}
+Google Calendar
 
+*Pros* | *Cons* | 
+-------- | --------
+1. Simple UI, Default Weekly View | 1. Requires Internet to Sync
+2. Good Overview of all timeslots available or unavailable  | 2. Do not have one-shot CLI approach (Even with quick add)
+3. Collaboration feature, share calendar with friends | 3. Events must be allocated timeslots in 
+
+Evernote
+
+*Pros* | *Cons* | 
+-------- | --------
+1. Allows creation and update of notes over various platforms | 1. 1. Heavily dependent on Internet as user is cut off from database if there is no connection
+2. Allows a variety of notes to be created and classified (e.g business cards, introduction manuals etc) | 2. Ability to organise and categorise notes is limited. Only 1-level notebooks and stacks are allowed unlike a file system.
+3. Incorporates itself onto different platforms for ease of search and notifying user (e.g Google search) | 
+
+Todo.txt
+
+*Pros* | *Cons* | 
+-------- | --------
+1. Simple interface (e.g CLI) is available | 1. Not automatically sorted by dates
+2. Does not require Internet connection | 2. Clashes of events are not prompted to the user
+3. Can support large amount of task and details | 
+
+Fantastical
+
+*Pros* | *Cons* | 
+-------- | --------
+1. Both CLI and NLP is availablee | 1. Paid service
+2. Does not require Internet connection | 2. Events have to be time-constrained
+3. Can be brought up with keyboard shortcut | 
