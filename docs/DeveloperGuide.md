@@ -117,21 +117,16 @@ The sections below give more details of each component.
 
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800">
+<img src="diagrams/Ui Component.png" class="u-max-full-width">
 
 **API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandInputView`, `CommandFeedbackView`, `TodoListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder. 
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/todo/ui/MainWindow.java) is specified in
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](../src/main/java/seedu/todo/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
-
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
@@ -167,7 +162,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800">
+<img src="diagrams/Model Component.png" class="container u-max-full-width">
 
 **API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
@@ -185,7 +180,7 @@ object that the UI can bind to.
 The model ensure safety by exposing as much of its internal state as possible as immutable objects 
 using interfaces such as `ImmutableTask`.
 
-<img src="images/StorageClassDiagram.png" width="800">
+<img src="diagrams/Storage Component.png" class="container u-max-full-width">
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
