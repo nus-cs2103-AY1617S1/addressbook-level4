@@ -3,7 +3,7 @@ package seedu.address.model;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.ReadOnlyFloatingTask;
+import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface ReadOnlyTaskList {
     /**
      * Returns an unmodifiable view of tasks list
      */
-    List<ReadOnlyFloatingTask> getTaskList();
+    List<ReadOnlyTask> getTaskList();
 
     /**
      * Returns an unmodifiable view of tags list

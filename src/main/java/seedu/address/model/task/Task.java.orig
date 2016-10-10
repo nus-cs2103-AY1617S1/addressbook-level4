@@ -6,10 +6,14 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Task in the task list.
+ * Represents a floating task in the task list.
  * Guarantees: details are present and not null, field values are validated.
  */
+<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775:src/main/java/seedu/address/model/task/FloatingTask.java
+public class FloatingTask extends Task implements ReadOnlyFloatingTask {
+=======
 public class Task implements ReadOnlyTask {
+>>>>>>> Re code add non floating task to a simpler way.:src/main/java/seedu/address/model/task/Task.java
 
     private Name name;
     private UniqueTagList tags;
@@ -20,6 +24,18 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
+<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775:src/main/java/seedu/address/model/task/FloatingTask.java
+    public FloatingTask(){}
+    
+    public FloatingTask(Name name, UniqueTagList tags) {
+        super(name, tags);
+    }
+    
+    /**
+     * Copy constructor.
+     */
+    public FloatingTask(ReadOnlyFloatingTask source) {
+=======
     public Task(Name name, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
@@ -29,11 +45,9 @@ public class Task implements ReadOnlyTask {
     
     public Task(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
         this(name, tags);
-        if (endDate != null) {
-            this.startDate = startDate;
-            this.endDate = endDate;
-            type = TaskType.NON_FLOATING;
-        }
+        this.startDate = startDate;
+        this.endDate = endDate;
+        type = TaskType.NON_FLOATING;
     }
     
     public Task(){}
@@ -42,10 +56,13 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags(), source.getStartDate(), source.getEndDate());
+>>>>>>> Re code add non floating task to a simpler way.:src/main/java/seedu/address/model/task/Task.java
+        this(source.getName(), source.getTags());
     }
 
     @Override
+<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775:src/main/java/seedu/address/model/task/FloatingTask.java
+=======
     public Name getName() {
         return name;
     }
@@ -77,16 +94,11 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
+>>>>>>> Re code add non floating task to a simpler way.:src/main/java/seedu/address/model/task/Task.java
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, tags);
+                || (other instanceof ReadOnlyFloatingTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyFloatingTask) other));
     }
 
     @Override

@@ -129,8 +129,9 @@ public class Parser {
         }
     }
     
+<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775
 
-    
+=======
     private Command prepareAddNonFloating(String args) {
         Matcher matcher = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -151,6 +152,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+>>>>>>> Re code add non floating task to a simpler way.
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
@@ -236,7 +238,7 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
     
-    public static Date getDateFromString(String dateInput) {
+    private Date getDateFromString(String dateInput) {
         final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
         

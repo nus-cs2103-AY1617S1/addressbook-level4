@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.address.model.task.ReadOnlyFloatingTask;
+import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -26,7 +26,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyFloatingTask> taskListView;
+    private ListView<ReadOnlyTask> taskListView;
 
     public TaskListPanel() {
         super();
@@ -48,19 +48,19 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyFloatingTask> taskList) {
+                                       ObservableList<ReadOnlyTask> taskList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyFloatingTask> taskList) {
+    private void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyFloatingTask> taskList) {
+    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -87,13 +87,13 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-    class TaskListViewCell extends ListCell<ReadOnlyFloatingTask> {
+    class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
         public TaskListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyFloatingTask task, boolean empty) {
+        protected void updateItem(ReadOnlyTask task, boolean empty) {
             super.updateItem(task, empty);
 
             if (empty || task == null) {

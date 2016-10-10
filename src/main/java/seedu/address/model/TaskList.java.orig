@@ -3,8 +3,13 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775
+import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.ReadOnlyFloatingTask;
+=======
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
+>>>>>>> Re code add non floating task to a simpler way.
 import seedu.address.model.task.UniqueTaskList;
 
 import java.util.*;
@@ -58,8 +63,13 @@ public class TaskList implements ReadOnlyTaskList {
         this.tags.getInternalList().setAll(tags);
     }
 
+<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775
+    public void resetData(Collection<? extends ReadOnlyFloatingTask> newTasks, Collection<Tag> newTags) {
+        setTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
+=======
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+>>>>>>> Re code add non floating task to a simpler way.
         setTags(newTags);
     }
 
@@ -104,7 +114,7 @@ public class TaskList implements ReadOnlyTaskList {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyFloatingTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -127,7 +137,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
+    public List<ReadOnlyFloatingTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 

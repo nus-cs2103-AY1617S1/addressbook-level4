@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.TaskList;
 import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.TypicalTestFloatingTasks;
 
 import java.io.IOException;
@@ -71,8 +71,8 @@ public class XmlTaskListStorageTest {
         assertEquals(original, new TaskList(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new FloatingTask(TypicalTestFloatingTasks.hoon));
-        original.removeTask(new FloatingTask(TypicalTestFloatingTasks.trash));
+        original.addTask(new Task(TypicalTestFloatingTasks.hoon));
+        original.removeTask(new Task(TypicalTestFloatingTasks.trash));
         xmlTaskListStorage.saveTaskList(original, filePath);
         readBack = xmlTaskListStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));

@@ -5,7 +5,7 @@ import java.io.IOException;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
-import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.Task;
 import seedu.address.storage.XmlTaskListStorage;
 
 public class ChangeDirectoryCommand extends Command{
