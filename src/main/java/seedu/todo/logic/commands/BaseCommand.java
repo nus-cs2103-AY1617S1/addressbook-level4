@@ -3,8 +3,10 @@ package seedu.todo.logic.commands;
 import java.util.Map.Entry;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.parser.ParseResult;
+import seedu.todo.model.ErrorBag;
 import seedu.todo.model.TodoModel;
 import seedu.todo.model.task.ImmutableTask;
 
@@ -20,13 +22,13 @@ import seedu.todo.model.task.ImmutableTask;
 public abstract class BaseCommand {
     protected TodoModel model;
     
+    protected ErrorBag errors = new ErrorBag(); 
+    
+    private static final String DEFAULT_ARGUMENT_ERROR_MESSAGE = ""; 
+    
     abstract protected Parameter[] getArguments();
     
     abstract public void execute() throws IllegalValueException;
-    
-    protected void validateArguments() throws IllegalValueException {
-        // Hook allowing subclasses to implement their own validation logic for arguments
-    }
     
     /**
      * Binds the data model to the command object
@@ -54,9 +56,9 @@ public abstract class BaseCommand {
      * Binds the both positional and named command arguments from the parse results 
      * to the command object itself 
      * 
-     * @throws IllegalValueException
+     * @throws ValidationException 
      */
-    public void setArguments(ParseResult arguments) throws IllegalValueException {
+    public void setArguments(ParseResult arguments) throws ValidationException {
         if (arguments.getPositionalArgument().isPresent()) {
             setPositionalArgument(arguments.getPositionalArgument().get());
         }
@@ -67,32 +69,56 @@ public abstract class BaseCommand {
         
         checkRequiredArguments();
         validateArguments();
+        
+        errors.validate(getArgumentErrorMessage());
     }
     
-    private void setPositionalArgument(String argument) throws IllegalValueException {
+    /**
+     * Hook allowing subclasses to implement their own validation logic for arguments
+     * Subclasses should add additional errors to the errors ErrorBag
+     */
+    protected void validateArguments() {
+        // Does no additional validation by default 
+    }
+    
+    protected String getArgumentErrorMessage() {
+        return BaseCommand.DEFAULT_ARGUMENT_ERROR_MESSAGE;
+    }
+    
+    private void setPositionalArgument(String argument) {
         for (Parameter p : getArguments()) {
             if (p.isPositional()) {
-                p.setValue(argument);
+                try {
+                    p.setValue(argument);
+                } catch (IllegalValueException e) {
+                    errors.put(e.getMessage());
+                }
             }
         }
-        
-        // TODO: Do something for unrecognized argument
     }
     
-    private void setNameArgument(String flag, String argument) throws IllegalValueException {
+    private void setNameArgument(String flag, String argument) {
         for (Parameter p : getArguments()) {
             if (flag.equals(p.getFlag())) {
-                p.setValue(argument);
+                try {
+                    p.setValue(argument);
+                } catch (IllegalValueException e) {
+                    errors.put(p.getName(), e.getMessage());
+                }
+                
+                return;
             }
         }
         
-        // TODO: Do something for unrecognized argument
+        // TODO: Do something for unrecognized argument?
     }
     
     private void checkRequiredArguments() {
         for (Parameter p : getArguments()) {
-            if (!p.isOptional() && !p.hasBoundValue()) {
-                // TODO: Deal with missing arguments
+            try {
+                p.checkRequired();
+            } catch (IllegalValueException e) {
+                errors.put(p.getName(), e.getMessage());
             }
         }
     }

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 
 public class AddCommandTest extends CommandTest {
     @Override
@@ -13,7 +14,7 @@ public class AddCommandTest extends CommandTest {
     }
 
     @Test
-    public void testAdd() throws IllegalValueException {
+    public void testAdd() throws IllegalValueException, ValidationException {
         setParameter("Hello World");
         execute();
         assertTotalTaskCount(1);

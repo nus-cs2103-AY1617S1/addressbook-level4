@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.commands.BaseCommand;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.logic.parser.Parser;
@@ -41,6 +42,9 @@ public class TodoLogic implements Logic {
             command.setModel(model);
             command.execute();
         } catch (IllegalValueException e) {
+            // TODO: Do something about incorrect input
+            logger.info(e.getMessage());
+        } catch (ValidationException e) {
             // TODO: Do something about incorrect input
             logger.info(e.getMessage());
         }
