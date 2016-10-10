@@ -11,7 +11,7 @@ public class Description {
 
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
     		"Description should be spaces or alphanumeric characters";
-    public static final String DESCRIPTION_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String DESCRIPTION_VALIDATION_REGEX = "^[\\p{L}0-9\\s+]*$";
 
     public final String description;
 
