@@ -3,7 +3,7 @@
 
 # Jim's Choice
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/GUI2.png" width="600"><br>
 
 * This is a CLI (Command Line Interface) Task Scheduler application project by Techies with Gremlins.
 * It is **written in OOP fashion**, in Java and JavaFX for the GUI. 
