@@ -12,8 +12,8 @@ public class AddParser {
 	private static final Pattern REGULAR_TASK_REGEX = Pattern
 			.compile("(.+)by: (0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9]) n:(.+)");
 	private static final Pattern EVENTS_REGEX = Pattern
-			.compile("from: (0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9]) "
-					+ "to: (0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])");
+			.compile("(.+)from: (0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9]) "
+					+ "to: (0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9]) n:(.+)");
 
 	private static final String REGULAR_TASK = "task";
 	private static final String EVENTS = "event";
@@ -71,7 +71,7 @@ public class AddParser {
 
 	public static void inputEventArguments() {
 
-		for (int i = 1; i < 5; i++) {
+		for (int i = 1; i < 7; i++) {
 			parsedArguments.add(matcher.group(i));
 		}
 
