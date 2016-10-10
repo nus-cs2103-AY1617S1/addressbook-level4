@@ -9,15 +9,15 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Time {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Task times should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
-
+            "Task times should be two digits indicating the hour, seperated by a :, followed by two digits indicating the minutes, followed by am/pm";
+    public static final String TIME_VALIDATION_REGEX = "([0-1]\\d:[0-5]\\d\\sto)?\\s[0-1]\\d:[0-1]\\d";
+    
     public final String value;
 
     /**
-     * Validates given time.
+     * Validates given deadline.
      *
-     * @throws IllegalValueException if given time address string is invalid.
+     * @throws IllegalValueException if given time string is invalid.
      */
     public Time(String time) throws IllegalValueException {
         assert time != null;
@@ -32,7 +32,7 @@ public class Time {
      * Returns if a given string is a valid task time.
      */
     public static boolean isValidTime(String test) {
-        return test.matches(EMAIL_VALIDATION_REGEX);
+        return test.matches(TIME_VALIDATION_REGEX);
     }
 
     @Override
