@@ -307,5 +307,46 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+##### ColorNote Android Application
+* User can add task quickly; within 2 button clicks. <br>
+> Ad-hoc task can be added by clicking '+' button. <br> 
+> Events can be added by clicking 'add' on calendar view. <br>
+* User cannot specify tasks that need to be done before/after specific datetime.
+* User can add tasks without specific datetime.
+* User can manually look for suitable slot to schedule item by viewing at the calendar. <br>
+* User can easily mark item by clicking. <br>
+* User can choose what task to do next by rearranging the to-do task. <br>
+* User can postpone a task easily (has shortcuts like tomorrow/ next tuesday) <br>
+
+###### TodoIst.com
+* User can add any form of tasks or event easily using shortcut key 'q'. <br>
+* User has the option to include the date and time of a task. <br>
+* User can label his/her entries to further categorise them. <br>
+* User can view a list of upcoming events or deadlines for up to the next 7 days. <br>
+* User cannot add in a task to the next earliest available slot, or add a task with two timings and confirm it later. <br>
+* User have to use a mouse to navigate through the different parts of the application. <br>
+
+###### Apple Reminder iOS Application
+* User can task quickly; within 2 button clicks. <br>
+> Ad-hoc task added by clicking '+' button in the Tasks section. <br>
+> Events can be added by clicking '+' button in the Scheduled section. <br>
+* User can use SIRI to add Ad-hoc or Event task using voice command. <br>
+* User can add additional information by pressing option button at side of the name of the task or schedule. <br>
+> Set alarm reminders via setting the date and time <br>
+> Setting priority of the task <br>
+* User must navigate through the application via touchscreen. <br>
+* User can add specific task or schedule without setting datetime
+* The reminders are not sync with the Phone's calendar application
+* Apple Reminder is unable to resolve conflict due to clashing events
+* User is not able to undo any command he/she performed
+
+###### Google Tasks - Gmail
+* User can add a new Task by clicking the '+' button. <br>
+* The user can add an email as a task through the more option after selecting a particular email. <br>
+* User can add notes or deadline to the the task by clicking '>' button to the right of each task. <br>
+* User has to click pop-up calendar to select date instead of typing a command to do so. <br>
+* User can view or clear completed tasks but cannot view the uncompleted ones. <br>
+* User can integrate their tasks with Google Calendar. <br>
+
+
 
