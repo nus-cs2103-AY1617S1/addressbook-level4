@@ -21,15 +21,15 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
+                    + " (?<isStartDateTimePrivate>p?)p/(?<startDateTime>[^/]+)"
+                    + " (?<isEndDateTimePrivate>p?)e/(?<endDateTime>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
@@ -53,9 +53,6 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -81,13 +78,13 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -95,8 +92,8 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
+                    matcher.group("startDateTime"),
+                    matcher.group("endDateTime"),
                     matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
@@ -106,7 +103,7 @@ public class Parser {
     }
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
+     * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -120,7 +117,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -137,27 +134,11 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the select person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
-
-    /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -171,7 +152,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find task command.
      *
      * @param args full command args string
      * @return the prepared command

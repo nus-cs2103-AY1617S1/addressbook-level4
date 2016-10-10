@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <persons>
+    <tasks>
         <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@google.com</email>
+        <startDateTime isPrivate="false">9482424</startDateTime>
+        <endDateTime isPrivate="false">hans@google.com</endDateTime>
         <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Ruth Mueller</name>
-        <phone isPrivate="false">87249245</phone>
-        <email isPrivate="false">ruth@google.com</email>
+        <startDateTime isPrivate="false">87249245</startDateTime>
+        <endDateTime isPrivate="false">ruth@google.com</endDateTime>
         <address isPrivate="false">81th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Heinz Kurz</name>
-        <phone isPrivate="false">95352563</phone>
-        <email isPrivate="false">heinz@yahoo.com</email>
+        <startDateTime isPrivate="false">95352563</startDateTime>
+        <endDateTime isPrivate="false">heinz@yahoo.com</endDateTime>
         <address isPrivate="false">wall street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Cornelia Meier</name>
-        <phone isPrivate="false">87652533</phone>
-        <email isPrivate="false">cornelia@google.com</email>
+        <startDateTime isPrivate="false">87652533</startDateTime>
+        <endDateTime isPrivate="false">cornelia@google.com</endDateTime>
         <address isPrivate="false">10th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Werner Meyer</name>
-        <phone isPrivate="false">9482224</phone>
-        <email isPrivate="false">werner@gmail.com</email>
+        <startDateTime isPrivate="false">9482224</startDateTime>
+        <endDateTime isPrivate="false">werner@gmail.com</endDateTime>
         <address isPrivate="false">michegan ave</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Lydia Kunz</name>
-        <phone isPrivate="false">9482427</phone>
-        <email isPrivate="false">lydia@gmail.com</email>
+        <startDateTime isPrivate="false">9482427</startDateTime>
+        <endDateTime isPrivate="false">lydia@gmail.com</endDateTime>
         <address isPrivate="false">little tokyo</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Anna Best</name>
-        <phone isPrivate="false">9482442</phone>
-        <email isPrivate="false">anna@google.com</email>
+        <startDateTime isPrivate="false">9482442</startDateTime>
+        <endDateTime isPrivate="false">anna@google.com</endDateTime>
         <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Stefan Meier</name>
-        <phone isPrivate="false">8482424</phone>
-        <email isPrivate="false">stefan@mail.com</email>
+        <startDateTime isPrivate="false">8482424</startDateTime>
+        <endDateTime isPrivate="false">stefan@mail.com</endDateTime>
         <address isPrivate="false">little india</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Martin Mueller</name>
-        <phone isPrivate="false">8482131</phone>
-        <email isPrivate="false">hans@google.com</email>
+        <startDateTime isPrivate="false">8482131</startDateTime>
+        <endDateTime isPrivate="false">hans@google.com</endDateTime>
         <address isPrivate="false">chicago ave</address>
-    </persons>
+    </tasks>
 </addressbook>

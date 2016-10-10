@@ -5,4 +5,4 @@
 
 * **Contributing** : We welcome pull requests. Follow the process described [here](https://github.com/oss-generic/process)
 
-* **Email us** : You can also reach us at `damith [at] comp.nus.edu.sg`
+* **EndDateTime us** : You can also reach us at `damith [at] comp.nus.edu.sg`
