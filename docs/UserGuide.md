@@ -37,18 +37,20 @@
 
 #### Adding a task : `add`
 Adds a task, deadline, event or a floating task to the list. <br>
-Format: `add TASKNAME [at/from TIMEDATE] [by/to TIMEDATE] [PRIORITY]` 
+Format: `add TASKNAME [at/from TIMEDATE] [by/to TIMEDATE] p/[PRIORITY]` 
 
 > * For tasks and events, at least one of the two TIMEDATE values must be included.<br>
 > * For floating tasks, none of the TIMEDATE values are specified.<br>
-> * If priority is not specified, default priority of * is set.
+> * If the taskname contains keywords like "add", the user can enter it using the escape character '\'.
+* `add Shop \at Topshop at 5pm`
+> * Priority must be low/med/high. If priority is not specified, default priority of low is set.
 > * If START_TIMEDATE exceeds END_TIMEDATE, the addition of task will not be successful.
 
 Examples: 
-* `add Buy eggs at 5pm 13/09/2016 ***`
-* `add Meeting from 13/09/2016 5pm to 13/09/2016 7pm **`
+* `add Buy eggs at 5pm 13/09/2016 p/high`
+* `add Meeting from 13/09/2016 5pm to 13/09/2016 7pm p/med`
 * `add Pay bills by 13/09/2016 5pm`
-* `add Do laundry *`
+* `add Do laundry p/low`
 
 #### Displaying tasks : `show`
 Displays tasks and their indexes in the specified timeframe.<br>
@@ -75,34 +77,30 @@ Lists tasks whose names match the given input.<br>
 Format: `find SEARCHSTRING`
 
 > * The search is case insensitive. e.g `buy` will match `Buy`
-> * Wild cards can be indicated with the asterisk `*` e.g. `B*s` will match `Buy eggs`
+> * Wild cards can be indicated with an asterisk `*` e.g. `B* eggs` will match `Buy eggs`
 > * Only the name is searched.
-> * Only full words will be matched e.g. `Buy` will not match `Buys`
+> * Tasks containing the entered text will be matched e.g. `Buy` will match `Must buy eggs`
 
 Examples: 
 * `find b*y`<br>
 
-> * Returns `buy` but not `buy eggs`
-
-* `find b*y*`<br>
-
-> * Returns `buy eggs` but not `must buy eggs`
+> * Returns both `buy` and `buy eggs`
 
 #### Deleting a task : `delete`
 Deletes the specified task.<br>
 Format: `delete INDEX/TASKNAME`
 
 > * Deletes the task at the specified index
-> * If TASKNAME is entered instead, all tasks with matching names are displayed along with their indices. The user can then proceed with deletion using the index of the appropriate task.
+> * If TASKNAME is entered instead, and only one task matches the name, it will be deleted. Otherwise, all tasks with matching names are displayed along with their indices. The user can then proceed with deletion using the index of the appropriate task.
 
 Examples:
 * `delete 1`
 
 > * Deletes task at index 1
 
-* `delete b*y*`
+* `delete b*y`
 
-> * Lists tasks matching `b*y*` for the user to choose from.
+> * If only 1 task matches the entered text, it is deleted. Otherwise, the tasks matching `b*y*` will be listed for the user to choose from.
 
 #### Updating a task : `update`
 Updates information for a task referred by its index.<br>
@@ -125,11 +123,11 @@ Marks a task as complete.<br>
 Format: `done INDEX/TASKNAME`
 
 > * Marks the task at the specified index as complete
-> * If TASKNAME is entered, tasks are sought out in the same way the `find` command does. Matching names and their indices are then displayed. The user can then proceed with marking a task as complete using the index of the appropriate task.
+> * If TASKNAME is entered, tasks are sought out in the same way the `find` command does. If only one task is found, it will be marked as done. Otherwise, matching names and their indices are displayed. The user can then proceed with marking a task as complete using the index of the appropriate task.
 
 Examples:
 * `done 1`
-* `done b*y*`
+* `done b*y`
 
 #### Setting the storage location: `setstorage`
 Sets the data storage location <br>
