@@ -38,11 +38,6 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
-        if (task.isCompleted()) {
-            cardPane.setStyle("-fx-background-color: aquamarine");
-        } else {
-            cardPane.setStyle("-fx-background-color: salmon");
-        }
     }
 
     public HBox getLayout() {
