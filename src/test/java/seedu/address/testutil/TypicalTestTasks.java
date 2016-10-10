@@ -13,30 +13,17 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            apples =  new TaskBuilder().withName("buy apples")
-//            		.withAddress("123, Jurong West Ave 6, #08-111")
-                    .withTime("").withDate("").build();
-//                    .withTags("friends").build();
-            bananas = new TaskBuilder().withName("buy bananas")
-//            		.withAddress("311, Clementi Ave 2, #02-25")
-                    .withTime("").withDate("").build();
-//                    .withTags("owesMoney", "friends").build();
+            apples =  new TaskBuilder().withName("buy apples").withTime("").withDate("").build();
+            bananas = new TaskBuilder().withName("buy bananas").withTime("").withDate("").build();
             chores = new TaskBuilder().withName("sweep").withDate("").withTime("").build();
-//            		.withAddress("wall street").build();
-            dinner = new TaskBuilder().withName("dinner with daniel").withDate("1/10/16").withTime("5:30pm to 6pm").build();
-//            		.withAddress("10th street").build();
-            event = new TaskBuilder().withName("EE2020 discussion").withDate("03/9/16").withTime("werner@gmail.com").build();
-//            		.withAddress("michegan ave").build();
+            dinner = new TaskBuilder().withName("dinner with daniel").withDate("01/10/16").withTime("5:30pm to 6:00pm").build();
+            event = new TaskBuilder().withName("EE2020 discussion").withDate("03/9/16").withTime("5:30pm to 6:00pm").build();
             fishing = new TaskBuilder().withName("fishing trip in malaysia truly asia").withDate("13/11/17").withTime("1:30am to 9:47pm").build();
-//            		.withAddress("little tokyo").build();
             garden = new TaskBuilder().withName("gardening").withDate("11/11/16").withTime("").build();
-//            		.withAddress("4th street").build();
 
             //Manually added
             hunt = new TaskBuilder().withName("Hunting").withDate("31/12/16").withTime("").build();
-//            		.withAddress("little india").build();
             ikea = new TaskBuilder().withName("go ikea").withDate("12/12/16").withTime("").build();
-//            		.withAddress("chicago ave").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

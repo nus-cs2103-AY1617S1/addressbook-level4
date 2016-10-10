@@ -20,17 +20,6 @@ public class TaskBuilder {
         return this;
     }
 
-//    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-//        for (String tag: tags) {
-//            task.getTags().add(new Tag(tag));
-//        }
-//        return this;
-//    }
-
-//    public TaskBuilder withAddress(String address) throws IllegalValueException {
-//        this.task.setAddress(new Address(address));
-//        return this;
-//    }
 
     public TaskBuilder withDate(String date) throws IllegalValueException {
         this.task.setDate(new Date(date));
