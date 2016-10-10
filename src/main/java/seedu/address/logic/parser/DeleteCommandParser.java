@@ -30,7 +30,7 @@ public class DeleteCommandParser extends CommandParser<DeleteCommand> {
     protected DeleteCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            parseIndices(commandText, matcher.group(REGEX_REF_INDICES));
+            parseIndices(matcher.group(REGEX_REF_INDICES));
             // TODO: Create DeleteCommand
         }
 
@@ -38,15 +38,30 @@ public class DeleteCommandParser extends CommandParser<DeleteCommand> {
                 Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));
     }
     
-    private int[] parseIndices(String commandText, String indicesText) throws ParseException {
+    private int[] parseIndices(String indicesText) throws ParseException {
+        boolean parseError = false;
+        
+        int[] indices = null;
         try {
-            return Arrays
+            indices = Arrays
                 .stream(indicesText.trim().split("\\s+"))
                 .mapToInt(Integer::parseInt)
                 .toArray();
+            
+            for(int index : indices) {
+                if (index < 0) {
+                    parseError = true;
+                    break;
+                }
+            }
         } catch (NumberFormatException ex) {
-            throw new ParseException(commandText, "INDEX: Must be a nonnegative whole number!");
+            parseError = true;
         }
+        
+        if (parseError)
+            throw new ParseException(indicesText, "INDEX: Must be a nonnegative whole number!");
+            
+        return indices;
     }
 
 }

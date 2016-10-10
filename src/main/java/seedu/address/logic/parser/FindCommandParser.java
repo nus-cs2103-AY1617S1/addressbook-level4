@@ -35,9 +35,8 @@ public class FindCommandParser extends CommandParser<FindCommand> {
     protected FindCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            parseFindType(commandText, matcher.group(REGEX_REF_FIND_TYPE));
-            parseKeywords(commandText,
-                    matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE),
+            parseFindType(matcher.group(REGEX_REF_FIND_TYPE));
+            parseKeywords(matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE),
                     matcher.group(REGEX_REF_KEYWORDS_AFTER_TYPE));
             
             // TODO: Return FindCommand here (require integration).
@@ -46,20 +45,21 @@ public class FindCommandParser extends CommandParser<FindCommand> {
         throw new ParseException(commandText, getRequiredFormat());
     }
     
-    private FindType parseFindType(String commandText, String findTypeText) throws ParseException {
+    private FindType parseFindType(String findTypeText) throws ParseException {
         try {
             return FindType.valueOfIgnoreCase(findTypeText);
         } catch (IllegalArgumentException ex) {
-            throw new ParseException(commandText, "FIND_TYPE: Unknown type '" + findTypeText + "'");
+            throw new ParseException(findTypeText, "FIND_TYPE: Unknown type '" + findTypeText + "'");
         }
     }
     
-    private String[] parseKeywords(String commandText, String keywordsBefore, String keywordsAfter) throws ParseException {
+    private String[] parseKeywords(String keywordsBefore, String keywordsAfter) throws ParseException {
         String[] keywordsArr1 = keywordsBefore.trim().split("\\s+");
         String[] keywordsArr2 = keywordsAfter.trim().split("\\s+");
 
         if (keywordsArr1.length == 0 && keywordsArr2.length == 0)
-            throw new ParseException(commandText, "KEYWORD: Need to specify at least one keyword!");
+            throw new ParseException(keywordsBefore + " ... " + keywordsAfter,
+                    "KEYWORD: Need to specify at least one keyword!");
         
         return concatArray(keywordsArr1, keywordsArr2);
     }

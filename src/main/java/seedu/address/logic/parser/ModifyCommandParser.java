@@ -1,8 +1,12 @@
 package seedu.address.logic.parser;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ModifyCommandParser extends CommandParser<ModifyCommand> {
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.parser.DateParser.InferredDate;
+
+public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
     private static final String HEADER = "modify";
     private static final String READABLE_FORMAT = "modify INDEX [t/TASK_NAME] [s/START_DATE] "
             + "[st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] "
@@ -48,8 +52,43 @@ public class ModifyCommandParser extends CommandParser<ModifyCommand> {
 
     @Override
     protected ModifyCommand parse(String commandText) throws ParseException {
-        // TODO Auto-generated method stub
-        return null;
+        Matcher matcher = REGEX_PATTERN.matcher(commandText);
+        if (matcher.matches()) {
+            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE));
+            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE));
+            parseIndex(matcher.group(REGEX_REF_INDEX));
+            parseTaskName(matcher.group(REGEX_REF_TASK_NAME));
+            parseLocation(matcher.group(REGEX_REF_LOCATION));
+            parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL));
+            parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE));
+            parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
+            parseCategory(matcher.group(REGEX_REF_CATEGORY));
+            parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
+            
+               
+            // TODO: Create ModifyCommand here (require integration)
+        }
+        
+        throw new ParseException(commandText, String.format(
+                Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));
     }
 
+    private int parseIndex(String indexText) {
+        boolean parseError = false;
+        
+        int index = 0;
+        try {
+            index = Integer.parseInt(indexText);
+            
+            if (index < 0)
+                parseError = true;
+        } catch (NumberFormatException ex) {
+            parseError = true;
+        }
+        
+        if (parseError)
+            throw new ParseException(indexText, "INDEX: Must be a nonnegative whole number.");
+            
+        return index;
+    }
 }

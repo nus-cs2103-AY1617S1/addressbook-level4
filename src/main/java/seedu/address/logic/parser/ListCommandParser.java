@@ -31,7 +31,7 @@ public class ListCommandParser extends CommandParser<ListCommand> {
     protected ListCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            parseListType(commandText, matcher.group(REGEX_REF_LIST_TYPE));
+            parseListType(matcher.group(REGEX_REF_LIST_TYPE));
             // TODO: return ListCommand
         }
         
@@ -39,11 +39,11 @@ public class ListCommandParser extends CommandParser<ListCommand> {
             Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));
     }
 
-    private ListType parseListType(String commandText, String listTypeText) throws ParseException {
+    private ListType parseListType(String listTypeText) throws ParseException {
         try {
             return ListType.valueOfIgnoreCase(listTypeText.replaceAll("\\s", ""));
         } catch (IllegalArgumentException ex) {
-            throw new ParseException(commandText, "LIST_TYPE: Unknown type '" + listTypeText + "'");
+            throw new ParseException(listTypeText, "LIST_TYPE: Unknown type '" + listTypeText + "'");
         }
     }
 }
