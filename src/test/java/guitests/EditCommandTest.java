@@ -52,6 +52,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
         //confirm the edited card contains the right data
         TaskCardHandle editedCard = personListPanel.navigateToPerson(indexToEdit - 1);
+        
         assertMatching(personToCopy, editedCard);
 
         //confirm the list now contains all previous tasks with the edited task

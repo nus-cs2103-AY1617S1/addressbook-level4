@@ -40,12 +40,12 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Start Date: ")
-                .append(DateFormatter.convertDateToDisplayString(getStartDate()))
-                .append(" Due Date: ")
-                .append(DateFormatter.convertDateToDisplayString(getEndDate()))
-                .append(" Location: ")
-                .append(getLocation());
+//                .append(" Start Date: ")
+                .append(" " + DateFormatter.convertDateToDisplayString(getStartDate()))
+//                .append(" Due Date: ")
+                .append(" " + DateFormatter.convertDateToDisplayString(getEndDate()))
+//                .append(" Location: ")
+                .append(" " + getLocation());
 //                .append(" Tags: ");
 //        getTags().forEach(builder::append);
         return builder.toString();

@@ -24,9 +24,9 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the scheduler. "
-            + "Parameters: INDEX TASK s/START_DATE e/END_DATE a/LOCATION  [t/TAG]...\n"
+            + "Parameters: INDEX TASK s/START_DATE e/END_DATE a/LOCATION \n"
             + "Example: " + COMMAND_WORD
-            + " 1 MUST do CS2103 Pretut s/07102016 e/10102016 a/NUS COM1-B103 t/Priority";
+            + " 1 MUST do CS2103 Pretut s/07102016 e/10102016 a/NUS COM1-B103";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
     
@@ -38,14 +38,11 @@ public class EditCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name, String startDate, String endDate, String address, Set<String> tags)
+    public EditCommand(int targetIndex, String name, String startDate, String endDate, String address)
             throws IllegalValueException {
  
         this.targetIndex = targetIndex;
         final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
         this.toCopy = new Task(
                 new Name(name),
                 DateFormatter.convertStringToDate(startDate),
@@ -68,6 +65,7 @@ public class EditCommand extends Command {
         ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
 
         try {
+            toCopy.setTags(personToEdit.getTags());
             model.editTask(personToEdit, toCopy);
         } catch (DuplicateTaskException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

@@ -170,8 +170,8 @@ public class LogicManagerTest {
                 "add Valid Name s/not_numbers e/01012016 a/valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
         assertCommandBehavior(
                 "add Valid Name s/01012016 e/notAnEmail a/valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
-        assertCommandBehavior(
-                "add Valid Name s/01012016 e/01012016 a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+//        assertCommandBehavior(
+//                "add Valid Name s/01012016 e/01012016 a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -390,9 +390,9 @@ public class LogicManagerTest {
             Date startDate = DateFormatter.convertStringToDate("09092011");
             Date endDate = DateFormatter.convertStringToDate("09092011");
             Location privateAddress = new Location("111, alpha street");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+//            Tag tag1 = new Tag("tag1");
+//            Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList();
             return new Task(name, startDate, endDate, privateAddress, tags);
         }
 
@@ -424,10 +424,10 @@ public class LogicManagerTest {
             cmd.append(" e/").append(DateFormatter.convertDateToString(p.getEndDate()));
             cmd.append(" a/").append(p.getLocation().value);
 
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
+//            UniqueTagList tags = p.getTags();
+//            for(Tag t: tags){
+//                cmd.append(" t/").append(t.tagName);
+//            }
 
             return cmd.toString();
         }

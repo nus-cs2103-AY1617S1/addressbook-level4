@@ -31,8 +31,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + " s/(?<startDate>[^/]+)"
                     + " e/(?<endDate>[^/]+)"
-                    + " a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+                    + " a/(?<address>[^/]+)"); 
 
     public Parser() {}
 
@@ -105,7 +104,7 @@ public class Parser {
                     matcher.group("startDate"),
                     matcher.group("endDate"),
                     matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    getTagsFromArgs("Reminder")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -143,8 +142,7 @@ public class Parser {
                     matcher.group("name"),
                     matcher.group("startDate"),
                     matcher.group("endDate"),
-                    matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    matcher.group("address")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

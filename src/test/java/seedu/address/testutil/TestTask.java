@@ -29,13 +29,13 @@ public class TestTask implements ReadOnlyTask {
         this.address = address;
     }
 
-    public void setEndDate(Date email) {
-        this.startDate = email;
-    }
-
     public void setStartDate(Date date) {
+        this.startDate = date;
+    }
+    public void setEndDate(Date date) {
         this.endDate = date;
     }
+
 
     @Override
     public Name getName() {
@@ -44,12 +44,12 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public Date getStartDate() {
-        return endDate;
+        return startDate;
     }
 
     @Override
     public Date getEndDate() {
-        return startDate;
+        return endDate;
     }
 
     @Override
@@ -72,8 +72,8 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add " + this.getName().fullName + " ");
         sb.append("s/" + DateFormatter.convertDateToString(this.getStartDate()) + " ");
         sb.append("e/" + DateFormatter.convertDateToString(this.getEndDate()) + " ");
-        sb.append("a/" + this.getLocation().value + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("a/" + this.getLocation().value);
+//        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
     
@@ -82,8 +82,8 @@ public class TestTask implements ReadOnlyTask {
         sb.append(" " + this.getName().fullName + " ");
         sb.append("s/" + DateFormatter.convertDateToString(this.getStartDate()) + " ");
         sb.append("e/" + DateFormatter.convertDateToString(this.getEndDate()) + " ");
-        sb.append("a/" + this.getLocation().value + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("a/" + this.getLocation().value);
+//        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 }
