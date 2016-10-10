@@ -1,7 +1,18 @@
 package seedu.address.commons.core;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
+
+import javax.xml.bind.JAXBException;
+
+import seedu.address.commons.util.JsonUtil;
+import seedu.address.commons.util.XmlUtil;
+import seedu.address.storage.XmlSerializableTaskList;
 
 /**
  * Config values used by the app
@@ -16,7 +27,6 @@ public class Config {
     private String userPrefsFilePath = "preferences.json";
     private String taskListFilePath = "data/tasklist.xml";
     private String taskListName = "MyTaskList";
-
 
     public Config() {
     }
@@ -49,8 +59,24 @@ public class Config {
         return taskListFilePath;
     }
 
-    public void setTaskListFilePath(String taskListFilePath) {
-        this.taskListFilePath = taskListFilePath;
+    public void setTaskListFilePath(String newTaskListFilePath) {
+        this.taskListFilePath = newTaskListFilePath;
+    }
+    
+    public void changeTaskListFilePath(String newTaskListFilePath) throws IOException, JAXBException {
+        File oldFile = new File(taskListFilePath);
+        XmlSerializableTaskList data = XmlUtil.getDataFromFile(oldFile, XmlSerializableTaskList.class);
+        oldFile.delete();
+        File newFilePath = new File(newTaskListFilePath);
+        newFilePath.mkdirs();
+        File newFile = new File(newTaskListFilePath + "/tasklist.xml");
+        newFile.createNewFile();
+        XmlUtil.saveDataToFile(newFile, data);
+        this.taskListFilePath = newTaskListFilePath + "/tasklist.xml";
+        String newConfig = JsonUtil.toJsonString(this);
+        PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
+        newConfigFileWriter.write(newConfig);
+        newConfigFileWriter.close();
     }
 
     public String getTaskListName() {

@@ -29,6 +29,9 @@ public class Parser {
     private static final Pattern TASK_FLOAT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern RELATIVE_PATH_FORMAT =  
+            Pattern.compile("^(?!-)[a-z0-9-]+(?<!-)(/(?!-)[a-z0-9-]+(?<!-))*$"); 
 
     public Parser() {}
 
@@ -86,6 +89,9 @@ public class Parser {
             
         case UpdateCommand.COMMAND_WORD:
             return prepareUpdate(arguments);
+            
+        case RelocateCommand.COMMAND_WORD:
+            return prepareRelocate(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -299,6 +305,25 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    /**
+     * Parses arguments in the context of the relocate task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareRelocate(String args) {
+        if (args.equals("")) {
+            return new RelocateCommand();
+        }
+        final Matcher matcher = RELATIVE_PATH_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RelocateCommand.MESSAGE_USAGE));
+        }
+        
+        return new RelocateCommand(args.trim());
     }
     
     /**

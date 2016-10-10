@@ -23,6 +23,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
 **Component-In-Charge:** Logic
 
 #### [Wu Zefeng](https://github.com/DesperadoFlames)
+<img src="https://avatars3.githubusercontent.com/u/16379229?v=3&s=400" width="150"><br>
 **Role:** Developer<br>
 **Responsibilities:** Testing<br>
 **Component-In-Charge:** Storage
