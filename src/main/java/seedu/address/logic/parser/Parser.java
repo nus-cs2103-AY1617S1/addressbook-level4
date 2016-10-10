@@ -51,15 +51,14 @@ public class Parser {
                     + " et/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
-    private static final Pattern EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<targetIndex>.+)"
-                            + "("
-                            + "(n/(?<name>[^/]+))|"
-                            + "(sd/(?<startDate>[^/]+))|"
-                            + "(st/(?<startTime>[^/]+))|"
-                            + "(ed/(?<endDate>[^/]+))|"
-                            + "(et/(?<endTime>[^/]+))"
-                            + ")");
+    private static final Pattern EDIT_COMMAND_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[\\d]+)" 
+                                                                            + "(?<editCommandArguments>.+)");
+                   
+    private static final Pattern NAME_ARG_FORMAT = Pattern.compile("(n/(?<name>[^/]+))");
+    private static final Pattern START_DATE_ARG_FORMAT = Pattern.compile("(sd/(?<startDate>[^/]+))");    
+    private static final Pattern START_TIME_ARG_FORMAT = Pattern.compile("(st/(?<startTime>[^/]+))");
+    private static final Pattern END_DATE_ARG_FORMAT = Pattern.compile("(ed/(?<endDate>[^/]+))");
+    private static final Pattern END_TIME_ARG_FORMAT = Pattern.compile("(et/(?<endTime>[^/]+))");
 
     public Parser() {}
 
@@ -218,23 +217,42 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
-        final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = EDIT_COMMAND_ARGS_FORMAT.matcher(args.trim());
         if (matcher.matches()) {
             Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
-            if(index.isPresent()) {
-                try {
-                    return new EditCommand(index.get(), 
-                                           matcher.group("name"),
-                                           matcher.group("startDate"),
-                                           matcher.group("startTime"),
-                                           matcher.group("endDate"),
-                                           matcher.group("endTime"));
-                } catch (IllegalValueException ive) {
-                    return new IncorrectCommand(ive.getMessage());
+            if (index.isPresent()) {
+                String editCommandArgs = matcher.group("editCommandArguments");
+                
+                String name = parseArgument(NAME_ARG_FORMAT, "name", editCommandArgs);
+                String startDate = parseArgument(START_DATE_ARG_FORMAT, "startDate", editCommandArgs);
+                String startTime = parseArgument(START_TIME_ARG_FORMAT, "startTime", editCommandArgs);
+                String endDate = parseArgument(END_DATE_ARG_FORMAT, "endDate", editCommandArgs);
+                String endTime = parseArgument(END_TIME_ARG_FORMAT, "endTime", editCommandArgs);
+                
+                if (name != null || startDate != null || startTime!= null || endDate != null || endTime != null) {
+                    try {
+                        return new EditCommand(index.get(), name, startDate, startTime, endDate, endTime);
+                    } catch (IllegalValueException ive) {
+                        return new IncorrectCommand(ive.getMessage());
+                    }
                 }
             }
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    }
+
+    /**
+     * Extracts argument from a string containing command arguments
+     * @param commandArgs
+     * @return parsed argument as string or null if argument not parsed 
+     */
+    private String parseArgument(Pattern argumentPattern, String argumentGroupName, String commandArgs) {
+        String argument = null;
+        final Matcher argumentMatcher = argumentPattern.matcher(commandArgs);
+        if (argumentMatcher.find()) {
+            argument = argumentMatcher.group(argumentGroupName);
+        }
+        return argument;
     }
     
 
