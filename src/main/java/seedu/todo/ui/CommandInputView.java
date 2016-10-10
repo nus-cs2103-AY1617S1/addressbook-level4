@@ -11,8 +11,6 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.logic.Logic;
-import seedu.todo.logic.commands.*;
-
 import java.util.logging.Logger;
 
 public class CommandInputView extends UiPart {
