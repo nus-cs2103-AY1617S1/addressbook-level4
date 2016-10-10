@@ -6,7 +6,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTaskScheduler;
 import seedu.address.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -51,14 +51,14 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyTaskScheduler> readAddressBook() throws DataConversionException, FileNotFoundException {
         logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
 
         return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveAddressBook(ReadOnlyTaskScheduler addressBook) throws IOException {
         addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
     }
 
