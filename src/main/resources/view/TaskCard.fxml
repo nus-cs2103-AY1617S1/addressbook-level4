@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
@@ -9,16 +10,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@../style/taskcardstyles/TaskCardBaseStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <StackPane>
          <children>
-            <ImageView fx:id="pinImage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT" />
             <HBox alignment="CENTER_LEFT">
                <children>
-                  <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" text="1. Tasking Title">
+                  <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" styleClass="titleLabel" text="1. Tasking Title">
                      <font>
-                        <Font name="Segoe UI Semibold" size="30.0" />
+                        <Font name="Segoe UI Semibold" size="20.0" />
                      </font>
                      <padding>
                         <Insets bottom="4.0" />
@@ -34,9 +34,14 @@
                      <HBox.margin>
                         <Insets left="8.0" />
                      </HBox.margin>
+                     <styleClass>
+                        <String fx:value="roundLabel" />
+                        <String fx:value="typeLabel" />
+                     </styleClass>
                   </Label>
                </children>
             </HBox>
+            <ImageView fx:id="pinImage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" StackPane.alignment="CENTER_RIGHT" />
          </children>
       </StackPane>
       <HBox fx:id="tagsBox" alignment="CENTER_LEFT">
@@ -51,6 +56,10 @@
                <HBox.margin>
                   <Insets right="4.0" />
                </HBox.margin>
+               <styleClass>
+                  <String fx:value="roundLabel" />
+                  <String fx:value="typeLabel" />
+               </styleClass>
             </Label>
             <Label fx:id="tagLabel0" alignment="TOP_LEFT" text="Long Label 0" textFill="WHITE">
                <font>
@@ -62,6 +71,10 @@
                <HBox.margin>
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
+               <styleClass>
+                  <String fx:value="roundLabel" />
+                  <String fx:value="tagLabel" />
+               </styleClass>
             </Label>
             <Label fx:id="tagLabel1" alignment="TOP_LEFT" text="Long Label 1" textFill="WHITE">
                <font>
@@ -73,6 +86,10 @@
                <HBox.margin>
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
+               <styleClass>
+                  <String fx:value="roundLabel" />
+                  <String fx:value="tagLabel" />
+               </styleClass>
             </Label>
             <Label fx:id="tagLabel2" alignment="TOP_LEFT" text="Long Label 2" textFill="WHITE">
                <font>
@@ -84,6 +101,10 @@
                <HBox.margin>
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
+               <styleClass>
+                  <String fx:value="roundLabel" />
+                  <String fx:value="tagLabel" />
+               </styleClass>
             </Label>
             <Label fx:id="tagLabel3" alignment="TOP_LEFT" text="Long Label 3" textFill="WHITE">
                <font>
@@ -95,6 +116,10 @@
                <HBox.margin>
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
+               <styleClass>
+                  <String fx:value="roundLabel" />
+                  <String fx:value="tagLabel" />
+               </styleClass>
             </Label>
             <Label fx:id="tagLabel4" alignment="TOP_LEFT" text="Long Label 4" textFill="WHITE">
                <font>
@@ -106,6 +131,10 @@
                <HBox.margin>
                   <Insets left="4.0" right="4.0" />
                </HBox.margin>
+               <styleClass>
+                  <String fx:value="roundLabel" />
+                  <String fx:value="tagLabel" />
+               </styleClass>
             </Label>
          </children>
          <VBox.margin>
@@ -117,8 +146,12 @@
       </HBox>
       <HBox fx:id="descriptionBox">
          <children>
-            <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" minWidth="4.0" />
-            <Label fx:id="descriptionLabel" lineSpacing="1.0" text="Task description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id iaculis arcu. Curabitur at dapibus magna, at molestie diam. Integer posuere." wrapText="true">
+            <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" minWidth="4.0">
+               <styleClass>
+                  <String fx:value="roundLabel" />
+                  <String fx:value="borderDecoration" />
+               </styleClass></Label>
+            <Label fx:id="descriptionLabel" lineSpacing="1.0" styleClass="descriptionLabel" text="Task description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id iaculis arcu. Curabitur at dapibus magna, at molestie diam. Integer posuere." wrapText="true">
                <HBox.margin>
                   <Insets left="8.0" />
                </HBox.margin>
@@ -138,7 +171,7 @@
          <children>
             <HBox fx:id="dateBox" maxWidth="-Infinity" minWidth="-Infinity">
                <children>
-                  <ImageView fx:id="dateImage" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="dateImage" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" styleClass="dateImage">
                      <HBox.margin>
                         <Insets right="4.0" />
                      </HBox.margin>
@@ -150,6 +183,10 @@
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <styleClass>
+                        <String fx:value="footnoteLabel" />
+                        <String fx:value="timeLabel" />
+                     </styleClass>
                   </Label>
                </children>
                <FlowPane.margin>
@@ -158,12 +195,12 @@
             </HBox>
             <HBox fx:id="locationBox" maxWidth="-Infinity">
                <children>
-                  <ImageView fx:id="locationImage" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="locationImage" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" styleClass="locationImage">
                      <HBox.margin>
                         <Insets right="4.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" text="at Some Specific Location">
+                  <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" styleClass="footnoteLabel" text="at Some Specific Location">
                      <font>
                         <Font name="Segoe UI Italic" size="16.0" />
                      </font>
