@@ -2,10 +2,8 @@ package seedu.address.model.task;
 
 import java.util.Set;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;

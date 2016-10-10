@@ -1,7 +1,5 @@
 package seedu.address.model.task;
 
-import java.util.Comparator;
-
 /*
  * Represents a highly general Task object to be subclassed
  */

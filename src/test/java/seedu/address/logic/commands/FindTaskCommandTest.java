@@ -11,9 +11,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.taskcommands.FindTaskCommand;
-import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.model.task.InMemoryTaskList;
-import seedu.address.model.task.TaskManager;
 import seedu.address.testutil.TestUtil;
 
 public class FindTaskCommandTest {
