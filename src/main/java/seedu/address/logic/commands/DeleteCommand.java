@@ -4,6 +4,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.ui.PersonListPanel;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -30,13 +31,23 @@ public class DeleteCommand extends Command {
     public CommandResult execute() {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
 
-        if (lastShownList.size() < targetIndex) {
+        if ((targetIndex <= PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET 
+                && lastUndatedTaskList.size() < targetIndex)
+           || (targetIndex > PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET 
+                   && lastShownList.size() < targetIndex - PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
-        ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
+        
+        ReadOnlyTask personToDelete;
+        if (targetIndex > PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET) {
+            personToDelete = lastShownList.get(targetIndex - 1 - PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET);
+        }
+        else {
+            personToDelete = lastUndatedTaskList.get(targetIndex - 1);
+        }
 
         try {
             model.deletePerson(personToDelete);
