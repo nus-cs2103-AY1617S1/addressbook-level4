@@ -29,6 +29,9 @@ public interface Model {
     /** Marks the given task as done */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Relocates save location to given directory */
+    void relocateSaveLocation(String directory);
+    
     /** Returns the stack of command history */
     Stack<Command> getCommandHistory();
 

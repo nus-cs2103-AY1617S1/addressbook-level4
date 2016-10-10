@@ -30,7 +30,6 @@ public class UiPartLoader {
         Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());
         UiPart controller = loader.getController();
         controller.setStage(primaryStage);
-        controller.setPlaceholder(placeholder);
         controller.setNode(mainNode);
         return (T)controller;
     }

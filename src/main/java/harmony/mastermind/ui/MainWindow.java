@@ -1,23 +1,38 @@
 package harmony.mastermind.ui;
 
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.GuiSettings;
+import harmony.mastermind.commons.core.LogsCenter;
+import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.ExitAppRequestEvent;
+import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.logic.Logic;
+import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.PreviousCommand;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.task.ReadOnlyTask;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart {
 
@@ -28,12 +43,6 @@ public class MainWindow extends UiPart {
 
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private TaskListPanel taskListPanel;
-    private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
-    private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
 
@@ -43,24 +52,30 @@ public class MainWindow extends UiPart {
 
     private String taskManagerName;
 
+    private final Logger logger = LogsCenter.getLogger(MainWindow.class);
+
+    String previousCommandTest;
+
+    private CommandResult mostRecentResult;
+
+    // UI elements
     @FXML
-    private AnchorPane browserPlaceholder;
+    private TextField commandField;
 
     @FXML
-    private AnchorPane commandBoxPlaceholder;
-
+    private TextArea consoleOutput;
+    
     @FXML
-    private MenuItem helpMenuItem;
-
+    private TableView<ReadOnlyTask> taskTable;
+    
     @FXML
-    private AnchorPane taskListPanelPlaceholder;
-
+    private TableColumn<ReadOnlyTask, String> indexColumn;
+    
     @FXML
-    private AnchorPane resultDisplayPlaceholder;
-
+    private TableColumn<ReadOnlyTask, String> taskNameColumn;
+    
     @FXML
-    private AnchorPane statusbarPlaceholder;
-
+    private TableColumn<ReadOnlyTask, String> dateColumn;
 
     public MainWindow() {
         super();
@@ -83,52 +98,25 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs,
-                           Logic logic) {
+    private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs, Logic logic) {
 
-        //Set dependencies
+        // Set dependencies
         this.logic = logic;
         this.taskManagerName = taskManagerName;
         this.config = config;
         this.userPrefs = prefs;
 
-        //Configure the UI
+        // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
+        
+        taskTable.setItems(logic.getFilteredTaskList());
 
-        setAccelerators();
-    }
-
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
-
-    void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
-    }
-
-    private AnchorPane getCommandBoxPlaceholder() {
-        return commandBoxPlaceholder;
-    }
-
-    private AnchorPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
-    }
-
-    private AnchorPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
-    }
-
-    public AnchorPane getTaskListPlaceholder() {
-        return taskListPanelPlaceholder;
+        registerAsAnEventHandler(this);
     }
 
     public void hide() {
@@ -164,33 +152,70 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /*
+     * TODO: WILL NOT WORK BECAUSE UI REVAMP REMOVED Browser panel.
     @FXML
     public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load(primaryStage);
-        helpWindow.show();
+        browserPanel.loadHelpPage();
     }
+    */
 
     public void show() {
         primaryStage.show();
     }
 
-    /**
-     * Closes the application.
-     */
+    // ==================================
+    
     @FXML
-    private void handleExit() {
-        raise(new ExitAppRequestEvent());
+    private void initialize(){
+        indexColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.03));
+        taskNameColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.75));
+        dateColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
+        
+        taskNameColumn.setCellValueFactory(task->new ReadOnlyStringWrapper(task.getValue().getName().fullName));
+        dateColumn.setCellValueFactory(task->new ReadOnlyStringWrapper(task.getValue().getDate().value));
+        
+        indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, String>(){
+            @Override
+            public void updateIndex(int index){
+                super.updateIndex(index);
+                
+                if(isEmpty() || index <0){
+                    setText(null);
+                }else{
+                    setText(Integer.toString(index+1));
+                }
+            }
+        });
+        
+    }
+    
+    @FXML
+    private void handleCommandInputChanged() {
+        // Take a copy of the command text
+        previousCommandTest = commandField.getText();
+
+        /*
+         * We assume the command is correct. If it is incorrect, the command box
+         * will be changed accordingly in the event handling code {@link
+         * #handleIncorrectCommandAttempted}
+         */
+        mostRecentResult = logic.execute(previousCommandTest);
+        consoleOutput.setText(mostRecentResult.feedbackToUser);
+        commandField.setText("");
+        
+        taskTable.setItems(logic.getFilteredTaskList());
+        
+        logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 
-    public TaskListPanel getTaskListPanel() {
-        return this.taskListPanel;
+    @Subscribe
+    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandTest));
+        restoreCommandText();
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
+    private void restoreCommandText() {
+        commandField.setText(previousCommandTest);
     }
 }

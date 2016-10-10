@@ -31,15 +31,15 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<Command> commandHistory;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given TaskManager
+     * TaskManager and its variables should not be null
      */
     public ModelManager(TaskManager src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
@@ -93,6 +93,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.markTask(target);
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void relocateSaveLocation(String target) {
+        taskManager.relocateSaveLocation(target);
         indicateTaskManagerChanged();
     }
 

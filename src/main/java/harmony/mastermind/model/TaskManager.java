@@ -31,14 +31,14 @@ public class TaskManager implements ReadOnlyTaskManager {
     public TaskManager() {}
 
     /**
-     * Tasks and Tags are copied into this taskmanager
+     * Tasks and Tags are copied into this TaskManager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Tasks and Tags are copied into this taskmanager
+     * Tasks and Tags are copied into this TaskManager
      */
     public TaskManager(UniqueTaskList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
@@ -132,6 +132,10 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
+    }
+    
+    public void relocateSaveLocation(String directory) {
+        
     }
 
 //// util methods
