@@ -17,6 +17,7 @@ public class Messages {
     public static final String MESSAGE_TODO_DATERANGE_END_INVALID_FORMAT = "End of date range is an invalid date.";
     public static final String MESSAGE_TODO_ADDED = "To-do added: %1$s.";
     public static final String MESSAGE_TODO_DELETED = "To-do deleted: %1$s.";
+    public static final String MESSAGE_TODO_FINISHED = "To-do finished: %1$s.";
     public static final String MESSAGE_TODO_EDITED = "To-do edited: %1$s.";
     public static final String MESSAGE_TODO_NOT_FOUND = "To-do not found: %1$s";
     public static final String MESSAGE_FIND = "Found %1$d to-do item(s).";
