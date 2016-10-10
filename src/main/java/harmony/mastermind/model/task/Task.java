@@ -11,35 +11,33 @@ public class Task implements ReadOnlyTask {
     private Date endDate;
     private UniqueTagList tags;
 
-    private boolean isArchived;
-
     private boolean isMarked;
 
     // event
     // @@author A0138862W
-    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, boolean isArchived) {
+    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, boolean isMarked) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags = tags;
-        this.isArchived = isArchived;
+        this.isMarked = isMarked;
     }
 
     // deadline
     // @@author A0138862W
-    public Task(String name, Date endDate, UniqueTagList tags, boolean isArchived) {
-        this(name, null, endDate, tags, isArchived);
+    public Task(String name, Date endDate, UniqueTagList tags, boolean isMarked) {
+        this(name, null, endDate, tags, isMarked);
     }
 
     // floating
     // @@author A0138862W
-    public Task(String name, UniqueTagList tags, boolean isArchived) {
+    public Task(String name, UniqueTagList tags, boolean isMarked) {
         this(name, null, null, tags, false);
     }
 
     // @@author A0138862W
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.isArchived());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.isMarked());
     }
 
     @Override
@@ -84,17 +82,6 @@ public class Task implements ReadOnlyTask {
     // @@author generated
     public void setTags(UniqueTagList tags) {
         this.tags = tags;
-    }
-
-    @Override
-    // @@author generated
-    public boolean isArchived() {
-        return isArchived;
-    }
-
-    // @@author generated
-    public void setArchived(boolean isArchived) {
-        this.isArchived = isArchived;
     }
 
     // @@author generated
