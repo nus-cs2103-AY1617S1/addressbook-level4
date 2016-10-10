@@ -3,8 +3,6 @@ package seedu.todo.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -46,7 +44,7 @@ public class MainWindow extends UiPart {
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane todoListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -94,7 +92,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        todoListPanel = TodoListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getObservableTaskList());
+        todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getObservableTaskList());
         commandFeedbackView = CommandFeedbackView.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTodoListFilePath());
         commandInputView = CommandInputView.load(primaryStage, getCommandBoxPlaceholder(), commandFeedbackView, logic);
@@ -112,8 +110,8 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+    public AnchorPane getTodoListPlaceholder() {
+        return todoListPanelPlaceholder;
     }
 
     public void hide() {
