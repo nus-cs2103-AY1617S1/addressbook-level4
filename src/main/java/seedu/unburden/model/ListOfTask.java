@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
  */
 public class ListOfTask implements ReadOnlyListOfTask {
 
-    private final UniqueTaskList persons;
+    private final UniqueTaskList tasks;
     private final UniqueTagList tags;
 
     {
-        persons = new UniqueTaskList();
+        tasks = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
@@ -47,11 +47,11 @@ public class ListOfTask implements ReadOnlyListOfTask {
 //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
-        return persons.getInternalList();
+        return tasks.getInternalList();
     }
 
     public void setTasks(List<Task> tasks) {
-        this.persons.getInternalList().setAll(tasks);
+        this.tasks.getInternalList().setAll(tasks);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -78,7 +78,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
-        persons.add(p);
+        tasks.add(p);
     }
 
     /**
@@ -105,7 +105,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
     }
 
     public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (persons.remove(key)) {
+        if (tasks.remove(key)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -122,13 +122,13 @@ public class ListOfTask implements ReadOnlyListOfTask {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(persons.getInternalList());
+        return Collections.unmodifiableList(tasks.getInternalList());
     }
 
     @Override
@@ -138,7 +138,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
-        return this.persons;
+        return this.tasks;
     }
 
     @Override
@@ -151,13 +151,13 @@ public class ListOfTask implements ReadOnlyListOfTask {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListOfTask // instanceof handles nulls
-                && this.persons.equals(((ListOfTask) other).persons)
+                && this.tasks.equals(((ListOfTask) other).tasks)
                 && this.tags.equals(((ListOfTask) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(tasks, tags);
     }
 }
