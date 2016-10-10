@@ -31,27 +31,30 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredTaskToShowAll();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    /** Updates the filter of the filtered task list to filter by the given keywords */
     void updateFilteredTaskList(Set<String> keywords);
     
     /** Removes all filters of the filtered task list */
     void resetTaskListFilter();
 
-    /** Adds the filter of the filtered task list by the given type*/
-    void addTaskListFilterByType(String type);
+    /** Adds the filter of the filtered task list by the given type */
+    void addTaskListFilterByType(String type, boolean negated);
 
-    /** Adds the filter of the filtered task list by the given deadline*/
-    void addTaskListFilterByDeadline(Date deadline);
+    /** Adds the filter of the filtered task list by the given deadline */
+    void addTaskListFilterByDeadline(Date deadline, boolean negated);
     
-    /** Adds the filter of the filtered task list by the given start time*/
-    void addTaskListFilterByStartTime(Date startTime);
+    /** Adds the filter of the filtered task list by the given start time */
+    void addTaskListFilterByStartTime(Date startTime, boolean negated);
+
+    /** Adds the filter of the filtered task list by the given end time */
+    void addTaskListFilterByEndTime(Date endTime, boolean negated);
     
-    /** Adds the filter of the filtered task list by the given end time*/
-    void addTaskListFilterByEndTime(Date endTime);
+    /** Adds the filter of the filtered task list by between start time and end time */
+    void addTaskListFilterByStartToEndTime(Date startTime, Date endTime, boolean negated);
     
-    /** Adds the filter of the filtered task list by the given tag names*/
-    void addTaskListFilterByTags(Set<String> tags);
-    
+    /** Adds the filter of the filtered task list by the given tag names */
+    void addTaskListFilterByTags(Set<String> tags, boolean negated);
+
     /** Updates the filtered task list by the added filters */
     void updateFilteredTaskListByFilter();
 

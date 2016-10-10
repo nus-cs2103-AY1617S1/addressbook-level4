@@ -14,9 +14,9 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tasks with filters. "
-            + "Parameters: [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag \"TAG\"...] [SORTING_ORDER]\n"
+            + "Parameters: [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag TAG...] [sort SORTING_ORDER]\n"
             + "Example: " + COMMAND_WORD
-            + " tasks by 18 Sep, tag \"Important\", sort earliest first";
+            + " tasks by 18 Sep, tag Important, sort earliest first";
 
     private final String type;
     private final Date deadline;
@@ -75,15 +75,15 @@ public class ListCommand extends Command {
     public CommandResult execute() {
         model.resetTaskListFilter();
         if (type != null)
-            model.addTaskListFilterByType(type);
+            model.addTaskListFilterByType(type, false);
         if (deadline != null)
-            model.addTaskListFilterByDeadline(deadline);
+            model.addTaskListFilterByDeadline(deadline, false);
         if (startTime != null)
-            model.addTaskListFilterByStartTime(startTime);
+            model.addTaskListFilterByStartTime(startTime, false);
         if (endTime != null)
-            model.addTaskListFilterByEndTime(endTime);
+            model.addTaskListFilterByEndTime(endTime, false);
         if (!tags.isEmpty())
-            model.addTaskListFilterByTags(tags);
+            model.addTaskListFilterByTags(tags, false);
         model.updateFilteredTaskListByFilter();
         
         // TODO: Sorting order
