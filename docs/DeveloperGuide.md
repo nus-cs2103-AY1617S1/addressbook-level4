@@ -82,7 +82,7 @@ _Figure 2: Class Diagram of the `Logic `component_
 The _Sequence Diagram_ (Figure 3) below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SDforDeletePerson.png" width="800"><br>
 _Figure 3: Sequence Diagram for delete command_
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
@@ -90,7 +90,7 @@ _Figure 3: Sequence Diagram for delete command_
 
 The next Sequence Diagram (Figure 4) shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images\SDforDeletePersonEventHandling.png" width="800"><br>
 _Figure 4: Sequence Diagram of_ `EventsCenter`
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
