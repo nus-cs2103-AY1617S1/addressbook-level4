@@ -1,5 +1,10 @@
 package seedu.address.commons.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,6 +20,7 @@ public class DateValidation {
 
     /**
      * Validate date format with regular expression
+     * 
      * @param date
      * @return true valid date format, false invalid date format
      */
@@ -38,7 +44,7 @@ public class DateValidation {
                     return false; // 4,6,9,11th month only have 30 days
                 } else if (month.equals("2") || month.equals("02")) {
                     // leap year
-                    if ((year % 4 == 0) && (year%400 == 0) && (year%100 != 0)) {
+                    if ((year % 4 == 0) && (year % 400 == 0) && (year % 100 != 0)) {
                         if (day.equals("30") || day.equals("31")) {
                             return false;
                         } else {
@@ -61,4 +67,25 @@ public class DateValidation {
             return false;
         }
     }
+
+    // Return today's date
+    public static String TodayDate() {
+        String todaydate;
+        todaydate = DateFormatChange();
+        return todaydate;
+    }
+
+    // Return tomorrow's date
+    public static String TomorrowDate() {
+        String tomorrowdate;
+        tomorrowdate = DateFormatChange();
+        return tomorrowdate;
+    }
+
+    public static String DateFormatChange() {
+        String strDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        return strDate;
+
+    }
+
 }
