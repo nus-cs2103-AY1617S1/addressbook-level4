@@ -51,4 +51,12 @@ public class AddParserTest {
 		
 		assertEquals("task", AddParser.parseCommand(arguments).get(0));
 	}
+	
+	@Test
+	public void checkTypeOfActivity_returnsEvents(){
+		
+		String arguments = "from: 10-08-2016 1900 to: 11-08-2016 1900";
+		
+		assertEquals("event", AddParser.parseCommand(arguments).get(0));
+	}
 }
