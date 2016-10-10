@@ -13,6 +13,7 @@ public class TestTask implements ReadOnlyTask {
     private TaskDate fromDate;
     private TaskDate tillDate;
     private UniqueTagList tags;
+    private boolean done;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -26,12 +27,16 @@ public class TestTask implements ReadOnlyTask {
         this.detail = detail;
     }
 
-    public void setFromDate(TaskDate fromDate) {
+    public void setOnDate(TaskDate fromDate) {
         this.fromDate = fromDate;
     }
 
-    public void setTillDate(TaskDate tillDate) {
+    public void setByDate(TaskDate tillDate) {
         this.tillDate = tillDate;
+    }
+    
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     @Override
@@ -45,15 +50,20 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public TaskDate getFromDate() {
+    public TaskDate getOnDate() {
         return this.fromDate;
     }
 
     @Override
-    public TaskDate getTillDate() {
+    public TaskDate getByDate() {
         return this.tillDate;
     }
 
+    @Override
+    public boolean isDone() {
+        return this.done;
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return tags;
@@ -68,8 +78,8 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
         sb.append("p/" + this.getDetail().value + " ");
-        sb.append("e/" + this.getFromDate().toString() + " ");
-        sb.append("a/" + this.getTillDate().toString() + " ");
+        sb.append("e/" + this.getOnDate().toString() + " ");
+        sb.append("a/" + this.getByDate().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

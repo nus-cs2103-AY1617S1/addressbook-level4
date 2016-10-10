@@ -15,28 +15,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
  * Parses user input.
  */
 public class Parser {
-
-    /**
-     * Used for initial separation of command word and args.
-     */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-    
-    //one or more keywords separated by whitespace
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
-
-    private static final Pattern TASK_DATA_ARGS_FORMAT_FT = Pattern.compile(
-            "(?<name>[^/]+)" + " on (?<fromDateTime>.+)" + " by (?<tillDateTime>[^;]+)" + "(?: ?; ?(?<detail>.+))?");
-
-    private static final Pattern TASK_DATA_ARGS_FORMAT_ON = Pattern
-            .compile("(?<name>[^/]+) on (?<fromDateTime>[^;]+)(?: ?; ?(?<detail>.+))?");
-
-    private static final Pattern TASK_DATA_ARGS_FORMAT_BY = Pattern
-            .compile("(?<name>[^/]+) by (?<tillDateTime>[^;]+)(?: ?; ?(?<detail>.+))?");
-
-    private static final Pattern TASK_DATA_ARGS_FORMAT_FLOAT = Pattern
-            .compile("(?<name>[a-zA-Z_0-9 ]+)(?: ?; ?(?<detail>.+))?");
     
     public Parser() {
     }
@@ -49,7 +27,7 @@ public class Parser {
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        final Matcher matcher = ParserFormats.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
@@ -80,7 +58,7 @@ public class Parser {
             return prepareSearch(arguments);
 
         case SeeCommand.COMMAND_WORD:
-            return prepareSee(arguments);
+            return new SeeCommand();
         
         case TagCommand.COMMAND_WORD:
             return prepareTag(arguments);
@@ -103,34 +81,34 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-    	Pattern[] dataPatterns = {TASK_DATA_ARGS_FORMAT_FT, TASK_DATA_ARGS_FORMAT_BY, TASK_DATA_ARGS_FORMAT_ON, 
-    	                          TASK_DATA_ARGS_FORMAT_FLOAT};
+    	Pattern[] dataPatterns = {ParserFormats.TASK_DATA_ARGS_FORMAT_FT, ParserFormats.TASK_DATA_ARGS_FORMAT_BY, 
+    	        ParserFormats.TASK_DATA_ARGS_FORMAT_ON, ParserFormats.TASK_DATA_ARGS_FORMAT_FLOAT};
     	
     	Matcher matcher;
     	try {
         	for (Pattern p : dataPatterns) {
         		matcher = p.matcher(args.trim());
         		if (matcher.matches()) {
-        		    if (p.equals(TASK_DATA_ARGS_FORMAT_FT)) { 
+        		    if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_FT)) { 
         		        return new AddCommand(
         		                matcher.group("name"),
         		                matcher.group("detail"),
-                	            matcher.group("fromDateTime"),
-                	            matcher.group("tillDateTime")
+                	            matcher.group("onDateTime"),
+                	            matcher.group("byDateTime")
                 	    );
-            		} else if (p.equals(TASK_DATA_ARGS_FORMAT_ON)) {
+            		} else if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_ON)) {
                 	    return new AddCommand(
                 	            matcher.group("name"),
                 	            matcher.group("detail"),
-                	            matcher.group("fromDateTime"),
+                	            matcher.group("onDateTime"),
                 	            null
                 	    );
-            	    } else if (p.equals(TASK_DATA_ARGS_FORMAT_BY)) {
+            	    } else if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_BY)) {
             		    return new AddCommand(
             		            matcher.group("name"),
             		            matcher.group("detail"),
             		            null,
-            		            matcher.group("tillDateTime")
+            		            matcher.group("byDateTime")
                 	    );
             	    } else {
             	        return new AddCommand(
@@ -216,22 +194,6 @@ public class Parser {
 
     }
     
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args
-     *            full command args string
-     * @return the prepared command
-     */
-    private Command prepareSee(String args) {
-        try {
-            return new SeeCommand(args);
-        } catch (Exception e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SeeCommand.MESSAGE_USAGE));
-        }
-
-    }
-    
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned
@@ -239,7 +201,7 @@ public class Parser {
      * otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = ParserFormats.TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -253,22 +215,49 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find task command.
+     * Parses arguments in the context of the search task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareSearch(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+        Pattern[] dataPatterns = {ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON, ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, 
+                                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER, ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT,
+                                 ParserFormats.KEYWORDS_ARGS_FORMAT};
+        args = args.trim();
+        Matcher matcher;
+        for (Pattern p : dataPatterns) {
+            matcher = p.matcher(args);
+            if (matcher.matches()) {
+                if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON)) { 
+                    return new SearchCommand(matcher.group("onDateTime"), 0);
+                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE)) {
+                    return new SearchCommand(matcher.group("beforeDateTime"), 1);
+                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER)) {
+                    return new SearchCommand(matcher.group("afterDateTime"), 2);
+                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT)){
+                    return new SearchCommand(matcher.group("fromDateTime") + "@" + matcher.group("tillDateTime"), 3);
+                } else if (p.equals(ParserFormats.KEYWORDS_ARGS_FORMAT) && args.indexOf("tag") == 0
+                        && args.indexOf("done") == 0 && args.indexOf("undone") == 0){
+                    return new SearchCommand(matcher.group("keywords"), 4);
+                }
+            }
         }
+        if (args.indexOf("tag") == 0) {
+            return new SearchCommand(args, 5);
+        } 
+        
+        if (args.indexOf("done") == 0) {
+            return new SearchCommand(args, 6);
+        }
+        
+        if (args.indexOf("undone") == 0) {
+            return new SearchCommand(args, 7);
+        }
+        
+        
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
 
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new SearchCommand(keywordSet);
     }
 
 }
