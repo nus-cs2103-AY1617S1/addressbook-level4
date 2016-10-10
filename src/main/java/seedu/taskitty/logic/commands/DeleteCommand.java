@@ -11,24 +11,38 @@ import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    
+    public static final String CATEGORY_CHARS = "t|d|e";
+    
+    public static final int TODO_INDEX = 0;
+    
+    public static final String[] CATEGORIES = {"Todo", "Deadline", "Event"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the task identified by the category character and index number used in the last task listing.\n"
+            + "Parameters: CATEGORY(default to 't' if not given) INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " " + CATEGORY_CHARS + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted" + " %1$s: %2$s";
+    
+    public final int categoryIndex;
+    
     public final int targetIndex;
-
+    
     public DeleteCommand(int targetIndex) {
+        // default to Todo category if no given category
+        this(targetIndex, TODO_INDEX);
+    }
+    
+    public DeleteCommand(int targetIndex, int categoryIndex) {
         this.targetIndex = targetIndex;
+        this.categoryIndex = categoryIndex;
     }
 
 
     @Override
     public CommandResult execute() {
-
+        assert categoryIndex >= 0 && categoryIndex < 3;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -43,7 +57,7 @@ public class DeleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, CATEGORIES[categoryIndex], taskToDelete));
     }
 
 }
