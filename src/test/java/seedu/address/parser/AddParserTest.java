@@ -59,4 +59,12 @@ public class AddParserTest {
 		
 		assertEquals("event", AddParser.parseCommand(arguments).get(0));
 	}
+	
+	@Test
+	public void checkTypeOfActivity_returnsFloatingTask(){
+		
+		String arguments = " ";
+		
+		assertEquals("floatingTask", AddParser.parseCommand(arguments).get(0));
+	}
 }
