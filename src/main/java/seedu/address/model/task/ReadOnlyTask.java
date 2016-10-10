@@ -64,5 +64,24 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    
+    /**  
+     * For FindCommand to Formats the person as text,   
+     * showing all contact details.  
+     */  
+    default String getFindAsText() {  
+        final StringBuilder builder = new StringBuilder();  
+        builder.append(getName())  
+            .append(" ")  
+            .append(DateFormatter.convertDateToString(getStartDate()))  
+            .append(" ")  
+            .append(DateFormatter.convertDateToString(getEndDate()))  
+            .append(" ")  
+            .append(getLocation())  
+            .append(" ");  
+        getTags().forEach(builder::append);  
+        return builder.toString();  
+    }  
+
 
 }
