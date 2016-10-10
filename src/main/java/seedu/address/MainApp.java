@@ -1,6 +1,7 @@
 package seedu.address;
 
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -26,6 +27,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javax.xml.bind.JAXBException;
+
 /**
  * The main entry point to the application.
  */
@@ -36,10 +39,11 @@ public class MainApp extends Application {
 
     protected Ui ui;
     protected Logic logic;
-    protected Storage storage;
     protected Model model;
-    protected Config config;
     protected UserPrefs userPrefs;
+    protected static Config config;
+    protected Storage storage;
+    private static String newTaskListFilePath;
 
     public MainApp() {}
 
@@ -49,6 +53,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
+        newTaskListFilePath = config.getTaskListFilePath().split("/tasklist.xml")[0];
         storage = new StorageManager(config.getTaskListFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
@@ -62,6 +67,14 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+    }
+    
+    public static void setDataStorageFilePath(String newPath) throws IOException, JAXBException {
+        newTaskListFilePath = newPath;
+    }
+    
+    public static String getDataStorageFilePath() {
+        return newTaskListFilePath;
     }
 
     private String getApplicationParameter(String parameterName){
@@ -169,8 +182,11 @@ public class MainApp extends Application {
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
+            config.changeTaskListFilePath(newTaskListFilePath);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        } catch (JAXBException e) {
+            logger.severe("Failed to transfer data to new destination " + StringUtil.getDetails(e));
         }
         Platform.exit();
         System.exit(0);
