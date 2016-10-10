@@ -2,8 +2,9 @@ package seedu.taskitty.ui;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.util.FxViewUtil;
@@ -19,9 +20,7 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md";
-
+    private static final String HELPIMAGE = "/images/UIhelp.png";
     private AnchorPane mainPane;
 
     private Stage dialogStage;
@@ -49,11 +48,11 @@ public class HelpWindow extends UiPart {
         dialogStage = createDialogStage(TITLE, null, scene);
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
-
-        WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(browser);
+        
+        Image helpImage = new Image(HELPIMAGE);
+        ImageView helpImageView = new ImageView(helpImage);        
+        FxViewUtil.applyAnchorBoundaryParameters(helpImageView, 0.0, 0.0, 0.0, 0.0);
+        mainPane.getChildren().add(helpImageView);
     }
 
     public void show() {
