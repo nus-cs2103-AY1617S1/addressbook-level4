@@ -15,13 +15,19 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
-
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event/ deadline/ task to be done someday to the task manager.\n"
+            + "Event Parameters: event 'NAME' from hh:mm to hh:mm on dd-mm-yy\n"
+            + "Event Example: " + COMMAND_WORD
+            + " event 'dinner with wife' from 19:00 to 21:00 on 25-12-16\n"
+            + "Deadline Parameters: deadline 'NAME' by hh:mm dd-mm-yy\n"
+            + "Deadline Example: " + COMMAND_WORD
+            + " deadline 'lab report' by 16:00 03-03-15\n"
+            + "Task to Be Done Someday Parameters: someday 'NAME'\n"
+            + "Task to Be Done Someday Example: " + COMMAND_WORD
+            + " someday 'read EL James' book 50 Shades of Grey'";
+    
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
 
