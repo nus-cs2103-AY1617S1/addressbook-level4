@@ -49,6 +49,23 @@ public class IndexView extends View {
 			tags.add("tag2");
 			tags.add("tag3");
 			tags.add("tag4");
+			tags.add("tag5");
+			tags.add("tag6");
+			tags.add("tag7");
+			tags.add("tag1");
+			tags.add("tag2");
+			tags.add("tag3");
+			tags.add("tag4");
+			tags.add("tag5");
+			tags.add("tag6");
+			tags.add("tag7");
+			tags.add("tag1");
+			tags.add("tag2");
+			tags.add("tag3");
+			tags.add("tag4");
+			tags.add("tag5");
+			tags.add("tag6");
+			tags.add("tag7");
 			
 			view.tags = tags;
 			return view;

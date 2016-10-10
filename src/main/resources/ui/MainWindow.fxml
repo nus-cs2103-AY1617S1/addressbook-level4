@@ -25,14 +25,14 @@
       </menus>
     </MenuBar>
     
-    <AnchorPane fx:id="headerPlaceholder" minHeight="64.0" VBox.vgrow="NEVER" />
+    <AnchorPane fx:id="headerPlaceholder" minHeight="90.0" VBox.vgrow="NEVER" />
     
     <AnchorPane fx:id="childrenPlaceholder" VBox.vgrow="ALWAYS">
       <Text layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." textAlignment="CENTER" />
     </AnchorPane>
     
-    <AnchorPane fx:id="consolePlaceholder" VBox.vgrow="NEVER" />
-    <AnchorPane fx:id="consoleInputPlaceholder" VBox.vgrow="NEVER" />
+    <AnchorPane fx:id="consolePlaceholder" minHeight="100.0" VBox.vgrow="NEVER" />
+    <AnchorPane fx:id="consoleInputPlaceholder" minHeight="30.0" VBox.vgrow="NEVER" />
   </children>
   <stylesheets>
     <URL value="@css/bootstrap3.css" />
