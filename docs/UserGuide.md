@@ -179,7 +179,7 @@ There is no need to save manually.
 Command | Format  
 -------- | :--------
 add | `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE] [p/PRIORITY]`
-show | `show [TYPE]`
+show | `show TYPE`
 find | `find SEARCHSTRING`
 delete | `delete INDEX/TASKNAME`
 update | `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [p/PRIORITY]`
