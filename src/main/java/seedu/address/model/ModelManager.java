@@ -5,6 +5,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.ActivityManagerChangedEvent;
+import seedu.address.commons.events.ui.ActivityPanelUpdateEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ActivityList.ActivityNotFoundException;
@@ -49,7 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyActivityManager newData) {
         activityManager.resetData(newData);
-        indicateAddressBookChanged();
+        indicateActivityManagerChanged();
     }
 
     @Override
@@ -58,28 +59,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateActivityManagerChanged() {
         raise(new ActivityManagerChangedEvent(activityManager));
     }
 
     @Override
     public synchronized void deleteActivity(Activity target) throws ActivityNotFoundException {
         activityManager.removeActivity(target);
-        indicateAddressBookChanged();
+        indicateActivityManagerChanged();
     }
 
     @Override
     public synchronized void addActivity(Activity activity) {
         activityManager.addActivity(activity);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateActivityManagerChanged();
     }
     
     @Override
     public synchronized void updateActivity(Activity activity, String newName) throws ActivityNotFoundException {
         activityManager.updateActivity(activity, newName);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        raise(new ActivityPanelUpdateEvent(activity));
+        indicateActivityManagerChanged();
     }
 
 
