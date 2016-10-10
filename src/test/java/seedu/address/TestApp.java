@@ -2,13 +2,13 @@ package seedu.address;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.UserPrefs;
-import seedu.address.storage.XmlSerializableTaskList;
 import seedu.address.testutil.TestUtil;
+import seedu.tasklist.MainApp;
+import seedu.tasklist.commons.core.Config;
+import seedu.tasklist.commons.core.GuiSettings;
+import seedu.tasklist.model.ReadOnlyTaskList;
+import seedu.tasklist.model.UserPrefs;
+import seedu.tasklist.storage.XmlSerializableTaskList;
 
 import java.util.function.Supplier;
 
@@ -45,9 +45,9 @@ public class TestApp extends MainApp {
     protected Config initConfig(String configFilePath) {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
-        config.setAddressBookFilePath(saveFileLocation);
+        config.setTaskListFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
-        config.setAddressBookName(ADDRESS_BOOK_NAME);
+        config.setTaskListName(ADDRESS_BOOK_NAME);
         return config;
     }
 

@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.FXCollections;
-import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.tasklist.commons.core.UnmodifiableObservableList;
 
 import org.junit.Before;
 import org.junit.Rule;

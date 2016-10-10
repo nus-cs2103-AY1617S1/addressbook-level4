@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.util.StringUtil;
+import seedu.tasklist.commons.util.StringUtil;
 
 import java.io.FileNotFoundException;
 

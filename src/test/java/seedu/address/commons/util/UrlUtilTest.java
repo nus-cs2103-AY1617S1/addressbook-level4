@@ -2,7 +2,7 @@ package seedu.address.commons.util;
 
 import org.junit.Test;
 
-import seedu.address.commons.util.UrlUtil;
+import seedu.tasklist.commons.util.UrlUtil;
 
 import java.net.MalformedURLException;
 import java.net.URL;

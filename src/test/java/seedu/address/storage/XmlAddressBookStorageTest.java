@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.TaskList;
-import seedu.address.model.task.Task;
-import seedu.address.storage.XmlTaskListStorage;
 import seedu.address.testutil.TypicalTestPersons;
+import seedu.tasklist.commons.exceptions.DataConversionException;
+import seedu.tasklist.commons.util.FileUtil;
+import seedu.tasklist.model.ReadOnlyTaskList;
+import seedu.tasklist.model.TaskList;
+import seedu.tasklist.model.task.Task;
+import seedu.tasklist.storage.XmlTaskListStorage;
 
 import java.io.IOException;
 
@@ -35,7 +35,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyTaskList> readAddressBook(String filePath) throws Exception {
-        return new XmlTaskListStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlTaskListStorage(filePath).readTaskList(addToTestDataPathIfNotNull(filePath));
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -68,15 +68,15 @@ public class XmlAddressBookStorageTest {
         XmlTaskListStorage xmlTaskListStorage = new XmlTaskListStorage(filePath);
 
         //Save in new file and read back
-        xmlTaskListStorage.saveAddressBook(original, filePath);
-        ReadOnlyTaskList readBack = xmlTaskListStorage.readAddressBook(filePath).get();
+        xmlTaskListStorage.saveTaskList(original, filePath);
+        ReadOnlyTaskList readBack = xmlTaskListStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(new Task(TypicalTestPersons.hoon));
         original.removePerson(new Task(TypicalTestPersons.alice));
-        xmlTaskListStorage.saveAddressBook(original, filePath);
-        readBack = xmlTaskListStorage.readAddressBook(filePath).get();
+        xmlTaskListStorage.saveTaskList(original, filePath);
+        readBack = xmlTaskListStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));
 
     }
@@ -88,7 +88,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private void saveAddressBook(ReadOnlyTaskList addressBook, String filePath) throws IOException {
-        new XmlTaskListStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+        new XmlTaskListStorage(filePath).saveTaskList(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
