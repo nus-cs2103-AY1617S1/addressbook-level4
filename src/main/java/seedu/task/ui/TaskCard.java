@@ -44,12 +44,32 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
-        venue.setText("Venue: " + task.getVenue().value);
+        setTextForVenue();
+        setTextForDate();
         id.setText(displayedIndex + ". ");
-        dateTime.setText("Start Date: " + task.getStartDate().value + " End Date: " + task.getEndDate().value);
         priority.setText(task.getPriority().toString());
         status.setText(task.getStatus().toString());
         tags.setText(task.tagsString());
+    }
+
+    private void setTextForDate() {
+        if(!task.getStartDate().value.isEmpty()){
+            dateTime.setText(task.getStartDate().value + " till " + task.getEndDate().value);        
+        } else {
+            if(task.getEndDate().value.isEmpty()){
+                dateTime.setText("Floating task");
+            } else {
+                dateTime.setText("Due by: " + task.getEndDate().value); 
+            }
+        }
+    }
+
+    private void setTextForVenue() {
+        if(task.getVenue().value.isEmpty()){
+            venue.setText("No venue");
+        } else {
+            venue.setText("Venue: " + task.getVenue().value);
+        }
     }
 
     public HBox getLayout() {

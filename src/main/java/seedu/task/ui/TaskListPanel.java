@@ -48,10 +48,10 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> personList) {
+                                       ObservableList<ReadOnlyTask> taskList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(personList);
+        taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
