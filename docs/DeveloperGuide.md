@@ -291,6 +291,7 @@ Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely
 |      | `*`     | user | add tasks that have to be done on a regular basis | I do not have to add them again |
 | Epic |         | user | make changes to my application configuration | I can customize it to suit my needs | 
 |      | `* * *` | user | specify a specific folder as the data storage location                       | I can save the data file into any directory I want |
+|      | `*`     | user | switch to using another existing data storage file                           | I can reuse my data storage file from another device or session |
 
 ## Appendix B : Use Cases
 
@@ -460,6 +461,23 @@ Use Case ends.
 3. User confirms request.
 4. User chooses file directory.
 5. System updates file directory. <br/>
+Use Case ends.
+
+**Extensions**
+
+3a. User cancels request.
+
+> Use Case ends.
+
+#### Use case: [UC10] Switch storage file
+
+**MSS**
+
+1. User requests to switch storage file.
+2. System requests for confirmation.
+3. User confirms request.
+4. User chooses file to switch to.
+5. System updates storage file. <br/>
 Use Case ends.
 
 **Extensions**
