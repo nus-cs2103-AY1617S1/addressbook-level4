@@ -104,6 +104,12 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
+        // there is no arguments
+        if (args.trim().length() == 0) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }             
+        
         String name = "";
         Option priorityOpt = new Option(FLAG_PRIORITY, true);
         Option dateTimeOpt = new Option(FLAG_DATETIME, true);
@@ -118,10 +124,10 @@ public class Parser {
         TreeMap<Integer, Option> flagsPosMap = getFlagPos(args, options);
         HashMap<Option, String> optionFlagNArgMap = getOptionFlagNArg(args, options, flagsPosMap);
         
-        if(flagsPosMap.size() == 0) {
+        if (flagsPosMap.size() == 0) {
             name = args;
         } else if (flagsPosMap.firstKey() == 0) {
-         // name should be the first argument
+            // there are arguments but name should be the first argument
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } else {
