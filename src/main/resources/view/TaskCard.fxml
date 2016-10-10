@@ -43,8 +43,17 @@
             </HBox>
             <ImageView fx:id="pinImage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" StackPane.alignment="CENTER_RIGHT" />
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </StackPane>
-      <FlowPane fx:id="tagsBox" />
+      <FlowPane fx:id="tagsBox" hgap="4.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="2.0" />
+         </VBox.margin></FlowPane>
       <HBox fx:id="descriptionBox" styleClass="collapsible">
          <children>
             <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" minWidth="4.0">
@@ -62,10 +71,10 @@
             </Label>
          </children>
          <VBox.margin>
-            <Insets />
+            <Insets bottom="2.0" left="2.0" right="2.0" />
          </VBox.margin>
          <padding>
-            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+            <Insets left="2.0" right="2.0" />
          </padding>
       </HBox>
       <FlowPane>
@@ -108,6 +117,9 @@
                </children>
             </HBox>
          </children>
+         <VBox.margin>
+            <Insets top="2.0" />
+         </VBox.margin>
       </FlowPane>
       <HBox />
    </children>

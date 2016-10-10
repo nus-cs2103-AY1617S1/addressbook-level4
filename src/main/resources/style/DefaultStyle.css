@@ -1,3 +1,11 @@
+.roundLabel {
+    -fx-background-radius: 10;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2D2D2D;
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semilight";
+}
+
 /***TaskCard Styles Start***/
 /*Default and Base*/
 .taskCard .label {
@@ -19,14 +27,6 @@
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semilight";
     -fx-font-style: italic;
-}
-
-.taskCard .roundLabel {
-    -fx-background-radius: 10;
-    -fx-text-fill: #ffffff;
-    -fx-background-color: #2D2D2D;
-    -fx-font-size: 10pt;
-    -fx-font-family: "Segoe UI Semilight";
 }
 
 .taskCard .highlightedBackground {

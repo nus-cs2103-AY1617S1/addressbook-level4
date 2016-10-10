@@ -2,6 +2,7 @@ package seedu.todo.commons.util;
 
 import java.util.Optional;
 import javafx.scene.control.Label;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
@@ -34,5 +35,16 @@ public class FxViewUtil {
         } else {
             setCollapsed(nodeToHide, true);
         }
+    }
+    
+    /**
+     * Constructs a label view with a dark grey rounded background.
+     */
+    public static Label constructRoundedText(String text) {
+        Label label = new Label();
+        label.setText(text);
+        label.getStyleClass().add("roundLabel");
+        label.setPadding(new Insets(0, 8, 0, 8));
+        return label;
     }
 }

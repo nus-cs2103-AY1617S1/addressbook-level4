@@ -29,7 +29,6 @@ public class TaskCard extends UiPart{
     private static final String STYLE_COMPLETED = "completed";
     private static final String STYLE_OVERDUE = "overdue";
     private static final String STYLE_SELECTED = "selected";
-    private static final String STYLE_ROUND_LABEL = "roundLabel";
     
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
@@ -96,20 +95,21 @@ public class TaskCard extends UiPart{
      * Displays the tags in lexicographical order, ignoring case.
      */
     private void displayTags(){
-        
         LinkedList<Tag> tagList = new LinkedList<>(task.getTags());
-        tagList.sort(new Comparator<Tag>(){
-            @Override
-            public int compare(Tag o1, Tag o2) {
-                return o1.toString().compareToIgnoreCase(o2.toString());
-            }
-        });
         
-        for (Tag tag : tagList) {
-            Label tagLabel = new Label();
-            tagLabel.setText(tag.tagName);
-            tagLabel.getStyleClass().add(STYLE_ROUND_LABEL);
-            tagsBox.getChildren().add(tagLabel);
+        if (!tagList.isEmpty()) {
+            FxViewUtil.setCollapsed(tagsBox, true);
+        } else {
+            tagList.sort(new Comparator<Tag>(){
+                @Override
+                public int compare(Tag o1, Tag o2) {
+                    return o1.toString().compareToIgnoreCase(o2.toString());
+                }
+            });
+            for (Tag tag : tagList) {
+                Label tagLabel = FxViewUtil.constructRoundedText(tag.tagName);
+                tagsBox.getChildren().add(tagLabel);
+            }
         }
     }
     
