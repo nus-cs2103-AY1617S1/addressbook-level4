@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 public class CommandInputView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandInputView.class);
-    private static final String FXML = "CommandBox.fxml";
+    private static final String FXML = "CommandInputView.fxml";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandInputPane;
