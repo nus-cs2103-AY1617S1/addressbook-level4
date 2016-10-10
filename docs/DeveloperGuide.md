@@ -5,10 +5,10 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
@@ -265,8 +265,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add floating tasks without date or time | I can do that task whenever I want.
 `* *` | user | undo a command | go back to the previous command if I have made a mistake.
 `* *` | user | rearrange my task based on certain commands | make my schedule more flexible.
-`* *` | user | set the priority of the task when I’m adding a new task | know the urgency of the task.
-`*` | user | have a “done” list | see what has been done for the day to know how productive I’ve been.
+`* *` | user | set the priority of the task when Iï¿½m adding a new task | know the urgency of the task.
+`*` | user | have a ï¿½doneï¿½ list | see what has been done for the day to know how productive Iï¿½ve been.
 `*` | user | sort my task according to the priority | can work on the important task first.
 
 
@@ -486,9 +486,9 @@ Appendix B: Use Cases
            
 > ForgetMeNot shows help message
 
-    1b. User enters a priority that is not ‘1’ ‘2’ or ‘3’
+    1b. User enters a priority that is not ï¿½1ï¿½ ï¿½2ï¿½ or ï¿½3ï¿½
            
-> ForgetMeNot tells User that only priorities ‘1’ ‘2’ or ‘3’ is useable
+> ForgetMeNot tells User that only priorities ï¿½1ï¿½ ï¿½2ï¿½ or ï¿½3ï¿½ is useable
 
 #### Use Case: Undo a task
 
@@ -575,7 +575,7 @@ Day:
 3g. It has different tabs for today, tomorrow and date-wise events.
 3h. It allows to set priorities for different tasks.
 3i. It allows to repeat reminders on a periodic basis.
-3j. It can show all previous events which are marked ‘done’.
+3j. It can show all previous events which are marked ï¿½doneï¿½.
 
 
 
