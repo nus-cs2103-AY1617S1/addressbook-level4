@@ -20,9 +20,9 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicatePersonException extends DuplicateDataException {
-        protected DuplicatePersonException() {
-            super("Operation would result in duplicate persons");
+    public static class DuplicateTaskException extends DuplicateDataException {
+        protected DuplicateTaskException() {
+            super("Operation would result in duplicate tasks");
         }
     }
 
@@ -30,7 +30,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * Signals that an operation targeting a specified person in the list would fail because
      * there is no such matching person in the list.
      */
-    public static class PersonNotFoundException extends Exception {}
+    public static class TaskNotFoundException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
@@ -52,10 +52,10 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(Task toAdd) throws DuplicatePersonException {
+    public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
     }
@@ -65,11 +65,11 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws PersonNotFoundException {
+    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
-            throw new PersonNotFoundException();
+            throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
     }
