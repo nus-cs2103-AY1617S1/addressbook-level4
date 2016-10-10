@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.Name;
 import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.model.item.UniquePersonList;
 import seedu.address.model.item.UniquePersonList.PersonNotFoundException;
@@ -13,7 +16,7 @@ import seedu.address.model.item.UniquePersonList.PersonNotFoundException;
  * Edits an item identified using it's last displayed index from the task manager.
  */
 public class EditCommand extends Command {
-
+    private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -24,17 +27,20 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
     
     public final int targetIndex;
-    public final Name newName;
+    public final String newName;
+    public final String newEndDate;
 
     /*
      * Edits deadline, task, or event by index.
      *      
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name)
+    public EditCommand(int targetIndex, String name, String startDate, String startTime, String endDate, String endTime)
             throws IllegalValueException {
         this.targetIndex = targetIndex;
-        this.newName = new Name(name);
+        this.newName = name;
+        this.newEndDate = endDate;
+        logger.info("EditCommand object successfully created!");
     }
 
     @Override
@@ -49,7 +55,15 @@ public class EditCommand extends Command {
 
         ReadOnlyItem itemToEdit = lastShownList.get(targetIndex - 1);
         Item itemToReplace = new Item(itemToEdit);
-        itemToReplace.setName(newName);
+        try {
+            if (newName != null) {
+                itemToReplace.setName(newName);
+            } else if (newEndDate != null) {
+                itemToReplace.setEndDate(newEndDate);
+            }
+        } catch (IllegalValueException ive) {
+            return new CommandResult(ive.getMessage());
+        }
         
         try {
             model.replaceItem(itemToEdit, itemToReplace);
