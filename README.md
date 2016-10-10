@@ -1,13 +1,11 @@
 [![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
 [![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
 
-# Address Book (Level 4)
+# Jim's Choice
 
 <img src="docs/images/Ui.png" width="600"><br>
 
 * This is a CLI (Command Line Interface) Task Scheduler application project by Techies with Gremlins.
-* It is a Java sample application intended for students learning Software Engineering while using Java as 
-  the main programming language. 
 * It is **written in OOP fashion**, in Java and JavaFX for the GUI. 
 * It is based on [Addressbook Level 4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4).
   
