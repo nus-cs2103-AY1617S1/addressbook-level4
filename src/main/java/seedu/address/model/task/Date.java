@@ -3,13 +3,13 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's date number in the to-do list.
+ * Represents a Task's date in the to-do list.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
 
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Task date numbers should only contain numbers";
-    public static final String DATA_VALIDATION_REGEX = "\\d+";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Task date should be in the format dd/mm/yy";
+    public static final String DATA_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)";
 
     public final String value;
 
