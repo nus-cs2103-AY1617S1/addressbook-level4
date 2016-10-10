@@ -64,9 +64,7 @@ public class EditCommand extends Command{
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
 
         try {
-            model.editTask(taskToEdit, toEdit);
-//            model.deleteTask(taskToEdit);
-//            model.addTask(toEdit);            
+            model.editTask(taskToEdit, toEdit, targetIndex - 1);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {

@@ -148,14 +148,12 @@ public class Parser {
      */
     private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        System.out.println(matcher);
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } 
         
         String index = matcher.group("targetIndex");
-        System.out.println(index);
         Optional<Integer> index1 = parseIndex(index);
         
         if(!index1.isPresent()){
