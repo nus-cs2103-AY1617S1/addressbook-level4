@@ -2,6 +2,8 @@ package seedu.address.parser;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import seedu.menion.logic.parser.AddParser;
@@ -63,7 +65,7 @@ public class AddParserTest {
 	@Test
 	public void checkTypeOfActivity_returnsFloatingTask(){
 		
-		String arguments = " ";
+		String arguments = "complete cs2103t n:important";
 		
 		assertEquals("floatingTask", AddParser.parseCommand(arguments).get(0));
 	}
@@ -96,7 +98,7 @@ public class AddParserTest {
 	@Test
 	public void checkFloatingTaskArguments_returnsCorrectArguments(){
 		
-		String arguments = "complete cs2103t n: important";
+		String arguments = "complete cs2103t n:important";		
 		
 		assertEquals("complete cs2103t ", AddParser.parseCommand(arguments).get(1));
 		assertEquals("important", AddParser.parseCommand(arguments).get(2));

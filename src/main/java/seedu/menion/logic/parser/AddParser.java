@@ -14,7 +14,9 @@ public class AddParser {
 	private static final Pattern EVENTS_REGEX = Pattern
 			.compile("(.+)from: (0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9]) "
 					+ "to: (0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9]) n:(.+)");
-
+	private static final Pattern FLOATING_TASK_REGEX = Pattern
+			.compile("(.+)n:(.+)");
+	
 	private static final String REGULAR_TASK = "task";
 	private static final String EVENTS = "event";
 	private static final String FLOATING_TASK = "floatingTask";
@@ -55,12 +57,25 @@ public class AddParser {
 			inputTaskArguments();
 		}
 
-		else {
+		else if (isFloatingTask(args)){
 			parsedArguments.add(FLOATING_TASK);
+			inputFloatingTaskArguments();
 		}
 
 	}
 
+	/**
+	 * Input the arguments into the parsedArguments ArrayList.
+	 * list(1) = Floating Task Name
+	 * list(2) = Floating Task Notes
+	 */
+	private static void inputFloatingTaskArguments(){
+
+		parsedArguments.add(1, matcher.group(1));
+		parsedArguments.add(2, matcher.group(2));
+		
+	}
+	
 	/**
 	 * Input the arguments into the parsedArguments ArrayList. 
 	 * list(1) = Task Name
@@ -68,7 +83,7 @@ public class AddParser {
 	 * list(3) = Task Start Date
 	 * list(4) = Task Start Time
 	 */
-	public static void inputTaskArguments() {
+	private static void inputTaskArguments() {
 
 		parsedArguments.add(1, matcher.group(1));
 		parsedArguments.add(2, matcher.group(4));
@@ -86,7 +101,7 @@ public class AddParser {
 	 * list(5) = Event End Date
 	 * list(6) = Event End Time
 	 */
-	public static void inputEventArguments() {
+	private static void inputEventArguments() {
 
 		parsedArguments.add(1, matcher.group(1));
 		parsedArguments.add(2, matcher.group(6));
@@ -97,6 +112,18 @@ public class AddParser {
 
 	}
 
+	
+	public static Boolean isFloatingTask(String args){
+		matcher = FLOATING_TASK_REGEX.matcher(args);
+		
+		if (matcher.find()){
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
 	/**
 	 * This method checks if the input arguments satisfy the requirements to be
 	 * a Task.
