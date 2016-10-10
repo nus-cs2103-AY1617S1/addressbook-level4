@@ -258,8 +258,8 @@ public class Parser {
                     return new SearchCommand(matcher.group("afterDateTime"), 2);
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT)){
                     return new SearchCommand(matcher.group("fromDateTime") + "@" + matcher.group("tillDateTime"), 3);
-                } else if (p.equals(ParserFormats.KEYWORDS_ARGS_FORMAT) && args.indexOf("tag") == 0
-                        && args.indexOf("done") == 0 && args.indexOf("undone") == 0){
+                } else if (p.equals(ParserFormats.KEYWORDS_ARGS_FORMAT) && args.indexOf("tag") != 0
+                        && args.indexOf("done") != 0 && args.indexOf("undone") != 0){
                     return new SearchCommand(matcher.group("keywords"), 4);
                 }
             }
