@@ -191,7 +191,8 @@ public class MainParser {
     		DateGroup group = groups.get(0);
     		List<Date> dateList = group.getDates(); 	// Extract date
     		Map<String, List<ParseLocation>> parseMap = group.getParseLocations();
-    		if (!parseMap.containsKey("explicit_time")) {
+    		if ((!parseMap.containsKey("explicit_time") && parseMap.containsKey("relative_date")) || 
+    				(!parseMap.containsKey("explicit_time") && parseMap.containsKey("formal_date"))) {
     			for (Date date : dateList) {
     				LocalDateTime temp = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     				datesAndTimes.add(LocalDateTime.of(temp.toLocalDate(), LocalTime.MAX));
