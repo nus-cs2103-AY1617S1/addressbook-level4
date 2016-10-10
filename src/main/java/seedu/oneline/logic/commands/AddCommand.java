@@ -36,11 +36,27 @@ public class AddCommand extends Command {
         } catch (IllegalCmdArgsException e) {
             throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
-        Set<String> tags = Parser.getTagsFromArgs(fields.get(TaskField.TAG_ARGUMENTS));
+        TaskName newName = new TaskName(fields.get(TaskField.NAME));
+        TaskTime newStartTime = fields.containsKey(TaskField.START_TIME) ? 
+                                    new TaskTime(fields.get(TaskField.START_TIME)) :
+                                    TaskTime.getDefault();
+        TaskTime newEndTime = fields.containsKey(TaskField.END_TIME) ? 
+                                    new TaskTime(fields.get(TaskField.END_TIME)) :
+                                    TaskTime.getDefault();
+        TaskTime newDeadline = fields.containsKey(TaskField.DEADLINE) ? 
+                                    new TaskTime(fields.get(TaskField.DEADLINE)) :
+                                    TaskTime.getDefault();
+        TaskRecurrence newRecurrence = fields.containsKey(TaskField.RECURRENCE) ? 
+                                    new TaskRecurrence(fields.get(TaskField.RECURRENCE)) :
+                                        TaskRecurrence.getDefault();
+        Set<String> tags = fields.containsKey(TaskField.TAG_ARGUMENTS) ?
+                                    Parser.getTagsFromArgs(fields.get(TaskField.TAG_ARGUMENTS)) :
+                                    new HashSet<String>();
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
-        }
+        }                 
+        
         this.toAdd = new Task(
                 new TaskName(fields.get(TaskField.NAME)),
                 new TaskTime(fields.get(TaskField.START_TIME)),
