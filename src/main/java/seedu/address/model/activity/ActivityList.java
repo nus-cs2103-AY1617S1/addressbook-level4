@@ -36,6 +36,26 @@ public class ActivityList implements Iterable<Activity> {
     }
     
     /**
+     * Updates the equivalent activity in the list.
+     *
+     * @throws ActivityNotFoundException if no such activity could be found in the list.
+     */
+    
+    public boolean update(Activity toUpdate, String newName) throws ActivityNotFoundException {
+    	assert toUpdate != null;
+    	assert newName != null;
+    	final boolean activityFound = internalList.contains(toUpdate);
+    	if (activityFound) {
+	    	int toUpdateIndex = internalList.indexOf(toUpdate);
+	    	Activity toUpdateInList = internalList.get(toUpdateIndex);
+	    	toUpdateInList.setName(newName);
+    	} else {
+    		throw new ActivityNotFoundException();
+    	}
+    	return activityFound;
+    }
+    
+    /**
      * Signals that an operation targeting a specified person in the list would fail because
      * there is no such matching person in the list.
      */
