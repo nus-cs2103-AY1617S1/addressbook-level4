@@ -9,7 +9,7 @@ import seedu.taskitty.commons.exceptions.IllegalValueException;
 public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String NAME_VALIDATION_REGEX_FORMAT = "[\\p{Alnum} ]+";
 
     public final String fullName;
 
@@ -31,7 +31,7 @@ public class Name {
      * Returns true if a given string is a valid person name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
+        return test.matches(NAME_VALIDATION_REGEX_FORMAT);
     }
 
 
