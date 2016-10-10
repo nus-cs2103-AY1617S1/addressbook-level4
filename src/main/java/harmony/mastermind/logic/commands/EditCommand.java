@@ -103,10 +103,9 @@ public class EditCommand extends Command {
             }
             return tagSet;
         }).orElse(taskToEdit.getTags().toSet()));
-        boolean toEditIsMarked = taskToEdit.isMarked();
 
         // initialize the new task with edited values
-        this.toEdit = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags, toEditIsMarked);
+        this.toEdit = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags);
 
         try {
             model.deleteTask(taskToEdit);

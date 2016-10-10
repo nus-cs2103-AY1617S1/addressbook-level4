@@ -10,9 +10,8 @@ import javafx.collections.ObservableList;
  * A list of completed tasks that does not allow nulls.
  *
  * Supports a minimal set of list operations.
- * 
  */
-
+//@@author A0124797R
 public class ArchiveTaskList implements Iterable<ReadOnlyTask> {
 
     private final ObservableList<ReadOnlyTask> internalList = FXCollections.observableArrayList();

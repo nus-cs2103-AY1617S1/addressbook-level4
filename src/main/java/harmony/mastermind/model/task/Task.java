@@ -11,33 +11,30 @@ public class Task implements ReadOnlyTask {
     private Date endDate;
     private UniqueTagList tags;
 
-    private boolean isMarked;
-
     // event
     // @@author A0138862W
-    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, boolean isMarked) {
+    public Task(String name, Date startDate, Date endDate, UniqueTagList tags) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags = tags;
-        this.isMarked = isMarked;
     }
 
     // deadline
     // @@author A0138862W
-    public Task(String name, Date endDate, UniqueTagList tags, boolean isMarked) {
-        this(name, null, endDate, tags, isMarked);
+    public Task(String name, Date endDate, UniqueTagList tags) {
+        this(name, null, endDate, tags);
     }
 
     // floating
     // @@author A0138862W
-    public Task(String name, UniqueTagList tags, boolean isMarked) {
-        this(name, null, null, tags, false);
+    public Task(String name, UniqueTagList tags) {
+        this(name, null, null, tags);
     }
 
     // @@author A0138862W
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.isMarked());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags());
     }
 
     @Override
@@ -82,16 +79,6 @@ public class Task implements ReadOnlyTask {
     // @@author generated
     public void setTags(UniqueTagList tags) {
         this.tags = tags;
-    }
-
-    // @@author generated
-    public boolean isMarked() {
-        return isMarked;
-    }
-
-    // @@author generated
-    public void setMarked(boolean isMarked) {
-        this.isMarked = isMarked;
     }
 
     @Override
