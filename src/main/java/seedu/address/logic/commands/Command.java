@@ -12,7 +12,7 @@ public abstract class Command {
     protected Model model;
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
+     * Constructs a feedback message to summarize an operation that displayed a listing of tasks.
      *
      * @param displaySize used to generate summary
      * @return summary message for tasks displayed
