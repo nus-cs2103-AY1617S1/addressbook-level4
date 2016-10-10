@@ -28,17 +28,17 @@ public class AddCommandParser extends CommandParser<AddCommand> {
     private static final String REGEX_REF_DESCRIPTION = "Description";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "add\\s+(?<"+REGEX_REF_TASK_NAME+">[^/]+?)(\\s+(" +
-            "(s/(?<"+REGEX_REF_START_DATE+">[^/]+?)(?!.*\\ss/))|" +
-            "(st/(?<"+REGEX_REF_START_TIME+">[^/]+?)(?!.*\\sst/))|" +
-            "(e/(?<"+REGEX_REF_END_DATE+">[^/]+?)(?!.*\\se/))|" +
-            "(et/(?<"+REGEX_REF_END_TIME+">[^/]+?)(?!.*\\set/))|" +
-            "(l/(?<"+REGEX_REF_LOCATION+">[^/]+?)(?!.*\\sl/))|" +
-            "(p/(?<"+REGEX_REF_PRIORITY_LEVEL+">[^/]+?)(?!.*\\sp/))|" +
-            "(r/(?<"+REGEX_REF_RECURRING_TYPE+">[^/]+?)(?!.*\\sr/))|" +
-            "(n/(?<"+REGEX_REF_NUMBER_OF_RECURRENCE+">[^/]+?)(?!.*\\sn/))|" +
-            "(c/(?<"+REGEX_REF_CATEGORY+">[^/]+?)(?!.*\\sc/))|" +
-            "(d/(?<"+REGEX_REF_DESCRIPTION+">[^/]+?)(?!.*\\sd/))" +
+            "add\\s+(?<"+REGEX_REF_TASK_NAME+">[^/]+)(\\s+(" +
+            "(s/(?<"+REGEX_REF_START_DATE+">[^/]+)(?!.*\\ss/))|" +
+            "(st/(?<"+REGEX_REF_START_TIME+">[^/]+)(?!.*\\sst/))|" +
+            "(e/(?<"+REGEX_REF_END_DATE+">[^/]+)(?!.*\\se/))|" +
+            "(et/(?<"+REGEX_REF_END_TIME+">[^/]+)(?!.*\\set/))|" +
+            "(l/(?<"+REGEX_REF_LOCATION+">[^/]+)(?!.*\\sl/))|" +
+            "(p/(?<"+REGEX_REF_PRIORITY_LEVEL+">[^/]+)(?!.*\\sp/))|" +
+            "(r/(?<"+REGEX_REF_RECURRING_TYPE+">[^/]+)(?!.*\\sr/))|" +
+            "(n/(?<"+REGEX_REF_NUMBER_OF_RECURRENCE+">[^/]+)(?!.*\\sn/))|" +
+            "(c/(?<"+REGEX_REF_CATEGORY+">[^/]+)(?!.*\\sc/))|" +
+            "(d/(?<"+REGEX_REF_DESCRIPTION+">[^/]+)(?!.*\\sd/))" +
             ")(?=\\s|$)){0,10}", Pattern.CASE_INSENSITIVE);
     
     private DateParser dateParser;
