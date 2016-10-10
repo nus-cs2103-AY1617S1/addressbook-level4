@@ -23,8 +23,6 @@ public class EditCommand extends Command {
             + " 1 -n Lunch with John -dt 10/09/2016 1200 to 10/09/2016 1300 -p l -ta lunch -tr dinner";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
-    
-    private static final String MESSAGE_INVALID_DATE = "Invalid date time entered";
 
     private static final String MESSAGE_MISSING_TASK = "The target task cannot be missing";
         
@@ -58,7 +56,7 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException tnfe) {
             return new CommandResult(MESSAGE_MISSING_TASK);
         } catch (DateTimeException dte) {
-            return new CommandResult(MESSAGE_INVALID_DATE);
+            return new CommandResult(Messages.MESSAGE_INVALID_DATE);
         } catch (IllegalValueException | TagNotFoundException e) {
             return new CommandResult(e.getMessage());
         }
