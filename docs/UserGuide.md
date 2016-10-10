@@ -1,7 +1,24 @@
 # User Guide
 
+## Table of Contents
+
 * [Quick Start](#quick-start)
 * [Features](#features)
+    * [Viewing help: `help`](#viewing-help--help)
+    * [Create a new task/event: add](#create-a-new-taskevent-add)
+    * [List all tasks/events with specified conditions: `list`](#list-all-tasksevents-with-specified-conditions-list)
+    * [Finding tasks/events which match keywords: `find`](#finding-tasksevents-which-match-keywords-find)
+    * [Show only listing results with specified tag(s) and date: `show`](#show-only-listing-results-with-specified-tags-and-date-show)
+    * [Hide listing results with specified tag(s) and date: `hide`](#hide-listing-results-with-specified-tags-and-date-hide)
+    * [Change the details of a task/event: `update`](#change-the-details-of-a-taskevent-update)
+    * [Delete a task/event: `delete`](#delete-a-taskevent-delete)
+    * [Mark a task as complete: `complete`](#mark-a-task-as-complete-complete)
+    * [Undo the last action: `undo`](#undo-the-last-action-undo)
+    * [Clearing all entries: `clear`](#clearing-all-entries-clear)
+    * [Relocate the data storage location: `relocate`](#relocate-the-data-storage-location-relocate)
+    * [Autocomplete and suggestions](#autocomplete-and-suggestions)
+    * [Saving the Data](#saving-the-data)
+    * [Multiple Storage Files](#multiple-storage-files)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
