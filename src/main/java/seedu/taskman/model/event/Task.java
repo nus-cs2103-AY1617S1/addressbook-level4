@@ -11,7 +11,7 @@ import java.util.Optional;
  * Represents a Task in the task man.
  * Guarantees: Title and UniqueTagList are present and not null, field values are validated.
  */
-public class Task extends Event implements ReadOnlyTask {
+public class Task extends Event implements ReadOnlyTask, MutableTagsEvent {
 
     private Deadline deadline;
     private Status status;

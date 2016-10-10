@@ -2,6 +2,7 @@ package seedu.taskman.model;
 
 import javafx.collections.ObservableList;
 import seedu.taskman.model.event.Activity;
+import seedu.taskman.model.event.MutableTagsEvent;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
 import seedu.taskman.model.event.Task;
@@ -91,9 +92,9 @@ public class TaskMan implements ReadOnlyTaskMan {
      *  - points to a Tag object in the master list
      *  TODO: feels like a pretty complex way to do this... can we do better?
      */
-    private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
+    private void syncTagsWithMasterList(MutableTagsEvent event) {
+        final UniqueTagList eventTags = event.getTags();
+        tags.mergeFrom(eventTags);
 
         // Create map with values = tag object references in the master list
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
@@ -101,12 +102,12 @@ public class TaskMan implements ReadOnlyTaskMan {
             masterTagObjects.put(tag, tag);
         }
 
-        // Rebuild the list of task tags using references from the master list
+        // Rebuild the list of event tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
+        for (Tag tag : eventTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
-        task.setTags(new UniqueTagList(commonTagReferences));
+        event.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removeActivity(Activity key) throws UniqueActivityList.ActivityNotFoundException {

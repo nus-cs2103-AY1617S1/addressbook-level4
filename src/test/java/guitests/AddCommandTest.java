@@ -4,6 +4,7 @@ import guitests.guihandles.TaskCardHandle;
 import seedu.taskman.commons.core.Messages;
 import seedu.taskman.logic.commands.AddCommand;
 import seedu.taskman.model.event.Activity;
+import seedu.taskman.model.event.Task;
 import seedu.taskman.testutil.TestTask;
 import seedu.taskman.testutil.TestUtil;
 
@@ -28,7 +29,7 @@ public class AddCommandTest extends TaskManGuiTest {
         commandBox.runCommand(td.hoon.getAddCommand());
         Activity[] expectedList = new Activity[currentList.length];
         for(int i = 0; i < expectedList.length; i++){
-            expectedList[i] = new Activity(currentList[i]);
+            expectedList[i] = new Activity(new Task(currentList[i]));
         }
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
         assertTrue(taskListPanel.isListMatching(expectedList));
@@ -47,13 +48,13 @@ public class AddCommandTest extends TaskManGuiTest {
 
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getTitle().title);
-        assertMatching(new Activity(taskToAdd), addedCard);
+        assertMatching(new Activity(new Task(taskToAdd)), addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         Activity[] expectedActivityList = new Activity[currentList.length];
         for(int i = 0; i < expectedActivityList.length; i++){
-            expectedActivityList[i] = new Activity(expectedList[i]);
+            expectedActivityList[i] = new Activity(new Task(expectedList[i]));
         }
         assertTrue(taskListPanel.isListMatching(expectedActivityList));
     }

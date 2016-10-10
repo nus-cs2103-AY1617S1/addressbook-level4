@@ -1,6 +1,7 @@
 package guitests;
 
 import seedu.taskman.model.event.Activity;
+import seedu.taskman.model.event.Task;
 import seedu.taskman.testutil.TestTask;
 import seedu.taskman.testutil.TestUtil;
 
@@ -43,7 +44,7 @@ public class DeleteCommandTest extends TaskManGuiTest {
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
         Activity[] expectedRemainderActivities = new Activity[expectedRemainder.length];
         for(int i = 0; i < expectedRemainderActivities.length; i++){
-            expectedRemainderActivities[i] = new Activity(expectedRemainder[i]);
+            expectedRemainderActivities[i] = new Activity(new Task(expectedRemainder[i]));
         }
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 

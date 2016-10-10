@@ -12,7 +12,7 @@ import java.util.Optional;
  * Represents a Task in the task man.
  * Guarantees: Title and UniqueTagList are present and not null, field values are validated.
  */
-public class Event implements ReadOnlyEvent {
+public class Event implements ReadOnlyEvent, MutableTagsEvent {
 
     private Title title;
     private Frequency frequency;
