@@ -201,13 +201,80 @@ We have two types of tests:
 
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
    These are in the `guitests` package.
+   
+   Currently, _Systems Tests_ have covered the basic functionalities of Happy Jim Task Master v0.1. 
+   Following form shows the more essential commands and corresponding testcases.
+   
+   1. _AddCommandTest_ 
+   
+   
+   | Case# | Event | Basis Path | Output |
+   | :---:   | ---  | --- | ---  |
+   | 1 | add floating task to existing task list `add eat with Hoon Meier` | 1 -> 2 | `New floating task added: eat with Hoon Meier Tags: ` |
+   | 2 | add floating task to existing task list `add play with Ida Mueller` | 1 -> 2 | `New floating task added: play with Ida Mueller Tags: ` |
+   | 3 | add duplicate floating task to existing task list `add eat with Hoon Meier` | 1 | `This task already exists in the task list` |
+   | 4 | clear existing task list `clear` | 1 -> 2 | `Task list has been cleared!` |
+   | 5 | add to empty task list `add take trash t/notUrgent` | 1 -> 2 | `New floating task added: take trash Tags: [notUrgent]` |
+   | 6 | invalid add command `adds Johnny` | 1 | `Unknown command` |
+   
+   2. _ClearCommandTest_ 
+   
+   
+   | Case# | Event | Basis Path | Output |
+   | :---:   | ---  | :---: | ---  |
+   | 1 | clear existing non-empty task list `clear` | 1 -> 2 | `Task list has been cleared!` |
+   | 2 | verify other commands can work after task list cleared `add eat with Hoon Meier` | 1 -> 2 | `New floating task added: eat with Hoon Meier Tags: ` |
+   | 3 | add duplicate floating task `delete 1` | 1 -> 2| `Deleted Task: eat with Hoon Meier Tags: ` |
+   | 4 | verify clear command works when the list is empty `clear` | 1 -> 2 | `Task list has been cleared!` |
+   
+   3. _CommandBoxTest_
+   
+   
+   | Case# | Event | Basis Path | Output |
+   | :---:   | ---  | :---: | ---  |
+   | 1 | command succeeds text cleared `add read book t/textBook t/weekly` | 1 -> 2 | `This task already exists in the task list` |
+   | 2 | command fails text stays `invalid command` | 1 | `Unknown Command` |
+   
+   4. _DeleteCommandTest_
+   
+   
+   | Case# | Event | Basis Path | Output |
+   | :---:   | ---  | :---: | ---  |
+   | 1 | delete the first in the list `delete 1` | 1 -> 2 | `Deleted Task: take trash Tags: [notUrgent]` |
+   | 2 | delete the last in the list `delete 6` | 1 -> 2 | `Deleted Task: visit George Best Tags: ` |
+   | 3 | delete from the middle of the list `delete 2` | 1 -> 2 | `Deleted Task: do homework Tags: ` |
+   | 4 | delete with invalid index `delete 51` | 1 | `The task index provided is invalid` |
+   
+   5. _FindCommandTest_ 
+   
+   
+   | Case# | Event | Basis Path | Output |
+   | :---:   | ---  | :---: | ---  |
+   | 1 | find in non-empty list with no results `find Mark` | 1 -> 2 | `0 tasks listed!` |
+   | 2 | find in non-empty list with multiple results `find read` | 1 -> 2 | `2 tasks listed!` |
+   | 3 | delete one result `delete 1` | 1 -> 2 | `Deleted Task: read book Tags: [textBook][weekly]` |
+   | 4 | find in non-empty list with one result `find read` | 1 -> 2 | `1 tasks listed!` |
+   | 5 | find in empty list `find Jean` | 1 -> 2 | `0 tasks listed!` |
+   | 6 | invalid find command `findgeorge` | 1 | `Unknown command` |
+   
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+   1. _Unit tests_ targeting the lowest level methods/classes. This includes, <br>
+      1. `seedu.address.commons.AppUtilTest`
+      2. `seedu.address.commons.ConfigUtilTest`
+      3. `seedu.address.commons.FileUtilTest`
+      4. `seedu.address.commons.JsonUtilTest`
+      5. `seedu.address.commons.StringUtilTest`
+      6. `seedu.address.commons.UrlUtilTest`
+      7. `seedu.address.commons.XmlUtilTest`
+      8. `seedu.address.model.UnmodifiableObservableListTest`
+      9. `seedu.address.commons.core.ConfigTest`
+      10. `seedu.address.commons.core.VersionTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+     (those code units are assumed to be working). This includes, <br>
+      1.  `seedu.address.storage.StorageManagerTest`
+      2. `seedu.address.storage.XmlTaskListStorageTest`
+      3. `seedu.address.storage.JsonUserPrefStorageTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
