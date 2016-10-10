@@ -268,13 +268,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new task |
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | undo latest command | update task list quickly if there is a change-of-mind
+`* * *` | user | edit a task | update task entry with fresh information without deleting and then adding
+`* * *` | user | find a task by name | locate details of task without having to go through the entire list
+`* * *` | user | add task without deadlines | track tasks that has no deadline and just need to be done "some day"
+`* * *` | user | mark tasks that are already completed | keep track of what I have done
+`* *` | user | hide lists of tasks by default | minimize chance of someone else seeing them by accident
+`* *` | user | duplicate a task that recurs weekly | minimize number of additions for a recurring task
+`*` | user with many tasks in the task manager | sort tasks by name | locate a task easily
+`*` | user | have a backup of my schedule | make a recovery from the backup in case of a software or hardware crash
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
