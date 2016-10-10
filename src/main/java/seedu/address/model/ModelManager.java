@@ -74,6 +74,14 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    @Override
+    public synchronized void updateActivity(Activity activity, String newName) throws ActivityNotFoundException {
+        activityManager.updateActivity(activity, newName);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+
 
     //=========== Filtered Person List Accessors ===============================================================
 

@@ -55,6 +55,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case UpdateCommand.COMMAND_WORD:
+        	return prepareUpdate(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -125,6 +128,26 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
+    
+    /**
+     * Parses arguments in the context of the update activity command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    
+    private Command prepareUpdate(String args) {
+    	
+    	final Matcher matcher = ACTIVITY_INDEX_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+
+        String [] splitArgs = (matcher.group("targetIndex")).split(" ", 2);
+        return new UpdateCommand(Integer.parseInt(splitArgs[0]), splitArgs[1]);
+    }
+
 
     /**
      * Parses arguments in the context of the select person command.
