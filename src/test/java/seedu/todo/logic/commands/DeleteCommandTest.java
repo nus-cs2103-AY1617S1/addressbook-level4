@@ -39,8 +39,8 @@ public class DeleteCommandTest extends CommandTest {
     @Test
     public void testSuccessiveDeletes() throws IllegalValueException {
         ImmutableTask toDeleteFirst = getTaskAt(1);
-        ImmutableTask toDeleteNext = getTaskAt(1);
-        ImmutableTask toDeleteLast = getTaskAt(1);
+        ImmutableTask toDeleteNext = getTaskAt(2);
+        ImmutableTask toDeleteLast = getTaskAt(3);
         
         setParameter("1");
         execute();
