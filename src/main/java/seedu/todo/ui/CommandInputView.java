@@ -18,9 +18,9 @@ public class CommandInputView extends UiPart {
     private static final String FXML = "CommandBox.fxml";
 
     private AnchorPane placeHolderPane;
-    private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
     String previousCommandTest;
+    private AnchorPane commandInputPane;
 
     private Logic logic;
 
@@ -45,13 +45,13 @@ public class CommandInputView extends UiPart {
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
-        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(commandInputPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
 
     @Override
     public void setNode(Node node) {
-        commandPane = (AnchorPane) node;
+        commandInputPane = (AnchorPane) node;
     }
 
     @Override
