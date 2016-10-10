@@ -19,7 +19,7 @@ public class BlockCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Blocks a certain time slot in the schedule. "
             + "Parameters: TASK_NAME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " take trash t/highPriority";
+            + " from 2 oct 2am to 2 oct 3am t/highPriority";
 
     public static final String MESSAGE_SUCCESS = "Timeslot blocked: %1$s";
     public static final String MESSAGE_TIMESLOT_OCCUPIED = "This timeslot is already blocked or overlapped with existing tasks.";

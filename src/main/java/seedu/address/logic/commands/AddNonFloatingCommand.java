@@ -15,9 +15,9 @@ import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 public class AddNonFloatingCommand extends AddCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a non floating task to the task list. "
-            + "Parameters: TASK_NAME start/START_DATE START_TIME end/END_DATE END_TIME [t/TAG]...\n"
+            + "Parameters: TASK_NAME from START_DATE START_TIME to END_DATE END_TIME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " take trash t/highPriority";
+            + " do homework from 2 oct 2am to 3 oct 3am  t/highPriority";
 
     public static final String MESSAGE_SUCCESS = "New non-floating task added: %1$s";
     public static final String MESSAGE_TIMESLOT_OCCUPIED = "This timeslot is already blocked or overlapped with existing tasks.";
