@@ -61,7 +61,7 @@ public class XmlAdaptedTask {
         final ActivityName name = new ActivityName(this.name);
         final ActivityDate deadline = new ActivityDate(this.deadline);
         final ActivityTime reminder = new ActivityTime(this.reminder);
-        final Priority priority = new Priority(this.priority);
+        final Note priority = new Note(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Activity(name, deadline, reminder, priority, tags);
     }

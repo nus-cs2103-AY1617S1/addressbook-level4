@@ -28,7 +28,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Priority(address));
+        this.person.setAddress(new Note(address));
         return this;
     }
 

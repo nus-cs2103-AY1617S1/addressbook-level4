@@ -389,7 +389,7 @@ public class LogicManagerTest {
             ActivityName name = new ActivityName("Adam Brown");
             ActivityDate privatePhone = new ActivityDate("111111");
             ActivityTime email = new ActivityTime("adam@gmail.com");
-            Priority privateAddress = new Priority("111, alpha street");
+            Note privateAddress = new Note("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -408,7 +408,7 @@ public class LogicManagerTest {
                     new ActivityName("Person " + seed),
                     new ActivityDate("" + Math.abs(seed)),
                     new ActivityTime(seed + "@email"),
-                    new Priority("House of " + seed),
+                    new Note("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -507,7 +507,7 @@ public class LogicManagerTest {
                     new ActivityName(name),
                     new ActivityDate("1"),
                     new ActivityTime("1@email"),
-                    new Priority("House of 1"),
+                    new Note("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

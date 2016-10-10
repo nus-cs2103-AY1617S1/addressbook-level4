@@ -14,14 +14,14 @@ public class Activity implements ReadOnlyActivity {
     private ActivityName name;
     private ActivityDate deadline;
     private ActivityTime reminder;
-    private Priority priority;
+    private Note priority;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Activity(ActivityName name, ActivityDate deadline, ActivityTime reminder, Priority priority, UniqueTagList tags) {
+    public Activity(ActivityName name, ActivityDate deadline, ActivityTime reminder, Note priority, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, deadline, reminder, priority, tags);
         this.name = name;
         this.deadline = deadline;
@@ -53,7 +53,7 @@ public class Activity implements ReadOnlyActivity {
     }
 
     @Override
-    public Priority getPriority() {
+    public Note getPriority() {
         return priority;
     }
 

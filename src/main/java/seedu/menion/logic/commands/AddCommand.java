@@ -40,7 +40,7 @@ public class AddCommand extends Command {
                 new ActivityName(name),
                 new ActivityDate(deadline),
                 new ActivityTime(reminder),
-                new Priority(priority),
+                new Note(priority),
                 new UniqueTagList(tagSet)
         );
     }

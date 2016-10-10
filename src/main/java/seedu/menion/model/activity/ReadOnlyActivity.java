@@ -11,7 +11,7 @@ public interface ReadOnlyActivity {
     ActivityName getName();
     ActivityDate getDeadline();
     ActivityTime getReminder();
-    Priority getPriority();
+    Note getPriority();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

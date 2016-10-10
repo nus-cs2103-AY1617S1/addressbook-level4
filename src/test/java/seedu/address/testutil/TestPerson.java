@@ -9,7 +9,7 @@ import seedu.menion.model.tag.UniqueTagList;
 public class TestPerson implements ReadOnlyActivity {
 
     private ActivityName name;
-    private Priority address;
+    private Note address;
     private ActivityTime email;
     private ActivityDate phone;
     private UniqueTagList tags;
@@ -22,7 +22,7 @@ public class TestPerson implements ReadOnlyActivity {
         this.name = name;
     }
 
-    public void setAddress(Priority address) {
+    public void setAddress(Note address) {
         this.address = address;
     }
 
@@ -50,7 +50,7 @@ public class TestPerson implements ReadOnlyActivity {
     }
 
     @Override
-    public Priority getPriority() {
+    public Note getPriority() {
         return address;
     }
 
