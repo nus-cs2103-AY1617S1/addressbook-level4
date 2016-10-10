@@ -5,10 +5,10 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 ## INTRODUCTION
@@ -347,24 +347,22 @@ Priority | As a ... | I want to ... | So that I can...
 > 2c1. Use case ends.
 
 
-## Appendix C : Non Functional Requirements
+## APPENDIX C: NON FUNCTIONAL REQUIREMENTS
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should be secure, not vulnerable to malicious inputs (e.g buffer overflow attacks).
+6. Should be efficient, responses to inputs should not take longer than 2 seconds.
+7.  Should be compact in size, i.e smaller than 10MB.
 
-{More to be added}
 
-## Appendix D : Glossary
+## APPENDIX D: GLOSSARY
 
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
-
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
 
