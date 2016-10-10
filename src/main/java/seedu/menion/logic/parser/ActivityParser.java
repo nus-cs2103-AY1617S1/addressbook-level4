@@ -26,13 +26,6 @@ public class ActivityParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPTaskPrivate>p?)d/(?<deadline>[^/]+)"
-                    + " (?<isReminderPrivate>p?)r/(?<reminder>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
     public ActivityParser() {}
 
     /**
@@ -97,19 +90,6 @@ public class ActivityParser {
         }
     }
 
-    /**
-     * Extracts the new activity's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
 
     /**
      * Parses arguments in the context of the delete activity command.
