@@ -3,7 +3,7 @@
 
 # Malitio
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/Ui.jpg" width="600"><br>
 
 * This is a desktop to-do list application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
