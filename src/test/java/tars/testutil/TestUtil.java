@@ -309,13 +309,29 @@ public class TestUtil {
 
     /**
      * Appends tasks to the array of tasks.
-     * @param tasks A array of tasks.
+     * @param tasks An array of tasks.
      * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+    /**
+     * Edits the task with index 1 on the list of tasks.
+     * @param tasks An array of tasks.
+     * @param indexToEdit Index of the task to edit.
+     * @param dataToEdit An array of the data of the task to edit.
+     * @return The modified array of tasks.
+     */
+    public static TestTask[] editTask(final TestTask[] tasks, int indexToEdit,
+            Name nameToEdit, Priority priorityToEdit) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.get(indexToEdit).setName(nameToEdit);
+        listOfTasks.get(indexToEdit).setPriority(priorityToEdit);
+        
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 

@@ -1,10 +1,13 @@
 package tars.model;
 
 import tars.commons.core.UnmodifiableObservableList;
+import tars.commons.exceptions.IllegalValueException;
 import tars.model.task.Task;
+import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
 
+import java.time.DateTimeException;
 import java.util.Set;
 
 /**
@@ -16,6 +19,10 @@ public interface Model {
 
     /** Returns the Tars */
     ReadOnlyTars getTars();
+    
+    /** Edits the given task and returns the edited task */
+    Task editTask(ReadOnlyTask toEdit, String[] argsToEdit) throws UniqueTaskList.TaskNotFoundException, 
+    DateTimeException, IllegalValueException, TagNotFoundException;
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

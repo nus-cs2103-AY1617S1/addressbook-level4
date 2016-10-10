@@ -7,7 +7,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import tars.logic.commands.*;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.ui.IncorrectCommandAttemptedEvent;
 import tars.commons.util.FxViewUtil;

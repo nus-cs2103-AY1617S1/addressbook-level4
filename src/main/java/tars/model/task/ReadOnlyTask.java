@@ -72,6 +72,9 @@ public interface ReadOnlyTask {
         case PRIORITY_L:
             level = PRIORITY_LOW;
             break;
+        default:
+            level = "";
+            break;
         }
         return level;
     }

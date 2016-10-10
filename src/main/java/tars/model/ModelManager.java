@@ -5,12 +5,17 @@ import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.model.TarsChangedEvent;
+import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.StringUtil;
 import tars.model.task.Task;
+import tars.model.tag.UniqueTagList.DuplicateTagException;
+import tars.model.tag.UniqueTagList.TagNotFoundException;
+import tars.model.task.DateTime.IllegalDateException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.time.DateTimeException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -33,7 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with tars: " + src + " and user prefs " + userPrefs);
 
         tars = new Tars(src);
         filteredTasks = new FilteredList<>(tars.getTasks());
@@ -62,6 +67,24 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateTarsChanged() {
         raise(new TarsChangedEvent(tars));
+    }
+    
+    @Override
+    /**
+     * Edits the equivalent tasks from tars.
+     * 
+     * @throws UniqueTaskList.TaskNotFoundException if task to edit could not be found.
+     * @throws DateTimeException DateTimeExcpetion if problem encountered while calculating dateTime.
+     * @throws IllegalDateException edited end date occurring before start date.
+     * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
+     * @throws TagNotFoundException if no such tag could be found.
+     * @throws IllegalValueException if argument(s) in argsToEdit is/are invalid.
+     */
+    public synchronized Task editTask(ReadOnlyTask toEdit, String[] argsToEdit) throws TaskNotFoundException, 
+    DateTimeException, IllegalDateException, DuplicateTagException, TagNotFoundException, IllegalValueException {
+        Task editedTask = tars.editTask(toEdit, argsToEdit); 
+        indicateTarsChanged();
+        return editedTask;
     }
 
     @Override
@@ -140,8 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
-                    .findAny()
-                    .isPresent();
+                    .count() == nameKeyWords.size();
         }
 
         @Override
@@ -149,5 +171,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    
 }
