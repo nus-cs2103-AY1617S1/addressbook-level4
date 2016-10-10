@@ -1,4 +1,4 @@
-package seedu.menion.model.task;
+package seedu.menion.model.activity;
 
 
 import seedu.menion.commons.exceptions.IllegalValueException;

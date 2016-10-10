@@ -6,10 +6,10 @@ import seedu.menion.commons.core.LogsCenter;
 import seedu.menion.commons.core.UnmodifiableObservableList;
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.util.StringUtil;
-import seedu.menion.model.task.ReadOnlyTask;
-import seedu.menion.model.task.Task;
-import seedu.menion.model.task.UniqueTaskList;
-import seedu.menion.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.model.activity.Activity;
+import seedu.menion.model.activity.UniqueActivityList;
+import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -22,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final ActivityManager activityManager;
-    private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Activity> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given Activity Manager
@@ -65,13 +65,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
         activityManager.removeTask(target);
         indicateActivityManagerChanged();
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException {
         activityManager.addTask(task);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+    public UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
@@ -101,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyTask task);
+        boolean satisfies(ReadOnlyActivity task);
         String toString();
     }
 
@@ -114,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask task) {
+        public boolean satisfies(ReadOnlyActivity task) {
             return qualifier.run(task);
         }
 
@@ -125,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask task);
+        boolean run(ReadOnlyActivity task);
         String toString();
     }
 
@@ -137,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask task) {
+        public boolean run(ReadOnlyActivity task) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()

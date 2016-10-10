@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.model.activity.*;
 import seedu.menion.model.tag.Tag;
-import seedu.menion.model.task.*;
 
 /**
  *

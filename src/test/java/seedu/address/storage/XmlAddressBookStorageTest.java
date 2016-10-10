@@ -10,8 +10,8 @@ import seedu.address.testutil.TypicalTestPersons;
 import seedu.menion.commons.exceptions.DataConversionException;
 import seedu.menion.commons.util.FileUtil;
 import seedu.menion.model.ReadOnlyActivityManager;
+import seedu.menion.model.activity.Activity;
 import seedu.menion.model.ActivityManager;
-import seedu.menion.model.task.Task;
 import seedu.menion.storage.XmlActivityManagerStorage;
 
 import java.io.IOException;
@@ -73,8 +73,8 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new ActivityManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestPersons.hoon));
-        original.removeTask(new Task(TypicalTestPersons.alice));
+        original.addTask(new Activity(TypicalTestPersons.hoon));
+        original.removeTask(new Activity(TypicalTestPersons.alice));
         xmlAddressBookStorage.saveActivityManager(original, filePath);
         readBack = xmlAddressBookStorage.readActivityManager(filePath).get();
         assertEquals(original, new ActivityManager(readBack));

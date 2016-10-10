@@ -1,4 +1,4 @@
-package seedu.menion.model.task;
+package seedu.menion.model.activity;
 
 import seedu.menion.commons.util.CollectionUtil;
 import seedu.menion.model.tag.UniqueTagList;
@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Activity implements ReadOnlyActivity {
 
     private Name name;
     private Deadline deadline;
@@ -21,7 +21,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Deadline deadline, Reminder reminder, Priority priority, UniqueTagList tags) {
+    public Activity(Name name, Deadline deadline, Reminder reminder, Priority priority, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, deadline, reminder, priority, tags);
         this.name = name;
         this.deadline = deadline;
@@ -33,7 +33,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Copy constructor.
      */
-    public Task(ReadOnlyTask source) {
+    public Activity(ReadOnlyActivity source) {
         this(source.getName(), source.getDeadline(), source.getReminder(), source.getPriority(), source.getTags());
     }
 
@@ -72,8 +72,8 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                || (other instanceof ReadOnlyActivity // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyActivity) other));
     }
 
     @Override

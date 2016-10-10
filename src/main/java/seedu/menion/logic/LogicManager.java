@@ -7,7 +7,7 @@ import seedu.menion.logic.commands.Command;
 import seedu.menion.logic.commands.CommandResult;
 import seedu.menion.logic.parser.ActivityParser;
 import seedu.menion.model.Model;
-import seedu.menion.model.task.ReadOnlyTask;
+import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.storage.Storage;
 
 import java.util.logging.Logger;
@@ -35,7 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredActivityList() {
+    public ObservableList<ReadOnlyActivity> getFilteredActivityList() {
         return model.getFilteredTaskList();
     }
 }

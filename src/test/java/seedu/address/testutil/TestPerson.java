@@ -1,12 +1,12 @@
 package seedu.address.testutil;
 
+import seedu.menion.model.activity.*;
 import seedu.menion.model.tag.UniqueTagList;
-import seedu.menion.model.task.*;
 
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestPerson implements ReadOnlyActivity {
 
     private Name name;
     private Priority address;
