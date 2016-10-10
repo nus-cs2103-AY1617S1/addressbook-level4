@@ -1,8 +1,8 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Task;
+import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -46,11 +46,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 //// list overwrite operations
 
-    public ObservableList<Person> getPersons() {
+    public ObservableList<Task> getPersons() {
         return persons.getInternalList();
     }
 
-    public void setPersons(List<Person> persons) {
+    public void setPersons(List<Task> persons) {
         this.persons.getInternalList().setAll(persons);
     }
 
@@ -58,8 +58,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyPerson> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Person::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
+        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -76,7 +76,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
+    public void addPerson(Task p) throws UniquePersonList.DuplicatePersonException {
         syncTagsWithMasterList(p);
         persons.add(p);
     }
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person person) {
+    private void syncTagsWithMasterList(Task person) {
         final UniqueTagList personTags = person.getTags();
         tags.mergeFrom(personTags);
 
@@ -104,7 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
+    public boolean removePerson(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {
         if (persons.remove(key)) {
             return true;
         } else {
@@ -127,7 +127,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
+    public List<ReadOnlyTask> getPersonList() {
         return Collections.unmodifiableList(persons.getInternalList());
     }
 
