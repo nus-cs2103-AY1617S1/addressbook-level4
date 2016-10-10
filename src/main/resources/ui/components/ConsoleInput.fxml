@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+  fx:controller="seedu.todo.ui.components.ConsoleInput">
+  
+  <children>
+    <TextField fx:id="consoleInputTextField" styleClass="console-input-textfield" onAction="#handleConsoleInputChanged" 
+      promptText="Enter command here..."/>
+  </children>
+  
+</VBox>
+

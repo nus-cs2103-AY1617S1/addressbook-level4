@@ -1,8 +1,10 @@
 package seedu.todo.ui;
 
+import java.util.function.Function;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.todo.MainApp;
 
@@ -10,7 +12,7 @@ import seedu.todo.MainApp;
  * A utility class to load UiParts from FXML files.
  */
 public class UiPartLoader {
-    private final static String FXML_FILE_FOLDER = "/view/";
+    private final static String FXML_FILE_FOLDER = "/ui/";
 
     public static <T extends UiPart> T loadUiPart(Stage primaryStage, T controllerSeed) {
         return loadUiPart(primaryStage, null, controllerSeed);
@@ -24,15 +26,23 @@ public class UiPartLoader {
      * @param sampleUiPart The sample of the expected UiPart class.
      * @param <T> The type of the UiPart
      */
-    public static <T extends UiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
+    public static <T extends UiPart> T loadUiPart(Stage primaryStage, Pane placeholder, T sampleUiPart, Function<T,T> callback) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
         Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());
-        UiPart controller = loader.getController();
+        
+        T controller = loader.getController();
+        controller = callback.apply(controller);
+        
         controller.setStage(primaryStage);
         controller.setPlaceholder(placeholder);
         controller.setNode(mainNode);
         return (T)controller;
+    }
+    
+    // Overloaded with optional argument.
+    public static <T extends UiPart> T loadUiPart(Stage primaryStage, Pane placeholder, T sampleUiPart) {
+    	return loadUiPart(primaryStage, placeholder, sampleUiPart, (T controller) -> controller);
     }
 
     /**

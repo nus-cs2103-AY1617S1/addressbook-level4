@@ -8,104 +8,95 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
-import seedu.todo.logic.Logic;
+import seedu.todo.ui.components.Console;
+import seedu.todo.ui.components.ConsoleInput;
+import seedu.todo.ui.components.Header;
+import seedu.todo.ui.views.View;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart {
+public class MainWindow extends View {
 
-    private static final String ICON = "/images/address_book_32.png";
-    private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
-
-    private Logic logic;
-
-    // Independent Ui parts residing in this Ui container
-    private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
-    private Config config;
+	private static final String FXML_PATH = "MainWindow.fxml";
+    private static final String ICON_PATH = "/images/logo-512x512.png";
+    private static final String OPEN_HELP_KEY_COMBINATION = "F1";
+    public static final int MIN_HEIGHT = 800;
+    public static final int MIN_WIDTH = 1000;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
-
-    @FXML
-    private AnchorPane browserPlaceholder;
-
-    @FXML
-    private AnchorPane commandBoxPlaceholder;
-
+    // FXML Components
     @FXML
     private MenuItem helpMenuItem;
-
     @FXML
-    private AnchorPane personListPanelPlaceholder;
-
+    private AnchorPane childrenPlaceholder;
     @FXML
-    private AnchorPane resultDisplayPlaceholder;
-
+    private AnchorPane consolePlaceholder;
     @FXML
-    private AnchorPane statusbarPlaceholder;
+    private AnchorPane consoleInputPlaceholder;
+    @FXML
+    private AnchorPane headerPlaceholder;
 
+    public static MainWindow load(Stage primaryStage, Config config) {
+	    MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
+	    mainWindow.configure(config);
+	    return mainWindow;
+	}
 
-    public MainWindow() {
-        super();
-    }
-
-    @Override
-    public void setNode(Node node) {
-        rootLayout = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    public static MainWindow load(Stage primaryStage, Config config, Logic logic) {
-
-        MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, logic);
-        return mainWindow;
-    }
-
-    private void configure(String appTitle, String addressBookName, Config config,
-                           Logic logic) {
-
-        //Set dependencies
-        this.logic = logic;
-        this.addressBookName = addressBookName;
-        this.config = config;
-
-        //Configure the UI
+    public void configure(Config config) {
+    	String appTitle = config.getAppTitle();
+    	
+        // Configure the UI
         setTitle(appTitle);
-        setIcon(ICON);
+        setIcon(ICON_PATH);
         setWindowMinSize();
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
+        
+        // Bind accelerators
         setAccelerators();
+        
+        // Load other components.
+        loadComponents();
+    }
+    
+    private void loadComponents() {
+    	// Load Header
+    	Header header = new Header();
+    	header.passInProps(controller -> {
+    		Header headerController = (Header) controller;
+    		headerController.versionString = MainApp.VERSION.toString();
+    		return headerController;
+    	});
+    	header.render(primaryStage, getHeaderPlaceholder());
+    	
+    	// Load ConsoleInput
+    	new ConsoleInput().render(primaryStage, getConsoleInputPlaceholder());
+    	
+    	// Load Console
+    	new Console().render(primaryStage, getConsolePlaceholder());
     }
 
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
+	@Override
+	public void setNode(Node node) {
+        rootLayout = (VBox) node;
+	}
 
-    void fillInnerParts() {
+	@Override
+	public String getFxmlPath() {
+		return FXML_PATH;
+	}
 
-    }
-
-
-    public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+    public void show() {
+        primaryStage.show();
     }
 
     public void hide() {
@@ -129,24 +120,39 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /** ================ FXML COMPONENTS ================== **/
+    
+    public AnchorPane getChildrenPlaceholder() {
+        return childrenPlaceholder;
+    }
+    
+    public AnchorPane getConsolePlaceholder() {
+        return consolePlaceholder;
+    }
+    
+    public AnchorPane getConsoleInputPlaceholder() {
+    	return consoleInputPlaceholder;
+    }
+    
+    public AnchorPane getHeaderPlaceholder() {
+        return headerPlaceholder;
+    }
+
+    /** ================ ACCELERATORS ================== **/
+    
+    private void setAccelerators() {
+        helpMenuItem.setAccelerator(KeyCombination.valueOf(OPEN_HELP_KEY_COMBINATION));
+    }
+    
+    /** ================ ACTION HANDLERS ================== **/
+    
     @FXML
     public void handleHelp() {
-
+    	// TODO: Auto-generated method stub
     }
 
-    public void show() {
-        primaryStage.show();
-    }
-
-    /**
-     * Closes the application.
-     */
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
-    }
-
-    public void releaseResources() {
-
     }
 }

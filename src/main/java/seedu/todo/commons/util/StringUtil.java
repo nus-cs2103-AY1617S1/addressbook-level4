@@ -33,4 +33,8 @@ public class StringUtil {
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
+    
+    public static String pluralizer(int num, String singular, String plural) {
+    	return num == 1 ? singular : plural;
+    }
 }

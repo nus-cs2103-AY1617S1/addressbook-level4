@@ -14,4 +14,8 @@ public class FxViewUtil {
         AnchorPane.setRightAnchor(node, right);
         AnchorPane.setTopAnchor(node, top);
     }
+    
+    public static void makeFullWidth(Node node) {
+    	applyAnchorBoundaryParameters(node, 0.0, 0.0, 0.0, 0.0);
+    }
 }

@@ -2,7 +2,7 @@ package seedu.todo.ui;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.EventsCenter;
@@ -18,7 +18,7 @@ public abstract class UiPart {
     /**
      * The primary stage for the UI Part.
      */
-    Stage primaryStage;
+    protected Stage primaryStage;
 
     public UiPart(){
 
@@ -94,7 +94,7 @@ public abstract class UiPart {
      * Sets the placeholder for UI parts that reside inside another UI part.
      * @param placeholder
      */
-    public void setPlaceholder(AnchorPane placeholder) {
+    public void setPlaceholder(Pane placeholder) {
         //Do nothing by default.
     }
 
