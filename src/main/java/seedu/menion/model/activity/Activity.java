@@ -43,46 +43,79 @@ public class Activity implements ReadOnlyActivity {
     private ActivityTime endTime;
     private Note note;
     private String activityType;
-    
-    // Every Activity Object will have an array list of it's details for ease of accessibility
+
+    // Every Activity Object will have an array list of it's details for ease of
+    // accessibility
     private ArrayList<String> activityDetails;
     private UniqueTagList tags;
 
     /**
+     * For floatingTask
      * Every field must be present and not null.
-     * 
-     * @throws IllegalValueException
      */
-    public Activity(ArrayList<String> activityDetails) throws IllegalValueException {
-        if (activityDetails.size() == FLOATING_TASK_LENGTH) {
-            this.activityType = activityDetails.get(INDEX_ACTIVITY_TYPE);
-            this.name = new ActivityName(activityDetails.get(INDEX_ACTIVITY_NAME));
-            this.note = new Note(activityDetails.get(INDEX_ACTIVITY_NOTE));
-        } else if (activityDetails.size() == TASK_LENGTH) {
-            this.activityType = activityDetails.get(INDEX_ACTIVITY_TYPE);
-            this.name = new ActivityName(activityDetails.get(INDEX_ACTIVITY_NAME));
-            this.note = new Note(activityDetails.get(INDEX_ACTIVITY_NOTE));
-            this.startDate = new ActivityDate(activityDetails.get(INDEX_ACTIVITY_STARTDATE));
-            this.startTime = new ActivityTime(activityDetails.get(INDEX_ACTIVITY_STARTTIME));
-        } else if (activityDetails.size() == EVENT_LENGTH) {
-            this.activityType = activityDetails.get(INDEX_ACTIVITY_TYPE);
-            this.name = new ActivityName(activityDetails.get(INDEX_ACTIVITY_NAME));
-            this.note = new Note(activityDetails.get(INDEX_ACTIVITY_NOTE));
-            this.startDate = new ActivityDate(activityDetails.get(INDEX_ACTIVITY_STARTDATE));
-            this.startTime = new ActivityTime(activityDetails.get(INDEX_ACTIVITY_STARTTIME));
-            this.endDate = new ActivityDate(activityDetails.get(INDEX_ACTIVITY_ENDDATE));
-            this.endTime = new ActivityTime(activityDetails.get(INDEX_ACTIVITY_ENDTIME));
-        }
+    public Activity(String type, ActivityName name, Note note) {
+        this.activityType = type;
+        this.name = name;
+        this.note = note;
         setActivityDetails();
     }
+    
+    /**
+     * For Task
+     * Every field must be present and not null.
+     */
+    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime) {
+        this.activityType = type;
+        this.name = name;
+        this.note = note;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        setActivityDetails();
+    }
+    
+    /**
+     * For Event
+     * Every field must be present and not null.
+     */
+    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, ActivityDate endDate, ActivityTime endTime) {
+        this.activityType = type;
+        this.name = name;
+        this.note = note;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        setActivityDetails();
+    }
+    
 
     /**
      * Copy constructor.
      * 
-     * @throws IllegalValueException
      */
-    public Activity(ReadOnlyActivity source) throws IllegalValueException {
-        this(source.getActivityDetails());
+    public Activity(ReadOnlyActivity source) {
+        
+        if (source.getActivityType() == FLOATING_TASK_TYPE) {
+            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+            name = source.getActivityName();
+            note = source.getNote();
+        } else if (source.getActivityType() == TASK_TYPE) {
+            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+            name = source.getActivityName();
+            note = source.getNote();
+            startDate = source.getActivityStartDate();
+            startTime = source.getActivityStartTime();
+        } else if (source.getActivityType() == EVENT_TYPE) {
+            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+            name = source.getActivityName();
+            note = source.getNote();
+            startDate = source.getActivityStartDate();
+            startTime = source.getActivityStartTime();
+            endDate = source.getActivityEndDate();
+            endTime = source.getActivityEndTime();
+        }
+        this.activityDetails = source.getActivityDetails();
+
     }
 
     @Override
@@ -121,28 +154,20 @@ public class Activity implements ReadOnlyActivity {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public void setActivityDetails() {
         if (activityType == FLOATING_TASK_TYPE) {
             activityDetails = new ArrayList<String>(3);
             activityDetails.set(INDEX_ACTIVITY_TYPE, activityType);
             activityDetails.set(INDEX_ACTIVITY_NAME, name.toString());
             activityDetails.set(INDEX_ACTIVITY_NOTE, note.toString());
-        }
-        else if (activityType == TASK_TYPE) {
+        } else if (activityType == TASK_TYPE) {
             activityDetails = new ArrayList<String>(5);
             activityDetails.set(INDEX_ACTIVITY_TYPE, activityType);
             activityDetails.set(INDEX_ACTIVITY_NAME, name.toString());
             activityDetails.set(INDEX_ACTIVITY_NOTE, note.toString());
             activityDetails.set(INDEX_ACTIVITY_STARTDATE, startDate.toString());
             activityDetails.set(INDEX_ACTIVITY_STARTTIME, startTime.toString());
-        }
-        else if (activityType == EVENT_TYPE) {
+        } else if (activityType == EVENT_TYPE) {
             activityDetails = new ArrayList<String>(7);
             activityDetails.set(INDEX_ACTIVITY_TYPE, activityType);
             activityDetails.set(INDEX_ACTIVITY_NAME, name.toString());
@@ -153,13 +178,26 @@ public class Activity implements ReadOnlyActivity {
             activityDetails.set(INDEX_ACTIVITY_ENDTIME, endTime.toString());
         }
     }
-    
+
     /**
      * returns the arrayList consisting of an activity's details.
      */
     @Override
     public ArrayList<String> getActivityDetails() {
         return activityDetails;
+    }
+
+    // USELESS?
+    
+    @Override
+    public UniqueTagList getTags() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void setTags(UniqueTagList uniqueTagList) {
+        // TODO Auto-generated method stub
+        
     }
 
 }
