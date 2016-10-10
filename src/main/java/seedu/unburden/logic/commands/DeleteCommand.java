@@ -3,7 +3,7 @@ package seedu.unburden.logic.commands;
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.model.task.ReadOnlyTask;
-import seedu.unburden.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -39,8 +39,8 @@ public class DeleteCommand extends Command {
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deletePerson(taskToDelete);
-        } catch (PersonNotFoundException pnfe) {
+            model.deleteTask(taskToDelete);
+        } catch (TaskNotFoundException pnfe) {
             assert false : "The target person cannot be missing";
         }
 

@@ -9,7 +9,7 @@ import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
 import seedu.unburden.model.task.UniqueTaskList;
-import seedu.unburden.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -55,7 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyListOfTask getAddressBook() {
+    public ReadOnlyListOfTask getListOfTask() {
         return listOfTask;
     }
 
@@ -65,13 +65,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         listOfTask.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicatePersonException {
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         listOfTask.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
