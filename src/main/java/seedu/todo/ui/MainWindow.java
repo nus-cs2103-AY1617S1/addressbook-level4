@@ -28,10 +28,11 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private CommandInputView commandInputView;
+    private CommandFeedbackView commandFeedbackView;
+    
     private TodoListPanel todoListPanel;
-    private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
-    private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
 
@@ -94,9 +95,9 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         todoListPanel = TodoListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getObservableTaskList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
+        commandFeedbackView = CommandFeedbackView.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTodoListFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        commandInputView = CommandInputView.load(primaryStage, getCommandBoxPlaceholder(), commandFeedbackView, logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
