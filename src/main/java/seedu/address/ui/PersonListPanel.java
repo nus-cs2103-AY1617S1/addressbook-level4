@@ -24,6 +24,7 @@ public class PersonListPanel extends UiPart {
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private int indexOffset;
 
     @FXML
     private ListView<ReadOnlyTask> personListView;
@@ -48,14 +49,15 @@ public class PersonListPanel extends UiPart {
     }
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyTask> personList) {
+                                       ObservableList<ReadOnlyTask> personList, int indexStart) {
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList);
+        personListPanel.configure(personList, indexStart); 
         return personListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> personList) {
+    private void configure(ObservableList<ReadOnlyTask> personList, int indexStart) {
+        this.indexOffset = indexStart;
         setConnections(personList);
         addToPlaceholder();
     }
@@ -100,7 +102,7 @@ public class PersonListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(PersonCard.load(person, getIndex() + 1 + indexOffset).getLayout());
             }
         }
     }
