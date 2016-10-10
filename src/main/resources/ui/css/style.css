@@ -119,3 +119,7 @@ VBox.header {
 .tasklist-title {
   -fx-font-size: 20px;
 }
+
+.tasklist-dateitem-datelabel {
+  -fx-font-size: 18px;
+}

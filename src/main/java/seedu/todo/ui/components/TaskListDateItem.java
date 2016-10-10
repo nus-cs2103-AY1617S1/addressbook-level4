@@ -35,6 +35,25 @@ public class TaskListDateItem extends MultiComponent {
 		String dateHeader = String.format("%s (%d %s)", DateUtil.formatDay(dateTime), tasks.size(), 
 										  StringUtil.pluralizer(tasks.size(), "task", "tasks"));
 		dateText.setText(dateHeader);
+		
+		// Load task items
+		loadTaskItems();
+	}
+	
+	private void loadTaskItems() {
+		TaskListTaskItem.reset(dateTaskItemsPlaceholder);
+		
+		for (TaskStub task : tasks) {
+			TaskListTaskItem item = new TaskListTaskItem();
+			
+			item.passInProps(c -> {
+				TaskListTaskItem view = (TaskListTaskItem) c;
+				view.task = task;
+				return view;
+			});
+			
+			item.render(primaryStage, dateTaskItemsPlaceholder);
+		}
 	}
 
 }
