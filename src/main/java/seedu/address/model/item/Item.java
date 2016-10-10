@@ -78,11 +78,19 @@ public class Item implements ReadOnlyItem {
     public Date getStartDate() {
         return startDate;
     }
+    
+    public void setStartDate(String startDate) throws IllegalValueException {
+        this.startDate = new Date(startDate);
+    }
 
     @Override
     public Time getStartTime() {
         return startTime;
     }    
+    
+    public void setStartTime(String startTime) throws IllegalValueException {
+        this.startTime = new Time(startTime);
+    }
     
     @Override
     public Date getEndDate() {
@@ -98,6 +106,10 @@ public class Item implements ReadOnlyItem {
         return endTime;
     }
 
+    public void setEndTime(String endTime) throws IllegalValueException {
+        this.endTime = new Time(endTime);
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
