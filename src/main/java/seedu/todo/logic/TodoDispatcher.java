@@ -28,7 +28,7 @@ public class TodoDispatcher implements Dispatcher {
         
 
         case "exit":
-        	command = new ExitCommand();
+            command = new ExitCommand();
             break;
         case "edit":
         case "e":

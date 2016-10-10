@@ -16,13 +16,13 @@ public class EditCommandTest extends CommandTest {
     
     @Before
     public void setUp() throws Exception {
-    	//TODO fix sorting problems when adding tasks
+        //TODO fix sorting problems when adding tasks
         model.add("Task 1", task->{task.setDescription(null); 
-        						   task.setPinned(true);
-        						   task.setLocation("NUS");});
+                                   task.setPinned(true);
+                                   task.setLocation("NUS");});
         model.add("Task 3", task->{task.setDescription("Description"); 
-        						   task.setPinned(false);
-        						   task.setLocation(null);});
+                                   task.setPinned(false);
+                                   task.setLocation(null);});
         model.add("Task 2");
         
     }
@@ -41,7 +41,7 @@ public class EditCommandTest extends CommandTest {
         setParameter("1");
         setParameter("p", null);
         execute();
-    	assertEquals("Task 1", toEditPin.getTitle());
+        assertEquals("Task 1", toEditPin.getTitle());
         assertTrue(toEditPin.isPinned());
         assertFalse(toEditPin.getDescription().isPresent());
         assertFalse(toEditPin.getLocation().isPresent());
@@ -62,7 +62,7 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testEditDescription() throws IllegalValueException {
-    	ImmutableTask toEditDesc=getTaskAt(2);
+        ImmutableTask toEditDesc=getTaskAt(2);
         setParameter("2");
         setParameter("m", "Some other description");
         execute();
@@ -75,11 +75,11 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testDeleteField() throws IllegalValueException{
-    	ImmutableTask toDeleteField=getTaskAt(2);
-    	setParameter("2");
-    	setParameter("m", null);
-    	execute();
-    	assertEquals("Task 2", toDeleteField.getTitle());
+        ImmutableTask toDeleteField=getTaskAt(2);
+        setParameter("2");
+        setParameter("m", null);
+        execute();
+        assertEquals("Task 2", toDeleteField.getTitle());
         assertFalse(toDeleteField.isPinned());
         assertFalse(toDeleteField.getDescription().isPresent());
         assertFalse(toDeleteField.getLocation().isPresent());
@@ -87,12 +87,12 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testEditMoreThanOneParameter() throws IllegalValueException{
-    	ImmutableTask toEditTwoThings=getTaskAt(1);
-    	setParameter("1");
-    	setParameter("m", "New description");
-    	setParameter("l", "Singapura");
-    	execute();
-    	assertEquals("Task 1", toEditTwoThings.getTitle());
+        ImmutableTask toEditTwoThings=getTaskAt(1);
+        setParameter("1");
+        setParameter("m", "New description");
+        setParameter("l", "Singapura");
+        execute();
+        assertEquals("Task 1", toEditTwoThings.getTitle());
         assertFalse(toEditTwoThings.isPinned());
         assertTrue(toEditTwoThings.getDescription().isPresent());
         assertTrue(toEditTwoThings.getLocation().isPresent());
