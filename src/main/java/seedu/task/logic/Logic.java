@@ -2,6 +2,7 @@ package seedu.task.logic;
 
 import javafx.collections.ObservableList;
 import seedu.task.logic.commands.CommandResult;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 
 /**
@@ -17,5 +18,8 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered list of events */
+    ObservableList<ReadOnlyEvent> getFilteredEventList();
 
 }

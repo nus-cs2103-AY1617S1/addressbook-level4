@@ -29,7 +29,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private EventListPanel eventListPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -44,7 +44,7 @@ public class MainWindow extends UiPart {
     private String taskBookName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane eventListPanelPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -108,7 +108,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
@@ -129,6 +129,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getEventListPlaceholder() {
+        return eventListPanelPlaceholder;
     }
 
     public void hide() {
@@ -185,9 +189,9 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-
-
-    public void releaseResources() {
-        browserPanel.freeResources();
+    
+    public EventListPanel getEventListPanel() {
+        return this.eventListPanel;
     }
+
 }

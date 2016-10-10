@@ -17,7 +17,7 @@ import seedu.taskcommons.core.LogsCenter;
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
@@ -48,20 +48,20 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceHolder,
-                                       ObservableList<ReadOnlyTask> personList) {
+                                       ObservableList<ReadOnlyTask> taskList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceHolder, new TaskListPanel());
-        taskListPanel.configure(personList);
+        taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> personList) {
-        setConnections(personList);
+    private void configure(ObservableList<ReadOnlyTask> taskList) {
+        setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> personList) {
-        taskListView.setItems(personList);
+    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+        taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
@@ -74,7 +74,7 @@ public class TaskListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
