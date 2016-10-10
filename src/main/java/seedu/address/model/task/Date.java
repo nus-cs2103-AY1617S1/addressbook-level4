@@ -1,5 +1,8 @@
 package seedu.address.model.task;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -9,7 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task date should be in the format dd/mm/yy";
-    public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)";
+    public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][\\d]|3[01])/(0?[1-9]|1[012])/(\\d\\d)";
 
     public final String value;
 
@@ -31,7 +34,44 @@ public class Date {
      * Returns true if a given string is a valid task date number.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(DATE_VALIDATION_REGEX);
+    	Matcher matcher;
+    	Pattern pattern;
+    	
+    	pattern = Pattern.compile(DATE_VALIDATION_REGEX);
+    	matcher = pattern.matcher(test);
+    	
+    	if(matcher.matches()){
+    		matcher.reset();
+    		if(matcher.find()){
+    			int day = Integer.parseInt(matcher.group(1));
+    			int month = Integer.parseInt(matcher.group(2));
+    			int year = Integer.parseInt(matcher.group(3));
+    			
+    			switch (month) {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12: return day < 32;
+                case 4:
+                case 6:
+                case 9:
+                case 11: return day < 31;
+                case 2: 
+                    if (year%4 == 0) {
+                        //its a leap year
+                        return day < 30;
+                    } else {
+                        return day < 29;
+                    }
+                default:
+                    break;
+                }
+    		}
+    	}
+    	return false;
     }
 
     @Override

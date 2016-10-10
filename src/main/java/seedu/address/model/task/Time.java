@@ -10,7 +10,7 @@ public class Time {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
             "Task times should be two digits indicating the hour, seperated by a :, followed by two digits indicating the minutes, followed by am/pm";
-    public static final String TIME_VALIDATION_REGEX = "((1[012]|[1-9]):[0-5][0-9](?i)(am|pm)\\sto\\s)?(1[012]|[1-9]):[0-5][0-9](?i)(am|pm)";
+    public static final String TIME_VALIDATION_REGEX = "((1[012]|0[1-9]|[1-9]):[0-5][0-9](?i)(am|pm)\\sto\\s)?(1[012]|[1-9]|0[1-9]):[0-5][0-9](?i)(am|pm)";
     
     public final String value;
 
