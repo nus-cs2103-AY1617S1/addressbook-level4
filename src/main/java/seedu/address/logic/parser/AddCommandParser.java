@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import java.util.Date;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
@@ -76,44 +77,21 @@ public class AddCommandParser extends CommandParser{
     private AddTaskCommand createAddTaskCommandBasedOnDateString(String description, int substringFrom) 
     			throws IllegalValueException {
     	String dateString = description.substring(substringFrom, description.length());
-    	if (isValidDateFormat(dateString)) {
+    	if (DateUtil.isValidDateFormat(dateString)) {
     		// dateString represents task's deadline
-    		Date deadline = null;
+    		Date deadline = DateUtil.getDate(dateString);
 			return new AddTaskCommand(description, deadline);
 			
-    	} else if (isValidStartDateToEndDateFormat(dateString)) {
+    	} else if (DateUtil.isValidStartDateToEndDateFormat(dateString)) {
 			// dateString represents task's start date and end date
-    		Date startDate = null;
-    		Date endDate = null;
+    		Date[] startAndEndDates = DateUtil.getStartAndEndDates(dateString);
+    		Date startDate = startAndEndDates[0];
+    		Date endDate = startAndEndDates[1];
 			return new AddTaskCommand(description, startDate, endDate);
 			
 		} else {
 			// Floating task since sentence after "from" is not a valid date
 			return new AddTaskCommand(description);
 		}
-    }
-    
-    /*
-     * TODO: CHANGE LOCATION OF THIS FUNCTION
-     * Checks if a string follows a valid date format.
-     * 
-     * The following examples are all valid and similar dates: 
-     * Oct 31. 31 Oct. 
-     * 31 Oct 2016. 2016 Oct 31.
-     */
-    public boolean isValidDateFormat(String dateString) {
-    	return true;
-    }
-    
-    /*
-     * TODO: CHANGE LOCATION OF THIS FUNCTION
-     * Checks if a string follows a valid format (using "to" or "-") to show start date and end date.
-     * 
-     * The following examples are all valid and similar illustrations: 
-     * Sep 31 - Oct 31. 31 Sep 2016 - 31 Oct 2016. 
-     * Sep 31 to Oct 31. 31 Sep 2016 to 31 Oct 2016
-     */
-    public boolean isValidStartDateToEndDateFormat(String dateString) {
-    	return true;
     }
 }
