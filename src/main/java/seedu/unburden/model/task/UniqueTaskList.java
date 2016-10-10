@@ -31,6 +31,8 @@ public class UniqueTaskList implements Iterable<Task> {
      * there is no such matching person in the list.
      */
     public static class TaskNotFoundException extends Exception {}
+    
+    public static class EmptyListException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
