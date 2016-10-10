@@ -21,6 +21,16 @@ public interface InMemoryTaskList {
 	void deleteTask(Task toRemove) throws UniqueItemCollection.ItemNotFoundException;
 	
 	/*
+	 * Favorites a task in the current in-memory representation of the Task List
+	 */
+	void favoriteTask(Task toFavorite);
+	
+	/*
+	 * Unfavorites a task in the current in-memory representation of the Task List
+	 */
+	void unfavoriteTask(Task toFavorite);
+	
+	/*
 	 * Adds a set of keywords to filter the task list by
 	 */
 	void filterTasks(Set<String> keywords);

@@ -37,7 +37,7 @@ public class FavoriteTaskCommand extends TaskCommand {
         }
 
         Task taskToFavorite = lastShownList.get(targetIndex - 1);
-        taskToFavorite.setAsFavorite();
+        model.favoriteTask(taskToFavorite);
 
         return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, taskToFavorite));
     }

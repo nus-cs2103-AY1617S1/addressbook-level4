@@ -37,7 +37,7 @@ public class UnfavoriteTaskCommand extends TaskCommand {
         }
 
         Task taskToUnfavorite = lastShownList.get(targetIndex - 1);
-        taskToUnfavorite.setAsNotFavorite();
+        model.unfavoriteTask(taskToUnfavorite);
 
         return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, taskToUnfavorite));
     }

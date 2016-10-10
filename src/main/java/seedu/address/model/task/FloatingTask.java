@@ -5,9 +5,6 @@ package seedu.address.model.task;
  */
 public class FloatingTask extends Task implements FavoritableTask {
 
-	private boolean isFavorite = false;
-	
-
 	public FloatingTask(Description description) {
 		super(description);
 	}
