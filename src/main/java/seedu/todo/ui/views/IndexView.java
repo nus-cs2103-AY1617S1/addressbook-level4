@@ -1,5 +1,7 @@
 package seedu.todo.ui.views;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
@@ -19,7 +21,7 @@ public class IndexView extends View {
 	private Pane tasksPane;
 	
 	// Props
-	public ArrayList<Object> tasks = new ArrayList<Object>(); // stub
+	public ArrayList<TaskStub> tasks = new ArrayList<TaskStub>(); // stub
 	public ArrayList<String> tags = new ArrayList<String>(); // stub
 	public String indexTextValue;
 
@@ -45,27 +47,8 @@ public class IndexView extends View {
 			TagList view = (TagList) v;
 			
 			// Temp
-			tags.add("tag1");
-			tags.add("tag2");
-			tags.add("tag3");
-			tags.add("tag4");
-			tags.add("tag5");
-			tags.add("tag6");
-			tags.add("tag7");
-			tags.add("tag1");
-			tags.add("tag2");
-			tags.add("tag3");
-			tags.add("tag4");
-			tags.add("tag5");
-			tags.add("tag6");
-			tags.add("tag7");
-			tags.add("tag1");
-			tags.add("tag2");
-			tags.add("tag3");
-			tags.add("tag4");
-			tags.add("tag5");
-			tags.add("tag6");
-			tags.add("tag7");
+			for (int i = 1; i <= 20; i++) 
+				tags.add("Tag " + i);
 			
 			view.tags = tags;
 			return view;
@@ -76,10 +59,28 @@ public class IndexView extends View {
 		TaskList taskList = new TaskList();
 		taskList.passInProps(v -> {
 			TaskList view = (TaskList) v;
+			
+			// Temp
+			LocalDateTime date = LocalDateTime.now().minus(3, ChronoUnit.DAYS);
+			for (int i = 1; i <= 10; i++) {
+				tasks.add(new TaskStub(date, "Task " + i));
+				date = date.plus(1, ChronoUnit.DAYS);
+			}
+			
 			view.tasks = tasks;
 			return view;
 		});
 		taskList.render(primaryStage, tasksPane);
+	}
+	
+	public static class TaskStub {
+		public LocalDateTime dateTime;
+		public String name;
+		
+		public TaskStub(LocalDateTime dateTime, String name) {
+			this.dateTime = dateTime;
+			this.name = name;
+		}
 	}
 	
 	
