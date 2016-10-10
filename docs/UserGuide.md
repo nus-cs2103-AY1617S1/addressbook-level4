@@ -108,7 +108,7 @@ Format: `exit`
 
 #### Saving the data: `save`
 Scheduler data are saved in the hard disk automatically after any command that changes the data. Data is saved at path previously assigned by the user.<br>
-Format: `path FILE_SAVE`
+Format: `save FILE_SAVE`
 
 #### Changing the file save path: `path`
 File path can be manually changed to a user-specified location.<br>
