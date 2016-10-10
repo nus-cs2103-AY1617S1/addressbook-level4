@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.util.FxViewUtil;
@@ -21,7 +20,7 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-
+    private static final String HELPIMAGE = "/images/UIhelp.png";
     private AnchorPane mainPane;
 
     private Stage dialogStage;
@@ -50,7 +49,7 @@ public class HelpWindow extends UiPart {
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
         
-        Image helpImage = new Image("/images/UIhelp.png");
+        Image helpImage = new Image(HELPIMAGE);
         ImageView helpImageView = new ImageView(helpImage);        
         FxViewUtil.applyAnchorBoundaryParameters(helpImageView, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(helpImageView);
