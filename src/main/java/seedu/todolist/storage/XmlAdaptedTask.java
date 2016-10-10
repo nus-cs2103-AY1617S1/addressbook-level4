@@ -15,6 +15,9 @@ public class XmlAdaptedTask {
 
     @XmlElement
     private String locationParameter;
+    
+    @XmlElement
+    private String remarksParameter;
 
     /**
      * No-arg constructor for JAXB use.
@@ -40,6 +43,7 @@ public class XmlAdaptedTask {
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
         final LocationParameter location = new LocationParameter(this.locationParameter);
-        return new Task(name, location);
+        final RemarksParameter remarks = new RemarksParameter(this.remarksParameter);
+        return new Task(name, location, remarks);
     }
 }

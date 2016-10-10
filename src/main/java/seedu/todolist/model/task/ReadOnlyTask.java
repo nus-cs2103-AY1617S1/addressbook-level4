@@ -9,6 +9,8 @@ public interface ReadOnlyTask {
     Name getName();
     
     LocationParameter getLocationParameter();
+    
+    RemarksParameter getRemarksParameter();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -25,7 +27,8 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" at ").append(getLocationParameter());
+                .append(" at ").append(getLocationParameter())
+                .append(" remarks ").append(getRemarksParameter());
         return builder.toString();
     }
 

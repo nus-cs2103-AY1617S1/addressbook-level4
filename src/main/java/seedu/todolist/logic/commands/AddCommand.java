@@ -11,9 +11,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to Task!t. "
-            + "Parameters: NAME [at LOCATION]\n"
+            + "Parameters: NAME [at LOCATION] [remarks REMARKS]\n"
             + "Example: " + COMMAND_WORD
-            + " dinner with mom at home";
+            + " dinner with mom at home remarks buy flowers";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Task!t";
@@ -25,11 +25,12 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String location)
+    public AddCommand(String name, String location, String remarks)
             throws IllegalValueException {
         this.toAdd = new Task(
                 new Name(name),
-                new LocationParameter(location)
+                new LocationParameter(location),
+                new RemarksParameter(remarks)
         );
     }
 

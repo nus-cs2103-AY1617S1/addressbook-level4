@@ -28,7 +28,7 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " at (?<locationParameter>[^/]+)");
+                    + " at (?<locationParameter>[^/]+)" + " remarks (?<remarksParameter>[^/]+)");
 
     public Parser() {}
 
@@ -92,7 +92,8 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
-                    matcher.group("locationParameter")
+                    matcher.group("locationParameter"),
+                    matcher.group("remarksParameter")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
