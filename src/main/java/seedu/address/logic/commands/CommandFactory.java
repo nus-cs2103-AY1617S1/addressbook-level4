@@ -236,6 +236,10 @@ public class CommandFactory {
 
         Optional<LocalDateTime> dueDate = dateTimeParser.parseDateTime(dueDateString.orElse(""));
 
+        if (dueDateString.isPresent() && !dueDate.isPresent()) {
+            return new InvalidCommand(Messages.MESSAGE_TODO_DUEDATE_INVALID_FORMAT);
+        }
+
         if (dueDate.isPresent()) {
             try {
                 command.setDueDate(dueDate.get());

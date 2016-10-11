@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.todo.ReadOnlyToDo;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Marks a to-do item as done
  */
 public class FinishCommand extends Command {
 
@@ -30,15 +30,15 @@ public class FinishCommand extends Command {
             return new CommandResult(String.format(Messages.MESSAGE_TODO_ITEM_INDEX_INVALID, toDoIndex), true);
         }
 
-        ReadOnlyToDo toDoToDelete = lastShownList.get(toDoIndex - 1);
+        ReadOnlyToDo toDoToFinish = lastShownList.get(toDoIndex - 1);
 
         try {
-            model.deleteToDo(toDoToDelete);
+            model.deleteToDo(toDoToFinish);
         } catch (IllegalValueException exception) {
             return new CommandResult(exception.getMessage(), true);
         }
 
-        return new CommandResult(String.format(Messages.MESSAGE_TODO_FINISHED, toDoToDelete.getTitle().toString()));
+        return new CommandResult(String.format(Messages.MESSAGE_TODO_FINISHED, toDoToFinish.getTitle().toString()));
     }
 
 }
