@@ -12,31 +12,29 @@ public class PinCommandTest extends CommandTest {
 
     @Override
     protected BaseCommand commandUnderTest() {
-    return new PinCommand();
+        return new PinCommand();
     }
 
     @Before
     public void setUp() throws Exception {
         model.add("Task 3");
         model.add("Task 2");
-        model.add("Task 1", task->{task.setPinned(true);});
+        model.add("Task 1", task-> task.setPinned(true));
     }
-
     @Test
     public void testPinFirst() throws IllegalValueException {
         ImmutableTask toPin = getTaskAt(3);
         setParameter("3");
         execute();
-        toPin = getTaskAt(3);
+        assertEquals(toPin.getTitle(), "Task 3");
         assertTrue(toPin.isPinned());
     }
-    
     @Test
     public void testUnpinFirst() throws IllegalValueException {
         ImmutableTask toUnpin = getTaskAt(1);
         setParameter("1");
         execute();
-        toUnpin = getTaskAt(3);
+        assertEquals(toUnpin.getTitle(), "Task 1");
         assertFalse(toUnpin.isPinned());
     }
 }

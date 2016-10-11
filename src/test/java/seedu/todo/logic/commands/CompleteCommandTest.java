@@ -12,14 +12,14 @@ public class CompleteCommandTest extends CommandTest {
 
     @Override
     protected BaseCommand commandUnderTest() {
-    return new CompleteCommand();
+        return new CompleteCommand();
     }
 
     @Before
     public void setUp() throws Exception {
         model.add("Task 3");
         model.add("Task 2");
-        model.add("Task 1", task->{task.setCompleted(true);});
+        model.add("Task 1", task-> task.setCompleted(true));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class CompleteCommandTest extends CommandTest {
         toMarkComplete = getTaskAt(3);
         assertTrue(toMarkComplete.isCompleted());
     }
-    
+
     @Test
     public void testMarkIncomplete() throws IllegalValueException {
         ImmutableTask toMarkIncomplete = getTaskAt(1);
