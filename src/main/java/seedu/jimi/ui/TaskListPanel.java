@@ -55,13 +55,13 @@ public class TaskListPanel extends UiPart {
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> personList) {
-        setConnections(personList);
+    private void configure(ObservableList<ReadOnlyTask> taskList) {
+        setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> personList) {
-        taskListView.setItems(personList);
+    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+        taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
@@ -74,7 +74,7 @@ public class TaskListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
@@ -93,14 +93,14 @@ public class TaskListPanel extends UiPart {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ReadOnlyTask task, boolean empty) {
+            super.updateItem(task, empty);
 
-            if (empty || person == null) {
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }
