@@ -89,6 +89,16 @@ public class ValidationTask implements ImmutableTask {
         }
     }
 
+    /**
+     * Converts the validation task into an actual task for consumption.
+     * 
+     * @return A task with observable properties
+     */
+    public Task convertToTask() throws ValidationException {
+        validate();
+        return new Task(this);
+    }
+
     @Override
     public String getTitle() {
         return title;

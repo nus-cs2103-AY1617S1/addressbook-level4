@@ -25,6 +25,8 @@ public class ValidationTaskTest {
         assertEquals(a.getLocation(), b.getLocation());
         assertEquals(a.getStartTime(), b.getStartTime());
         assertEquals(a.getEndTime(), b.getEndTime());
+        assertEquals(a.isPinned(), b.isPinned());
+        assertEquals(a.isCompleted(), b.isCompleted());
         assertEquals(a.getTags(), b.getTags());
         assertEquals(a.getUUID(), b.getUUID());
     }
@@ -70,6 +72,25 @@ public class ValidationTaskTest {
         task.setEndTime(endTime);
 
         task.validate();
+    }
+
+    @Test
+    public void testConvertToTask() throws ValidationException {
+        LocalDateTime startTime = LocalDateTime.of(1, 1, 1, 1, 1);
+        LocalDateTime endTime = LocalDateTime.of(1, 1, 1, 1, 2);
+
+        task.setStartTime(startTime);
+        task.setEndTime(endTime);
+
+        assertAllPropertiesEqual(task, task.convertToTask());
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testConvertDifferentTask() throws ValidationException {
+        Task convertedTask = task.convertToTask();
+        task.setPinned(true);
+        // task.setDescription("test");
+        assertAllPropertiesEqual(task, convertedTask);
     }
 
     @Test
