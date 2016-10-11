@@ -7,6 +7,7 @@ import seedu.address.model.task.TaskDate;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +29,15 @@ public class Parser {
 
     private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
+    private static final Pattern FIND_ARGS_WITHOUT_DATE_FORMAT = 
+    		Pattern.compile("(?<keywords>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+    
+    private static final Pattern FIND_ARGS_WITH_DATE_FORMAT = 
+    		Pattern.compile("(?<keywords>[^/]+)"
+    				+ "((?<startTime>(?: from [^/]+)(?<endTime>(?: to [^/]+)))|"
+    				+ "(?<deadline>(?: by [^/]+)))"
+    				+ "(?<tagArguments>(?: t/[^/]+)*)");
+    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
@@ -46,6 +56,11 @@ public class Parser {
             Pattern.compile("from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final int START_TIME_INDEX = 0;
+    
+    private static final int END_TIME_INDEX = 1;
+    
     public Parser() {}
 
     /**
@@ -293,16 +308,66 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        final Matcher noDateMatcher = FIND_ARGS_WITHOUT_DATE_FORMAT.matcher(args.trim());
+        final Matcher dateMatcher = FIND_ARGS_WITH_DATE_FORMAT.matcher(args.trim());
+        
+        final String[] keywords;
+        final Set<String> keywordSet;
+        String startTime = "";
+        String endTime = "";
+        String deadline = "";
+        final Set<String> tagSet;
+        
+        boolean dateMatcherMatches = dateMatcher.matches();
+        boolean noDateMatcherMatches = noDateMatcher.matches();
+        
+        if(dateMatcherMatches) {
+        	keywords = dateMatcher.group("keywords").split("\\s+");
+    		keywordSet = new HashSet<>(Arrays.asList(keywords));
+        	
+    		try {
+        		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
+        	} catch(IllegalValueException ive) {
+        		return new IncorrectCommand(ive.getMessage());
+        	} 
+    		
+    		try {
+    			
+    			String[] time = dateMatcher.group("startTime").replace(" from ", "").split(" to ");
+    			startTime = reformatDate(time[START_TIME_INDEX]);
+        		endTime = reformatDate(time[END_TIME_INDEX]);
+        		
+    		} catch(Exception ise) {
+        		deadline = reformatDate(dateMatcher.group("deadline").replace(" by ", ""));
+        	}
+    		
+        } else if(noDateMatcherMatches) {
+        	keywords = noDateMatcher.group("keywords").split("\\s+");
+    		keywordSet = new HashSet<>(Arrays.asList(keywords));
+        	
+        	try {
+        		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
+        	} catch(IllegalValueException ive) {
+        		return new IncorrectCommand(ive.getMessage());
+        	}
+        } else {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
+        
+        return new FindCommand(keywordSet, startTime, endTime, deadline, tagSet);
 
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Reformats any date into the format that we are storing and using in this software 
+     * @param oldDate
+     * @return the new formatted date
+     */
+    public static String reformatDate(String oldDate) {
+    	long newDate = getDateFromString(oldDate).getTime();
+    	SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma");
+        return formatter.format(new Date(newDate));
     }
     
     /**
