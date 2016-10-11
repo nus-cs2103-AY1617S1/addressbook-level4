@@ -14,8 +14,8 @@
 1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.<br>
-   <img src="images/UserGuide Mock up2.png" alt="Task manager GUI on start up">
-<figcaption>Fig. 1: Task manager GUI on start up</figcaption>
+   <img src="images/UserGuide Mock up1.png" title="Task manager GUI on start up" width="900">
+   <figcaption>Fig. 1: Task manager GUI on start up</figcaption>
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
@@ -79,7 +79,7 @@ Modifiers | Action
 -pr | Tasks are listed by priority
 -t/TAG | Tasks with the specified tag are listed
 
-<img src="images/UserGuide Mock up1.png" alt="Task manager listing tasks by priority">
+<img src="images/UserGuide Mock up2.png" title="Task manager listing tasks by priority" width="900">
 <figcaption>Fig. 2: Task manager listing tasks by priority</figcaption>
 
 ##### Listing all tags used: `list tags`
