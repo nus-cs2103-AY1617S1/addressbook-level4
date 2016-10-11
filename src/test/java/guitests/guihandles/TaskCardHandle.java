@@ -41,8 +41,9 @@ public class TaskCardHandle extends GuiHandle {
         System.out.println("this.name.hashCode() = " + this.getName().hashCode() + ", task.name.hashCode() = " + task.getName().hashCode());
         System.out.println("-------------------------------------------------------------------");
         System.out.println("this.priority = " + this.getPriority() + ", task.priority = " + task.getPriorityValue());
+        System.out.println("this.priority.compareTo(task.priority) = " + this.getPriority().compareTo(task.getPriorityValue().toString()));
         System.out.println("this.priority = task.priority? " + (this.getPriority().equals(task.getPriorityValue())));
-        System.out.println("this.priority.hashCode() = " + this.getPriority().hashCode() + ", task.priority.hashCode() = " + task.getPriorityValue().hashCode());
+        System.out.println("this.priority.hashCode() = " + this.getPriority().hashCode() + ", task.priority.hashCode() = " + task.getPriorityValue().toString().hashCode());
         System.out.println("===================================================================");
 
         return getName().equals(task.getName().name) && getPriority().equals(task.getPriorityValue());
