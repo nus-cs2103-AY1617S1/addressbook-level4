@@ -22,7 +22,7 @@ public class AddController implements Controller {
         // TODO: Example of last minute work
         
         // Parse name and date.
-        String[] splitted = args.split("(at|by)", 2);
+        String[] splitted = args.split("( at | by )", 2);
         String name = splitted[0].trim();
         String naturalDate = splitted[1].trim();
         
