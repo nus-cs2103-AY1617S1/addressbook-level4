@@ -6,6 +6,7 @@ import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
+import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.tasklist.model.task.UniqueTaskList.TaskCompletionException;
 
 import java.util.*;
@@ -113,6 +114,17 @@ public class TaskList implements ReadOnlyTaskList {
         }
     }
     
+    /**
+     * Edits a task in the task list.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     * @throws TaskNotFoundException if task does not exist.
+     */
+    public void editTask(Task taskToEdit, ReadOnlyTask key) throws TaskNotFoundException {
+        syncTagsWithMasterList(taskToEdit);
+        task.edit(taskToEdit, key);
+    }
+
     public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException, TaskCompletionException {
         if (task.mark(key)) {
             return true;

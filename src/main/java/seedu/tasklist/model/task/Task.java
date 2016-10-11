@@ -11,9 +11,9 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
-    private Title task;
-    private StartDate startDate;
+    private Title title;
     private Description description;
+    private StartDate startDate;
     private DueDate dueDate;
 
     private UniqueTagList tags;
@@ -25,7 +25,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(Title title, StartDate startDate, Description description, DueDate dueDate, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(title, startDate, description, dueDate, tags);
-        this.task = title;
+        this.title = title;
         this.startDate = startDate;
         this.description = description;
         this.dueDate = dueDate;
@@ -55,7 +55,7 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public Title getTitle() {
-        return task;
+        return title;
     }
 
     @Override
@@ -103,7 +103,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(task, startDate, description, dueDate, tags);
+        return Objects.hash(title, startDate, description, dueDate, tags);
     }
 
     @Override

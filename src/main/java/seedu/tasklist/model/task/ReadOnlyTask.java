@@ -38,10 +38,10 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
-                .append(" StartDate: ")
-                .append(getStartDate())
                 .append(" Description: ")
                 .append(getDescription())
+                .append(" StartDate: ")
+                .append(getStartDate())
                 .append(" DueDate: ")
                 .append(getDueDate())
                 .append(" Tags: ");

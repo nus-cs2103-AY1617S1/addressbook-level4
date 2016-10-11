@@ -89,6 +89,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
+    
+    @Override
+    public void editTask(Task taskToEdit, ReadOnlyTask target) throws TaskNotFoundException {
+        taskList.editTask(taskToEdit, target);
+        updateFilteredListToShowAll();
+        indicateTaskListChanged();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -152,7 +159,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return titleKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTitle().fullTitle, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getAsText(), keyword))
                     .findAny()
                     .isPresent();
         }
