@@ -1,18 +1,19 @@
 package seedu.todo.ui.components;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
+import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Task;
 
 public class TaskList extends Component {
 
 	private static final String FXML_PATH = "components/TaskList.fxml";
+	private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
 	
 	// Props
 	public ArrayList<Task> tasks; // stub
@@ -33,7 +34,11 @@ public class TaskList extends Component {
 	
 	private void loadTasks() {
 		TaskListDateItem.reset(taskListDateItemsPlaceholder);
+
+		// Clears displayedTasks in EphemeralDB.
+		ephemeralDb.displayedTasks = new ArrayList<Task>();
 		
+		// Get a list of tasks mapped to each date
 		HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = getTasksByDate(tasks);
 		
 		// Get unique task dates and sort them
@@ -46,6 +51,7 @@ public class TaskList extends Component {
 			TaskListDateItem item = new TaskListDateItem();
 			ArrayList<Task> tasksForDate = tasksByDate.get(dateTime);
 			
+			// Pass in as prop to view.
 			item.passInProps(c -> {
 				TaskListDateItem view = (TaskListDateItem) c;
 				view.dateTime = dateTime;
@@ -53,12 +59,14 @@ public class TaskList extends Component {
 				return view;
 			});
 			
+			// Finally, can render into the placeholder.
 			item.render(primaryStage, taskListDateItemsPlaceholder);
 		}
 	}
 	
-	private static HashMap<LocalDateTime, ArrayList<Task>> getTasksByDate(ArrayList<Task> tasks) {
+	private HashMap<LocalDateTime, ArrayList<Task>> getTasksByDate(ArrayList<Task> tasks) {
 		HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = new HashMap<LocalDateTime, ArrayList<Task>>();
+		
 		for (Task task : tasks) {
 			LocalDateTime taskDate = DateUtil.floorDate(task.getCalendarDT());
 			

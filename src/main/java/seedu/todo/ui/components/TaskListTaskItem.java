@@ -10,6 +10,7 @@ public class TaskListTaskItem extends MultiComponent {
 
 	// Props
 	public Task task;
+	public int displayIndex;
 	
 	// FXML
 	@FXML
@@ -22,7 +23,7 @@ public class TaskListTaskItem extends MultiComponent {
 	
 	@Override
 	public void componentDidMount() {
-		taskText.setText(task.getName());
+		taskText.setText(displayIndex + ". " + task.getName());
 	}
 
 }
