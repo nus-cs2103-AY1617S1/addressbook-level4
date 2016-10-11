@@ -155,23 +155,23 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 e/valid@email.butNoPhonePrefix l/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Name s/12345 valid@email.butNoPrefix l/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name s/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] s/12345 e/valid@e.mail l/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
+                "add Valid Name s/not_numbers e/valid@e.mail l/valid, address", StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", EndTime.MESSAGE_ENDTIME_CONSTRAINTS);
+                "add Valid Name s/12345 e/notAnEmail l/valid, address", EndTime.MESSAGE_ENDTIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name s/12345 e/valid@e.mail l/valid, address #/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -420,13 +420,13 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getStartTime());
+            cmd.append(" s/").append(p.getStartTime());
             cmd.append(" e/").append(p.getEndTime());
-            cmd.append(" a/").append(p.getLocation());
+            cmd.append(" l/").append(p.getLocation());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" #/").append(t.tagName);
             }
 
             return cmd.toString();
