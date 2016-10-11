@@ -1,11 +1,14 @@
 package harmony.mastermind.logic.commands;
 
 import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.ArchiveTaskList.TaskNotFoundException;
 import javafx.collections.ObservableList;
 
+//@@author A0124797R
 public class UnmarkCommand extends Command{
     public static final String COMMAND_WORD = "unmark";
 
@@ -29,21 +32,21 @@ public class UnmarkCommand extends Command{
     
     @Override
     public CommandResult execute() {
-        ObservableList<Task> lastShownList = model.getListToMark();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredArchiveList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        Task taskToUnmark = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToUnmark = lastShownList.get(targetIndex - 1);
         
         if (!taskToUnmark.isMarked()) {
             return new CommandResult(String.format(MESSAGE_UNMARKED_TASK, taskToUnmark));
         }
 
         try {
-            model.unmarkTask(taskToUnmark);
+            model.unmarkTask((Task)taskToUnmark);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (DuplicateTaskException e) {

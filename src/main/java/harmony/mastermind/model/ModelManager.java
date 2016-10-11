@@ -104,7 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException,
     UniqueTaskList.DuplicateTaskException {
-        taskManager.unmarkTask(target);
+        taskManager.unmarkTask((Task)target);
         indicateTaskManagerChanged();
     }
     
@@ -112,6 +112,13 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void relocateSaveLocation(String target) {
         taskManager.relocateSaveLocation(target);
         indicateTaskManagerChanged();
+    }
+    
+    //=========== Filtered Archived List Accessors ===============================================================
+    //@@author A0124797R
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList() {
+        return new UnmodifiableObservableList<>(taskManager.getArchives());
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -121,6 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
+    //@@author A0124797R
     @Override
     public ObservableList<Task> getListToMark() {
         return filteredTasks;

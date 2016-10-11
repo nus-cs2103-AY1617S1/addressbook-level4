@@ -56,7 +56,12 @@ public class TaskManager implements ReadOnlyTaskManager {
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
-
+    
+    //@@author A0124797R
+    public ObservableList<Task> getArchives() {
+        return archivedTasks.getInternalList();
+    }
+    
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }

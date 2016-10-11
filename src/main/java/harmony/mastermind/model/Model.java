@@ -45,14 +45,18 @@ public interface Model {
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
-    /** Returns filtered task list*/
+    
     //@@author A0124797R
+    /** Returns the filtered archive list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList();
+
+    //@@author A0124797R
+    /** Returns filtered task list as an {@code ObervableList<Task>} */
     ObservableList<Task> getListToMark();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
-
+    
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
