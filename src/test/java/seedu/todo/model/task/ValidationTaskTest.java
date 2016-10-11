@@ -40,12 +40,18 @@ public class ValidationTaskTest {
     }
 
     @Test
-    public void testIsValidTaskNoTime() throws ValidationException {
+    public void testValidateTaskNoTime() throws ValidationException {
+        task.validate();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void testValidateEmptyStringTitle() throws ValidationException {
+        task.setTitle("");
         task.validate();
     }
 
     @Test
-    public void testIsValidTaskTime() throws ValidationException {
+    public void testValidateTaskTime() throws ValidationException {
         LocalDateTime startTime = LocalDateTime.of(1, 1, 1, 1, 1);
         LocalDateTime endTime = LocalDateTime.of(1, 1, 1, 1, 2);
 
@@ -56,14 +62,13 @@ public class ValidationTaskTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void testIsValidTaskStartTimeBeforeEnd() throws ValidationException {
+    public void testValidateTaskStartTimeBeforeEnd() throws ValidationException {
         LocalDateTime startTime = LocalDateTime.of(1, 1, 1, 1, 2);
         LocalDateTime endTime = LocalDateTime.of(1, 1, 1, 1, 1);
 
         task.setStartTime(startTime);
         task.setEndTime(endTime);
 
-        System.out.println(task);
         task.validate();
     }
 
