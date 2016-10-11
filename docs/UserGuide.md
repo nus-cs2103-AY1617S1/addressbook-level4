@@ -88,10 +88,11 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 
 #### Viewing help : `help`
 Format: `help`
+Opens a new window displaying this document.
 
 > If you enter an invalid command (e.g `abcd`), or enter invalid parameters
-> for commands, mini-help messages would be shown on the output box in the
-> program instead.
+> for commands, messages would be shown on the output box in the
+> program.
 
 #### Create a new task/event: `add`
 Adds a new task or event to the task list.<br>
@@ -103,14 +104,16 @@ Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline 
 >	* If it is an event, the start time and end time should be set.
 > The repeat frequency can be `daily`, `weekly`, or `monthly`.<br>
 > The repeat count will represent how many times the recurrence will occur.<br>
-> You can assign tags to it to classify them by category or by priority 
-> (up to your own discretion)
+> 
+> Tags allow you to organize your tasks by different categories (for example,
+> you may use tags to prioritize certain tasks over others).
 
 Examples:
 * `add "Hello World!"`
 * `add "Meeting" from 21 Sep 3pm to 5pm`
 * `add "Check sufficient toilet rolls" by 21 Sep 5pm, tag "Important"`
 * `add "Lecture" from 7 Oct 2pm to 4pm, repeattime weekly, tag "Important"`
+* `add "3 Days Conference" from 18 Oct 9am to 21 Oct 5pm`
 
 > <img src="images/Ui-Add.png" width="600">
 
