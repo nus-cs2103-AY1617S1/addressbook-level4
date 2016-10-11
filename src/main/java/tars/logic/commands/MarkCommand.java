@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Marks a task identified using it's last displayed index from tars as done or undone.
  * 
- * @@author Joel Foo
+ * @@author A0121533W
  */
 public class MarkCommand extends Command {
 

@@ -87,9 +87,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     /**
-     * Edits the equivalent tasks from tars.
-     * 
-     * @@author Joel Foo
+     * @@author A0121533W
      */
     public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
             throws TaskNotFoundException, DateTimeException, IllegalDateException, DuplicateTagException,
@@ -113,7 +111,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
+    /**
+     * @@author A0121533W
+     */
+    public synchronized void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
         tars.mark(toMarkList, status);
         indicateTarsChanged();
 

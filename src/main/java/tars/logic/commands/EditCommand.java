@@ -14,7 +14,7 @@ import java.util.HashMap;
 /**
  * Edits a task identified using it's last displayed index from tars.
  * 
- * @@author Joel Foo
+ * @@author A0121533W
  */
 public class EditCommand extends Command {
 
