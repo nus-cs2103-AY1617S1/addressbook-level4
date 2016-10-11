@@ -32,14 +32,12 @@ public class TaskBuilder {
     }
 
     public TaskBuilder withDueByDate(String dbd) throws IllegalValueException {
-    	assert dbd.matches("[1-12]/[1-31]/[2000-2999]");
-        this.task.setDueByDate(new DueByDate(LocalDate.parse(dbd, DateTimeFormatter.ISO_LOCAL_DATE)));
+        this.task.setDueByDate(new DueByDate(LocalDate.parse(dbd, DateTimeFormatter.ofPattern("MM/dd/yyyy"))));
         return this;
     }
 
     public TaskBuilder withDueByTime(String dbt) throws IllegalValueException {
-    	assert dbt.matches("[0-1]?[0-9]:[0-5][0-9]");
-        this.task.setDueByTime(new DueByTime(LocalTime.parse(dbt, DateTimeFormatter.ISO_LOCAL_TIME)));
+        this.task.setDueByTime(new DueByTime(LocalTime.parse(dbt, DateTimeFormatter.ofPattern("k:mm"))));
         return this;
     }
 

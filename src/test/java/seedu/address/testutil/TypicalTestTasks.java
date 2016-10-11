@@ -14,8 +14,8 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             grocery = new TaskBuilder().withDetail("Buy more milk").build();
-            house = new TaskBuilder().withDetail("Paint the house").withDueByDate("").build();
-            family = new TaskBuilder().withDetail("Give Kelly a bath").withDueByDate("").withDueByTime("").build();
+            house = new TaskBuilder().withDetail("Paint the house").withDueByDate("12/31/2016").build();
+            family = new TaskBuilder().withDetail("Give Kelly a bath").withDueByDate("12/31/2016").withDueByTime("2:00").build();
             car = new TaskBuilder().withDetail("Add gas").withPriority("high").build();
             dog = new TaskBuilder().withDetail("Invent automatic dog toilet").withTags("dog").build();
         } catch (IllegalValueException e) {
