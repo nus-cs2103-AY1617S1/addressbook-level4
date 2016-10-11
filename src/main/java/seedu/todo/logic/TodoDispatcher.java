@@ -24,14 +24,12 @@ public class TodoDispatcher implements Dispatcher {
         case "complete":
         case "comp":
         case "c":
-        	command= new CompleteCommand();
-        	break;
+            command= new CompleteCommand();
+            break;
         case "delete":
         case "d":
             command = new DeleteCommand();
             break;
-        
-
         case "exit":
         case "e":
             command = new ExitCommand();

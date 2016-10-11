@@ -7,21 +7,19 @@ import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.model.task.ImmutableTask;
 
 public class PinCommand extends BaseCommand {
-	
-	 private Argument<Integer> index = new IntArgument("index").required();
 
-	@Override
-	protected Parameter[] getArguments() {
-		return new Parameter[]{ index };
-	}
+    private Argument<Integer> index = new IntArgument("index").required();
 
-	@Override
-	public void execute() throws IllegalValueException {
-		ImmutableTask toComplete=this.getTaskAt(index.getValue());
-		boolean isPinned=!(toComplete.isPinned());
-		this.model.update(toComplete, task->{task.setPinned(isPinned);});
-		
+    @Override
+    protected Parameter[] getArguments() {
+        return new Parameter[]{ index };
+    }
 
-	}
+    @Override
+    public void execute() throws IllegalValueException {
+        ImmutableTask toComplete=this.getTaskAt(index.getValue());
+        boolean isPinned=!(toComplete.isPinned());
+        this.model.update(toComplete, task->{task.setPinned(isPinned);});
+    }
 
 }
