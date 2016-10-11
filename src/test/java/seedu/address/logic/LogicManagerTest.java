@@ -1,8 +1,6 @@
 package seedu.address.logic;
 
 import com.google.common.eventbus.Subscribe;
-import com.joestelmach.natty.DateGroup;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -25,7 +23,6 @@ import seedu.address.storage.StorageManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -232,13 +229,8 @@ public class LogicManagerTest {
     public void execute_addIllegalSlot_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
-        List<DateGroup> groups = nattyParser.parse("2 oct 6am");
-        Date startDate = groups.get(0).getDates().get(0);
-        groups = nattyParser.parse("2 oct 5am");
-        Date endDate = groups.get(0).getDates().get(0);
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
-        						  new TaskDate(startDate.getTime()), new TaskDate(endDate.getTime()));
+        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"));
         TaskList expectedAB = new TaskList();
 
         // execute command and verify result
