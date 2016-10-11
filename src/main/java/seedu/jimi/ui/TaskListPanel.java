@@ -62,7 +62,7 @@ public class TaskListPanel extends UiPart {
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new PersonListViewCell());
+        taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -87,9 +87,9 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyTask> {
+    class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
-        public PersonListViewCell() {
+        public TaskListViewCell() {
         }
 
         @Override
