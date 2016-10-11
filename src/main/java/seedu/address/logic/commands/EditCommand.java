@@ -19,11 +19,11 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (positive integer) [MORE_INDICES] ... \n"
+            + "Parameters: INDEX (positive integer) ['NEW_NAME'] [from hh::mm to hh:mm | by hh: mm] [dd-mm-yy] [done| not-done] \n"
             + "Example: " + COMMAND_WORD + " 1 'chill for the day'";
  
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+    public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";
 
 
     public final int targetIndex;
