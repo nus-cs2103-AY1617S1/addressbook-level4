@@ -59,6 +59,8 @@ public class Task implements ReadOnlyTask {
      */
     public static boolean isValidEvent(Date startDate, Time startTime, Date endDate, Time endTime) {
         boolean isValid = false;
+        int numStartTime = Integer.parseInt(startTime.getTime().replaceAll("\\D+",""));
+        int numEndTime = Integer.parseInt(endTime.getTime().replaceAll("\\D+",""));
         
         if(endDate.getYear() > startDate.getYear())
            isValid = true; 
@@ -71,7 +73,7 @@ public class Task implements ReadOnlyTask {
         else if (((endDate.getYear() == startDate.getYear()) && 
                 (endDate.getMonth() == startDate.getMonth())) &&
                 (endDate.getDay() == startDate.getDay()) &&
-                Integer.parseInt(endTime.getTime()) > Integer.parseInt(startTime.getTime()))
+                numEndTime > numStartTime)
                 isValid = true;
            
         

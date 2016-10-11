@@ -1,6 +1,10 @@
 package seedu.inbx0.model.task;
 
 import seedu.inbx0.commons.exceptions.IllegalValueException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import com.joestelmach.natty.Parser;
 
 /**
  * Represents Time of a Task Event in the address book.
@@ -22,17 +26,15 @@ public class Time {
     
     public Time(String time) throws IllegalValueException {
         assert time != null;
-        time = time.trim();
+     //   time = time.trim();
        
         if ( time == "" | time.length() == 0 | time == null) {
             this.value = "";
         }
         else {
-            if (!isValidTime(time))
-                throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
-            else {
-                this.value = time;
-            }
+                List<java.util.Date> getTime = new Parser().parse(time).get(0).getDates();
+                SimpleDateFormat ft = new SimpleDateFormat ("HH:mm");
+                this.value = ft.format(getTime.get(0));          
         }
        
     }
