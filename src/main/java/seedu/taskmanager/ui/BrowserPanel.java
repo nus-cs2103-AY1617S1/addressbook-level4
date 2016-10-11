@@ -50,8 +50,8 @@ public class BrowserPanel extends UiPart{
         return browserPanel;
     }
 
-    public void loadPersonPage(ReadOnlyItem person) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getItemType().value.replaceAll(" ", "+"));
+    public void loadItemPage(ReadOnlyItem item) {
+        loadPage("https://www.google.com.sg/#safe=off&q=" + item.getItemType().value.replaceAll(" ", "+"));
     }
 
     public void loadPage(String url){

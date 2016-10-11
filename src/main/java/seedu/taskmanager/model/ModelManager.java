@@ -4,12 +4,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.taskmanager.commons.core.ComponentManager;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
-import seedu.taskmanager.commons.events.model.AddressBookChangedEvent;
+import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskmanager.commons.util.StringUtil;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ReadOnlyItem;
-import seedu.taskmanager.model.item.UniquePersonList;
-import seedu.taskmanager.model.item.UniquePersonList.PersonNotFoundException;
+import seedu.taskmanager.model.item.UniqueItemList;
+import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -21,57 +21,57 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final TaskManager addressBook;
     private final FilteredList<Item> filteredItems;
 
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(TaskManager src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new AddressBook(src);
+        addressBook = new TaskManager(src);
         filteredItems = new FilteredList<>(addressBook.getItems());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new TaskManager(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
+    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
+        addressBook = new TaskManager(initialData);
         filteredItems = new FilteredList<>(addressBook.getItems());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyTaskManager newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyTaskManager getAddressBook() {
         return addressBook;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+        raise(new TaskManagerChangedEvent(addressBook));
     }
 
     @Override
-    public synchronized void deleteItem(ReadOnlyItem target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+    public synchronized void deleteItem(ReadOnlyItem target) throws ItemNotFoundException {
+        addressBook.removeItem(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addItem(Item item) throws UniquePersonList.DuplicatePersonException {
+    public synchronized void addItem(Item item) throws UniqueItemList.DuplicateItemException {
         addressBook.addItem(item);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -79,7 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void replaceItem(ReadOnlyItem target, Item toReplace) 
-            throws PersonNotFoundException, UniquePersonList.DuplicatePersonException {
+            throws ItemNotFoundException, UniqueItemList.DuplicateItemException {
         addressBook.replaceItem(target, toReplace);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -88,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Item List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyItem> getFilteredPersonList() {
+    public UnmodifiableObservableList<ReadOnlyItem> getFilteredItemList() {
         return new UnmodifiableObservableList<>(filteredItems);
     }
 

@@ -17,17 +17,17 @@ import seedu.taskmanager.TestApp;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.commons.util.FileUtil;
 import seedu.taskmanager.commons.util.XmlUtil;
-import seedu.taskmanager.model.AddressBook;
+import seedu.taskmanager.model.TaskManager;
 import seedu.taskmanager.model.item.Date;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.Time;
-import seedu.taskmanager.model.item.UniquePersonList;
+import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
-import seedu.taskmanager.storage.XmlSerializableAddressBook;
+import seedu.taskmanager.storage.XmlSerializableTaskManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -141,12 +141,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+    public static TaskManager generateEmptyAddressBook() {
+        return new TaskManager(new UniqueItemList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskManager generateSampleStorageAddressBook() {
+        return new XmlSerializableTaskManager(generateEmptyAddressBook());
     }
 
     /**

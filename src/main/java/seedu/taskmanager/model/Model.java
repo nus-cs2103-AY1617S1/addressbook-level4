@@ -3,7 +3,7 @@ package seedu.taskmanager.model;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ReadOnlyItem;
-import seedu.taskmanager.model.item.UniquePersonList;
+import seedu.taskmanager.model.item.UniqueItemList;
 
 import java.util.Set;
 
@@ -12,22 +12,22 @@ import java.util.Set;
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyTaskManager newData);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyTaskManager getAddressBook();
 
     /** Deletes the given item. */
-    void deleteItem(ReadOnlyItem target) throws UniquePersonList.PersonNotFoundException;
+    void deleteItem(ReadOnlyItem target) throws UniqueItemList.ItemNotFoundException;
 
     /** Adds the given item */
-    void addItem(Item item) throws UniquePersonList.DuplicatePersonException;
+    void addItem(Item item) throws UniqueItemList.DuplicateItemException;
 
     /** Replaces the given item */
-    void replaceItem(ReadOnlyItem target, Item toReplace) throws UniquePersonList.PersonNotFoundException, UniquePersonList.DuplicatePersonException;
+    void replaceItem(ReadOnlyItem target, Item toReplace) throws UniqueItemList.ItemNotFoundException, UniqueItemList.DuplicateItemException;
     
     /** Returns the filtered item list as an {@code UnmodifiableObservableList<ReadOnlyItem>} */
-    UnmodifiableObservableList<ReadOnlyItem> getFilteredPersonList();
+    UnmodifiableObservableList<ReadOnlyItem> getFilteredItemList();
 
     /** Updates the filter of the filtered person list to show all items */
     void updateFilteredListToShowAll();

@@ -42,9 +42,13 @@ public interface ReadOnlyItem {
         builder.append(getItemType())
                 .append(" Name: ")
                 .append(getName())
-                .append(" Email: ")
+                .append(" Start Date: ")
+                .append(getStartDate())
+                .append(" Start Time: ")
+                .append(getStartTime())
+                .append(" End Date: ")
                 .append(getEndDate())
-                .append(" Address: ")
+                .append(" End Time: ")
                 .append(getEndTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

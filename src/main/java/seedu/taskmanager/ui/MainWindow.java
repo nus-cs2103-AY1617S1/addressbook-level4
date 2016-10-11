@@ -30,7 +30,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private TaskListPanel personListPanel;
+    private ItemListPanel itemListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -41,7 +41,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String taskManagerName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -53,7 +53,7 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane taskListPanelPlaceholder;
+    private AnchorPane itemListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -79,16 +79,16 @@ public class MainWindow extends UiPart {
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getTaskManagerName(), config, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.taskManagerName = taskManagerName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -109,9 +109,9 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredPersonList());
+        itemListPanel = ItemListPanel.load(primaryStage, getItemListPlaceholder(), logic.getFilteredItemList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
@@ -127,8 +127,8 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getTaskListPlaceholder() {
-        return taskListPanelPlaceholder;
+    public AnchorPane getItemListPlaceholder() {
+        return itemListPanelPlaceholder;
     }
 
     public void hide() {
@@ -182,12 +182,12 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TaskListPanel getPersonListPanel() {
-        return this.personListPanel;
+    public ItemListPanel getItemListPanel() {
+        return this.itemListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyItem person) {
-        browserPanel.loadPersonPage(person);
+    public void loadItemPage(ReadOnlyItem item) {
+        browserPanel.loadItemPage(item);
     }
 
     public void releaseResources() {

@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Item.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedItem {
 
     @XmlElement(required = true)
     private String name;
@@ -38,15 +38,15 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedItem() {}
 
 
     /**
      * Converts a given Item into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedItem
      */
-    public XmlAdaptedPerson(ReadOnlyItem source) {
+    public XmlAdaptedItem(ReadOnlyItem source) {
         name = source.getItemType().value;
         phone = source.getName().value;
         startDate = source.getStartDate().value;
@@ -60,14 +60,14 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Item object.
+     * Converts this jaxb-friendly adapted item object into the model's Item object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted item
      */
     public Item toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> itemTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            itemTags.add(tag.toModelType());
         }
         final ItemType itemType = new ItemType(this.name);
         final Name name = new Name(this.phone);
@@ -75,7 +75,7 @@ public class XmlAdaptedPerson {
         final Time startTime = new Time(this.startTime);
         final Date endDate = new Date(this.endDate);
         final Time endTime = new Time(this.endTime);
-        final UniqueTagList tags = new UniqueTagList(personTags);
+        final UniqueTagList tags = new UniqueTagList(itemTags);
         return new Item(itemType, name, startDate, startTime, endDate, endTime, tags);
     }
 }

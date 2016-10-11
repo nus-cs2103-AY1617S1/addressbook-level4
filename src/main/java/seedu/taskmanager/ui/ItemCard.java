@@ -6,9 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 
-public class TaskCard extends UiPart{
+public class ItemCard extends UiPart{
 
-    private static final String FXML = "TaskListCard.fxml";
+    private static final String FXML = "ItemListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -29,30 +29,30 @@ public class TaskCard extends UiPart{
     @FXML
     private Label tags;
 
-    private ReadOnlyItem person;
+    private ReadOnlyItem item;
     private int displayedIndex;
 
-    public TaskCard(){
+    public ItemCard(){
 
     }
 
-    public static TaskCard load(ReadOnlyItem person, int displayedIndex){
-        TaskCard card = new TaskCard();
-        card.person = person;
+    public static ItemCard load(ReadOnlyItem item, int displayedIndex){
+        ItemCard card = new ItemCard();
+        card.item = item;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().value);
+        name.setText(item.getName().value);
         id.setText(displayedIndex + ". ");
-        itemType.setText(person.getItemType().value);
-        endTime.setText(person.getEndTime().value);
-        endDate.setText(person.getEndDate().value);
-        startTime.setText(person.getStartTime().value);
-        startDate.setText(person.getStartDate().value);
-        tags.setText(person.tagsString());
+        itemType.setText(item.getItemType().value);
+        endTime.setText(item.getEndTime().value);
+        endDate.setText(item.getEndDate().value);
+        startTime.setText(item.getStartTime().value);
+        startDate.setText(item.getStartDate().value);
+        tags.setText(item.tagsString());
     }
 
     public HBox getLayout() {

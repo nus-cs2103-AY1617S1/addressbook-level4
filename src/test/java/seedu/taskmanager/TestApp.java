@@ -5,9 +5,9 @@ import javafx.stage.Stage;
 import seedu.taskmanager.MainApp;
 import seedu.taskmanager.commons.core.Config;
 import seedu.taskmanager.commons.core.GuiSettings;
-import seedu.taskmanager.model.ReadOnlyAddressBook;
+import seedu.taskmanager.model.ReadOnlyTaskManager;
 import seedu.taskmanager.model.UserPrefs;
-import seedu.taskmanager.storage.XmlSerializableAddressBook;
+import seedu.taskmanager.storage.XmlSerializableTaskManager;
 import seedu.taskmanager.testutil.TestUtil;
 
 import java.util.function.Supplier;
@@ -21,14 +21,14 @@ public class TestApp extends MainApp {
     public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
-    protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected static final String TASK_MANAGER_BOOK_NAME = "Test";
+    protected Supplier<ReadOnlyTaskManager> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyTaskManager> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -36,7 +36,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableTaskManager(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -45,9 +45,9 @@ public class TestApp extends MainApp {
     protected Config initConfig(String configFilePath) {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
-        config.setAddressBookFilePath(saveFileLocation);
+        config.setTaskManagerFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
-        config.setAddressBookName(ADDRESS_BOOK_NAME);
+        config.setTaskManagerName(TASK_MANAGER_BOOK_NAME);
         return config;
     }
 

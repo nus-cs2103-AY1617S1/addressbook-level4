@@ -6,7 +6,7 @@ import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.Time;
-import seedu.taskmanager.model.item.UniquePersonList;
+import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
 
@@ -93,7 +93,7 @@ public class AddCommand extends Command {
         try {
             model.addItem(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniquePersonList.DuplicatePersonException e) {
+        } catch (UniqueItemList.DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ITEM);
         }
 

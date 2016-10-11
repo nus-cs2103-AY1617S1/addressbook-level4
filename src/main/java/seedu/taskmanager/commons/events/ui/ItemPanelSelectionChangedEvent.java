@@ -6,12 +6,12 @@ import seedu.taskmanager.model.item.ReadOnlyItem;
 /**
  * Represents a selection change in the Item List Panel
  */
-public class PersonPanelSelectionChangedEvent extends BaseEvent {
+public class ItemPanelSelectionChangedEvent extends BaseEvent {
 
 
     private final ReadOnlyItem newSelection;
 
-    public PersonPanelSelectionChangedEvent(ReadOnlyItem newSelection){
+    public ItemPanelSelectionChangedEvent(ReadOnlyItem newSelection){
         this.newSelection = newSelection;
     }
 

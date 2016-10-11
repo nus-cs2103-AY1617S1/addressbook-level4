@@ -6,8 +6,8 @@ import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.ReadOnlyItem;
-import seedu.taskmanager.model.item.UniquePersonList;
-import seedu.taskmanager.model.item.UniquePersonList.PersonNotFoundException;
+import seedu.taskmanager.model.item.UniqueItemList;
+import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 
 /**
  * Edits an item identified using it's last displayed index from the task manager.
@@ -40,7 +40,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredItemList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -53,9 +53,9 @@ public class EditCommand extends Command {
         
         try {
             model.replaceItem(itemToEdit, itemToReplace);
-        } catch (PersonNotFoundException pnfe) {
+        } catch (ItemNotFoundException pnfe) {
             assert false : "The target item cannot be missing";
-        } catch (UniquePersonList.DuplicatePersonException e) {
+        } catch (UniqueItemList.DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ITEM);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));

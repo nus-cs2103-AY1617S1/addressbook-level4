@@ -29,7 +29,7 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredItemList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

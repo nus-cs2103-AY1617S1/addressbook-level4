@@ -3,7 +3,7 @@ package seedu.taskmanager.logic.commands;
 import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.model.item.ReadOnlyItem;
-import seedu.taskmanager.model.item.UniquePersonList.PersonNotFoundException;
+import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -31,7 +31,7 @@ public class DeleteByIndexCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredItemList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -42,7 +42,7 @@ public class DeleteByIndexCommand extends Command {
 
         try {
             model.deleteItem(personToDelete);
-        } catch (PersonNotFoundException pnfe) {
+        } catch (ItemNotFoundException pnfe) {
             assert false : "The target item cannot be missing";
         }
 

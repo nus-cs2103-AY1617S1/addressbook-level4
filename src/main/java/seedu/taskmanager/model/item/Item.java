@@ -99,7 +99,7 @@ public class Item implements ReadOnlyItem {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this item's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
