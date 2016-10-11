@@ -22,7 +22,7 @@ public class TimeUtil {
         LocalTime localTime;
         
         //TODO make clean (same as DateUtil)
-        if (StringUtil.isUnsignedInteger(dateString)) {
+        if (StringUtil.isInteger(dateString)) {
             localTime = parseFormat2(dateString);
         } else {
             String[] dateSplitByColon = dateString.split(":");

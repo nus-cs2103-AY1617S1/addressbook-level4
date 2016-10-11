@@ -54,7 +54,7 @@ public class DateUtil {
         //TODO make clean (ask tutor?)
         //This method should ONLY be called by TaskDate.. so where should I put it?
         //parseFormats will be already validated by TaskDate.
-        if (StringUtil.isUnsignedInteger(dateString)) {
+        if (StringUtil.isInteger(dateString)) {
             localDate = parseFormat2(dateString);
         } else {
             String[] dateSplitBySlash = dateString.split("/");
@@ -93,7 +93,7 @@ public class DateUtil {
         
         int day;
         int monthComponentStartIndex;
-        if (StringUtil.isUnsignedInteger(dateString.substring(0, 2))) {
+        if (StringUtil.isInteger(dateString.substring(0, 2))) {
             day = Integer.parseInt(dateString.substring(0, 2));
             monthComponentStartIndex = 2;
         } else {
