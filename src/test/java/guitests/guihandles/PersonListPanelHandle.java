@@ -156,7 +156,6 @@ public class PersonListPanelHandle extends GuiHandle {
         Optional<Node> personCardNode = nodes.stream()
                 .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameFloatingTask(person))
                 .findFirst();
-        System.out.println(personCardNode.isPresent());
         if (personCardNode.isPresent()) {
             return new TaskCardHandle(guiRobot, primaryStage, personCardNode.get());
         } else {
