@@ -448,18 +448,16 @@ public class LogicManagerTest {
     @Test
     public void execute_list_filter_keywords_with_tags() throws Exception{
         // prepare expectations
-        //TODO: update test when events are properly implemented
         TestDataHelper helper = new TestDataHelper();
         TaskMan expectedAB = helper.generateTaskMan(5);
-        List<Activity> expectedList = expectedAB.getActivityList();
 
         // prepare task man state
         helper.addToModel(model, 5);
 
-        expectedList = new ArrayList<>(expectedAB.getActivityList());
-        expectedList.remove(3);
-        expectedList.remove(2);
-        assertCommandBehavior("list 1 2 t/tag6",
+        List<Activity> expectedList = new ArrayList<>();
+        expectedList.add(new Activity(helper.generateTask(1)));
+        expectedList.add(new Activity(helper.generateTask(5)));
+        assertCommandBehavior("list 1 5 t/tag2 t/tag6",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);

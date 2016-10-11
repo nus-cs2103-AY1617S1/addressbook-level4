@@ -6,17 +6,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Finds and lists all tasks in task man whose title contains any of the argument keywords.
+ * Finds and lists all tasks in task man whose title contains any of the argument keywords and contains any of the given tags.
  * Keyword matching is case sensitive.
  */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-
+    // UG/DG
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose titles contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: [{e/,all/}] [KEYWORDS]... [t/TAG]...\n"
+            + "Example: " + COMMAND_WORD + " all/ homework t/CS2103T";
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
