@@ -24,16 +24,17 @@ public class Task implements ReadOnlyTask {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.tags = tags;
+        this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+        this.endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         type = TaskType.FLOATING;
     }
     
     public Task(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
         this(name, tags);
-        if (endDate != null) {
-            this.startDate = startDate;
-            this.endDate = endDate;
-            type = TaskType.NON_FLOATING;
-        }
+        assert !CollectionUtil.isAnyNull(name, tags);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        type = TaskType.NON_FLOATING;
     }
     
     public Task(){}
@@ -66,9 +67,6 @@ public class Task implements ReadOnlyTask {
     
     @Override
     public TaskDate getStartDate() {
-        if (startDate == null) {
-            return null;
-        }
         return startDate;
     }
 

@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class XmlAdaptedTask {
 
-    private static final int DATE_NOT_PRESENT = -1;
     @XmlElement(required = true)
     private String name;
     @XmlElement
@@ -48,8 +47,8 @@ public class XmlAdaptedTask {
             endDate = source.getEndDate().getDate();
         }
         if (source.getType() == TaskType.FLOATING) {
-            startDate = DATE_NOT_PRESENT;
-            endDate = DATE_NOT_PRESENT;
+            startDate = TaskDate.DATE_NOT_PRESENT;
+            endDate = TaskDate.DATE_NOT_PRESENT;
         }
     }
 
@@ -65,7 +64,7 @@ public class XmlAdaptedTask {
         }
         final Name name = new Name(this.name);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        if (endDate != DATE_NOT_PRESENT) {
+        if (endDate != TaskDate.DATE_NOT_PRESENT) {
             return toModelTypeNonFloating(name, tags);
         }
         return toModelTypeFloating(name, tags);
@@ -77,13 +76,8 @@ public class XmlAdaptedTask {
     }
 
     private Task toModelTypeNonFloating(final Name name, final UniqueTagList tags) {
-        final TaskDate taskStartDate;
-        final TaskDate taskEndDate = new TaskDate(new Date(endDate));
-        if (startDate != DATE_NOT_PRESENT){
-            taskStartDate = new TaskDate(new Date(startDate) );
-        } else {
-            taskStartDate = null;
-        }
+        final TaskDate taskStartDate = new TaskDate(startDate);
+        final TaskDate taskEndDate = new TaskDate(endDate);
         return new Task(name, tags, taskStartDate, taskEndDate);
     }
 }

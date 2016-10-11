@@ -162,8 +162,8 @@ public class Parser {
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
-                new TaskDate("",null),
-                new TaskDate(endInput,getDateFromString(endInput))
+                new TaskDate(TaskDate.DATE_NOT_PRESENT),
+                new TaskDate(getDateFromString(endInput).getTime())
                 );
     }
 
@@ -174,8 +174,8 @@ public class Parser {
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
-                new TaskDate(startInput, getDateFromString(startInput)),
-                new TaskDate(endInput, getDateFromString(endInput))
+                new TaskDate(getDateFromString(startInput).getTime()),
+                new TaskDate(getDateFromString(endInput).getTime())
                 );
     }
     
