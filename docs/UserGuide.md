@@ -153,7 +153,7 @@ Examples:
 * `find grad`<br> 
   Shows tasks with names such as "Up**grad**e myself", and tags such as "**Grad**ed". 
 * `find "V0.0 Deliverables" sep`<br> 
-  Shows a task named "**V0.0 Deliverables**" in **Sep**tember. 
+  Shows the task named "**V0.0 Deliverables**" in **Sep**tember. 
 
 #### Show only listing results with specified type, date or tags: `show`
 Shows only tasks/events with specified type, date or tags from 
