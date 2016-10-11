@@ -6,17 +6,29 @@
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.MainWindow">
    <children>
-      <AnchorPane fx:id="todoListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+      <AnchorPane fx:id="todoListPanelPlaceholder" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </VBox.margin></AnchorPane>
+       <AnchorPane fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+           <padding>
+               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+           </padding>
+         <VBox.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" />
+         </VBox.margin>
+       </AnchorPane>
       <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
          <padding>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
+         <VBox.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" />
+         </VBox.margin>
       </AnchorPane>
-       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="500.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
-           <padding>
-               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-           </padding>
-       </AnchorPane>
-      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER">
+         <VBox.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" />
+         </VBox.margin></AnchorPane>
    </children>
 </VBox>
