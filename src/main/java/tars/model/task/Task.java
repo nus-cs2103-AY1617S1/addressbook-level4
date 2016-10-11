@@ -63,10 +63,22 @@ public class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
     
-    public void setStatus(Status status) {
-    	this.status = status;    
+    public void setName(Name name) {
+        this.name = name;
     }
-
+    
+    public void setDateTime(DateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+    
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+    
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+        
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */

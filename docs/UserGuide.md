@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`ls`** : lists all tasks
-   * **`add`**` add -n Complete CS2103 Quiz 3 -dt 23/09/2016 -p H, -t Quiz, CS2103` : 
+   * **`add`**` Complete CS2103 Quiz 3 -dt 23/09/2016 -p h -t Quiz -t CS2103` : 
      adds a task `Complete CS2103 Quiz 3` to TARS.
    * **`del`**` 3` : deletes the 3rd task shown in TARS.
    * **`exit`** : exits the app
@@ -37,37 +37,37 @@ Format: `help`
  
 #### Adding a task : `add`
 Adds a task to TARS<br>
-Format: `add -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG>[, <TAG>, <TAG>,...] -r <NUM_TIMES> <FREQUENCY>` 
+Format: `add <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG>[, <TAG>, <TAG>,...] -r <NUM_TIMES> <FREQUENCY>` 
  
 > Words in `UPPER_CASE` are the parameters. Other than `<TASK>`, all parameters are optional. 
-> Order of parameters are fixed.
+> Order of parameters are not fixed.
 >
 > Time is in a 24 hour format (e.g. `1330`) 
 > 
-> Priority options are: `High` or `H`, `Medium` or `M`, `Low` or `L`
+> Priority options are: `h` for High, `m` for Medium, `l` for Low
 
 Examples: 
-* `add -n Meet John Doe -dt 26/09/2016 0900 to 1030 -t CATCH UP`
-* `add -n Complete CS2103 Quiz -dt 23/09/2016 -p H, -t Quiz, CS2103, -r 13 EVERY WEEK`
+* `add Meet John Doe -dt 26/09/2016 0900 to 26/09/2016 1030 -t CATCH UP`
+* `add Complete CS2103 Quiz -dt 23/09/2016 -p h, -t Quiz -t CS2103, -r 13 EVERY WEEK`
 
 #### Reserving timeslots for a task : `rsv`
 Reserves one or more timeslot for a task<br>
-Format: `-n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
+Format: `rsv <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
 
-> Words in <UPPER_CASE> are the parameters. 
+> Words in `UPPER_CASE` are the parameters. 
 >
 > Time is in a 24-hr format. More than one date/time can be added.
 
 Examples:
-* `rsv -n Meet John Doe -dt 26/09/2016 0900 to 1030, 28/09/2016 1000 to 1130`
+* `rsv Meet John Doe -dt 26/09/2016 0900 to 1030, 28/09/2016 1000 to 1130`
 
 #### Editing a reserved timeslot : `rsv -e`
 Renames a task with reserved time slots or Adds/Deletes a reserved timeslot for a task <br>
 Format: `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME>`
 
-> Words in <UPPER_CASE> are the parameters. 
+> Words in `UPPER_CASE` are the parameters. 
 > 
-> Time is in a 24-hr format. More than one date/time can be edited.
+> Time is in 24-hr format. More than one date/time can be edited.
 >
 > Use -n to rename the task <br>
 > Use -dta to add a timeslot <br>
@@ -111,7 +111,7 @@ Format: `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRI
 > Words in `UPPER_CASE` are the parameters. Other than `<INDEX>`, all parameters are optional. <br>
 > Order of parameters are **not** fixed.
 >
-> Time is in a 24-hr format (e.g. 1330)
+> Time is in 24-hr format (e.g. 1330)
 
 Examples:
 * `edit 3 -n Meet John Tan -dt 08/10/2016 1000 to 1200 -p H -t friend`
@@ -273,7 +273,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-[Add](#adding-a-task--add)| `add -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)> -r <NUM_TIMES> <FREQUENCY>`
+[Add](#adding-a-task--add)| `add <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)> -r <NUM_TIMES> <FREQUENCY>`
 [Change Storage Location](#changing-data-storage-location--cd) | `cd <FILE_PATH>`
 [Clear](#clearing-the-data-storage-file--clear) | `clear`
 [Confirm](#confirming-a-reserved-timeslot--confirm) | `confirm <INDEX_TASK> <INDEX_TIMESLOT>`

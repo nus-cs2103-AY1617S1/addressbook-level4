@@ -9,7 +9,7 @@ import tars.model.tag.UniqueTagList;
 import java.util.List;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of tars
  */
 public interface ReadOnlyTars {
 
