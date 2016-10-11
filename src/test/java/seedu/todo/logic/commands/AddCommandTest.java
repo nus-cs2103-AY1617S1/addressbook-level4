@@ -7,10 +7,6 @@ import org.junit.Test;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TimeUtil;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 public class AddCommandTest extends CommandTest {
     @Override
     protected BaseCommand commandUnderTest() {
