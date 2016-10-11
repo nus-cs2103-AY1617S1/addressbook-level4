@@ -7,9 +7,24 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.ErrorBag;
 import seedu.todo.model.tag.Tag;
 
 public class ValidationTask implements ImmutableTask {
+    private static final String START_AFTER_END_ERROR = "startTime is after endTime";
+    private static final String TITLE = "title";
+    private static final String START_TIME = "startTime";
+    private static final String END_TIME = "endTime";
+
+    private static final String ONLY_ONE_TIME_DEFINED_ERROR = "Only field=%s is defined";
+
+    private static final String TITLE_EMPTY_ERROR_MESSAGE = "Title should not be a empty string.";
+
+    private static final String VALIDATION_ERROR_MESSAGE = "Model validation failed";
+
+    private ErrorBag errors;
+
     private String title;
     private String description;
     private String location;
@@ -20,14 +35,14 @@ public class ValidationTask implements ImmutableTask {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    private Set<Tag> tags =new HashSet<Tag>();
+    private Set<Tag> tags = new HashSet<Tag>();
     private UUID uuid;
 
     public ValidationTask(String title) {
         this.setTitle(title);
         this.uuid = UUID.randomUUID();
     }
-    
+
     /**
      * Constructs a Task from a ReadOnlyTask
      */
@@ -41,25 +56,43 @@ public class ValidationTask implements ImmutableTask {
         this.setPinned(task.isPinned());
         this.uuid = task.getUUID();
     }
-    
+
     /**
      * Validates the task by checking the individuals are valid.
+     * 
      * @return whether the task is valid or not
      */
-    public boolean isValidTask() {
-        return isValidTime();
+    public void isValidTask() throws ValidationException {
+        isValidTime();
+        isValidTitle();
+        errors.validate(VALIDATION_ERROR_MESSAGE);
     }
-    
-    private boolean isValidTime() {
-        if (startTime == null && endTime == null) {
-            return true;
-        } else if (startTime != null && endTime != null) {
-            return startTime.isBefore(endTime);
-        } else {
-            return false;
+
+    private void isValidTitle() {
+        if (title.equals("")) {
+            errors.put(TITLE, TITLE_EMPTY_ERROR_MESSAGE);
         }
     }
-    
+
+    private void isValidTime() {
+        if (startTime == null && endTime == null) {
+            return;
+        }
+        // Both time fields must be declared
+        if (startTime != null) {
+            String field = START_TIME;
+            errors.put(field, String.format(ONLY_ONE_TIME_DEFINED_ERROR, field));
+        }
+        if (endTime != null) {
+            String field = END_TIME;
+            errors.put(field, String.format(ONLY_ONE_TIME_DEFINED_ERROR, field));
+        }
+
+        if (startTime.isAfter(endTime)) {
+            errors.put(START_TIME, START_AFTER_END_ERROR);
+        }
+    }
+
     @Override
     public String getTitle() {
         return title;
