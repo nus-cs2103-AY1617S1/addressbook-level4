@@ -1,7 +1,7 @@
 package seedu.taskman.commons.events.ui;
 
 import seedu.taskman.commons.events.BaseEvent;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.event.Activity;
 
 /**
  * Represents a selection change in the Task List Panel
@@ -9,9 +9,9 @@ import seedu.taskman.model.task.ReadOnlyTask;
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
 
-    private final ReadOnlyTask newSelection;
+    private final Activity newSelection;
 
-    public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection){
+    public TaskPanelSelectionChangedEvent(Activity newSelection){
         this.newSelection = newSelection;
     }
 
@@ -20,7 +20,7 @@ public class TaskPanelSelectionChangedEvent extends BaseEvent {
         return this.getClass().getSimpleName();
     }
 
-    public ReadOnlyTask getNewSelection() {
+    public Activity getNewSelection() {
         return newSelection;
     }
 }

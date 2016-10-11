@@ -3,7 +3,7 @@ package seedu.taskman.storage;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
@@ -17,11 +17,17 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String title;
     @XmlElement(required = true)
-    private String deadline;
-    @XmlElement(required = true)
-    private String email;
-    @XmlElement(required = true)
-    private String address;
+    private String status;
+
+    @XmlElement(required = false)
+    private Long deadline;
+    @XmlElement(required = false)
+    private Long frequency;
+
+    @XmlElement(required = false)
+    private Long scheduleStart;
+    @XmlElement(required = false)
+    private Long scheduleEnd;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -37,19 +43,37 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(ReadOnlyTask source) {
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    public XmlAdaptedTask(Activity source) {
         title = source.getTitle().title;
-        deadline = source.getDeadline().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+
+        if (source.getStatus().isPresent()) {
+            status = source.getStatus().get().toString();
+        }
+
+        if (source.getDeadline().isPresent()) {
+            deadline = source.getDeadline().get().epochSecond;
+        }
+
+        if (source.getSchedule().isPresent()) {
+            Schedule schedule = source.getSchedule().get();
+            scheduleStart = schedule.startEpochSecond;
+            scheduleEnd = schedule.endEpochSecond;
+        }
+
+        if (source.getFrequency().isPresent()) {
+            frequency = source.getFrequency().get().seconds;
+        }
+
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
     }
 
+
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this JAXB-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
@@ -59,10 +83,20 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Title title = new Title(this.title);
-        final Deadline deadline = new Deadline(this.deadline);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
+        final Status status = new Status(this.status);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(title, deadline, email, address, tags);
+        final Deadline deadline = this.deadline != null
+                ? new Deadline(this.deadline)
+                : null;
+        final Frequency frequency = this.frequency != null
+                ? new Frequency(this.frequency)
+                : null;
+        final Schedule schedule = this.scheduleStart != null && this.scheduleEnd != null
+                ? new Schedule(this.scheduleStart, this.scheduleEnd)
+                : null;
+
+        Task task = new Task(title, tags, deadline, schedule, frequency);
+        task.setStatus(status);
+        return task;
     }
 }

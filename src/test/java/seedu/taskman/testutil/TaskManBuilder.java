@@ -2,9 +2,9 @@ package seedu.taskman.testutil;
 
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.model.TaskMan;
+import seedu.taskman.model.event.Task;
+import seedu.taskman.model.event.UniqueActivityList;
 import seedu.taskman.model.tag.Tag;
-import seedu.taskman.model.task.Task;
-import seedu.taskman.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building TaskMan objects.
@@ -19,7 +19,7 @@ public class TaskManBuilder {
         this.taskMan = taskMan;
     }
 
-    public TaskManBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public TaskManBuilder withTask(Task task) throws UniqueActivityList.DuplicateActivityException {
         taskMan.addTask(task);
         return this;
     }

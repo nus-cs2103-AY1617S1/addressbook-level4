@@ -19,7 +19,7 @@ import seedu.taskman.commons.util.XmlUtil;
 import seedu.taskman.model.TaskMan;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
 import seedu.taskman.storage.XmlSerializableTaskMan;
 
 import java.io.File;
@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Title("Ali Muster"), new Deadline("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Task(new Title("Boris Mueller"), new Deadline("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Task(new Title("Carl Kurz"), new Deadline("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Task(new Title("Daniel Meier"), new Deadline("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Task(new Title("Elle Meyer"), new Deadline("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Task(new Title("Fiona Kunz"), new Deadline("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Task(new Title("George Best"), new Deadline("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Task(new Title("Hoon Meier"), new Deadline("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Task(new Title("Ida Mueller"), new Deadline("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
+                    new Task(new Title("Ali Muster"), new UniqueTagList(), new Deadline("next tues"), new Schedule("wed 10am, wed 11am"), new Frequency("1 week")),
+                    new Task(new Title("Boris Mueller"), new UniqueTagList(), new Deadline("next tues"), new Schedule("wed 10am, wed 11am"), new Frequency("1 week")),
+                    new Task(new Title("Carl Kurz"), new UniqueTagList(), new Deadline("next tues"), new Schedule("wed 10am, wed 11am"), new Frequency("1 week")),
+                    new Task(new Title("Daniel Meier"), new UniqueTagList(), new Deadline("next tues"), new Schedule("wed 10am, wed 11am"), new Frequency("1 week")),
+                    new Task(new Title("Elle Meyer"), new UniqueTagList(), new Deadline("next tues"), new Schedule("wed 10am, wed 11am"), new Frequency("1 week")),
+                    new Task(new Title("Fiona Kunz"), new UniqueTagList(), new Deadline("next tues"), new Schedule("wed 10am, wed 11am"), new Frequency("1 week")),
+                    new Task(new Title("George Best"), new UniqueTagList(), new Deadline("next tues"), new Schedule("wed 10am, wed 11am"), new Frequency("1 week")),
+                    new Task(new Title("Hoon Meier"), new UniqueTagList(), new Deadline("next tues"), new Schedule("wed 10am, wed 11am"), new Frequency("1 week")),
+                    new Task(new Title("Ida Mueller"), new UniqueTagList(), new Deadline("next tues"), new Schedule("wed 10am, wed 11am"), new Frequency("1 week"))
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -135,7 +135,7 @@ public class TestUtil {
     }
 
     public static TaskMan generateEmptyTaskMan() {
-        return new TaskMan(new UniqueTaskList(), new UniqueTagList());
+        return new TaskMan(new UniqueActivityList(), new UniqueTagList());
     }
 
     public static XmlSerializableTaskMan generateSampleStorageTaskMan() {
@@ -144,7 +144,7 @@ public class TestUtil {
 
     /**
      * Tweaks the {@code keyCodeCombination} to resolve the {@code KeyCode.SHORTCUT} to their
-     * respective platform-specific keycodes
+     * respective platform-specific key codes
      */
     public static KeyCode[] scrub(KeyCodeCombination keyCodeCombination) {
         List<KeyCode> keys = new ArrayList<>();
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareRowAndTask(TaskRowHandle row, ReadOnlyTask task) {
+    public static boolean compareRowAndTask(TaskRowHandle row, Activity task) {
         return row.isSameTask(task);
     }
 

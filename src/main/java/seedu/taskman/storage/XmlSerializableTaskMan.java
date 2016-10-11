@@ -1,10 +1,10 @@
 package seedu.taskman.storage;
 
 import seedu.taskman.commons.exceptions.IllegalValueException;
+import seedu.taskman.model.event.Activity;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.ReadOnlyTask;
-import seedu.taskman.model.task.UniqueTaskList;
+import seedu.taskman.model.event.UniqueActivityList;
 import seedu.taskman.model.ReadOnlyTaskMan;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -39,7 +39,9 @@ public class XmlSerializableTaskMan implements ReadOnlyTaskMan {
      * Conversion
      */
     public XmlSerializableTaskMan(ReadOnlyTaskMan src) {
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        //TODO: writing tasks and events
+        //implemented XmlAdaptedTask(Activity activity) for now
+        tasks.addAll(src.getActivityList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -55,11 +57,11 @@ public class XmlSerializableTaskMan implements ReadOnlyTaskMan {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
-        UniqueTaskList lists = new UniqueTaskList();
+    public UniqueActivityList getUniqueActivityList() {
+        UniqueActivityList lists = new UniqueActivityList();
         for (XmlAdaptedTask p : tasks) {
             try {
-                lists.add(p.toModelType());
+                lists.add(new Activity(p.toModelType()));
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }
@@ -68,10 +70,10 @@ public class XmlSerializableTaskMan implements ReadOnlyTaskMan {
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
+    public List<Activity> getActivityList() {
         return tasks.stream().map(p -> {
             try {
-                return p.toModelType();
+                return new Activity(p.toModelType());
             } catch (IllegalValueException e) {
                 e.printStackTrace();
                 //TODO: better error handling

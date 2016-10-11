@@ -1,15 +1,17 @@
 package seedu.taskman.model;
 
 import javafx.collections.transformation.FilteredList;
+import seedu.taskman.commons.core.ComponentManager;
 import seedu.taskman.commons.core.LogsCenter;
 import seedu.taskman.commons.core.UnmodifiableObservableList;
 import seedu.taskman.commons.events.model.TaskManChangedEvent;
+import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.commons.util.StringUtil;
-import seedu.taskman.model.task.ReadOnlyTask;
-import seedu.taskman.model.task.Task;
-import seedu.taskman.model.task.UniqueTaskList;
-import seedu.taskman.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.taskman.commons.core.ComponentManager;
+import seedu.taskman.model.event.Activity;
+import seedu.taskman.model.event.Task;
+import seedu.taskman.model.event.UniqueActivityList;
+import seedu.taskman.model.event.UniqueActivityList.ActivityNotFoundException;
+import seedu.taskman.model.tag.Tag;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -22,7 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskMan taskMan;
-    private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Activity> filteredActivities;
 
     /**
      * Initializes a ModelManager with the given TaskMan
@@ -36,7 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with Task Man: " + src + " and user prefs " + userPrefs);
 
         taskMan = new TaskMan(src);
-        filteredTasks = new FilteredList<>(taskMan.getTasks());
+        filteredActivities = new FilteredList<>(taskMan.getActivities());
     }
 
     public ModelManager() {
@@ -45,7 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskMan initialData, UserPrefs userPrefs) {
         taskMan = new TaskMan(initialData);
-        filteredTasks = new FilteredList<>(taskMan.getTasks());
+        filteredActivities = new FilteredList<>(taskMan.getActivities());
     }
 
     @Override
@@ -64,14 +66,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskMan.removeTask(target);
+    public synchronized void deleteActivity(Activity target) throws ActivityNotFoundException {
+        taskMan.removeActivity(target);
         indicateTaskManChanged();
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task task) throws UniqueActivityList.DuplicateActivityException {
         taskMan.addTask(task);
+        updateFilteredListToShowAll();
+        indicateTaskManChanged();
+    }
+
+    @Override
+    public synchronized void addActivity(Activity activity) throws UniqueActivityList.DuplicateActivityException {
+        taskMan.addActivity(activity);
         updateFilteredListToShowAll();
         indicateTaskManChanged();
     }
@@ -79,28 +88,28 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+    public UnmodifiableObservableList<Activity> getFilteredActivityList() {
+        return new UnmodifiableObservableList<>(filteredActivities);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        filteredActivities.setPredicate(null);
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new TitleQualifier(keywords)));
+    public void updateFilteredActivityList(FilterMode filterMode, Set<String> keywords, Set<String> tagNames) {
+        updateFilteredActivityList(new PredicateExpression(new ActivityQualifier(filterMode, keywords, tagNames)));
     }
 
-    private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+    private void updateFilteredActivityList(Expression expression) {
+        filteredActivities.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyTask task);
+        boolean satisfies(Activity task);
         String toString();
     }
 
@@ -113,8 +122,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask task) {
-            return qualifier.run(task);
+        public boolean satisfies(Activity activity) {
+            return qualifier.run(activity);
         }
 
         @Override
@@ -124,23 +133,42 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask task);
+        boolean run(Activity activity);
         String toString();
     }
 
-    private class TitleQualifier implements Qualifier {
+    private class ActivityQualifier implements Qualifier {
         private Set<String> titleKeyWords;
+        private Set<String> tagNames;
+        private FilterMode filterMode = FilterMode.ALL;
 
-        TitleQualifier(Set<String> titleKeyWords) {
+        ActivityQualifier(FilterMode filterMode, Set<String> titleKeyWords, Set<String> tagNames) {
+            this.filterMode = filterMode;
             this.titleKeyWords = titleKeyWords;
+            this.tagNames = tagNames;
         }
 
         @Override
-        public boolean run(ReadOnlyTask task) {
-            return titleKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTitle().title, keyword))
-                    .findAny()
-                    .isPresent();
+        public boolean run(Activity activity) {
+            // (fit task/event type && (no keyword || contain a keyword) && (no tag || contain a tag))
+            return (filterMode == FilterMode.ALL
+                        || (filterMode == FilterMode.EVENT_ONLY && activity.getType()== Activity.ActivityType.EVENT)
+                        || (filterMode == FilterMode.TASK_ONLY && activity.getType() == Activity.ActivityType.TASK))
+                    && (titleKeyWords == null || titleKeyWords.isEmpty() || titleKeyWords.stream()
+                            .filter(keyword -> StringUtil.containsIgnoreCase(activity.getTitle().title, keyword))
+                            .findAny()
+                            .isPresent())
+                    && (tagNames == null || tagNames.isEmpty() || tagNames.stream()
+                            .filter(tagName -> {
+                                try {
+                                    return activity.getTags().contains(new Tag(tagName));
+                                } catch (IllegalValueException e) {
+                                    //ignore incorrect tag name format
+                                    return false;
+                                }
+                            })
+                            .findAny()
+                            .isPresent());
         }
 
         @Override

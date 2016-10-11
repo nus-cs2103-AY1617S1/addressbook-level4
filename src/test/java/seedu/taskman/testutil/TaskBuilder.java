@@ -2,7 +2,7 @@ package seedu.taskman.testutil;
 
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.model.tag.Tag;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
 
 /**
  *
@@ -27,18 +27,18 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withAddress(String address) throws IllegalValueException {
-        this.task.setAddress(new Address(address));
-        return this;
-    }
-
     public TaskBuilder withDeadline(String deadline) throws IllegalValueException {
         this.task.setDeadline(new Deadline(deadline));
         return this;
     }
+    
+    public TaskBuilder withFrequency(String frequency) throws IllegalValueException {
+        this.task.setFrequency(new Frequency(frequency));
+        return this;
+    }
 
-    public TaskBuilder withEmail(String email) throws IllegalValueException {
-        this.task.setEmail(new Email(email));
+    public TaskBuilder withSchedule(String schedule) throws IllegalValueException {
+        this.task.setSchedule(new Schedule(schedule));
         return this;
     }
 

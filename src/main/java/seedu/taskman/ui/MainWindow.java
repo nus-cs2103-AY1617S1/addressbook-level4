@@ -14,7 +14,7 @@ import seedu.taskman.commons.core.GuiSettings;
 import seedu.taskman.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskman.logic.Logic;
 import seedu.taskman.model.UserPrefs;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.event.Activity;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -22,7 +22,6 @@ import seedu.taskman.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-    // TODO: ui, change app icon
     private static final String ICON = Constants.APP_ICON_FILE_PATH;
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
@@ -106,7 +105,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredActivityList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);

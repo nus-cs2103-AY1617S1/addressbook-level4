@@ -1,55 +1,54 @@
-package seedu.taskman.model.task;
+package seedu.taskman.model.event;
 
 import seedu.taskman.model.tag.UniqueTagList;
 
+import java.util.Optional;
+
 /**
- * A read-only immutable interface for a Task in the taskMan.
+ * A read-only immutable interface for an Event in the TaskMan.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyTask {
+public interface ReadOnlyEvent {
 
     Title getTitle();
-    Deadline getDeadline();
-    Email getEmail();
-    Address getAddress();
+    Optional<Frequency> getFrequency();
+    Optional<Schedule> getSchedule();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the task's internal tags.
+     * changes on the returned list will not affect the event's internal tags.
      */
     UniqueTagList getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyTask other) {
+    default boolean isSameStateAs(ReadOnlyEvent other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getTitle().equals(this.getTitle()) // state checks here onwards
-                && other.getDeadline().equals(this.getDeadline())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+				&& other.getFrequency().equals(this.getFrequency())
+        		&& other.getSchedule().equals(this.getSchedule())
+                );
     }
 
     /**
-     * Formats the task as text, showing all contact details.
+     * Formats the event as text, showing all contact details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
-                .append(" Deadline: ")
-                .append(getDeadline())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+		        .append(" Recurring: ")
+			    .append(getFrequency())
+		        .append(" Frequency: ")
+		        .append(getSchedule())
+		        .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
 
     /**
-     * Returns a string representation of this Task's tags
+     * Returns a string representation of this event's tags
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();

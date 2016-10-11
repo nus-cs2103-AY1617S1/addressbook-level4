@@ -2,7 +2,7 @@ package seedu.taskman.logic;
 
 import javafx.collections.ObservableList;
 import seedu.taskman.logic.commands.CommandResult;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.event.Activity;
 
 /**
  * API of the Logic component
@@ -16,6 +16,6 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of tasks */
-    ObservableList<ReadOnlyTask> getFilteredTaskList();
+    ObservableList<Activity> getFilteredActivityList();
 
 }

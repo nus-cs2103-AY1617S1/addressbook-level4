@@ -3,7 +3,7 @@ package seedu.taskman.logic.commands;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.model.tag.Tag;
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,13 +15,14 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task man. "
-            + "Parameters: TITLE d/DEADLINE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    // todo, differed: let parameters be objects. we can easily generate the usage in that case
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to TaskMan. "
+            + "Parameters: TITLE d/DEADLINE s/startDateTime, endDateTime f/frequency [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe d/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " Buy bday present for dad d/next fri 1800 s/tdy 1800, tdy 2000 f/1 year t/Family";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task man";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This task already exists in TaskMan";
 
     private final Task toAdd;
 
@@ -30,7 +31,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String title, String deadline, String email, String address, Set<String> tags)
+    public AddCommand(String title, String deadline, String schedule, String frequency, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -38,10 +39,10 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Title(title),
+                new UniqueTagList(tagSet),
                 new Deadline(deadline),
-                new Email(email),
-                new Address(address),
-                new UniqueTagList(tagSet)
+                new Schedule(schedule),
+                new Frequency(frequency)
         );
     }
 
@@ -51,8 +52,8 @@ public class AddCommand extends Command {
         try {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+        } catch (UniqueActivityList.DuplicateActivityException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_EVENT);
         }
 
     }

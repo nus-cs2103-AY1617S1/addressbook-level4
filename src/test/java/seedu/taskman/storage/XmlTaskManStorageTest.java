@@ -9,7 +9,8 @@ import seedu.taskman.commons.exceptions.DataConversionException;
 import seedu.taskman.commons.util.FileUtil;
 import seedu.taskman.model.TaskMan;
 import seedu.taskman.model.ReadOnlyTaskMan;
-import seedu.taskman.model.task.Task;
+import seedu.taskman.model.event.Activity;
+import seedu.taskman.model.event.Task;
 import seedu.taskman.testutil.TypicalTestTasks;
 
 import java.io.IOException;
@@ -71,14 +72,14 @@ public class XmlTaskManStorageTest {
         assertEquals(original, new TaskMan(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.hoon));
-        original.removeTask(new Task(TypicalTestTasks.alice));
+        original.addTask(new Task(TypicalTestTasks.taskCS2102));
+        original.removeActivity(new Activity(new Task(TypicalTestTasks.taskCS2101)));
         xmlTaskManStorage.saveTaskMan(original, filePath);
         readBack = xmlTaskManStorage.readTaskMan(filePath).get();
         assertEquals(original, new TaskMan(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTasks.ida));
+        original.addTask(new Task(TypicalTestTasks.taskCS2104));
         xmlTaskManStorage.saveTaskMan(original); //file path not specified
         readBack = xmlTaskManStorage.readTaskMan().get(); //file path not specified
         assertEquals(original, new TaskMan(readBack));

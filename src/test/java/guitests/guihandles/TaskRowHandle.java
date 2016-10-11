@@ -1,16 +1,21 @@
 package guitests.guihandles;
 
+import java.util.Optional;
+
 import guitests.GuiRobot;
 import javafx.stage.Stage;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.event.Activity;
+import seedu.taskman.model.event.Deadline;
+import seedu.taskman.model.event.Frequency;
+import seedu.taskman.model.event.Schedule;
 
 /**
  * Provides a handle to a task row in the task list panel.
  */
 public class TaskRowHandle extends GuiHandle {
-    private ReadOnlyTask task;
+    private Activity task;
 
-    public TaskRowHandle(GuiRobot guiRobot, Stage primaryStage, ReadOnlyTask task){
+    public TaskRowHandle(GuiRobot guiRobot, Stage primaryStage, Activity task){
         super(guiRobot, primaryStage, null);
         this.task = task;
     }
@@ -18,22 +23,22 @@ public class TaskRowHandle extends GuiHandle {
     public String getFullTitle() {
         return task.getTitle().title;
     }
-
-    public String getAddress() {
-        return task.getAddress().value;
+    
+    public Optional<Deadline> getDeadline() {
+        return task.getDeadline();
+    }
+    
+    public Optional<Schedule> getSchedule() {
+        return task.getSchedule();
+    }
+    
+    public Optional<Frequency> getFrequency() {
+        return task.getFrequency();
     }
 
-    public String getDeadline() {
-        return task.getDeadline().value;
-    }
-
-    public String getEmail() {
-        return task.getEmail().value;
-    }
-
-    public boolean isSameTask(ReadOnlyTask task){
-        return getFullTitle().equals(task.getTitle().title) && getDeadline().equals(task.getDeadline().value)
-                && getEmail().equals(task.getEmail().value) && getAddress().equals(task.getAddress().value);
+    public boolean isSameTask(Activity task){
+        return getFullTitle().equals(task.getTitle().title) && getDeadline().equals(task.getDeadline())
+                && getSchedule().equals(task.getSchedule()) && getFrequency().equals(task.getFrequency());
     }
 
     @Override
@@ -41,13 +46,15 @@ public class TaskRowHandle extends GuiHandle {
         if(obj instanceof TaskRowHandle) {
             TaskRowHandle handle = (TaskRowHandle) obj;
             return getFullTitle().equals(handle.getFullTitle())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getDeadline().equals(handle.getDeadline())
+                    && getSchedule().equals(handle.getSchedule())
+                    && getFrequency().equals(handle.getFrequency()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullTitle() + " " + getAddress();
+        return getFullTitle() + " " + getDeadline() + " " + getSchedule() + " " + getFrequency();
     }
 }

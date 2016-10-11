@@ -3,7 +3,7 @@ package seedu.taskman.logic.commands;
 import seedu.taskman.commons.core.EventsCenter;
 import seedu.taskman.commons.core.Messages;
 import seedu.taskman.commons.events.ui.JumpToListRequestEvent;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.event.Activity;
 import seedu.taskman.commons.core.UnmodifiableObservableList;
 
 /**
@@ -29,7 +29,7 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<Activity> lastShownList = model.getFilteredActivityList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

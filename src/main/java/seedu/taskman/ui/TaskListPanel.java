@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.taskman.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.event.Activity;
 import seedu.taskman.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -30,11 +30,11 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
     
     @FXML
-    private TableView<ReadOnlyTask> taskListView;
+    private TableView<Activity> taskListView;
     @FXML
-    private TableColumn<ReadOnlyTask, String> titleColumn; 
+    private TableColumn<Activity, String> titleColumn; 
     @FXML
-    private TableColumn<ReadOnlyTask, String> deadlineColumn;
+    private TableColumn<Activity, String> deadlineColumn;
     
     public TaskListPanel() {
         super();
@@ -56,26 +56,26 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
+                                       ObservableList<Activity> taskList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    private void configure(ObservableList<Activity> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
     
     // TODO Resolve generic type issue.
     @SuppressWarnings("unchecked")
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    private void setConnections(ObservableList<Activity> taskList) {
         taskListView.setItems(taskList);       
-        titleColumn = new TableColumn<ReadOnlyTask,String>("Title");
-        titleColumn.setCellValueFactory(new PropertyValueFactory<ReadOnlyTask, String>("title"));
-        deadlineColumn = new TableColumn<ReadOnlyTask,String>("Deadline");
-        deadlineColumn.setCellValueFactory(new PropertyValueFactory<ReadOnlyTask, String>("deadline"));
+        titleColumn = new TableColumn<Activity,String>("Title");
+        titleColumn.setCellValueFactory(new PropertyValueFactory<Activity, String>("title"));
+        deadlineColumn = new TableColumn<Activity,String>("Deadline");
+        deadlineColumn.setCellValueFactory(new PropertyValueFactory<Activity, String>("deadline"));
         taskListView.getColumns().setAll(titleColumn, deadlineColumn);
         setEventHandlerForSelectionChangeEvent();
     }

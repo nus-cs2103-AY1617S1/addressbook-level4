@@ -1,7 +1,9 @@
 package seedu.taskman.testutil;
 
 import seedu.taskman.model.tag.UniqueTagList;
-import seedu.taskman.model.task.*;
+import seedu.taskman.model.event.*;
+
+import java.util.Optional;
 
 /**
  * A mutable task object. For testing only.
@@ -9,29 +11,35 @@ import seedu.taskman.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Title title;
-    private Address address;
-    private Email email;
     private Deadline deadline;
+    private Status status;
+    private Frequency frequency;
+    private Schedule schedule;
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
+        status = new Status();
     }
 
     public void setTitle(Title title) {
         this.title = title;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setEmail(Email email) {
-        this.email = email;
-    }
-
     public void setDeadline(Deadline deadline) {
         this.deadline = deadline;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setFrequency(Frequency frequency) {
+        this.frequency = frequency;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     @Override
@@ -40,23 +48,28 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Deadline getDeadline() {
-        return deadline;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
-    }
-
-    @Override
     public UniqueTagList getTags() {
         return tags;
+    }
+
+    @Override
+    public Status getStatus() {
+        return status;
+    }
+
+    @Override
+    public Optional<Deadline> getDeadline() {
+        return Optional.ofNullable(deadline);
+    }
+
+    @Override
+    public Optional<Frequency> getFrequency() {
+        return Optional.ofNullable(frequency);
+    }
+    
+    @Override
+    public Optional<Schedule> getSchedule() {
+        return Optional.ofNullable(schedule);
     }
 
     @Override
@@ -67,10 +80,12 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTitle().title + " ");
-        sb.append("d/" + this.getDeadline().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("d/" + this.getDeadline().toString() + " ");
+        sb.append("c/" + this.getStatus().toString() + " ");
+        sb.append("r/" + this.getFrequency().toString() + " ");
+        sb.append("s/" + this.getSchedule().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
 }

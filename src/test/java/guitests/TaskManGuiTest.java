@@ -11,7 +11,7 @@ import org.testfx.api.FxToolkit;
 import seedu.taskman.TestApp;
 import seedu.taskman.commons.core.EventsCenter;
 import seedu.taskman.model.TaskMan;
-import seedu.taskman.model.task.ReadOnlyTask;
+import seedu.taskman.model.event.Activity;
 import seedu.taskman.testutil.TestUtil;
 import seedu.taskman.testutil.TypicalTestTasks;
 
@@ -96,7 +96,7 @@ public abstract class TaskManGuiTest {
     /**
      * Asserts the task shown in the row is same as the given task
      */
-    public void assertMatching(ReadOnlyTask task, TaskRowHandle row) {
+    public void assertMatching(Activity task, TaskRowHandle row) {
         assertTrue(TestUtil.compareRowAndTask(row, task));
     }
 
