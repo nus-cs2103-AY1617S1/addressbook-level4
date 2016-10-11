@@ -15,15 +15,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
  * Parses user input.
  */
 public class Parser {
-    
+
     public Parser() {
     }
 
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput
-     *            full user input string
+     * @param userInput full user input string
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
@@ -59,18 +58,21 @@ public class Parser {
 
         case SeeCommand.COMMAND_WORD:
             return new SeeCommand();
-        
+
         case TagCommand.COMMAND_WORD:
             return prepareTag(arguments);
-            
+
         case UntagCommand.COMMAND_WORD:
             return prepareUntag(arguments);
 
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmark(arguments);
-            
+
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case UpdateCommand.COMMAND_WORD:
+            return prepareUpdate(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -83,53 +85,35 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
-    	Pattern[] dataPatterns = {ParserFormats.TASK_DATA_ARGS_FORMAT_FT, ParserFormats.TASK_DATA_ARGS_FORMAT_BY, 
-    	        ParserFormats.TASK_DATA_ARGS_FORMAT_ON, ParserFormats.TASK_DATA_ARGS_FORMAT_FLOAT};
-    	
-    	Matcher matcher;
-    	try {
-        	for (Pattern p : dataPatterns) {
-        		matcher = p.matcher(args.trim());
-        		if (matcher.matches()) {
-        		    if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_FT)) { 
-        		        return new AddCommand(
-        		                matcher.group("name"),
-        		                matcher.group("detail"),
-                	            matcher.group("onDateTime"),
-                	            matcher.group("byDateTime")
-                	    );
-            		} else if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_ON)) {
-                	    return new AddCommand(
-                	            matcher.group("name"),
-                	            matcher.group("detail"),
-                	            matcher.group("onDateTime"),
-                	            null
-                	    );
-            	    } else if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_BY)) {
-            		    return new AddCommand(
-            		            matcher.group("name"),
-            		            matcher.group("detail"),
-            		            null,
-            		            matcher.group("byDateTime")
-                	    );
-            	    } else {
-            	        return new AddCommand(
-                                matcher.group("name"),
-                                matcher.group("detail"),
-                                null,
-                                null
-                            );
-            	    }
+    private Command prepareAdd(String args) {
+        Pattern[] dataPatterns = { ParserFormats.TASK_DATA_ARGS_FORMAT_FT, ParserFormats.TASK_DATA_ARGS_FORMAT_BY,
+                ParserFormats.TASK_DATA_ARGS_FORMAT_ON, ParserFormats.TASK_DATA_ARGS_FORMAT_FLOAT };
+
+        Matcher matcher;
+        try {
+            for (Pattern p : dataPatterns) {
+                matcher = p.matcher(args.trim());
+                if (matcher.matches()) {
+                    if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_FT)) {
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"),
+                                matcher.group("onDateTime"), matcher.group("byDateTime"));
+                    } else if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_ON)) {
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"),
+                                matcher.group("onDateTime"), null);
+                    } else if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_BY)) {
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"), null,
+                                matcher.group("byDateTime"));
+                    } else {
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"), null, null);
+                    }
                 }
-        	}
+            }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-    	
-    	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-    }
 
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    }
 
     /**
      * Parses arguments in the context of the delete task command.
@@ -162,7 +146,7 @@ public class Parser {
 
         return new MarkCommand(index.get());
     }
-    
+
     /**
      * Parses arguments in the context of the unmark task command.
      *
@@ -187,16 +171,23 @@ public class Parser {
      */
     private Command prepareTag(String args) {
         try {
-           args = args.trim();
-           String tagNames = args.substring(1);
-           String index = args.substring(0, 1);
-           return new TagCommand(index, tagNames);
+            args = args.trim();
+            String indexString = args.substring(0, 1);
+
+            Optional<Integer> index = parseIndex(indexString);
+            if (!index.isPresent()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+            }
+
+            String tagNames = args.substring(1);
+
+            return new TagCommand(index.get(), tagNames);
         } catch (Exception e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
 
     }
-    
+
     /**
      * Parses arguments in the context of the untag task command.
      *
@@ -205,16 +196,22 @@ public class Parser {
      */
     private Command prepareUntag(String args) {
         try {
-           args = args.trim();
-           String tagNames = args.substring(1);
-           String index = args.substring(0, 1);
-           return new UntagCommand(index, tagNames);
+            args = args.trim();
+            String indexString = args.substring(0, 1);
+
+            Optional<Integer> index = parseIndex(indexString);
+            if (!index.isPresent()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+            }
+
+            String tagNames = args.substring(1);
+
+            return new UntagCommand(index.get(), tagNames);
         } catch (Exception e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
 
     }
-    
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned
@@ -236,47 +233,85 @@ public class Parser {
     }
 
     /**
+     * Parses arguments in the context of the add task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUpdate(String args) {
+
+        args = args.trim();
+        String indexString = args.substring(0, 1);
+
+        Optional<Integer> index = parseIndex(indexString);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+
+        String name = null, onDate = null, byDate = null, detail = null;
+        args = args.substring(1).trim();
+        System.out.println(args);
+
+        Matcher matcher;
+        matcher = ParserFormats.UPDATE_TASK_ARGS_FORMAT.matcher(args.trim());
+        if (matcher.matches()) {
+            
+            System.out.println(matcher.group("name"));
+            System.out.println(matcher.group("onDateTime"));
+            System.out.println(matcher.group("byDateTime"));
+            System.out.println(matcher.group("detail"));
+            return new UpdateCommand(index.get(), matcher.group("name"), matcher.group("onDateTime"), 
+                    matcher.group("byDateTime"), matcher.group("detail"));
+        } else {
+            System.out.println("YAY FAILED");
+            System.out.println(args);
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }  
+        
+
+    }
+
+    /**
      * Parses arguments in the context of the search task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareSearch(String args) {
-        Pattern[] dataPatterns = {ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON, ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, 
-                                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER, ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT,
-                                 ParserFormats.KEYWORDS_ARGS_FORMAT};
+        Pattern[] dataPatterns = { ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON,
+                ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
+                ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, ParserFormats.KEYWORDS_ARGS_FORMAT };
         args = args.trim();
         Matcher matcher;
         for (Pattern p : dataPatterns) {
             matcher = p.matcher(args);
             if (matcher.matches()) {
-                if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON)) { 
+                if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON)) {
                     return new SearchCommand(matcher.group("onDateTime"), 0);
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE)) {
                     return new SearchCommand(matcher.group("beforeDateTime"), 1);
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER)) {
                     return new SearchCommand(matcher.group("afterDateTime"), 2);
-                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT)){
+                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT)) {
                     return new SearchCommand(matcher.group("fromDateTime") + "@" + matcher.group("tillDateTime"), 3);
                 } else if (p.equals(ParserFormats.KEYWORDS_ARGS_FORMAT) && args.indexOf("tag") != 0
-                        && args.indexOf("done") != 0 && args.indexOf("undone") != 0){
+                        && args.indexOf("done") != 0 && args.indexOf("undone") != 0) {
                     return new SearchCommand(matcher.group("keywords"), 4);
                 }
             }
         }
         if (args.indexOf("tag") == 0) {
             return new SearchCommand(args, 5);
-        } 
-        
+        }
+
         if (args.indexOf("done") == 0) {
             return new SearchCommand(args, 6);
         }
-        
+
         if (args.indexOf("undone") == 0) {
             return new SearchCommand(args, 7);
         }
-        
-        
+
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
 
     }
