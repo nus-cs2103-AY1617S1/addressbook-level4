@@ -1,5 +1,7 @@
 package seedu.todo.controllers;
 
+import seedu.todo.commons.EphemeralDB;
+import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
@@ -19,9 +21,13 @@ public class DestroyController implements Controller {
         // Get index.
         int index = Integer.decode(args.replaceFirst("(delete|destroy)", "").trim());
         
-        // TODO: Get record.
+        // Get record
+        EphemeralDB edb = EphemeralDB.getInstance();
+        Task task = edb.getTaskByDisplayedId(index);
         TodoListDB db = TodoListDB.getInstance();
-        db.destroyTask(db.getAllTasks().get(index));
+        if (task != null) {
+            db.destroyTask(task);
+        }
         
         // Re-render
         UiManager ui = UiManager.getInstance();
