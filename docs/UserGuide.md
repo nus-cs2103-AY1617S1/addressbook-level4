@@ -6,12 +6,12 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-## Introduction
+## INTRODUCTION
 
-Do you feel bombarded with 'things to do' continuously? Do you keep forgetting stuff to do?
-Fear not, for you now have RubyTask! 
-A Getting Things Done (GTD) Tool created by TeamRuby, to help YOU get things done!
-Benefits of RubyTask: Command Line Interface, One-shot Approach, Internet-independent!
+Do you feel bombarded with 'things to do' continuously? Do you keep forgetting stuff to do? <br>
+Fear not, for you now have RubyTask! <br>
+A Getting Things Done (GTD) Tool created by TeamRuby, to help YOU get things done! <br><br>
+Benefits of RubyTask: Command Line Interface, One-shot Approach, Internet-independent! <br>
 
 
 ## Quick Start
