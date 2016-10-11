@@ -5,17 +5,19 @@ import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.model.TarsChangedEvent;
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
+import tars.commons.flags.Flag;
 import tars.commons.util.StringUtil;
 import tars.model.task.Task;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.DateTime.IllegalDateException;
 import tars.model.task.ReadOnlyTask;
-import tars.model.task.UniqueTaskList;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.DateTimeException;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -80,7 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
      * @throws TagNotFoundException if no such tag could be found.
      * @throws IllegalValueException if argument(s) in argsToEdit is/are invalid.
      */
-    public synchronized Task editTask(ReadOnlyTask toEdit, String[] argsToEdit) throws TaskNotFoundException, 
+    public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit) throws TaskNotFoundException, 
     DateTimeException, IllegalDateException, DuplicateTagException, TagNotFoundException, IllegalValueException {
         Task editedTask = tars.editTask(toEdit, argsToEdit); 
         indicateTarsChanged();
@@ -94,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task task) throws DuplicateTaskException {
         tars.addTask(task);
         updateFilteredListToShowAll();
         indicateTarsChanged();
