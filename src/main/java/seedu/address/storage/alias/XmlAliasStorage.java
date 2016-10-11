@@ -5,8 +5,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.Alias;
-import seedu.address.model.task.Task;
-import seedu.address.storage.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;

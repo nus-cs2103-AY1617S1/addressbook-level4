@@ -3,7 +3,6 @@ package seedu.address.storage.alias;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Alias;
-import seedu.address.model.task.Task;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

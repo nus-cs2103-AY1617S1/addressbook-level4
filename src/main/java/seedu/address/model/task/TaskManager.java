@@ -23,6 +23,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	private UniqueItemCollection<Alias> alias;
 	private final FilteredList<Task> filteredTasks;
 
+
 	public TaskManager() {
 		// TODO: make use of loaded data
 		this.tasks = new UniqueItemCollection<Task>();
@@ -94,7 +95,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	public UnmodifiableObservableList<Alias> getAlias() {
 		return new UnmodifiableObservableList<>(alias.getInternalList());
 	}
-	
+  	
 	interface Expression {
         boolean satisfies(Task task);
         String toString();
