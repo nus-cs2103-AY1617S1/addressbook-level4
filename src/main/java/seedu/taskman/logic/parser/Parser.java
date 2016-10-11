@@ -1,8 +1,9 @@
 package seedu.taskman.logic.parser;
 
-import seedu.taskman.logic.commands.*;
-import seedu.taskman.commons.util.StringUtil;
 import seedu.taskman.commons.exceptions.IllegalValueException;
+import seedu.taskman.commons.util.StringUtil;
+import seedu.taskman.logic.commands.*;
+import seedu.taskman.model.Model;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -23,8 +24,13 @@ public class Parser {
 
     private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    private static final String LIST_EVENT_FLAG = "e/";
+
+    private static final String LIST_ALL_FLAG = "all/";
+
+    private static final Pattern LIST_ARGS_FORMAT =
+            Pattern.compile("(?<filter>(?:" + LIST_EVENT_FLAG + ")|(?:" + LIST_ALL_FLAG +"))?" +
+                    "\\s*(?<keywords>(?:\\S+\\s*)*?)??(?<tagArguments>(?:t/[^/]+\\s*)*)?"); // one or more keywords separated by whitespace
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<title>[^/]+)"
@@ -113,7 +119,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst("t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
 
@@ -176,7 +182,7 @@ public class Parser {
      */
     private Command prepareList(String args) {
         final String trimmedArgs = args.trim();
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(trimmedArgs);     
+        final Matcher matcher = LIST_ARGS_FORMAT.matcher(trimmedArgs);
         
         if (trimmedArgs.isEmpty()) {
             final Set<String> keywordSet = new HashSet<>();
@@ -185,10 +191,38 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ListCommand.MESSAGE_USAGE));
         } else {
+            //filter
+            final String filter = matcher.group("filter");
+            Model.FilterMode filterMode = Model.FilterMode.TASK_ONLY;
+            if(filter != null){
+                switch (filter){
+                    case LIST_EVENT_FLAG: {
+                        filterMode = Model.FilterMode.EVENT_ONLY;
+                        break;
+                    }
+                    case LIST_ALL_FLAG: {
+                        filterMode = Model.FilterMode.ALL;
+                        break;
+                    }
+                }
+            }
+
             // keywords delimited by whitespace
-            final String[] keywords = matcher.group("keywords").split("\\s+");
-            final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-            return new ListCommand(keywordSet);
+            Set<String> keywordSet = Collections.EMPTY_SET;
+            if(matcher.group("keywords") != null){
+                String[] keywords = matcher.group("keywords").split("\\s+");
+                keywordSet = new HashSet<>(Arrays.asList(keywords));
+            }
+
+            Set<String> tagSet = Collections.EMPTY_SET;
+            try {
+                if(matcher.group("tagArguments") != null){
+                    tagSet = getTagsFromArgs(matcher.group("tagArguments"));
+                }
+                return new ListCommand(filterMode, keywordSet, tagSet);
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
         }
     }
 

@@ -5,11 +5,13 @@ import seedu.taskman.commons.core.ComponentManager;
 import seedu.taskman.commons.core.LogsCenter;
 import seedu.taskman.commons.core.UnmodifiableObservableList;
 import seedu.taskman.commons.events.model.TaskManChangedEvent;
+import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.commons.util.StringUtil;
 import seedu.taskman.model.event.Activity;
 import seedu.taskman.model.event.Task;
 import seedu.taskman.model.event.UniqueActivityList;
 import seedu.taskman.model.event.UniqueActivityList.ActivityNotFoundException;
+import seedu.taskman.model.tag.Tag;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -89,11 +91,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredActivityList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new TitleQualifier(keywords)));
+    public void updateFilteredActivityList(FilterMode filterMode, Set<String> keywords, Set<String> tagNames) {
+        updateFilteredActivityList(new PredicateExpression(new ActivityQualifier(filterMode, keywords, tagNames)));
     }
 
-    private void updateFilteredTaskList(Expression expression) {
+    private void updateFilteredActivityList(Expression expression) {
         filteredActivities.setPredicate(expression::satisfies);
     }
 
@@ -128,19 +130,38 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
-    private class TitleQualifier implements Qualifier {
+    private class ActivityQualifier implements Qualifier {
         private Set<String> titleKeyWords;
+        private Set<String> tagNames;
+        private FilterMode filterMode = FilterMode.ALL;
 
-        TitleQualifier(Set<String> titleKeyWords) {
+        ActivityQualifier(FilterMode filterMode, Set<String> titleKeyWords, Set<String> tagNames) {
+            this.filterMode = filterMode;
             this.titleKeyWords = titleKeyWords;
+            this.tagNames = tagNames;
         }
 
         @Override
         public boolean run(Activity activity) {
-            return titleKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(activity.getTitle().title, keyword))
-                    .findAny()
-                    .isPresent();
+            // (fit task/event type && (no keyword || contain a keyword) && (no tag || contain a tag))
+            return (filterMode == FilterMode.ALL
+                        || (filterMode == FilterMode.EVENT_ONLY && activity.getType()== Activity.ActivityType.EVENT)
+                        || (filterMode == FilterMode.TASK_ONLY && activity.getType() == Activity.ActivityType.TASK))
+                    && (titleKeyWords == null || titleKeyWords.isEmpty() || titleKeyWords.stream()
+                            .filter(keyword -> StringUtil.containsIgnoreCase(activity.getTitle().title, keyword))
+                            .findAny()
+                            .isPresent())
+                    && (tagNames == null || tagNames.isEmpty() || tagNames.stream()
+                            .filter(tagName -> {
+                                try {
+                                    return activity.getTags().contains(new Tag(tagName));
+                                } catch (IllegalValueException e) {
+                                    //ignore incorrect tag name format
+                                    return false;
+                                }
+                            })
+                            .findAny()
+                            .isPresent());
         }
 
         @Override
