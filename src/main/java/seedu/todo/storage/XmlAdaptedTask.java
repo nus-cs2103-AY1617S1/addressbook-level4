@@ -30,9 +30,9 @@ public class XmlAdaptedTask {
     private boolean completed;
 
     @XmlElement(required = false)
-    private LocalDateTime startTime;
+    private String startTime;
     @XmlElement(required = false)
-    private LocalDateTime endTime;
+    private String endTime;
 
     @XmlElement(required = true)
     private UUID uuid;
@@ -61,8 +61,8 @@ public class XmlAdaptedTask {
         pinned = source.isPinned();
         completed = source.isCompleted();
 
-        startTime = source.getStartTime().orElse(null);
-        endTime = source.getEndTime().orElse(null);
+        startTime = source.getStartTime().orElse(null).toString();
+        endTime = source.getEndTime().orElse(null).toString();
 
         for (Tag tag : source.getTags()) {
             tags.add(new XmlAdaptedTag(tag));
@@ -87,8 +87,8 @@ public class XmlAdaptedTask {
         task.setPinned(pinned);
         task.setCompleted(completed);
 
-        task.setStartTime(startTime);
-        task.setEndTime(endTime);
+        task.setStartTime(LocalDateTime.parse(startTime));
+        task.setEndTime(LocalDateTime.parse(endTime));
 
         Set<Tag> setOfTags = new HashSet<Tag>();
         for (XmlAdaptedTag tag : tags) {
