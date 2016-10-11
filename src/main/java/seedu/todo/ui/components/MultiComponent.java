@@ -1,15 +1,11 @@
 package seedu.todo.ui.components;
 
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 public abstract class MultiComponent extends Component {
 
 	@Override
-    public void setNode(Node node) {
-        mainNode = (VBox) node;
-        
+    public void render() {
         if (placeHolderPane != null) {
     		// Replace placeholder children with node.
             placeHolderPane.getChildren().add(mainNode);

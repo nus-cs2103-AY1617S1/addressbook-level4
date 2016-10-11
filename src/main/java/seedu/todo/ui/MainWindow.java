@@ -46,7 +46,7 @@ public class MainWindow extends View {
     private AnchorPane headerPlaceholder;
 
     public static MainWindow load(Stage primaryStage, Config config) {
-	    MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
+	    MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, null, new MainWindow());
 	    mainWindow.configure(config);
 	    return mainWindow;
 	}
@@ -70,19 +70,17 @@ public class MainWindow extends View {
     
     private void loadComponents() {
     	// Load Header
-    	Header header = new Header();
-    	header.passInProps(controller -> {
-    		Header headerController = (Header) controller;
-    		headerController.versionString = MainApp.VERSION.toString();
-    		return headerController;
-    	});
-    	header.render(primaryStage, getHeaderPlaceholder());
+    	Header header = Header.load(primaryStage, getHeaderPlaceholder());
+    	header.versionString = MainApp.VERSION.toString();
+    	header.render();
     	
     	// Load ConsoleInput
-    	new ConsoleInput().render(primaryStage, getConsoleInputPlaceholder());
+    	ConsoleInput consoleInput = ConsoleInput.load(primaryStage, getConsoleInputPlaceholder());
+    	consoleInput.render();
     	
     	// Load Console
-    	new Console().render(primaryStage, getConsolePlaceholder());
+    	Console console = Console.load(primaryStage, getConsolePlaceholder());
+    	console.render();
     }
 
 	@Override

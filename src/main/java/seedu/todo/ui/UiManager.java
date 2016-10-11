@@ -37,7 +37,7 @@ public class UiManager extends ComponentManager implements Ui {
         // Show main window.
         try {
         	mainWindow = MainWindow.load(primaryStage, config);
-            mainWindow.render(primaryStage);
+            mainWindow.render();
             mainWindow.show();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -48,20 +48,6 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void stop() {
         mainWindow.hide();
-    }
-    
-    /**
-     * Loads a View in the main window.
-     * 
-     * @param view   The View to be rendered.
-     */
-    public void loadView(View view) {
-    	if (primaryStage == null)
-    		return;
-    	
-    	assert primaryStage != null;
-    	
-    	view.render(primaryStage, mainWindow.getChildrenPlaceholder());
     }
     
     

@@ -1,8 +1,11 @@
 package seedu.todo.ui.components;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import seedu.todo.models.Task;
+import seedu.todo.ui.UiPartLoader;
 
 public class TaskListTaskItem extends MultiComponent {
 	
@@ -15,6 +18,10 @@ public class TaskListTaskItem extends MultiComponent {
 	// FXML
 	@FXML
 	private Text taskText;
+	
+	public static TaskListTaskItem load(Stage primaryStage, Pane placeholderPane) {
+	    return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskListTaskItem());
+	}
 	
 	@Override
 	public String getFxmlPath() {

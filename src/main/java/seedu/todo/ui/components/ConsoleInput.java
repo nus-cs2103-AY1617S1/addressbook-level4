@@ -1,7 +1,10 @@
 package seedu.todo.ui.components;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.ui.UiPartLoader;
 
 public class ConsoleInput extends Component {
 
@@ -9,6 +12,10 @@ public class ConsoleInput extends Component {
 	
 	// Props
 	public String lastCommandEntered;
+	
+	public static ConsoleInput load(Stage primaryStage, Pane placeholderPane) {
+	    return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new ConsoleInput());
+	}
 
 	@Override
 	public String getFxmlPath() {

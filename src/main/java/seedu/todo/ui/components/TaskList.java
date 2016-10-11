@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Task;
+import seedu.todo.ui.UiPartLoader;
 
 public class TaskList extends Component {
 
@@ -32,6 +35,10 @@ public class TaskList extends Component {
 		loadTasks();
 	}
 	
+	public static TaskList load(Stage primaryStage, Pane placeholderPane) {
+	    return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskList());
+	}
+	
 	private void loadTasks() {
 		TaskListDateItem.reset(taskListDateItemsPlaceholder);
 
@@ -46,21 +53,16 @@ public class TaskList extends Component {
 		taskDates.addAll(tasksByDate.keySet());
 		java.util.Collections.sort(taskDates);
 		
-		// For each dateTime, individually the ArrayList of Tasks.
+		// For each dateTime, individually render a single TaskListDateItem.
 		for (LocalDateTime dateTime : taskDates) {
-			TaskListDateItem item = new TaskListDateItem();
+			TaskListDateItem item = TaskListDateItem.load(primaryStage, taskListDateItemsPlaceholder);
 			ArrayList<Task> tasksForDate = tasksByDate.get(dateTime);
 			
-			// Pass in as prop to view.
-			item.passInProps(c -> {
-				TaskListDateItem view = (TaskListDateItem) c;
-				view.dateTime = dateTime;
-				view.tasks = tasksForDate;
-				return view;
-			});
+			item.dateTime = dateTime;
+			item.tasks = tasksForDate;
 			
 			// Finally, can render into the placeholder.
-			item.render(primaryStage, taskListDateItemsPlaceholder);
+			item.render();
 		}
 	}
 	

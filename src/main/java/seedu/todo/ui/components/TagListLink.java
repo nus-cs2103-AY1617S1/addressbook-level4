@@ -3,7 +3,10 @@ package seedu.todo.ui.components;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import seedu.todo.ui.UiPartLoader;
 
 public class TagListLink extends MultiComponent {
 
@@ -18,6 +21,10 @@ public class TagListLink extends MultiComponent {
 	private ImageView imageView;
 	@FXML
 	private Text labelText;
+	
+	public static TagListLink load(Stage primaryStage, Pane placeholderPane) {
+	    return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TagListLink());
+	}
 	
 	@Override
 	public String getFxmlPath() {

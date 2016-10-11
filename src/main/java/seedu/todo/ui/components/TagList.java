@@ -3,8 +3,11 @@ package seedu.todo.ui.components;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import seedu.todo.ui.UiPartLoader;
 
 public class TagList extends Component {
 	
@@ -30,6 +33,10 @@ public class TagList extends Component {
 	private VBox tagListLinksPlaceholder;
 	@FXML
 	private VBox tagListTagsPlaceholder;
+	
+	public static TagList load(Stage primaryStage, Pane placeholderPane) {
+	    return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TagList());
+	}
 
 	@Override
 	public String getFxmlPath() {
@@ -38,6 +45,7 @@ public class TagList extends Component {
 	
 	@Override
 	public void componentDidMount() {
+		System.out.println(this);
 		titleText.setText("Tags (" + tags.size() + ")");
 		
 		// Load TagListLinks
@@ -54,18 +62,10 @@ public class TagList extends Component {
 		String[] linkIconPaths = { TASKS_ICON_PATH, OVERDUE_ICON_PATH, EVENTS_ICON_PATH, COMPLETED_ICON_PATH };
 		
 		for (int i = 0; i < linkLabels.length; i++) {
-			TagListLink link = new TagListLink();
-			String label = linkLabels[i];
-			String iconPath = linkIconPaths[i];
-			
-			link.passInProps(c -> {
-				TagListLink comp = (TagListLink) c;
-				comp.linkLabel = label;
-				comp.iconPath = iconPath;
-				return comp;
-			});
-			
-			link.render(primaryStage, tagListLinksPlaceholder);
+			TagListLink link = TagListLink.load(primaryStage, tagListLinksPlaceholder);
+			link.linkLabel = linkLabels[i];
+			link.iconPath = linkIconPaths[i];
+			link.render();
 		}
 	}
 	
@@ -73,15 +73,9 @@ public class TagList extends Component {
 		TagListItem.reset(tagListTagsPlaceholder);
 		
 		for (String tag : tags) {
-			TagListItem item = new TagListItem();
-
-			item.passInProps(c -> {
-				TagListItem comp = (TagListItem) c;
-				comp.tag = tag;
-				return comp;
-			});
-			
-			item.render(primaryStage, tagListTagsPlaceholder);
+			TagListItem item = TagListItem.load(primaryStage, tagListTagsPlaceholder);
+			item.tag = tag;
+			item.render();
 		}
 	}
 

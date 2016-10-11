@@ -52,14 +52,11 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-    	ui.start(primaryStage);
-    	IndexView index = new IndexView();
-    	index.passInProps(view -> {
-    		IndexView modifyView = (IndexView) view;
-    		modifyView.indexTextValue = "Dynamic text passed to IndexView";
-    		return modifyView;
-    	});
-    	ui.loadView(index);
+    	ui.start(primaryStage);    	
+    	
+    	IndexView view = IndexView.load(primaryStage);
+    	view.indexTextValue = "Hi there!";
+    	view.render();
     }
 
     @Override

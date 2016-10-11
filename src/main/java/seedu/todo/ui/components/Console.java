@@ -1,6 +1,9 @@
 package seedu.todo.ui.components;
 
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.ui.UiPartLoader;
 
 public class Console extends Component {
 	
@@ -8,6 +11,10 @@ public class Console extends Component {
 	
 	// Props
 	public String consoleText = "";
+	
+	public static Console load(Stage primaryStage, Pane placeholderPane) {
+	    return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new Console());
+	}
 
 	@Override
 	public String getFxmlPath() {
