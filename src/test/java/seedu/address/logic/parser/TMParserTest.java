@@ -298,4 +298,39 @@ public class TMParserTest {
 
 		assertEquals(null, command);
 	}
+	
+	/*
+	 * Tests for the `edit` command
+	 */
+	@Test
+	public void parseCommand_editNoArgs_incorrectCommandReturned() {
+		String userInput = "edit";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_editNonIntIndex_incorrectCommandReturned() {
+		String userInput = "edit j 'new name'";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_editNegIndex_incorrectCommandReturned() {
+		String userInput = "edit -3 'new name'";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_editValid_incorrectCommandReturned() {
+		String userInput = "edit 1 'new name'";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
 }

@@ -315,17 +315,17 @@ public class TMParser {
      * Returns an ArrayList with a single element {@code Optional.empty()} otherwise.
      */
     private ArrayList<Optional<Integer>> parseIndices(String args) {
-    	String[] indices = args.split(" ");
+    	String[] indexStrings = args.split(" ");
     	ArrayList<Optional<Integer>> optionals = new ArrayList<>();
     	
-    	for (int i=0; i<indices.length; i++) {
-    		if(!StringUtil.isUnsignedInteger(indices[i].trim())){
+    	for (int i=0; i<indexStrings.length; i++) {
+    		if(!StringUtil.isUnsignedInteger(indexStrings[i].trim())){
     			optionals = new ArrayList<>();
     			optionals.add(Optional.empty());
                 return optionals;
             }
     		
-    		optionals.add(Optional.of(Integer.parseInt(indices[i])));
+    		optionals.add(Optional.of(Integer.parseInt(indexStrings[i])));
     	}
     	
     	return optionals;
