@@ -8,9 +8,9 @@ import seedu.ggist.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's time in GGist 
- * Guarantees: immutable; is valid as declared in {@Time #isValidTime(String)}
+ * Guarantees: immutable; is valid as declared in {@TaskTime #isValidTime(String)}
  */
-public class Time {
+public class TaskTime {
     
     private String hour;
     private String minute;
@@ -25,7 +25,7 @@ public class Time {
      *
      * @throws IllegalValueException if given time string is invalid.
      */
-    public Time(String time) throws IllegalValueException {
+    public TaskTime(String time) throws IllegalValueException {
         assert time != null;
         time = time.trim();
         if (!time.equals(Messages.MESSAGE_NO_START_TIME_SET) && !time.equals(Messages.MESSAGE_NO_END_TIME_SET)
@@ -50,8 +50,8 @@ public class Time {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Time // instance of handles nulls
-                && this.value.equals(((Time) other).value)); // state check
+                || (other instanceof TaskTime // instance of handles nulls
+                && this.value.equals(((TaskTime) other).value)); // state check
     }
 
     @Override
