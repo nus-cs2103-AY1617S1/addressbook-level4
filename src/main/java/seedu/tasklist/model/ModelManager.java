@@ -192,10 +192,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     private class CompletedQualifier implements Qualifier {
-	    @Override
-	    public boolean run(ReadOnlyTask person) {
-		    return person.isComplete();
-	    }
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return person.isComplete();
+        }
     }
 
     private class NameQualifier implements Qualifier {

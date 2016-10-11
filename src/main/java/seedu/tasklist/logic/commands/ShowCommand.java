@@ -19,16 +19,12 @@ public class ShowCommand extends Command {
     
     public ShowCommand(String keyword) {
         this.keyword = keyword;
-        System.out.println(keyword);
     }
 
     @Override
     public CommandResult execute() {
         if (keyword.equals("all")) {
             model.updateFilteredListToShowAll();
-        }
-        else if (keyword.equalsIgnoreCase("incomplete")) {
-            model.updateFilteredListToShowIncomplete();
         }
         else if (keyword.equalsIgnoreCase("complete")) {
             model.updateFilteredListToShowComplete();

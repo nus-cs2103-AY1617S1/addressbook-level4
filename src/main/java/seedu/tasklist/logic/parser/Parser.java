@@ -223,9 +223,6 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
         args = args.trim();
-        //if (args.startsWith("p/")) {
-       //     args.replaceFirst("p/", "");
-       // }
 
         return new ShowCommand(args);
     }
