@@ -12,11 +12,6 @@ public class AddCommandParserTest {
 	// Initialized to support the tests
 	AddCommandParser parser = new AddCommandParser();
 	
-	
-	// TODO
-	// "21 September in the year of 2016 to 13/2/2016" returns deadline task instead of event task
-	
-	
 	/**
 	 * Testing situations in which user intends to create Floating Tasks.
 	 */
@@ -150,8 +145,8 @@ public class AddCommandParserTest {
 		actualTask = command.getTaskDetails();
 		assertEquals(actualTask, expectedTask);
 		
-		command = (AddTaskCommand) parser.prepareCommand("project from Oct 12 too Oct 13");
-		expectedTask = "[Floating Task][Description: project from Oct 12 too Oct 13]";
+		command = (AddTaskCommand) parser.prepareCommand("project from Oct 12 t Oct 13");
+		expectedTask = "[Floating Task][Description: project from Oct 12 t Oct 13]";
 		actualTask = command.getTaskDetails();
 		assertEquals(actualTask, expectedTask);
 	}
