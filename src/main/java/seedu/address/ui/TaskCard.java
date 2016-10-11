@@ -43,8 +43,8 @@ public class TaskCard extends UiPart{
     public void initialize() {
         detail.setText(task.getDetail().details);
         id.setText(displayedIndex + ". ");
-        dbd.setText(task.getDueByDate().value);
-        dbt.setText(task.getDueByTime().value);
+        dbd.setText(task.getDueByDate().getFriendlyString());
+        dbt.setText(task.getDueByTime().getFriendlyString());
         priority.setText(task.getPriority().value);
         tags.setText(task.tagsString());
     }
