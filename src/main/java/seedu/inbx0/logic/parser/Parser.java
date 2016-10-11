@@ -34,15 +34,30 @@ public class Parser {
                     + " et/(?<endTime>[^/]+)"
                     + " i/(?<level>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern TASK_DATA_ARGS_FORMAT_2 = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " s/(?<startDate>[^.]+)"
+                    + " st/(?<startTime>[^/]+)"
+                    + " e/(?<endDate>[^.]+)"
+                    + " et/(?<endTime>[^/]+)"
+                    + " i/(?<level>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)");
     
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    private static final Pattern TASK_EDIT_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<targetIndex>[^/]+)"
+    private static final Pattern TASK_EDIT_DATA_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\S+)(?<arguments>.*)");
+    private static final CharSequence NAME = "n/";
+    private static final CharSequence START_DATE = "s/";
+    private static final CharSequence START_TIME = "st/";
+    private static final CharSequence END_DATE = "e/";
+    private static final CharSequence END_TIME = "et/";
+    private static final CharSequence IMPORTANCE = "i/";
+    
+      /*      Pattern.compile("(?<targetIndex>[^/]+)"
                     + " n/(?<name>[^/]+)");
-                  /*  + "(?<name>(?: n/[^/]+))"
+                    + "(?<name>(?: n/[^/]+))"
                     + "(?<startDate>(?: s/[^/]+))"
                     + "(?<startTime>(?: st/[^/]+))"
                     + "(?<endDate>(?: e/[^/]+))"
@@ -108,10 +123,11 @@ public class Parser {
      */
     private Command prepareAdd(String args){
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcher2 = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher2 = TASK_DATA_ARGS_FORMAT_2.matcher(args.trim());
+        final Matcher matcher3 = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         
         // Validate arg string format
-        if (!matcher.matches() && !matcher2.matches()) {
+        if (!matcher.matches() && !matcher2.matches() && !matcher3.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
@@ -126,10 +142,21 @@ public class Parser {
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
             } 
-            else {
+            else if(matcher2.matches()) {
                 return new AddCommand(
                         matcher2.group("name"),
+                        matcher2.group("startDate"),
+                        matcher2.group("startTime"),
+                        matcher2.group("endDate"),
+                        matcher2.group("endTime"),
+                        matcher2.group("level"),
                         getTagsFromArgs(matcher2.group("tagArguments"))
+            );
+            }
+            else {
+                return new AddCommand(
+                        matcher3.group("name"),
+                        getTagsFromArgs(matcher3.group("tagArguments"))
                         );
             }
                        
@@ -171,25 +198,70 @@ public class Parser {
         }
         
         String [] argumentsForEdit = new String [6];
-        try {
-            // argumentsForEdit[0] = matcher.group("name");
-     /*        argumentsForEdit[1] = matcher.group("startDate");
-             argumentsForEdit[2] = matcher.group("startTime");
-             argumentsForEdit[3] = matcher.group("endDate");
-             argumentsForEdit[4] = matcher.group("endTime");
-             argumentsForEdit[5] = matcher.group("level");
+        System.out.println("Stop 1");
+        String arguments = matcher.group("arguments");
+        System.out.println("Stop 2 " + arguments);
+        String regex = scanArguments(arguments);
+        System.out.println("Stop 3 " + regex);
+        Pattern editArguments = Pattern.compile(regex);
+        System.out.println("Stop 4: Compile Success");
+        Matcher matcher2 = editArguments.matcher(arguments);
+        System.out.println("Stop 5 " + matcher2.matches());
+        if(arguments.contains(NAME)) 
+            argumentsForEdit[0] = matcher2.group("name");
+            System.out.println("Stop 4 " + argumentsForEdit[0]);
+        if(arguments.contains(START_DATE))
+             argumentsForEdit[1] = matcher2.group("startDate");
+        if(arguments.contains(START_TIME))
+             argumentsForEdit[2] = matcher2.group("startTime");
+        if(arguments.contains(END_DATE))    
+             argumentsForEdit[3] = matcher2.group("endDate");
+        if(arguments.contains(END_TIME))
+             argumentsForEdit[4] = matcher2.group("endTime");
+        if(arguments.contains(IMPORTANCE))
+             argumentsForEdit[5] = matcher2.group("level");
             
-             */
+          try{   
              return new EditCommand(
                     index.get(),
                     argumentsForEdit,
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    getTagsFromArgs(matcher2.group("tagArguments"))
             );            
             } catch (IllegalValueException ive) {
         return new IncorrectCommand(ive.getMessage());
             }
     }
     
+
+    private String scanArguments(String arguments) {
+        String regex = "";
+        
+        if (arguments.contains(NAME)) {
+            regex += " n/(?<name>[^/]+)";
+        }
+        if(arguments.contains(START_DATE)) {
+            regex += " s/(?<startDate>[^/]+)";
+        }
+        if(arguments.contains(START_TIME)) {
+            regex += " st/(?<startTime>[^/]+)";
+        }
+        if(arguments.contains(END_DATE)) {
+            regex += " e/(?<endDate>[^/]+)";
+        }
+        
+        if(arguments.contains(END_TIME)) {
+            regex += " et/(?<endTime>[^/]+)";
+        }
+        
+        if(arguments.contains(IMPORTANCE)) {
+            regex += " i/(?<level>[^/]+)";
+        }
+                
+        regex += "(?<tagArguments>(?: t/[^/]+)*)";
+        
+        return regex;            
+    }
+
     /**
      * Parses arguments in the context of the delete task command.
      *
