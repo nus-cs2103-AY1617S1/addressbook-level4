@@ -6,6 +6,7 @@ import tars.commons.prefixes.Prefixes;
 import tars.commons.util.StringUtil;
 import tars.commons.util.DateTimeUtil;
 import tars.logic.commands.AddCommand;
+import tars.logic.commands.CdCommand;
 import tars.logic.commands.ClearCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.DeleteCommand;
@@ -84,6 +85,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+            
+        case CdCommand.COMMAND_WORD:
+            return new CdCommand(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -318,6 +322,7 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
 
     }
+    
 
     /**
      * Parses arguments in the context of the find task command.
