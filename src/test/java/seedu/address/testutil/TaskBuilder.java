@@ -1,5 +1,9 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.*;
@@ -28,12 +32,14 @@ public class TaskBuilder {
     }
 
     public TaskBuilder withDueByDate(String dbd) throws IllegalValueException {
-        this.task.setDueByDate(new DueByDate(dbd));
+    	assert dbd.matches("[1-12]/[1-31]/[2000-2999]");
+        this.task.setDueByDate(new DueByDate(LocalDate.parse(dbd, DateTimeFormatter.ISO_LOCAL_DATE)));
         return this;
     }
 
     public TaskBuilder withDueByTime(String dbt) throws IllegalValueException {
-        this.task.setDueByTime(new DueByTime(dbt));
+    	assert dbt.matches("[0-1]?[0-9]:[0-5][0-9]");
+        this.task.setDueByTime(new DueByTime(LocalTime.parse(dbt, DateTimeFormatter.ISO_LOCAL_TIME)));
         return this;
     }
 
