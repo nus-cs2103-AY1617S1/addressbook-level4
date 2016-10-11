@@ -72,12 +72,12 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/Logic.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SD_Floating_Task_Delete.png" width="800">
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -114,7 +114,7 @@ The `UI` component,
 
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/Logic.png" width="800"><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
@@ -125,11 +125,11 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/Logic Delete Floating Task.png" width="800"><br>
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/Model.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -142,7 +142,7 @@ The `Model`,
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<img src="images/Storage.png" width="800"><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
@@ -323,26 +323,141 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
+`* * *` | new user | be prompted | because i don't know how to use the program
+`* * *` | new user | have a help screen | get used to the software quickly
 `* * *` | user | add a new person |
 `* * *` | user | delete a person | remove entries that I no longer need
 `* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *`	| user | view tasks for the day | keep track of the task to do
+`* * *`	| user | edit current tasks | change any mistakes
+`* * *`	| user | have a filter | find tasks related to the filter
+`* * *`	| user | block out time slots | reserve slots for tasks that are not confirmed yet
+`* * *`	| user | add tasks (include floating tasks)
+`* * *`	| user | delete the tasks | to remove existing tasks
+`* * *`	| user | redo my operations | correct my mistakes 
+`* *` | user | tag my tasks | know what is the type of tasks
+`* *` | user | have recurring tasks | do weekly tasks easily
+`* *` | user | save my files in another location | choose where to save my tasks 
+`* *` | user | customize/add tags
+`*` | user | be able to integrate to google calendar | sync with google calendar
+`*` | user | archive the tasks
+`*` | user | be able to postpone a tasks
+`*` | user | be prompted to reschedule if i exceeded my tasks | 
+`*` | user | have autocomplete 	| be more productive
+`*` | user | have gui | to make it easier to use
+`*` | advanced user | customize the commands| to use it more easily
+
+
 
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Happy Jim Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: UC00 - Help
+
+**MSS**
+1.User requests help
+2.Happy Jim Task Manager shows all commands
+Use case ends
+
+#### Use case: UC01 - Add floating Task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1.User requests to add floating task
+2.Happy Jim Task Manager shows added task <br>
+Use case ends
+
+**Extensions**
+
+1a. Invalid format
+
+> 1a1. Happy Jim Task Manager shows error message.
+   Use case ends
+
+#### Use case: UC02 - Add non-floating Task
+
+**MSS**
+
+1.User requests to add non-floating task
+2.Happy Jim Task Manager shows added task <br>
+Use case ends
+
+**Extensions**
+
+1a. Invalid format
+
+> 1a1. Happy Jim Task Manager shows error message
+   Use case ends
+
+#### Use case: UC03 - View Tasks
+
+**MSS**
+
+1. User request to view Tasks on a day
+2. Happy Jim Task Manager shows the Tasks of the day, Deadlines both incoming and for today and blocked out dates <br>
+Use case ends
+
+**Extensions**
+
+1a. Invalid format
+
+> 1a1. Happy Jim Task Manager shows error message
+   Use case ends
+
+2a. The list is empty
+
+> Use case ends
+
+#### Use case: UC04 - Find Tasks by keywords
+
+**MSS**
+
+1. User request to find a task by keywords
+2. Happy Jim Task Manager shows the results <br>
+
+**Extensions**
+
+1a. Invalid command
+
+> 1a1. Happy Jim Task Manager shows error message
+   Use case ends
+
+2a. Task does not exist
+
+> Use case ends
+
+#### Use case: UC05 - Edit Task
+
+**MSS**
+
+1. User request to find Tasks(UC04) or view Tasks(UC03).
+2. Happy Jim Task Manager shows Tasks(UC04) or (UC03).
+3. User requests to edit a specific task by task_id
+4. Happy Jim Task Manager edits the person <br>
+Use case ends
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. Invalid command
+
+> 3a1. Happy Jim Task Manager shows error message <br>
+   Use case resumes at step 2
+
+#### Use case: UC06 - Delete Task
+
+**MSS**
+
+1. User request to find Tasks(UC04) or view Tasks(UC03).
+2. Happy Jim Task Manager shows Tasks(UC04) or (UC03).
+3. User requests to delete a specific task in the list
+4. Happy Jim Task Manager deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -351,21 +466,125 @@ Use case ends.
 
 > Use case ends
 
-3a. The given index is invalid
+3a. Invalid command
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. Happy Jim Task Manager shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+#### Use case: UC09 - Block Timeslot
+
+**MSS**
+
+1. User requests to block timeslot
+2. Happy Jim Task Manager shows timeslot blocked
+Use case ends
+
+**Extensions**
+
+1a. Invalid command
+
+> 1a1. Happy Jim Task Manager shows error message
+   Use case ends
+
+2a. Timeslot already occupied
+
+> 2a1. Happy Jim Task Manager shows error message
+   Use case ends
+
+#### Use case: UC10 - Undo Command
+
+**MSS**
+
+1. User request to undo command
+2. Happy Jim Task Manager undo command
+3. Happy Jim Task Manager displays undone command
+Use case ends
+
+**Extensions**
+
+1a. Invalid command
+
+> 1a1. Happy Jim Task Manager shows error message
+   Use case ends
+
+2a. No commands to undo
+
+> Use case ends
+
+2b. Reach the maximum undo times
+
+> Use case ends
+
+#### Use case: UC11 - Redo Command
+
+**MSS**
+
+1. User request redo command
+2. Happy Jim Task Manager redo command
+3. Happy Jim Task Manager displays redone command
+Use case ends
+
+**Extensions**
+
+1a. Invalid command
+
+> 1a1. Happy Jim Task Manager shows error message
+   Use case ends
+
+2a. No commands to redo
+
+> Use case ends
+
+2b. Reach the maximum redo times
+
+> Use case ends
+
+#### Use case: UC12 - “Change directory”
+
+**MSS**
+
+1. User request to change directory
+2. Happy Jim Task Manager displays the new directory path
+3. Happy Jim Task Manager saves data to the new path
+Use case ends
+
+**Extensions**
+
+1a. Invalid command
+
+> 1a1. Happy Jim Task Manager shows error message
+Use case ends
+
+1b. File Path does not exist
+
+> 1b1. Happy Jim Task Manager shows error message
+Use case ends
+
+3a. Not enough file space
+
+> 3a1. Happy Jim Task Manager shows not enough disk space message
+Use case ends
+
+#### Use case: UC13 - “Exit”
+
+**MSS**
+
+1. User request to exit
+2. Happy Jim Task Manager closes and exits
+Use case ends
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+5. Should not take more than 500ms to respond.
+6. Main functionalities should not require internet connection.
+7. Should not require an install wizard
+8. Should not contain any database
+9. Should be able to tell whether the day is valid. Eg. 30 feb is invalid.
+10. Should be able to handle cross-year tasks.
 
 ## Appendix D : Glossary
 
@@ -373,11 +592,61 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Filter
 
-> A contact detail that is not meant to be shared with others
+> Search keywords
+ 
+##### Block time slots
+
+> Block time slots is able to be deleted like normal task
+
+##### Invalid Commands
+
+> Invalid commands includes invalid arguments
+
+##### Error message
+
+> Error message includes suggestion for correct command
+
+##### DATE
+
+> Date is in DDMM format eg. 2909 means 29 september
+
+##### TIME
+
+> Time is in 24 hours format limit to 2359
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+Remember the Milk:<br>
+* Allows for recurring weekly tasks<br>
+* Allows for no start date or end date<br>
+* Allows for date<br>
+* Allows for location (google maps)<br>
+* Allows for estimate<br>
+* Allows priority<br>
+* Allows tags<br>
+* Allows creation of list to sort tasks<br>
+
+Google Calendar:<br>
+* Generally suitable for his requirements regarding scheduling events<br>
+* The problem is this Google calendar prefer users to use mouse rather than keyboard.<br> 
+* Also it requires online connection. <br>
+* And probably a database.<br>
+
+Any.do:<br>
+* Can sync across platforms. <br>
+* Provide convenience service for scheduling.<br> 
+* Also prefers mouse. <br>
+* Need an account. <br>
+* Requires Internet connection.<br>
+
+Calendar<br>
+* Separate tasks and calendar in one app<br>
+* Able to add task and tag them<br>
+* Able to add recurring tasks<br>
+* Able to add in tasks to calendar in one line using auto detect<br>
+* Able to view completed tasks<br>
+
+
 
