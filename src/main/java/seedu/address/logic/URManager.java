@@ -19,6 +19,9 @@ public class URManager {
 		redoQueue = new ArrayDeque<Context>();		
 	}
 	
+	/**
+	 * Adds the command to undo queue for LogicManager.
+	 */
 	public void addToUndoQueue(Model model, Command command){
 		if(!isUndoable(command)){
 			undoQueue.clear();
@@ -32,6 +35,9 @@ public class URManager {
 		}
 	}
 	
+	/**
+	 * Adds the command to undo queue for redo command.
+	 */
 	public void addToUndoQueueUsedByRedo(Model model, Command command){
 		if(!isUndoable(command)){
 			undoQueue.clear();
@@ -40,7 +46,6 @@ public class URManager {
 			if(!isIgnored(command)){
 				if(undoQueue.size() == MAX_TIMES) undoQueue.removeFirst();
 				undoQueue.addLast(new Context(model, command));
-				//redoQueue.clear();
 			}
 		}
 	}
@@ -65,18 +70,28 @@ public class URManager {
 		}
 	}
 	
+	/**
+	 * Returns true if the command does not need to be added in undo/redo queue.
+	 */
 	public Boolean isIgnored(Command command){
 		return command instanceof RedoCommand || 
 			   command instanceof UndoCommand ||
 			   command instanceof IncorrectCommand;
 	}
 	
+	/**
+	 * Returns true if the command is undoable.
+	 * 	Currently, only ChangeDirectoryCommand is undoable.
+	 */
 	public Boolean isUndoable(Command command){
 		return !(command instanceof ChangeDirectoryCommand);
 	}
 	//=================================================================
 	public class NoAvailableCommandException extends Exception{}
 	
+	/**
+	 * Inner class for backup previous data and commands.
+	 */
 	public class Context{
 		
 		private ReadOnlyTaskList taskList;

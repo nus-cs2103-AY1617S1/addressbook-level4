@@ -17,7 +17,8 @@ public class ChangeDirectoryCommand extends Command{
             + "Example: " + COMMAND_WORD
             + " D:\t.xml";
 
-    public static final String MESSAGE_SUCCESS = "File path successfully changed to : %1$s";
+    public static final String MESSAGE_SUCCESS = "File path successfully changed to : %1$s\n"+
+    											 "This operation is irreversible.";
     public static final String MESSAGE_IO_ERROR = "Error when saving/reading file...";
     public static final String MESSAGE_CONVENSION_ERROR = "Wrong file type detected.";
 
