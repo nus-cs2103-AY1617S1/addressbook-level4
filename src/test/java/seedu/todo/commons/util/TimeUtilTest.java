@@ -69,7 +69,7 @@ public class TimeUtilTest {
         String expectedOutput = "in less than a minute";
         LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 0);
         
-        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 01), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 1), dueTime);
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 59), dueTime);
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 30), dueTime);
     }
@@ -81,7 +81,7 @@ public class TimeUtilTest {
         
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 0), dueTime);
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 30), dueTime);
-        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 01), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 1), dueTime);
     }
     
     @Test
@@ -89,9 +89,9 @@ public class TimeUtilTest {
         String expectedOutput = "1 minute ago";
         LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 0);
         
-        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 01, 0), dueTime);
-        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 01, 30), dueTime);
-        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 01, 59), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 1, 0), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 1, 30), dueTime);
+        testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 1, 59), dueTime);
     }
     
     @Test
