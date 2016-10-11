@@ -78,7 +78,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
      * 
      * @return
      */
-    public void edit(FloatingTask toEdit, int targetIndex) {
+    public void edit(int targetIndex, FloatingTask toEdit) {
         assert toEdit != null;
         internalList.set(targetIndex, toEdit);
     }

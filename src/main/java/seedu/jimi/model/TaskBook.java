@@ -113,7 +113,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
     
     public void editTask(int targetIndex, FloatingTask newTask) {
-        tasks.edit(newTask, targetIndex);
+        tasks.edit(targetIndex, newTask);
     }
 
 //// tag-level operations

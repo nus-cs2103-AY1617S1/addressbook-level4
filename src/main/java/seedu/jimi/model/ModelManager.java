@@ -89,7 +89,8 @@ public class ModelManager extends ComponentManager implements Model {
      * @param newTask Task to be replaced with.
      * @param targetIndex Index of oldTask to be replaced by.
      */
-    public synchronized void editFloatingTask(FloatingTask newTask, int targetIndex) {
+    @Override
+    public synchronized void editFloatingTask(int targetIndex, FloatingTask newTask) {
         taskBook.editTask(targetIndex, newTask);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
