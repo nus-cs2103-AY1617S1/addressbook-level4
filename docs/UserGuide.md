@@ -14,7 +14,7 @@ A Getting Things Done (GTD) Tool created by TeamRuby, to help YOU get things don
 Benefits of RubyTask: Command Line Interface, One-shot Approach, Internet-independent! <br>
 
 
-## Quick Start
+## QUICK START
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
    > Having any Java 8 version is not enough. <br>
@@ -24,7 +24,7 @@ Benefits of RubyTask: Command Line Interface, One-shot Approach, Internet-indepe
 2. Copy the file to the folder you want to use as the home folder for your RubyTask application.
 3. Double-click the file to start the application. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600"><br>
-   *Figure 1. GUI Display*
+*Figure 1. GUI Display*
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -38,7 +38,7 @@ Benefits of RubyTask: Command Line Interface, One-shot Approach, Internet-indepe
 5. Refer to the [Features](#features) section below for details of each command.<br>
 
 
-## Features
+## FEATURES
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
@@ -103,7 +103,7 @@ Examples:
 
 #### Updating a task: `update`
 Updates the status of the task.<br>
-Format: `update [TASK_ID] STATUS` 
+Format: `update [TASK_NAME][TASK_ID] STATUS` 
 
 > Updates task to be completed (marked done) or uncompleted after selecting a task.
 
