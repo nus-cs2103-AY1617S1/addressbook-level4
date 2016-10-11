@@ -6,6 +6,7 @@ import java.util.Stack;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.model.tag.Tag;
+import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
@@ -28,7 +29,13 @@ public interface Model {
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Marks the given task as done */
+    //@@author A0124797R
     void markTask(Task target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Updates the completed task as not done */
+    //@@author A0124797R
+    void unmarkTask(Task target) throws UniqueTaskList.DuplicateTaskException,
+    ArchiveTaskList.TaskNotFoundException;
     
     /** Relocates save location to given directory */
     void relocateSaveLocation(String directory);
@@ -40,6 +47,7 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
     /** Returns filtered task list*/
+    //@@author A0124797R
     ObservableList<Task> getListToMark();
 
     /** Updates the filter of the filtered task list to show all tasks */

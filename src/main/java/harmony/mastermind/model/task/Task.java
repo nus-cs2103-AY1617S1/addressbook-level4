@@ -107,9 +107,16 @@ public class Task implements ReadOnlyTask {
     public boolean isMarked() {
         return this.marked;
     }
-    
+
+    //@@author A0124797R
     public Task mark() {
         this.marked = true;
+        return this;
+    }
+    
+    //@@author A0124797R
+    public Task unmark() {
+        this.marked = false;
         return this;
     }
 }

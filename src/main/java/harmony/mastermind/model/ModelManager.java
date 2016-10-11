@@ -15,9 +15,11 @@ import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.model.tag.Tag;
+import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
+import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -95,6 +97,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void markTask(Task target) throws TaskNotFoundException {
         taskManager.markTask(target);
+        indicateTaskManagerChanged();
+    }
+    
+    //@author A0124797R
+    @Override
+    public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException,
+    UniqueTaskList.DuplicateTaskException {
+        taskManager.unmarkTask(target);
         indicateTaskManagerChanged();
     }
     

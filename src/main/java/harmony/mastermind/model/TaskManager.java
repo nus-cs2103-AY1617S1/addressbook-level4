@@ -11,6 +11,7 @@ import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
+import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 
 /**
  * Wraps all data at the task-manager level
@@ -128,7 +129,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     /**
      * marks task as completed by
-     * removing the task from TaskManager and adds into Archive list
+     * removing the task from tasks and adds into archivedtasks
+     * throws TaskNotFoundException
      */
     //@@author A0124797R
     public boolean markTask(Task key) throws UniqueTaskList.TaskNotFoundException {
@@ -139,6 +141,23 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    /**
+     * marks task as not completed by
+     * removing the task from archivedTasks and adds into tasks
+     * throws TaskNotFoundException, DuplicateTaskException 
+     */
+    //@@author A0124797R
+    public boolean unmarkTask(Task key) throws ArchiveTaskList.TaskNotFoundException,
+    UniqueTaskList.DuplicateTaskException {
+        if (archivedTasks.remove(key)) {
+            tasks.add(key.unmark());
+            return true;
+        } else {
+            throw new ArchiveTaskList.TaskNotFoundException();
+        }
+    }
+
 
 //// tag-level operations
 
