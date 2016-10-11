@@ -120,13 +120,6 @@ public class CommandInputView extends UiPart {
         commandTextField.setText("");
     }
 
-    @Subscribe
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandText));
-        setStyleToIndicateIncorrectCommand();
-        restoreCommandText();
-    }
-
     /**
      * Restores the command box text to the previously entered command
      */
@@ -139,6 +132,13 @@ public class CommandInputView extends UiPart {
      */
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
+    }
+
+    @Subscribe
+    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandText));
+        setStyleToIndicateIncorrectCommand();
+        restoreCommandText();
     }
 
 }
