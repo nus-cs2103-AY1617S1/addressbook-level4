@@ -60,7 +60,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().setAll(tasks);
     }
     //@@author A0124797R
-    public void setArchiveTasks(Collection<ReadOnlyTask> archiveTasks) {
+    public void setArchiveTasks(Collection<Task> archiveTasks) {
         this.archivedTasks.getInternalList().setAll(archiveTasks);
     }
 
@@ -70,10 +70,10 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     //@@author A0124797R
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags,
-            Collection<ReadOnlyTask> newArchiveTasks) {
+            Collection<? extends ReadOnlyTask> newArchiveTasks) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
-        setArchiveTasks(newArchiveTasks);
+        setArchiveTasks(newArchiveTasks.stream().map(Task::new).map(Task::mark).collect(Collectors.toList()));
     }
 
     //@@author A0124797R
@@ -131,9 +131,9 @@ public class TaskManager implements ReadOnlyTaskManager {
      * removing the task from TaskManager and adds into Archive list
      */
     //@@author A0124797R
-    public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean markTask(Task key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
-            archivedTasks.add(key);
+            archivedTasks.add(key.mark());
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -165,7 +165,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author A0124797R
     @Override
     public List<ReadOnlyTask> getArchiveList() {
-        return archivedTasks.getInternalList();
+        return Collections.unmodifiableList(archivedTasks.getInternalList());
     }
 
     @Override

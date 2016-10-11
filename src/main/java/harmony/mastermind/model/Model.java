@@ -9,6 +9,7 @@ import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -27,7 +28,7 @@ public interface Model {
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Marks the given task as done */
-    void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void markTask(Task target) throws UniqueTaskList.TaskNotFoundException;
     
     /** Relocates save location to given directory */
     void relocateSaveLocation(String directory);
@@ -38,6 +39,9 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
+    /** Returns filtered task list*/
+    ObservableList<Task> getListToMark();
+
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
@@ -46,5 +50,6 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTagTaskList(Set<Tag> keywords);
+
 
 }

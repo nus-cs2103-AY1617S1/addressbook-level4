@@ -138,7 +138,7 @@ public class TestUtil {
     }
 
     public static TaskManager generateEmptyAddressBook() {
-        return new TaskManager(new UniqueTaskList(), new UniqueTagList());
+        return new TaskManager(new UniqueTaskList(), new UniqueTagList(), new ArchiveTaskList());
     }
 
     public static XmlSerializableTaskManager generateSampleStorageAddressBook() {

@@ -12,10 +12,18 @@ import javafx.collections.ObservableList;
  * Supports a minimal set of list operations.
  */
 //@@author A0124797R
-public class ArchiveTaskList implements Iterable<ReadOnlyTask> {
+public class ArchiveTaskList implements Iterable<Task> {
 
-    private final ObservableList<ReadOnlyTask> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
+
+    /**
+     * Signals that an operation targeting a specified task in the list would fail because
+     * there is no such matching task in the list.
+     */
+    public static class TaskNotFoundException extends Exception {}
+    
+    
     /**
      * Constructs empty ArchiveTaskList.
      */
@@ -32,7 +40,7 @@ public class ArchiveTaskList implements Iterable<ReadOnlyTask> {
     /**
      * Adds an archived task to the list.
      */
-    public void add(ReadOnlyTask toAdd) {
+    public void add(Task toAdd) {
         assert toAdd != null;
         
         internalList.add(toAdd);
@@ -43,7 +51,7 @@ public class ArchiveTaskList implements Iterable<ReadOnlyTask> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public boolean remove(Task toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
@@ -52,12 +60,12 @@ public class ArchiveTaskList implements Iterable<ReadOnlyTask> {
         return taskFoundAndDeleted;
     }
 
-    public ObservableList<ReadOnlyTask> getInternalList() {
+    public ObservableList<Task> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<ReadOnlyTask> iterator() {
+    public Iterator<Task> iterator() {
         return internalList.iterator();
     }
 

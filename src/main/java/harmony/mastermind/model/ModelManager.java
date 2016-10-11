@@ -1,5 +1,6 @@
 package harmony.mastermind.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.util.Collections;
@@ -92,7 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@author A0124797R
     @Override
-    public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void markTask(Task target) throws TaskNotFoundException {
         taskManager.markTask(target);
         indicateTaskManagerChanged();
     }
@@ -108,6 +109,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public ObservableList<Task> getListToMark() {
+        return filteredTasks;
     }
 
     @Override
