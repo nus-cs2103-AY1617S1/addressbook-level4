@@ -1,4 +1,4 @@
-# Developer Guide 
+﻿# Developer Guide 
 
 * [Introduction]
 * [Setting Up](#setting-up)
@@ -81,13 +81,13 @@ For example, the `Logic` component shown in Figure 2 below,  defines it's API in
 
 The _Sequence Diagram_ shown in Figure 3 below shows how the components interact for the scenario where the user issues the `delete 1` command.
 
-<img src="images\SDforDeletePerson.png" width="800"><br>
+<img src="images\SDforDeleteTask.png" width="800"><br>
 >Figure 3: How the components interact when the user issues the `delete 1` command. <br>
 
 >Note how the `Model` simply raises a `WhatNowChangedEvent` when the What Now data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram in Figure 4 below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800"> <br>
+<img src="images\SDforDeleteTaskEventHandling.png" width="800"> <br>
 >Figure 4: How the `EventsCenter` reacts when the user issues the `delete 1` command.<br>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -124,7 +124,7 @@ The `UI` component,
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 >Figure 7:  How the `Logic` component executes the user’s request of `delete 1`. <br>
 
 ### Model component
