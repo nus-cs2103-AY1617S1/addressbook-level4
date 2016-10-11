@@ -28,7 +28,7 @@ public class TypicalTestTasks {
             taskCS2104 = new TaskBuilder().withTitle("CS2104").withDeadline("mon 1000").withFrequency("1 day").withSchedule("sun 2300 to mon 0100").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
-            assert false : "not possible";
+            assert false : "error building typical tasks";
         }
     }
 
