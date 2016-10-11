@@ -1,9 +1,6 @@
 package seedu.todo.ui;
 
 import com.google.common.eventbus.Subscribe;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
