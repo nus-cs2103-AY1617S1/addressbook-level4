@@ -247,6 +247,25 @@ public class Parser {
         final Matcher argumentMatcher = argumentPattern.matcher(commandArgs);
         if (argumentMatcher.find()) {
             argument = argumentMatcher.group(argumentGroupName);
+            argument = removeTrailingCommandChars(argument, commandArgs);
+        }
+        return argument;
+    }
+
+    /**
+     * Removes unwanted trailing command characters from argument
+     * @param argument
+     * @param commandArgs
+     * @return cleaned argument string
+     */
+    private String removeTrailingCommandChars(String argument, String commandArgs) {
+        if (argument.length() < commandArgs.trim().length()-3) {
+            if (argument.substring(argument.length()-2, argument.length()).matches(" n")) {
+                argument = argument.substring(0, argument.length()-2);
+            }
+            if (argument.substring(argument.length()-3, argument.length()).matches(" (sd|st|ed|et)")) {
+                argument = argument.substring(0, argument.length()-3);
+            }
         }
         return argument;
     }
