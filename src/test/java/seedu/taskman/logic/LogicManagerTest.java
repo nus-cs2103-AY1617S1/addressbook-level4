@@ -21,6 +21,7 @@ import seedu.taskman.model.event.*;
 import seedu.taskman.model.event.legacy.Email;
 import seedu.taskman.storage.StorageManager;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -80,7 +81,7 @@ public class LogicManagerTest {
         EventsCenter.clearSubscribers();
     }
 
-    //@Test
+    @Test
     public void execute_invalid() throws Exception {
         String invalidCommand = "       ";
         assertCommandBehavior(invalidCommand,
@@ -383,7 +384,7 @@ public class LogicManagerTest {
                 expectedList);
     }
 
-    @Test
+    //@Test
     public void execute_list_filter_events_only() throws Exception{
         // prepare expectations
         //TODO: update test when events are properly implemented
@@ -400,7 +401,7 @@ public class LogicManagerTest {
                 expectedList);
     }
 
-    @Test
+    //@Test
     public void execute_list_filter_all() throws Exception{
         // prepare expectations
         //TODO: update test when events are properly implemented
@@ -490,9 +491,9 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Title("Task " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))), new Deadline("" + Math.abs(seed)),
-                    new Schedule("wed " + seed + "am, wed " + seed + "pm"),
-                    new Frequency(seed+"")
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))), new Deadline(Math.abs(seed)),
+                    new Schedule(Instant.ofEpochSecond(Math.abs(seed - 1)) + ", " + Instant.ofEpochSecond(Math.abs(seed))),
+                    new Frequency(seed+ " mins")
             );
         }
 
