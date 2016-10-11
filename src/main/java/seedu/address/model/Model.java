@@ -32,7 +32,7 @@ public interface Model {
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredTaskList(Set<String> keywords, Set<String> tags, String startDate, String endDate, String deadline);
     
     /** Updates the file path for current storage manager of the model.*/
 	void changeDirectory(String filePath);
