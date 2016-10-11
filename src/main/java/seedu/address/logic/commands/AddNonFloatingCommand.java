@@ -57,7 +57,6 @@ public class AddNonFloatingCommand extends AddCommand {
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TimeslotOverlapException e) {
-			// TODO Auto-generated catch block
         	return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
 
