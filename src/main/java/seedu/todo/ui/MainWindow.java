@@ -1,16 +1,22 @@
 package seedu.todo.ui;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
+import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.ui.components.Console;
 import seedu.todo.ui.components.ConsoleInput;
@@ -23,6 +29,8 @@ import seedu.todo.ui.views.View;
  */
 public class MainWindow extends View {
 
+	private static final Logger logger = LogsCenter.getLogger(UiManager.class);
+	
 	private static final String FXML_PATH = "MainWindow.fxml";
     private static final String ICON_PATH = "/images/logo-512x512.png";
     private static final String OPEN_HELP_KEY_COMBINATION = "F1";
@@ -116,6 +124,25 @@ public class MainWindow extends View {
     public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
+    }
+    
+    @SuppressWarnings("unchecked")
+	public <T extends View> T loadView(Class<T> viewClass) {
+    	View loadedView = null;
+    	
+    	try {
+			Method loadMethod = viewClass.getMethod("load", Stage.class, Pane.class);
+			loadedView = (View) loadMethod.invoke(null, primaryStage, getChildrenPlaceholder());
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+			logger.severe(String.format("View class %s does not have a mandatory method with the method signature: \n" + 
+										"public static View load(Stage stage, Pane placeholder) \n" +
+										"This method is mandatory.", 
+										viewClass.getName()));
+			e.printStackTrace();
+		}
+    	
+    	return (T) loadedView;
+    	
     }
 
     /** ================ FXML COMPONENTS ================== **/

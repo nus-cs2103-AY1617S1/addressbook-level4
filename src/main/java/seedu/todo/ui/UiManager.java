@@ -50,6 +50,10 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.hide();
     }
     
+    public <T extends View> T loadView(Class<T> viewClass) {
+    	return mainWindow.loadView(viewClass);
+    }
+    
     
     /** ================ DISPLAY ERRORS ================== **/
 

@@ -29,8 +29,8 @@ public class IndexView extends View {
 	public String indexTextValue;
 	
 
-	public static IndexView load(Stage primaryStage) {
-	    return UiPartLoader.loadUiPart(primaryStage, new IndexView());
+	public static IndexView load(Stage primaryStage, Pane placeholderPane) {
+	    return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new IndexView());
 	}
 
 	@Override

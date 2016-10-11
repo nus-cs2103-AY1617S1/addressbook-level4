@@ -1,11 +1,17 @@
 package seedu.todo.ui.views;
 
+import java.util.logging.Logger;
+
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.ui.UiPart;
 
 public abstract class View extends UiPart {
+	
+	private static final Logger logger = LogsCenter.getLogger(View.class);
+	
     protected Pane placeHolderPane;
     protected VBox mainNode;
 	
@@ -29,6 +35,8 @@ public abstract class View extends UiPart {
 	    if (placeHolderPane != null) {
 	        // Replace placeholder children with node.
 	        placeHolderPane.getChildren().setAll(mainNode);
+	    } else {
+	    	logger.warning(this.getClass().getName() + " has no placeholder.");
 	    }
 	    
 	    // Callback once view is rendered.

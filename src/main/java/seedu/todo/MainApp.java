@@ -54,7 +54,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
     	ui.start(primaryStage);    	
     	
-    	IndexView view = IndexView.load(primaryStage);
+    	IndexView view = ui.loadView(IndexView.class);
     	view.indexTextValue = "Hi there!";
     	view.render();
     }
