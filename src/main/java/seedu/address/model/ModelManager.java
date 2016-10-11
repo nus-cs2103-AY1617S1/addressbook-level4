@@ -77,8 +77,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void updateTask(ReadOnlyTask originalTask,Task updateTask) throws UniqueTaskList.DuplicateTaskException,UniqueTaskList.TaskNotFoundException {
-        addressBook.updateTask(originalTask,updateTask);
+    public synchronized void updateTask(ReadOnlyTask originalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.updateTask(originalTask, updateTask);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }

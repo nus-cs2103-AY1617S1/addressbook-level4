@@ -87,11 +87,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      * 
-     * @throws UniqueTaskList.TaskNotFoundException if the task can not be found in the list.
      * @throw UniqueTaskList.DuplicateTaskException if the same task already exists in the list.
      */
     
-    public void updateTask(ReadOnlyTask originalTask,Task updateTask) throws UniqueTaskList.DuplicateTaskException,UniqueTaskList.TaskNotFoundException{
+    public void updateTask(ReadOnlyTask originalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException {
     	syncTagsWithMasterList(updateTask);
     	tasks.update(originalTask,updateTask); 
     }
