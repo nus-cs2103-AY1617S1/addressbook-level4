@@ -10,9 +10,11 @@ import seedu.taskman.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+
 public class AddCommandTest extends TaskManGuiTest {
 
-    //@Test
+    @Test
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();

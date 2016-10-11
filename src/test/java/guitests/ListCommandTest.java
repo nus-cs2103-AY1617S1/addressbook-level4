@@ -7,9 +7,11 @@ import seedu.taskman.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+
 public class ListCommandTest extends TaskManGuiTest {
 
-    //@Test
+    @Test
     public void list_nonEmptyList() {
         assertListResult("list Mark"); //no results
         assertListResult("list Project", td.taskCS2103T, td.taskCS3244); //multiple results
@@ -19,13 +21,13 @@ public class ListCommandTest extends TaskManGuiTest {
         assertListResult("list Project",td.taskCS3244);
     }
 
-    //@Test
+    @Test
     public void list_emptyList(){
         commandBox.runCommand("clear");
         assertListResult("list IS1103"); //no results
     }
 
-    //@Test
+    @Test
     public void list_invalidCommand_fail() {
         commandBox.runCommand("listBLAH");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);

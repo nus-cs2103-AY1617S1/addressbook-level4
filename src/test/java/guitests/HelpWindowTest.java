@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 public class HelpWindowTest extends TaskManGuiTest {
 
-    //@Test
+    @Test
     public void openHelpWindow() {
 
         taskListPanel.clickOnTableView();

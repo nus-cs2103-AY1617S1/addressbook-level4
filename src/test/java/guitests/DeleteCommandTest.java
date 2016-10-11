@@ -8,9 +8,11 @@ import seedu.taskman.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.taskman.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 
+import org.junit.Test;
+
 public class DeleteCommandTest extends TaskManGuiTest {
 
-    //@Test
+    @Test
     public void delete() {
 
         //delete the first in the list
