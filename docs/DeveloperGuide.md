@@ -115,7 +115,7 @@ The following diagram shows how the `EventsCenter` reacts to the event (`delete 
 **API** : [`Ui.java`](../src/main/java/seedu/ggist/ui/Ui.java)
 
 
-The `UI` consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`,`PersonListPanel`,
+The `UI` consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`,`TaskListPanel`,
 `StatusBarFooter` and `BrowserPanel`.These UI parts inherit from the abstract `UiPart` class ,and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files which are in the `src/main/resources/view` folder.<br>

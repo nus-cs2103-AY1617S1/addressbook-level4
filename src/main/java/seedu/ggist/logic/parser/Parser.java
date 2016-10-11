@@ -33,18 +33,11 @@ public class Parser {
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>[^,]+)"
-                    + " (?<date>[^,]+)"
-                    + " (?<time>\\d{4})"
-                    + " (?<tagArguments>(?:[^,]+)*)"); // variable number of tags
+            Pattern.compile("(?<taskName>.*)\\s*,\\s*(?<date>.*)\\s*,\\s*(?<time>\\d{4})\\s*,*\\s*(?<tagArguments>(?:[^,]+)*)");
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>[^,]+)"
-                    + " (?<date>[^,]+)"
-                    + " (?<startTime>\\d{4})"
-                    + " (?<endTime>\\d{4})"
-                    + "(?<tagArguments>(?: [^,]+)*)"); // variable number of tags
+            Pattern.compile("(?<taskName>.*)\\s*,\\s*(?<date>.*)\\s*,\\s*(?<startTime>\\d{4})\\s*-\\s*(?<endTime>\\d{4})\\s*,*\\s*(?<tagArguments>(?:[^,]+)*)");
    
     public Parser() {}
 
@@ -118,6 +111,7 @@ public class Parser {
                      );
                 }
             } else if (taskType.equals("deadlineTask")) {
+                System.out.println("deadline printed");
                 matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
                     return new AddCommand(
@@ -128,6 +122,7 @@ public class Parser {
                      );
                 }
             } else if (taskType.equals("floatingTask")) {
+                System.out.println("floating");
                 matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
                     return new AddCommand(

@@ -20,12 +20,26 @@ public class AddCommand extends Command {
             + "Parameters: TASK...\n"
             + "Example: " + COMMAND_WORD
             + "buy milk";
-
+    
     public static final String MESSAGE_SUCCESS = "New %1$s task added: %2$s";
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";
     
+    private enum TaskType {
+        FLOATING("floating"), DEADLINE("dealine"), EVENT("event"); 
+        
+        private final String taskType;
+        TaskType(String taskType) {
+            this.taskType = taskType;
+        }
+        
+        @Override
+        public String toString() {
+            return this.taskType;
+        }
+    }
+    
     private final Task toAdd;
-    private String taskType;
+    private TaskType taskType;
     final Set<Tag> tagSet = new HashSet<>();
 
     /**
@@ -44,7 +58,7 @@ public class AddCommand extends Command {
                 new Time(endTime),
                 new UniqueTagList(tagSet)
         );
-        taskType = "event";
+        taskType = TaskType.EVENT;
     }
     
     /**
@@ -63,7 +77,7 @@ public class AddCommand extends Command {
                 new Time(endTime),
                 new UniqueTagList(tagSet)
         );
-        taskType = "deadline";
+        taskType = TaskType.DEADLINE;
     }
     
     /**
@@ -82,7 +96,7 @@ public class AddCommand extends Command {
                 new Time(Messages.MESSAGE_NO_END_TIME_SET),
                 new UniqueTagList(tagSet)
         );
-        taskType = "floating";
+        taskType = TaskType.FLOATING;
     }
 
     @Override
@@ -90,7 +104,7 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType, toAdd));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType.toString(), toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
