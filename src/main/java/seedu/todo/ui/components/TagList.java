@@ -45,7 +45,6 @@ public class TagList extends Component {
 
     @Override
     public void componentDidMount() {
-        System.out.println(this);
         titleText.setText("Tags (" + tags.size() + ")");
 
         // Load TagListLinks
