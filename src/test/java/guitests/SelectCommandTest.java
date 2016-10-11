@@ -43,7 +43,7 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("Selected Item: "+index);
+        assertResultMessage("Selected " + index);
         assertPersonSelected(index);
     }
 

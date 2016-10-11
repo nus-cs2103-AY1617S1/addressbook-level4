@@ -24,7 +24,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)" + " n/NAME" + "\n"
             + "Example: " + COMMAND_WORD + " 1" + " n/buy milk";
 
-    public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
+    public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited %1$s";
     
     public final int targetIndex;
     public final String newName;
