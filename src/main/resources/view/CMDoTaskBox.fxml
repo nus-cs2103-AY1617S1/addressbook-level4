@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author A0141006B -->
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="550.0" stylesheets="@CMDoTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label maxWidth="100.0" minWidth="35.0" prefHeight="30.0" text="Index" />
+      <Label maxWidth="280.0" prefHeight="46.0" prefWidth="280.0" text="Task" />
+      <Label maxWidth="80.0" prefHeight="46.0" prefWidth="80.0" text="DueDate" />
+      <Label maxWidth="80.0" prefHeight="46.0" prefWidth="80.0" text="DueTime" />
+      <Label maxWidth="80.0" prefHeight="46.0" prefWidth="80.0" text="Priority" />
+   </children>
+</HBox>
