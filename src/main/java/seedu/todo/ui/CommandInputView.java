@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
@@ -27,8 +27,8 @@ public class CommandInputView extends UiPart {
     private Logic logic;
 
     @FXML
-    private TextField commandTextField;
     private CommandResult mostRecentResult;
+    private TextArea commandTextField;
 
     public static CommandInputView load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
                                         CommandFeedbackView commandFeedbackView, Logic logic) {
