@@ -150,6 +150,12 @@ There is no need to save manually.
 
 ## FAQ
 
+**Q**: The application does not start even after double-clicking the JAR file?<br>
+**A**: Please ensure that you have a Java version 1.8.0_60 or later installed in your system.
+
+**Q**: Q: How do I check the current Java version installed on my PC?<br>
+**A**: Press the windows (or start menu) button, and type ‘About Java’, hit enter. There will be a pop-up (as illustrated in Figure 2) indicating the current Java version on your PC. 
+
 **Q**: How do I transfer my data to another computer?<br>
 **A**: Install the application in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous RubyTask folder.
