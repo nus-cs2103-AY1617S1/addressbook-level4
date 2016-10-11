@@ -17,12 +17,12 @@ public class EditCommandTest extends CommandTest {
     @Before
     public void setUp() throws Exception {
         // TODO: fix sorting problems when adding tasks
-        model.add("Task 1", task->{ 
+        model.add("Task 1", task-> {
             task.setPinned(true);
             task.setLocation("NUS");
         });
         
-        model.add("Task 3", task->{
+        model.add("Task 3", task-> {
             task.setDescription("Description"); 
             task.setPinned(false);
         });
@@ -39,13 +39,12 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void testEditPinned() throws Exception{
-        ImmutableTask toEditPin = getTaskAt(1);
+    public void testEditPinned() throws Exception {
         setParameter("1");
         setParameter("p", null);
         execute();
         
-        toEditPin = getTaskAt(1);
+        ImmutableTask toEditPin = getTaskAt(1);
         assertEquals("Task 1", toEditPin.getTitle());
         assertTrue(toEditPin.isPinned());
         assertFalse(toEditPin.getDescription().isPresent());
@@ -54,12 +53,11 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testEditLocation() throws Exception {
-    	ImmutableTask toEditLocation = getTaskAt(3);
         setParameter("3");
         setParameter("l", "NTU");
         execute();
         
-        toEditLocation = getTaskAt(3);
+        ImmutableTask toEditLocation = getTaskAt(3);
         assertEquals("Task 3", toEditLocation.getTitle());
         assertFalse(toEditLocation.isPinned());
         assertFalse(toEditLocation.getDescription().isPresent());
@@ -68,12 +66,11 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testEditDescription() throws Exception {
-        ImmutableTask toEditDesc = getTaskAt(2);
         setParameter("2");
         setParameter("m", "Some other description");
         execute();
         
-        toEditDesc = getTaskAt(2);
+        ImmutableTask toEditDesc = getTaskAt(2);
         assertEquals("Task 2", toEditDesc.getTitle());
         assertFalse(toEditDesc.isPinned());
         assertFalse(toEditDesc.getLocation().isPresent());
@@ -82,12 +79,11 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testDeleteField() throws Exception {
-        ImmutableTask toDeleteField = getTaskAt(2);
         setParameter("2");
         setParameter("m", "");
         execute();
         
-        toDeleteField = getTaskAt(2);
+        ImmutableTask toDeleteField = getTaskAt(2);
         assertEquals("Task 2", toDeleteField.getTitle());
         assertFalse(toDeleteField.isPinned());
         assertFalse(toDeleteField.getDescription().isPresent());
@@ -95,18 +91,16 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void testEditMoreThanOneParameter() throws Exception{
-        ImmutableTask toEditTwoThings = getTaskAt(1);
+    public void testEditMoreThanOneParameter() throws Exception {
         setParameter("1");
         setParameter("m", "New description");
         setParameter("l", "Singapura");
         execute();
         
-        toEditTwoThings = getTaskAt(1);
+        ImmutableTask toEditTwoThings = getTaskAt(1);
         assertEquals("Task 1", toEditTwoThings.getTitle());
         assertFalse(toEditTwoThings.isPinned());
         assertEquals("New description", toEditTwoThings.getDescription().get());
         assertEquals("Singapura", toEditTwoThings.getLocation().get());
-        
     }
 }
