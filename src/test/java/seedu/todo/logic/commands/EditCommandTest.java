@@ -49,11 +49,11 @@ public class EditCommandTest extends CommandTest {
         setParameter("p", null);
         execute();
         
-        ImmutableTask toEditPin = getTaskAt(1);
-        assertEquals("Task 1", toEditPin.getTitle());
-        assertTrue(toEditPin.isPinned());
-        assertFalse(toEditPin.getDescription().isPresent());
-        assertFalse(toEditPin.getLocation().isPresent());
+        ImmutableTask task = getTaskAt(1);
+        assertEquals("Task 1", task.getTitle());
+        assertTrue(task.isPinned());
+        assertEquals("NUS", task.getLocation().get());
+        assertFalse(task.getDescription().isPresent());
     }
     
     @Test
@@ -62,11 +62,11 @@ public class EditCommandTest extends CommandTest {
         setParameter("l", "NTU");
         execute();
         
-        ImmutableTask toEditLocation = getTaskAt(3);
-        assertEquals("Task 3", toEditLocation.getTitle());
-        assertFalse(toEditLocation.isPinned());
-        assertFalse(toEditLocation.getDescription().isPresent());
-        assertEquals("NTU", toEditLocation.getLocation().get());
+        ImmutableTask task = getTaskAt(3);
+        assertEquals("Task 3", task.getTitle());
+        assertEquals("NTU", task.getLocation().get());
+        assertFalse(task.isPinned());
+        assertEquals("Description", task.getDescription().get());
     }
     
     @Test
@@ -122,7 +122,12 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testRemoveDate() throws Exception {
+        setParameter("2");
+        setParameter("d", "");
+        execute();
         
+        ImmutableTask task = getTaskAt(2);
+        assertFalse(task.getEndTime().isPresent());
     }
 
     @Test
@@ -134,7 +139,7 @@ public class EditCommandTest extends CommandTest {
         
         ImmutableTask toEditTwoThings = getTaskAt(1);
         assertEquals("Task 1", toEditTwoThings.getTitle());
-        assertFalse(toEditTwoThings.isPinned());
+        assertTrue(toEditTwoThings.isPinned());
         assertEquals("New description", toEditTwoThings.getDescription().get());
         assertEquals("Singapura", toEditTwoThings.getLocation().get());
     }

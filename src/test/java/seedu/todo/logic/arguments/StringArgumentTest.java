@@ -29,6 +29,7 @@ public class StringArgumentTest {
     @Test
     public void testNotBindEmptyValue() throws IllegalValueException {
         arg.setValue("  ");
-        assertFalse(arg.hasBoundValue());
+        assertTrue(arg.hasBoundValue());
+        assertEquals(arg.getValue(), "");
     }
 }

@@ -19,6 +19,13 @@ public class DateRangeArgumentTest {
         assertNull(arg.getValue().getStartTime());
         assertNull(arg.getValue().getEndTime());
     }
+    
+    @Test
+    public void testEmptyInput() throws Exception {
+        arg.setValue("");
+        assertNull(arg.getValue().getStartTime());
+        assertNull(arg.getValue().getEndTime());
+    }
 
     @Test
     public void testInternationalDate() throws Exception {
