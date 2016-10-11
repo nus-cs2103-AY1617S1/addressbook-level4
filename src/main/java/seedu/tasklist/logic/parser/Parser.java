@@ -229,6 +229,7 @@ public class Parser {
          * FindCommand(keywordSet);
          */
         args = args.trim();
+        args = '*' + args + '*';
         return new FindCommand(args);
     }
 
