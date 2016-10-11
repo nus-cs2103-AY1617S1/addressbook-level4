@@ -114,13 +114,12 @@ public class EditCommand extends Command{
             model.editPriority(personToEdit, priority);
         }
         
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
-        
-        /* TODO
-            if (recurrenceRate != null) {
+        if (recurrenceRate != null) {
             model.editRecurrence(personToEdit, recurrenceRate);
         }
-        */
+        
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
+        
 	}
 
 }

@@ -109,6 +109,12 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
 		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);	
 	}
 
+	public void editFloatingTaskRecurrence(ReadOnlyTask floatTask, RecurrenceRate recurrenceRate) {
+		Task currTask = floatingTasks.getTask(floatTask);
+		currTask.setRecurrence(recurrenceRate);
+		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);			
+	}
+	
 //// util methods
 
 	@Override

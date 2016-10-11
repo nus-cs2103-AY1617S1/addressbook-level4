@@ -125,12 +125,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private int compareByTaskName(Task other) {
         return this.taskName.name.compareTo(other.taskName.name);
     }
-    
-    @Override
-    public Name getName() {      
-        return taskName;
-    }
-    
+
 	public void setName(Name name) {
         this.taskName = name;
 	}
@@ -146,7 +141,16 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public void setPriority(Priority priorityValue) {
         this.priority = priorityValue;
 	}
-	
+
+	public void setRecurrence(RecurrenceRate recurrenceRate) {
+        this.recurrenceRate = recurrenceRate;		
+	}
+    
+    @Override
+    public Name getName() {      
+        return taskName;
+    }
+    
     @Override
     public Priority getPriorityValue() {
         return priority;

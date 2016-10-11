@@ -49,6 +49,9 @@ public interface Model {
     /** Edits the priority of the given floating task. */
 	void editPriority(ReadOnlyTask personToEdit, Priority priority);
 
+    /** Edits the recurrence of the given floating task. */
+	void editRecurrence(ReadOnlyTask personToEdit, RecurrenceRate recurrenceRate);
+
     
 
 
