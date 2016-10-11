@@ -79,7 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void editTask (int index, String type, String toEdit) throws TaskTypeNotFoundException{
-    	Task toBeEditedTask = taskManager.getTasks().get(index -1);
+    	Task toBeEditedTask = filteredTasks.get(index-1);
     	switch (type) {
     	case "task":
     		try{
