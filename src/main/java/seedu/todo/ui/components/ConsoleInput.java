@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.ui.InputHandler;
 import seedu.todo.ui.UiPartLoader;
 
 public class ConsoleInput extends Component {
@@ -13,6 +14,9 @@ public class ConsoleInput extends Component {
 
     // Props
     public String lastCommandEntered;
+    
+    // Input handler
+    private InputHandler inputHandler = new InputHandler();
     
     // FXML
     @FXML
@@ -37,7 +41,6 @@ public class ConsoleInput extends Component {
     @FXML
     public void handleConsoleInputChanged() {
         lastCommandEntered = consoleInputTextField.getText();
-        
-        // Pass command to controllers
+        inputHandler.processInput(lastCommandEntered);
     }
 }
