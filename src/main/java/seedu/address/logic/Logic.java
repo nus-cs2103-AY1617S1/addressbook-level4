@@ -3,7 +3,6 @@ package seedu.address.logic;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TMReadOnlyTask;
 
 /**
  * API of the Logic component
@@ -17,6 +16,6 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of tasks */
-    ObservableList<TMReadOnlyTask> getFilteredTaskList();
+    ObservableList<ReadOnlyTask> getFilteredTaskList();
 
 }
