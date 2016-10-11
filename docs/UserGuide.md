@@ -42,8 +42,7 @@ Format: `help`
 
 ##### Adding a task: `add`
 Adds a task to the task manager.<br>
-Format: `add DESCRIPTION [pr/RANK] [time/TIME] [t/TAG]...`
-Format for TIME: numeric date/month/year/24hour_format
+Format: `add DESCRIPTION [pr/RANK] [time/TIME] [a/VENUE] [t/TAG]...`
 
 > * Tasks can have different priorities, normal by default, high or low
 > * Deadlines can be set for tasks
@@ -84,32 +83,32 @@ Format: `list tags`
 
 
 #### Finding all tasks containing any keyword in their description: `find`
-Find tasks whose description contain any of the given keywords.<br>
+Finds tasks whose description contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is case insensitive. e.g `Gives` will not match `give`
+> * The search is case sensitive. e.g `Gives` will not match `give`
 > * The order of the keywords does not matter. e.g. `Give Eggs` will match `Eggs Give`
 > * Only the description is searched.
-> * Only words with fewer or equal characters will return e.g. `Exam` will return `Exams` but `Exams` will not return `Exam` 
+> * Only full words will be matched e.g. `Return` will not match `Returns`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Return` will match `Return Car`
 
 Examples:
 * `find Tutorial`<br>
-  Returns `Tutorial 8` and `tutorial`
+  Returns `Tutorial 8` but not `tutorial`
 * `find Return lunch Meeting`<br>
   Returns Any tasks having description containing `Return`, `lunch`, or `Meeting`
 
 #### Deleting a task/tag
 
 ##### Delete a task: `delete`
-Delete the specified task from the task manager.<br>
+Deletes the specified task from the task manager.<br>
 Format: `delete INDEX`
 
 Examples:
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd task in the list
+  Deletes the 2nd task in the task manager.
 
 ##### Deleting tags from a task: `delete tag`
 Delete tags from specified task.<br>
@@ -118,11 +117,11 @@ Format: `delete tag INDEX TAG [MORE_TAGS]`
 Example:
 * `list`<br>
   `delete tag 3 foe NTU`<br>
-  Removes the tags `foe` and `NTU` from the 3rd task in the list
+  Removes the tags `foe` and `NTU` from the 3rd contact selected
 
 
 #### Editing a task: `edit`
-Edit the specified task.<br>
+Edits the specified task.<br>
 Format: `edit INDEX INPUT [MORE_INPUT]`
 
 > * Edits the task by replacing the information stored with the input accordingly
@@ -132,7 +131,7 @@ Format: `edit INDEX INPUT [MORE_INPUT]`
 Examples:
 * `list`<br>
   `edit 3 Complete tutorial 7 pr/ time/`<br>
-	Edits the 3rd task in the list by replacing the description, resetting the priority and removing the deadline
+  Edits the 3rd task in the task manager by replacing the description, resetting the priority and removing the deadline
 
 #### Completing a task: `complete`
 Tag the task last selected as 'Complete' and remove it from the calendar.<br>
@@ -141,7 +140,7 @@ Format: `complete INDEX`
 Examples:
 * `list`<br>
   `complete 2`<br>
-  Adds a tag `COMPLETE` to the 2nd task in the list.
+  Add a tag `COMPLETE` the 2nd task in the task manager.
 
 #### Undo action: `undo`
 Undoes the most recent change from the task manager.<br>

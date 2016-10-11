@@ -390,7 +390,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(description, priority, time, venue, tags);
+            return new Task(description, time, venue, priority, tags);
         }
 
         /**
@@ -403,9 +403,9 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Description("Person " + seed),
-                    new Priority(""),
                     new Time("" + Math.abs(seed) + ":" + Math.abs(seed) + Math.abs(seed)),
                     new Venue(seed + "Place"),
+                    new Priority(""),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -502,9 +502,9 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Description(name),
-                    new Priority(""),
                     new Time("1:11"),
                     new Venue("Junct1"),
+                    new Priority(""),
                     new UniqueTagList(new Tag("tag"))
             );
         }
