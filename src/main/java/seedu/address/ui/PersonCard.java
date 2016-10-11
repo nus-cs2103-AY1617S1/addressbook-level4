@@ -10,14 +10,16 @@ public class PersonCard extends UiPart{
 
     private static final String FXML = "PersonListCard.fxml";
 
+    //When changing the FXML labels, PersonCardHandle.java has to be updated also
+    
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label description;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label dateTime;
     @FXML
     private Label address;
     @FXML
@@ -39,9 +41,9 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getDescription().fullName);
+        description.setText(person.getDescription().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getPhone().value);
+        dateTime.setText(person.getPhone().value);
         address.setText(person.getDateTime().value);
         tags.setText(person.tagsString());
     }

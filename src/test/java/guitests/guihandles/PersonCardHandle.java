@@ -9,9 +9,9 @@ import seedu.emeraldo.model.task.ReadOnlyTask;
  * Provides a handle to a person card in the person list panel.
  */
 public class PersonCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#name";
+    private static final String NAME_FIELD_ID = "#description";
     private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
+    private static final String PHONE_FIELD_ID = "#dateTime";
 
     private Node node;
 
