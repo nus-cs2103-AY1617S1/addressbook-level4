@@ -76,6 +76,8 @@ public class LogicManagerTest {
 
     @After
     public void teardown() {
+    	logic.execute("clear");
+    	logic.execute("cd data\\tasklist.xml");
         EventsCenter.clearSubscribers();
     }
 
@@ -484,7 +486,6 @@ public class LogicManagerTest {
         assertEquals(expectedAB, new TaskList(retrieved));
         assertEquals(model.getTaskList(), new TaskList(retrieved));
         
-        logic.execute("cd "+ saveFolder.getRoot().getPath() + "TempTaskList.xml");
     }
 
 
