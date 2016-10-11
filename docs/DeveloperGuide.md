@@ -255,16 +255,16 @@ Priorities: High - `* * *`, Medium - `* *`,  Low - `*`
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add tasks and events to the todo list | remember what I have to do/what I have to attend
-`* * *` | user | view upcoming tasks and events | check what I need to do / have to do soon
+`* * *` | user | add tasks to the todo list | remember what I have to do/what I have to attend
+`* * *` | user | view upcoming tasks | check what I need to do / have to do soon
 `* * *` | user | search for details on a task or event | view what needs to be done
-`* * *` | user | delete task that has been completed | I do not have to keep track of it
+`* * *` | user | delete task that has been completed | I do not have to keep track of it	
 `* * *` | mark the task as completed upon completion | keep an archive of tasks that I have completed
+`* * *` | user | view tasks that I have completed | recall what I have completed
 `* * *` | call up the todo list with a simple keystroke | start the application anytime during my workflow
-`* *` | call up the todo list with a simple keystroke | start the application anytime during my workflow
-`* *` | user | edit tasks and events | keep them up to date
+`* *` | user | edit tasks | keep them up to date
 `* *` | user | undo my actions | reverse any mistakes that I have made
-`* *` | user | redo my undo | undo my undo
+`* *` | user | redo my undo | correct any accidental undo
 `*` | user | enter synonyms for the commands | use natural language to accomplish what I want
 `*` | user | tag tasks | classify them and search for them according to these tags
 
