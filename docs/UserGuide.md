@@ -131,12 +131,6 @@ Format: `done <task index>`
 Example:
 * `done t1`
 
-#### Adding a subtask: `add-s`
-Adds a subtask to a main task<br>
-Format: `add-s <task index> <subtask>`
-Example: 
-* `add-s t2 Question1`
-
 ##### Set alarms for tasks: `remind`
 There are 2 ways to set an alarm for tasks. The first is to set the alarm when creating the task, and the second is to set it manually for a task that is already present.<br>
 Format: 

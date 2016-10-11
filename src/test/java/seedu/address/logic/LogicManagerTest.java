@@ -502,8 +502,8 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Date("1"),
-                    new Time("1@time")
+                    new Date("10/12/17"),
+                    new Time("11:40pm")
 //                    new Address("House of 1"),
 //                    new UniqueTagList(new Tag("tag"))
             );
