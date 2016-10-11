@@ -5,6 +5,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.item.Item;
+import seedu.address.model.item.ItemType;
 import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.model.item.UniquePersonList;
 import seedu.address.model.item.UniquePersonList.PersonNotFoundException;
@@ -95,6 +96,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredItems.setPredicate(null);
+    }
+    
+    //editted these 3 lines!
+    @Override
+    public void updateFilteredListToShowTask() {
+    	filteredItems.setPredicate(null);
     }
 
     @Override
