@@ -65,8 +65,11 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
         
-        case EditCommand.COMMAND_WORD:
-        	return prepareEdit(arguments);
+        case EditCommand.COMMAND_WORD: 
+            return prepareEdit(arguments);
+                
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
         	
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -82,9 +85,6 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-            
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

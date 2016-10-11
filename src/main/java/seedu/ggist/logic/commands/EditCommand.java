@@ -10,15 +10,15 @@ import seedu.ggist.model.task.*;
 import static seedu.ggist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
- * Adds a person to the address book.
+ * Edits task information
+ * 
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Edits a person identified by the index number used in the last person listing. "
-            +"Contact details can be marked private by prepending 'p' to the prefix.\n\t"
-            + "Parameters: INDEX [NAME] [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS  [t/TAG]...\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Edits a tasl identified by the index number used in the last task listing. "
+            + "Parameters: INDEX [FIELD TO CHANGE] [NEW INFO] \n\t"
             + "Example: " + COMMAND_WORD
             + " 1, TaskName, Buy eggs";
 
@@ -51,7 +51,7 @@ public class EditCommand extends Command {
         	model.editTask(targetIndex,type,toEdit);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         } catch (TaskTypeNotFoundException pnfe) {
-        	return new CommandResult(Messages.MESSAGE_Task_Type_NOT_IN_GGIST);
+        	return new CommandResult(Messages.MESSAGE_TASK_TYPE_NOT_IN_GGIST);
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_Task_DISPLAYED_INDEX);
         }
