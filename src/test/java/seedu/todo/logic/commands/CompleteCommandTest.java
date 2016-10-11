@@ -27,6 +27,7 @@ public class CompleteCommandTest extends CommandTest {
         ImmutableTask toMarkComplete = getTaskAt(3);
         setParameter("3");
         execute();
+        toMarkComplete = getTaskAt(3);
         assertTrue(toMarkComplete.isCompleted());
     }
     
@@ -35,6 +36,7 @@ public class CompleteCommandTest extends CommandTest {
         ImmutableTask toMarkIncomplete = getTaskAt(1);
         setParameter("1");
         execute();
+        toMarkIncomplete = getTaskAt(3);
         assertFalse(toMarkIncomplete.isPinned());
     }
 }

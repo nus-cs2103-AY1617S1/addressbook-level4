@@ -17,9 +17,9 @@ public class PinCommand extends BaseCommand {
 
     @Override
     public void execute() throws IllegalValueException {
-        ImmutableTask toComplete=this.getTaskAt(index.getValue());
-        boolean isPinned=!(toComplete.isPinned());
-        this.model.update(toComplete, task->{task.setPinned(isPinned);});
+        ImmutableTask toPin = this.getTaskAt(index.getValue());
+        boolean isPinned = !toPin.isPinned();
+        this.model.update(toPin, task->task.setPinned(isPinned));
     }
 
 }

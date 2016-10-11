@@ -17,9 +17,9 @@ public class CompleteCommand extends BaseCommand {
 
     @Override
     public void execute() throws IllegalValueException {
-        ImmutableTask toComplete=this.getTaskAt(index.getValue());
-        boolean result=!(toComplete.isCompleted());
-        this.model.update(toComplete, task->{task.setCompleted(result);});
-        }
+        ImmutableTask toComplete = this.getTaskAt(index.getValue());
+        boolean result = !toComplete.isCompleted();
+        this.model.update(toComplete, task->task.setCompleted(result));
+    }
 
 }
