@@ -68,10 +68,8 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
      * Adds a person to the address book.
      * Also checks the new person's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the person to point to those in {@link #tags}.
-     *
-     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addFloatingTask(Task f) throws UniqueTaskList.DuplicateTaskException {
+    public void addFloatingTask(Task f) {
         floatingTasks.add(f);
     }
 
