@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<activitymanager>
+    <activity>
+        <name>Floating Task 1</name>
+    </activity>
+    <activity>
+        <name>Floating Task 2</name>
+    </activity>
+    <activity>
+        <name>Floating Task 3</name>
+    </activity>
+    <activity>
+        <name>Floating Task 4</name>
+    </activity>
+    <activity>
+        <name>Floating Task 5</name>
+    </activity>
+</activitymanager>
