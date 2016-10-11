@@ -51,7 +51,7 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
+5. You can try some of these commands:
    * **`list`** : lists all uncompleted tasks and upcoming events
    * **`new`**` "Do Research" by 21 Sep 5pm` : 
      adds a new task named "Do Research" with the deadline on 21 September, 5pm
@@ -64,30 +64,27 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
-> * The order of parameters does not matter.
+> * Parameters can be input in any order
 > * Items enclosed within `[ ]` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The use of commas `,` and full stops `.` is optional and will not affect the command.
-> * All command keywords are not case-sensitive.
-> * For parameters relating to days, they are context-sensitive. For example, typing "Fri" means the next Friday from *today*.
+> * Items with `...` accept multiple instances. For example, [tag "TAG"...] means you can input multiple tags
+> * Commas `,` and full stops `.` are optional and will not affect the command.
+> * Command keywords are not case-sensitive.
+> * Parameters relating to days are context-sensitive. For example, typing "Fri" means the next Friday from *today*.
 
 > **Date Format**
 > * Accepted date formats: 18 Sep, 18 September, 18 Sep 2016, Sep 18 2016
 > * Accepted time formats: 5pm, 5:01pm, 5:01:59pm, 17:00
 
 > **Tasks**<br>
-> A task will have a name, and may be categorized as follows:
+> Each task has a name, and belongs to one of these categories:
 > * **Floating Task** has no additional details
 > * **Normal Task** has a deadline
-> * **Task with Allocated Timeslot** has a deadline, starting time and ending time
+> * **Task with Allocated Timeslot (Event)** has a starting time and ending time
 
-> **Events**<br>
-> Tasks may act as events in our program. Simply enter the starting and ending time
-> and omit the deadline.
 
 > **Recurring tasks and events**
-> Tasks and events may be set to repeat daily/weekly/monthly,
-> recurring after its deadline or end time.
+> Tasks and events may be set to repeat daily/weekly/monthly<br>
+> Tasks with recurrence recur after its deadline or endtime
 
 >> Tasks or events which are exact duplicates are combined into one.
 
@@ -104,9 +101,9 @@ Adds a new task or event to the task list.<br>
 Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
 
 > Creates a new task with the name given. The particulars of the task may vary:
-> * If it is a normal task, a deadline should be set.
-> * If it is a task with allocated timeslot, a deadline, start time and end time should be set.
-> * If it is an event, the start time and end time should be set.
+> * For a normal task, set a deadline
+> * For an event, set a start time and end time
+> * If it is an event, the start time and end time should be set.<br>
 > The recurrence of a task can be set with the `repeat` keyword.<br>
 > The repeat pattern can be `daily`, `weekly`, or `monthly`.<br>
 > The repeat frequency will represent how many times the recurrence will occur.<br>
