@@ -1,14 +1,9 @@
 # Developer Guide 
 
-## Introduction
-
-TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events with options such as deadline, recurrence, and tags. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
-
-This guide contains all necessary information for both new and experienced contributors to the development of TaSc. Each section provides an overview on the topic, which goes into further details in its subsections. Throughout your development of TaSc, as each subsection is relatively self-contained, you may revisit the topics that most interest you.
-
 ## Table of Contents
 
-* [Setting Up](#setting-up)
+* [Introduction](#introduction)
+* [Setting up](#setting-up)
     * [Prerequisites](#prerequisites)
     * [Importing the project into Eclipse](#importing-the-project-into-eclipse)
 * [Design](#design)
@@ -27,8 +22,8 @@ This guide contains all necessary information for both new and experienced contr
     * [Continuous Integration](#continuous-integration)
     * [Making a Release](#making-a-release)
     * [Managing Dependencies](#managing-dependencies)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
+* [Appendix A : User Stories](#appendix-a--user-stories)
+* [Appendix B : Use Cases](#appendix-b--use-cases)
     * [Use case: Create new event](#use-case-create-new-event)
     * [Use case: List uncompleted tasks](#use-case-list-uncompleted-tasks)
     * [Use case: Update information of a task](#use-case-update-information-of-a-task)
@@ -38,13 +33,19 @@ This guide contains all necessary information for both new and experienced contr
     * [Use case: Find tasks using keywords](#use-case-find-tasks-using-keywords)
     * [Use case: Delete all data](#use-case-delete-all-data)
     * [Use case: Change data storage file location](#use-case-change-data-storage-file-location)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E: Product Survey](#appendix-e-product-survey)
+* [Appendix C : Non Functional Requirements](#appendix-c--non-functional-requirements)
+* [Appendix D : Glossary](#appendix-d--glossary)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
     * [Google Calendar](#google-calendar)
     * [Todoist](#todoist)
     * [Microsoft Outlook](#microsoft-outlook)
     * [iCalendar](#icalendar)
+
+## Introduction
+
+TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events with options such as deadline, recurrence, and tags. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
+
+This guide contains all necessary information for both new and experienced contributors to the development of TaSc. Each section provides an overview on the topic, which goes into further details in its subsections. Throughout your development of TaSc, as each subsection is relatively self-contained, you may revisit the topics that most interest you.
 
 ## Setting up
 
