@@ -119,6 +119,13 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Returns the number of tags in the list
+     */
+    public int getNumber() {
+        return internalList.size();
+    }
+
     @Override
     public Iterator<Tag> iterator() {
         return internalList.iterator();
