@@ -199,5 +199,18 @@ public class Activity implements ReadOnlyActivity {
         // TODO Auto-generated method stub
         
     }
-
+    
+    @Override
+    public String toString() {
+        switch(this.activityType){
+        case FLOATING_TASK_TYPE:
+            return this.name + " n: " + this.note;
+        case TASK_TYPE:
+            return this.name + " by: " + this.startDate + " " + this.startTime + " n: " + this.note;
+        case EVENT_TYPE:
+            return this.name + " by: " + this.startDate + " " + this.startTime + " to: " + this.endDate
+                     + " " + this.endTime + "n: " + this.note;
+        }
+        return null;
+    }
 }
