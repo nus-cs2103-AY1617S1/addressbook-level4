@@ -1,4 +1,4 @@
-package seedu.todo.models;
+package seedu.todo.commons;
 
 /**
  * A bit like Redis, essentially a data store for things that should not be
