@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-W13-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W13-C4/main)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W13-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W13-C4/main?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/80804481f4294e708f3ade895f7d930b)](https://www.codacy.com/app/edmundmok/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-W13-C4/main&amp;utm_campaign=Badge_Grade)
 
 # DearJim
 
