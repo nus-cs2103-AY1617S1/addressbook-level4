@@ -109,11 +109,8 @@ public class CommandInputView extends UiPart {
          */
         logic.execute(previousCommandText);
         //TODO: Update the command output with actual implementation.
-        if (previousCommandText.length() != 0) {
-            commandFeedbackView.displayMessage("Command \""
-                    + previousCommandText.substring(0, Math.min(50, previousCommandText.length()))
-                    + "...\" executed successfully.");
-        }
+        commandFeedbackView.displayMessage("Command \"" + previousCommandText + "\" was executed.");
+
     }
 
     /**
