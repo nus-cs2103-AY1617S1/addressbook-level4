@@ -3,6 +3,7 @@ package seedu.todo.ui.views;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -24,8 +25,8 @@ public class IndexView extends View {
     private Pane tasksPane;
 
     // Props
-    public ArrayList<Task> tasks = new ArrayList<Task>(); // stub
-    public ArrayList<String> tags = new ArrayList<String>(); // stub
+    public List<Task> tasks = new ArrayList<Task>(); // stub
+    public List<String> tags = new ArrayList<String>(); // stub
     public String indexTextValue;
 
 

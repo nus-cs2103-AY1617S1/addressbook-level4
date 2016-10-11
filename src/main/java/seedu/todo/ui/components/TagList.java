@@ -1,6 +1,6 @@
 package seedu.todo.ui.components;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -24,7 +24,7 @@ public class TagList extends Component {
     private static final String COMPLETED_ICON_PATH = "/images/icon-tick.png";
 
     // Props
-    public ArrayList<String> tags; // stub
+    public List<String> tags; // stub
 
     // FXML
     @FXML
@@ -50,7 +50,7 @@ public class TagList extends Component {
         // Load TagListLinks
         loadLinks();
 
-        // Load Tags
+        // Load TagListItems
         loadTags();
     }
 

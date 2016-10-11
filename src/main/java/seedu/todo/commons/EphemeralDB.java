@@ -1,6 +1,6 @@
 package seedu.todo.commons;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import seedu.todo.models.Task;
 
@@ -30,7 +30,7 @@ public class EphemeralDB {
 
     /** ======== DISPLAYED TASKS ======== **/
 
-    public ArrayList<Task> displayedTasks;
+    public List<Task> displayedTasks;
 
     /**
      * Returns a Task from displayedTasks according to their displayed ID.

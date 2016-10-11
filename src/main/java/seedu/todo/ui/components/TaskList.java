@@ -2,6 +2,7 @@ package seedu.todo.ui.components;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ public class TaskList extends Component {
     private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
 
     // Props
-    public ArrayList<Task> tasks; // stub
+    public List<Task> tasks; // stub
 
     // FXML
     @FXML
@@ -49,14 +50,14 @@ public class TaskList extends Component {
         HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = getTasksByDate(tasks);
 
         // Get unique task dates and sort them
-        ArrayList<LocalDateTime> taskDates = new ArrayList<LocalDateTime>();
+        List<LocalDateTime> taskDates = new ArrayList<LocalDateTime>();
         taskDates.addAll(tasksByDate.keySet());
         java.util.Collections.sort(taskDates);
 
         // For each dateTime, individually render a single TaskListDateItem.
         for (LocalDateTime dateTime : taskDates) {
             TaskListDateItem item = TaskListDateItem.load(primaryStage, taskListDateItemsPlaceholder);
-            ArrayList<Task> tasksForDate = tasksByDate.get(dateTime);
+            List<Task> tasksForDate = tasksByDate.get(dateTime);
 
             item.dateTime = dateTime;
             item.tasks = tasksForDate;
@@ -66,7 +67,7 @@ public class TaskList extends Component {
         }
     }
 
-    private HashMap<LocalDateTime, ArrayList<Task>> getTasksByDate(ArrayList<Task> tasks) {
+    private HashMap<LocalDateTime, ArrayList<Task>> getTasksByDate(List<Task> tasks) {
         HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = new HashMap<LocalDateTime, ArrayList<Task>>();
 
         for (Task task : tasks) {
