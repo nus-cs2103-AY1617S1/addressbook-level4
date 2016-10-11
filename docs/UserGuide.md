@@ -104,6 +104,7 @@ Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN 
 > * For a normal task, set a deadline
 > * For an event, set a start time and end time
 > * For a floating task, no need to set deadline or start/end time <br>
+
 > The recurrence of a task can be set with the `repeat` keyword.<br>
 > The repeat pattern can be `daily`, `weekly`, or `monthly`.<br>
 > The repeat frequency will represent how many times the recurrence will occur.<br>
