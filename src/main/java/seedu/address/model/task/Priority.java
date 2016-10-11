@@ -10,10 +10,24 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Priority {
     
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority should /low, /medium or /high";
-    public static final String PRIORITY_VALIDATION_REGEX = "";
+//    public static final String PRIORITY_VALIDATION_REGEX = "(high|medium|low)";
+    
+    public static final String HIGH = "high";
+    public static final String MEDIUM = "medium";
+    public static final String LOW = "low";
+    public static final String NONE = "";
 
     public final String value;
 
+    /**
+     * Creates a default priority object, which has value "low"
+     * 
+     * @author A0139661Y
+     */
+    public Priority() {
+    	value = LOW;
+    }
+    
     /**
      * Validates given priority.
      *
@@ -24,14 +38,23 @@ public class Priority {
         if (!isValidPriority(priority)) {
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
-        this.value = priority;
+        // Test-case manual add
+        if (!priority.equals("")) {
+        	this.value = priority.toLowerCase();
+        } else this.value = LOW;
     }
 
     /**
      * Returns true if a given string is a valid priority.
+     * 
+     * @author A0139661Y
      */
-    public static boolean isValidPriority(String test) {
-        return test.matches(PRIORITY_VALIDATION_REGEX);
+    public static boolean isValidPriority(String testString) {
+//        return test.matches(PRIORITY_VALIDATION_REGEX);
+    	String test = testString.toLowerCase();
+    	if (test.equals(HIGH) || test.equals((MEDIUM)) || test.equals(LOW) || test.equals(NONE))
+    		return true;
+    	return false;
     }
 
     @Override

@@ -42,11 +42,11 @@ public interface ReadOnlyTask {
         builder.append(getDetail())
         		.append(" Done: ")
         		.append(checkDone())
-                .append(" Phone: ")
+                .append(" DueDate: ")
                 .append(getDueByDate())
-                .append(" Email: ")
+                .append(" DueTime: ")
                 .append(getDueByTime())
-                .append(" Address: ")
+                .append(" Priority: ")
                 .append(getPriority())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
