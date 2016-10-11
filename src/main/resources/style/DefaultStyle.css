@@ -14,17 +14,17 @@
 }
 
 .taskCard .titleLabel {
-    -fx-font-size: 20pt;
+    -fx-font-size: 16pt;
     -fx-font-family: "Segoe UI Semibold";
 }
 
 .taskCard .descriptionLabel {
-    -fx-font-size: 14pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI";
 }
 
 .taskCard .footnoteLabel {
-    -fx-font-size: 11pt;
+    -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI Semilight";
     -fx-font-style: italic;
 }
