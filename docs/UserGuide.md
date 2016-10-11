@@ -77,14 +77,14 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 
 > **Tasks**<br>
 > Each task has a name, and belongs to one of these categories:
-> * **Floating Task** has no additional details
 > * **Normal Task** has a deadline
 > * **Task with Allocated Timeslot (Event)** has a starting time and ending time
+> * **Floating Task** has no additional details
 
 
 > **Recurring tasks and events**
 > Tasks and events may be set to repeat daily/weekly/monthly<br>
-> Tasks with recurrence recur after its deadline or endtime
+> They will recur after their respective deadline or endtime
 
 >> Tasks or events which are exact duplicates are combined into one.
 
@@ -92,18 +92,18 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 Format: `help`
 Opens a new window displaying this document.
 
-> If you enter an invalid command (e.g `abcd`), or enter invalid parameters
-> for commands, messages would be shown on the output box in the
+> If an invalid command (e.g `abcd`) or parameter is entered,
+> help messages will be shown in the output box of the
 > program.
 
 #### Create a new task/event: `add`
 Adds a new task or event to the task list.<br>
 Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
 
-> Creates a new task with the name given. The particulars of the task may vary:
+> Creates a new task with the specified name. The type of task may vary:
 > * For a normal task, set a deadline
 > * For an event, set a start time and end time
-> * If it is an event, the start time and end time should be set.<br>
+> * For a floating task, no need to set deadline or start/end time <br>
 > The recurrence of a task can be set with the `repeat` keyword.<br>
 > The repeat pattern can be `daily`, `weekly`, or `monthly`.<br>
 > The repeat frequency will represent how many times the recurrence will occur.<br>
