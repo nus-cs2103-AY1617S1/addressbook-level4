@@ -23,22 +23,25 @@ public class ShowCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (keyword.equals("all")) {
-            model.updateFilteredListToShowAll();
-        }
-        else if (keyword.equals("incomplete")) {
-            model.updateFilteredListToShowIncomplete();
-        }
-        else if (keyword.equalsIgnoreCase("complete")) {
-            model.updateFilteredListToShowComplete();
-        }
-        else if (keyword.equalsIgnoreCase("p/high") || keyword.equalsIgnoreCase("p/normal") || keyword.equalsIgnoreCase("p/low")){
-            model.updateFilteredListToShowPriority(keyword);
-        }
-        else {
-        	return new CommandResult(String.format(MESSAGE_SHOW_FAILURE));
-        }
+    	switch (keyword) {
     	
-        return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
-    }
+        case "all":
+    	    model.updateFilteredListToShowAll();
+    	    return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
+    	    
+        case "incomplete":
+            model.updateFilteredListToShowIncomplete();
+            return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
+    		
+        case "complete":
+            model.updateFilteredListToShowComplete();
+            return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
+    		
+        case "p/high": case "p/med": case "p/low":
+            model.updateFilteredListToShowPriority(keyword);
+            return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
+    	
+        default:
+            return new CommandResult(String.format(MESSAGE_SHOW_FAILURE));
+    	}
 }
