@@ -1,10 +1,14 @@
 package seedu.todo.ui;
 
 import com.google.common.eventbus.Subscribe;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
@@ -44,6 +48,7 @@ public class CommandInputView extends UiPart {
         this.logic = logic;
         registerAsAnEventHandler(this);
         setCommandInputHeightAutoResizeable();
+        setCommandInputListener();
     }
 
     private void addToPlaceholder() {
@@ -75,21 +80,37 @@ public class CommandInputView extends UiPart {
         new TextAreaResizerUtil().setResizable(commandTextField);
     }
 
-    @FXML
-    private void handleCommandInputChanged() {
+    /**
+     * Sets the listener for {@link #commandTextField} to listen for command submission.
+     */
+    private void setCommandInputListener() {
+        this.commandTextField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                submitCommandText(commandTextField.getText());
+                commandTextField.clear();
+            }
+        });
+    }
+
+    /**
+     * Process the submitted command
+     */
+    private void submitCommandText(String commandText) {
         //Take a copy of the command text
-        previousCommandText = commandTextField.getText();
+        this.previousCommandText = commandText;
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
         logic.execute(previousCommandText);
-        commandFeedbackView.displayMessage("Command \"" + previousCommandText.substring(0, Math.min(50, previousCommandText.length())) 
-                + "...\" executed successfully.");
         //TODO: Update the command output with actual implementation.
+        if (previousCommandText.length() != 0) {
+            commandFeedbackView.displayMessage("Command \""
+                    + previousCommandText.substring(0, Math.min(50, previousCommandText.length()))
+                    + "...\" executed successfully.");
+        }
     }
-
 
     /**
      * Sets the command box style to indicate a correct command.
