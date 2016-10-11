@@ -1,6 +1,6 @@
 package seedu.address;
 
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.Subscribe;//don't need
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -43,9 +43,16 @@ public class MainApp extends Application {
 
     public MainApp() {}
 
-    @Override
+    /**
+	 * @return the logger
+	 */
+	public static Logger getLogger() {
+		return logger;
+	}
+
+	@Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing ToDoList ]===========================");
+        getLogger().info("=============================[ Initializing ToDoList ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -75,14 +82,14 @@ public class MainApp extends Application {
         try {
             toDoListOptional = storage.readToDoList();
             if(!toDoListOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty ToDoList");
+                getLogger().info("Data file not found. Will be starting with an empty ToDoList");
             }
             initialData = toDoListOptional.orElse(new ToDoList());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ToDoList");
+            getLogger().warning("Data file not in the correct format. Will be starting with an empty ToDoList");
             initialData = new ToDoList();
         } catch (FileNotFoundException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
+            getLogger().warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
             initialData = new ToDoList();
         }
 
@@ -100,17 +107,17 @@ public class MainApp extends Application {
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
         if(configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
+            getLogger().info("Custom Config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
         }
 
-        logger.info("Using config file : " + configFilePathUsed);
+        getLogger().info("Using config file : " + configFilePathUsed);
 
         try {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
+            getLogger().warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
                     "Using default config properties");
             initializedConfig = new Config();
         }
@@ -119,7 +126,7 @@ public class MainApp extends Application {
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            getLogger().warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
         return initializedConfig;
     }
@@ -128,18 +135,18 @@ public class MainApp extends Application {
         assert config != null;
 
         String prefsFilePath = config.getUserPrefsFilePath();
-        logger.info("Using prefs file : " + prefsFilePath);
+        getLogger().info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
         try {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
+            getLogger().warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
+            getLogger().warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
             initializedPrefs = new UserPrefs();
         }
 
@@ -147,7 +154,7 @@ public class MainApp extends Application {
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            getLogger().warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
 
         return initializedPrefs;
@@ -159,18 +166,18 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting ToDoList " + MainApp.VERSION);
+        getLogger().info("Starting ToDoList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        getLogger().info("============================ [ Stopping Address Book ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+            getLogger().severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
         Platform.exit();
         System.exit(0);
@@ -178,7 +185,7 @@ public class MainApp extends Application {
 
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        getLogger().info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
 
