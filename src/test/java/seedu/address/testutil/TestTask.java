@@ -18,6 +18,8 @@ public class TestTask extends Task implements ReadOnlyTask {
 
     public TestTask() {
         tags = new UniqueTagList();
+        startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+        endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
     }
 
     public void setName(Name name) {
