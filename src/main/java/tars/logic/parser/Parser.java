@@ -38,9 +38,15 @@ public class Parser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
+                                                                                                           // or
+                                                                                                           // more
+                                                                                                           // keywords
+                                                                                                           // separated
+                                                                                                           // by
+                                                                                                           // whitespace
+    private static final Pattern FILEPATH_ARGS_FORMAT = Pattern.compile("(?<filepath>\\S+)");
+
     private static final String FLAG_DATETIME = "-dt";
     private static final String FLAG_PRIORITY = "-p";
     private static final String FLAG_TAG = "-t";
@@ -85,9 +91,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-            
+
         case CdCommand.COMMAND_WORD:
-            return new CdCommand(arguments);
+            return prepareCd(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -110,38 +116,32 @@ public class Parser {
     private Command prepareAdd(String args) {
         // there is no arguments
         if (args.trim().length() == 0) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }             
-        
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
         String name = "";
         Option priorityOpt = new Option(FLAG_PRIORITY, true);
         Option dateTimeOpt = new Option(FLAG_DATETIME, true);
         Option tagOpt = new Option(FLAG_TAG, false);
-        
-        Option[] options = {
-                priorityOpt, 
-                dateTimeOpt, 
-                tagOpt
-        };
-        
+
+        Option[] options = { priorityOpt, dateTimeOpt, tagOpt };
+
         TreeMap<Integer, Option> flagsPosMap = getFlagPos(args, options);
         HashMap<Option, String> optionFlagNArgMap = getOptionFlagNArg(args, options, flagsPosMap);
-        
+
         if (flagsPosMap.size() == 0) {
             name = args;
         } else if (flagsPosMap.firstKey() == 0) {
             // there are arguments but name should be the first argument
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } else {
             name = args.substring(0, flagsPosMap.firstKey()).trim();
         }
-        
+
         try {
-            return new AddCommand(
-                    name,
-                    DateTimeUtil.getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(FLAG_DATETIME + " ", "")),
+            return new AddCommand(name,
+                    DateTimeUtil
+                            .getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(FLAG_DATETIME + " ", "")),
                     optionFlagNArgMap.get(priorityOpt).replace(FLAG_PRIORITY + " ", ""),
                     getTagsFromArgs(optionFlagNArgMap.get(tagOpt)));
         } catch (IllegalValueException ive) {
@@ -161,19 +161,18 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments
-                                                                .replaceFirst(FLAG_TAG + " ", "")
-                                                                .split(" " + FLAG_TAG + " "));
+        final Collection<String> tagStrings = Arrays
+                .asList(tagArguments.replaceFirst(FLAG_TAG + " ", "").split(" " + FLAG_TAG + " "));
         return new HashSet<>(tagStrings);
     }
-    
+
     /**
      * Gets all flag position from arguments string
      */
     private static TreeMap<Integer, Option> getFlagPos(String args, Option[] options) {
         args = args.trim();
         TreeMap<Integer, Option> flagsPosMap = new TreeMap<Integer, Option>();
-        
+
         if (args != null && args.length() > 0 && options.length > 0) {
             for (int i = 0; i < options.length; i++) {
                 int indexOf = -1;
@@ -188,17 +187,18 @@ public class Parser {
                 } while (indexOf >= 0);
             }
         }
-        
+
         return flagsPosMap;
     }
-    
+
     /**
      * Extracts the option's flag and arg from arguments string.
      */
-    private static HashMap<Option, String> getOptionFlagNArg(String args, Option[] options, TreeMap<Integer, Option> flagsPosMap) {
+    private static HashMap<Option, String> getOptionFlagNArg(String args, Option[] options,
+            TreeMap<Integer, Option> flagsPosMap) {
         args = args.trim();
         HashMap<Option, String> flagsValueMap = new HashMap<Option, String>();
-        
+
         if (args != null && args.length() > 0 && options.length > 0) {
             // initialize the flagsValueMap
             for (int i = 0; i < options.length; i++) {
@@ -209,8 +209,8 @@ public class Parser {
             for (Map.Entry<Integer, Option> entry : flagsPosMap.descendingMap().entrySet()) {
                 Option option = entry.getValue();
                 Integer pos = entry.getKey();
-                
-                if(pos == -1) {
+
+                if (pos == -1) {
                     continue;
                 }
 
@@ -322,7 +322,6 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
 
     }
-    
 
     /**
      * Parses arguments in the context of the find task command.
@@ -394,8 +393,29 @@ public class Parser {
         return editableArgs;
     }
 
-}
+    private Command prepareCd(String args) {
+        final Matcher matcher = FILEPATH_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(CdCommand.MESSAGE_INVALID_FILEPATH));
+        }
 
+        if (!isFileTypeValid(args.trim())) {
+        return new IncorrectCommand(String.format(CdCommand.MESSAGE_INVALID_FILEPATH));
+        }
+        
+        return new CdCommand(args.trim());
+    }
+    
+    private Boolean isFileTypeValid (String args) {
+        String filePath = args.trim();
+        String extension = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
+        if (extension.equals("xml")) {
+            return true;
+        }
+        return false;
+    }
+
+}
 
 class Option {
     public String flag;
@@ -405,12 +425,13 @@ class Option {
         this.flag = flag;
         this.hasMultiple = hasMultiple;
     }
-    
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Option // instanceof handles nulls
-                && this.flag.equals(((Option) other).flag)); // state check
+                        && this.flag.equals(((Option) other).flag)); // state
+                                                                     // check
     }
 
     @Override
