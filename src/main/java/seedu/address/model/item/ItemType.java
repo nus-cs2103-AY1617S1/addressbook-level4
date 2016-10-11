@@ -3,8 +3,7 @@ package seedu.address.model.item;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Item's type in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidItemType(String)}
+ * Represents a Item's type in the task manager.
  */
 public class ItemType {
 
@@ -18,7 +17,7 @@ public class ItemType {
     public final String value;
 
     /**
-     * Validates given name.
+     * Validates given item type.
      *
      * @throws IllegalValueException if given itemType string is invalid.
      */

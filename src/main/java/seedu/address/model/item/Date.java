@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Item's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
+ * Represents a Item's date in the task manager.
+ * Can be either startDate or endDate
  */
 public class Date {
 
@@ -28,9 +28,9 @@ public class Date {
     }
     
     /**
-     * Validates given email.
+     * Validates given date.
      *
-     * @throws IllegalValueException if given email address string is invalid.
+     * @throws IllegalValueException if given date string is invalid.
      */
     public Date(String date) throws IllegalValueException {
         assert date != null;
@@ -51,7 +51,7 @@ public class Date {
     }
 
     /**
-     * Returns if a given string is a valid person email.
+     * Returns if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
     	if (test.equals(EMPTY_DATE)) {

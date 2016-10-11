@@ -3,7 +3,7 @@ package seedu.address.model.item;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Item's name in the address book.
+ * Represents a Item's name in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
@@ -16,7 +16,7 @@ public class Name {
     /**
      * Validates given name.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException if given name string is invalid.
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
@@ -28,7 +28,7 @@ public class Name {
     }
 
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);

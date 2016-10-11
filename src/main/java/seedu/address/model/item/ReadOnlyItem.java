@@ -3,8 +3,9 @@ package seedu.address.model.item;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Item in the addressbook.
+ * A read-only immutable interface for a Item in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
+ * Date and Time can be empty strings.
  */
 public interface ReadOnlyItem {
 

@@ -8,8 +8,9 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Represents a Item in the address book.
+ * Represents a Item in the task manager.
  * Guarantees: details are present and not null, field values are validated.
+ * Date and Time can be empty strings.
  */
 public class Item implements ReadOnlyItem {
 

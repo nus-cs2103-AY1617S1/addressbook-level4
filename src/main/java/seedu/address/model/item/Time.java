@@ -4,12 +4,12 @@ package seedu.address.model.item;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Item's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
+ * Represents a Item's time in the task maanger.
+ * Can be startTime or endTime
  */
 public class Time {
     
-    public static final String MESSAGE_TIME_CONSTRAINTS = "Item addresses can be in any format";
+    public static final String MESSAGE_TIME_CONSTRAINTS = "Time format must be HH:MM";
     public static final String TIME_VALIDATION_REGEX = "(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])";
     public static final String EMPTY_TIME = "";
 
@@ -26,7 +26,7 @@ public class Time {
     /**
      * Validates given time.
      *
-     * @throws IllegalValueException if given address string is invalid.
+     * @throws IllegalValueException if given time string is invalid.
      */
     public Time(String time) throws IllegalValueException {
         assert time != null;
@@ -37,7 +37,7 @@ public class Time {
     }
 
     /**
-     * Returns true if a given string is a valid person email.
+     * Returns true if a given string is a valid time.
      */
     public static boolean isValidTime(String test) {
     	if (test.equals(EMPTY_TIME)) {
