@@ -75,8 +75,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
     }
     
     /**
-     * 
-     * @return
+     * Replaces the floating task at the specified index with {@code toEdit}
      */
     public void edit(int targetIndex, FloatingTask toEdit) {
         assert toEdit != null;
