@@ -17,7 +17,7 @@ public class EventTask extends Task implements ReadOnlyTask {
     public EventTask(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskTime endTime, UniqueTagList tags) {
         super(taskName, taskDate, startTime, endTime, tags);
     }
-
+   
     /**
      * Copy constructor.
      */
