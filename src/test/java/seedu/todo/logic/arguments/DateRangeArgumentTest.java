@@ -13,6 +13,12 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 public class DateRangeArgumentTest {
     private final Argument<DateRange> arg = new DateRangeArgument("Test");
     private final LocalDateTime tomorrow = LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(0, 0));
+    
+    @Test
+    public void testDefaultValue() throws Exception {
+        assertNull(arg.getValue().getStartTime());
+        assertNull(arg.getValue().getEndTime());
+    }
 
     @Test
     public void testInternationalDate() throws Exception {

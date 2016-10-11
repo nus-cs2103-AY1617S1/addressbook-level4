@@ -20,7 +20,8 @@ public class DateRangeArgument extends Argument<DateRange> {
     private static final String NO_DATE_FOUND_FORMAT = "%s does not seem to contain a date";
     
     public DateRangeArgument(String name) {
-        super(name);
+        // Makes sure that there is a default value, so that callers won't get null when they getValue()
+        super(name, new DateRange(null));
     }
 
     public DateRangeArgument(String name, DateRange defaultValue) {
