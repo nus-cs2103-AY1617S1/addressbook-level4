@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.util.TextAreaResizerUtil;
 import seedu.todo.logic.Logic;
 
@@ -94,7 +95,7 @@ public class CommandInputView extends UiPart {
      */
     private void submitCommandText(String commandText) {
         //Do not execute an empty command.
-        if (commandText.isEmpty() || commandText.equals("\n")) {
+        if (StringUtil.isEmpty(commandText)) {
             return;
         }
         
@@ -134,7 +135,7 @@ public class CommandInputView extends UiPart {
 
     @Subscribe
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandText));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandText));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
     }
