@@ -1,6 +1,6 @@
 package seedu.todo.commons;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import seedu.todo.models.Task;
 
@@ -14,9 +14,9 @@ import seedu.todo.models.Task;
  * @author louietyj
  */
 public class EphemeralDB {
-	
+
     private static EphemeralDB instance = null;
-    
+
     protected EphemeralDB() {
         // Prevent instantiation.
     }
@@ -27,11 +27,11 @@ public class EphemeralDB {
         }
         return instance;
     }
-    
+
     /** ======== DISPLAYED TASKS ======== **/
-	
-    public ArrayList<Task> displayedTasks;
-    
+
+    public List<Task> displayedTasks;
+
     /**
      * Returns a Task from displayedTasks according to their displayed ID.
      * Their displayed ID is simply their index in the ArrayList + 1 (due to 0-indexing of ArrayLists).
@@ -40,16 +40,16 @@ public class EphemeralDB {
      * @return     Returns the Task at the specified display index.
      */
     public Task getTaskByDisplayedId(int id) {
-    	if (id <= 0 || id > displayedTasks.size()) {
-    		return null;
-    	} else {
-    		return displayedTasks.get(id - 1);
-    	}
+        if (id <= 0 || id > displayedTasks.size()) {
+            return null;
+        } else {
+            return displayedTasks.get(id - 1);
+        }
     }
-    
+
     public int addToDisplayedTask(Task task) {
-    	displayedTasks.add(task);
-    	return displayedTasks.size();
+        displayedTasks.add(task);
+        return displayedTasks.size();
     }
 
 }

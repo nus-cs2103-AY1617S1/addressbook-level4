@@ -36,30 +36,28 @@ public class MainApp extends Application {
     @Override
     public void init() throws Exception {
         super.init();
-        
+
         // Initialize config from config file, or create a new one.
         config = initConfig(getApplicationParameter("config"));
-        
+
         // Initialize logging
         initLogging(config);
-        
+
         // Initialize events center
         initEventsCenter();
-        
-        // Initialize UI
-        ui = new UiManager(config);
+
+        // Initialize UI config
+        UiManager.initialize(config);
+        ui = UiManager.getInstance();
     }
 
     @Override
     public void start(Stage primaryStage) {
-    	ui.start(primaryStage);
-    	IndexView index = new IndexView();
-    	index.passInProps(view -> {
-    		IndexView modifyView = (IndexView) view;
-    		modifyView.indexTextValue = "Dynamic text passed to IndexView";
-    		return modifyView;
-    	});
-    	ui.loadView(index);
+        ui.start(primaryStage);
+
+        IndexView view = UiManager.loadView(IndexView.class);
+        view.indexTextValue = "Hi there!";
+        view.render();
     }
 
     @Override
@@ -68,7 +66,7 @@ public class MainApp extends Application {
         Platform.exit();
         System.exit(0);
     }
-    
+
     /** ================== UTILS ====================== **/
 
     /**
@@ -81,7 +79,7 @@ public class MainApp extends Application {
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
     }
-    
+
     /** ================== INITIALIZATION ====================== **/
 
     private void initLogging(Config config) {
@@ -106,7 +104,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
-                    "Using default config properties");
+                           "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -116,14 +114,14 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
-        
+
         return initializedConfig;
     }
 
     private void initEventsCenter() {
         EventsCenter.getInstance().registerHandler(this);
     }
-    
+
     /** ================== SUBSCRIPTIONS ====================== **/
 
     @Subscribe
@@ -131,7 +129,7 @@ public class MainApp extends Application {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
-    
+
     /** ================== MAIN METHOD ====================== **/
 
     public static void main(String[] args) {

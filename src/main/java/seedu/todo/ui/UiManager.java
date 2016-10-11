@@ -18,26 +18,36 @@ import java.util.logging.Logger;
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
+    // Only one instance of UiManager should be present. 
+    private static UiManager instance = null;
+
     private Config config;
     private MainWindow mainWindow;
-    private Stage primaryStage;
+    
+    protected UiManager() {
+        // Prevent instantiation.
+    }
 
-    public UiManager(Config config) {
-        super();
-        this.config = config;
+    public static UiManager getInstance() {
+        return instance;
+    }
+
+    public static void initialize(Config config) {
+        if (instance == null) {
+            instance = new UiManager();
+        }
+        
+        instance.config = config;
     }
 
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
-        
-        // Save primaryStage for later renders.
-        this.primaryStage = primaryStage;
-        
+
         // Show main window.
         try {
-        	mainWindow = MainWindow.load(primaryStage, config);
-            mainWindow.render(primaryStage);
+            mainWindow = MainWindow.load(primaryStage, config);
+            mainWindow.render();
             mainWindow.show();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -49,22 +59,17 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         mainWindow.hide();
     }
-    
-    /**
-     * Loads a View in the main window.
-     * 
-     * @param view   The View to be rendered.
-     */
-    public void loadView(View view) {
-    	if (primaryStage == null)
-    		return;
-    	
-    	assert primaryStage != null;
-    	
-    	view.render(primaryStage, mainWindow.getChildrenPlaceholder());
+
+    public static <T extends View> T loadView(Class<T> viewClass) {
+        if (instance == null) {
+            logger.warning("Cannot loadView: UiManager not instantiated.");
+            return null;
+        }
+        
+        return instance.mainWindow.loadView(viewClass);
     }
-    
-    
+
+
     /** ================ DISPLAY ERRORS ================== **/
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
@@ -72,7 +77,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
-                                               String contentText) {
+            String contentText) {
         final Alert alert = new Alert(type);
         alert.initOwner(owner);
         alert.setTitle(title);
