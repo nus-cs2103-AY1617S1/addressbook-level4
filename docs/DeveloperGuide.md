@@ -483,33 +483,39 @@ Priority | As a ...  | I want to ... | So that I can...
 
 **MSS**
 
-1. User types out an event with start time end time and location
-2. TodoApp adds event with specified fields to 'TodoList.xml'
+1. User types out an event with start time, end time and location
+2. TodoApp adds event with specified fields and saves it to disk
+
 Use case ends.
 
 **Extensions**
 
 1a. The task has no title
 
-> 1a1. TodoApp shows an error message <br>
+> 1a1. TodoApp shows an error message  
   Use case resumes at step 1 
+  
 1b. The task's date field is empty
 
-> 1b1. TodoApp creates a task with no start and end date <br>
-  
-  Use case ends
+> 1b1. TodoApp creates a task with no start and end date  
+  Use case resumes at step 2
 
 1c. The task has a start time later than end time
 
-> 1c1. TodoApp shows an error message <br>
-  Use case resumes at step 1 
+> 1c1. TodoApp assumes the dates are inverted    
+  Use case resumes at step 2
+ 
+1d. The event's timing overlaps with an existing event's timing 
+
+> 1d1. TodoApp displays a warning to the user that he has another event at the same time  
+  Use case resumes at step 2
   
-### Use case: Adding a deadline
+### Use case: Adding a task with deadline
 
 **MSS**
 
-1. User enters a deadline.
-2. TodoApp creates new todo item with deadline specified
+1. User enters a task while specifying a deadline for the task.
+2. TodoApp creates new todo item with deadline specified and saves it to disk
 
 Use case ends.
 
@@ -517,135 +523,179 @@ Use case ends.
 
 1a. The task has no title
 
-> 1a1. TodoApp shows an error message <br>
+> 1a1. TodoApp shows an error message  
   Use case resumes at step 1 
+
 1b. The task's date field is empty
 
-> 1b1. TodoApp creates a task with no start and end date <br>
-  
+> 1b1. TodoApp creates a task with no deadline  
   Use case ends
 
 ### Use case: Adding a recurring task
 
 **MSS**
 
-1. User requests to list persons
-2. TodoApp shows a list of persons
-3. User requests to delete a specific person in the list
-4. TodoApp deletes the person  
+1. User enters a task with a recurring time period 
+2. TodoApp creates a new recurring todo item with the specified time period 
+3. At the start of the specified time period (eg. every week, month) TodoApp creates a copy of the original task for the user 
 
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
 
-> Use case ends
+2a. The given recurring time period is invalid 
 
-3a. The given index is invalid
-
-> 3a1. TodoApp shows an error message <br>
-  Use case resumes at step 2
+> 2a1. TodoApp shows an error message  
+  Use case resumes at step 1
 
 ### Use case: Marking a task complete
 
 **MSS**
 
-1. User requests to list of uncompleted tasks.
+1. User requests to see a list of uncompleted tasks.
 2. TodoApp shows a list of uncompleted tasks.
 3. User marks complete a specific task in the list.
-4. TodoApp marks the task as complete by striking through the task  
+4. TodoApp marks the task as complete by striking through the task and saving its new state to disk
 
 Use case ends.
 
 **Extensions**
+
 1a. User uses another method to list tasks (e.g. search)
 
-> 1a1. TodoApp shows the list of tasks requested
+> 1a1. TodoApp shows the list of tasks requested  
   Use case resumes at step 2
 
 2a. The list is empty
 
-> Use case ends
+> 1a1. TodoApp informs the user the list is empty  
+  Use case ends
 
 3a. The given index is invalid
 
-> 3a1. TodoApp shows an error message <br>
+> 3a1. TodoApp shows an error message  
   Use case resumes at step 2
 
-3b. The given index is a task which is already complete
+3b. The given index is a task which has already been completed
 
-> Use case ends
+> 3b1. TodoApp informs the user the task has already been completed 
+  Use case ends
 
 ### Use case: Delete task
 
 **MSS**
 
-1. User requests to list persons
-2. TodoApp shows a list of persons
-3. User requests to delete a specific person in the list
-4. TodoApp deletes the person  
+1. User requests to delete a specific task from the list
+2. TodoApp deletes the person  
 
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. The given index is invalid
 
-> Use case ends
+> 1a1. TodoApp shows an error message  
+  Use case resumes at step 1
 
-3a. The given index is invalid
-
-> 3a1. TodoApp shows an error message <br>
-
-  Use case resumes at step 2
-
-### Use case: Viewing a specific list of task
+### Use case: Viewing a specific tab (i.e. intelligent views)
 
 **MSS**
 
-1. User requests to list persons
-2. TodoApp shows a list of persons
-3. User requests to delete a specific person in the list
-4. TodoApp deletes the person  
+1. User requests to view specific tab
+2. TodoApp shows a list of tasks under specific tab
 
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. User enters invalid view (eg. a view that doesn't exist )
 
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. TodoApp shows an error message <br>
-  Use case resumes at step 2
-4. TodoApp deletes the person  
-Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. TodoApp shows an error message <br>
-> Use case resumes at step 2
+> 1a1. TodoApp shows an error message  
+  Use case ends
 
 ### Use case: Finding for a task
 
+**MSS**
 
+1. User searches for task with specific tag or fragmented title
+2. TodoApp returns a list of tasks matching search fragment
+
+Use case ends.
+
+**Extensions**
+
+1a. User enters an invalid tag/search fragment
+
+> 1a1. TodoApp returns an empty list  
+  Use case ends
 
 ### Use case: Editing a task
 
+1. User searches for specific task to edit
+2. TodoApp returns list of tasks matching search query
+3. User edits specific task on the list, changing any of its fields
+4. TodoApp accepts changes and reflects them on the task
+
+**Extensions**
+
+2a. List returned is empty  
+>  Use case ends
+
+3a. User enters invalid task index
+
+> 3a1. TodoApp shows error message indicating invalid index   
+> Use case resumes at Step 2
+
+3b. User enters invalid arguments to edit fields
+
+> 3b1. TodoApp shows error message indicating invalid fields  
+> Use case resumes at Step 2
+
 ### Use case: Pinning a task
+
+**MSS**
+
+1. User searches for specific task to pin using the find command
+2. TodoApp returns a list of tasks matching the search query
+3. User selects a specific task to pin
+4. TodoApp pins selected task and updates the storage file on disk 
+
+Use case ends.
+
+**Extensions**
+
+2a. List returned by TodoApp is empty
+
+> Use case ends
+
+3a. Selected task is already pinned
+
+>  3a1. TodoApp unpins selected task
+>  Use case ends
+
+3b. User provides an invalid index
+
+> 3b1. TodoApp shows an error message  
+> Use case resumes at Step 3
+
 
 ### Use case: Undoing an action
 
+1. User carries out a mutating command (see [glossary](#appendix-d-glossary))
+2. User finds they have made a mistake and instructs TodoApp to undo last action
+3. TodoApp rolls back the todolist to the previous state and updates the stored todolist on disk
+
+**Extensions**
+
+2a1. The user calls the undo command without having made any changes 
+
+> 2a1. TodoApp shows an error message  
+> Use case ends 
+
 ### Use case: Redoing an action
+
+
 
 ### Use case: 
 
@@ -674,6 +724,10 @@ Task
 Pinning
 
 :   Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. 
+
+Mutable Command
+
+:   Any command which causes a change in the state of the the TodoApp (E.g. add, delete, edit, pin, complete)
 
 
 ## Appendix E : Product Survey
