@@ -14,7 +14,7 @@ import seedu.ggist.commons.core.EventsCenter;
 import seedu.ggist.model.TaskManager;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.testutil.TestUtil;
-import seedu.ggist.testutil.TypicalTestPersons;
+import seedu.ggist.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -32,7 +32,7 @@ public abstract class TaskManagerGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -78,7 +78,7 @@ public abstract class TaskManagerGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+        TypicalTestTasks.loadAddressBookWithSampleData(ab);
         return ab;
     }
 

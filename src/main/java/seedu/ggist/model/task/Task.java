@@ -5,6 +5,7 @@ import java.util.Objects;
 import seedu.ggist.commons.util.CollectionUtil;
 import seedu.ggist.model.tag.UniqueTagList;
 
+
 /**
  * Represents a Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
@@ -19,8 +20,8 @@ public class Task implements ReadOnlyTask{
 
     /**
      * Every field must be present and not null.
+     * @param milk 
     */  
-    public Task(){}
     
     public Task(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskTime endTime, UniqueTagList tags) {
         this.taskName = taskName;
@@ -28,6 +29,14 @@ public class Task implements ReadOnlyTask{
         this.startTime = startTime;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    
+
+    /**
+     * Copy constructor.
+     */
+    public Task(ReadOnlyTask source) {
+        this(source.getTaskName(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
     
     @Override

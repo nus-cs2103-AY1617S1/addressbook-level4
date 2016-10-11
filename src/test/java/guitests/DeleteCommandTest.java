@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.ggist.testutil.TestPerson;
+import seedu.ggist.testutil.TestTask;
 import seedu.ggist.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
@@ -14,7 +14,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     public void delete() {
 
         //delete the first in the list
-        TestPerson[] currentList = td.getTypicalPersons();
+        TestTask[] currentList = td.getTypicalPersons();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -39,9 +39,9 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of persons (before deletion).
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestPerson[] currentList) {
-        TestPerson personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestPerson[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
+    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+        TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
