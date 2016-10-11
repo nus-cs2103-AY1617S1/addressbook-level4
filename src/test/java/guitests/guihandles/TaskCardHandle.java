@@ -34,8 +34,17 @@ public class TaskCardHandle extends GuiHandle {
 
 
     public boolean isSameFloatingTask(ReadOnlyTask task){
-        System.out.println("This: " + this.getName() + ", " + this.getPriority());
-        System.out.println("Other: " + task.getName() + ", "  + this.getPriority());
+        System.out.println("===================================================================");
+        System.out.println("this.name = " + this.getName() + ", task.name = " + task.getName());
+        System.out.println("this.name.compareTo(task.name) = " + this.getName().compareTo(task.getName().toString()));
+        System.out.println("this.name = task.name? " + (this.getName().equals(task.getName())));
+        System.out.println("this.name.hashCode() = " + this.getName().hashCode() + ", task.name.hashCode() = " + task.getName().hashCode());
+        System.out.println("-------------------------------------------------------------------");
+        System.out.println("this.priority = " + this.getPriority() + ", task.priority = " + task.getPriorityValue());
+        System.out.println("this.priority = task.priority? " + (this.getPriority().equals(task.getPriorityValue())));
+        System.out.println("this.priority.hashCode() = " + this.getPriority().hashCode() + ", task.priority.hashCode() = " + task.getPriorityValue().hashCode());
+        System.out.println("===================================================================");
+
         return getName().equals(task.getName().name) && getPriority().equals(task.getPriorityValue());
     }
 

@@ -161,10 +161,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
+        /* Don't need to validate name?
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                */
         assertCommandBehavior(
-                "add Valid Name rank 11", Priority.MESSAGE_VALUE_CONSTRAINTS);
+                "add Valid Name -LOL", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
     }
 

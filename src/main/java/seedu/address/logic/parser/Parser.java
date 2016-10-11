@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import com.joestelmach.natty.*;
+//import com.joestelmach.natty.*;
 
 /**
  * Parses user input.
@@ -143,6 +143,16 @@ public class Parser {
 
             if (matcher.group("priority") != null) {
                 priority = matcher.group("priority");
+                
+                // SHOULDN't WE DO THE CHECK HERE? PARSER SHOULD RETURN INCORRECT CCOMMAND IF INVALID.
+                switch (priority){
+                    case ("l"): case ("low"):
+                    case ("m"): case ("med"): case("medium"):
+                    case ("h"): case ("high"):
+                        break;
+                    default:
+                        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                }
             } else {
                 priority = "medium";
             }

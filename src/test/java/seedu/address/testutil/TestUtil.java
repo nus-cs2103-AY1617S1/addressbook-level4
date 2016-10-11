@@ -327,6 +327,7 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask task) {
+        assert card != null;
         return card.isSameFloatingTask(task);
     }
 

@@ -18,9 +18,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List. "
-            + "Parameters: NAME [rank PRIORITY_VALUE]\n"
+            + "Parameters: NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
-            + " read Harry Potter and the Akshay rank 1";
+            + " read Harry Potter and the Akshay -low";
     
     public static final String TOOL_TIP = "add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]";
     
@@ -65,11 +65,11 @@ public class AddCommand extends Command {
             System.out.println(Integer.valueOf(recurrenceRateString));
         }
         
-        //TODO: Throw IllegalValueException for default cases?
+        //TODO: Throw IllegalValueException for default cases? Should have detected at parser.
         switch (priorityString) {
             case ("low"): case ("l"): priority = Priority.LOW; break;
             case ("high"): case ("h"): priority = Priority.HIGH; break;
-            case ("medium"): 
+            case ("medium"): case ("m"): case ("med"):
             default: priority = Priority.MEDIUM;
         }
         this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
