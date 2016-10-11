@@ -5,7 +5,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.Task;
-
+import seedu.address.model.task.TaskType;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -15,6 +16,7 @@ import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.core.ComponentManager;
 
 import java.util.ArrayDeque;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -195,6 +197,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class PeriodQualifier implements Qualifier {
+    	private final int START_DATE_INDEX = 0;
+    	private final int END_DATE_INDEX = 1;
+    	
 		private String startTime;
 		private String endTime;
 		
@@ -202,11 +207,36 @@ public class ModelManager extends ComponentManager implements Model {
 			this.startTime = startTime;
 			this.endTime = endTime;
 		}
+		
+		private String[] extractTaskPeriod(ReadOnlyTask task) {
+			TaskType type = task.getType();
+			if(type.equals(TaskType.FLOATING)) {
+				return null;
+			}
+			
+			String startDate = task.getStartDate().getFormattedDate();
+			String endDate = task.getEndDate().getFormattedDate();
+			
+			if(startDate.isEmpty() || endDate.isEmpty()) {
+				return null;
+			}
+			return new String[]{ startDate, endDate };
+		}
 
 		@Override
 		public boolean run(ReadOnlyTask task) {
-			// TODO Auto-generated method stub
-			return false;
+			String[] timeArray = extractTaskPeriod(task);
+			if(timeArray == null) {
+				return false;
+			}
+			String startDate = timeArray[START_DATE_INDEX];
+			String endDate = timeArray[END_DATE_INDEX];
+			
+			if(startDate.equals(this.startTime)
+					&& endDate.equals(this.endTime)) {
+				return true;
+			}
+			return false;	
 		}
 		
 		@Override
