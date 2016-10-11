@@ -26,7 +26,7 @@ public class TypicalTestTasks {
             george = new TaskBuilder().withName("George Best").build();//withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").build();//withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
+            hoon = new TaskBuilder().withName("Hoon Meier").withTags("omg").build();//withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
             ida = new TaskBuilder().withName("Ida Mueller").build();//withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();

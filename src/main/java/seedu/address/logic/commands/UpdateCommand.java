@@ -18,33 +18,39 @@ public class UpdateCommand extends Command {
 
 	public static final String COMMAND_WORD = "update";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update a task in the task list.\n "
-            + "Parameters: INDEX (must be a positive integer) NAME\n"
+            + "Parameters: INDEX (must be a positive integer) NAME \n"
             + "Example: " + COMMAND_WORD
-            + " 1 cs2103";
+            + " 1 cs2103 t/quiz";
     
   //TODO: o/OPENTIME c/CLOSETIME i/IMPORTANCE t/tag
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s"; 
+    
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
     
     public final int targetIndex;
     private final Task toUpdate;
     
     public String task_name;
+    
     public UpdateCommand(int targetIndex,String name,Set<String> tags)
     		throws IllegalValueException{
+    	
         this.targetIndex = targetIndex;
         
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toUpdate = new Task(
+       
+         this.toUpdate = new Task(
                 new Name(name),
                 //new DateTime(openTime),
                 //new DateTime(closeTime),
                 //new Boolean(importance),
                new UniqueTagList(tagSet)
         );
+        
+        
        
     }
     
@@ -61,15 +67,18 @@ public class UpdateCommand extends Command {
         
 		assert model != null;
 		try {
+			
+			
 			model.updateTask(taskToUpdate, toUpdate);
-		} catch (TaskNotFoundException pnfe) {
-			assert false : "The target task cannot be missing";
-		} /*catch (DuplicateTaskException e) {
+			
+		} catch (DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
-		}*/
+		}catch (TaskNotFoundException pnfe) {
+			assert false : "The target task cannot be missing";
+		} 
+		return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, toUpdate));
         
         
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, toUpdate));
     }
     
 	

@@ -4,6 +4,7 @@ import guitests.guihandles.TaskCardHandle;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import seedu.address.logic.commands.UpdateCommand;
+import static seedu.address.logic.commands.UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.AddCommand;
@@ -25,11 +26,16 @@ public class UpdateCommandTest extends AddressBookGuiTest {
         currentList[targetIndex-1]=taskToUpdate;
         currentList=TestUtil.addTasksToList(currentList);
         
-        
-        /*currentList = TestUtil.replaceTaskFromList(currentList, TestTask Task, int index);
-        targetIndex = currentList.length;
-        assertUpdateSuccess(targetIndex, currentList);
-
+        /*taskToUpdate=td.benson;
+        targetIndex=3;
+        assertUpdateSuccess(targetIndex,taskToUpdate,currentList);
+        currentList[targetIndex-1]=taskToUpdate;
+        currentList=TestUtil.addTasksToList(currentList);*/
+ 
+       // commandBox.runCommand(td.hoon.getArgs());
+        //assertResultMessage(UpdateCommand.MESSAGE_DUPLICATE_TASK);
+        //assertTrue(taskListPanel.isListMatching(currentList));
+/*
         //delete from the middle of the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
@@ -42,10 +48,10 @@ public class UpdateCommandTest extends AddressBookGuiTest {
     }
 	
 	private void assertUpdateSuccess(int targetIndex, TestTask taskToUpdate, TestTask... currentList) {
-		commandBox.runCommand("update " + targetIndex + taskToUpdate.getArgs() );//change to get args
+		commandBox.runCommand("update " + targetIndex + taskToUpdate.getArgs() );
 		
 		//confirm the new card contains the right data
-        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);//cannot search by name
+        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
         assertMatching(taskToUpdate, updatedCard);
 
         //confirm the list now contains all previous tasks plus the new task
@@ -53,10 +59,8 @@ public class UpdateCommandTest extends AddressBookGuiTest {
         expectedList[targetIndex-1]=taskToUpdate;
         assertTrue(taskListPanel.isListMatching(expectedList));
         
-
-      
         //confirm the result message is correct
-        //assertResultMessage(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
+        assertResultMessage(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
     }
 	
 	

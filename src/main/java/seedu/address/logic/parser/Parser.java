@@ -23,9 +23,6 @@ public class Parser {
 
 	private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-	private static final Pattern TASK_INDEX_AND_NAME_ARGS_FORMAT = Pattern
-			.compile("(?<targetIndex>.+)" + "(?<name>[^/]+)"+"(?<tagArguments>(?: t/[^/]+)*)");
-
 	private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
 																											// or
 																											// more
@@ -187,23 +184,35 @@ public class Parser {
 
 	}
 
-	/**
-	 * Parses arguments in the context of the update task command.
+	/**Parses arguments in the context of the udpate task command.
 	 * 
 	 * @param args
-	 * @return
+	 *            full command args string
+	 * @return the prepared command
 	 */
 	private Command prepareUpdate(String args) {
-		final Matcher matcher = TASK_INDEX_AND_NAME_ARGS_FORMAT.matcher(args.trim());
+		Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
 		
 		// Validate arg string format
+		//check the whole argument first
+		
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
 		}
-		Optional<Integer> i = parseIndex(matcher.group("tagIndex"));
+		//get the index 
+		int index=Integer.parseInt(matcher.group("commandWord"));
+
+		matcher = TASK_DATA_ARGS_FORMAT.matcher(matcher.group("arguments"));
+		if (!matcher.matches()) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+		}
 		try {
-			return new UpdateCommand(i.get(), matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")));
-			
+			if (matcher.group("tagArguments").isEmpty()) {
+				
+			}
+
+			return new UpdateCommand(index, matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")));
+
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}

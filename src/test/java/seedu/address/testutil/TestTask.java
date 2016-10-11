@@ -76,7 +76,7 @@ public class TestTask implements ReadOnlyTask {
     
     public String getArgs() {
         StringBuilder sb = new StringBuilder();
-        sb.append(" " + this.getName().taskName + " ");
+        sb.append(" "+this.getName().taskName + " ");
 //        sb.append("p/" + this.getPhone().value + " ");
 //        sb.append("e/" + this.getEmail().value + " ");
 //        sb.append("a/" + this.getAddress().value + " ");
