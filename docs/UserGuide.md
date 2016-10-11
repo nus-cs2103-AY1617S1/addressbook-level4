@@ -47,7 +47,9 @@ Example:
  
 ### Adding a task: `add`
 Adds a task into the task manager.<br>
-Format: `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
+Format: `add NAME, [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
+
+>We do not require an explicit command for `add`. We make it the default thing to do, when you type in anything! Hence typing in `add` itself is optional. However, if you want to add a task that starts with other command words, please include the `add` to override the other command words!
 
 **_Specifying task priority_**
 
@@ -66,13 +68,26 @@ Format: `-PRIORITY`
 > To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add command, where `PRIORITY` can be replaced by `low`, `medium` or `high`, e.g `-low`, `-medium`, `-high`.
 
 Examples:
-* `add Do something later -l`
-* `add Do something later -low`
+* `Do something later -l`
+* `Do something later -low`
+
+
+**_Adding a task_**
+
+Format: `NAME [-PRIORITY]`
+
+> The simplest form of a task. Type away!
+
+Examples:
+* `Buy coffee powder`
+* `Buy coffee powder -medium`
+* `Buy washing powder -h`
+* `Buy baby powder -l`
 
 
 **_Specifying repeated tasks_**
 
-DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`. <br>
+Have one of those pesky tasks you need to do every now and then? DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`. Never forget them again!<br>
 Format: `repeat every RECURRING_INTERVAL`
 > To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add/edit command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
 
@@ -82,14 +97,15 @@ Supported `RECURRING_INTERVAL`
 * `month`, `2 months`, `3 months`, ...
 
 Examples: 
-* `add Go run at track, repeat every 3 days`
+* `Go run at track, repeat every 3 days`
 
 
 **_Adding a task with deadline_**
 
-Format: `add NAME, by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIORITY]`
+Nobody likes deadlines. What is worse, is missing them. <br>
+Format: `NAME, by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIORITY]`
 > The `by` keyword denotes a deadline.
-> Take note of the `,` after the `NAME`, it is use to mark the end of your task's name.
+> Take note of the `,` after the `NAME`, it is used to mark the end of your task's name, and start of the dates. `,` is not needed if you only specify the task's name and priority, as shown above.
 
 >`END_DATE` and `END_TIME` are flexible!
 >* If no `END_DATE` is specified, `END_DATE` will be assumed to be the current date
@@ -104,25 +120,16 @@ Format: `add NAME, by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIOR
 >   * `20:15` - 24-hour clock format is also accepted
 
 Examples:
-* `add Do project proposal, by 5pm tomorrow`
-* `add eat lunch, by 1pm today -h`
-* `add Buy coffee for boss, by 7am repeat every day`
-
-**_Adding a task without deadline_**
-
-Format: `add NAME [-PRIORITY]`
-
-> Simply enter the name of the task!
-
-Example:
-* `add Buy coffee powder`
-* `add Buy coffee powder -medium`
-* `add Buy washing powder -h`
-* `add Buy baby powder -l`
+* `Do project proposal, by 5pm tomorrow`
+* `eat lunch, by 1pm today -h`
+* `Buy coffee for boss, by 7am repeat every day`
+* 
 
 **_Adding a task with time interval_**
 
-`add NAME, from/at START_DATE START_TIME [to END_DATE END_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]` 
+Having that company meeting? Planning to have lunch with a friend next week? <br> 
+Format:
+`NAME, from/at START_DATE START_TIME [to END_DATE END_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]` 
 > For events, meetings, use `from` and `at` to indicate the start time and `to` and `by` to indicate the end time.
 > Take note of the `,` after the `NAME`, it is use to mark the end of your task's name.
 > `END_DATE` and `END_TIME` can be unspecified.
@@ -140,15 +147,18 @@ Example:
 >   * `20:15` - 24-hour clock format is also accepted
 
 Example: 
-* `add Company meeting tonight, at 7pm to 9pm`
-* `add Family dinner, at noon`
-* `add Meet Akshay, from 1pm to 2pm -h`
+* `Company meeting tonight, at 7pm to 9pm`
+* `Family dinner, at noon`
+* `Meet Akshay, from 1pm to 2pm -h`
+
+>Tip: If you do not know the end time for your event yet, you can leave it blank first, and `edit` it in later!
+
 
 ### Editing a task: `edit`
-Edits an existing task in the task manager<br>
+Edits an existing task in the task manager. Just in case you need to change any details, or add in missing ones! <br>
 Format: `edit INDEX NAME, [from/at START_DATE START_TIME][to/by END_DATE END_TIME][-PRIORITY][repeat every RECURRING_INTERVAL]`
 > `INDEX` refers to the task number in the current displayed list.<br>
-> Notice that this is similar to the `add` command format! 
+> Notice that this is similar to the `add` command format!  
 
 Examples:
 * `add Company meeting tonight, at 7pm to 9pm`
@@ -158,7 +168,7 @@ Examples:
 * `edit 3 Buy coffee for boss for the last time, by 7am`
 
 ### Deleting a task: `delete`
-Deletes an existing task in your task manager.<br>
+Deletes an existing task in your task manager. This will remove them from the storage. If you want to mark them as done instead, look at the `done` command. <br>
 Format: `delete INDEX`
 > `INDEX` refers to the task number in the current displayed list.<br>
 
@@ -176,7 +186,7 @@ Example:
 * `clear`
 
 ### Archiving a task: `done`
-Archives a task in your task manager.<br>
+Archives a task in your task manager. So that you can look at all the tasks you have completed, and be proud of yourself! <br>
 Format: `done INDEX`
 > Marks a task as `done` as sends it to the archive for future viewing.
 > `INDEX` refers to the task number in the current displayed list.
@@ -186,7 +196,7 @@ Examples:
 * `done 3`
 
 ### Undoing a command: `undo`
-Reverses the effects of the previous command, if the command is a reversible one.<br>
+Reverses the effects of the previous command, if the command is a reversible one. Helps you get out of sticky situations! <br>
 Format: `undo`
 > Commands that you can `undo`
 > * `add`
@@ -199,7 +209,7 @@ Example:
 * `undo`
 
 ### Redoing a command: `redo`
-Reverses a previous `undo` command, if possible.<br>
+Reverses a previous `undo` command, if possible. <br>
 Format: `redo`
 > `redo` allows your to reverse your previous `undo` to get back your data!
 >
@@ -219,7 +229,7 @@ Example:
 * `list`
 
 ### Finding a task : `find`
-Find an existing task by name.<br>
+Forgot the details about a task you added? Find an existing task by name.<br>
 Format: `find NAME`
 > `find` is case-insensitive - `find AKSHAY` will match `find akshay`
 >
