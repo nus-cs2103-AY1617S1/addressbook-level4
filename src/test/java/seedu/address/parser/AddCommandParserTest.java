@@ -158,6 +158,11 @@ public class AddCommandParserTest {
 		expectedTask = "[Floating Task][Description: project from Oct 12 t Oct 13]";
 		actualTask = command.getTaskDetails();
 		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("project by Oct 12 to Oct 13");
+		expectedTask = "[Floating Task][Description: project by Oct 12 to Oct 13]";
+		actualTask = command.getTaskDetails();
+		assertEquals(actualTask, expectedTask);
 	}
 
 }

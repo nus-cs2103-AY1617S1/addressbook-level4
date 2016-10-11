@@ -80,12 +80,12 @@ public class AddCommandParser extends CommandParser{
     	String taskDescription = description.substring(0, substringFrom).trim();
     	String dateString = description.substring(substringFrom + keyword.length(), description.length()).trim();
     	
-    	if (DateUtil.isValidDateFormat(dateString)) {
+    	if (keyword.equals("by") && DateUtil.isValidDateFormat(dateString)) {
     		// dateString represents task's deadline
     		Date deadline = DateUtil.getDate(dateString);
 			return new AddTaskCommand(taskDescription, deadline);
 			
-    	} else if (DateUtil.isValidStartDateToEndDateFormat(dateString)) {	
+    	} else if (keyword.equals("from") && DateUtil.isValidStartDateToEndDateFormat(dateString)) {	
 			// dateString represents task's start date and end date
     		Date[] startAndEndDates = DateUtil.getStartAndEndDates(dateString);
     		Date startDate = startAndEndDates[0];
