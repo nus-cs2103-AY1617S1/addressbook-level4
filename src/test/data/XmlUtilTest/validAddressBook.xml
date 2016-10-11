@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<taskmanager>
     <tasks>
         <name>Hans Muster</name>
         <startTime isPrivate="false">9482424</startTime>
@@ -54,4 +54,4 @@
         <endTime isPrivate="false">hans@google.com</endTime>
         <location isPrivate="false">chicago ave</location>
     </tasks>
-</addressbook>
+</taskmanager>

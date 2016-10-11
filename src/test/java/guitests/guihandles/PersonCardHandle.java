@@ -3,16 +3,16 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.address.model.person.ReadOnlyTask;
+import seedu.task.model.person.ReadOnlyTask;
 
 /**
  * Provides a handle to a person card in the person list panel.
  */
 public class PersonCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String ADDRESS_FIELD_ID = "#locationLabel";
+    private static final String PHONE_FIELD_ID = "#startTimeLabel";
+    private static final String EMAIL_FIELD_ID = "#endTimeLabel";
 
     private Node node;
 

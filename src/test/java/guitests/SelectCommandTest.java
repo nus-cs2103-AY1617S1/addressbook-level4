@@ -1,7 +1,8 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.model.person.ReadOnlyTask;
+
+import seedu.task.model.person.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 
