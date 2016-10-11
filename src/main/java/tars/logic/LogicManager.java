@@ -5,6 +5,7 @@ import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
 import tars.logic.commands.Command;
 import tars.logic.commands.CommandResult;
+import tars.logic.commands.UndoableCommand;
 import tars.logic.parser.Parser;
 import tars.model.Model;
 import tars.model.task.ReadOnlyTask;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
  * The main LogicManager of the app.
  */
 public class LogicManager extends ComponentManager implements Logic {
+    
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -31,6 +33,11 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);
+        
+        if (command instanceof UndoableCommand) {
+            model.getUndoableCmdHist().push(command);
+        }
+        
         return command.execute();
     }
 
@@ -38,4 +45,5 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
+    
 }
