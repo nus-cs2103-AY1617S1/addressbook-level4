@@ -161,4 +161,58 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    private class TagQualifier implements Qualifier {
+    	private Set<String> tagSet;
+    	
+    	TagQualifier(Set<String> tagSet) {
+    		this.tagSet = tagSet;
+    	}
+    	
+    	private String tagToString(ReadOnlyTask task) {
+    		Set<Tag> tagSet = task.getTags().toSet();
+    		Set<String> tagStringSet = new HashSet<String>();
+    		for(Tag t : tagSet) {
+    			tagStringSet.add(t.tagName);
+    		}
+    		return String.join(" ", tagStringSet);
+    	}
+
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			if(tagSet.isEmpty()) {
+				return true;
+			}
+			return tagSet.stream()
+					.filter(tag -> StringUtil.containsIgnoreCase(tagToString(task), tag))
+					.findAny()
+					.isPresent();
+		}
+    	
+		@Override 
+		public String toString() {
+			return "tag=" + String.join(", ", tagSet);
+		}
+    }
+
+    private class PeriodQualifier implements Qualifier {
+		private String startTime;
+		private String endTime;
+		
+		PeriodQualifier(String startTime, String endTime) {
+			this.startTime = startTime;
+			this.endTime = endTime;
+		}
+
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public String toString() {
+			return "start time=" + this.startTime + " end time=" + this.endTime;
+		}
+	}
+    
 }
