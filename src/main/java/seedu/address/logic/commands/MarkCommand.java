@@ -39,8 +39,8 @@ public class MarkCommand extends Command {
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
 
         try {
-            model.markTask(taskToMark);
-            CommandHistory.addMutateCmd(new Undo(COMMAND_WORD,targetIndex,(Task)lastShownList.get(targetIndex - 1)));
+        	CommandHistory.addMutateCmd(new Undo(COMMAND_WORD,targetIndex,(Task)lastShownList.get(targetIndex - 1)));
+        	model.markTask(taskToMark);
         } catch (DuplicateTagException e) {
             return new CommandResult(MESSAGE_MARK_TASK_FAIL);
         }catch (TaskNotFoundException pnfe) {
