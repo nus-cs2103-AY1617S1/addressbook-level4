@@ -24,16 +24,16 @@ public class XmlTaskListStorage implements TaskListStorage {
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getTaskListFilePath(){
         return filePath;
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readTaskList()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTaskList> readAddressBook(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyTaskList> readTaskList(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File addressBookFile = new File(filePath);
@@ -49,10 +49,10 @@ public class XmlTaskListStorage implements TaskListStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyTaskList)}
+     * Similar to {@link #saveTaskList(ReadOnlyTaskList)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyTaskList addressBook, String filePath) throws IOException {
+    public void saveTaskList(ReadOnlyTaskList addressBook, String filePath) throws IOException {
         assert addressBook != null;
         assert filePath != null;
 
@@ -62,12 +62,12 @@ public class XmlTaskListStorage implements TaskListStorage {
     }
 
     @Override
-    public Optional<ReadOnlyTaskList> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException {
+        return readTaskList(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskList addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveTaskList(ReadOnlyTaskList addressBook) throws IOException {
+        saveTaskList(addressBook, filePath);
     }
 }

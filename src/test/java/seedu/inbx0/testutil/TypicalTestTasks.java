@@ -16,8 +16,8 @@ public class TypicalTestTasks {
             alice =  new TaskBuilder().withName("Alice Pauline").withStartDate("4-10-2016")
                     .withStartTime("3pm").withEndDate("6-10-2016").withEndTime("4pm").withImportance("green")
                     .withTags("lunch").build();
-            benson = new TaskBuilder().withName("Benson Meier").withStartDate("311, Clementi Ave 2, #02-25")
-                    .withStartTime("johnd@gmail.com").withEndDate("98765432").withImportance("y")
+            benson = new TaskBuilder().withName("Benson Meier").withStartDate("6th September")
+                    .withStartTime("9am").withEndDate("7th September").withEndTime("9pm").withImportance("y")
                     .withTags("owesMoney", "friends").build();
             carl = new TaskBuilder().withName("Carl Kurz").withStartDate("tomorrow").withStartTime("3pm").withEndDate("tomorrow").withEndTime("9pm").withImportance("r").build();
             daniel = new TaskBuilder().withName("Daniel Meier").withStartDate("next week").withStartTime("12pm").withEndDate("next week").withEndTime("9pm").withImportance("red").build();
@@ -53,7 +53,7 @@ public class TypicalTestTasks {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public TaskList getTypicalAddressBook() throws IllegalValueException{
+    public TaskList getTypicalTaskList() throws IllegalValueException{
         TaskList ab = new TaskList();
         loadAddressBookWithSampleData(ab);
         return ab;

@@ -3,7 +3,7 @@ package seedu.inbx0.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.inbx0.commons.core.EventsCenter;
-import seedu.inbx0.commons.events.model.AddressBookChangedEvent;
+import seedu.inbx0.commons.events.model.TaskListChangedEvent;
 import seedu.inbx0.commons.events.ui.JumpToListRequestEvent;
 import seedu.inbx0.commons.events.ui.ShowHelpRequestEvent;
 import seedu.inbx0.logic.Logic;
@@ -45,13 +45,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyTaskList latestSavedAddressBook;
+    private ReadOnlyTaskList latestSavedTaskList;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
-        latestSavedAddressBook = new TaskList(abce.data);
+    private void handleLocalModelChangedEvent(TaskListChangedEvent abce) {
+        latestSavedTaskList = new TaskList(abce.data);
     }
 
     @Subscribe
@@ -67,12 +67,12 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempTaskListFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempTaskListFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new TaskList(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedTaskList = new TaskList(model.getTaskList()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -106,7 +106,7 @@ public class LogicManagerTest {
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyTaskList expectedAddressBook,
+                                       ReadOnlyTaskList expectedTaskList,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
@@ -117,8 +117,8 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getAddressBook());
-        assertEquals(expectedAddressBook, latestSavedAddressBook);
+        assertEquals(expectedTaskList, model.getTaskList());
+        assertEquals(expectedTaskList, latestSavedTaskList);
     }
 
 
@@ -154,7 +154,7 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name Buy Grocery e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
                 "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
@@ -257,7 +257,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), taskList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskList(), taskList);
     }
 
     @Test
@@ -276,7 +276,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
-        TaskList expectedAB = helper.generateAddressBook(threeTasks);
+        TaskList expectedAB = helper.generateTaskList(threeTasks);
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("sel 2",
@@ -304,7 +304,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
-        TaskList expectedAB = helper.generateAddressBook(threeTasks);
+        TaskList expectedAB = helper.generateTaskList(threeTasks);
         expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
@@ -330,7 +330,7 @@ public class LogicManagerTest {
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        TaskList expectedAB = helper.generateAddressBook(fourTasks);
+        TaskList expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourTasks);
 
@@ -349,7 +349,7 @@ public class LogicManagerTest {
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        TaskList expectedAB = helper.generateAddressBook(fourTasks);
+        TaskList expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
 
@@ -368,7 +368,7 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskList expectedAB = helper.generateAddressBook(fourTasks);
+        TaskList expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourTasks);
 
@@ -385,14 +385,16 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
+            Name name = new Name("Do CS2103");
+            Date startDate = new Date("12/10/2016");
+            Time startTime = new Time("9am");
+            Date endDate = new Date("13/10/2016");
+            Time endTime = new Time("10am");
+            Importance level = new Importance("G");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+            return new Task(name, startDate, startTime, endDate, endTime, level, tags);
         }
 
         /**
@@ -405,9 +407,11 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Address("House of " + seed),
+                    new Date("" + Math.abs(seed)),
+                    new Time(seed + "am"),
+                    new Date("" + Math.abs(seed)),
+                    new Time(seed + "pm"),
+                    new Importance("" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -419,9 +423,11 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" s/").append(p.getStartDate());
+            cmd.append(" st/").append(p.getStartTime());
+            cmd.append(" e/").append(p.getEndDate());
+            cmd.append(" et/").append(p.getEndTime());
+            cmd.append(" i/").append(p.getLevel());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -436,16 +442,16 @@ public class LogicManagerTest {
          */
         TaskList generateAddressBook(int numGenerated) throws Exception{
             TaskList taskList = new TaskList();
-            addToAddressBook(taskList, numGenerated);
+            addToTaskList(taskList, numGenerated);
             return taskList;
         }
 
         /**
          * Generates an TaskList based on the list of Tasks given.
          */
-        TaskList generateAddressBook(List<Task> tasks) throws Exception{
+        TaskList generateTaskList(List<Task> tasks) throws Exception{
             TaskList taskList = new TaskList();
-            addToAddressBook(taskList, tasks);
+            addToTaskList(taskList, tasks);
             return taskList;
         }
 
@@ -453,14 +459,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given TaskList
          * @param taskList The TaskList to which the Tasks will be added
          */
-        void addToAddressBook(TaskList taskList, int numGenerated) throws Exception{
-            addToAddressBook(taskList, generateTaskList(numGenerated));
+        void addToTaskList(TaskList taskList, int numGenerated) throws Exception{
+            addToTaskList(taskList, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given TaskList
          */
-        void addToAddressBook(TaskList taskList, List<Task> tasksToAdd) throws Exception{
+        void addToTaskList(TaskList taskList, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 taskList.addTask(p);
             }
@@ -504,9 +510,11 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Phone("1"),
-                    new Email("1@email"),
-                    new Address("House of 1"),
+                    new Date("9/1/23"),
+                    new Time("1am"),
+                    new Date("10/12/34"),
+                    new Time("1pm"),
+                    new Importance("R"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

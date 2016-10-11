@@ -4,11 +4,11 @@ import seedu.inbx0.commons.events.BaseEvent;
 import seedu.inbx0.model.ReadOnlyTaskList;
 
 /** Indicates the TaskList in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+public class TaskListChangedEvent extends BaseEvent {
 
     public final ReadOnlyTaskList data;
 
-    public AddressBookChangedEvent(ReadOnlyTaskList data){
+    public TaskListChangedEvent(ReadOnlyTaskList data){
         this.data = data;
     }
 
