@@ -36,7 +36,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      *
      */
-    public EditCommand(int targetIndex, String type, String toEdit) throws IllegalValueException {
+    public EditCommand(int targetIndex, String type, String toEdit){
     	this.targetIndex = targetIndex;
         this.type = type;
         this.toEdit = toEdit;

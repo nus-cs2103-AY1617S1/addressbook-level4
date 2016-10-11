@@ -65,7 +65,10 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
-
+        
+        case EditCommand.COMMAND_WORD:
+        	return prepareEdit(arguments);
+        	
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -181,8 +184,31 @@ public class Parser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
         return new DeleteCommand(index.get());
+    }
+    
+    private Command prepareEdit(String args) {
+    	
+    	String type;
+    	String toEdit;
+    	int index = -1;
+  
+    	String[] splitedArgs = args.trim().split("\\s+");
+    	if (splitedArgs.length >= 3) {
+    		index = Integer.parseInt(splitedArgs[0]);
+    		type = splitedArgs[1];
+    		StringBuffer toBeEdited = new StringBuffer ();
+    		for (int i=2; i<splitedArgs.length; i++) {
+    			toBeEdited.append(splitedArgs[i]);
+    			toBeEdited.append(" ");
+    		}	
+    		toEdit = toBeEdited.toString();
+    
+    	} else {
+    		return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    	}
+         return new EditCommand (index,type,toEdit.trim());
     }
 
     /**
