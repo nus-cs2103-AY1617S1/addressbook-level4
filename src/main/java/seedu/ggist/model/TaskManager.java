@@ -3,8 +3,8 @@ package seedu.ggist.model;
 import javafx.collections.ObservableList;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.logic.commands.EditCommand;
-import seedu.ggist.model.task.Date;
-import seedu.ggist.model.task.Time;
+import seedu.ggist.model.task.TaskDate;
+import seedu.ggist.model.task.TaskTime;
 import seedu.ggist.model.task.TaskName;
 import seedu.ggist.model.tag.Tag;
 import seedu.ggist.model.tag.UniqueTagList;
@@ -113,7 +113,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         if (tasks.remove(key)) {
             return true;
         } else {
-            return false;
+            throw new UniqueTaskList.TaskNotFoundException();
         }
     }
   

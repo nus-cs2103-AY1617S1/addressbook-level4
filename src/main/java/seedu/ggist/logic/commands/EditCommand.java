@@ -3,6 +3,8 @@ package seedu.ggist.logic.commands;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.commons.exceptions.IllegalValueException;
+import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.ggist.model.task.UniqueTaskList.TaskTypeNotFoundException;
 import seedu.ggist.model.task.*;
 
 import static seedu.ggist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -46,29 +48,12 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-        	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        	ReadOnlyTask toBeEditedTask = lastShownList.get(targetIndex - 1);
-        	switch (type) {
-        	case TASK_NAME_TYPE:
-        		toBeEditedTask.getTaskName().editTaskName(toEdit);
-        		break;
-        	case DATE_TYPE:
-        		 toBeEditedTask.getDate().editDate(toEdit);
-        		 break;
-        	case START_TIME_TYPE:
-        		toBeEditedTask.getStartTime().editTime(toEdit);
-        		break;
-        	case END_TIME_TYPE:
-        		toBeEditedTask.getEndTime().editTime(toEdit);
-        		break;
-        	default:
-        		return new CommandResult(String.format(MESSAGE_INVALID_TASK_TYPE, type));
-        	}
+        	model.editTask(targetIndex,type,toEdit);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
+        } catch (TaskTypeNotFoundException pnfe) {
+        	return new CommandResult(Messages.MESSAGE_Task_Type_NOT_IN_GGIST);
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_Task_DISPLAYED_INDEX);
-        } catch (IllegalValueException e) {
-            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
     }
 
