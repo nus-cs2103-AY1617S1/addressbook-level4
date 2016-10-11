@@ -66,7 +66,7 @@ public class UniqueTaskList implements Iterable<Task> {
         assert toCheck != null;
         for(Task t: internalList){
         	if(t.getType().equals(TaskType.NON_FLOATING)){
-        		if(t.getStartDate()!=null){
+        		if(t.getStartDate().getDate()!=-1){
         			if(!(t.getEndDate().getParsedDate().before(toCheck.getStartDate().getParsedDate())||
         	        	t.getStartDate().getParsedDate().after(toCheck.getEndDate().getParsedDate())))
         	        		return true;

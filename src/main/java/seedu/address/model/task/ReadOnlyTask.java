@@ -25,7 +25,6 @@ public interface ReadOnlyTask {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-    	if(getType().equals(TaskType.NON_FLOATING)){
     		return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
@@ -33,13 +32,6 @@ public interface ReadOnlyTask {
                 && other.getStartDate().equals(this.getStartDate())
                 && other.getEndDate().equals(this.getEndDate())
                 );
-    	}else{
-    		return other == this // short circuit if same object
-                || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getType().equals(this.getType())
-                );
-        }
     }
 
     /**
@@ -48,11 +40,11 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        if(getStartDate()!=null){
+        if(getStartDate().getDate()!=-1){
         	builder.append(" From: ");
         	builder.append(getStartDate().getFormattedDate());
         }
-        if(getEndDate()!=null){
+        if(getEndDate().getDate()!=-1){
         	builder.append(" To: ");
         	builder.append(getEndDate().getFormattedDate());
         }
