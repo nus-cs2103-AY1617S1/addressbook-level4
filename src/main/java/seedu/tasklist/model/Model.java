@@ -47,5 +47,8 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to only show complete */
     void updateFilteredListToShowComplete();
+    
+    /** Updates the filter of the filtered task list to only certain priority */
+    public void updateFilteredListToShowPriority(String priority);
 
 }

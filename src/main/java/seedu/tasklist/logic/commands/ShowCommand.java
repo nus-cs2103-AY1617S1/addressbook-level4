@@ -28,6 +28,9 @@ public class ShowCommand extends Command {
         else if (keyword.equalsIgnoreCase("completed")) {
             model.updateFilteredListToShowComplete();
         }
+        else {
+            model.updateFilteredListToShowPriority(keyword);
+        }
     	
     	return null;
     }

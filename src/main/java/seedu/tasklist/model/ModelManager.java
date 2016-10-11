@@ -141,6 +141,12 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredListToShowAll();
     	updateFilteredTaskList(new PredicateExpression(new CompletedQualifier()));
     }
+    
+    @Override
+    public void updateFilteredListToShowPriority(String priority) {
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -234,4 +240,16 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    private class PriorityQualifier implements Qualifier {
+		private String priority;
+		
+		public PriorityQualifier(String priority) {
+		    this.priority = priority.replaceFirst("p/", "");
+		}
+    	
+    	@Override
+		public boolean run(ReadOnlyTask person) {
+			return person.getPriority().priorityLevel.equals(this.priority);
+		}
+    }
 }
