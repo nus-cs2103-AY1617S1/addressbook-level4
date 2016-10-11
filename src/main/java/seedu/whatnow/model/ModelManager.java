@@ -33,7 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with whatnow book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with WhatNow: " + src + " and user prefs " + userPrefs);
 
         whatNow = new WhatNow(src);
         filteredTasks = new FilteredList<>(whatNow.getTasks());
@@ -74,6 +74,12 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTask(task);
         updateFilteredListToShowAll();
+        indicateWhatNowChanged();
+    }
+    
+    @Override
+    public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException {
+        whatNow.updateTask(old, toUpdate);
         indicateWhatNowChanged();
     }
 

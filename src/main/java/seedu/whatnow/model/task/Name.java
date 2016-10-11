@@ -3,7 +3,7 @@ package seedu.whatnow.model.task;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's name in the whatnow book.
+ * Represents a Task's name in WhatNow.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

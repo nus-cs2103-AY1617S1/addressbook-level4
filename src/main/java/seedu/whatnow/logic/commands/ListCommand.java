@@ -2,7 +2,7 @@ package seedu.whatnow.logic.commands;
 
 
 /**
- * Lists all tasks in the whatnow book to the user.
+ * Lists all tasks in WhatNow to the user.
  */
 public class ListCommand extends Command {
 

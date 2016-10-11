@@ -91,7 +91,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'whatnow book' and the 'last shown list' are expected to be empty.
+     * Both 'WhatNow' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyWhatNow, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -101,17 +101,30 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal whatnow book data are same as those in the {@code expectedWhatNow} <br>
+     *      - the internal WhatNow data are same as those in the {@code expectedWhatNow} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedWhatNow} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyWhatNow expectedWhatNow,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
-
+        
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
 
+        System.out.println("INPUT COMMAND: " + inputCommand);
+        System.out.println("RESULT: " + result.feedbackToUser);
+        System.out.println(expectedWhatNow.getTaskList());
+        System.out.println(model.getWhatNow().getTaskList());
+        
+        if (expectedWhatNow.equals(model.getWhatNow())) {
+            System.out.println("EQUALS");
+        }
+        
+        if (expectedWhatNow.getTaskList().equals(model.getWhatNow().getTaskList())) {
+            System.out.println("SAME");
+        }
+        
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
@@ -154,21 +167,15 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, whatnow", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, whatnow", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, whatnow", expectedMessage);
+                "add wrong/args wrong/args", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, whatnow", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p12345 evalid@e.mail avalid, whatnow", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, whatnow t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name p12345 evalid@e.mail avalid, whatnow t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -197,7 +204,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // task already in internal whatnow book
+        model.addTask(toBeAdded); // task already in internal WhatNow
 
         // execute command and verify result
         assertCommandBehavior(
@@ -216,7 +223,7 @@ public class LogicManagerTest {
         WhatNow expectedAB = helper.generateWhatNow(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare whatnow book state
+        // prepare WhatNow state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
@@ -225,6 +232,81 @@ public class LogicManagerTest {
                 expectedList);
     }
 
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     */
+    private void assertIncorrectIndexFormatBehaviorForUpdateCommand(String commandWord, String taskType, String expectedMessage) throws Exception {
+        assertCommandBehavior(commandWord + " " + taskType + " description Check if index is missing", expectedMessage); //index missing
+        assertCommandBehavior(commandWord + " " + taskType + " +1" + " description Check if index is unsigned", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " " + taskType + " -1" + " description Check if index is unsigned", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " " + taskType + " 0" + " description Check if index is zero", expectedMessage); //index cannot be 0
+        assertCommandBehavior(commandWord + " " + taskType + " not_a_number" + " description Check if index is not a number", expectedMessage);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     */
+    private void assertIndexNotFoundBehaviorForUpdateCommand(String commandWord, String taskType) throws Exception {
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> taskList = helper.generateTaskList(2);
+
+        // set AB state to 2 tasks
+        model.resetData(new WhatNow());
+        for (Task p : taskList) {
+            model.addTask(p);
+        }
+
+        assertCommandBehavior(commandWord + " " + taskType + " 3" + " description Check if index exists", expectedMessage, model.getWhatNow(), taskList);
+    }
+    
+    @Test
+    public void execute_update_invalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForUpdateCommand("update", "todo", expectedMessage);
+    }
+
+    @Test
+    public void execute_update_indexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForUpdateCommand("update", "todo");
+    }
+
+    @Test
+    public void execute_update_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.todo("Buy milk", "lowPriority", "inProgress");
+        WhatNow expectedAB = new WhatNow();
+        expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(helper.adam());
+        List<Task> taskList = helper.generateTaskList(toBeAdded, helper.adam());
+        helper.addToModel(model, taskList);
+        
+        // execute command and verify result
+        ReadOnlyTask taskToUpdate = taskList.get(0);
+        Task toUpdate = helper.todo("Buy chocolate milk", "inProgress", "lowPriority");
+        expectedAB.updateTask(taskToUpdate, toUpdate);
+        //model.updateTask(taskToUpdate, toUpdate);
+        
+        assertCommandBehavior(helper.generateUpdateCommand("Buy chocolate milk"),
+                String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        taskToUpdate = toUpdate;
+        toUpdate = helper.todo("Buy chocolate milk", "highPriority", "Completed");
+        expectedAB.updateTask(taskToUpdate, toUpdate);
+        //model.updateTask(taskToUpdate, toUpdate);
+        
+        assertCommandBehavior(helper.generateUpdateCommand("highPriority", "Completed"),
+                String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -389,6 +471,14 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, tags);
         }
+        
+        Task todo(String description, String tag01, String tag02) throws Exception {
+            Name name = new Name(description);
+            Tag tag1 = new Tag(tag01);
+            Tag tag2 = new Tag(tag02);
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, tags);
+        }
 
         /**
          * Generates a valid task using the given seed.
@@ -416,6 +506,28 @@ public class LogicManagerTest {
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
             }
+
+            return cmd.toString();
+        }
+        
+        /** Generates the correct update command based on the parameters given */
+        String generateUpdateCommand(String description) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("update todo 1 description ");
+
+            cmd.append(description);
+
+            return cmd.toString();
+        }
+        
+        /** Generates the correct update command based on the parameters given */
+        String generateUpdateCommand(String tag1, String tag2) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("update todo 1 tag ");
+
+            cmd.append(tag1 + " " + tag2);
 
             return cmd.toString();
         }

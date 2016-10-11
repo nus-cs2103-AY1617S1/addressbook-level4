@@ -6,7 +6,7 @@ import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a task identified using it's last displayed index from the whatnow book.
+ * Deletes a task identified using it's last displayed index from WhatNow.
  */
 public class DeleteCommand extends Command {
 

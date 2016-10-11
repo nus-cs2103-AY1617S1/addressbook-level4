@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the whatnow-book level
+ * Wraps all data at the WhatNow level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class WhatNow implements ReadOnlyWhatNow {
@@ -70,7 +70,7 @@ public class WhatNow implements ReadOnlyWhatNow {
 //// task-level operations
 
     /**
-     * Adds a task to the whatnow book.
+     * Adds a task to WhatNow.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
@@ -106,6 +106,14 @@ public class WhatNow implements ReadOnlyWhatNow {
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean updateTask(ReadOnlyTask old, Task toUpdate) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.update(old, toUpdate)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();

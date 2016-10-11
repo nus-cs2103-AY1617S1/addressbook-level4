@@ -9,19 +9,19 @@ import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.*;
 
 /**
- * Adds a task to the whatnow book.
+ * Adds a task to WhatNow.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the whatnow book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to WhatNow. "
             + "Parameters: TASK_NAME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " Buy groceries t/highPriority";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the whatnow book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
 
     private final Task toAdd;
 

@@ -6,7 +6,7 @@ import seedu.whatnow.commons.util.CollectionUtil;
 import seedu.whatnow.model.tag.UniqueTagList;
 
 /**
- * Represents a Task in the whatnow book.
+ * Represents a Task in WhatNow.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
@@ -46,6 +46,10 @@ public class Task implements ReadOnlyTask {
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
+    }
+    
+    public void setName(Name name) {
+        this.name = name;
     }
 
     @Override
