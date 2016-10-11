@@ -129,7 +129,7 @@ public class Parser {
         } else if (matcher.group("index") != null) {
             return new DoneCommand(Integer.valueOf(matcher.group("index")));
         } else if (matcher.group("searchString") != null) {
-            return new DoneCommand(matcher.group("searchString"));
+            return new DoneCommand('*'+matcher.group("searchString")+'*');
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
@@ -186,7 +186,7 @@ public class Parser {
         } else if (matcher.group("index") != null) {
             return new DeleteCommand(Integer.valueOf(matcher.group("index")));
         } else if (matcher.group("searchString") != null) {
-            return new DeleteCommand(matcher.group("searchString"));
+            return new DeleteCommand('*'+matcher.group("searchString")+'*');
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
