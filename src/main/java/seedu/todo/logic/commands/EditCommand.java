@@ -1,11 +1,7 @@
 package seedu.todo.logic.commands;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.logic.arguments.Argument;
-import seedu.todo.logic.arguments.FlagArgument;
-import seedu.todo.logic.arguments.IntArgument;
-import seedu.todo.logic.arguments.Parameter;
-import seedu.todo.logic.arguments.StringArgument;
+import seedu.todo.logic.arguments.*;
 import seedu.todo.model.task.ImmutableTask;
 
 public class EditCommand extends BaseCommand {
@@ -21,9 +17,12 @@ public class EditCommand extends BaseCommand {
     private Argument<String> location = new StringArgument("location")
             .flag("l");
 
+    private Argument<DateRange> date = new DateRangeArgument("date")
+            .flag("d");
+
     @Override
     protected Parameter[] getArguments() {
-        return new Parameter[] { index, description, pin, location };
+        return new Parameter[] { index, date, description, pin, location };
     }
 
     @Override
@@ -34,6 +33,8 @@ public class EditCommand extends BaseCommand {
             task.setDescription(description.getValue());
             task.setPinned(pin.getValue());
             task.setLocation(location.getValue());
+            task.setStartTime(date.getValue().getStartTime());
+            task.setEndTime(date.getValue().getEndTime());
         });
 	}
 

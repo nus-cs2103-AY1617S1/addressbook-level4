@@ -5,6 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.testutil.TimeUtil;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class AddCommandTest extends CommandTest {
     @Override
@@ -65,6 +70,29 @@ public class AddCommandTest extends CommandTest {
         assertTrue(pinnedAddedTask.isPinned());
         assertFalse(pinnedAddedTask.getDescription().isPresent());
         assertFalse(pinnedAddedTask.getLocation().isPresent());
+    }
+    
+    @Test
+    public void testAddSingleDate() throws Exception {
+        setParameter("Test Task");
+        setParameter("d", "tomorrow 9am");
+        execute();
+        
+        ImmutableTask task = getTaskAt(1);
+        assertFalse(task.isEvent());
+        assertEquals(TimeUtil.tomorrow().withHour(9), task.getEndTime().get());
+    }
+
+    @Test
+    public void testAddDateRange() throws Exception {
+        setParameter("Test Event");
+        setParameter("d", "tomorrow 6 to 8pm");
+        execute();
+
+        ImmutableTask task = getTaskAt(1);
+        assertTrue(task.isEvent());
+        assertEquals(TimeUtil.tomorrow().withHour(18), task.getStartTime().get());
+        assertEquals(TimeUtil.tomorrow().withHour(20), task.getEndTime().get());
     }
     
     @Test

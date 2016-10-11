@@ -7,6 +7,10 @@ import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.testutil.TimeUtil;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class EditCommandTest extends CommandTest {
     @Override
@@ -23,8 +27,9 @@ public class EditCommandTest extends CommandTest {
         });
         
         model.add("Task 3", task-> {
-            task.setDescription("Description"); 
-            task.setPinned(false);
+            task.setDescription("Description");
+            // 12-10-2016 16:00
+            task.setEndTime(LocalDateTime.of(2016, 10, 12, 16, 0));
         });
         
         model.add("Task 2");
@@ -89,7 +94,37 @@ public class EditCommandTest extends CommandTest {
         assertFalse(toDeleteField.getDescription().isPresent());
         assertFalse(toDeleteField.getLocation().isPresent());
     }
+
+
+    @Test
+    public void testAddSingleDate() throws Exception {
+        setParameter("1");
+        setParameter("d", "tomorrow");
+        execute();
+        
+        ImmutableTask task = getTaskAt(1);
+        assertFalse(task.isEvent());
+        assertFalse(task.getStartTime().isPresent());
+        assertEquals(LocalDate.now().plusDays(1), task.getEndTime().get().toLocalDate());
+    }
+
+    @Test
+    public void testAddDateRange() throws Exception {
+        setParameter("1");
+        setParameter("d", "tomorrow 10 to 11pm");
+        execute();
+
+        ImmutableTask task = getTaskAt(1);
+        assertTrue(task.isEvent());
+        assertEquals(TimeUtil.tomorrow().withHour(22), task.getStartTime().get());
+        assertEquals(TimeUtil.tomorrow().withHour(23), task.getEndTime().get());
+    }
     
+    @Test
+    public void testRemoveDate() throws Exception {
+        
+    }
+
     @Test
     public void testEditMoreThanOneParameter() throws Exception {
         setParameter("1");
