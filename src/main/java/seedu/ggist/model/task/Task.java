@@ -20,9 +20,8 @@ public class Task implements ReadOnlyTask{
 
     /**
      * Every field must be present and not null.
-     * @param milk 
-    */  
-    
+     * 
+    */     
     public Task(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskTime endTime, UniqueTagList tags) {
         this.taskName = taskName;
         this.taskDate = taskDate;
