@@ -11,9 +11,8 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.taskcommands.FindTaskCommand;
-import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.model.task.InMemoryTaskList;
-import seedu.address.model.task.TaskManager;
+import seedu.address.testutil.TestUtil;
 
 public class FindTaskCommandTest {
 
@@ -24,8 +23,8 @@ public class FindTaskCommandTest {
 	@Before
 	public void setup() throws IllegalValueException {
 		// Initialize task list to hold 3 tasks ("Task 1", "Task 2", "Task 3")
-		emptyTaskList = setupEmptyTaskList();
-		taskList = setupSomeTasksInTaskList(3);
+		emptyTaskList = TestUtil.setupEmptyTaskList();
+		taskList = TestUtil.setupSomeTasksInTaskList(3);
 	}
 	
 	@Test
@@ -119,24 +118,7 @@ public class FindTaskCommandTest {
 		assertTasksFound(command, 2);
 	}
 
-	/*
-	 * Utility Functions
-	 */
-	public InMemoryTaskList setupEmptyTaskList() {
-		return new TaskManager();
-	}
 	
-	// Setting up tasks in the TaskList in order to find them in the tests
-	public InMemoryTaskList setupSomeTasksInTaskList(int n) throws IllegalValueException {
-		InMemoryTaskList newTaskList = new TaskManager();
-		// Add 3 tasks into the task manager
-		for (int i = 0; i < n; i++) {
-			AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
-			command.setData(newTaskList);
-			command.execute();
-		}
-		return newTaskList;
-	}
 	
 	// Create a Set of strings in order to construct a FindTaskCommand instance
 	public Set<String> createSetOfStrings(String... stringsToFind) {

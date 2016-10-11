@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
