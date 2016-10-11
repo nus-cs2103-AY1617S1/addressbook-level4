@@ -55,7 +55,7 @@ public class TaskCard extends UiPart{
         
         TaskTime taskStartTime = task.getStartTime();
         if (taskStartTime != null) {
-            startTime.setText(taskStartTime.toString());
+            startTime.setText(taskStartTime.toString() + " to ");
         }
         
         TaskTime taskEndTime = task.getEndTime();
