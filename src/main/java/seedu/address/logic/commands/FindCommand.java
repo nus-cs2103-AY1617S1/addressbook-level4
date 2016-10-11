@@ -24,14 +24,14 @@ public class FindCommand extends Command {
     public FindCommand(Set<String> keywords, String startTime, String endTime, String deadline, Set<String> tags) {
         this.keywords = keywords;
         this.startTime = startTime;
-        this.endTime = startTime;
+        this.endTime = endTime;
         this.deadline = deadline;
         this.tags = tags;
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
+        model.updateFilteredTaskList(keywords, tags, startTime, endTime, deadline);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 

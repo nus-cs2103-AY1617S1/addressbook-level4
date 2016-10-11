@@ -103,8 +103,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredTaskList(Set<String> keywords, Set<String> tags, String startDate, String endDate, String deadline) {
+        updateFilteredTaskList(new PredicateExpression(new FindQualifier(keywords, tags, startDate, endDate, deadline)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -225,20 +225,20 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyTask task) {
-			if(this.startTime.isEmpty() || this.endTime.isEmpty()) {
+			
+			if(this.startTime.isEmpty() || this.endTime.isEmpty())
 				return true;
-			}
+				
 			String[] timeArray = extractTaskPeriod(task);
-			if(timeArray == null) {
+			if(timeArray == null)
 				return false;
-			}
+
 			String startDate = timeArray[START_DATE_INDEX];
 			String endDate = timeArray[END_DATE_INDEX];
 			
 			if(startDate.equals(this.startTime)
-					&& endDate.equals(this.endTime)) {
+					&& endDate.equals(this.endTime))
 				return true;
-			}
 			return false;	
 		}
 		
@@ -257,15 +257,56 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyTask task) {
-			if(this.deadline.isEmpty()) {
+			
+			if(this.deadline.isEmpty())
 				return true;
-			}
+			
+			if(task.getType().equals(TaskType.FLOATING))
+				return false;
+			
+			String deadline = task.getEndDate().getFormattedDate();
+			if(deadline.isEmpty())
+				return false;
+			
+			if(deadline.equals(this.deadline))
+				return true;
+			
 			return false;
 		}
     	
     	@Override
     	public String toString() {
     		return "deadline=" + this.deadline;
+    	}
+    }
+    
+    private class FindQualifier implements Qualifier {
+    	private NameQualifier nameQualifier;
+    	private TagQualifier tagQualifier;
+    	private PeriodQualifier periodQualifier;
+    	private DeadlineQualifier deadlineQualifier;
+    	
+    	FindQualifier(Set<String> keywordSet, Set<String> tagSet, String startTime, String endTime, String deadline) {
+    		this.nameQualifier = new NameQualifier(keywordSet);
+    		this.tagQualifier = new TagQualifier(tagSet);
+    		this.periodQualifier = new PeriodQualifier(startTime, endTime);
+    		this.deadlineQualifier = new DeadlineQualifier(deadline);
+    	}
+    	
+    	@Override
+    	public boolean run(ReadOnlyTask task) {
+    		return nameQualifier.run(task)
+    				&& tagQualifier.run(task)
+    				&& periodQualifier.run(task)
+    				&& deadlineQualifier.run(task);
+    	}
+    	
+    	@Override
+    	public String toString() {
+    		return nameQualifier.toString() + " "
+    				+ tagQualifier.toString() + " "
+    				+ periodQualifier.toString() + " "
+    				+ deadlineQualifier.toString() + " ";
     	}
     }
 }

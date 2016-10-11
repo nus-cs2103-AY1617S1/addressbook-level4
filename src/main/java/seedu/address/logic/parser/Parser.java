@@ -297,10 +297,10 @@ public class Parser {
         String deadline = "";
         final Set<String> tagSet;
         
-        System.out.println("date matcher: " + dateMatcher.matches());
-        System.out.println("no date matcher: " + noDateMatcher.matches());
+        boolean dateMatcherMatches = dateMatcher.matches();
+        boolean noDateMatcherMatches = noDateMatcher.matches();
         
-        if(dateMatcher.matches()) {
+        if(dateMatcherMatches) {
         	keywords = dateMatcher.group("keywords").split("\\s+");
     		keywordSet = new HashSet<>(Arrays.asList(keywords));
         	
@@ -311,16 +311,16 @@ public class Parser {
         	} 
     		
     		try {
+    			
     			String[] time = dateMatcher.group("startTime").replace(" from ", "").split(" to ");
     			startTime = reformatDate(time[START_TIME_INDEX]);
         		endTime = reformatDate(time[END_TIME_INDEX]);
+        		
     		} catch(Exception ise) {
         		deadline = reformatDate(dateMatcher.group("deadline").replace(" by ", ""));
         	}
     		
-    		System.out.println(deadline);
-    		System.out.println(startTime + " " + endTime);
-        } else if(noDateMatcher.matches()) {
+        } else if(noDateMatcherMatches) {
         	keywords = noDateMatcher.group("keywords").split("\\s+");
     		keywordSet = new HashSet<>(Arrays.asList(keywords));
         	
