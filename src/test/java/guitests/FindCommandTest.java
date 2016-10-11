@@ -7,34 +7,34 @@ import seedu.ggist.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends TaskManagerGuiTest {
+public class SearchCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find Meier", td.benson, td.daniel); //multiple results
+        assertFindResult("find movie"); //no results
+        assertFindResult("find movie", td.jog, td.dinner); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Meier",td.daniel);
+        assertFindResult("find holiday",td.dance);
     }
 
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
+        assertFindResult("find dance"); //no results
     }
 
     @Test
     public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+        commandBox.runCommand("searchmilk");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " persons listed!");
+        assertResultMessage(expectedHits.length + " tasks listed!");
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }
