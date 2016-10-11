@@ -421,6 +421,9 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
+            cmd.append(" d/").append(p.getDate().toString());
+            cmd.append(" s/").append(p.getStartTime().toString());
+            cmd.append(" e/").append(p.getEndTime().toString());
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);

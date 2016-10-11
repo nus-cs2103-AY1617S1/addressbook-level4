@@ -34,6 +34,11 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
+        builder.append("   Deadline : ");        
+        builder.append(getDate());
+        builder.append("   Start Time - End time : ");  
+        builder.append(getStartTime() + " - ");
+        builder.append(getEndTime() + "   ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

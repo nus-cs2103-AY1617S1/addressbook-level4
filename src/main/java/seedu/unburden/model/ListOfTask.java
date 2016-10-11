@@ -122,7 +122,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return persons.getInternalList().size() + " Tasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
