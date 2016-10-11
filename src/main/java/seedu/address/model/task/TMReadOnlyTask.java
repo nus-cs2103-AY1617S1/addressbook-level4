@@ -39,8 +39,8 @@ public interface TMReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-        		.append(" Task Type: ")
-        		.append(getTaskType())
+                .append(" Task Type: ")
+                .append(getTaskType())
                 .append(" Date: ")
                 .append(getDate().toString())
                 .append(" Status: ")
