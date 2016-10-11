@@ -138,7 +138,7 @@ A message will be displayed to inform the user that the previous command has bee
 Format: `undo`
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Marking floating tasks and deadlines as done: `done` </b><br>
-Marking a completed a floating task and deadline as done. <br>
+>Marking a completed a floating task and deadline as done. <br>
 Format: `done INDEX`
 
 
@@ -147,18 +147,18 @@ Format: `done INDEX`
   The index **must be a positive integer** 1,2,3, .. <br>
   The completed task will be moved to the archive list <br>
 
-Examples: 
+>Examples: 
 * `list` <br>
   `done 2` <br>
    Mark the 2nd task in DoMePlease as completed.
   
 
-#### Exiting the program : `exit`
-Exits the program.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.11 Exiting the program : `exit` </b><br>
+>Exits the program.<br>
 Format: `exit`  
 
-#### Saving the data 
-DoMePlease data are saved in the hard disk automatically after any command that changes the data.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.12 Saving the data </b><br>
+>DoMePlease data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## 4. FAQ
