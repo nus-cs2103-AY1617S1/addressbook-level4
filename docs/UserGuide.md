@@ -1,134 +1,145 @@
-# User Guide
+#Project name: taskBook
 
-* [Quick Start](#quick-start)
-* [Features](#features)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
+**Vision:** An intelligent and personalised task scheduler for Jim
 
-## Quick Start
+##Userguide: 
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-   
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+**Step 1:**
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+Fill in your name and press “Enter”
 
+This step will be required only for the first time you use the application. It is just to initialise the user’s name to make it more personalised.
 
-## Features
+**Step 2:**
 
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+ Type in command and press “Enter”
 
-#### Viewing help : `help`
-Format: `help`
+**Step 2a: Adding tasks**
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+To add a task, type " `add` taskname date time task_priority tagging venue recurrence pin”
+
+* Eg, user can type `add` play soccer, date 120516, time 1212, high priority, #sport, @town green, repeat weekly, pin
+
+Only command and taskname are compulsory; other fields are optional and will take default or null values if not entered. The rules for adding to the other fields are as follows:
+
+`Date`: it can accept 
+* formal dates (02/28/1979), 
+* relaxed dates (oct 1st), 
+* relative dates (the day before next thursday), 
+* and even date alternatives (next wed or thurs).
+
+`time`: The above date formats may be prefixed or suffixed with time information. 
+* Eg: 0600h,06:00 hours,6pm, 5:30 a.m., 5, 12:59, 23:59, noon, midnight
+
+Read more about [Natty Date Parser](http://natty.joestelmach.com/)
+
+`priority`: Will be medium by default
+
+`#`: tagging
+
+`@`: venue
+
+`repeat`: recurrence of event. Can be daily, weekly or monthly.
+
+`Pin`: indicates task should be pinned
+
+They do not need to be added in order
+
+**Step 2b: Listing tasks**
+
+To `list` tasks, type “`list` [type of list] 
+taskBook contains the following lists: 
+
+`Active`: 
+
+The tasks that are still active, sorted from the earliest to the latest
+*Eg: Typing `list active`
+*Eg: Typing `list active 120316` returns a list of active tasks with deadlines on 12 March 2016.
+
+`Expired`: 
+
+The tasks that have passed the deadline, sorted from the latest deadline to the earliest
+*Eg: Typing `list` `expired`
+*Eg: Typing `list expired 120316` returns a list of expired tasks with deadlines on 12 March 2016.
+
+`Done`: 
+
+The tasks that are done, sorted from the most recent to the least recent
+
+* Eg: Typing `list done`
+* Eg: Typing `list done 120316` returns a list of tasks done on 12 March 2016.
+
+`Ignore`: The tasks that have been ignored, sorted from the most recent to the least recent
+* Eg: Typing `list ignored`
+* Eg: Typing `list ignored 120316` returns a list of tasks with deadlines on 12 March 2016 that are ignored.
+
+`Date`: The tasks all on the day stated
+* Eg: Typing `list date 120316` returns a list of tasks on that 12 March 2016
+
+`task priority`: all tasks that are of `high`/ `medium`/ `low priority`
+* Eg: Typing `list high priority` return a list of tasks that are of high priority 
+
+`Tags` : List of Tags you have used
+* Eg: Typing `#` returns a list of a Tags created
+* Eg: Typing `#sport` where sport is the name of a Tag, will return a list of tasks that are tagged with sports 
+
+`Venue` : all tasks with the same venue
+* Eg: Typing `list @Town Green` returns a list of events that are located at Town Green
+
+`Repeat` : all tasks that are set to recurring
+* Eg: Typing `list repeat` returns a list of tasks that are repeated
+* Eg: Typing `list repeat weekly` returns a list of tasks that are repeated weekly
+
+`Pin` : all pinned tasks
+* Eg: Typing `list pin` return a list of pinned tasks
+
+`Free slots`: all free slots 
+* Eg: Typing `list slots 120316` returns a list of free slots on 12 March 2016
+
+**Step 2c:Sorting Tasks:**
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+When the `list` that the user is looking at is not what he wants, he can use the `sort` function
 
-> Persons can have any number of tags (including 0)
+`Lists` can be sorted by date from
+* `Time`: Type sort earliest to latest or sort latest to earliest
+* `Priority` : sort high to low or sort low to high
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+**Step 2d: Searching for tasks**
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+The `search` for tasks, type `search` `search_term` `search_field`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Only the `search term` is required.
+* Eg: Typing `search meeting` returns a list of tasks that have the name ‘meeting’. Alternatively, 
+* Eg: Typing `search meeting @Utown` returns a list tasks that have the name ‘meeting’ situated at Utown
+* Eg: Typing `search lab date 120316` returns lab sessions on 12 March 2016
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+**Step 2e: Deleting tasks**
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+To `delete` a task on the list that is on the screen, type `delete` [ index of task in the list] 
+* eg `delete 1 `
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+Alternatively, you can type the name of the task  
+* eg `delete shopping`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+**Step 2f: Postpone**
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+To `postpone` a task on the list that is on the screen, type `postpone` [index of task in the list or name of task] to [new deadline] 
+* eg `type postpone 3 to 120316` or eg `postpone shopping to 120316`
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+Alternatively, to postpone the task to the next available free slot, by simply 
+* typing `postpone 3` or `postpone shopping`.
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+**Step 2g: editing tasks**
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+To edit a task type `edit` (index of task in the list or name of task) (field) (changes)
+* Eg: Typing `edit 1 date 120316` will change the deadline of the first task to 12 March 2016
+* Eg: Typing `edit soccer @Casa` will change the venue of the soccer task to Casa.
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+**Step 2h : Finding next available time**
 
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
+When you need to urgently make an appointment, you might need to find the next possible available timeslot. 
+* Type `free slots` to return the next available slot. Alternatively, 
+* Type `free slots 10` to return the next 10 available free slots.
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
-
-## FAQ
-
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
-       
-## Command Summary
-
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+**Undo:**
+`Ctrl` + `Z` for windows or `Command` + `Z` for Macs

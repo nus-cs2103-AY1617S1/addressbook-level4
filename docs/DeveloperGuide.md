@@ -73,7 +73,7 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -270,16 +270,32 @@ b. Require developers to download those libraries manually (this creates extra w
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
 
-Priority | As a ... | I want to ... | So that I can...
+Priority | As a ... | I want to ... | So that ...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | User | Add tasks with deadlines | I won’t forget deadlines
+`* * *` | User | Pin tasks | I won’t forget them
+`* * *` | User | Undo | I can undo my most recent mistakes
+`* * *` | User  | Ignore tasks | I can remove tasks from my to do list even when they are not done, but still save them in the ignore folder
+`* * *` | User | Delete tasks | I can remove the task from the memory
+`* * *` | User | Archive tasks as done | I can archive the task
+`* * *` | User | Edit tasks | I can correct the tasks that were entered wrongly
+`* * *` | User  | Search for tasks | I can find tasks quickly
+`* * *` | User | Choose where to store the file | I can sync it with dropbox
+`* *` | User | Add shortcuts | I can do manage tasks productively
+`* *` | User | Sort the lists | I can find tasks quickly
+`* *` | User | See my upcoming tasks, expired tasks, high priority tasks easily  | I can manage my time effectively
+`* *` | User | Add tags | I can organise my tasks 
+`* *` | User | Postpone my tasks | I can do them later
+`* *` | User | See my free slots | I can do my tasks during the free time
+`* *` | User | Add repeating tasks | I don’t have to add them every time
+`* *` | User | Have auto-complete text | I don’t have to type in completely every time
+`*` | User | Add tasks with auto-generated tags | I can save time on creating obvious tags for tasks
+`*` | User | View my schedule in a monthly calendar format | Viewing tasks is more efficient
+`*` | User | Sync my tasks with Google Calendar | I can view my tasks on both platforms
+`*` | User | Be provided with intuitive suggestions for available time | I can add tasks efficiently
+`*` | User | Have public holidays indicated in the calendar | I can be aware of them when planning my schedule
+`*` | User | Natural language processing (NLP)  | I can write my commands in a more intuitive manner
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
@@ -287,37 +303,105 @@ Priority | As a ... | I want to ... | So that I can...
 
 #### Use case: Delete person
 
+#### Use case: Add a task
+
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+1.	User requests to add a task. 
+2.	User enters the task description (name, tags, venue(optional), date, whether to pin task (optional), priority level (Optional - default: medium)) 
+3.	taskBook saves the task details
+4.	taskBook displays task on task board (that is sorted according to deadline) with some important details (name, tags)
+Case Close
 
 **Extensions**
 
-2a. The list is empty
+2a. User wants to pin the task. 
+·	taskBook displays task on pinned-task-board ( at the top of task list, with a logo at the side) 
+2a. User chooses to prioritise task
+·	Task is colour coded ( high-red, low-blue, default-black)
+·	High priority task will be sorted to the top of the list according to deadlines, low priority task will be sorted to the bottom of the list, according to deadline
 
-> Use case ends
+#### Use case: Searching for a task
+Precondition: taskBook is already showing a list of tasks on the screen ( either by default main page or when the user is looking through a folder ( done, ignore, active)
 
-3a. The given index is invalid
+**MSS**
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+1.	User performs a search by the task details or the tag name(#...)
+2.	taskBook lists the tasks that contains the String/Tag entered by user
+3.	User picks the task that he/she is looking for ( by typing in the index of the task) 
+Case Close
 
-{More to be added}
+**Extensions**
+
+1a. User types in a string that cannot be found in the list of tasks
+·	taskBook returns ‘string not found’
+1a. There is no tasks stored at all
+·	taskBook returns ‘there are no tasks in taskBook’
+3. User does not find the task he/she is looking for
+·	User types in a different search command or returns to main page.
+
+#### Use case: Sorting the list of tasks to find a task
+Precondition: taskBook is already showing a list of tasks on the screen ( either by default main page or when the user is looking through a folder ( done, ignore, active) 
+
+**MSS**
+
+1.	User request to sort the list ( according to when it was entered into taskBook/ date it will expire/ time the event is etc…) 
+2.	taskBook sorts the list and displays the sorted list
+3.	User selects the task by typing the index of the task it wants to view.
+
+**Extensions**
+
+1a. There are no items displayed on the screen (ie search and could not find results) 
+·	taskBook returns ‘there are no items to sort’
+3. User selects the wrong task
+·	User types in a command to return taskBook to the previous page and re-picks the correct task
+
+#### Use case: Editing a task
+Precondition: User has selected the task and is viewing the details of the task that he/she wants to edit either after:
+1.	Sorting the list of tasks to find a task
+2.	Searching for a task
+3.	Selecting a task that is already on the main page
+Case close
+
+**MSS**
+
+1.	User requests to edit the task
+2.	User states the field he/she wants to edit and the edits he/she wants to make
+3.	taskBook edits the details of the task and displays the edited task on the screen.
+
+**Extensions**
+
+2. User did not enter a valid field that she wants to edit
+·	taskBook returns a ‘field not valid’ error, and says that edits were not done
+
+#### Use case: Creating a shortcut
+
+**MSS**
+
+1.	User requests to create a shortcut for the current commands that we have
+2.	taskBook saves the shortcut and displays the saved command
+
+**Extension**
+
+1a. Command that user typed in does not exist
+·	taskBook returns a ‘command does not exist’ error and says that it is unable to save the shortcut.
+1a. User did not want to 
+
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+1.	Should be intuitive for new users
+2.	Should come with automated unit tests
+3.	Primary source of input should be keyboard
+4.	Should be able to work without an active internet connection
+5.	Should be able to work on Windows and macOS desktop platforms
+
 
 {More to be added}
 
 ## Appendix D : Glossary
+
+NLP: Natural Language Processing
 
 ##### Mainstream OS
 
@@ -329,5 +413,45 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+Describe a summary of the product survey.
+The product survey revealed that the more successful task scheduler and calendar software in the market have a few common features as follows:
+1.	The interface is minimalist and simple with no unnecessary clutter.
+2.	The interface is intuitive for users to understand and use, makes use of the way people think when scheduling tasks.
+3.	While simple, the interface allows for more complex but useful functionalities like recurring events on a daily, weekly or monthly basis, adding of labels and others.
+4.	The software often allows syncing with other popular platforms.
+The abovementioned features appear to be popular and important to users of task scheduler and calendar software, and will be implemented and adhered to during the development of our product.
+
+Details:
+
+Google Keep
+Pros	
+Available on all devices (Desktop, Web, Mobile) and also on all platforms (Android, iOS, macOS, Windows 10)	
+Minimalist interface	Need a Google account
+Able to collaborate, share with other people	
+Able to archive, add labels to each note	
+Cons
+No command line interface
+
+Apple Calendar
+Pros	
+Integrated with the Apple ecosystem	
+Syncing available with third-party platforms like Google Calendar	
+Minimalist interface	
+Able to view tasks in multiple formats (list, monthly, weekly, daily, hourly)	
+Able to collaborate, share with other people	
+Able to archive, add labels to each note	
+Intuitive and easy to use	
+Cons 
+Only available on the Apple ecosystem
+No command line interface
+
+Evernote todo list
+Pros	
+Reminders can be added with specific days before
+Can add your own categories so that you can categories tasks according to your own preference	
+Can easily add a list of tasks quickly by just entering after each task has been created	
+Can create shortcuts	
+Cons 
+Pricey
+
 

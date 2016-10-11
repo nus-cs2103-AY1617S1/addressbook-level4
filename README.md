@@ -1,21 +1,17 @@
-[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
+
 
 # Address Book (Level 4)
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/UI design.jpeg" width="600"><br>
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
-  a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as 
-  the main programming language. 
-* It is **written in OOP fashion**. It provides a **reasonably well-written** code example that is 
-  **significantly bigger** (around 6 KLoC)than what students usually write in beginner-level SE modules. 
-* What's different from [level 3](https://github.com/se-edu/addressbook-level3):
-    * A more sophisticated GUI that includes a list panel and an in-built Browser.
-    * More test cases, including automated GUI testing.
-    * Support for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
+We are bombarded with ‘things to do’ continuously. Some things need to be done during specific **times** (e.g., attend meeting), some have **deadlines** (e.g., submit report), and others are simply ‘to be done someday’ (e.g., read ‘Lord of the Rings’). The pile of **todo** items accumulates and weighs heavily on our mind at times. Sometimes things go out of control and we forget to do certain things on time.
 
+Hence, taskBook is created to help users put these **todo items** into a systematic process that tracks them and helps them to decide on what to do and when to do things so that the user doesn’t have to remember the todo items.
+
+This is a desktop Task Book application. It has a GUI but most of the user interactions happen using 
+  a CLI (Command Line Interface) because Jim has amazing fingers.
+
+  
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
