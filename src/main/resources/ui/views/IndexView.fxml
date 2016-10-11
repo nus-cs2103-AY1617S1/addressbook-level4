@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="100" minWidth="100" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.views.IndexView">
+  <children>
+    <SplitPane fx:id="splitPane" dividerPositions="0.3" VBox.vgrow="ALWAYS">
+      <items>
+        <ScrollPane minWidth="250.0" fitToHeight="true" fitToWidth="true">
+          <content>
+            <VBox fx:id="tagsPane" styleClass="taglist-pane" VBox.vgrow="ALWAYS" />
+          </content>
+        </ScrollPane>
+        <ScrollPane minWidth="500.0" fitToHeight="true" fitToWidth="true">
+          <content>
+            <VBox fx:id="tasksPane" styleClass="tasklist-pane" VBox.vgrow="ALWAYS" />
+          </content>
+        </ScrollPane>
+      </items>
+    </SplitPane>
+  </children>
+</VBox>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
+  fx:controller="seedu.todo.ui.components.Console">
+  
+  <children>
+    <TextArea fx:id="consoleTextArea" editable="false" focusTraversable="false" mouseTransparent="true"  
+      promptText="Console text" styleClass="console-textarea" stylesheets="@../css/style.css" wrapText="true" />
+  </children>
+</VBox>

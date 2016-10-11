@@ -14,3 +14,32 @@ preferences.json
 classes/
 /data/
 /bin/
+
+# Generated class files
+*.class
+
+# Default data file
+addressbook.txt
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Idea files
+.idea/
+*.iml
+out/
+test/data/
+/bin/
+data/
+publish.sh
+
+# Junit logs
+junit/*.xml
+
+# Eclipse settings
+.settings/*
+
+# DB file
+database.json

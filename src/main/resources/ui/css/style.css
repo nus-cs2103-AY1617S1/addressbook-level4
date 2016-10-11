@@ -1,0 +1,125 @@
+@font-face {
+  font-family: "Roboto Thin";
+  font-weight: 100;
+  src: url("../fonts/Roboto-Thin.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Light";
+  font-weight: 300;
+  src: url("../fonts/Roboto-Light.ttf");
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Medium";
+  font-weight: 500;
+  src: url("../fonts/Roboto-Medium.ttf");
+}
+
+.main-window {
+  -fx-font-family: "Roboto";
+}
+
+.font-100 {
+  -fx-font-family: "Roboto Thin";
+  -fx-font-weight: 100;
+}
+
+.font-300 {
+  -fx-font-family: "Roboto Light";
+  -fx-font-weight: 300;
+}
+
+.font-400 {
+  -fx-font-family: "Roboto";
+}
+
+.font-500 {
+  -fx-font-family: "Roboto Medium";
+  -fx-font-weight: 500;
+}
+
+/* MENUBAR */
+
+.menu-bar {
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: #eeeeee;
+}
+
+.menu-button {
+  -fx-font-size: 12px;
+}
+
+/* HEADER */
+
+VBox.header {
+  -fx-background-color: #ffffff;
+}
+
+.header-text {
+  -fx-font-size: 24px;
+}
+
+/* CONSOLE */
+
+.text-field.console-input-textfield, .text-area.console-textarea {
+  -fx-border-width: 0px;
+  -fx-border-radius: 0px;
+  -fx-background-radius: 0px;
+}
+
+.text-field.console-input-textfield:focused, .text-area.console-textarea:focused {
+  -fx-effect: none;
+}
+
+.text-area.console-textarea {
+  -fx-font-size: 10px;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: #dddddd;
+}
+
+.text-area.console-textarea .content {
+  -fx-background-color: #f5f5f5;
+  -fx-background-radius: 0px;
+}
+
+/* TAG LIST */
+
+.taglist-pane {
+  -fx-background-color: #ffffff;
+}
+
+.taglist-title {
+  -fx-font-size: 20px;
+}
+
+.taglist-link-text {
+  -fx-font-size: 15px;
+}
+
+.taglist-item-text {
+  -fx-font-size: 13px;
+}
+
+.taglist-item-bullet {
+  -fx-fill-color: #999999;
+}
+
+/* TASK LIST */
+
+.tasklist-pane {
+  -fx-background-color: #ffffff;
+}
+
+.tasklist-title {
+  -fx-font-size: 20px;
+}
+
+.tasklist-dateitem-datelabel {
+  -fx-font-size: 18px;
+}

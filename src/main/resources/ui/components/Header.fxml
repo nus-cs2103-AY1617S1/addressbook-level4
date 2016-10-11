@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox styleClass="header" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.components.Header">
+  
+  <children>
+    <HBox>
+      <children>
+        <ImageView fitHeight="64.0" fitWidth="64.0" fx:id="headerLogoImageView" pickOnBounds="true" preserveRatio="true">
+          <HBox.margin>
+            <Insets top="15.0" left="10.0" />
+          </HBox.margin>
+        </ImageView>
+        
+        <VBox>
+          <children>
+          
+            <Text styleClass="font-300, header-text" text="GetShitDone">
+              <VBox.margin>
+                <Insets bottom="5.0" left="10.0" right="10.0" top="20.0" />
+              </VBox.margin>
+            </Text>
+            
+            <Text fx:id="headerVersionText" styleClass="font-300, header-version-text">
+              <VBox.margin>
+                <Insets bottom="20.0" left="10.0" right="10.0" top="5.0" />
+              </VBox.margin>
+            </Text>
+            
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </children>
+  
+</VBox>
