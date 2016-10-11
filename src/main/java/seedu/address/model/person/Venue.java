@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Venue {
 
     public static final String MESSAGE_VENUE_CONSTRAINTS = "The nvnue of a task can be in any format";
-    public static final String VENUE_VALIDATION_REGEX = ".+";
+    public static final String VENUE_VALIDATION_REGEX = "^\\s*$|.+";
 
     public final String value;
 

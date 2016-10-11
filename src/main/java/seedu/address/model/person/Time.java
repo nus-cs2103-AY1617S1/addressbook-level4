@@ -11,7 +11,7 @@ public class Time {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
             "Time should be 2 integers separated by '@'";
-    public static final String TIME_VALIDATION_REGEX = "[\\d\\.]+:[\\d\\.]+";
+    public static final String TIME_VALIDATION_REGEX = "^\\s*$|[\\d\\.]+:[\\d\\.]+";
 
     public final String value;
 
