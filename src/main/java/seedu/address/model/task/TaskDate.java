@@ -31,6 +31,7 @@ public class TaskDate {
     
     public String getFormattedDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma",Locale.ENGLISH);
+            return "";
         return formatter.format(date);
     }
 
@@ -40,6 +41,8 @@ public class TaskDate {
     }
 
     public long getDate() {
+        if (date == null)
+            return -1;
         return date.getTime();
     } 
     
