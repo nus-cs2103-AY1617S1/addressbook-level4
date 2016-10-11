@@ -14,6 +14,9 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String description;
     
+    @XmlElement(required = true)
+    private boolean favorite;
+    
     /**
      * No-arg constructor for JAXB use.
      */
@@ -27,6 +30,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(Task source) {
     	description = source.getDescription().toString();
+    	favorite = source.isFavorite();
     }
 
     /**
