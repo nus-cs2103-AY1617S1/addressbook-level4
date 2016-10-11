@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends TarsGuiTest {
 
+    //@@author A0124333U
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Meeting"); //no results

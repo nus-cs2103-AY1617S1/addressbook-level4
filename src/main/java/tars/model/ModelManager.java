@@ -25,8 +25,8 @@ import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of tars data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of tars data. All changes to any model should
+ * be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -38,10 +38,9 @@ public class ModelManager extends ComponentManager implements Model {
     private static final String LIST_KEYWORD_DONE = "done";
     private static final String LIST_KEYWORD_UNDONE = "undone";
 
-
     /**
-     * Initializes a ModelManager with the given Tars
-     * Tars and its variables should not be null
+     * Initializes a ModelManager with the given Tars Tars and its variables
+     * should not be null
      */
     public ModelManager(Tars src, UserPrefs userPrefs) {
         super();
@@ -92,9 +91,10 @@ public class ModelManager extends ComponentManager implements Model {
      * 
      * @@author Joel Foo
      */
-    public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit) throws TaskNotFoundException, 
-    DateTimeException, IllegalDateException, DuplicateTagException, TagNotFoundException, IllegalValueException {
-        Task editedTask = tars.editTask(toEdit, argsToEdit); 
+    public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
+            throws TaskNotFoundException, DateTimeException, IllegalDateException, DuplicateTagException,
+            TagNotFoundException, IllegalValueException {
+        Task editedTask = tars.editTask(toEdit, argsToEdit);
         indicateTarsChanged();
         return editedTask;
     }
@@ -119,7 +119,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
 
-    //=========== Filtered Task List Accessors ===============================================================
+    // =========== Filtered Task List Accessors
+    // ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
@@ -132,8 +133,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        if(keywords.contains(LIST_KEYWORD_DONE) || keywords.contains(LIST_KEYWORD_UNDONE)) {
+    public void updateFilteredTaskList(Set<String> keywords) {
+        if (keywords.contains(LIST_KEYWORD_DONE) || keywords.contains(LIST_KEYWORD_UNDONE)) {
             updateFilteredTaskList(new PredicateExpression(new ListQualifier(keywords)));
         } else {
             updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
@@ -144,10 +145,12 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+    // ========== Inner classes/interfaces used for filtering
+    // ==================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
+
         String toString();
     }
 
@@ -172,6 +175,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
+
         String toString();
     }
 
@@ -182,6 +186,13 @@ public class ModelManager extends ComponentManager implements Model {
             this.nameKeyWords = nameKeyWords;
         }
 
+        /**
+         * @@author A0124333U
+         * 
+         * @param task
+         * 
+         * @return true if ALL keywords are found in the task name
+         */
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
@@ -205,8 +216,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return listArguments.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus().toString(), keyword))
-                    .findAny()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus().toString(), keyword)).findAny()
                     .isPresent();
         }
 
