@@ -176,7 +176,36 @@ public class LogicManagerTest {
                 String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_add_successful_non_floating_from_date_to_date() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.nonFloatingFromDateToDate();
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeAdded);
 
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_add_successful_non_floating_by_date() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.nonFloatingByDate();
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());        
     }
 
     @Test
@@ -196,7 +225,6 @@ public class LogicManagerTest {
                 AddFloatingCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
-
     }
     
      
@@ -578,7 +606,27 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, tags);
         }
+        
+        Task nonFloatingFromDateToDate() throws Exception {
+            Name name = new Name("non floating task from XXXX to XXXX");
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            TaskDate startDate = new TaskDate("19 oct 10pm");
+            TaskDate endDate = new TaskDate("20 oct 11am");
+            return new Task(name, tags, startDate, endDate);
+        }
 
+        Task nonFloatingByDate() throws Exception {
+            Name name = new Name(" non floating task by XXXX");
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            TaskDate startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+            TaskDate endDate = new TaskDate("20 oct 11am");
+            return new Task(name, tags, startDate, endDate);
+        }        
+        
         /**
          * Generates a valid task using the given seed.
          * Running this function with the same parameter values guarantees the returned task will have the same state.
@@ -596,24 +644,36 @@ public class LogicManagerTest {
         /** Generates the correct add command based on the task given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
-
             cmd.append("add ");
-
             cmd.append(p.getName().toString());
-            
             if(p.getType().equals(TaskType.NON_FLOATING)){
-            	cmd.append(" from ");
-            	cmd.append(p.getStartDate().getInputDate());
-            	cmd.append(" to ");
-            	cmd.append(p.getEndDate().getInputDate());
+                generateAddNonFloatingCommand(p, cmd);
             }
-
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
             }
             System.out.println(cmd.toString());
             return cmd.toString();
+        }
+
+        private void generateAddNonFloatingCommand(Task p, StringBuffer cmd) {            
+            if (p.hasOnlyDateLine()) {
+                generateAddNonFloatingCommandByDate(p, cmd);
+            } else {
+                generateAddNonFloatingCommandFromDateToDate(p, cmd);   
+            }
+        }
+
+        private void generateAddNonFloatingCommandFromDateToDate(Task p, StringBuffer cmd) {
+            cmd.append(" from ");
+            cmd.append(p.getStartDate().getInputDate());
+            cmd.append(" to ");
+            cmd.append(p.getEndDate().getInputDate());
+        }
+
+        private void generateAddNonFloatingCommandByDate(Task p, StringBuffer cmd) {
+            cmd.append(" by ").append(p.getEndDate().getInputDate());
         }
         
         /** Generates the correct block command based on the task given */

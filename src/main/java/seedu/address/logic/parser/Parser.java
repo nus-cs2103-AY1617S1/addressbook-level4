@@ -122,6 +122,11 @@ public class Parser {
         return prepareAddNonFloating(args);
     }
     
+    /**
+     * Parses arguments in the context of adding a floating task
+     * @param args full command args string
+     * @return the prepared add floating command
+     */
     private Command prepareAddFloating(String args) {
         final Matcher matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -137,7 +142,11 @@ public class Parser {
         }
     }
     
-
+    /**
+     * Parses arguments in the context of adding a non floating task
+     * @param args full command args string
+     * @return the prepared add non floating command
+     */
     private Command prepareAddNonFloating(String args) {
         final Matcher matcher = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -156,6 +165,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Prepares arguments in the context of adding a non floating task by date only
+     * @param matcher Contains the information we need
+     * @return the prepared add non floating command
+     * @throws IllegalValueException Signals for incorrect command
+     */
     private Command prepareAddNonFloatingByDate(Matcher matcher) throws IllegalValueException {
         String endInput = matcher.group("deadline");
         
@@ -167,6 +182,12 @@ public class Parser {
                 );
     }
 
+    /**
+     * Prepares arguments in the context of adding a non floating task from date to date
+     * @param matcher Contains the information we need
+     * @return the prepared add non floating command
+     * @throws IllegalValueException Signals for incorrect command
+     */    
     private Command prepareAddNonFloatingFromDateToDate(Matcher matcher) throws IllegalValueException {
         String startInput = matcher.group("startdate");
         String endInput = matcher.group("enddate");
@@ -284,6 +305,11 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
     
+    /**
+     * Parses through the dateInput and provides the Date from that input
+     * @param dateInput The date that we want to convert from string to Date
+     * @return A single Date from the string
+     */
     public static Date getDateFromString(String dateInput) {
         final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);

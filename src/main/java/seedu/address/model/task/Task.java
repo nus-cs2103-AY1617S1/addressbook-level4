@@ -7,6 +7,14 @@ import java.util.Objects;
 
 /**
  * Represents a Task in the task list.
+ * A Floating task is created by using the constructor with only the (Name and UniqueTagList)
+ * E.g. Task floating = new Task(name, uniqueTagList)
+ * A Non Floating task is created by using the constructor with (Name, UniqueTagList, TaskDate, TaskDate)
+ * E.g. 
+ * TaskDate startDate, endDate;
+ * startDate = new TaskDate(...);
+ * endDate = new TaskDate(...);
+ * Task nonFloating = new Task(name, uniqueTagList, startDate, endDate); 
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
@@ -28,7 +36,10 @@ public class Task implements ReadOnlyTask {
         this.endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         type = TaskType.FLOATING;
     }
-    
+
+    /**
+     * Every field must be present and not null.
+     */
     public Task(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
         this(name, tags);
         assert !CollectionUtil.isAnyNull(name, tags);
@@ -45,7 +56,6 @@ public class Task implements ReadOnlyTask {
     	}else{
     		return true;
     	}
-    	
     }
 
     /**
@@ -80,6 +90,16 @@ public class Task implements ReadOnlyTask {
 
     public TaskType getType() {
         return type;
+    }
+    
+    public boolean hasOnlyDateLine() {
+        if (type == TaskType.FLOATING) {
+            return false;
+        }
+        if (startDate.getDate() != TaskDate.DATE_NOT_PRESENT){
+            return false;
+        }
+        return true;
     }
     
     /**
