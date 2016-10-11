@@ -42,7 +42,8 @@ Format: `help`
 
 ##### Adding a task: `add`
 Adds a task to the task manager.<br>
-Format: `add DESCRIPTION [pr/RANK] [time/TIME] [a/VENUE] [t/TAG]...`
+Format: `add DESCRIPTION [pr/RANK] [time/TIME] [t/TAG]...`
+Format for TIME: numeric date/month/year/24hour_format
 
 > * Tasks can have different priorities, normal by default, high or low
 > * Deadlines can be set for tasks
