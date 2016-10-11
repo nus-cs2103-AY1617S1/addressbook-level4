@@ -1,17 +1,17 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the To Do List level
+ * Wraps all data at the todo list level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class ToDoList implements ReadOnlyToDoList {
@@ -27,14 +27,14 @@ public class ToDoList implements ReadOnlyToDoList {
     public ToDoList() {}
 
     /**
-     * Tasks and Tags are copied into this task manager
+     * Tasks and Tags are copied into this ToDoList
      */
     public ToDoList(ReadOnlyToDoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Tasks and Tags are copied into this task manager
+     * Tasks and Tags are copied into this ToDoList
      */
     public ToDoList(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
@@ -67,10 +67,10 @@ public class ToDoList implements ReadOnlyToDoList {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
-//// person-level operations
+//// Task-level operations
 
     /**
-     * Adds a task to the task manager.
+     * Adds a Task to the address book.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
@@ -96,7 +96,7 @@ public class ToDoList implements ReadOnlyToDoList {
             masterTagObjects.put(tag, tag);
         }
 
-        // Rebuild the list of person tags using references from the master list
+        // Rebuild the list of task tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
         for (Tag tag : taskTags) {
             commonTagReferences.add(masterTagObjects.get(tag));

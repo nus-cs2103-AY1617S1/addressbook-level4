@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the To Do List data.
+ * Represents the in-memory model of the todo list data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -25,15 +25,15 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given TaskManager
-     * TaskManager and its variables should not be null
+     * Initializes a ModelManager with the given ToDoList
+     * ToDoList and its variables should not be null
      */
     public ModelManager(ToDoList src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with To Do List: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with todo list: " + src + " and user prefs " + userPrefs);
 
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
@@ -44,14 +44,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
-    	toDoList = new ToDoList(initialData);
+        toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
     }
 
     @Override
     public void resetData(ReadOnlyToDoList newData) {
-    	toDoList.resetData(newData);
-        indicateTaskManagerChanged();
+        toDoList.resetData(newData);
+        indicateToDoListChanged();
     }
 
     @Override
@@ -60,21 +60,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateTaskManagerChanged() {
+    private void indicateToDoListChanged() {
         raise(new ToDoListChangedEvent(toDoList));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-    	toDoList.removeTask(target);
-        indicateTaskManagerChanged();
+        toDoList.removeTask(target);
+        indicateToDoListChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         toDoList.addTask(task);
         updateFilteredListToShowAll();
-        indicateTaskManagerChanged();
+        indicateToDoListChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -91,7 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new DetailQualifier(keywords)));
     }
 
     private void updateFilteredTaskList(Expression expression) {

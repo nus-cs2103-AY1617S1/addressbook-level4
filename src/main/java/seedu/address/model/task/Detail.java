@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Detail {
 
     public static final String MESSAGE_DETAIL_CONSTRAINTS = "You can type anything in details. It must not end with by, on, before or at.";
-    public static final String DETAIL_VALIDATION_REGEX = "";
+    public static final String DETAIL_VALIDATION_REGEX = ".*";
 
     public final String details;
 

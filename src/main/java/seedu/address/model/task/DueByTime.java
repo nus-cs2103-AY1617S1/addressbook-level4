@@ -1,6 +1,10 @@
 package seedu.address.model.task;
 
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -9,35 +13,24 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class DueByTime {
 
-    public static final String MESSAGE_DUEBYTIME_CONSTRAINTS = "";
-    public static final String DUEBYTIME_VALIDATION_REGEX = "";
+    public static final String MESSAGE_DUEBYTIME_CONSTRAINTS = "Due at what time? You should type in a time in format HHMM";
+//    public static final String DUEBYTIME_VALIDATION_REGEX = ".*";
 
-    public final String value;
+    public final LocalTime value;
 
     /**
      * Validates given dueByTime.
      *
      * @throws IllegalValueException if given dueByTime string is invalid.
      */
-    public DueByTime(String dueByTime) throws IllegalValueException {
+    public DueByTime(LocalTime dueByTime) throws IllegalValueException {
         assert dueByTime != null;
-        dueByTime = dueByTime.trim();
-        if (!isValidDueByTime(dueByTime)) {
-            throw new IllegalValueException(MESSAGE_DUEBYTIME_CONSTRAINTS);
-        }
-        this.value = dueByTime;
-    }
-
-    /**
-     * Returns if a given string is a valid due time.
-     */
-    public static boolean isValidDueByTime(String test) {
-        return test.matches(DUEBYTIME_VALIDATION_REGEX);
+        this.value = dueByTime.truncatedTo(ChronoUnit.MINUTES);
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
     /*
     @Override
