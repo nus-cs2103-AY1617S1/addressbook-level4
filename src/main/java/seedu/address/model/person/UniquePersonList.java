@@ -12,16 +12,16 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#equals(Object)
+ * @see FloatingTask#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList implements Iterable<Entry> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicatePersonException extends DuplicateDataException {
-        protected DuplicatePersonException() {
+    public static class DuplicateTaskException extends DuplicateDataException {
+        protected DuplicateTaskException() {
             super("Operation would result in duplicate persons");
         }
     }
@@ -32,7 +32,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public static class PersonNotFoundException extends Exception {}
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Entry> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
@@ -42,7 +42,7 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ReadOnlyPerson toCheck) {
+    public boolean contains(Entry toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -50,14 +50,40 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Adds a person to the list.
      *
-     * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
+     * @throws DuplicateTaskException
+     *             if the task to add is a duplicate of an existing task in the
+     *             list.
      */
-    public void add(Person toAdd) throws DuplicatePersonException {
-        assert toAdd != null;
-        if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+    public void add(Entry person) throws DuplicateTaskException {
+        assert person != null;
+        if (contains(person)) {
+            throw new DuplicateTaskException();
         }
-        internalList.add(toAdd);
+        internalList.add(person);
+    }
+
+    /**
+     * Edit an entry on the list.
+     * 
+     * @param toEdit
+     *            the entry to be edited
+     * @param newTitle
+     *            the new title for the entry
+     * @throws PersonNotFoundException
+     *             if no such person could be found in the list.
+     * @throws DuplicateTaskException
+     *             if the task to add is a duplicate of an existing task.
+     */
+    public void edit(Entry toEdit, Title newTitle) throws PersonNotFoundException, DuplicateTaskException {
+        assert toEdit != null;
+        if (contains(toEdit)) {
+            throw new DuplicateTaskException();
+        }
+        // TODO: This should be atomic or we should implement notifications for
+        // mutations
+        remove(toEdit);
+        toEdit.setTitle(newTitle);
+        add(toEdit);
     }
 
     /**
@@ -65,7 +91,7 @@ public class UniquePersonList implements Iterable<Person> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public boolean remove(Entry toRemove) throws PersonNotFoundException {
         assert toRemove != null;
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
@@ -74,12 +100,12 @@ public class UniquePersonList implements Iterable<Person> {
         return personFoundAndDeleted;
     }
 
-    public ObservableList<Person> getInternalList() {
+    public ObservableList<Entry> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Entry> iterator() {
         return internalList.iterator();
     }
 

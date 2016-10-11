@@ -9,14 +9,14 @@ import seedu.address.model.person.*;
  */
 public class PersonBuilder {
 
-    private TestPerson person;
+    private TestEntry person;
 
     public PersonBuilder() {
-        this.person = new TestPerson();
+        this.person = new TestEntry();
     }
 
     public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+        this.person.setName(new Title(name));
         return this;
     }
 
@@ -27,22 +27,7 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Address(address));
-        return this;
-    }
-
-    public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new Phone(phone));
-        return this;
-    }
-
-    public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Email(email));
-        return this;
-    }
-
-    public TestPerson build() {
+    public TestEntry build() {
         return this.person;
     }
 

@@ -1,134 +1,170 @@
-# User Guide
+User guide
+===================
 
-* [Quick Start](#quick-start)
-* [Features](#features)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
+## Getting Started
 
-## Quick Start
+![mockup](images/mockup.png)
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-   
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+Our to-do application primarily takes in input using a command line interface. It supports the basic creation, reading, updating and deletion of entries. You may add entries with or without deadlines. These are known as tasks. Entries with a start and/or end time are known as events.
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+To start, try adding a new task:
 
+```
+$ add Get groceries
+```
 
-## Features
+Before editing a task, you should obtain a task id by listing:
 
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+```
+$ list
 
-#### Viewing help : `help`
-Format: `help`
+0 [ ] Get groceries
+```
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+You can edit a task with the following command:
 
-> Persons can have any number of tags (including 0)
+```
+$ edit 0 -d 3 October
+[ ] Get groceries, due: 3 October
+```
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+Undo is quite easily done:
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+```
+$ undo
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+$ list
+[ ] Get groceries
+```
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+Finally, try deleting the task:
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+```
+$ list
+[ ] Get groceries
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+$ delete 0
+1 task deleted!
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+$ list
+No tasks to display.
+```
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
-
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
-
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
-
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
-
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
-
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
-
-## FAQ
-
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
-       
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+| Command |Format |
+| --- | --- |
+|add|`add <task_name> [-st <start> -end <end> | -d <deadline>] [-t <tags>]  [-r <recurrence>] [-desc <description>]`|
+|list|`list [-f [start=<start_value>] [end=<end_value>] [deadline=<deadline_value>][tags=<comma_separated_tags>] [recurrence=<recurrence_value>] [desc=<description_value>]]`|
+|tag|`tag [-d] <task_id> <tag_name> [, <tag_name> …]`|
+|edit|`edit <task_id> [-st <start> -end <end> | -d <deadline>] [-t <tags>]  [-r <recurrence>] [-desc <description>]`|
+|delete|`delete <task_id>`|
+|mark|`mark [-d] <task_id>`|
+|show|`show <task_id>`|
+|help|`help [<command>]`|
+|config|`config [option=value ...]`|
+
+
+## Commands
+
+```
+add <entry_name> [-st <start> -end <end> | -d <deadline>] [-t <tags>]  [-r <recurrence>] [-desc <description>]
+```
+
+> Add event or deadline
+
+> Examples:
+
+
+> - `add CS2103T Lecture -st 1/1/2016:1400 -end 1/1/2016:16:30 -r weekly -t ‘rocks’`
+
+> - `add CS2105 Assignment 1 -d 1/1/2016:1400`
+
+```
+list [-f [start=<start_value>] [end=<end_value>] [deadline=<deadline_value>] [tags=<comma_separated_tags>] [recurrence=<recurrence_value>] [desc=<description_value>]]
+```
+
+> List all or filtered entries
+
+> Examples:
+
+> - `list`
+
+> - `list -f start=06/09/2016 recurrence=everyday`
+
+```
+tag [-d] <entry_id> <tag_name> [, <tag_name> …]
+```
+
+> Add tag(s) to a particular entry with a specified id
+
+> Examples:
+
+> - `tag 123 ‘CS2103T’, ‘rocks’`
+
+> Delete tag(s) from a particular entry with a specified id and the -d flag
+
+> - `tag -d 123 ‘rocks’`
+
+> Duplicated tags will only be added once
+
+```
+edit <entry_id> [-st <start> -end <end> | -d <deadline>] [-t <tags>]  [-r <recurrence>] [-desc <description>]
+```
+
+>  Edit the entry with the specified entry id.
+
+>  `list` should be executed before this command to obtain a entry id.
+
+> Examples:
+
+> - `edit 3 -t school`
+
+> - `edit 13 -r yearly`
+
+```
+delete <entry_id>
+```
+> Delete the task with a particular entry id
+
+> `list` should be executed before this command to obtain a entry id.
+
+> Examples:
+
+> - `Delete 42`
+
+```
+mark [-d] <entry_id>
+```
+
+> Check or uncheck a entry as completed.
+
+> `list` should be executed before this command to obtain a entry id.
+
+> Examples:
+
+> - `mark 42`
+
+```
+show <entry_id>
+```
+> Display the details of a particular entry
+
+> `list` should be executed before this command to obtain a entry id.
+
+```
+help [<command>]
+```
+
+> Show available commands and how to use them
+
+> Help is also shown if you enter an incorrect command e.g. abcd
+
+```
+config [option=value ...]
+```
+> Configure user settings: name, file path to data file
+
+> Examples:
+
+> - `config name=Jim`
