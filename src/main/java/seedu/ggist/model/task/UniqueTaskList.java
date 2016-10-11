@@ -30,7 +30,17 @@ public class UniqueTaskList implements Iterable<Task> {
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {}
+    public static class TaskNotFoundException extends Exception {
+    	public TaskNotFoundException () {
+    		super("Target task does not found");
+    	}
+    }
+    
+    public static class TaskTypeNotFoundException extends Exception {
+    	public TaskTypeNotFoundException () {
+    		super("Target task type does not found");
+    	}
+    }
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 

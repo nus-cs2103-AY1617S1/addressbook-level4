@@ -5,12 +5,16 @@ import seedu.ggist.commons.core.ComponentManager;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
+import seedu.ggist.logic.commands.CommandResult;
+import seedu.ggist.logic.commands.EditCommand;
 import seedu.ggist.model.task.Task;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.ggist.model.task.UniqueTaskList.TaskTypeNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -24,6 +28,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    
+    public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -70,7 +76,45 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
-
+    
+    @Override
+    public synchronized void editTask (int index, String type, String toEdit) throws TaskTypeNotFoundException{
+    	Task toBeEditedTask = filteredTasks.get(index-1);
+    	switch (type) {
+    	case "task":
+    		try{
+    			toBeEditedTask.getTaskName().editTaskName(toEdit);
+    		} catch (IllegalValueException ive) {
+    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
+    		}
+    		break;
+    	case "date":
+    		try{
+    		 toBeEditedTask.getDate().editDate(toEdit);
+    		} catch (IllegalValueException ive) {
+    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
+    		}
+    		 break;
+    	case "start":
+    		try{
+    		toBeEditedTask.getStartTime().editTime(toEdit);
+    		} catch (IllegalValueException ive) {
+    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
+    		}
+    		break;
+    	case "end":
+    		try{
+    		toBeEditedTask.getEndTime().editTime(toEdit);
+    		} catch (IllegalValueException ive) {
+    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
+    		}
+    		break;
+    	default:
+    		throw new TaskTypeNotFoundException();
+    	}
+    	updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskManager.addTask(task);

@@ -30,6 +30,15 @@ public class Tag {
         }
         this.tagName = name;
     }
+    
+    public void editTag(String newName) throws IllegalValueException {
+        assert newName != null;
+        newName = newName.trim();
+        if (!isValidTagName(newName)) {
+            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
+        }
+        this.tagName = newName;
+    }
 
     /**
      * Returns true if a given string is a valid tag name.
