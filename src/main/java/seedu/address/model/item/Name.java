@@ -17,9 +17,10 @@ public class Name {
     public Name(String name) throws IllegalValueException {
         assert name != null;
         name = name.trim();
-        if (!isValidName(name)) {
+        //TODO: I don't think we need to validate name anymore.
+        /*if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
-        }
+        }*/
         this.name = name;
     }
 
