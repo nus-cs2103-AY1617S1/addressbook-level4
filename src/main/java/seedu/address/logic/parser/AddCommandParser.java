@@ -76,18 +76,20 @@ public class AddCommandParser extends CommandParser{
      */
     private AddTaskCommand createAddTaskCommandBasedOnDateString(String description, int substringFrom) 
     			throws IllegalValueException {
+    	String taskDescription = description.substring(0, substringFrom).trim();
     	String dateString = description.substring(substringFrom, description.length());
+    	
     	if (DateUtil.isValidDateFormat(dateString)) {
     		// dateString represents task's deadline
     		Date deadline = DateUtil.getDate(dateString);
-			return new AddTaskCommand(description, deadline);
+			return new AddTaskCommand(taskDescription, deadline);
 			
     	} else if (DateUtil.isValidStartDateToEndDateFormat(dateString)) {
 			// dateString represents task's start date and end date
     		Date[] startAndEndDates = DateUtil.getStartAndEndDates(dateString);
     		Date startDate = startAndEndDates[0];
     		Date endDate = startAndEndDates[1];
-			return new AddTaskCommand(description, startDate, endDate);
+			return new AddTaskCommand(taskDescription, startDate, endDate);
 			
 		} else {
 			// Floating task since sentence after "from" is not a valid date

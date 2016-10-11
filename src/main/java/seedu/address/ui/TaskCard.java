@@ -1,9 +1,13 @@
 package seedu.address.ui;
 
+import java.text.SimpleDateFormat;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.address.model.task.DeadlineTask;
+import seedu.address.model.task.EventTask;
 import seedu.address.model.task.Task;
 
 public class TaskCard extends UiPart{
@@ -13,9 +17,13 @@ public class TaskCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label description;
     @FXML
     private Label id;
+    @FXML
+    private Label first_date;
+    @FXML
+    private Label second_date;
 
     private Task task;
     private int displayedIndex;
@@ -33,8 +41,25 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(task.getDescription().getContent());
+        description.setText(task.getDescription().getContent());
         id.setText(displayedIndex + ". ");
+        
+        // Format to display the dates
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        
+        // Assigning Date labels only if task is DeadlineTask or EventTask
+        if (task instanceof DeadlineTask) {
+        	DeadlineTask curr = (DeadlineTask) task;
+        	first_date.setText("Deadline: " + dateFormat.format(curr.getDeadline()));
+        	second_date.setText("");
+        } else if (task instanceof EventTask) {
+        	EventTask curr = (EventTask) task;
+        	first_date.setText("Start date: " + dateFormat.format(curr.getStartDate()));
+        	second_date.setText("End date: " + dateFormat.format(curr.getEndDate()));
+        } else {
+        	first_date.setText("");
+        	second_date.setText("");
+        }
     }
 
     public HBox getLayout() {

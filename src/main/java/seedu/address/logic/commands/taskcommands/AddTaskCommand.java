@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.taskcommands;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import seedu.address.commons.collections.UniqueItemCollection;
@@ -75,24 +76,7 @@ public class AddTaskCommand extends TaskCommand {
      * Retrieve the details of the task for testing purposes
      */
     public String getTaskDetails() {
-    	// Find the correct instance of toAdd task and return a string comprising of the task's details
-    	if (toAdd instanceof FloatingTask) {
-    		FloatingTask task = (FloatingTask) toAdd;
-    		return String.format("[Floating Task][Description: %s]", task.getDescription());
-    		
-    	} else if (toAdd instanceof DeadlineTask) {
-    		DeadlineTask task = (DeadlineTask) toAdd;
-    		return String.format("[Deadline Task][Description: %s][Deadline: %s]", 
-    				task.getDescription(), task.getDeadline());
-    		
-    	} else if (toAdd instanceof EventTask) {
-    		EventTask task = (EventTask) toAdd;
-    		return String.format("[Event Task][Description: %s][Start date: %s][End date: %s]", 
-    				task.getDescription(), task.getStartDate(), task.getEndDate());
-    		
-    	} else {
-    		return "No task has been added.";
-    	}
+    	return toAdd.toString();
     }
 
     @Override
