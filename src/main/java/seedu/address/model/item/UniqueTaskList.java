@@ -98,4 +98,10 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+    
+    public Task getTask(ReadOnlyTask readTask){
+		int index = internalList.indexOf(readTask);
+		return internalList.get(index);    	
+    }
+    
 }

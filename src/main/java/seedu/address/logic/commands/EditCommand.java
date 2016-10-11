@@ -7,6 +7,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.DateParser;
 import seedu.address.model.item.Task;
+import seedu.address.model.Model;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
@@ -30,12 +31,17 @@ public class EditCommand extends Command{
 
     public final int targetIndex;
     
-    private final Task toAdd;
-
-
+    private Task toAdd;
+    Name taskName = null;
+	Date startDate = null;
+    Date endDate = null;
+    RecurrenceRate recurrenceRate;
+    Priority priority;
+    boolean isChanged = true;
+    
 	public EditCommand(int targetIndex,String taskNameString, String startDateString, String endDateString, 
             String recurrenceRateString, String priorityString)  throws IllegalValueException {
-		
+        	
 		this.targetIndex = targetIndex;
 		Name taskName = null;
 		Date startDate = null;
@@ -43,7 +49,7 @@ public class EditCommand extends Command{
         RecurrenceRate recurrenceRate;
         Priority priority;
         boolean isChanged = true;
-        
+                
         if (taskNameString != null) {
     		taskName = new Name(taskNameString);
         }
@@ -72,15 +78,16 @@ public class EditCommand extends Command{
             case ("medium"): 
             default: priority = Priority.MEDIUM;
             isChanged = false;
-        }
-        this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
+        }       
+        
+       this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
         
 	}
 
 	@Override
 	public CommandResult execute() {
-		assert model != null;
 		
+		assert model != null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredFloatingTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -88,8 +95,17 @@ public class EditCommand extends Command{
             return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);       
+        ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
         
+        if (taskName != null) {
+            try {
+				model.editName(personToEdit, taskName);
+			} catch (DuplicateTaskException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        /*
         try {
             model.deleteTask(personToEdit);
         } catch (TaskNotFoundException pnfe) {
@@ -100,14 +116,14 @@ public class EditCommand extends Command{
             model.addTask(toAdd);
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_FLOATING_TASK);
-        }
+        }*/
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         
         /* TODO
-            if (name != null) {
-                model.editName(personToEdit, name);
-            }
-
+            if (taskName != null) {
+                model.editName(personToEdit, taskName);
+            }*/
+/*
             if (startDate != null) {
                 model.editStartDate(personToEdit, startDate);
             }

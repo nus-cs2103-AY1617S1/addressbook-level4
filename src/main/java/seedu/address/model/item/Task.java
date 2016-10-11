@@ -151,5 +151,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         }
         return Optional.empty();    
     }
+
+	public void setName(Name name) {
+        this.taskName = name;
+		
+	}
     
 }

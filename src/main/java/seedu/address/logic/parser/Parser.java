@@ -46,17 +46,7 @@ public class Parser {
     
     //TODO:Parser not functioning
     //final Pattern EDIT_ARGS_FORMAT = Pattern.compile("(?<index>\\d+) (?<words>.*?)");
-    /*
-    final Pattern EDIT_ARGS_FORMAT = Pattern.compile("(?i:(?<taskName>.*?)"
-            											+"(?:"
-            											+"(?:, by +(?<endDateFormatOne>.*?))"
-            											+"|(?:, from (?<startDateFormatOne>.*?))"
-            											+"|(?:, at (?<startDateFormatTwo>.*?))"
-            											+")?"
-            											+"(?: to (?<endDateFormatTwo>.*?))?"
-            											+"(?: repeat every (?<recurrenceRate>.*?))?"
-            											+"(?: -(?<priority>.*?))?)");
-    */
+
     //TODO: Parser not fully functioning: case: eat bingsu by myself by 31 Sep (i.e repeat by)
     //private static final Pattern TASK_ARGS_FORMAT = Pattern.compile("(?i:(?<name>.*))(?:by +((?<deadline1>.*)(?= repeat every +(?<recurrenceRate>.*))|(?<deadline2>.*))(?:-+(?<priority>\\w+))?$)");
     //Pattern.compile("(?i:(?<name>.*))(?:by +(?<date>[^ ]*)(?: *(repeat every +(?<recurrenceRate>.*)))?)$");
@@ -206,13 +196,10 @@ public class Parser {
 		
     	 //TODO parse the index and args
     	 int index = 0;
-    	 if(index == -1){ //index not present
-    	 	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-    	 }
-    	 
+        	 
     	 String[] parts = args.split(" ");
     	 String indexNum = parts[1];
-    	 
+
     	 index = Integer.parseInt(indexNum);
     	 
     	 args = args.substring(3);
@@ -395,6 +382,9 @@ public class Parser {
         }
         if (StringUtil.isSubstring(HelpCommand.COMMAND_WORD, commandWord)){
             toolTips.add(HelpCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(EditCommand.COMMAND_WORD, commandWord)){
+            toolTips.add(EditCommand.TOOL_TIP);
         }
     }
 

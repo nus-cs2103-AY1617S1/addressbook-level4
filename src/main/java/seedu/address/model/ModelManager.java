@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.item.Task;
+import seedu.address.model.item.Name;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.UniqueTaskList;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
@@ -75,13 +76,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-
     @Override
-    public synchronized void editTask(Task floatingTask) throws UniqueTaskList.DuplicateTaskException {
-        taskManager.editFloatingTask(floatingTask);
+    public synchronized void editName(ReadOnlyTask floatingTask, Name name) throws UniqueTaskList.DuplicateTaskException {
+        taskManager.editFloatingTaskName(floatingTask, name);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+
 
     //=========== Filtered Person List Accessors ===============================================================
 

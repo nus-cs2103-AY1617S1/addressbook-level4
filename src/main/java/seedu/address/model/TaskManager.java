@@ -5,6 +5,7 @@ import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.UniqueTaskList;
 
 import java.util.*;
@@ -74,11 +75,6 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
     public void addFloatingTask(Task f) throws UniqueTaskList.DuplicateTaskException {
         floatingTasks.add(f);
     }
-
-	public void editFloatingTask(Task floatingTask) {
-		// TODO Auto-generated method stub
-		
-	}
     
     public boolean removeFloatingTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (floatingTasks.remove(key)) {
@@ -88,10 +84,13 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
         }
     }
 
-
+	public void editFloatingTaskName(ReadOnlyTask floatingTask, Name name) {
+		Task currTask = floatingTasks.getTask(floatingTask);
+		currTask.setName(name);
+	}
 //// util methods
 
-    @Override
+	@Override
     public String toString() {
         return floatingTasks.getInternalList().size() + " floating tasks";
         // TODO: refine later
@@ -107,9 +106,6 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
     public UniqueTaskList getUniqueTaskList() {
         return this.floatingTasks;
     }
-
-
-
 
     @Override
     public boolean equals(Object other) {

@@ -2,8 +2,10 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.item.Task;
+import seedu.address.model.item.Name;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.UniqueTaskList;
+import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 
 import java.util.Set;
 
@@ -23,9 +25,6 @@ public interface Model {
     /** Adds the given floating task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Adds the given floating task */
-    void editTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-    
     /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
 
@@ -35,6 +34,9 @@ public interface Model {
     /** Updates the filter of the filtered floating task list to filter by the given keywords*/
     void updateFilteredFloatingTaskList(Set<String> keywords);
 
+	void editName(ReadOnlyTask personToEdit, Name taskName) throws DuplicateTaskException;
+
+    
 
 
 }
