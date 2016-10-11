@@ -148,44 +148,26 @@ public class Parser {
      */
     private Command prepareUpdate(String args) {
         String[] ArgComponents= args.trim().split(" ");
-        String type = " ";
-        String argType = " ";
-        String arg = " ";
-        int index;
-        
-        if(ArgComponents.length > TASK_TYPE){
-            type = ArgComponents[TASK_TYPE];
-        }
-        
-        if(ArgComponents.length > INDEX){
-            Optional<Integer> indexNum = parseIndex(ArgComponents[INDEX]);
-            if(!indexNum.isPresent()){
-                return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
-            }
-            
-            index = Integer.parseInt((ArgComponents[INDEX]));
-        } else {
-            return new IncorrectCommand(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        
-        if(ArgComponents.length > ARG_TYPE){
-            argType = ArgComponents[ARG_TYPE];
-        }
-        
+        String type = ArgComponents[TASK_TYPE];
+        String argType = ArgComponents[ARG_TYPE];
+        String arg = "";
+        Optional<Integer> index = parseIndex(ArgComponents[INDEX]);
         for (int i = ARG; i < ArgComponents.length; i++) {
             arg += ArgComponents[i] + " ";
         }
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
         
-        // Validate arg string format
-        if (!isValidUpdateCommandFormat(type, index, argType)) {
+        if (!isValidUpdateCommandFormat(type, index.get(), argType)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
         
         try {
             return new UpdateCommand(
                 type,
-                index,
+                index.get(),
                 argType,
                 arg);
         } catch (IllegalValueException ive) {
@@ -193,6 +175,10 @@ public class Parser {
         }
     }
     
+    /**
+     * Checks that the command format is valid
+     * @param type is todo/schedule, index is the index of item on the list, argType is description/tag/date/time
+     */
     private boolean isValidUpdateCommandFormat(String type, int index, String argType) {
         if (!(type.compareToIgnoreCase("todo") == 0 || type.compareToIgnoreCase("schedule") == 0)) {
             return false;
