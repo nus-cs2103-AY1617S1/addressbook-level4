@@ -41,6 +41,11 @@ public class TaskBuilder {
         this.person.setStartTime(new ActivityTime(time));
         return this;
     }
+    
+    public TaskBuilder withType(String type) throws IllegalValueException {
+        this.person.setActivityType(type);
+        return this;
+    }
 
     public TestTask build() {
         return this.person;

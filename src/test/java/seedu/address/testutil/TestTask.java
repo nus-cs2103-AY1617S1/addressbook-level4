@@ -11,6 +11,7 @@ import seedu.menion.model.tag.UniqueTagList;
 public class TestTask implements ReadOnlyActivity {
 
     private ActivityName name;
+    private String type;
     private Note note;
     private ActivityTime startTime;
     private ActivityDate startDate;
@@ -23,6 +24,10 @@ public class TestTask implements ReadOnlyActivity {
     public void setName(ActivityName name) {
         this.name = name;
     }
+    
+    public void setActivityType(String type) {
+        this.type = type;
+    }
 
     public void setNote(Note notes) {
         this.note = notes;
@@ -32,15 +37,20 @@ public class TestTask implements ReadOnlyActivity {
         this.startTime = startTime;
     }
 
-    public void setStartDate(ActivityDate phone) {
-        this.startDate = phone;
+    public void setStartDate(ActivityDate startDate) {
+        this.startDate = startDate;
     }
 
     @Override
     public ActivityName getActivityName() {
         return name;
     }
-
+    
+	@Override
+	public String getActivityType() {
+		return type;
+	}
+	
     @Override
     public ActivityDate getActivityStartDate() {
         return startDate;
@@ -69,10 +79,9 @@ public class TestTask implements ReadOnlyActivity {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getActivityName().fullName + " ");
-        sb.append("p/" + this.getActivityStartDate().value + " ");
-        sb.append("e/" + this.getActivityStartTime().value + " ");
-        sb.append("a/" + this.getNote().value + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("by: " + this.getActivityStartDate().value + " ");
+        sb.append(this.getActivityStartTime().value + " ");
+        sb.append("n:" + this.getNote().value + " ");
         return sb.toString();
     }
 
@@ -98,12 +107,6 @@ public class TestTask implements ReadOnlyActivity {
 
 	@Override
 	public ActivityTime getActivityEndTime() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getActivityType() {
 		// TODO Auto-generated method stub
 		return null;
 	}

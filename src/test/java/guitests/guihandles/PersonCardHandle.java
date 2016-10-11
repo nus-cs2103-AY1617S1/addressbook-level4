@@ -11,8 +11,8 @@ import seedu.menion.model.activity.ReadOnlyActivity;
 public class PersonCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String NOTE_FIELD_ID = "#note";
-    private static final String DATE_FIELD_ID = "#date";
-    private static final String TIME_FIELD_ID = "#time";
+    private static final String DATE_FIELD_ID = "#startDate";
+    private static final String TIME_FIELD_ID = "#startTime";
 
     private Node node;
 

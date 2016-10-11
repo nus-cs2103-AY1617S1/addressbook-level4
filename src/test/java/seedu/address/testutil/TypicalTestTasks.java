@@ -13,19 +13,19 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            assignment1 =  new TaskBuilder().withName("assignment1").withNote("must do")
+            assignment1 =  new TaskBuilder().withName("assignment1").withType("task").withNote("must do")
                     .withStartTime("1200").withStartDate("12-12-2016").build();
-            assignment2 = new TaskBuilder().withName("assignment2").withNote("excel in this")
+            assignment2 = new TaskBuilder().withName("assignment2").withType("task").withNote("excel in this")
                     .withStartTime("0900").withStartDate("10-10-2016").build();
-            assignment3 = new TaskBuilder().withName("assignment3").withStartDate("11-11-2016").withStartTime("1000").withNote("hand up on time").build();
-            assignment4 = new TaskBuilder().withName("assignment4").withStartDate("09-09-2016").withStartTime("1100").withNote("yay").build();
-            assignment5 = new TaskBuilder().withName("assignment5").withStartDate("08-08-2016").withStartTime("1200").withNote("i can do this").build();
-            assignment6 = new TaskBuilder().withName("assignment6").withStartDate("07-07-2016").withStartTime("1300").withNote("almost there").build();
-            assignment7 = new TaskBuilder().withName("assignment7").withStartDate("06-06-2016").withStartTime("1400").withNote("last 2").build();
+            assignment3 = new TaskBuilder().withName("assignment3").withType("task").withStartDate("11-11-2016").withStartTime("1000").withNote("hand up on time").build();
+            assignment4 = new TaskBuilder().withName("assignment4").withType("task").withStartDate("09-09-2016").withStartTime("1100").withNote("yay").build();
+            assignment5 = new TaskBuilder().withName("assignment5").withType("task").withStartDate("08-08-2016").withStartTime("1200").withNote("i can do this").build();
+            assignment6 = new TaskBuilder().withName("assignment6").withType("task").withStartDate("07-07-2016").withStartTime("1300").withNote("almost there").build();
+            assignment7 = new TaskBuilder().withName("assignment7").withType("task").withStartDate("06-06-2016").withStartTime("1400").withNote("last 2").build();
 
             //Manually added
-            assignment8 = new TaskBuilder().withName("assignment8").withStartDate("05-05-2016").withStartTime("1500").withNote("last 1").build();
-            assignment9 = new TaskBuilder().withName("assignment9").withStartDate("04-04-2016").withStartTime("1700").withNote("finally").build();
+            assignment8 = new TaskBuilder().withName("assignment8").withType("task").withStartDate("05-05-2016").withStartTime("1500").withNote("last 1").build();
+            assignment9 = new TaskBuilder().withName("assignment9").withType("task").withStartDate("04-04-2016").withStartTime("1700").withNote("finally").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
