@@ -8,7 +8,9 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.UniqueTaskList;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
@@ -100,6 +102,14 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void editPriority(ReadOnlyTask floatingTask, Priority priority) {
+        taskManager.editFloatingTaskpriority(floatingTask, priority);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override

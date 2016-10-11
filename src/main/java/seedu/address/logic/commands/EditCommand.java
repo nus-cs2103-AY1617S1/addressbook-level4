@@ -23,8 +23,6 @@ public class EditCommand extends Command{
               
     public static final String TOOL_TIP = "edit INDEX [NAME], [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]";
 
-    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
-
     public static final String MESSAGE_DUPLICATE_FLOATING_TASK = "This task already exists in the task manager";
 
     public static final String MESSAGE_SUCCESS = "Item edited: %1$s";
@@ -46,7 +44,7 @@ public class EditCommand extends Command{
 		taskName = null;
 		startDate = null;
         endDate = null;
-        
+        priority = null;
         
         System.out.println(taskNameString);
         if (taskNameString != null) {
@@ -72,14 +70,12 @@ public class EditCommand extends Command{
         
         //TODO: Throw IllegalValueException for default cases?
         switch (priorityString) {
-            case ("low"): case ("l"): priority = Priority.LOW; break;
+            case ("low"): case ("l"): priority = Priority.LOW; break; 
             case ("high"): case ("h"): priority = Priority.HIGH; break;
-            case ("medium"): 
-            default: priority = Priority.MEDIUM;
-            //isChanged = false;
+            case ("medium"): case ("m"): priority = Priority.MEDIUM; break;
         }       
         
-       this.toEdit = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
+        this.toEdit = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
         
 	}
 
@@ -104,6 +100,7 @@ public class EditCommand extends Command{
 				e.printStackTrace();
 			}
         }
+        
         if (startDate != null) {
             model.editStartDate(personToEdit, startDate);
         }
@@ -111,18 +108,18 @@ public class EditCommand extends Command{
         if (endDate != null) {
             model.editEndDate(personToEdit, endDate);
         }
+
+        if (priority != null){
+            model.editPriority(personToEdit, priority);
+        }
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         
         /* TODO
             if (recurrenceRate != null) {
-                model.editRecurrence(personToEdit, recurrenceRate);
-            }
-            
-            if (isChanged == true) {
-                model.editPriority(personToEdit, priority);
-            }
-         */
+            model.editRecurrence(personToEdit, recurrenceRate);
+        }
+        */
 	}
 
 }

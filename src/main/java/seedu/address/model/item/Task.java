@@ -130,12 +130,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public Name getName() {      
         return taskName;
     }
-
     
 	public void setName(Name name) {
         this.taskName = name;
 	}
-	
 
 	public void setStartDate(Date startDate) {
         this.startDate = startDate;
@@ -143,6 +141,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	
 	public void setEndDate(Date endDate) {
         this.endDate = endDate;
+	}
+	
+	public void setPriority(Priority priorityValue) {
+        this.priority = priorityValue;
 	}
 	
     @Override
