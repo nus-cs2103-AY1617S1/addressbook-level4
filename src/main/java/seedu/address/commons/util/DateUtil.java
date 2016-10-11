@@ -47,9 +47,13 @@ public class DateUtil {
      * Retrieve the date from a string that represents some date.
      */
     public static Date getDate(String dateString) {
+    	// Add spaces between numbers and words in order for Natty to process it correctly
+    	dateString = StringUtil.addSpacesBetweenNumbersAndWords(dateString).trim();
+    	
     	// Using the Natty library to parse the dateString
     	Parser parser = new Parser();
     	List<DateGroup> groups = parser.parse(dateString);
+
 
     	// String is valid date format only if there is only 1 date value within
     	if (groups.size() != 1) {
