@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- todo: remove isPrivate flag -->
+<taskMan>
+    <tasks>
+        <title>Hans Muster</title>
+        <deadline isPrivate="false">9482424</deadline>
+        <status isPrivate="false">hans@google.com</status>
+        <frequency>1</frequency>
+        <schedule>"23 June, 24 July"</schedule>
+    </tasks>
+    <tasks>
+        <title>Ruth Mueller</title>
+        <deadline isPrivate="false">87249245</deadline>
+        <status isPrivate="false">ruth@google.com</status>
+        <frequency>1</frequency>
+        <schedule>"23 June, 24 July"</schedule>
+    </tasks>
+    <tasks>
+        <title>Heinz Kurz</title>
+        <deadline isPrivate="false">95352563</deadline>
+        <status isPrivate="false">heinz@yahoo.com</status>
+        <frequency>1</frequency>
+        <schedule>"23 June, 24 July"</schedule>
+    </tasks>
+    <tasks>
+        <title>Cornelia Meier</title>
+        <deadline isPrivate="false">87652533</deadline>
+        <status isPrivate="false">cornelia@google.com</status>
+        <frequency>1</frequency>
+        <schedule>"23 June, 24 July"</schedule>
+    </tasks>
+    <tasks>
+        <title>Werner Meyer</title>
+        <deadline isPrivate="false">9482224</deadline>
+        <status isPrivate="false">werner@gmail.com</status>
+        <frequency>1</frequency>
+        <schedule>"23 June, 24 July"</schedule>
+    </tasks>
+    <tasks>
+        <title>Lydia Kunz</title>
+        <deadline isPrivate="false">9482427</deadline>
+        <status isPrivate="false">lydia@gmail.com</status>
+        <frequency>1</frequency>
+        <schedule>"23 June, 24 July"</schedule>
+    </tasks>
+    <tasks>
+        <title>Anna Best</title>
+        <deadline isPrivate="false">9482442</deadline>
+        <status isPrivate="false">anna@google.com</status>
+        <frequency>1</frequency>
+        <schedule>"23 June, 24 July"</schedule>
+    </tasks>
+    <tasks>
+        <title>Stefan Meier</title>
+        <deadline isPrivate="false">8482424</deadline>
+        <status isPrivate="false">stefan@mail.com</status>
+        <frequency>1</frequency>
+        <schedule>"23 June, 24 July"</schedule>
+    </tasks>
+    <tasks>
+        <title>Martin Mueller</title>
+        <deadline isPrivate="false">8482131</deadline>
+        <status isPrivate="false">hans@google.com</status>
+        <frequency>1</frequency>
+        <schedule>"23 June, 24 July"</schedule>
+    </tasks>
+</taskMan>

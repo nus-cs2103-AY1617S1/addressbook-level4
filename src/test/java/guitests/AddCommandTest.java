@@ -1,53 +1,64 @@
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
-import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
+import guitests.guihandles.TaskRowHandle;
+import seedu.taskman.commons.core.Messages;
+import seedu.taskman.logic.commands.AddCommand;
+import seedu.taskman.model.event.Activity;
+import seedu.taskman.model.event.Task;
+import seedu.taskman.testutil.TestTask;
+import seedu.taskman.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-public class AddCommandTest extends AddressBookGuiTest {
+import org.junit.Test;
 
-    @Test
+public class AddCommandTest extends TaskManGuiTest {
+
+    //@Test
     public void add() {
-        //add one person
-        TestPerson[] currentList = td.getTypicalPersons();
-        TestPerson personToAdd = td.hoon;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+        //add one task
+        TestTask[] currentList = td.getTypicalTasks();
+        TestTask taskToAdd = td.taskCS2102;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add another person
-        personToAdd = td.ida;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+        //add another task
+        taskToAdd = td.taskCS2104;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add duplicate person
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        assertTrue(personListPanel.isListMatching(currentList));
+        //add duplicate task
+        commandBox.runCommand(td.taskCS2102.getAddCommand());
+        Activity[] expectedList = new Activity[currentList.length];
+        for(int i = 0; i < expectedList.length; i++){
+            expectedList[i] = new Activity(new Task(currentList[i]));
+        }
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_EVENT);
+        assertTrue(taskListPanel.isListMatching(expectedList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.alice);
+        assertAddSuccess(td.taskCS2101);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestPerson personToAdd, TestPerson... currentList) {
-        commandBox.runCommand(personToAdd.getAddCommand());
+    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+        commandBox.runCommand(taskToAdd.getAddCommand());
 
-        //confirm the new card contains the right data
-        PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().fullName);
-        assertMatching(personToAdd, addedCard);
+        //confirm the new row contains the right data
+        TaskRowHandle addedRow = taskListPanel.navigateToTask(taskToAdd.getTitle().title);
+        assertMatching(new Activity(new Task(taskToAdd)), addedRow);
 
-        //confirm the list now contains all previous persons plus the new person
-        TestPerson[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
-        assertTrue(personListPanel.isListMatching(expectedList));
+        //confirm the list now contains all previous tasks plus the new task
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        Activity[] expectedActivityList = new Activity[currentList.length];
+        for(int i = 0; i < expectedActivityList.length; i++){
+            expectedActivityList[i] = new Activity(new Task(expectedList[i]));
+        }
+        assertTrue(taskListPanel.isListMatching(expectedActivityList));
     }
 
 }
