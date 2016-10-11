@@ -118,50 +118,50 @@ public class LogicManagerTest {
     }
 
 
-//    @Test
-//    public void execute_unknownCommandWord() throws Exception {
-//        String unknownCommand = "uicfhmowqewca";
-//        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
-//    }
-//
-//    @Test
-//    public void execute_help() throws Exception {
-//        assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
-//        assertTrue(helpShown);
-//    }
-//
-//    @Test
-//    public void execute_exit() throws Exception {
-//        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
-//    }
-//
-//    @Test
-//    public void execute_clear() throws Exception {
-//        TestDataHelper helper = new TestDataHelper();
-//        model.addTask(helper.generateTask(1));
-//        model.addTask(helper.generateTask(2));
-//        model.addTask(helper.generateTask(3));
-//
-//        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
-//    }
-//    
-//
-//
-//    @Test
-//    public void execute_add_invalidArgsFormat() throws Exception {
-//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFloatingCommand.MESSAGE_USAGE);
-//        assertCommandBehavior(
-//                "add t/hihi", expectedMessage);
-//    }
-//
-//    @Test
-//    public void execute_add_invalidTaskData() throws Exception {
-//        assertCommandBehavior(
-//                "add []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "add Valid Name t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-//
-//    }
+    @Test
+    public void execute_unknownCommandWord() throws Exception {
+        String unknownCommand = "uicfhmowqewca";
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+    }
+
+    @Test
+    public void execute_help() throws Exception {
+        assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
+        assertTrue(helpShown);
+    }
+
+    @Test
+    public void execute_exit() throws Exception {
+        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    }
+
+    @Test
+    public void execute_clear() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        model.addTask(helper.generateTask(1));
+        model.addTask(helper.generateTask(2));
+        model.addTask(helper.generateTask(3));
+
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+    }
+    
+
+
+    @Test
+    public void execute_add_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFloatingCommand.MESSAGE_USAGE);
+        assertCommandBehavior(
+                "add t/hihi", expectedMessage);
+    }
+
+    @Test
+    public void execute_add_invalidTaskData() throws Exception {
+        assertCommandBehavior(
+                "add []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+
+    }
 
     @Test
     public void execute_add_successful() throws Exception {
@@ -199,9 +199,7 @@ public class LogicManagerTest {
 
     }
     
-    /**
-     * The logic for block command is actually the same as add-non=floating commands.
-     * */
+     
     @Test
     public void execute_addOverlapSlot_notAllowed() throws Exception {
         // setup expectations
@@ -257,6 +255,67 @@ public class LogicManagerTest {
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
+    }
+    
+    /**
+     * The logic for block command is actually the same as add-non=floating commands.
+     * */ 
+    
+    @Test
+    public void execute_block_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
+				  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateBlockCommand(toBeAdded),
+                String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_blockOverlapSlot_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+        Task toBeAddedAfter = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
+				  new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"));
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeBlocked);
+
+        // setup starting state
+        model.addTask(toBeBlocked); // task already in internal task list
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAddedAfter),
+                BlockCommand.MESSAGE_TIMESLOT_OCCUPIED,
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_blockIllegalSlot_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
+        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"));
+        TaskList expectedAB = new TaskList();
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateBlockCommand(toBeBlocked),
+                BlockCommand.MESSAGE_ILLEGAL_TIME_SLOT,
+                expectedAB,
+                expectedAB.getTaskList());
+
     }
 
 
@@ -468,9 +527,9 @@ public class LogicManagerTest {
             cmd.append("block ");
             
             cmd.append("from ");
-            cmd.append(p.getStartDate().getFormattedDate());
+            cmd.append(p.getStartDate().getInputDate());
             cmd.append(" to ");
-            cmd.append(p.getEndDate().getFormattedDate());
+            cmd.append(p.getEndDate().getInputDate());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
