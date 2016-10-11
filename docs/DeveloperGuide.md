@@ -288,7 +288,7 @@ Use case ends.
 **MSS**
 
 1. User requests to submit a new task
-2. TARS save the task <br>
+2. TARS save the task and add the command to command history<br>
 Use case ends.
 
 **Extensions**
@@ -436,18 +436,14 @@ Use case ends.
 **MSS**
 
 1. User requests to undo a previous command
-2. TARS unexecutes (undo) the last command in the history list
+2. TARS unexecutes (undo) the last command in the history list<br>
 Use case ends.
 
 **Extensions**
 
-2a. The previous command can not be reserved (e.g. list, help)
+2a. The history list is empty
 
 > 2a1. Use case ends
-
-2b. The history list is empty
-
-> 2b1. Use case ends
 
 {More to be added}
 

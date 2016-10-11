@@ -4,6 +4,7 @@ import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
+import tars.logic.commands.Command;
 import tars.model.task.Task;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
@@ -12,6 +13,7 @@ import tars.model.task.UniqueTaskList;
 import java.time.DateTimeException;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * The API of the Model component.
@@ -41,5 +43,8 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    /** Returns the undoable command history stack */
+    Stack<Command> getUndoableCmdHist();
 
 }

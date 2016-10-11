@@ -17,6 +17,7 @@ import tars.logic.commands.HelpCommand;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.SelectCommand;
+import tars.logic.commands.UndoCommand;
 
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tars.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -81,6 +82,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
