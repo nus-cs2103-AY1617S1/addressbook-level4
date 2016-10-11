@@ -1,7 +1,9 @@
-	public  class Task{
+package seedu.address.ui;
+	
+public  class UiTaskTest{
 			public String taskDescription;
 			
-			public Task(String taskDescription){
+			public UiTaskTest(String taskDescription){
 				this.taskDescription = taskDescription;
 			}
 			
