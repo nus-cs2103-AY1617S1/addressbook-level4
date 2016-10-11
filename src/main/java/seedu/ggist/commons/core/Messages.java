@@ -15,4 +15,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_Task_DISPLAYED_INDEX = "Invalid task index";
     public static final String MESSAGE_Task_NOT_IN_GGIST = "Task is not found in GGist";
     public static final String MESSAGE_Task_Type_NOT_IN_GGIST = "Target type does not exist";
+    public static final String MESSAGE_NO_PREVIOUS_COMMAND = "No previous command";
 }

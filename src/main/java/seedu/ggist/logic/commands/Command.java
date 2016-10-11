@@ -1,15 +1,20 @@
 package seedu.ggist.logic.commands;
 
+import java.util.Stack;
+
 import seedu.ggist.commons.core.EventsCenter;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.ggist.model.Model;
+import seedu.ggist.model.task.ReadOnlyTask;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
     protected Model model;
+    public static Stack<String> listOfCommands = new Stack<String>();
+    public static Stack<ReadOnlyTask> listOfTasks = new Stack<ReadOnlyTask>();
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of task.
