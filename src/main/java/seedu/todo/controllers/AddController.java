@@ -21,6 +21,8 @@ public class AddController implements Controller {
     public void process(String args) {
         // TODO: Example of last minute work
         
+        args = args.replaceFirst("add", "");
+        
         // Parse name and date.
         String[] splitted = args.split("( at | by )", 2);
         String name = splitted[0].trim();
