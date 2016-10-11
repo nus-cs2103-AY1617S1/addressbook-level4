@@ -3,8 +3,6 @@ package tars.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
-import tars.commons.exceptions.IllegalValueException;
-
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
@@ -40,7 +38,7 @@ public class ListCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-		if(!keyword.contains("undone")){
+		if(!keyword.contains(LIST_KEYWORD_UNDONE)){
 			if (keyword.contains(LIST_ARG_DONE)) {
 				keyword.add(LIST_KEYWORD_DONE);
 				model.updateFilteredTaskList(keyword);
@@ -50,7 +48,7 @@ public class ListCommand extends Command {
 				return new CommandResult(MESSAGE_SUCCESS_ALL);
 			} else {
 				keyword.clear();
-				keyword.add("undone");
+				keyword.add(LIST_KEYWORD_UNDONE);
 				model.updateFilteredTaskList(keyword);
 				return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
 			}
