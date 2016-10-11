@@ -80,10 +80,7 @@ public class DateTimeParser {
             throw new IllegalDateTimeException("failed to match regex");
         } else {
             long unixTimeNow = Instant.now().getEpochSecond();
-            System.out.println("fake duration to unix: " + getUnixTime(naturalDuration));
-
             long actualDurationSeconds = getUnixTime(naturalDuration) - unixTimeNow;
-            System.out.println("calculated duration " + actualDurationSeconds);
             long endUnixTime = startUnixTime + actualDurationSeconds;
 
             if (endUnixTime < startUnixTime) {
