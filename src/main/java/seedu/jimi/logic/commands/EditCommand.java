@@ -37,7 +37,6 @@ public class EditCommand extends Command{
     private final int taskIndex; //index of task/event to be edited
     private UniqueTagList newTagList;
     private Name newName; 
-    private UnmodifiableObservableList<ReadOnlyTask> lastShownList;
 
     /**
      * Convenience constructor using raw values.
@@ -52,32 +51,28 @@ public class EditCommand extends Command{
         }
         this.taskIndex = taskIndex;
         
-        lastShownList = model.getFilteredTaskList();
-        ReadOnlyTask taskToEdit = lastShownList.get(taskIndex - 1);
-        
-        //if new fields are to be edited, instantiate them, else set them to the oldName
+        //if new fields are to be edited, instantiate them
         if(name.length() != 0) {
             this.newName = new Name(name);
-        }
-        else {
-            this.newName = taskToEdit.getName(); //assigns old task name
         }
         
         if(!tagSet.isEmpty()) {
             this.newTagList = new UniqueTagList(tagSet);
         }
-        else {
-            this.newTagList = taskToEdit.getTags(); //assigns old tag list
-        }
     }
+    
     @Override
     public CommandResult execute() {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        ReadOnlyTask taskToEdit = lastShownList.get(taskIndex - 1);
+        
         if (lastShownList.size() < taskIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
-        ReadOnlyTask taskToReplace = new FloatingTask(newName, newTagList);
+        ReadOnlyTask taskToReplace = new FloatingTask(newName == null ? taskToEdit.getName() : newName
+                                                , newTagList == null ? taskToEdit.getTags() : newTagList);
         
         ((ModelManager) model).editFloatingTask(new FloatingTask(taskToReplace), taskIndex - 1);
         
