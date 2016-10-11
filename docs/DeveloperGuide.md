@@ -338,8 +338,7 @@ Use case ends.
 
 ##### Private contact detail
 
-> A contact detail that is not meant to be shared with othe
-rs
+> A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
 
