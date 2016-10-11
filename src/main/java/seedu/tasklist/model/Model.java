@@ -4,6 +4,7 @@ import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
+import seedu.tasklist.model.task.UniqueTaskList.TaskCompletionException;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -20,12 +21,18 @@ public interface Model {
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
-    
+
     /** Edits the given task. */
     void editTask(Task taskToEdit, ReadOnlyTask target) throws TaskNotFoundException ;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Marks the given task */
+    void markTask(ReadOnlyTask target) throws TaskNotFoundException, TaskCompletionException;
+    
+    /** Unmarks the given task */
+    void unmarkTask(ReadOnlyTask target) throws TaskNotFoundException, TaskCompletionException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

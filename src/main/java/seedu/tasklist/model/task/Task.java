@@ -17,6 +17,8 @@ public class Task implements ReadOnlyTask {
     private DueDate dueDate;
 
     private UniqueTagList tags;
+    
+    private boolean isCompleted;
 
     /**
      * Every field must be present and not null.
@@ -28,13 +30,27 @@ public class Task implements ReadOnlyTask {
         this.description = description;
         this.dueDate = dueDate;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted = false;
+    }
+    
+    /**
+     * Every field must be present and not null.
+     */
+    public Task(Title title, StartDate startDate, Description description, DueDate dueDate, UniqueTagList tags, boolean isCompleted) {
+        assert !CollectionUtil.isAnyNull(title, startDate, description, dueDate, tags);
+        this.title = title;
+        this.startDate = startDate;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted = isCompleted;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getTitle(), source.getStartDate(), source.getDescription(), source.getDueDate(), source.getTags());
+        this(source.getTitle(), source.getStartDate(), source.getDescription(), source.getDueDate(), source.getTags(), source.isCompleted());
     }
 
     @Override
@@ -60,6 +76,14 @@ public class Task implements ReadOnlyTask {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+    
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.isCompleted = completed;
     }
 
     /**
