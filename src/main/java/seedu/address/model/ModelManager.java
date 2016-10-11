@@ -225,6 +225,9 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyTask task) {
+			if(this.startTime.isEmpty() || this.endTime.isEmpty()) {
+				return true;
+			}
 			String[] timeArray = extractTaskPeriod(task);
 			if(timeArray == null) {
 				return false;
@@ -245,4 +248,24 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 	}
     
+    private class DeadlineQualifier implements Qualifier {
+    	private String deadline;
+    	
+    	DeadlineQualifier(String deadline) {
+    		this.deadline = deadline;
+    	}
+
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			if(this.deadline.isEmpty()) {
+				return true;
+			}
+			return false;
+		}
+    	
+    	@Override
+    	public String toString() {
+    		return "deadline=" + this.deadline;
+    	}
+    }
 }
