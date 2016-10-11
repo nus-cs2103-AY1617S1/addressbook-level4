@@ -86,7 +86,7 @@ Figure 2: The Logic component.<br>
 The _Sequence Diagram_ shown in Figure 3 below shows how the components interact for the scenario where the user issues the `delete 1` command.
 
 <p align="center">
-<img src="images\SDforDeletePerson.png" width="800"><br>
+<img src="images\SDforDeleteTask.png" width="800"><br>
 Figure 3: How the components interact when the user issues the `delete 1` command. <br>
 </p>
 
@@ -94,7 +94,7 @@ Figure 3: How the components interact when the user issues the `delete 1` comman
 
 The diagram in Figure 4 below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <p align="center">
-<img src="images\SDforDeletePersonEventHandling.png" width="800"> <br>
+<img src="images\SDforDeleteTaskEventHandling.png" width="800"> <br>
 Figure 4: How the `EventsCenter` reacts when the user issues the `delete 1` command.<br>
 </p>
 
@@ -137,7 +137,7 @@ Figure 6: The Logic component.<br>
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
 <p align="center">
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 Figure 7:  How the `Logic` component executes the user’s request of `delete 1`. <br>
 </p>
 
