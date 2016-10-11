@@ -24,6 +24,7 @@ import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.SelectCommand;
+import tars.logic.commands.UndoCommand;
 import tars.model.Tars;
 import tars.model.Model;
 import tars.model.ModelManager;
@@ -158,6 +159,32 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new Tars(), Collections.emptyList());
     }
 
+    @Test
+    public void execute_undo_emptyCmdHistStack() throws Exception {
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_EMPTY_UNDO_CMD_HIST);
+    }
+    
+    @Test
+    public void execute_undo_add_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeUndo = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeUndo);
+        
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeUndo),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeUndo),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        expectedAB.removeTask(toBeUndo);
+        
+        assertCommandBehavior("undo",
+                UndoCommand.MESSAGE_SUCCESS + "\nAction: " + String.format(AddCommand.MESSAGE_UNDO, toBeUndo),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
