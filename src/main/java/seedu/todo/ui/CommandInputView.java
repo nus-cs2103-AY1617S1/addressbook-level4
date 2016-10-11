@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.commons.util.TextAreaResizerUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.logic.commands.CommandResult;
 
@@ -42,6 +43,7 @@ public class CommandInputView extends UiPart {
         this.commandFeedbackView = commandFeedbackView;
         this.logic = logic;
         registerAsAnEventHandler(this);
+        setCommandInputHeightAutoResizeable();
     }
 
     private void addToPlaceholder() {
@@ -66,6 +68,12 @@ public class CommandInputView extends UiPart {
         this.placeHolderPane = pane;
     }
 
+    /**
+     * Allow {@link #commandTextField} to adjust automatically with the height of the content of the text area itself.
+     */
+    private void setCommandInputHeightAutoResizeable() {
+        new TextAreaResizerUtil().setResizable(commandTextField);
+    }
 
     @FXML
     private void handleCommandInputChanged() {
