@@ -1,20 +1,10 @@
-[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
+# ForgetMeNot
 
-# Address Book (Level 4)
+<img src="docs/images/ForgetMeNot.png" width="600"><br>
 
-<img src="docs/images/Ui.png" width="600"><br>
-
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
+* This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as 
-  the main programming language. 
-* It is **written in OOP fashion**. It provides a **reasonably well-written** code example that is 
-  **significantly bigger** (around 6 KLoC)than what students usually write in beginner-level SE modules. 
-* What's different from [level 3](https://github.com/se-edu/addressbook-level3):
-    * A more sophisticated GUI that includes a list panel and an in-built Browser.
-    * More test cases, including automated GUI testing.
-    * Support for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
+* Our product is a to-do list that accepts natural language commands via keyboard. The product is specifically 	catered towards users who   spend prolonged durations in front of the computer and prefer using solely the keyboard. On top of all these, the product is fully         functional offline with a variety of commands provided in the user guide which are easily understood.
 
   
 #### Site Map

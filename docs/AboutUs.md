@@ -1,52 +1,32 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a team of 4 Computer Engineering 2nd year students based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Shailesh Nahata](https://github.com/nahata-shailesh) <br>
+<img src="images/IMG_8872.JPG" width="150"><br>
+**Role**: Developer <br>
+**Responsibilities**: Parsing
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+#### [Teh Chee Yeo](https://github.com/cheo1994)
+<img src="images/image1.png" width="150"><br>
+**Role**: Developer <br>  
+**Responsibilities**: Logic
+
+-----
+
+#### [Tan Jun Hao](https://github.com/e0003083)
+**Role**: Developer <br>  
+**Responsibilities**: Storage
+
+-----
+
+#### [Qiang Yu](https://github.com/Hastyrush)
+<img src="images/IMG_0238.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: UI
 
 -----
-
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
-
------
-
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
-
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
