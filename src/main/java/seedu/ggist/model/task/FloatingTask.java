@@ -14,12 +14,8 @@ public class FloatingTask extends Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public FloatingTask(TaskName taskName, Date date, Time startTime, Time endTime, UniqueTagList tags) {
-        this.taskName = taskName;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    public FloatingTask(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskTime endTime, UniqueTagList tags) {
+        super(taskName, taskDate, startTime, endTime, tags);
     }
 
     /**
@@ -32,7 +28,7 @@ public class FloatingTask extends Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskName, date, startTime, endTime, tags);
+        return Objects.hash(taskName, taskDate, startTime, endTime, tags);
     }
 
 }

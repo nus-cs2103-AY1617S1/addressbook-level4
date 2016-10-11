@@ -49,7 +49,7 @@ public class Config {
         return taskManagerFilePath;
     }
 
-    public void setAddressBookFilePath(String taskManagerFilePath) {
+    public void setTaskManagerFilePath(String taskManagerFilePath) {
         this.taskManagerFilePath = taskManagerFilePath;
     }
 

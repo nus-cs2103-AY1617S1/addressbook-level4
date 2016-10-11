@@ -5,6 +5,7 @@ import java.util.Objects;
 import seedu.ggist.commons.util.CollectionUtil;
 import seedu.ggist.model.tag.UniqueTagList;
 
+
 /**
  * Represents a Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
@@ -12,22 +13,29 @@ import seedu.ggist.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask{
 
     protected TaskName taskName;
-    protected Date date;
-    protected Time startTime;
-    protected Time endTime;
+    protected TaskDate taskDate;
+    protected TaskTime startTime;
+    protected TaskTime endTime;
     protected UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
-    */  
-    public Task(){}
-    
-    public Task(TaskName taskName, Date date, Time startTime, Time endTime, UniqueTagList tags) {
+     * 
+    */     
+    public Task(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskTime endTime, UniqueTagList tags) {
         this.taskName = taskName;
-        this.date = date;
+        this.taskDate = taskDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    
+
+    /**
+     * Copy constructor.
+     */
+    public Task(ReadOnlyTask source) {
+        this(source.getTaskName(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
     
     @Override
@@ -55,17 +63,17 @@ public class Task implements ReadOnlyTask{
     }
 
     @Override
-    public Date getDate() {
-        return date;
+    public TaskDate getDate() {
+        return taskDate;
     }
 
     @Override
-    public Time getStartTime() {
+    public TaskTime getStartTime() {
         return startTime;
     }
 
     @Override
-    public Time getEndTime() {
+    public TaskTime getEndTime() {
         return endTime;
     }
     
@@ -78,7 +86,7 @@ public class Task implements ReadOnlyTask{
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskName, date, startTime, endTime, tags);
+        return Objects.hash(taskName, taskDate, startTime, endTime, tags);
     }
 
 }

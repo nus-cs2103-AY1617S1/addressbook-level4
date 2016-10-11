@@ -28,23 +28,15 @@ public class Parser {
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.*)"
-                    + "(?<tagArguments>(?: [^,]+)*)"); // variable number of tags;
+            Pattern.compile("(?<taskName>[^,]+)(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>[^,]+)"
-                    + " (?<date>[^,]+)"
-                    + " (?<time>\\d{4})"
-                    + " (?<tagArguments>(?:[^,]+)*)"); // variable number of tags
+            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<time>\\d+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>[^,]+)"
-                    + " (?<date>[^,]+)"
-                    + " (?<startTime>\\d{4})"
-                    + " (?<endTime>\\d{4})"
-                    + "(?<tagArguments>(?: [^,]+)*)"); // variable number of tags
+            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<startTime>\\d+)\\s*-\\s*(?<endTime>\\d+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
    
     public Parser() {}
 
@@ -87,6 +79,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -111,7 +106,7 @@ public class Parser {
                 if (matcher.matches()) {
                     return new AddCommand(
                         matcher.group("taskName"),
-                        matcher.group("date"),
+                        matcher.group("taskDate"),
                         matcher.group("startTime"),
                         matcher.group("endTime"),
                         getTagsFromArgs(matcher.group("tagArguments"))
@@ -122,7 +117,7 @@ public class Parser {
                 if (matcher.matches()) {
                     return new AddCommand(
                         matcher.group("taskName"),
-                        matcher.group("date"),
+                        matcher.group("taskDate"),
                         matcher.group("time"),
                         getTagsFromArgs(matcher.group("tagArguments"))
                      );

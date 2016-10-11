@@ -9,9 +9,9 @@ import seedu.ggist.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     TaskName getTaskName();
-    Date getDate();
-    Time getStartTime();
-    Time getEndTime();
+    TaskDate getDate();
+    TaskTime getStartTime();
+    TaskTime getEndTime();
     
     
     /**
@@ -41,11 +41,11 @@ public interface ReadOnlyTask {
         builder.append(getTaskName())
                 .append(" Task Name: ")
                 .append(getTaskName())
-                .append(" Date: ")
+                .append(" TaskDate: ")
                 .append(getDate())
-                .append(" Start Time: ")
+                .append(" Start TaskTime: ")
                 .append(getStartTime())
-                .append(" End Time: ")
+                .append(" End TaskTime: ")
                 .append(getEndTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
