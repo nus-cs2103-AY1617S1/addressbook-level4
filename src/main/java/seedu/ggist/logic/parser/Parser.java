@@ -114,7 +114,6 @@ public class Parser {
                      );
                 }
             } else if (taskType.equals("deadlineTask")) {
-                System.out.println("deadline printed");
                 matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
                     return new AddCommand(
@@ -125,7 +124,6 @@ public class Parser {
                      );
                 }
             } else if (taskType.equals("floatingTask")) {
-                System.out.println("floating");
                 matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
                     return new AddCommand(

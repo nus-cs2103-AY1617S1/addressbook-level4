@@ -112,6 +112,8 @@ public class ModelManager extends ComponentManager implements Model {
     	default:
     		throw new TaskTypeNotFoundException();
     	}
+    	updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
     }
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {

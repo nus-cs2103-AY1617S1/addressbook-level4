@@ -15,11 +15,7 @@ public class FloatingTask extends Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public FloatingTask(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskTime endTime, UniqueTagList tags) {
-        this.taskName = taskName;
-        this.taskDate = taskDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        super(taskName, taskDate, startTime, endTime, tags);
     }
 
     /**

@@ -16,7 +16,7 @@ import seedu.ggist.storage.Storage;
 import seedu.ggist.storage.StorageManager;
 import seedu.ggist.storage.XmlTaskManagerStorage;
 import seedu.ggist.testutil.EventsCollector;
-import seedu.ggist.testutil.TypicalTestPersons;
+import seedu.ggist.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 
@@ -60,7 +60,7 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        TaskManager original = new TypicalTestPersons().getTypicalAddressBook();
+        TaskManager original = new TypicalTestTasks().getTypicalAddressBook();
         storageManager.saveAddressBook(original);
         ReadOnlyTaskManager retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new TaskManager(retrieved));
