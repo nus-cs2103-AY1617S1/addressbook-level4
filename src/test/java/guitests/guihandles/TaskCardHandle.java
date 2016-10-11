@@ -9,10 +9,10 @@ import seedu.todoList.model.task.ReadOnlyTask;
  * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
-    private static final String TODO_FIELD_ID = "#todo";
-    private static final String PRIORITY_FIELD_ID = "#priority";
-    private static final String STARTTIME_FIELD_ID = "#startTime";
-    private static final String ENDTIME_FIELD_ID = "#endTimel";
+    private static final String TODO_FIELD_ID = "#Todo";
+    private static final String PRIORITY_FIELD_ID = "#Priority";
+    private static final String STARTTIME_FIELD_ID = "#StartTime";
+    private static final String ENDTIME_FIELD_ID = "#EndTime";
 
     private Node node;
 

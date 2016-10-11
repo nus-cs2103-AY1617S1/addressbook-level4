@@ -35,7 +35,7 @@ public class AddCommandTest extends TodoListGuiTest {
         assertAddSuccess(td.a1);
 
         //invalid command
-        commandBox.runCommand("adds Johnny");
+        commandBox.runCommand("adds assignment 66");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
