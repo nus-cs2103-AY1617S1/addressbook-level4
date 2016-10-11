@@ -1,53 +1,63 @@
 package seedu.todo.ui.views;
 
-import java.util.function.Function;
+import java.util.logging.Logger;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.ui.UiPart;
-import seedu.todo.ui.UiPartLoader;
 
 public abstract class View extends UiPart {
+
+    private static final Logger logger = LogsCenter.getLogger(View.class);
+
     protected Pane placeHolderPane;
     protected VBox mainNode;
-    
-    private Function<View, View> setPropsCallback;
-    
-    public void passInProps(Function<View, View> setPropsCallback) {
-    	this.setPropsCallback = setPropsCallback;
-    }
-	
+
     /**
-     * This method renders the View as specified in the FXML file, in the placeholder pane.
+     * This method renders the View in the specified placeholder, if provided.
+     * 
+     * Note that all as specified in the FXML file, in the placeholder pane.
      * After loading the FXML file, the execution is then passed onto setNode, 
      * which will replace the placeholder contents accordingly.
      * 
      * @param primaryStage   The primary stage that contains the main application window.
      * @param placeholder    The placeholder pane where this View should reside.
+     */    
+    public void render() {
+        // If the View is not loaded from the FXML file, we have no node to render.
+        if (mainNode == null)
+            return;
+
+        assert mainNode != null;
+
+        if (placeHolderPane != null) {
+            // Replace placeholder children with node.
+            placeHolderPane.getChildren().setAll(mainNode);
+        } else {
+            logger.warning(this.getClass().getName() + " has no placeholder.");
+        }
+
+        // Callback once view is rendered.
+        componentDidMount();
+    }
+
+    public Node getNode() {
+        return mainNode;
+    }
+
+    /**
+     * Runs once the {@code render()} is called. Used to perform any of the following actions:
+     * <li>Modify JavaFX components</li>
+     * <li>Set the state of JavaFX components (such as value)</li>
+     * <li>Load and render any children components</li>
+     * 
+     * Declaration is optional, and will default to not doing anything if it is not overridden in child components.
      */
-	public View render(Stage primaryStage, Pane placeholder) {
-		// Load FXML.
-		if (setPropsCallback != null)
-			return UiPartLoader.loadUiPart(primaryStage, placeholder, this, setPropsCallback);
-		else
-			return UiPartLoader.loadUiPart(primaryStage, placeholder, this);
-	}
-	
-	// Overloaded methods for render.
-	public View render(Stage primaryStage) {
-		return render(primaryStage, null);
-	}
-	
-	public Node getNode() {
-		return mainNode;
-	}
-	
-	// Lifecycle hooks
-	public void componentDidMount() {
-		// To be overwritten by View or Component definitions.
-	}
+    public void componentDidMount() {
+        // Does nothing by default.
+    }
 
     @Override
     public void setPlaceholder(Pane pane) {
@@ -57,14 +67,6 @@ public abstract class View extends UiPart {
     @Override
     public void setNode(Node node) {
         mainNode = (VBox) node;
-        
-        if (placeHolderPane != null) {
-    		// Replace placeholder children with node.
-            placeHolderPane.getChildren().setAll(mainNode);
-        }
-		
-		// Callback once view is loaded.
-		componentDidMount();
     }
-	
+
 }

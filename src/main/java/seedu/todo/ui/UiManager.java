@@ -30,14 +30,14 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
-        
+
         // Save primaryStage for later renders.
         this.primaryStage = primaryStage;
-        
+
         // Show main window.
         try {
-        	mainWindow = MainWindow.load(primaryStage, config);
-            mainWindow.render(primaryStage);
+            mainWindow = MainWindow.load(primaryStage, config);
+            mainWindow.render();
             mainWindow.show();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -49,22 +49,12 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         mainWindow.hide();
     }
-    
-    /**
-     * Loads a View in the main window.
-     * 
-     * @param view   The View to be rendered.
-     */
-    public void loadView(View view) {
-    	if (primaryStage == null)
-    		return;
-    	
-    	assert primaryStage != null;
-    	
-    	view.render(primaryStage, mainWindow.getChildrenPlaceholder());
+
+    public <T extends View> T loadView(Class<T> viewClass) {
+        return mainWindow.loadView(viewClass);
     }
-    
-    
+
+
     /** ================ DISPLAY ERRORS ================== **/
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
@@ -72,7 +62,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
-                                               String contentText) {
+            String contentText) {
         final Alert alert = new Alert(type);
         alert.initOwner(owner);
         alert.setTitle(title);
