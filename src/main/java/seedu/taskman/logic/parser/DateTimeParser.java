@@ -17,7 +17,7 @@ public class DateTimeParser {
     // UG/DG: update changes in duration format
     // TODO: mention that time CANNOT come before date
     public static final String DESCRIPTION_DATE_TIME_FULL =
-            "DATE & TIME (can use natural language, eg: 2nd Wed from now, 9pm)";
+            "can use natural language, eg: 2nd Wed from now, 9pm";
     public static final String DESCRIPTION_DATE_TIME_SHORT = "DATE & TIME";
     public static final String SINGLE_DURATION =
             "(?:(?:[1-9]+[0-9]*) (?:(?:min)|(?:hour)|(?:day)|(?:week)|(?:month)|(?:year))s? ?)";

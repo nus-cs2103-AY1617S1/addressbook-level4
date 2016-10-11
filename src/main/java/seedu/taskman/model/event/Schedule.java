@@ -14,11 +14,12 @@ public class Schedule {
 	public static final String MESSAGE_SCHEDULE_CONSTRAINTS =
             "Task schedule should only contain dates and times in the format: " +
                     // DATETIME to DATETIME
-                    DateTimeParser.DESCRIPTION_DATE_TIME_FULL + " (a \",\" or \"to\") " +
+                    DateTimeParser.DESCRIPTION_DATE_TIME_SHORT + " (a \",\" or \"to\") " +
                     DateTimeParser.DESCRIPTION_DATE_TIME_SHORT +
                     // DATETIME for DURATION
-                    " \nOr the format: " + DateTimeParser.DESCRIPTION_DATE_TIME_SHORT + " for "
-                    + DateTimeParser.DESCRIPTION_DURATION;
+                    "\nOr the format:\n" + DateTimeParser.DESCRIPTION_DATE_TIME_SHORT + " for " +
+                    DateTimeParser.DESCRIPTION_DURATION +
+                    "\nDATETIME: " + DateTimeParser.DESCRIPTION_DATE_TIME_FULL;
 
     public static final String ERROR_NEGATIVE_DURATION = "Duration is negative!";
     public static final String ERROR_BAD_START_DATETIME = "Bad start datetime";
