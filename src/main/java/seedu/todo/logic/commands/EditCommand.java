@@ -30,11 +30,22 @@ public class EditCommand extends BaseCommand {
         ImmutableTask toEdit = this.getTaskAt(index.getValue());
         
         this.model.update(toEdit, task -> {
-            task.setDescription(description.getValue());
-            task.setPinned(pin.getValue());
-            task.setLocation(location.getValue());
-            task.setStartTime(date.getValue().getStartTime());
-            task.setEndTime(date.getValue().getEndTime());
+            if (description.hasBoundValue()) {
+                task.setDescription(description.getValue());
+            }
+            
+            if (pin.hasBoundValue()) {
+                task.setPinned(pin.getValue());
+            }
+            
+            if (location.hasBoundValue()) {
+                task.setLocation(location.getValue());
+            }
+            
+            if (date.hasBoundValue()) {
+                task.setStartTime(date.getValue().getStartTime());
+                task.setEndTime(date.getValue().getEndTime());
+            }
         });
 	}
 

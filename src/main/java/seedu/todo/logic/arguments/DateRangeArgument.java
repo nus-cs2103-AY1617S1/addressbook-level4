@@ -30,6 +30,12 @@ public class DateRangeArgument extends Argument<DateRange> {
     
     @Override
     public void setValue(String input) throws IllegalValueException {
+        super.setValue(input);
+        
+        if (input.trim().length() == 0) {
+            return;
+        }
+        
         input = TimeUtil.toAmericanDateFormat(input);
         List<Date> dateGroups = parser.parse(input);
         
@@ -49,7 +55,6 @@ public class DateRangeArgument extends Argument<DateRange> {
         } else {
             value = new DateRange(dates.get(0), dates.get(1));
         }
-        
     }
     
     private void tooManyDatesError(List<LocalDateTime> dates) throws IllegalValueException {
