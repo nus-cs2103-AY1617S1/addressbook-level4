@@ -10,6 +10,20 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
+    
+    public static final int TASK_COMPONENT_INDEX_NAME = 0;
+    public static final int TASK_COMPONENT_COUNT = 1;
+    
+    public static final int DEADLINE_COMPONENT_INDEX_NAME = 0;
+    public static final int DEADLINE_COMPONENT_INDEX_DATE = 1;
+    public static final int DEADLINE_COMPONENT_INDEX_END_TIME = 2;
+    public static final int DEADLINE_COMPONENT_COUNT = 3;
+    
+    public static final int EVENT_COMPONENT_INDEX_NAME = 0;
+    public static final int EVENT_COMPONENT_INDEX_DATE = 1;
+    public static final int EVENT_COMPONENT_INDEX_START_TIME = 2;
+    public static final int EVENT_COMPONENT_INDEX_END_TIME = 3;
+    public static final int EVENT_COMPONENT_COUNT = 4;
 
     private Name name;
     private TaskDate date;
