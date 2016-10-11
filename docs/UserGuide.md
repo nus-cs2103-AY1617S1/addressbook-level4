@@ -155,6 +155,8 @@ There is no need to save manually.
 
 **Q**: Q: How do I check the current Java version installed on my PC?<br>
 **A**: Press the windows (or start menu) button, and type ‘About Java’, hit enter. There will be a pop-up (as illustrated in Figure 2) indicating the current Java version on your PC. 
+> <img src="images/AboutJava.png" width="600"><br>
+*Figure 2. About Java pop-up*
 
 **Q**: How do I transfer my data to another computer?<br>
 **A**: Install the application in the other computer and overwrite the empty data file it creates with 
