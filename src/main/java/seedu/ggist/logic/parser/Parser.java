@@ -33,11 +33,11 @@ public class Parser {
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.*)\\s*,\\s*(?<date>.*)\\s*,\\s*(?<time>\\d{4})\\s*,*\\s*(?<tagArguments>(?:[^,]+)*)");
+            Pattern.compile("(?<taskName>.*)\\s*,\\s*(?<taskDate>.*)\\s*,\\s*(?<time>\\d{4})\\s*,*\\s*(?<tagArguments>(?:[^,]+)*)");
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.*)\\s*,\\s*(?<date>.*)\\s*,\\s*(?<startTime>\\d{4})\\s*-\\s*(?<endTime>\\d{4})\\s*,*\\s*(?<tagArguments>(?:[^,]+)*)");
+            Pattern.compile("(?<taskName>.*)\\s*,\\s*(?<taskDate>.*)\\s*,\\s*(?<startTime>\\d{4})\\s*-\\s*(?<endTime>\\d{4})\\s*,*\\s*(?<tagArguments>(?:[^,]+)*)");
    
     public Parser() {}
 
@@ -107,7 +107,7 @@ public class Parser {
                 if (matcher.matches()) {
                     return new AddCommand(
                         matcher.group("taskName"),
-                        matcher.group("date"),
+                        matcher.group("taskDate"),
                         matcher.group("startTime"),
                         matcher.group("endTime"),
                         getTagsFromArgs(matcher.group("tagArguments"))
@@ -119,7 +119,7 @@ public class Parser {
                 if (matcher.matches()) {
                     return new AddCommand(
                         matcher.group("taskName"),
-                        matcher.group("date"),
+                        matcher.group("taskDate"),
                         matcher.group("time"),
                         getTagsFromArgs(matcher.group("tagArguments"))
                      );

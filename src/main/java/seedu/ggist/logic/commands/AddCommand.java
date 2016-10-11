@@ -53,9 +53,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new EventTask(
                 new TaskName(taskName),
-                new Date(date),
-                new Time(startTime),
-                new Time(endTime),
+                new TaskDate(date),
+                new TaskTime(startTime),
+                new TaskTime(endTime),
                 new UniqueTagList(tagSet)
         );
         taskType = TaskType.EVENT;
@@ -72,9 +72,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new DeadlineTask(
                 new TaskName(taskName),
-                new Date(date),
-                new Time(Messages.MESSAGE_NO_START_TIME_SET),
-                new Time(endTime),
+                new TaskDate(date),
+                new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
+                new TaskTime(endTime),
                 new UniqueTagList(tagSet)
         );
         taskType = TaskType.DEADLINE;
@@ -91,9 +91,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new FloatingTask(
                 new TaskName(taskName),
-                new Date(Messages.MESSAGE_NO_DATE_SPECIFIED),
-                new Time(Messages.MESSAGE_NO_START_TIME_SET),
-                new Time(Messages.MESSAGE_NO_END_TIME_SET),
+                new TaskDate(Messages.MESSAGE_NO_DATE_SPECIFIED),
+                new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
+                new TaskTime(Messages.MESSAGE_NO_END_TIME_SET),
                 new UniqueTagList(tagSet)
         );
         taskType = TaskType.FLOATING;

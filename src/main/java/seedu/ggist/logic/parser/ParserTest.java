@@ -12,7 +12,7 @@ import seedu.ggist.logic.commands.IncorrectCommand;
 public class ParserTest {
     
     Parser parser = new Parser();
-    String userInput_valid = "add la la la,oct 18, 1800";
+    String userInput_valid = "add la la la, tomorrow, 6pm";
     Command invalid_command = new IncorrectCommand("");
 
     @Test

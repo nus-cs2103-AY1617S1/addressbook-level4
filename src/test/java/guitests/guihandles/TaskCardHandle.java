@@ -10,7 +10,7 @@ import seedu.ggist.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String TASKNAME_FIELD_ID = "#name";
-    private static final String DATE_FIELD_ID = "#date";
+    private static final String DATE_FIELD_ID = "#taskDate";
     private static final String STARTTIME_FIELD_ID = "#startTime";
     private static final String ENDTIME_FIELD_ID = "#endTime";
 

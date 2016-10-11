@@ -72,7 +72,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
+        latestSavedAddressBook = new TaskManager(model.getTaskManager()); // last saved assumed to be up to taskDate before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
