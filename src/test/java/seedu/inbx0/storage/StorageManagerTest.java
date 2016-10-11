@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.inbx0.commons.events.model.AddressBookChangedEvent;
+import seedu.inbx0.commons.events.model.TaskListChangedEvent;
 import seedu.inbx0.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inbx0.model.TaskList;
 import seedu.inbx0.model.ReadOnlyTaskList;
@@ -60,16 +60,16 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        TaskList original = new TypicalTestTasks().getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyTaskList retrieved = storageManager.readAddressBook().get();
+        TaskList original = new TypicalTestTasks().getTypicalTaskList();
+        storageManager.saveTaskList(original);
+        ReadOnlyTaskList retrieved = storageManager.readTaskList().get();
         assertEquals(original, new TaskList(retrieved));
-        //More extensive testing of TaskList saving/reading is done in XmlAddressBookStorageTest
+        //More extensive testing of TaskList saving/reading is done in XmlTaskListStorageTest
     }
 
     @Test
     public void getAddressBookFilePath(){
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getTaskListFilePath());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new TaskList()));
+        storage.handleTaskListChangedEvent(new TaskListChangedEvent(new TaskList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
@@ -92,7 +92,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyTaskList addressBook, String filePath) throws IOException {
+        public void saveTaskList(ReadOnlyTaskList addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

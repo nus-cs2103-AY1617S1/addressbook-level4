@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import seedu.inbx0.model.task.Task;
 import seedu.inbx0.model.task.ReadOnlyTask;
 import seedu.inbx0.model.task.UniqueTaskList;
+import seedu.inbx0.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.model.tag.Tag;
 import seedu.inbx0.model.tag.UniqueTagList;
 
@@ -40,7 +42,7 @@ public class TaskList implements ReadOnlyTaskList {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskList getEmptyAddressBook() {
+    public static ReadOnlyTaskList getEmptyTaskList() {
         return new TaskList();
     }
 
@@ -59,7 +61,14 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(t -> {
+            try {
+                return new Task(t);
+            } catch (IllegalValueException e) {
+              System.out.println(Task.MESSAGE_TIME_CONSTRAINTS);
+            }
+            return null;
+        }).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -70,7 +79,7 @@ public class TaskList implements ReadOnlyTaskList {
 //// task-level operations
 
     /**
-     * Adds a task to the address book.
+     * Adds a task to the tasklist.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
@@ -111,7 +120,15 @@ public class TaskList implements ReadOnlyTaskList {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
+    
+    public boolean editTask(ReadOnlyTask key, Task t) throws UniqueTaskList.TaskNotFoundException, DuplicateTaskException {
+        if (tasks.edit(key, t)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

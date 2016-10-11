@@ -73,7 +73,32 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
-
+    
+    /**
+     * Edits the equivalent task from the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws DuplicateTaskException if the task that was edited is a duplicate of an existing task in the list
+     */
+    public boolean edit(ReadOnlyTask toEdit, Task toEditWith) throws TaskNotFoundException, DuplicateTaskException {
+        assert toEdit != null;
+        int editTaskIndex = internalList.indexOf(toEdit);
+        if (editTaskIndex < 0) {
+            throw new TaskNotFoundException();
+        }
+        
+        if (contains(toEditWith)) {
+            throw new DuplicateTaskException();
+        }
+        
+        boolean taskEdited = false;
+        final Task taskFoundAndEdited = internalList.set(editTaskIndex, toEditWith);  
+        
+        if(taskFoundAndEdited != null) 
+            taskEdited = true;
+        
+        return taskEdited;
+    }
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

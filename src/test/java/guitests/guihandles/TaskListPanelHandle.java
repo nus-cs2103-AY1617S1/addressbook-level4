@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.inbx0.TestApp;
+import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.model.task.Task;
 import seedu.inbx0.model.task.ReadOnlyTask;
 import seedu.inbx0.testutil.TestUtil;
@@ -25,7 +26,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String PERSON_LIST_VIEW_ID = "#taskListView";
+    private static final String TASK_LIST_VIEW_ID = "#taskListView";
 
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -37,14 +38,16 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     public ListView<ReadOnlyTask> getListView() {
-        return (ListView<ReadOnlyTask>) getNode(PERSON_LIST_VIEW_ID);
+        return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
     }
 
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
      * @param tasks A list of task in the correct order.
+     * @throws IllegalValueException 
+     * @throws IllegalArgumentException 
      */
-    public boolean isListMatching(ReadOnlyTask... tasks) {
+    public boolean isListMatching(ReadOnlyTask... tasks) throws IllegalArgumentException, IllegalValueException {
         return this.isListMatching(0, tasks);
     }
     
@@ -81,8 +84,9 @@ public class TaskListPanelHandle extends GuiHandle {
      * Returns true if the list is showing the task details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
      * @param tasks A list of task in the correct order.
+     * @throws IllegalValueException 
      */
-    public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
+    public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException, IllegalValueException {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " tasks");
@@ -146,7 +150,7 @@ public class TaskListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public TaskCardHandle getTaskCardHandle(int index) {
+    public TaskCardHandle getTaskCardHandle(int index) throws IllegalValueException {
         return getTaskCardHandle(new Task(getListView().getItems().get(index)));
     }
 

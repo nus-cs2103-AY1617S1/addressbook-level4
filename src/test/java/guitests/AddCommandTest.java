@@ -4,16 +4,17 @@ import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.inbx0.commons.core.Messages;
+import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.logic.commands.AddCommand;
 import seedu.inbx0.testutil.TestTask;
 import seedu.inbx0.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends TaskListGuiTest {
 
     @Test
-    public void add() {
+    public void add() throws IllegalArgumentException, IllegalValueException {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.hoon;
@@ -39,7 +40,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) throws IllegalArgumentException, IllegalValueException {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data

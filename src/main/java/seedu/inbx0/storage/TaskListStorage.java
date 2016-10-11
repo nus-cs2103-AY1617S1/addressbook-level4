@@ -14,7 +14,7 @@ public interface TaskListStorage {
     /**
      * Returns the file path of the data file.
      */
-    String getAddressBookFilePath();
+    String getTaskListFilePath();
 
     /**
      * Returns TaskList data as a {@link ReadOnlyTaskList}.
@@ -22,23 +22,23 @@ public interface TaskListStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyTaskList> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getTaskListFilePath()
      */
-    Optional<ReadOnlyTaskList> readAddressBook(String filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskList> readTaskList(String filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyTaskList} to the storage.
-     * @param addressBook cannot be null.
+     * @param taskList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyTaskList addressBook) throws IOException;
+    void saveTaskList(ReadOnlyTaskList taskList) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyTaskList)
+     * @see #saveTaskList(ReadOnlyTaskList)
      */
-    void saveAddressBook(ReadOnlyTaskList addressBook, String filePath) throws IOException;
+    void saveTaskList(ReadOnlyTaskList taskList, String filePath) throws IOException;
 
 }

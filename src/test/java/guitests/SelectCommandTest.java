@@ -6,7 +6,7 @@ import seedu.inbx0.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends TaskListGuiTest {
 
 
     @Test

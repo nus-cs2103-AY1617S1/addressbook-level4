@@ -1,5 +1,10 @@
 package seedu.inbx0.model.task;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import com.joestelmach.natty.Parser;
+
 import seedu.inbx0.commons.exceptions.IllegalValueException;
 
 /**
@@ -9,9 +14,9 @@ import seedu.inbx0.commons.exceptions.IllegalValueException;
 
 public class Date {
 
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Date has to be either a alphanumeric string, numeric string or alphabet string";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Date can either be a numeric string, alphanumeric string, or alphabet string";
     public static final String DATE_NUMERIC_VALIDATION_REGEX = "\\d+";
-    public static final String DATE_ALPHANUMERIC_VALIDATION_REGEX = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)";
+/*    public static final String DATE_ALPHANUMERIC_VALIDATION_REGEX = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)";
     public static final String DATE_ALPHABETICAL_VALIDATION_REGEX = "[\\p{Alpha} ]+";
     public static final String SPLIT_NUM_AND_ALPHABET_REGEX = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)";
     public static final int NUM_OF_STRINGS_IN_ALLOWED_DATE_EXPRESSIONS = 5;
@@ -43,8 +48,13 @@ public class Date {
                                                          "dec", "december"
                                                          };
                                                            
-    
+  */  
     public final String value;
+    public final int day;
+    public final int month;
+    public final int year;
+    public final String dayWord;
+    public final String DDMMYYYYFormat;
     
     /**
      * Validates given start date.
@@ -54,18 +64,44 @@ public class Date {
     
     public Date(String date) throws IllegalValueException {
         assert date != null;
-        date = date.trim();
-        if (!isValidDate(date) && (date != "")) {
-            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+     //   date = date.trim();
+             
+        if(date == "" | date.length() == 0 | date == null) {
+            this.day = 0;
+            this.month = 0;
+            this.year = 0;
+            this.value = "";
+            this.dayWord = "";
+            this.DDMMYYYYFormat = "";            
         }
-        this.value = date;
+        else {
+            List<java.util.Date> dates = new Parser().parse(date).get(0).getDates();             
+            SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy");
+            SimpleDateFormat dayInWord = new SimpleDateFormat ("E, ");
+            SimpleDateFormat nattyFormat = new SimpleDateFormat ("MM/dd/yyyy");
+            this.DDMMYYYYFormat = ft.format(dates.get(0));
+            this.value = nattyFormat.format(dates.get(0));
+            int digitsOnly = Integer.parseInt(DDMMYYYYFormat.replaceAll("\\D+",""));
+            this.day = digitsOnly / 1000000;
+            this.month = (digitsOnly / 10000) % 100;
+            this.year = digitsOnly % 10000;
+            this.dayWord = dayInWord.format(dates.get(0));            
+        }
+        
+       
+ /*       if (!isValidDate(date) &&  (date != "")) {
+            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+        }*/
+        
     }
     
     /**
      * Returns true if a given string is a valid task date.
      */
     public static boolean isValidDate(String test) {
-        boolean numericCheck = false;
+        return (test.matches(DATE_NUMERIC_VALIDATION_REGEX) && (test.length() == 8));
+    }
+ /*       boolean numericCheck = false;
         boolean alphanumericCheck = false;
         boolean alphabeticalCheck = false;
         
@@ -108,7 +144,7 @@ public class Date {
             String [] alphanumericTestCheck = test.split(SPLIT_NUM_AND_ALPHABET_REGEX);
             
             if(alphanumericTestCheck.length == 2) {
-                if(alphanumericTestCheck[0].matches("[\\p{Alpha}]") && alphanumericTestCheck[1].matches("\\d+")) {
+                if(alphanumericTestCheck[0].matches("[a-zA-Z]+") && alphanumericTestCheck[1].matches("\\d+")) {
                     if(alphanumericTestCheck[1].length() == 1 | alphanumericTestCheck[1].length() == 2) {
                         for(int i = 0; i < NUM_OF_STRINGS_IN_ALLOWED_MONTH_NAMES; i++ ) {
                             if(alphanumericTestCheck[0] == ALLOWED_MONTH_NAMES[i])
@@ -117,7 +153,7 @@ public class Date {
                     }
                 }
                 
-                if(alphanumericTestCheck[0].matches("\\d+") && alphanumericTestCheck[1].matches("[\\p{Alpha}]")) {
+                if(alphanumericTestCheck[0].matches("\\d+") && alphanumericTestCheck[1].matches("[a-zA-Z]+")) {
                     if(alphanumericTestCheck[0].length() == 1 | alphanumericTestCheck[0].length() == 2) {
                         for(int i = 0; i < NUM_OF_STRINGS_IN_ALLOWED_MONTH_NAMES; i++ ) {
                             if(alphanumericTestCheck[1] == ALLOWED_MONTH_NAMES[i])
@@ -129,10 +165,42 @@ public class Date {
         } 
             
         return (numericCheck | alphanumericCheck | alphabeticalCheck);
+    } */
+    
+    @Override
+    public String toString() {      
+        return value;
     }
     
     @Override
-    public String toString() {
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Date // instanceof handles nulls
+                && this.value.equals(((Date) other).value)); // state check
+    }
+    
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+    public String getDate() {
         return value;
+    }
+    
+    public String getTotalDate() {
+        return dayWord + DDMMYYYYFormat;
+    }
+    
+    public int getDay() {
+        return day;
+    }
+    
+    public int getMonth() {
+        return month;
+    }
+    
+    public int getYear() {
+        return year;
     }
 }

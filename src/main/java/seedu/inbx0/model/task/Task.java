@@ -2,6 +2,7 @@ package seedu.inbx0.model.task;
 
 import java.util.Objects;
 
+import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.commons.util.CollectionUtil;
 import seedu.inbx0.model.tag.UniqueTagList;
 
@@ -10,54 +11,112 @@ import seedu.inbx0.model.tag.UniqueTagList;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
-
+    
+    public static final String MESSAGE_TIME_CONSTRAINTS = "The event is not possible as "
+                                                           + "the end of the event is earlier than the start of event.";
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
-
+    private Date startDate;
+    private Time startTime;
+    private Date endDate;
+    private Time endTime;
+    private Importance level;
+    private boolean isEvent;
+    
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
+     * @throws IllegalValueException if it is an event and not valid
      */
-    public Task(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+    public Task(Name name, Date startDate, Time startTime, Date endDate, Time endTime, Importance level, UniqueTagList tags) throws IllegalValueException {
+        assert !CollectionUtil.isAnyNull(name, startDate, startTime, endDate, endTime, level, tags);
+        
+        if(startDate.getDate() == "") {
+            this.isEvent = false;
+        }
+        else
+            this.isEvent = true;
+        
+        if(isEvent == true) {
+            if(!isValidEvent(startDate, startTime, endDate, endTime)) {
+                throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
+            }
+        }
+        
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.level = level;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        
     }
     
     
     /**
-     * Copy constructor.
+     * Returns true if a given Date and Time allows it to be a valid event.
      */
-    public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+    public static boolean isValidEvent(Date startDate, Time startTime, Date endDate, Time endTime) {
+        boolean isValid = false;
+        
+        if(endDate.getYear() > startDate.getYear())
+           isValid = true; 
+        else if ((endDate.getYear() == startDate.getYear()) && (endDate.getMonth() > startDate.getMonth()))
+            isValid = true;
+        else if (((endDate.getYear() == startDate.getYear()) && 
+                 (endDate.getMonth() == startDate.getMonth())) &&
+                 (endDate.getDay() > startDate.getDay()))
+            isValid = true;
+        else if (((endDate.getYear() == startDate.getYear()) && 
+                (endDate.getMonth() == startDate.getMonth())) &&
+                (endDate.getDay() == startDate.getDay()) &&
+                Integer.parseInt(endTime.getTime()) > Integer.parseInt(startTime.getTime()))
+                isValid = true;
+           
+        
+        return isValid;         
+    }
+    
+    /**
+     * Copy constructor.
+     * @throws IllegalValueException if it is an event and not valid
+     */
+    
+    public Task(ReadOnlyTask source) throws IllegalValueException {
+        this(source.getName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getLevel(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
     }
-
+    
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Date getStartDate() {
+        return startDate;
     }
-
+    
     @Override
-    public Email getEmail() {
-        return email;
+    public Time getStartTime() {
+        return startTime;
     }
-
+    
     @Override
-    public Address getAddress() {
-        return address;
+    public Date getEndDate() {
+        return endDate;
     }
-
+    
+    @Override
+    public Time getEndTime() {
+        return endTime;
+    }
+    
+    @Override
+    public Importance getLevel() {
+        return level;
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -69,6 +128,27 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
+    
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setLevel(Importance level) {
+        this.level = level;
+    }
+
 
     @Override
     public boolean equals(Object other) {
@@ -80,7 +160,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, startDate, startTime, endDate, endTime, level, tags);
     }
 
     @Override

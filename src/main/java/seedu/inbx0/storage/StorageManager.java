@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.inbx0.commons.core.ComponentManager;
 import seedu.inbx0.commons.core.LogsCenter;
-import seedu.inbx0.commons.events.model.AddressBookChangedEvent;
+import seedu.inbx0.commons.events.model.TaskListChangedEvent;
 import seedu.inbx0.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inbx0.commons.exceptions.DataConversionException;
 import seedu.inbx0.model.ReadOnlyTaskList;
@@ -51,39 +51,39 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ TaskList methods ==============================
 
     @Override
-    public String getAddressBookFilePath() {
-        return taskListStorage.getAddressBookFilePath();
+    public String getTaskListFilePath() {
+        return taskListStorage.getTaskListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyTaskList> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(taskListStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException {
+        return readTaskList(taskListStorage.getTaskListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyTaskList> readAddressBook(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskList> readTaskList(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return taskListStorage.readAddressBook(filePath);
+        return taskListStorage.readTaskList(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskList addressBook) throws IOException {
-        saveAddressBook(addressBook, taskListStorage.getAddressBookFilePath());
+    public void saveTaskList(ReadOnlyTaskList addressBook) throws IOException {
+        saveTaskList(addressBook, taskListStorage.getTaskListFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskList addressBook, String filePath) throws IOException {
+    public void saveTaskList(ReadOnlyTaskList addressBook, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        taskListStorage.saveAddressBook(addressBook, filePath);
+        taskListStorage.saveTaskList(addressBook, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleTaskListChangedEvent(TaskListChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveTaskList(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

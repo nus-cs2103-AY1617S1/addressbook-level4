@@ -10,9 +10,11 @@ import seedu.inbx0.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String STARTDATE_FIELD_ID = "#startdate";
+    private static final String STARTTIME_FIELD_ID = "#startime";
+    private static final String ENDDATE_FIELD_ID = "#enddate";
+    private static final String ENDTIME_FIELD_ID = "#endtime";
+    private static final String IMPORTANCE_FIELD_ID = "#importance";
 
     private Node node;
 
@@ -29,21 +31,30 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getStartDate() {
+        return getTextFromLabel(STARTDATE_FIELD_ID);
     }
 
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+    public String getStartTime() {
+        return getTextFromLabel(STARTTIME_FIELD_ID);
     }
 
-    public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+    public String getEndDate() {
+        return getTextFromLabel(ENDDATE_FIELD_ID);
+    }
+    
+    public String getEndTime() {
+        return getTextFromLabel(ENDTIME_FIELD_ID);
+    }
+    
+    public String getLevel() {
+        return getTextFromLabel(IMPORTANCE_FIELD_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName) && getPhone().equals(task.getPhone().value)
-                && getEmail().equals(task.getEmail().value) && getAddress().equals(task.getAddress().value);
+        return getFullName().equals(task.getName().fullName) && getStartTime().equals(task.getStartTime().value)
+                && getEndDate().equals(task.getEndDate().value) && getStartDate().equals(task.getStartDate().value)
+                && getEndTime().equals(task.getEndTime().value) && getLevel().equals(task.getLevel().value);
     }
 
     @Override
@@ -51,13 +62,17 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getStartDate().equals(handle.getStartDate())
+                    && getStartTime().equals(handle.getStartTime())
+                    && getEndDate().equals(handle.getEndDate())
+                    && getEndTime().equals(handle.getEndTime())
+                    && getLevel().equals(handle.getLevel());
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName() + " " + getStartDate();
     }
 }

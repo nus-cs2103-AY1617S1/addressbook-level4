@@ -13,28 +13,28 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
-                    .withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
+            alice =  new TaskBuilder().withName("Alice Pauline").withStartDate("4-10-2016")
+                    .withStartTime("3pm").withEndDate("6-10-2016").withEndTime("4pm").withImportance("green")
+                    .withTags("lunch").build();
+            benson = new TaskBuilder().withName("Benson Meier").withStartDate("6th September")
+                    .withStartTime("9am").withEndDate("7th September").withEndTime("9pm").withImportance("y")
                     .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
-            elle = new TaskBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withAddress("little tokyo").build();
-            george = new TaskBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
+            carl = new TaskBuilder().withName("Carl Kurz").withStartDate("tomorrow").withStartTime("3pm").withEndDate("tomorrow").withEndTime("9pm").withImportance("r").build();
+            daniel = new TaskBuilder().withName("Daniel Meier").withStartDate("next week").withStartTime("12pm").withEndDate("next week").withEndTime("9pm").withImportance("red").build();
+            elle = new TaskBuilder().withName("Elle Meyer").withStartDate("next wednesday").withStartTime("12pm").withEndDate("next friday").withEndTime("3pm").withImportance("yellow").build();
+            fiona = new TaskBuilder().withName("Fiona Kunz").withStartDate("4-6-2017").withStartTime("12pm").withEndDate("6-2-2017").withEndTime("5pm").withImportance("g").build();
+            george = new TaskBuilder().withName("George Best").withStartDate("4th November").withStartTime("0930").withEndDate("5th November").withEndTime("3pm").withImportance("R").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
-            ida = new TaskBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
+            hoon = new TaskBuilder().withName("Hoon Meier").withStartDate("4/5/2010").withStartTime("1000").withEndDate("4/5/2010").withEndTime("0300").withImportance("G").build();
+            ida = new TaskBuilder().withName("Ida Mueller").withStartDate("tmr").withStartTime("1000").withEndDate("next week").withEndTime("12pm").withImportance("Yellow").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
         }
     }
 
-    public static void loadAddressBookWithSampleData(TaskList ab) {
+    public static void loadAddressBookWithSampleData(TaskList ab) throws IllegalValueException {
 
         try {
             ab.addTask(new Task(alice));
@@ -53,7 +53,7 @@ public class TypicalTestTasks {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public TaskList getTypicalAddressBook(){
+    public TaskList getTypicalTaskList() throws IllegalValueException{
         TaskList ab = new TaskList();
         loadAddressBookWithSampleData(ab);
         return ab;

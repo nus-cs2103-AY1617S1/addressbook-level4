@@ -9,9 +9,12 @@ import seedu.inbx0.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
+    private Date startDate;
+    private Time startTime;
+    private Date endDate;
+    private Time endTime;
+    private Importance level;
+    
     private UniqueTagList tags;
 
     public TestTask() {
@@ -21,17 +24,25 @@ public class TestTask implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
-
-    public void setAddress(Address address) {
-        this.address = address;
+    
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setLevel(Importance level) {
+        this.level = level;
     }
 
     @Override
@@ -40,25 +51,35 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
-    }
-
-    @Override
     public UniqueTagList getTags() {
         return tags;
     }
 
+    @Override
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    @Override
+    public Time getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    @Override
+    public Time getEndTime() {
+        return endTime;
+    }
+
+    @Override
+    public Importance getLevel() {
+        return level;
+    }
+    
     @Override
     public String toString() {
         return getAsText();
@@ -67,9 +88,11 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("s/" + this.getStartDate().value + " ");
+        sb.append("st/" + this.getStartTime().value + " ");
+        sb.append("e/" + this.getEndDate().value + " ");
+        sb.append("et/" + this.getEndTime().value + " ");
+        sb.append("i/" + this.getLevel().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

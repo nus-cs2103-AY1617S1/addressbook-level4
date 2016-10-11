@@ -11,6 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.inbx0.TestApp;
 import seedu.inbx0.commons.core.EventsCenter;
+import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.model.TaskList;
 import seedu.inbx0.model.task.ReadOnlyTask;
 import seedu.inbx0.testutil.TestUtil;
@@ -24,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A GUI Test class for TaskList.
  */
-public abstract class AddressBookGuiTest {
+public abstract class TaskListGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -66,7 +67,15 @@ public abstract class AddressBookGuiTest {
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
+        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(() -> {
+            try {
+                return getInitialData();
+            } catch (IllegalValueException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
+        }, getDataFileLocation()));
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();
@@ -75,8 +84,9 @@ public abstract class AddressBookGuiTest {
     /**
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
+     * @throws IllegalValueException 
      */
-    protected TaskList getInitialData() {
+    protected TaskList getInitialData() throws IllegalValueException {
         TaskList ab = TestUtil.generateEmptyAddressBook();
         TypicalTestTasks.loadAddressBookWithSampleData(ab);
         return ab;

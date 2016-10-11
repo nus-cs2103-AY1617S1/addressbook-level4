@@ -17,11 +17,13 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label startDate;
     @FXML
-    private Label address;
+    private Label startTime;
     @FXML
-    private Label email;
+    private Label endDate;
+    @FXML
+    private Label endTime;
     @FXML
     private Label tags;
 
@@ -43,10 +45,19 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(task.getPhone().value);
-        address.setText(task.getAddress().value);
-        email.setText(task.getEmail().value);
+        startDate.setText(task.getStartDate().getTotalDate());
+        startTime.setText(task.getStartTime().value);
+        endDate.setText(task.getEndDate().getTotalDate());
+        endTime.setText(task.getEndTime().value);
         tags.setText(task.tagsString());
+        
+        if(task.getLevel().getNumberLevel() == 1) 
+            cardPane.setStyle("-fx-background-color: #7CFC00;");
+        else if(task.getLevel().getNumberLevel() == 2)
+            cardPane.setStyle("-fx-background-color: #FFFF00;");
+        else if(task.getLevel().getNumberLevel() == 3)
+            cardPane.setStyle("-fx-background-color: #FF4500;");
+                    
     }
 
     public HBox getLayout() {
