@@ -35,26 +35,13 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"
                     );
     
-    private static final Pattern TASK_UPDATE_ARGS_FORMAT = Pattern.compile(
-            "((?<name>([^/](?<!(at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
-                    + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"
-                    );
-    
-/*
-    private static final Pattern UPDATE_COMPLETE_ARGS_PARSER = Pattern.compile(
-            "(?<targetIndex>(\\d&&\\S)+)"
-            + "(?<name>([^/](?<! (at|from|to|by) ))+)" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
+    private static final Pattern TASK_UPDATE_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
+    		+ "((?: )(?<name>([^/](?<!(at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
             + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
             + "(?<tagArguments>(?: t/[^/]+)*)"
             );
-*/
-    private static final Pattern UPDATE_COMPLETE_ARGS_PARSER = Pattern.compile(
-    "(?<targetIndex>(\\d&&\\S)+)"+
-    "(?<name>([^/](?<!(at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
-    + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
-    + "(?<tagArguments>(?: t/[^/]+)*)"
-    );
+    
+    
     private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern
             .compile("(?<index>(\\d+)?)|" + "(?<searchString>[^/]+)");
 
@@ -109,62 +96,23 @@ public class Parser {
 
     private Command prepareUpdate(String args) {
         args = args.trim();
-        int targetIndex = getIndex(args);
-        args = removeIndex(args);
-        System.out.println(args + " | " + targetIndex);
         final Matcher matcher = TASK_UPDATE_ARGS_FORMAT.matcher(args);
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         } else {
-//          int targetIndex;
-            String taskDetails;
-            String startTime;
-            // String startDate;
-            String endTime;
-            // String endDate;
-            String priority;
-//            targetIndex = Integer.valueOf(matcher.group("targetIndex"));
-            taskDetails = (matcher.group("name") == null) ? null : matcher.group("name");
-            // startDate = ; - need to modify regex
-            startTime = (matcher.group("start") == null) ? null : matcher.group("start");
-            // endDate = ; - need to modify regex
-            endTime = (matcher.group("end") == null) ? null : matcher.group("end");
-            priority = (matcher.group("priority") == null) ? null : matcher.group("priority");
- /*
-            System.out.println(targetIndex);
-            System.out.println(taskDetails);
-            System.out.println(startTime);
-            System.out.println(endTime);
-            System.out.println(priority);
-  */
+        	int targetIndex = Integer.valueOf(matcher.group("index"));
+            String taskDetails = (matcher.group("name") == null) ? null : matcher.group("name");
+            String startTime = (matcher.group("start") == null) ? null : matcher.group("start");
+            String endTime = (matcher.group("end") == null) ? null : matcher.group("end");
+            String priority = (matcher.group("priority") == null) ? null : matcher.group("priority");
+            
             try {
-                return new UpdateCommand(targetIndex, taskDetails, startTime,
-                        // startDate,
-                        endTime,
-                        // endDate,
-                        priority);
+                return new UpdateCommand(targetIndex, taskDetails, startTime, endTime, priority);
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
         }
 
-    }
-
-    private String removeIndex(String args) {
-        // TODO Auto-generated method stub
-        args = args.replace(Integer.toString(getIndex(args)), "");
-        args = args.trim();
-        return args;
-    }
-
-    private int getIndex(String args) {
-        String index="";
-        for(int i=0; i<args.length(); i++){
-            if(args.charAt(i) >= '0' && args.charAt(i) <= '9')
-                index = index + args.charAt(i);
-            else break;
-        }
-        return Integer.parseInt(index);
     }
 
     private Command prepareDone(String args) {
@@ -234,25 +182,6 @@ public class Parser {
             return new DeleteCommand('*' + matcher.group("searchString") + '*');
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-    }
-
-    /**
-     * Returns the specified index in the {@code command} IF a positive unsigned
-     * integer is given as the index. Returns an {@code Optional.empty()}
-     * otherwise.
-     */
-    private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
-        }
-
-        String index = matcher.group("targetIndex");
-        if (!StringUtil.isUnsignedInteger(index)) {
-            return Optional.empty();
-        }
-        return Optional.of(Integer.parseInt(index));
-
     }
 
     /**
