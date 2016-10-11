@@ -23,21 +23,20 @@ import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
  *
  * Edits an existing task/event in Jimi.
  */
-public class EditCommand extends Command{
-
+public class EditCommand extends Command {
+    
     public static final String COMMAND_WORD = "edit";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task/event in Jimi. \n"
-            + "Example: " + COMMAND_WORD
-            + " 2 by 10th July at 12 pm";
-
+    
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task/event in Jimi. \n" + "Example: "
+            + COMMAND_WORD + " 2 by 10th July at 12 pm";
+    
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Updated task details: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
-
+    
     private final int taskIndex; //index of task/event to be edited
     private UniqueTagList newTagList;
-    private Name newName; 
-
+    private Name newName;
+    
     /**
      * Convenience constructor using raw values.
      * //TODO: change to support FloatingTask, Task and Events types as well
@@ -52,11 +51,10 @@ public class EditCommand extends Command{
         this.taskIndex = taskIndex;
         
         //if new fields are to be edited, instantiate them
-        if(name.length() != 0) {
+        if (name.length() != 0) {
             this.newName = new Name(name);
         }
-        
-        if(!tagSet.isEmpty()) {
+        if (!tagSet.isEmpty()) {
             this.newTagList = new UniqueTagList(tagSet);
         }
     }
@@ -71,10 +69,11 @@ public class EditCommand extends Command{
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
-        ReadOnlyTask taskToReplace = new FloatingTask(newName == null ? taskToEdit.getName() : newName
-                                                , newTagList == null ? taskToEdit.getTags() : newTagList);
+        ReadOnlyTask taskToReplace = new FloatingTask(
+                newName == null ? taskToEdit.getName() : newName,
+                newTagList == null ? taskToEdit.getTags() : newTagList);
         
-        ((ModelManager) model).editFloatingTask(new FloatingTask(taskToReplace), taskIndex - 1);
+        model.editFloatingTask(taskIndex - 1, new FloatingTask(taskToReplace));
         
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToReplace));
     }
