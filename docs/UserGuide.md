@@ -24,7 +24,7 @@ Benefits of RubyTask: Command Line Interface, One-shot Approach, Internet-indepe
 2. Copy the file to the folder you want to use as the home folder for your RubyTask application.
 3. Double-click the file to start the application. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600"><br>
-   > Figure 1. GUI Display
+   *Figure 1. GUI Display*
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
