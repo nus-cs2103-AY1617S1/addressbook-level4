@@ -12,6 +12,7 @@ import tars.commons.core.Messages;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.events.ui.JumpToListRequestEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
+import tars.commons.flags.Flag;
 import tars.logic.Logic;
 import tars.logic.LogicManager;
 import tars.logic.commands.AddCommand;
@@ -37,6 +38,7 @@ import tars.storage.StorageManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -434,7 +436,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_edit_editsCorrectTask() throws Exception {
-
+        
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task taskToAdd = helper.meetAdam();
@@ -442,10 +444,21 @@ public class LogicManagerTest {
         listToEdit.add(taskToAdd);
         Tars expectedAB = new Tars();
         expectedAB.addTask(taskToAdd);
+        
+        Flag nameOpt = new Flag(Flag.NAME, false);
+        Flag priorityOpt = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeOpt = new Flag(Flag.DATETIME, false);
+        Flag addTagOpt = new Flag(Flag.ADDTAG, true);
+        Flag removeTagOpt = new Flag(Flag.REMOVETAG, true);
 
         // edit task
-        String[] argsToEdit = { "1", "-n Meet Betty Green", "-dt 20/09/2016 1800 to 21/09/2016 1800", "-p h",
-                "-tr tag2", "-ta tag3" };
+        HashMap<Flag, String> argsToEdit = new HashMap<Flag, String>();
+        argsToEdit.put(nameOpt, "-n Meet Betty Green");
+        argsToEdit.put(dateTimeOpt, "-dt 20/09/2016 1800 to 21/09/2016 1800");
+        argsToEdit.put(priorityOpt, "-p h");
+        argsToEdit.put(addTagOpt, "-ta tag3");
+        argsToEdit.put(removeTagOpt, "-tr tag2");
+        
         Task taskToEdit = taskToAdd;
         Task editedTask = expectedAB.editTask(taskToEdit, argsToEdit);
         helper.addToModel(model, listToEdit);
