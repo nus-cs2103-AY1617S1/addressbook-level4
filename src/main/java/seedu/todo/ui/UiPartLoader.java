@@ -26,18 +26,18 @@ public class UiPartLoader {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getFXMLResource(sampleUiPart.getFxmlPath()));
         Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());
-        
+
         T controller = loader.getController();
         controller.setStage(primaryStage);
         controller.setPlaceholder(placeholder);
         controller.setNode(mainNode);
         return controller;
     }
-    
+
     public static <T extends UiPart> T loadUiPart(Stage primaryStage, T sampleUiPart) {
-    	return loadUiPart(primaryStage, null, sampleUiPart);
+        return loadUiPart(primaryStage, null, sampleUiPart);
     }
-    
+
     /**
      * Returns the ui class for a specific UI Part.
      *
@@ -62,9 +62,9 @@ public class UiPartLoader {
             throw new RuntimeException(errorMessage, e);
         }
     }
-    
+
     private static URL getFXMLResource(String fxmlPath) {
-    	return MainApp.class.getResource(FXML_FILE_FOLDER + fxmlPath);
+        return MainApp.class.getResource(FXML_FILE_FOLDER + fxmlPath);
     }
 
 }

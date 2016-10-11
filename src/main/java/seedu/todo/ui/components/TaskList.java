@@ -15,72 +15,72 @@ import seedu.todo.ui.UiPartLoader;
 
 public class TaskList extends Component {
 
-	private static final String FXML_PATH = "components/TaskList.fxml";
-	private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
-	
-	// Props
-	public ArrayList<Task> tasks; // stub
-	
-	// FXML
-	@FXML
-	private VBox taskListDateItemsPlaceholder;
+    private static final String FXML_PATH = "components/TaskList.fxml";
+    private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
 
-	@Override
-	public String getFxmlPath() {
-		return FXML_PATH;
-	}
-	
-	@Override
-	public void componentDidMount() {
-		loadTasks();
-	}
-	
-	public static TaskList load(Stage primaryStage, Pane placeholderPane) {
-	    return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskList());
-	}
-	
-	private void loadTasks() {
-		TaskListDateItem.reset(taskListDateItemsPlaceholder);
+    // Props
+    public ArrayList<Task> tasks; // stub
 
-		// Clears displayedTasks in EphemeralDB.
-		ephemeralDb.displayedTasks = new ArrayList<Task>();
-		
-		// Get a list of tasks mapped to each date
-		HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = getTasksByDate(tasks);
-		
-		// Get unique task dates and sort them
-		ArrayList<LocalDateTime> taskDates = new ArrayList<LocalDateTime>();
-		taskDates.addAll(tasksByDate.keySet());
-		java.util.Collections.sort(taskDates);
-		
-		// For each dateTime, individually render a single TaskListDateItem.
-		for (LocalDateTime dateTime : taskDates) {
-			TaskListDateItem item = TaskListDateItem.load(primaryStage, taskListDateItemsPlaceholder);
-			ArrayList<Task> tasksForDate = tasksByDate.get(dateTime);
-			
-			item.dateTime = dateTime;
-			item.tasks = tasksForDate;
-			
-			// Finally, can render into the placeholder.
-			item.render();
-		}
-	}
-	
-	private HashMap<LocalDateTime, ArrayList<Task>> getTasksByDate(ArrayList<Task> tasks) {
-		HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = new HashMap<LocalDateTime, ArrayList<Task>>();
-		
-		for (Task task : tasks) {
-			LocalDateTime taskDate = DateUtil.floorDate(task.getCalendarDT());
-			
-			// Creates ArrayList if not already exists.
-			if (!tasksByDate.containsKey(taskDate)) 
-				tasksByDate.put(taskDate, new ArrayList<Task>());
-			
-			// Adds to the ArrayList.
-			tasksByDate.get(taskDate).add(task);
-		}
-		
-		return tasksByDate;
-	}
-	
+    // FXML
+    @FXML
+    private VBox taskListDateItemsPlaceholder;
+
+    @Override
+    public String getFxmlPath() {
+        return FXML_PATH;
+    }
+
+    @Override
+    public void componentDidMount() {
+        loadTasks();
+    }
+
+    public static TaskList load(Stage primaryStage, Pane placeholderPane) {
+        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskList());
+    }
+
+    private void loadTasks() {
+        TaskListDateItem.reset(taskListDateItemsPlaceholder);
+
+        // Clears displayedTasks in EphemeralDB.
+        ephemeralDb.displayedTasks = new ArrayList<Task>();
+
+        // Get a list of tasks mapped to each date
+        HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = getTasksByDate(tasks);
+
+        // Get unique task dates and sort them
+        ArrayList<LocalDateTime> taskDates = new ArrayList<LocalDateTime>();
+        taskDates.addAll(tasksByDate.keySet());
+        java.util.Collections.sort(taskDates);
+
+        // For each dateTime, individually render a single TaskListDateItem.
+        for (LocalDateTime dateTime : taskDates) {
+            TaskListDateItem item = TaskListDateItem.load(primaryStage, taskListDateItemsPlaceholder);
+            ArrayList<Task> tasksForDate = tasksByDate.get(dateTime);
+
+            item.dateTime = dateTime;
+            item.tasks = tasksForDate;
+
+            // Finally, can render into the placeholder.
+            item.render();
+        }
+    }
+
+    private HashMap<LocalDateTime, ArrayList<Task>> getTasksByDate(ArrayList<Task> tasks) {
+        HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = new HashMap<LocalDateTime, ArrayList<Task>>();
+
+        for (Task task : tasks) {
+            LocalDateTime taskDate = DateUtil.floorDate(task.getCalendarDT());
+
+            // Creates ArrayList if not already exists.
+            if (!tasksByDate.containsKey(taskDate)) 
+                tasksByDate.put(taskDate, new ArrayList<Task>());
+
+            // Adds to the ArrayList.
+            tasksByDate.get(taskDate).add(task);
+        }
+
+        return tasksByDate;
+    }
+
 }
