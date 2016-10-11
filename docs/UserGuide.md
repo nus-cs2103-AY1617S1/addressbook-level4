@@ -12,8 +12,8 @@
 
 ## 2. Quick Start
 
-+ 2.1 Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1</b> Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
 + 2.2 Download the latest `DoMePlease.jar` from the 'releases' tab.
