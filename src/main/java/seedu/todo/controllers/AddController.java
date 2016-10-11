@@ -8,6 +8,8 @@ import com.joestelmach.natty.*;
 
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
+import seedu.todo.ui.UiManager;
+import seedu.todo.ui.views.IndexView;
 
 public class AddController implements Controller {
 
@@ -41,7 +43,11 @@ public class AddController implements Controller {
         newTask.setCalendarDT(ldt);
         db.save();
         
-        // TODO: Render view.
+        // Re-render
+        UiManager ui = UiManager.getInstance();
+        IndexView view = ui.loadView(IndexView.class);
+        view.tasks = db.getAllTasks();
+        view.render();
         
     }
     

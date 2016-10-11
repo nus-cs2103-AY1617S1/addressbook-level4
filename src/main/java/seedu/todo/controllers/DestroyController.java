@@ -1,6 +1,8 @@
 package seedu.todo.controllers;
 
 import seedu.todo.models.TodoListDB;
+import seedu.todo.ui.UiManager;
+import seedu.todo.ui.views.IndexView;
 
 public class DestroyController implements Controller {
 
@@ -20,6 +22,12 @@ public class DestroyController implements Controller {
         // TODO: Get record.
         TodoListDB db = TodoListDB.getInstance();
         db.destroyTask(db.getAllTasks().get(index));
+        
+        // Re-render
+        UiManager ui = UiManager.getInstance();
+        IndexView view = ui.loadView(IndexView.class);
+        view.tasks = db.getAllTasks();
+        view.render();
     }
 
 }
