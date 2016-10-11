@@ -30,7 +30,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<data>[^/]+)"
+            Pattern.compile("(?<data>[\\p{Alnum}: ]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -200,7 +200,7 @@ public class Parser {
         Pattern timePattern = Pattern.compile(TaskTime.TIME_VALIDATION_REGEX_FORMAT);
         
         //default name is the entire argument
-        int nameLastIndex = args.length()-1;
+        int nameLastIndex = args.length();
         
         Matcher dateMatcher = datePattern.matcher(args);
         //Max only have 1 date
@@ -219,7 +219,9 @@ public class Parser {
         //Do I need to declare the 0 as START_OF_ALL_STRINGS_IN_THE_WORLD?
         details.add(Task.TASK_COMPONENT_INDEX_NAME, args.substring(0, nameLastIndex));
         
-        return (String[]) details.toArray();
+        String[] returnDetails = new String[details.size()];
+        details.toArray(returnDetails);
+        return returnDetails;
     }
     
     /**

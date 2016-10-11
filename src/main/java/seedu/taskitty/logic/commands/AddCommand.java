@@ -61,7 +61,7 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
             );
         } else {
-            throw new IllegalValueException(MESSAGE_USAGE);
+            throw new IllegalValueException("COMPONENTS: " + data.length);
         }
     }
 
