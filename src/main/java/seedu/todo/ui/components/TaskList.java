@@ -8,14 +8,14 @@ import java.util.HashMap;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import seedu.todo.commons.util.DateUtil;
-import seedu.todo.ui.views.IndexView.TaskStub;
+import seedu.todo.models.Task;
 
 public class TaskList extends Component {
 
 	private static final String FXML_PATH = "components/TaskList.fxml";
 	
 	// Props
-	public ArrayList<TaskStub> tasks; // stub
+	public ArrayList<Task> tasks; // stub
 	
 	// FXML
 	@FXML
@@ -34,7 +34,7 @@ public class TaskList extends Component {
 	private void loadTasks() {
 		TaskListDateItem.reset(taskListDateItemsPlaceholder);
 		
-		HashMap<LocalDateTime, ArrayList<TaskStub>> tasksByDate = getTasksByDate(tasks);
+		HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = getTasksByDate(tasks);
 		
 		// Get unique task dates and sort them
 		ArrayList<LocalDateTime> taskDates = new ArrayList<LocalDateTime>();
@@ -44,7 +44,7 @@ public class TaskList extends Component {
 		// For each dateTime, individually the ArrayList of Tasks.
 		for (LocalDateTime dateTime : taskDates) {
 			TaskListDateItem item = new TaskListDateItem();
-			ArrayList<TaskStub> tasksForDate = tasksByDate.get(dateTime);
+			ArrayList<Task> tasksForDate = tasksByDate.get(dateTime);
 			
 			item.passInProps(c -> {
 				TaskListDateItem view = (TaskListDateItem) c;
@@ -57,14 +57,14 @@ public class TaskList extends Component {
 		}
 	}
 	
-	private static HashMap<LocalDateTime, ArrayList<TaskStub>> getTasksByDate(ArrayList<TaskStub> tasks) {
-		HashMap<LocalDateTime, ArrayList<TaskStub>> tasksByDate = new HashMap<LocalDateTime, ArrayList<TaskStub>>();
-		for (TaskStub task : tasks) {
-			LocalDateTime taskDate = DateUtil.floorDate(task.dateTime);
+	private static HashMap<LocalDateTime, ArrayList<Task>> getTasksByDate(ArrayList<Task> tasks) {
+		HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = new HashMap<LocalDateTime, ArrayList<Task>>();
+		for (Task task : tasks) {
+			LocalDateTime taskDate = DateUtil.floorDate(task.getCalendarDT());
 			
 			// Creates ArrayList if not already exists.
 			if (!tasksByDate.containsKey(taskDate)) 
-				tasksByDate.put(taskDate, new ArrayList<TaskStub>());
+				tasksByDate.put(taskDate, new ArrayList<Task>());
 			
 			// Adds to the ArrayList.
 			tasksByDate.get(taskDate).add(task);
