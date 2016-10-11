@@ -15,6 +15,7 @@ import tars.commons.events.ui.ShowHelpRequestEvent;
 import tars.logic.Logic;
 import tars.logic.LogicManager;
 import tars.logic.commands.AddCommand;
+import tars.logic.commands.CdCommand;
 import tars.logic.commands.ClearCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.CommandResult;
@@ -455,6 +456,17 @@ public class LogicManagerTest {
         // execute command
         assertCommandBehavior(inputCommand, String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
                 expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_cd_incorrectArgsFormat_errorMessageShown() throws Exception {
+        assertCommandBehavior("cd ", CdCommand.MESSAGE_INVALID_FILEPATH);
+    }
+    
+    
+    @Test
+    public void execute_cd_success() throws Exception {
+        assertCommandBehavior("cd testTars.xml", String.format(CdCommand.MESSAGE_SUCCESS, "testTars.xml"));
     }
 
     /**
