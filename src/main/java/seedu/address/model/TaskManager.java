@@ -84,8 +84,8 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
         }
     }
 
-	public void editFloatingTaskName(ReadOnlyTask floatingTask, Name name) {
-		Task currTask = floatingTasks.getTask(floatingTask);
+	public void editFloatingTaskName(ReadOnlyTask floatTask, Name name) {
+		Task currTask = floatingTasks.getTask(floatTask);
 		currTask.setName(name);
 	}
 //// util methods

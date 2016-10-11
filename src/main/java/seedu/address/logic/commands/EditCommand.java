@@ -31,7 +31,8 @@ public class EditCommand extends Command{
 
     public final int targetIndex;
     
-    private Task toAdd;
+    private Task toEdit;
+    
     Name taskName = null;
 	Date startDate = null;
     Date endDate = null;
@@ -80,7 +81,7 @@ public class EditCommand extends Command{
             isChanged = false;
         }       
         
-       this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
+       this.toEdit = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
         
 	}
 
@@ -117,13 +118,10 @@ public class EditCommand extends Command{
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_FLOATING_TASK);
         }*/
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         
         /* TODO
-            if (taskName != null) {
-                model.editName(personToEdit, taskName);
-            }*/
-/*
+         
             if (startDate != null) {
                 model.editStartDate(personToEdit, startDate);
             }
