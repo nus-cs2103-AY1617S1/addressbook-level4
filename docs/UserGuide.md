@@ -1,11 +1,16 @@
 # User Guide
 
-* [Quick Start](#quick-start)
-* [Features](#features)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
+1. [Introduction](#1-introduction)
+2. [Quick Start](#2-quick-start)
+3. [Features](#3-features)
+4. [FAQ](#4-faq)
+5. [Command Summary](#5-command-summary)
 
-## Quick Start
+## 1. Introduction 
+
+#### 
+
+## 2. Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
@@ -23,10 +28,10 @@
     `listall` : List all the floating tasks, deadline and events in the application.
     `delete 3` : Deletes the 3rd task shown in the current list.
     `exit` : Exits the application.
-6. Refer to the [Features](#features) section below for details of each command.<br>
+6. Refer to the [Features](#3-features) section below for details of each command.<br>
 
 
-## Features
+## 3. Features
 
 #### Viewing help : `help`
 Format: `help`
@@ -155,13 +160,13 @@ Format: `exit`
 DoMePlease data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
-## FAQ
+## 4. FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous DoMePlease.
        
-## Command Summary
+## 5. Command Summary
 
 Command | Format  
 -------- | -------- 
