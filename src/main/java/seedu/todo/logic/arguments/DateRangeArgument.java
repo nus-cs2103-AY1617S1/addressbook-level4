@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.commons.exceptions.IllegalValueException;
 
@@ -32,7 +33,7 @@ public class DateRangeArgument extends Argument<DateRange> {
     public void setValue(String input) throws IllegalValueException {
         super.setValue(input);
         
-        if (input.trim().length() == 0) {
+        if (StringUtil.isEmpty(input)) {
             return;
         }
         
