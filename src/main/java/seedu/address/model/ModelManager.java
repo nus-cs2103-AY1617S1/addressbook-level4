@@ -12,6 +12,8 @@ import seedu.address.model.item.UniquePersonList.PersonNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -101,7 +103,9 @@ public class ModelManager extends ComponentManager implements Model {
     //editted these 3 lines! stopped here.
     @Override
     public void updateFilteredListToShowTask() {
-    	filteredItems.setPredicate(null);//ItemType.value == task);
+    	final String[] itemType = {"task"}; 
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
+        updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
 
     @Override
@@ -142,6 +146,27 @@ public class ModelManager extends ComponentManager implements Model {
     interface Qualifier {
         boolean run(ReadOnlyItem person);
         String toString();
+    }
+    
+    private class ItemTypeQualifier implements Qualifier {
+        private Set<String> itemType;
+
+        ItemTypeQualifier(Set<String> itemType) {
+            this.itemType = itemType;
+        }
+
+        @Override
+        public boolean run(ReadOnlyItem person) {
+            return itemType.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getItemType().value, keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "name=" + String.join(", ", itemType);
+        }
     }
 
     private class NameQualifier implements Qualifier {

@@ -6,7 +6,7 @@ package seedu.address.logic.commands;
 
 public class ListTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "list task";
+    public static final String COMMAND_WORD = "listtask";
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     
@@ -18,8 +18,9 @@ public class ListTaskCommand extends Command {
    
     @Override
     public CommandResult execute() {
+        model.updateFilteredListToShowAll();
         model.updateFilteredListToShowTask();
-        
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
