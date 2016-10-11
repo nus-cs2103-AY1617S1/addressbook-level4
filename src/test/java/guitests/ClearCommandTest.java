@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class ClearCommandTest extends TaskManGuiTest {
 
-    @Test
+    //@Test
     public void clear() {
 
         //verify a non-empty list can be cleared
