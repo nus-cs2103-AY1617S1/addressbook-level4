@@ -1,5 +1,11 @@
 # Developer Guide 
 
+## Introduction
+
+TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events with options such as deadline, recurrence, and tags. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
+
+This guide contains all necessary information for both new and experienced contributors to the development of TaSc. Each section provides an overview on the topic, which goes into further details in its subsections. Throughout your development of TaSc, as each subsection is relatively self-contained, you may revisit the topics that most interest you.
+
 ## Table of Contents
 
 * [Setting Up](#setting-up)
@@ -126,8 +132,8 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts, e.g. `CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -135,10 +141,24 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
+The `UI` component
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+<img src="images/UiComponentParts.png" width="600"><br>
+Figure 1. UI component parts
+
+Figure 1 shows where each `UiPart` is attached to the `MainWindow`. The `TaskListPanel` class shows the list of tasks, where each task is contained in a `TaskCard` object.
+
+**`TaskCard` Class:**
+
+ Each `TaskCard` is assigned a unique index in increasing order, which is used in other commands to specify a task, e.g. `delete 3` deletes the third item in the list. 
+
+**`HelpWindow` Class:**
+
+The `HelpWindow` is a window separate from the `MainWindow`. It shows our product's User Guide from *https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md*, which requires an active Internet connection. 
+
 
 ### Logic component
 
