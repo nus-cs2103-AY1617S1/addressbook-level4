@@ -5,7 +5,7 @@ import seedu.address.testutil.TestItem;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteByIndexCommand.MESSAGE_DELETE_ITEM_SUCCESS;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
