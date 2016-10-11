@@ -293,25 +293,17 @@ specified in the `Storage` interface.
 Other components should reference this class indirectly by using the `Storage` interface. You should not
 directly use this class outside the `Storage` component.
 
-**`TaskListStorage` Interface:**
+**`TaskListStorage` , `UserPrefsStorage` Interface:**
 
-The `TaskListStorage` interface represents a storage for `TaskList`.
-
-**`UserPrefsStorage` Interface:**
-
-The `UserPrefsStorage` interface represents a storage for `UserPrefs`.
+Represent the storage for `TaskList` and `UserPrefs`.
 
 **`JsonUserPrefsStorage` Class:**
 
 The `JsonUserPrefsStorage` class is provided for accessing `UserPrefs` stored in the hard disk as a json file.
 
-**`XmlAdaptedTag` Class:**
+**`XmlAdaptedTag` and `XmlAdaptedTask` Class:**
 
-The `XmlAdaptedTag` is a JAXB-friendly adapted version of the Tag.
-
-**`XmlAdaptedTask` Class:**
-
-The `XmlAdaptedTask` is a JAXB-friendly version of the Task.
+JAXB-friendly adapted version of the `Tag` and `Task`.
 
 **`XmlFileStorage` Class:**
 
