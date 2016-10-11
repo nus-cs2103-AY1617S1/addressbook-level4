@@ -42,5 +42,6 @@ public class ConsoleInput extends Component {
     public void handleConsoleInputChanged() {
         lastCommandEntered = consoleInputTextField.getText();
         inputHandler.processInput(lastCommandEntered);
+        consoleInputTextField.clear();
     }
 }
