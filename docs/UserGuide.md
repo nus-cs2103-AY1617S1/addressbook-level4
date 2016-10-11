@@ -63,13 +63,13 @@
 
 Add a deadline
 
-1. Type ‘add deadline n/NAME d/[DATE] t/[TIME]’.
+1. Type `add deadline n/NAME ed/DATE et/TIME`.
 
-2. If t is not specified, t is assumed to be 23:59.
+2. If et is not specified, et is assumed to be 23:59.
 
-3. If d is not specified, d is assumed to be today.
+3. If ed is not specified, ed is assumed to be today.
 
-4. If both t and d are not specified, created task is a floating task (see b). 
+4. If both et and ed are not specified, created task is a floating task (see b). 
 
 5. Press Enter.
 
@@ -77,7 +77,7 @@ Add a deadline
 
 Add a task 
 
-1. Type ‘add task n/NAME’. 
+1. Type `add task n/NAME`. 
 
 2. Press Enter.
 
@@ -85,7 +85,7 @@ Add a task
 
 Add an event 
 
-1. Add an event by typing ‘add event n/[Name of Event] sd/[Start Date] st/[Start Time] ed/[End Date] et/[End Time]’.
+1. Add an event by typing `add event n/NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME`.
 
 2. If st is empty, st is assumed to be 00:00:00.
 
@@ -97,60 +97,63 @@ Add an event
 
 ##When you need to edit a deadline, task or event 
 
-Edit a task’s name - If you know the name of the task
+####Edit a task’s name 
+For tasks, you can only edit the name.
 
-1. Type ‘edit [taskname] rn/[New Name of Task]’. 
+If you know a keyword in the task's name
 
-2. A confirmation message will appear to ask whether the task specified is the one you want to rename. 
+1. Type `find KEYWORD`. 
 
-3. Type ‘y’ to confirm and ‘n’ to cancel.
+2. Type `edit INDEX n/NEW_NAME`.
 
-Edit a task’s name - If you know the keyword of the task
+3. Press Enter.
 
-1. Type ‘searchAndEdit [keyword] rn/[New Name of Task]’. 
+If you know the index of the task in the displayed list
 
-2. A confirmation message will appear for each of the tasks that contain the keyword to ask whether the task specified is the one you want to rename.
+1. Type `edit INDEX n/NEW_NAME`.
 
-3. Type ‘y’ to confirm and ‘n’ to cancel for each message.
+2. Press Enter.
 
-Edit a task’s name - If you know the index of the task 
 
-1. Type ‘editByIndex [index] rn/[New Name of Task]’. 
-2. A confirmation message will appear to ask whether the task specified is the one you want to rename.
+####Edit a deadline's name, end date and end time
+For deadlines, you can only edit the name, end date and time.
 
-3. Type ‘y’ to confirm and ‘n’ to cancel.
+If you know the keyword of the deadline
 
-##Edit a task’s start date, start time, end date and end time
+1. Type `find KEYWORD`. 
 
-(NOTE: 
-Conversion between events, deadlines, and tasks only involve the difference in details specified.)
-For event, can edit both start and end date and time.
-For deadline, can only edit end date and time.
-For task, cannot edit end datetime.
+2. Press Enter.
 
-If you know the name of the task
+3. Type `edit INDEX n/[NEW_NAME] ed/[NEW_END_DATE] et/[NEW_END_TIME]`.
 
-1. Type ‘edit [taskname] sd/[New Start Date] st/[New Start Time] ed/[New End Date] et/[New End Time]’. 
+4. Press Enter. 
 
-2. A confirmation message will appear to ask whether the task specified is the one you want to edit. 
+If you know the index of the deadline in the displayed list
 
-3. Type ‘y’ to confirm and ‘n’ to cancel.
+1. Type `edit INDEX n/[NEW_NAME] ed/[NEW_END_DATE] et/[NEW_END_TIME]`. 
 
-If you know the keyword of the task
+2. Press Enter.
 
-1. Type ‘searchAndEdit [keyword] sd/[New Start Date] st/[New Start Time]  ed/[New End Date] et/[New End Time]’. 
 
-2. A confirmation message will appear for each of the tasks that contain the keyword to ask whether the task specified is the one you want to edit. 
+####Edit an event’s name, start date, start time, end date and end time
+For events, you can edit the name and both start and end dates and times.
 
-3. Type ‘y’ to confirm and ‘n’ to cancel for each message.
+If you know the keyword of the event
 
-If you know the index of the task 
+1. Type `find KEYWORD`. 
 
-1. Type ‘editByIndex [index] sd/[New Start Date] st/[New Start Time]  ed/[New End Date] et/[New End Time]’. 
+2. Press Enter.
 
-2. A confirmation message will appear to ask whether the task specified is the one you want to edit. 
+3. Type `edit INDEX n/[NEW_NAME] sd/[NEW_START_DATE] st/[NEW_START_TIME]  ed/[NEW_END_DATE] et/[NEW_END_TIME]`.
 
-3. Type ‘y’ to confirm and ‘n’ to cancel.
+4. Press Enter. 
+
+If you know the index of the event in the displayed list
+
+1. Type `edit INDEX n/[NEW_NAME] sd/[NEW_START_DATE] st/[NEW_START_TIME]  ed/[NEW_END_DATE] et/[NEW_END_TIME]`. 
+
+2. Press Enter.
+
 
 ##When you need to view your deadlines, tasks and events
 
@@ -178,27 +181,15 @@ View undone deadlines, tasks and events
 
 If you know the name of the task
 
-1. Type ‘done [taskname]’. 
-
-2. A confirmation message will appear to ask whether the task specified is the one you want to mark as done. 
-
-3. Type ‘y’ to confirm and ‘n’ to cancel.
+1. Type ‘done [taskname]’.
 
 If you know the keyword of the task
 
-1. Type ‘searchAndDone [keyword]’. 
-
-2. A confirmation message will appear for each of the tasks that contain the keyword. 
-
-3. Type ‘y’ to confirm and ‘n’ to cancel for each message.
+1. Type ‘searchAndDone [keyword]’.
 
 If you know the index of the task 
 
-1. Type ‘doneByIndex [index]’. 
-
-2. A confirmation message will appear to ask whether the task specified is the one you want to mark as done. 
-
-3.Type ‘y’ to confirm and ‘n’ to cancel.
+1. Type ‘doneByIndex [index]’.
 
 ##When you want to delete a deadline, task or event
 
@@ -206,28 +197,18 @@ If you know the name of the task
 
 1. Type ‘delete [taskname]’. 
 
-2. A confirmation message will appear to ask whether the task specified is the one you want to delete.
-
-3. Type ‘y’ to confirm and ‘n’ to cancel.
 
 If you know the keyword of the task
 
 1. Type ‘searchAndDelete [keyword]’. 
 
-2. A confirmation message will appear for each of the tasks that contain the keyword to ask whether the task specified is the one you want to delete.
-
-3. Type ‘y’ to confirm deletion and ‘n’ to cancel for each message.
 
 If you know the index of the task
-1. Type ‘deleteByIndex [index]’. 
-2. A confirmation message will appear to ask whether the task specified is the one you want to delete. 
-3. Type ‘y’ to confirm and ‘n’ to cancel.
+1. Type ‘deleteByIndex [index]’.
 
 ##When you need to undo your last action
 1. Type ‘undo’.
-2. Press Enter. 
-3. A confirmation message will appear to ask whether you want to undo a certain action. 
-4. Type ‘y’ to confirm and ‘n’ to cancel.
+2. Press Enter.
 
 ## When you need to specify a different data storage location
 
