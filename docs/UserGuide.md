@@ -19,7 +19,7 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`display`**` today` : lists all tasks scheduled for today
+   * **`show`**` today` : lists all tasks scheduled for today
    * **`add`**` buy eggs by 5pm today` : 
      remind yourself to get some eggs by 5pm today
    * **`delete`**` 1` : deletes the first task shown in the to-do list
@@ -54,23 +54,24 @@ Examples:
 
 #### Displaying tasks : `show`
 Displays tasks and their indexes in the specified timeframe.<br>
-Format: `show [TYPE]`
+Format: `show TYPE`
 
-> * TYPE format: complete, all, overdue, floating, today, tomorrow, upcoming, or DATE.
-> * Except for show complete, all other inputs for TYPE will only display the incomplete tasks, i.e., the tasks which have not been marked as done
+> * TYPE can be replaced with p/high, p/med, p/low, complete, all, overdue, floating, today, tomorrow, upcoming, or any specific date.
+> * p/high, p/med, p/low stand for tasks with high priority, medium priority and low priority respectively.
+> * Except for show complete, all other inputs for TYPE will only display the incomplete tasks, i.e., the tasks which have not been marked as done.
 
 Examples:
-* `show floating`<br>
+* `show p/high`<br>
 
-> * Lists all the floating tasks
+> * Lists all tasks marked as high priority
 
 * `show tomorrow`<br>
 
 > * Lists all tasks for tomorrow
 
-* `show overdue`<br>
+* `show 30/10/2016`<br>
 
-> * Lists all the overdue tasks
+> * Lists all the tasks scheduled on 30th October, 2016
 
 #### Searching for tasks : `find`
 Lists tasks whose names match the given input.<br>
@@ -91,7 +92,8 @@ Deletes the specified task.<br>
 Format: `delete INDEX/TASKNAME`
 
 > * Deletes the task at the specified index
-> * If TASKNAME is entered instead, and only one task matches the name, it will be deleted. Otherwise, all tasks with matching names are displayed along with their indices. The user can then proceed with deletion using the index of the appropriate task.
+> * If TASKNAME is entered instead, and only one task matches the name, it will be deleted. 
+> * If TASKNAME is entered, and there are multiple tasks with matching names, then they are all displayed along with their indices. In this scenario, the user can only proceed with deletion using the index of the appropriate task.
 
 Examples:
 * `delete 1`
@@ -127,7 +129,7 @@ Marks a task as complete.<br>
 Format: `done INDEX/TASKNAME`
 
 > * Marks the task at the specified index as complete
-> * If TASKNAME is entered, tasks are sought out in the same way the `find` command does. If only one task is found, it will be marked as done. Otherwise, matching names and their indices are displayed. The user can then proceed with marking a task as complete using the index of the appropriate task.
+> * If TASKNAME is entered, tasks are sought out in the same way the `find` command does. If only one task is found, it will be marked as done. Otherwise, matching tasks and their indices are displayed. The user can then proceed with marking a task as complete using the index of the appropriate task.
 
 Examples:
 * `done 1`
@@ -177,7 +179,7 @@ There is no need to save manually.
 Command | Format  
 -------- | :--------
 add | `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE] [p/PRIORITY]`
-show | `show [TYPE]`
+show | `show TYPE`
 find | `find SEARCHSTRING`
 delete | `delete INDEX/TASKNAME`
 update | `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [p/PRIORITY]`
