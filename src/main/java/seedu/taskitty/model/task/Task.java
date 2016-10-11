@@ -11,6 +11,20 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
+    
+    public static final int TASK_COMPONENT_INDEX_NAME = 0;
+    public static final int TASK_COMPONENT_COUNT = 1;
+    
+    public static final int DEADLINE_COMPONENT_INDEX_NAME = 0;
+    public static final int DEADLINE_COMPONENT_INDEX_DATE = 1;
+    public static final int DEADLINE_COMPONENT_INDEX_END_TIME = 2;
+    public static final int DEADLINE_COMPONENT_COUNT = 3;
+    
+    public static final int EVENT_COMPONENT_INDEX_NAME = 0;
+    public static final int EVENT_COMPONENT_INDEX_DATE = 1;
+    public static final int EVENT_COMPONENT_INDEX_START_TIME = 2;
+    public static final int EVENT_COMPONENT_INDEX_END_TIME = 3;
+    public static final int EVENT_COMPONENT_COUNT = 4;
 
     private Name name;
     private boolean isDone;
@@ -23,9 +37,12 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
+    public Task(Name name, TaskDate date, TaskTime startTime, TaskTime endTime, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -33,7 +50,8 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getDate(), source.getStartTime(),
+                source.getEndTime(), source.getTags());
     }
 
     @Override

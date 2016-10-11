@@ -3,6 +3,7 @@ package seedu.taskitty.logic.parser;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.logic.commands.*;
+import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
@@ -29,7 +30,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
+            Pattern.compile("(?<data>[\\p{Alnum}: ]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -95,8 +96,10 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
+            String data = matcher.group("data");
+            
             return new AddCommand(
-                    matcher.group("name"),
+                    extractTaskDetails(data),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
@@ -203,6 +206,42 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Returns an array of String representing 
+     * 
+     * @param args full command args String
+     */
+    //Should return an object instead of String[].. but how?
+    private String[] extractTaskDetails(String args) {
+        ArrayList<String> details = new ArrayList<String>();
+        Pattern datePattern = Pattern.compile(TaskDate.DATE_VALIDATION_REGEX_FORMAT);
+        Pattern timePattern = Pattern.compile(TaskTime.TIME_VALIDATION_REGEX_FORMAT);
+        
+        //default name is the entire argument
+        int nameLastIndex = args.length();
+        
+        Matcher dateMatcher = datePattern.matcher(args);
+        //Max only have 1 date
+        if (dateMatcher.find()) {
+            nameLastIndex = Math.min(nameLastIndex, dateMatcher.start());
+            details.add(dateMatcher.group());
+        }
+        
+        Matcher timeMatcher = timePattern.matcher(args);
+        //Max only have 2 times
+        while (timeMatcher.find()) {
+            nameLastIndex = Math.min(nameLastIndex, timeMatcher.start());
+            details.add(timeMatcher.group());
+        }
+        
+        //Do I need to declare the 0 as START_OF_ALL_STRINGS_IN_THE_WORLD?
+        details.add(Task.TASK_COMPONENT_INDEX_NAME, args.substring(0, nameLastIndex));
+        
+        String[] returnDetails = new String[details.size()];
+        details.toArray(returnDetails);
+        return returnDetails;
     }
     
     /**

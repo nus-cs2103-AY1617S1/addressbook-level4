@@ -34,6 +34,15 @@ public class StringUtil {
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
     
+    /**
+     * Returns true if s represents an unsigned integer e.g. 0, 1, 2, 3, ... <br>
+     *   Will return false if the String is not a valid integer
+     * @param s Should be trimmed.
+     */
+    public static boolean isInteger(String s){
+        return s != null && s.matches("^[0-9]\\d*$");
+    }
+    
     public static int findNextOccuranceOfInteger(String s, int indexFrom) {
         for (int i = indexFrom; i < s.length(); i++) {
             if (isUnsignedInteger(s.substring(i, i+1))) {
