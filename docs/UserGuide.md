@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+* [About](#about)
 * [Quick Start](#quick-start)
 * [Features](#features)
     * [Viewing help: `help`](#viewing-help--help)
@@ -21,6 +22,20 @@
     * [Multiple Storage Files](#multiple-storage-files)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+
+## About
+
+Many of us lead busy lives, with a neverending stream of tasks often weighing on our minds.
+We understand it all too well, and we want to lessen that burden on you.
+This is the motivation behind TaSc, our Task Scheduler with usability at its core.
+
+Organize your tasks with a single line of command.<br>
+Need to add, delete or update a task? One line is all that it needs.<br>
+Want to list, search or filter your tasks? One line is all that it takes.
+
+TaSc is quick, simple, and contains all the functionalities you need to plan and record your tasks.<br>
+Just type in your command, and hit enter. Let us handle the rest - you have more important things to do.
+
 
 ## Quick Start
 
