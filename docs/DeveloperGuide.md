@@ -413,6 +413,31 @@ Here are the steps to create a new release.
 
 Our project depends on third-party libraries. We use Gradle to automate our dependency management. 
 
+To add a new dependency, look for instructions on the project's documentation for Gradle configuration required. For most projects it will look something like this
+ 
+``` gradle
+// https://mvnrepository.com/artifact/org.mockito/mockito-all
+compile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
+```
+
+This should be copied into the `dependencies` section of the `build.gradle` file. If you wish to you can split the version string out so that the shorter `compile` property can be used instead, but this is not strictly necessary 
+
+```gradle
+project.ext {
+    // ... other variables 
+    mockitoVersion = '8.40.11'
+}
+
+dependencies {
+    // .. other dependencies
+    compile "org.mockito:mockito-all:mockitoVersion"
+}
+```
+
+After that rerun the Gradle `build` command and make sure the file has been edited properly, then right click on the project folder in Eclipse, select `Gradle` > `Refresh Gradle Project`. You should now be able to use the package in your code. Remember to inform all other team members to refresh their Gradle Project when the commit is merged back into master.
+
+!!! warning "Adding external dependencies should be done with care"
+    Be mindful of the impact external dependencies can have on project build time and maintenance costs. Adding an external package should always be discussed with the other project members in the issue tracker.
 
 ## Documentation 
 

@@ -450,6 +450,30 @@ See <a href="UsingTravis.md">UsingTravis.md</a> for more details.</p>
 </ol>
 <h3 id="managing-dependencies">Managing Dependencies<a class="headerlink" href="#managing-dependencies" title="Permanent link">#</a></h3>
 <p>Our project depends on third-party libraries. We use Gradle to automate our dependency management. </p>
+<p>To add a new dependency, look for instructions on the project's documentation for Gradle configuration required. For most projects it will look something like this</p>
+<div class="codehilite"><pre><span></span>// https://mvnrepository.com/artifact/org.mockito/mockito-all
+compile group: &#39;org.mockito&#39;, name: &#39;mockito-all&#39;, version: &#39;2.0.2-beta&#39;
+</pre></div>
+
+
+<p>This should be copied into the <code>dependencies</code> section of the <code>build.gradle</code> file. If you wish to you can split the version string out so that the shorter <code>compile</code> property can be used instead, but this is not strictly necessary </p>
+<div class="codehilite"><pre><span></span>project.ext {
+    // ... other variables 
+    mockitoVersion = &#39;8.40.11&#39;
+}
+
+dependencies {
+    // .. other dependencies
+    compile &quot;org.mockito:mockito-all:mockitoVersion&quot;
+}
+</pre></div>
+
+
+<p>After that rerun the Gradle <code>build</code> command and make sure the file has been edited properly, then right click on the project folder in Eclipse, select <code>Gradle</code> &gt; <code>Refresh Gradle Project</code>. You should now be able to use the package in your code. Remember to inform all other team members to refresh their Gradle Project when the commit is merged back into master.</p>
+<div class="admonition warning">
+<p class="admonition-title">Adding external dependencies should be done with care</p>
+<p>Be mindful of the impact external dependencies can have on project build time and maintenance costs. Adding an external package should always be discussed with the other project members in the issue tracker.</p>
+</div>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">#</a></h2>
 <p>Our documentation and user guides are written in <a href="https://guides.github.com/features/mastering-markdown/">GitHub Flavor Markdown</a> with a number of 
 extensions including tables, definition lists and warning blocks that help enable richer styling options
