@@ -42,7 +42,8 @@ public class TaskBuilder {
     }
 
 	public TaskBuilder withStatus() {
-		this.task.getStatus().setDone();
+		Status done = new Status(true);
+		this.task.setStatus(done);
 		return this;
 	}
 

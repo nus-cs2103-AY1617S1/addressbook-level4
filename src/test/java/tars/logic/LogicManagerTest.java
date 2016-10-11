@@ -245,7 +245,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Tars expectedAB = new Tars();
         Task task1 = helper.meetAdam();
-        task1.getStatus().setDone();
+        Status done = new Status(true);
+        task1.setStatus(done);
         List<Task> taskList = new ArrayList<Task>();
         taskList.add(task1);
         expectedAB.addTask(task1);

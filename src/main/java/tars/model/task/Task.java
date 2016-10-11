@@ -62,7 +62,10 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-
+    
+    public void setStatus(Status status) {
+    	this.status = status;    
+    }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
