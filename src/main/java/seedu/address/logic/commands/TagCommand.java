@@ -28,9 +28,9 @@ public class TagCommand extends Command{
     public final int targetIndex;
     public final UniqueTagList tags;
     
-    public TagCommand(String targetIndex, String tagNames) throws Exception {
+    public TagCommand(int targetIndex, String tagNames) throws Exception {
 
-        this.targetIndex = Integer.parseInt(targetIndex);
+        this.targetIndex = targetIndex;
         
         if (tagNames.isEmpty()) {
             throw new Exception();
@@ -64,7 +64,7 @@ public class TagCommand extends Command{
                     toTag.addTag(tag);
                 } catch (DuplicateTagException e) {}
             }
-            model.updateTask(taskToTag, toTag);
+            model.updateTaskTags(taskToTag, toTag);
             model.updateFilteredListToShowAll();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
