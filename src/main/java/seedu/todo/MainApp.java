@@ -50,7 +50,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Uncle Jim's Discount To-do List ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -153,7 +153,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Uncle Jim's Discount To-do List ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
