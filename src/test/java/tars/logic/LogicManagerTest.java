@@ -224,7 +224,7 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAllTasks() throws Exception {
+    public void execute_list_showsAllUndoneTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         Tars expectedAB = helper.generateTars(2);
@@ -235,6 +235,43 @@ public class LogicManagerTest {
 
         assertCommandBehavior("ls",
                 ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsAllDoneTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Tars expectedAB = new Tars();
+        Task task1 = helper.meetAdam();
+        task1.getStatus().setDone();
+        List<Task> taskList = new ArrayList<Task>();
+        taskList.add(task1);
+        expectedAB.addTask(task1);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        
+        // prepare tars state
+        helper.addToModel(model, taskList);
+       
+        assertCommandBehavior("ls -d",
+                ListCommand.MESSAGE_SUCCESS_DONE,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsAllTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Tars expectedAB = helper.generateTars(2);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        // prepare tars state
+        helper.addToModel(model, 2);
+
+        assertCommandBehavior("ls -all",
+                ListCommand.MESSAGE_SUCCESS_ALL,
                 expectedAB,
                 expectedList);
     }
@@ -444,14 +481,14 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an Tars with auto-generated tasks.
+         * Generates an Tars with auto-generated undone tasks.
          */
         Tars generateTars(int numGenerated) throws Exception{
             Tars tars = new Tars();
             addToTars(tars, numGenerated);
             return tars;
         }
-
+        
         /**
          * Generates an Tars based on the list of Tasks given.
          */
