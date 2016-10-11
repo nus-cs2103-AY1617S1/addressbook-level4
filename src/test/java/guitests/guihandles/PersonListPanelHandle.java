@@ -92,7 +92,7 @@ public class PersonListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndPerson(getFloatingTaskCardHandle(startPosition + i), persons[i])) {
+            if (!TestUtil.compareCardAndPerson(getTaskCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
         }
@@ -100,22 +100,22 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
 
-    public FloatingTaskCardHandle navigateToFloatingTask(String name) {
+    public TaskCardHandle navigateToFloatingTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> person = getListView().getItems().stream().filter(p -> p.getName().name.equals(name)).findAny();
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
         assertTrue(person.isPresent());
-        return navigateToFloatingTask(person.get());
+        return navigateToTask(person.get());
         
     }
 
     /**
      * Navigates the listview to display and select the person.
      */
-    public FloatingTaskCardHandle navigateToFloatingTask(ReadOnlyTask person) {
-        int index = getPersonIndex(person);
+    public TaskCardHandle navigateToTask(ReadOnlyTask person) {
+        int index = getTaskIndex(person);
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
@@ -123,14 +123,14 @@ public class PersonListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
-        return getPersonCardHandle(person);
+        return getTaskCardHandle(person);
     }
 
 
     /**
      * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
      */
-    public int getPersonIndex(ReadOnlyTask targetPerson) {
+    public int getTaskIndex(ReadOnlyTask targetPerson) {
         List<ReadOnlyTask> personsInList = getListView().getItems();
         for (int i = 0; i < personsInList.size(); i++) {
             if(personsInList.get(i).getName().equals(targetPerson.getName())){
@@ -147,17 +147,17 @@ public class PersonListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public FloatingTaskCardHandle getFloatingTaskCardHandle(int index) {
-        return getPersonCardHandle(new Task(getListView().getItems().get(index)));
+    public TaskCardHandle getTaskCardHandle(int index) {
+        return getTaskCardHandle(new Task(getListView().getItems().get(index)));
     }
 
-    public FloatingTaskCardHandle getPersonCardHandle(ReadOnlyTask person) {
+    public TaskCardHandle getTaskCardHandle(ReadOnlyTask person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new FloatingTaskCardHandle(guiRobot, primaryStage, n).isSameFloatingTask(person))
+                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameFloatingTask(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
-            return new FloatingTaskCardHandle(guiRobot, primaryStage, personCardNode.get());
+            return new TaskCardHandle(guiRobot, primaryStage, personCardNode.get());
         } else {
             return null;
         }

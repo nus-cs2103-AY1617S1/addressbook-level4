@@ -13,7 +13,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.TaskManager;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestFloatingTasks;
+import seedu.address.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -31,7 +31,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestFloatingTasks td = new TypicalTestFloatingTasks();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -77,7 +77,7 @@ public abstract class AddressBookGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager ab = TestUtil.generateEmptyTaskManager();
-        TypicalTestFloatingTasks.loadTaskManagerWithSampleData(ab);
+        TypicalTestTasks.loadTaskManagerWithSampleData(ab);
         return ab;
     }
 
@@ -97,7 +97,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyTask person, FloatingTaskCardHandle card) {
+    public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 

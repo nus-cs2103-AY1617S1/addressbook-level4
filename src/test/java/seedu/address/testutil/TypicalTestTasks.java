@@ -8,23 +8,23 @@ import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 /**
  *
  */
-public class TypicalTestFloatingTasks {
+public class TypicalTestTasks {
 
-    public static TestFloatingTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestFloatingTasks() {
+    public TypicalTestTasks() {
         try {
-            alice =  new FloatingTaskBuilder().withName("Meet Alice Pauline").withPriority("1").build();
-            benson = new FloatingTaskBuilder().withName("Meet Benson Meier").withPriority("2").build();
-            carl = new FloatingTaskBuilder().withName("Meet Carl Kurz").withPriority("3").build();
-            daniel = new FloatingTaskBuilder().withName("Meet Daniel Meier").withPriority("4").build();
-            elle = new FloatingTaskBuilder().withName("Meet Elle Meyer").withPriority("5").build();
-            fiona = new FloatingTaskBuilder().withName("Meet Fiona Kunz").withPriority("6").build();
-            george = new FloatingTaskBuilder().withName("Meet George Best").withPriority("7").build();
+            alice =  new TaskBuilder().withName("Meet Alice Pauline").withPriority("1").build();
+            benson = new TaskBuilder().withName("Meet Benson Meier").withPriority("2").build();
+            carl = new TaskBuilder().withName("Meet Carl Kurz").withPriority("3").build();
+            daniel = new TaskBuilder().withName("Meet Daniel Meier").withPriority("4").build();
+            elle = new TaskBuilder().withName("Meet Elle Meyer").withPriority("5").build();
+            fiona = new TaskBuilder().withName("Meet Fiona Kunz").withPriority("6").build();
+            george = new TaskBuilder().withName("Meet George Best").withPriority("7").build();
 
             //Manually added
-            hoon = new FloatingTaskBuilder().withName("Meet Hoon Meier").withPriority("8").build();
-            ida = new FloatingTaskBuilder().withName("Meet Ida Mueller").withPriority("9").build();
+            hoon = new TaskBuilder().withName("Meet Hoon Meier").withPriority("8").build();
+            ida = new TaskBuilder().withName("Meet Ida Mueller").withPriority("9").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -46,8 +46,8 @@ public class TypicalTestFloatingTasks {
         }
     }
 
-    public TestFloatingTask[] getTypicalPersons() {
-        return new TestFloatingTask[]{alice, benson, carl, daniel, elle, fiona, george};
+    public TestTask[] getTypicalTasks() {
+        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public TaskManager getTypicalTaskManager(){

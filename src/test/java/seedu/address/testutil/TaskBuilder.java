@@ -8,21 +8,36 @@ import seedu.address.model.tag.Tag;
 /**
  *
  */
-public class FloatingTaskBuilder {
+public class TaskBuilder {
 
-    private TestFloatingTask floatingTask;
+    private TestTask task;
 
-    public FloatingTaskBuilder() {
-        this.floatingTask = new TestFloatingTask();
+    public TaskBuilder() {
+        this.task = new TestTask();
     }
 
-    public FloatingTaskBuilder withName(String name) throws IllegalValueException {
-        this.floatingTask.setName(new Name(name));
+    public TaskBuilder withName(String name) throws IllegalValueException {
+        this.task.setName(new Name(name));
         return this;
     }
     
-    public FloatingTaskBuilder withPriority(String priorityValue) throws IllegalValueException {
-        this.floatingTask.setPriorityValue(new Priority(priorityValue));
+    public TaskBuilder withPriority(String priorityValue) throws IllegalValueException {
+        Priority priority;
+        switch (priorityValue) {
+            case ("low"): 
+                priority = Priority.LOW; 
+                break;
+            case ("medium"): 
+                priority = Priority.MEDIUM; 
+                break;
+            case ("high"): 
+                priority = Priority.HIGH; 
+                break;
+            default:
+                priority = Priority.MEDIUM;
+        }
+        
+        this.task.setPriorityValue(priority);
         return this;
     }
 
@@ -34,8 +49,8 @@ public class FloatingTaskBuilder {
         return this;
     }
     */
-    public TestFloatingTask build() {
-        return this.floatingTask;
+    public TestTask build() {
+        return this.task;
     }
 
 }

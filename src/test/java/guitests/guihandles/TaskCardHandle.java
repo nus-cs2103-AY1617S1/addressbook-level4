@@ -8,14 +8,14 @@ import seedu.address.model.item.ReadOnlyTask;
 /**
  * Provides a handle to a floating task card in the item list panel.
  */
-public class FloatingTaskCardHandle extends GuiHandle {
+public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String PRIORITY_FIELD_ID = "#priority";
 
 
     private Node node;
 
-    public FloatingTaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -33,14 +33,14 @@ public class FloatingTaskCardHandle extends GuiHandle {
     }
 
 
-    public boolean isSameFloatingTask(ReadOnlyTask floatingTask){
-        return getName().equals(floatingTask.getName().name) && getPriority().equals(floatingTask.getPriorityValue().priorityValue);
+    public boolean isSameFloatingTask(ReadOnlyTask task){
+        return getName().equals(task.getName().name) && getPriority().equals(task.getPriorityValue());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof FloatingTaskCardHandle) {
-            FloatingTaskCardHandle handle = (FloatingTaskCardHandle) obj;
+        if(obj instanceof TaskCardHandle) {
+            TaskCardHandle handle = (TaskCardHandle) obj;
             return getName().equals(handle.getName())
                     && getPriority().equals(handle.getPriority()); //TODO: compare the rest
         }

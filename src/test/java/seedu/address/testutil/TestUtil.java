@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.FloatingTaskCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSampleFloatingTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Priority("9")),
-                    new Task(new Name("Boris Mueller"), new Priority("8")),
-                    new Task(new Name("Carl Kurz"), new Priority("9")),
-                    new Task(new Name("Daniel Meier"), new Priority("8")),
-                    new Task(new Name("Elle Meyer"), new Priority("9")),
-                    new Task(new Name("Fiona Kunz"), new Priority("9")),
-                    new Task(new Name("George Best"), new Priority("9")),
-                    new Task(new Name("Hoon Meier"), new Priority("8")),
-                    new Task(new Name("Ida Mueller"), new Priority("8"))
+                    new Task(new Name("Meet Ali Muster"), Priority.HIGH),
+                    new Task(new Name("Meet Boris Mueller"), Priority.HIGH),
+                    new Task(new Name("Meet Carl Kurz"), Priority.HIGH),
+                    new Task(new Name("Meet Daniel Meier"), Priority.MEDIUM),
+                    new Task(new Name("Meet Elle Meyer"), Priority.MEDIUM),
+                    new Task(new Name("Meet Fiona Kunz"), Priority.MEDIUM),
+                    new Task(new Name("Meet George Best"), Priority.LOW),
+                    new Task(new Name("Meet Hoon Meier"), Priority.LOW),
+                    new Task(new Name("Meet Ida Mueller"), Priority.LOW)
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -278,10 +278,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestFloatingTask[] removePersonsFromList(final TestFloatingTask[] persons, TestFloatingTask... personsToRemove) {
-        List<TestFloatingTask> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestFloatingTask[listOfPersons.size()]);
+    public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.removeAll(asList(tasksToRemove));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
 
@@ -290,8 +290,8 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestFloatingTask[] removePersonFromList(final TestFloatingTask[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
+        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
@@ -301,9 +301,9 @@ public class TestUtil {
      * @param index The index of the person to be replaced.
      * @return
      */
-    public static TestFloatingTask[] replacePersonFromList(TestFloatingTask[] persons, TestFloatingTask person, int index) {
-        persons[index] = person;
-        return persons;
+    public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
+        tasks[index] = task;
+        return tasks;
     }
 
     /**
@@ -312,10 +312,10 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestFloatingTask[] addFloatingTasksToList(final TestFloatingTask[] persons, TestFloatingTask... personsToAdd) {
-        List<TestFloatingTask> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestFloatingTask[listOfPersons.size()]);
+    public static TestTask[] addFloatingTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.addAll(asList(tasksToAdd));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -326,8 +326,8 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(FloatingTaskCardHandle card, ReadOnlyTask floatingTask) {
-        return card.isSameFloatingTask(floatingTask);
+    public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask task) {
+        return card.isSameFloatingTask(task);
     }
 
     public static Tag[] getTagList(String tags) {

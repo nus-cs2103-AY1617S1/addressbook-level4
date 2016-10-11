@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
-    <floatingTasks>
+    <tasks>
         <name>Meet Hans Muster</name>
-        <priorityValue>1</priorityValue>
-    </floatingTasks>
-    <floatingTasks>
+        <priorityValue>high</priorityValue>
+    </tasks>
+    <tasks>
         <name>Meet Ruth Mueller</name>
-        <priorityValue>2</priorityValue>
-    </floatingTasks>
-    <floatingTasks>
+        <priorityValue>high</priorityValue>
+    </tasks>
+    <tasks>
         <name>Meet Heinz Kurz</name>
-        <priorityValue>3</priorityValue>
-    </floatingTasks>
-    <floatingTasks>
+        <priorityValue>high</priorityValue>
+    </tasks>
+    <tasks>
         <name>Meet Cornelia Meier</name>
-        <priorityValue>4</priorityValue>
-    </floatingTasks>
-    <floatingTasks>
+        <priorityValue>medium</priorityValue>
+    </tasks>
+    <tasks>
         <name>Meet Werner Meyer</name>
-        <priorityValue>5</priorityValue>
-    </floatingTasks>
-    <floatingTasks>
+        <priorityValue>medium</priorityValue>
+    </tasks>
+    <tasks>
         <name>Meet Lydia Kunz</name>
-        <priorityValue>6</priorityValue>
-    </floatingTasks>
-    <floatingTasks>
+        <priorityValue>medium</priorityValue>
+    </tasks>
+    <tasks>
         <name>Meet Anna Best</name>
-        <priorityValue>7</priorityValue>
-    </floatingTasks>
-    <floatingTasks>
+        <priorityValue>low</priorityValue>
+    </tasks>
+    <tasks>
         <name>Meet Stefan Meier</name>
-        <priorityValue>8</priorityValue>
-    </floatingTasks>
-    <floatingTasks>
+        <priorityValue>low</priorityValue>
+    </tasks>
+    <tasks>
         <name>Meet Martin Mueller</name>
-        <priorityValue>9</priorityValue>
-    </floatingTasks>
+        <priorityValue>low</priorityValue>
+    </tasks>
 </taskmanager>

@@ -179,7 +179,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getFloatingTaskList());
+                expectedAB.getTaskList());
 
     }
 
@@ -199,7 +199,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_FLOATING_TASK,
                 expectedAB,
-                expectedAB.getFloatingTaskList());
+                expectedAB.getTaskList());
 
     }
 
@@ -209,7 +209,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getFloatingTaskList();
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare address book state
         helper.addToModel(model, 2);
@@ -275,7 +275,7 @@ public class LogicManagerTest {
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
                 expectedAB,
-                expectedAB.getFloatingTaskList());
+                expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredFloatingTaskList().get(1), threePersons.get(1));
     }
@@ -304,7 +304,7 @@ public class LogicManagerTest {
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, threePersons.get(1)),
                 expectedAB,
-                expectedAB.getFloatingTaskList());
+                expectedAB.getTaskList());
     }
 
 
@@ -379,7 +379,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Meet Adam Brown");
-            Priority priority = new Priority("1");
+            Priority priority = Priority.LOW;
             return new Task(name, priority);
         }
 
@@ -391,9 +391,11 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Task generateFloatingTask(int seed) throws Exception {
+            Priority[] randomArr = {Priority.LOW, Priority.MEDIUM, Priority.HIGH};
+            
             return new Task(
                     new Name("FloatingTask " + seed),
-                    new Priority("" + Math.abs(seed))
+                    randomArr[seed%3]
             );
         }
 
@@ -482,7 +484,7 @@ public class LogicManagerTest {
         Task generateFloatingTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Priority("1")
+                    Priority.LOW
             );
         }
     }
