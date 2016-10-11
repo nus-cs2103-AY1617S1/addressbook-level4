@@ -13,7 +13,7 @@ public class SelectCommandTest extends TaskManagerGuiTest {
     public void selectPerson_nonEmptyList() {
 
         assertSelectionInvalid(10); //invalid index
-        assertNoPersonSelected();
+        assertNoTaskSelected();
 
         assertSelectionSuccess(1); //first person in the list
         int taskCount = td.getTypicalTasks().length;
@@ -52,7 +52,7 @@ public class SelectCommandTest extends TaskManagerGuiTest {
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
-    private void assertNoPersonSelected() {
+    private void assertNoTaskSelected() {
         assertEquals(taskListPanel.getSelectedTasks().size(), 0);
     }
 
