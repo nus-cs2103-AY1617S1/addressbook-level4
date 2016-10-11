@@ -18,7 +18,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the list of tasks. "
             + "Parameters: NAME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " meeting with boss t/important t/work";
+            + " meeting with boss t/important t/work";  
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the list of tasks";
