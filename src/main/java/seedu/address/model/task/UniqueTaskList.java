@@ -1,11 +1,14 @@
 package seedu.address.model.task;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
-
-import java.util.*;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.EditCommand;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -95,4 +98,31 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+    public boolean edit(ReadOnlyTask key, String args) throws IllegalValueException {
+        // TODO Auto-generated method stub
+        String keyword = args.substring(0, args.indexOf(' '));
+        args = args.substring(args.indexOf(' ') + 1);
+        
+        int editIndex = internalList.indexOf(key);
+        
+        if (keyword.equals(EditCommand.DESCRIPTION_WORD)) {
+            internalList.get(editIndex).setName(new Name(args));
+            return true;
+        } else if (keyword.equals(EditCommand.DATE_WORD)) {
+            internalList.get(editIndex).setDate(new Date(args));
+            return true;
+        } else if (keyword.equals(EditCommand.START_WORD)) {
+            internalList.get(editIndex).setStart(new Start(args));
+            return true;
+        } else if (keyword.equals(EditCommand.END_WORD)) {
+            internalList.get(editIndex).setEnd(new End(args));
+            return true;
+        } /*else if (keyword.equals(EditCommand.TAG_WORD)) {
+            internalList.get(editIndex).setTag(new Tag(args));*/
+        else {
+            return false;
+        }
+    }
+
 }
