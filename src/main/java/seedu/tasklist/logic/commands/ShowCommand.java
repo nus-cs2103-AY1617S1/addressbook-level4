@@ -6,7 +6,7 @@ package seedu.tasklist.logic.commands;
  */
 public class ShowCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "show";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all tasks under the requested category. "
             + "The specified keywords (case-insensitive) are shown as a list with index numbers.\n"
