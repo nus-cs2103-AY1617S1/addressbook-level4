@@ -82,6 +82,9 @@ public class ActivityParser {
     private Command prepareAdd(String args){
     	
         ArrayList<String> details = AddParser.parseCommand(args);
+        if (details.isEmpty()){
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
         
         try {
             return new AddCommand(details);

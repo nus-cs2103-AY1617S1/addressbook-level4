@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.menion.logic.commands.AddCommand;
+import seedu.menion.logic.commands.IncorrectCommand;
+
+import static seedu.menion.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.menion.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 public class AddParser {
 
 	public AddParser() {
@@ -21,6 +27,9 @@ public class AddParser {
 	private static final String EVENTS = "event";
 	private static final String FLOATING_TASK = "floatingTask";
 
+	private static final String WRONG_EVENT = "Wrong format for Event used.";
+	
+	
 	private static Matcher matcher;
 	private static ArrayList<String> parsedArguments;
 
@@ -61,6 +70,7 @@ public class AddParser {
 			parsedArguments.add(FLOATING_TASK);
 			inputFloatingTaskArguments();
 		}
+		
 
 	}
 
