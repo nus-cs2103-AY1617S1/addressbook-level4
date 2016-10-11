@@ -2,13 +2,13 @@ package seedu.todo.ui;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.event.EventHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
@@ -16,7 +16,6 @@ import seedu.todo.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.commons.util.TextAreaResizerUtil;
 import seedu.todo.logic.Logic;
-import seedu.todo.logic.commands.CommandResult;
 
 import java.util.logging.Logger;
 
@@ -84,10 +83,16 @@ public class CommandInputView extends UiPart {
      * Sets the listener for {@link #commandTextField} to listen for command submission.
      */
     private void setCommandInputListener() {
+
         this.commandTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 submitCommandText(commandTextField.getText());
-                commandTextField.clear();
+            }
+        });
+        
+        this.commandTextField.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                resetCommandTextField();
             }
         });
     }
@@ -96,13 +101,17 @@ public class CommandInputView extends UiPart {
      * Process the submitted command
      */
     private void submitCommandText(String commandText) {
+        //Do not execute an empty command.
+        if (commandText.isEmpty() || commandText.equals("\n")) {
+            return;
+        }
+        
         //Take a copy of the command text
         this.previousCommandText = commandText;
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
-        setStyleToIndicateCorrectCommand();
         logic.execute(previousCommandText);
         //TODO: Update the command output with actual implementation.
         if (previousCommandText.length() != 0) {
@@ -113,11 +122,11 @@ public class CommandInputView extends UiPart {
     }
 
     /**
-     * Sets the command box style to indicate a correct command.
+     * Resets the {@link #commandTextField} to default state
      */
-    private void setStyleToIndicateCorrectCommand() {
+    private void resetCommandTextField() {
         commandTextField.getStyleClass().remove("error");
-        commandTextField.setText("");
+        commandTextField.clear();
     }
 
     /**
