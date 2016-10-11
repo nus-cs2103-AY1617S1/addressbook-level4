@@ -6,12 +6,12 @@ import javafx.stage.Stage;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the task list panel.
  */
 public class PersonCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#description";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#dateTime";
+    private static final String DESCRIPTION_FIELD_ID = "#description";
+    private static final String DATETIME_FIELD_ID = "#dateTime";
+    private static final String PHONE_FIELD_ID = "#phone";
 
     private Node node;
 
@@ -24,12 +24,12 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(fieldId, node);
     }
 
-    public String getFullName() {
-        return getTextFromLabel(NAME_FIELD_ID);
+    public String getDescription() {
+        return getTextFromLabel(DESCRIPTION_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getDateTime() {
+        return getTextFromLabel(DATETIME_FIELD_ID);
     }
 
     public String getPhone() {
@@ -37,24 +37,24 @@ public class PersonCardHandle extends GuiHandle {
     }
 
 
-    public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getDescription().fullName) 
-                 && getPhone().equals(person.getPhone().value)
-                 && getAddress().equals(person.getDateTime().value);
+    public boolean isSameTask(ReadOnlyTask task){
+        return getDescription().equals(task.getDescription().fullName) 
+                 && getPhone().equals(task.getPhone().value)
+                 && getDateTime().equals(task.getDateTime().value);
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof PersonCardHandle) {
             PersonCardHandle handle = (PersonCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+            return getDescription().equals(handle.getDescription())
+                    && getDateTime().equals(handle.getDateTime()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getDescription() + " " + getDateTime();
     }
 }

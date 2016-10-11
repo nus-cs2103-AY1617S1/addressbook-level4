@@ -19,9 +19,9 @@ public class PersonCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label dateTime;
+    private Label phone;
     @FXML
-    private Label address;
+    private Label dateTime;
     @FXML
     private Label tags;
 
@@ -32,9 +32,9 @@ public class PersonCard extends UiPart{
 
     }
 
-    public static PersonCard load(ReadOnlyTask person, int displayedIndex){
+    public static PersonCard load(ReadOnlyTask task, int displayedIndex){
         PersonCard card = new PersonCard();
-        card.person = person;
+        card.person = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
@@ -43,8 +43,8 @@ public class PersonCard extends UiPart{
     public void initialize() {
         description.setText(person.getDescription().fullName);
         id.setText(displayedIndex + ". ");
-        dateTime.setText(person.getPhone().value);
-        address.setText(person.getDateTime().value);
+        phone.setText(person.getPhone().value);
+        dateTime.setText(person.getDateTime().value);
         tags.setText(person.tagsString());
     }
 
