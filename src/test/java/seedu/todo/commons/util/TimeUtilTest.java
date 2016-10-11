@@ -245,8 +245,10 @@ public class TimeUtilTest {
     
     @Test
     public void toAmericanDateFormat_nomatches() {
-        assertEquals("Should not do anything", "Should not do anything");
-        assertEquals("Hello/world", "Hello/world");
-        assertEquals("10-1002 train", "10-1002 train");
+        assertEquals("Should not do anything", TimeUtil.toAmericanDateFormat("Should not do anything"));
+        assertEquals("Hello/world", TimeUtil.toAmericanDateFormat("Hello/world"));
+        assertEquals("10-1002 train", TimeUtil.toAmericanDateFormat("10-1002 train"));
+        assertEquals("6-8pm", TimeUtil.toAmericanDateFormat("6-8pm"));
+        assertEquals("Breakfast at 6-8am in the morning", TimeUtil.toAmericanDateFormat("Breakfast at 6-8am in the morning"));
     }
 }
