@@ -10,8 +10,10 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Time {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Time should be 2 integers separated by '@'";
-    public static final String TIME_VALIDATION_REGEX = "^\\s*$|[\\d\\.]+:[\\d\\.]+";
+            "Time should be 2 integers separated by ':'";
+    public static final String TIME_VALIDATION_REGEX = "^\\s*$" // Empty String
+    												 + "|^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" // Proper 24h representation
+    												 + "^[a-zA-Z]{3}"; // 3 char day representation
 
     public final String value;
 
