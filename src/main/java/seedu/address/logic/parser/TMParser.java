@@ -28,20 +28,23 @@ public class TMParser {
 	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern.compile("(?i)(?<taskType>event|deadline|someday)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
 
-	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>\\S+')\\s+on\\s+(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
-	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>\\S+')\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)");
-	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile("(?i)on\\s+(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(?<taskName>\\S+')");
-	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile("(?i)on\\s+(?<date>\\S+)\\s+(?<taskName>\\S+')\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
-	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile("(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)\\s+(?<taskName>\\S+')");
-	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile("(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(?<taskName>\\S+')\\s+on\\s+(?<date>\\S+)");
+	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile("(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+on\\s+(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
+	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile("(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)");
+	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile("(?i)on\\s+(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
+	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile("(?i)on\\s+(?<date>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
+	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile("(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
+	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile("(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'\\s+on\\s+(?<date>\\S+)");
 
-	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern.compile("(?i)(?<taskName>'\\S+')\\s+by\\s+(?<date>\\S+)\\s+(?<time>\\S+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern.compile("(?i)(?<taskName>'\\S+')\\s+by\\s+(?<time>\\S+)\\s+(?<date>\\S+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_3 = Pattern.compile("(?i)by\\s+(?<date>\\S+)\\s+(?<time>\\S+)\\s+(?<taskName>'\\S+')");
-	private static final Pattern DEADLINE_ARGS_FORMAT_4 = Pattern.compile("(?i)by\\s+(?<time>\\S+)\\s+(?<date>\\S+)\\s+(?<taskName>'\\S+')");
+	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern.compile("(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+by\\s+(?<date>\\S+)\\s+(?<time>\\S+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern.compile("(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+by\\s+(?<time>\\S+)\\s+(?<date>\\S+)");
+	private static final Pattern DEADLINE_ARGS_FORMAT_3 = Pattern.compile("(?i)by\\s+(?<date>\\S+)\\s+(?<time>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
+	private static final Pattern DEADLINE_ARGS_FORMAT_4 = Pattern.compile("(?i)by\\s+(?<time>\\S+)\\s+(?<date>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
 
-	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>\\S+)'");
-
+	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>(\\s*[^\\s+])+)'");
+	
+	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+(?<newName>.+)");
+	
+	
 	public TMParser() {
 	};
 
@@ -69,8 +72,12 @@ public class TMParser {
 			else {
 				return prepareList(arguments);
 			}
+			
 		case DeleteCommand.COMMAND_WORD:
 			return prepareDelete(arguments);
+			
+		case "edit":
+			return prepareEdit(arguments);
 		//
 		// case ClearCommand.COMMAND_WORD:
 		// return new ClearCommand();
@@ -267,8 +274,8 @@ public class TMParser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareDelete(String args) {
-        ArrayList<Optional<Integer>> indexOptionals = parseIndices(args);
+    private Command prepareDelete(String arguments) {
+        ArrayList<Optional<Integer>> indexOptionals = parseIndices(arguments);
         
         int[] indices = new int[indexOptionals.size()];
         int i=0;
@@ -285,6 +292,24 @@ public class TMParser {
 
         //return new TMDeleteCommand(indices);
         return null;
+    }
+    
+    
+    private Command prepareEdit(String arguments) {
+    	final Matcher matcher = EDIT_ARGS_FORMAT_1.matcher(arguments.trim());
+		if (!matcher.matches()) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+		}
+
+		final String indices = matcher.group("index").trim();
+//		final String args = matcher.group("arguments").trim();
+		
+		
+		
+		System.out.println("index: " + indices);
+//		System.out.println("non-index args: " + args);
+		
+    	return null;
     }
     
     /**
@@ -309,7 +334,7 @@ public class TMParser {
     }
 
 	public static void main(String[] args) {
-		String userInput = "delete 5 6 r";
+		String userInput = "add someday 'g'";
 		TMParser p = new TMParser();
 		p.parseUserInput(userInput);
 	}
