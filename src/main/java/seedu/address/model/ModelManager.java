@@ -65,7 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
+    public synchronized void deleteTask(ReadOnlyTask target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
@@ -75,6 +75,12 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
+    }
+    
+    @Override
+	public void editTask(ReadOnlyTask taskToEdit) throws UniquePersonList.PersonNotFoundException {
+		addressBook.editTask(taskToEdit);
+		indicateAddressBookChanged();
     }
 
     //=========== Filtered Person List Accessors ===============================================================
