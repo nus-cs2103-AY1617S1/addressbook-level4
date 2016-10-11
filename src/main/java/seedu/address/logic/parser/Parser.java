@@ -336,5 +336,12 @@ public class Parser {
         return new FindCommand(keywordSet, startTime, endTime, deadline, tagSet);
 
     }
+    
+    public static Date getDateFromString(String dateInput) {
+        final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
+        List<DateGroup> dateGroups = nattyParser.parse(dateInput);
+        
+        return dateGroups.get(0).getDates().get(0);
+    }
 
 }
