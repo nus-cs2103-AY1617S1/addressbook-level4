@@ -125,18 +125,18 @@ public class Parser {
 
         String name = "";
 
-        Flag priorityOpt = new Flag(Flag.PRIORITY, false);
-        Flag dateTimeOpt = new Flag(Flag.DATETIME, false);
-        Flag tagOpt = new Flag(Flag.TAG, true);
+        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
+        Flag tagFlag = new Flag(Flag.TAG, true);
         
-        Flag[] prefixes = {
-                priorityOpt, 
-                dateTimeOpt, 
-                tagOpt
+        Flag[] flags = {
+                priorityFlag, 
+                dateTimeFlag, 
+                tagFlag
         };
         
-        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, prefixes);
-        HashMap<Flag, String> optionFlagNArgMap = ExtractorUtil.getArguments(args, prefixes, flagsPosMap);
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
         
         if (flagsPosMap.size() == 0) {
             name = args;
@@ -151,9 +151,9 @@ public class Parser {
 
             return new AddCommand(
                     name,
-                    DateTimeUtil.getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(Flag.DATETIME + " ", "")),
-                    optionFlagNArgMap.get(priorityOpt).replace(Flag.PRIORITY + " ", ""),
-                    ExtractorUtil.getTagsFromArgs(optionFlagNArgMap.get(tagOpt), tagOpt));
+                    DateTimeUtil.getDateTimeFromArgs(argumentMap.get(dateTimeFlag).replace(Flag.DATETIME + " ", "")),
+                    argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
+                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag));
 
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -164,7 +164,8 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the edit task command.
-     *
+     * 
+     * @@author Joel Foo
      * @param args full command args string
      * @return the prepared command
      */
@@ -180,37 +181,36 @@ public class Parser {
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        
-        Flag nameOpt = new Flag(Flag.NAME, false);
-        Flag priorityOpt = new Flag(Flag.PRIORITY, false);
-        Flag dateTimeOpt = new Flag(Flag.DATETIME, false);
-        Flag addTagOpt = new Flag(Flag.ADDTAG, true);
-        Flag removeTagOpt = new Flag(Flag.REMOVETAG, true);
-        
-        Flag[] options = {
-                nameOpt,
-                priorityOpt, 
-                dateTimeOpt, 
-                addTagOpt,
-                removeTagOpt
+
+        Flag nameFlag = new Flag(Flag.NAME, false);
+        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
+        Flag addTagFlag = new Flag(Flag.ADDTAG, true);
+        Flag removeTagFlag = new Flag(Flag.REMOVETAG, true);
+
+        Flag[] flags = {
+                nameFlag,
+                priorityFlag, 
+                dateTimeFlag, 
+                addTagFlag,
+                removeTagFlag
         };
-        
-        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, options);
-        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, options, flagsPosMap);
-        
+
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
+
         if (flagsPosMap.size() == 0) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        
+
         return new EditCommand(index.get(), argumentMap);   
     }
 
     /**
      * Parses arguments in the context of the delete task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
@@ -226,30 +226,31 @@ public class Parser {
     /**
      * Parses arguments in the context of the mark task command.
      *
+     * @@author Joel Foo
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareMark(String args) {
-        
-        Flag doOpt = new Flag(Flag.DONE, false);
-        Flag udOpt = new Flag(Flag.UNDONE, false);
-                
+
+        Flag doneFlag = new Flag(Flag.DONE, false);
+        Flag undoneFlag = new Flag(Flag.UNDONE, false);
+
         Flag[] flags = {
-                doOpt,
-                udOpt, 
+                doneFlag,
+                undoneFlag, 
         };
-        
+
         TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
         HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
-        
+
         if (flagsPosMap.size() == 0) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
-        
-        String markDone = argumentMap.get(doOpt).replace(Flag.DONE + " ","");
-        String markUndone = argumentMap.get(udOpt).replace(Flag.UNDONE + " ","");
-        
+
+        String markDone = argumentMap.get(doneFlag).replace(Flag.DONE + " ","");
+        String markUndone = argumentMap.get(undoneFlag).replace(Flag.UNDONE + " ","");
+
         return new MarkCommand(markDone, markUndone);
     }
 

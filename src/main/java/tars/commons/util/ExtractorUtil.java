@@ -13,8 +13,12 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
 
 
+/**
+ * Container for methods which extract data from string
+ *
+ */
 public class ExtractorUtil {
-    
+
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
@@ -26,18 +30,18 @@ public class ExtractorUtil {
         }
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments
-                                                                .replaceFirst(prefix.prefix + " ", "")
-                                                                .split(" " + prefix.prefix + " "));
+                .replaceFirst(prefix.prefix + " ", "")
+                .split(" " + prefix.prefix + " "));
         return new HashSet<>(tagStrings);
     }
-    
+
     /**
      * Gets all flag position from arguments string
      */
     public static TreeMap<Integer, Flag> getFlagPositon(String args, Flag[] prefixes) {
         args = args.trim();
         TreeMap<Integer, Flag> flagsPosMap = new TreeMap<Integer, Flag>();
-        
+
         if (args != null && args.length() > 0 && prefixes.length > 0) {
             for (int i = 0; i < prefixes.length; i++) {
                 int indexOf = -1;
@@ -52,17 +56,17 @@ public class ExtractorUtil {
                 } while (indexOf >= 0);
             }
         }
-        
+
         return flagsPosMap;
     }
-    
+
     /**
      * Extracts the option's flag and arg from arguments string.
      */
     public static HashMap<Flag, String> getArguments(String args, Flag[] prefixes, TreeMap<Integer, Flag> flagsPosMap) {
         args = args.trim();
         HashMap<Flag, String> flagsValueMap = new HashMap<Flag, String>();
-        
+
         if (args != null && args.length() > 0 && prefixes.length > 0) {
             // initialize the flagsValueMap
             for (int i = 0; i < prefixes.length; i++) {
@@ -73,7 +77,7 @@ public class ExtractorUtil {
             for (Map.Entry<Integer, Flag> entry : flagsPosMap.descendingMap().entrySet()) {
                 Flag prefix = entry.getValue();
                 Integer pos = entry.getKey();
-                
+
                 if(pos == -1) {
                     continue;
                 }

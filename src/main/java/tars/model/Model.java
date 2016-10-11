@@ -25,7 +25,7 @@ public interface Model {
 
     /** Returns the Tars */
     ReadOnlyTars getTars();
-    
+
     /** Edits the given task and returns the edited task */
     Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit) throws UniqueTaskList.TaskNotFoundException, 
     DateTimeException, IllegalValueException, TagNotFoundException;
@@ -35,10 +35,10 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
-    
+
     /** Marks tasks as done or undone. */
     void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException;
-    
+
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
@@ -47,7 +47,7 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-    
+
     /** Returns the undoable command history stack */
     Stack<Command> getUndoableCmdHist();
 

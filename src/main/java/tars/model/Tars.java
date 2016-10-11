@@ -74,7 +74,7 @@ public class Tars implements ReadOnlyTars {
      * @param toReplace
      * @param replacement
      */
-            
+
     public void replaceTask(ReadOnlyTask toReplace, Task replacement) throws DuplicateTaskException {
         if (toReplace.isSameStateAs(replacement)) {
             throw new DuplicateTaskException();
@@ -88,7 +88,7 @@ public class Tars implements ReadOnlyTars {
             }
         }
         list.set(toReplaceIndex, replacement);
-}
+    }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
@@ -119,8 +119,10 @@ public class Tars implements ReadOnlyTars {
 
     /**
      * Edits a task in tars
+     * 
+     * @@author Joel Foo
      * @throws UniqueTaskList.TaskNotFoundException if task to edit could not be found.
-     * @throws DateTimeException DateTimeExcpetion if problem encountered while calculating dateTime.
+     * @throws DateTimeException if problem encountered while parsing dateTime.
      * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
      * @throws TagNotFoundException if no such tag could be found.
      * @throws IllegalValueException if argument(s) in argsToEdit is/are invalid.
@@ -130,31 +132,31 @@ public class Tars implements ReadOnlyTars {
         if (!tasks.getInternalList().contains(toEdit)) {
             throw new TaskNotFoundException();
         }
-        
-        Flag nameOpt = new Flag(Flag.NAME, false);
-        Flag priorityOpt = new Flag(Flag.PRIORITY, false);
-        Flag dateTimeOpt = new Flag(Flag.DATETIME, false);
-        Flag addTagOpt = new Flag(Flag.ADDTAG, true);
-        Flag removeTagOpt = new Flag(Flag.REMOVETAG, true);
-        
+
+        Flag nameFlag = new Flag(Flag.NAME, false);
+        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
+        Flag addTagFlag = new Flag(Flag.ADDTAG, true);
+        Flag removeTagFlag = new Flag(Flag.REMOVETAG, true);
+
         Task taskToEdit = new Task(toEdit);
-        
+
         // Edit Name
-        String nameData = argsToEdit.get(nameOpt).replace(Flag.NAME + " ", "");
+        String nameData = argsToEdit.get(nameFlag).replace(Flag.NAME + " ", "");
         if (nameData != "") {
             Name editedName = new Name(nameData);
             taskToEdit.setName(editedName);
         }
-        
+
         // Edit Priority
-        String priorityData = argsToEdit.get(priorityOpt).replace(Flag.PRIORITY + " ", "");
+        String priorityData = argsToEdit.get(priorityFlag).replace(Flag.PRIORITY + " ", "");
         if (priorityData != "") {
             Priority editedPriority = new Priority(priorityData);
             taskToEdit.setPriority(editedPriority);
         }
-        
+
         // Edit DateTime
-        String dateTimeData = argsToEdit.get(dateTimeOpt).replace(Flag.DATETIME + " ", "");
+        String dateTimeData = argsToEdit.get(dateTimeFlag).replace(Flag.DATETIME + " ", "");
         if (dateTimeData != "") {
             String[] dateTimeArray = DateTimeUtil.getDateTimeFromArgs(dateTimeData);
             DateTime editedDateTime = new DateTime(
@@ -162,27 +164,27 @@ public class Tars implements ReadOnlyTars {
                     dateTimeArray[DATETIME_INDEX_OF_ENDDATE]);
             taskToEdit.setDateTime(editedDateTime);
         }
-        
+
         // Add Tags
-        String tagsToAddData = argsToEdit.get(addTagOpt);
-        Set<String> tagsToAdd = ExtractorUtil.getTagsFromArgs(tagsToAddData, addTagOpt);
+        String tagsToAddData = argsToEdit.get(addTagFlag);
+        Set<String> tagsToAdd = ExtractorUtil.getTagsFromArgs(tagsToAddData, addTagFlag);
         for (String t : tagsToAdd) {
             Tag toAdd = new Tag(t);
             UniqueTagList replacement = taskToEdit.getTags();
             replacement.add(toAdd);
             taskToEdit.setTags(replacement);
         }
-        
+
         // Remove Tags
-        String tagsToRemoveData = argsToEdit.get(removeTagOpt);
-        Set<String> tagsToRemove = ExtractorUtil.getTagsFromArgs(tagsToRemoveData, removeTagOpt);
+        String tagsToRemoveData = argsToEdit.get(removeTagFlag);
+        Set<String> tagsToRemove = ExtractorUtil.getTagsFromArgs(tagsToRemoveData, removeTagFlag);
         for (String t : tagsToRemove) {
             Tag toRemove = new Tag(t);
             UniqueTagList replacement = taskToEdit.getTags();
             replacement.remove(toRemove);
             taskToEdit.setTags(replacement);
         }
-        
+
         replaceTask(toEdit, taskToEdit);
         syncTagsWithMasterList(taskToEdit);
         return taskToEdit;
@@ -190,6 +192,8 @@ public class Tars implements ReadOnlyTars {
 
     /**
      * Marks every task in respective lists as done or undone
+     * 
+     * @@author Joel Foo
      * @param toMarkList
      * @param status to indicate mark as done or undone
      * @throws DuplicateTaskException 

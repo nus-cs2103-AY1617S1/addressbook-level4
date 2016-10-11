@@ -34,9 +34,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final Tars tars;
     private final FilteredList<Task> filteredTasks;
     private final Stack<Command> undoableCmdHistStack;
-    
+
     private static final String LIST_KEYWORD_DONE = "done";
-	private static final String LIST_KEYWORD_UNDONE = "undone";
+    private static final String LIST_KEYWORD_UNDONE = "undone";
 
 
     /**
@@ -75,7 +75,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyTars getTars() {
         return tars;
     }
-    
+
     @Override
     public Stack<Command> getUndoableCmdHist() {
         return undoableCmdHistStack;
@@ -85,17 +85,12 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateTarsChanged() {
         raise(new TarsChangedEvent(tars));
     }
-    
+
     @Override
     /**
      * Edits the equivalent tasks from tars.
      * 
-     * @throws UniqueTaskList.TaskNotFoundException if task to edit could not be found.
-     * @throws DateTimeException DateTimeExcpetion if problem encountered while calculating dateTime.
-     * @throws IllegalDateException edited end date occurring before start date.
-     * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
-     * @throws TagNotFoundException if no such tag could be found.
-     * @throws IllegalValueException if argument(s) in argsToEdit is/are invalid.
+     * @@author Joel Foo
      */
     public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit) throws TaskNotFoundException, 
     DateTimeException, IllegalDateException, DuplicateTagException, TagNotFoundException, IllegalValueException {
@@ -116,12 +111,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTarsChanged();
     }
-    
+
     @Override
     public void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
         tars.mark(toMarkList, status);
         indicateTarsChanged();
-        
+
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -138,11 +133,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-    	if(keywords.contains(LIST_KEYWORD_DONE) || keywords.contains(LIST_KEYWORD_UNDONE)) {
-    		updateFilteredTaskList(new PredicateExpression(new ListQualifier(keywords)));
-    	} else {
-    	    updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-    	}
+        if(keywords.contains(LIST_KEYWORD_DONE) || keywords.contains(LIST_KEYWORD_UNDONE)) {
+            updateFilteredTaskList(new PredicateExpression(new ListQualifier(keywords)));
+        } else {
+            updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+        }
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -199,22 +194,22 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-    
+
     private class ListQualifier implements Qualifier {
-    	private Set<String> listArguments;
-    	
-    	ListQualifier(Set<String> listArguments) {
-    		this.listArguments = listArguments;
-    	}
-    	
-		@Override
-		public boolean run(ReadOnlyTask task) {
-			return listArguments.stream()
-					.filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus().toString(), keyword))
-					.findAny()
-					.isPresent();
-		}
-    	
+        private Set<String> listArguments;
+
+        ListQualifier(Set<String> listArguments) {
+            this.listArguments = listArguments;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return listArguments.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus().toString(), keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
     }
 
 }

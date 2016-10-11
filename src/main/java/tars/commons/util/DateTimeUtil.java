@@ -1,8 +1,15 @@
 package tars.commons.util;
 
+/**
+ * Date Time Utility package
+ * @@author Joel Foo
+ *
+ */
 public class DateTimeUtil {
     /**
-     * Extracts the new task's dateTime from the add command's task arguments string.
+     * Extracts the new task's dateTime from the string arguments.
+     * @return String[] with first index being the startDate time 
+     * and second index being the end date time
      */
     public static String[] getDateTimeFromArgs(String taskArguments) {
         if (taskArguments.equals("")) {

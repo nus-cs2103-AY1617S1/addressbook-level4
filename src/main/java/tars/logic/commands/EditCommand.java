@@ -2,7 +2,6 @@ package tars.logic.commands;
 
 import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
-import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
@@ -14,6 +13,8 @@ import java.util.HashMap;
 
 /**
  * Edits a task identified using it's last displayed index from tars.
+ * 
+ * @@author Joel Foo
  */
 public class EditCommand extends Command {
 
@@ -28,11 +29,11 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
 
     private static final String MESSAGE_MISSING_TASK = "The target task cannot be missing";
-        
+
     public final int targetIndex;
 
     private HashMap<Flag, String> argsToEdit;
-    
+
     /**
      * Convenience constructor using raw values.
      */
@@ -45,12 +46,12 @@ public class EditCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        
+
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        
+
         ReadOnlyTask toEdit = lastShownList.get(targetIndex - 1);
 
         try {
