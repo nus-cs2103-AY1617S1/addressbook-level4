@@ -1,11 +1,12 @@
 package guitests;
 
-import guitests.guihandles.HelpWindowHandle;
-import org.junit.Test;
-
 import static org.junit.Assert.assertTrue;
 
-public class HelpWindowTest extends AddressBookGuiTest {
+import org.junit.Test;
+
+import guitests.guihandles.HelpWindowHandle;
+
+public class HelpWindowTest extends TaskTrackerGuiTest {
 
     @Test
     public void openHelpWindow() {

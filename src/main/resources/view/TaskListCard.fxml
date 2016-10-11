@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="cardPane"
+        alignment="CENTER_LEFT" maxHeight="80.0" minHeight="40.0" prefHeight="80.0"
+        stylesheets="@DarkTheme.css">
+    <HBox spacing="5" alignment="CENTER_LEFT">
+        <Label fx:id="id" styleClass="cell_big_label"></Label>
+        <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
+    <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
+</VBox>

@@ -1,8 +1,8 @@
 package seedu.address.model;
 
-import seedu.address.commons.core.GuiSettings;
-
 import java.util.Objects;
+
+import seedu.address.commons.core.GuiSettings;
 
 /**
  * Represents User's preferences.
@@ -19,7 +19,7 @@ public class UserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public UserPrefs(){
+    public UserPrefs() {
         this.setGuiSettings(500, 500, 0, 0);
     }
 
@@ -29,10 +29,10 @@ public class UserPrefs {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof UserPrefs)){ //this handles null as well.
+        if (!(other instanceof UserPrefs)) { //this handles null as well.
             return false;
         }
 
@@ -47,7 +47,7 @@ public class UserPrefs {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return guiSettings.toString();
     }
 

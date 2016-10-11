@@ -273,6 +273,7 @@
 }
 
 #cardPane {
+    -fx-padding: 5 5 5 15;
     -fx-background-color: transparent;
     -fx-border-color: #d6d6d6;
     -fx-border-width: 1 1 1 1;
@@ -283,6 +284,26 @@
     -fx-text-fill: #F70D1A;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#personList {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#filterField, #personListView {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+.error {
+    -fx-background-color: red;
+}
+
+
+.tag-selector {
+    -fx-border-width: 1;
+    -fx-border-color: white;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.tooltip-text {
+    -fx-text-fill: white;
 }

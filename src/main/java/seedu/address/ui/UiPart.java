@@ -1,61 +1,47 @@
 package seedu.address.ui;
 
-import javafx.scene.Node;
+import java.io.IOException;
+import java.net.URL;
+
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.commons.util.AppUtil;
 
 /**
  * Base class for UI parts.
  * A 'UI part' represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
  */
-public abstract class UiPart {
+public class UiPart<T> {
 
-    /**
-     * The primary stage for the UI Part.
-     */
-    Stage primaryStage;
+    private final FXMLLoader loader;
 
-    public UiPart(){
+    public UiPart(URL url) {
+        assert url != null;
+        loader = new FXMLLoader(url);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException("Unexpected exception occurred while loading " + url + ": " + e);
+        }
+        EventsCenter.getInstance().registerHandler(this);
+    }
 
+    public UiPart(String name) {
+        this(MainApp.class.getResource(name));
     }
 
     /**
      * Raises the event via {@link EventsCenter#post(BaseEvent)}
      * @param event
      */
-    protected void raise(BaseEvent event){
+    protected void raise(BaseEvent event) {
         EventsCenter.getInstance().post(event);
     }
-
-    /**
-     * Registers the object as an event handler at the {@link EventsCenter}
-     * @param handler usually {@code this}
-     */
-    protected void registerAsAnEventHandler(Object handler) {
-        EventsCenter.getInstance().registerHandler(handler);
-    }
-
-    /**
-     * Override this method to receive the main Node generated while loading the view from the .fxml file.
-     * @param node
-     */
-    public abstract void setNode(Node node);
-
-    /**
-     * Override this method to return the name of the fxml file. e.g. {@code "MainWindow.fxml"}
-     * @return
-     */
-    public abstract String getFxmlPath();
-
-    public void setStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
 
     /**
      * Creates a modal dialog.
@@ -73,32 +59,7 @@ public abstract class UiPart {
         return dialogStage;
     }
 
-    /**
-     * Sets the given image as the icon for the primary stage of this UI Part.
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(String iconSource) {
-        primaryStage.getIcons().add(AppUtil.getImage(iconSource));
-    }
-
-    /**
-     * Sets the given image as the icon for the given stage.
-     * @param stage
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(Stage stage, String iconSource) {
-        stage.getIcons().add(AppUtil.getImage(iconSource));
-    }
-
-    /**
-     * Sets the placeholder for UI parts that reside inside another UI part.
-     * @param placeholder
-     */
-    public void setPlaceholder(AnchorPane placeholder) {
-        //Do nothing by default.
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
+    public T getRoot() {
+        return loader.getRoot();
     }
 }

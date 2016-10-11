@@ -1,105 +1,66 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart {
+public class MainWindow extends UiPart<Scene> {
 
     private static final String ICON = "/images/address_book_32.png";
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "/view/MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
-    private Logic logic;
-
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private TaskListPanel personListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
-    private Config config;
-    private UserPrefs userPrefs;
+    private StatusBarFooter statusBarFooter;
 
     // Handles to elements of this Ui container
+    @FXML
     private VBox rootLayout;
-    private Scene scene;
-
-    private String addressBookName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
-
-    @FXML
-    private AnchorPane commandBoxPlaceholder;
+    private UiRegion commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private UiRegion taskListPanelPlaceholder;
 
     @FXML
-    private AnchorPane resultDisplayPlaceholder;
+    private UiRegion resultDisplayPlaceholder;
 
     @FXML
-    private AnchorPane statusbarPlaceholder;
+    private UiRegion statusbarPlaceholder;
 
+    private final Stage primaryStage;
 
-    public MainWindow() {
-        super();
-    }
-
-    @Override
-    public void setNode(Node node) {
-        rootLayout = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
-        MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
-        return mainWindow;
-    }
-
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           Logic logic) {
-
-        //Set dependencies
-        this.logic = logic;
-        this.addressBookName = addressBookName;
-        this.config = config;
-        this.userPrefs = prefs;
+    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+        super(FXML);
+        this.primaryStage = primaryStage;
 
         //Configure the UI
-        setTitle(appTitle);
+        setTitle(config.getAppTitle());
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
-        scene = new Scene(rootLayout);
-        primaryStage.setScene(scene);
-
+        fillInnerParts(config, logic);
         setAccelerators();
     }
 
@@ -107,28 +68,15 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
-    void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
-    }
-
-    private AnchorPane getCommandBoxPlaceholder() {
-        return commandBoxPlaceholder;
-    }
-
-    private AnchorPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
-    }
-
-    private AnchorPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
-    }
-
-    public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+    void fillInnerParts(Config config, Logic logic) {
+        personListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanelPlaceholder.setNode(personListPanel.getRoot());
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.setNode(resultDisplay.getRoot());
+        commandBox = new CommandBox(resultDisplay, logic);
+        commandBoxPlaceholder.setNode(commandBox.getRoot());
+        statusBarFooter = new StatusBarFooter(config.getTaskBookFilePath());
+        statusbarPlaceholder.setNode(statusBarFooter.getRoot());
     }
 
     public void hide() {
@@ -166,12 +114,8 @@ public class MainWindow extends UiPart {
 
     @FXML
     public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load(primaryStage);
+        final HelpWindow helpWindow = new HelpWindow(primaryStage);
         helpWindow.show();
-    }
-
-    public void show() {
-        primaryStage.show();
     }
 
     /**
@@ -182,15 +126,16 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
+    public TaskListPanel getPersonListPanel() {
         return this.personListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
-        browserPanel.loadPersonPage(person);
+    /**
+     * Sets the given image as the icon for the primary stage of this UI Part.
+     * @param iconSource e.g. {@code "/images/help_icon.png"}
+     */
+    private void setIcon(String iconSource) {
+        primaryStage.getIcons().add(AppUtil.getImage(iconSource));
     }
 
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
 }

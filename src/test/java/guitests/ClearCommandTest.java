@@ -1,10 +1,10 @@
 package guitests;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertTrue;
 
-public class ClearCommandTest extends AddressBookGuiTest {
+import org.junit.Test;
+
+public class ClearCommandTest extends TaskTrackerGuiTest {
 
     @Test
     public void clear() {
@@ -26,6 +26,6 @@ public class ClearCommandTest extends AddressBookGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage("Task book has been cleared!");
     }
 }

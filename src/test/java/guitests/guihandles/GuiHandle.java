@@ -1,5 +1,7 @@
 package guitests.guihandles;
 
+import java.util.logging.Logger;
+
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -9,8 +11,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
 import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * Base class for all GUI Handles used in testing.

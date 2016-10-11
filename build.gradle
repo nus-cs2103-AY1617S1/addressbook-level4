@@ -4,164 +4,89 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
  */
- 
+
 plugins {
-    id "com.github.kt3k.coveralls" version "2.4.0"
-    id "com.github.johnrengelman.shadow" version '1.2.3'
+    id 'java'
+    id 'application'
+    id 'jacoco'
+    id 'checkstyle'
+    id 'com.github.kt3k.coveralls' version '2.4.0'
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
 }
 
-allprojects {
-    apply plugin: 'idea'
-    apply plugin: 'java'
-    apply plugin: 'jacoco'
-
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-
-    repositories {
-        jcenter()
-        mavenCentral()
-        maven { url "https://repo.eclipse.org/content/repositories/egit-releases/" }
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    }
-
-    // This part is similar to global variables
-    // Access them by using double-quoted strings (GStrings) and referencing by $ e.g. "Variable contains $Variable"
-    project.ext {
-        controlsFxVersion = '8.40.11'
-        guavaVersion = '19.0'
-        jacksonVersion = '2.7.0'
-        jacksonDataTypeVersion = '2.7.4'
-        junitVersion = '4.12'
-        testFxVersion = '4.0.+'
-        monocleVersion = '1.8.0_20'
-
-        libDir = 'lib'
-    }
-
-    jacocoTestReport {
-        reports {
-            xml.enabled false
-            csv.enabled false
-            html.destination "${buildDir}/jacocoHtml"
-        }
-    }
-
-    dependencies {
-        compile "org.controlsfx:controlsfx:$controlsFxVersion"
-        compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-        compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
-        compile "com.google.guava:guava:$guavaVersion"
-
-        testCompile "junit:junit:$junitVersion"
-        testCompile "org.testfx:testfx-core:$testFxVersion"
-        testCompile "org.testfx:testfx-junit:$testFxVersion"
-        testCompile "org.testfx:testfx-legacy:$testFxVersion", {
-            exclude group: "junit", module: "junit"
-        }
-        testCompile "org.testfx:openjfx-monocle:$monocleVersion"
-    }
-    
-    sourceSets {
-        main {
-            java {
-                srcDir 'src/main/java'
-            }
-            resources {
-                srcDir 'src/main/resources'
-            }
-        }
-    }
-    
-    shadowJar {
-        archiveName = "addressbook.jar"
-
-        manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
-        }
-
-        destinationDir = file("${buildDir}/jar/")
-    }
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url "https://repo.eclipse.org/content/repositories/egit-releases/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+mainClassName = 'seedu.address.MainApp'
+ext {
+    if (!has('headless'))
+        headless = 'false'
+    if (!has('guiTests'))
+        guiTests = 'true'
 }
 
-task coverage(type: JacocoReport) {
-    sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories =  files(allprojects.sourceSets.main.output)
-    executionData = files(allprojects.jacocoTestReport.executionData)
-    afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/*.jar'])
-        })
+dependencies {
+    compile 'org.controlsfx:controlsfx:8.40.11'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.4'
+    compile 'com.google.guava:guava:19.0'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.testfx:testfx-core:4.0.+'
+    testCompile 'org.testfx:testfx-junit:4.0.+'
+    testCompile 'org.testfx:testfx-legacy:4.0.+', {
+        exclude group: "junit", module: "junit"
     }
-    reports {
-        html.enabled = true
-        xml.enabled = true
-    }
+    testCompile 'org.testfx:openjfx-monocle:1.8.0_20'
 }
 
-coveralls {
-    sourceDirs = allprojects.sourceSets.main.allSource.srcDirs.flatten()
-    jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
+shadowJar {
+    archiveName = "addressbook.jar"
+    destinationDir = file("${buildDir}/jar/")
 }
 
-tasks.coveralls {
-    dependsOn coverage
-    onlyIf { System.env.'CI' }
+checkstyle {
+    toolVersion = '7.1'
 }
 
-class AddressBookTest extends Test {
-    public AddressBookTest() {
-    	  forkEvery = 1
-        systemProperty 'testfx.setup.timeout', '60000'
-    }
+test {
+    forkEvery = 100
+    systemProperty 'testfx.setup.timeout', '60000'
+    testLogging.exceptionFormat = 'full'
 
-    public void setHeadless() {
-        systemProperty 'java.awt.robot', 'true'
-        systemProperty 'testfx.robot', 'glass'
-        systemProperty 'testfx.headless', 'true'
-        systemProperty 'prism.order', 'sw'
-        systemProperty 'prism.text', 't2k'
-    }
-}
-
-task guiTests(type: AddressBookTest) {
-    include 'guitests/**'
-
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
-}
-
-
-task nonGuiTests(type: AddressBookTest) {
     include 'seedu/address/**'
+    if (guiTests == 'true')
+        include 'guitests/**'
 
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    beforeTest { descriptor ->
+        if (headless == 'true') {
+            systemProperty 'java.awt.robot', 'true'
+            systemProperty 'testfx.robot', 'glass'
+            systemProperty 'testfx.headless', 'true'
+            systemProperty 'prism.order', 'sw'
+            systemProperty 'prism.text', 't2k'
+        }
     }
 }
 
-// Test mode depends on whether headless task has been run
-task allTests(type: AddressBookTest) {
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
+jacocoTestReport {
+    reports {
+        html.enabled true
+        xml.enabled true
+        csv.enabled false
     }
 }
 
-task headless << {
-    println "Setting headless mode properties."
-    guiTests.setHeadless()
-    nonGuiTests.setHeadless()
-    allTests.setHeadless()
+tasks.coveralls.dependsOn jacocoTestReport
+
+artifacts {
+    archives shadowJar
 }
 
-// Makes sure that headless properties are set before running tests
-nonGuiTests.mustRunAfter headless
-guiTests.mustRunAfter headless
-allTests.mustRunAfter headless
-
-defaultTasks 'clean', 'headless', 'allTests', 'coverage'
+defaultTasks 'build'

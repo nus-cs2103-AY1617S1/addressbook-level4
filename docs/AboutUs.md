@@ -4,49 +4,48 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+### [Chua Ka Yi Ong](https://github.com/kychua)
 
------
+![Chua Ka Yi Ong](images/team/ChuaKaYiOng.jpg)
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+Role: Project Advisor
 
------
+### [Paul Tan](https://github.com/pyokagan)
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+![Paul Tan](images/team/PaulTan.jpg)
 
------
+Role: Team lead <br>
+Responsibilities: Integration
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+### [Sun Mingyang](https://github.com/nightism)
 
------
+![Sun Mingyang](images/team/SunMingyang.jpg)
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
+Role: Developer <br>
+Responsibilities: Code Quality
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
+### [Sneha Santha Prabakar](https://github.com/snehasp13)
+![Sneha Santha Prabakar](images/team/Sneha.jpg)
 
-# Contributors
+Role: Developer <br>
+Responsibilities: Testing
 
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
+### [Sherry Wong Wen Qi](https://github.com/potatowagon)
 
+![Sherry Wong Wen Qi](images/team/Sherry.jpg)
+
+Role: Developer <br>
+Responsibilities: Documentation
+
+# Original Authors
+
+Task Tracker is based on [code](https://github.com/se-edu/addressbook-level4) by the following authors:
+
+* [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch)
+* [Joshua Lee](http://github.com/lejolly)
+* [Leow Yijin](http://github.com/yijinl)
+* [Martin Choo](http://github.com/m133225)
+* [Thien Nguyen](https://github.com/ndt93)
+* [You Liang](http://github.com/yl-coder)
 * [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
 * [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)

@@ -1,9 +1,14 @@
 package seedu.address.commons.core;
 
-import seedu.address.commons.events.BaseEvent;
-
 import java.io.IOException;
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import seedu.address.commons.events.BaseEvent;
 
 /**
  * Configures and manages loggers and handlers, including their logging level
@@ -46,8 +51,20 @@ public class LogsCenter {
         return Logger.getLogger(name);
     }
 
+    /**
+     * Creates a Logger for the given class name.
+     */
+    public static <T> Logger getLogger(Class<T> clazz) {
+        if (clazz == null) {
+            return Logger.getLogger("");
+        }
+        return getLogger(clazz.getSimpleName());
+    }
+
     private static void addConsoleHandler(Logger logger) {
-        if (consoleHandler == null) consoleHandler = createConsoleHandler();
+        if (consoleHandler == null) {
+            consoleHandler = createConsoleHandler();
+        }
         logger.addHandler(consoleHandler);
     }
 
@@ -60,7 +77,9 @@ public class LogsCenter {
 
     private static void addFileHandler(Logger logger) {
         try {
-            if (fileHandler == null) fileHandler = createFileHandler();
+            if (fileHandler == null) {
+                fileHandler = createFileHandler();
+            }
             logger.addHandler(fileHandler);
         } catch (IOException e) {
             logger.warning("Error adding file handler for logger.");
@@ -78,14 +97,6 @@ public class LogsCenter {
         ConsoleHandler consoleHandler = new ConsoleHandler();
         consoleHandler.setLevel(currentLogLevel);
         return consoleHandler;
-    }
-
-    /**
-     * Creates a Logger for the given class name.
-     */
-    public static <T> Logger getLogger(Class<T> clazz) {
-        if (clazz == null) return Logger.getLogger("");
-        return getLogger(clazz.getSimpleName());
     }
 
     /**

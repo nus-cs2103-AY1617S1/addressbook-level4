@@ -1,13 +1,13 @@
 package seedu.address.commons.util;
 
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.
@@ -29,7 +29,7 @@ public class ConfigUtil {
         File configFile = new File(configFilePath);
 
         if (!configFile.exists()) {
-            logger.info("Config file "  + configFile + " not found");
+            logger.info("Config file " + configFile + " not found");
             return Optional.empty();
         }
 
