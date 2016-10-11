@@ -51,8 +51,10 @@ This guide describes the design and implementation of WhatNow. It will help you 
 
 ### Architecture
 
+<p align=”center”>
 <img src="images/Architecture.png" width="600"><br>
 Figure 1: The Architecture Diagram <br>
+</p>
 
 The Architecture Diagram given above in Figure 1 explains the high-level design of WhatNow. Given below is a quick overview of each component.
 
@@ -76,19 +78,25 @@ Each of the four components
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component shown in Figure 2 below,  defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.<br>
+<p align=”center”>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 Figure 2: The Logic component.<br>
+</p>
 
 The _Sequence Diagram_ shown in Figure 3 below shows how the components interact for the scenario where the user issues the `delete 1` command.
 
+<p align=”center”>
 <img src="images\SDforDeleteTask.png" width="800"><br>
 Figure 3: How the components interact when the user issues the `delete 1` command. <br>
+</p>
 
 >Note how the `Model` simply raises a `WhatNowChangedEvent` when the What Now data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram in Figure 4 below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+<p align=”center”>
 <img src="images\SDforDeleteTaskEventHandling.png" width="800"> <br>
 Figure 4: How the `EventsCenter` reacts when the user issues the `delete 1` command.<br>
+</p>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
@@ -96,8 +104,10 @@ The sections below gives more details of each component.
 
 ### UI component
 
+<p align=”center”>
 <img src="images/UiClassDiagram.png" width="800"><br>
 Figure 5: The UI component. <br> 
+</p>
 
 **API** : [`Ui.java`](../src/main/java/seedu/whatnow/ui/Ui.java)
 
@@ -113,8 +123,10 @@ The `UI` component,
 
 ### Logic component
 
+<p align=”center”>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 Figure 6: The Logic component.<br>
+</p>
 
 **API** : [`Logic.java`](../src/main/java/seedu/whatnow/logic/Logic.java)
 
@@ -124,13 +136,17 @@ Figure 6: The Logic component.<br>
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
+<p align=”center”>
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 Figure 7:  How the `Logic` component executes the user’s request of `delete 1`. <br>
+</p>
 
 ### Model component
 
+<p align=”center”>
 <img src="images/ModelClassDiagram.png" width="800"><br>
 Figure 8: The Model component. <br>
+</p>
 
 **API** : [`Model.java`](../src/main/java/seedu/whatnow/model/Model.java)
 
@@ -142,8 +158,10 @@ The `Model`,
 
 ### Storage component
 
+<p align=”center”>
 <img src="images/StorageClassDiagram.png" width="800"><br>
 Figure 9: The Storage component. <br>
+</p>
 
 **API** : [`Storage.java`](../src/main/java/seedu/whatnow/storage/Storage.java)
 
@@ -229,7 +247,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using [GitHub](#github)](https://help.github.com/articles/creating-releases/) 
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file you created.
    
 ### Managing Dependencies
