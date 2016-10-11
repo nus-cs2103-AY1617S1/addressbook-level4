@@ -5,22 +5,15 @@ import java.util.Date;
 import java.util.Locale;
 
 public class TaskDate {
-    private Date date;
-    private String rawInputDate;
+    public static final int DATE_NOT_PRESENT = -1;
+    private long date;
     
-    public TaskDate(String inputDate, Date date) {
-        this.rawInputDate = inputDate;
+    public TaskDate(long date) {
         this.date = date;
     }
-    
-    public TaskDate(Date date) {
-        this.date = date;
-        this.rawInputDate = getRawCommandInput();
-    }
-    
+        
     public TaskDate(TaskDate copy) {
         this.date = copy.date;
-        this.rawInputDate = copy.rawInputDate;
     }
     
     //For sake of testing, not implemeted in main app
@@ -30,17 +23,18 @@ public class TaskDate {
     }
     
     public String getFormattedDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma",Locale.ENGLISH);
-        return formatter.format(date);
-    }
-
-    public String getRawCommandInput() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM hha",Locale.ENGLISH);
-        return formatter.format(date);
+        if (date == DATE_NOT_PRESENT) {
+            return "";
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma");
+        return formatter.format(new Date(date));
     }
 
     public long getDate() {
-        return date.getTime();
+        if (date == DATE_NOT_PRESENT) {
+            return DATE_NOT_PRESENT;
+        }
+        return date;
     } 
     
     public Date getParsedDate(){

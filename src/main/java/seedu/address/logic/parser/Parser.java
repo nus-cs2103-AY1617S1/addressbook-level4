@@ -33,16 +33,15 @@ public class Parser {
 
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + "(?<startTime>(?: start/[^/]+)*)"
-                    + "(?<endTime>(?: end/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern NON_FLOATING_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<name>[^/]+)"
-                    +" from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
-                    +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    + " (from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    + " to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    + "|by (?<deadline>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+))"
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
-    
+        
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
@@ -115,10 +114,9 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        Matcher matcher = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcherNonFloating = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        if (!matcher.matches()) {
-//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFloatingCommand.MESSAGE_USAGE));
+        if (!matcherNonFloating.matches()) {
             return prepareAddFloating(args);
         }
         return prepareAddNonFloating(args);
@@ -140,26 +138,45 @@ public class Parser {
     }
     
 
-    
     private Command prepareAddNonFloating(String args) {
-        Matcher matcher = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
         }
         try {
             
-            String startInput = matcher.group("startdate");
-            String endInput = matcher.group("enddate");
-            
-            return new AddNonFloatingCommand(
-                    matcher.group("name"),
-                    getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(startInput, getDateFromString(startInput)),
-                    new TaskDate(startInput, getDateFromString(endInput))
-                    );
+            if(matcher.group("deadline") != null) {
+                return prepareAddNonFloatingByDate(matcher);
+            } else {
+                return prepareAddNonFloatingFromDateToDate(matcher);
+            }
+
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+
+    private Command prepareAddNonFloatingByDate(Matcher matcher) throws IllegalValueException {
+        String endInput = matcher.group("deadline");
+        
+        return new AddNonFloatingCommand(
+                matcher.group("name"),
+                getTagsFromArgs(matcher.group("tagArguments")),
+                new TaskDate(TaskDate.DATE_NOT_PRESENT),
+                new TaskDate(getDateFromString(endInput).getTime())
+                );
+    }
+
+    private Command prepareAddNonFloatingFromDateToDate(Matcher matcher) throws IllegalValueException {
+        String startInput = matcher.group("startdate");
+        String endInput = matcher.group("enddate");
+        
+        return new AddNonFloatingCommand(
+                matcher.group("name"),
+                getTagsFromArgs(matcher.group("tagArguments")),
+                new TaskDate(getDateFromString(startInput).getTime()),
+                new TaskDate(getDateFromString(endInput).getTime())
+                );
     }
     
     private Command prepareBlock(String args) {
