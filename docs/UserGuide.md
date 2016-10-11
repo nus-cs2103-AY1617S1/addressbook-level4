@@ -24,6 +24,7 @@ Benefits of RubyTask: Command Line Interface, One-shot Approach, Internet-indepe
 2. Copy the file to the folder you want to use as the home folder for your RubyTask application.
 3. Double-click the file to start the application. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
+   > Figure 1. GUI Display
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -46,18 +47,18 @@ Benefits of RubyTask: Command Line Interface, One-shot Approach, Internet-indepe
 > * The order of parameters is fixed.
 
 #### Viewing help: `help`
-Displays the available commands<br>
+Displays the available commands.<br>
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a task: `add`
-Adds a task to the task manager<br>
+Adds a task to the task manager.<br>
 Format: `add TASK i/INFORMATION d/DATE s/START_TIME e/END_TIME t/LEVEL_OF_URGENCY_TAG r/RECUR_TAG` 
 
-> Date format: ?? (flexible but maybe include possible formats?)
-> Time format: 24 hour? 
-> Level of Urgency tag ranges from 1 to 5 (1-Very Low Urgency, 2-Low Urgency, 3-Neutral, 4-High Urgency, 5-Very High Urgency)
+> Date format: YYYYMMDD<br>
+> Time format: 24 hour<br>
+> Level of Urgency tag ranges from 1 to 5 (1-Very Low Urgency, 2-Low Urgency, 3-Neutral, 4-High Urgency, 5-Very High Urgency)<br>
 > Recur Tag takes in 'Y' for Yes, 'N' for no to recur weekly
 
 Examples: 
@@ -85,8 +86,8 @@ Examples:
   Returns any tasks having keywords `CS2103T`, `CS2101`, or `CS3235`
 
 #### Deleting a task: `delete`
-Deletes the specified task from the task manager. Irreversible(??)<br>
-Format: `delete TASK_NAME`
+Deletes the specified task from the task manager.<br>
+Format: `delete [TASK_NAME][TASK_ID]`
 
 > Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
