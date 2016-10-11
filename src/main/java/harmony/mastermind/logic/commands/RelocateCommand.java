@@ -24,7 +24,7 @@ public class RelocateCommand extends Command {
             + "Desktop";
 
     public static final String MESSAGE_SUCCESS = "Relocated save location to %1$s";
-    public static final String MESSAGE_INVALID_INPUT = "This file path is not valid.";
+    public static final String MESSAGE_INVALID_INPUT = "%1$s is not valid.";
 
     private final String newFilePath;
 

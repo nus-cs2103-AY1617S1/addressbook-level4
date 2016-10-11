@@ -82,11 +82,12 @@ public class StorageManager extends ComponentManager implements Storage {
     @Subscribe
     public void handleRelocateEvent(RelocateFilePathEvent event) {
         assert event.newFilePath != null;
+        String oldPath = taskManagerStorage.getTaskManagerFilePath();
+        taskManagerStorage.setTaskManagerFilePath(event.newFilePath);
         try {
-            taskManagerStorage.checkIfFolderExist(event.newFilePath);
-            taskManagerStorage.setTaskManagerFilePath(event.newFilePath);
-        } catch (FolderDoesNotExistException fdnee) {
-            raise(new FileDoesNotExistEvent(event.newFilePath));
+            taskManagerStorage.migrateIntoNewFolder(oldPath, event.newFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

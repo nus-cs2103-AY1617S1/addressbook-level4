@@ -104,15 +104,9 @@ public class ModelManager extends ComponentManager implements Model {
     //@author: A0139194X
     @Override
     public synchronized void relocateSaveLocation(String newFilePath) throws FolderDoesNotExistException {
-        taskManager.relocateSaveLocation(newFilePath);
+        taskManager.checkSaveLocation(newFilePath);
         raise(new RelocateFilePathEvent(newFilePath));
         indicateTaskManagerChanged();
-    }
-    
-    //author: A0139194X
-    @Subscribe
-    public void handleFileDoesNotExistEvent (FileDoesNotExistEvent event) {
-        
     }
 
     //=========== Filtered Task List Accessors ===============================================================

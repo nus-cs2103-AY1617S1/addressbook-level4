@@ -3,6 +3,9 @@ package harmony.mastermind.model;
 import javafx.collections.ObservableList;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -74,9 +77,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
-    public void relocateSaveLocation(String newFilePath) throws FolderDoesNotExistException {
-        File file = new File(newFilePath);
-        if (!(file.exists() && file.isDirectory())) {
+    //@author A0139194X
+    public void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException {
+        Path filePath = Paths.get(newFilePath);
+        if (!Files.exists(filePath)) {
             throw new FolderDoesNotExistException(newFilePath + " does not exist");
         }
     }

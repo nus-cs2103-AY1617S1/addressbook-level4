@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -78,12 +80,12 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     public void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException {
         saveTaskManager(taskManager, filePath);
     }
-    
-    //@author: A0139194X
-    public void checkIfFolderExist(String newFilePath) throws FolderDoesNotExistException {
-        File folder = new File(newFilePath);
-        if (!folder.exists()) {
-            throw new FolderDoesNotExistException(newFilePath);
+
+    //@author A0139194X
+    public void migrateIntoNewFolder(String oldPath, String newPath) throws IOException {
+        newPath = newPath + "/mastermind.xml";
+        Path oldDirectory = Paths.get(oldPath);
+        Path newDirectory = Paths.get(newPath);
+        Files.copy(oldDirectory, newDirectory, StandardCopyOption.REPLACE_EXISTING);
         }
-    }
 }
