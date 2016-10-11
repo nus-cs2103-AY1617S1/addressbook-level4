@@ -131,7 +131,7 @@ Format: `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [r
 > The index **must be a positive integer** 1, 2, 3, ...<br>
 > The recurrence of a task can be set with the `repeat` keyword.<br>
 > The repeat pattern can be `daily`, `weekly`, or `monthly`.<br>
-> The repeat frequency will represent how many times the recurrence will occur.<br>
+> The repeat count represents how many times the recurrence will occur.<br>
 >
 > To remove any details for the task, prefix the argument keyword with `remove`.<br>
 > For example: `update 1 removeby` will remove the deadline.
@@ -177,7 +177,7 @@ Example:
   Mark the first task in the list as complete.
 
 #### Undo the last action: `undo`
-To undo any last action that modifies the task database (e.g. deleting task).<br>
+Undoes any previous action that modifies the task database (e.g. deleting task).<br>
 Format: `undo [last STEPS]`
 
 > You can undo multiple steps by specifying the number of steps to undo.
@@ -189,14 +189,14 @@ Example:
   Undo the last 5 actions.
 
 #### List all tasks/events with specified conditions: `list`
-Displays a list of all tasks/events.<br>
+Lists all tasks/events.<br>
 
 Format: `list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...] [sort SORTING_ORDER]`
 
 > * Types include `uncompleted`, `completed`, `floating`, `recurring`, `events`, `tasks`, and/or `free time`. 
 > * Sorting order includes `earliest first`, `latest first` for date and time, 
-> and `a-z`, `z-a` for descriptions.
-> * Defaults to earliest first for later dates, and latest first for past dates
+> and `a-z`, `z-a` for task descriptions.
+> * Defaults to `earliest first` for dates in the future, and `latest first` for dates in the past
 >
 > If no parameters are specified, the command will show a list of uncompleted tasks
 > and upcoming events.
@@ -207,7 +207,7 @@ Format: `list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"
 
 Examples:
 * `list`<br>
-  If no parameters are specified, the command will show a list of uncompleted tasks
+  Shows a list of uncompleted tasks
   and upcoming events.
 * `list events by 18 Sep`
 * `list completed tasks, tag "Important", sort earliest first`
@@ -218,7 +218,7 @@ Lists all tasks/events whose name, type, date or tags partially match the entere
 Format: `find KEYWORD...`
 
 > * KEYWORDs enclosed in quotation marks `" "` use exact match. 
-> * KEYWORDs which are not enclosed in `" "` are not case-sensitive. 
+> * KEYWORDs not enclosed in `" "` are not case-sensitive. 
 > * The task list results are shown in an order which prioritizes the closest match, followed by completion status and date. 
 
 Examples:
@@ -276,7 +276,7 @@ Switches to a different task list.<br>
 
 Format: `switchlist FILENAME`
 
-> If the file does not exist, then TaSc will assume that you want to create a new 
+> If the file does not exist, TaSc will assume that you want to create a new 
 > task list, and will create an empty file for you automatically.
 
 #### Relocate the data storage location: `relocate`
@@ -285,18 +285,17 @@ Designates a new data storage location.<br>
 Format: `relocate PATH`
 
 #### Autocomplete and suggestions
-Suggested command keywords, dates, sorting order, and tags are shown as you type.
+Shows suggested command keywords, dates, sorting order, and tags as you type.
 Use the `tab` key to autocomplete using the suggestion.
 
 > <img src="images/Ui-Autocomplete.png" width="200">
 
 #### Saving the Data
-Changes are automatically saved after each command that changes the data.
+TaSc saves your changes automatically after each command that changes the data.
 No manual saving required.
 
 #### Multiple Storage Files
-Multiple storage files are allowed for you to store different schedules 
-on different files. The file name must be passed into the program arguments 
+You can store different schedules on different storage files. Just pass the file name into the program arguments 
 when running the program.
 
 ## FAQ
