@@ -155,7 +155,8 @@ There is no need to save manually.
 
 **Q**: Q: How do I check the current Java version installed on my PC?<br>
 **A**: Press the windows (or start menu) button, and type ‘About Java’, hit enter. There will be a pop-up (as illustrated in Figure 2) indicating the current Java version on your PC. 
-> <img src="images/AboutJava.png" width="600"><br>
+> <img src="images/AboutJava.png" width="300"><br>
+
 *Figure 2. About Java pop-up*
 
 **Q**: How do I transfer my data to another computer?<br>
@@ -163,17 +164,16 @@ There is no need to save manually.
        the file that contains the data of your previous RubyTask folder.
 	   
 	   
-## Command Summary
+## COMMAND SUMMARY
 
 Command | Format  
 -------- | :-------- 
 Add | `add TASK i/INFORMATION d/DATE s/START_TIME e/END_TIME t/LEVEL_OF_URGENCY_TAG r/RECUR_TAG`
 Clear | `clear`
-Delete | `delete INDEX`
+Delete | `delete [TASK_NAME][TASK_ID]`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 Help | `help`
 List | `list`
-Select | `select INDEX`
 ToDo | `todo`
 Undo | `undo`
-Update | `update [TASK_ID] STATUS`
+Update | `update [TASK_NAME][TASK_ID] STATUS`
