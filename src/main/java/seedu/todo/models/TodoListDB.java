@@ -32,7 +32,8 @@ public class TodoListDB {
     }
     
     public boolean destroyTask(Task task) {
-        return tasks.remove(task);
+        tasks.remove(task);
+        return save();
     }
     
     public Event createEvent() {
@@ -42,7 +43,8 @@ public class TodoListDB {
     }
     
     public boolean destroyEvent(Event event) {
-        return events.remove(event);
+        events.remove(event);
+        return save();
     }
     
     public static TodoListDB getInstance() {
