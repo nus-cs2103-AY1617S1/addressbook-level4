@@ -15,7 +15,7 @@
 1. Download the latest `dearjim.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   > <img src="images/dearjim_initial.png">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -23,8 +23,8 @@
    * **`list`** : lists all tasks. This is the default view.
    * **`add`**` Learn how to use DearJim` : 
      adds a task to the Task Manager.
-   * **`delete`**` 1` : deletes the 1st task shown in the current list
-   * **`exit`** : exits the app
+   * **`delete`**` 1` : deletes the first task shown in the current list.
+   * **`exit`** : exits the app.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
@@ -32,114 +32,227 @@
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
+> * Fields in `SQUARE_BRACKETS` are optional.
 > * The order of parameters is fixed.
 
-#### Viewing help : `help`
-Format: `help`
+### Viewing help : `help`
+Opens the user guide with a new window.<br>
+Format: `help`<br>
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+Example:
+> <img src="images/dearjim_help.png"><br>
+
+* `help`
+
  
-#### Adding an item: `add`
-Adds an item into the task manager<br>
+### Adding a task: `add`
+Adds a task into the task manager.<br>
+Format: `add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
 
-*With deadline*
+**_Specifying task priority_**
 
-Format: `add NAME by DUE_DATE DUE_TIME [repeat every RECURRING_INTERVAL]`
->Notice the `by` keyword? We use `by` to denote a deadline.
+You can assign your task a `PRIORITY` of `low`, `medium` or `high`. <br>
+Tasks have `medium` `PRIORITY` by default.<br>
+Format: `-PRIORITY`
 
-Examples:
-* `add Do project proposal by 5pm tomorrow`
-* `add Buy coffee for boss by 7am repeat every day`
+`PRIORITY` also accepts variations of `low`, `medium` and `high`.
 
-*Without deadline*
-
-Format: `add NAME [rank PRIORITY]`
->No deadlines? No worries. DearJim allows you to rank your priorities. Assign rank of 1 to 10, with 1 being the most important task. If you did not specify the priority, it will be assigned to a default value of 5.
-
-Example:
-* `add Buy coffee powder rank 1`
-
-*With time interval*
-
-`add NAME at DATE START_TIME to [DATE] END_TIME [repeat every RECURRING_INTERVAL]` 
-> For events, meetings, we use `at`, `to` to specify the date/time interval.
-
-Example: 
-* `add Company meeting tonight at 7pm to 9pm`
-
-*Tentative event*
-
-Format: `add NAME (at DATE START_TIME to [DATE] END TIME...)` 
-> Sometimes, we have an unconfirmed event slot. For example, the meeting your boss wants to hold might be on 2-3pm tomorrow, or the day after. 
-> Group the list of dates inside `()` and separate each date with `,`
-
-Example: 
-* `add Company meeting (at 22 Sep 2pm to 3pm, at 23 Sep 2pm to 3pm)`
-
-#### Editing an item: `edit`
-Edits any item in the task manager<br>
-
-*Any type except tentative*
-
-Format: Replace 	`add` with `edit INDEX`
->Tip: We make the edit commands similar to add commands, so that you only have to learn one of them! Simply replace `add` with `edit INDEX` to do an edit.
+`PRIORITY` | Variations  
+-------- | :--------:
+`low` | `l`, `low`
+`medium` | `m`, `med`, `medium`
+`high` | `h`, `high`
+ 
+> To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add command, where `PRIORITY` can be replaced by `low`, `medium` or `high`, e.g `-low`, `-medium`, `-high`.
 
 Examples:
-* `edit 10 Company meeting tomorrow morning at 7am to 9am`
-* `edit 3 Buy coffee for boss by 7am repeat every 2 days`
+* `add Do something later -l`
+* `add Do something later -low`
 
-*Tentative events*
 
-Format: Replace `add` with  `edit INDEX (new OR SUB-INDEX)`
->Note: If you want to confirm the time slot, use the `confirm` command instead.
+**_Specifying repeated tasks_**
+
+DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`. <br>
+Format: `repeat every RECURRING_INTERVAL`
+> To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add/edit command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
+
+Supported `RECURRING_INTERVAL`
+* `day`, `2 days`, `3 days`, ...
+* `week`, `2 weeks`, `3 weeks`, ...
+* `month`, `2 months`, `3 months`, ...
+
+Examples: 
+* `add Go run at track, repeat every 3 days`
+
+
+**_Adding a task with deadline_**
+
+Format: `add NAME, by END_DATE END_TIME [repeat every RECURRING_INTERVAL][-PRIORITY]`
+> The `by` keyword denotes a deadline.
+> Take note of the `,` after the `NAME`, it is use to mark the end of your task's name.
+
+>`END_DATE` and `END_TIME` are flexible!
+>* If no `END_DATE` is specified, `END_DATE` will be assumed to be the current date
+>* `END_DATE`
+>   * `today`, `tonight` can be used to refer to the current day
+>   * `tmr`, `tomorrow` can be used to refer to the next day
+>   * `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday` and `Sunday` refers to the nearest matching day from the current date
+>* `END_TIME`
+>   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
+>   * `midnight` can be used to specify 12AM
+>   * `noon` can be used to specify 12PM
+>   * `20:15` - 24-hour clock format is also accepted
+
+Examples:
+* `add Do project proposal, by 5pm tomorrow`
+* `add eat lunch, by 1pm today -h`
+* `add Buy coffee for boss, by 7am repeat every day`
+
+**_Adding a task without deadline_**
+
+Format: `add NAME [-PRIORITY]`
+
+> Simply enter the name of the task!
 
 Example:
-> <img src="images/edit_tentative_ui.png" width="600">
+* `add Buy coffee powder`
+* `add Buy coffee powder -medium`
+* `add Buy washing powder -h`
+* `add Buy baby powder -l`
 
-* `edit 12 1 (at 24 Sep 8pm to 9pm) 3 (at 25 Sep 8pm to 9pm)`
+**_Adding a task with time interval_**
 
+`add NAME, from/at START_DATE START_TIME [to END_DATE END_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]` 
+> For events, meetings, use `from` and `at` to indicate the start time and `to` and `by` to indicate the end time.
+> Take note of the `,` after the `NAME`, it is use to mark the end of your task's name.
+> `END_DATE` and `END_TIME` can be unspecified.
 
-#### Confirming a tentative event: `confirm`
-Confirm a tentative event in your task manager. Must have added a tentative event first. Refer to `add` command.<br>
+>`START_DATE`, `START_TIME`, `END_DATE` and `END_TIME` are flexible!
+>* If no `END_DATE` is specified, `END_DATE` will be assumed to be the current date
+>* `START_DATE` and `END_DATE`
+>   * `today`, `tonight` can be used to refer to the current day
+>   * `tmr`, `tomorrow` can be used to refer to the next day
+>   * `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday` and `Sunday` refers to the nearest matching day from the current date
+>* `START_TIME` and `END_TIME`
+>   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
+>   * `midnight` can be used to specify 12AM
+>   * `noon` can be used to specify 12PM
+>   * `20:15` - 24-hour clock format is also accepted
 
-*Tentative event*
+Example: 
+* `add Company meeting tonight, at 7pm to 9pm`
+* `add Family dinner, at noon`
+* `add Meet Akshay, from 1pm to 2pm -h`
 
-Format: `confirm INDEX SUBINDEX`
+### Editing a task: `edit`
+Edits an existing task in the task manager<br>
+Format: `edit INDEX NAME, [from/at START_DATE START_TIME][to/by END_DATE END_TIME][-PRIORITY][repeat every RECURRING_INTERVAL]`
+> `INDEX` refers to the task number in the current displayed list.<br>
+> Notice that this is similar to the `add` command format! 
+
+Examples:
+* `add Company meeting tonight, at 7pm to 9pm`
+* `edit 2 Company meeting tomorrow morning, at 7am to 9am -high`
+* `add Buy coffee for boss, by 8am repeat every day`
+* `edit 3 Buy coffee for boss, by 7am repeat every 2 days`
+* `edit 3 Buy coffee for boss for the last time, by 7am`
+
+### Deleting a task: `delete`
+Deletes an existing task in your task manager.<br>
+Format: `delete INDEX`
+> `INDEX` refers to the task number in the current displayed list.<br>
+
+Examples:
+* `delete 1`
+* `delete 2`
+
+### Clearing the task manager: `clear`
+Deletes all tasks in your task manager.<br>
+This process is reversible with the `undo` command.<br>
+Format: `clear`
+> `clear` allows you to `delete` all tasks with a single command!
 
 Example:
-> <img src="images/confirm_ui.png" width="600">
+* `clear`
 
-* `confirm 3 1`
-
-
-#### Deleting an item: `delete`
-Delete an item in your task manager This process is reversible with the `undo` command.<br>
-Format:
-`delete INDEX` `delete all`
-
-#### Undoing a command: `undo`
-Format: `undo`
-
-
-#### Redoing a command: `redo`
-Format: `redo`
-
-#### Archiving an item: `done`
-Archive an item in your task manager.<br>
-
+### Archiving a task: `done`
+Archives a task in your task manager.<br>
 Format: `done INDEX`
+> Marks a task as `done` as sends it to the archive for future viewing.
+> `INDEX` refers to the task number in the current displayed list.
 
-#### Listing all items : `list`
-Shows a list of all items in the task manager.<br>
+Examples:
+* `done 1`
+* `done 3`
+
+### Undoing a command: `undo`
+Reverses the effects of the previous command, if the command is a reversible one.<br>
+Format: `undo`
+> Commands that you can `undo`
+> * `add`
+> * `edit`
+> * `delete`
+> * `clear`
+> * `done`
+
+Example:
+* `undo`
+
+### Redoing a command: `redo`
+Reverses a previous `undo` command, if possible.<br>
+Format: `redo`
+> `redo` allows your to reverse your previous `undo` to get back your data!
+>
+> Note: `redo` only works if no `add`, `edit`, `delete`, `clear` or `done` commands have been entered after the last `undo`.
+
+Example: 
+* `redo`
+
+### Listing all tasks : `list`
+Shows a list of all tasks in the task manager.<br>
 Format: `list`
+> Displays all uncompleted tasks in the task manager.
 
-#### Find an item : `find`
-Find an item by name.<br>
+Example:
+> <img src="images/dearjim_list.png">
+
+* `list`
+
+### Finding a task : `find`
+Find an existing task by name.<br>
 Format: `find NAME`
+> `find` is case-insensitive - `find AKSHAY` will match `find akshay`
+>
+> If no NAME is provided, all uncompleted tasks will be displayed
+
+Examples:
+* `find Akshay`
+* `find Michelle`
+* `find company meeting`
+* `find`
+
+### Exiting the application: `exit`
+Closes the application.<br>
+Format: `exit`
+
+Example: 
+* `exit`
 
 
-#### Saving the data 
+### Getting hints for command format
+Format: none, just type a command and let DearJim provide you hints on the command format that you might want to use!
+>DearJim provides you hints on command formats as you type the command!
+
+Examples:
+><img src="images/dearjim_hint_add.png">
+
+* Typing `add` in the command input generates the `add` command format in the result display
+
+><img src="images/dearjim_hint_delete.png">
+
+* Typing `delete` in the command input generates the `delete` command format in the result display
+
+### Saving the data 
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
@@ -156,11 +269,8 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add/Edit | `add`/`edit INDEX` `NAME by DUE_DATE DUE_TIME [repeat every RECURRING_INTERVAL]`
-Add/Edit | `add`/`edit INDEX` `NAME [rank PRIORITY]`
-Add/Edit | `add`/`edit INDEX` `NAME at DATE START_TIME to [DATE] END_TIME [repeat every RECURRING_INTERVAL]` 
-Add/Edit | `add`/`edit INDEX (new OR SUB-INDEX)` `NAME (at DATE START_TIME to [DATE] END TIME)`
-Confirm | `confirm INDEX SUB-INDEX`
+Add | `add NAME, [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
+Edit | `edit INDEX NAME, [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]`
 Delete | `delete INDEX`
 Undo | `undo`
 Redo | `redo`
@@ -168,3 +278,4 @@ Done | `done INDEX`
 List | `list`
 Find | `find NAME`
 Help | `help`
+Exit | `exit`
