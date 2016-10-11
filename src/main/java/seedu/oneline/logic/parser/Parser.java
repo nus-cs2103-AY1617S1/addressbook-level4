@@ -131,6 +131,9 @@ public class Parser {
         // Extract the respective task fields into results map
         Map<TaskField, String> result = new HashMap<TaskField, String>();
         if (fieldIndexes.size() == 0) {
+            if (splitted[0].equals("")) { 
+                throw new IllegalCmdArgsException("Task Name is a compulsory field.");
+            }
             result.put(TaskField.NAME, String.join(" ", splitted));
             return result;
         }

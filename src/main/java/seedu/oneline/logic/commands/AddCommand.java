@@ -19,10 +19,10 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task book. "
-            + "Parameters: <taskName> [.from <start> .to <end>] [.due <deadline>] [.every <period>] [#<cat>]"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task book. \n"
+            + "Parameters: <taskName> [.from <start> .to <end>] [.due <deadline>] [.every <period>] [#<cat>] \n"
             + "Example: " + COMMAND_WORD
-            + "Acad meeting .from 2pm .to 4pm #acad";
+            + " Acad meeting .from 2pm .to 4pm #acad";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
