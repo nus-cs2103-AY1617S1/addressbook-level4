@@ -82,6 +82,16 @@ public class Task implements ReadOnlyTask {
         return type;
     }
     
+    public boolean hasOnlyDateLine() {
+        if (type == TaskType.FLOATING) {
+            return false;
+        }
+        if (startDate.getDate() != TaskDate.DATE_NOT_PRESENT){
+            return false;
+        }
+        return true;
+    }
+    
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
