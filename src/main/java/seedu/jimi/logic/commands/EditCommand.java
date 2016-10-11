@@ -59,13 +59,13 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        ReadOnlyTask taskToEdit = lastShownList.get(taskIndex - 1);
         
         if (lastShownList.size() < taskIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
+        ReadOnlyTask taskToEdit = lastShownList.get(taskIndex - 1);
         ReadOnlyTask taskToReplace = new FloatingTask(
                 newName == null ? taskToEdit.getName() : newName,
                 newTagList == null ? taskToEdit.getTags() : newTagList);

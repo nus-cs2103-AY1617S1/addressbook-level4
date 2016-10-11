@@ -25,7 +25,8 @@ public class EditCommandTest extends AddressBookGuiTest{
 
         //edit the first task in list with only name changes
         assertEditTaskSuccess(currentList, targetIndex, newName);
-
+        
+        // edit last task in list with only name changes
         newName = "Don't die poor";
         targetIndex = currentList.length;
         assertEditTaskSuccess(currentList, targetIndex, newName);
@@ -50,6 +51,10 @@ public class EditCommandTest extends AddressBookGuiTest{
         //task to be replaced with
         TestFloatingTask expectedTask = new TestFloatingTask();
         expectedTask.setName(new Name(newName));
+        
+        if (targetIndex <= currentList.length && targetIndex > 0) {
+            expectedTask.setTags(currentList[targetIndex - 1].getTags());
+        }
         
         //edit the name of the target task with the newName
         commandBox.runCommand("edit " + targetIndex + " " + newName);

@@ -29,6 +29,10 @@ public class TestFloatingTask implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return tags;
     }
+    
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
+    }
 
     @Override
     public String toString() {
