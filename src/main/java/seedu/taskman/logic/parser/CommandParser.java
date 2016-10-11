@@ -16,7 +16,7 @@ import static seedu.taskman.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
  * Parses user input.
  * // todo: rename to CommandParser when refactoring
  */
-public class Parser {
+public class CommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -40,7 +40,7 @@ public class Parser {
                     + " f/(?<frequency>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public Parser() {}
+    public CommandParser() {}
 
     /**
      * Parses user input into command for execution.
