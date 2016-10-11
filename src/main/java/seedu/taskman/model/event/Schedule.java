@@ -19,12 +19,13 @@ public class Schedule {
                     // DATETIME for MULTIPLE_DURATION
                     " \nOr the format: " + DateTimeParser.DESCRIPTION_DATE_TIME + " for "
                     + DateTimeParser.DESCRIPTION_DURATION;
+    public static final String MESSAGE_NEGATIVE_DURATION =
+            "Duration is negative!";
 
     public static final String SCHEDULE_DIVIDER_GROUP = "((?:, )|(?: to )|(?: for ))";
 	public static final String SCHEDULE_VALIDATION_REGEX =
             "(.*)" + SCHEDULE_DIVIDER_GROUP + "(.*)";
 
-    // unix time
     public final long startUnixTime;
     public final long endUnixTime;
 
@@ -33,7 +34,7 @@ public class Schedule {
         Pattern pattern = Pattern.compile(SCHEDULE_VALIDATION_REGEX);
         Matcher matcher = pattern.matcher(schedule);
         if (!matcher.matches()) {
-            throw new IllegalValueException("Bad schedule input");
+            throw new IllegalValueException(MESSAGE_SCHEDULE_CONSTRAINTS);
         } else {
             String start = matcher.group(0).trim();
             String divider = matcher.group(1).trim();
@@ -51,7 +52,7 @@ public class Schedule {
         }
 
         if (endUnixTime < startUnixTime) {
-            throw new IllegalValueException("End time is before start time");
+            throw new IllegalValueException(MESSAGE_NEGATIVE_DURATION);
         }
     }
     
