@@ -81,9 +81,9 @@ public class TaskMan implements ReadOnlyTaskMan {
      *
      * @throws UniqueActivityList.DuplicateActivityException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniqueActivityList.DuplicateActivityException {
-        syncTagsWithMasterList(p);
-        activities.add(new Activity(p));
+    public void addTask(Task task) throws UniqueActivityList.DuplicateActivityException {
+        syncTagsWithMasterList(task);
+        activities.add(new Activity(task));
     }
 
     /**
@@ -102,7 +102,8 @@ public class TaskMan implements ReadOnlyTaskMan {
      * Ensures that every tag in this event:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
-     *  TODO: feels like a pretty complex way to do this... can we do better?
+     *  TODO: feels like a pretty complex way to do this...
+     *  // can't we just store tags from eventTags into tagsList? Objects are passed by reference
      */
     private void syncTagsWithMasterList(MutableTagsEvent event) {
         final UniqueTagList eventTags = event.getTags();
