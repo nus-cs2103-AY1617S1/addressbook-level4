@@ -11,7 +11,7 @@ Role: Project Mentor
 
 #### [Tan Min Rong Samson](http://github.com/samsontmr)
 <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/12342568_10154947929683084_4939899865158820460_n.jpg?oh=62c43f3e557e8203ec50b7a927d35098&oe=5870CC3A" width="150"><br>
-Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree Expert <br>
+Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines <br>
 Responsibilities: Logic
 
 -----
