@@ -53,15 +53,12 @@ public class TodoParser implements Parser {
             StringJoiner sj = new StringJoiner(" ");
             sj.add(command).add(getPositionalArgument().orElse(""));
             for (Entry<String, String> e : getNamedArguments().entrySet()) {
-                String prefix = e.getKey().length() == 1 ? "-" : "--";
-                sj.add(prefix + e.getKey()).add(e.getValue());
+                sj.add("/" + e.getKey()).add(e.getValue());
             }
             return sj.toString();
         }
     }
 
-    private static final Pattern FLAG_REGEX = Pattern.compile("^(?:-(\\w)|--(\\w{2,}))$"); 
-    
     private List<String> tokenize(String input) {
         input = input.trim();
         
@@ -73,11 +70,11 @@ public class TodoParser implements Parser {
     }
     
     private String parseFlag(String token) {
-        return token.replace("-", "");
+        return token.substring(1, token.length());
     }
     
     private boolean isFlag(String token) {
-        return FLAG_REGEX.matcher(token).matches();
+        return token.startsWith("/") && token.length() > 1;
     }
     
     @Override
