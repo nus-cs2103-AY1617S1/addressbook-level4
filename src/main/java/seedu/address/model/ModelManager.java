@@ -4,7 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.commons.events.model.ToDoListChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
@@ -15,64 +15,64 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the task manager data.
+ * Represents the in-memory model of the To Do List data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskManager taskManager;
+    private final ToDoList toDoList;
     private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
      */
-    public ModelManager(TaskManager src, UserPrefs userPrefs) {
+    public ModelManager(ToDoList src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with To Do List: " + src + " and user prefs " + userPrefs);
 
-        taskManager = new TaskManager(src);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        toDoList = new ToDoList(src);
+        filteredTasks = new FilteredList<>(toDoList.getTasks());
     }
 
     public ModelManager() {
-        this(new TaskManager(), new UserPrefs());
+        this(new ToDoList(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
-        taskManager = new TaskManager(initialData);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+    public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
+    	toDoList = new ToDoList(initialData);
+        filteredTasks = new FilteredList<>(toDoList.getTasks());
     }
 
     @Override
-    public void resetData(ReadOnlyTaskManager newData) {
-        taskManager.resetData(newData);
+    public void resetData(ReadOnlyToDoList newData) {
+    	toDoList.resetData(newData);
         indicateTaskManagerChanged();
     }
 
     @Override
-    public ReadOnlyTaskManager getTaskManager() {
-        return taskManager;
+    public ReadOnlyToDoList getToDoList() {
+        return toDoList;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
-        raise(new TaskManagerChangedEvent(taskManger));
+        raise(new ToDoListChangedEvent(toDoList));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskManager.removeTask(target);
+    	toDoList.removeTask(target);
         indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskManager.addTask(task);
+        toDoList.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }

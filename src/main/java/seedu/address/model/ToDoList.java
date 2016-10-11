@@ -11,10 +11,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the task-manager level
+ * Wraps all data at the To Do List level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskManager implements ReadOnlyTaskManager {
+public class ToDoList implements ReadOnlyToDoList {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -24,24 +24,24 @@ public class TaskManager implements ReadOnlyTaskManager {
         tags = new UniqueTagList();
     }
 
-    public TaskManager() {}
+    public ToDoList() {}
 
     /**
      * Tasks and Tags are copied into this task manager
      */
-    public TaskManager(ReadOnlyTaskManager toBeCopied) {
+    public ToDoList(ReadOnlyToDoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Tasks and Tags are copied into this task manager
      */
-    public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
+    public ToDoList(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskManager getEmptyAddressBook() {
-        return new TaskManager();
+    public static ReadOnlyToDoList getEmptyToDoList() {
+        return new ToDoList();
     }
 
 //// list overwrite operations
@@ -63,7 +63,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyTaskManager newData) {
+    public void resetData(ReadOnlyToDoList newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
@@ -150,9 +150,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskManager // instanceof handles nulls
-                && this.tasks.equals(((TaskManager) other).tasks)
-                && this.tags.equals(((TaskManager) other).tags));
+                || (other instanceof ToDoList // instanceof handles nulls
+                && this.tasks.equals(((ToDoList) other).tasks)
+                && this.tags.equals(((ToDoList) other).tags));
     }
 
     @Override
