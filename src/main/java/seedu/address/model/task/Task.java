@@ -6,7 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Task in the Task manager.
+ * Represents a Task in the To Do List.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
@@ -92,6 +92,20 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    /**
+     * Returns a proper parser understandable date string for testing purposes.
+     * @return friendly string of date object.
+     * 
+     * @author A0139661Y
+     */
+    public String getFriendlyDate() {
+    	return dueByDate.getFriendlyString();  
+    }
+    
+    public String getFriendlyTime() {
+    	return dueByTime.getFriendlyString();
     }
 
 }

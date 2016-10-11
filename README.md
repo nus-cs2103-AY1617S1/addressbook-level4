@@ -1,6 +1,5 @@
-<!-- [![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master) -->
-[![GitHub version](https://badge.fury.io/gh/CS2103AUG2016-F11-C2%2Fmain.svg)](https://badge.fury.io/gh/CS2103AUG2016-F11-C2%2Fmain)
+[![Build Status](https://travis-ci.org/CS2103AUG2016-F11-C2/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-F11-C2/main)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-F11-C2/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-F11-C2/main?branch=master)
 
 # CMDo
 
@@ -17,9 +16,6 @@
 
 
 #### Acknowledgements
-
-* Some parts of this sample application were inspired by the excellent 
-  [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
-
+* [Natty](https://github.com/joestelmach/natty), a natural language date parser written in Java by [Joe Stelmach](https://github.com/joestelmach/).
 
 #### Licence : [MIT](LICENSE)

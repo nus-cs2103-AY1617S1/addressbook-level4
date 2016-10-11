@@ -25,39 +25,39 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(fieldId, node);
     }
 
-    public String getFullName() {
+    public String getDetail() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
+    public String getPriority() {
         return getTextFromLabel(ADDRESS_FIELD_ID);
     }
 
-    public String getPhone() {
+    public String getDueByDate() {
         return getTextFromLabel(PHONE_FIELD_ID);
     }
 
-    public String getEmail() {
+    public String getDueByTime() {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName) && getPhone().equals(task.getPhone().value)
-                && getEmail().equals(task.getEmail().value) && getAddress().equals(task.getAddress().value);
+        return getDetail().equals(task.getDetail()) && getDueByDate().equals(task.getDueByDate().value)
+                && getDueByTime().equals(task.getDueByTime().value) && getPriority().equals(task.getPriority().value);
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+            return getDetail().equals(handle.getDetail())
+                    && getPriority().equals(handle.getPriority()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getDetail() + " " + getPriority();
     }
 }

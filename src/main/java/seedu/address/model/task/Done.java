@@ -3,7 +3,7 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents if a Task's is done in the task Manager.
+ * Represents if a Task's is done in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDone(String)}
  */
 public class Done {

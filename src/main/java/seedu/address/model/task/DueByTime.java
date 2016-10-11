@@ -2,11 +2,13 @@ package seedu.address.model.task;
 
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's due time in the task manager.
+ * Represents a Task's due time in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueByTime(String)}
  */
 public class DueByTime {
@@ -23,7 +25,7 @@ public class DueByTime {
      */
     public DueByTime(LocalTime dueByTime) throws IllegalValueException {
         assert dueByTime != null;
-        this.value = dueByTime;
+        this.value = dueByTime.truncatedTo(ChronoUnit.MINUTES);
     }
 
     @Override
@@ -43,5 +45,14 @@ public class DueByTime {
     public int hashCode() {
         return value.hashCode();
     }
+
+    /*
+     * Produces a friendly string of values in the format HH:MM
+     * 
+     * @author A0139661Y
+     */
+    public String getFriendlyString() {
+		return new StringBuilder(value.getHour() +":"+ value.getMinute()).toString();
+	}
 
 }

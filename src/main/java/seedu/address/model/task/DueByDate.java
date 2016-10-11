@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's Due date in the task Manager.
+ * Represents a Task's Due date in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueByDate(String)}
  */
 public class DueByDate {
@@ -43,5 +43,14 @@ public class DueByDate {
     public int hashCode() {
         return value.hashCode();
     }
+    
+    /*
+     * Produces a friendly string of values in the format MM/DD/YYYY
+     * 
+     * @author A0139661Y
+     */
+	public String getFriendlyString() {
+		return new StringBuilder(value.getMonthValue() +"/"+ value.getDayOfMonth() +"/"+ value.getYear()).toString();
+	}
 
 }

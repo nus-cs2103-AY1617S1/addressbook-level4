@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the todo list level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class ToDoList implements ReadOnlyToDoList {
