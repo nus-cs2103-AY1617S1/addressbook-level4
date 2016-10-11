@@ -131,6 +131,7 @@ public class Parser {
         // Extract the respective task fields into results map
         Map<TaskField, String> result = new HashMap<TaskField, String>();
         if (fieldIndexes.size() == 0) {
+            result.put(TaskField.NAME, String.join(" ", splitted));
             return result;
         }
         Integer firstIndex = fieldIndexes.get(0).getValue();
