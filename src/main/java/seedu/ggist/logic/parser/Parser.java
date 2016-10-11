@@ -32,11 +32,11 @@ public class Parser {
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<time>\\d{4})\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<time>\\d+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<startTime>\\d{4})\\s*-\\s*(?<endTime>\\d{4})\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<startTime>\\d+)\\s*-\\s*(?<endTime>\\d+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
    
     public Parser() {}
 
@@ -65,8 +65,11 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
         
-        case EditCommand.COMMAND_WORD:
-        	return prepareEdit(arguments);
+        case EditCommand.COMMAND_WORD: 
+            return prepareEdit(arguments);
+                
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
         	
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -82,9 +85,6 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-            
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

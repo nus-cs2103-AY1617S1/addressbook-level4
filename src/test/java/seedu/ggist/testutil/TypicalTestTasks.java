@@ -52,7 +52,7 @@ public class TypicalTestTasks {
         return new TestTask[]{milk, assignment, movie, jog, holiday, dinner};
     }
 
-    public TaskManager getTypicalAddressBook(){
+    public TaskManager getTypicalTaskManager(){
         TaskManager ab = new TaskManager();
         loadTaskManagerWithSampleData(ab);
         return ab;
