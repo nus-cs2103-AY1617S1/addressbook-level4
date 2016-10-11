@@ -13,7 +13,8 @@ import javafx.scene.control.Label;
  */
 
 public class CMDoTaskBox extends HBox {
-	private static final double ZERO_OPACITY = 0.0;
+	//private static final double ZERO_OPACITY = 0.0;
+	private static final String FXML = "CMDoTaskBox.fxml";
 	
 	//FXML
 	@FXML	
@@ -63,7 +64,7 @@ public class CMDoTaskBox extends HBox {
 	
 	private void loadFXML() {
 		try {
-			FXMLLoader cmdoLoader = new FXMLLoader(getClass().getResource("CMDoTaskBox.fxml"));
+			FXMLLoader cmdoLoader = new FXMLLoader(getClass().getResource(FXML));
 			cmdoLoader.setRoot(this);
 			cmdoLoader.setController(this);
 			cmdoLoader.load();
