@@ -70,6 +70,10 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 > * All command keywords are not case-sensitive.
 > * For parameters relating to days, they are context-sensitive. For example, typing "Fri" means the next Friday from *today*.
 
+> **Date Format**
+> * Accepted date formats: 18 Sep, 18 September, 18 Sep 2016, Sep 18 2016
+> * Accepted time formats: 5pm, 5:01pm, 5:01:59pm, 17:00
+
 > **Tasks**<br>
 > A task will have a name, and may be categorized as follows:
 > * **Floating Task** has no additional details
@@ -96,17 +100,20 @@ Opens a new window displaying this document.
 
 #### Create a new task/event: `add`
 Adds a new task or event to the task list.<br>
-Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
+Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
 
 > Creates a new task with the name given. The particulars of the task may vary:
 > * If it is a normal task, a deadline should be set.
 > * If it is a task with allocated timeslot, a deadline, start time and end time should be set.
 > * If it is an event, the start time and end time should be set.
-> The repeat frequency can be `daily`, `weekly`, or `monthly`.<br>
-> The repeat count will represent how many times the recurrence will occur.<br>
+> The recurrence of a task can be set with the `repeat` keyword.<br>
+> The repeat pattern can be `daily`, `weekly`, or `monthly`.<br>
+> The repeat frequency will represent how many times the recurrence will occur.<br>
 > 
 > Tags allow you to organize your tasks by different categories (for example,
 > you may use tags to prioritize certain tasks over others).
+>
+> *NOTE*: `add` command only accepts one task at a time.
 
 Examples:
 * `add "Hello World!"`
@@ -193,17 +200,17 @@ Examples:
 
 #### Change the details of a task/event: `update`
 Updates a task or event.<br>
-Format: `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
+Format: `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN COUNT] [tag "TAG"...]`
 
 > Updates the specified task with the given information.<br>
 > The index refers to the index number shown in the most recent listing.<br>
 > The index **must be a positive integer** 1, 2, 3, ...<br>
-> The repeat frequency can be `daily`, `weekly`, or `monthly`.<br>
-> The repeat count will represent how many times the recurrence will occur.<br>
+> The recurrence of a task can be set with the `repeat` keyword.<br>
+> The repeat pattern can be `daily`, `weekly`, or `monthly`.<br>
+> The repeat frequency will represent how many times the recurrence will occur.<br>
 >
 > To remove any details for the task, prefix the argument keyword with `remove`.<br>
 > For example: `update 1 removeby` will remove the deadline.
->> `removetag` removes only the following tags enclosed in `" "`.
   
 Examples: 
 * `list`<br>
@@ -265,6 +272,14 @@ Format: `clear`
 > Since this is a potentially destructive action, a confirmation would be shown 
 > before the tasks are removed.
 
+#### Switch to a different task list: `switchlist`
+Switches to a different task list.<br>
+
+Format: `switchlist FILENAME`
+
+> If the file does not exist, then TaSc will assume that you want to create a new 
+> task list, and will create an empty file for you automatically.
+
 #### Relocate the data storage location: `relocate`
 Designates a new data storage location.<br>
 
@@ -273,6 +288,8 @@ Format: `relocate PATH`
 #### Autocomplete and suggestions
 Suggested command keywords, dates, sorting order, and tags are shown as you type.
 Use the `tab` key to autocomplete using the suggestion.
+
+> <img src="images/Ui-Autocomplete.png" width="600">
 
 #### Saving the Data
 Changes are automatically saved after each command that changes the data.
