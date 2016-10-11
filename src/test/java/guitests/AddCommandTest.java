@@ -3,10 +3,10 @@ package guitests;
 import guitests.guihandles.PersonCardHandle;
 import org.junit.Test;
 
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.logic.commands.AddCommand;
+import seedu.tasklist.testutil.TestPerson;
+import seedu.tasklist.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
@@ -26,8 +26,10 @@ public class AddCommandTest extends AddressBookGuiTest {
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
         //add duplicate person
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        personToAdd = td.hoon;
+        commandBox.runCommand(personToAdd.getAddCommand());
+        assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, personToAdd.toString()));
+        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
         assertTrue(personListPanel.isListMatching(currentList));
 
         //add to empty list

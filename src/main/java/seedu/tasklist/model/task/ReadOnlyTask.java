@@ -40,12 +40,14 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Start time: ")
+                .append(" Phone: ")
                 .append(getStartTime())
-                .append(" End time: ")
+                .append(" Email: ")
                 .append(getEndTime())
                 .append(" Priority: ")
-                .append(getPriority());
+                .append(getPriority())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 
