@@ -12,16 +12,14 @@ import seedu.todo.model.ErrorBag;
 import seedu.todo.model.tag.Tag;
 
 public class ValidationTask implements ImmutableTask {
-    private static final String START_AFTER_END_ERROR = "startTime is after endTime";
     private static final String TITLE = "title";
     private static final String START_TIME = "startTime";
     private static final String END_TIME = "endTime";
 
-    private static final String ONLY_ONE_TIME_DEFINED_ERROR = "Only field=%s is defined";
-
+    private static final String ONLY_ONE_TIME_ERROR_MESSAGE = "Only field=%s is defined";
     private static final String TITLE_EMPTY_ERROR_MESSAGE = "Title should not be a empty string.";
-
     private static final String VALIDATION_ERROR_MESSAGE = "Model validation failed";
+    private static final String START_AFTER_END_ERROR_MESSAGE = "startTime is after endTime";
 
     private ErrorBag errors;
 
@@ -81,15 +79,15 @@ public class ValidationTask implements ImmutableTask {
         // Both time fields must be declared
         if (startTime != null) {
             String field = START_TIME;
-            errors.put(field, String.format(ONLY_ONE_TIME_DEFINED_ERROR, field));
+            errors.put(field, String.format(ONLY_ONE_TIME_ERROR_MESSAGE, field));
         }
         if (endTime != null) {
             String field = END_TIME;
-            errors.put(field, String.format(ONLY_ONE_TIME_DEFINED_ERROR, field));
+            errors.put(field, String.format(ONLY_ONE_TIME_ERROR_MESSAGE, field));
         }
 
         if (startTime.isAfter(endTime)) {
-            errors.put(START_TIME, START_AFTER_END_ERROR);
+            errors.put(START_TIME, START_AFTER_END_ERROR_MESSAGE);
         }
     }
 
