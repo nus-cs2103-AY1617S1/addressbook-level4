@@ -3,19 +3,14 @@ package seedu.jimi.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
-import javafx.collections.transformation.FilteredList;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.exceptions.IllegalValueException;
-import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
-import seedu.jimi.model.task.UniqueTaskList;
-import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * 
@@ -27,8 +22,10 @@ public class EditCommand extends Command {
     
     public static final String COMMAND_WORD = "edit";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task/event in Jimi. \n" + "Example: "
-            + COMMAND_WORD + " 2 by 10th July at 12 pm";
+    public static final String MESSAGE_USAGE = 
+            COMMAND_WORD + ": Edits an existing task/event in Jimi. \n"
+            + "Parameters: INDEX(must be a positive integer) EDITS_TO_MAKE\n" 
+            + "Example: " + COMMAND_WORD + " 2 clear trash";
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Updated task details: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
