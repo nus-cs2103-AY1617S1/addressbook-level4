@@ -16,8 +16,9 @@ public class ActivityCard extends UiPart{
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label tags;
+// TODO: re-instate tags or equivalent when implementation is complete    
+//    @FXML
+//    private Label tags;
 
     private Activity activity;
     private int displayedIndex;
