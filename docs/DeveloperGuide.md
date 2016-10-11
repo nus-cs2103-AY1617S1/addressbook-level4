@@ -81,6 +81,7 @@ This guide contains all necessary information for both new and experienced contr
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
+
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -104,8 +105,9 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the **`Logic`** component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
+
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
@@ -113,14 +115,15 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.
+>Note how the **`Model`** simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+ instead of asking the **`Storage`** to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
+> Note how the event is propagated through the `EventsCenter` to the **`Storage`** and **`UI`** without **`Model`** having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
 
@@ -136,14 +139,14 @@ The UI consists of a `MainWindow` that is made up of parts, e.g. `CommandBox`, `
 `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+The **`UI`** component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+The **`UI`** component
+* Executes user commands using the **`Logic`** component.
+* Binds itself to some data in the **`Model`** so that the UI can auto-update when data in the **`Model`** change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 <img src="images/UiComponentParts.png" width="600"><br>
@@ -166,18 +169,19 @@ The `HelpWindow` is a window separate from the `MainWindow`. It shows our produc
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
+1. **`Logic`** uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the **`Model`** (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Given below is the Sequence Diagram for interactions within the **`Logic`** component for the `execute("delete 1")`
  API call.<br>
+ 
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
 **`Logic Manager` Class:** 
 
-The `Logic Manager` class exposes the functionality of the `Logic` component, executing the input string containing the command passed from the `UI` component, and passing the result to `Model`. First, it passes the command string to the `Parser` class to get a `Command` object. Then, it executes the `Command` to produce a `CommandResult`. This `CommandResult` is then passed back to the `UI` component.
+The `Logic Manager` class exposes the functionality of the **`Logic`** component, executing the input string containing the command passed from the **`UI`** component, and passing the result to **`Model`**. First, it passes the command string to the `Parser` class to get a `Command` object. Then, it executes the `Command` to produce a `CommandResult`. This `CommandResult` is then passed back to the **`UI`** component.
 
 **`Parser` Class:**
 
@@ -185,7 +189,7 @@ The `Parser` class parses the given input string and returns the corresponding `
     
 **`Command` Class:**
 
-The `Command` class takes input arguments from the `Parser`class, and produces a `CommandResult` based on the input. There are multiple `Command` subclasses, which takes different input parameters and produces different `CommandResult`s. The `Logic` class executes `Command`s to change the data in `Model` according to the command type and input arguments.
+The `Command` class takes input arguments from the `Parser`class, and produces a `CommandResult` based on the input. There are multiple `Command` subclasses, which takes different input parameters and produces different `CommandResult`s. The **`Logic`** class executes `Command`s to change the data in **`Model`** according to the command type and input arguments.
 
 ### Model component
 
@@ -193,7 +197,7 @@ The `Command` class takes input arguments from the `Parser`class, and produces a
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
-The `Model`
+The **`Model`**
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
@@ -201,9 +205,9 @@ The `Model`
 * does not depend on any of the other three components.
     * but other components are heavily dependent on this component.
 
-**`Model` Interface:**
+****`Model`** Interface:**
 
-The `Model` interface allows you to request for any model-related operations, such as retrieving and modifying task
+The **`Model`** interface allows you to request for any model-related operations, such as retrieving and modifying task
 in the task list, without having to know anything about the implementation of the `ModelManager` class.
 
 Notable APIs
@@ -219,10 +223,10 @@ void | `resetTaskListFilter()`: Resets all filters that was utilized to view onl
 
 **`ModelManager` Class:**
 
-The `ModelManager` class implements the `Model` interface, and provides all the services and functionality
-specifed in the `Model` interface. 
+The `ModelManager` class implements the **`Model`** interface, and provides all the services and functionality
+specifed in the **`Model`** interface. 
 
-Other components should reference this class indirectly by using the `Model` interface. You should not
+Other components should reference this class indirectly by using the **`Model`** interface. You should not
 directly use this class outside the model component.
 
 **`ReadOnlyTaskList` Interface:**
@@ -287,14 +291,14 @@ The `UniqueTaskList` class provides a task list with no duplicate tasks.
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
-The `Storage` component
+The **`Storage`** component
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
-* depends on `Model` component, but `Logic` and `UI` components depend on it.
+* depends on **`Model`** component, but **`Logic`** and **`UI`** components depend on it.
 
-**`Storage` Interface:**
+****`Storage`** Interface:**
 
-The `Storage` interface allows you to request for any storage-related operations, such as reading and saving user's preferences and tasklist.
+The **`Storage`** interface allows you to request for any storage-related operations, such as reading and saving user's preferences and tasklist.
 
 Notable APIs
 
@@ -307,11 +311,11 @@ void | `saveTaskList(ReadOnlyTaskList taskList)`: Saves the tasklist.
 
 **`StorageManager` Class:**
 
-The `StorageManager` class implements the `Storage` interface, and provides all the services and functionality
-specified in the `Storage` interface. 
+The `StorageManager` class implements the **`Storage`** interface, and provides all the services and functionality
+specified in the **`Storage`** interface. 
 
-Other components should reference this class indirectly by using the `Storage` interface. You should not
-directly use this class outside the `Storage` component.
+Other components should reference this class indirectly by using the **`Storage`** interface. You should not
+directly use this class outside the **`Storage`** component.
 
 **`TaskListStorage` Interface:**
 

@@ -99,9 +99,9 @@ Adds a new task or event to the task list.<br>
 Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
 
 > Creates a new task with the name given. The particulars of the task may vary:
->	* If it is a normal task, a deadline should be set.
->	* If it is a task with allocated timeslot, a deadline, start time and end time should be set.
->	* If it is an event, the start time and end time should be set.
+> * If it is a normal task, a deadline should be set.
+> * If it is a task with allocated timeslot, a deadline, start time and end time should be set.
+> * If it is an event, the start time and end time should be set.
 > The repeat frequency can be `daily`, `weekly`, or `monthly`.<br>
 > The repeat count will represent how many times the recurrence will occur.<br>
 > 
@@ -131,6 +131,7 @@ Format: `list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"
 > and upcoming events.
 
 > <img src="images/Ui-List.png" width="600">
+
 > <img src="images/Ui-List2.png" width="600">
 
 Examples:
@@ -162,7 +163,7 @@ the current task list results.<br>
 Format: `show [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...]`
 
 > Operates on the current task list. If you wish to filter from all tasks, use `list` instead.  
->	* Matching results stay on the current task list at their respective positions, while other tasks/events are hidden.
+> * Matching results stay on the current task list at their respective positions, while other tasks/events are hidden.
 
 Examples:
 * `list`<br>
@@ -183,7 +184,7 @@ Hides tasks/events with specified type, date or tags from the current task list 
 Format: `hide [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...]`
 
 > Operates on the current task list. If you wish to filter from all tasks, use `list` instead.  
->	* Matching tasks/events will be hidden from the task list results.
+> * Matching tasks/events will be hidden from the task list results.
 
 Examples:
 * `list`<br>
