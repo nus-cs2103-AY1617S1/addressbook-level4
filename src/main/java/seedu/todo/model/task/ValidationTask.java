@@ -16,12 +16,12 @@ public class ValidationTask implements ImmutableTask {
     private static final String START_TIME = "startTime";
     private static final String END_TIME = "endTime";
 
-    private static final String ONLY_ONE_TIME_ERROR_MESSAGE = "Only field=%s is defined";
+    private static final String ONLY_ONE_TIME_ERROR_MESSAGE = "Field=%s is not defined";
     private static final String TITLE_EMPTY_ERROR_MESSAGE = "Title should not be a empty string.";
     private static final String VALIDATION_ERROR_MESSAGE = "Model validation failed";
     private static final String START_AFTER_END_ERROR_MESSAGE = "startTime is after endTime";
 
-    private ErrorBag errors;
+    private ErrorBag errors = new ErrorBag();
 
     private String title;
     private String description;
@@ -56,11 +56,9 @@ public class ValidationTask implements ImmutableTask {
     }
 
     /**
-     * Validates the task by checking the individuals are valid.
-     * 
-     * @return whether the task is valid or not
+     * Validates the task by checking the individual fields are valid.
      */
-    public void isValidTask() throws ValidationException {
+    public void validate() throws ValidationException {
         isValidTime();
         isValidTitle();
         errors.validate(VALIDATION_ERROR_MESSAGE);
@@ -77,11 +75,11 @@ public class ValidationTask implements ImmutableTask {
             return;
         }
         // Both time fields must be declared
-        if (startTime != null) {
+        if (startTime == null) {
             String field = START_TIME;
             errors.put(field, String.format(ONLY_ONE_TIME_ERROR_MESSAGE, field));
         }
-        if (endTime != null) {
+        if (endTime == null) {
             String field = END_TIME;
             errors.put(field, String.format(ONLY_ONE_TIME_ERROR_MESSAGE, field));
         }
