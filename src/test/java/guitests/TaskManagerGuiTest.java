@@ -8,12 +8,13 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.AddressBook;
-import seedu.address.model.item.ReadOnlyItem;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestItems;
+
+import seedu.taskmanager.TestApp;
+import seedu.taskmanager.commons.core.EventsCenter;
+import seedu.taskmanager.model.AddressBook;
+import seedu.taskmanager.model.item.ReadOnlyItem;
+import seedu.taskmanager.testutil.TestUtil;
+import seedu.taskmanager.testutil.TypicalTestItems;
 
 import java.util.concurrent.TimeoutException;
 
@@ -39,7 +40,7 @@ public abstract class TaskManagerGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle personListPanel;
+    protected TaskListPanelHandle personListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -97,7 +98,7 @@ public abstract class TaskManagerGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyItem person, PersonCardHandle card) {
+    public void assertMatching(ReadOnlyItem person, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndItem(card, person));
     }
 

@@ -2,17 +2,17 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.item.Name;
-import seedu.address.testutil.TestItem;
-import seedu.address.testutil.TestUtil;
+import seedu.taskmanager.commons.exceptions.IllegalValueException;
+import seedu.taskmanager.model.item.Name;
+import seedu.taskmanager.testutil.TestItem;
+import seedu.taskmanager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_ITEM_SUCCESS;
-import static seedu.address.logic.commands.EditCommand.MESSAGE_USAGE;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
+import static seedu.taskmanager.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_EDIT_ITEM_SUCCESS;
+import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_USAGE;
 
 public class EditCommandTest extends TaskManagerGuiTest {
 

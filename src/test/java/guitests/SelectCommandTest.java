@@ -2,10 +2,10 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.item.ReadOnlyItem;
+import seedu.taskmanager.model.item.ReadOnlyItem;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
+import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 
 
 public class SelectCommandTest extends TaskManagerGuiTest {
