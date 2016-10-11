@@ -26,8 +26,8 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getDescription().equals(this.getDescription()) // state checks here onwards
-                && other.getTime().equals(this.getTime())
                 && other.getPriority().equals(this.getPriority())
+                && other.getTime().equals(this.getTime())
                 && other.getVenue().equals(this.getVenue()));
     }
 
@@ -37,10 +37,10 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getDescription())
+                .append(" Priority: ")
+                .append(getPriority())        
                 .append(" Time: ")
                 .append(getTime())
-                .append(" Priority: ")
-                .append(getPriority())
                 .append(" Venue: ")
                 .append(getVenue())
                 .append(" Tags: ");
