@@ -33,7 +33,7 @@ public class TextAreaResizerUtil {
 
     private void setupTextArea(TextArea textArea) {
         ChangeListener<Object> changeListener = (observable, oldValue, newValue) -> {
-            double height = getCorrectedHeight() + 10;
+            double height = getCorrectedHeight();
             TimerTask action = new TimerTask() {
                 @Override
                 public void run() {
@@ -58,6 +58,6 @@ public class TextAreaResizerUtil {
             singleLineHeight = rawHeight;
         }
         int numRows = (int) Math.ceil(rawHeight/singleLineHeight);
-        return singleLineHeight * numRows;
+        return singleLineHeight * numRows + 10; //10 is added to account for the border of textarea
     }
 }
