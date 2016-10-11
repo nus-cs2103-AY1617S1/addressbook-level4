@@ -45,7 +45,9 @@ public class Schedule {
             try {
                 startEpochSecond = DateTimeParser.getUnixTime(start);
             } catch (DateTimeParser.IllegalDateTimeException e) {
-                throw new IllegalValueException(ERROR_BAD_START_DATETIME + ", '" + start + "'");
+                throw new IllegalValueException(
+                        MESSAGE_SCHEDULE_CONSTRAINTS + "\n" +
+                        ERROR_BAD_START_DATETIME + ", '" + start + "'");
             }
 
             if (endingIsDuration) {
