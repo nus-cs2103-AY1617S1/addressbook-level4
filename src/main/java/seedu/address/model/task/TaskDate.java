@@ -21,7 +21,7 @@ public class TaskDate {
     
     //For sake of testing, not implemeted in main app
     public TaskDate(String inputDate) {
-        this.date = new com.joestelmach.natty.Parser().parse(inputDate).get(0).getDates().get(0).getTime();
+        this.date = new com.joestelmach.natty.Parser().parse(inputDate).get(0).getDates().get(0).getTime(); 
     }
     
     public String getFormattedDate() {

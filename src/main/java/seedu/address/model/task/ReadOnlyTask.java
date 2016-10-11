@@ -40,11 +40,11 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        if(getStartDate().getDate()!=-1){
+        if(getStartDate().getDate() != TaskDate.DATE_NOT_PRESENT){
         	builder.append(" From: ");
         	builder.append(getStartDate().getFormattedDate());
         }
-        if(getEndDate().getDate()!=-1){
+        if(getEndDate().getDate() != TaskDate.DATE_NOT_PRESENT){
         	builder.append(" To: ");
         	builder.append(getEndDate().getFormattedDate());
         }
