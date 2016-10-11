@@ -16,7 +16,7 @@ import seedu.unburden.storage.Storage;
 import seedu.unburden.storage.StorageManager;
 import seedu.unburden.storage.XmlTaskListStorage;
 import seedu.unburden.testutil.EventsCollector;
-import seedu.unburden.testutil.TypicalTestPersons;
+import seedu.unburden.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 
@@ -60,7 +60,7 @@ public class StorageManagerTest {
 
     @Test
     public void taskListReadSave() throws Exception {
-        ListOfTask original = new TypicalTestPersons().getTypicalListOfTask();
+        ListOfTask original = new TypicalTestTasks().getTypicalListOfTask();
         storageManager.saveTaskList(original);
         ReadOnlyListOfTask retrieved = storageManager.readTaskList().get();
         assertEquals(original, new ListOfTask(retrieved));

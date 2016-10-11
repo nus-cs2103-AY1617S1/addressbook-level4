@@ -8,7 +8,7 @@ import seedu.unburden.commons.util.FileUtil;
 import seedu.unburden.commons.util.XmlUtil;
 import seedu.unburden.model.ListOfTask;
 import seedu.unburden.storage.XmlSerializableTaskList;
-import seedu.unburden.testutil.AddressBookBuilder;
+import seedu.unburden.testutil.TaskListBuilder;
 import seedu.unburden.testutil.TestUtil;
 
 import javax.xml.bind.JAXBException;
@@ -86,7 +86,7 @@ public class XmlUtilTest {
         assertEquals((new ListOfTask(dataToWrite)).toString(),(new ListOfTask(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        AddressBookBuilder builder = new AddressBookBuilder(new ListOfTask());
+        TaskListBuilder builder = new TaskListBuilder(new ListOfTask());
         dataToWrite = new XmlSerializableTaskList(builder.withTask(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);

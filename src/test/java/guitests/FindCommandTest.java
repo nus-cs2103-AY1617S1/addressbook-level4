@@ -3,7 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.unburden.commons.core.Messages;
-import seedu.unburden.testutil.TestPerson;
+import seedu.unburden.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
@@ -31,7 +31,7 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestPerson... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " persons listed!");

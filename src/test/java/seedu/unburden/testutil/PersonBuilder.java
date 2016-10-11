@@ -9,10 +9,10 @@ import seedu.unburden.model.task.*;
  */
 public class PersonBuilder {
 
-    private TestPerson person;
+    private TestTask person;
 
     public PersonBuilder() {
-        this.person = new TestPerson();
+        this.person = new TestTask();
     }
 
     public PersonBuilder withName(String name) throws IllegalValueException {
@@ -27,7 +27,7 @@ public class PersonBuilder {
         return this;
     }
 
-    public TestPerson build() {
+    public TestTask build() {
         return this.person;
     }
 

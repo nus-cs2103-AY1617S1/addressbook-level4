@@ -14,7 +14,7 @@ import seedu.unburden.commons.core.EventsCenter;
 import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.testutil.TestUtil;
-import seedu.unburden.testutil.TypicalTestPersons;
+import seedu.unburden.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -32,7 +32,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -40,7 +40,7 @@ public abstract class AddressBookGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle personListPanel;
+    protected TaskListPanelHandle personListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -78,7 +78,7 @@ public abstract class AddressBookGuiTest {
      */
     protected ListOfTask getInitialData() {
         ListOfTask ab = TestUtil.generateEmptyListOfTask();
-        TypicalTestPersons.loadListOfTaskWithSampleData(ab);
+        TypicalTestTasks.loadListOfTaskWithSampleData(ab);
         return ab;
     }
 
@@ -97,8 +97,8 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyTask person, PersonCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, person));
+    public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, person));
     }
 
     /**

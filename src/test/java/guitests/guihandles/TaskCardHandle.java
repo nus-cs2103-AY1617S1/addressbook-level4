@@ -8,12 +8,12 @@ import seedu.unburden.model.task.ReadOnlyTask;
 /**
  * Provides a handle to a person card in the person list panel.
  */
-public class PersonCardHandle extends GuiHandle {
+public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
 
     private Node node;
 
-    public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -26,14 +26,14 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName().fullName);
+    public boolean isSameTask(ReadOnlyTask task){
+        return getFullName().equals(task.getName().fullName);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
+        if(obj instanceof TaskCardHandle) {
+            TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName()); //TODO: compare the rest
         }
         return super.equals(obj);

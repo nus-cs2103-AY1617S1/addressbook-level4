@@ -7,11 +7,11 @@ import seedu.unburden.model.task.*;
 /**
  *
  */
-public class TypicalTestPersons {
+public class TypicalTestTasks {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestPersons() {
+    public TypicalTestTasks() {
         try {
             alice =  new PersonBuilder().withName("Alice Pauline").withTags("friends").build();
             benson = new PersonBuilder().withName("Benson Meier").withTags("owesMoney", "friends").build();
@@ -40,13 +40,13 @@ public class TypicalTestPersons {
             ab.addTask(new Task(elle));
             ab.addTask(new Task(fiona));
             ab.addTask(new Task(george));
-        } catch (UniqueTaskList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
-    public TestPerson[] getTypicalPersons() {
-        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+    public TestTask[] getTypicalPersons() {
+        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public ListOfTask getTypicalListOfTask(){

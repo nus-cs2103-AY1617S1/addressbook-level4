@@ -12,7 +12,7 @@ import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.ReadOnlyListOfTask;
 import seedu.unburden.model.task.Task;
 import seedu.unburden.storage.XmlTaskListStorage;
-import seedu.unburden.testutil.TypicalTestPersons;
+import seedu.unburden.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 
@@ -63,7 +63,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
+        TypicalTestTasks td = new TypicalTestTasks();
         ListOfTask original = td.getTypicalListOfTask();
         XmlTaskListStorage xmlTaskListStorage = new XmlTaskListStorage(filePath);
 
@@ -73,14 +73,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new ListOfTask(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestPersons.hoon));
-        original.removePerson(new Task(TypicalTestPersons.alice));
+        original.addTask(new Task(TypicalTestTasks.hoon));
+        original.removePerson(new Task(TypicalTestTasks.alice));
         xmlTaskListStorage.saveTaskList(original, filePath);
         readBack = xmlTaskListStorage.readTaskList(filePath).get();
         assertEquals(original, new ListOfTask(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestPersons.ida));
+        original.addTask(new Task(TypicalTestTasks.ida));
         xmlTaskListStorage.saveTaskList(original); //file path not specified
         readBack = xmlTaskListStorage.readTaskList().get(); //file path not specified
         assertEquals(original, new ListOfTask(readBack));
