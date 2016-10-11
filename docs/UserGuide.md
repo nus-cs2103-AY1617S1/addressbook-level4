@@ -7,14 +7,14 @@
 * [Features](#features)
     * [Viewing help : `help`](#viewing-help--help)
     * [Create a new task/event: `add`](#create-a-new-taskevent-add)
-    * [List all tasks/events with specified conditions: `list`](#list-all-tasksevents-with-specified-conditions-list)
-    * [Finding tasks/events which match keywords: `find`](#finding-tasksevents-which-match-keywords-find)
-    * [Show only listing results with specified type, date or tags: `show`](#show-only-listing-results-with-specified-type-date-or-tags-show)
-    * [Hide listing results with specified type, date or tags: `hide`](#hide-listing-results-with-specified-type-date-or-tags-hide)
     * [Change the details of a task/event: `update`](#change-the-details-of-a-taskevent-update)
     * [Delete a task/event: `delete`](#delete-a-taskevent-delete)
     * [Mark a task as complete: `complete`](#mark-a-task-as-complete-complete)
     * [Undo the last action: `undo`](#undo-the-last-action-undo)
+    * [List all tasks/events with specified conditions: `list`](#list-all-tasksevents-with-specified-conditions-list)
+    * [Finding tasks/events which match keywords: `find`](#finding-tasksevents-which-match-keywords-find)
+    * [Show only listing results with specified type, date or tags: `show`](#show-only-listing-results-with-specified-type-date-or-tags-show)
+    * [Hide listing results with specified type, date or tags: `hide`](#hide-listing-results-with-specified-type-date-or-tags-hide)
     * [Clearing all data: `clear`](#clearing-all-data-clear)
     * [Switch to a different task list: `switchlist`](#switch-to-a-different-task-list-switchlist)
     * [Relocate the data storage location: `relocate`](#relocate-the-data-storage-location-relocate)
@@ -125,6 +125,72 @@ Examples:
 
 > <img src="images/Ui-Add.png" width="600">
 
+#### Change the details of a task/event: `update`
+Updates a task or event.<br>
+Format: `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN COUNT] [tag "TAG"...]`
+
+> Updates the specified task with the given information.<br>
+> The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...<br>
+> The recurrence of a task can be set with the `repeat` keyword.<br>
+> The repeat pattern can be `daily`, `weekly`, or `monthly`.<br>
+> The repeat frequency will represent how many times the recurrence will occur.<br>
+>
+> To remove any details for the task, prefix the argument keyword with `remove`.<br>
+> For example: `update 1 removeby` will remove the deadline.
+  
+Examples: 
+* `list`<br>
+  `update 1 name "Submit Proposal" by 23 Sep 3pm.`<br>
+  Update the details of the first task in the list.<br>
+* `update 2 from 23 Sep 3pm to 5pm`
+* `update 1 by 20 Sep 5pm, tag "Not that important"`
+* `update 3 removetag "Important"`
+
+#### Delete a task/event: `delete`
+Deletes a task/event.<br>
+Format: `delete INDEX`
+
+> Delete a task/event.<br>
+> The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...<br>
+
+Examples:
+* `list`<br>
+  `delete 1`<br>
+  Delete the first task in the list.
+
+#### Mark a task as complete: `complete`
+Marks a task as completed.<br>
+
+Format: `complete INDEX`
+
+> When you are done with the task, you can mark it as complete instead
+> of deleting it.<br>
+>> Marking a task as completed will also hide it from the current listing results.<br>
+>
+> The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...<br>
+
+> <img src="images/Ui-Complete.png" width="600">
+
+Example:
+* `list`<br>
+  `complete 1`<br>
+  Mark the first task in the list as complete.
+
+#### Undo the last action: `undo`
+To undo any last action that modifies the task database (e.g. deleting task).<br>
+Format: `undo [last STEPS]`
+
+> You can undo multiple steps by specifying the number of steps to undo.
+
+Example:
+* `undo`<br>
+  Undo the most recent action.
+* `undo last 5`<br>
+  Undo the last 5 actions.
+
 #### List all tasks/events with specified conditions: `list`
 Displays a list of all tasks/events.<br>
 
@@ -199,71 +265,6 @@ Examples:
   `hide completed events from 24 Sep, tag "CS2010"`
   `hide tag "Ungraded"`
 
-#### Change the details of a task/event: `update`
-Updates a task or event.<br>
-Format: `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN COUNT] [tag "TAG"...]`
-
-> Updates the specified task with the given information.<br>
-> The index refers to the index number shown in the most recent listing.<br>
-> The index **must be a positive integer** 1, 2, 3, ...<br>
-> The recurrence of a task can be set with the `repeat` keyword.<br>
-> The repeat pattern can be `daily`, `weekly`, or `monthly`.<br>
-> The repeat frequency will represent how many times the recurrence will occur.<br>
->
-> To remove any details for the task, prefix the argument keyword with `remove`.<br>
-> For example: `update 1 removeby` will remove the deadline.
-  
-Examples: 
-* `list`<br>
-  `update 1 name "Submit Proposal" by 23 Sep 3pm.`<br>
-  Update the details of the first task in the list.<br>
-* `update 2 from 23 Sep 3pm to 5pm`
-* `update 1 by 20 Sep 5pm, tag "Not that important"`
-* `update 3 removetag "Important"`
-
-#### Delete a task/event: `delete`
-Deletes a task/event.<br>
-Format: `delete INDEX`
-
-> Delete a task/event.<br>
-> The index refers to the index number shown in the most recent listing.<br>
-> The index **must be a positive integer** 1, 2, 3, ...<br>
-
-Examples:
-* `list`<br>
-  `delete 1`<br>
-  Delete the first task in the list.
-
-#### Mark a task as complete: `complete`
-Marks a task as completed.<br>
-
-Format: `complete INDEX`
-
-> When you are done with the task, you can mark it as complete instead
-> of deleting it.<br>
->> Marking a task as completed will also hide it from the current listing results.<br>
->
-> The index refers to the index number shown in the most recent listing.<br>
-> The index **must be a positive integer** 1, 2, 3, ...<br>
-
-> <img src="images/Ui-Complete.png" width="600">
-
-Example:
-* `list`<br>
-  `complete 1`<br>
-  Mark the first task in the list as complete.
-
-#### Undo the last action: `undo`
-To undo any last action that modifies the task database (e.g. deleting task).<br>
-Format: `undo [last STEPS]`
-
-> You can undo multiple steps by specifying the number of steps to undo.
-
-Example:
-* `undo`<br>
-  Undo the most recent action.
-* `undo last 5`<br>
-  Undo the last 5 actions.
 
 #### Clearing all data: `clear`
 Removes all tasks from the data storage file.<br>
