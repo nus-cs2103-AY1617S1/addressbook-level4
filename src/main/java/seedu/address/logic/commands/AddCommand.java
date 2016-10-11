@@ -1,12 +1,13 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
+import java.util.Date;
 
-import java.util.HashSet;
-import java.util.Set;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.DateParser;
+import seedu.address.model.item.Task;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
+import seedu.address.model.item.RecurrenceRate;
 
 /**
  * Adds a person to the address book.
@@ -15,46 +16,78 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List. "
+            + "Parameters: NAME [rank PRIORITY_VALUE]\n" + "Example: " + COMMAND_WORD
+            + " read Harry Potter and the Akshay rank 1";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String TOOL_TIP = "add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]";
 
-    private final Person toAdd;
+    public static final String MESSAGE_DUPLICATE_FLOATING_TASK = "This task already exists in the task manager";
+
+    public static final String MESSAGE_SUCCESS = "New item added: %1$s";
+
+    private Task toAdd;
 
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException if any of the raw values are invalid
+     * @throws IllegalValueException
+     *             if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
+    public AddCommand(String taskName) {
+        this.toAdd = new Task(new Name(taskName));
+    }
+
+    public AddCommand(String taskNameString, String startDateString, String endDateString, String recurrenceRateString,
+            String timePeriodString, String priorityString) throws IllegalValueException {
+        
+    	Name taskName = new Name(taskNameString);
+        Date startDate = null;
+        Date endDate = null;
+        RecurrenceRate recurrenceRate;
+        Priority priority;
+
+        if (startDateString != null) {
+            DateParser dp = new DateParser(startDateString);
+            startDate = dp.parseDate();
         }
-        this.toAdd = new Person(
-                new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
-                new UniqueTagList(tagSet)
-        );
+
+        if (endDateString != null) {
+            DateParser dp = new DateParser(endDateString);
+            endDate = dp.parseDate();
+        }
+
+        if (recurrenceRateString == null && timePeriodString == null) {
+            recurrenceRate = new RecurrenceRate();
+        } else if (recurrenceRateString == null) {
+            recurrenceRate = new RecurrenceRate(timePeriodString);
+        } else {
+            recurrenceRate = new RecurrenceRate(recurrenceRateString, timePeriodString);
+        }
+
+        switch (priorityString) {
+        case ("low"):
+        case ("l"):
+            priority = Priority.LOW;
+            break;
+        case ("high"):
+        case ("h"):
+            priority = Priority.HIGH;
+            break;
+        case ("medium"):
+        default:
+            priority = Priority.MEDIUM;
+        }
+            
+        this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-            model.addPerson(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniquePersonList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
-        }
+        model.addTask(toAdd);
 
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
 }
