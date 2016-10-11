@@ -15,4 +15,8 @@ public class FloatingTask extends Task implements FavoritableTask {
 	
 	
 	
+	@Override
+	public String toString() {
+		return String.format("[Floating Task][Description: %s]", description);
+	}
 }

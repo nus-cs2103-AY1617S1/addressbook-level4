@@ -70,7 +70,7 @@ public class DeleteTaskCommandTest {
 		DeleteTaskCommand command = new DeleteTaskCommand(2);
 		command.setData(model);
 		
-		String expected = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, "Task 1");
+		String expected = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, "[Floating Task][Description: Task 1]");
 		assertCommandFeedback(command, expected);
 	}
 
