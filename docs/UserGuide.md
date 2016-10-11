@@ -40,6 +40,7 @@ Adds a task to TARS<br>
 Format: `add <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG>[, <TAG>, <TAG>,...] -r <NUM_TIMES> <FREQUENCY>` 
  
 > Words in `UPPER_CASE` are the parameters. Other than `<TASK>`, all parameters are optional. 
+> You can add a floating task (i.e. tasks without date or time).
 > Order of parameters are not fixed.
 >
 > Time is in a 24 hour format (e.g. `1330`) 
@@ -49,8 +50,10 @@ Format: `add <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <T
 Examples: 
 * `add Meet John Doe -dt 26/09/2016 0900 to 26/09/2016 1030 -t CATCH UP`
 * `add Complete CS2103 Quiz -dt 23/09/2016 -p h, -t Quiz -t CS2103, -r 13 EVERY WEEK`
+* `add Floating Task`
 
-#### Reserving timeslots for a task : `rsv`
+#### Reserving timeslots for a task : `rsv` 
+*[Under Development]* <br>
 Reserves one or more timeslot for a task<br>
 Format: `rsv <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
 
@@ -61,7 +64,8 @@ Format: `rsv <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME
 Examples:
 * `rsv Meet John Doe -dt 26/09/2016 0900 to 1030, 28/09/2016 1000 to 1130`
 
-#### Editing a reserved timeslot : `rsv -e`
+#### Editing a reserved timeslot : `rsv -e` 
+*[Under Development]* <br>
 Renames a task with reserved time slots or Adds/Deletes a reserved timeslot for a task <br>
 Format: `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME>`
 
@@ -78,6 +82,7 @@ Examples:
 * `rsv -e 1 -n -dta 09/10/2016 1100 to 1230 -dtr 05/10/2016 1000 to 1200`
 
 #### Deleting a task with reserved timeslots : `rsv -d`
+*[Under Development]* <br>
 Deletes a task with all its reserved time slots <br>
 Format: `rsv -d <INDEX>`
 
@@ -89,6 +94,7 @@ Examples:
 * `rsv -d 5`
 
 #### Confirming a reserved timeslot : `confirm`
+*[Under Development]* <br>
 Confirms a reserved timeslot for a particular tasks and removed all the other reserved time slots. <br>
 Format: `confirm <INDEX_TASK> <INDEX_TIMESLOT>`
 
@@ -117,6 +123,7 @@ Examples:
 * `edit 3 -n Meet John Tan -dt 08/10/2016 1000 to 1200 -p H -t friend`
 
 #### Editing a task by appending details to a task : `edit -ap`
+*[Under Development]* <br>
 Edits a task by appending details to a particular task name <br>
 Format: `edit <INDEX> -ap <DETAILS_TO_APPEND_TO_TASK>`
 
@@ -130,6 +137,7 @@ Examples:
 * `edit 3 -ap At UTown` edits `3. Meet John Doe` to `3. Meet John Doe At UTown`
 
 #### Editing a tag's name : `tag -e`
+*[Under Development]* <br>
 Edits a tag’s name <br>
 Format: `tag -e <INDEX> <TAG>`
 
@@ -141,6 +149,7 @@ Examples:
 * `tag -e 5 Assignment`
 
 #### Deleting a tag : `tag -d`
+*[Under Development]* <br>
 Deletes a particular tag <br>
 Format: `tag -d <INDEX>`
 
@@ -152,6 +161,7 @@ Examples:
 * `tag -d 4` deletes the tag at Index 4
 
 #### Listing all tags : `tag -ls`
+*[Under Development]* <br>
 Lists all tags in TARS <br>
 Format: `tag -ls`
 
@@ -184,10 +194,10 @@ Examples:
 Deletes a particular task, or a list of task based on a specific criteria (i.e. INDEX, done/undone status, date, tags, priority) <br>
 Formats: 
 * `del <INDEX> [, <INDEX>, <INDEX>, …]`
-* `del -all <INDEX> [, <INDEX>, <INDEX>, …]`
-* `del -dt [<START_DATE> to <END_DATE>] <INDEX>[, <INDEX>, <INDEX>,...]`
-* `del -t <TAG>[ , <TAG>, <TAG>] <INDEX>[, <INDEX>, <INDEX>,...]`
-* `del -p [PRIORITY] <INDEX> [, <INDEX>, <INDEX>, …]`
+* `del -all <INDEX> [, <INDEX>, <INDEX>, …]` *[Under Development]*
+* `del -dt [<START_DATE> to <END_DATE>] <INDEX>[, <INDEX>, <INDEX>,...]` *[Under Development]* 
+* `del -t <TAG>[ , <TAG>, <TAG>] <INDEX>[, <INDEX>, <INDEX>,...]` *[Under Development]* 
+* `del -p [PRIORITY] <INDEX> [, <INDEX>, <INDEX>, …]` *[Under Development]* 
 
 > use -all to delete selected undone and done tasks <br>
 > use -dt to delete selected undone tasks in that date range <br>
@@ -205,11 +215,11 @@ Examples:
 Lists all tasks in TARS with available list filters.<br>
 Format: 
 * `ls`
-* `ls -do`
+* `ls -do` 
 * `ls -all`
-* `ls -dt [START_DATE] to [START_TIME]`
-* `ls -t <TAG>[ , <TAG>, <TAG>]`
-* `ls -p [PRIORITY]`
+* `ls -dt [START_DATE] to [START_TIME]` *[Under Development]*
+* `ls -t <TAG>[ , <TAG>, <TAG>]` *[Under Development]*
+* `ls -p [PRIORITY]` *[Under Development]*
 
 > default is to list all undone task <br>
 > use -do to list all done task <br>
@@ -234,13 +244,13 @@ Format: `find <KEYWORD>[, KEYWORD, KEYWORD]`
 > `<KEYWORD>` are **case-insensitive**. The order of the `<KEYWORD>` does not matter.
 
 Examples: 
-* `find meet, John` returns all tasks containing the keywords “meet” and “John” (e.g. meet John Doe)
+* `find meet John` returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
 
 #### Undoing a command : `undo`
 Undo a command executed by the user. <br>
 Format: `undo` 
 
-> Able to undo up to 10 past commands
+> Able to undo all `add` and `delete` commands from the time the app starts running.
 
 #### Clearing the data storage file : `clear`
 Clears the whole To-Do List storage file.<br>
@@ -254,10 +264,11 @@ Format: `exit`
 Changes the directory of which the data storage file is saved in. <br>
 Format: `cd <FILE_PATH>`
 
-> Returns an error if the there is an error in the directory chosen
+> Returns an error if the there is an error in the directory chosen <br>
+> Note: `<FILE_PATH>` must end with the file type extension, `.xml`. 
 
 Examples:
-* `cd C:\Users\John_Doe\Documents`  
+* `cd C:\Users\John_Doe\Documents\tars.xml`  
 
 #### Saving the data 
 TARS data are saved in the hard disk automatically after any command that changes the data.<br>
