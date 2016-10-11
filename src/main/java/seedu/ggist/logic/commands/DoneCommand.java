@@ -7,7 +7,7 @@ import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Marks a task as done identified using it's last displayed index from the
- * address book.
+ * task list.
  */
 public class DoneCommand extends Command {
 

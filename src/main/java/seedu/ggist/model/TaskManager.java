@@ -101,7 +101,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             masterTagObjects.put(tag, tag);
         }
 
-        // Rebuild the list of person tags using references from the master list
+        // Rebuild the list of task tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
         for (Tag tag : taskTags) {
             commonTagReferences.add(masterTagObjects.get(tag));

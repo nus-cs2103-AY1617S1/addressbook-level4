@@ -64,6 +64,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
         
         case EditCommand.COMMAND_WORD: 
             return prepareEdit(arguments);
@@ -75,11 +78,11 @@ public class Parser {
             return new ClearCommand();
 
         case SearchCommand.COMMAND_WORD:
-            return prepareFind(arguments);
+            return prepareSearch(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
+                
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -187,6 +190,22 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
     
+    /**
+     * Parses arguments in the context of the done task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDone(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+        return new DoneCommand(index.get());
+    }
+    
     private Command prepareEdit(String args) {
     	
     	String type;
@@ -251,7 +270,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareFind(String args) {
+    private Command prepareSearch(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

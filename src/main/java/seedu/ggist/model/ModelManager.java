@@ -117,8 +117,8 @@ public class ModelManager extends ComponentManager implements Model {
     	default:
     		throw new TaskTypeNotFoundException();
     	}
-    	updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+        updateFilteredListToShowAll();
     }
 
     @Override
@@ -209,7 +209,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         public boolean run(ReadOnlyTask task) {
             return taskNameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTaskName().taskName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.toString(), keyword))
                     .findAny()
                     .isPresent();
         }
