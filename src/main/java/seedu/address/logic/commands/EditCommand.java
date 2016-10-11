@@ -104,6 +104,13 @@ public class EditCommand extends Command{
 				e.printStackTrace();
 			}
         }
+        if (startDate != null) {
+            model.editStartDate(personToEdit, startDate);
+        }
+
+        if (endDate != null) {
+            model.editEndDate(personToEdit, endDate);
+        }
         /*
         try {
             model.deleteTask(personToEdit);
@@ -120,13 +127,7 @@ public class EditCommand extends Command{
         
         /* TODO
          
-            if (startDate != null) {
-                model.editStartDate(personToEdit, startDate);
-            }
-
-            if (endDate != null) {
-                model.editEndDate(personToEdit, endDate);
-            }
+            
 
             if (recurrenceRate != null) {
                 model.editRecurrence(personToEdit, recurrenceRate);

@@ -7,6 +7,7 @@ import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.UniqueTaskList;
 import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -35,6 +36,10 @@ public interface Model {
     void updateFilteredFloatingTaskList(Set<String> keywords);
 
 	void editName(ReadOnlyTask personToEdit, Name taskName) throws DuplicateTaskException;
+
+	void editStartDate(ReadOnlyTask personToEdit, Date startDate);
+
+	void editEndDate(ReadOnlyTask personToEdit, Date endDate);
 
     
 

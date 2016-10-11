@@ -12,6 +12,7 @@ import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.UniqueTaskList;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -76,14 +77,22 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
     @Override
     public synchronized void editName(ReadOnlyTask floatingTask, Name name) throws UniqueTaskList.DuplicateTaskException {
-        System.out.println("Name at line 81 " + name);
+        //System.out.println("Name at line 81 " + name);
         taskManager.editFloatingTaskName(floatingTask, name);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-
+    
+    @Override
+    public synchronized void editStartDate(ReadOnlyTask floatingTask, Date startDate) {
+        //System.out.println("Name at line 81 " + name);
+        taskManager.editFloatingTaskStartDate(floatingTask, startDate);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
 
     //=========== Filtered Person List Accessors ===============================================================
 
