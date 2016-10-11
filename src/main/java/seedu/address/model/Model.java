@@ -37,7 +37,6 @@ public interface Model {
     
     //editted these 2 lines below 
     /**Updates the filter of the filtered item list to filter by task */
-
 	void updateFilteredListToShowTask();
 
 }

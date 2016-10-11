@@ -98,10 +98,10 @@ public class ModelManager extends ComponentManager implements Model {
         filteredItems.setPredicate(null);
     }
     
-    //editted these 3 lines!
+    //editted these 3 lines! stopped here.
     @Override
     public void updateFilteredListToShowTask() {
-    	filteredItems.setPredicate(null);
+    	filteredItems.setPredicate(null);//ItemType.value == task);
     }
 
     @Override

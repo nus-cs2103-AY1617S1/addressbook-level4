@@ -1,16 +1,12 @@
 package seedu.address.logic.commands;
 
-import java.util.Set;
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.exceptions.IllegalValueException;
-
 /**
  * Lists all tasks in the task manager to the user.
  */
 
 public class ListTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "listtask";
+    public static final String COMMAND_WORD = "list task";
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     
@@ -19,9 +15,7 @@ public class ListTaskCommand extends Command {
             + "Example: " + COMMAND_WORD; 
 
     public ListTaskCommand() {}
-
-    
-
+   
     @Override
     public CommandResult execute() {
         model.updateFilteredListToShowTask();
