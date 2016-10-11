@@ -1,9 +1,6 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
-import seedu.address.model.item.Name;
-import seedu.address.model.item.Priority;
-import seedu.address.model.item.RecurrenceRate;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -12,9 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import com.joestelmach.natty.*;
 
 /**
  * Parses user input.
@@ -32,22 +26,22 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     //TODO: Parser failing test case "add complete stuff by mon, at myhouse, from 8am" because of ", at..."
-    final Pattern TASK_ARGS_FORMAT = Pattern.compile("(?i:(?<taskName>.*?)"
+    private static final Pattern TASK_ARGS_FORMAT = Pattern.compile("(?i:(?<taskName>.*?)"
                                                         +"(?:"
-                                                        +"(?:, by +(?<endDateFormatOne>.*?))"
+                                                        +"(?:, by (?<endDateFormatOne>.*?))"
                                                         +"|(?:, from (?<startDateFormatOne>.*?))"
                                                         +"|(?:, at (?<startDateFormatTwo>.*?))"
+                                                        +"|(?:, start (?<startDateFormatThree>.*?))"
                                                         +")?"
+                                                        +"(?:"
                                                         +"(?: to (?<endDateFormatTwo>.*?))?"
+                                                        +"(?: end (?<endDateFormatThree>.*?))?"
+                                                        +")?"
                                                         +"(?: repeat every (?<recurrenceRate>.*?))?"
                                                         +"(?: -(?<priority>.*?))?)");
     
-    final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?:.*?)?(?<rate>\\d+)(?:.*?)?");
+    private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
 
-    //TODO: Parser not fully functioning: case: eat bingsu by myself by 31 Sep (i.e repeat by)
-    //private static final Pattern TASK_ARGS_FORMAT = Pattern.compile("(?i:(?<name>.*))(?:by +((?<deadline1>.*)(?= repeat every +(?<recurrenceRate>.*))|(?<deadline2>.*))(?:-+(?<priority>\\w+))?$)");
-    //Pattern.compile("(?i:(?<name>.*))(?:by +(?<date>[^ ]*)(?: *(repeat every +(?<recurrenceRate>.*)))?)$");
-    
     public Parser() {}
 
     /**
@@ -108,6 +102,7 @@ public class Parser {
         String startDate = null;
         String endDate = null;
         String recurrenceRate = null;
+        String timePeriod = null;
         String priority = null;  
         
         if (!matcher.matches()) {
@@ -121,24 +116,32 @@ public class Parser {
                 startDate = matcher.group("startDateFormatOne");
             } else if (matcher.group("startDateFormatTwo") != null) {
                 startDate = matcher.group("startDateFormatTwo");
-            } 
+            } else if (matcher.group("startDateFormatThree") != null) {
+                startDate = matcher.group("startDateFormatThree");
+            }
             
             if (matcher.group("endDateFormatOne") != null) {
                 endDate = matcher.group("endDateFormatOne"); 
             } else if (matcher.group("endDateFormatTwo") != null) {
                 endDate = matcher.group("endDateFormatTwo");
+            } else if (matcher.group("endDateFormatThree") != null) {
+                endDate = matcher.group("endDateFormatThree");
             } 
 
             if (matcher.group("recurrenceRate") != null) {
-                String tempRecurrenceRate = matcher.group("recurrenceRate");
-                int multiplier = generateMultiplier(tempRecurrenceRate);
+                String recurrenceString = matcher.group("recurrenceRate");
+                final Matcher recurrenceMatcher = RECURRENCE_RATE_ARGS_FORMAT.matcher(recurrenceString);
                 
-                final Matcher matcherRecurrence = RECURRENCE_RATE_ARGS_FORMAT.matcher(tempRecurrenceRate);
-                if (!matcherRecurrence.matches()) {
-                    recurrenceRate = Integer.toString(multiplier);
-                } else { //TODO: Else-if?
-                    recurrenceRate = Integer.toString(multiplier * Integer.parseInt(matcherRecurrence.group("rate")));
+                //TODO: Won't reach here actually
+                if (!recurrenceMatcher.matches()) {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                } 
+                
+                if (recurrenceMatcher.group("rate") != null) {
+                    recurrenceRate = recurrenceMatcher.group("rate");
                 }
+                
+                timePeriod = recurrenceMatcher.group("timePeriod");
             } 
 
             if (matcher.group("priority") != null) {
@@ -146,24 +149,11 @@ public class Parser {
             } else {
                 priority = "medium";
             }
-            return new AddCommand(taskName, startDate, endDate, recurrenceRate, priority);
+            return new AddCommand(taskName, startDate, endDate, recurrenceRate, timePeriod, priority);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
-    }
-
-    //TODO: Comments
-    private int generateMultiplier(String tempRecurrenceRate) {
-        if (tempRecurrenceRate.contains("day")) {
-            return 1;
-        } else if (tempRecurrenceRate.contains("week")) {
-            return 7;
-        } else if (tempRecurrenceRate.contains("month")) { //TODO: This is problematic. 
-            return 30;
-        } else {
-            return -1;
-        }
     }
 
     /**
