@@ -4,45 +4,42 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
-
------
-
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+#### [Bernard Koh](http://github.com/bernardified) <br>
+<img src="images/bernard.jpeg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI
+Responsibilities: Team Leader, Testing <br>
+In-Charge: Logic
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Leah Lim](http://github.com/leahlim)
+<img src="images/leah.jpeg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: Documentation, GUI Design <br>
+In-Charge: UI
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
+#### [Liu Zhen Dong](http://github.com/dongxuandong) 
+<img src="images/zhendong.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Dev Ops
+Responsibilities: Code Quality, Time Keeper <br>
+In-Charge: Storage
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
+#### [Li Wang Huan](http://github.com/liwanghuan)
+<img src="images/wanghuan.jpeg" width="150"><br>
+Role: Developer <br>  
+Responsibilities: Integration, Eclipse Specialist <br>
+In-charge: Model
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
+-----
+
+#### Project Mentor: [Akshay Narayan](https://github.com/okkhoy)
+<img src="images/AkshayNarayan.jpg" width="150"><br>
+
+
 
 # Contributors
 
