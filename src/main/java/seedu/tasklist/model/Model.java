@@ -43,4 +43,6 @@ public interface Model {
 
     UnmodifiableObservableList<Task> getModifiableTaskList();
 
+    void updateFilteredList();
+
 }

@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.tasklist.commons.core;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,8 +19,8 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : Smart Scheduler\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data/addressbook.xml\n" +
-                "AddressBook name : MyAddressBook";
+                "Local data file location : data/tasklist.xml\n" +
+                "TaskList name : MyTaskList";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }

@@ -30,15 +30,31 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
-            "(?<name>([^/](?<! (at|from|to|by) ))+)" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
+            "(?<name>([^/](?<!(at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
                     + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
-                    + "(?<tagArguments>(?: t/[^/]+)*)");
-
-    private static final Pattern UPDATE_COMPLETE_ARGS_PARSER = Pattern.compile("(?<targetIndex>.+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"
+                    );
+    
+    private static final Pattern TASK_UPDATE_ARGS_FORMAT = Pattern.compile(
+            "((?<name>([^/](?<!(at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
+                    + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"
+                    );
+    
+/*
+    private static final Pattern UPDATE_COMPLETE_ARGS_PARSER = Pattern.compile(
+            "(?<targetIndex>(\\d&&\\S)+)"
             + "(?<name>([^/](?<! (at|from|to|by) ))+)" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
             + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
-            + "(?<tagArguments>(?: t/[^/]+)*)");
-
+            + "(?<tagArguments>(?: t/[^/]+)*)"
+            );
+*/
+    private static final Pattern UPDATE_COMPLETE_ARGS_PARSER = Pattern.compile(
+    "(?<targetIndex>(\\d&&\\S)+)"+
+    "(?<name>([^/](?<!(at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
+    + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
+    + "(?<tagArguments>(?: t/[^/]+)*)"
+    );
     private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern
             .compile("(?<index>(\\d+)?)|" + "(?<searchString>[^/]+)");
 
@@ -92,24 +108,35 @@ public class Parser {
     }
 
     private Command prepareUpdate(String args) {
-        final Matcher matcher = UPDATE_COMPLETE_ARGS_PARSER.matcher(args.trim());
-        if (!matcher.matches() || matcher.group("targetIndex") != null) {
+        args = args.trim();
+        int targetIndex = getIndex(args);
+        args = removeIndex(args);
+        System.out.println(args + " | " + targetIndex);
+        final Matcher matcher = TASK_UPDATE_ARGS_FORMAT.matcher(args);
+        if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         } else {
-            int targetIndex;
+//          int targetIndex;
             String taskDetails;
             String startTime;
             // String startDate;
             String endTime;
             // String endDate;
             String priority;
-            targetIndex = Integer.valueOf(matcher.group("targetIndex"));
+//            targetIndex = Integer.valueOf(matcher.group("targetIndex"));
             taskDetails = (matcher.group("name") == null) ? null : matcher.group("name");
             // startDate = ; - need to modify regex
             startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             // endDate = ; - need to modify regex
             endTime = (matcher.group("end") == null) ? null : matcher.group("end");
             priority = (matcher.group("priority") == null) ? null : matcher.group("priority");
+ /*
+            System.out.println(targetIndex);
+            System.out.println(taskDetails);
+            System.out.println(startTime);
+            System.out.println(endTime);
+            System.out.println(priority);
+  */
             try {
                 return new UpdateCommand(targetIndex, taskDetails, startTime,
                         // startDate,
@@ -120,6 +147,24 @@ public class Parser {
                 return new IncorrectCommand(ive.getMessage());
             }
         }
+
+    }
+
+    private String removeIndex(String args) {
+        // TODO Auto-generated method stub
+        args = args.replace(Integer.toString(getIndex(args)), "");
+        args = args.trim();
+        return args;
+    }
+
+    private int getIndex(String args) {
+        String index="";
+        for(int i=0; i<args.length(); i++){
+            if(args.charAt(i) >= '0' && args.charAt(i) <= '9')
+                index = index + args.charAt(i);
+            else break;
+        }
+        return Integer.parseInt(index);
     }
 
     private Command prepareDone(String args) {
@@ -129,7 +174,7 @@ public class Parser {
         } else if (matcher.group("index") != null) {
             return new DoneCommand(Integer.valueOf(matcher.group("index")));
         } else if (matcher.group("searchString") != null) {
-            return new DoneCommand('*'+matcher.group("searchString")+'*');
+            return new DoneCommand('*' + matcher.group("searchString") + '*');
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
@@ -147,10 +192,10 @@ public class Parser {
         if (!taskMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } else {
-            String starttime = (taskMatcher.group("start") == null) ? "" : taskMatcher.group("start");
-            String endtime = (taskMatcher.group("end") == null) ? "" : taskMatcher.group("end");
+            String startTime = (taskMatcher.group("start") == null) ? "" : taskMatcher.group("start");
+            String endTime = (taskMatcher.group("end") == null) ? "" : taskMatcher.group("end");
             try {
-                return new AddCommand(taskMatcher.group("name").replace("\\", ""), starttime, endtime,
+                return new AddCommand(taskMatcher.group("name").replace("\\", ""), startTime, endTime,
                         taskMatcher.group("priority"), getTagsFromArgs(taskMatcher.group("tagArguments")));
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -186,7 +231,7 @@ public class Parser {
         } else if (matcher.group("index") != null) {
             return new DeleteCommand(Integer.valueOf(matcher.group("index")));
         } else if (matcher.group("searchString") != null) {
-            return new DeleteCommand('*'+matcher.group("searchString")+'*');
+            return new DeleteCommand('*' + matcher.group("searchString") + '*');
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }

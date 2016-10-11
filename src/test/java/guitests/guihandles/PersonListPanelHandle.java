@@ -6,10 +6,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.testutil.TestUtil;
+import seedu.tasklist.TestApp;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
+import seedu.tasklist.testutil.TestUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -83,7 +83,9 @@ public class PersonListPanelHandle extends GuiHandle {
      * @param persons A list of person in the correct order.
      */
     public boolean isListMatching(int startPosition, ReadOnlyTask... persons) throws IllegalArgumentException {
-        if (persons.length + startPosition != getListView().getItems().size()) {
+    	if (persons.length + startPosition != getListView().getItems().size()) {
+        	System.out.println(persons.length + startPosition);
+        	System.out.println(getListView().getItems().size());
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " persons");
         }
@@ -106,7 +108,6 @@ public class PersonListPanelHandle extends GuiHandle {
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
-
         return navigateToPerson(person.get());
     }
 
@@ -115,7 +116,6 @@ public class PersonListPanelHandle extends GuiHandle {
      */
     public PersonCardHandle navigateToPerson(ReadOnlyTask person) {
         int index = getPersonIndex(person);
-
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
             guiRobot.sleep(150);

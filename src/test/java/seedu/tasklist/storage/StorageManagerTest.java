@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.tasklist.storage;
 
 
 import org.junit.Before;
@@ -6,11 +6,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.UserPrefs;
 import seedu.tasklist.storage.StorageManager;
+import seedu.tasklist.testutil.TypicalTestPersons;
 
 import static org.junit.Assert.assertEquals;
 

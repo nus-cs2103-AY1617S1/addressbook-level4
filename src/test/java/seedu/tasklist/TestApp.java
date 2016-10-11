@@ -1,14 +1,14 @@
-package seedu.address;
+package seedu.tasklist;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.testutil.TestUtil;
 import seedu.tasklist.MainApp;
 import seedu.tasklist.commons.core.Config;
 import seedu.tasklist.commons.core.GuiSettings;
 import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.UserPrefs;
 import seedu.tasklist.storage.XmlSerializableTaskList;
+import seedu.tasklist.testutil.TestUtil;
 
 import java.util.function.Supplier;
 

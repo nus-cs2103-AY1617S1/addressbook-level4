@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.tasklist.testutil;
 
 import com.google.common.io.Files;
 import guitests.guihandles.PersonCardHandle;
@@ -12,7 +12,8 @@ import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
+
+import seedu.tasklist.TestApp;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.FileUtil;
 import seedu.tasklist.commons.util.XmlUtil;
@@ -65,17 +66,18 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new TaskDetails("Ali Muster"), new StartTime("9482424"), new EndTime("hans@google.com"), new Priority("high"),new UniqueTagList()),
-                    new Task(new TaskDetails("Boris Mueller"), new StartTime("87249245"), new EndTime("ruth@google.com"), new Priority("low"), new UniqueTagList()),
-                    new Task(new TaskDetails("Carl Kurz"), new StartTime("95352563"), new EndTime("heinz@yahoo.com"), new Priority("mid"), new UniqueTagList()),
-                    new Task(new TaskDetails("Daniel Meier"), new StartTime("87652533"), new EndTime("cornelia@google.com"), new Priority("low"), new UniqueTagList()),
-                    new Task(new TaskDetails("Elle Meyer"), new StartTime("9482224"), new EndTime("werner@gmail.com"), new Priority("mid"), new UniqueTagList()),
-                    new Task(new TaskDetails("Fiona Kunz"), new StartTime("9482427"), new EndTime("lydia@gmail.com"), new Priority("low"), new UniqueTagList()),
-                    new Task(new TaskDetails("George Best"), new StartTime("9482442"), new EndTime("anna@google.com"), new Priority("high"), new UniqueTagList()),
-                    new Task(new TaskDetails("Hoon Meier"), new StartTime("8482424"), new EndTime("stefan@mail.com"), new Priority("mid"), new UniqueTagList()),
-                    new Task(new TaskDetails("Ida Mueller"), new StartTime("8482131"), new EndTime("hans@google.com"), new Priority("low"), new UniqueTagList())
+                    new Task(new TaskDetails("Ali Muster"), new StartTime("9482424"), new EndTime("end"), new Priority("high"),new UniqueTagList()),
+                    new Task(new TaskDetails("Boris Mueller"), new StartTime("87249245"), new EndTime("end2"), new Priority("low"), new UniqueTagList()),
+                    new Task(new TaskDetails("Carl Kurz"), new StartTime("95352563"), new EndTime("end3"), new Priority("med"), new UniqueTagList()),
+                    new Task(new TaskDetails("Daniel Meier"), new StartTime("87652533"), new EndTime("end4"), new Priority("low"), new UniqueTagList()),
+                    new Task(new TaskDetails("Elle Meyer"), new StartTime("9482224"), new EndTime("end5"), new Priority("med"), new UniqueTagList()),
+                    new Task(new TaskDetails("Fiona Kunz"), new StartTime("9482427"), new EndTime("end6"), new Priority("low"), new UniqueTagList()),
+                    new Task(new TaskDetails("George Best"), new StartTime("9482442"), new EndTime("end7"), new Priority("high"), new UniqueTagList()),
+                    new Task(new TaskDetails("Hoon Meier"), new StartTime("8482424"), new EndTime("end8"), new Priority("med"), new UniqueTagList()),
+                    new Task(new TaskDetails("Ida Mueller"), new StartTime("8482131"), new EndTime("end9"), new Priority("low"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
+        	System.out.println(e.getMessage());
             assert false;
             //not possible
             return null;

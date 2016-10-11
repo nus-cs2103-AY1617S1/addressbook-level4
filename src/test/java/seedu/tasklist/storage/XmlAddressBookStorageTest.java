@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.tasklist.storage;
 
 
 import org.junit.Rule;
@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.tasklist.commons.exceptions.DataConversionException;
 import seedu.tasklist.commons.util.FileUtil;
 import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.storage.XmlTaskListStorage;
+import seedu.tasklist.testutil.TypicalTestPersons;
 
 import java.io.IOException;
 

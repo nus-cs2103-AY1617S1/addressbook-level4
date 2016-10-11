@@ -1,15 +1,15 @@
-package seedu.address.commons.util;
+package seedu.tasklist.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.TestUtil;
 import seedu.tasklist.commons.util.FileUtil;
 import seedu.tasklist.commons.util.XmlUtil;
 import seedu.tasklist.model.TaskList;
 import seedu.tasklist.storage.XmlSerializableTaskList;
+import seedu.tasklist.testutil.AddressBookBuilder;
+import seedu.tasklist.testutil.TestUtil;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;

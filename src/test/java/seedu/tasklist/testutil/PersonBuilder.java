@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.tasklist.testutil;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.tag.Tag;
@@ -40,6 +40,11 @@ public class PersonBuilder {
     public PersonBuilder withEmail(String email) throws IllegalValueException {
         this.person.setEmail(new EndTime(email));
         return this;
+    }
+    
+    public PersonBuilder withPriority(String priority) throws IllegalValueException {
+    	this.person.setPriority(new Priority(priority));
+    	return this;
     }
 
     public TestPerson build() {

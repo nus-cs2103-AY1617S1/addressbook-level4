@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.tasklist.testutil;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.TaskList;
@@ -15,19 +15,19 @@ public class TypicalTestPersons {
         try {
             alice =  new PersonBuilder().withName("Alice Pauline").withUniqueID(1)
                     .withEmail("alice@gmail.com").withPhone("85355255")
-                    .withTags("friends").build();
+                    .withTags("friends").withPriority("high").build();
             benson = new PersonBuilder().withName("Benson Meier").withUniqueID(2)
                     .withEmail("johnd@gmail.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withUniqueID(3).build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withUniqueID(4).build();
-            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withUniqueID(5).build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withUniqueID(6).build();
-            george = new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withUniqueID(7).build();
+                    .withTags("owesMoney", "friends").withPriority("high").build();
+            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withUniqueID(3).withPriority("high").build();
+            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withUniqueID(4).withPriority("high").build();
+            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withUniqueID(5).withPriority("high").build();
+            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withUniqueID(6).withPriority("high").build();
+            george = new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withUniqueID(7).withPriority("high").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withUniqueID(8).build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withUniqueID(9).build();
+            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withUniqueID(8).withPriority("high").build();
+            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withUniqueID(9).withPriority("high").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

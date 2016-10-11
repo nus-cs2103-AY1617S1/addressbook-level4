@@ -35,7 +35,7 @@ public class UpdateCommand extends Command {
             String endTime,
             // String endDate,
             String priority) throws IllegalValueException {
-        this.targetIndex = targetIndex;
+        this.targetIndex = targetIndex-1;
         if (taskDetails != null)
             this.taskDetails = new TaskDetails(taskDetails);
         if (startTime != null)
@@ -53,7 +53,7 @@ public class UpdateCommand extends Command {
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<Task> lastShownList = model.getModifiableTaskList();
-        if (targetIndex >= lastShownList.size() || targetIndex < 1) {
+        if (targetIndex >= lastShownList.size()) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } else {
             Task taskToUpdate = lastShownList.get(targetIndex);
@@ -69,6 +69,7 @@ public class UpdateCommand extends Command {
             // taskToUpdate.setEndDate(endTime);
             if (priority != null)
                 taskToUpdate.setPriority(priority);
+            model.updateFilteredList();
             return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
         }
     }

@@ -9,7 +9,7 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 public class StartTime {
 
     public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
-    public static final String PHONE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String PHONE_VALIDATION_REGEX = ".*";
 
     public final String value;
 
@@ -20,7 +20,7 @@ public class StartTime {
      */
     public StartTime(String phone) throws IllegalValueException {
      //  assert phone != null;
-    	if(phone==null)
+    	
         if (!isValidPhone(phone)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
         }

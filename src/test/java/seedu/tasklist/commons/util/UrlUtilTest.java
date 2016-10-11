@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.tasklist.commons.util;
 
 import org.junit.Test;
 

@@ -45,7 +45,9 @@ public interface ReadOnlyTask {
                 .append(" End time: ")
                 .append(getEndTime())
                 .append(" Priority: ")
-                .append(getPriority());
+                .append(getPriority())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 

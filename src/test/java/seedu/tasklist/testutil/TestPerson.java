@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.tasklist.testutil;
 
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
@@ -34,6 +34,10 @@ public class TestPerson implements ReadOnlyTask {
 
     public void setPhone(StartTime startTime) {
         this.startTime = startTime;
+    }
+    
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     @Override
@@ -73,9 +77,9 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTaskDetails().taskDetails + " ");
-        sb.append("p/" + this.getStartTime().value + " ");
-        sb.append("e/" + this.getEndTime().value + " ");
-        sb.append("a/" + this.getUniqueID() + " ");
+        sb.append("at " + this.getStartTime().value + " ");
+        sb.append("by " + this.getEndTime().value + " ");
+        sb.append("p/" + this.getPriority() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
