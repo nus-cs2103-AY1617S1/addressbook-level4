@@ -31,8 +31,13 @@ public class Parser {
                     + " d/(?<description>[^/]+)"
                     + "( date/(?<date>[^/]+) time/(?<time>[^/]+)){0,2}"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
-    //(?<isPhonePrivate>p?) optional p
+    
+    private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<index>[\\d]+)"
+                    + "( (?<name>[^/]+)){0,1}"
+                    + "( d/(?<description>[^/]+)){0,1}"
+                    + "( date/(?<date>[^/]+) time/(?<time>[^/]+)){0,2}"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     public Parser() {}
 
@@ -60,7 +65,10 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
-
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -135,6 +143,35 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the edit person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        
+        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new EditCommand(
+                    Integer.parseInt(matcher.group("index")),
+                    matcher.group("name"),
+                    matcher.group("description"),
+                    matcher.group("date"),
+                    matcher.group("time"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+
     }
 
     /**
