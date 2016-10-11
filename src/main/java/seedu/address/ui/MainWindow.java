@@ -112,7 +112,7 @@ public class MainWindow extends UiPart {
         //browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredFloatingTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 

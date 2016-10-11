@@ -15,17 +15,17 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private Date startDate;
     private Date endDate;
     private RecurrenceRate recurrenceRate;
-    private Priority priorityValue;   
+    private Priority priority;   
     
     
     public Task(Name taskName) {
         this.taskName = taskName;
-        this.priorityValue = Priority.MEDIUM;
+        this.priority = Priority.MEDIUM;
     }
 
     public Task(Name taskName, Priority priorityValue) {
         this.taskName = taskName;
-        this.priorityValue = priorityValue;
+        this.priority = priorityValue;
     }
     
     /**
@@ -45,7 +45,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.startDate = tempStartDate;
         this.endDate = tempEndDate;
         this.recurrenceRate = null;
-        this.priorityValue = source.getPriorityValue();
+        this.priority = source.getPriorityValue();
     }
     
     /**
@@ -59,7 +59,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.startDate = startDate;
         this.endDate = endDate;
         this.recurrenceRate = recurrenceRate;
-        this.priorityValue = priorityValue;
+        this.priority = priorityValue;
     }
 
     @Override
@@ -86,6 +86,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public int compareTo(Task other) {
+        
+        
         int startDateComparison = compareByStartDate(other);
         int endDateComparison = compareByEndDate(other);
         int priorityValueComparison = compareByPriorityValue(other);
@@ -119,7 +121,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
     
     private int compareByPriorityValue(Task other) {
-        return this.priorityValue.compareTo(other.priorityValue);
+        return this.priority.compareTo(other.priority);
     }
     
     private int compareByTaskName(Task other) {
@@ -133,7 +135,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public Priority getPriorityValue() {
-        return priorityValue;
+        return priority;
     }
     
     @Override

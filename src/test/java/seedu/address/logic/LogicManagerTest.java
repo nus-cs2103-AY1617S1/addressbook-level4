@@ -115,12 +115,13 @@ public class LogicManagerTest {
         assertEquals(expectedTaskManager, latestSavedTaskManager);
     }
 
-
+    /* Test removed as we take add as a default command, so this will add an item with that name.
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
+    */
 
     @Test
     public void execute_help() throws Exception {
@@ -160,10 +161,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
+        /* Don't need to validate name?
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                */
         assertCommandBehavior(
-                "add Valid Name rank 11", Priority.MESSAGE_VALUE_CONSTRAINTS);
+                "add Valid Name -LOL", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
     }
 
@@ -179,7 +182,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getFloatingTaskList());
+                expectedAB.getTaskList());
 
     }
 
@@ -199,7 +202,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_FLOATING_TASK,
                 expectedAB,
-                expectedAB.getFloatingTaskList());
+                expectedAB.getTaskList());
 
     }
 
@@ -209,7 +212,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getFloatingTaskList();
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare address book state
         helper.addToModel(model, 2);
@@ -275,7 +278,7 @@ public class LogicManagerTest {
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
                 expectedAB,
-                expectedAB.getFloatingTaskList());
+                expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredFloatingTaskList().get(1), threePersons.get(1));
     }
@@ -304,7 +307,7 @@ public class LogicManagerTest {
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, threePersons.get(1)),
                 expectedAB,
-                expectedAB.getFloatingTaskList());
+                expectedAB.getTaskList());
     }
 
 
@@ -379,7 +382,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Meet Adam Brown");
-            Priority priority = new Priority("1");
+            Priority priority = Priority.LOW;
             return new Task(name, priority);
         }
 
@@ -391,9 +394,11 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Task generateFloatingTask(int seed) throws Exception {
+            Priority[] randomArr = {Priority.LOW, Priority.MEDIUM, Priority.HIGH};
+            
             return new Task(
-                    new Name("FloatingTask " + seed),
-                    new Priority("" + Math.abs(seed))
+                    new Name("Task " + seed),
+                    randomArr[seed%3]
             );
         }
 
@@ -404,7 +409,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" rank ").append(p.getPriorityValue());
+            cmd.append(" -").append(p.getPriorityValue().toString().toLowerCase());
 
             return cmd.toString();
         }
@@ -482,7 +487,7 @@ public class LogicManagerTest {
         Task generateFloatingTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Priority("1")
+                    Priority.LOW
             );
         }
     }
