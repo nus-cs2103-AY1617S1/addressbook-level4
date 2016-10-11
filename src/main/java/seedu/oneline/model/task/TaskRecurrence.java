@@ -31,6 +31,18 @@ public class TaskRecurrence {
         return true; // TODO
     }
 
+    /**
+     * Returns the default recurrence value
+     */
+    public static TaskRecurrence getDefault() {
+        try {
+            return new TaskRecurrence("");
+        } catch (IllegalValueException e) {
+            assert false; // This function should return a correct value!
+        }
+        return null;
+    }
+    
     @Override
     public String toString() {
         return value;
