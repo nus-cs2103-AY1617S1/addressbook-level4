@@ -50,13 +50,13 @@ public class TestUtil {
         }
         catch (Throwable actualException) {
             if (!actualException.getClass().isAssignableFrom(expected)) {
-                String message = String.format("Expected thrown: %s, actual: %s", expected.getTaskName(),
-                        actualException.getClass().getTaskName());
+                String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
+                        actualException.getClass().getName());
                 throw new AssertionFailedError(message);
             } else return;
         }
         throw new AssertionFailedError(
-                String.format("Expected %s to be thrown, but nothing was thrown.", expected.getTaskName()));
+                String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
     }
 
     /**
@@ -278,7 +278,7 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestTask[] removeTasksFromList(final TestTask[] persons, TestTask... personsToRemove) {
+    public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.removeAll(asList(tasksToRemove));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
