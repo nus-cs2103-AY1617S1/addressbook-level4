@@ -51,19 +51,19 @@ public class AddCommandParser extends CommandParser{
     		
     	} else if (fromWordIsAbsent) {
     		// If only "by" exists, task is a DeadlineTask if the sentence after "by" is a valid date format
-    		return createAddTaskCommandBasedOnDateString(description, indexOfLastBy);
+    		return createAddTaskCommandBasedOnDateString(description, indexOfLastBy, "by");
     		
     	} else if (byWordIsAbsent) {
     		// If only "from" exists, task is an EventTask if the sentence after "from" is a valid date format
-    		return createAddTaskCommandBasedOnDateString(description, indexOfLastFrom);
+    		return createAddTaskCommandBasedOnDateString(description, indexOfLastFrom, "from");
     		
     	} else if (indexOfLastFrom > indexOfLastBy) {
     		// Both indices exist, the one that comes later will be picked. If "from" came later.
-    		return createAddTaskCommandBasedOnDateString(description, indexOfLastFrom);
+    		return createAddTaskCommandBasedOnDateString(description, indexOfLastFrom, "from");
     			
     	} else {
     		// If "by" came later.
-    		return createAddTaskCommandBasedOnDateString(description, indexOfLastBy);
+    		return createAddTaskCommandBasedOnDateString(description, indexOfLastBy, "by");
 
     	}
     }
@@ -74,17 +74,18 @@ public class AddCommandParser extends CommandParser{
      * 
      * With the results, decide whether the task to add is a DeadlineTask, EventTask or FloatingTask.
      */
-    private AddTaskCommand createAddTaskCommandBasedOnDateString(String description, int substringFrom) 
+    private AddTaskCommand createAddTaskCommandBasedOnDateString(String description, int substringFrom, String keyword) 
     			throws IllegalValueException {
+    	// Separate description into task description and the date string
     	String taskDescription = description.substring(0, substringFrom).trim();
-    	String dateString = description.substring(substringFrom, description.length());
+    	String dateString = description.substring(substringFrom + keyword.length(), description.length()).trim();
     	
     	if (DateUtil.isValidDateFormat(dateString)) {
     		// dateString represents task's deadline
     		Date deadline = DateUtil.getDate(dateString);
 			return new AddTaskCommand(taskDescription, deadline);
 			
-    	} else if (DateUtil.isValidStartDateToEndDateFormat(dateString)) {
+    	} else if (DateUtil.isValidStartDateToEndDateFormat(dateString)) {	
 			// dateString represents task's start date and end date
     		Date[] startAndEndDates = DateUtil.getStartAndEndDates(dateString);
     		Date startDate = startAndEndDates[0];
