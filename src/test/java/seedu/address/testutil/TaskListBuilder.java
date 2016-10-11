@@ -20,8 +20,8 @@ public class TaskListBuilder {
         this.taskList = taskList;
     }
 
-    public TaskListBuilder withTask(Task person) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
-        taskList.addTask(person);
+    public TaskListBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
+        taskList.addTask(task);
         return this;
     }
 

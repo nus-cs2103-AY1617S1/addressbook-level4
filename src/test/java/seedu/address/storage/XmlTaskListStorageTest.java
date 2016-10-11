@@ -10,7 +10,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.model.TaskList;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.TypicalTestFloatingTasks;
+import seedu.address.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 
@@ -61,7 +61,7 @@ public class XmlTaskListStorageTest {
     @Test
     public void readAndSaveTaskList_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempTaskList.xml";
-        TypicalTestFloatingTasks td = new TypicalTestFloatingTasks();
+        TypicalTestTasks td = new TypicalTestTasks();
         TaskList original = td.getTypicalTaskList();
         XmlTaskListStorage xmlTaskListStorage = new XmlTaskListStorage(filePath);
 
@@ -71,8 +71,8 @@ public class XmlTaskListStorageTest {
         assertEquals(original, new TaskList(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestFloatingTasks.hoon));
-        original.removeTask(new Task(TypicalTestFloatingTasks.trash));
+        original.addTask(new Task(TypicalTestTasks.hoon));
+        original.removeTask(new Task(TypicalTestTasks.trash));
         xmlTaskListStorage.saveTaskList(original, filePath);
         readBack = xmlTaskListStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));

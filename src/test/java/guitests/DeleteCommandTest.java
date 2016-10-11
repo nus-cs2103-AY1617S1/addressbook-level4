@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.testutil.TestFloatingTask;
+import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
@@ -14,7 +14,7 @@ public class DeleteCommandTest extends TaskListGuiTest {
     public void delete() {
 
         //delete the first in the list
-        TestFloatingTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -39,9 +39,9 @@ public class DeleteCommandTest extends TaskListGuiTest {
      * @param targetIndexOneIndexed e.g. to delete the first floatingTask in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of floatingTasks (before deletion).
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestFloatingTask[] currentList) {
-        TestFloatingTask floatingTaskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestFloatingTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
+    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+        TestTask floatingTaskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 

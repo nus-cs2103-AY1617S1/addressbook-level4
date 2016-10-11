@@ -14,7 +14,7 @@ import seedu.address.model.TaskList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestFloatingTasks;
+import seedu.address.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -32,7 +32,7 @@ public abstract class TaskListGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestFloatingTasks td = new TypicalTestFloatingTasks();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -87,7 +87,7 @@ public abstract class TaskListGuiTest {
      */
     protected TaskList getInitialData() throws TimeslotOverlapException {
         TaskList ab = TestUtil.generateEmptyTaskList();
-        TypicalTestFloatingTasks.loadTaskListWithSampleData(ab);
+        TypicalTestTasks.loadTaskListWithSampleData(ab);
         return ab;
     }
 

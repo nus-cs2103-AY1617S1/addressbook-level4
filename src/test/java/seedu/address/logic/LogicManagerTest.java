@@ -144,6 +144,7 @@ public class LogicManagerTest {
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
     }
+    
 
 
     @Test
@@ -193,6 +194,49 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
                 AddFloatingCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    /**
+     * The logic for block command is actually the same as add-non=floating commands.
+     * */
+    @Test
+    public void execute_addOverlapSlot_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+        Task toBeAddedAfter = new Task(new Name("Task two"), new UniqueTagList(),
+				  new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"));
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeAdded);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal task list
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAddedAfter),
+                AddNonFloatingCommand.MESSAGE_TIMESLOT_OCCUPIED,
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_addIllegalSlot_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
+        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"));
+        TaskList expectedAB = new TaskList();
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAdded),
+                AddNonFloatingCommand.MESSAGE_ILLEGAL_TIME_SLOT,
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -401,12 +445,38 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
+            
+            if(p.getType().equals(TaskType.NON_FLOATING)){
+            	cmd.append(" from ");
+            	cmd.append(p.getStartDate().getRawCommandInput());
+            	cmd.append(" to ");
+            	cmd.append(p.getEndDate().getRawCommandInput());
+            }
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
             }
+            System.out.println(cmd.toString());
+            return cmd.toString();
+        }
+        
+        /** Generates the correct block command based on the task given */
+        String generateBlockCommand(Task p) {
+            StringBuffer cmd = new StringBuffer();
 
+            cmd.append("block ");
+            
+            cmd.append("from ");
+            cmd.append(p.getStartDate().getRawCommandInput());
+            cmd.append(" to ");
+            cmd.append(p.getEndDate().getRawCommandInput());
+
+            UniqueTagList tags = p.getTags();
+            for(Tag t: tags){
+                cmd.append(" t/").append(t.tagName);
+            }
+            System.out.println(cmd.toString());
             return cmd.toString();
         }
 

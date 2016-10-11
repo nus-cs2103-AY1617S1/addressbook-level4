@@ -8,11 +8,11 @@ import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 /**
  *
  */
-public class TypicalTestFloatingTasks {
+public class TypicalTestTasks {
 
-    public static TestFloatingTask trash, book, homework, lecture, meeting, jogging, george, hoon, ida;
+    public static TestTask trash, book, homework, lecture, meeting, jogging, george, hoon, ida;
 
-    public TypicalTestFloatingTasks() {
+    public TypicalTestTasks() {
         try {
             trash =  new TaskBuilder().withName("take trash").withTags("notUrgent").build();
             book = new TaskBuilder().withName("read book").withTags("weekly", "textBook").build();
@@ -46,8 +46,8 @@ public class TypicalTestFloatingTasks {
         }
     }
 
-    public TestFloatingTask[] getTypicalTasks() {
-        return new TestFloatingTask[]{trash, book, homework, lecture, meeting, jogging, george};
+    public TestTask[] getTypicalTasks() {
+        return new TestTask[]{trash, book, homework, lecture, meeting, jogging, george};
     }
 
     public TaskList getTypicalTaskList() throws TimeslotOverlapException{
