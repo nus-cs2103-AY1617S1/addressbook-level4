@@ -23,6 +23,7 @@ import tars.logic.commands.ExitCommand;
 import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.ListCommand;
+import tars.logic.commands.MarkCommand;
 import tars.logic.commands.SelectCommand;
 import tars.model.Tars;
 import tars.model.Model;
@@ -401,6 +402,50 @@ public class LogicManagerTest {
                 expectedList);
     }
 
+    @Test
+    public void execute_mark_allTaskAsDone() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	Task task1 = helper.generateTaskWithName("task1");
+    	Task task2 = helper.generateTaskWithName("task2");
+    	
+    	List<Task> taskList = helper.generateTaskList(task1, task2);
+    	Tars expectedAB = helper.generateTars(taskList);
+    	Status done = new Status(true);
+    	task1.setStatus(done);
+    	task2.setStatus(done);
+    	List<Task> expectedList = helper.generateTaskList(task1,task2);
+    	
+    	helper.addToModel(model, taskList);
+    	
+    	assertCommandBehavior("mark -do 1 2",
+    			MarkCommand.MESSAGE_MARK_SUCCESS,
+    			expectedAB,
+    			expectedList);
+    }
+    
+    @Test
+    public void execute_mark_allTaskAsUndone() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	Task task1 = helper.generateTaskWithName("task1");
+    	Task task2 = helper.generateTaskWithName("task2");
+    	Status done = new Status(true);
+    	task1.setStatus(done);
+    	task2.setStatus(done);
+    	
+    	List<Task> taskList = helper.generateTaskList(task1, task2);
+    	Tars expectedAB = helper.generateTars(taskList);
+    	Status undone = new Status(false);
+    	task1.setStatus(undone);
+    	task2.setStatus(undone);
+    	List<Task> expectedList = helper.generateTaskList(task1,task2);
+    	
+    	helper.addToModel(model, taskList);
+    	
+    	assertCommandBehavior("mark -ud 1 2",
+    			MarkCommand.MESSAGE_MARK_SUCCESS,
+    			expectedAB,
+    			expectedList);
+    }
 
     /**
      * A utility class to generate test data.
