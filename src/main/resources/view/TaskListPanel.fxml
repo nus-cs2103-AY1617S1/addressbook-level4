@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.TaskListPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-    <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-    </stylesheets>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.TaskListPanel">
     <children>
-        <ListView fx:id="taskListView" VBox.vgrow="ALWAYS" />
+      <VBox>
+         <children>
+            <HBox>
+               <children>
+                  <Label text="To Be Done Someday " />
+                  <Label fx:id="floatingTaskListSize" text="($)" />
+               </children>
+            </HBox>
+              <ListView fx:id="taskListView" styleClass="container" VBox.vgrow="ALWAYS">
+               <stylesheets>
+                  <URL value="@Extensions.css" />
+                  <URL value="@DarkTheme.css" />
+               </stylesheets>
+            </ListView>
+         </children>
+      </VBox>
     </children>
 </VBox>

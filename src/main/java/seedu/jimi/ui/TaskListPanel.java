@@ -27,6 +27,9 @@ public class TaskListPanel extends UiPart {
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
+    
+    @FXML
+    private int floatingTaskListSize;
 
     public TaskListPanel() {
         super();
