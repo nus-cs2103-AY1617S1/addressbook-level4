@@ -7,6 +7,7 @@ import tars.commons.util.StringUtil;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.ExtractorUtil;
 import tars.logic.commands.AddCommand;
+import tars.logic.commands.CdCommand;
 import tars.logic.commands.ClearCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.DeleteCommand;
@@ -39,10 +40,12 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+                                                                                                  // whitespace
+    private static final Pattern FILEPATH_ARGS_FORMAT = Pattern.compile("(?<filepath>\\S+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    
+
 
     public Parser() {
     }
@@ -92,8 +95,11 @@ public class Parser {
         	return new UndoCommand();
         	
         case MarkCommand.COMMAND_WORD:
-        	return prepareMark(arguments);
-        	
+            return prepareMark(arguments);
+
+        case CdCommand.COMMAND_WORD:
+            return prepareCd(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -114,11 +120,11 @@ public class Parser {
     private Command prepareAdd(String args) {
         // there is no arguments
         if (args.trim().length() == 0) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }             
-        
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
         String name = "";
+
         Flag priorityOpt = new Flag(Flag.PRIORITY, false);
         Flag dateTimeOpt = new Flag(Flag.DATETIME, false);
         Flag tagOpt = new Flag(Flag.TAG, true);
@@ -136,26 +142,25 @@ public class Parser {
             name = args;
         } else if (flagsPosMap.firstKey() == 0) {
             // there are arguments but name should be the first argument
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } else {
             name = args.substring(0, flagsPosMap.firstKey()).trim();
         }
-        
+
         try {
+
             return new AddCommand(
                     name,
                     DateTimeUtil.getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(Flag.DATETIME + " ", "")),
                     optionFlagNArgMap.get(priorityOpt).replace(Flag.PRIORITY + " ", ""),
                     ExtractorUtil.getTagsFromArgs(optionFlagNArgMap.get(tagOpt), tagOpt));
+
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
         }
     }
-    
-    
 
     /**
      * Parses arguments in the context of the edit task command.
@@ -319,4 +324,29 @@ public class Parser {
         return new ListCommand(keywordSet);
     }
 
+
+    private Command prepareCd(String args) {
+        final Matcher matcher = FILEPATH_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(CdCommand.MESSAGE_INVALID_FILEPATH));
+        }
+
+        if (!isFileTypeValid(args.trim())) {
+        return new IncorrectCommand(String.format(CdCommand.MESSAGE_INVALID_FILEPATH));
+        }
+        
+        return new CdCommand(args.trim());
+    }
+    
+    private Boolean isFileTypeValid (String args) {
+        String filePath = args.trim();
+        String extension = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
+        if (extension.equals("xml")) {
+            return true;
+        }
+        return false;
+    }
+
 }
+
+
