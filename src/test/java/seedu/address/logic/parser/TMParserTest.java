@@ -255,4 +255,47 @@ public class TMParserTest {
 
 		assertEquals(null, command);
 	}
+	
+	/*
+	 * Tests for the `del` command
+	 */
+	@Test
+	public void parseCommand_delNonIntegerIndex_incorrectCommandReturned() {
+		String userInput = "delete 1 r 5";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_delNegativeIndex_incorrectCommandReturned() {
+		String userInput = "delete -3";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_delZeroIndex_incorrectCommandReturned() {
+		String userInput = "delete 0";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_delValidIndex_nullReturned() {
+		String userInput = "delete 2";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
+	
+	@Test
+	public void parseCommand_delValidIndices_nullReturned() {
+		String userInput = "delete 3 2";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
 }
