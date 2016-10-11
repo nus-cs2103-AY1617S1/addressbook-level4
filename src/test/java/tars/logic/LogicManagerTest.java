@@ -254,7 +254,7 @@ public class LogicManagerTest {
         // prepare tars state
         helper.addToModel(model, taskList);
        
-        assertCommandBehavior("ls -d",
+        assertCommandBehavior("ls -do",
                 ListCommand.MESSAGE_SUCCESS_DONE,
                 expectedAB,
                 expectedList);
