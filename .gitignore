@@ -40,3 +40,6 @@ junit/*.xml
 
 # Eclipse settings
 .settings/*
+
+# DB file
+database.json
