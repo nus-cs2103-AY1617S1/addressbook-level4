@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     StartDate getStartDate();
     Description getDescription();
     DueDate getDueDate();
+    boolean isCompleted();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

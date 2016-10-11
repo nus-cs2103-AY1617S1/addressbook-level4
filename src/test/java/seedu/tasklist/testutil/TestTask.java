@@ -13,7 +13,8 @@ public class TestTask implements ReadOnlyTask {
     private Description description;
     private StartDate startDate;
     private UniqueTagList tags;
-
+    private boolean isCompleted;
+    
     public TestTask() {
         tags = new UniqueTagList();
     }
@@ -72,5 +73,10 @@ public class TestTask implements ReadOnlyTask {
         sb.append("a/" + this.getDueDate().dueDate + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
+    }
+
+    @Override
+    public boolean isCompleted() {
+        return isCompleted;
     }
 }
