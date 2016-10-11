@@ -19,6 +19,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.TypicalTestTasks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -439,8 +440,52 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     	
     }
+    /***
+     * Tests for ChangeDirectoryCommand
+     */
+    @Test
+    public void execute_changeDirectoryIllegalDirectory_notAllowed() throws Exception{
+    	
+    	TaskList expectedAB = new TaskList();
+    	assertCommandBehavior(
+    			"cd random path",
+                ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR,
+                expectedAB,
+                expectedAB.getTaskList());
+    }
     
+    @Test
+    public void execute_changeDirectoryWrongFileType_notAllowed() throws Exception{
+    	
+    	TaskList expectedAB = new TaskList();
+    	assertCommandBehavior(
+    			"cd "+saveFolder.getRoot().getPath()+"cdtest.txt",
+                ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR,
+                expectedAB,
+                expectedAB.getTaskList());
+    }
     
+    @Test
+    public void execute_changeDirectory_Successful() throws Exception{
+    	
+    	TestDataHelper helper = new TestDataHelper();
+    	TaskList expectedAB = new TaskList();
+    	assertCommandBehavior(
+    			"cd "+ saveFolder.getRoot().getPath()+"cdtest.xml",
+    			String.format(ChangeDirectoryCommand.MESSAGE_SUCCESS, saveFolder.getRoot().getPath()+"cdtest.xml"),
+                expectedAB,
+                expectedAB.getTaskList());
+    	
+    	//Ensure model writes to this file
+    	expectedAB.addTask(helper.adam());
+    	logic.execute(helper.generateAddCommand(helper.adam()));
+        ReadOnlyTaskList retrieved = new StorageManager(saveFolder.getRoot().getPath()+"cdtest.xml", 
+        		                                        saveFolder.getRoot().getPath() + "TempPreferences.json").readTaskList().get();
+        assertEquals(expectedAB, new TaskList(retrieved));
+        assertEquals(model.getTaskList(), new TaskList(retrieved));
+        
+        logic.execute("cd "+ saveFolder.getRoot().getPath() + "TempTaskList.xml");
+    }
 
 
     /**
