@@ -26,6 +26,9 @@ public class ShowCommand extends Command {
         if (keyword.equals("all")) {
             model.updateFilteredListToShowAll();
         }
+        else if (keyword.equals("incomplete")) {
+            model.updateFilteredListToShowIncomplete();
+        }
         else if (keyword.equalsIgnoreCase("complete")) {
             model.updateFilteredListToShowComplete();
         }
