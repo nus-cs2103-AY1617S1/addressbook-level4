@@ -73,7 +73,7 @@ public class EditCommand extends Command {
                 itemToReplace.setStartDate(newStartDate);
             }
             if (newStartTime != null) {
-                itemToReplace.setEndTime(newStartTime);
+                itemToReplace.setStartTime(newStartTime);
             }
             if (newEndDate != null) {
                 itemToReplace.setEndDate(newEndDate);
