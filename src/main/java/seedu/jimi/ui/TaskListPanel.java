@@ -17,7 +17,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
