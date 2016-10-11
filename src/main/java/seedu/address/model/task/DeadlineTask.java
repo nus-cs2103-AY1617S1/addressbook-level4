@@ -7,10 +7,11 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 public class DeadlineTask implements TMReadOnlyTask{
+	
 	private Name name;
 	private Date date;
     private Status status;
-
+    public final String taskType = "Deadline";
     private UniqueTagList tags;
 
     /**
@@ -47,6 +48,11 @@ public class DeadlineTask implements TMReadOnlyTask{
     public Date getDate() {
         return date;
     }
+    
+	@Override
+	public String getTaskType() {
+		return taskType;
+	}
     
     @Override
     public Status getStatus() {
