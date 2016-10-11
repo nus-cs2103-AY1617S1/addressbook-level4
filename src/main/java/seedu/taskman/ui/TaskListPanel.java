@@ -1,6 +1,8 @@
 package seedu.taskman.ui;
 
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -9,11 +11,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import seedu.taskman.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskman.model.event.Activity;
 import seedu.taskman.commons.core.LogsCenter;
@@ -31,10 +35,6 @@ public class TaskListPanel extends UiPart {
     
     @FXML
     private TableView<Activity> taskListView;
-    @FXML
-    private TableColumn<Activity, String> titleColumn; 
-    @FXML
-    private TableColumn<Activity, String> deadlineColumn;
     
     public TaskListPanel() {
         super();
@@ -69,14 +69,49 @@ public class TaskListPanel extends UiPart {
     }
     
     // TODO Resolve generic type issue.
-    @SuppressWarnings("unchecked")
     private void setConnections(ObservableList<Activity> taskList) {
-        taskListView.setItems(taskList);       
-        titleColumn = new TableColumn<Activity,String>("Title");
-        titleColumn.setCellValueFactory(new PropertyValueFactory<Activity, String>("title"));
-        deadlineColumn = new TableColumn<Activity,String>("Deadline");
-        deadlineColumn.setCellValueFactory(new PropertyValueFactory<Activity, String>("deadline"));
-        taskListView.getColumns().setAll(titleColumn, deadlineColumn);
+        taskListView.setItems(taskList);
+        
+        TableColumn<Activity, String> titleColumn = new TableColumn<Activity,String>("Title");
+        titleColumn.setCellValueFactory(new Callback<CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Activity, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getTitle().title);
+            }
+         });
+        taskListView.getColumns().add(titleColumn);
+        
+        TableColumn<Activity, String> stausColumn = new TableColumn<Activity,String>("Status");
+        stausColumn.setCellValueFactory(new Callback<CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Activity, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getStatus().get().toString());
+            }
+         });
+        taskListView.getColumns().add(stausColumn);
+        
+        TableColumn<Activity, String> deadlineColumn = new TableColumn<Activity,String>("Deadline");
+        deadlineColumn.setCellValueFactory(new Callback<CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Activity, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getDeadline().get().toString());
+            }
+         });
+        taskListView.getColumns().add(deadlineColumn);
+        
+        TableColumn<Activity, String> scheduleColumn = new TableColumn<Activity,String>("Schedule");
+        scheduleColumn.setCellValueFactory(new Callback<CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Activity, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getSchedule().get().toString());
+            }
+         });
+        taskListView.getColumns().add(scheduleColumn);
+        
+        TableColumn<Activity, String> frequencyColumn = new TableColumn<Activity,String>("Frequency");
+        frequencyColumn.setCellValueFactory(new Callback<CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(CellDataFeatures<Activity, String> p) {
+                return new ReadOnlyObjectWrapper<String>(p.getValue().getFrequency().get().toString());
+            }
+         });
+        taskListView.getColumns().add(frequencyColumn);
+        
         setEventHandlerForSelectionChangeEvent();
     }
 
