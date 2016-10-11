@@ -42,7 +42,7 @@ public class TMParser {
 
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>(\\s*[^\\s+])+)'");
 	
-	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+(?<newName>.+)");
+	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
 	
 	
 	public TMParser() {
@@ -301,13 +301,11 @@ public class TMParser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
 
-		final String indices = matcher.group("index").trim();
-//		final String args = matcher.group("arguments").trim();
+		final String index = matcher.group("index").trim();
+		final String newName = matcher.group("newName").trim();
 		
-		
-		
-		System.out.println("index: " + indices);
-//		System.out.println("non-index args: " + args);
+		System.out.println("index: " + index);
+		System.out.println("new name: " + newName);
 		
     	return null;
     }
@@ -334,7 +332,7 @@ public class TMParser {
     }
 
 	public static void main(String[] args) {
-		String userInput = "add someday 'g'";
+		String userInput = "edit 5 'f'";
 		TMParser p = new TMParser();
 		p.parseUserInput(userInput);
 	}
