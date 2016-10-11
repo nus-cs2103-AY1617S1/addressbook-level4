@@ -14,6 +14,7 @@ import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.Version;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
+import seedu.todo.models.TodoListDB;
 
 import java.io.IOException;
 import java.util.Map;
@@ -49,6 +50,9 @@ public class MainApp extends Application {
         // Initialize UI config
         UiManager.initialize(config);
         ui = UiManager.getInstance();
+
+        // Load DB
+        TodoListDB.getInstance().load(); 
     }
 
     @Override
