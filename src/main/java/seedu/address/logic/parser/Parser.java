@@ -28,6 +28,15 @@ public class Parser {
 
     private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
+    private static final Pattern FIND_ARGS_WITHOUT_DATE_FORMAT = 
+    		Pattern.compile("(?<keywords>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+    
+    private static final Pattern FIND_ARGS_WITH_DATE_FORMAT = 
+    		Pattern.compile("(?<keywords>[^/]+)"
+    				+ "((?<startTime>(?: from [^/]+)(?<endTime>(?: to [^/]+)))|"
+    				+ "(?<deadline>(?: by [^/]+)))"
+    				+ "(?<tagArguments>(?: t/[^/]+)*)");
+    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
