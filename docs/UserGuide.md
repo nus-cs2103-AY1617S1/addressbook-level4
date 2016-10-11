@@ -135,10 +135,10 @@ Update an existing task inside Do-Do Bird.<br>
 
 Format:
 
-* `update ID [NEW_NAME] [on DATE [tTime]] [by DATE [tTime]] [; a line of new details]`
-* `update ID [NEW_NAME] [-on DATE [tTime]] [-by DATE [tTime]] [-; a line of new details]`
+* `update ID [NEW_NAME] on [DATE [tTime]] by [DATE [tTime]] [; a line of new details]`
 
 > * Date and Time formats follow the above guidelines.
+> * To remove an optional field, input `-` as the parameter
 > * The ID must be a positive integer 1, 2, 3, ...
 > * To remove any pre-existing optional fields, prefix a `-` to the field specifier.
 
@@ -148,7 +148,7 @@ Examples:
   **`update`**` 2 on 14/10/17 by 18/10/17;` <br>
   Update the task with `ID #2` to reflect new dates/
 * **`search`**` 25/10/17`<br>
-  **`update`**` 3 -on 25/10/17;` <br>
+  **`update`**` 3 -on ;` <br>
   Update the task with `ID #3` to remove old on date.
 
 
