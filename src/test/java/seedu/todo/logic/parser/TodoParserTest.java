@@ -1,4 +1,4 @@
-package seedu.todo.logic.arguments;
+package seedu.todo.logic.parser;
 
 import static org.junit.Assert.*;
 
