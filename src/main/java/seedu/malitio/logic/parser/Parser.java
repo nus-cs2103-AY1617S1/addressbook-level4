@@ -3,6 +3,7 @@ package seedu.malitio.logic.parser;
 import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.commons.util.StringUtil;
 import seedu.malitio.logic.commands.*;
+import seedu.malitio.model.task.Name;
 
 import static seedu.malitio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.malitio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -87,7 +88,7 @@ public class Parser {
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         try {
             return new AddCommand(

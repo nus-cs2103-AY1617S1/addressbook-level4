@@ -8,8 +8,8 @@ import seedu.malitio.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should not inculde forward slash ('/')";
+    public static final String NAME_VALIDATION_REGEX = ".+";
 
     public final String fullName;
 

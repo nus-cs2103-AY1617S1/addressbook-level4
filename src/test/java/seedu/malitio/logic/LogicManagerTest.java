@@ -151,15 +151,15 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add Valid Name p/12345", expectedMessage);
+                "add Valid Name p/12345", Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
     public void execute_add_invalidTask() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] ", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add dd//invalid ", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
