@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
@@ -18,30 +19,27 @@ import java.util.logging.Logger;
  */
 public class AliasWindow extends UiPart {
 
-    private static final Logger logger = LogsCenter.getLogger(AliasWindow.class);
+    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "AliasWindow.fxml";
     private static final String TITLE = "Alias List";
     private static final String USERGUIDE_URL =
             "https://github.com/CS2103AUG2016-W15-C2/main/blob/master/docs/UserGuide.md";
 
-    private VBox mainPane;
-    private AliasListPanel aliasListPanel;
-    private Stage dialogStage;
-    
-    @FXML
-    private AnchorPane aliasListPanelPlaceholder;
+    private AnchorPane mainPane;
 
-    public static AliasWindow load(Stage primaryStage, Logic logic) {
+    private Stage dialogStage;
+
+    public static AliasWindow load(Stage primaryStage) {
         logger.fine("Showing help page about the application.");
         AliasWindow aliasWindow = UiPartLoader.loadUiPart(primaryStage, new AliasWindow());
-        aliasWindow.configure(logic);
+        aliasWindow.configure();
         return aliasWindow;
     }
 
     @Override
     public void setNode(Node node) {
-        mainPane = (VBox) node;
+        mainPane = (AnchorPane) node;
     }
 
     @Override
@@ -49,14 +47,16 @@ public class AliasWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(Logic logic){
+    private void configure(){
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
-        aliasListPanel = AliasListPanel.load(dialogStage, aliasListPanelPlaceholder, logic.getAlias());
         
+        Text t = new Text("Hello world");
+        FxViewUtil.applyAnchorBoundaryParameters(t, 0.0, 0.0, 0.0, 0.0);
+        mainPane.getChildren().add(t);
     }
 
     public void show() {

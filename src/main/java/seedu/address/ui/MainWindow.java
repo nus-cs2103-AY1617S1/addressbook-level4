@@ -171,7 +171,7 @@ public class MainWindow extends UiPart {
     
     @FXML
     public void handleAliasList() {
-        AliasWindow aliasWindow = AliasWindow.load(primaryStage, logic);
+        AliasWindow aliasWindow = AliasWindow.load(primaryStage);
         aliasWindow.show();
     }
 
