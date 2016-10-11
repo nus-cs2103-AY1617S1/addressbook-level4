@@ -65,15 +65,14 @@ public class Date {
     public Date(String date) throws IllegalValueException {
         assert date != null;
      //   date = date.trim();
-        
-     
+             
         if(date == "" | date.length() == 0 | date == null) {
             this.day = 0;
             this.month = 0;
             this.year = 0;
             this.value = "";
             this.dayWord = "";
-            this.DDMMYYYYFormat = "";
+            this.DDMMYYYYFormat = "";            
         }
         else {
             List<java.util.Date> dates = new Parser().parse(date).get(0).getDates();             
@@ -86,8 +85,7 @@ public class Date {
             this.day = digitsOnly / 1000000;
             this.month = (digitsOnly / 10000) % 100;
             this.year = digitsOnly % 10000;
-            this.dayWord = dayInWord.format(dates.get(0));
-            
+            this.dayWord = dayInWord.format(dates.get(0));            
         }
         
        

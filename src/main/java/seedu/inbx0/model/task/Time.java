@@ -17,15 +17,24 @@ public class Time {
      * Validates given time.
      *
      * @throws IllegalValueException if given start time string is invalid.
+     * !isValidTime(time) &&
      */
     
     public Time(String time) throws IllegalValueException {
         assert time != null;
         time = time.trim();
-        if (!isValidTime(time) && (time != "")) {
-            throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
+       
+        if ( time == "" | time.length() == 0 | time == null) {
+            this.value = "";
         }
-        this.value = time;
+        else {
+            if (!isValidTime(time))
+                throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
+            else {
+                this.value = time;
+            }
+        }
+       
     }
     
     /**

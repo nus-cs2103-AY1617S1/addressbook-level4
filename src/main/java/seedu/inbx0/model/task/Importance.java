@@ -32,20 +32,27 @@ public class Importance {
     public Importance(String importance) throws IllegalValueException {
         assert importance != null;
         importance = importance.trim();
-        if (!isValidImportance(importance) && (importance != "")) {
-            throw new IllegalValueException(MESSAGE_IMPORTANCE_CONSTRAINTS);
+        if(importance == "" | importance.length() == 0 | importance == null) {
+            this.value = "";
+            this.level = 0;
         }
+        else {
+            if (!isValidImportance(importance)) {
+                throw new IllegalValueException(MESSAGE_IMPORTANCE_CONSTRAINTS);
+            }
+            else {
+                this.value = changeStringIntoProperColorName(importance);
         
-        this.value = changeStringIntoProperColorName(importance);
-        
-        if (value.equals("Green"))
-            level = 1;
-        else if(value.equals("Yellow"))
-            level = 2;
-        else if (value.equals("Red"))
-            level = 3;
-        else
-            level = 0;
+                if (value.equals("Green"))
+                    level = 1;
+                else if(value.equals("Yellow"))
+                    level = 2;
+                else if (value.equals("Red"))
+                    level = 3;
+                else
+                    level = 0;
+                } 
+        }
     }
     
     private String changeStringIntoProperColorName(String importance) {
