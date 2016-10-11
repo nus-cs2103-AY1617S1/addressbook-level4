@@ -30,12 +30,12 @@ public class TestTask extends Task implements ReadOnlyTask {
     
     public void setStartDate(String date){
     	com.joestelmach.natty.Parser p = new Parser();
-    	this.startDate = new TaskDate(p.parse(date).get(0).getDates().get(0));
+    	this.startDate = new TaskDate(p.parse(date).get(0).getDates().get(0).getTime());
     }
     
     public void setEndDate(String date){
     	com.joestelmach.natty.Parser p = new Parser();
-    	this.endDate = new TaskDate(p.parse(date).get(0).getDates().get(0));
+    	this.endDate = new TaskDate(p.parse(date).get(0).getDates().get(0).getTime());
     }
 
     @Override
@@ -80,8 +80,8 @@ public class TestTask extends Task implements ReadOnlyTask {
     	this.type = TaskType.NON_FLOATING;
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("from "+ this.getStartDate().getRawCommandInput() + " ");
-        sb.append("to "+ this.getEndDate().getRawCommandInput() + " ");
+        sb.append("from "+ this.getStartDate().getFormattedDate() + " ");
+        sb.append("to "+ this.getEndDate().getFormattedDate() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

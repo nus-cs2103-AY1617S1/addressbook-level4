@@ -448,9 +448,9 @@ public class LogicManagerTest {
             
             if(p.getType().equals(TaskType.NON_FLOATING)){
             	cmd.append(" from ");
-            	cmd.append(p.getStartDate().getRawCommandInput());
+            	cmd.append(p.getStartDate().getFormattedDate());
             	cmd.append(" to ");
-            	cmd.append(p.getEndDate().getRawCommandInput());
+            	cmd.append(p.getEndDate().getFormattedDate());
             }
 
             UniqueTagList tags = p.getTags();
@@ -468,9 +468,9 @@ public class LogicManagerTest {
             cmd.append("block ");
             
             cmd.append("from ");
-            cmd.append(p.getStartDate().getRawCommandInput());
+            cmd.append(p.getStartDate().getFormattedDate());
             cmd.append(" to ");
-            cmd.append(p.getEndDate().getRawCommandInput());
+            cmd.append(p.getEndDate().getFormattedDate());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){

@@ -192,8 +192,8 @@ public class Parser {
             
             return new BlockCommand(
                     getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(startInput, getDateFromString(startInput)),
-                    new TaskDate(startInput, getDateFromString(endInput))
+                    new TaskDate(getDateFromString(startInput).getTime()),
+                    new TaskDate(getDateFromString(endInput).getTime())
                     );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
