@@ -211,7 +211,7 @@ public class Parser {
     }
     
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the show task command.
      *
      * @param args
      *            full command args string

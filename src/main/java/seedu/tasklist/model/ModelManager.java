@@ -135,6 +135,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
         return keywords;
     }
+    
+    @Override
+    public void updateFilteredListToShowComplete() {
+    	updateFilteredListToShowAll();
+    	updateFilteredTaskList(new PredicateExpression(new CompletedQualifier()));
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -176,6 +182,13 @@ public class ModelManager extends ComponentManager implements Model {
 		@Override
 		public boolean run(ReadOnlyTask person) {
 			return !person.isComplete();
+		}
+    }
+    
+    private class CompletedQualifier implements Qualifier {
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			return person.isComplete();
 		}
     }
 

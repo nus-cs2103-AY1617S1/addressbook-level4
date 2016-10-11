@@ -38,11 +38,14 @@ public interface Model {
 
     Set<String> getKeywordsFromList(List<ReadOnlyTask> matchingTasks);
 
-    /** Updates the filter of the filtered task list to only show complete */
+    /** Updates the filter of the filtered task list to only show incomplete */
 	void updateFilteredListToShowIncomplete();
 
     UnmodifiableObservableList<Task> getModifiableTaskList();
 
     void updateFilteredList();
+    
+    /** Updates the filter of the filtered task list to only show complete */
+    void updateFilteredListToShowComplete();
 
 }

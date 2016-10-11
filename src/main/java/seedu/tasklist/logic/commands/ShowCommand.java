@@ -10,7 +10,7 @@ public class ShowCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all tasks under the requested category. "
             + "The specified keywords (case-insensitive) are shown as a list with index numbers.\n"
-            + "Parameters: KEYWORD (all, complete, p/[PRIORITY]\n"
+            + "Parameters: KEYWORD (all, completed, p/[PRIORITY]\n"
             + "Example: " + COMMAND_WORD + " all";
 
     public static final String MESSAGE_FIND_TASK_FAILURE = "No such task was found.";
@@ -22,6 +22,13 @@ public class ShowCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return null;
+        if (keyword.equalsIgnoreCase("all")) {
+            model.updateFilteredListToShowAll();
+        }
+        else if (keyword.equalsIgnoreCase("completed")) {
+            model.updateFilteredListToShowComplete();
+        }
+    	
+    	return null;
     }
 }
