@@ -21,7 +21,7 @@ public class EditCommand extends Command{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit an item in the To-Do List. ";
               
-    public static final String TOOL_TIP = "edit NAME, [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]";
+    public static final String TOOL_TIP = "edit INDEX [NAME], [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]";
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
 
@@ -33,24 +33,22 @@ public class EditCommand extends Command{
     
     private Task toEdit;
     
-    Name taskName = null;
-	Date startDate = null;
-    Date endDate = null;
+    Name taskName;
+	Date startDate ;
+    Date endDate;
     RecurrenceRate recurrenceRate;
     Priority priority;
-    boolean isChanged = true;
     
 	public EditCommand(int targetIndex,String taskNameString, String startDateString, String endDateString, 
             String recurrenceRateString, String priorityString)  throws IllegalValueException {
         	
 		this.targetIndex = targetIndex;
-		Name taskName = null;
-		Date startDate = null;
-        Date endDate = null;
-        RecurrenceRate recurrenceRate;
-        Priority priority;
-        boolean isChanged = true;
-                
+		taskName = null;
+		startDate = null;
+        endDate = null;
+        
+        
+        System.out.println(taskNameString);
         if (taskNameString != null) {
     		taskName = new Name(taskNameString);
         }
@@ -78,7 +76,7 @@ public class EditCommand extends Command{
             case ("high"): case ("h"): priority = Priority.HIGH; break;
             case ("medium"): 
             default: priority = Priority.MEDIUM;
-            isChanged = false;
+            //isChanged = false;
         }       
         
        this.toEdit = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
@@ -86,8 +84,7 @@ public class EditCommand extends Command{
 	}
 
 	@Override
-	public CommandResult execute() {
-		
+	public CommandResult execute() {	    
 		assert model != null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredFloatingTaskList();
 
@@ -97,9 +94,10 @@ public class EditCommand extends Command{
         }
 
         ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
+        System.out.println(" name is " + taskName);
         
         if (taskName != null) {
-            try {
+            try {            
 				model.editName(personToEdit, taskName);
 			} catch (DuplicateTaskException e) {
 				// TODO Auto-generated catch block

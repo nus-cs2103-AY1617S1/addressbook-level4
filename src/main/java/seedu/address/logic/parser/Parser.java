@@ -196,14 +196,18 @@ public class Parser {
 		
     	 //TODO parse the index and args
     	 int index = 0;
-        	 
+    	 
+    	 args = args.trim();
+    	 System.out.println(args);
+    	 
     	 String[] parts = args.split(" ");
-    	 String indexNum = parts[1];
+    	 String indexNum = parts[0];
 
     	 index = Integer.parseInt(indexNum);
     	 
-    	 args = args.substring(3);
+    	 args = args.substring(2);
     	 
+    	 // Please change this, the edit command NAME field is optional.
     	 final Matcher matcher = TASK_ARGS_FORMAT.matcher(args.trim());
 
          String taskName = null;
@@ -251,6 +255,8 @@ public class Parser {
              } else {
                  priority = "medium";
              }
+             
+             //System.out.println(index + " " + taskName + " " + startDate + " " + endDate + " " + recurrenceRate + " " + priority );
              return new EditCommand(index, taskName, startDate, endDate, recurrenceRate, priority);
          } catch (IllegalValueException ive) {
              return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
