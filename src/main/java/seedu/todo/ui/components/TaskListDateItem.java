@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.models.Task;
@@ -13,6 +14,7 @@ import seedu.todo.models.Task;
 public class TaskListDateItem extends MultiComponent {
 
 	private static final String FXML_PATH = "components/TaskListDateItem.fxml";
+	private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
 	
 	// Props
 	public LocalDateTime dateTime;
@@ -46,9 +48,13 @@ public class TaskListDateItem extends MultiComponent {
 		for (Task task : tasks) {
 			TaskListTaskItem item = new TaskListTaskItem();
 			
+			// Add to EphemeralDB and get the index.
+			int displayIndex = ephemeralDb.addToDisplayedTask(task);
+			
 			item.passInProps(c -> {
 				TaskListTaskItem view = (TaskListTaskItem) c;
 				view.task = task;
+				view.displayIndex = displayIndex;
 				return view;
 			});
 			
