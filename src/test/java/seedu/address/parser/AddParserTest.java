@@ -105,5 +105,12 @@ public class AddParserTest {
 		
 	}
 	
+	@Test
+	public void checkDateFormatter_returnsTrue(){
+		
+		String arguments = "18-06-1994";
+		
+		assertTrue(AddParser.DateValidator(arguments));
+	}
 	
 }
