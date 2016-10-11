@@ -28,16 +28,15 @@ public class Parser {
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.*)"
-                    + "(?<tagArguments>(?: [^,]+)*)"); // variable number of tags;
+            Pattern.compile("(?<taskName>[^,]+)(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.*)\\s*,\\s*(?<taskDate>.*)\\s*,\\s*(?<time>\\d{4})\\s*,*\\s*(?<tagArguments>(?:[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<time>\\d{4})\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.*)\\s*,\\s*(?<taskDate>.*)\\s*,\\s*(?<startTime>\\d{4})\\s*-\\s*(?<endTime>\\d{4})\\s*,*\\s*(?<tagArguments>(?:[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<startTime>\\d{4})\\s*-\\s*(?<endTime>\\d{4})\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
    
     public Parser() {}
 
