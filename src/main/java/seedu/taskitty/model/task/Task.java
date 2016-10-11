@@ -1,5 +1,6 @@
 package seedu.taskitty.model.task;
 
+import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.CollectionUtil;
 import seedu.taskitty.model.tag.UniqueTagList;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
+    private boolean isDone;
     private TaskDate date;
     private TaskTime startTime;
     private TaskTime endTime;
@@ -65,6 +67,20 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
+    
+    /** 
+     * Marks task as done.
+     */
+    public void markAsDone() {
+    	if (!isDone) {
+    		this.isDone = true;
+    		try {
+    			this.name = new Name(this.name + " DONE");
+    		} catch (IllegalValueException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -83,4 +99,9 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
+	@Override
+	public boolean getIsDone() {
+		return isDone;
+	}
 }

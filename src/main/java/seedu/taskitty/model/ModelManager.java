@@ -71,10 +71,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicateTaskException {
-        taskManager.addTask(person);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	taskManager.doneTask(target);
+    	updateFilteredListToShowAll();
+    	indicateTaskManagerChanged();
     }
 
     //=========== Filtered Person List Accessors ===============================================================
