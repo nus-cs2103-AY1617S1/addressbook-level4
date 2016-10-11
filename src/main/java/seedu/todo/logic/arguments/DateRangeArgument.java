@@ -30,9 +30,8 @@ public class DateRangeArgument extends Argument<DateRange> {
     
     @Override
     public void setValue(String input) throws IllegalValueException {
+        input = TimeUtil.toAmericanDateFormat(input);
         List<Date> dateGroups = parser.parse(input);
-        
-        System.out.println(Arrays.toString(dateGroups.toArray()));
         
         List<LocalDateTime> dates = dateGroups.stream()
             .map(TimeUtil::asLocalDateTime)

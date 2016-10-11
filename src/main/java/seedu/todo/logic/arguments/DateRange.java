@@ -27,6 +27,6 @@ public class DateRange {
     }
     
     public boolean isRange() {
-        return startTime == null;
+        return startTime != null;
     }
 }
