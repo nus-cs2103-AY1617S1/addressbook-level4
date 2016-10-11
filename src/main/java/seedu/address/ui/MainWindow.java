@@ -102,13 +102,13 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-        setAccelerators();
+//        setAccelerators(); //For the menu bar
     }
-
+/*
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
-
+*/
     void fillInnerParts() {
         // browserPanel = BrowserPanel.load(browserPlaceholder);
         undatedListPanel = PersonListPanel.load(primaryStage, browserPlaceholder,
@@ -169,12 +169,12 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
-    @FXML
+/*   @FXML
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
     }
-
+*/
     public void show() {
         primaryStage.show();
     }
@@ -182,11 +182,11 @@ public class MainWindow extends UiPart {
     /**
      * Closes the application.
      */
-    @FXML
+/*    @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
-
+*/
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
     }
