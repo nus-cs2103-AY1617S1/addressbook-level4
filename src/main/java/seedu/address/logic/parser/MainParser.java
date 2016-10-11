@@ -2,12 +2,15 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Priority;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,16 +34,12 @@ public class MainParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-//    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-//            Pattern.compile("(?<details>[^/-]+)"
-//   //                 + "\\s?<dueByDate>(by\\s([^/-]+)|on\\s[^/-]+)"
-//            		+ "(?<dueByDate>( by [^/-]+)?)"
-//                    + "(?<dueByTime>( at [^/-]+)?)"
-//                    + "(?<priority>( /[^/-]+)?)"
-//                    + "(?<tagArguments>( -[^/-]+)*)"); // variable number of tags
-
 	private static final String MESSAGE_INVALID_PRIORITY = "Priority is either high, medium or low. Please try again.";
 	
+	public static final String NO_DATE_DEFAULT = "2000-01-01";	// All floating tasks are giving this date.
+	public static final String NO_TIME_DEFAULT = LocalTime.MAX.toString();	// All timeless tasks are given this time.
+	
+	// Singleton
 	private static MainParser mainParser;
 	private ArrayList<LocalDateTime> datesAndTimes;
 	private String reducedArgs;
@@ -113,7 +112,14 @@ public class MainParser {
     private Command prepareAdd(String args){
         String[] splittedArgs = getCleanString(args).split(" ");
         reducedArgs = extractDueByDateAndTime(args);
-        LocalDateTime dt = datesAndTimes.get(0);
+        LocalDateTime dt;
+        if (datesAndTimes.size() != 0)
+        	dt = datesAndTimes.get(0);
+        else
+        	dt = LocalDateTime.of(LocalDate.parse(NO_DATE_DEFAULT, DateTimeFormatter.ISO_LOCAL_DATE), 
+        			LocalTime.MAX);
+        // For testing purposes
+        datesAndTimes.clear();
     	
     	try {
     		return new AddCommand(
@@ -125,23 +131,6 @@ public class MainParser {
     	} catch (IllegalValueException ive) {
     		return new IncorrectCommand(ive.getMessage());
     	}
-//        
-//    	final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-//        // Validate arg string format
-//        if (!matcher.matches()) {
-//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-//        }
-//        try {
-//            return new AddCommand(
-//                    checkEmpty(matcher.group("details")),
-//                    checkEmpty(matcher.group("dueByDate")),
-//                    checkEmpty(matcher.group("dueByTime")),
-//                    getPriorityFromArgs(matcher.group("priority")),
-//                    getTagsFromArgs(matcher.group("tagArguments"))
-//            );
-//        } catch (IllegalValueException ive) {
-//            return new IncorrectCommand(ive.getMessage());
-//        }
     }
     
     /**
@@ -173,16 +162,16 @@ public class MainParser {
     	for (String rawArg : rawArgs) {
     		if (rawArg.toLowerCase().startsWith("/")) {
     			switch(rawArg.replace("/", "")) {
-    			case "high":
-    				return "high";
-    			case "medium":
-    				return "medium";
-    			case "low":
-    				return "low";
+    			case Priority.HIGH:
+    				return Priority.HIGH;
+    			case Priority.MEDIUM:
+    				return Priority.MEDIUM;
+    			case Priority.LOW:
+    				return Priority.LOW;
     			}
     		}
     	}
-    	return "low";
+    	return Priority.LOW;
     }
     
     /**
@@ -198,24 +187,28 @@ public class MainParser {
     	List<DateGroup> groups = parser.parse(dirtyArgs);
     	String cleanArgs = dirtyArgs;
     	
-    	DateGroup group = groups.get(0);
-    	List<Date> dateList = group.getDates(); 	// Extract date
-    	Map<String, List<ParseLocation>> parseMap = group.getParseLocations();
-    	if (!parseMap.containsKey("explicit_time")) {
-    		for (Date date : dateList) {
-    			LocalDateTime temp = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-    			datesAndTimes.add(LocalDateTime.of(temp.toLocalDate(), LocalTime.MAX));
+    	try {
+    		DateGroup group = groups.get(0);
+    		List<Date> dateList = group.getDates(); 	// Extract date
+    		Map<String, List<ParseLocation>> parseMap = group.getParseLocations();
+    		if ((!parseMap.containsKey("explicit_time") && parseMap.containsKey("relative_date")) || 
+    				(!parseMap.containsKey("explicit_time") && parseMap.containsKey("formal_date"))) {
+    			for (Date date : dateList) {
+    				LocalDateTime temp = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    				datesAndTimes.add(LocalDateTime.of(temp.toLocalDate(), LocalTime.MAX));
+    			}
+    		} else {
+    			for (Date date : dateList) {
+    				datesAndTimes.add(LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()));
+    			}
     		}
-    	} 
-    	else {
-    		for (Date date : dateList) {
-    			datesAndTimes.add(LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()));
+    		for (ParseLocation parsedWord : parseMap.get("parse")) {
+    			cleanArgs = cleanArgs.substring(0, parsedWord.getStart() - 1) + cleanArgs.substring(parsedWord.getEnd() -1);
     		}
+    		return cleanArgs;	// Return a cleaned up string
+    	} catch (IndexOutOfBoundsException e) {
+    		return dirtyArgs;
     	}
-    	for (ParseLocation parsedWord : parseMap.get("parse")) {
-    		cleanArgs = cleanArgs.substring(0, parsedWord.getStart() - 1) + cleanArgs.substring(parsedWord.getEnd() -1);
-    	}
-    	return cleanArgs;	// Return a cleaned up string
     }
     
     /**
@@ -229,40 +222,6 @@ public class MainParser {
     	} return argument;
     }
 
-//    /**
-//     * Extracts the new task's priority level.. 
-//     * If none specified, default to low.
-//     * 
-//     * @author A0139661Y
-//     */
-//    private static String getPriorityFromArgs(String priorityArgument) throws IllegalValueException {
-//    	// no priority
-//    	if (priorityArgument.isEmpty()) {
-//    		return "low";
-//    	} if (priorityArgument.length() > 1)
-//    		priorityArgument = Arrays.asList(priorityArgument.split(" /")).get(0);
-//    	// replace first delimiter prefix
-//    	String checkPriority = priorityArgument.replace("/", "").toLowerCase();
-//    	if (!checkPriority.equals("high") && !checkPriority.equals("medium") && !checkPriority.equals("low")) {
-//    		throw new IllegalValueException(MESSAGE_INVALID_PRIORITY);
-//    	}
-//    	return checkPriority;
-//    }
-    
-//    /**
-//     * Extracts the new task's tags from the add command's tag arguments string.
-//     * Merges duplicate tag strings.
-//     */
-//    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-//        // no tags
-//        if (tagArguments.isEmpty()) {
-//            return Collections.emptySet();
-//        }
-//        // replace first delimiter prefix, then split
-//        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" -", "").split(" -"));
-//        return new HashSet<>(tagStrings);
-//    }
-    
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
@@ -281,14 +240,6 @@ public class MainParser {
     		return Collections.emptySet();
     	} 
     	return new HashSet<>(tagStrings);
-    	
-//    	// no tags
-//        if (tagArguments.isEmpty()) {
-//            return Collections.emptySet();
-//        }
-//        // replace first delimiter prefix, then split
-//        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" -", "").split(" -"));
-//        return new HashSet<>(tagStrings);
     }
 
     /**
