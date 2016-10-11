@@ -204,12 +204,11 @@ public class Activity implements ReadOnlyActivity {
     public String toString() {
         switch(this.activityType){
         case FLOATING_TASK_TYPE:
-            return this.name + " n: " + this.note;
+            return getFloatingTaskAsText();
         case TASK_TYPE:
-            return this.name + " by: " + this.startDate + " " + this.startTime + " n: " + this.note;
+            return getTaskAsText();
         case EVENT_TYPE:
-            return this.name + " by: " + this.startDate + " " + this.startTime + " to: " + this.endDate
-                     + " " + this.endTime + "n: " + this.note;
+            return getEventAsText();
         }
         return null;
     }
