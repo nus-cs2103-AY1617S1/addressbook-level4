@@ -23,10 +23,10 @@ public class TaskTime {
     //format: hh:mm
     private static final String TIME_VALIDATION_REGEX_FORMAT_1 = "[\\p{Digit}]{1,2}:[\\p{Digit}]{2}";
     //format: hhmm TODO currently not working for input
-    private static final String TIME_VALIDATION_REGEX_FORMAT_2 = "[\\p{Digit}]{4}";
+    //private static final String TIME_VALIDATION_REGEX_FORMAT_2 = "[\\p{Digit}]{4}";
     public static final String TIME_VALIDATION_REGEX_FORMAT =
-            TIME_VALIDATION_REGEX_FORMAT_1 + 
-            "|" + TIME_VALIDATION_REGEX_FORMAT_2;
+            TIME_VALIDATION_REGEX_FORMAT_1;
+            //+ "|" + TIME_VALIDATION_REGEX_FORMAT_2;
 
     public final LocalTime time;
 
