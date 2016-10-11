@@ -270,16 +270,39 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to add task
+2. TaskManager adds task <br>
+Use case ends.
+
+
+#### Use case: List
+
+**MSS**
+
+1. User requests to add task
+2. TaskManager shows a list of tasks <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+#### Use case: Edit task
+
+**MSS**
+
+1. User requests to list tasks
+2. TaskManager shows a list of tasks
+3. User requests to edit a specific task in the list
+4. TaskManager edits the task <br>
 Use case ends.
 
 **Extensions**
@@ -290,19 +313,43 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. TaskManager shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+
+#### Use case: Delete task
+
+**MSS**
+
+1. User requests to list tasks
+2. TaskManager shows a list of tasks
+3. User requests to delete a specific task in the list
+4. TaskManager deletes the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TaskManager shows an error message <br>
+  Use case resumes at step 2
+
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 10000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should have <1 second startup and processing times.
+6. Should be easy to learn and use
+7. Should be available without Internet connectiviy
+8. Should be scalable and maintainable
 
-{More to be added}
 
 ## Appendix D : Glossary
 
@@ -310,11 +357,25 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Scalable
 
-> A contact detail that is not meant to be shared with others
+> Open for extension, closed for modification
+
+##### Synonyms
+
+> Alternative names for a single command
+
+##### Maintainable
+
+> Readable and easy to edit code
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+Product | Pros | Cons |
+-------- | :-------- | :--------- 
+Wunderlist | <ol> <li> Beautiful background </li> <li> Cloud sync </li> <li> Able to create folders to group similar tasks </li> <li> Able to add tags to tasks to filter them </li> </ol>  | <ol> <li> No start date or repeat options for tasks </li> <li> No options for subtasks </li> </ol> 
+Todo.txt | <ol> <li> Works on many platforms, can be accessed on devices that support Dropbox </li> <li> Easily editable format, can be edited in plain text and then displayed with neat styles </li> <li> Can edit with any text editor </li> <li> Easy syncing - can sync through Dropbox </li> <li> Command line support - can edit using command line by a supplied bash script </li> </ol> | <ol> <li> No support for recurring tasks </li> <li> No options for subtasks </li> <li> Only supports Dropbox, not flexible </li> </ol> 
+Google Calendar | <ol> <li> Can be synced to mobile devices </li> <li> Alerts via notifications on phones </li> <li> Switches between day, week, month view easily </li> <li> Minimalistic interface </li>  </ol>  | <ol> <li> Requires an Internet connection to be used </li> <li> Cannot be brought up with a keyboard shortcut </li> </ol> 
+Remember the milk | <ol> <li> Email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Sync across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li>  </ol> | <ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol>
 
+<strong>Summary:</strong> We noticed that these products have very good features, but we realised that none of these products have the specific combination of products that Jim wants. Therefore, we are mixing in the good features that these products have to make a targeted product for Jim.
