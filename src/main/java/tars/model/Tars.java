@@ -6,6 +6,7 @@ import tars.model.task.DateTime;
 import tars.model.task.Name;
 import tars.model.task.Priority;
 import tars.model.task.ReadOnlyTask;
+import tars.model.task.Status;
 import tars.model.task.UniqueTaskList;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import tars.commons.exceptions.DuplicateTaskException;
@@ -30,7 +31,7 @@ public class Tars implements ReadOnlyTars {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
-    
+
     private static final int DATETIME_INDEX_OF_ENDDATE = 1;
     private static final int DATETIME_INDEX_OF_STARTDATE = 0;
 
@@ -59,7 +60,7 @@ public class Tars implements ReadOnlyTars {
         return new Tars();
     }
 
-//// list overwrite operations
+    //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
@@ -102,7 +103,7 @@ public class Tars implements ReadOnlyTars {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
-//// task-level operations
+    //// task-level operations
 
     /**
      * Adds a task to tars.
@@ -115,7 +116,7 @@ public class Tars implements ReadOnlyTars {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
-    
+
     /**
      * Edits a task in tars
      * @throws UniqueTaskList.TaskNotFoundException if task to edit could not be found.
@@ -186,7 +187,37 @@ public class Tars implements ReadOnlyTars {
         syncTagsWithMasterList(taskToEdit);
         return taskToEdit;
     }
-        
+
+    /**
+     * Marks every task in respective lists as done or undone
+     * @param toMarkList
+     * @param status to indicate mark as done or undone
+     * @throws DuplicateTaskException 
+     */
+    public void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
+        if (status.equals(Flag.DONE)) {
+            Status done = new Status(true);
+            for (ReadOnlyTask t : toMarkList) {
+                if (!t.getStatus().equals(done)) { 
+                    // prevent marking tasks as done when it is done
+                    Task toMark = new Task(t);
+                    toMark.setStatus(done);
+                    replaceTask(t, toMark);
+                } 
+            }
+        } else if (status.equals(Flag.UNDONE)) {
+            Status undone = new Status(false);
+            for (ReadOnlyTask t : toMarkList) {
+                if (!t.getStatus().equals(undone)) {
+                    // prevent marking tasks as undone when it is undone
+                    Task toMark = new Task(t);
+                    toMark.setStatus(undone);
+                    replaceTask(t, toMark);
+                } 
+            }
+        }
+    }
+
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
@@ -217,19 +248,19 @@ public class Tars implements ReadOnlyTars {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
 
-//// tag-level operations
+
+    //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
-    
+
     public void removeTag(Tag t) throws UniqueTagList.TagNotFoundException {
         tags.remove(t);
     }
 
-//// util methods
+    //// util methods
 
     @Override
     public String toString() {
@@ -261,8 +292,8 @@ public class Tars implements ReadOnlyTars {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Tars // instanceof handles nulls
-                && this.tasks.equals(((Tars) other).tasks)
-                && this.tags.equals(((Tars) other).tags));
+                        && this.tasks.equals(((Tars) other).tasks)
+                        && this.tags.equals(((Tars) other).tags));
     }
 
     @Override
@@ -270,5 +301,5 @@ public class Tars implements ReadOnlyTars {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
-    
+
 }

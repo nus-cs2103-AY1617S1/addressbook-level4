@@ -75,6 +75,10 @@ public class Task implements ReadOnlyTask {
         this.priority = priority;
     }
     
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+        
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */

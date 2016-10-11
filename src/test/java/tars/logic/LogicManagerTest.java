@@ -25,6 +25,7 @@ import tars.logic.commands.ExitCommand;
 import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.ListCommand;
+import tars.logic.commands.MarkCommand;
 import tars.logic.commands.SelectCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.Tars;
@@ -519,6 +520,57 @@ public class LogicManagerTest {
         // execute command
         assertCommandBehavior(inputCommand, String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
                 expectedAB, expectedAB.getTaskList());
+    }
+
+    @Test
+    public void execute_mark_allTaskAsDone() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("task1");
+        Task task2 = helper.generateTaskWithName("task2");
+          
+        List<Task> taskList = helper.generateTaskList(task1, task2);
+        
+        Tars expectedAB = new Tars();
+        helper.addToModel(model, taskList);
+        
+        Status done = new Status(true);
+        task1.setStatus(done);
+        task2.setStatus(done);
+        
+        expectedAB.addTask(task1);
+        expectedAB.addTask(task2);
+        
+        assertCommandBehavior("mark -do 1 2",
+                MarkCommand.MESSAGE_MARK_SUCCESS,
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_mark_allTaskAsUndone() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	Task task1 = helper.generateTaskWithName("task1");
+    	Task task2 = helper.generateTaskWithName("task2");
+    	Status done = new Status(true);
+    	task1.setStatus(done);
+    	task2.setStatus(done);
+    	
+    	List<Task> taskList = helper.generateTaskList(task1, task2);
+    	
+    	Tars expectedAB = new Tars();
+    	helper.addToModel(model, taskList);
+    	
+    	Status undone = new Status(false);
+    	task1.setStatus(undone);
+    	task2.setStatus(undone);
+    	
+    	expectedAB.addTask(task1);
+    	expectedAB.addTask(task2);
+    	
+    	assertCommandBehavior("mark -ud 1 2",
+    			MarkCommand.MESSAGE_MARK_SUCCESS,
+    			expectedAB,
+    			expectedAB.getTaskList());
     }
 
     /**

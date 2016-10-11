@@ -16,6 +16,7 @@ import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
+import tars.logic.commands.MarkCommand;
 import tars.logic.commands.SelectCommand;
 import tars.logic.commands.UndoCommand;
 
@@ -42,14 +43,14 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
+
     public Parser() {
     }
 
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput
-     *            full user input string
+     * @param userInput full user input string
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
@@ -85,6 +86,9 @@ public class Parser {
             
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -152,8 +156,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the edit task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
@@ -210,12 +213,41 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
+    
+    /**
+     * Parses arguments in the context of the mark task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMark(String args) {
+        
+        Flag doOpt = new Flag(Flag.DONE, false);
+        Flag udOpt = new Flag(Flag.UNDONE, false);
+                
+        Flag[] flags = {
+                doOpt,
+                udOpt, 
+        };
+        
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
+        
+        if (flagsPosMap.size() == 0) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        }
+        
+        String markDone = argumentMap.get(doOpt).replace(Flag.DONE + " ","");
+        String markUndone = argumentMap.get(udOpt).replace(Flag.UNDONE + " ","");
+        
+        return new MarkCommand(markDone, markUndone);
+    }
 
     /**
      * Parses arguments in the context of the select task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
@@ -249,8 +281,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the find task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareFind(String args) {

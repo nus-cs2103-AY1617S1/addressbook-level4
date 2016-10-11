@@ -39,12 +39,4 @@ public class Status {
                 && this.toString().equals(((Status) other).toString())); // state check
     }
 
-    public void setDone() {
-        this.status = true;
-    }
-    
-    public void setUndone() {
-        this.status = false;
-    }
-
 }
