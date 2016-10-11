@@ -77,7 +77,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
-<img src="images/SD_Logic_Delete_Floating_Task.png" width="800">
+<img src="images/SDFloatingTaskDelete.png" width="800">
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -538,7 +538,7 @@ Use case ends
 
 > Use case ends
 
-#### Use case: UC12 - “Change directory”
+#### Use case: UC12 - Â“Change directoryÂ”
 
 **MSS**
 
@@ -564,7 +564,7 @@ Use case ends
 > 3a1. Happy Jim Task Manager shows not enough disk space message<br>
 Use case ends
 
-#### Use case: UC13 - “Exit”
+#### Use case: UC13 - Â“ExitÂ”
 
 **MSS**
 
