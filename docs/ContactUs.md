@@ -10,4 +10,4 @@
 1. [Chia Wei Kang](mailto:weikangchia@u.nus.edu)
 2. [Calvin Yang](mailto:e0003907@u.nus.edu)
 3. [Johnervan Lee](mailto:johnervan@u.nus.edu)
-4. [Joel Foo](joel.foo@u.nus.edu)
+4. [Joel Foo](mailto:joel.foo@u.nus.edu)
