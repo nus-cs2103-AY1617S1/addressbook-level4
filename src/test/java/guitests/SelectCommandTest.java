@@ -11,7 +11,7 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void selectPerson_nonEmptyList() {
-
+        
         assertSelectionInvalid(10); //invalid index
         assertNoPersonSelected();
 
@@ -23,7 +23,7 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
         assertSelectionInvalid(personCount + 1); //invalid index
         assertPersonSelected(middleIndex); //assert previous selection remains
-
+        
         /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
     }
 
