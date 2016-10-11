@@ -1,4 +1,4 @@
-
+[![Build Status](https://travis-ci.org/CS2103AUG2016-W13-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W13-C4/main)
 
 # DearJim
 
