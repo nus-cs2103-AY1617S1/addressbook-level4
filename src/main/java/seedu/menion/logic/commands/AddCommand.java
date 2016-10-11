@@ -38,7 +38,7 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(ArrayList<String> activityDetails) throws IllegalValueException {
-
+    	
         if (activityDetails.size() == Activity.FLOATING_TASK_LENGTH) {
             activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
             name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));

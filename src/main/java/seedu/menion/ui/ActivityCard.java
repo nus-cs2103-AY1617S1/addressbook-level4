@@ -48,17 +48,17 @@ public class ActivityCard extends UiPart{
     @FXML
     public void initialize() {
 
-        if (activity.getActivityType() == Activity.FLOATING_TASK_TYPE) {
+        if (activity.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
             activityType.setText(activity.getActivityType().toString());
             name.setText(activity.getActivityName().fullName);
             note.setText(activity.getNote().toString());
-        } else if (activity.getActivityType() == Activity.TASK_TYPE) {
+        } else if (activity.getActivityType().equals(Activity.TASK_TYPE)) {
             activityType.setText(activity.getActivityType().toString());
             name.setText(activity.getActivityName().fullName);
             note.setText(activity.getNote().toString());
             startDate.setText(activity.getActivityStartDate().toString());
             startTime.setText(activity.getActivityStartTime().toString());
-        } else if (activity.getActivityType() == Activity.EVENT_TYPE) {
+        } else if (activity.getActivityType().equals(Activity.EVENT_TYPE)) {
             activityType.setText(activity.getActivityType().toString());
             name.setText(activity.getActivityName().fullName);
             note.setText(activity.getNote().toString());

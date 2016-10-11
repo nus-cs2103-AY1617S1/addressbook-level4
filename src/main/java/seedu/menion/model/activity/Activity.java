@@ -14,9 +14,9 @@ import java.util.Objects;
 public class Activity implements ReadOnlyActivity {
 
     // Types of Activity
-    public static final String FLOATING_TASK_TYPE = "Floating Task";
-    public static final String TASK_TYPE = "Task";
-    public static final String EVENT_TYPE = "Event";
+    public static final String FLOATING_TASK_TYPE = "floatingTask";
+    public static final String TASK_TYPE = "task";
+    public static final String EVENT_TYPE = "event";
 
     public static final Integer FLOATING_TASK_LENGTH = 3; // ActivityType,
                                                           // ActivityName, Note
@@ -95,18 +95,18 @@ public class Activity implements ReadOnlyActivity {
      */
     public Activity(ReadOnlyActivity source) {
         
-        if (source.getActivityType() == FLOATING_TASK_TYPE) {
-            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+        if (source.getActivityType().equals(FLOATING_TASK_TYPE)) {
+            activityType = source.getActivityType();
             name = source.getActivityName();
             note = source.getNote();
-        } else if (source.getActivityType() == TASK_TYPE) {
-            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+        } else if (source.getActivityType().equals(TASK_TYPE)) {
+            activityType = source.getActivityType();;
             name = source.getActivityName();
             note = source.getNote();
             startDate = source.getActivityStartDate();
             startTime = source.getActivityStartTime();
-        } else if (source.getActivityType() == EVENT_TYPE) {
-            activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
+        } else if (source.getActivityType().equals(EVENT_TYPE)) {
+            activityType = source.getActivityType();;
             name = source.getActivityName();
             note = source.getNote();
             startDate = source.getActivityStartDate();
@@ -157,25 +157,25 @@ public class Activity implements ReadOnlyActivity {
     public void setActivityDetails() {
         if (activityType == FLOATING_TASK_TYPE) {
             activityDetails = new ArrayList<String>(3);
-            activityDetails.set(INDEX_ACTIVITY_TYPE, activityType);
-            activityDetails.set(INDEX_ACTIVITY_NAME, name.toString());
-            activityDetails.set(INDEX_ACTIVITY_NOTE, note.toString());
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
         } else if (activityType == TASK_TYPE) {
-            activityDetails = new ArrayList<String>(5);
-            activityDetails.set(INDEX_ACTIVITY_TYPE, activityType);
-            activityDetails.set(INDEX_ACTIVITY_NAME, name.toString());
-            activityDetails.set(INDEX_ACTIVITY_NOTE, note.toString());
-            activityDetails.set(INDEX_ACTIVITY_STARTDATE, startDate.toString());
-            activityDetails.set(INDEX_ACTIVITY_STARTTIME, startTime.toString());
+            activityDetails = new ArrayList<String>();
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+            activityDetails.add(startDate.toString());
+            activityDetails.add(startTime.toString());
         } else if (activityType == EVENT_TYPE) {
             activityDetails = new ArrayList<String>(7);
-            activityDetails.set(INDEX_ACTIVITY_TYPE, activityType);
-            activityDetails.set(INDEX_ACTIVITY_NAME, name.toString());
-            activityDetails.set(INDEX_ACTIVITY_NOTE, note.toString());
-            activityDetails.set(INDEX_ACTIVITY_STARTDATE, startDate.toString());
-            activityDetails.set(INDEX_ACTIVITY_STARTTIME, startTime.toString());
-            activityDetails.set(INDEX_ACTIVITY_ENDDATE, endDate.toString());
-            activityDetails.set(INDEX_ACTIVITY_ENDTIME, endTime.toString());
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+            activityDetails.add(startDate.toString());
+            activityDetails.add(startTime.toString());
+            activityDetails.add(endDate.toString());
+            activityDetails.add(endTime.toString());
         }
     }
 

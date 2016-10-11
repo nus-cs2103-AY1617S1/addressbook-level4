@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Activity.
  */
-public class XmlAdaptedTask {
+public class XmlAdaptedActivity {
 
     @XmlElement(required = true)
     private String activityType;
@@ -35,7 +35,7 @@ public class XmlAdaptedTask {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
+    public XmlAdaptedActivity() {}
 
 
     /**
@@ -43,7 +43,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(ReadOnlyActivity source) {
+    public XmlAdaptedActivity(ReadOnlyActivity source) {
         
         if (source.getActivityType() == Activity.FLOATING_TASK_TYPE) {
             activityType = source.getActivityType().toString();
@@ -72,7 +72,7 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted Activity
      */
     public Activity toModelType() throws IllegalValueException {
-        if (this.activityType.equals(Activity.EVENT_TYPE)) {
+        if (this.activityType == Activity.EVENT_TYPE) {
             final String type = this.activityType;
             final ActivityName name = new ActivityName(this.name);
             final Note note = new Note(this.note);
@@ -81,7 +81,7 @@ public class XmlAdaptedTask {
             final ActivityDate endDate = new ActivityDate(this.endDate);
             final ActivityTime endTime = new ActivityTime(this.endTime);
             return new Activity(type, name, note, startDate, startTime, endDate, endTime);
-        } else if (this.activityType.equals(Activity.TASK_TYPE)) {
+        } else if (this.activityType == Activity.TASK_TYPE) {
             final String type = this.activityType;
             final ActivityName name = new ActivityName(this.name);
             final Note note = new Note(this.note);
