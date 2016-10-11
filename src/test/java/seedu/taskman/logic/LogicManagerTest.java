@@ -472,7 +472,6 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Title title = new Title("Adam Brown");
             Deadline privateDeadline = new Deadline("111111");
-            Status status = new Status();
             Frequency frequency = new Frequency("1d");
             Schedule schedule = new Schedule("wed 10am, wed 11am");
             Tag tag1 = new Tag("tag1");
@@ -591,9 +590,9 @@ public class LogicManagerTest {
             return new Task(
                     new Title(title),
                     new UniqueTagList(new Tag("t1"), new Tag("t2")),
-                    new Deadline("1"),
-                    null,
-                    new Frequency("7")
+                    new Deadline("in 4 days"),
+                    new Schedule("02/05/2016 5pm, 05/05/2016 5pm"),
+                    new Frequency("7 days")
             );
         }
     }
