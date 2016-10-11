@@ -26,6 +26,8 @@ public class XmlAdaptedTask {
     private String startDate;
     @XmlElement
     private String endDate;
+    @XmlElement
+    private String recurrenceRate;
 
 
     /**
@@ -48,6 +50,9 @@ public class XmlAdaptedTask {
         if (source.getEndDate().isPresent()){
             endDate = source.getEndDate().get().toString();
         }
+        if (source.getRecurrenceRate().isPresent()){
+            recurrenceRate = source.getRecurrenceRate().get().recurrenceRate.toString();
+        }
     }
 
     /**
@@ -59,7 +64,7 @@ public class XmlAdaptedTask {
     public Task toModelType() throws IllegalValueException, ParseException {
         SimpleDateFormat dateParser = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
         Date startDateForModel = null, endDateForModel = null;
-        RecurrenceRate recurrenceRate =  null;
+        RecurrenceRate recurrenceRateForModel =  null;
         
         final String name = new String(this.name);
         Priority priority = Priority.MEDIUM;
@@ -78,7 +83,10 @@ public class XmlAdaptedTask {
         if (this.endDate != null){
             endDateForModel = dateParser.parse(this.endDate);
         }
+        if (this.recurrenceRate != null){
+            recurrenceRateForModel = new RecurrenceRate(Integer.parseInt(this.recurrenceRate));
+        }
     
-        return new Task(new Name(name), startDateForModel, endDateForModel, recurrenceRate, priority);
+        return new Task(new Name(name), startDateForModel, endDateForModel, recurrenceRateForModel, priority);
     }
 }

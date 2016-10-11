@@ -70,4 +70,12 @@ public class TestTask implements ReadOnlyTask {
         }
         return Optional.empty();    
     }
+
+    @Override
+    public Optional<RecurrenceRate> getRecurrenceRate() {
+        if (recurrenceRate != null){
+            return Optional.of(recurrenceRate);
+        }
+        return Optional.empty();
+    }
 }

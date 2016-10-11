@@ -153,5 +153,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         }
         return Optional.empty();    
     }
+
+    @Override
+    public Optional<RecurrenceRate> getRecurrenceRate() {
+        if (recurrenceRate != null){
+            return Optional.of(recurrenceRate);
+        }
+        return Optional.empty();
+    }
     
 }
