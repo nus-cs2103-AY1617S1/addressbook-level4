@@ -192,10 +192,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     private class CompletedQualifier implements Qualifier {
-		@Override
-		public boolean run(ReadOnlyTask person) {
-			return person.isComplete();
-		}
+	    @Override
+	    public boolean run(ReadOnlyTask person) {
+		    return person.isComplete();
+	    }
     }
 
     private class NameQualifier implements Qualifier {
@@ -241,15 +241,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     private class PriorityQualifier implements Qualifier {
-		private String priority;
-		
-		public PriorityQualifier(String priority) {
-		    this.priority = priority.replaceFirst("p/", "");
-		}
+        private String priority;
+	    
+        public PriorityQualifier(String priority) {
+            this.priority = priority.replaceFirst("p/", "");
+        }
     	
-    	@Override
-		public boolean run(ReadOnlyTask person) {
-			return person.getPriority().priorityLevel.equals(this.priority);
-		}
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return person.getPriority().priorityLevel.equals(this.priority);
+        }
     }
 }
