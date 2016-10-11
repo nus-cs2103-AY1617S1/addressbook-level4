@@ -50,5 +50,16 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
-
+    @Test
+    public void isEmpty() {
+        assertTrue(StringUtil.isEmpty(null));
+        assertTrue(StringUtil.isEmpty(""));
+        assertTrue(StringUtil.isEmpty("    "));
+        assertTrue(StringUtil.isEmpty("\t\n"));
+        assertTrue(StringUtil.isEmpty("\r \r\n"));
+        
+        assertFalse(StringUtil.isEmpty("a"));
+        assertFalse(StringUtil.isEmpty("  ah c "));
+        assertFalse(StringUtil.isEmpty("12345"));
+    }
 }

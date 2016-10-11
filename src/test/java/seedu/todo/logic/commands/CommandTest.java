@@ -20,7 +20,7 @@ import seedu.todo.storage.MockStorage;
  * of assertions to inspect the model. 
  */
 public abstract class CommandTest {
-    private class MockParseResult implements ParseResult {
+    private class StubParseResult implements ParseResult {
         public String command; 
         public String positional;
         public Map<String, String> named = new HashMap<>();
@@ -44,7 +44,7 @@ public abstract class CommandTest {
     protected TodoList model;
     protected MockStorage storage;
     protected BaseCommand command;
-    protected MockParseResult params;
+    protected StubParseResult params;
     
     abstract protected BaseCommand commandUnderTest();
 
@@ -52,7 +52,7 @@ public abstract class CommandTest {
     public void setUpCommand() throws Exception {
         storage = new MockStorage();
         model = new TodoList(storage);
-        params = new MockParseResult();
+        params = new StubParseResult();
         command = commandUnderTest();
     }
     
@@ -107,7 +107,7 @@ public abstract class CommandTest {
 
     /**
      * Asserts that the task is visible to the user through the model. 
-     * This can also mean the task is simply not in memory. Use {{@link #assertTaskHidden()}
+     * This can also mean the task is simply not in memory. Use {@link #assertTaskHidden}
      * to assert that the task exists, but is not visible
      */
     protected void assertTaskNotVisible(ImmutableTask task) {
