@@ -169,6 +169,17 @@ public class TaskTest {
         assertEquals(2, task.getTags().size());
         // TODO: This should do more when we finalize how tags can be edited 
     }
+    
+    @Test
+    public void testIsEvent() throws Exception {
+        assertFalse(task.isEvent());
+        
+        task.setEndTime(LocalDateTime.now());
+        assertFalse(task.isEvent());
+        
+        task.setStartTime(LocalDateTime.now().minusHours(4));
+        assertTrue(task.isEvent());
+    }
 
     @Test
     public void testGetObservableProperties() {

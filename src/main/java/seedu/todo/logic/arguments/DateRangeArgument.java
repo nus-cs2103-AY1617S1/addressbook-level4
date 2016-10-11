@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.commons.exceptions.IllegalValueException;
 
@@ -20,7 +21,8 @@ public class DateRangeArgument extends Argument<DateRange> {
     private static final String NO_DATE_FOUND_FORMAT = "%s does not seem to contain a date";
     
     public DateRangeArgument(String name) {
-        super(name);
+        // Makes sure that there is a default value, so that callers won't get null when they getValue()
+        super(name, new DateRange(null));
     }
 
     public DateRangeArgument(String name, DateRange defaultValue) {
@@ -29,6 +31,12 @@ public class DateRangeArgument extends Argument<DateRange> {
     
     @Override
     public void setValue(String input) throws IllegalValueException {
+        super.setValue(input);
+        
+        if (StringUtil.isEmpty(input)) {
+            return;
+        }
+        
         input = TimeUtil.toAmericanDateFormat(input);
         List<Date> dateGroups = parser.parse(input);
         
@@ -48,7 +56,6 @@ public class DateRangeArgument extends Argument<DateRange> {
         } else {
             value = new DateRange(dates.get(0), dates.get(1));
         }
-        
     }
     
     private void tooManyDatesError(List<LocalDateTime> dates) throws IllegalValueException {

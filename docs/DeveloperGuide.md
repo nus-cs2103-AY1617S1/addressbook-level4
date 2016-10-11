@@ -49,15 +49,9 @@ developing the application's UI.
   
 ### Contributing 
 
-We use the [feature branch git workflow][workflow]. When working on a task please remember to assign the relavant issue 
-to yourself [on the issue tracker][issues] and branch off from `master`. When the task is complete remember to 
-push the branch to GitHub and [create a new pull request][pr] so that the integrator can review the code. 
-For large features that impact multiple parts of the code it is best to open a new issue on issue tracker
-so that the design of the code can be discussed first. 
+We use the [feature branch git workflow][workflow]. When working on a task please remember to assign the relavant issue to yourself [on the issue tracker][issues] and branch off from `master`. When the task is complete remember to push the branch to GitHub and [create a new pull request][pr] so that the integrator can review the code. For large features that impact multiple parts of the code it is best to open a new issue on issue tracker so that the design of the code can be discussed first. 
 
-[Test driven development][tdd] is encouraged but not required. All incoming code should have 100% 
-accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage 
-to fall.
+[Test driven development][tdd] is encouraged but not required. All incoming code should have 100% accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage to fall.
 
 ### Coding Style
 
@@ -70,20 +64,16 @@ We use the Java coding standard found at <https://oss-generic.github.io/process/
 
 <img src="images/Architecture.png" width="600">
 
-The Architecture Diagram above explains the high-level design of the App. Here is a quick 
-overview of each component.
+The Architecture Diagram above explains the high-level design of the App. Here is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/todo/MainApp.java). It is responsible for,
 
-* At app launch: Bootstrapping the application by initializing the components in the correct sequence and 
-injecting the dependencies needed for each component. 
+* At app launch: Bootstrapping the application by initializing the components in the correct sequence and injecting the dependencies needed for each component. 
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
+[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained)) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists three components.
@@ -92,21 +82,17 @@ The rest of the App consists three components.
 * [**`Logic`**](#logic-component): The parser and command executer, representing the controller 
 * [**`Model`**](#model-component): Data manipulation and storage, representing the model and data layer 
 
-Each of the three components defines its API in an `interface` with the same name and 
-are bootstrapped at launch by `MainApp`.
+Each of the three components defines its API in an `interface` with the same name and are bootstrapped at launch by `MainApp`.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 <img src="images/LogicClassDiagram.png" width="800">
 
-The Sequence Diagram below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+The Sequence Diagram below shows how the components interact for the scenario where the user issues the command `delete 3`.
 
 <img src="images/SDforDeletePerson.png" width="800">
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
 
 <img src="images/SDforDeletePersonEventHandling.png" width="800">
 
@@ -130,6 +116,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
+
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
@@ -140,15 +127,13 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
-The logic component is the glue sitting between the UI and the data model. It consists of three separate 
-subcomponents, each of which also defines their own API using interfaces or abstract classes - 
+The logic component is the glue sitting between the UI and the data model. It consists of three separate subcomponents, each of which also defines their own API using interfaces or abstract classes - 
 
 - `Parser` - turns user input into command and arguments 
 - `Dispatcher` - maps parser results to commands 
 - `Command` - validates arguments and execute command
 
-When the logic component is instantated each of these subcomponents is injected via dependency injection.
-This allows them to be tested more easily. 
+When the logic component is instantiated each of these subcomponents is injected via dependency injection. This allows them to be tested more easily. 
 
 The flow of a command being executed is -
 
@@ -158,8 +143,7 @@ the command the user called
 3. `Logic` binds the model and arguments to the `Command` object and executes it 
 4. The command execution can affect the `Model` (e.g. adding a person), and/or raise events.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call. See [the implementation section](#logic) below for the implementation details of the logic component.  
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call. See [the implementation section](#logic) below for the implementation details of the logic component.  
  
 <img src="images/DeletePersonSdForLogic.png" width="800">
 
@@ -174,14 +158,9 @@ The model component represents the application's data layer. It consists of two 
 - `TodoModel` - representing the application's internal memory state  
 - `Storage` - representing the application's data on disk  
 
-The model interface is injected into command objects by the logic component, and exposes a 
-CRUD interface that allows commands to modify the application's data. To avoid tight coupling with 
-the command classes, the model exposes only a small set of generic functions. The UI component 
-binds to the  the model through the `getObservableList` function which returns an `UnmodifiableObseravbleList`
-object that the UI can bind to.
+The model interface is injected into command objects by the logic component, and exposes a CRUD interface that allows commands to modify the application's data. To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The UI component binds to the  the model through the `getObservableList` function which returns an `UnmodifiableObseravbleList` object that the UI can bind to.
 
-The model ensure safety by exposing as much of its internal state as possible as immutable objects 
-using interfaces such as `ImmutableTask`.
+The model ensure safety by exposing as much of its internal state as possible as immutable objects using interfaces such as `ImmutableTask`.
 
 <img src="diagrams/Storage Component.svg" class="container u-max-full-width">
 
@@ -204,9 +183,7 @@ See the [Logic component architecture](#logic-component) section for the high le
 
 #### Parser 
 
-The `TodoParser` subcomponent implents the `Parser` interface, which defines a single `parse` function that 
-takes in the user input as a string and returns an object implementing the `ParseResult` interface. The 
-implementing class for `TodoParser` can be found as an inner class inside `TodoParser`.
+The `TodoParser` subcomponent implements the `Parser` interface, which defines a single `parse` function that takes in the user input as a string and returns an object implementing the `ParseResult` interface. The implementing class for `TodoParser` can be found as an inner class inside `TodoParser`.
 
 The parser tokenizes the user input by whitespace characters then splits it into three parts: 
 
@@ -228,14 +205,11 @@ This is then passed on to the dispatcher.
   
 #### Dispatcher 
 
-The `TodoDispatcher` subcomponent implements the `Dispatcher` interface, which defines a single 
-`dispatch` function. The dispatch function simply maps the provided `ParseResult` object to the 
-correct command class, instantiates a new instance of it then returns it to the caller. 
+The `TodoDispatcher` subcomponent implements the `Dispatcher` interface, which defines a single `dispatch` function. The dispatch function simply maps the provided `ParseResult` object to the correct command class, instantiates a new instance of it then returns it to the caller. 
 
 #### Command
 
-All commands implement the `BaseCommand` abstract class, which provides argument binding and validation.
-To implement a new command, you can use the following template 
+All commands implement the `BaseCommand` abstract class, which provides argument binding and validation. To implement a new command, you can use the following template 
 
 ```java
 package seedu.todo.logic.commands;
@@ -263,21 +237,13 @@ public class YourCommand extends BaseCommand {
 }
 ```
 
-If you need to do argument validation, you can also override the `validateArgument` command, 
-which is run after all arguments have been set.
+If you need to do argument validation, you can also override the `validateArgument` command, which is run after all arguments have been set.
 
 #### Arguments 
 
-Command arguments are defined using argument objects. Representing arguments as objects have several 
-benefit - it makes them declarative, it allows argument parsing and validation code to be reused across 
-multiple commands, and the fluent setter allows each individual property to be set indepently of each other. 
-The argument object's main job is to convert the user input from string into the type which the 
-command object can use, as well as contain information about the argument that the program can show to the 
-user.
+Command arguments are defined using argument objects. Representing arguments as objects have several benefit - it makes them declarative, it allows argument parsing and validation code to be reused across multiple commands, and the fluent setter allows each individual property to be set indepently of each other. The argument object's main job is to convert the user input from string into the type which the command object can use, as well as contain information about the argument that the program can show to the user.
 
-The generic type `T` represents the return type of the command argument. To implement a new argument 
-type, extend the abstract base class `Argument`, then implement the `setValue` function. Remember to 
-call the super class's `setValue` function so that the `required` argument check works. 
+The generic type `T` represents the return type of the command argument. To implement a new argument type, extend the abstract base class `Argument`, then implement the `setValue` function. Remember to call the super class's `setValue` function so that the `required` argument check works. 
 
 ```java
 package seedu.todo.logic.arguments;
@@ -306,16 +272,12 @@ public class MyArgument extends Argument<T> {
 
 ### Logging
 
-We are using the [`java.util.logging`][jul] package for logging. The `LogsCenter` class is used to manage the logging levels
-and logging destinations.
+We are using the [`java.util.logging`][jul] package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See [Configuration](#configuration))
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
 * Currently log messages are output through: Console and to a log file.
-* The logs rolls over at 5MB such that every log file is smaller than 5MB. Five log files are 
-kept, after which the oldest will be deleted. 
+* The logs rolls over at 5MB such that every log file is smaller than 5MB. Five log files are kept, after which the oldest will be deleted. 
 
 To use the logger in your code, simply include 
 
@@ -336,8 +298,7 @@ Level      | Used for
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
-(default: `config.json`):
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`)
 
 
 ## Testing
@@ -348,8 +309,7 @@ Tests can be found in the `./src/test/java` folder.
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
-  to run as a JUnit test.
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.
 
 !!! note
     If you are not using a recent Eclipse version (Neon or later), enable assertions in JUnit tests
@@ -362,25 +322,20 @@ See [UsingGradle.md](#appendix-f-using-gradle) for how to run tests using Gradle
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
-   These are in the `guitests` package.
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `guitests` package.
 
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
     1. **Unit tests** - targeting the lowest level methods/classes.  
       e.g. `seedu.todo.commons.UrlUtilTest`
-    2. **Integration tests** - that are checking the integration of multiple code units
-     (those code units are assumed to be working).  
+    2. **Integration tests** - that are checking the integration of multiple code units (those code units are assumed to be working).  
       e.g. `seedu.todo.storage.StorageManagerTest`
-    3. **Hybrids of unit and integration tests.** These test are checking multiple code units as well as
-      how the are connected together.  
+    3. **Hybrids of unit and integration tests.** These test are checking multiple code units as well as how the are connected together.    
       e.g. `seedu.todo.logic.LogicManagerTest`
 
 ### Headless GUI Testing 
 
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode.
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.
+ our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
  
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
@@ -388,17 +343,13 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
 
 ### Build Automation
 
-We use [Gradle][gradle] for build automation. Gradle handles project dependencies, build tasks and testing.
-If you have configured Eclipse by importing the project as shown in the [setting up](#setting-up) section
-Gradle should already be properly configured and can be executing from within Eclipse to build, test and 
-package the project from the Run menu.
+We use [Gradle][gradle] for build automation. Gradle handles project dependencies, build tasks and testing. If you have configured Eclipse by importing the project as shown in the [setting up](#setting-up) section Gradle should already be properly configured and can be executing from within Eclipse to build, test and package the project from the Run menu.
 
 See the appendix [Using Gradle](#appendix-f-using-gradle) for all of the details and Gradle commands. 
 
 ### Continuous Integration
 
-We use [Travis CI][travis] to perform Continuous Integration on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
+We use [Travis CI][travis] to perform Continuous Integration on our projects. See [UsingTravis.md](UsingTravis.md) for more details.
 
 ### Making a Release
 
@@ -406,8 +357,7 @@ Here are the steps to create a new release.
 
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
-    and upload the JAR file your created.
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) and upload the JAR file your created.
 
 ### Managing Dependencies
 
@@ -436,16 +386,12 @@ dependencies {
 
 After that rerun the Gradle `build` command and make sure the file has been edited properly, then right click on the project folder in Eclipse, select `Gradle` > `Refresh Gradle Project`. You should now be able to use the package in your code. Remember to inform all other team members to refresh their Gradle Project when the commit is merged back into master.
 
-!!! warning "Adding external dependencies should be done with care"
+!!! warning "Add external dependencies with care"
     Be mindful of the impact external dependencies can have on project build time and maintenance costs. Adding an external package should always be discussed with the other project members in the issue tracker.
 
 ## Documentation 
 
-Our documentation and user guides are written in [GitHub Flavor Markdown][gfm] with a number of 
-extensions including tables, definition lists and warning blocks that help enable richer styling options
-for our documentation. These extensions are documented on the [Extensions page of the Python Markdown package][py-markdown],
-the package we use to help transform the Markdown into HTML. We use HTML because it allows greater 
-flexibility in styling and is generally more user friendly than raw Markdown. To set up the script:
+Our documentation and user guides are written in [GitHub Flavor Markdown][gfm] with a number of extensions including tables, definition lists and warning blocks that help enable richer styling options for our documentation. These extensions are documented on the [Extensions page of the Python Markdown package][py-markdown], the package we use to help transform the Markdown into HTML. We use HTML because it allows greater flexibility in styling and is generally more user friendly than raw Markdown. To set up the script:
 
 1. Make sure you have Python 3.5+ installed. Run `python3 --version` to check
 2. Install the dependencies - `pip3 install markdown pygments` 
@@ -483,33 +429,39 @@ Priority | As a ...  | I want to ... | So that I can...
 
 **MSS**
 
-1. User types out an event with start time end time and location
-2. TodoApp adds event with specified fields to 'TodoList.xml'
+1. User types out an event with start time, end time and location
+2. TodoApp adds event with specified fields and saves it to disk
+
 Use case ends.
 
 **Extensions**
 
 1a. The task has no title
 
-> 1a1. TodoApp shows an error message <br>
+> 1a1. TodoApp shows an error message  
   Use case resumes at step 1 
+  
 1b. The task's date field is empty
 
-> 1b1. TodoApp creates a task with no start and end date <br>
-  
-  Use case ends
+> 1b1. TodoApp creates a task with no start and end date  
+  Use case resumes at step 2
 
 1c. The task has a start time later than end time
 
-> 1c1. TodoApp shows an error message <br>
-  Use case resumes at step 1 
+> 1c1. TodoApp assumes the dates are inverted    
+  Use case resumes at step 2
+ 
+1d. The event's timing overlaps with an existing event's timing 
+
+> 1d1. TodoApp displays a warning to the user that he has another event at the same time  
+  Use case resumes at step 2
   
-### Use case: Adding a deadline
+### Use case: Adding a task with deadline
 
 **MSS**
 
-1. User enters a deadline.
-2. TodoApp creates new todo item with deadline specified
+1. User enters a task while specifying a deadline for the task.
+2. TodoApp creates new todo item with deadline specified and saves it to disk
 
 Use case ends.
 
@@ -517,135 +469,179 @@ Use case ends.
 
 1a. The task has no title
 
-> 1a1. TodoApp shows an error message <br>
+> 1a1. TodoApp shows an error message  
   Use case resumes at step 1 
+
 1b. The task's date field is empty
 
-> 1b1. TodoApp creates a task with no start and end date <br>
-  
+> 1b1. TodoApp creates a task with no deadline  
   Use case ends
 
 ### Use case: Adding a recurring task
 
 **MSS**
 
-1. User requests to list persons
-2. TodoApp shows a list of persons
-3. User requests to delete a specific person in the list
-4. TodoApp deletes the person  
+1. User enters a task with a recurring time period 
+2. TodoApp creates a new recurring todo item with the specified time period 
+3. At the start of the specified time period (eg. every week, month) TodoApp creates a copy of the original task for the user 
 
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
 
-> Use case ends
+2a. The given recurring time period is invalid 
 
-3a. The given index is invalid
-
-> 3a1. TodoApp shows an error message <br>
-  Use case resumes at step 2
+> 2a1. TodoApp shows an error message  
+  Use case resumes at step 1
 
 ### Use case: Marking a task complete
 
 **MSS**
 
-1. User requests to list of uncompleted tasks.
+1. User requests to see a list of uncompleted tasks.
 2. TodoApp shows a list of uncompleted tasks.
 3. User marks complete a specific task in the list.
-4. TodoApp marks the task as complete by striking through the task  
+4. TodoApp marks the task as complete by striking through the task and saving its new state to disk
 
 Use case ends.
 
 **Extensions**
+
 1a. User uses another method to list tasks (e.g. search)
 
-> 1a1. TodoApp shows the list of tasks requested
+> 1a1. TodoApp shows the list of tasks requested  
   Use case resumes at step 2
 
 2a. The list is empty
 
-> Use case ends
+> 1a1. TodoApp informs the user the list is empty  
+  Use case ends
 
 3a. The given index is invalid
 
-> 3a1. TodoApp shows an error message <br>
+> 3a1. TodoApp shows an error message  
   Use case resumes at step 2
 
-3b. The given index is a task which is already complete
+3b. The given index is a task which has already been completed
 
-> Use case ends
+> 3b1. TodoApp informs the user the task has already been completed 
+  Use case ends
 
 ### Use case: Delete task
 
 **MSS**
 
-1. User requests to list persons
-2. TodoApp shows a list of persons
-3. User requests to delete a specific person in the list
-4. TodoApp deletes the person  
+1. User requests to delete a specific task from the list
+2. TodoApp deletes the person  
 
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. The given index is invalid
 
-> Use case ends
+> 1a1. TodoApp shows an error message  
+  Use case resumes at step 1
 
-3a. The given index is invalid
-
-> 3a1. TodoApp shows an error message <br>
-
-  Use case resumes at step 2
-
-### Use case: Viewing a specific list of task
+### Use case: Viewing a specific tab (i.e. intelligent views)
 
 **MSS**
 
-1. User requests to list persons
-2. TodoApp shows a list of persons
-3. User requests to delete a specific person in the list
-4. TodoApp deletes the person  
+1. User requests to view specific tab
+2. TodoApp shows a list of tasks under specific tab
 
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. User enters invalid view (eg. a view that doesn't exist )
 
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. TodoApp shows an error message <br>
-  Use case resumes at step 2
-4. TodoApp deletes the person  
-Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. TodoApp shows an error message <br>
-> Use case resumes at step 2
+> 1a1. TodoApp shows an error message  
+  Use case ends
 
 ### Use case: Finding for a task
 
+**MSS**
 
+1. User searches for task with specific tag or fragmented title
+2. TodoApp returns a list of tasks matching search fragment
+
+Use case ends.
+
+**Extensions**
+
+1a. User enters an invalid tag/search fragment
+
+> 1a1. TodoApp returns an empty list  
+  Use case ends
 
 ### Use case: Editing a task
 
+1. User searches for specific task to edit
+2. TodoApp returns list of tasks matching search query
+3. User edits specific task on the list, changing any of its fields
+4. TodoApp accepts changes and reflects them on the task
+
+**Extensions**
+
+2a. List returned is empty  
+>  Use case ends
+
+3a. User enters invalid task index
+
+> 3a1. TodoApp shows error message indicating invalid index   
+> Use case resumes at Step 2
+
+3b. User enters invalid arguments to edit fields
+
+> 3b1. TodoApp shows error message indicating invalid fields  
+> Use case resumes at Step 2
+
 ### Use case: Pinning a task
+
+**MSS**
+
+1. User searches for specific task to pin using the find command
+2. TodoApp returns a list of tasks matching the search query
+3. User selects a specific task to pin
+4. TodoApp pins selected task and updates the storage file on disk 
+
+Use case ends.
+
+**Extensions**
+
+2a. List returned by TodoApp is empty
+
+> Use case ends
+
+3a. Selected task is already pinned
+
+>  3a1. TodoApp unpins selected task
+>  Use case ends
+
+3b. User provides an invalid index
+
+> 3b1. TodoApp shows an error message  
+> Use case resumes at Step 3
+
 
 ### Use case: Undoing an action
 
+1. User carries out a mutating command (see [glossary](#appendix-d-glossary))
+2. User finds they have made a mistake and instructs TodoApp to undo last action
+3. TodoApp rolls back the todolist to the previous state and updates the stored todolist on disk
+
+**Extensions**
+
+2a1. The user calls the undo command without having made any changes 
+
+> 2a1. TodoApp shows an error message  
+> Use case ends 
+
 ### Use case: Redoing an action
+
+
 
 ### Use case: 
 
@@ -675,6 +671,10 @@ Pinning
 
 :   Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. 
 
+Mutable Command
+
+:   Any command which causes a change in the state of the the TodoApp (E.g. add, delete, edit, pin, complete)
+
 
 ## Appendix E : Product Survey
 
@@ -692,13 +692,11 @@ Pinning
 The gradle configuration for this project is defined in the build script [`build.gradle`](../build.gradle).
  
 !!! note 
-    To learn more about gradle build scripts refer to 
-    [Build Scripts Basics](https://docs.gradle.org/current/userguide/tutorial_using_tasks.html).
+    To learn more about gradle build scripts refer to [Build Scripts Basics](https://docs.gradle.org/current/userguide/tutorial_using_tasks.html).
 
 ### Running Gradle Commands
 
-To run a Gradle command, open a command window on the project folder and enter the Gradle command.
-Gradle commands look like this:
+To run a Gradle command, open a command window on the project folder and enter the Gradle command. Gradle commands look like this:
 
 * On Windows :`gradlew <task1> <task2> ...` e.g. `gradlew clean allTests`
 * On Mac/Linux: `./gradlew <task1> <task2>...`  e.g. `./gradlew clean allTests`
@@ -712,12 +710,7 @@ Gradle commands look like this:
 e.g. `./gradlew clean`
   
 !!! note "`clean` to force Gradle to execute a task"
-    When running a Gradle task, Gradle will try to figure out if the task needs running at all. 
-    If Gradle determines that the output of the task will be same as the previous time, it will not run
-    the task. For example, it will not build the JAR file again if the relevant source files have not changed
-    since the last time the JAR file was built. If we want to force Gradle to run a task, we can combine
-    that task with `clean`. Once the build files have been `clean`ed, Gradle has no way to determine if
-    the output will be same as before, so it will be forced to execute the task.
+    When running a Gradle task, Gradle will try to figure out if the task needs running at all.  If Gradle determines that the output of the task will be same as the previous time, it will not run the task. For example, it will not build the JAR file again if the relevant source files have not changed since the last time the JAR file was built. If we want to force Gradle to run a task, we can combine that task with `clean`. Once the build files have been `clean`ed, Gradle has no way to determine if the output will be same as before, so it will be forced to execute the task.
     
 ### Creating the JAR file
 
@@ -728,10 +721,7 @@ To force Gradle to create the JAR file even if the current one is up-to-date, yo
 e.g. `./gradlew clean shadowJar` 
 
 !!! note "Why do we create a fat JAR?"
-    If we package only our own class files into the JAR file, it will not work properly unless the user has all the other
-    JAR files (i.e. third party libraries) our classes depend on, which is rather inconvenient. 
-    Therefore, we package all dependencies into a single JAR files, creating what is also known as a _fat_ JAR file. 
-    To create a fat JAR file, we use the [shadow jar](https://github.com/johnrengelman/shadow) Gradle plugin.
+    If we package only our own class files into the JAR file, it will not work properly unless the user has all the other JAR files (i.e. third party libraries) our classes depend on, which is rather inconvenient. Therefore, we package all dependencies into a single JAR files, creating what is also known as a _fat_ JAR file. To create a fat JAR file, we use the [shadow jar](https://github.com/johnrengelman/shadow) Gradle plugin.
 
 ### Running Tests
 
@@ -741,8 +731,7 @@ e.g. `./gradlew clean shadowJar`
   
 **`nonGuiTests`** - Runs all non-GUI tests in the `seedu.address` package
   
-**`headless`** - Sets the test mode as _headless_. 
-  The mode is effective for that Gradle run only so it should be combined with other test tasks.
+**`headless`** - Sets the test mode as _headless_. The mode is effective for that Gradle run only so it should be combined with other test tasks.
   
 Here are some examples:
 
@@ -752,19 +741,15 @@ Here are some examples:
 
 ### Updating Dependencies
 
-There is no need to run these Gradle tasks manually as they are called automatically by other 
-relevant Gradle tasks.
+There is no need to run these Gradle tasks manually as they are called automatically by other relevant Gradle tasks.
 
-**`compileJava`** - Checks whether the project has the required dependencies to compile and run the main program, and download 
-any missing dependencies before compiling the classes.  
+**`compileJava`** - Checks whether the project has the required dependencies to compile and run the main program, and download any missing dependencies before compiling the classes.  
 
 See `build.gradle` > `allprojects` > `dependencies` > `compile` for the list of dependencies required.
 
-**`compileTestJava`** - Checks whether the project has the required dependencies to perform testing, and download 
-any missing dependencies before compiling the test classes.
+**`compileTestJava`** - Checks whether the project has the required dependencies to perform testing, and download any missing dependencies before compiling the test classes.
   
-See `build.gradle` > `allprojects` > `dependencies` > `testCompile` for the list of 
-dependencies required.
+See `build.gradle` > `allprojects` > `dependencies` > `testCompile` for the list of dependencies required.
 
 *[CRUD]: Create, Retrieve, Update, Delete
 *[GUI]: Graphical User Interface

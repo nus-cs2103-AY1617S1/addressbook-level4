@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
@@ -30,8 +31,10 @@ public class XmlAdaptedTask {
     private boolean completed;
 
     @XmlElement(required = false)
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime startTime;
     @XmlElement(required = false)
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime endTime;
 
     @XmlElement(required = true)

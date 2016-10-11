@@ -67,11 +67,11 @@
 <li><a href="#appendix-a-user-stories">Appendix A : User Stories</a></li>
 <li><a href="#appendix-b-use-cases">Appendix B : Use Cases</a><ul>
 <li><a href="#use-case-adding-an-event">Use case: Adding an event</a></li>
-<li><a href="#use-case-adding-a-deadline">Use case: Adding a deadline</a></li>
+<li><a href="#use-case-adding-a-task-with-deadline">Use case: Adding a task with deadline</a></li>
 <li><a href="#use-case-adding-a-recurring-task">Use case: Adding a recurring task</a></li>
 <li><a href="#use-case-marking-a-task-complete">Use case: Marking a task complete</a></li>
 <li><a href="#use-case-delete-task">Use case: Delete task</a></li>
-<li><a href="#use-case-viewing-a-specific-list-of-task">Use case: Viewing a specific list of task</a></li>
+<li><a href="#use-case-viewing-a-specific-tab-ie-intelligent-views">Use case: Viewing a specific tab (i.e. intelligent views)</a></li>
 <li><a href="#use-case-finding-for-a-task">Use case: Finding for a task</a></li>
 <li><a href="#use-case-editing-a-task">Use case: Editing a task</a></li>
 <li><a href="#use-case-pinning-a-task">Use case: Pinning a task</a></li>
@@ -138,32 +138,22 @@ developing the application's <abbr title="User interface">UI</abbr>.</li>
 </ul>
 </div>
 <h3 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">#</a></h3>
-<p>We use the <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/">feature branch git workflow</a>. When working on a task please remember to assign the relavant issue 
-to yourself <a href="https://github.com/CS2103AUG2016-W10-C4/main/issues">on the issue tracker</a> and branch off from <code>master</code>. When the task is complete remember to 
-push the branch to GitHub and <a href="https://github.com/CS2103AUG2016-W10-C4/main/compare">create a new pull request</a> so that the integrator can review the code. 
-For large features that impact multiple parts of the code it is best to open a new issue on issue tracker
-so that the design of the code can be discussed first. </p>
-<p><a href="https://en.wikipedia.org/wiki/Test-driven_development">Test driven development</a> is encouraged but not required. All incoming code should have 100% 
-accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage 
-to fall.</p>
+<p>We use the <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/">feature branch git workflow</a>. When working on a task please remember to assign the relavant issue to yourself <a href="https://github.com/CS2103AUG2016-W10-C4/main/issues">on the issue tracker</a> and branch off from <code>master</code>. When the task is complete remember to push the branch to GitHub and <a href="https://github.com/CS2103AUG2016-W10-C4/main/compare">create a new pull request</a> so that the integrator can review the code. For large features that impact multiple parts of the code it is best to open a new issue on issue tracker so that the design of the code can be discussed first. </p>
+<p><a href="https://en.wikipedia.org/wiki/Test-driven_development">Test driven development</a> is encouraged but not required. All incoming code should have 100% accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage to fall.</p>
 <h3 id="coding-style">Coding Style<a class="headerlink" href="#coding-style" title="Permanent link">#</a></h3>
 <p>We use the Java coding standard found at <a href="https://oss-generic.github.io/process/codingstandards/coding-standards-java.html">https://oss-generic.github.io/process/codingstandards/coding-standards-java.html</a>.</p>
 <h2 id="design">Design<a class="headerlink" href="#design" title="Permanent link">#</a></h2>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">#</a></h3>
 <p><img src="images/Architecture.png" width="600"></p>
-<p>The Architecture Diagram above explains the high-level design of the App. Here is a quick 
-overview of each component.</p>
+<p>The Architecture Diagram above explains the high-level design of the App. Here is a quick overview of each component.</p>
 <p><code>Main</code> has only one class called <a href="../src/main/java/seedu/todo/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
 <ul>
-<li>At app launch: Bootstrapping the application by initializing the components in the correct sequence and 
-injecting the dependencies needed for each component. </li>
+<li>At app launch: Bootstrapping the application by initializing the components in the correct sequence and injecting the dependencies needed for each component. </li>
 <li>At shut down: Shuts down the components and invoke cleanup method where necessary.</li>
 </ul>
-<p><a href="#common-classes"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.</p>
+<p><a href="#common-classes"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.</p>
 <ul>
-<li><code>EventsCentre</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google's Event Bus library</a>)
-  is used by components to communicate with other components using events (i.e. a form of <em>Event Driven</em> design)</li>
+<li><code>EventsCentre</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google's Event Bus library</a>) is used by components to communicate with other components using events (i.e. a form of <em>Event Driven</em> design)</li>
 <li><code>LogsCenter</code> : Used by many classes to write log messages to the App's log file.</li>
 </ul>
 <p>The rest of the App consists three components.</p>
@@ -172,16 +162,12 @@ Two of those classes play important roles at the architecture level.</p>
 <li><a href="#logic-component"><strong><code>Logic</code></strong></a>: The parser and command executer, representing the controller </li>
 <li><a href="#model-component"><strong><code>Model</code></strong></a>: Data manipulation and storage, representing the model and data layer </li>
 </ul>
-<p>Each of the three components defines its API in an <code>interface</code> with the same name and 
-are bootstrapped at launch by <code>MainApp</code>.</p>
-<p>For example, the <code>Logic</code> component (see the class diagram given below) defines it's API in the <code>Logic.java</code>
-interface and exposes its functionality using the <code>LogicManager.java</code> class.</p>
+<p>Each of the three components defines its API in an <code>interface</code> with the same name and are bootstrapped at launch by <code>MainApp</code>.</p>
+<p>For example, the <code>Logic</code> component (see the class diagram given below) defines it's API in the <code>Logic.java</code> interface and exposes its functionality using the <code>LogicManager.java</code> class.</p>
 <p><img src="images/LogicClassDiagram.png" width="800"></p>
-<p>The Sequence Diagram below shows how the components interact for the scenario where the user issues the
-command <code>delete 3</code>.</p>
+<p>The Sequence Diagram below shows how the components interact for the scenario where the user issues the command <code>delete 3</code>.</p>
 <p><img src="images/SDforDeletePerson.png" width="800"></p>
-<p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the <abbr title="User interface">UI</abbr> being updated to reflect the 'Last Updated' time. </p>
+<p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the <abbr title="User interface">UI</abbr> being updated to reflect the 'Last Updated' time. </p>
 <p><img src="images/SDforDeletePersonEventHandling.png" width="800"></p>
 <div class="admonition note">
 <p class="admonition-title">Event Driven Design</p>
@@ -196,22 +182,22 @@ coupling between components.</p>
 <p>The <abbr title="User interface">UI</abbr> consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandInputView</code>, <code>CommandFeedbackView</code>, <code>TodoListPanel</code>, <code>StatusBarFooter</code>, etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class and they can be loaded using the <code>UiPartLoader</code>.</p>
 <p>The <code>UI</code> component uses JavaFx <abbr title="User interface">UI</abbr> framework. The layout of these <abbr title="User interface">UI</abbr> parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="../src/main/java/seedu/todo/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
  <a href="../src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
-<p>The <code>UI</code> component,
-<em> Executes user commands using the <code>Logic</code> component.
-</em> Binds itself to some data in the <code>Model</code> so that the <abbr title="User interface">UI</abbr> can auto-update when data in the <code>Model</code> change.
-* Responds to events raised from various parts of the App and updates the <abbr title="User interface">UI</abbr> accordingly.</p>
+<p>The <code>UI</code> component,</p>
+<ul>
+<li>Executes user commands using the <code>Logic</code> component.</li>
+<li>Binds itself to some data in the <code>Model</code> so that the <abbr title="User interface">UI</abbr> can auto-update when data in the <code>Model</code> change.</li>
+<li>Responds to events raised from various parts of the App and updates the <abbr title="User interface">UI</abbr> accordingly.</li>
+</ul>
 <h3 id="logic-component">Logic component<a class="headerlink" href="#logic-component" title="Permanent link">#</a></h3>
 <p><img src="images/LogicClassDiagram.png" width="800"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/logic/Logic.java"><code>Logic.java</code></a></p>
-<p>The logic component is the glue sitting between the <abbr title="User interface">UI</abbr> and the data model. It consists of three separate 
-subcomponents, each of which also defines their own API using interfaces or abstract classes - </p>
+<p>The logic component is the glue sitting between the <abbr title="User interface">UI</abbr> and the data model. It consists of three separate subcomponents, each of which also defines their own API using interfaces or abstract classes - </p>
 <ul>
 <li><code>Parser</code> - turns user input into command and arguments </li>
 <li><code>Dispatcher</code> - maps parser results to commands </li>
 <li><code>Command</code> - validates arguments and execute command</li>
 </ul>
-<p>When the logic component is instantated each of these subcomponents is injected via dependency injection.
-This allows them to be tested more easily. </p>
+<p>When the logic component is instantiated each of these subcomponents is injected via dependency injection. This allows them to be tested more easily. </p>
 <p>The flow of a command being executed is -</p>
 <ol>
 <li><code>Logic</code> parse the user input into a <code>ParseResult</code> object</li>
@@ -220,8 +206,7 @@ the command the user called</li>
 <li><code>Logic</code> binds the model and arguments to the <code>Command</code> object and executes it </li>
 <li>The command execution can affect the <code>Model</code> (e.g. adding a person), and/or raise events.</li>
 </ol>
-<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code>
- API call. See <a href="#logic">the implementation section</a> below for the implementation details of the logic component.  </p>
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call. See <a href="#logic">the implementation section</a> below for the implementation details of the logic component.  </p>
 <p><img src="images/DeletePersonSdForLogic.png" width="800"></p>
 <h3 id="model-component">Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3>
 <p><img src="diagrams/Model Component.svg" class="container u-max-full-width"></p>
@@ -231,13 +216,8 @@ the command the user called</li>
 <li><code>TodoModel</code> - representing the application's internal memory state  </li>
 <li><code>Storage</code> - representing the application's data on disk  </li>
 </ul>
-<p>The model interface is injected into command objects by the logic component, and exposes a 
-<abbr title="Create, Retrieve, Update, Delete">CRUD</abbr> interface that allows commands to modify the application's data. To avoid tight coupling with 
-the command classes, the model exposes only a small set of generic functions. The <abbr title="User interface">UI</abbr> component 
-binds to the  the model through the <code>getObservableList</code> function which returns an <code>UnmodifiableObseravbleList</code>
-object that the <abbr title="User interface">UI</abbr> can bind to.</p>
-<p>The model ensure safety by exposing as much of its internal state as possible as immutable objects 
-using interfaces such as <code>ImmutableTask</code>.</p>
+<p>The model interface is injected into command objects by the logic component, and exposes a <abbr title="Create, Retrieve, Update, Delete">CRUD</abbr> interface that allows commands to modify the application's data. To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The <abbr title="User interface">UI</abbr> component binds to the  the model through the <code>getObservableList</code> function which returns an <code>UnmodifiableObseravbleList</code> object that the <abbr title="User interface">UI</abbr> can bind to.</p>
+<p>The model ensure safety by exposing as much of its internal state as possible as immutable objects using interfaces such as <code>ImmutableTask</code>.</p>
 <p><img src="diagrams/Storage Component.svg" class="container u-max-full-width"></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/storage/Storage.java"><code>Storage.java</code></a></p>
 <p>The <code>Storage</code> component,</p>
@@ -251,9 +231,7 @@ using interfaces such as <code>ImmutableTask</code>.</p>
 <h3 id="logic">Logic<a class="headerlink" href="#logic" title="Permanent link">#</a></h3>
 <p>See the <a href="#logic-component">Logic component architecture</a> section for the high level overview of the Logic component.  </p>
 <h4 id="parser">Parser<a class="headerlink" href="#parser" title="Permanent link">#</a></h4>
-<p>The <code>TodoParser</code> subcomponent implents the <code>Parser</code> interface, which defines a single <code>parse</code> function that 
-takes in the user input as a string and returns an object implementing the <code>ParseResult</code> interface. The 
-implementing class for <code>TodoParser</code> can be found as an inner class inside <code>TodoParser</code>.</p>
+<p>The <code>TodoParser</code> subcomponent implements the <code>Parser</code> interface, which defines a single <code>parse</code> function that takes in the user input as a string and returns an object implementing the <code>ParseResult</code> interface. The implementing class for <code>TodoParser</code> can be found as an inner class inside <code>TodoParser</code>.</p>
 <p>The parser tokenizes the user input by whitespace characters then splits it into three parts: </p>
 <ul>
 <li>Command <code>string</code> - the first word of the user input</li>
@@ -271,12 +249,9 @@ implementing class for <code>TodoParser</code> can be found as an inner class in
 
 <p>This is then passed on to the dispatcher. </p>
 <h4 id="dispatcher">Dispatcher<a class="headerlink" href="#dispatcher" title="Permanent link">#</a></h4>
-<p>The <code>TodoDispatcher</code> subcomponent implements the <code>Dispatcher</code> interface, which defines a single 
-<code>dispatch</code> function. The dispatch function simply maps the provided <code>ParseResult</code> object to the 
-correct command class, instantiates a new instance of it then returns it to the caller. </p>
+<p>The <code>TodoDispatcher</code> subcomponent implements the <code>Dispatcher</code> interface, which defines a single <code>dispatch</code> function. The dispatch function simply maps the provided <code>ParseResult</code> object to the correct command class, instantiates a new instance of it then returns it to the caller. </p>
 <h4 id="command">Command<a class="headerlink" href="#command" title="Permanent link">#</a></h4>
-<p>All commands implement the <code>BaseCommand</code> abstract class, which provides argument binding and validation.
-To implement a new command, you can use the following template </p>
+<p>All commands implement the <code>BaseCommand</code> abstract class, which provides argument binding and validation. To implement a new command, you can use the following template </p>
 <div class="codehilite"><pre><span></span><span class="kn">package</span> <span class="nn">seedu.todo.logic.commands</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">seedu.todo.commons.exceptions.IllegalValueException</span><span class="o">;</span>
@@ -303,18 +278,10 @@ To implement a new command, you can use the following template </p>
 </pre></div>
 
 
-<p>If you need to do argument validation, you can also override the <code>validateArgument</code> command, 
-which is run after all arguments have been set.</p>
+<p>If you need to do argument validation, you can also override the <code>validateArgument</code> command, which is run after all arguments have been set.</p>
 <h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">#</a></h4>
-<p>Command arguments are defined using argument objects. Representing arguments as objects have several 
-benefit - it makes them declarative, it allows argument parsing and validation code to be reused across 
-multiple commands, and the fluent setter allows each individual property to be set indepently of each other. 
-The argument object's main job is to convert the user input from string into the type which the 
-command object can use, as well as contain information about the argument that the program can show to the 
-user.</p>
-<p>The generic type <code>T</code> represents the return type of the command argument. To implement a new argument 
-type, extend the abstract base class <code>Argument</code>, then implement the <code>setValue</code> function. Remember to 
-call the super class's <code>setValue</code> function so that the <code>required</code> argument check works. </p>
+<p>Command arguments are defined using argument objects. Representing arguments as objects have several benefit - it makes them declarative, it allows argument parsing and validation code to be reused across multiple commands, and the fluent setter allows each individual property to be set indepently of each other. The argument object's main job is to convert the user input from string into the type which the command object can use, as well as contain information about the argument that the program can show to the user.</p>
+<p>The generic type <code>T</code> represents the return type of the command argument. To implement a new argument type, extend the abstract base class <code>Argument</code>, then implement the <code>setValue</code> function. Remember to call the super class's <code>setValue</code> function so that the <code>required</code> argument check works. </p>
 <div class="codehilite"><pre><span></span><span class="kn">package</span> <span class="nn">seedu.todo.logic.arguments</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">seedu.todo.commons.exceptions.IllegalValueException</span><span class="o">;</span>
@@ -341,16 +308,12 @@ call the super class's <code>setValue</code> function so that the <code>required
 
 
 <h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3>
-<p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels
-and logging destinations.</p>
+<p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 <ul>
-<li>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file
-  (See <a href="#configuration">Configuration</a>)</li>
-<li>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to
-  the specified logging level</li>
+<li>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#configuration">Configuration</a>)</li>
+<li>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</li>
 <li>Currently log messages are output through: Console and to a log file.</li>
-<li>The logs rolls over at 5MB such that every log file is smaller than 5MB. Five log files are 
-kept, after which the oldest will be deleted. </li>
+<li>The logs rolls over at 5MB such that every log file is smaller than 5MB. Five log files are kept, after which the oldest will be deleted. </li>
 </ul>
 <p>To use the logger in your code, simply include </p>
 <div class="codehilite"><pre><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LogsCenter</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(&lt;</span><span class="n">YOUR</span> <span class="n">CLASS</span><span class="o">&gt;.</span><span class="na">class</span><span class="o">);</span>
@@ -386,16 +349,14 @@ kept, after which the oldest will be deleted. </li>
 </tbody>
 </table>
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h3>
-<p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
-(default: <code>config.json</code>):</p>
+<p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>)</p>
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">#</a></h2>
 <p>Tests can be found in the <code>./src/test/java</code> folder.</p>
 <h3 id="in-eclipse">In Eclipse<a class="headerlink" href="#in-eclipse" title="Permanent link">#</a></h3>
 <ul>
 <li>To run all tests, right-click on the <code>src/test/java</code> folder and choose
   <code>Run as</code> &gt; <code>JUnit Test</code></li>
-<li>To run a subset of tests, you can right-click on a test package, test class, or a test and choose
-  to run as a JUnit test.</li>
+<li>To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -407,46 +368,36 @@ as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-e
 <p>We have two types of tests:</p>
 <ol>
 <li>
-<p><strong><abbr title="Graphical User Interface">GUI</abbr> Tests</strong> - These are <em>System Tests</em> that test the entire App by simulating user actions on the <abbr title="Graphical User Interface">GUI</abbr>.
-   These are in the <code>guitests</code> package.</p>
+<p><strong><abbr title="Graphical User Interface">GUI</abbr> Tests</strong> - These are <em>System Tests</em> that test the entire App by simulating user actions on the <abbr title="Graphical User Interface">GUI</abbr>. These are in the <code>guitests</code> package.</p>
 </li>
 <li>
 <p><strong>Non-<abbr title="Graphical User Interface">GUI</abbr> Tests</strong> - These are tests not involving the <abbr title="Graphical User Interface">GUI</abbr>. They include,</p>
 <ol>
 <li><strong>Unit tests</strong> - targeting the lowest level methods/classes.<br />
   e.g. <code>seedu.todo.commons.UrlUtilTest</code></li>
-<li><strong>Integration tests</strong> - that are checking the integration of multiple code units
- (those code units are assumed to be working).<br />
+<li><strong>Integration tests</strong> - that are checking the integration of multiple code units (those code units are assumed to be working).<br />
   e.g. <code>seedu.todo.storage.StorageManagerTest</code></li>
-<li><strong>Hybrids of unit and integration tests.</strong> These test are checking multiple code units as well as
-  how the are connected together.<br />
+<li><strong>Hybrids of unit and integration tests.</strong> These test are checking multiple code units as well as how the are connected together.  <br />
   e.g. <code>seedu.todo.logic.LogicManagerTest</code></li>
 </ol>
 </li>
 </ol>
 <h3 id="headless-gui-testing">Headless <abbr title="Graphical User Interface">GUI</abbr> Testing<a class="headerlink" href="#headless-gui-testing" title="Permanent link">#</a></h3>
 <p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use,
- our <abbr title="Graphical User Interface">GUI</abbr> tests can be run in the <em>headless</em> mode.
- In the headless mode, <abbr title="Graphical User Interface">GUI</abbr> tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.</p>
+ our <abbr title="Graphical User Interface">GUI</abbr> tests can be run in the <em>headless</em> mode. In the headless mode, <abbr title="Graphical User Interface">GUI</abbr> tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.</p>
 <p>See <a href="UsingGradle.md#running-tests">UsingGradle.md</a> to learn how to run tests in headless mode.</p>
 <h2 id="dev-ops">Dev Ops<a class="headerlink" href="#dev-ops" title="Permanent link">#</a></h2>
 <h3 id="build-automation">Build Automation<a class="headerlink" href="#build-automation" title="Permanent link">#</a></h3>
-<p>We use <a href="https://gradle.org/">Gradle</a> for build automation. Gradle handles project dependencies, build tasks and testing.
-If you have configured Eclipse by importing the project as shown in the <a href="#setting-up">setting up</a> section
-Gradle should already be properly configured and can be executing from within Eclipse to build, test and 
-package the project from the Run menu.</p>
+<p>We use <a href="https://gradle.org/">Gradle</a> for build automation. Gradle handles project dependencies, build tasks and testing. If you have configured Eclipse by importing the project as shown in the <a href="#setting-up">setting up</a> section Gradle should already be properly configured and can be executing from within Eclipse to build, test and package the project from the Run menu.</p>
 <p>See the appendix <a href="#appendix-f-using-gradle">Using Gradle</a> for all of the details and Gradle commands. </p>
 <h3 id="continuous-integration">Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permanent link">#</a></h3>
-<p>We use <a href="https://travis-ci.org/CS2103AUG2016-W10-C4/main">Travis CI</a> to perform Continuous Integration on our projects.
-See <a href="UsingTravis.md">UsingTravis.md</a> for more details.</p>
+<p>We use <a href="https://travis-ci.org/CS2103AUG2016-W10-C4/main">Travis CI</a> to perform Continuous Integration on our projects. See <a href="UsingTravis.md">UsingTravis.md</a> for more details.</p>
 <h3 id="making-a-release">Making a Release<a class="headerlink" href="#making-a-release" title="Permanent link">#</a></h3>
 <p>Here are the steps to create a new release.</p>
 <ol>
 <li>Generate a JAR file <a href="UsingGradle.md#creating-the-jar-file">using Gradle</a>.</li>
 <li>Tag the repo with the version number. e.g. <code>v0.1</code></li>
-<li><a href="https://help.github.com/articles/creating-releases/">Crete a new release using GitHub</a>
-    and upload the JAR file your created.</li>
+<li><a href="https://help.github.com/articles/creating-releases/">Crete a new release using GitHub</a> and upload the JAR file your created.</li>
 </ol>
 <h3 id="managing-dependencies">Managing Dependencies<a class="headerlink" href="#managing-dependencies" title="Permanent link">#</a></h3>
 <p>Our project depends on third-party libraries. We use Gradle to automate our dependency management. </p>
@@ -471,15 +422,11 @@ dependencies {
 
 <p>After that rerun the Gradle <code>build</code> command and make sure the file has been edited properly, then right click on the project folder in Eclipse, select <code>Gradle</code> &gt; <code>Refresh Gradle Project</code>. You should now be able to use the package in your code. Remember to inform all other team members to refresh their Gradle Project when the commit is merged back into master.</p>
 <div class="admonition warning">
-<p class="admonition-title">Adding external dependencies should be done with care</p>
+<p class="admonition-title">Add external dependencies with care</p>
 <p>Be mindful of the impact external dependencies can have on project build time and maintenance costs. Adding an external package should always be discussed with the other project members in the issue tracker.</p>
 </div>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">#</a></h2>
-<p>Our documentation and user guides are written in <a href="https://guides.github.com/features/mastering-markdown/">GitHub Flavor Markdown</a> with a number of 
-extensions including tables, definition lists and warning blocks that help enable richer styling options
-for our documentation. These extensions are documented on the <a href="https://pythonhosted.org/Markdown/extensions/index.html">Extensions page of the Python Markdown package</a>,
-the package we use to help transform the Markdown into HTML. We use HTML because it allows greater 
-flexibility in styling and is generally more user friendly than raw Markdown. To set up the script:</p>
+<p>Our documentation and user guides are written in <a href="https://guides.github.com/features/mastering-markdown/">GitHub Flavor Markdown</a> with a number of extensions including tables, definition lists and warning blocks that help enable richer styling options for our documentation. These extensions are documented on the <a href="https://pythonhosted.org/Markdown/extensions/index.html">Extensions page of the Python Markdown package</a>, the package we use to help transform the Markdown into HTML. We use HTML because it allows greater flexibility in styling and is generally more user friendly than raw Markdown. To set up the script:</p>
 <ol>
 <li>Make sure you have Python 3.5+ installed. Run <code>python3 --version</code> to check</li>
 <li>Install the dependencies - <code>pip3 install markdown pygments</code> </li>
@@ -594,141 +541,190 @@ flexibility in styling and is generally more user friendly than raw Markdown. To
 <h3 id="use-case-adding-an-event">Use case: Adding an event<a class="headerlink" href="#use-case-adding-an-event" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
-<li>User types out an event with start time end time and location</li>
-<li>TodoApp adds event with specified fields to 'TodoList.xml'
-Use case ends.</li>
-</ol>
-<p><strong>Extensions</strong></p>
-<p>1a. The task has no title</p>
-<blockquote>
-<p>1a1. TodoApp shows an error message <br>
-  Use case resumes at step 1 
-1b. The task's date field is empty</p>
-<p>1b1. TodoApp creates a task with no start and end date <br></p>
-</blockquote>
-<p>Use case ends</p>
-<p>1c. The task has a start time later than end time</p>
-<blockquote>
-<p>1c1. TodoApp shows an error message <br>
-  Use case resumes at step 1 </p>
-</blockquote>
-<h3 id="use-case-adding-a-deadline">Use case: Adding a deadline<a class="headerlink" href="#use-case-adding-a-deadline" title="Permanent link">#</a></h3>
-<p><strong>MSS</strong></p>
-<ol>
-<li>User enters a deadline.</li>
-<li>TodoApp creates new todo item with deadline specified</li>
+<li>User types out an event with start time, end time and location</li>
+<li>TodoApp adds event with specified fields and saves it to disk</li>
 </ol>
 <p>Use case ends.</p>
 <p><strong>Extensions</strong></p>
 <p>1a. The task has no title</p>
 <blockquote>
-<p>1a1. TodoApp shows an error message <br>
-  Use case resumes at step 1 
-1b. The task's date field is empty</p>
-<p>1b1. TodoApp creates a task with no start and end date <br></p>
+<p>1a1. TodoApp shows an error message<br />
+  Use case resumes at step 1 </p>
 </blockquote>
-<p>Use case ends</p>
+<p>1b. The task's date field is empty</p>
+<blockquote>
+<p>1b1. TodoApp creates a task with no start and end date<br />
+  Use case resumes at step 2</p>
+</blockquote>
+<p>1c. The task has a start time later than end time</p>
+<blockquote>
+<p>1c1. TodoApp assumes the dates are inverted  <br />
+  Use case resumes at step 2</p>
+</blockquote>
+<p>1d. The event's timing overlaps with an existing event's timing </p>
+<blockquote>
+<p>1d1. TodoApp displays a warning to the user that he has another event at the same time<br />
+  Use case resumes at step 2</p>
+</blockquote>
+<h3 id="use-case-adding-a-task-with-deadline">Use case: Adding a task with deadline<a class="headerlink" href="#use-case-adding-a-task-with-deadline" title="Permanent link">#</a></h3>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User enters a task while specifying a deadline for the task.</li>
+<li>TodoApp creates new todo item with deadline specified and saves it to disk</li>
+</ol>
+<p>Use case ends.</p>
+<p><strong>Extensions</strong></p>
+<p>1a. The task has no title</p>
+<blockquote>
+<p>1a1. TodoApp shows an error message<br />
+  Use case resumes at step 1 </p>
+</blockquote>
+<p>1b. The task's date field is empty</p>
+<blockquote>
+<p>1b1. TodoApp creates a task with no deadline<br />
+  Use case ends</p>
+</blockquote>
 <h3 id="use-case-adding-a-recurring-task">Use case: Adding a recurring task<a class="headerlink" href="#use-case-adding-a-recurring-task" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
-<li>User requests to list persons</li>
-<li>TodoApp shows a list of persons</li>
-<li>User requests to delete a specific person in the list</li>
-<li>TodoApp deletes the person  </li>
+<li>User enters a task with a recurring time period </li>
+<li>TodoApp creates a new recurring todo item with the specified time period </li>
+<li>At the start of the specified time period (eg. every week, month) TodoApp creates a copy of the original task for the user </li>
 </ol>
 <p>Use case ends.</p>
 <p><strong>Extensions</strong></p>
-<p>2a. The list is empty</p>
+<p>2a. The given recurring time period is invalid </p>
 <blockquote>
-<p>Use case ends</p>
-</blockquote>
-<p>3a. The given index is invalid</p>
-<blockquote>
-<p>3a1. TodoApp shows an error message <br>
-  Use case resumes at step 2</p>
+<p>2a1. TodoApp shows an error message<br />
+  Use case resumes at step 1</p>
 </blockquote>
 <h3 id="use-case-marking-a-task-complete">Use case: Marking a task complete<a class="headerlink" href="#use-case-marking-a-task-complete" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
-<li>User requests to list of uncompleted tasks.</li>
+<li>User requests to see a list of uncompleted tasks.</li>
 <li>TodoApp shows a list of uncompleted tasks.</li>
 <li>User marks complete a specific task in the list.</li>
-<li>TodoApp marks the task as complete by striking through the task  </li>
+<li>TodoApp marks the task as complete by striking through the task and saving its new state to disk</li>
 </ol>
 <p>Use case ends.</p>
-<p><strong>Extensions</strong>
-1a. User uses another method to list tasks (e.g. search)</p>
+<p><strong>Extensions</strong></p>
+<p>1a. User uses another method to list tasks (e.g. search)</p>
 <blockquote>
-<p>1a1. TodoApp shows the list of tasks requested
+<p>1a1. TodoApp shows the list of tasks requested<br />
   Use case resumes at step 2</p>
 </blockquote>
 <p>2a. The list is empty</p>
 <blockquote>
-<p>Use case ends</p>
+<p>1a1. TodoApp informs the user the list is empty<br />
+  Use case ends</p>
 </blockquote>
 <p>3a. The given index is invalid</p>
 <blockquote>
-<p>3a1. TodoApp shows an error message <br>
+<p>3a1. TodoApp shows an error message<br />
   Use case resumes at step 2</p>
 </blockquote>
-<p>3b. The given index is a task which is already complete</p>
+<p>3b. The given index is a task which has already been completed</p>
 <blockquote>
-<p>Use case ends</p>
+<p>3b1. TodoApp informs the user the task has already been completed 
+  Use case ends</p>
 </blockquote>
 <h3 id="use-case-delete-task">Use case: Delete task<a class="headerlink" href="#use-case-delete-task" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
-<li>User requests to list persons</li>
-<li>TodoApp shows a list of persons</li>
-<li>User requests to delete a specific person in the list</li>
+<li>User requests to delete a specific task from the list</li>
 <li>TodoApp deletes the person  </li>
 </ol>
 <p>Use case ends.</p>
 <p><strong>Extensions</strong></p>
-<p>2a. The list is empty</p>
+<p>1a. The given index is invalid</p>
 <blockquote>
-<p>Use case ends</p>
+<p>1a1. TodoApp shows an error message<br />
+  Use case resumes at step 1</p>
 </blockquote>
-<p>3a. The given index is invalid</p>
-<blockquote>
-<p>3a1. TodoApp shows an error message <br></p>
-</blockquote>
-<p>Use case resumes at step 2</p>
-<h3 id="use-case-viewing-a-specific-list-of-task">Use case: Viewing a specific list of task<a class="headerlink" href="#use-case-viewing-a-specific-list-of-task" title="Permanent link">#</a></h3>
+<h3 id="use-case-viewing-a-specific-tab-ie-intelligent-views">Use case: Viewing a specific tab (i.e. intelligent views)<a class="headerlink" href="#use-case-viewing-a-specific-tab-ie-intelligent-views" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
-<li>User requests to list persons</li>
-<li>TodoApp shows a list of persons</li>
-<li>User requests to delete a specific person in the list</li>
-<li>TodoApp deletes the person  </li>
+<li>User requests to view specific tab</li>
+<li>TodoApp shows a list of tasks under specific tab</li>
 </ol>
 <p>Use case ends.</p>
 <p><strong>Extensions</strong></p>
-<p>2a. The list is empty</p>
+<p>1a. User enters invalid view (eg. a view that doesn't exist )</p>
 <blockquote>
-<p>Use case ends</p>
-</blockquote>
-<p>3a. The given index is invalid</p>
-<blockquote>
-<p>3a1. TodoApp shows an error message <br>
-  Use case resumes at step 2
-4. TodoApp deletes the person<br />
-Use case ends.</p>
-</blockquote>
-<p><strong>Extensions</strong></p>
-<p>2a. The list is empty</p>
-<blockquote>
-<p>Use case ends</p>
-</blockquote>
-<p>3a. The given index is invalid</p>
-<blockquote>
-<p>3a1. TodoApp shows an error message <br>
-Use case resumes at step 2</p>
+<p>1a1. TodoApp shows an error message<br />
+  Use case ends</p>
 </blockquote>
 <h3 id="use-case-finding-for-a-task">Use case: Finding for a task<a class="headerlink" href="#use-case-finding-for-a-task" title="Permanent link">#</a></h3>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User searches for task with specific tag or fragmented title</li>
+<li>TodoApp returns a list of tasks matching search fragment</li>
+</ol>
+<p>Use case ends.</p>
+<p><strong>Extensions</strong></p>
+<p>1a. User enters an invalid tag/search fragment</p>
+<blockquote>
+<p>1a1. TodoApp returns an empty list<br />
+  Use case ends</p>
+</blockquote>
 <h3 id="use-case-editing-a-task">Use case: Editing a task<a class="headerlink" href="#use-case-editing-a-task" title="Permanent link">#</a></h3>
+<ol>
+<li>User searches for specific task to edit</li>
+<li>TodoApp returns list of tasks matching search query</li>
+<li>User edits specific task on the list, changing any of its fields</li>
+<li>TodoApp accepts changes and reflects them on the task</li>
+</ol>
+<p><strong>Extensions</strong></p>
+<p>2a. List returned is empty  </p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<p>3a. User enters invalid task index</p>
+<blockquote>
+<p>3a1. TodoApp shows error message indicating invalid index <br />
+Use case resumes at Step 2</p>
+</blockquote>
+<p>3b. User enters invalid arguments to edit fields</p>
+<blockquote>
+<p>3b1. TodoApp shows error message indicating invalid fields<br />
+Use case resumes at Step 2</p>
+</blockquote>
 <h3 id="use-case-pinning-a-task">Use case: Pinning a task<a class="headerlink" href="#use-case-pinning-a-task" title="Permanent link">#</a></h3>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User searches for specific task to pin using the find command</li>
+<li>TodoApp returns a list of tasks matching the search query</li>
+<li>User selects a specific task to pin</li>
+<li>TodoApp pins selected task and updates the storage file on disk </li>
+</ol>
+<p>Use case ends.</p>
+<p><strong>Extensions</strong></p>
+<p>2a. List returned by TodoApp is empty</p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<p>3a. Selected task is already pinned</p>
+<blockquote>
+<p>3a1. TodoApp unpins selected task
+ Use case ends</p>
+</blockquote>
+<p>3b. User provides an invalid index</p>
+<blockquote>
+<p>3b1. TodoApp shows an error message<br />
+Use case resumes at Step 3</p>
+</blockquote>
 <h3 id="use-case-undoing-an-action">Use case: Undoing an action<a class="headerlink" href="#use-case-undoing-an-action" title="Permanent link">#</a></h3>
+<ol>
+<li>User carries out a mutating command (see <a href="#appendix-d-glossary">glossary</a>)</li>
+<li>User finds they have made a mistake and instructs TodoApp to undo last action</li>
+<li>TodoApp rolls back the todolist to the previous state and updates the stored todolist on disk</li>
+</ol>
+<p><strong>Extensions</strong></p>
+<p>2a1. The user calls the undo command without having made any changes </p>
+<blockquote>
+<p>2a1. TodoApp shows an error message<br />
+Use case ends </p>
+</blockquote>
 <h3 id="use-case-redoing-an-action">Use case: Redoing an action<a class="headerlink" href="#use-case-redoing-an-action" title="Permanent link">#</a></h3>
 <h3 id="use-case">Use case:<a class="headerlink" href="#use-case" title="Permanent link">#</a></h3>
 <h2 id="appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements<a class="headerlink" href="#appendix-c-non-functional-requirements" title="Permanent link">#</a></h2>
@@ -756,6 +752,10 @@ Use case resumes at step 2</p>
 <dd>
 <p>Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. </p>
 </dd>
+<dt>Mutable Command</dt>
+<dd>
+<p>Any command which causes a change in the state of the the TodoApp (E.g. add, delete, edit, pin, complete)</p>
+</dd>
 </dl>
 <h2 id="appendix-e-product-survey">Appendix E : Product Survey<a class="headerlink" href="#appendix-e-product-survey" title="Permanent link">#</a></h2>
 <p>{TODO: Add a summary of competing products}</p>
@@ -770,12 +770,10 @@ Use case resumes at step 2</p>
 <p>The gradle configuration for this project is defined in the build script <a href="../build.gradle"><code>build.gradle</code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To learn more about gradle build scripts refer to 
-<a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html">Build Scripts Basics</a>.</p>
+<p>To learn more about gradle build scripts refer to <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html">Build Scripts Basics</a>.</p>
 </div>
 <h3 id="running-gradle-commands">Running Gradle Commands<a class="headerlink" href="#running-gradle-commands" title="Permanent link">#</a></h3>
-<p>To run a Gradle command, open a command window on the project folder and enter the Gradle command.
-Gradle commands look like this:</p>
+<p>To run a Gradle command, open a command window on the project folder and enter the Gradle command. Gradle commands look like this:</p>
 <ul>
 <li>On Windows :<code>gradlew &lt;task1&gt; &lt;task2&gt; ...</code> e.g. <code>gradlew clean allTests</code></li>
 <li>On Mac/Linux: <code>./gradlew &lt;task1&gt; &lt;task2&gt;...</code>  e.g. <code>./gradlew clean allTests</code></li>
@@ -789,12 +787,7 @@ Gradle commands look like this:</p>
 e.g. <code>./gradlew clean</code></p>
 <div class="admonition note">
 <p class="admonition-title"><code>clean</code> to force Gradle to execute a task</p>
-<p>When running a Gradle task, Gradle will try to figure out if the task needs running at all. 
-If Gradle determines that the output of the task will be same as the previous time, it will not run
-the task. For example, it will not build the JAR file again if the relevant source files have not changed
-since the last time the JAR file was built. If we want to force Gradle to run a task, we can combine
-that task with <code>clean</code>. Once the build files have been <code>clean</code>ed, Gradle has no way to determine if
-the output will be same as before, so it will be forced to execute the task.</p>
+<p>When running a Gradle task, Gradle will try to figure out if the task needs running at all.  If Gradle determines that the output of the task will be same as the previous time, it will not run the task. For example, it will not build the JAR file again if the relevant source files have not changed since the last time the JAR file was built. If we want to force Gradle to run a task, we can combine that task with <code>clean</code>. Once the build files have been <code>clean</code>ed, Gradle has no way to determine if the output will be same as before, so it will be forced to execute the task.</p>
 </div>
 <h3 id="creating-the-jar-file">Creating the JAR file<a class="headerlink" href="#creating-the-jar-file" title="Permanent link">#</a></h3>
 <p><strong><code>shadowJar</code></strong> - Creates the <code>addressbook.jar</code> file in the <code>build/jar</code> folder, if the current file is outdated.<br />
@@ -803,32 +796,24 @@ e.g. <code>./gradlew shadowJar</code></p>
 e.g. <code>./gradlew clean shadowJar</code> </p>
 <div class="admonition note">
 <p class="admonition-title">Why do we create a fat JAR?</p>
-<p>If we package only our own class files into the JAR file, it will not work properly unless the user has all the other
-JAR files (i.e. third party libraries) our classes depend on, which is rather inconvenient. 
-Therefore, we package all dependencies into a single JAR files, creating what is also known as a <em>fat</em> JAR file. 
-To create a fat JAR file, we use the <a href="https://github.com/johnrengelman/shadow">shadow jar</a> Gradle plugin.</p>
+<p>If we package only our own class files into the JAR file, it will not work properly unless the user has all the other JAR files (i.e. third party libraries) our classes depend on, which is rather inconvenient. Therefore, we package all dependencies into a single JAR files, creating what is also known as a <em>fat</em> JAR file. To create a fat JAR file, we use the <a href="https://github.com/johnrengelman/shadow">shadow jar</a> Gradle plugin.</p>
 </div>
 <h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">#</a></h3>
 <p><strong><code>allTests</code></strong> - Runs all tests.</p>
 <p><strong><code>guiTests</code></strong> - Runs all tests in the <code>guitests</code> package</p>
 <p><strong><code>nonGuiTests</code></strong> - Runs all non-<abbr title="Graphical User Interface">GUI</abbr> tests in the <code>seedu.address</code> package</p>
-<p><strong><code>headless</code></strong> - Sets the test mode as <em>headless</em>. 
-  The mode is effective for that Gradle run only so it should be combined with other test tasks.</p>
+<p><strong><code>headless</code></strong> - Sets the test mode as <em>headless</em>. The mode is effective for that Gradle run only so it should be combined with other test tasks.</p>
 <p>Here are some examples:</p>
 <ul>
 <li><code>./gradlew headless allTests</code> -- Runs all tests in headless mode</li>
 <li><code>./gradlew clean nonGuiTests</code> -- Cleans the project and runs non-<abbr title="Graphical User Interface">GUI</abbr> tests</li>
 </ul>
 <h3 id="updating-dependencies">Updating Dependencies<a class="headerlink" href="#updating-dependencies" title="Permanent link">#</a></h3>
-<p>There is no need to run these Gradle tasks manually as they are called automatically by other 
-relevant Gradle tasks.</p>
-<p><strong><code>compileJava</code></strong> - Checks whether the project has the required dependencies to compile and run the main program, and download 
-any missing dependencies before compiling the classes.  </p>
+<p>There is no need to run these Gradle tasks manually as they are called automatically by other relevant Gradle tasks.</p>
+<p><strong><code>compileJava</code></strong> - Checks whether the project has the required dependencies to compile and run the main program, and download any missing dependencies before compiling the classes.  </p>
 <p>See <code>build.gradle</code> &gt; <code>allprojects</code> &gt; <code>dependencies</code> &gt; <code>compile</code> for the list of dependencies required.</p>
-<p><strong><code>compileTestJava</code></strong> - Checks whether the project has the required dependencies to perform testing, and download 
-any missing dependencies before compiling the test classes.</p>
-<p>See <code>build.gradle</code> &gt; <code>allprojects</code> &gt; <code>dependencies</code> &gt; <code>testCompile</code> for the list of 
-dependencies required.</p>
+<p><strong><code>compileTestJava</code></strong> - Checks whether the project has the required dependencies to perform testing, and download any missing dependencies before compiling the test classes.</p>
+<p>See <code>build.gradle</code> &gt; <code>allprojects</code> &gt; <code>dependencies</code> &gt; <code>testCompile</code> for the list of dependencies required.</p>
 </div>
 </body>
 </html>

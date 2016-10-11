@@ -1,10 +1,9 @@
-package seedu.todo.logic.arguments;
+package seedu.todo.logic.parser;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.logic.parser.Parser;
 import seedu.todo.logic.parser.TodoParser;
@@ -17,19 +16,19 @@ public class TodoParserTest {
         ParseResult p;
         
         p = parser.parse("hello");
-        assertEquals("hello", p.getComand());
+        assertEquals("hello", p.getCommand());
         
         p = parser.parse("HeLLo");
-        assertEquals("hello", p.getComand());
+        assertEquals("hello", p.getCommand());
         
         p = parser.parse("HELLO");
-        assertEquals("hello", p.getComand());
+        assertEquals("hello", p.getCommand());
         
         p = parser.parse("hello world");
-        assertEquals("hello", p.getComand());
+        assertEquals("hello", p.getCommand());
         
         p = parser.parse("  hello ");
-        assertEquals("hello", p.getComand());
+        assertEquals("hello", p.getCommand());
     }
     
     @Test

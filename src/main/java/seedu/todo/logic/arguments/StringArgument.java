@@ -19,8 +19,9 @@ public class StringArgument extends Argument<String> {
         // Ignore empty strings
         if (input.length() > 0) {
             this.value = input;
-            super.setValue(input);
         }
+        
+        super.setValue(input);
     }
 
 }

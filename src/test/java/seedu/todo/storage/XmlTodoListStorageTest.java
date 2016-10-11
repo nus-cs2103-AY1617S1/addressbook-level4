@@ -16,6 +16,7 @@ import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.TodoList;
+import seedu.todo.testutil.TestTodoList;
 
 public class XmlTodoListStorageTest {
     @Rule
@@ -33,8 +34,9 @@ public class XmlTodoListStorageTest {
 
     @Before
     public void setUp() {
+
         filePath = testFolder.getRoot().getPath() + TEST_DATA_FILE;
-        original = new TodoList(new MockStorage());
+        original = new TodoList(new MockStorage(new TestTodoList()));
         xmlTodoListStorage = new XmlTodoListStorage(filePath);
     }
 
