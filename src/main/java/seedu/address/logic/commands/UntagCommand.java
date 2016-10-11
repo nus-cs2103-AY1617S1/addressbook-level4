@@ -27,9 +27,9 @@ public class UntagCommand extends Command{
     public final int targetIndex;
     public final UniqueTagList tags;
     
-    public UntagCommand(String targetIndex, String tagNames) throws Exception {
+    public UntagCommand(int targetIndex, String tagNames) throws Exception {
 
-        this.targetIndex = Integer.parseInt(targetIndex);
+        this.targetIndex = targetIndex;
         
         if (tagNames.isEmpty()) {
             throw new Exception();
@@ -63,7 +63,7 @@ public class UntagCommand extends Command{
                     toUntag.removeTag(tag);
                 } catch (UniqueTagList.TagNotFoundException e) {}
             }
-            model.updateTask(taskToUntag, toUntag);
+            model.updateTaskTags(taskToUntag, toUntag);
             model.updateFilteredListToShowAll();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";

@@ -25,7 +25,7 @@ public class ParserFormats {
 
     public static final Pattern TASK_DATA_ARGS_FORMAT_FLOAT = Pattern
             .compile("(?<name>[a-zA-Z_0-9 ]+)(?: ?; ?(?<detail>.+))?");
-    
+        
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_ON = Pattern
             .compile("on (?<onDateTime>.+)");
@@ -39,5 +39,7 @@ public class ParserFormats {
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_FT = Pattern
             .compile("from (?<fromDateTime>.+) till (?<tillDateTime>.+)");
     
+    public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
+            .compile("(?<name>[^/]+)? ?on (?<onDateTime>.+)? ?by ?(?<byDateTime>[^;]+)?(?: ?; (?<detail>.+))?");
     
 }

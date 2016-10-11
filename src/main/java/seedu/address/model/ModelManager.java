@@ -87,8 +87,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         toDoList.addTask(task);
-        System.out.print(task.getName());
-        System.out.print(toDoList.getTaskList().size());
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -115,12 +113,23 @@ public class ModelManager extends ComponentManager implements Model {
             toDoList.getTasks().get(index).setDetail(newTask.getDetail());
             toDoList.getTasks().get(index).setOnDate(newTask.getOnDate());
             toDoList.getTasks().get(index).setByDate(newTask.getByDate());
-            toDoList.getTasks().get(index).setTags(newTask.getTags());
             toDoList.syncTagsWithMasterList(toDoList.getTasks().get(index));
             indicateAddressBookChanged();
         }
     }
 
+    @Override
+    public synchronized void updateTaskTags(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
+        int index = toDoList.getTasks().indexOf(oldTask);
+        
+        if(index < 0) {
+            throw new TaskNotFoundException();
+        } else {
+            toDoList.getTasks().get(index).setTags(newTask.getTags());
+            indicateAddressBookChanged();
+        }
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
