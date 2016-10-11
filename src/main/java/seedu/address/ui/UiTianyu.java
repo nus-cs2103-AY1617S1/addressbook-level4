@@ -48,7 +48,7 @@ public class UiTianyu extends Application {
 		Text rightText = new Text("right_test");
 		Text bottomText = new Text("Bottom");
 /////////creates the arraylist of tasks////////////////////////////
-		ArrayList<Task> taskList = new ArrayList<Task>();	
+		ArrayList<UiTaskTest> taskList = new ArrayList<UiTaskTest>();	
 ////////enter key from keyboard////////////////////////////////////////////		
 		inputTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -56,15 +56,15 @@ public class UiTianyu extends Application {
 		        String text;
 		    	if (keyEvent.getCode() == KeyCode.ENTER)  {
 //		            rightText.setText(inputTextField.getText());		
-		    		taskList.add(new Task(inputTextField.getText()));
+		    		taskList.add(new UiTaskTest(inputTextField.getText()));
 		            inputTextField.setText("");
 		        }
 		    }
 		});
 
-		taskList.add(new Task("bb"));
-		taskList.add(new Task("bb"));
-		taskList.add(new Task("bb"));
+		taskList.add(new UiTaskTest("bb"));
+		taskList.add(new UiTaskTest("bb"));
+		taskList.add(new UiTaskTest("bb"));
 
 ////////feedback text display/////////////////////////////////////////////////
 		String numberOfTasks = String.valueOf(taskList.size());
