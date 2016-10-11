@@ -10,6 +10,7 @@ public class TestFloatingTask extends Task implements ReadOnlyTask {
 
     private Name name;
     private UniqueTagList tags;
+    private TaskType type = TaskType.FLOATING;
 
     public TestFloatingTask() {
         tags = new UniqueTagList();
@@ -32,6 +33,11 @@ public class TestFloatingTask extends Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    @Override
+    public TaskType getType(){
+    	return type;
     }
 
     public String getAddFloatingCommand() {
