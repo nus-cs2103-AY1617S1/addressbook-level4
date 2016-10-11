@@ -24,6 +24,7 @@ public class CommandFeedbackView extends UiPart {
     private AnchorPane placeHolder, textFlowContainer;
     
     public void displayMessage(String message) {
+        commandFeedbackTextFlow.getChildren().clear();
         Text text = new Text(message);
         commandFeedbackTextFlow.getChildren().add(text);
         logger.info("Message returned: " + message);
