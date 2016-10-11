@@ -8,7 +8,7 @@ public class CommandBoxTest extends MalitioGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(td.eat.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 
