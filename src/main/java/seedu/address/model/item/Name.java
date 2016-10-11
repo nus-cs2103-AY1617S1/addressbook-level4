@@ -1,36 +1,15 @@
 package seedu.address.model.item;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 public class Name {
 
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
+    public String name;
     
-    public final String name;
-    
-    /**
-     * Validates given name.
-     *
-     * @throws IllegalValueException if given name string is invalid.
-     */
-    public Name(String name) throws IllegalValueException {
+    public Name(String name) {
         assert name != null;
         name = name.trim();
-        //TODO: I don't think we need to validate name anymore.
-        /*if (!isValidName(name)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
-        }*/
         this.name = name;
     }
 
-    /**
-     * Returns true if a given value is a valid priority value.
-     */
-    public static boolean isValidName(String name) {
-        return name.matches(NAME_VALIDATION_REGEX);
-    }
-    
     @Override
     public String toString() {
         return this.name;

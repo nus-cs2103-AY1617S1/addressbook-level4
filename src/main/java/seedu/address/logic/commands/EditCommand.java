@@ -38,7 +38,7 @@ public class EditCommand extends Command{
     Priority priority;
     
 	public EditCommand(int targetIndex,String taskNameString, String startDateString, String endDateString, 
-            String recurrenceRateString, String priorityString)  throws IllegalValueException {
+            String recurrenceRateString, String timePeriodString, String priorityString)  throws IllegalValueException {
         	
 		this.targetIndex = targetIndex;
 		taskName = null;
@@ -61,13 +61,14 @@ public class EditCommand extends Command{
             endDate = dp.parseDate();
         }
         
-        if (recurrenceRateString == null) {
-            recurrenceRate = new RecurrenceRate(0);
-        } else { //TODO: Should I put else-if here instead? Seems ridiculous though.
-            recurrenceRate = new RecurrenceRate(Integer.valueOf(recurrenceRateString));
-            System.out.println(Integer.valueOf(recurrenceRateString));
+        if (recurrenceRateString == null && timePeriodString == null) {
+            recurrenceRate = new RecurrenceRate();
+        } else if (recurrenceRateString == null) {
+            recurrenceRate = new RecurrenceRate(timePeriodString);
+        } else {
+            recurrenceRate = new RecurrenceRate(recurrenceRateString, timePeriodString);
         }
-        
+
         //TODO: Throw IllegalValueException for default cases?
         if(priorityString != null){
         	switch (priorityString) {
