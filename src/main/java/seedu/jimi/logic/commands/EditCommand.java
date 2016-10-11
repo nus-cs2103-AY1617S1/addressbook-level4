@@ -37,6 +37,7 @@ public class EditCommand extends Command{
     private final int taskIndex; //index of task/event to be edited
     private UniqueTagList newTagList;
     private Name newName; 
+    private UnmodifiableObservableList<ReadOnlyTask> lastShownList;
 
     /**
      * Convenience constructor using raw values.
@@ -51,38 +52,35 @@ public class EditCommand extends Command{
         }
         this.taskIndex = taskIndex;
         
+        lastShownList = model.getFilteredTaskList();
+        ReadOnlyTask taskToEdit = lastShownList.get(taskIndex - 1);
+        
         //if new fields are to be edited, instantiate them, else set them to the oldName
-        if(name != null) {
+        if(name.length() != 0) {
             this.newName = new Name(name);
-        } 
-
-        if(tagSet != null) {
+        }
+        else {
+            this.newName = taskToEdit.getName(); //assigns old task name
+        }
+        
+        if(!tagSet.isEmpty()) {
             this.newTagList = new UniqueTagList(tagSet);
         }
+        else {
+            this.newTagList = taskToEdit.getTags(); //assigns old tag list
+        }
     }
-    
     @Override
     public CommandResult execute() {
-        FilteredList<FloatingTask> lastShownList = ((ModelManager) model).getModifiableTaskList();
-
         if (lastShownList.size() < taskIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        FloatingTask taskToEdit = lastShownList.get(taskIndex - 1);
         
-        if(newName != null) {
-            taskToEdit.setName(newName);
-        }
-            
-        if(newTagList != null) {
-            taskToEdit.setTags(newTagList);
-        }
+        ReadOnlyTask taskToReplace = new FloatingTask(newName, newTagList);
         
-        ((ModelManager) model).editFloatingTask(taskToEdit, taskIndex - 1);
+        ((ModelManager) model).editFloatingTask(new FloatingTask(taskToReplace), taskIndex - 1);
         
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToReplace));
     }
-
 }
