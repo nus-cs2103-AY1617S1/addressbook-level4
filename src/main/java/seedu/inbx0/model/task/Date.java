@@ -53,6 +53,8 @@ public class Date {
     public final int day;
     public final int month;
     public final int year;
+    public final String dayWord;
+    public final String DDMMYYYYFormat;
     
     /**
      * Validates given start date.
@@ -63,23 +65,28 @@ public class Date {
     public Date(String date) throws IllegalValueException {
         assert date != null;
      //   date = date.trim();
-        String tellDate = date;
+        
      
         if(date == "" | date.length() == 0 | date == null) {
             this.day = 0;
             this.month = 0;
             this.year = 0;
-            tellDate = "";
+            this.value = "";
+            this.dayWord = "";
+            this.DDMMYYYYFormat = "";
         }
         else {
-            List<java.util.Date> dates = new Parser().parse(tellDate.replaceAll("\\D+","")).get(0).getDates();             
-            SimpleDateFormat ft = new SimpleDateFormat ("E, dd.MM.yyyy");
-            tellDate = ft.format(dates.get(0));
-            
-            int digitsOnly = Integer.parseInt(tellDate.replaceAll("\\D+",""));
+            List<java.util.Date> dates = new Parser().parse(date).get(0).getDates();             
+            SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy");
+            SimpleDateFormat dayInWord = new SimpleDateFormat ("E, ");
+            SimpleDateFormat nattyFormat = new SimpleDateFormat ("MM/dd/yyyy");
+            this.DDMMYYYYFormat = ft.format(dates.get(0));
+            this.value = nattyFormat.format(dates.get(0));
+            int digitsOnly = Integer.parseInt(DDMMYYYYFormat.replaceAll("\\D+",""));
             this.day = digitsOnly / 1000000;
             this.month = (digitsOnly / 10000) % 100;
             this.year = digitsOnly % 10000;
+            this.dayWord = dayInWord.format(dates.get(0));
             
         }
         
@@ -87,7 +94,7 @@ public class Date {
  /*       if (!isValidDate(date) &&  (date != "")) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }*/
-        this.value = tellDate;
+        
     }
     
     /**
@@ -181,6 +188,10 @@ public class Date {
 
     public String getDate() {
         return value;
+    }
+    
+    public String getTotalDate() {
+        return dayWord + DDMMYYYYFormat;
     }
     
     public int getDay() {
