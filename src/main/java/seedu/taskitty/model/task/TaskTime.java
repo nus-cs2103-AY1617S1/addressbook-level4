@@ -15,18 +15,18 @@ public class TaskTime {
 
     //TODO add more ways to type the time. eg. am/pm
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Task times should be in the format hh:mm or hhmm";
+            "Task times should be in the format hh:mm"; //or hhmm
     public static final String MESSAGE_TIME_INVALID =
             "Task time provided is invalid!";
     public static final String TIME_DISPLAY_FORMAT = "hh:mm";
     
     //format: hh:mm
     private static final String TIME_VALIDATION_REGEX_FORMAT_1 = "[\\p{Digit}]{1,2}:[\\p{Digit}]{2}";
-    //format: hhmm
+    //format: hhmm TODO currently not working for input
     private static final String TIME_VALIDATION_REGEX_FORMAT_2 = "[\\p{Digit}]{4}";
     public static final String TIME_VALIDATION_REGEX_FORMAT =
-            TIME_VALIDATION_REGEX_FORMAT_1 + "|"
-            + TIME_VALIDATION_REGEX_FORMAT_2;
+            TIME_VALIDATION_REGEX_FORMAT_1 + 
+            "|" + TIME_VALIDATION_REGEX_FORMAT_2;
 
     public final LocalTime time;
 
