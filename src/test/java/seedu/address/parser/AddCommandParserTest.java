@@ -38,6 +38,11 @@ public class AddCommandParserTest {
 		String expectedTask = "[Deadline Task][Description: homework][Deadline: 12.10.2016]";
 		String actualTask = command.getTaskDetails();
 		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("homework by 1 Jan 2016");
+		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016]";
+		actualTask = command.getTaskDetails();
+		assertEquals(actualTask, expectedTask);
 	}
 	
 	@Test
@@ -98,6 +103,10 @@ public class AddCommandParserTest {
 		assertEquals(actualTask, expectedTask);
 		
 		command = (AddTaskCommand) parser.prepareCommand("project from Oct 12 - Oct 13");
+		actualTask = command.getTaskDetails();
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("project from 12 October 2016 to 13 October 2016");
 		actualTask = command.getTaskDetails();
 		assertEquals(actualTask, expectedTask);
 	}
