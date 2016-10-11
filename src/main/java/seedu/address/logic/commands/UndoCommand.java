@@ -14,9 +14,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Undo Command: %1$s";
-
-    private static Stack<Command> PreviousCommands = new Stack<Command>();
-    
+ 
     
     @Override
     public CommandResult execute() {
