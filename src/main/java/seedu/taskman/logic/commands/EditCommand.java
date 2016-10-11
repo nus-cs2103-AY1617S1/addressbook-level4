@@ -29,9 +29,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Task updated: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "A task with the same name already exists in TaskMan";
 
-    private final Activity beforeEdit;
-    private final Activity afterEdit;
-    private final Activity.ActivityType activityType;
+    private final ArgumentContainer argsContainer;
+    private Activity beforeEdit;
+    private Activity afterEdit;
+    private Activity.ActivityType activityType;
 
     /**
      * Convenience constructor using raw values.
@@ -41,53 +42,19 @@ public class EditCommand extends Command {
      */
     public EditCommand(int targetIndex,
                        @Nullable String title, @Nullable String deadline, @Nullable String status,
-                       @Nullable String frequency, @Nullable String schedule, @Nullable Set<String> tags)
-            throws IllegalValueException {
-        UnmodifiableObservableList<Activity> lastShownList = model.getFilteredActivityList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            throw new IllegalValueException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        beforeEdit = lastShownList.get(targetIndex - 1);
-        activityType = beforeEdit.getType();
-
-        Set<Tag> tagSet = new HashSet<>();
-        if(tags != null){
-            for (String tagName : tags) {
-                tagSet.add(new Tag(tagName));
-            }
-        }
-
-        switch (activityType){
-            case TASK:
-            default: {
-                afterEdit = new Activity( new Task(
-                        title == null
-                                ? beforeEdit.getTitle()
-                                : new Title(title),
-                        tags == null
-                                ? beforeEdit.getTags()
-                                : new UniqueTagList(tagSet),
-                        deadline == null
-                                ? beforeEdit.getDeadline().orElse(null)
-                                : new Deadline(deadline),
-                        frequency == null
-                                ? beforeEdit.getFrequency().orElse(null)
-                                : new Frequency(frequency),
-                        schedule == null
-                                ? beforeEdit.getSchedule().orElse(null)
-                                : new Schedule (schedule)
-                    )
-                );
-            }
-        }
+                       @Nullable String frequency, @Nullable String schedule, @Nullable Set<String> tags) {
+        argsContainer = new ArgumentContainer(targetIndex, title, deadline, schedule, frequency, schedule, tags);
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
+
+        try {
+            initMembers(argsContainer);
+        } catch (IllegalValueException e) {
+            return new CommandResult(e.getMessage());
+        }
 
         try {
             model.deleteActivity(beforeEdit);
@@ -110,4 +77,65 @@ public class EditCommand extends Command {
 
     }
 
+    private void initMembers(ArgumentContainer argsContainer) throws IllegalValueException {
+        UnmodifiableObservableList<Activity> lastShownList = model.getFilteredActivityList();
+
+        if (lastShownList.size() < argsContainer.targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        beforeEdit = lastShownList.get(argsContainer.targetIndex - 1);
+        activityType = beforeEdit.getType();
+
+        Set<Tag> tagSet = new HashSet<>();
+        if(argsContainer.tags != null){
+            for (String tagName : argsContainer.tags) {
+                tagSet.add(new Tag(tagName));
+            }
+        }
+
+        switch (activityType){
+            case TASK:
+            default: {
+                afterEdit = new Activity(new Task(
+                        argsContainer.title == null
+                                ? beforeEdit.getTitle()
+                                : new Title(argsContainer.title),
+                        argsContainer.tags == null
+                                ? beforeEdit.getTags()
+                                : new UniqueTagList(tagSet),
+                        argsContainer.deadline == null
+                                ? beforeEdit.getDeadline().orElse(null)
+                                : new Deadline(argsContainer.deadline),
+                        argsContainer.schedule == null
+                                ? beforeEdit.getSchedule().orElse(null)
+                                : new Schedule (argsContainer.schedule),
+                        argsContainer.frequency == null
+                                ? beforeEdit.getFrequency().orElse(null)
+                                : new Frequency(argsContainer.frequency)
+                ));
+            }
+        }
+    }
+
+    private static class ArgumentContainer {
+        public final int targetIndex;
+        public final String title;
+        public final String deadline;
+        public final String status;
+        public final String frequency;
+        public final String schedule;
+        public final Set<String> tags;
+
+        public ArgumentContainer(int targetIndex, String title, String deadline, String status, String schedule, String frequency, Set<String> tags) {
+            this.targetIndex = targetIndex;
+            this.title = title;
+            this.deadline = deadline;
+            this.status = status;
+            this.frequency = frequency;
+            this.schedule = schedule;
+            this.tags = tags;
+        }
+    }
 }

@@ -19,7 +19,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to TaskMan. "
             + "Parameters: TITLE d/DEADLINE s/startDateTime, endDateTime f/frequency [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Buy bday present for dad d/next fri 1800 s/tdy 1800, tdy 2000 f/1yr t/Family";
+            + " Buy bday present for dad d/next fri 1800 s/tdy 1800, tdy 2000 f/1 year t/Family";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This task already exists in TaskMan";
