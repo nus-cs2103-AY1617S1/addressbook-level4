@@ -26,7 +26,7 @@
 
 ## About
 
-Many of us lead busy lives, with a neverending stream of tasks often weighing on our minds.
+Many of us lead busy lives, with neverending streams of tasks often weighing on our minds.
 We understand it all too well, and we want to lessen that burden on you.
 This is the motivation behind TaSc, our Task Scheduler with usability at its core.
 
@@ -51,7 +51,7 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. You can try some of these commands:
+5. You can try some of these example commands:
    * **`list`** : lists all uncompleted tasks and upcoming events
    * **`new`**` "Do Research" by 21 Sep 5pm` : 
      adds a new task named "Do Research" with the deadline on 21 September, 5pm
@@ -69,7 +69,7 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 > * Items with `...` accept multiple instances. For example, [tag "TAG"...] means you can input multiple tags
 > * Commas `,` and full stops `.` are optional and will not affect the command.
 > * Command keywords are not case-sensitive.
-> * Parameters relating to days are context-sensitive. For example, typing "Fri" means the next Friday from *today*.
+> * Parameters relating to days of the week are taken relative to the time you input the command. For example, if you enter "Fri", it will be interpreted as the next Friday from *today*.
 
 > **Date Format**
 > * Accepted date formats: 18 Sep, 18 September, 18 Sep 2016, Sep 18 2016
@@ -79,12 +79,12 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 > Each task has a name, and belongs to one of these categories:
 > * **Normal Task** has a deadline
 > * **Task with Allocated Timeslot (Event)** has a starting time and ending time
-> * **Floating Task** has no additional details
+> * **Floating Task** has no associated time limitation
 
 
 > **Recurring tasks and events**
 > Tasks and events may be set to repeat daily/weekly/monthly<br>
-> They will recur after their respective deadline or endtime
+> They will recur after their respective deadlines or endtimes
 
 >> Tasks or events which are exact duplicates are combined into one.
 
