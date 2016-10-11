@@ -6,10 +6,14 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.model.TaskList;
 import seedu.address.model.Model;
@@ -21,6 +25,7 @@ import seedu.address.model.task.*;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.TypicalTestTasks;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -75,9 +80,11 @@ public class LogicManagerTest {
     }
 
     @After
-    public void teardown() {
+    public void teardown() throws DataConversionException, IOException {
     	logic.execute("clear");
-    	logic.execute("cd data\\tasklist.xml");
+    	Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+		config.setTaskListFilePath("data\\tasklist.xml");
+		ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
         EventsCenter.clearSubscribers();
     }
 
