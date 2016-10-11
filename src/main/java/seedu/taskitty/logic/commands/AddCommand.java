@@ -16,7 +16,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the address book. "
-            + "Parameters: NAME [t/TAG]...\n"
+            + "Parameters: NAME [DATE] [START_TIME] [END_TIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " finish CS2103T t/friends t/owesMoney";
 
@@ -30,16 +30,39 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, Set<String> tags)
-            throws IllegalValueException {
+    public AddCommand(String[] data, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
-                new Name(name),
+        
+        //Should I create 3 constructors for task instead? To avoid nulls
+        //But that leads to another problem..?
+        if (data.length == Task.TASK_COMPONENT_COUNT) {
+            this.toAdd = new Task(
+                new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
+                null, null, null,
                 new UniqueTagList(tagSet)
-        );
+            );
+        } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
+            this.toAdd = new Task(
+                new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
+                new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_DATE]),
+                new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME]),
+                null,
+                new UniqueTagList(tagSet)
+            );
+        } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
+            this.toAdd = new Task(
+                new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
+                new TaskDate(data[Task.EVENT_COMPONENT_INDEX_DATE]),
+                new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
+                new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME]),
+                new UniqueTagList(tagSet)
+            );
+        } else {
+            throw new IllegalValueException(MESSAGE_USAGE);
+        }
     }
 
     @Override
