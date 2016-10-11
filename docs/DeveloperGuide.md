@@ -346,10 +346,6 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | have gui | to make it easier to use
 `*` | advanced user | customize the commands| to use it more easily
 
-
-
-{More to be added}
-
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `Happy Jim Task Manager` and the **Actor** is the `user`, unless specified otherwise)
