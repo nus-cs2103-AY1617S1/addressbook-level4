@@ -51,7 +51,7 @@ This guide describes the design and implementation of WhatNow. It will help you 
 
 ### Architecture
 
-<p align=”center”>
+<p align="center">
 <img src="images/Architecture.png" width="600"><br>
 Figure 1: The Architecture Diagram <br>
 </p>
@@ -78,14 +78,14 @@ Each of the four components
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component shown in Figure 2 below,  defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.<br>
-<p align=”center”>
+<p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
 Figure 2: The Logic component.<br>
 </p>
 
 The _Sequence Diagram_ shown in Figure 3 below shows how the components interact for the scenario where the user issues the `delete 1` command.
 
-<p align=”center”>
+<p align="center">
 <img src="images\SDforDeleteTask.png" width="800"><br>
 Figure 3: How the components interact when the user issues the `delete 1` command. <br>
 </p>
@@ -93,7 +93,7 @@ Figure 3: How the components interact when the user issues the `delete 1` comman
 >Note how the `Model` simply raises a `WhatNowChangedEvent` when the What Now data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram in Figure 4 below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<p align=”center”>
+<p align="center">
 <img src="images\SDforDeleteTaskEventHandling.png" width="800"> <br>
 Figure 4: How the `EventsCenter` reacts when the user issues the `delete 1` command.<br>
 </p>
@@ -104,7 +104,7 @@ The sections below gives more details of each component.
 
 ### UI component
 
-<p align=”center”>
+<p align="center">
 <img src="images/UiClassDiagram.png" width="800"><br>
 Figure 5: The UI component. <br> 
 </p>
@@ -123,7 +123,7 @@ The `UI` component,
 
 ### Logic component
 
-<p align=”center”>
+<p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
 Figure 6: The Logic component.<br>
 </p>
@@ -136,14 +136,14 @@ Figure 6: The Logic component.<br>
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
-<p align=”center”>
+<p align="center">
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 Figure 7:  How the `Logic` component executes the user’s request of `delete 1`. <br>
 </p>
 
 ### Model component
 
-<p align=”center”>
+<p align="center">
 <img src="images/ModelClassDiagram.png" width="800"><br>
 Figure 8: The Model component. <br>
 </p>
@@ -158,7 +158,7 @@ The `Model`,
 
 ### Storage component
 
-<p align=”center”>
+<p align="center">
 <img src="images/StorageClassDiagram.png" width="800"><br>
 Figure 9: The Storage component. <br>
 </p>
