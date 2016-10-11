@@ -5,8 +5,8 @@ import seedu.address.testutil.TestItem;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.DeleteByIndexCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
@@ -49,7 +49,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
 }
