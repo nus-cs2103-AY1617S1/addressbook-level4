@@ -1,9 +1,20 @@
 # User Guide
 
+* [About](#about)
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+
+## About
+Do you have so many tasks to do everyday that you simply cannot keep track of them anymore? Don't you wish there was an easy way to stay on top of your daily tasks without stressing out?
+
+*Taskle is here to help you with all of that.*
+
+It is a task management application with a single text box for all your commands. 
+Coupled with short and easy to remember commands, managing your tasks has never been this easy. 
+
+Stop waiting and make "Getting Started with Taskle" the last thing on your to-do list now!
 
 ## Quick Start
 
@@ -11,124 +22,204 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+1. Download the latest `Taskle.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your task manager application.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+
+<img src="images/UI/Base.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
+   * **`add`**` task_name` : Adds task_name to the to-do list
+   * **`add`**` deadline_name by date [time] [remind date time]` : Adds deadline_name to the to-do list with a deadline and an accompanying reminder
+   * **`add`**` event_name on date [time] [remind date time]` OR **`add`**` event_name from date [time] to date [time] [remind date time]` : Either adds event_name to the to-do list with either a flexible or fixed timeline and an accompanying reminder
+   * **`remove`**` task_number` : Removes the task_number contact shown in the current to-do list
+   * **`clear`**` task_number` : Clears all tasks from the application
+   * **`exit`** : exits the appplication
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
 
+Taskle makes it elegantly simple to manage your tasks. All of its features require only one single line of command making it very easy to use! Furthermore, it will be easy for you to keep track of your tasks with no hassle at all!
+
 > **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
+> * Words in **`BOLD`** are the parameters.
+> * Items in `[SQUARE_BRACKETS]` are optional.
 > * The order of parameters is fixed.
 
-#### Viewing help : `help`
+<br>
+
+#### Add a Task / Event: `add`
+Adds a task / event into the to-do application. You can add tasks with or without specifying the deadlines, and events with or without specifying the end date. In addition, for events and tasks with deadlines, a reminder time can be set for the application to remind you of the upcoming task / event. The time parameter is optional here.<br><br>
+
+| Format |  
+| :-------- | 
+| `add `**`task_name`** |  
+| `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` |  
+| `add `**`event_name`**` on `**`date`**` [`**`time`**`] [remind `**`date time`**`]` |
+| `add `**`event_name`**` from `**`date`**`[`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  |
+
+Examples:
+* `add `**`Pay Bills`**
+* `add `**`Do CS2101 Assignment`**` by `**`12 Oct`**
+* `add `**`Business Trip`**` from `**`4 Oct`**` to `**`5 Oct`**` remind `**`3 Oct 2pm`**
+
+<img src="images/UI/Add.png" width="600">
+
+Note:  
+* When entering date and time, the following formats are allowed:
+	* 14 Jan, 14/01
+	* 9pm, 2100
+	* today, tmr
+	* mon, tue, wed
+
+* Words such as **by**, **on**, **from** and **to** are reserved for commands. When adding tasks, if the name consists of any of the reserved words, they should be enclosed within double quotation marks, (" "). For example:
+	* add "**Collect equipment from Mary**" **tmr**
+
+* When using reserved words **today**, **tmr** and days of the week, it is alright to omit the word **on** (applicable for events). For example:
+	* add **Club Briefing tmr** &emsp; instead of: &emsp; add **Club Briefing on tmr**
+<br><br>	
+
+#### Edit a Task : `edit; reschedule; remind`
+Edits a task into the to-do application. There are 3 types of edits possible: Edit Description, Reschedule and Remind. You are required to input the **task_number** (which can be seen in the mockup) in order for the application to identify which task you are intending to edit.<br><br>
+
+Type | Format  
+:-------- | :-------- 
+Edit Description | `edit `**`task_number new_task_name`**  
+Reschedule | `reschedule `**`task_number`**` to `**`date`**`[`**`time`**`] [remind `**`date time`**`]`  <br> OR <br> `reschedule `**`task_number`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
+Remind | `remind `**`task_number`**` on `**`date time`**
+
+Examples:
+* `edit `**`3 Pass money to Abel`**
+
+<img src="images/UI/Edit.png" width="600">
+<img src="images/UI/Edit 2.png" width="600">
+
+* `reschedule `**`Submit proposal `**` to `**`13 Oct 5pm`**
+
+<img src="images/UI/Reschedule.png" width="600">
+<img src="images/UI/Reschedule 2.png" width="600">
+
+* `remind `**`1 3 Oct 2pm`**
+
+Note:
+* Only one reminder is supported for each task. The date and time specified in the "Remind" command will replace any existing reminder.
+ 
+* Reminders need to have a **time** specified in order to know the exact time to remind you of upcoming appointments.
+
+* To remove a reminder or deadline from a task, you will have to type "**null**" after typing the task number. For example:
+	* remind **2 null**
+	* reschedule **2 null**
+	
+<img src="images/UI/Remind.png" width="600">
+<img src="images/UI/Remind 2.png" width="600">	
+	
+<br><br>
+
+#### Remove a Task: `remove`
+Removes a task from the to-do application.<br>
+Format: `remove `**`task_number`**
+
+Examples:
+* `remove `**`4`**
+
+<img src="images/UI/Remove.png" width="600">
+<img src="images/UI/Remove 2.png" width="600">	
+
+<br><br>
+
+#### Finding a Task : `find`
+Finds a task in the to-do application, based on keywords.<br><br>
+Format: `find [`**`search_query`**`][`**`-p/-d/-o`**`]`
+
+Examples:
+* `find `**`meeting`**
+* `find `**`submission -o`**
+
+<img src="images/UI/Find.png" width="600">
+
+Note:
+* After typing the words to search for, you can type any of the following keywords to search for specific types of events:
+	* **-p**: Tasks that are still pending.
+	* **-c**: Tasks that are marked as completed.
+	* **-o**: Tasks that are overdue (applicable for deadlines only)
+* To view all types of events, you can simply omit the above keywords. 
+* To display all tasks, simply type `find`
+* To display all the tasks of a specific type, simply omit the **search_query** parameter while including the keyword mentioned above. For example:
+	* `find `**`-p`**
+	
+<img src="images/UI/Find Pending.png" width="600">
+
+<br><br>
+
+#### Mark a Task as Done: `done`
+Marks a task as done. Use this command when you are finished with the task.<br>
+Format: `done`
+
+<img src="images/UI/Done.png" width="600">
+
+<br><br>
+
+#### Undoing a Recent Command: `undo`
+Marks a task as done. This command is used when you are finished with the task.<br><br>
+Format: `undo`
+
+<br><br>
+
+#### Clearing all Tasks: `clear`
+Clears all tasks from the application.<br><br>
+Format: `clear`
+
+<img src="images/UI/Clear.png" width="600">
+
+<br><br>
+
+#### View Help: `help`
+Displays a list of available commands.<br>
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+<img src="images/UI/Help.png" width="600">
 
-> Persons can have any number of tags (including 0)
+Note:
+* Help is also shown if you enter an incorrect command. For example: `abcd`
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+<br><br>
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
-
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
-
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
-
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
-
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
-
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
-
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
-
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
-
-#### Exiting the program : `exit`
-Exits the program.<br>
+#### Exit the Application: `exit`
+Exits the application.<br><br>
 Format: `exit`  
+<br><br>
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+**A**: Install the application in the other computer and overwrite the empty data file it creates with 
+       the file created in your previous to-do application folder.
        
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+The table below shows the overall list of commands used in the application.<br>
+Note the following conventions used:
+* Words in **`BOLD`** are the parameters.
+* Items in `SQUARE_BRACKETS` are optional.
+* The order of parameters is fixed.
+
+Command `(Shortcut)` | Format  
+:-------- | :-------- 
+Add `a` | `add `**`task_name`**  
+ | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
+ | `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`|
+ |`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
+Edit Description `e` | `edit `**`task_number new_task_name`**
+Reschedule `r` | `reschedule `**`task_number`**` to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`<br> OR <br> `reschedule `**`task_number`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
+Set Reminder `s` | `remind `**`task_number date time`**
+Remove `rm` | `remove `**`task_number`**
+Undo `u` | `undo`
+Find `f` | `find [`**`search_query`**`] [`**`-p/-c/-o`**`]`
+Mark as Done `d` | `done `**`task_number`**
 Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+Help `h` | `help`
+Exit | `exit`

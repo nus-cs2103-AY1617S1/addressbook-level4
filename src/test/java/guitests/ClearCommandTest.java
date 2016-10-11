@@ -10,13 +10,13 @@ public class ClearCommandTest extends AddressBookGuiTest {
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
+        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertTrue(personListPanel.isListMatching(td.hoon));
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand(td.helpFriend.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.helpFriend));
+        commandBox.runCommand("remove 1");
         assertListSize(0);
 
         //verify clear command works when the list is empty
@@ -26,6 +26,6 @@ public class ClearCommandTest extends AddressBookGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage("Task Manager has been cleared!");
     }
 }
