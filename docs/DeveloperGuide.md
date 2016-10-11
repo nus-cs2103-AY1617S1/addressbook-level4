@@ -250,19 +250,23 @@ b. Require developers to download those libraries manually (this creates extra w
 
 ## Appendix A : User Stories
 
-Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
+Priorities: High - `* * *`, Medium - `* *`,  Low - `*`
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+`* * *` | user | add tasks to the todo list | remember what I have to do/what I have to attend
+`* * *` | user | view upcoming tasks | check what I need to do / have to do soon
+`* * *` | user | search for details on a task or event | view what needs to be done
+`* * *` | user | delete task that has been completed | I do not have to keep track of it	
+`* * *` | mark the task as completed upon completion | keep an archive of tasks that I have completed
+`* * *` | user | view tasks that I have completed | recall what I have completed
+`* * *` | call up the todo list with a simple keystroke | start the application anytime during my workflow
+`* *` | user | edit tasks | keep them up to date
+`* *` | user | undo my actions | reverse any mistakes that I have made
+`* *` | user | redo my undo | correct any accidental undo
+`*` | user | enter synonyms for the commands | use natural language to accomplish what I want
+`*` | user | tag tasks | classify them and search for them according to these tags
 
 ## Appendix B : Use Cases
 
