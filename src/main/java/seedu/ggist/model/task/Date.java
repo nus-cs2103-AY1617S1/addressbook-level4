@@ -3,6 +3,7 @@ package seedu.ggist.model.task;
 
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 /**
  * Represents a Task's date in the GGist.
@@ -27,6 +28,7 @@ public class Date {
         if (!date.equals(Messages.MESSAGE_NO_DATE_SPECIFIED) && !isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         } 
+        System.out.println(new PrettyTimeParser().parse(date).size());
         this.value = date;
     }
 
@@ -53,5 +55,4 @@ public class Date {
     public int hashCode() {
         return value.hashCode();
     }
-
 }
