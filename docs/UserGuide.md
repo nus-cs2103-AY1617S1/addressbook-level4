@@ -1,4 +1,3 @@
-@author A0141128R
 # User Guide
 
 <br><img align="center" src="images/Logo.jpeg" width="600"><br>
@@ -72,6 +71,10 @@ Format: `find <today>`
 <br><img src="images/ListTake.jpeg" width="600"><br>
 > Key in </priority> to show all tasks with specified priority
 <br><img src="images/ListHP.jpeg" width="600"><br>
+
+#### Listing all task in CMDo : `list`
+Shows a list of all task in the CMDo.<br>
+Format: `list`
 
 #### Deleting a task in CMDo : `delete`
 Deletes the specified task from the to do list.
@@ -170,7 +173,7 @@ Add | `add <task> <day> <time> <priority>`
 Delete | `delete <INDEX>`
 Done | `done <INDEX>`
 Find | `find <keyword>`
-List All | `la`
+List All | `list`
 Help | `help`
 Undo | `undo`
 Redo | `redo`
@@ -179,4 +182,4 @@ Page Up | <kbd>PgUp</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Up</kb
 Page Down | <kbd>PgDown</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Down</kbd> (Mac)
 Exit | `exit`
 
-Last updated 7 Oct 2016.
+Last updated 11 Oct 2016. @author A0141128R

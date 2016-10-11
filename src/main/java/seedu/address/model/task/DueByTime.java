@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's due time in the task manager.
+ * Represents a Task's due time in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueByTime(String)}
  */
 public class DueByTime {

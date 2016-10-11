@@ -3,7 +3,7 @@ package seedu.address.model.task;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a task in the task manager.
+ * A read-only immutable interface for a task in the To Do List.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
