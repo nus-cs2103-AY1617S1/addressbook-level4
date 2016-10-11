@@ -40,6 +40,10 @@ public class EditCommand extends Command {
      */
     public EditCommand(int targetIndex, String name, String startDate, String startTime, String endDate, String endTime)
             throws IllegalValueException {
+        
+        //At least one parameter is being edited
+        assert (name != null || startDate != null || startTime!= null || endDate != null || endTime != null);
+        
         this.targetIndex = targetIndex;
         this.newName = name;
         this.newStartDate = startDate;
