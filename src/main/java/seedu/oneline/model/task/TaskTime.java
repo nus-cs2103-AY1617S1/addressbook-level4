@@ -1,6 +1,7 @@
 package seedu.oneline.model.task;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.model.tag.Tag;
 
 public class TaskTime {
 
@@ -30,6 +31,18 @@ public class TaskTime {
         return true; // TODO
     }
 
+    /**
+     * Returns the default time value
+     */
+    public static TaskTime getDefault() {
+        try {
+            return new TaskTime("");
+        } catch (IllegalValueException e) {
+            assert false; // This function should return a correct value!
+        }
+        return null;
+    }
+    
     @Override
     public String toString() {
         return value;
@@ -45,6 +58,20 @@ public class TaskTime {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+    /**
+     * Serialize field for storage
+     */
+    public String serialize() {
+        return value;
+    }
+    
+    /**
+     * Deserialize from storage
+     */
+    public static TaskTime deserialize(String args) throws IllegalValueException {
+        return new TaskTime(args);
     }
     
 }

@@ -25,7 +25,7 @@ public class XmlAdaptedTag {
      * @param source future changes to this will not affect the created
      */
     public XmlAdaptedTag(Tag source) {
-        tagName = source.tagName;
+        tagName = source.serialize();
     }
 
     /**
@@ -34,7 +34,7 @@ public class XmlAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Tag toModelType() throws IllegalValueException {
-        return new Tag(tagName);
+        return Tag.deserialize(tagName);
     }
 
 }

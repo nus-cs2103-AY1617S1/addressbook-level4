@@ -3,6 +3,7 @@ package seedu.oneline.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.oneline.commons.core.EventsCenter;
+import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.events.model.TaskBookChangedEvent;
 import seedu.oneline.commons.events.ui.JumpToListRequestEvent;
 import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
@@ -149,24 +150,10 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
     }
 
-
-    @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
-    }
-
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] .a A .b B .c C .d D", TaskName.MESSAGE_TASK_NAME_CONSTRAINTS);
+                "add []\\[;] .from A .to B .due C .every D", TaskName.MESSAGE_TASK_NAME_CONSTRAINTS);
         // TODO: ADD PROPER CONSTRAINTS
         //assertCommandBehavior(
         //        "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
@@ -265,7 +252,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.getInvalidCommandFormatMessage(SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
 
@@ -293,7 +280,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.getInvalidCommandFormatMessage(DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
@@ -320,7 +307,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.getInvalidCommandFormatMessage(FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
 
@@ -424,10 +411,10 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" .a ").append(p.getStartTime());
-            cmd.append(" .b ").append(p.getEndTime());
-            cmd.append(" .c ").append(p.getDeadline());
-            cmd.append(" .d ").append(p.getRecurrence());
+            cmd.append(" .from ").append(p.getStartTime());
+            cmd.append(" .to ").append(p.getEndTime());
+            cmd.append(" .due ").append(p.getDeadline());
+            cmd.append(" .every ").append(p.getRecurrence());
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" #").append(t.tagName);

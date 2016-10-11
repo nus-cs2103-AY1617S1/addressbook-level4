@@ -41,11 +41,11 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getName().name;
-        starttime = source.getStartTime().toString();
-        endtime = source.getEndTime().toString();
-        deadline = source.getDeadline().toString();
-        recurrence = source.getRecurrence().toString();
+        name = source.getName().serialize();
+        starttime = source.getStartTime().serialize();
+        endtime = source.getEndTime().serialize();
+        deadline = source.getDeadline().serialize();
+        recurrence = source.getRecurrence().serialize();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -62,11 +62,11 @@ public class XmlAdaptedTask {
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
-        final TaskName name = new TaskName(this.name);
-        final TaskTime startTime = new TaskTime(this.starttime);
-        final TaskTime endTime = new TaskTime(this.endtime);
-        final TaskTime deadline = new TaskTime(this.deadline);
-        final TaskRecurrence recurrence = new TaskRecurrence(this.recurrence);
+        final TaskName name = TaskName.deserialize(this.name);
+        final TaskTime startTime = TaskTime.deserialize(this.starttime);
+        final TaskTime endTime = TaskTime.deserialize(this.endtime);
+        final TaskTime deadline = TaskTime.deserialize(this.deadline);
+        final TaskRecurrence recurrence = TaskRecurrence.deserialize(this.recurrence);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, startTime, endTime, deadline, recurrence, tags);
     }

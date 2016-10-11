@@ -2,6 +2,11 @@ package seedu.oneline.logic.commands;
 
 import java.util.Set;
 
+import seedu.oneline.commons.core.Messages;
+import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
+import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.logic.parser.Parser;
+
 /**
  * Finds and lists all tasks in task book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -17,6 +22,14 @@ public class FindCommand extends Command {
 
     private final Set<String> keywords;
 
+    public FindCommand(String args) throws IllegalCmdArgsException {
+        Set<String> keywords = Parser.getKeywordsFromArgs(args);
+        if (keywords == null) {
+            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+        }
+        this.keywords = keywords;
+    }
+    
     public FindCommand(Set<String> keywords) {
         this.keywords = keywords;
     }

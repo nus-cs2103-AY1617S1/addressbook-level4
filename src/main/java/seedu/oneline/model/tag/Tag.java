@@ -26,7 +26,7 @@ public class Tag {
         assert name != null;
         name = name.trim();
         if (!isValidTagName(name)) {
-            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS + " : " + name);
         }
         this.tagName = name;
     }
@@ -55,6 +55,20 @@ public class Tag {
      */
     public String toString() {
         return '[' + tagName + ']';
+    }
+    
+    /**
+     * Serialize field for storage
+     */
+    public String serialize() {
+        return tagName;
+    }
+    
+    /**
+     * Deserialize from storage
+     */
+    public static Tag deserialize(String args) throws IllegalValueException {
+        return new Tag(args);
     }
 
 }

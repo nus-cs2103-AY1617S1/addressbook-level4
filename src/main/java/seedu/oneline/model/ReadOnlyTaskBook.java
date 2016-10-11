@@ -6,6 +6,8 @@ import java.util.List;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.ReadOnlyTask;
+import seedu.oneline.model.task.Task;
+import seedu.oneline.model.task.TaskName;
 import seedu.oneline.model.task.UniqueTaskList;
 
 /**

@@ -4,6 +4,9 @@ import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.core.UnmodifiableObservableList;
 import seedu.oneline.commons.events.ui.JumpToListRequestEvent;
+import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
+import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.task.ReadOnlyTask;
 
 /**
@@ -22,6 +25,19 @@ public class SelectCommand extends Command {
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
 
+    public SelectCommand(String args) throws IllegalValueException {
+        Integer index = null;
+        try {
+            index = Parser.getIndexFromArgs(args);
+        } catch (IllegalValueException e) {
+            throw new IllegalValueException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+        }
+        if (index == null) {
+            throw new IllegalValueException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+        }
+        this.targetIndex = index;
+    }
+    
     public SelectCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }

@@ -1,9 +1,13 @@
 package seedu.oneline.logic.commands;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
+import seedu.oneline.commons.core.Messages;
+import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.*;
@@ -25,6 +29,44 @@ public class AddCommand extends Command {
 
     private final Task toAdd;
 
+    public AddCommand(String args) throws IllegalValueException, IllegalCmdArgsException {
+        Map<TaskField, String> fields = null;
+        try {
+            fields = Parser.getTaskFieldsFromArgs(args);
+        } catch (IllegalCmdArgsException e) {
+            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+        }
+        TaskName newName = new TaskName(fields.get(TaskField.NAME));
+        TaskTime newStartTime = fields.containsKey(TaskField.START_TIME) ? 
+                                    new TaskTime(fields.get(TaskField.START_TIME)) :
+                                    TaskTime.getDefault();
+        TaskTime newEndTime = fields.containsKey(TaskField.END_TIME) ? 
+                                    new TaskTime(fields.get(TaskField.END_TIME)) :
+                                    TaskTime.getDefault();
+        TaskTime newDeadline = fields.containsKey(TaskField.DEADLINE) ? 
+                                    new TaskTime(fields.get(TaskField.DEADLINE)) :
+                                    TaskTime.getDefault();
+        TaskRecurrence newRecurrence = fields.containsKey(TaskField.RECURRENCE) ? 
+                                    new TaskRecurrence(fields.get(TaskField.RECURRENCE)) :
+                                        TaskRecurrence.getDefault();
+        Set<String> tags = fields.containsKey(TaskField.TAG_ARGUMENTS) ?
+                                    Parser.getTagsFromArgs(fields.get(TaskField.TAG_ARGUMENTS)) :
+                                    new HashSet<String>();
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }                 
+        
+        this.toAdd = new Task(
+                new TaskName(fields.get(TaskField.NAME)),
+                new TaskTime(fields.get(TaskField.START_TIME)),
+                new TaskTime(fields.get(TaskField.END_TIME)),
+                new TaskTime(fields.get(TaskField.DEADLINE)),
+                new TaskRecurrence(fields.get(TaskField.RECURRENCE)),
+                new UniqueTagList(tagSet)
+        );
+    }
+    
     /**
      * Convenience constructor using raw values.
      *

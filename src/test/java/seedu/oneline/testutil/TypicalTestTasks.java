@@ -7,14 +7,18 @@ import seedu.oneline.model.task.*;
 /**
  *
  */
-public class TypicalTestTasks {
+public class TypicalTestTasks {  
 
     public static TestTask event1, event2, event3, eventExtra,
                             todo1, todo2, todo3, todoExtra,
                             float1, float2, float3, floatExtra;
-  
 
-    public TypicalTestTasks() {
+    static {
+        initTestTasks();
+    }
+    
+    
+    private static void initTestTasks() {
         try {
             event1 = new TaskBuilder().withName("Meeting with Harry").withStartTime("Start Time").withEndTime("End Time")
                     .withDeadline("Deadline").withRecurrence("Recurrence").withTags("Tag1", "Tag2").build();
