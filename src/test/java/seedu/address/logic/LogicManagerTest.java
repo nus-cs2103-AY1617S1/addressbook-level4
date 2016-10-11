@@ -121,6 +121,10 @@ public class LogicManagerTest {
         assertEquals(expectedActivityManager, latestSavedActivityManager);
     }
     
+    // TODO: Refactor this "hack" if possible
+    /**
+     * Overload assertCommandBehavior(..., List<? extends Activity> expectedShownList) to accept both data types
+     */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
             ReadOnlyActivityManager expectedActivityManager,
             ActivityList expectedShownList) throws Exception {
@@ -326,7 +330,34 @@ public class LogicManagerTest {
                 expectedAM,
                 expectedAM.getActivityList());
     }
+    
+    @Test
+    public void execute_updateInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("update", expectedMessage);
+    }
+    
+    @Test
+    public void execute_updateIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("update");
+    }
+    
+    @Test
+    public void execute_update_trimArguments() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Activity existingActivity = helper.generateActivityWithName("bla bla bla");
+        List<Activity> activities = helper.generateActivityList(existingActivity);
+        helper.addToModel(model, activities);
+        
+        Activity newActivity = helper.generateActivityWithName("bla");
+        List<Activity> expectedList = helper.generateActivityList(newActivity);
+        ActivityManager expectedAM = helper.generateActivityManager(expectedList);
 
+        assertCommandBehavior("update 1     bla",
+                String.format(UpdateCommand.MESSAGE_UPDATE_ACTIVITY_SUCCESS, newActivity.getName()),
+                expectedAM,
+                expectedList);
+    }
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
