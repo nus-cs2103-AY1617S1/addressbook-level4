@@ -190,6 +190,36 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
     }
+    
+    @Test
+    public void execute_undo_delete_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeUndo = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeUndo);
+        
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeUndo),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeUndo),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        expectedAB.removeTask(toBeUndo);
+        
+        // execute command and verify result
+        assertCommandBehavior("delete 1",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeUndo),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        expectedAB.addTask(toBeUndo);
+        
+        assertCommandBehavior("undo",
+                UndoCommand.MESSAGE_SUCCESS + "\nAction: " + String.format(DeleteCommand.MESSAGE_UNDO, toBeUndo),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
