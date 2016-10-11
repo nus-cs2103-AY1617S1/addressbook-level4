@@ -22,9 +22,9 @@ public class EditCommand extends Command {
     // todo: update message
     // UG/DG
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task. "
-            + "Parameters: INDEX [TITLE] [d/DEADLINE] [f/FREQUENCY] [s/SCHEDULE] [c/STATUS] [t/TAG]...\n"
+            + "Parameters: INDEX [TITLE] [d/DEADLINE] [c/STATUS] [s/SCHEDULE] [f/FREQUENCY] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " 1 CS2103T Tutorial d/fri 11.59pm f/1 week s/mon 2200 to tue 0200 t/friends t/owesMoney";
+            + " 1 CS2103T Tutorial d/fri 11.59pm c/complete s/mon 2200 to tue 0200 f/1 week t/friends t/owesMoney";
 
     public static final String MESSAGE_SUCCESS = "Task updated: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "A task with the same name already exists in TaskMan";
@@ -42,8 +42,8 @@ public class EditCommand extends Command {
      */
     public EditCommand(int targetIndex,
                        @Nullable String title, @Nullable String deadline, @Nullable String status,
-                       @Nullable String frequency, @Nullable String schedule, @Nullable Set<String> tags) {
-        argsContainer = new ArgumentContainer(targetIndex, title, deadline, schedule, frequency, schedule, tags);
+                       @Nullable String schedule, @Nullable String frequency, @Nullable Set<String> tags) {
+        argsContainer = new ArgumentContainer(targetIndex, title, deadline, status, schedule, frequency, tags);
     }
 
     @Override
@@ -124,8 +124,8 @@ public class EditCommand extends Command {
         public final String title;
         public final String deadline;
         public final String status;
-        public final String frequency;
         public final String schedule;
+        public final String frequency;
         public final Set<String> tags;
 
         public ArgumentContainer(int targetIndex, String title, String deadline, String status, String schedule, String frequency, Set<String> tags) {
@@ -133,8 +133,8 @@ public class EditCommand extends Command {
             this.title = title;
             this.deadline = deadline;
             this.status = status;
-            this.frequency = frequency;
             this.schedule = schedule;
+            this.frequency = frequency;
             this.tags = tags;
         }
     }

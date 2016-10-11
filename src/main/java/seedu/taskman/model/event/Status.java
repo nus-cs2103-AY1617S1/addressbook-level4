@@ -13,11 +13,10 @@ public class Status {
 
 	public Status(String booleanString) throws IllegalValueException {
         booleanString = booleanString.trim();
-        if (!booleanString.matches("(true)|(false)")) {
-            throw new IllegalValueException("Expected a boolean string!");
+        if (!booleanString.matches("(complete)|(incomplete)")) {
+            throw new IllegalValueException("Status should be 'complete' or 'incomplete'");
         }
-
-        completed = Boolean.valueOf(booleanString);
+        completed = booleanString.equals("complete");
     }
 
 	@Override
