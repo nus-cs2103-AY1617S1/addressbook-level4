@@ -3,15 +3,16 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.TaskList;
 import seedu.address.model.task.*;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 /**
  *
  */
-public class TypicalTestFloatingTasks {
+public class TypicalTestTasks {
 
-    public static TestFloatingTask trash, book, homework, lecture, meeting, jogging, george, hoon, ida;
+    public static TestTask trash, book, homework, lecture, meeting, jogging, george, hoon, ida;
 
-    public TypicalTestFloatingTasks() {
+    public TypicalTestTasks() {
         try {
             trash =  new TaskBuilder().withName("take trash").withTags("notUrgent").build();
             book = new TaskBuilder().withName("read book").withTags("weekly", "textBook").build();
@@ -30,7 +31,7 @@ public class TypicalTestFloatingTasks {
         }
     }
 
-    public static void loadTaskListWithSampleData(TaskList ab) {
+    public static void loadTaskListWithSampleData(TaskList ab) throws TimeslotOverlapException {
 
         try {
             ab.addTask(new Task(trash));
@@ -45,11 +46,11 @@ public class TypicalTestFloatingTasks {
         }
     }
 
-    public TestFloatingTask[] getTypicalTasks() {
-        return new TestFloatingTask[]{trash, book, homework, lecture, meeting, jogging, george};
+    public TestTask[] getTypicalTasks() {
+        return new TestTask[]{trash, book, homework, lecture, meeting, jogging, george};
     }
 
-    public TaskList getTypicalTaskList(){
+    public TaskList getTypicalTaskList() throws TimeslotOverlapException{
         TaskList ab = new TaskList();
         loadTaskListWithSampleData(ab);
         return ab;

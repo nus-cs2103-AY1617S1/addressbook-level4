@@ -8,7 +8,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.model.TaskList;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.TypicalTestFloatingTasks;
+import seedu.address.testutil.TypicalTestTasks;
 import static org.junit.Assert.assertEquals;
 
 public class StorageManagerTest {
@@ -47,7 +47,7 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        TaskList original = new TypicalTestFloatingTasks().getTypicalTaskList();
+        TaskList original = new TypicalTestTasks().getTypicalTaskList();
         storageManager.saveTaskList(original);
         ReadOnlyTaskList retrieved = storageManager.readTaskList().get();
         assertEquals(original, new TaskList(retrieved));

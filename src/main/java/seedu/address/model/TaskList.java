@@ -6,6 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -75,8 +76,9 @@ public class TaskList implements ReadOnlyTaskList {
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws TimeslotOverlapException 
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }

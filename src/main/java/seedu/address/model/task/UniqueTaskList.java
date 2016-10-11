@@ -31,6 +31,18 @@ public class UniqueTaskList implements Iterable<Task> {
      * there is no such matching task in the list.
      */
     public static class TaskNotFoundException extends Exception {}
+    
+    /**
+     * Signals that an operation adding/blocking a time slot in the list would fail because
+     * the timeslot is already occupied.
+     */
+    
+    public static class TimeslotOverlapException extends DuplicateDataException {
+
+		public TimeslotOverlapException() {
+			super("Operation cannot be done due to overlapping with blocked slots.");
+		}
+	}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
@@ -46,16 +58,37 @@ public class UniqueTaskList implements Iterable<Task> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
+    
+    /**
+     * Returns true if the given task requests to use a blocked timeslot.
+     */
+    public boolean overlaps(ReadOnlyTask toCheck) {
+        assert toCheck != null;
+        for(Task t: internalList){
+        	if(t.getType().equals(TaskType.NON_FLOATING)){
+        		if(t.getStartDate()!=null){
+        			if(!(t.getEndDate().getParsedDate().before(toCheck.getStartDate().getParsedDate())||
+        	        	t.getStartDate().getParsedDate().after(toCheck.getEndDate().getParsedDate())))
+        	        		return true;
+        		}
+        	}
+        }
+        return false;
+    }
 
     /**
      * Adds a task to the list.
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws TimeslotOverlapException 
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(Task toAdd) throws DuplicateTaskException, TimeslotOverlapException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
+        }
+        if(overlaps(toAdd)){
+        	throw new TimeslotOverlapException();
         }
         internalList.add(toAdd);
     }

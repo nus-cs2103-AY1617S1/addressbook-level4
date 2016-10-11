@@ -42,6 +42,11 @@ public class Parser {
                     +" from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
+    
+    private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     public Parser() {}
 
     /**
@@ -62,6 +67,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+            
+        case BlockCommand.COMMAND_WORD:
+        	return prepareBlock(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -98,7 +106,9 @@ public class Parser {
         }
     }
 
-    /**
+    
+
+	/**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
@@ -151,6 +161,27 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    private Command prepareBlock(String args) {
+		// TODO Auto-generated method stub
+    	Matcher matcher = BLOCK_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE));
+        }
+        try {
+            
+            String startInput = matcher.group("startdate");
+            String endInput = matcher.group("enddate");
+            
+            return new BlockCommand(
+                    getTagsFromArgs(matcher.group("tagArguments")),
+                    new TaskDate(startInput, getDateFromString(startInput)),
+                    new TaskDate(startInput, getDateFromString(endInput))
+                    );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+	}
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.

@@ -4,6 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -48,7 +49,11 @@ public class AddFloatingCommand extends AddCommand {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
+        } catch (TimeslotOverlapException e) {
+			// TODO Auto-generated catch block
+			assert false: "not possible";
+        	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+		}
 
     }
 
