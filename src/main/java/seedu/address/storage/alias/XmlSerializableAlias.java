@@ -1,10 +1,9 @@
-package seedu.address.storage.task;
+package seedu.address.storage.alias;
 
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Alias;
 import seedu.address.model.task.Task;
-import seedu.address.storage.task.XmlAdaptedTask;
-
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,27 +12,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable TaskManager that is serializable to XML format
+ * An Immutable Alias that is serializable to XML format
  */
-@XmlRootElement(name = "taskmanager")
-public class XmlSerializableTaskManager extends UniqueItemCollection<Task>{ 
+@XmlRootElement(name = "alias")
+public class XmlSerializableAlias extends UniqueItemCollection<Alias>{ 
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedAlias> alias;
     {
-        tasks = new ArrayList<>();
+        alias = new ArrayList<>();
     }
 
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableTaskManager() {}
+    public XmlSerializableAlias() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableTaskManager(UniqueItemCollection<Task> src) {
-        tasks.addAll(src.getInternalList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+    public XmlSerializableAlias(UniqueItemCollection<Alias> src) {
+        alias.addAll(src.getInternalList().stream().map(XmlAdaptedAlias::new).collect(Collectors.toList()));
     }
     
     /*
@@ -42,9 +41,9 @@ public class XmlSerializableTaskManager extends UniqueItemCollection<Task>{
      *  when loading from XML storage.
      */
     void afterUnmarshal(Unmarshaller unmarshaller, Object parent) {
-        for (XmlAdaptedTask t : tasks) {
+        for (XmlAdaptedAlias a : alias) {
             try {
-                this.add(t.toModelType());
+                this.add(a.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }

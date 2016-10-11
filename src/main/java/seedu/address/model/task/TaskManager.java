@@ -8,8 +8,10 @@ import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemExcep
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.model.AliasChangedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.Alias;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.Task;
 
@@ -18,16 +20,19 @@ import seedu.address.model.task.Task;
  */
 public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	private UniqueItemCollection<Task> tasks;
+	private UniqueItemCollection<Alias> alias;
 	private final FilteredList<Task> filteredTasks;
 
 	public TaskManager() {
 		// TODO: make use of loaded data
 		this.tasks = new UniqueItemCollection<Task>();
+		this.alias = new UniqueItemCollection<Alias>();
 		filteredTasks = new FilteredList<>(tasks.getInternalList());
 	}
 	
-	public TaskManager(UniqueItemCollection<Task> tasks, UserPrefs userPrefs) {
+	public TaskManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> alias, UserPrefs userPrefs) {
 		this.tasks = tasks;
+		this.alias = alias;
 		filteredTasks = new FilteredList<>(this.tasks.getInternalList());
 	}
 	
@@ -66,6 +71,28 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	@Override
 	public UnmodifiableObservableList<Task> getCurrentFilteredTasks() {
 		return new UnmodifiableObservableList<>(filteredTasks);
+	}
+	
+	@Override
+	public void addAlias(Alias toAdd) throws UniqueItemCollection.DuplicateItemException{
+		alias.add(toAdd);
+	    indicateAliasChanged();
+	}
+	
+	@Override
+	public synchronized void deleteAlias(Alias toRemove) throws ItemNotFoundException {
+	    alias.remove(toRemove);
+	    indicateAliasChanged();
+	}
+	
+	/** Raises an event to indicate the model has changed */
+    private void indicateAliasChanged() {
+        raise(new AliasChangedEvent(alias));
+    }
+    
+    @Override
+	public UnmodifiableObservableList<Alias> getAlias() {
+		return new UnmodifiableObservableList<>(alias.getInternalList());
 	}
 	
 	interface Expression {

@@ -3,7 +3,12 @@ package seedu.address.logic.parser;
 import java.lang.reflect.Field;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.Alias;
+import seedu.address.model.task.InMemoryTaskList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskManager;
 
 /*
  * Responsible for selecting an appropriate parser from a pre-specified list

@@ -5,13 +5,17 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AliasChangedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.Alias;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.Task;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.alias.AliasStorage;
+import seedu.address.storage.alias.XmlAliasStorage;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -24,17 +28,19 @@ public class TaskStorageManager extends ComponentManager implements TaskStorage 
 
     private static final Logger logger = LogsCenter.getLogger(TaskStorageManager.class);
     private TaskManagerStorage taskManagerStorage;
+    private AliasStorage aliasStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public TaskStorageManager(TaskManagerStorage taskManagerStorage, UserPrefsStorage userPrefsStorage) {
+    public TaskStorageManager(TaskManagerStorage taskManagerStorage, AliasStorage aliasStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.taskManagerStorage = taskManagerStorage;
+        this.aliasStorage = aliasStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public TaskStorageManager(String taskManagerFilePath, String userPrefsFilePath) {
-        this(new XmlTaskManagerStorage(taskManagerFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public TaskStorageManager(String taskManagerFilePath, String aliasFilePath, String userPrefsFilePath) {
+        this(new XmlTaskManagerStorage(taskManagerFilePath), new XmlAliasStorage(aliasFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -91,4 +97,46 @@ public class TaskStorageManager extends ComponentManager implements TaskStorage 
         }
     }
 
+    
+ // ================ Alias methods ==============================
+
+    @Override
+    public String getAliasFilePath() {
+        return aliasStorage.getAliasFilePath();
+    }
+
+    @Override
+    public Optional<UniqueItemCollection<Alias>> readAlias() throws DataConversionException, IOException {
+        return readAlias(aliasStorage.getAliasFilePath());
+    }
+
+    @Override
+    public Optional<UniqueItemCollection<Alias>> readAlias(String filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        System.out.println("Attempt system read");
+        return aliasStorage.readAlias(filePath);
+    }
+
+    @Override
+    public void saveAlias(UniqueItemCollection<Alias> alias) throws IOException {
+        saveAlias(alias, aliasStorage.getAliasFilePath());
+    }
+
+    @Override
+    public void saveAlias(UniqueItemCollection<Alias> alias, String filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        aliasStorage.saveAlias(alias, filePath);
+    }
+
+
+    @Override
+    @Subscribe
+    public void handleAliasChangedEvent(AliasChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveAlias(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
 }

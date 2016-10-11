@@ -21,10 +21,12 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.TaskConfigUtil;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.Logic;
+import seedu.address.model.Alias;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
+import seedu.address.storage.alias.AliasStorage;
 import seedu.address.storage.task.TaskStorage;
 import seedu.address.storage.task.TaskStorageManager;
 import seedu.address.ui.Ui;
@@ -53,7 +55,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new TaskStorageManager(config.getTasksFilePath(), config.getUserPrefsFilePath());
+        storage = new TaskStorageManager(config.getTasksFilePath(), config.getAliasFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -75,7 +77,9 @@ public class MainApp extends Application {
 
     private InMemoryTaskList initModelManager(TaskStorage storage, UserPrefs userPrefs) {
         Optional<UniqueItemCollection<Task>> tasks;
+        Optional<UniqueItemCollection<Alias>> alias;
         UniqueItemCollection<Task> initialData;
+        UniqueItemCollection<Alias> initialAliasData;
         try {
             tasks = storage.readTaskManager();
             if(!tasks.isPresent()){
@@ -84,16 +88,25 @@ public class MainApp extends Application {
             } else {
             	initialData = tasks.get();
             } 
+            alias = storage.readAlias();
+            if(!alias.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty Alias");
+                initialAliasData = new UniqueItemCollection<Alias>();
+            } else {
+            	initialAliasData = alias.get();
+            } 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new UniqueItemCollection<Task>();
+            initialAliasData = new UniqueItemCollection<Alias>();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
             initialData = new UniqueItemCollection<Task>();
+            initialAliasData = new UniqueItemCollection<Alias>();
         }
 
         // TODO: Actually pass in data to use
-        return new TaskManager(initialData, userPrefs);
+        return new TaskManager(initialData, initialAliasData, userPrefs);
     }
 
     private void initLogging(TaskConfig config) {

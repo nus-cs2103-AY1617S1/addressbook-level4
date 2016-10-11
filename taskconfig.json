@@ -3,5 +3,6 @@
   "logLevel" : "INFO",
   "userPrefsFilePath" : "task-userpreferences.json",
   "tasksFilePath" : "data/tasks.xml",
+  "aliasFilePath" : "data/alias.xml",
   "taskManagerName" : "TaskManager"
 }

@@ -15,6 +15,7 @@ public class TaskConfig {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "task-userpreferences.json";
     private String tasksFilePath = "data/tasks.xml";
+    private String aliasFilePath = "data/alias.xml";
     private String taskManagerName = "TaskManager";
 
 
@@ -52,6 +53,14 @@ public class TaskConfig {
     public void setAddressBookFilePath(String tasksFilePath) {
         this.tasksFilePath = tasksFilePath;
     }
+    
+    public String getAliasFilePath() {
+        return aliasFilePath;
+    }
+    
+    public void setAliasFilePath(String aliasFilePath) {
+        this.aliasFilePath = aliasFilePath;
+    }
 
     public String getTaskManagerName() {
         return taskManagerName;
@@ -77,12 +86,13 @@ public class TaskConfig {
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(tasksFilePath, o.tasksFilePath)
+                && Objects.equals(aliasFilePath, o.aliasFilePath)
                 && Objects.equals(taskManagerName, o.taskManagerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, tasksFilePath, taskManagerName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, tasksFilePath, aliasFilePath, taskManagerName);
     }
 
     @Override
@@ -92,6 +102,7 @@ public class TaskConfig {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + tasksFilePath);
+        sb.append("\nLocal alias file location : " + aliasFilePath);
         sb.append("\nAddressBook name : " + taskManagerName);
         return sb.toString();
     }

@@ -3,7 +3,9 @@ package seedu.address.model.task;
 import java.util.Set;
 
 import seedu.address.commons.collections.UniqueItemCollection;
+import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.model.Alias;
 
 /*
  * Represents an in-memory task list
@@ -34,5 +36,20 @@ public interface InMemoryTaskList {
 	 * Gets the current list of tasks with the filtering words applied
 	 */
 	UnmodifiableObservableList<Task> getCurrentFilteredTasks();
+	
+	/*
+	 * Adds a one-word alias for any sentence to be used as a command.
+	 */
+	void addAlias(Alias toAdd) throws UniqueItemCollection.DuplicateItemException;
+	
+	/*
+	 * Removes an alias from the current in-memory representation of the Alias List
+	 */
+	void deleteAlias(Alias toRemove) throws ItemNotFoundException;
+	
+	UnmodifiableObservableList<Alias> getAlias();
+
+
+	
 	
 }
