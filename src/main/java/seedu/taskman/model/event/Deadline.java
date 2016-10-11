@@ -3,61 +3,45 @@ package seedu.taskman.model.event;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.logic.parser.DateTimeParser;
 
-/**
- * Represents a deadline in task man.
- * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
- */
+import java.util.Objects;
+
 public class Deadline {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS =
             "Deadline should only contain dates and times in the format: " +
-                    DateTimeParser.DESCRIPTION_DATE_TIME;
-    public static final String DEADLINE_VALIDATION_REGEX = "";
-    // todo: update to use new parser
-    // todo: add regex for other time formats, eg: DDMMYYYY:TTTT
+                    DateTimeParser.DESCRIPTION_DATE_TIME_FULL;
 
-    public final String value;
-    // todo: change to unix time
+    public final long epochSecond;
 
-    /**
-     * Validates given deadline string.
-     *
-     * @throws IllegalValueException if given deadline string is invalid.
-     */
     public Deadline(String deadline) throws IllegalValueException {
-        // assert deadline != null; // commented out since deadline is optional
         deadline = deadline.trim();
-        if (!isValidDeadline(deadline)) {
-            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
-        }
-        this.value = deadline;
+        epochSecond = DateTimeParser.getUnixTime(deadline);
     }
 
-    /**
-     * Returns true if a given string is a valid deadline.
-     */
     public static boolean isValidDeadline(String test) {
-        // TODO: improve on validation, see above
-        return test.matches(DEADLINE_VALIDATION_REGEX);
+        try {
+            new Deadline(test);
+            return true;
+        } catch (IllegalValueException e) {
+            return false;
+        }
     }
 
     @Override
     public String toString() {
-        return value;
+        return "" + epochSecond;
     }
 
-    // todo: add relative time from now, eg: deadline in xxx seconds
-
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Deadline // instanceof handles nulls
-                && this.value.equals(((Deadline) other).value)); // state check
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Deadline deadline = (Deadline) o;
+        return epochSecond == deadline.epochSecond;
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return Objects.hash(epochSecond);
     }
-
 }

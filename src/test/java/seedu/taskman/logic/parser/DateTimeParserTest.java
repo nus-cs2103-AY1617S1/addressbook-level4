@@ -1,12 +1,16 @@
 package seedu.taskman.logic.parser;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 
 import java.time.*;
 
 import static java.time.temporal.TemporalAdjusters.nextOrSame;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class DateTimeParserTest {
@@ -24,11 +28,19 @@ public class DateTimeParserTest {
         assertEquals(testDateTimeUnix ,unixDateTime);
     }
 
-    // specify time before date
-    @Test(expected = IllegalValueException.class)
-    public void parse_FormalTimeBeforeDate_Exception() throws Exception {
-        String testTimeDate = "2359 07/05/16";
-        DateTimeParser.getUnixTime(testTimeDate);
+    @Test
+    public void parse_FormalTimeBeforeDate_Exception() {
+        String[] testCases = {"2359 07/05/16", "time 2359 07/05/16"};
+
+        for (int i = 0; i < testCases.length; i++) {
+            String testString = testCases[i];
+            try {
+                DateTimeParser.getUnixTime(testString);
+            } catch (IllegalValueException e) {
+                assertThat(e.getMessage(), is(DateTimeParser.TIME_BEFORE_DATE_ERROR));
+            }
+        }
+
     }
 
     @Test

@@ -14,28 +14,33 @@ import java.util.TimeZone;
  */
 public class DateTimeParser {
     // Examples: today 2359, tmr 0000, mon 0400, this tue 1600, next thu 2200
-    // TODO: mention that time CANNOT come before date
-    public static final String DESCRIPTION_DATE_TIME =
-            "DATE & TIME (can use natural language, eg: 2nd Wed from now, 9pm)";
     // UG/DG: update changes in duration format
+    // TODO: mention that time CANNOT come before date
+    public static final String DESCRIPTION_DATE_TIME_FULL =
+            "DATE & TIME (can use natural language, eg: 2nd Wed from now, 9pm)";
+    public static final String DESCRIPTION_DATE_TIME_SHORT = "DATE & TIME";
     public static final String SINGLE_DURATION =
             "(?:(?:[1-9]+[0-9]*) (?:(?:min)|(?:hour)|(?:day)|(?:week)|(?:month)|(?:year))s? ?)";
     // TODO: use in the future to allow "3 days 4 hours"
     public static final String MULTIPLE_DURATION =
             "^" + SINGLE_DURATION + "+$";
     public static final String DESCRIPTION_DURATION = "<number> <min/hour/day/week/month/year(s)>";
+    public static final String TIME_BEFORE_DATE_ERROR = "Do not enter time before date";
     private static final String GENERIC_ERROR_DATETIME = "Invalid date time";
     private static final String GENERIC_ERROR_DURATION = "Invalid duration";
-
 
     private static final Parser parser = new Parser();
 
     /**
      * Converts a date & time in natural language to unix time (seconds)
      */
-    public static long getUnixTime(String naturalDateTime) throws IllegalDateTimeException {
-        if (hasGroupOfFourDigits(naturalDateTime) && !fourDigitsAtStringTail(naturalDateTime)) {
-            throw new IllegalDateTimeException("Time cannot come before date");
+    public static long getUnixTime(String naturalDateTime, String errorMessage) throws IllegalDateTimeException {
+        // assume 4 digits at tail of string == time at end
+        boolean timeIsBeforeDate = naturalDateTime.matches(".* \\d{4}.*")  &&
+                !naturalDateTime.matches(".* \\d{4}$");
+
+        if (timeIsBeforeDate) {
+            throw new IllegalDateTimeException(TIME_BEFORE_DATE_ERROR);
         }
 
         String timeZoneCorrected = naturalDateTime + " UTC";
@@ -44,28 +49,19 @@ public class DateTimeParser {
         // only use the first DateGroup & Date object in the group
         try {
             if (groups.isEmpty()) {
-                throw new IllegalDateTimeException(GENERIC_ERROR_DATETIME);
+                throw new IllegalDateTimeException();
             } else {
                 DateGroup group = groups.get(0);
                 Date date = getFirstDate(group.getDates());
                 return date.toInstant().getEpochSecond();
             }
         } catch (IllegalDateTimeException e) {
-            throw new IllegalDateTimeException(GENERIC_ERROR_DATETIME);
+            throw new IllegalDateTimeException(errorMessage);
         }
     }
 
-    private static boolean hasGroupOfFourDigits(String str) {
-        return str.matches("\\d{4}.*");
-    }
-
-    private static boolean fourDigitsAtStringTail(String str) {
-        if (str.length() < 4) {
-            return false;
-        } else {
-            String lastFourChars = str.substring(str.length() - 4);
-            return lastFourChars.matches("\\d{4}");
-        }
+    public static long getUnixTime(String naturalDateTime) throws IllegalDateTimeException {
+        return getUnixTime(naturalDateTime, GENERIC_ERROR_DATETIME);
     }
 
     private static Date getFirstDate(List<Date> dates) throws IllegalDateTimeException {
@@ -100,6 +96,10 @@ public class DateTimeParser {
 
 
     public static class IllegalDateTimeException extends IllegalValueException {
+        public IllegalDateTimeException() {
+            super();
+        }
+
         public IllegalDateTimeException(String message) {
             super(message);
         }
