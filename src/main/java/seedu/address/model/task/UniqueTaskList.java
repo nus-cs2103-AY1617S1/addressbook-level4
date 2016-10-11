@@ -65,7 +65,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public boolean remove(TMReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
