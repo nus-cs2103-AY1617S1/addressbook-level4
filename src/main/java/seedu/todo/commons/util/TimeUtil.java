@@ -2,10 +2,13 @@ package seedu.todo.commons.util;
 
 import java.time.Clock;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.StringJoiner;
 
 /**
@@ -129,4 +132,48 @@ public class TimeUtil {
         assert (endTime != null);
         return endTime.isBefore(LocalDateTime.now(clock));
     }
+    
+    
+    //@@author A0135817B-reuse
+    // From http://stackoverflow.com/a/27378709/313758
+    /**
+     * Calls {@link #asLocalDate(Date, ZoneId)} with the system default time zone.
+     */
+    public static LocalDate asLocalDate(Date date) {
+        return asLocalDate(date, ZoneId.systemDefault());
+    }
+
+    /**
+     * Creates {@link LocalDate} from {@code java.util.Date} or it's subclasses. Null-safe.
+     */
+    public static LocalDate asLocalDate(Date date, ZoneId zone) {
+        if (date == null)
+            return null;
+
+        if (date instanceof java.sql.Date)
+            return ((java.sql.Date) date).toLocalDate();
+        else
+            return Instant.ofEpochMilli(date.getTime()).atZone(zone).toLocalDate();
+    }
+
+    /**
+     * Calls {@link #asLocalDateTime(Date, ZoneId)} with the system default time zone.
+     */
+    public static LocalDateTime asLocalDateTime(Date date) {
+        return asLocalDateTime(date, ZoneId.systemDefault());
+    }
+
+    /**
+     * Creates {@link LocalDateTime} from {@code java.util.Date} or it's subclasses. Null-safe.
+     */
+    public static LocalDateTime asLocalDateTime(Date date, ZoneId zone) {
+        if (date == null)
+            return null;
+
+        if (date instanceof java.sql.Timestamp)
+            return ((java.sql.Timestamp) date).toLocalDateTime();
+        else
+            return Instant.ofEpochMilli(date.getTime()).atZone(zone).toLocalDateTime();
+    }
+
 }
