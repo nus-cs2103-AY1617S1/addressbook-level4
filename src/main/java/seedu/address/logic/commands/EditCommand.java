@@ -70,16 +70,16 @@ public class EditCommand extends Command {
                 itemToReplace.setName(newName);
             }
             if (newStartDate != null) {
-                itemToReplace.setEndDate(newStartDate);
+                itemToReplace.setStartDate(newStartDate);
             }
             if (newStartTime != null) {
-                itemToReplace.setEndDate(newStartTime);
+                itemToReplace.setEndTime(newStartTime);
             }
             if (newEndDate != null) {
                 itemToReplace.setEndDate(newEndDate);
             }
             if (newEndTime != null) {
-                itemToReplace.setEndDate(newEndTime);
+                itemToReplace.setEndTime(newEndTime);
             }
         } catch (IllegalValueException ive) {
             return new CommandResult(ive.getMessage());
