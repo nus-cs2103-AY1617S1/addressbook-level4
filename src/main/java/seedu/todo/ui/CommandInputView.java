@@ -27,7 +27,6 @@ public class CommandInputView extends UiPart {
     private Logic logic;
 
     @FXML
-    private CommandResult mostRecentResult;
     private TextArea commandTextField;
 
     public static CommandInputView load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
