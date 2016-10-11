@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -400,51 +400,61 @@ System displays all tasks by the priority specified
 
 ## Appendix E : Product Survey
 
-**Google Calendar**
+**Google Calendar**<br>
 Strengths:
-* Free
-* Automatic syncs to all devices
-* Reminders can be configured
+* Free.
+* Automatic syncs to all devices.
+* Reminders can be configured.<br>
 
-Weakness:
-* Cannot edit offline
-* Need to have a google account
-* Need to use a mouse to navigate most of the time
+Weaknesses:
+* Cannot edit offline.
+* Need to have a google account.
+* Need to use a mouse to navigate most of the time.
 
-**Todoist**
+**Todoist**<br>
 Strengths:
-* The interface is clean and simple. Easy to understand. Good for taskal use.
-* Quick access to check on everyday's task
-* Quick add of task is particularly helpful for lazy users
-* Freedom of adding more category of task besides the default(E.g. Taskal, Shopping, Work)
-* Allows user to have an immediate view of the task lying ahead on current day or week
-* Additional feature of showing productivity of user is useful to motivate user to be on the ball
-* Priority can be set for every task to help decision making in performing task
-* Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday"
-Weakness:
+* Interface is clean and simple. Easy to understand. Good for personal use.
+* Quick access to check on everyday's task.
+* Quick add of task is particularly helpful for lazy users.
+* Freedom of adding more category of task besides the default. (E.g. Personal, Shopping, Work)
+* Allows user to have an immediate view of the task lying ahead on current day or week.
+* Additional feature of showing productivity of user is useful to motivate user to be on the ball.
+* Priority can be set for every task to help decision making in performing task.
+* Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday".<br>
+
+Weaknesses:
 * Free version may be limited as we are unable to add to labels to all tasks.
 * Reminders are not available in the free version.
 * Unable to add notes/details onto the specific task in free version.
 
-**Wunderlist**
+**Wunderlist**<br>
 Strengths:
 * Good GUI. Pleasing to the eye. 
 * Ability to share events with others. (Family, Friends)
 * Reminders in place for upcoming tasks. [Alarms, email notification, notification light colour]
-* Smart Due Dates: Automatically detects words like “tomorrow” or “next week” and adds an event for that day.
+* Smart Due Dates: Automatically detects words like 'tomorrow' or 'next week' and adds an event for that day.
 * Set priority for tasks.
 * Star To-dos: Moves starred tasks to the top of the list automatically.
-* Quick add notification
-* Different taskalizable folders (Family, Private, School, Work, …).
+* Quick add notification.
+* Different personalizable folders. (Family, Private, School, Work, etc)
 * Connects to Facebook and Google account.
 * Duplication of the list.
-* Completed to-do list hidden unless selected.
-Weakness:
+* Completed to-do list hidden unless selected.<br>
+
+Weaknesses:
 * Slow in updating changes
 
-**Remember The Milk**
+
+**Remember The Milk**<br>
 Strengths:
+* There is a free version.
+* Available in web, desktop and mobile applications.
+* Able to edit offline.
+* Auto-sync between all devices.
+* Integration with Gmail, Google Calendar and Evernote.
+* Able to see upcoming tasks in the Today, Tomorrow and This Week view.
+* Extra keyboard shortcuts for quicker experience. Shortcut menu is open by just clicking on the key '?'.<br>
 
-Weakness:
-
-
+Weaknesses:
+* Most of the things need to be done with a mouse.
+* Many features are only available in the paid version.
