@@ -67,8 +67,8 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 > * Items enclosed within `[ ]` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The use of commas `,` and full stops `.` is optional and will not affect the command.
-> * Words not enclosed within `" "` are not case-sensitive.
-> * For parameters relating to days, they are context-sensitive. For example, specifying "Fri" sets the date parameter as the next Friday from *today*.
+> * All command keywords are not case-sensitive.
+> * For parameters relating to days, they are context-sensitive. For example, typing "Fri" means the next Friday from *today*.
 
 > **Tasks**<br>
 > A task will have a name, and may be categorized as follows:
@@ -120,9 +120,9 @@ Examples:
 #### List all tasks/events with specified conditions: `list`
 Displays a list of all tasks/events.<br>
 
-Format: `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [sort SORTING_ORDER]`
+Format: `list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...] [sort SORTING_ORDER]`
 
-> * Type can be `events`, `tasks`, `completed tasks`, `completed events`, or `free time`.
+> * Types include `uncompleted`, `completed`, `floating`, `recurring`, `events`, `tasks`, and/or `free time`. 
 > * Sorting order includes `earliest first`, `latest first` for date and time, 
 > and `a-z`, `z-a` for descriptions.
 > * Defaults to earliest first for later dates, and latest first for past dates
@@ -142,31 +142,27 @@ Examples:
 * `list free time from 20 Sep 10am to 8pm`
 
 #### Finding tasks/events which match keywords: `find`
-Lists related tasks/events when provided with vague descriptive keywords.<br>
+Lists all tasks/events whose name, type, date or tags partially match the entered keywords.<br> 
 Format: `find KEYWORD...`
 
-> Keywords are used to match description, status, tags and dates in full 
-> or part thereof.<br>
-> If a keyword/phrase is enclosed in quotation marks `" "`, only exact match is used.
->	* All matches are always case-insensitive.
-> Results are shown in "intelligent order", by factors such as closest match
-> and its date and time.
+> * KEYWORDs enclosed in quotation marks `" "` use exact match. 
+> * KEYWORDs which are not enclosed in `" "` are not case-sensitive. 
+> * The task list results are shown in an order which prioritizes the closest match, followed by completion status and date. 
 
 Examples:
-* `find completed meetings John`
-* `find "V0.0 deliverables"`
+* `find grad`<br> 
+  Shows tasks with names such as "Up**grad**e myself", and tags such as "**Grad**ed". 
+* `find "V0.0 Deliverables" sep`<br> 
+  Shows a task named "**V0.0 Deliverables**" in **Sep**tember. 
 
-#### Show only listing results with specified tag(s) and date: `show`
-Shows only tasks/events with specified tag(s) and date from 
-the current listing results.<br>
+#### Show only listing results with specified type, date or tags: `show`
+Shows only tasks/events with specified type, date or tags from 
+the current task list results.<br>
 
-Format: `show [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]`
+Format: `show [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...]`
 
-> Can only be used when the output window is showing a list of tasks/events. 
->	* Matching results will be kept on the output window at their respective
->     positions, while other tasks/events are hidden.
->	* If the type of task/event is not specified, all types are included.
->	* If tag is not specified, all tasks/events are included.
+> Operates on the current task list. If you wish to filter from all tasks, use `list` instead.  
+>	* Matching results stay on the current task list at their respective positions, while other tasks/events are hidden.
 
 Examples:
 * `list`<br>
@@ -181,20 +177,18 @@ Examples:
 * `list`<br>
   `show tag "Meeting" by 11pm`
 
-#### Hide listing results with specified tag(s) and date: `hide`
-Hides tasks/events with specified tag(s) and date from the current listing results.<br>
+#### Hide listing results with specified type, date or tags: `hide`
+Hides tasks/events with specified type, date or tags from the current task list results.<br>
 
-Format: `hide [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]`
+Format: `hide [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...]`
 
-> Can only be used when the output window is showing a list of tasks/events. 
->	* Matching tasks/events will be hidden from the previous results.
+> Operates on the current task list. If you wish to filter from all tasks, use `list` instead.  
+>	* Matching tasks/events will be hidden from the task list results.
 
 Examples:
 * `list`<br>
   `hide completed events from 24 Sep, tag "CS2010"`
-  
-* `list`<br>
-  `hide tag "CS2103" "MA1521" "CS2010"`
+  `hide tag "Ungraded"`
 
 #### Change the details of a task/event: `update`
 Updates a task or event.<br>
@@ -262,7 +256,7 @@ Example:
 * `undo last 5`<br>
   Undo the last 5 actions.
 
-#### Clearing all entries: `clear`
+#### Clearing all data: `clear`
 Removes all tasks from the data storage file.<br>
 
 Format: `clear`
@@ -300,10 +294,10 @@ Command | Format
 -------- | :-------- 
 Help | `help`
 Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
-List | `list [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...] [sort SORTING_ORDER]`
+List | `list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...] [sort SORTING_ORDER]`
 Find | `find KEYWORD...`
-Show | `show [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]]  [tag "TAG"...]`
-Hide | `hide [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag "TAG"...]`
+Show | `show [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME]  [tag "TAG"...]`
+Hide | `hide [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...]`
 Update | `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
 Delete | `delete INDEX`
 Complete | `complete INDEX`
