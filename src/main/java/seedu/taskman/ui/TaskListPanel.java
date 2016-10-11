@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import seedu.taskman.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.taskman.commons.util.FxViewUtil;
 import seedu.taskman.model.event.Activity;
 import seedu.taskman.commons.core.LogsCenter;
 
@@ -117,6 +118,8 @@ public class TaskListPanel extends UiPart {
 
     private void addToPlaceholder() {
         placeHolderPane.getChildren().add(panel);
+        FxViewUtil.applyAnchorBoundaryParameters(panel, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(taskListView, 0.0, 0.0, 0.0, 0.0);
     }
     // TODO Edit
     private void setEventHandlerForSelectionChangeEvent() {
