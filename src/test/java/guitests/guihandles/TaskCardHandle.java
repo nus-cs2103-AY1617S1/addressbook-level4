@@ -8,14 +8,14 @@ import seedu.emeraldo.model.task.ReadOnlyTask;
 /**
  * Provides a handle to a task card in the task list panel.
  */
-public class PersonCardHandle extends GuiHandle {
+public class TaskCardHandle extends GuiHandle {
     private static final String DESCRIPTION_FIELD_ID = "#description";
     private static final String DATETIME_FIELD_ID = "#dateTime";
     private static final String PHONE_FIELD_ID = "#phone";
 
     private Node node;
 
-    public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -45,8 +45,8 @@ public class PersonCardHandle extends GuiHandle {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
+        if(obj instanceof TaskCardHandle) {
+            TaskCardHandle handle = (TaskCardHandle) obj;
             return getDescription().equals(handle.getDescription())
                     && getDateTime().equals(handle.getDateTime()); //TODO: compare the rest
         }
