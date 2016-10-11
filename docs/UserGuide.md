@@ -292,8 +292,8 @@ Use the `tab` key to autocomplete using the suggestion.
 > <img src="images/Ui-Autocomplete.png" width="200">
 
 #### Saving the Data
-TaSc saves your changes automatically after each command that changes the data.
-No manual saving required.
+TaSc saves automatically after each command that changes the data.
+No manual saving is required.
 
 #### Multiple Storage Files
 You can store different schedules on different storage files. Just pass the file name into the program arguments 
@@ -302,9 +302,8 @@ when running the program.
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous TaSc folder.
-       
+**A**: Backup the contents of your current TaSc folder. Install the app in the other computer, and run it. It will create an empty data file. Overwrite the empty data file with the backup you made.
+
 ## Command Summary
 
 Command | Format  
