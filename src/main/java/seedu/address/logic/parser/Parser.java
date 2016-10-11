@@ -26,7 +26,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.?)"); // single number of index
+    private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)"); // single number of index
     private static final Pattern ITEM_INDEXES_ARGS_FORMAT = Pattern.compile("(?<targetIndex>(?:\\d\\D*)+)"); // variable number of indexes
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
@@ -219,13 +219,27 @@ public class Parser {
         final Matcher itemIndexMatcher = ITEM_INDEX_ARGS_FORMAT.matcher(args.trim());
         
         if(itemIndexesMatcher.matches()) {
-            return new IncorrectCommand(String.format("test"));
+            // separate into the different indexes
+            List<String> indexList = Arrays.asList(args.split("\\D"));
+            ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
+            
+            for(String indexInList: indexList) {
+                Optional<Integer> index = parseIndex(indexInList);
+                if(!index.isPresent()) {
+                    return new IncorrectCommand(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                }
+                else {
+                    indexesToDelete.add(index.get());
+                }
+            }
+            return new DeleteCommand(indexesToDelete);
         }
         else if(itemIndexMatcher.matches()) {
             Optional<Integer> index = parseIndex(args);
-            if(!index.isPresent()){
+            if(!index.isPresent()) {
                 return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
 
             return new DeleteCommand(index.get());

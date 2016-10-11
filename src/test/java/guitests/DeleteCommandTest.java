@@ -28,7 +28,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("deleteByIndex " + currentList.length + 1);
+        commandBox.runCommand("delete " + currentList.length + 1);
         assertResultMessage("The person index provided is invalid");
 
     }
@@ -42,7 +42,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         TestItem personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestItem[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
-        commandBox.runCommand("deleteByIndex " + targetIndexOneIndexed);
+        commandBox.runCommand("delete " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous persons except the deleted person
         assertTrue(personListPanel.isListMatching(expectedRemainder));
