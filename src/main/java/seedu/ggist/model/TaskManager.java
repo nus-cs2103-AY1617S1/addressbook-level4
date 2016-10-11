@@ -111,6 +111,15 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public boolean doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.contains(key)) {
+            key.setDone();
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 
 //// tag-level operations
 

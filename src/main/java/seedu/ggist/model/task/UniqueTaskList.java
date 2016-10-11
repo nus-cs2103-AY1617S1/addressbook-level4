@@ -61,7 +61,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Removes the equivalent tasj from the list.
+     * Removes the equivalent task from the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */

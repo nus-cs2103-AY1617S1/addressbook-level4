@@ -16,6 +16,7 @@ public class Task implements ReadOnlyTask{
     protected TaskTime startTime;
     protected TaskTime endTime;
     protected UniqueTagList tags;
+    protected boolean done;
 
     /**
      * Every field must be present and not null.
@@ -28,6 +29,7 @@ public class Task implements ReadOnlyTask{
         this.startTime = startTime;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.done = false;
     }
     
     @Override
@@ -40,6 +42,15 @@ public class Task implements ReadOnlyTask{
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
+    }
+    
+    public void setDone() {
+        done = true;
+    }
+    
+    @Override
+    public boolean getDone() {
+        return done;
     }
 
     @Override

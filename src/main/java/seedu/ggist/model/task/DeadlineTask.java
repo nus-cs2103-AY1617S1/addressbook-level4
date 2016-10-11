@@ -20,6 +20,7 @@ public class DeadlineTask extends Task implements ReadOnlyTask {
         this.startTime = startTime;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.done = false;
     }
 
     /**
