@@ -17,19 +17,21 @@ public class Task extends Event implements ReadOnlyTask, MutableTagsEvent {
     private Status status;
 
     public Task(@Nonnull Title title, @Nonnull UniqueTagList tags,
-                @Nullable Deadline deadline, @Nullable Frequency frequency,
-                @Nullable Schedule schedule) {
-        super(title, tags, frequency, schedule);
+                @Nullable Deadline deadline,
+                @Nullable Schedule schedule, @Nullable Frequency frequency) {
+        super(title, tags, schedule, frequency);
         this.deadline = deadline;
-        this.status = new Status("");
+        this.status = new Status();
     }
 
     /**
      * Copy constructor
      */
     public Task(@Nonnull ReadOnlyTask source) {
-        this(source.getTitle(), source.getTags(), source.getDeadline().orElse(null),
-                source.getFrequency().orElse(null), source.getSchedule().orElse(null));
+        this(source.getTitle(), source.getTags(),
+                source.getDeadline().orElse(null),
+                source.getSchedule().orElse(null),
+                source.getFrequency().orElse(null));
         setStatus(source.getStatus());
     }
 
@@ -44,8 +46,8 @@ public class Task extends Event implements ReadOnlyTask, MutableTagsEvent {
     }
 
     @Override
-	public Status getStatus() {
-		return status;
+	public Optional<Schedule> getSchedule() {
+        return super.getSchedule();
 	}
 
 	@Override
@@ -54,10 +56,10 @@ public class Task extends Event implements ReadOnlyTask, MutableTagsEvent {
 	}
 
 	@Override
-	public Optional<Schedule> getSchedule() {
-        return super.getSchedule();
+	public Status getStatus() {
+		return status;
 	}
-    
+
     @Override
     public UniqueTagList getTags() {
         return super.getTags();
@@ -91,9 +93,9 @@ public class Task extends Event implements ReadOnlyTask, MutableTagsEvent {
         return Objects.hash(
                 super.getTitle(),
                 deadline,
+                super.getSchedule(),
                 status,
                 super.getFrequency(),
-                super.getSchedule(),
                 super.getTags()
         );
     }

@@ -12,22 +12,22 @@ public class ListCommandTest extends TaskManGuiTest {
     //@Test
     public void list_nonEmptyList() {
         assertListResult("list Mark"); //no results
-        assertListResult("list Meier", td.benson, td.daniel); //multiple results
+        assertListResult("list Project", td.taskCS2103T, td.taskCS3244); //multiple results
 
         //list after deleting one result
         commandBox.runCommand("delete 1");
-        assertListResult("list Meier",td.daniel);
+        assertListResult("list Project",td.taskCS3244);
     }
 
     //@Test
     public void list_emptyList(){
         commandBox.runCommand("clear");
-        assertListResult("list Jean"); //no results
+        assertListResult("list IS1103"); //no results
     }
 
     //@Test
     public void list_invalidCommand_fail() {
-        commandBox.runCommand("listgeorge");
+        commandBox.runCommand("listBLAH");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 

@@ -11,6 +11,13 @@ import java.util.Set;
  * The API of the Model component.
  */
 public interface Model {
+
+    public enum FilterMode {
+        TASK_ONLY,
+        EVENT_ONLY,
+        ALL
+    }
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskMan newData);
 
@@ -28,10 +35,10 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Activity>} */
     UnmodifiableObservableList<Activity> getFilteredActivityList();
 
-    /** Updates the filter of the filtered task list to show all tasks */
+    /** Updates the filter of the filtered activity list to show all activities */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredActivityList(Set<String> keywords);
+    /** Updates the filter of the filtered activity list to filter by the given mode, the given keywords and the given tag names*/
+    void updateFilteredActivityList(FilterMode filterMode, Set<String> keywords, Set<String> tagNames);
 
 }

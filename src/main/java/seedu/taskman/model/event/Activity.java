@@ -142,4 +142,9 @@ public class Activity implements ReadOnlyEvent, MutableTagsEvent{
         return activity.getAsText();
     }
 
+    @Override
+    public String toString(){
+        return activity.toString();
+    }
+
 }
