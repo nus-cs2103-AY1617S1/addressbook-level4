@@ -73,19 +73,19 @@ public class TodoTest {
     
     @Test
     public void testUpdate() throws IllegalValueException {
-        String description = "Really long description blah blah blah";
-        String title = "New title";
+        final String DESCRIPTION = "Really long description blah blah blah";
+        final String TITLE = "New title";
         
         todo.add("Old Title");
         ImmutableTask task = getTask(0);
         
         // Check that updating string fields work
         todo.update(task, t -> {
-            t.setTitle(title);
-            t.setDescription(description);
+            t.setTitle(TITLE);
+            t.setDescription(DESCRIPTION);
         });
-        assertEquals(title, getTask(0).getTitle());
-        assertEquals(description, getTask(0).getDescription().get());
+        assertEquals(TITLE, getTask(0).getTitle());
+        assertEquals(DESCRIPTION, getTask(0).getDescription().get());
         storage.assertTodoListWasSaved();
         
         // Check that updating boolean fields work

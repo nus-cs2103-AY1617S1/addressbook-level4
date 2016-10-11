@@ -18,6 +18,7 @@ public class DateRangeArgumentTest {
     public void testDefaultValue() throws Exception {
         assertNull(arg.getValue().getStartTime());
         assertNull(arg.getValue().getEndTime());
+        assertFalse(arg.hasBoundValue());
     }
     
     @Test
@@ -25,6 +26,7 @@ public class DateRangeArgumentTest {
         arg.setValue("");
         assertNull(arg.getValue().getStartTime());
         assertNull(arg.getValue().getEndTime());
+        assertTrue(arg.hasBoundValue());
     }
 
     @Test
