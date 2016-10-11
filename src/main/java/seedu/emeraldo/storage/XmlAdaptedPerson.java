@@ -59,6 +59,6 @@ public class XmlAdaptedPerson {
         final Phone phone = new Phone(this.phone);
         final DateTime dateTime = new DateTime(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, phone, dateTime, tags);
+        return new Task(name, tags);
     }
 }

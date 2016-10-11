@@ -20,11 +20,9 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Description Description, Phone phone, DateTime dateTime, UniqueTagList tags) {
+    public Task(Description Description, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(Description, phone, dateTime, tags);
         this.Description = Description;
-        this.phone = phone;
-        this.dateTime = dateTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -32,7 +30,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getPhone(), source.getDateTime(), source.getTags());
+        this(source.getDescription(), source.getTags());
     }
 
     @Override
