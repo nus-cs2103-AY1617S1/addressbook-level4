@@ -11,7 +11,7 @@
 9. [Appendix B: Use Cases](#appendix-b--use-cases)
 10. [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 11. [Appendix D: Glossary](#appendix-d--glossary)
-12. [Appendix E : Product Survey](#appendix-e-product-survey)
+12. [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## 1. Setting up
