@@ -526,8 +526,23 @@ Use case ends.
 Use case ends
 
 ### Use case: Editing a task
+1. User searches for specific task to edit
+2. TodoApp returns list of tasks matching search field
+3. User edits specific task on the list, changing any of its fields
+4. TodoApp accepts changes and reflects them on the task
 
+**Extensions**
 
+2a. List returned is empty
+>Use case ends
+
+3a. User enters invalid task index
+>3a1.TodoApp shows error message indicating invalid index <br>
+>Use case resumes at Step 2
+
+3b. User enters invalid arguments to edit fields
+>3b1. TodoApp shows error message indicating invalid fields <br>
+>Use case resumes at Step 2
 
 ### Use case: Pinning a task
 
@@ -554,6 +569,8 @@ Use case ends.
 
 
 ### Use case: Undoing an action
+1. User carries out a mutable command (See Glossary[#appendix-d-glossary])
+2. Address book executes command
 
 ### Use case: Redoing an action
 
@@ -584,6 +601,10 @@ Task
 Pinning
 
 :   Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. 
+
+Mutable Command
+
+:   Any command which causes a change in the state of the the TodoApp (E.g. add, delete, edit, pin, complete)
 
 
 ## Appendix E : Product Survey
