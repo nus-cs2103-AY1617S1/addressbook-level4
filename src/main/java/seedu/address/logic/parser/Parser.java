@@ -55,6 +55,11 @@ public class Parser {
             Pattern.compile("from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final int START_TIME_INDEX = 0;
+    
+    private static final int END_TIME_INDEX = 1;
+    
     public Parser() {}
 
     /**
@@ -281,23 +286,55 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        final Matcher noDateMatcher = FIND_ARGS_WITHOUT_DATE_FORMAT.matcher(args.trim());
+        final Matcher dateMatcher = FIND_ARGS_WITH_DATE_FORMAT.matcher(args.trim());
+        
+        final String[] keywords;
+        final Set<String> keywordSet;
+        String startTime = "";
+        String endTime = "";
+        String deadline = "";
+        final Set<String> tagSet;
+        
+        System.out.println("date matcher: " + dateMatcher.matches());
+        System.out.println("no date matcher: " + noDateMatcher.matches());
+        
+        if(dateMatcher.matches()) {
+        	keywords = dateMatcher.group("keywords").split("\\s+");
+    		keywordSet = new HashSet<>(Arrays.asList(keywords));
+        	
+    		try {
+        		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
+        	} catch(IllegalValueException ive) {
+        		return new IncorrectCommand(ive.getMessage());
+        	} 
+    		
+    		try {
+    			String[] time = dateMatcher.group("startTime").replace(" from ", "").split(" to ");
+    			startTime = time[START_TIME_INDEX];
+        		endTime = time[END_TIME_INDEX];
+    		} catch(Exception ise) {
+        		deadline = dateMatcher.group("deadline").replace(" by ", "");
+        	}
+    		
+    		System.out.println(deadline);
+    		System.out.println(startTime + " " + endTime);
+        } else if(noDateMatcher.matches()) {
+        	keywords = noDateMatcher.group("keywords").split("\\s+");
+    		keywordSet = new HashSet<>(Arrays.asList(keywords));
+        	
+        	try {
+        		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
+        	} catch(IllegalValueException ive) {
+        		return new IncorrectCommand(ive.getMessage());
+        	}
+        } else {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
-    }
-    
-    public static Date getDateFromString(String dateInput) {
-        final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
-        List<DateGroup> dateGroups = nattyParser.parse(dateInput);
         
-        return dateGroups.get(0).getDates().get(0);
+        return new FindCommand(keywordSet, startTime, endTime, deadline, tagSet);
+
     }
 
 }
