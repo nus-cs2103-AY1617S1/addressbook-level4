@@ -419,10 +419,10 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
+            cmd.append(p.getActivityName().toString());
             cmd.append(" p/").append(p.getDeadline());
-            cmd.append(" e/").append(p.getReminder());
-            cmd.append(" a/").append(p.getPriority());
+            cmd.append(" e/").append(p.getActivityStartTime());
+            cmd.append(" a/").append(p.getNote());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
