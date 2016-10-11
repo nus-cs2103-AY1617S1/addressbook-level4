@@ -55,8 +55,8 @@ public class FloatingTask implements Entry {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Entry // instanceof handles nulls
-                && this.isSameStateAs((Entry) other));
+                || (other instanceof FloatingTask // instanceof handles nulls
+                && this.isSameStateAs((FloatingTask) other));
     }
 
     @Override
@@ -69,12 +69,13 @@ public class FloatingTask implements Entry {
     public String toString() {
         return getAsText();
     }
-    
+
     @Override
-    public boolean isSameStateAs(Entry other) {
+    public boolean isSameStateAs(FloatingTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getTitle().equals(this.getTitle())); 
+                && other.getTitle().equals(this.getTitle())
+                && other.getTags().equals(this.getTags()));
     }
 
     @Override
