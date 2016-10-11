@@ -120,7 +120,7 @@ Examples:
 * `add "Hello World!"`
 * `add "Meeting" from 21 Sep 3pm to 5pm`
 * `add "Check sufficient toilet rolls" by 21 Sep 5pm, tag "Important"`
-* `add "Lecture" from 7 Oct 2pm to 4pm, repeattime weekly, tag "Important"`
+* `add "Lecture" from 7 Oct 2pm to 4pm, repeat weekly, tag "Important"`
 * `add "3 Days Conference" from 18 Oct 9am to 21 Oct 5pm`
 
 > <img src="images/Ui-Add.png" width="600">
@@ -312,12 +312,12 @@ when running the program.
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
+Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
 List | `list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...] [sort SORTING_ORDER]`
 Find | `find KEYWORD...`
 Show | `show [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME]  [tag "TAG"...]`
 Hide | `hide [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...]`
-Update | `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeatdeadline FREQUENCY COUNT] [repeattime FREQUENCY COUNT] [tag "TAG"...]`
+Update | `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
 Delete | `delete INDEX`
 Complete | `complete INDEX`
 Undo | `undo [last STEPS]`
