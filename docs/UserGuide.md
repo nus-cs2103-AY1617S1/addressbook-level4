@@ -11,8 +11,8 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+1. Download the latest `malitio.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your malitio.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
@@ -87,11 +87,11 @@ Examples:
 * `find lunch dinner breakfast`<br>
   Returns Any task having names `lunch`, `dinner`, or `breakfast`
 
-#### Deleting a person : `delete`
+#### Deleting a task : `delete`
 Deletes the specified task from the to-do list. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
+> Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
@@ -119,11 +119,11 @@ Examples:
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` or ‘ command.
 
-#### Edit a person : `edit`
+#### Edit a task : `edit`
 Edits the specified task from the to-do list.<br>
 Format: `edit INDEX [n/TASK_NAME] [s/DDMMYYYY TTTT] [e/DDMMYYYY TTTT] [t/TAG]`
 
-> Edits the person at the specified `INDEX`. 
+> Edits the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
@@ -140,17 +140,17 @@ Examples:
 Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX`
 
-> Selects the task and loads the Google search page the person at the specified `INDEX`. 
+> Selects the task and loads the Google search page the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd person in the address book.
+  Selects the 2nd task in Malitio.
 * `find Betsy` <br> 
   `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+  Selects the 1st task in the results of the `find` command.
 
 #### Clearing all entries : `clear`
 Clears all entries from the to-do list.<br>
@@ -169,7 +169,7 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+Malitio data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 
@@ -178,7 +178,7 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous malitio folder.
        
 ## Command Summary
 
