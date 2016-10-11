@@ -50,6 +50,10 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
+            
+            PreviousCommand addCommand = new PreviousCommand(COMMAND_WORD,toAdd);
+            PreviousCommandsStack.push(addCommand);
+            
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
