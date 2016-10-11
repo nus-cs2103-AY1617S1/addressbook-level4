@@ -11,16 +11,17 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
+&nbsp;
 
 ## Setting up
 
-#### Prerequisites
+### Prerequisites
 
 1. **JDK `1.8.0_60`**  or later<br>
 
     > Having any Java 8 version is not enough. <br>
     This application will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
@@ -29,18 +30,25 @@
 4. **Buildship Gradle Integration** plugin from the 
    [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
 
+4. **Buildship Gradle Integration** plugin from the 
+   [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
 
-#### Importing the project into Eclipse
+### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
+
 1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
    in the prerequisites above)
+   
 2. Click `File` > `Import`
+
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
+
 4. Click `Browse`, then locate the project's directory
+
 5. Click `Finish`
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+  > * If you are prompted to 'keep' or 'overwrite' config files, choose to 'keep'.
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
@@ -57,6 +65,8 @@
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
  
 
+&nbsp;
+
 ## Design
 
 ### Architecture
@@ -65,17 +75,17 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). Listed below are its functions:
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
+Two of those classes play important roles at the architecture level:
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists four components.
+The rest of the App consists four components:
 * [**`UI`**](#ui-component) : The UI of tha App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
@@ -85,9 +95,10 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java`
+interface and exposes its functionality using the `LogicManager.java` class.
+
+<img src="images/LogicClassDiagram.png" width="800">
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
@@ -98,7 +109,8 @@ command `delete 3`.
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
+
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -118,14 +130,15 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ that are in the `src/main/resources/view` folder.
+ 
+For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+The `UI` component has the following functions:
+* Execute user commands using the `Logic` component
+* Bind itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Respond to events raised from various parts of the App and update the UI accordingly
 
 ### Logic component
 
@@ -133,13 +146,14 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
+The `Logic` component works in the following manner:
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+ 
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
 ### Model component
@@ -148,12 +162,13 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
-The `Model`,
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+The `Model` component has the following functions:
+* Store a `UserPref` object that represents the user's preferences
+* Store Agendum data
+* Expose a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' 
+  e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+> This component does not depend on any of the other three components.
 
 ### Storage component
 
@@ -161,13 +176,15 @@ The `Model`,
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+The `Storage` component has the following functions:
+* Save `UserPref` objects in json format and read it back
+* Save the Address Book data in xml format and read it back
 
 ### Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
+
+&nbsp;
 
 ## Implementation
 
@@ -195,6 +212,7 @@ and logging destinations.
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
+&nbsp;
 
 ## Testing
 
@@ -239,6 +257,9 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
   
+
+&nbsp;
+
 ## Dev Ops
 
 ### Build Automation
@@ -268,6 +289,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+&nbsp;
 
 ## Appendix A : User Stories
 
@@ -313,6 +335,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* Unlikely` | Busy User | Search for a time when I am free | Find a suitable slot to schedule an item
 `* Unlikely` | Busy user | Can specify a priority of a task | Keep track of what tasks are more important
 
+&nbsp;
 
 ## Appendix B : Use Cases
 
@@ -322,10 +345,10 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. System prompts the user to enter a command
-2. User enters an add command with the task name into the input box.
+1. System prompts the Actor to enter a command
+2. Actor enters an add command with the task name into the input box.
 3. System adds the task.
-4. System shows a feedback message (“Task <name> added”) and displays the updated list containing the new task on the interface.
+4. System shows a feedback message (“Task <name> added”) and displays the updated list.
 5. Use case ends.
 
 **Extensions**
@@ -348,7 +371,7 @@ Priority | As a ... | I want to ... | So that I can...
 2. System shows a list of tasks
 3. Actor requests to delete a specific task in the list by its index
 4. System deletes the task.
-5. System shows a feedback message (“Task <index> deleted”) and displays the updated list without the deleted task.
+5. System shows a feedback message (“Task <index> deleted”) and displays the updated list.
 6. Use case ends.
 
 **Extensions**
@@ -368,9 +391,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Actor requests to list tasks
 2. System shows a list of tasks
-3. Actor requests to rename a specific task in the list by its index and also input the new task name
+3. Actor inputs index followed by new name of task to be modified
 4. System updates the task 
-5. System shows a feedback message (“Task <index> updated”) and displays the updated list with the edited task name.
+5. System shows a feedback message (“Task <index> updated”) and displays the updated list.
 6. Use case ends.
 
 **Extensions**
@@ -400,9 +423,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Actor requests to list tasks
 2. System shows a list of tasks
-3. Actor requests to set time of a specific task in the list by its index and also input the new start/end time or deadline
+3. Actor inputs index followed by the new start/end time or deadline
 4. System updates the task 
-5. System shows a feedback message (“Task <index> ’s time updated”) and displays the updated list on the interface.
+5. System shows a feedback message (“Task <index> ’s time updated”) and displays the updated list.
 6. Use case ends.
 
 **Extensions**
@@ -426,9 +449,9 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. Actor enters an undo command
-2. System finds the latest command that modified the task list
-3. System undo the identified command
-4. System shows a feedback message (“The command <last-command> has been undone”) and displays the updated list on the interface.
+2. System finds the most recent command that modified the task list
+3. System undoes the identified command
+4. System shows a feedback message (“The command <last-command> has been undone”) and displays the updated list.
 5. Use case ends.
 
 **Extensions**
@@ -444,7 +467,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Actor requests to list tasks
 2. System show a list of tasks
-3. Actor requests to mark a task specified by its index in the list as completed
+3. Actor inputs index of the task to be marked
 4. System updates the task
 5. System shows a feedback message (“Task <index> is marked as completed”) and hides the marked task.
 6. Use case ends
@@ -464,8 +487,8 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. Actor enters a alias command and specify the name and new alias name of the command
-2. System alias the command
+1. Actor enters an alias command followed by the original command
+2. System stores the new alias
 3. System shows a feedback message (“The command <original-command> can now be keyed in as <new-command>”)
 4. Use case ends.
 
@@ -491,16 +514,16 @@ Priority | As a ... | I want to ... | So that I can...
 > *b1.  System gives an error message (“We do not understand the command: <invalid-command>”)
 > *b2. System displays a short list of valid commands
 
+&nbsp;
 
 ## Appendix C : Non Functional Requirements
 
 1.  Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2.	Should be able to hold up to 500 tasks.
+2.	Should be able to hold up to 1000 total tasks.
 3.	Should come with automated unit tests.
 4.	Should use a Continuous Integration server for real time status of master’s health.
 5.	Should be kept open source code.
 6.	Should favour DOS style commands over Unix-style commands.
-7.	Should be able to accept minor mistakes in the commands entered.
 8.	Should adopt an object oriented design.
 9.	Should not violate any copyrights.
 10.	Should have a response time of less than 1 second, for every action performed.
@@ -510,6 +533,8 @@ Priority | As a ... | I want to ... | So that I can...
 14.	Should store data in an editable text file.
 15.	Should not require an installer.
 16.	Should not use paid libraries and frameworks.
+
+&nbsp;
 
 ## Appendix D : Glossary
 
@@ -522,7 +547,7 @@ Priority | As a ... | I want to ... | So that I can...
 #### Wunderlist
 
 Strengths:
-- Clearly display tasks that have not been completed
+- Clearly displays tasks that have not been completed
 - Tasks can be categorized under different lists
 - Tasks can have sub tasks
 - Possible to highlight tasks by marking as important (starred) or pinning tasks
