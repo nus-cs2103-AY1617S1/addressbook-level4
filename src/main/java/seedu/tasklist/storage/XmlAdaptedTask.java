@@ -41,7 +41,7 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getName().taskDetails;
+        name = source.getTaskDetails().taskDetails;
         startTime = source.getStartTime().value;
         endTime = source.getEndTime().value;
         priority = source.getPriority().priorityLevel;

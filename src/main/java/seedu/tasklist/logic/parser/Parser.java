@@ -10,6 +10,10 @@ import java.util.regex.Pattern;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.StringUtil;
 import seedu.tasklist.logic.commands.*;
+import seedu.tasklist.model.task.EndTime;
+import seedu.tasklist.model.task.Priority;
+import seedu.tasklist.model.task.StartTime;
+import seedu.tasklist.model.task.TaskDetails;
 
 /**
  * Parses user input.
@@ -25,14 +29,21 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>([^/](?<!(at|from|to|by) ))*)" 
-			+ "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
-			+ "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?"
-			+ "((?: p/)(?<priority>[^/]+))?"
-			+ "(?<tagArguments>(?: t/[^/]+)*)");
-
-    private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern.compile("(?<index>(\\d+)?)|"
-    		+ "(?<searchString>[^/]+)");
+    private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
+            "(?<name>([^/](?<!(at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
+                    + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"
+                    );
+    
+    private static final Pattern TASK_UPDATE_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
+    		+ "((?: )(?<name>([^/](?<!(at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
+            + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
+            + "(?<tagArguments>(?: t/[^/]+)*)"
+            );
+    
+    
+    private static final Pattern DELETE_COMPLETE_ARGS_PARSER = Pattern
+            .compile("(?<index>(\\d+)?)|" + "(?<searchString>[^/]+)");
 
     public Parser() {
     }
@@ -59,9 +70,12 @@ public class Parser {
 
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
-            
+
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+
+        case UpdateCommand.COMMAND_WORD:
+            return prepareUpdate(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -80,16 +94,35 @@ public class Parser {
         }
     }
 
+    private Command prepareUpdate(String args) {
+        args = args.trim();
+        final Matcher matcher = TASK_UPDATE_ARGS_FORMAT.matcher(args);
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        } else {
+        	int targetIndex = Integer.valueOf(matcher.group("index"));
+            String taskDetails = (matcher.group("name") == null) ? null : matcher.group("name");
+            String startTime = (matcher.group("start") == null) ? null : matcher.group("start");
+            String endTime = (matcher.group("end") == null) ? null : matcher.group("end");
+            String priority = (matcher.group("priority") == null) ? null : matcher.group("priority");
+            
+            try {
+                return new UpdateCommand(targetIndex, taskDetails, startTime, endTime, priority);
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }
+
+    }
+
     private Command prepareDone(String args) {
         final Matcher matcher = DELETE_COMPLETE_ARGS_PARSER.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-        else if(matcher.group("index")!=null){
+        } else if (matcher.group("index") != null) {
             return new DoneCommand(Integer.valueOf(matcher.group("index")));
-        }
-        else if(matcher.group("searchString") != null){
-            return new DoneCommand(matcher.group("searchString"));
+        } else if (matcher.group("searchString") != null) {
+            return new DoneCommand('*' + matcher.group("searchString") + '*');
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
@@ -101,27 +134,21 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
+    private Command prepareAdd(String args) {
         final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        
+
         if (!taskMatcher.matches()) {
-        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        else {
-        	String startTime = (taskMatcher.group("start")==null)?"":taskMatcher.group("start");
-        	String endTime = (taskMatcher.group("end")==null)?"":taskMatcher.group("end");
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        } else {
+            String startTime = (taskMatcher.group("start") == null) ? "" : taskMatcher.group("start");
+            String endTime = (taskMatcher.group("end") == null) ? "" : taskMatcher.group("end");
             try {
-                return new AddCommand(
-                        taskMatcher.group("name").replace("\\", ""),
-                        startTime,
-                        endTime,
-                        taskMatcher.group("priority"),
-                        getTagsFromArgs(taskMatcher.group("tagArguments"))
-                );
+                return new AddCommand(taskMatcher.group("name").replace("\\", ""), startTime, endTime,
+                        taskMatcher.group("priority"), getTagsFromArgs(taskMatcher.group("tagArguments")));
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
-        } 
+        }
     }
 
     /**
@@ -146,36 +173,15 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-    	final Matcher matcher = DELETE_COMPLETE_ARGS_PARSER.matcher(args.trim());
+        final Matcher matcher = DELETE_COMPLETE_ARGS_PARSER.matcher(args.trim());
         if (!matcher.matches()) {
-        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-        else if(matcher.group("index")!=null){
-        	return new DeleteCommand(Integer.valueOf(matcher.group("index")));
-        }
-        else if(matcher.group("searchString") != null){
-        	return new DeleteCommand(matcher.group("searchString"));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        } else if (matcher.group("index") != null) {
+            return new DeleteCommand(Integer.valueOf(matcher.group("index")));
+        } else if (matcher.group("searchString") != null) {
+            return new DeleteCommand('*' + matcher.group("searchString") + '*');
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-    }
-    
-    /**
-     * Returns the specified index in the {@code command} IF a positive unsigned
-     * integer is given as the index. Returns an {@code Optional.empty()}
-     * otherwise.
-     */
-    private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
-        }
-
-        String index = matcher.group("targetIndex");
-        if (!StringUtil.isUnsignedInteger(index)) {
-            return Optional.empty();
-        }
-        return Optional.of(Integer.parseInt(index));
-
     }
 
     /**
@@ -191,12 +197,13 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
         /*
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
-        */
+         * // keywords delimited by whitespace final String[] keywords =
+         * matcher.group("keywords").split("\\s+"); final Set<String> keywordSet
+         * = new HashSet<>(Arrays.asList(keywords)); return new
+         * FindCommand(keywordSet);
+         */
         args = args.trim();
+        args = '*' + args + '*';
         return new FindCommand(args);
     }
 

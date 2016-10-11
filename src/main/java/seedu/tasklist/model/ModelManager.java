@@ -98,6 +98,10 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
+    public UnmodifiableObservableList<Task> getModifiableTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks);
+    }
 
     @Override
     public void updateFilteredListToShowAll() {
@@ -107,22 +111,27 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowIncomplete() {
     	updateFilteredListToShowAll();
-    	updateFilteredPersonList(new PredicateExpression(new DefaultDisplayQualifier()));
+    	updateFilteredTaskList(new PredicateExpression(new DefaultDisplayQualifier()));
+    }
+    
+    public void updateFilteredList(){
+        updateFilteredListToShowIncomplete();
+        indicateAddressBookChanged();
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
+    private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
     public Set<String> getKeywordsFromList(List<ReadOnlyTask> tasks){
         Set<String> keywords = new HashSet<String>();
         for(ReadOnlyTask task: tasks){
-            keywords.addAll(Arrays.asList(task.getName().toString().split(" ")));
+            keywords.addAll(Arrays.asList(task.getTaskDetails().toString().split(" ")));
         }
         return keywords;
     }
@@ -202,7 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
 //                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
 //                    .findAny()
 //                    .isPresent();
-        	Matcher matcher = NAME_QUERY.matcher(person.getName().taskDetails);
+        	Matcher matcher = NAME_QUERY.matcher(person.getTaskDetails().taskDetails);
         	return matcher.matches() && !person.isComplete();
         }
         
