@@ -1,11 +1,12 @@
 package seedu.address.model.task;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /*
  * A DeadlineTask is a task that holds a date as the deadline
  */
-public class DeadlineTask extends Task implements FavoritableTask {
+public class DeadlineTask extends Task implements FavoritableTask, DatedTask {
 
 	private boolean isFavorite = false;
 	private Date deadline;
@@ -28,5 +29,11 @@ public class DeadlineTask extends Task implements FavoritableTask {
 	
 	public Date getDeadline() {
 		return deadline;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("[Deadline Task][Description: %s][Deadline: %s]", 
+				description, dateFormat.format(deadline));
 	}
 }

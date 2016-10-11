@@ -5,7 +5,7 @@ import java.util.Date;
 /*
  * An EventTask is a task that holds a start date and an end date
  */
-public class EventTask extends Task implements FavoritableTask {
+public class EventTask extends Task implements FavoritableTask, DatedTask {
 
 	private boolean isFavorite = false;
 	private Date startDate;
@@ -34,5 +34,11 @@ public class EventTask extends Task implements FavoritableTask {
 	
 	public Date getEndDate() {
 		return endDate;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("[Event Task][Description: %s][Start date: %s][End date: %s]", 
+				description, dateFormat.format(startDate), dateFormat.format(endDate));
 	}
 }
