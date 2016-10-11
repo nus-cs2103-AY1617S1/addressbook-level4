@@ -405,12 +405,13 @@ Strengths:
 * Free
 * Automatic syncs to all devices
 * Reminders can be configured
+
 Weakness:
 * Cannot edit offline
 * Need to have a google account
 * Need to use a mouse to navigate most of the time
 
-**Todoist (Free version)**
+**Todoist**
 Strengths:
 * The interface is clean and simple. Easy to understand. Good for taskal use.
 * Quick access to check on everyday's task
