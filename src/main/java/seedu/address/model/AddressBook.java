@@ -5,6 +5,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskManager;
 import seedu.address.model.task.UniqueTaskList;
 
 import java.util.*;
@@ -106,6 +107,17 @@ public class AddressBook implements ReadOnlyLifeKeeper {
 
     public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean editTask(ReadOnlyTask task, Task newParams) throws Exception {
+        if (tasks.contains(task)) {
+            Task newTask = TaskManager.changeParams(task, newParams);
+            tasks.remove(task);
+            tasks.add(newTask);
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();

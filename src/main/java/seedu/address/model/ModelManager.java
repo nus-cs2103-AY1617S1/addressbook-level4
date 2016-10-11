@@ -76,6 +76,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    @Override
+    public synchronized void editTask(ReadOnlyTask oldTask, Task newParams) throws Exception {
+        addressBook.editTask(oldTask, newParams);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
 
     //=========== Filtered Person List Accessors ===============================================================
 
