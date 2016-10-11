@@ -43,16 +43,10 @@ public class MainApp extends Application {
 
     public MainApp() {}
 
-    /**
-	 * @return the logger
-	 */
-	public static Logger getLogger() {
-		return logger;
-	}
 
 	@Override
     public void init() throws Exception {
-        getLogger().info("=============================[ Initializing ToDoList ]===========================");
+        logger.info("=============================[ Initializing ToDoList ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -82,14 +76,14 @@ public class MainApp extends Application {
         try {
             toDoListOptional = storage.readToDoList();
             if(!toDoListOptional.isPresent()){
-                getLogger().info("Data file not found. Will be starting with an empty ToDoList");
+                logger.info("Data file not found. Will be starting with an empty ToDoList");
             }
             initialData = toDoListOptional.orElse(new ToDoList());
         } catch (DataConversionException e) {
-            getLogger().warning("Data file not in the correct format. Will be starting with an empty ToDoList");
+            logger.warning("Data file not in the correct format. Will be starting with an empty ToDoList");
             initialData = new ToDoList();
         } catch (FileNotFoundException e) {
-            getLogger().warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
             initialData = new ToDoList();
         }
 
@@ -107,17 +101,17 @@ public class MainApp extends Application {
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
         if(configFilePath != null) {
-            getLogger().info("Custom Config file specified " + configFilePath);
+            logger.info("Custom Config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
         }
 
-        getLogger().info("Using config file : " + configFilePathUsed);
+        logger.info("Using config file : " + configFilePathUsed);
 
         try {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
-            getLogger().warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
+            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
                     "Using default config properties");
             initializedConfig = new Config();
         }
@@ -126,7 +120,7 @@ public class MainApp extends Application {
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
-            getLogger().warning("Failed to save config file : " + StringUtil.getDetails(e));
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
         return initializedConfig;
     }
@@ -135,18 +129,18 @@ public class MainApp extends Application {
         assert config != null;
 
         String prefsFilePath = config.getUserPrefsFilePath();
-        getLogger().info("Using prefs file : " + prefsFilePath);
+        logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
         try {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
-            getLogger().warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            getLogger().warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
             initializedPrefs = new UserPrefs();
         }
 
@@ -154,7 +148,7 @@ public class MainApp extends Application {
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
-            getLogger().warning("Failed to save config file : " + StringUtil.getDetails(e));
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
 
         return initializedPrefs;
@@ -166,18 +160,18 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        getLogger().info("Starting ToDoList " + MainApp.VERSION);
+        logger.info("Starting ToDoList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        getLogger().info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Address Book ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
-            getLogger().severe("Failed to save preferences " + StringUtil.getDetails(e));
+            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
         Platform.exit();
         System.exit(0);
@@ -185,7 +179,7 @@ public class MainApp extends Application {
 
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
-        getLogger().info(LogsCenter.getEventHandlingLogMessage(event));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
 
