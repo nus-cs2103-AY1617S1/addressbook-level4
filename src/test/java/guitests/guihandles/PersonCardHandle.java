@@ -10,9 +10,9 @@ import seedu.menion.model.activity.ReadOnlyActivity;
  */
 public class PersonCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String NOTE_FIELD_ID = "#note";
+    private static final String DATE_FIELD_ID = "#date";
+    private static final String TIME_FIELD_ID = "#time";
 
     private Node node;
 
@@ -29,21 +29,21 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getNote() {
+        return getTextFromLabel(NOTE_FIELD_ID);
     }
 
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+    public String getDate() {
+        return getTextFromLabel(DATE_FIELD_ID);
     }
 
-    public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+    public String getTime() {
+        return getTextFromLabel(TIME_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyActivity person){
-        return getFullName().equals(person.getActivityName().fullName) && getPhone().equals(person.getDeadline().value)
-                && getEmail().equals(person.getActivityStartTime().value) && getAddress().equals(person.getNote().value);
+    public boolean isSamePerson(ReadOnlyActivity task){
+        return getFullName().equals(task.getActivityName().fullName) && getDate().equals(task.getActivityStartDate().value)
+                && getTime().equals(task.getActivityStartTime().value) && getNote().equals(task.getNote().value);
     }
 
     @Override
@@ -51,13 +51,13 @@ public class PersonCardHandle extends GuiHandle {
         if(obj instanceof PersonCardHandle) {
             PersonCardHandle handle = (PersonCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getNote().equals(handle.getNote()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName() + " " + getNote();
     }
 }
