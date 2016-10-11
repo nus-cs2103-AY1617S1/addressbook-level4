@@ -4,52 +4,39 @@ We are a group of Computer Engineering students taking CS2103T Software Engineer
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
-
------
-
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
-
------
-
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
-
------
-
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
-
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
 #### [Victor Loh](https://github.com/lohvht)
 <img src="images/VictorLoh.jpg" width="150"><br>
  Role: Project Mentor <br>  
  Responsibilities: Mentoring
  
  -----
+
+#### [Irwin Mah](https://github.com/chooxy) <br>
+<img src="images/IrwinMah.jpg" width="150"><br>
+Role: Developer <br>
+Responsibilities: 
+
+-----
+
+#### [Yip Bing You](https://github.com/leaffriend)
+<img src="images/YipBingYou.jpg" width="150"><br>
+Role: Developer <br>  
+Responsibilities: 
+
+-----
+
+#### [Xie Jihui](https://github.com/xjh666) 
+<img src="images/XieJihui.JPG" width="150"><br>
+Role: Developer <br>  
+Responsibilities: 
+
+-----
+
+#### [Xu Tianyu](https://github.com/yeetee179)
+Role: Developer <br>  
+Responsibilities: 
+
+-----
 
 # Contributors
 
