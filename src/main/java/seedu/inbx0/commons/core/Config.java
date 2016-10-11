@@ -14,8 +14,8 @@ public class Config {
     private String appTitle = "Inbx_0";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/tasklist.xml";
-    private String addressBookName = "MyTaskList";
+    private String taskListFilePath = "data/tasklist.xml";
+    private String taskListName = "MyTaskList";
 
 
     public Config() {
@@ -45,20 +45,20 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getAddressBookFilePath() {
-        return addressBookFilePath;
+    public String getTaskListFilePath() {
+        return taskListFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setTaskListFilePath(String taskListFilePath) {
+        this.taskListFilePath = taskListFilePath;
     }
 
-    public String getAddressBookName() {
-        return addressBookName;
+    public String getTaskListName() {
+        return taskListName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.addressBookName = addressBookName;
+    public void setTaskListName(String taskListName) {
+        this.taskListName = taskListName;
     }
 
 
@@ -76,13 +76,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(addressBookName, o.addressBookName);
+                && Objects.equals(taskListFilePath, o.taskListFilePath)
+                && Objects.equals(taskListName, o.taskListName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, addressBookFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskListFilePath, taskListName);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nTaskList name : " + addressBookName);
+        sb.append("\nLocal data file location : " + taskListFilePath);
+        sb.append("\nTaskList name : " + taskListName);
         return sb.toString();
     }
 
