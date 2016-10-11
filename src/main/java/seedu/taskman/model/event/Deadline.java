@@ -37,7 +37,7 @@ public class Deadline {
 
     @Override
     public String toString() {
-        return "" + epochSecond;
+        return DateTimeParser.epochSecondToDetailedDateTime(epochSecond);
     }
 
     @Override

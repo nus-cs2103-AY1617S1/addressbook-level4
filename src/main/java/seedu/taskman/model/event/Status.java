@@ -22,7 +22,7 @@ public class Status {
 
 	@Override
 	public String toString() {
-		return String.valueOf(completed);
+		return completed ? "Completed" : "Incomplete";
 	}
 
     @Override
