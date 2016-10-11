@@ -137,19 +137,20 @@ public class Parser {
      */
     
     private Command prepareUpdate(String args) {
-    	int index;
     	final Matcher matcher = ACTIVITY_INDEX_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
         
-        try {
-        	index = Integer.parseInt(matcher.group("targetIndex"));
-        } catch (NumberFormatException nfe) {
-        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        // Validate index format
+        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
-        return new UpdateCommand(index, matcher.group("arguments"));
+        
+        return new UpdateCommand(index.get(), matcher.group("arguments").trim());
     }
 
 
