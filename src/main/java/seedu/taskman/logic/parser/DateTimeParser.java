@@ -5,6 +5,9 @@ import com.joestelmach.natty.Parser;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -91,6 +94,15 @@ public class DateTimeParser {
         }
     }
 
+    public static String epochSecondToDetailedDateTime(long epochSecond) {
+        Instant instant = Instant.ofEpochSecond(epochSecond);
+        return ZonedDateTime.ofInstant(instant, ZoneId.systemDefault()).toString();
+    }
+
+    public static String epochSecondToShortDateTime(long epochSecond) {
+        Instant instant = Instant.ofEpochSecond(epochSecond);
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toString();
+    }
 
     public static class IllegalDateTimeException extends IllegalValueException {
         public IllegalDateTimeException() {

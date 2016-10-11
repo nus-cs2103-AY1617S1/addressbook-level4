@@ -1,9 +1,11 @@
 package seedu.taskman.model.event;
 
 import com.google.common.base.Objects;
+import org.apache.commons.lang.time.DurationFormatUtils;
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.logic.parser.DateTimeParser;
 
+import java.time.Duration;
 import java.time.Instant;
 
 public class Frequency {
@@ -35,7 +37,33 @@ public class Frequency {
 
     @Override
     public String toString() {
-        return String.valueOf(seconds);
+        String[] temporalUnits = {"year", "month", "day", "hour", "min"};
+        String duration = DurationFormatUtils.formatDuration(seconds * 1000, "y:M:d:H:m");
+        String[] split = duration.split(":");
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < split.length; i++) {
+            String temporalUnit = temporalUnits[i];
+            long time = Long.valueOf(split[i]);
+            if (time >= 1) {
+                builder.append(time + " " + temporalUnit);
+
+                // for plurality
+                if (time > 1) {
+                    builder.append("s");
+                }
+
+                builder.append(", ");
+            }
+        }
+
+        String parsedDuration = builder.toString();
+        // drop the last ", "
+        if (!parsedDuration.isEmpty()) {
+            parsedDuration = parsedDuration.substring(0, parsedDuration.length() - 2);
+        }
+        return parsedDuration.isEmpty()
+                ? "0 mins"
+                : parsedDuration;
     }
 
     @Override

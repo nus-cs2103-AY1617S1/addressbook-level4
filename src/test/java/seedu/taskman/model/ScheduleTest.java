@@ -4,6 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import seedu.taskman.commons.exceptions.IllegalValueException;
+import seedu.taskman.model.event.Frequency;
 import seedu.taskman.model.event.Schedule;
 
 import static junit.framework.TestCase.assertEquals;

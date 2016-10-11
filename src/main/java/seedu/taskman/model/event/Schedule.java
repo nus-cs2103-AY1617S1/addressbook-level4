@@ -86,7 +86,9 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return startEpochSecond + " to " + endEpochSecond;
+        return DateTimeParser.epochSecondToShortDateTime(startEpochSecond) +
+                " to\n" +
+                DateTimeParser.epochSecondToDetailedDateTime(endEpochSecond);
     }
 
     @Override
