@@ -141,8 +141,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public void updateFilteredListToShowAllDone() {
+        updateFilteredListToShowAllDone(new PredicateExpression(new DoneQualifier()));
+    }
+    
+    public void updateFilteredListToShowAllDone(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    
+    @Override
     public void updateFilteredTaskListToShowUndone() {
-        updateFilteredTaskListToShowUndone(new PredicateExpression(new DoneQualifier()));
+        updateFilteredTaskListToShowUndone(new PredicateExpression(new NotDoneQualifier()));
     }
     
     public void updateFilteredTaskListToShowUndone(Expression expression) {
@@ -189,15 +199,24 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
     
-    private class DoneQualifier implements Qualifier {
+    private class NotDoneQualifier implements Qualifier {
         
-        DoneQualifier() {}
+        NotDoneQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
             if (!task.getDone()) {
                 return true;
             }
             return false;
+        }
+    }
+    
+    private class DoneQualifier implements Qualifier {
+        
+        DoneQualifier() {}
+        
+        public boolean run(ReadOnlyTask task) {
+            return task.getDone();
         }
     }
 

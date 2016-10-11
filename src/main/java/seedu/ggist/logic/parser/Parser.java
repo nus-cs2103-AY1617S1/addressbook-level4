@@ -25,6 +25,9 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    
+    private static final Pattern LIST_ARGS_FORMAT =
+            Pattern.compile("(?<listing>\\S*)");
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
@@ -81,7 +84,7 @@ public class Parser {
             return prepareSearch(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
                 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -281,6 +284,23 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new SearchCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the list command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareList(String args) {
+        final Matcher matcher = LIST_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SearchCommand.MESSAGE_USAGE));
+        }
+        
+        final String listing = matcher.group("listing");
+        return new ListCommand(listing);
     }
 
 }

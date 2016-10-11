@@ -2,19 +2,30 @@ package seedu.ggist.logic.commands;
 
 
 /**
- * Lists all tasks in GGist to the user.
+ * Lists specified tasks in GGist to the user.
  */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-
-    public static final String MESSAGE_SUCCESS = "Listed all tasks";
-
-    public ListCommand() {}
+    
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": retreives completed task or shows all tasks.\n "
+            + "Parameter: [LISTING]\n"
+            + "Empty paramter lists all task in GGist\n"
+            + "Example: " + COMMAND_WORD + "done";
+    
+    private final String listing;
+    
+    public ListCommand(String argument) {
+        listing = argument;
+    }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll();
-        return new CommandResult(MESSAGE_SUCCESS);
+        if (listing.equals("")) {
+            model.updateFilteredListToShowAll();
+        } else if (listing.equals("done")) {
+            model.updateFilteredListToShowAllDone();
+        }
+        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 }
