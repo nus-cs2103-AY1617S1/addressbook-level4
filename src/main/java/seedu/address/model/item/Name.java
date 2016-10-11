@@ -46,4 +46,8 @@ public class Name {
     public int hashCode() {
         return name.hashCode();
     }
+
+    public int compareTo(Name other) {
+        return name.compareTo(other.name);
+    }
 }

@@ -1,11 +1,11 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.item.FloatingTask;
+import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
-import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.item.UniqueFloatingTaskList;
+import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskManager implements ReadOnlyFloatingTask, ReadOnlyTaskManager {
+public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
 
-    private final UniqueFloatingTaskList floatingTasks;
+    private final UniqueTaskList floatingTasks;
 
     {
-        floatingTasks = new UniqueFloatingTaskList();
+        floatingTasks = new UniqueTaskList();
     }
 
     public TaskManager() {}
@@ -28,13 +28,13 @@ public class TaskManager implements ReadOnlyFloatingTask, ReadOnlyTaskManager {
      * FloatingTasks and Tags are copied into this addressbook
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniqueFloatingTaskList());
+        this(toBeCopied.getUniqueTaskList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public TaskManager(UniqueFloatingTaskList floatingTasks) {
+    public TaskManager(UniqueTaskList floatingTasks) {
         resetData(floatingTasks.getInternalList());
     }
 
@@ -44,22 +44,22 @@ public class TaskManager implements ReadOnlyFloatingTask, ReadOnlyTaskManager {
 
 //// list overwrite operations
 
-    public ObservableList<FloatingTask> getFloatingTasks() {
+    public ObservableList<Task> getFloatingTasks() {
         return floatingTasks.getInternalList();
     }
 
-    public void setFloatingTasks(List<FloatingTask> floatingTasks) {
+    public void setFloatingTasks(List<Task> floatingTasks) {
         this.floatingTasks.getInternalList().setAll(floatingTasks);
     }
 
 
 
-    public void resetData(Collection<? extends ReadOnlyFloatingTask> newFloatingTasks) {
-        setFloatingTasks(newFloatingTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyTask> newFloatingTasks) {
+        setFloatingTasks(newFloatingTasks.stream().map(Task::new).collect(Collectors.toList()));
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getFloatingTaskList());
+        resetData(newData.getTaskList());
     }
 
 //// person-level operations
@@ -71,15 +71,15 @@ public class TaskManager implements ReadOnlyFloatingTask, ReadOnlyTaskManager {
      *
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addFloatingTask(FloatingTask f) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
+    public void addFloatingTask(Task f) throws UniqueTaskList.DuplicateTaskException {
         floatingTasks.add(f);
     }
 
-    public boolean removeFloatingTask(ReadOnlyFloatingTask key) throws UniqueFloatingTaskList.FloatingTaskNotFoundException {
+    public boolean removeFloatingTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (floatingTasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueFloatingTaskList.FloatingTaskNotFoundException();
+            throw new UniqueTaskList.TaskNotFoundException();
         }
     }
 
@@ -93,13 +93,13 @@ public class TaskManager implements ReadOnlyFloatingTask, ReadOnlyTaskManager {
     }
 
     @Override
-    public List<ReadOnlyFloatingTask> getFloatingTaskList() {
+    public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(floatingTasks.getInternalList());
     }
 
 
     @Override
-    public UniqueFloatingTaskList getUniqueFloatingTaskList() {
+    public UniqueTaskList getUniqueTaskList() {
         return this.floatingTasks;
     }
 
@@ -127,6 +127,18 @@ public class TaskManager implements ReadOnlyFloatingTask, ReadOnlyTaskManager {
 
     @Override
     public Priority getPriorityValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Optional<Date> getStartDate() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Optional<Date> getEndDate() {
         // TODO Auto-generated method stub
         return null;
     }

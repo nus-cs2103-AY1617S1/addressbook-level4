@@ -2,11 +2,13 @@ package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTaskManager;
-import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.item.UniqueFloatingTaskList;
+import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.UniqueTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +20,9 @@ import java.util.stream.Collectors;
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
-    private List<XmlAdaptedFloatingTask> floatingTasks;
+    private List<XmlAdaptedTask> tasks;
     {
-        floatingTasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -32,16 +34,17 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
      * Conversion
      */
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
-        floatingTasks.addAll(src.getFloatingTaskList().stream().map(XmlAdaptedFloatingTask::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
     @Override
-    public UniqueFloatingTaskList getUniqueFloatingTaskList() {
-        UniqueFloatingTaskList lists = new UniqueFloatingTaskList();
-        for (XmlAdaptedFloatingTask p : floatingTasks) {
+    public UniqueTaskList getUniqueTaskList() {
+        UniqueTaskList lists = new UniqueTaskList();
+        for (XmlAdaptedTask p : tasks) {
             try {
                 lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
+            } catch (IllegalValueException | ParseException e) {
+                System.out.println("Parse exception");
                 //TODO: better error handling
             }
         }
@@ -49,12 +52,14 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public List<ReadOnlyFloatingTask> getFloatingTaskList() {
-        return floatingTasks.stream().map(p -> {
+    public List<ReadOnlyTask> getTaskList() {
+        return tasks.stream().map(p -> {
             try {
                 return p.toModelType();
-            } catch (IllegalValueException e) {
+            } catch (IllegalValueException | ParseException e) {
                 e.printStackTrace();
+                System.out.println("Parse exception");
+
                 //TODO: better error handling
                 return null;
             }

@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.item.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -31,18 +31,18 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownList = model.getFilteredFloatingTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredFloatingTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        ReadOnlyFloatingTask personToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deleteFloatingTask(personToDelete);
-        } catch (FloatingTaskNotFoundException pnfe) {
+            model.deleteTask(personToDelete);
+        } catch (TaskNotFoundException pnfe) {
             assert false : "The target person cannot be missing";
         }
 

@@ -1,8 +1,8 @@
 package seedu.address.model;
 
 
-import seedu.address.model.item.ReadOnlyFloatingTask;
-import seedu.address.model.item.UniqueFloatingTaskList;
+import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.UniqueTaskList;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface ReadOnlyTaskManager {
 
-    UniqueFloatingTaskList getUniqueFloatingTaskList();
+    UniqueTaskList getUniqueTaskList();
 
     /**
      * Returns an unmodifiable view of persons list
      */
-    List<ReadOnlyFloatingTask> getFloatingTaskList();
+    List<ReadOnlyTask> getTaskList();
 
 }

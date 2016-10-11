@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.TaskManager;
 import seedu.address.model.ReadOnlyTaskManager;
-import seedu.address.model.item.FloatingTask;
+import seedu.address.model.item.Task;
 import seedu.address.testutil.TypicalTestFloatingTasks;
 
 import java.io.IOException;
@@ -71,14 +71,14 @@ public class XmlTaskManagerStorageTest {
         assertEquals(original, new TaskManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addFloatingTask(new FloatingTask(TypicalTestFloatingTasks.hoon));
-        original.removeFloatingTask(new FloatingTask(TypicalTestFloatingTasks.alice));
+        original.addFloatingTask(new Task(TypicalTestFloatingTasks.hoon));
+        original.removeFloatingTask(new Task(TypicalTestFloatingTasks.alice));
         xmlTaskManagerStorage.saveTaskManager(original, filePath);
         readBack = xmlTaskManagerStorage.readTaskManager(filePath).get();
         assertEquals(original, new TaskManager(readBack));
 
         //Save and read without specifying file path
-        original.addFloatingTask(new FloatingTask(TypicalTestFloatingTasks.ida));
+        original.addFloatingTask(new Task(TypicalTestFloatingTasks.ida));
         xmlTaskManagerStorage.saveTaskManager(original); //file path not specified
         readBack = xmlTaskManagerStorage.readTaskManager().get(); //file path not specified
         assertEquals(original, new TaskManager(readBack));

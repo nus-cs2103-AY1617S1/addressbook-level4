@@ -15,13 +15,13 @@ import java.util.*;
  * @see Person#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
+public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicateFloatingTaskException extends DuplicateDataException {
-        protected DuplicateFloatingTaskException() {
+    public static class DuplicateTaskException extends DuplicateDataException {
+        protected DuplicateTaskException() {
             super("Operation would result in duplicate floating tasks");
         }
     }
@@ -30,19 +30,19 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
      * Signals that an operation targeting a specified person in the list would fail because
      * there is no such matching person in the list.
      */
-    public static class FloatingTaskNotFoundException extends Exception {}
+    public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
      */
-    public UniqueFloatingTaskList() {}
+    public UniqueTaskList() {}
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ReadOnlyFloatingTask toCheck) {
+    public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -52,14 +52,15 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
      *
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(FloatingTask toAdd) throws DuplicateFloatingTaskException {
+    public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         
         if (contains(toAdd)) {
-            throw new DuplicateFloatingTaskException();
+            throw new DuplicateTaskException();
         }
         
         internalList.add(toAdd);
+        Collections.sort(internalList);
     }
 
     /**
@@ -67,30 +68,30 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyFloatingTask toRemove) throws FloatingTaskNotFoundException {
+    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
-            throw new FloatingTaskNotFoundException();
+            throw new TaskNotFoundException();
         }
         return personFoundAndDeleted;
     }
 
-    public ObservableList<FloatingTask> getInternalList() {
+    public ObservableList<Task> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<FloatingTask> iterator() {
+    public Iterator<Task> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueFloatingTaskList // instanceof handles nulls
+                || (other instanceof UniqueTaskList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniqueFloatingTaskList) other).internalList));
+                ((UniqueTaskList) other).internalList));
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.TaskManager;
-import seedu.address.model.item.ReadOnlyFloatingTask;
+import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestFloatingTasks;
 
@@ -97,7 +97,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyFloatingTask person, FloatingTaskCardHandle card) {
+    public void assertMatching(ReadOnlyTask person, FloatingTaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 

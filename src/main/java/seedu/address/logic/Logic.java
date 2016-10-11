@@ -2,7 +2,7 @@ package seedu.address.logic;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.item.ReadOnlyFloatingTask;
+import seedu.address.model.item.ReadOnlyTask;
 
 /**
  * API of the Logic component
@@ -16,7 +16,7 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList();
+    ObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
 
     String decideToolTip(String commandText);
 

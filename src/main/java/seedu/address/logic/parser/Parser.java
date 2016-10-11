@@ -28,8 +28,12 @@ public class Parser {
     
     private static final Pattern FLOATING_TASK_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?i:(?<name>.*?)"
-                    + "(?:[r][a][n][k] +(?<priorityValue>\\d+))?$)");
+                    + "(?:-+(?<priorityValue>\\w+))?$)");
 
+    //TODO: Parser not fully functioning: case: eat bingsu by myself by 31 Sep (i.e repeat by)
+    //private static final Pattern TASK_ARGS_FORMAT = Pattern.compile("(?i:(?<name>.*))(?:by +((?<deadline1>.*)(?= repeat every +(?<interval>.*))|(?<deadline2>.*))(?:-+(?<priorityValue>\\w+))?$)");
+    //Pattern.compile("(?i:(?<name>.*))(?:by +(?<date>[^ ]*)(?: *(repeat every +(?<interval>.*)))?)$");
+    
     public Parser() {}
 
     /**
@@ -73,7 +77,7 @@ public class Parser {
             return new HelpCommand();
 
         default:
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+            return prepareAdd(commandWord + arguments);
         }
     }
 
@@ -85,22 +89,48 @@ public class Parser {
      */
     private Command prepareAdd(String args){
         final Matcher matcher = FLOATING_TASK_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
+        //Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        String input = matcher.group("name").trim().toLowerCase();
+        String priority = matcher.group("priorityValue");
+        // format to use for now: -start -end to denote startdate enddate
+        // TODO: improve parsing
+        if (priority == null) {
+            priority = "medium";
+        }
         try {
-            if (matcher.group("priorityValue") != null) {
-                return new AddCommand(
-                        matcher.group("name"),
-                        matcher.group("priorityValue"));
-            }
-            else {
-                return new AddCommand(matcher.group("name"));
+            if (input.contains("-start") && input.contains("-end")) {
+                
+                String name = input.substring(0, input.indexOf("-start"));
+                String startDate = input.substring(input.indexOf("-start")+6, input.indexOf("-end"));
+                String endDate = input.substring(input.indexOf("-end")+4);
+                
+                return new AddCommand(name, startDate, endDate, priority);
+                
+            } else if (input.contains("-start")) {
+                
+                String name = input.substring(0, input.indexOf("-start"));
+                String startDate = input.substring(input.indexOf("-start")+6);
+                
+                return new AddCommand(name, startDate, null, priority);
+                
+            } else if (input.contains("-end")) {
+                
+                String name = input.substring(0, input.indexOf("-end"));
+                String endDate = input.substring(input.indexOf("-end")+4);
+                
+                return new AddCommand(name, null, endDate, priority);
+                
+            } else {
+                String name = input;
+                return new AddCommand(name, null, null, priority);
             }
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        
     }
 
     /**
@@ -207,7 +237,7 @@ public class Parser {
         // final String arguments = matcher.group("arguments");
         updateMatchedCommands(toolTips, commandWord);
         if (toolTips.isEmpty()){
-            toolTips.add(MESSAGE_UNKNOWN_COMMAND);
+            toolTips.add(AddCommand.TOOL_TIP);
         }
         return toolTips;      
     }

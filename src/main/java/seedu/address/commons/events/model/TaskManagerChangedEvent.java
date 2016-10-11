@@ -14,6 +14,6 @@ public class TaskManagerChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of floating tasks " + data.getFloatingTaskList().size();
+        return "number of floating tasks " + data.getTaskList().size();
     }
 }
