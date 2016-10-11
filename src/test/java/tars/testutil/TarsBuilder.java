@@ -1,9 +1,9 @@
 package tars.testutil;
 
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.Tars;
 import tars.model.task.Task;
-import tars.model.task.UniqueTaskList;
 import tars.model.tag.Tag;
 
 /**
@@ -19,7 +19,7 @@ public class TarsBuilder {
         this.tars = tars;
     }
 
-    public TarsBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public TarsBuilder withTask(Task task) throws DuplicateTaskException {
         tars.addTask(task);
         return this;
     }

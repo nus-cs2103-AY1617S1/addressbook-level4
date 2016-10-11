@@ -263,6 +263,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | choose my data storage location | have the flexibility to use the program on multiple computers as they can read from the same file stored on the cloud e.g. Google Drive
 `* *` | user | add a tag on tasks | categorize my task
 `* *` | user | edit a tag | rename the tag without the need to delete and add it again
+`* *` | user | mark my tasks as done or undone | change the status of my tasks
 `* *` | user | view tasks by tags/priority/date | group my tasks based on a field of my choice
 `* *` | user | reserve dates for a task/event | block out time slots and add them upon confirmation of the time and date details
 `*` | user | have flexibility in entering commands | type in commands without having to remember the exact format
@@ -288,7 +289,7 @@ Use case ends.
 **MSS**
 
 1. User requests to submit a new task
-2. TARS save the task <br>
+2. TARS save the task and add the command to command history<br>
 Use case ends.
 
 **Extensions**
@@ -436,18 +437,14 @@ Use case ends.
 **MSS**
 
 1. User requests to undo a previous command
-2. TARS unexecutes (undo) the last command in the history list
+2. TARS unexecutes (undo) the last command in the history list<br>
 Use case ends.
 
 **Extensions**
 
-2a. The previous command can not be reserved (e.g. list, help)
+2a. The history list is empty
 
 > 2a1. Use case ends
-
-2b. The history list is empty
-
-> 2b1. Use case ends
 
 {More to be added}
 
