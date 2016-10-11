@@ -100,6 +100,12 @@ public class Parser {
             
         case ListTaskCommand.COMMAND_WORD:
         	return new ListTaskCommand();
+        	
+        case ListDeadlineCommand.COMMAND_WORD:
+        	return new ListDeadlineCommand();
+        	
+        case ListEventCommand.COMMAND_WORD:
+        	return new ListEventCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

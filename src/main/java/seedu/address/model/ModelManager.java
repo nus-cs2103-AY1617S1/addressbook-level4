@@ -100,10 +100,24 @@ public class ModelManager extends ComponentManager implements Model {
         filteredItems.setPredicate(null);
     }
     
-    //editted these 3 lines! stopped here.
+    
     @Override
     public void updateFilteredListToShowTask() {
     	final String[] itemType = {"task"}; 
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
+        updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
+    }
+    
+    @Override
+    public void updateFilteredListToShowDeadline() {
+    	final String[] itemType = {"deadline"}; 
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
+        updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
+    }
+    
+    @Override
+    public void updateFilteredListToShowEvent() {
+    	final String[] itemType = {"event"}; 
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
         updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
