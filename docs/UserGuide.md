@@ -1,3 +1,4 @@
+@author A0141128R
 # User Guide
 
 <br><img align="center" src="images/Logo.jpeg" width="600"><br>
@@ -59,9 +60,9 @@ Format: `add <details> <day> <time> /<priority> -<tag>`
 <br><img src="images/Add2.jpeg" width="600"><br>
 <br><img src="images/Add2a.jpeg" width="600"><br>
 
-#### Listing task in CMDo : `list <day>` or `param` or `/priority`
+#### Finding task in CMDo : `find <day>` or `param` or `/priority`
 Shows a list of all task in the CMDo on that day. It also acts as a filter.<br>
-Format: `list <today>`
+Format: `find <today>`
 
 > Key in <day> and all task due on that day will appear
 > <br><img src="images/ListTmr.jpeg" width="600"><br>
@@ -81,14 +82,14 @@ Format: `delete INDEX`
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `list`
+* `list all`
   `delete 2`
   Deletes the 2nd task in the to do list.
-* `list email` 
+* `find email` 
   `delete 1`
   Deletes the 1st task in the results of the `find` command.
 
-#### Update task : `update`
+#### Edit task : `edit`
 Update existing tasks in the CMDo list, as you would entering a new task.<br>
 Format: `edit INDEX details`  
 
@@ -168,12 +169,12 @@ Command | Format
 Add | `add <task> <day> <time> <priority>`
 Delete | `delete <INDEX>`
 Done | `done <INDEX>`
-List | `list <keyword>`
+Find | `find <keyword>`
 List All | `la`
 Help | `help`
 Undo | `undo`
 Redo | `redo`
-Update | `update <index> <task details>`
+Edit | `edit <index> <task details>`
 Page Up | <kbd>PgUp</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Up</kbd> (Mac)
 Page Down | <kbd>PgDown</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Down</kbd> (Mac)
 Exit | `exit`
