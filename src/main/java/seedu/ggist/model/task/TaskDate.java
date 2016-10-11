@@ -37,7 +37,19 @@ public class TaskDate {
             this.value = sdf.format(new PrettyTimeParser().parse(date).get(0)).toString();
         }
     }
-
+    
+    public void editDate(String newDate) throws IllegalValueException {
+        assert newDate != null;
+        newDate = newDate.trim();
+        if(newDate.equals(Messages.MESSAGE_NO_DATE_SPECIFIED)) {
+            this.value = newDate;
+        } else if (!isValidDate(newDate)) {
+            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy");
+            this.value = sdf.format(new PrettyTimeParser().parse(newDate).get(0)).toString();
+        }
+    }
     /**
      * Returns if a given string is a valid taskDate.
      */
