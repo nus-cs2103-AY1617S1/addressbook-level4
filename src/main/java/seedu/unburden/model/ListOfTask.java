@@ -87,8 +87,8 @@ public class ListOfTask implements ReadOnlyListOfTask {
      *  - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList personTags = task.getTags();
-        tags.mergeFrom(personTags);
+        final UniqueTagList taskTags = task.getTags();
+        tags.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
@@ -98,14 +98,23 @@ public class ListOfTask implements ReadOnlyListOfTask {
 
         // Rebuild the list of person tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
+        for (Tag tag : taskTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean editTask(int targetIndex, ReadOnlyTask key, Task updatedTask) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+        if (tasks.remove(key)) {
+            tasks.add(targetIndex, updatedTask);
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
