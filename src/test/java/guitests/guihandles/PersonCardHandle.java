@@ -10,9 +10,9 @@ import seedu.tasklist.model.task.ReadOnlyTask;
  */
 public class PersonCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String ADDRESS_FIELD_ID = "#priority";
+    private static final String PHONE_FIELD_ID = "#startTime";
+    private static final String EMAIL_FIELD_ID = "#endTime";
 
     private Node node;
 
@@ -42,8 +42,8 @@ public class PersonCardHandle extends GuiHandle {
     }
 
     public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName().taskDetails) && getPhone().equals(person.getStartTime().value)
-                && getEmail().equals(person.getEndTime().value) && getAddress().equals(person.getUniqueID());
+        return getFullName().equals(person.getName().taskDetails) && getPhone().equals("Starts:   "+person.getStartTime().value)
+                && getEmail().equals("Ends:     "+person.getEndTime().value) && getAddress().equals("Priority: "+person.getPriority().priorityLevel);
     }
 
     @Override

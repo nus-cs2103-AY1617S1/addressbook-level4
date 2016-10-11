@@ -1,8 +1,9 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
+
+import seedu.tasklist.testutil.TestPerson;
+import seedu.tasklist.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.tasklist.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;

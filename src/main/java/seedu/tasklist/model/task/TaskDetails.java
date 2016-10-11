@@ -9,7 +9,7 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 public class TaskDetails {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task details should only include alphanumeric characters.";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String NAME_VALIDATION_REGEX = ".+";
 
     public final String taskDetails;
 

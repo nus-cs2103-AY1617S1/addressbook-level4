@@ -40,7 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with tasklist: " + src + " and user prefs " + userPrefs);
 
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
