@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.CommandInputView">
-   <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter your command." />
+   <TextArea fx:id="commandTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="480.0" promptText="Your wish is my command. Enter your command." style="-fx-background-radius: 0;" wrapText="true">
+      <font>
+         <Font name="Segoe UI" size="20.0" />
+      </font>
+   </TextArea>
 </AnchorPane>
