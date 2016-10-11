@@ -67,15 +67,7 @@ public abstract class TaskListGuiTest {
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(() -> {
-            try {
-                return getInitialData();
-            } catch (IllegalValueException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
-        }, getDataFileLocation()));
+        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();
@@ -86,9 +78,14 @@ public abstract class TaskListGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      * @throws IllegalValueException 
      */
-    protected TaskList getInitialData() throws IllegalValueException {
-        TaskList ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestTasks.loadAddressBookWithSampleData(ab);
+    protected TaskList getInitialData() {
+        TaskList ab = TestUtil.generateEmptyTaskList();
+        try {
+            TypicalTestTasks.loadTaskListWithSampleData(ab);
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return ab;
     }
 
@@ -115,8 +112,8 @@ public abstract class TaskListGuiTest {
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+        int numberOfTasks = taskListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
     }
 
     /**
