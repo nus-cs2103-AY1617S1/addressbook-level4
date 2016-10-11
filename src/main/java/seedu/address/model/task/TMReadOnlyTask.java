@@ -13,6 +13,7 @@ public interface TMReadOnlyTask {
     Name getName();
     Date getDate();
     Status getStatus();
+    String getTaskType();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -28,6 +29,7 @@ public interface TMReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getDate().equals(this.getDate())
+                && other.getTaskType().equals(this.getTaskType())
                 && other.getStatus().equals(getStatus()));
     }
 
@@ -37,6 +39,8 @@ public interface TMReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+        		.append(" Task Type: ")
+        		.append(getTaskType())
                 .append(" Date: ")
                 .append(getDate().toString())
                 .append(" Status: ")

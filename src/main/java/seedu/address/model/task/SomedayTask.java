@@ -10,6 +10,7 @@ public class SomedayTask implements TMReadOnlyTask {
 	
 	private Name name;
     private Status status;
+    public final String taskType = "Someday";
     private UniqueTagList tags;
 
     /**
@@ -49,6 +50,11 @@ public class SomedayTask implements TMReadOnlyTask {
     public Status getStatus() {
         return status;
     }
+    
+	@Override
+	public String getTaskType() {
+		return taskType;
+	}
 
     @Override
     public UniqueTagList getTags() {
@@ -79,4 +85,5 @@ public class SomedayTask implements TMReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
 }
