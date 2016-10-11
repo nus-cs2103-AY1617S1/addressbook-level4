@@ -317,6 +317,102 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    
+    /**
+     * Tests for undo/redo commands.
+     */   
+    @Test
+    public void execute_undoredoNothing_notAllowed() throws Exception {
+    	// setup expectations
+        TaskList expectedAB = new TaskList();
+
+        // execute command and verify result
+        assertCommandBehavior(
+                "u",
+                UndoCommand.MESSAGE_FAIL,
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        assertCommandBehavior(
+                "r",
+                RedoCommand.MESSAGE_FAIL,
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+      
+    @Test
+    public void execute_undoredo_Successful() throws Exception {
+    	// setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.adam();
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        expectedAB = new TaskList();
+        assertCommandBehavior("u",
+                UndoCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        expectedAB.addTask(toBeAdded);
+        assertCommandBehavior(
+                "r",
+                String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());        
+    }
+    
+    @Test
+    public void execute_undoredoReachMaxTimes_notAllowed() throws Exception{
+    	TestDataHelper helper = new TestDataHelper();
+    	TaskList expectedAB = new TaskList();
+    	for(int i = 1; i < 5; i++){
+    		Task t = helper.generateTask(i);
+    		logic.execute(helper.generateAddCommand(t));
+    	}
+    	for(int i = 0; i < 3; i++)
+    		logic.execute("u");
+    	
+    	expectedAB.addTask(helper.generateTask(1));
+    	assertCommandBehavior(
+                "u",
+                UndoCommand.MESSAGE_FAIL,
+                expectedAB,
+                expectedAB.getTaskList());
+    	
+    	for(int i = 0; i < 3; i++){
+    		logic.execute("r");
+    		expectedAB.addTask(helper.generateTask(2+i));
+    	}
+    	
+    	assertCommandBehavior(
+                "r",
+                RedoCommand.MESSAGE_FAIL,
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_undoInvalidCommand_notAllowed() throws Exception{
+    	
+    	TaskList expectedAB = new TaskList();
+    	logic.execute("adds t");
+    	assertCommandBehavior(
+                "u",
+                UndoCommand.MESSAGE_FAIL,
+                expectedAB,
+                expectedAB.getTaskList());
+    	
+    }
+    
+    
 
 
     /**
