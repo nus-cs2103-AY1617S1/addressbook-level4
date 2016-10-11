@@ -77,14 +77,13 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
-<img src="images\SD_Floating_Task_Delete.png" width="800">
+<img src="images/SDFloatingTaskDelete.png" width="800">
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -325,8 +324,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | new user | be prompted | because i don't know how to use the program
 `* * *` | new user | have a help screen | get used to the software quickly
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
+`* * *` | user | add a new task | to add a task to my schedule
+`* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | find a person by name | locate details of persons without having to go through the entire list
 `* * *`	| user | view tasks for the day | keep track of the task to do
 `* * *`	| user | edit current tasks | change any mistakes
@@ -347,26 +346,22 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | have gui | to make it easier to use
 `*` | advanced user | customize the commands| to use it more easily
 
-
-
-{More to be added}
-
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `Happy Jim Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: UC00 - Help
 
-**MSS**
-1.User requests help
-2.Happy Jim Task Manager shows all commands
+**MSS**<br>
+1.User requests help<br>
+2.Happy Jim Task Manager shows all commands<br>
 Use case ends
 
 #### Use case: UC01 - Add floating Task
 
 **MSS**
 
-1.User requests to add floating task
+1.User requests to add floating task<br>
 2.Happy Jim Task Manager shows added task <br>
 Use case ends
 
@@ -374,7 +369,7 @@ Use case ends
 
 1a. Invalid format
 
-> 1a1. Happy Jim Task Manager shows error message.
+> 1a1. Happy Jim Task Manager shows error message.<br>
    Use case ends
 
 #### Use case: UC02 - Add non-floating Task
@@ -389,8 +384,8 @@ Use case ends
 
 1a. Invalid format
 
-> 1a1. Happy Jim Task Manager shows error message
-   Use case ends
+> 1a1. Happy Jim Task Manager shows error message<br>
+  Use case ends
 
 #### Use case: UC03 - View Tasks
 
@@ -422,8 +417,8 @@ Use case ends
 
 1a. Invalid command
 
-> 1a1. Happy Jim Task Manager shows error message
-   Use case ends
+> 1a1. Happy Jim Task Manager shows error message<br>
+  Use case ends
 
 2a. Task does not exist
 
@@ -483,12 +478,12 @@ Use case ends
 
 1a. Invalid command
 
-> 1a1. Happy Jim Task Manager shows error message
+> 1a1. Happy Jim Task Manager shows error message<br>
    Use case ends
 
 2a. Timeslot already occupied
 
-> 2a1. Happy Jim Task Manager shows error message
+> 2a1. Happy Jim Task Manager shows error message<br>
    Use case ends
 
 #### Use case: UC10 - Undo Command
@@ -497,14 +492,14 @@ Use case ends
 
 1. User request to undo command
 2. Happy Jim Task Manager undo command
-3. Happy Jim Task Manager displays undone command
+3. Happy Jim Task Manager displays undone command<br>
 Use case ends
 
 **Extensions**
 
 1a. Invalid command
 
-> 1a1. Happy Jim Task Manager shows error message
+> 1a1. Happy Jim Task Manager shows error message<br>
    Use case ends
 
 2a. No commands to undo
@@ -539,33 +534,33 @@ Use case ends
 
 > Use case ends
 
-#### Use case: UC12 - “Change directory”
+#### Use case: UC12 - Â“Change directoryÂ”
 
 **MSS**
 
 1. User request to change directory
 2. Happy Jim Task Manager displays the new directory path
-3. Happy Jim Task Manager saves data to the new path
+3. Happy Jim Task Manager saves data to the new path<br>
 Use case ends
 
 **Extensions**
 
 1a. Invalid command
 
-> 1a1. Happy Jim Task Manager shows error message
+> 1a1. Happy Jim Task Manager shows error message<br>
 Use case ends
 
 1b. File Path does not exist
 
-> 1b1. Happy Jim Task Manager shows error message
+> 1b1. Happy Jim Task Manager shows error message<br>
 Use case ends
 
 3a. Not enough file space
 
-> 3a1. Happy Jim Task Manager shows not enough disk space message
+> 3a1. Happy Jim Task Manager shows not enough disk space message<br>
 Use case ends
 
-#### Use case: UC13 - “Exit”
+#### Use case: UC13 - Â“ExitÂ”
 
 **MSS**
 

@@ -12,6 +12,9 @@ import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
+/**
+ * Adds a non floating task to the task list
+ */
 public class AddNonFloatingCommand extends AddCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a non floating task to the task list. "

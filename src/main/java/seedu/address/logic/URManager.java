@@ -32,6 +32,19 @@ public class URManager {
 		}
 	}
 	
+	public void addToUndoQueueUsedByRedo(Model model, Command command){
+		if(!isUndoable(command)){
+			undoQueue.clear();
+			redoQueue.clear();
+		}else{
+			if(!isIgnored(command)){
+				if(undoQueue.size() == MAX_TIMES) undoQueue.removeFirst();
+				undoQueue.addLast(new Context(model, command));
+				//redoQueue.clear();
+			}
+		}
+	}
+	
 	public Context getContextToUndo() throws NoAvailableCommandException{
 		try{
 			Context contextToUndo = undoQueue.removeLast();

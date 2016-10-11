@@ -15,10 +15,13 @@ public interface ReadOnlyTask {
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
-    
+
     TaskDate getStartDate();
     TaskDate getEndDate();
     
+    /**
+     * Returns the type of the class, whether it is FLOATING or NON_FLOATING type
+     */
     TaskType getType();
 
     /**

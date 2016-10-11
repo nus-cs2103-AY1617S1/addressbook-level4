@@ -24,7 +24,7 @@ public class BlockCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Timeslot blocked: %1$s";
     public static final String MESSAGE_TIMESLOT_OCCUPIED = "This timeslot is already blocked or overlapped with existing tasks.";
     public static final String MESSAGE_ILLEGAL_TIME_SLOT = "End time must be later than Start time.";
-    private static final String DUMMY_NAME = "BLOCKED SLOT";
+    public static final String DUMMY_NAME = "BLOCKED SLOT";
 
 
 
