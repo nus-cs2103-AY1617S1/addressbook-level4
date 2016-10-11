@@ -32,6 +32,24 @@ public class DateFormatter {
         }
     }
 
+    public static boolean isValidDateString(String val) {
+        try {
+            dateFormatter.parse(val);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    } 
+    
+    public static boolean isValidTimeString(String val) {
+        try {
+            timeFormatter.parse(val);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+    
     public static String convertDateToString(Date val) {
         return dateFormatter.format(val);
     }
