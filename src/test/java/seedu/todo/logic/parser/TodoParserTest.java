@@ -10,7 +10,7 @@ public class TodoParserTest {
     private Parser parser = new TodoParser();
     
     @Test
-    public void testParse() throws IllegalValueException {
+    public void testParse() {
         ParseResult p;
         
         p = parser.parse("hello");
@@ -30,7 +30,7 @@ public class TodoParserTest {
     }
     
     @Test
-    public void testPositionalArgument() throws IllegalValueException {
+    public void testPositionalArgument() {
         ParseResult p;
         
         p = parser.parse("hello world");
@@ -44,7 +44,7 @@ public class TodoParserTest {
     }
     
     @Test
-    public void testNamedArguments() throws IllegalValueException {
+    public void testNamedArguments() {
         ParseResult p;
         
         p = parser.parse("hello /f");
@@ -71,7 +71,7 @@ public class TodoParserTest {
     }
     
     @Test
-    public void testInvalidFlags() throws IllegalValueException {
+    public void testInvalidFlags() {
         ParseResult p;
         
         p = parser.parse("hello /");
