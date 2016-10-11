@@ -31,6 +31,16 @@ public class Schedule {
     public final long startEpochSecond;
     public final long endEpochSecond;
 
+    public Schedule(long startEpochSecond, long endEpochSecond) throws IllegalValueException {
+
+        boolean endIsBeforeStart = (endEpochSecond - startEpochSecond) < 0;
+        if (startEpochSecond <= 0 || endEpochSecond <= 0 || endIsBeforeStart) {
+            throw new IllegalValueException(ERROR_NEGATIVE_DURATION);
+        }
+        this.startEpochSecond = startEpochSecond;
+        this.endEpochSecond = endEpochSecond;
+    }
+
     public Schedule(String schedule) throws IllegalValueException {
         schedule = schedule.trim();
         Pattern pattern = Pattern.compile(SCHEDULE_VALIDATION_REGEX);

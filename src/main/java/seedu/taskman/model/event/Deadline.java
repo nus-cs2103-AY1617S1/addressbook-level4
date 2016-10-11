@@ -18,6 +18,14 @@ public class Deadline {
         epochSecond = DateTimeParser.getUnixTime(deadline);
     }
 
+    public Deadline(long epochSecond) throws IllegalValueException {
+        if (epochSecond < 0) {
+            throw new IllegalValueException("Too far in the past.");
+        }
+
+        this.epochSecond = epochSecond;
+    }
+
     public static boolean isValidDeadline(String test) {
         try {
             new Deadline(test);

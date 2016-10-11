@@ -24,6 +24,11 @@ public class Frequency {
         this.seconds = DateTimeParser.durationToUnixTime(Instant.now().getEpochSecond(), frequency);
     }
 
+    public Frequency(long seconds) {
+        assert seconds >= 0;
+        this.seconds = seconds;
+    }
+
     public static boolean isValidFrequency(String test) {
         return test.matches(FREQUENCY_VALIDATION_REGEX);
     }
