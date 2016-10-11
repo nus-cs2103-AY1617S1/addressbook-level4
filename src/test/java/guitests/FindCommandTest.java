@@ -21,7 +21,7 @@ public class FindCommandTest extends TarsGuiTest {
                 td.taskG); //multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("del 1");
         assertFindResult("find A");
     }
 
