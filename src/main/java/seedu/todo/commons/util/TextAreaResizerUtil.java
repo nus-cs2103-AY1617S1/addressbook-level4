@@ -13,7 +13,7 @@ import java.util.TimerTask;
  */
 public class TextAreaResizerUtil {
 
-    private Text mockText; //A text object that will imitate the text in the TextArea object
+    private Text pseudoText; //A text object that will imitate the text in the TextArea object
     private double singleLineHeight;
 
     /**
@@ -25,10 +25,10 @@ public class TextAreaResizerUtil {
     }
 
     private void bindToMockText(TextArea textArea) {
-        mockText = new Text();
-        mockText.textProperty().bind(textArea.textProperty());
-        mockText.fontProperty().bind(textArea.fontProperty());
-        mockText.wrappingWidthProperty().bind(textArea.widthProperty());
+        pseudoText = new Text();
+        pseudoText.textProperty().bind(textArea.textProperty());
+        pseudoText.fontProperty().bind(textArea.fontProperty());
+        pseudoText.wrappingWidthProperty().bind(textArea.widthProperty());
     }
 
     private void setupTextArea(TextArea textArea) {
@@ -53,7 +53,7 @@ public class TextAreaResizerUtil {
      * Gets a stable value of height by eliminating slight jitters in text area height.
      */
     private double getCorrectedHeight() {
-        double rawHeight = mockText.getLayoutBounds().getHeight();
+        double rawHeight = pseudoText.getLayoutBounds().getHeight();
         if (singleLineHeight == 0) {
             singleLineHeight = rawHeight;
         }
