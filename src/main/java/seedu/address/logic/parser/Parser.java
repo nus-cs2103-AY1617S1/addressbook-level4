@@ -7,6 +7,7 @@ import seedu.address.model.task.TaskDate;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -311,10 +312,10 @@ public class Parser {
     		
     		try {
     			String[] time = dateMatcher.group("startTime").replace(" from ", "").split(" to ");
-    			startTime = time[START_TIME_INDEX];
-        		endTime = time[END_TIME_INDEX];
+    			startTime = reformatDate(time[START_TIME_INDEX]);
+        		endTime = reformatDate(time[END_TIME_INDEX]);
     		} catch(Exception ise) {
-        		deadline = dateMatcher.group("deadline").replace(" by ", "");
+        		deadline = reformatDate(dateMatcher.group("deadline").replace(" by ", ""));
         	}
     		
     		System.out.println(deadline);
@@ -335,6 +336,17 @@ public class Parser {
         
         return new FindCommand(keywordSet, startTime, endTime, deadline, tagSet);
 
+    }
+    
+    /**
+     * Reformats any date into the format that we are storing and using in this software 
+     * @param oldDate
+     * @return the new formatted date
+     */
+    public static String reformatDate(String oldDate) {
+    	long newDate = getDateFromString(oldDate).getTime();
+    	SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma");
+        return formatter.format(new Date(newDate));
     }
     
     public static Date getDateFromString(String dateInput) {
