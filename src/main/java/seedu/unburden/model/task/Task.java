@@ -12,14 +12,20 @@ import seedu.unburden.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
+    private Date date;
+    private Time startTime;
+    private Time endTime;
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
+    public Task(Name name,Date date, Time startTime, Time endTime, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -27,12 +33,27 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
+    }
+    
+    @Override
+    public Date getDate() {
+        return date;
+    }
+    
+    @Override
+    public Time getStartTime() {
+        return startTime;
+    }
+    
+    @Override
+    public Time getEndTime() {
+        return endTime;
     }
 
     @Override

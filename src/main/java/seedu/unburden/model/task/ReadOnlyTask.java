@@ -9,6 +9,9 @@ import seedu.unburden.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
+    Date getDate();
+    Time getStartTime();
+    Time getEndTime();
     
     /**
      * The returned TagList is a deep copy of the internal TagList,
