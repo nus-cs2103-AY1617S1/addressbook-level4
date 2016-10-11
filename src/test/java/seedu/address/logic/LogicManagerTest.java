@@ -114,7 +114,7 @@ public class LogicManagerTest {
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskList, model.getTaskList());
-        //assertEquals(expectedTaskList, latestSavedTaskList);
+        assertEquals(expectedTaskList, latestSavedTaskList);
     }
 
 
