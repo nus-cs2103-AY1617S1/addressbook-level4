@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.Date;
 import java.util.Optional;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
@@ -22,6 +23,12 @@ public class TestTask implements ReadOnlyTask {
 
     public TestTask() {
         this.priorityValue = Priority.MEDIUM;
+        try {
+            this.recurrenceRate = new RecurrenceRate(new Integer(0));
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         //tags = new UniqueTagList();
     }
 
@@ -72,10 +79,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Optional<RecurrenceRate> getRecurrenceRate() {
-        if (recurrenceRate != null){
-            return Optional.of(recurrenceRate);
-        }
-        return Optional.empty();
+    public RecurrenceRate getRecurrenceRate() {
+        assert recurrenceRate != null;
+        return recurrenceRate;
     }
 }
