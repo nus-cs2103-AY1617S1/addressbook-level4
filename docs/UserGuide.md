@@ -42,14 +42,14 @@ Format: `help`
 
 ##### Adding a task: `add`
 Adds a task to the task manager.<br>
-Format: `add DESCRIPTION [pr/RANK] [time/TIME] [t/TAG]...`
+Format: `add DESCRIPTION [pr/RANK] [time/TIME] [a/VENUE] [t/TAG]...`
 
 > * Tasks can have different priorities, normal by default, high or low
 > * Deadlines can be set for tasks
 > * Tasks can have any number of tags (including 0)
 
 Examples:
-* `add Midterms pr/high time/wednesday t/important`
+* `add Midterms pr/high time/wednesday a/MPSH2A t/important`
 * `add get eggs pr/low t/family`
 * `add organize room`
 
@@ -168,7 +168,7 @@ There is no need to save manually.
 
 Command | Format
 -------- | :--------
-Add Task | `add DESCRIPTION [pr/RANK] [time/TIME] [t/TAG]...`
+Add Task | `add DESCRIPTION [pr/RANK] [time/TIME] [a/VENUE] [t/TAG]...`
 Add Tag | `add tag INDEX TAG [MORE_TAGS]`
 Clear | `clear`
 Delete Task | `delete INDEX`

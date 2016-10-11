@@ -384,9 +384,9 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Description description = new Description("Adam Brown");
-            Time time = new Time("111111");
-            Venue venue = new Venue("adam@gmail.com");
-            Priority priority = new Priority("111, alpha street");
+            Time time = new Time("15:30");
+            Venue venue = new Venue("NUS");
+            Priority priority = new Priority("high");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -403,9 +403,9 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Description("Person " + seed),
-                    new Time("" + Math.abs(seed)),
-                    new Venue(seed + "@email"),
-                    new Priority("House of " + seed),
+                    new Time("" + Math.abs(seed) + ":" + Math.abs(seed) + Math.abs(seed)),
+                    new Venue(seed + "Place"),
+                    new Priority(""),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -502,9 +502,9 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Description(name),
-                    new Time("1"),
-                    new Venue("1@email"),
-                    new Priority("House of 1"),
+                    new Time("1:11"),
+                    new Venue("Junct1"),
+                    new Priority(""),
                     new UniqueTagList(new Tag("tag"))
             );
         }

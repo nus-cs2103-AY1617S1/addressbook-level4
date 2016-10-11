@@ -63,6 +63,6 @@ public class XmlAdaptedPerson {
         final Venue venue = new Venue(this.venue);
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(description, time, venue, priority, tags);
+        return new Task(description, priority, time, venue, tags);
     }
 }

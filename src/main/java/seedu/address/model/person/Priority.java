@@ -20,7 +20,8 @@ public class Priority {
      * @throws IllegalValueException if given task priority string is invalid.
      */
     public Priority(String priority) throws IllegalValueException {
-        if(priority == null)
+        assert priority != null;
+        if(priority.equals(""))
         	priority = "normal";
         else if (!isValidPriority(priority)) {
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
@@ -33,7 +34,9 @@ public class Priority {
      * Priority only has high or low
      */
     public static boolean isValidPriority(String test) {
-        return test.equals("high")||test.equals("low");
+        return test.equals("high")
+               || test.equals("low")
+               || test.equals("normal");
     }
 
     @Override

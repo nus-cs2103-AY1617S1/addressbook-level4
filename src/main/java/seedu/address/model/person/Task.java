@@ -21,8 +21,8 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Description description, Time time, Venue venue, Priority priority, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(description, time, venue, priority, tags);
+    public Task(Description description, Priority priority, Time time, Venue venue, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(description, priority, time, venue, tags);
         this.description = description;
         this.time = time;
         this.venue = venue;
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getTime(), source.getVenue(), source.getPriority(), source.getTags());
+        this(source.getDescription(), source.getPriority(), source.getTime(), source.getVenue(), source.getTags());
     }
 
     @Override
