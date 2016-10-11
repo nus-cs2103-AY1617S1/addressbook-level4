@@ -61,7 +61,6 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-
     public MainWindow() {
         super();
     }
@@ -168,6 +167,12 @@ public class MainWindow extends UiPart {
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
+    }
+    
+    @FXML
+    public void handleAliasList() {
+        AliasWindow aliasWindow = AliasWindow.load(primaryStage, logic);
+        aliasWindow.show();
     }
 
     public void show() {
