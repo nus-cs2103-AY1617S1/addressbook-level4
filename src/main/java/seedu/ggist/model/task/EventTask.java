@@ -21,7 +21,7 @@ public class EventTask extends Task implements ReadOnlyTask {
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
-
+   
     /**
      * Copy constructor.
      */

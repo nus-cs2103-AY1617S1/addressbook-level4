@@ -11,7 +11,7 @@ public class TaskName {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Tasks should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String taskName;
+    public String taskName;
 
     /**
      * Validates given task name.
@@ -26,7 +26,15 @@ public class TaskName {
         }
         this.taskName = taskName;
     }
-
+    
+    public void editTaskName(String newTaskName) throws IllegalValueException {
+        assert newTaskName != null;
+        newTaskName = newTaskName.trim();
+        if (!isValidName(newTaskName)) {
+            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+        }
+        this.taskName = newTaskName;
+    }
     /**
      * Returns true if a given string is a valid task name.
      */

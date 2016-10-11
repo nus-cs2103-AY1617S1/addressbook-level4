@@ -14,7 +14,7 @@ public class Date {
             "Task date should be 2 ";
     public static final String DATE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String value;
+    public String value;
 
     /**
      * Validates given date.
@@ -36,7 +36,16 @@ public class Date {
     public static boolean isValidDate(String test) {
         return test.matches(DATE_VALIDATION_REGEX);
     }
-
+    
+    public void editDate(String newDate) throws IllegalValueException{
+    	 assert newDate != null;
+         newDate = newDate.trim();
+         if (!newDate.equals(Messages.MESSAGE_NO_DATE_SPECIFIED) && !isValidDate(newDate)) {
+             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+         } 
+         this.value = newDate;
+         
+    }
     @Override
     public String toString() {
         return value;

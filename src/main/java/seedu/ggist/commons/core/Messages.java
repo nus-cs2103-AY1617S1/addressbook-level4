@@ -12,5 +12,6 @@ public class Messages {
     public static final String MESSAGE_NO_DATE_SPECIFIED = "No date specified";
     public static final String MESSAGE_NO_START_TIME_SET = "No start time set";
     public static final String MESSAGE_NO_END_TIME_SET = "No end time set";
-
+    public static final String MESSAGE_INVALID_Task_DISPLAYED_INDEX = "Invalid task index";
+    public static final String MESSAGE_Task_NOT_IN_GGIST = "Task is not found in GGist";
 }

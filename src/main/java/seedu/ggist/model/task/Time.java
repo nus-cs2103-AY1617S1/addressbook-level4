@@ -12,13 +12,11 @@ import seedu.ggist.commons.exceptions.IllegalValueException;
  */
 public class Time {
     
-    private String hour;
-    private String minute;
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
             "TIME 24-hour format is HHMM";
     public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])([0-5][0-9])";
-    public final String value;
+    public String value;
 
     /**
      * Validates given time.
@@ -34,7 +32,16 @@ public class Time {
         }
         this.value = time;
     }
-
+    
+    public void editTime(String newTime) throws IllegalValueException {
+        assert newTime != null;
+        newTime = newTime.trim();
+        if (!newTime.equals(Messages.MESSAGE_NO_START_TIME_SET) && !newTime.equals(Messages.MESSAGE_NO_END_TIME_SET)
+             && !isValidTime(newTime)) {
+            throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
+        }
+        this.value = newTime;
+    }
     /**
      * Returns if a given string is a valid time format.
      */
