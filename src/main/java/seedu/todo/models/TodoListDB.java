@@ -2,7 +2,9 @@ package seedu.todo.models;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.todo.commons.util.FileUtil;
@@ -19,6 +21,10 @@ public class TodoListDB {
         // Prevent instantiation.
     }
     
+    public List<Task> getAllTasks() {
+        return new ArrayList<Task>(tasks);
+    }
+    
     public Task createTask() {
         Task task = new Task();
         tasks.add(task);
@@ -26,7 +32,8 @@ public class TodoListDB {
     }
     
     public boolean destroyTask(Task task) {
-        return tasks.remove(task);
+        tasks.remove(task);
+        return save();
     }
     
     public Event createEvent() {
@@ -36,7 +43,8 @@ public class TodoListDB {
     }
     
     public boolean destroyEvent(Event event) {
-        return events.remove(event);
+        events.remove(event);
+        return save();
     }
     
     public static TodoListDB getInstance() {
