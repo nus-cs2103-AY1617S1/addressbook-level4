@@ -175,15 +175,13 @@ public class Parser {
 		} catch (ParseException e) {
 		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
 		}
-		return new AddCommand(
-		    "event",
-		    eventMatcher.group("name"),
-		    eventMatcher.group("startDate"),
-		    eventMatcher.group("startTime"),
-		    eventMatcher.group("endDate"),
-		    eventMatcher.group("endTime"),
-		    getTagsFromArgs(eventMatcher.group("tagArguments"))
-		);
+		return new AddCommand("event", 
+		                      eventMatcher.group("name"), 
+		                      eventMatcher.group("startDate"), 
+		                      eventMatcher.group("startTime"), 
+		                      eventMatcher.group("endDate"), 
+		                      eventMatcher.group("endTime"), 
+		                      getTagsFromArgs(eventMatcher.group("tagArguments")));
 	}
 
 	private Command addDeadline(final Matcher deadlineMatcher) throws IllegalValueException {
@@ -201,13 +199,11 @@ public class Parser {
 		} catch (ParseException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
 		}
-		return new AddCommand(
-		    "deadline",
-		    deadlineMatcher.group("name"),
-		    deadlineMatcher.group("endDate"),
-		    deadlineMatcher.group("endTime"),
-		    getTagsFromArgs(deadlineMatcher.group("tagArguments"))
-		);
+		return new AddCommand("deadline",
+		                      deadlineMatcher.group("name"), 
+		                      deadlineMatcher.group("endDate"),
+		                      deadlineMatcher.group("endTime"),
+		                      getTagsFromArgs(deadlineMatcher.group("tagArguments")));
 	}
 
     /**
