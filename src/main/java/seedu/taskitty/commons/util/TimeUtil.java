@@ -22,7 +22,6 @@ public class TimeUtil {
         LocalTime localTime;
         
         //TODO make clean (same as DateUtil)
-        System.out.println(dateString + " : " + StringUtil.isUnsignedInteger(dateString));
         if (StringUtil.isUnsignedInteger(dateString)) {
             localTime = parseFormat2(dateString);
         } else {
