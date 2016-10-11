@@ -19,7 +19,7 @@ public class AddressBookBuilder {
         this.addressBook = addressBook;
     }
 
-    public AddressBookBuilder withPerson(FloatingTask person) throws UniquePersonList.DuplicatePersonException {
+    public AddressBookBuilder withPerson(FloatingTask person) throws UniquePersonList.DuplicateTaskException {
         addressBook.addPerson(person);
         return this;
     }

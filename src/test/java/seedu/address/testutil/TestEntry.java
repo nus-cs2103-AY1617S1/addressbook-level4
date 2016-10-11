@@ -53,4 +53,15 @@ public class TestEntry implements Entry {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public void setTags(UniqueTagList uniqueTagList) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void setTitle(Title newTitle) {
+        // TODO Auto-generated method stub
+
+    }
 }

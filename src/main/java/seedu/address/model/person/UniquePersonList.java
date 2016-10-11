@@ -15,13 +15,13 @@ import java.util.*;
  * @see FloatingTask#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<FloatingTask> {
+public class UniquePersonList implements Iterable<Entry> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicatePersonException extends DuplicateDataException {
-        protected DuplicatePersonException() {
+    public static class DuplicateTaskException extends DuplicateDataException {
+        protected DuplicateTaskException() {
             super("Operation would result in duplicate persons");
         }
     }
@@ -32,7 +32,7 @@ public class UniquePersonList implements Iterable<FloatingTask> {
      */
     public static class PersonNotFoundException extends Exception {}
 
-    private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Entry> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
@@ -50,14 +50,40 @@ public class UniquePersonList implements Iterable<FloatingTask> {
     /**
      * Adds a person to the list.
      *
-     * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
+     * @throws DuplicateTaskException
+     *             if the task to add is a duplicate of an existing task in the
+     *             list.
      */
-    public void add(FloatingTask toAdd) throws DuplicatePersonException {
-        assert toAdd != null;
-        if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+    public void add(Entry person) throws DuplicateTaskException {
+        assert person != null;
+        if (contains(person)) {
+            throw new DuplicateTaskException();
         }
-        internalList.add(toAdd);
+        internalList.add(person);
+    }
+
+    /**
+     * Edit an entry on the list.
+     * 
+     * @param toEdit
+     *            the entry to be edited
+     * @param newTitle
+     *            the new title for the entry
+     * @throws PersonNotFoundException
+     *             if no such person could be found in the list.
+     * @throws DuplicateTaskException
+     *             if the task to add is a duplicate of an existing task.
+     */
+    public void edit(Entry toEdit, Title newTitle) throws PersonNotFoundException, DuplicateTaskException {
+        assert toEdit != null;
+        if (contains(toEdit)) {
+            throw new DuplicateTaskException();
+        }
+        // TODO: This should be atomic or we should implement notifications for
+        // mutations
+        remove(toEdit);
+        toEdit.setTitle(newTitle);
+        add(toEdit);
     }
 
     /**
@@ -74,12 +100,12 @@ public class UniquePersonList implements Iterable<FloatingTask> {
         return personFoundAndDeleted;
     }
 
-    public ObservableList<FloatingTask> getInternalList() {
+    public ObservableList<Entry> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<FloatingTask> iterator() {
+    public Iterator<Entry> iterator() {
         return internalList.iterator();
     }
 

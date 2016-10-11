@@ -40,7 +40,7 @@ public class TypicalTestPersons {
             ab.addPerson(new FloatingTask(elle));
             ab.addPerson(new FloatingTask(fiona));
             ab.addPerson(new FloatingTask(george));
-        } catch (UniquePersonList.DuplicatePersonException e) {
+        } catch (UniquePersonList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }

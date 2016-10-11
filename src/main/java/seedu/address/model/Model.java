@@ -2,8 +2,11 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.FloatingTask;
+import seedu.address.model.person.Title;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePersonList.DuplicateTaskException;
+import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 import java.util.Set;
 
@@ -17,13 +20,14 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given person. */
+    /** Deletes the given task. */
     void deleteTask(Entry target) throws UniquePersonList.PersonNotFoundException;
 
-    void editTask(Entry task);
+    /** Edit the given task */
+    void editTask(Entry task, Title title) throws PersonNotFoundException, DuplicateTaskException;
 
-    /** Adds the given person */
-    void addTask(FloatingTask entry) throws UniquePersonList.DuplicatePersonException;
+    /** Adds the given task */
+    void addTask(Entry entry) throws UniquePersonList.DuplicateTaskException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<Entry> getFilteredPersonList();
