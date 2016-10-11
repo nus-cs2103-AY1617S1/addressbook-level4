@@ -1,4 +1,4 @@
-# Developer Guide 
+﻿# Developer Guide 
 
 * [Introduction](#introduction)
 * [Setting Up](#setting-up)
