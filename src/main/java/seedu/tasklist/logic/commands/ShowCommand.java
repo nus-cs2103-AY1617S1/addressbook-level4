@@ -13,25 +13,30 @@ public class ShowCommand extends Command {
             + "Parameters: KEYWORD (all, completed, p/[PRIORITY]\n"
             + "Example: " + COMMAND_WORD + " all";
 
-    public static final String MESSAGE_FIND_TASK_FAILURE = "No such task was found.";
+    public static final String MESSAGE_SHOW_FAILURE = "Invalid category. Available categories: all, complete, p/[PRIORITY]";
+    public static final String MESSAGE_SUCCESS = "Shown requested tasks.";
     private final String keyword;
     
     public ShowCommand(String keyword) {
         this.keyword = keyword;
+        System.out.println(keyword);
     }
 
     @Override
     public CommandResult execute() {
-        if (keyword.equalsIgnoreCase("all")) {
+        if (keyword.equals("all")) {
             model.updateFilteredListToShowAll();
         }
-        else if (keyword.equalsIgnoreCase("completed")) {
+        else if (keyword.equalsIgnoreCase("complete")) {
             model.updateFilteredListToShowComplete();
         }
-        else {
+        else if (keyword.equalsIgnoreCase("p/high") || keyword.equalsIgnoreCase("p/normal") || keyword.equalsIgnoreCase("p/low")){
             model.updateFilteredListToShowPriority(keyword);
         }
+        else {
+        	return new CommandResult(String.format(MESSAGE_SHOW_FAILURE));
+        }
     	
-    	return null;
+        return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
     }
 }

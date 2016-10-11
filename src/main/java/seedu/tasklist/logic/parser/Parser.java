@@ -220,8 +220,12 @@ public class Parser {
     private Command prepareShow(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
+        args = args.trim();
+        //if (args.startsWith("p/")) {
+       //     args.replaceFirst("p/", "");
+       // }
 
         return new ShowCommand(args);
     }
