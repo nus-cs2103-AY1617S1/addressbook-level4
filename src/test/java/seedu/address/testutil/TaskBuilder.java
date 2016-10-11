@@ -9,10 +9,10 @@ import seedu.address.model.task.*;
  */
 public class TaskBuilder {
 
-    private TestFloatingTask task;
+    private TestTask task;
 
     public TaskBuilder() {
-        this.task = new TestFloatingTask();
+        this.task = new TestTask();
     }
 
     public TaskBuilder withName(String name) throws IllegalValueException {
@@ -26,8 +26,23 @@ public class TaskBuilder {
         }
         return this;
     }
+    
+    public TaskBuilder withStartDate(String date) throws IllegalValueException {
+        this.task.setStartDate(date);
+        return this;
+    }
+    
+    public TaskBuilder withEndDate(String date) throws IllegalValueException {
+        this.task.setEndDate(date);
+        return this;
+    }
+    
+    public TaskBuilder withType(TaskType type) throws IllegalValueException {
+        this.task.setType(type);
+        return this;
+    }
 
-    public TestFloatingTask build() {
+    public TestTask build() {
         return this.task;
     }
 

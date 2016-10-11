@@ -12,8 +12,9 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.TaskList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestFloatingTasks;
+import seedu.address.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -31,7 +32,7 @@ public abstract class TaskListGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestFloatingTasks td = new TypicalTestFloatingTasks();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -65,7 +66,15 @@ public abstract class TaskListGuiTest {
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
+        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(() -> {
+			try {
+				return getInitialData();
+			} catch (TimeslotOverlapException e) {
+				// TODO Auto-generated catch block
+				assert false: "not possible";
+				return null;
+			}
+		}, getDataFileLocation()));
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();
@@ -74,10 +83,11 @@ public abstract class TaskListGuiTest {
     /**
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
+     * @throws TimeslotOverlapException 
      */
-    protected TaskList getInitialData() {
+    protected TaskList getInitialData() throws TimeslotOverlapException {
         TaskList ab = TestUtil.generateEmptyTaskList();
-        TypicalTestFloatingTasks.loadTaskListWithSampleData(ab);
+        TypicalTestTasks.loadTaskListWithSampleData(ab);
         return ab;
     }
 

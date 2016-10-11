@@ -1,12 +1,18 @@
 package seedu.address.logic.parser;
 
+
+
 import seedu.address.logic.commands.*;
+import seedu.address.model.task.TaskDate;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.joestelmach.natty.DateGroup;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -23,13 +29,38 @@ public class Parser {
 
     private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
+    private static final Pattern FIND_ARGS_WITHOUT_DATE_FORMAT = 
+    		Pattern.compile("(?<keywords>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+    
+    private static final Pattern FIND_ARGS_WITH_DATE_FORMAT = 
+    		Pattern.compile("(?<keywords>[^/]+)"
+    				+ "((?<startTime>(?: from [^/]+)(?<endTime>(?: to [^/]+)))|"
+    				+ "(?<deadline>(?: by [^/]+)))"
+    				+ "(?<tagArguments>(?: t/[^/]+)*)");
+    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
+    
+    private static final Pattern NON_FLOATING_TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<name>[^/]+)"
+                    + " (from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    + " to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    + "|by (?<deadline>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+))"
+                    + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
+        
+    private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final int START_TIME_INDEX = 0;
+    
+    private static final int END_TIME_INDEX = 1;
+    
     public Parser() {}
 
     /**
@@ -48,8 +79,11 @@ public class Parser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddFloatingCommand.COMMAND_WORD:
-            return prepareAddFloating(arguments);
+        case AddCommand.COMMAND_WORD:
+            return prepareAdd(arguments);
+            
+        case BlockCommand.COMMAND_WORD:
+        	return prepareBlock(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -74,21 +108,42 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();          
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
-    /**
+    
+
+	/**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAddFloating(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+    private Command prepareAdd(String args){
+        final Matcher matcherNonFloating = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
+        if (!matcherNonFloating.matches()) {
+            return prepareAddFloating(args);
+        }
+        return prepareAddNonFloating(args);
+    }
+    
+    /**
+     * Parses arguments in the context of adding a floating task
+     * @param args full command args string
+     * @return the prepared add floating command
+     */
+    private Command prepareAddFloating(String args) {
+        final Matcher matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFloatingCommand.MESSAGE_USAGE));
         }
@@ -101,6 +156,85 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    /**
+     * Parses arguments in the context of adding a non floating task
+     * @param args full command args string
+     * @return the prepared add non floating command
+     */
+    private Command prepareAddNonFloating(String args) {
+        final Matcher matcher = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
+        }
+        try {
+            
+            if(matcher.group("deadline") != null) {
+                return prepareAddNonFloatingByDate(matcher);
+            } else {
+                return prepareAddNonFloatingFromDateToDate(matcher);
+            }
+
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    /**
+     * Prepares arguments in the context of adding a non floating task by date only
+     * @param matcher Contains the information we need
+     * @return the prepared add non floating command
+     * @throws IllegalValueException Signals for incorrect command
+     */
+    private Command prepareAddNonFloatingByDate(Matcher matcher) throws IllegalValueException {
+        String endInput = matcher.group("deadline");
+        
+        return new AddNonFloatingCommand(
+                matcher.group("name"),
+                getTagsFromArgs(matcher.group("tagArguments")),
+                new TaskDate(TaskDate.DATE_NOT_PRESENT),
+                new TaskDate(getDateFromString(endInput).getTime())
+                );
+    }
+
+    /**
+     * Prepares arguments in the context of adding a non floating task from date to date
+     * @param matcher Contains the information we need
+     * @return the prepared add non floating command
+     * @throws IllegalValueException Signals for incorrect command
+     */    
+    private Command prepareAddNonFloatingFromDateToDate(Matcher matcher) throws IllegalValueException {
+        String startInput = matcher.group("startdate");
+        String endInput = matcher.group("enddate");
+        
+        return new AddNonFloatingCommand(
+                matcher.group("name"),
+                getTagsFromArgs(matcher.group("tagArguments")),
+                new TaskDate(getDateFromString(startInput).getTime()),
+                new TaskDate(getDateFromString(endInput).getTime())
+                );
+    }
+    
+    private Command prepareBlock(String args) {
+		// TODO Auto-generated method stub
+    	Matcher matcher = BLOCK_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE));
+        }
+        try {
+            
+            String startInput = matcher.group("startdate");
+            String endInput = matcher.group("enddate");
+            
+            return new BlockCommand(
+                    getTagsFromArgs(matcher.group("tagArguments")),
+                    new TaskDate(getDateFromString(startInput).getTime()),
+                    new TaskDate(getDateFromString(endInput).getTime())
+                    );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+	}
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
@@ -174,16 +308,78 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        final Matcher noDateMatcher = FIND_ARGS_WITHOUT_DATE_FORMAT.matcher(args.trim());
+        final Matcher dateMatcher = FIND_ARGS_WITH_DATE_FORMAT.matcher(args.trim());
+        
+        final String[] keywords;
+        final Set<String> keywordSet;
+        String startTime = "";
+        String endTime = "";
+        String deadline = "";
+        final Set<String> tagSet;
+        
+        boolean dateMatcherMatches = dateMatcher.matches();
+        boolean noDateMatcherMatches = noDateMatcher.matches();
+        
+        if(dateMatcherMatches) {
+        	keywords = dateMatcher.group("keywords").split("\\s+");
+    		keywordSet = new HashSet<>(Arrays.asList(keywords));
+        	
+    		try {
+        		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
+        	} catch(IllegalValueException ive) {
+        		return new IncorrectCommand(ive.getMessage());
+        	} 
+    		
+    		try {
+    			
+    			String[] time = dateMatcher.group("startTime").replace(" from ", "").split(" to ");
+    			startTime = reformatDate(time[START_TIME_INDEX]);
+        		endTime = reformatDate(time[END_TIME_INDEX]);
+        		
+    		} catch(Exception ise) {
+        		deadline = reformatDate(dateMatcher.group("deadline").replace(" by ", ""));
+        	}
+    		
+        } else if(noDateMatcherMatches) {
+        	keywords = noDateMatcher.group("keywords").split("\\s+");
+    		keywordSet = new HashSet<>(Arrays.asList(keywords));
+        	
+        	try {
+        		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
+        	} catch(IllegalValueException ive) {
+        		return new IncorrectCommand(ive.getMessage());
+        	}
+        } else {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
+        
+        return new FindCommand(keywordSet, startTime, endTime, deadline, tagSet);
 
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Reformats any date into the format that we are storing and using in this software 
+     * @param oldDate
+     * @return the new formatted date
+     */
+    public static String reformatDate(String oldDate) {
+    	long newDate = getDateFromString(oldDate).getTime();
+    	SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma");
+        return formatter.format(new Date(newDate));
+    }
+    
+    /**
+     * Parses through the dateInput and provides the Date from that input
+     * @param dateInput The date that we want to convert from string to Date
+     * @return A single Date from the string
+     */
+    public static Date getDateFromString(String dateInput) {
+        final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
+        List<DateGroup> dateGroups = nattyParser.parse(dateInput);
+        
+        return dateGroups.get(0).getDates().get(0);
     }
 
 }

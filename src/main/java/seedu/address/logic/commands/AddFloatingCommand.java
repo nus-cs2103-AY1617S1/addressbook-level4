@@ -4,6 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,9 +12,7 @@ import java.util.Set;
 /**
  * Adds a floating task to the task list.
  */
-public class AddFloatingCommand extends Command {
-
-    public static final String COMMAND_WORD = "add";
+public class AddFloatingCommand extends AddCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the task list. "
             + "Parameters: TASK_NAME [t/TAG]...\n"
@@ -21,9 +20,7 @@ public class AddFloatingCommand extends Command {
             + " take trash t/highPriority";
 
     public static final String MESSAGE_SUCCESS = "New floating task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
-
-    private final FloatingTask toAdd;
+    private final Task toAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -36,7 +33,7 @@ public class AddFloatingCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new FloatingTask(
+        this.toAdd = new Task(
                 new Name(name),
                 new UniqueTagList(tagSet)
         );
@@ -50,7 +47,11 @@ public class AddFloatingCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
+        } catch (TimeslotOverlapException e) {
+			// TODO Auto-generated catch block
+			assert false: "not possible";
+        	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+		}
 
     }
 

@@ -16,13 +16,24 @@ public interface ReadOnlyTask {
      */
     UniqueTagList getTags();
 
+    TaskDate getStartDate();
+    TaskDate getEndDate();
+    
+    /**
+     * Returns the type of the class, whether it is FLOATING or NON_FLOATING type
+     */
+    TaskType getType();
+
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-        return other == this // short circuit if same object
+    		return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getType().equals(this.getType())
+                && other.getStartDate().equals(this.getStartDate())
+                && other.getEndDate().equals(this.getEndDate())
                 );
     }
 
@@ -31,8 +42,16 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Tags: ");
+        builder.append(getName());
+        if(getStartDate().getDate()!=-1){
+        	builder.append(" From: ");
+        	builder.append(getStartDate().getFormattedDate());
+        }
+        if(getEndDate().getDate()!=-1){
+        	builder.append(" To: ");
+        	builder.append(getEndDate().getFormattedDate());
+        }
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

@@ -3,9 +3,10 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -46,11 +47,11 @@ public class TaskList implements ReadOnlyTaskList {
 
 //// list overwrite operations
 
-    public ObservableList<FloatingTask> getTasks() {
+    public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
 
-    public void setTasks(List<FloatingTask> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -59,7 +60,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -75,8 +76,9 @@ public class TaskList implements ReadOnlyTaskList {
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws TimeslotOverlapException 
      */
-    public void addTask(FloatingTask p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
@@ -86,7 +88,7 @@ public class TaskList implements ReadOnlyTaskList {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(FloatingTask task) {
+    private void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 

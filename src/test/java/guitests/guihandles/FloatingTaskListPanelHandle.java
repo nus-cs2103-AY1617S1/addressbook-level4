@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
-import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.testutil.TestUtil;
 
@@ -147,7 +147,7 @@ public class FloatingTaskListPanelHandle extends GuiHandle {
     }
 
     public FloatingTaskCardHandle getFloatingTaskCardHandle(int index) {
-        return getFloatingTaskCardHandle(new FloatingTask(getListView().getItems().get(index)));
+        return getFloatingTaskCardHandle(new Task(getListView().getItems().get(index)));
     }
 
     public FloatingTaskCardHandle getFloatingTaskCardHandle(ReadOnlyTask task) {

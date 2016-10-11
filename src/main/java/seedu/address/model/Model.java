@@ -1,9 +1,10 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.Set;
 
@@ -20,8 +21,9 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Adds the given task */
-    void addTask(FloatingTask task) throws UniqueTaskList.DuplicateTaskException;
+    /** Adds the given task 
+     * @throws TimeslotOverlapException */
+    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
@@ -30,7 +32,7 @@ public interface Model {
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredTaskList(Set<String> keywords, Set<String> tags, String startDate, String endDate, String deadline);
     
     /** Updates the file path for current storage manager of the model.*/
 	void changeDirectory(String filePath);

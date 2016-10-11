@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final FloatingTask[] sampleTaskData = getSampleTaskData();
+    public static final Task[] sampleTaskData = getSampleTaskData();
 
-    private static FloatingTask[] getSampleTaskData() {
+    private static Task[] getSampleTaskData() {
         try {
-            return new FloatingTask[]{
-                    new FloatingTask(new Name("take trash"), new UniqueTagList()),
-                    new FloatingTask(new Name("read book"), new UniqueTagList()),
-                    new FloatingTask(new Name("do homework"), new UniqueTagList()),
-                    new FloatingTask(new Name("read weblecture"), new UniqueTagList()),
-                    new FloatingTask(new Name("group meeting"), new UniqueTagList()),
-                    new FloatingTask(new Name("jogging"), new UniqueTagList()),
-                    new FloatingTask(new Name("visit George Best"), new UniqueTagList()),
-                    new FloatingTask(new Name("eat with Hoon Meier"), new UniqueTagList()),
-                    new FloatingTask(new Name("play with Ida Mueller"), new UniqueTagList())
+            return new Task[]{
+                    new Task(new Name("take trash"), new UniqueTagList()),
+                    new Task(new Name("read book"), new UniqueTagList()),
+                    new Task(new Name("do homework"), new UniqueTagList(), new TaskDate("2 oct 2am"), new TaskDate("2 oct 3am")),
+                    new Task(new Name("read weblecture"), new UniqueTagList(),new TaskDate("2 oct 4am"), new TaskDate("2 oct 5am")),
+                    new Task(new Name("group meeting"), new UniqueTagList(),new TaskDate("2 oct 9am"), new TaskDate("2 oct 11am")),
+                    new Task(new Name("jogging"), new UniqueTagList()),
+                    new Task(new Name("visit George Best"), new UniqueTagList()),
+                    new Task(new Name("eat with Hoon Meier"), new UniqueTagList()),
+                    new Task(new Name("play with Ida Mueller"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,7 +97,7 @@ public class TestUtil {
         }
     }
 
-    public static List<FloatingTask> generateSampleTaskData() {
+    public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);
     }
 
@@ -278,10 +278,10 @@ public class TestUtil {
      * @param tasksToRemove The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
      */
-    public static TestFloatingTask[] removeTasksFromList(final TestFloatingTask[] tasks, TestFloatingTask... tasksToRemove) {
-        List<TestFloatingTask> listOfTasks = asList(tasks);
+    public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
+        List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.removeAll(asList(tasksToRemove));
-        return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
 
@@ -290,7 +290,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestFloatingTask[] removeTaskFromList(final TestFloatingTask[] list, int targetIndexInOneIndexedFormat) {
+    public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
@@ -301,7 +301,7 @@ public class TestUtil {
      * @param index The index of the task to be replaced.
      * @return
      */
-    public static TestFloatingTask[] replaceTaskFromList(TestFloatingTask[] tasks, TestFloatingTask task, int index) {
+    public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
         tasks[index] = task;
         return tasks;
     }
@@ -312,10 +312,10 @@ public class TestUtil {
      * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
-    public static TestFloatingTask[] addTasksToList(final TestFloatingTask[] tasks, TestFloatingTask... tasksToAdd) {
-        List<TestFloatingTask> listOfTasks = asList(tasks);
+    public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
+        List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
-        return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {

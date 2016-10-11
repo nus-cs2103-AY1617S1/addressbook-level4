@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestFloatingTask;
+import seedu.address.testutil.TestTask;
 import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends TaskListGuiTest {
@@ -29,7 +29,7 @@ public class FindCommandTest extends TaskListGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestFloatingTask... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");

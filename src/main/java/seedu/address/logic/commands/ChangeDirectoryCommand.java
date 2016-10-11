@@ -5,7 +5,7 @@ import java.io.IOException;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
-import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.Task;
 import seedu.address.storage.XmlTaskListStorage;
 
 public class ChangeDirectoryCommand extends Command{
@@ -17,7 +17,7 @@ public class ChangeDirectoryCommand extends Command{
             + "Example: " + COMMAND_WORD
             + " D:\t.xml";
 
-    public static final String MESSAGE_SUCCESS = "File path successfully changed to : %1$s";
+    public static final String MESSAGE_SUCCESS = "This operation is irreversible.\nFile path successfully changed to : %1$s";
     public static final String MESSAGE_IO_ERROR = "Error when saving/reading file...";
     public static final String MESSAGE_CONVENSION_ERROR = "Wrong file type detected.";
 

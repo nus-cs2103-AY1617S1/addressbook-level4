@@ -16,14 +16,22 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " take trash ";
 
     private final Set<String> keywords;
+    private final String startTime;
+    private final String endTime;
+    private final String deadline;
+    private final Set<String> tags;
 
-    public FindCommand(Set<String> keywords) {
+    public FindCommand(Set<String> keywords, String startTime, String endTime, String deadline, Set<String> tags) {
         this.keywords = keywords;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.deadline = deadline;
+        this.tags = tags;
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
+        model.updateFilteredTaskList(keywords, tags, startTime, endTime, deadline);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
