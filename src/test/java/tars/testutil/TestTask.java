@@ -56,10 +56,14 @@ public class TestTask implements ReadOnlyTask {
         return tags;
     }
 
+    public void setStatus(Status status) {
+    	this.status = status;
+    }
+    
     @Override
     public String toString() {
         return getAsText();
-    }
+    } 
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();

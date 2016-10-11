@@ -34,6 +34,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final Tars tars;
     private final FilteredList<Task> filteredTasks;
     private final Stack<Command> undoableCmdHistStack;
+    
+    private static final String LIST_KEYWORD_DONE = "done";
+	private static final String LIST_KEYWORD_UNDONE = "undone";
+
 
     /**
      * Initializes a ModelManager with the given Tars
@@ -134,7 +138,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    	if(keywords.contains(LIST_KEYWORD_DONE) || keywords.contains(LIST_KEYWORD_UNDONE)) {
+    		updateFilteredTaskList(new PredicateExpression(new ListQualifier(keywords)));
+    	} else {
+    	    updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    	}
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -192,4 +200,21 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    private class ListQualifier implements Qualifier {
+    	private Set<String> listArguments;
+    	
+    	ListQualifier(Set<String> listArguments) {
+    		this.listArguments = listArguments;
+    	}
+    	
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			return listArguments.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus().toString(), keyword))
+					.findAny()
+					.isPresent();
+		}
+    	
+    }
+
 }

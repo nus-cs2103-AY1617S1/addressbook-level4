@@ -205,17 +205,23 @@ Examples:
 Lists all tasks in TARS with available list filters.<br>
 Format: 
 * `ls`
+* `ls -do`
+* `ls -all`
 * `ls -dt [START_DATE] to [START_TIME]`
 * `ls -t <TAG>[ , <TAG>, <TAG>]`
 * `ls -p [PRIORITY]`
 
 > default is to list all undone task <br>
+> use -do to list all done task <br>
+> use -all to list all done and undone tasks <br>
 > use -dt to list all undone tasks in that date range <br>
 > use -t to list all undone tasks with a searched tag(s) <br>
 > use -p to list all undone tasks with that particular priority level
 
 Examples:
 * `ls`
+* `ls -do`
+* `ls -all`
 * `ls -dt 23/09/16 to 24/09/16`
 * `ls -t assignments, projects`
 * `ls -p high`
@@ -281,6 +287,8 @@ Command | Format
 [Find](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
 [Help](#displaying-a-list-of-available-commands--help) | `help`
 [List](#listing-tasks--ls) | `ls`
+[List [Done]](#listing-tasks--ls) | `ls -do`
+[List [All]](#listing-tasks--ls) | `ls -all`
 [List [Date]](#listing-tasks--ls) | `ls -dt [<START_DATE> to <END_DATE>]`
 [List [Priority]](#listing-tasks--ls) | `ls -p [PRIORITY]`
 [List [Tags]](#listing-tasks--ls) | `ls -t <TAG>[ , <TAG>, <TAG>]`
