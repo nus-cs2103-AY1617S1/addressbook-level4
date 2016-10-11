@@ -115,12 +115,13 @@ public class LogicManagerTest {
         assertEquals(expectedTaskManager, latestSavedTaskManager);
     }
 
-
+    /* Test removed as we take add as a default command, so this will add an item with that name.
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
+    */
 
     @Test
     public void execute_help() throws Exception {
@@ -394,7 +395,7 @@ public class LogicManagerTest {
             Priority[] randomArr = {Priority.LOW, Priority.MEDIUM, Priority.HIGH};
             
             return new Task(
-                    new Name("FloatingTask " + seed),
+                    new Name("Task " + seed),
                     randomArr[seed%3]
             );
         }
@@ -406,7 +407,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" rank ").append(p.getPriorityValue());
+            cmd.append(" -").append(p.getPriorityValue().toString().toLowerCase());
 
             return cmd.toString();
         }

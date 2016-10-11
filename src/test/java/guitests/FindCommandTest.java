@@ -24,11 +24,13 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertFindResult("find Jean"); //no results
     }
 
+    /* Removing this test as well since we intrepret this as an add command, our default.
     @Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findgeorge");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
+    */
 
     private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);

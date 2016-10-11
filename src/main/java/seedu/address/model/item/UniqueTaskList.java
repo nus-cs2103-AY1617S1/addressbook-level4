@@ -60,7 +60,9 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         
         internalList.add(toAdd);
-        Collections.sort(internalList);
+        
+        // TODO: Disable sort until this is fixed, also update tests when sort is updated
+        //Collections.sort(internalList);
     }
 
     /**

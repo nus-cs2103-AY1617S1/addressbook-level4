@@ -51,7 +51,7 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
-        sb.append("-" + this.getPriorityValue());
+        sb.append("-" + this.getPriorityValue().toString().toLowerCase());
         return sb.toString();
     }
 

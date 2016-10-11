@@ -86,6 +86,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public int compareTo(Task other) {
+        
+        
         int startDateComparison = compareByStartDate(other);
         int endDateComparison = compareByEndDate(other);
         int priorityValueComparison = compareByPriorityValue(other);
