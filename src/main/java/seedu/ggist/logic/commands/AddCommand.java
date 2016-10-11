@@ -101,13 +101,21 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute() {
+       
         assert model != null;
         try {
-            model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType.toString(), toAdd));
+            model.addTask(toAdd); 
+            listOfCommands.push(COMMAND_WORD);
+            listOfTasks.push(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
+    }
+    
+    @Override
+    public  String toString(){
+        return COMMAND_WORD;
     }
 
 }
