@@ -58,8 +58,8 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
-    @FXML
-    private AnchorPane statusbarPlaceholder;
+    //@FXML
+    //private AnchorPane statusbarPlaceholder;
 
 
     public MainWindow() {
@@ -111,7 +111,7 @@ public class MainWindow extends UiPart {
         browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
@@ -119,9 +119,9 @@ public class MainWindow extends UiPart {
         return commandBoxPlaceholder;
     }
 
-    private AnchorPane getStatusbarPlaceholder() {
+    /*private AnchorPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
-    }
+    } */
 
     private AnchorPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
