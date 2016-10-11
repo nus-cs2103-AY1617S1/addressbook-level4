@@ -80,6 +80,19 @@ public class TaskManager implements ReadOnlyTaskManager {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
+    
+    /**
+     * Marks a task as done in the task manager.
+     * 
+     * @throws UniqueTaskList.TaskNotFoundException if task is not found.
+     */
+    public boolean doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    	if (tasks.mark(key)) {
+    		return true;
+    	} else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
+    }
 
     /**
      * Ensures that every tag in this task:

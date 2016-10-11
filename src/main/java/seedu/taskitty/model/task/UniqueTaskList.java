@@ -59,11 +59,27 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
+    
+    /** Marks the given task as done from the list.
+     * 
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean mark(ReadOnlyTask toMark) throws TaskNotFoundException {
+    	assert toMark != null;
+    	final boolean taskFoundAndMarkedAsDone = internalList.remove(toMark);
+    	Task editableToMark = (Task) toMark;
+    	editableToMark.markAsDone();
+    	internalList.add(editableToMark);
+    	if (!taskFoundAndMarkedAsDone) {
+    		throw new TaskNotFoundException();
+    	}
+    	return taskFoundAndMarkedAsDone;
+    }
 
     /**
      * Removes the equivalent task from the list.
      *
-     * @throws TaskNotFoundException if no such person could be found in the list.
+     * @throws TaskNotFoundException if no such task could be found in the list.
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
@@ -75,6 +91,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     public ObservableList<Task> getInternalList() {
+  
         return internalList;
     }
 
