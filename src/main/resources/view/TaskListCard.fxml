@@ -22,18 +22,20 @@
                     </padding>
 
                     <children>
-                        <HBox spacing="5" alignment="CENTER_LEFT">
+                        <HBox spacing="25" alignment="CENTER_LEFT">
                             <children>
                                 <HBox>
                                     <Label fx:id="id" styleClass="cell_big_label"></Label>
-                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                    <Label fx:id="title" text="\$title" styleClass="cell_big_label"/>
                                 </HBox>
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                        <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+                        <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
+                        <Label fx:id="dueDate" styleClass="cell_small_label" text="\$dueDate" />
+                        <Label fx:id="interval" styleClass="cell_small_label" text="\$interval" />
+                        <Label fx:id="timeInterval" styleClass="cell_small_label" text="\$timeInterval" />
                     </children>
                 </VBox>
             </children>

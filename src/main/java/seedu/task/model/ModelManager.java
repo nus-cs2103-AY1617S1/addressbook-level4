@@ -11,6 +11,7 @@ import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.text.ParseException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -27,8 +28,9 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
+     * @throws ParseException 
      */
-    public ModelManager(TaskManager src, UserPrefs userPrefs) {
+    public ModelManager(TaskManager src, UserPrefs userPrefs) throws ParseException {
         super();
         assert src != null;
         assert userPrefs != null;
@@ -39,11 +41,11 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
-    public ModelManager() {
+    public ModelManager() throws ParseException {
         this(new TaskManager(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) throws ParseException {
         addressBook = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
@@ -139,7 +141,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTitle().fullTitle, keyword))
                     .findAny()
                     .isPresent();
         }

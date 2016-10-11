@@ -8,11 +8,13 @@ import seedu.task.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    Name getName();
-    Phone getPhone();
-    Email getEmail();
-    Address getAddress();
-
+    Title getTitle();
+    Description getDescription();
+    StartDate getStartDate();
+    DueDate getDueDate();
+    Interval getInterval();
+    TimeInterval getTimeInterval();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -25,10 +27,12 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getTitle().equals(this.getTitle()) // state checks here onwards
+                && other.getDescription().equals(this.getDescription())
+                && other.getStartDate().equals(this.getStartDate())
+                && other.getDueDate().equals(this.getDueDate())
+                && other.getInterval().equals(this.getInterval())
+                && other.getTimeInterval().equals(this.getTimeInterval()));
     }
 
     /**
@@ -36,13 +40,17 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+        builder.append(getTitle())
+                .append(" Description: ")
+                .append(getDescription())
+                .append(" Start Date: ")
+                .append(getStartDate())
+                .append(" Due Date: ")
+                .append(getDueDate())
+                .append(" Interval: ")
+                .append(getInterval())
+                .append(" Time Interval: ")
+                .append(getTimeInterval())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

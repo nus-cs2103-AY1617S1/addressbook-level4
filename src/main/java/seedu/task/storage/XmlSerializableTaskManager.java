@@ -9,6 +9,8 @@ import seedu.task.model.tag.UniqueTagList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,12 +57,13 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
+    public UniqueTaskList getUniqueTaskList() throws ParseException {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : tasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
+            	e.printStackTrace();
                 //TODO: better error handling
             }
         }
@@ -72,7 +75,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         return tasks.stream().map(p -> {
             try {
                 return p.toModelType();
-            } catch (IllegalValueException e) {
+            } catch (IllegalValueException | ParseException e) {
                 e.printStackTrace();
                 //TODO: better error handling
                 return null;

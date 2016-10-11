@@ -165,7 +165,7 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Title.MESSAGE_TITLE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
@@ -386,7 +386,7 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
+            Title name = new Title("Adam Brown");
             Phone privatePhone = new Phone("111111");
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
@@ -405,7 +405,7 @@ public class LogicManagerTest {
          */
         Task generateTask(int seed) throws Exception {
             return new Task(
-                    new Name("Task " + seed),
+                    new Title("Task " + seed),
                     new Phone("" + Math.abs(seed)),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
@@ -504,7 +504,7 @@ public class LogicManagerTest {
          */
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
-                    new Name(name),
+                    new Title(name),
                     new Phone("1"),
                     new Email("1@email"),
                     new Address("House of 1"),
