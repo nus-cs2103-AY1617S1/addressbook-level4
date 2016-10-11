@@ -61,8 +61,16 @@ public class XmlAdaptedTask {
         pinned = source.isPinned();
         completed = source.isCompleted();
 
-        startTime = source.getStartTime().orElse(null).toString();
-        endTime = source.getEndTime().orElse(null).toString();
+        if (source.getStartTime().isPresent()) {
+            startTime = source.getStartTime().get().toString();
+        } else {
+            startTime = null;
+        }
+        if (source.getEndTime().isPresent()) {
+            endTime = source.getEndTime().get().toString();
+        } else {
+            endTime = null;
+        }
 
         for (Tag tag : source.getTags()) {
             tags.add(new XmlAdaptedTag(tag));
@@ -87,8 +95,12 @@ public class XmlAdaptedTask {
         task.setPinned(pinned);
         task.setCompleted(completed);
 
-        task.setStartTime(LocalDateTime.parse(startTime));
-        task.setEndTime(LocalDateTime.parse(endTime));
+        if (startTime != null) {
+            task.setStartTime(LocalDateTime.parse(startTime));
+        }
+        if (endTime != null) {
+            task.setEndTime(LocalDateTime.parse(endTime));
+        }
 
         Set<Tag> setOfTags = new HashSet<Tag>();
         for (XmlAdaptedTag tag : tags) {
