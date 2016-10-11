@@ -3,7 +3,7 @@ package seedu.ggist.model.task;
 import seedu.ggist.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Task in the task manager.
+ * A read-only immutable (except for setting task done) interface for a Task in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
@@ -12,7 +12,8 @@ public interface ReadOnlyTask {
     TaskDate getDate();
     TaskTime getStartTime();
     TaskTime getEndTime();
-    
+    boolean getDone();
+    void setDone();
     
     /**
      * The returned TagList is a deep copy of the internal TagList,

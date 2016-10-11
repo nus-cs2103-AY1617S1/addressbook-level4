@@ -78,7 +78,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editTask (int index, String type, String toEdit) throws TaskTypeNotFoundException{
+    public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskManager.doneTask(target);
+        indicateTaskManagerChanged();
+    }
+
+    public synchronized void editTask (int index, String type, String toEdit) throws TaskTypeNotFoundException {
     	Task toBeEditedTask = filteredTasks.get(index-1);
     	switch (type) {
     	case "task":
@@ -115,6 +120,7 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskManager.addTask(task);
@@ -132,6 +138,15 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    }
+    
+    @Override
+    public void updateFilteredListToShowAllDone() {
+        updateFilteredListToShowAllDone(new PredicateExpression(new DoneQualifier()));
+    }
+    
+    public void updateFilteredListToShowAllDone(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
     }
 
     @Override
@@ -172,6 +187,15 @@ public class ModelManager extends ComponentManager implements Model {
     interface Qualifier {
         boolean run(ReadOnlyTask task);
         String toString();
+    }
+    
+    private class DoneQualifier implements Qualifier {
+        
+        DoneQualifier() {}
+        
+        public boolean run(ReadOnlyTask task) {
+            return task.getDone();
+        }
     }
 
     private class NameQualifier implements Qualifier {
