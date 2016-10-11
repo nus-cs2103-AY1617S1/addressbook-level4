@@ -78,8 +78,8 @@ public class CommandInputView extends UiPart {
          */
         setStyleToIndicateCorrectCommand();
         logic.execute(previousCommandText);
-        commandFeedbackView.displayMessage("Command " + previousCommandText.substring(0, 10) 
-                + "... executed successfully.");
+        commandFeedbackView.displayMessage("Command \"" + previousCommandText.substring(0, Math.min(10, previousCommandText.length())) 
+                + "...\" executed successfully.");
         //TODO: Update the command output with actual implementation.
     }
 
