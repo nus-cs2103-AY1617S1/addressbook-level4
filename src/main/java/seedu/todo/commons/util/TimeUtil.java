@@ -2,11 +2,15 @@ package seedu.todo.commons.util;
 
 import java.time.Clock;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.StringJoiner;
+import java.util.regex.Pattern;
 
 /**
  * Utility methods that deals with time.
@@ -32,6 +36,8 @@ public class TimeUtil {
     private static final String FORMAT_DATE_WITH_YEAR = "d MMMM yyyy";
     private static final String FORMAT_DATE_NO_YEAR = "d MMMM";
     private static final String FORMAT_TIME = "h:mm a";
+    
+    private static final Pattern DATE_REGEX = Pattern.compile("(\\d{1,2})([/-])(\\d{1,2})");
     
     /* Variables */
     protected Clock clock = Clock.systemDefaultZone();
@@ -129,4 +135,57 @@ public class TimeUtil {
         assert (endTime != null);
         return endTime.isBefore(LocalDateTime.now(clock));
     }
+    
+    
+    /**
+     * Translates input string from International date format (DD/MM/YYYY) to American
+     * date format (MM/DD/YYYY), because Natty only recognizes the later 
+     * @param input
+     */
+    public static String toAmericanDateFormat(String input) {
+        return DATE_REGEX.matcher(input).replaceAll("$3$2$1");
+    }
+    
+    //@@author A0135817B-reuse
+    // From http://stackoverflow.com/a/27378709/313758
+    /**
+     * Calls {@link #asLocalDate(Date, ZoneId)} with the system default time zone.
+     */
+    public static LocalDate asLocalDate(Date date) {
+        return asLocalDate(date, ZoneId.systemDefault());
+    }
+
+    /**
+     * Creates {@link LocalDate} from {@code java.util.Date} or it's subclasses. Null-safe.
+     */
+    public static LocalDate asLocalDate(Date date, ZoneId zone) {
+        if (date == null)
+            return null;
+
+        if (date instanceof java.sql.Date)
+            return ((java.sql.Date) date).toLocalDate();
+        else
+            return Instant.ofEpochMilli(date.getTime()).atZone(zone).toLocalDate();
+    }
+
+    /**
+     * Calls {@link #asLocalDateTime(Date, ZoneId)} with the system default time zone.
+     */
+    public static LocalDateTime asLocalDateTime(Date date) {
+        return asLocalDateTime(date, ZoneId.systemDefault());
+    }
+
+    /**
+     * Creates {@link LocalDateTime} from {@code java.util.Date} or it's subclasses. Null-safe.
+     */
+    public static LocalDateTime asLocalDateTime(Date date, ZoneId zone) {
+        if (date == null)
+            return null;
+
+        if (date instanceof java.sql.Timestamp)
+            return ((java.sql.Timestamp) date).toLocalDateTime();
+        else
+            return Instant.ofEpochMilli(date.getTime()).atZone(zone).toLocalDateTime();
+    }
+
 }

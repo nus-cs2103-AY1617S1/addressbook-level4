@@ -232,4 +232,21 @@ public class TimeUtilTest {
         assertTrue(timeUtil.isOverdue(laterEndTime));
     }
     
+    @Test
+    public void toAmericanDateFormat_matches() {
+        assertEquals("12/6", TimeUtil.toAmericanDateFormat("6/12"));
+        assertEquals("12/6/2016", TimeUtil.toAmericanDateFormat("6/12/2016"));
+        assertEquals("12-6-2016", TimeUtil.toAmericanDateFormat("6-12-2016"));
+        
+        assertEquals("from 7/6/2016 to 8/6/2016 tomorrow", TimeUtil.toAmericanDateFormat("from 6/7/2016 to 6/8/2016 tomorrow"));
+        assertEquals("5/6/15", TimeUtil.toAmericanDateFormat("6/5/15"));
+        assertEquals("5/6 5pm", TimeUtil.toAmericanDateFormat("6/5 5pm"));
+    }
+    
+    @Test
+    public void toAmericanDateFormat_nomatches() {
+        assertEquals("Should not do anything", "Should not do anything");
+        assertEquals("Hello/world", "Hello/world");
+        assertEquals("10-1002 train", "10-1002 train");
+    }
 }
