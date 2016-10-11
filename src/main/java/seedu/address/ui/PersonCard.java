@@ -8,7 +8,7 @@ import seedu.emeraldo.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart{
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TaskListCard.fxml";
 
     //When changing the FXML labels, PersonCardHandle.java has to be updated also
     
