@@ -266,6 +266,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | mark my tasks as done or undone | change the status of my tasks
 `* *` | user | view tasks by tags/priority/date | group my tasks based on a field of my choice
 `* *` | user | reserve dates for a task/event | block out time slots and add them upon confirmation of the time and date details
+`* *` |user| can view all tags and edit them | edit a specific tag of all tasks with that tag in one command
 `*` | user | have flexibility in entering commands | type in commands without having to remember the exact format
 `*` | user | use a keyboard shortcut to launch the program | launch the program quickly
 `*` | user | have suggestions on free slots | decide when to add a new task or shift current tasks
