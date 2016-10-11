@@ -2,11 +2,14 @@ package tars.logic.commands;
 
 import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
+import tars.commons.flags.Flag;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.*;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import java.time.DateTimeException;
+import java.util.HashMap;
 
 
 /**
@@ -28,12 +31,12 @@ public class EditCommand extends Command {
         
     public final int targetIndex;
 
-    private String[] argsToEdit;
+    private HashMap<Flag, String> argsToEdit;
     
     /**
      * Convenience constructor using raw values.
      */
-    public EditCommand(int targetIndex, String [] argsToEdit) {
+    public EditCommand(int targetIndex, HashMap<Flag, String> argsToEdit) {
         this.targetIndex = targetIndex;
         this.argsToEdit = argsToEdit;
     }

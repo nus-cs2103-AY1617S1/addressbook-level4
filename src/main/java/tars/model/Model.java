@@ -1,7 +1,9 @@
 package tars.model;
 
 import tars.commons.core.UnmodifiableObservableList;
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
+import tars.commons.flags.Flag;
 import tars.logic.commands.Command;
 import tars.model.task.Task;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
@@ -9,6 +11,7 @@ import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
 
 import java.time.DateTimeException;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.Stack;
 
@@ -23,14 +26,14 @@ public interface Model {
     ReadOnlyTars getTars();
     
     /** Edits the given task and returns the edited task */
-    Task editTask(ReadOnlyTask toEdit, String[] argsToEdit) throws UniqueTaskList.TaskNotFoundException, 
+    Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit) throws UniqueTaskList.TaskNotFoundException, 
     DateTimeException, IllegalValueException, TagNotFoundException;
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task) throws DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

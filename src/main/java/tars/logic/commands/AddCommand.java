@@ -1,6 +1,7 @@
 package tars.logic.commands;
 
 import tars.commons.core.Messages;
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.task.*;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
@@ -54,7 +55,7 @@ public class AddCommand extends UndoableCommand {
         try {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
