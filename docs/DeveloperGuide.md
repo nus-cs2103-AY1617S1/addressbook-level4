@@ -258,7 +258,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Inbx_0 depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -278,8 +278,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | to mark tasks as done | keep track of completed tasks |
 `* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
-`* *`   | user | categorise my tasks by date |
-`* *`   | user | change storage location |
+`* *`   | user | categorise my tasks by date | view which tasks are due on certain dates
+`* *`   | user | change storage location | access the file data easily
 `*`     | user | undo last action taken | rectify any accidental mistakes
 `*`     | user | be reminded of upcoming tasks | remember tasks
 `*`     | user | auto-complete my commands | be more efficient with typing commands
@@ -336,7 +336,7 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 5000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
