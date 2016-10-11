@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
@@ -30,9 +31,11 @@ public class XmlAdaptedTask {
     private boolean completed;
 
     @XmlElement(required = false)
-    private String startTime;
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    private LocalDateTime startTime;
     @XmlElement(required = false)
-    private String endTime;
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    private LocalDateTime endTime;
 
     @XmlElement(required = true)
     private UUID uuid;
@@ -61,16 +64,8 @@ public class XmlAdaptedTask {
         pinned = source.isPinned();
         completed = source.isCompleted();
 
-        if (source.getStartTime().isPresent()) {
-            startTime = source.getStartTime().get().toString();
-        } else {
-            startTime = null;
-        }
-        if (source.getEndTime().isPresent()) {
-            endTime = source.getEndTime().get().toString();
-        } else {
-            endTime = null;
-        }
+        startTime = source.getStartTime().orElse(null);
+        endTime = source.getEndTime().orElse(null);
 
         for (Tag tag : source.getTags()) {
             tags.add(new XmlAdaptedTag(tag));
@@ -95,12 +90,8 @@ public class XmlAdaptedTask {
         task.setPinned(pinned);
         task.setCompleted(completed);
 
-        if (startTime != null) {
-            task.setStartTime(LocalDateTime.parse(startTime));
-        }
-        if (endTime != null) {
-            task.setEndTime(LocalDateTime.parse(endTime));
-        }
+        task.setStartTime(startTime);
+        task.setEndTime(endTime);
 
         Set<Tag> setOfTags = new HashSet<Tag>();
         for (XmlAdaptedTag tag : tags) {
