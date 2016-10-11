@@ -2,9 +2,10 @@ package tars.logic.parser;
 
 import tars.commons.core.Messages;
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.prefixes.Prefixes;
+import tars.commons.flags.Flag;
 import tars.commons.util.StringUtil;
 import tars.commons.util.DateTimeUtil;
+import tars.commons.util.ExtractorUtil;
 import tars.logic.commands.AddCommand;
 import tars.logic.commands.ClearCommand;
 import tars.logic.commands.Command;
@@ -17,6 +18,7 @@ import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.MarkCommand;
 import tars.logic.commands.SelectCommand;
+import tars.logic.commands.UndoCommand;
 
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tars.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -81,7 +83,10 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-        
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
 
@@ -103,24 +108,30 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        String name = "";
-        Option priorityOpt = new Option(Prefixes.PRIORITY, true);
-        Option dateTimeOpt = new Option(Prefixes.DATETIME, true);
-        Option tagOpt = new Option(Prefixes.TAG, false);
+        // there is no arguments
+        if (args.trim().length() == 0) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }             
         
-        Option[] options = {
+        String name = "";
+        Flag priorityOpt = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeOpt = new Flag(Flag.DATETIME, false);
+        Flag tagOpt = new Flag(Flag.TAG, true);
+        
+        Flag[] prefixes = {
                 priorityOpt, 
                 dateTimeOpt, 
                 tagOpt
         };
         
-        TreeMap<Integer, Option> flagsPosMap = getFlagPos(args, options);
-        HashMap<Option, String> optionFlagNArgMap = getOptionFlagNArg(args, options, flagsPosMap);
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, prefixes);
+        HashMap<Flag, String> optionFlagNArgMap = ExtractorUtil.getArguments(args, prefixes, flagsPosMap);
         
-        if(flagsPosMap.size() == 0) {
+        if (flagsPosMap.size() == 0) {
             name = args;
         } else if (flagsPosMap.firstKey() == 0) {
-         // name should be the first argument
+            // there are arguments but name should be the first argument
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } else {
@@ -130,92 +141,17 @@ public class Parser {
         try {
             return new AddCommand(
                     name,
-                    DateTimeUtil.getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(Prefixes.DATETIME + " ", "")),
-                    optionFlagNArgMap.get(priorityOpt).replace(Prefixes.PRIORITY + " ", ""),
-                    getTagsFromArgs(optionFlagNArgMap.get(tagOpt)));
+                    DateTimeUtil.getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(Flag.DATETIME + " ", "")),
+                    optionFlagNArgMap.get(priorityOpt).replace(Flag.PRIORITY + " ", ""),
+                    ExtractorUtil.getTagsFromArgs(optionFlagNArgMap.get(tagOpt), tagOpt));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
         }
     }
-
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.equals("")) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments
-                                                                .replaceFirst(Prefixes.TAG + " ", "")
-                                                                .split(" " + Prefixes.TAG + " "));
-        return new HashSet<>(tagStrings);
-    }
     
-    /**
-     * Gets all flag position from arguments string
-     */
-    private static TreeMap<Integer, Option> getFlagPos(String args, Option[] options) {
-        args = args.trim();
-        TreeMap<Integer, Option> flagsPosMap = new TreeMap<Integer, Option>();
-        
-        if (args != null && args.length() > 0 && options.length > 0) {
-            for (int i = 0; i < options.length; i++) {
-                int indexOf = -1;
-                do {
-                    indexOf = args.indexOf(options[i].flag, indexOf + 1);
-                    if (indexOf >= 0) {
-                        flagsPosMap.put(indexOf, options[i]);
-                    }
-                    if (options[i].hasMultiple) {
-                        break;
-                    }
-                } while (indexOf >= 0);
-            }
-        }
-        
-        return flagsPosMap;
-    }
     
-    /**
-     * Extracts the option's flag and arg from arguments string.
-     */
-    private static HashMap<Option, String> getOptionFlagNArg(String args, Option[] options, TreeMap<Integer, Option> flagsPosMap) {
-        args = args.trim();
-        HashMap<Option, String> flagsValueMap = new HashMap<Option, String>();
-        
-        if (args != null && args.length() > 0 && options.length > 0) {
-            // initialize the flagsValueMap
-            for (int i = 0; i < options.length; i++) {
-                flagsValueMap.put(options[i], "");
-            }
-
-            int endPos = args.length();
-            for (Map.Entry<Integer, Option> entry : flagsPosMap.descendingMap().entrySet()) {
-                Option option = entry.getValue();
-                Integer pos = entry.getKey();
-                
-                if(pos == -1) {
-                    continue;
-                }
-
-                String arg = args.substring(pos, endPos);
-                endPos = pos;
-
-                if (flagsValueMap.containsKey(option)) {
-                    flagsValueMap.put(option, flagsValueMap.get(option).concat(" ").concat(arg));
-                } else {
-                    flagsValueMap.put(option, arg);
-                }
-            }
-        }
-
-        return flagsValueMap;
-    }
 
     /**
      * Parses arguments in the context of the edit task command.
@@ -224,7 +160,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
-
         args = args.trim();
         int targetIndex = 0;
         if (args.indexOf(" ") != -1) {
@@ -233,29 +168,33 @@ public class Parser {
 
         Optional<Integer> index = parseIndex(args.substring(0, targetIndex));
 
-        if (!index.isPresent() || !isDataExtractableToEdit(args)) {
+        if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        String[] argsToEdit = parseArgsToEdit(args);
-        return new EditCommand(index.get(), argsToEdit);
-    }
-
-    /**
-     * Checks whether edit data (index, name, dateTime, priority, tag to add,
-     * tag to remove) can be extracted from the argument string. Format is INDEX
-     * -n [name] -dt [dateTime] -p [priority] -ta [tag to add] -tr [tag to
-     * remove], name, dateTime, priority, tag to add and tag to remove positions
-     * can be swapped and are optional.
-     *
-     * @param args full command args string from the user
-     * @return whether format of edit command arguments allows parsing into
-     *         individual arguments
-     */
-    private boolean isDataExtractableToEdit(String args) {
-        final String matchAnyEditDataPrefix = Prefixes.NAME + '|' + Prefixes.DATETIME + '|' + Prefixes.PRIORITY + '|'
-                + Prefixes.ADDTAG + '|' + Prefixes.REMOVETAG;
-        final String[] splitArgs = args.trim().split(matchAnyEditDataPrefix);
-        return splitArgs.length > 1 && !splitArgs[0].isEmpty() && !splitArgs[1].isEmpty();
+        
+        Flag nameOpt = new Flag(Flag.NAME, false);
+        Flag priorityOpt = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeOpt = new Flag(Flag.DATETIME, false);
+        Flag addTagOpt = new Flag(Flag.ADDTAG, true);
+        Flag removeTagOpt = new Flag(Flag.REMOVETAG, true);
+        
+        Flag[] options = {
+                nameOpt,
+                priorityOpt, 
+                dateTimeOpt, 
+                addTagOpt,
+                removeTagOpt
+        };
+        
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, options);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, options, flagsPosMap);
+        
+        if (flagsPosMap.size() == 0) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        return new EditCommand(index.get(), argumentMap);   
     }
 
     /**
@@ -281,32 +220,28 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareMark(String arguments) {
-        int doneIndex = arguments.indexOf(Prefixes.DONE);
-        int undoneIndex = arguments.indexOf(Prefixes.UNDONE);
+    private Command prepareMark(String args) {
+        
+        Flag doOpt = new Flag(Flag.DONE, false);
+        Flag udOpt = new Flag(Flag.UNDONE, false);
                 
-        if (doneIndex == -1 & undoneIndex == -1) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
-        } else {
-            String markDone = "";
-            String markUndone = "";
-            
-            if (doneIndex == -1 & undoneIndex != -1) {
-                // only has tasks to mark as undone
-                markUndone = arguments.substring(undoneIndex).trim();
-            } else if (doneIndex != -1 & undoneIndex == -1) {
-                // only has tasks to mark as done
-                markDone = arguments.substring(doneIndex).trim();
-            } else if (doneIndex < undoneIndex) {
-                // mark as done tasks come before undone 
-                markDone = arguments.substring(doneIndex, undoneIndex).trim();
-                markUndone = arguments.substring(undoneIndex).trim();
-            } else {
-                markUndone = arguments.substring(undoneIndex, doneIndex).trim();
-                markDone = arguments.substring(doneIndex).trim();
-            }
-            return new MarkCommand(markDone, markUndone);
+        Flag[] flags = {
+                doOpt,
+                udOpt, 
+        };
+        
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
+        
+        if (flagsPosMap.size() == 0) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
+        
+        String markDone = argumentMap.get(doOpt).replace(Flag.DONE + " ","");
+        String markUndone = argumentMap.get(udOpt).replace(Flag.UNDONE + " ","");
+        
+        return new MarkCommand(markDone, markUndone);
     }
 
     /**
@@ -361,78 +296,4 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
-    /**
-     * Parses the given arguments string as string array of arguments to edit
-     *
-     * @param args
-     *            arguments string
-     * @return string array of arguments to edit
-     */
-    private String[] parseArgsToEdit(String args) {
-        ArrayList<String> temp = new ArrayList<String>();
-
-        // Find indexes of all the data prefixes
-        ArrayList<Integer> prefixIndexes = new ArrayList<Integer>();
-        int j = 0;
-        while (j + 3 < args.length()) {
-            String s1 = args.substring(j, j + Prefixes.LENGTH_TWO);
-            String s2 = args.substring(j, j + Prefixes.LENGTH_THREE);
-            if (Prefixes.LENGTH_TWO_PREFIXES.contains(s1)) {
-                prefixIndexes.add(j);
-                j += Prefixes.LENGTH_TWO - 1;
-            } else if (Prefixes.LENGTH_THREE_PREFIXES.contains(s2)) {
-                prefixIndexes.add(j);
-                j += Prefixes.LENGTH_THREE - 1;
-            }
-            j += 1;
-        }
-
-        // Add index of task
-        temp.add(args.substring(0, prefixIndexes.get(0)).trim());
-
-        // Add remaining arguments up to second last argument
-        for (int i = 0; i < prefixIndexes.size() - 1; i++) {
-            int start = prefixIndexes.get(i);
-            int stop = prefixIndexes.get(i + 1);
-            String arg = args.substring(start, stop).trim();
-            temp.add(arg);
-        }
-
-        // Add last argument
-        int start = prefixIndexes.get(prefixIndexes.size() - 1);
-        int stop = args.length();
-        String arg = args.substring(start, stop).trim();
-        temp.add(arg);
-
-        String[] editableArgs = new String[temp.size()];
-        for (int i = 0; i < temp.size(); i++) {
-            editableArgs[i] = temp.get(i);
-        }
-
-        return editableArgs;
-    }
-
-}
-
-
-class Option {
-    public String flag;
-    public boolean hasMultiple;
-
-    public Option(String flag, boolean hasMultiple) {
-        this.flag = flag;
-        this.hasMultiple = hasMultiple;
-    }
-    
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Option // instanceof handles nulls
-                && this.flag.equals(((Option) other).flag)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return flag.hashCode();
-    }
 }

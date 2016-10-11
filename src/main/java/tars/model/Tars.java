@@ -9,9 +9,11 @@ import tars.model.task.ReadOnlyTask;
 import tars.model.task.Status;
 import tars.model.task.UniqueTaskList;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.prefixes.Prefixes;
+import tars.commons.flags.Flag;
 import tars.commons.util.DateTimeUtil;
+import tars.commons.util.ExtractorUtil;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
@@ -67,8 +69,16 @@ public class Tars implements ReadOnlyTars {
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
-
-    public void replaceTask(ReadOnlyTask toReplace, Task replacement) {
+    /**
+     * Replaces task in tars internal list
+     * @param toReplace
+     * @param replacement
+     */
+            
+    public void replaceTask(ReadOnlyTask toReplace, Task replacement) throws DuplicateTaskException {
+        if (toReplace.isSameStateAs(replacement)) {
+            throw new DuplicateTaskException();
+        }
         ObservableList<Task> list = this.tasks.getInternalList();
         int toReplaceIndex = -1;
         for (int i = 0; i < list.size(); i++) {
@@ -78,7 +88,7 @@ public class Tars implements ReadOnlyTars {
             }
         }
         list.set(toReplaceIndex, replacement);
-    }
+}
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
@@ -102,7 +112,7 @@ public class Tars implements ReadOnlyTars {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task p) throws DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
@@ -115,49 +125,64 @@ public class Tars implements ReadOnlyTars {
      * @throws TagNotFoundException if no such tag could be found.
      * @throws IllegalValueException if argument(s) in argsToEdit is/are invalid.
      */
-    public Task editTask(ReadOnlyTask toEdit, int targetIndex, String[] argsToEdit) throws TaskNotFoundException, DateTimeException, 
+    public Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit) throws TaskNotFoundException, DateTimeException, 
     DuplicateTagException, TagNotFoundException, IllegalValueException {
         if (!tasks.getInternalList().contains(toEdit)) {
             throw new TaskNotFoundException();
         }
-
+        
+        Flag nameOpt = new Flag(Flag.NAME, false);
+        Flag priorityOpt = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeOpt = new Flag(Flag.DATETIME, false);
+        Flag addTagOpt = new Flag(Flag.ADDTAG, true);
+        Flag removeTagOpt = new Flag(Flag.REMOVETAG, true);
+        
         Task taskToEdit = new Task(toEdit);
-        for (int i = 1; i < argsToEdit.length; i++) {
-            String inputData = argsToEdit[i];
-            int separatorIndex = inputData.indexOf(" ");
-            String dataPrefix = inputData.substring(0, separatorIndex);
-            String data = inputData.substring(separatorIndex+1);
-
-            switch (dataPrefix) {
-            case Prefixes.NAME:
-                Name editedName = new Name(data);
-                taskToEdit.setName(editedName);
-                break;
-            case Prefixes.PRIORITY:
-                Priority editedPriority = new Priority(data);
-                taskToEdit.setPriority(editedPriority);
-                break;
-            case Prefixes.DATETIME:
-                String[] dateTimeArray = DateTimeUtil.getDateTimeFromArgs(data);
-                DateTime editedDateTime = new DateTime(
-                        dateTimeArray[DATETIME_INDEX_OF_STARTDATE],
-                        dateTimeArray[DATETIME_INDEX_OF_ENDDATE]);
-                taskToEdit.setDateTime(editedDateTime);
-                break;
-            case Prefixes.ADDTAG:
-                Tag toAdd = new Tag(data);
-                UniqueTagList replacement = taskToEdit.getTags();
-                replacement.add(toAdd);
-                taskToEdit.setTags(replacement);
-                break;
-            case Prefixes.REMOVETAG:
-                Tag toRemove = new Tag(data);
-                UniqueTagList modified = taskToEdit.getTags();
-                modified.remove(toRemove);
-                taskToEdit.setTags(modified);
-                break;
-            }
+        
+        // Edit Name
+        String nameData = argsToEdit.get(nameOpt).replace(Flag.NAME + " ", "");
+        if (nameData != "") {
+            Name editedName = new Name(nameData);
+            taskToEdit.setName(editedName);
         }
+        
+        // Edit Priority
+        String priorityData = argsToEdit.get(priorityOpt).replace(Flag.PRIORITY + " ", "");
+        if (priorityData != "") {
+            Priority editedPriority = new Priority(priorityData);
+            taskToEdit.setPriority(editedPriority);
+        }
+        
+        // Edit DateTime
+        String dateTimeData = argsToEdit.get(dateTimeOpt).replace(Flag.DATETIME + " ", "");
+        if (dateTimeData != "") {
+            String[] dateTimeArray = DateTimeUtil.getDateTimeFromArgs(dateTimeData);
+            DateTime editedDateTime = new DateTime(
+                    dateTimeArray[DATETIME_INDEX_OF_STARTDATE],
+                    dateTimeArray[DATETIME_INDEX_OF_ENDDATE]);
+            taskToEdit.setDateTime(editedDateTime);
+        }
+        
+        // Add Tags
+        String tagsToAddData = argsToEdit.get(addTagOpt);
+        Set<String> tagsToAdd = ExtractorUtil.getTagsFromArgs(tagsToAddData, addTagOpt);
+        for (String t : tagsToAdd) {
+            Tag toAdd = new Tag(t);
+            UniqueTagList replacement = taskToEdit.getTags();
+            replacement.add(toAdd);
+            taskToEdit.setTags(replacement);
+        }
+        
+        // Remove Tags
+        String tagsToRemoveData = argsToEdit.get(removeTagOpt);
+        Set<String> tagsToRemove = ExtractorUtil.getTagsFromArgs(tagsToRemoveData, removeTagOpt);
+        for (String t : tagsToRemove) {
+            Tag toRemove = new Tag(t);
+            UniqueTagList replacement = taskToEdit.getTags();
+            replacement.remove(toRemove);
+            taskToEdit.setTags(replacement);
+        }
+        
         replaceTask(toEdit, taskToEdit);
         syncTagsWithMasterList(taskToEdit);
         return taskToEdit;
@@ -167,21 +192,28 @@ public class Tars implements ReadOnlyTars {
      * Marks every task in respective lists as done or undone
      * @param toMarkList
      * @param status to indicate mark as done or undone
+     * @throws DuplicateTaskException 
      */
-    public void mark(ArrayList<ReadOnlyTask> toMarkList, String status) {
-        if (status.equals(Prefixes.DONE)) {
+    public void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
+        if (status.equals(Flag.DONE)) {
             Status done = new Status(true);
             for (ReadOnlyTask t : toMarkList) {
-                Task toMark = new Task(t);
-                toMark.setStatus(done);
-                replaceTask(t, toMark);
+                if (!t.getStatus().equals(done)) { 
+                    // prevent marking tasks as done when it is done
+                    Task toMark = new Task(t);
+                    toMark.setStatus(done);
+                    replaceTask(t, toMark);
+                } 
             }
-        } else if (status.equals(Prefixes.UNDONE)) {
+        } else if (status.equals(Flag.UNDONE)) {
             Status undone = new Status(false);
             for (ReadOnlyTask t : toMarkList) {
-                Task toMark = new Task(t);
-                toMark.setStatus(undone);
-                replaceTask(t, toMark);
+                if (!t.getStatus().equals(undone)) {
+                    // prevent marking tasks as undone when it is undone
+                    Task toMark = new Task(t);
+                    toMark.setStatus(undone);
+                    replaceTask(t, toMark);
+                } 
             }
         }
     }

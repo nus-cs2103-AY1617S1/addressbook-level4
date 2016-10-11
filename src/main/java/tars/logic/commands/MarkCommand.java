@@ -2,7 +2,8 @@ package tars.logic.commands;
 
 import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
-import tars.commons.prefixes.Prefixes;
+import tars.commons.exceptions.DuplicateTaskException;
+import tars.commons.flags.Flag;
 import tars.model.task.*;
 import java.util.ArrayList;
 
@@ -29,8 +30,8 @@ public class MarkCommand extends Command {
      * Convenience constructor using raw values.
      */
     public MarkCommand(String markDone, String markUndone) {
-        this.markDone = markDone.replace(Prefixes.DONE, " ").trim();
-        this.markUndone = markUndone.replace(Prefixes.UNDONE, " ").trim();
+        this.markDone = markDone.replace(Flag.DONE, " ").trim();
+        this.markUndone = markUndone.replace(Flag.UNDONE, " ").trim();
     }
 
 
@@ -41,17 +42,21 @@ public class MarkCommand extends Command {
             if (!this.markDone.equals("")) {
                 try {
                     ArrayList<ReadOnlyTask> markDoneTasks = getTasksFromIndexes(this.markDone.split(" "));
-                    model.mark(markDoneTasks, Prefixes.DONE);
+                    model.mark(markDoneTasks, Flag.DONE);
                 } catch (InvalidTaskDisplayedException e) {
                     return new CommandResult(e.getMessage());
+                } catch (DuplicateTaskException dte) {
+                    return new CommandResult(dte.getMessage());
                 }
             } 
             if (!this.markUndone.equals("")) {
                 try {
                     ArrayList<ReadOnlyTask> markUndoneTasks = getTasksFromIndexes(this.markUndone.split(" "));
-                    model.mark(markUndoneTasks, Prefixes.UNDONE);
+                    model.mark(markUndoneTasks, Flag.UNDONE);
                 } catch (InvalidTaskDisplayedException e) {
                     return new CommandResult(e.getMessage());
+                } catch (DuplicateTaskException dte) {
+                    return new CommandResult(dte.getMessage());
                 }
             }
             return new CommandResult(MESSAGE_MARK_SUCCESS);

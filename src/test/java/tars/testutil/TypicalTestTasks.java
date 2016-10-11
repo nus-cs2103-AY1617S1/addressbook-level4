@@ -1,5 +1,6 @@
 package tars.testutil;
 
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.Tars;
 import tars.model.task.*;
@@ -44,7 +45,7 @@ public class TypicalTestTasks {
             ab.addTask(new Task(taskE));
             ab.addTask(new Task(taskF));
             ab.addTask(new Task(taskG));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
