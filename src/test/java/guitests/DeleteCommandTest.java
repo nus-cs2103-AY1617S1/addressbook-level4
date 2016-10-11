@@ -1,11 +1,12 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TestUtil;
+
+import seedu.manager.testutil.TestActivity;
+import seedu.manager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS;
+import static seedu.manager.logic.commands.DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS;
 
 public class DeleteCommandTest extends ActivityManagerGuiTest {
 

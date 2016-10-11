@@ -2,10 +2,11 @@ package guitests;
 
 import guitests.guihandles.ActivityCardHandle;
 import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TestUtil;
+
+import seedu.manager.commons.core.Messages;
+import seedu.manager.logic.commands.AddCommand;
+import seedu.manager.testutil.TestActivity;
+import seedu.manager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 

@@ -1,7 +1,8 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.model.activity.ReadOnlyActivity;
+
+import seedu.manager.model.activity.ReadOnlyActivity;
 
 import static org.junit.Assert.assertEquals;
 
