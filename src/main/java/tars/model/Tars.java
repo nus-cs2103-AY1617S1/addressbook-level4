@@ -69,12 +69,13 @@ public class Tars implements ReadOnlyTars {
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
+    
     /**
      * Replaces task in tars internal list
-     * @param toReplace
-     * @param replacement
+     *
+     * @@author A0121533W
+     * @throws DuplicateTaskException if replacement task is the same as the task to replace
      */
-
     public void replaceTask(ReadOnlyTask toReplace, Task replacement) throws DuplicateTaskException {
         if (toReplace.isSameStateAs(replacement)) {
             throw new DuplicateTaskException();
@@ -120,7 +121,7 @@ public class Tars implements ReadOnlyTars {
     /**
      * Edits a task in tars
      * 
-     * @@author Joel Foo
+     * @@author A0121533W
      * @throws UniqueTaskList.TaskNotFoundException if task to edit could not be found.
      * @throws DateTimeException if problem encountered while parsing dateTime.
      * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
@@ -193,9 +194,7 @@ public class Tars implements ReadOnlyTars {
     /**
      * Marks every task in respective lists as done or undone
      * 
-     * @@author Joel Foo
-     * @param toMarkList
-     * @param status to indicate mark as done or undone
+     * @@author A0121533W
      * @throws DuplicateTaskException 
      */
     public void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {

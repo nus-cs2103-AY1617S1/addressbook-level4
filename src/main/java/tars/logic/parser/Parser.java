@@ -165,7 +165,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the edit task command.
      * 
-     * @@author Joel Foo
+     * @@author A0121533W
      * @param args full command args string
      * @return the prepared command
      */
@@ -226,7 +226,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the mark task command.
      *
-     * @@author Joel Foo
+     * @@author A0121533W
      * @param args full command args string
      * @return the prepared command
      */
