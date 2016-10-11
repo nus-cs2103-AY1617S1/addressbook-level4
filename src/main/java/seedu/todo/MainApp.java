@@ -46,15 +46,16 @@ public class MainApp extends Application {
         // Initialize events center
         initEventsCenter();
 
-        // Initialize UI
-        ui = new UiManager(config);
+        // Initialize UI config
+        UiManager.initialize(config);
+        ui = UiManager.getInstance();
     }
 
     @Override
     public void start(Stage primaryStage) {
-        ui.start(primaryStage);    	
+        ui.start(primaryStage);
 
-        IndexView view = ui.loadView(IndexView.class);
+        IndexView view = UiManager.loadView(IndexView.class);
         view.indexTextValue = "Hi there!";
         view.render();
     }
@@ -103,7 +104,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
-                    "Using default config properties");
+                           "Using default config properties");
             initializedConfig = new Config();
         }
 
