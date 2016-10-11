@@ -1,5 +1,8 @@
 package seedu.jimi.model.task;
 
+import java.util.Objects;
+
+import seedu.jimi.commons.util.CollectionUtil;
 import seedu.jimi.model.tag.UniqueTagList;
 
 public class Task implements ReadOnlyTask {
