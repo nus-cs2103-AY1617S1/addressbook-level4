@@ -20,9 +20,9 @@ public class UniqueItemList implements Iterable<Item> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicatePersonException extends DuplicateDataException {
-        protected DuplicatePersonException() {
-            super("Operation would result in duplicate persons");
+    public static class DuplicateItemException extends DuplicateDataException {
+        protected DuplicateItemException() {
+            super("Operation would result in duplicate tasks");
         }
     }
 
@@ -30,19 +30,19 @@ public class UniqueItemList implements Iterable<Item> {
      * Signals that an operation targeting a specified person in the list would fail because
      * there is no such matching person in the list.
      */
-    public static class PersonNotFoundException extends Exception {}
+    public static class ItemNotFoundException extends Exception {}
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Item> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
      */
-    public UniquePersonList() {}
+    public UniqueItemList() {}
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ReadOnlyPerson toCheck) {
+    public boolean contains(ReadOnlyItem toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -52,10 +52,10 @@ public class UniqueItemList implements Iterable<Item> {
      *
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(Person toAdd) throws DuplicatePersonException {
+    public void add(Item toAdd) throws DuplicateItemException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateItemException();
         }
         internalList.add(toAdd);
     }
@@ -65,30 +65,30 @@ public class UniqueItemList implements Iterable<Item> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public boolean remove(ReadOnlyItem toRemove) throws ItemNotFoundException {
         assert toRemove != null;
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
-            throw new PersonNotFoundException();
+        final boolean itemFoundAndDeleted = internalList.remove(toRemove);
+        if (!itemFoundAndDeleted) {
+            throw new ItemNotFoundException();
         }
-        return personFoundAndDeleted;
+        return itemFoundAndDeleted;
     }
 
-    public ObservableList<Person> getInternalList() {
+    public ObservableList<Item> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Item> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
+                || (other instanceof UniqueItemList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniquePersonList) other).internalList));
+                ((UniqueItemList) other).internalList));
     }
 
     @Override
