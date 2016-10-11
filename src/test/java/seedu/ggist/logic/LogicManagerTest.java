@@ -45,13 +45,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyTaskManager latestSavedAddressBook;
+    private ReadOnlyTaskManager latestSavedTaskManager;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
-        latestSavedAddressBook = new TaskManager(abce.data);
+        latestSavedTaskManager = new TaskManager(abce.data);
     }
 
     @Subscribe
@@ -67,12 +67,12 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempTaskManagerFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new TaskManager(model.getTaskManager()); // last saved assumed to be up to taskDate before.
+        latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -118,7 +118,7 @@ public class LogicManagerTest {
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskManager, model.getTaskManager());
-        assertEquals(expectedTaskManager, latestSavedAddressBook);
+        assertEquals(expectedTaskManager, latestSavedTaskManager);
     }
 
 
@@ -154,27 +154,17 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
+                "add", expectedMessage);
         assertCommandBehavior(
-                "add Valid TaskName 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid TaskName, oct 12", expectedMessage);
         assertCommandBehavior(
-                "add Valid TaskName p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid TaskName p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid TaskName, 12 oct, 0000-1234, abcd", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-<<<<<<< HEAD
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", TaskName.MESSAGE_NAME_CONSTRAINTS);
-=======
-<<<<<<< HEAD:src/test/java/seedu/address/logic/LogicManagerTest.java
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", TaskName.MESSAGE_NAME_CONSTRAINTS);
-=======
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", TaskName.MESSAGE_TaskName_CONSTRAINTS);
->>>>>>> 98294e894113134b92ff545cbd3732461dc69f44:src/test/java/seedu/ggist/logic/LogicManagerTest.java
->>>>>>> 763be30ccf9478d1195ab5c728d321afac22a5d6
+                "add []\\[;], 12 oct, 0000-2359", TaskName.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid TaskName p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
@@ -214,11 +204,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-<<<<<<< HEAD:src/test/java/seedu/address/logic/LogicManagerTest.java
-                AddCommand.MESSAGE_DUPLICATE_Task,
-=======
                 AddCommand.MESSAGE_DUPLICATE_TASK,
->>>>>>> 98294e894113134b92ff545cbd3732461dc69f44:src/test/java/seedu/ggist/logic/LogicManagerTest.java
                 expectedAB,
                 expectedAB.getTaskList());
 

@@ -28,16 +28,15 @@ public class Parser {
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.*)"
-                    + "(?<tagArguments>(?: [^,]+)*)"); // variable number of tags;
+            Pattern.compile("(?<taskName>[^,]+)(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.*)\\s*,\\s*(?<taskDate>.*)\\s*,\\s*(?<time>\\d{4})\\s*,*\\s*(?<tagArguments>(?:[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<time>\\d{4})\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.*)\\s*,\\s*(?<taskDate>.*)\\s*,\\s*(?<startTime>\\d{4})\\s*-\\s*(?<endTime>\\d{4})\\s*,*\\s*(?<tagArguments>(?:[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<startTime>\\d{4})\\s*-\\s*(?<endTime>\\d{4})\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
    
     public Parser() {}
 
@@ -80,6 +79,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -111,7 +113,6 @@ public class Parser {
                      );
                 }
             } else if (taskType.equals("deadlineTask")) {
-                System.out.println("deadline printed");
                 matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
                     return new AddCommand(
@@ -122,7 +123,6 @@ public class Parser {
                      );
                 }
             } else if (taskType.equals("floatingTask")) {
-                System.out.println("floating");
                 matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
                     return new AddCommand(

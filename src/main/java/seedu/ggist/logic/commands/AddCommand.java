@@ -16,10 +16,10 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task"
-            + "Parameters: TASK...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task\n"
+            + "Parameters: TASK, [DATE], [TIME]\n"
             + "Example: " + COMMAND_WORD
-            + "buy milk";
+            + " go run, 12 oct, 1200-1230";
     
     public static final String MESSAGE_SUCCESS = "New %1$s task added: %2$s";
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";
@@ -101,13 +101,21 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute() {
+       
         assert model != null;
         try {
-            model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType.toString(), toAdd));
+            model.addTask(toAdd); 
+            listOfCommands.push(COMMAND_WORD);
+            listOfTasks.push(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
+    }
+    
+    @Override
+    public  String toString(){
+        return COMMAND_WORD;
     }
 
 }
