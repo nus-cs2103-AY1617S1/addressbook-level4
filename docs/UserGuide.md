@@ -290,7 +290,7 @@ Format: `relocate PATH`
 Suggested command keywords, dates, sorting order, and tags are shown as you type.
 Use the `tab` key to autocomplete using the suggestion.
 
-> <img src="images/Ui-Autocomplete.png" width="600">
+> <img src="images/Ui-Autocomplete.png" width="200">
 
 #### Saving the Data
 Changes are automatically saved after each command that changes the data.
