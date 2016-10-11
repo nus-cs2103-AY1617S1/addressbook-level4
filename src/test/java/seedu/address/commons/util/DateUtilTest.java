@@ -1,7 +1,9 @@
 package seedu.address.commons.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -23,7 +25,7 @@ public class DateUtilTest {
 		DateUtil.getDate("31Oct2016");
 		assertTrue(DateUtil.isValidDateFormat("Oct 31"));
 		assertTrue(DateUtil.isValidDateFormat("OcT 31")); // Case insensitivity
-		assertTrue(DateUtil.isValidDateFormat("Oct31")); // Spaces can be removed
+		assertTrue(DateUtil.isValidDateFormat("Oct31")); // Spaces can be removed for <day> <month> formats
 		assertTrue(DateUtil.isValidDateFormat("31 Oct"));
 		assertTrue(DateUtil.isValidDateFormat("31Oct"));
 		assertTrue(DateUtil.isValidDateFormat("October 31"));
@@ -31,20 +33,19 @@ public class DateUtilTest {
 		assertTrue(DateUtil.isValidDateFormat("October31"));
 		assertTrue(DateUtil.isValidDateFormat("31 October"));
 		assertTrue(DateUtil.isValidDateFormat("31October"));
-		assertTrue(DateUtil.isValidDateFormat("31 Oct 2016")); // Year can be included but with no ambiguity
-		assertTrue(DateUtil.isValidDateFormat("31Oct2016"));
-		assertTrue(DateUtil.isValidDateFormat("2016 October 31"));
-		assertTrue(DateUtil.isValidDateFormat("2016October31"));
+		assertTrue(DateUtil.isValidDateFormat("31 Oct 2016")); // Year can be included but only at the back
+		assertTrue(DateUtil.isValidDateFormat("31Oct2016")); // Spaces can be removed for <day> <month> <year> formats but not <month> <day> <year> formats
+		assertTrue(DateUtil.isValidDateFormat("Oct 31 2016")); // Year can be included but only at the back
 	}
 	
 	@Test
 	public void isValidDateFormat_invalidFormats() {
-		// Many variations of an invalid date format
-		assertFalse(DateUtil.isValidDateFormat("Oct 31 2016")); // Either <day> <month> <year> or <year> <month> <day>
-		assertFalse(DateUtil.isValidDateFormat("Oct 2016 31")); 
-		assertFalse(DateUtil.isValidDateFormat("31 Octo 2016")); // Spelling mistake for Oct
+		// Many variations of an invalid date format	
+		assertTrue(DateUtil.isValidDateFormat("2016 October 31")); // Year cannot be placed at the front
+		assertTrue(DateUtil.isValidDateFormat("2016October31"));
+		assertFalse(DateUtil.isValidDateFormat("Oct 2016 31")); // Year cannot be placed at the centre
 		assertFalse(DateUtil.isValidDateFormat("32 Oct 2016")); // October has 31 days
-		assertFalse(DateUtil.isValidDateFormat("31 Oct 16")); 	// Ambiguous day vs year
+		assertFalse(DateUtil.isValidDateFormat("Oct 32 2016")); // October has 31 days
 		assertFalse(DateUtil.isValidDateFormat("Oct 2016")); // No day included
 	}
 	
@@ -57,8 +58,6 @@ public class DateUtilTest {
 		assertTrue(DateUtil.isValidStartDateToEndDateFormat("Oct 31 - 1 Nov"));
 		assertTrue(DateUtil.isValidStartDateToEndDateFormat("Oct 31 to 1 Nov")); // Can use either "to" or "-"
 		assertTrue(DateUtil.isValidStartDateToEndDateFormat("Oct 31 - November 1")); // Flexibility between date formats
-		assertTrue(DateUtil.isValidStartDateToEndDateFormat("Oct 31 - 2016 November 1"));
-		assertTrue(DateUtil.isValidStartDateToEndDateFormat("Oct 31 - 2017 November 1")); // Can support an end date on another year
 		assertTrue(DateUtil.isValidStartDateToEndDateFormat("Oct31-1Nov")); // Spaces can be removed
 		assertTrue(DateUtil.isValidStartDateToEndDateFormat("Oct31to1Nov"));
 		assertTrue(DateUtil.isValidStartDateToEndDateFormat("October 31 to 1 November"));
@@ -73,12 +72,12 @@ public class DateUtilTest {
 		assertFalse(DateUtil.isValidStartDateToEndDateFormat("Octo 31 - 1 Nov")); // Spelling errors
 		assertFalse(DateUtil.isValidStartDateToEndDateFormat("Oct 31 - 1 Nov 2015")); // End date cannot be earlier than start date
 		assertFalse(DateUtil.isValidStartDateToEndDateFormat("Oct 32 - 2 Nov")); // No 32nd October
-		assertFalse(DateUtil.isValidStartDateToEndDateFormat("Oct 31 -- 1 Nov")); // Only 1 "-" allowed
-		assertFalse(DateUtil.isValidStartDateToEndDateFormat("Oct 31 too 1 Nov")); // Misspelling of "to"
+		assertFalse(DateUtil.isValidStartDateToEndDateFormat("Oct 31 -- 1 Nov")); // Only 1 "-" allowed		assertTrue(DateUtil.isValidStartDateToEndDateFormat("Oct 31 - 2016 Nov 1")); // Invalid end date
+		assertFalse(DateUtil.isValidStartDateToEndDateFormat("Oct 31 - Nov 2016 10")); // Invalid end date
 	}
 	
 	/**
-	 * Testing retrieval of dates from strings
+	 * Testing getDate
 	 */
 	@Test
 	public void getDate_validFormats() {
@@ -93,23 +92,61 @@ public class DateUtilTest {
 		assertEquals(dateFormat.format(DateUtil.getDate("October31")), expected);
 		assertEquals(dateFormat.format(DateUtil.getDate("31 October")), expected);
 		assertEquals(dateFormat.format(DateUtil.getDate("31October")), expected);
-		assertEquals(dateFormat.format(DateUtil.getDate("31 Oct 2016")), expected); // Year can be included but with no ambiguity
+		assertEquals(dateFormat.format(DateUtil.getDate("31 Oct 2016")), expected); // Year can be included but only at the back
 		assertEquals(dateFormat.format(DateUtil.getDate("31Oct2016")), expected);
-		assertEquals(dateFormat.format(DateUtil.getDate("2016 October 31")), expected);
-		assertEquals(dateFormat.format(DateUtil.getDate("2016October31")), expected);
+		assertEquals(dateFormat.format(DateUtil.getDate("October 31 2016")), expected); // Year can be included but only at the back
+		assertEquals(dateFormat.format(DateUtil.getDate("Oct 31 2016")), expected);
 	}
 	
 	@Test
 	public void getDate_invalidFormats() {
 		// Null returned as a result of invalid dates
-		assertTrue(DateUtil.getDate("Oct 31 2016") == null); // Either <day> <month> <year> or <year> <month> <day>
-		assertTrue(DateUtil.getDate("Oct 2016 31") == null);
-		assertTrue(DateUtil.getDate("31 Octo 2016") == null); // Spelling mistake for Oct
+		assertTrue(DateUtil.getDate("31 Octob 2016") == null); // Spelling mistake for Oct
 		assertTrue(DateUtil.getDate("32 Oct 2016") == null); // October has 31 days
-		assertTrue(DateUtil.getDate("31 Oct 16") == null); // Ambiguous day vs year
+		assertTrue(DateUtil.getDate("Oct 2016 31") == null); // Year can only be included at the back
 		assertTrue(DateUtil.getDate("Oct 2016") == null);  // No day included
+		assertTrue(DateUtil.getDate("2016") == null); // No month and date included
+		assertTrue(DateUtil.getDate("October") == null); // No date included
+		assertTrue(DateUtil.getDate("31") == null); // No month included
 	}
 	
+	/**
+	 * Testing validateDateIsSensible
+	 */	
+	@Test
+	public void validateDateIsSensible_sensibleAndReturnsDate() {
+		// Simulating the conditions where Natty returns 1 October 2016
+		Date date = new GregorianCalendar(2016, Calendar.OCTOBER, 1).getTime();
+		String dateString = "1 Oct";
+		assertEquals(date, DateUtil.validateDateIsSensible(date, dateString));
+
+		dateString = "Oct 1";
+		assertEquals(date, DateUtil.validateDateIsSensible(date, dateString));
+		
+		dateString = "1 October 2016";
+		assertEquals(date, DateUtil.validateDateIsSensible(date, dateString));
+		
+		dateString = "October 1 2016";
+		assertEquals(date, DateUtil.validateDateIsSensible(date, dateString));
+	}
+	
+	@Test
+	public void validateDateIsSensible_insensibleAndReturnsNull() {
+		// Simulating the conditions where Natty returns 1 October 2016
+		Date date = new GregorianCalendar(2016, Calendar.OCTOBER, 1).getTime();
+		String dateString = "32 Oct";
+		assertTrue(DateUtil.validateDateIsSensible(date, dateString) == null);
+		
+		dateString = "October hello world";
+		assertTrue(DateUtil.validateDateIsSensible(date, dateString) == null);
+		
+		dateString = "Random october november";
+		assertTrue(DateUtil.validateDateIsSensible(date, dateString) == null);
+	}
+	
+	/**
+	 * Testing getStartAndEndDates
+	 */	
 	@Test
 	public void getStartAndEndDates_validFormats() {
 		String expected1 = "31.10.2016";
@@ -126,11 +163,11 @@ public class DateUtilTest {
 		assertEquals(dateFormat.format(actual[0]), expected1);
 		assertEquals(dateFormat.format(actual[1]), expected2);
 		
-		actual = DateUtil.getStartAndEndDates("Oct 31 - 2016 November 1");
+		actual = DateUtil.getStartAndEndDates("Oct 31 - 1 November 2016");
 		assertEquals(dateFormat.format(actual[0]), expected1);
 		assertEquals(dateFormat.format(actual[1]), expected2);
 		
-		actual = DateUtil.getStartAndEndDates("Oct 31 - 2017 November 1"); // Can support an end date on another year
+		actual = DateUtil.getStartAndEndDates("Oct 31 - November 1 2016");
 		assertEquals(dateFormat.format(actual[0]), expected1);
 		assertEquals(dateFormat.format(actual[1]), expected2);
 		
@@ -157,13 +194,7 @@ public class DateUtilTest {
 	
 	@Test
 	public void getStartAndEndDates_invalidFormats() {
-		Date[] actual = DateUtil.getStartAndEndDates("Oct 31 - Oct 30"); // End date cannot be earlier than start date");
-		assertTrue(actual == null);
-		
-		actual = DateUtil.getStartAndEndDates("Octo 31 - 1 Nov"); // Spelling errors
-		assertTrue(actual == null);
-		
-		actual = DateUtil.getStartAndEndDates("Oct 31 - 1 Nov 2015"); // End date cannot be earlier than start date
+		Date[] actual = DateUtil.getStartAndEndDates("Octo 31 - 1 Nov"); // Spelling errors
 		assertTrue(actual == null);
 		
 		actual = DateUtil.getStartAndEndDates("Oct 32 - 2 Nov"); // No 32nd October
@@ -171,15 +202,5 @@ public class DateUtilTest {
 		
 		actual = DateUtil.getStartAndEndDates("Oct 31 -- 1 Nov"); // Only 1 "-" allowed
 		assertTrue(actual == null);
-		
-		actual = DateUtil.getStartAndEndDates("Oct 31 too 1 Nov"); // Misspelling of "to"
-		assertTrue(actual == null);
-	}
-	
-	/**
-	 * Utility Functions
-	 */
-	public void assertDatesEqual(Date[] actual, Date[] expected) {
-		
 	}
 }

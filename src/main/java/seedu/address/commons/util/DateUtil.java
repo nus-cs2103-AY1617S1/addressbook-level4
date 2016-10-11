@@ -1,8 +1,11 @@
 package seedu.address.commons.util;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.antlr.runtime.tree.Tree;
 
 import com.joestelmach.natty.*;
 
@@ -15,7 +18,7 @@ public class DateUtil {
      * 
      * The following examples are all valid and similar dates: 
      * "Oct 31". "31 Oct".
-     * "31 Oct 2016". "2016 Oct 31".
+     * "31 Oct 2016". "Oct 31 2016".
      */
     public static boolean isValidDateFormat(String dateString) {
     	Date date = getDate(dateString);
@@ -44,30 +47,65 @@ public class DateUtil {
     }
 
     /**
-     * Retrieve the date from a string that represents some date.
+     * Retrieve the date from a string that represents some date using Natty library.
      */
     public static Date getDate(String dateString) {
     	// Add spaces between numbers and words in order for Natty to process it correctly
-    	dateString = StringUtil.addSpacesBetweenNumbersAndWords(dateString).trim();
+    	dateString = StringUtil.addSpacesBetweenNumbersAndWords(dateString).trim().toLowerCase();
+    	String[] tokens = dateString.split(" ");
+    	
+    	// There should not be more than 3 tokens since there is only <day> <month> <year>
+    	if (tokens.length > 3) {
+    		return null;
+    	}
     	
     	// Using the Natty library to parse the dateString
     	Parser parser = new Parser();
     	List<DateGroup> groups = parser.parse(dateString);
 
-
-    	// String is valid date format only if there is only 1 date value within
+    	// String is valid date format only if there is only 1 DateGroup within
     	if (groups.size() != 1) {
     		return null;
     	}
     	DateGroup firstDateGroup = groups.get(0);
+    	
+    	// Date should be provided by user and not inferred.
+    	if (firstDateGroup.isDateInferred()) {
+    		return null;
+    	}
+    	
     	List<Date> dates = firstDateGroup.getDates();
 
     	// String is valid date format only if there is only 1 date value within
     	if (dates.size() != 1) {
     		return null;
     	}
-    	return dates.get(0);
+    	return validateDateIsSensible(dates.get(0), dateString);
 	}
+    
+    /**
+     * After receiving a Date from Natty, do a sanity check to ensure that the Date given by Natty is sensible
+     * and not overly flexible by taking the <day> value of the Date and making sure that it exists within the
+     * tokens of a date string.
+     * 
+     * If the date is sensible, return the original date.
+     * Else, return null.
+     * 
+     * Caution: This is just a heuristic to check if Natty processed properly
+     */
+    public static Date validateDateIsSensible(Date date, String dateString) {
+    	String[] tokens = dateString.split(" ");
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
+		
+    	for (String token : tokens) {
+    		if (token.equals(day)) {
+    			return date;
+    		}
+    	}
+    	return null;
+    }
     
     /**
      * Retrieve the start date and end date from a string that says "from (start date) to/- (end date)".
@@ -75,7 +113,7 @@ public class DateUtil {
      */
 	public static Date[] getStartAndEndDates(String dateString) {
 		Date[] dates = new Date[2];
-    	String[] splitByTo = dateString.split("to");
+    	String[] splitByTo = dateString.split("(?![c])to(?![b])"); // Make sure "to" is not part of October
     	String[] splitByDash = dateString.split("-");
     	
     	// After splitting by "to" or "-", the String array must be of length 2 (hold start date and end date)
