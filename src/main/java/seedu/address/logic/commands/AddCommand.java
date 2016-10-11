@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds an item to the address book.
+ * Adds an item to the task manager.
  */
 public class AddCommand extends Command {
 
@@ -19,13 +19,16 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task, deadline or event to the task manager. \n"
             + "Task Parameters: " + ItemType.TASK_WORD + " n/NAME \n"
-            + "Deadline Parameters: " + ItemType.DEADLINE_WORD + " n/NAME ed/[DATE] et/[TIME] \n"
-            + "Event Parameters: " + ItemType.EVENT_WORD + " n/NAME sd/[DATE] st/[TIME] ed/[DATE] et/[TIME] \n"
+            + "Deadline Parameters: " + ItemType.DEADLINE_WORD + " n/NAME ed/DATE et/TIME \n"
+            + "Event Parameters: " + ItemType.EVENT_WORD + " n/NAME sd/DATE st/TIME ed/DATE et/TIME \n"
             + "Example (Task): " + COMMAND_WORD +  " " + ItemType.TASK_WORD 
-            + " Win Facebook hackathon";
+            + " n/Win Facebook hackathon" + "\n"
+            + "Example (Deadline): " + COMMAND_WORD +  " " + ItemType.DEADLINE_WORD 
+            + " n/Cheat death ed/2000-12-13 et/12:34" + "\n"
+            + "Example (Event): " + COMMAND_WORD +  " " + ItemType.EVENT_WORD
+            + " n/Win at Life sd/1900-01-01 st/00:07 ed/2300-01-01 et/12:34";
 
-    public static final String MESSAGE_SUCCESS = "New item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "Added %1$s";
 
     private final Item toAdd;
 
@@ -36,7 +39,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String itemType, String name, Set<String> tags)
             throws IllegalValueException {
-        this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, Date.EMPTY_DATE, Time.EMPTY_TIME, tags);
+    	this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, Date.EMPTY_DATE, Time.EMPTY_TIME, tags);
     }
     
     /**
@@ -56,12 +59,14 @@ public class AddCommand extends Command {
      */
     public AddCommand(String itemType, String name, String startDate, String startTime, String endDate, String endTime, Set<String> tags)
             throws IllegalValueException {
-        if (endDate == null) {
-            endDate = Date.EMPTY_DATE;
-        }
-        if (endTime == null) {
-            endTime = Time.EMPTY_TIME;
-        }
+        assert itemType != null;
+        assert name != null;
+        assert startDate != null;
+        assert startTime != null;
+        assert endDate != null;
+        assert endTime != null;
+        assert tags != null;
+        
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -70,7 +75,7 @@ public class AddCommand extends Command {
                 new ItemType(itemType),
                 new Name(name),
                 new Date(startDate),
-                new Time(endTime),
+                new Time(startTime),
                 new Date(endDate),
                 new Time(endTime),
                 new UniqueTagList(tagSet)

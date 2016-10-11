@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.model.item.UniquePersonList;
+import seedu.address.model.item.UniquePersonList.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -79,6 +80,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addItem(Item p) throws UniquePersonList.DuplicatePersonException {
         syncTagsWithMasterList(p);
         persons.add(p);
+    }
+    
+    /**
+     * Edits an item in the task manager.
+     * Also checks the new item's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the item to point to those in {@link #tags}.
+     *     
+     * @throws PersonNotFoundException if no such item could be found in the task manager.
+     * @throws UniquePersonList.DuplicatePersonException if an equivalent item already exists.
+     */
+    public void replaceItem(ReadOnlyItem target, Item toReplace) 
+            throws UniquePersonList.PersonNotFoundException, UniquePersonList.DuplicatePersonException {
+        syncTagsWithMasterList(toReplace);
+        persons.replace(target, toReplace);
     }
 
     /**

@@ -6,6 +6,7 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
@@ -18,18 +19,18 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete the last in the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
+        currentList = TestUtil.removeItemFromList(currentList, targetIndex);
         targetIndex = currentList.length;
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete from the middle of the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
+        currentList = TestUtil.removeItemFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
         commandBox.runCommand("delete " + currentList.length + 1);
-        assertResultMessage("The person index provided is invalid");
+        assertResultMessage(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
     }
 
@@ -40,7 +41,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestItem[] currentList) {
         TestItem personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestItem[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
+        TestItem[] expectedRemainder = TestUtil.removeItemFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 

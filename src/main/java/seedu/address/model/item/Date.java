@@ -18,7 +18,15 @@ public class Date {
 
 
     public final String value;
-
+    
+    /**
+     * Convenience constructor for empty Date
+     *
+     */
+    public Date() {
+        value = EMPTY_DATE;
+    }
+    
     /**
      * Validates given email.
      *
@@ -46,7 +54,7 @@ public class Date {
      * Returns if a given string is a valid person email.
      */
     public static boolean isValidDate(String test) {
-    	if (test.equals("")) {
+    	if (test.equals(EMPTY_DATE)) {
     		return true;
     	}
         return test.matches(DATE_VALIDATION_REGEX);

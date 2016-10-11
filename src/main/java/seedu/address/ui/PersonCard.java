@@ -17,11 +17,15 @@ public class PersonCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label itemType;
     @FXML
-    private Label address;
+    private Label endTime;
     @FXML
-    private Label email;
+    private Label endDate;
+    @FXML
+    private Label startTime;
+    @FXML
+    private Label startDate;
     @FXML
     private Label tags;
 
@@ -41,11 +45,13 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getItemType().value);
+        name.setText(person.getName().value);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getName().value);
-        address.setText(person.getEndTime().value);
-        email.setText(person.getEndDate().value);
+        itemType.setText(person.getItemType().value);
+        endTime.setText(person.getEndTime().value);
+        endDate.setText(person.getEndDate().value);
+        startTime.setText(person.getStartTime().value);
+        startDate.setText(person.getStartDate().value);
         tags.setText(person.tagsString());
     }
 

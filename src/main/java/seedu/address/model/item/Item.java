@@ -1,12 +1,14 @@
 package seedu.address.model.item;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
- * Represents a Item in the address book.
+ * Represents a Item in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Item implements ReadOnlyItem {
@@ -20,6 +22,23 @@ public class Item implements ReadOnlyItem {
 
     private UniqueTagList tags;
 
+    /**
+     * Convenience constructor for tasks. Calls primary constructor with empty fields for startDate, startTime, endDate, endTime
+     *
+     */
+    public Item(ItemType itemType, Name name, UniqueTagList tags) {
+        this(itemType, name, new Date(), new Time(), new Date(), new Time(), tags);
+    }
+    
+    /**
+     * Convenience constructor for deadlines. Calls primary constructor with empty fields for startDate and startTime
+     *
+     */
+    public Item(ItemType itemType, Name name, Date endDate, Time endTime, UniqueTagList tags) {
+        this(itemType, name, new Date(), new Time(), endDate, endTime, tags);
+    }
+    
+    
     /**
      * Every field must be present and not null.
      */
@@ -51,9 +70,17 @@ public class Item implements ReadOnlyItem {
         return name;
     }
 
+    public void setName(String name) throws IllegalValueException {
+        this.name = new Name(name);
+    }
+    
     @Override
     public Date getStartDate() {
         return startDate;
+    }
+    
+    public void setStartDate(String startDate) throws IllegalValueException {
+        this.startDate = new Date(startDate);
     }
 
     @Override
@@ -61,16 +88,28 @@ public class Item implements ReadOnlyItem {
         return startTime;
     }    
     
+    public void setStartTime(String startTime) throws IllegalValueException {
+        this.startTime = new Time(startTime);
+    }
+    
     @Override
     public Date getEndDate() {
         return endDate;
     }
 
+    public void setEndDate(String endDate) throws IllegalValueException {
+        this.endDate = new Date(endDate);
+    }
+    
     @Override
     public Time getEndTime() {
         return endTime;
     }
 
+    public void setEndTime(String endTime) throws IllegalValueException {
+        this.endTime = new Time(endTime);
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);

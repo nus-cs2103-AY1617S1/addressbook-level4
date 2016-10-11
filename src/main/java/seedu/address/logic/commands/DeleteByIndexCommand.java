@@ -12,7 +12,7 @@ import seedu.address.model.item.UniquePersonList.PersonNotFoundException;
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deleteByIndex";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by the index number used in the last item listing.\n"
@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
     private ArrayList<ReadOnlyItem> deletedItems;
     
     /*
-     * Deletes deadline, task, or event by index.
+     * Deletes deadline, task, or event by keyword.
      */
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -52,7 +52,7 @@ public class DeleteCommand extends Command {
                 UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredPersonList();
                 if (lastShownList.size() < indexToDelete) {
                     indicateAttemptToExecuteIncorrectCommand();
-                    return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                    return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
                 }
 
                 ReadOnlyItem personToDelete = lastShownList.get(indexToDelete - numDeleted);
@@ -71,7 +71,7 @@ public class DeleteCommand extends Command {
             UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredPersonList();
             if (lastShownList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }
 
             ReadOnlyItem personToDelete = lastShownList.get(targetIndex - 1);

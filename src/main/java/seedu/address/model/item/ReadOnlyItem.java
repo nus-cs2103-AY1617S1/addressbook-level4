@@ -40,12 +40,20 @@ public interface ReadOnlyItem {
         final StringBuilder builder = new StringBuilder();
         builder.append(getItemType())
                 .append(" Name: ")
-                .append(getName())
-                .append(" Email: ")
-                .append(getEndDate())
-                .append(" Address: ")
-                .append(getEndTime())
-                .append(" Tags: ");
+                .append(getName());
+        if (getItemType().toString().equals(ItemType.EVENT_WORD)) {
+            builder.append(" Start Date: ")
+                   .append(getStartDate())
+                   .append(" Start time: ")
+                   .append(getStartTime());
+        }
+        if (getItemType().toString().equals(ItemType.DEADLINE_WORD) || getItemType().toString().equals(ItemType.EVENT_WORD)) {
+            builder.append(" End Date: ")
+                   .append(getEndDate())
+                   .append(" End time: ")
+                   .append(getEndTime());
+        }
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
