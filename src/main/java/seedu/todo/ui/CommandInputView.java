@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 public class CommandInputView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandInputView.class);
-    private static final String FXML = "CommandBox.fxml";
+    private static final String FXML = "CommandInputView.fxml";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandInputPane;
@@ -78,8 +78,8 @@ public class CommandInputView extends UiPart {
          */
         setStyleToIndicateCorrectCommand();
         logic.execute(previousCommandText);
-        commandFeedbackView.displayMessage("Command " + previousCommandText.substring(0, 10) 
-                + "... executed successfully.");
+        commandFeedbackView.displayMessage("Command \"" + previousCommandText.substring(0, Math.min(50, previousCommandText.length())) 
+                + "...\" executed successfully.");
         //TODO: Update the command output with actual implementation.
     }
 

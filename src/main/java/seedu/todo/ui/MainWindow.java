@@ -3,8 +3,6 @@ package seedu.todo.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -28,10 +26,11 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private CommandInputView commandInputView;
+    private CommandFeedbackView commandFeedbackView;
+    
     private TodoListPanel todoListPanel;
-    private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
-    private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
 
@@ -45,7 +44,7 @@ public class MainWindow extends UiPart {
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane todoListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -93,10 +92,10 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        todoListPanel = TodoListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getObservableTaskList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
+        todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getObservableTaskList());
+        commandFeedbackView = CommandFeedbackView.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTodoListFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        commandInputView = CommandInputView.load(primaryStage, getCommandBoxPlaceholder(), commandFeedbackView, logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -111,8 +110,8 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+    public AnchorPane getTodoListPlaceholder() {
+        return todoListPanelPlaceholder;
     }
 
     public void hide() {
