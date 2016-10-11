@@ -141,7 +141,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.startDate = startDate;
 	}
 	
-	public void setEndDate(Date dndDate) {
+	public void setEndDate(Date endDate) {
         this.endDate = endDate;
 	}
 	

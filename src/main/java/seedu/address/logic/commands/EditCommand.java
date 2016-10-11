@@ -111,24 +111,10 @@ public class EditCommand extends Command{
         if (endDate != null) {
             model.editEndDate(personToEdit, endDate);
         }
-        /*
-        try {
-            model.deleteTask(personToEdit);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
-        }
-		
-        try {
-            model.addTask(toAdd);
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_FLOATING_TASK);
-        }*/
+        
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         
         /* TODO
-         
-            
-
             if (recurrenceRate != null) {
                 model.editRecurrence(personToEdit, recurrenceRate);
             }

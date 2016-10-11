@@ -88,12 +88,18 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void editStartDate(ReadOnlyTask floatingTask, Date startDate) {
-        //System.out.println("Name at line 81 " + name);
         taskManager.editFloatingTaskStartDate(floatingTask, startDate);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
 
+    
+    @Override
+    public synchronized void editEndDate(ReadOnlyTask floatingTask, Date endDate) {
+        taskManager.editFloatingTaskEndDate(floatingTask, endDate);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override

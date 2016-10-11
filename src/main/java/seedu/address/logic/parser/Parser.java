@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import com.joestelmach.natty.*;
+//import com.joestelmach.natty.*;
 
 /**
  * Parses user input.
@@ -44,6 +44,16 @@ public class Parser {
     
     final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?:.*?)?(?<rate>\\d+)(?:.*?)?");
     
+    final Pattern EDIT_ARGS_FORMAT = Pattern.compile("(?i:(?<taskName>.*?)"
+            											+"(?:"
+            											+"(?:, by +(?<endDateFormatOne>.*?))"
+            											+"|(?:, from (?<startDateFormatOne>.*?))"
+            											+"|(?:, at (?<startDateFormatTwo>.*?))"
+            											+")?"
+            											+"(?: to (?<endDateFormatTwo>.*?))?"
+            											+"(?: repeat every (?<recurrenceRate>.*?))?"
+            											+"(?: -(?<priority>.*?))?)");
+
     //TODO:Parser not functioning
     //final Pattern EDIT_ARGS_FORMAT = Pattern.compile("(?<index>\\d+) (?<words>.*?)");
 
