@@ -1,18 +1,21 @@
 # Developer Guide 
-
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
+## INTRODUCTION
+RubyTask is a simple tool for busy professionals to schedule and manage their daily to-do tasks! It is a Java desktop application that allows efficient interaction with a GUI and does not require connection to the Internet.
+This guide describes the design and implementation of RubyTask. It will help you understand how RubyTask works and how you can further contribute to its development.
 
-## Setting up
+## SETTING UP
 
 #### Prerequisites
 
@@ -54,13 +57,14 @@
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
  
 
-## Design
+## DESIGN
 
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
+_Figure 1: Components of RubyTask and their dependencies._ <br>
+
+Figure 1 gives a high-level design overview of the RubyTask, and a quick overview of each component follows.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
@@ -82,31 +86,35 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the `Logic` component (illustrated in Figure 2) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
+_Figure 2: Class Diagram of the `Logic `component_
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+The _Sequence Diagram_ (Figure 3) below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SDforDeletePerson.png" width="800"><br>
+_Figure 3: Sequence Diagram for delete command_
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+The next Sequence Diagram (Figure 4) shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images\SDforDeletePersonEventHandling.png" width="800"><br>
+_Figure 4: Sequence Diagram of_ `EventsCenter`
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
 
-The sections below give more details of each component.
+We will now elaborate on the details of each component.
 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
+_Figure 5: Class Diagram of the_ `UI `_component_
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -127,21 +135,24 @@ The `UI` component,
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
+_Figure 6: Class Diagram of the_ `Logic `_component_
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+* `Logic` uses the `Parser` class to parse the user command.
+* This results in a `Command` object which is executed by the `LogicManager`.
+* The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+* The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Figure 7 below illustrates the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
+_Figure 7: Sequence Diagram of interactions within the `Logic` component_
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
+_Figure 8: Class Diagram of the_ `Model `_component_
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -155,6 +166,7 @@ The `Model`,
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
+_Figure 9: Class Diagram of the_ `Storage `_component_
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
@@ -166,7 +178,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
-## Implementation
+## IMPLEMENTATION
 
 ### Logging
 
@@ -193,7 +205,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 (default: `config.json`):
 
 
-## Testing
+## TESTING
 
 Tests can be found in the `./src/test/java` folder.
 
@@ -236,7 +248,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
   
-## Dev Ops
+## DEV OPS
 
 ### Build Automation
 
@@ -253,7 +265,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 3. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ### Managing Dependencies
@@ -265,7 +277,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-## Appendix A : User Stories
+## APPENDIX A: USER STORIES
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -273,61 +285,132 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new task |
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | undo latest command | update task list quickly if there is a change-of-mind
+`* * *` | user | edit a task | update task entry with fresh information without deleting and then adding
+`* * *` | user | find a task by name | locate details of task without having to go through the entire list
+`* * *` | user | add task without deadlines | track tasks that has no deadline and just need to be done "some day"
+`* * *` | user | mark tasks that are already completed | keep track of what I have done
+`* *` | user | hide lists of tasks by default | minimize chance of someone else seeing them by accident
+`* *` | user | duplicate a task that recurs weekly | minimize number of additions for a recurring task
+`*` | user with many tasks in the task manager | sort tasks by name | locate a task easily
+`*` | user | have a backup of my schedule | make a recovery from the backup in case of a software or hardware crash
 
-{More to be added}
 
-## Appendix B : Use Cases
+## APPENDIX B: USE CASES
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+1.  User requests to add task
+2.  RubyTask adds the task. Use case ends.
+
+**Extensions**
+
+1a. Invalid syntax for command
+> 1a1. RubyTask shows an error message. Use case ends
+
+### Use case: Find task with keywords
+
+**MSS**
+
+1.  User requests to list tasks matching keywords
+2.  RubyTask shows a list of tasks matching keywords. Use case ends.
+
+**Extensions**
+
+2a. No matching tasks
+> 2a1. RubyTask shows an error message. Use case ends
+
+### Use case: Delete task
+
+**MSS**
+
+1.  User requests to list tasks
+2.  RubyTask shows a list of tasks
+3.  User requests to delete a specific task in the list
+4.  RubyTask deletes the task. Use case ends.
 
 **Extensions**
 
 2a. The list is empty
-
-> Use case ends
+> 2a1. Use case ends.
 
 3a. The given index is invalid
+> 3a1. RubyTask shows an error message.\
+> 3a2. Use case resumes at step 2.
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+### Use case: Undo latest command
 
-{More to be added}
+**MSS**
 
-## Appendix C : Non Functional Requirements
+1.  User requests to add or delete task.
+2.  User requests to undo latest command.
+3.  RubyTask undoes the latest command. Use case ends.
+
+**Extensions**
+
+2a. Latest command is add task
+> 2a1. RubyTask delete last added task. Use case ends.
+
+2b. Latest command is delete task
+> 2b1. RubyTask adds last deleted task. Use case ends.
+
+2c. Latest command is invalid
+> 2c1. Use case ends.
+
+
+## APPENDIX C: NON FUNCTIONAL REQUIREMENTS
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should be secure, not vulnerable to malicious inputs (e.g buffer overflow attacks).
+6. Should be efficient, responses to inputs should not take longer than 2 seconds.
+7.  Should be compact in size, i.e smaller than 10MB.
 
-{More to be added}
 
-## Appendix D : Glossary
+## APPENDIX D: GLOSSARY
 
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+## APPENDIX E: PRODUCT SURVEY
 
-> A contact detail that is not meant to be shared with others
+Google Calendar
 
-## Appendix E : Product Survey
+*Pros* | *Cons* | 
+-------- | --------
+1. Simple UI, Default Weekly View | 1. Requires Internet to Sync
+2. Good Overview of all timeslots available or unavailable  | 2. Do not have one-shot CLI approach (Even with quick add)
+3. Collaboration feature, share calendar with friends | 3. Events must be allocated timeslots in 
 
-{TODO: Add a summary of competing products}
+Evernote
 
+*Pros* | *Cons* | 
+-------- | --------
+1. Allows creation and update of notes over various platforms | 1. 1. Heavily dependent on Internet as user is cut off from database if there is no connection
+2. Allows a variety of notes to be created and classified (e.g business cards, introduction manuals etc) | 2. Ability to organise and categorise notes is limited. Only 1-level notebooks and stacks are allowed unlike a file system.
+3. Incorporates itself onto different platforms for ease of search and notifying user (e.g Google search) | 
+
+Todo.txt
+
+*Pros* | *Cons* | 
+-------- | --------
+1. Simple interface (e.g CLI) is available | 1. Not automatically sorted by dates
+2. Does not require Internet connection | 2. Clashes of events are not prompted to the user
+3. Can support large amount of task and details | 
+
+Fantastical
+
+*Pros* | *Cons* | 
+-------- | --------
+1. Both CLI and NLP is availablee | 1. Paid service
+2. Does not require Internet connection | 2. Events have to be time-constrained
+3. Can be brought up with keyboard shortcut | 
