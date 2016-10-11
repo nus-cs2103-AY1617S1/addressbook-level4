@@ -2,7 +2,7 @@ package guitests;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.todoList.commons.core.Messages;
-import seedu.todoList.logic.commands.AddCommand;
+import seedu.todoList.logic.commands.*;
 import seedu.todoList.testutil.TestUtil;
 import seedu.todoList.testutil.TestTask;
 
@@ -16,23 +16,23 @@ public class AddCommandTest extends TodoListGuiTest {
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicaltasks();
-        TestTask taskToAdd = td.hoon;
+        TestTask taskToAdd = td.a6;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
-        taskToAdd = td.ida;
+        taskToAdd = td.a7;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        commandBox.runCommand(td.a6.getAddCommand());
+        assertResultMessage(AddTaskCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.alice);
+        assertAddSuccess(td.a1);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
@@ -43,7 +43,7 @@ public class AddCommandTest extends TodoListGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateTotask(taskToAdd.getName().fullName);
+        TaskCardHandle addedCard = taskListPanel.navigateTotask(taskToAdd.getTodo().todo);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task

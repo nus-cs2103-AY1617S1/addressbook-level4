@@ -1,6 +1,6 @@
 package seedu.todoList.testutil;
 
-import seedu.todoList.model.tag.UniqueTagList;
+//import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.*;
 
 /**
@@ -8,55 +8,52 @@ import seedu.todoList.model.task.*;
  */
 public class TestTask implements ReadOnlyTask {
 
-    private Name name;
+    //private Name name;
     private Todo Todo;
-    private Email email;
-    private Phone phone;
-    private UniqueTagList tags;
+    private Priority priority;
+    private StartTime startTime;
+    private EndTime endTime;
+    //private Email email;
+    //private Phone phone;
+    //private UniqueTagList tags;
 
     public TestTask() {
-        tags = new UniqueTagList();
-    }
-
-    public void setName(Name name) {
-        this.name = name;
+        //tags = new UniqueTagList();
     }
 
     public void setTodo(Todo Todo) {
         this.Todo = Todo;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    public void setStartTime(StartTime startTime) {
+        this.startTime = startTime;
     }
-
-    @Override
-    public Name getName() {
-        return name;
-    }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
+    
+    public void setEndTime(EndTime endTime) {
+        this.endTime = endTime;
     }
 
     @Override
     public Todo getTodo() {
         return Todo;
     }
+    
+    @Override
+    public Priority getPriority() {
+        return priority;
+    }
+    @Override
+    public StartTime getStartTime() {
+        return startTime;
+    }
 
     @Override
-    public UniqueTagList getTags() {
-        return tags;
+    public EndTime getEndTime() {
+        return endTime;
     }
 
     @Override
@@ -66,11 +63,11 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getTodo().value + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("add_task " + this.getTodo().todo + " ");
+        sb.append("p/" + this.getPriority().priority + " ");
+        sb.append("s/" + this.getStartTime().startTime + " ");
+        sb.append("e/" + this.getEndTime().endTime + " ");
+        //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 }
