@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.models.Task;
 import seedu.todo.ui.components.TagList;
 import seedu.todo.ui.components.TaskList;
 
@@ -21,7 +22,7 @@ public class IndexView extends View {
 	private Pane tasksPane;
 	
 	// Props
-	public ArrayList<TaskStub> tasks = new ArrayList<TaskStub>(); // stub
+	public ArrayList<Task> tasks = new ArrayList<Task>(); // stub
 	public ArrayList<String> tags = new ArrayList<String>(); // stub
 	public String indexTextValue;
 
@@ -63,7 +64,10 @@ public class IndexView extends View {
 			// Temp
 			LocalDateTime date = LocalDateTime.now().minus(3, ChronoUnit.DAYS);
 			for (int i = 1; i <= 10; i++) {
-				tasks.add(new TaskStub(date, "Task " + i));
+				Task newTask = new Task();
+				newTask.setCalendarDT(date);
+				newTask.setName("Task " + i);
+				tasks.add(newTask);
 				date = date.plus(2, ChronoUnit.DAYS);
 			}
 			
@@ -72,16 +76,5 @@ public class IndexView extends View {
 		});
 		taskList.render(primaryStage, tasksPane);
 	}
-	
-	public static class TaskStub {
-		public LocalDateTime dateTime;
-		public String name;
-		
-		public TaskStub(LocalDateTime dateTime, String name) {
-			this.dateTime = dateTime;
-			this.name = name;
-		}
-	}
-	
 	
 }

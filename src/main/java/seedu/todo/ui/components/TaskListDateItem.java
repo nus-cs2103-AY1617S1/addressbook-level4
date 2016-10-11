@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.commons.util.StringUtil;
-import seedu.todo.ui.views.IndexView.TaskStub;
+import seedu.todo.models.Task;
 
 public class TaskListDateItem extends MultiComponent {
 
@@ -16,7 +16,7 @@ public class TaskListDateItem extends MultiComponent {
 	
 	// Props
 	public LocalDateTime dateTime;
-	public ArrayList<TaskStub> tasks;
+	public ArrayList<Task> tasks;
 	
 	// FXML
 	@FXML
@@ -43,7 +43,7 @@ public class TaskListDateItem extends MultiComponent {
 	private void loadTaskItems() {
 		TaskListTaskItem.reset(dateTaskItemsPlaceholder);
 		
-		for (TaskStub task : tasks) {
+		for (Task task : tasks) {
 			TaskListTaskItem item = new TaskListTaskItem();
 			
 			item.passInProps(c -> {
