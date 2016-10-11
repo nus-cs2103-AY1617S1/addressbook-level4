@@ -12,7 +12,7 @@ public class Status {
 	}
 
 	public Status(String booleanString) throws IllegalValueException {
-        booleanString = booleanString.trim();
+        booleanString = booleanString.trim().toLowerCase();
         if (!booleanString.matches("(complete)|(incomplete)")) {
             throw new IllegalValueException("Status should be 'complete' or 'incomplete'");
         }
