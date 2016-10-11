@@ -2,10 +2,12 @@ package seedu.todo.logic;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.BaseCommand;
+import seedu.todo.logic.commands.CompleteCommand;
 import seedu.todo.logic.commands.AddCommand;
 import seedu.todo.logic.commands.DeleteCommand;
 import seedu.todo.logic.commands.EditCommand;
 import seedu.todo.logic.commands.ExitCommand;
+import seedu.todo.logic.commands.PinCommand;
 import seedu.todo.logic.parser.ParseResult;
 
 /**
@@ -21,21 +23,31 @@ public class TodoDispatcher implements Dispatcher {
             command = new AddCommand();
             break;
 
-        case "edit":
-        case "e":
-            command = new EditCommand();
+        case "complete":
+        case "comp":
+        case "c":
+            command= new CompleteCommand();
             break;
 
         case "delete":
         case "d":
             command = new DeleteCommand();
             break;
-        
+
+        case "edit":
+        case "e":
+            command = new EditCommand();
+            break;
+
         case "exit":
             command = new ExitCommand();
             break;
-            
-        
+
+        case "pin":
+        case "p":
+            command = new PinCommand();
+            break;
+
         default:
             throw new IllegalValueException("Command not recognized");
         }
