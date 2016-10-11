@@ -41,4 +41,9 @@ public class TaskBuilder {
         return this.task;
     }
 
+	public TaskBuilder withStatus() {
+		this.task.getStatus().setDone();
+		return this;
+	}
+
 }
