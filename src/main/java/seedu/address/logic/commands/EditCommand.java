@@ -46,7 +46,7 @@ public class EditCommand extends Command{
         endDate = null;
         priority = null;
         
-        System.out.println(taskNameString);
+        //System.out.println(taskNameString);
         if (taskNameString != null) {
     		taskName = new Name(taskNameString);
         }
@@ -69,14 +69,15 @@ public class EditCommand extends Command{
         }
         
         //TODO: Throw IllegalValueException for default cases?
-        switch (priorityString) {
-            case ("low"): case ("l"): priority = Priority.LOW; break; 
-            case ("high"): case ("h"): priority = Priority.HIGH; break;
-            case ("medium"): case ("m"): priority = Priority.MEDIUM; break;
-        }       
-        
+        if(priorityString != null){
+        	switch (priorityString) {
+            	case ("low"): case ("l"): priority = Priority.LOW; break; 
+            	case ("high"): case ("h"): priority = Priority.HIGH; break;
+            	case ("medium"): case ("m"): priority = Priority.MEDIUM; break;
+        	}
+        } 
+
         this.toEdit = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
-        
 	}
 
 	@Override
@@ -90,7 +91,6 @@ public class EditCommand extends Command{
         }
 
         ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
-        System.out.println(" name is " + taskName);
         
         if (taskName != null) {
             try {            

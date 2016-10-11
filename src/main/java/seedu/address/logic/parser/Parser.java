@@ -262,8 +262,6 @@ public class Parser {
 
              if (matcher.group("priority") != null) {
                  priority = matcher.group("priority");
-             } else {
-                 priority = "medium";
              }
              
              //System.out.println(index + " " + taskName + " " + startDate + " " + endDate + " " + recurrenceRate + " " + priority );
