@@ -17,7 +17,7 @@ public class TodoDispatcher implements Dispatcher {
     public BaseCommand dispatch(ParseResult parser) throws IllegalValueException {
         BaseCommand command;
         
-        switch (parser.getComand()) {
+        switch (parser.getCommand()) {
         case "add":
         case "a":
             command = new AddCommand();

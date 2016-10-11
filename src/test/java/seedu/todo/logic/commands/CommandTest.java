@@ -26,7 +26,7 @@ public abstract class CommandTest {
         public Map<String, String> named = new HashMap<>();
 
         @Override
-        public String getComand() {
+        public String getCommand() {
             return command;
         }
 

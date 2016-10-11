@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.StringJoiner;
-import java.util.regex.Pattern;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -34,7 +33,7 @@ public class TodoParser implements Parser {
         }
 
         @Override
-        public String getComand() {
+        public String getCommand() {
             return command;
         }
 

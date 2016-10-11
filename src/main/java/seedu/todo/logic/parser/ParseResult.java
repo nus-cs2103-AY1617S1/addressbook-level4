@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface ParseResult {
 
-    String getComand();
+    String getCommand();
 
     Optional<String> getPositionalArgument();
 
