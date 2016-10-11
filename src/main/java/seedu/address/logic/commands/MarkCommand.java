@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.model.Undo;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
@@ -39,12 +40,12 @@ public class MarkCommand extends Command {
 
         try {
             model.markTask(taskToMark);
+            CommandHistory.addMutateCmd(new Undo(COMMAND_WORD,targetIndex,(Task)lastShownList.get(targetIndex - 1)));
         } catch (DuplicateTagException e) {
             return new CommandResult(MESSAGE_MARK_TASK_FAIL);
         }catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
-        } 
-
+        } ;
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }
 }
