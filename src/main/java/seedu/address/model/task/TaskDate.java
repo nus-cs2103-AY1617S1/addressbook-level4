@@ -4,12 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Helper class for storing date for the Task
+ */
 public class TaskDate {
     public static final int DATE_NOT_PRESENT = -1;
     private long date;
-    
-    //For sake of testing
-    private Date testDate;
     
     public TaskDate(long date) {
         this.date = date;
@@ -24,6 +24,12 @@ public class TaskDate {
         this.date = new com.joestelmach.natty.Parser().parse(inputDate).get(0).getDates().get(0).getTime();
     }
     
+    /**
+     * Formats the date in (EEE, MMM d hh.mma) format which will give MON, Oct 20 10.00PM
+     * If there is no date present return empty string
+     * @return Empty string if there is no date present
+     *          Formatted date if there is date
+     */
     public String getFormattedDate() {
         if (date == DATE_NOT_PRESENT) {
             return "";
@@ -41,14 +47,14 @@ public class TaskDate {
         return formatter.format(new Date(date));
     }
     
-
     public long getDate() {
-        if (date == DATE_NOT_PRESENT) {
-            return DATE_NOT_PRESENT;
-        }
         return date;
     } 
     
+    /**
+     * Parses the date in Long and provides it in the Date class format
+     * @return
+     */
     public Date getParsedDate(){
     	return new Date(date);
     }
@@ -58,6 +64,5 @@ public class TaskDate {
 		return other == this ||
 				(other instanceof TaskDate // instanceof handles nulls
 		                && this.getDate() == ((TaskDate) other).getDate());
-    	
     }
 }

@@ -225,7 +225,6 @@ public class LogicManagerTest {
                 AddFloatingCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
-
     }
     
     /**
