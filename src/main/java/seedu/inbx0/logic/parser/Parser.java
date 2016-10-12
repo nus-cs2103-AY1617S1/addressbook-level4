@@ -332,11 +332,11 @@ public class Parser {
         final int type;
         if(keywords[0].contains(START_DATE)) {
         	type = 1;
-        	keywords[0] = keywords[0].replace(START_DATE, "");
+        	keywords[0] = keywords[0].replace(START_DATE, "").replace("'"," ");
         }
         else if(keywords[0].contains(END_DATE)) {
         	type = 2;
-        	keywords[0] = keywords[0].replace(END_DATE, "");
+        	keywords[0] = keywords[0].replace(END_DATE, "").replace("'"," ");
         }
         else if(keywords[0].contains(IMPORTANCE)) {
         	type = 3;
@@ -350,7 +350,11 @@ public class Parser {
         	type = 0;
         }
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(type, keywordSet);
+        try {
+			return new FindCommand(type, keywordSet);
+		} catch (IllegalValueException ive) {
+			return new IncorrectCommand(ive.getMessage());
+		}
     }
 
 }
