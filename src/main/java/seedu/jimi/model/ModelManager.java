@@ -78,8 +78,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addFloatingTask(FloatingTask floatingTask) throws UniqueTaskList.DuplicateTaskException {
-        taskBook.addFloatingTask(floatingTask);
+    public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
