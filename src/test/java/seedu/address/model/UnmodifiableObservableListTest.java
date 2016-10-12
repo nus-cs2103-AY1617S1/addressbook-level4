@@ -10,7 +10,8 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import java.util.*;
 
 import static org.junit.Assert.assertSame;
-import static seedu.address.testutil.TestUtil.assertThrows;
+
+import seedu.address.testutil.TestUtil;
 
 public class UnmodifiableObservableListTest {
 
@@ -38,43 +39,43 @@ public class UnmodifiableObservableListTest {
 
         final Class<UnsupportedOperationException> ex = UnsupportedOperationException.class;
 
-        assertThrows(ex, () -> list.add(0, 2));
-        assertThrows(ex, () -> list.add(3));
+        TestUtil.assertThrows(ex, () -> list.add(0, 2));
+        TestUtil.assertThrows(ex, () -> list.add(3));
 
-        assertThrows(ex, () -> list.addAll(2, 1));
-        assertThrows(ex, () -> list.addAll(backing));
-        assertThrows(ex, () -> list.addAll(0, backing));
+        TestUtil.assertThrows(ex, () -> list.addAll(2, 1));
+        TestUtil.assertThrows(ex, () -> list.addAll(backing));
+        TestUtil.assertThrows(ex, () -> list.addAll(0, backing));
 
-        assertThrows(ex, () -> list.set(0, 2));
+        TestUtil.assertThrows(ex, () -> list.set(0, 2));
 
-        assertThrows(ex, () -> list.setAll(new ArrayList<Number>()));
-        assertThrows(ex, () -> list.setAll(1, 2));
+        TestUtil.assertThrows(ex, () -> list.setAll(new ArrayList<Number>()));
+        TestUtil.assertThrows(ex, () -> list.setAll(1, 2));
 
-        assertThrows(ex, () -> list.remove(0, 1));
-        assertThrows(ex, () -> list.remove(null));
-        assertThrows(ex, () -> list.remove(0));
+        TestUtil.assertThrows(ex, () -> list.remove(0, 1));
+        TestUtil.assertThrows(ex, () -> list.remove(null));
+        TestUtil.assertThrows(ex, () -> list.remove(0));
 
-        assertThrows(ex, () -> list.removeAll(backing));
-        assertThrows(ex, () -> list.removeAll(1, 2));
+        TestUtil.assertThrows(ex, () -> list.removeAll(backing));
+        TestUtil.assertThrows(ex, () -> list.removeAll(1, 2));
 
-        assertThrows(ex, () -> list.retainAll(backing));
-        assertThrows(ex, () -> list.retainAll(1, 2));
+        TestUtil.assertThrows(ex, () -> list.retainAll(backing));
+        TestUtil.assertThrows(ex, () -> list.retainAll(1, 2));
 
-        assertThrows(ex, () -> list.replaceAll(i -> 1));
+        TestUtil.assertThrows(ex, () -> list.replaceAll(i -> 1));
 
-        assertThrows(ex, () -> list.sort(Comparator.naturalOrder()));
+        TestUtil.assertThrows(ex, () -> list.sort(Comparator.naturalOrder()));
 
-        assertThrows(ex, () -> list.clear());
+        TestUtil.assertThrows(ex, () -> list.clear());
 
         final Iterator<Integer> iter = list.iterator();
         iter.next();
-        assertThrows(ex, iter::remove);
+        TestUtil.assertThrows(ex, iter::remove);
 
         final ListIterator<Integer> liter = list.listIterator();
         liter.next();
-        assertThrows(ex, liter::remove);
-        assertThrows(ex, () -> liter.add(5));
-        assertThrows(ex, () -> liter.set(3));
-        assertThrows(ex, () -> list.removeIf(i -> true));
+        TestUtil.assertThrows(ex, liter::remove);
+        TestUtil.assertThrows(ex, () -> liter.add(5));
+        TestUtil.assertThrows(ex, () -> liter.set(3));
+        TestUtil.assertThrows(ex, () -> list.removeIf(i -> true));
     }
 }

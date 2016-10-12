@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Description("9482424"), new Date("hans@google.com"), new Time("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Description("87249245"), new Date("ruth@google.com"), new Time("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Description("95352563"), new Date("heinz@yahoo.com"), new Time("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Description("87652533"), new Date("cornelia@google.com"), new Time("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Description("9482224"), new Date("werner@gmail.com"), new Time("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Description("9482427"), new Date("lydia@gmail.com"), new Time("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Description("9482442"), new Date("anna@google.com"), new Time("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Description("8482424"), new Date("stefan@mail.com"), new Time("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Description("8482131"), new Date("hans@google.com"), new Time("chicago ave"), new UniqueTagList())
+                    new Task(new Name("Ali Muster"), new Description("Meet for dinner"), new Date(""), new Time(""), new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), new Description("Meet for lunch"), new Date(""), new Time(""), new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), new Description("Meet for breakfast"), new Date("11.11.17"), new Time("2234"), new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), new Description("Meet for lunch"), new Date("09.09.17"), new Time("2200"), new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), new Description("Meet for lunch"), new Date("10.10.17"), new Time("2300"), new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), new Description("Meet for dinner"), new Date("10.10.17"), new Time("2254"), new UniqueTagList()),
+                    new Task(new Name("George Best"), new Description("Meet for breakfast"), new Date(""), new Time(""), new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), new Description("Meet for dinner"), new Date("01.01.17"), new Time("2101"), new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), new Description("Meet for breakfast"), new Date("09.05.17"), new Time("2130"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
