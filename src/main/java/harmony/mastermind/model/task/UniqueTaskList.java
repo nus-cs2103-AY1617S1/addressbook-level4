@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import harmony.mastermind.commons.exceptions.DuplicateDataException;
 import harmony.mastermind.commons.util.CollectionUtil;

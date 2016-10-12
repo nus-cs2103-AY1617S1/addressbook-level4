@@ -14,8 +14,10 @@ import java.util.List;
 
 /**
  * JAXB-friendly version of the Task.
+ * 
  */
-public class XmlAdaptedTask {
+//@@author A0124797R
+public class XmlAdaptedArchiveTask {
 
     @XmlElement(required = true)
     private String name;
@@ -29,7 +31,7 @@ public class XmlAdaptedTask {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
+    public XmlAdaptedArchiveTask() {}
 
 
     /**
@@ -37,12 +39,10 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    //@@author A0138862W
-    public XmlAdaptedTask(ReadOnlyTask source) {
+    public XmlAdaptedArchiveTask(ReadOnlyTask source) {
         name = source.getName();
         startDate = source.getStartDate();
         endDate = source.getEndDate();
-
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -50,11 +50,11 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's ReadOnlyTask object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
-    public Task toModelType() throws IllegalValueException {
+    public ReadOnlyTask toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
@@ -65,6 +65,6 @@ public class XmlAdaptedTask {
         final Date endDate = this.endDate;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, startDate, endDate, tags);
+        return (ReadOnlyTask) new Task(name, startDate, endDate, tags);
     }
 }

@@ -39,15 +39,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Tasks and Tags are copied into this TaskManager
      */
+    //@@author A0124797R
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList(), toBeCopied.getUniqueArchiveList());
     }
 
     /**
      * Tasks and Tags are copied into this TaskManager
      */
-    public TaskManager(UniqueTaskList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    //@@author A0124797R
+    public TaskManager(UniqueTaskList tasks, UniqueTagList tags, ArchiveTaskList archiveTasks) {
+        resetData(tasks.getInternalList(), tags.getInternalList(), archiveTasks.getInternalList());
     }
 
     public static ReadOnlyTaskManager getEmptyTaskManager() {
@@ -60,21 +62,29 @@ public class TaskManager implements ReadOnlyTaskManager {
         return tasks.getInternalList();
     }
 
-    public void setPersons(List<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
+    }
+    //@@author A0124797R
+    public void setArchiveTasks(Collection<ReadOnlyTask> archiveTasks) {
+        this.archivedTasks.getInternalList().setAll(archiveTasks);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setPersons(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+    //@@author A0124797R
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags,
+            Collection<ReadOnlyTask> newArchiveTasks) {
+        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
+        setArchiveTasks(newArchiveTasks);
     }
 
+    //@@author A0124797R
     public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTagList(), newData.getArchiveList());
     }
 
     //@author A0139194X
@@ -92,7 +102,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
@@ -104,8 +114,8 @@ public class TaskManager implements ReadOnlyTaskManager {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task person) {
-        final UniqueTagList taskTags = person.getTags();
+    private void syncTagsWithMasterList(Task task) {
+        final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
@@ -119,7 +129,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         for (Tag tag : taskTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
-        person.setTags(new UniqueTagList(commonTagReferences));
+        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
@@ -131,8 +141,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     /**
-     * Removes the task from TaskManager and adds into Archive list
+     * marks task as completed by
+     * removing the task from TaskManager and adds into Archive list
      */
+    //@@author A0124797R
     public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             archivedTasks.add(key);
@@ -153,12 +165,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
+    }
+    
+    //@@author A0124797R
+    @Override
+    public List<ReadOnlyTask> getArchiveList() {
+        return archivedTasks.getInternalList();
     }
 
     @Override
@@ -169,6 +186,12 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
+    }
+
+    //@@author A0124797R
+    @Override
+    public ArchiveTaskList getUniqueArchiveList() {
+        return this.archivedTasks;
     }
 
     @Override

@@ -2,6 +2,8 @@ package harmony.mastermind.ui;
 
 import java.util.logging.Logger;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
 import com.google.common.eventbus.Subscribe;
 
 import harmony.mastermind.commons.core.Config;
@@ -64,18 +66,24 @@ public class MainWindow extends UiPart {
 
     @FXML
     private TextArea consoleOutput;
-    
+
     @FXML
     private TableView<ReadOnlyTask> taskTable;
-    
+
     @FXML
     private TableColumn<ReadOnlyTask, String> indexColumn;
-    
+
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameColumn;
-    
+
     @FXML
-    private TableColumn<ReadOnlyTask, String> dateColumn;
+    private TableColumn<ReadOnlyTask, String> startDateColumn;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> endDateColumn;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> tagsColumn;
 
     public MainWindow() {
         super();
@@ -91,6 +99,7 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
+    //@@author A0138862W
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
@@ -113,7 +122,7 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-        
+
         taskTable.setItems(logic.getFilteredTaskList());
 
         registerAsAnEventHandler(this);
@@ -148,41 +157,72 @@ public class MainWindow extends UiPart {
      * Returns the current size and the position of the main Window.
      */
     public GuiSettings getCurrentGuiSetting() {
-        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(), (int) primaryStage.getX(),
+                (int) primaryStage.getY());
     }
 
+<<<<<<< HEAD
+=======
+    /*
+     * TODO: WILL NOT WORK BECAUSE UI REVAMP REMOVED Browser panel.
+     * 
+     * @FXML public void handleHelp() { browserPanel.loadHelpPage(); }
+     */
+
+>>>>>>> master
     public void show() {
         primaryStage.show();
     }
 
     // ==================================
-    
+
     @FXML
-    private void initialize(){
+    //@@author A0138862W
+    private void initialize() {
         indexColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.03));
-        taskNameColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.75));
-        dateColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
-        
-        taskNameColumn.setCellValueFactory(task->new ReadOnlyStringWrapper(task.getValue().getName().fullName));
-        dateColumn.setCellValueFactory(task->new ReadOnlyStringWrapper(task.getValue().getDate().value));
-        
-        indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, String>(){
+        taskNameColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.40));
+        startDateColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
+        endDateColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
+        tagsColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.17));
+
+        taskNameColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getName()));
+        startDateColumn.setCellValueFactory(task -> {
+            if (task.getValue().isEvent()) {
+                return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getStartDate())
+                                                 + "\n"
+                                                 + task.getValue().getStartDate().toString());
+            } else {
+                return new ReadOnlyStringWrapper("");
+            }
+        });
+        endDateColumn.setCellValueFactory(task -> {
+            if (!task.getValue().isFloating()) {
+                return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getEndDate())
+                                                 + "\n"
+                                                 + task.getValue().getEndDate().toString());
+            } else {
+                return new ReadOnlyStringWrapper("");
+            }
+        });
+        tagsColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getTags().toString()));
+
+        indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, String>() {
             @Override
-            public void updateIndex(int index){
+            public void updateIndex(int index) {
                 super.updateIndex(index);
-                
-                if(isEmpty() || index <0){
+
+                if (isEmpty() || index < 0) {
                     setText(null);
-                }else{
-                    setText(Integer.toString(index+1));
+                } else {
+                    setText(Integer.toString(index + 1));
                 }
             }
         });
-        
+
     }
-    
+
     @FXML
+    //@@author A0138862W
     private void handleCommandInputChanged() {
         // Take a copy of the command text
         previousCommandTest = commandField.getText();
@@ -195,9 +235,9 @@ public class MainWindow extends UiPart {
         mostRecentResult = logic.execute(previousCommandTest);
         consoleOutput.setText(mostRecentResult.feedbackToUser);
         commandField.setText("");
-        
+
         taskTable.setItems(logic.getFilteredTaskList());
-        
+
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 

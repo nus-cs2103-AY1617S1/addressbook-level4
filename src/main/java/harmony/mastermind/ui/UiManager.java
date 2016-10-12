@@ -9,7 +9,6 @@ import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
 import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
-import harmony.mastermind.commons.events.ui.TaskPanelSelectionChangedEvent;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.model.UserPrefs;
@@ -84,8 +83,11 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
+<<<<<<< HEAD
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
+=======
+>>>>>>> master
 }
