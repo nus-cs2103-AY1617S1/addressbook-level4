@@ -100,9 +100,9 @@ Examples:
 
 
 <br>
-#### 2.5. Deleting a task: `delete`
+#### 2.5. Deleting a task: `del`
 Deletes the specified tasks from the task manager. <br>
-Format: `delete INDEX [MORE_INDICES...]`
+Format: `del INDEX [MORE_INDICES...]`
 
 > Deletes the task at the specified INDICES.
   The indices refers to the index numbers shown in the most recent listing.<br>
@@ -110,10 +110,10 @@ Format: `delete INDEX [MORE_INDICES...]`
 
 Examples:
 * `list`<br>
-  `delete 2 4`<br>
+  `del 2 4`<br>
   Deletes the 2nd and 4th tasks in the task manager.
 * `find birthday`<br>
-  `delete 1`<br>
+  `del 1`<br>
   Deletes the 1st birthday task in the results of the `find` command.
 
 
@@ -127,18 +127,18 @@ See 'Deleting a task'.
 
 
 <br>
-#### 2.7. Updating a task: `update`
+#### 2.7. Editing a task: `edit`
 Overwrites specified attributes of the specified task. <br>
-Format: `update INDEX ['NEWNAME'] [from hh:mm to hh:mm|by hh:mm] [dd-mm-yy] [done|not-done]`
+Format: `edit INDEX ['NEWNAME'] [from hh:mm to hh:mm|by hh:mm] [dd-mm-yy] [done|not-done]`
 
-> The `from` and `to` updates are only valid for events.
-> The `by` update is only valid for deadlines.
-> The date update is valid for bothe events and deadlines, but not somedays.
+> The `from` and `to` edits are only valid for events.
+> The `by` edit is only valid for deadlines.
+> The date edit is valid for bothe events and deadlines, but not somedays.
 
 Example:
 * `list event` <br>
-  `update 1 'Hamlet at The Globe Theatre' from 08:00pm to 11:00pm` <br>
-  Updates the name of 1st task listed to 'Hamlet at The Globe Theatre' and its time period to 08:00pm-11:00pm.
+  `edit 1 'Hamlet at The Globe Theatre' from 08:00pm to 11:00pm` <br>
+  Edits the name of 1st task listed to 'Hamlet at The Globe Theatre' and its time period to 08:00pm-11:00pm.
 
 
 <br>
@@ -177,8 +177,6 @@ Format: `add-alias 'COMMAND_ALIAS'='COMMAND_PHRASE'`
 > If an alias is typed within quotes, however, it will _not_ be replaced.
 
 Examples:
-* `add-alias 'del'='delete'` <br>
-  The command `del` can be used in place of `delete`.
 * `add-alias 'add-dl'='add deadline'` <br>
   The command `add-dl 'Clean the garage'` can be used in place of `add someday='Clean the garage'`. <br>
   However, `add deadline 'buy add-dl a cake' by 4:00pm on 12-Oct-16` does not become `add deadline 'buy add deadline a cake' by 4:00pm on 12-Oct-16`, since `add-dl` was enclosed by quotation marks.
@@ -216,8 +214,8 @@ Format: `exit`
 |add task to be done someday         |`add someday 'NAME'`|
 |list                |`list [dd-mm-yy] [TASK_TYPE] [done|not-done] [hh:mm]`|
 |find                |`find KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2 [KEYPHRASE_ONLY_ONE_WORD, MORE, ...]`|
-|delete              |`delete INDEX [MORE_INDICES...]`|
-|update              |`update INDEX ['NEWNAME'] [from hh:mm to hh:mm | by hh:mm] [dd-mm-yy] [done|not-done]` |
+|delete              |`del INDEX [MORE_INDICES...]`|
+|update              |`edit INDEX ['NEWNAME'] [from hh:mm to hh:mm | by hh:mm] [dd-mm-yy] [done|not-done]` |
 |mark done           |`done INDEX [MORE_INDICES...]`|
 |undo                |`undo` |
 |clear               |`clear`|
