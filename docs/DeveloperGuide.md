@@ -289,7 +289,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | Undo an action | Recover unwanted changes
 `* * *` | user | View all tasks in specific day | Easily identify my remaining tasks for the day
 `* * *` | user | Search for tasks using keywords | Find all relevant tasks with ease
-`* * *` | user | Backup my data on local storage | Ensure my recorded tasks will be lost
+`* * *` | user | Backup my data on local storage | Ensure my recorded tasks will not be lost
 `* * *` | user | Have some flexibility in my inputs | Use some variations while entering a task
 `* *` | user | Set a recurring task | Avoid constantly entering the same task for different days 
 `* *` | user | Block off time slots | Avoid scheduling conflicts tasks with unconfirmed timings
