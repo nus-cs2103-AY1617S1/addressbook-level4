@@ -19,7 +19,7 @@ public class UntagCommand extends Command{
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Untags the task identified by the index number used in the last task listing. "
             + "Tag names must be unique\n"
-            + "Parameters: INDEX TAGNAME [MORE TAGNAMES]"
+            + "Parameters: INDEX TAGNAME [MORE TAGNAMES]\n"
             + "Example: " + COMMAND_WORD + " 1 birthday clique";
 
     public static final String MESSAGE_TAG_TASK_SUCCESS = "Untagged Task: %1$s";
@@ -69,7 +69,7 @@ public class UntagCommand extends Command{
             assert false : "The target task cannot be found";
         }
 
-        return new CommandResult(String.format(MESSAGE_TAG_TASK_SUCCESS, taskToUntag));
+        return new CommandResult(String.format(MESSAGE_TAG_TASK_SUCCESS, taskToUntag.getName()));
     }
     
     

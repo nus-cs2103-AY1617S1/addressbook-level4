@@ -15,7 +15,7 @@ public class MarkCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_MARK_TASK_SUCCESS = "Mark Task: %1$s";
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Mark Task: Name : %1$s";
 
     public final int targetIndex;
 

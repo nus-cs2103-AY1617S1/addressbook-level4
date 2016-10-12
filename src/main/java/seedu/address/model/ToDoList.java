@@ -62,6 +62,7 @@ public class ToDoList implements ReadOnlyToDoList {
             UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
             
             this.tasksHistory.push(oldList);
+            topList.getInternalList().setAll(tasks);
             this.tasksHistory.push(topList);
         }
         
