@@ -9,26 +9,29 @@ import seedu.address.model.tag.UniqueTagList;
 public abstract class TMTask implements TMReadOnlyTask {
 	
 	private Name name;
-	private Date byDate;
+	private Optional<Date> fromDate;
+	private Optional<Date> byDate;
     private Status status;
-    public final String taskType = "Someday";
+    public final String taskType;
     private UniqueTagList tags;
     
     /**
      * Creating Someday task
      * Every field must be present and not null.
      */
+    public TMTask(Name name, Status status) {
+    	assert !CollectionUtil.isAnyNull(name, status);
+        this.taskType = "Someday";
+    	this.name = name;
+        this.status = status;
+    }
+    
     public TMTask(Name name, Status status, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, status, tags);
+        this.taskType = "Someday";
         this.name = name;
         this.status = status;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-    
-    public TMTask(Name name, Status status) {
-    	assert !CollectionUtil.isAnyNull(name, status);
-        this.name = name;
-        this.status = status;
     }
     
     /**
@@ -37,6 +40,7 @@ public abstract class TMTask implements TMReadOnlyTask {
      */
     public TMTask(Name name, Date date, Status status, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, date, status, tags);
+        this.taskType = "Deadline";
         this.name = name;
         this.byDate = date;
         this.status = status;
@@ -45,6 +49,7 @@ public abstract class TMTask implements TMReadOnlyTask {
     
     public TMTask(Name name, Date date, Status status) {
         assert !CollectionUtil.isAnyNull(name, date, status);
+        this.taskType = "Deadline";
         this.name = name;
         this.byDate = date;
         this.status = status;
@@ -62,7 +67,10 @@ public abstract class TMTask implements TMReadOnlyTask {
     public abstract Optional<Date> getStartDate();
     public abstract void setStartDate(Date date);
     
-    public abstract Optional<Date> getEndDate();
+    public Date getEndDate() {
+    	//Optional<>.get() throws NoSuchElementException if empty
+    	return byDate.get();
+    }
     public abstract void setEndDate(Date date);
     
     public abstract Status getStatus();

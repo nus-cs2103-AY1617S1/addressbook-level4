@@ -13,7 +13,7 @@ public interface TMReadOnlyTask {
 
     public Name getName();
     public Optional<Date> getStartDate();
-    public Optional<Date> getEndDate();
+    public Date getEndDate();
     public Status getStatus();
     public String getTaskType();
 
