@@ -1,6 +1,6 @@
 package seedu.emeraldo.logic.commands;
 
-import seedu.emeraldo.model.AddressBook;
+import seedu.emeraldo.model.Emeraldo;
 
 /**
  * Clears the address book.
@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(AddressBook.getEmptyAddressBook());
+        model.resetData(Emeraldo.getEmptyEmeraldo());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

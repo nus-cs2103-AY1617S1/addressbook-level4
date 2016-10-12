@@ -1,17 +1,17 @@
 package seedu.address.testutil;
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
-import seedu.emeraldo.model.AddressBook;
+import seedu.emeraldo.model.Emeraldo;
 import seedu.emeraldo.model.task.*;
 
 /**
  *
  */
-public class TypicalTestPersons {
+public class TypicalTestTasks {
 
     public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestPersons() {
+    public TypicalTestTasks() {
         try {
             alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
                     .withTags("friends").build();
@@ -32,7 +32,7 @@ public class TypicalTestPersons {
         }
     }
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static void loadAddressBookWithSampleData(Emeraldo ab) {
 
         try {
             ab.addPerson(new Task(alice));
@@ -47,12 +47,12 @@ public class TypicalTestPersons {
         }
     }
 
-    public TestPerson[] getTypicalPersons() {
+    public TestPerson[] getTypicalTasks() {
         return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
+    public Emeraldo getTypicalEmeraldo(){
+        Emeraldo ab = new Emeraldo();
         loadAddressBookWithSampleData(ab);
         return ab;
     }

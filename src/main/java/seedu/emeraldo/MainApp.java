@@ -77,13 +77,13 @@ public class MainApp extends Application {
             if(!emeraldoOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty Emeraldo");
             }
-            initialData = emeraldoOptional.orElse(new AddressBook());
+            initialData = emeraldoOptional.orElse(new Emeraldo());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Emeraldo");
-            initialData = new AddressBook();
+            initialData = new Emeraldo();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty Emeraldo");
-            initialData = new AddressBook();
+            initialData = new Emeraldo();
         }
 
         return new ModelManager(initialData, userPrefs);

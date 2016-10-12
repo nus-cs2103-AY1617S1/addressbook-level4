@@ -11,47 +11,47 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the task manager level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyEmeraldo {
+public class Emeraldo implements ReadOnlyEmeraldo {
 
-    private final UniquePersonList persons;
+    private final UniquePersonList tasks;
     private final UniqueTagList tags;
 
     {
-        persons = new UniquePersonList();
+        tasks = new UniquePersonList();
         tags = new UniqueTagList();
     }
 
-    public AddressBook() {}
+    public Emeraldo() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this task manager
      */
-    public AddressBook(ReadOnlyEmeraldo toBeCopied) {
+    public Emeraldo(ReadOnlyEmeraldo toBeCopied) {
         this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this task manager
      */
-    public AddressBook(UniquePersonList persons, UniqueTagList tags) {
+    public Emeraldo(UniquePersonList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyEmeraldo getEmptyAddressBook() {
-        return new AddressBook();
+    public static ReadOnlyEmeraldo getEmptyEmeraldo() {
+        return new Emeraldo();
     }
 
 //// list overwrite operations
 
-    public ObservableList<Task> getPersons() {
-        return persons.getInternalList();
+    public ObservableList<Task> getTasks() {
+        return tasks.getInternalList();
     }
 
     public void setPersons(List<Task> persons) {
-        this.persons.getInternalList().setAll(persons);
+        this.tasks.getInternalList().setAll(persons);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -78,7 +78,7 @@ public class AddressBook implements ReadOnlyEmeraldo {
      */
     public void addPerson(Task p) throws UniquePersonList.DuplicateTaskException {
         syncTagsWithMasterList(p);
-        persons.add(p);
+        tasks.add(p);
     }
 
     /**
@@ -105,7 +105,7 @@ public class AddressBook implements ReadOnlyEmeraldo {
     }
 
     public boolean removePerson(ReadOnlyTask key) throws UniquePersonList.TaskNotFoundException {
-        if (persons.remove(key)) {
+        if (tasks.remove(key)) {
             return true;
         } else {
             throw new UniquePersonList.TaskNotFoundException();
@@ -122,13 +122,13 @@ public class AddressBook implements ReadOnlyEmeraldo {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyTask> getPersonList() {
-        return Collections.unmodifiableList(persons.getInternalList());
+        return Collections.unmodifiableList(tasks.getInternalList());
     }
 
     @Override
@@ -138,7 +138,7 @@ public class AddressBook implements ReadOnlyEmeraldo {
 
     @Override
     public UniquePersonList getUniquePersonList() {
-        return this.persons;
+        return this.tasks;
     }
 
     @Override
@@ -150,14 +150,14 @@ public class AddressBook implements ReadOnlyEmeraldo {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equals(((AddressBook) other).tags));
+                || (other instanceof Emeraldo // instanceof handles nulls
+                && this.tasks.equals(((Emeraldo) other).tasks)
+                && this.tags.equals(((Emeraldo) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(tasks, tags);
     }
 }

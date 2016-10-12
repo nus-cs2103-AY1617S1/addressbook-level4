@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 /**
- * Represents a storage for {@link seedu.emeraldo.model.AddressBook}.
+ * Represents a storage for {@link seedu.emeraldo.model.Emeraldo}.
  */
 public interface EmeraldoStorage {
 

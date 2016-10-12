@@ -6,10 +6,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalTestTasks;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.events.storage.DataSavingExceptionEvent;
-import seedu.emeraldo.model.AddressBook;
+import seedu.emeraldo.model.Emeraldo;
 import seedu.emeraldo.model.ReadOnlyEmeraldo;
 import seedu.emeraldo.model.UserPrefs;
 import seedu.emeraldo.storage.JsonUserPrefsStorage;
@@ -60,10 +60,10 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
+        Emeraldo original = new TypicalTestTasks().getTypicalEmeraldo();
         storageManager.saveEmeraldo(original);
         ReadOnlyEmeraldo retrieved = storageManager.readEmeraldo().get();
-        assertEquals(original, new AddressBook(retrieved));
+        assertEquals(original, new Emeraldo(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }
 
@@ -77,7 +77,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleEmeraldoChangedEvent(new EmeraldoChangedEvent(new AddressBook()));
+        storage.handleEmeraldoChangedEvent(new EmeraldoChangedEvent(new Emeraldo()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 

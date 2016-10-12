@@ -6,10 +6,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalTestTasks;
 import seedu.emeraldo.commons.exceptions.DataConversionException;
 import seedu.emeraldo.commons.util.FileUtil;
-import seedu.emeraldo.model.AddressBook;
+import seedu.emeraldo.model.Emeraldo;
 import seedu.emeraldo.model.ReadOnlyEmeraldo;
 import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.storage.XmlEmeraldoStorage;
@@ -63,27 +63,27 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
-        AddressBook original = td.getTypicalAddressBook();
+        TypicalTestTasks td = new TypicalTestTasks();
+        Emeraldo original = td.getTypicalEmeraldo();
         XmlEmeraldoStorage xmlAddressBookStorage = new XmlEmeraldoStorage(filePath);
 
         //Save in new file and read back
         xmlAddressBookStorage.saveEmeraldo(original, filePath);
         ReadOnlyEmeraldo readBack = xmlAddressBookStorage.readEmeraldo(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        assertEquals(original, new Emeraldo(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Task(TypicalTestPersons.hoon));
-        original.removePerson(new Task(TypicalTestPersons.alice));
+        original.addPerson(new Task(TypicalTestTasks.hoon));
+        original.removePerson(new Task(TypicalTestTasks.alice));
         xmlAddressBookStorage.saveEmeraldo(original, filePath);
         readBack = xmlAddressBookStorage.readEmeraldo(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        assertEquals(original, new Emeraldo(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(new Task(TypicalTestPersons.ida));
+        original.addPerson(new Task(TypicalTestTasks.ida));
         xmlAddressBookStorage.saveEmeraldo(original); //file path not specified
         readBack = xmlAddressBookStorage.readEmeraldo().get(); //file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        assertEquals(original, new Emeraldo(readBack));
 
     }
 
@@ -100,7 +100,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void saveAddressBook_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(new AddressBook(), null);
+        saveAddressBook(new Emeraldo(), null);
     }
 
 

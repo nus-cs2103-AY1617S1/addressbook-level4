@@ -16,7 +16,7 @@ import seedu.address.TestApp;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.FileUtil;
 import seedu.emeraldo.commons.util.XmlUtil;
-import seedu.emeraldo.model.AddressBook;
+import seedu.emeraldo.model.Emeraldo;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.*;
@@ -134,8 +134,8 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+    public static Emeraldo generateEmptyAddressBook() {
+        return new Emeraldo(new UniquePersonList(), new UniqueTagList());
     }
 
     public static XmlSerializableEmeraldo generateSampleStorageAddressBook() {

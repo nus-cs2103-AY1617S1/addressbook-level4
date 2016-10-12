@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
-import seedu.emeraldo.model.AddressBook;
+import seedu.emeraldo.model.Emeraldo;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniquePersonList;
@@ -13,9 +13,9 @@ import seedu.emeraldo.model.task.UniquePersonList;
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private Emeraldo addressBook;
 
-    public AddressBookBuilder(AddressBook addressBook){
+    public AddressBookBuilder(Emeraldo addressBook){
         this.addressBook = addressBook;
     }
 
@@ -29,7 +29,7 @@ public class AddressBookBuilder {
         return this;
     }
 
-    public AddressBook build(){
+    public Emeraldo build(){
         return addressBook;
     }
 }

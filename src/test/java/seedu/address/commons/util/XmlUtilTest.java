@@ -8,7 +8,7 @@ import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TestUtil;
 import seedu.emeraldo.commons.util.FileUtil;
 import seedu.emeraldo.commons.util.XmlUtil;
-import seedu.emeraldo.model.AddressBook;
+import seedu.emeraldo.model.Emeraldo;
 import seedu.emeraldo.storage.XmlSerializableEmeraldo;
 
 import javax.xml.bind.JAXBException;
@@ -31,7 +31,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        XmlUtil.getDataFromFile(null, AddressBook.class);
+        XmlUtil.getDataFromFile(null, Emeraldo.class);
     }
 
     @Test
@@ -43,13 +43,13 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.getDataFromFile(MISSING_FILE, AddressBook.class);
+        XmlUtil.getDataFromFile(MISSING_FILE, Emeraldo.class);
     }
 
     @Test
     public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
-        XmlUtil.getDataFromFile(EMPTY_FILE, AddressBook.class);
+        XmlUtil.getDataFromFile(EMPTY_FILE, Emeraldo.class);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        XmlUtil.saveDataToFile(null, new AddressBook());
+        XmlUtil.saveDataToFile(null, new Emeraldo());
     }
 
     @Test
@@ -74,23 +74,23 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.saveDataToFile(MISSING_FILE, new AddressBook());
+        XmlUtil.saveDataToFile(MISSING_FILE, new Emeraldo());
     }
 
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
-        XmlSerializableEmeraldo dataToWrite = new XmlSerializableEmeraldo(new AddressBook());
+        XmlSerializableEmeraldo dataToWrite = new XmlSerializableEmeraldo(new Emeraldo());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableEmeraldo dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableEmeraldo.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(),(new AddressBook(dataFromFile)).toString());
+        assertEquals((new Emeraldo(dataToWrite)).toString(),(new Emeraldo(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
+        AddressBookBuilder builder = new AddressBookBuilder(new Emeraldo());
         dataToWrite = new XmlSerializableEmeraldo(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableEmeraldo.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(),(new AddressBook(dataFromFile)).toString());
+        assertEquals((new Emeraldo(dataToWrite)).toString(),(new Emeraldo(dataFromFile)).toString());
     }
 }
