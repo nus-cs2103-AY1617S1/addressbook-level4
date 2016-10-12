@@ -644,16 +644,15 @@ Use case ends
 4. The application should be able to display the result of the query in less than 5 seconds.
 5. The application should run primarily on commandline-like interface.
 6. The application should be able to work offline.
-7. The application should work on a computer running Windows 7 or later with Java 8 installed.
-8. The application should ship with regression testing available.
-9. The application should be able to handle both tasks and events as the same concept.
-10. The source code should be well-documented and ready to be continued by someone else.
-11. The application should allow users to undo up to at least 10 most recent commands.
-12. The application should be usable straight away, without requiring any installation.
-13. The application should allow users to change the stored data location.
-14. Version control should be used during development of product.
-15. The application should provide help when the user enters an invalid command.
-16. The data storage file should be in a human-readable and editable format.
+7. The application should ship with regression testing available.
+8. The application should be able to handle both tasks and events as the same concept.
+9. The source code should be well-documented and ready to be continued by someone else.
+10. The application should allow users to undo up to at least 10 most recent commands.
+11. The application should be usable straight away, without requiring any installation.
+12. The application should allow users to change the stored data location.
+13. Version control should be used during development of product.
+14. The application should provide help when the user enters an invalid command.
+15. The data storage file should be in a human-readable and editable format.
 
 ## Appendix D : Glossary
 
@@ -717,6 +716,7 @@ Strengths:
 * Allows entering tasks that need to be done before/after/without a specific date/time
 * Syncs when online, but can be used offline too
 * Multiplatform (Android, iOS, Windows, macOS, browser extensions - Chrome, Firefox, Safari)
+* Allows searching for tasks
 * Can set priorities for tasks
 
 Weaknesses:
@@ -725,6 +725,8 @@ Weaknesses:
 * Marking item as done simply deletes it
 * Cannot 'block' or 'release' multiple slots when timing is uncertain
 * Mouse required for most actions, only task creation uses the keyboard
+
+Summary: Does not store completed tasks, and still requires mouse for most actions
 
 #### Microsoft Outlook
 
