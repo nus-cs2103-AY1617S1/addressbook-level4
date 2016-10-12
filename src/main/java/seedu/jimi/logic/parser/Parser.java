@@ -32,6 +32,9 @@ public class Parser {
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
             Pattern.compile("(?<targetIndex>\\d+\\s)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
     
+    private static final Pattern SAVE_DIRECTORY_ARGS_FORMAT = 
+            Pattern.compile("(?<filePath>\\S.+)");
+    
     public Parser() {}
 
     /**
@@ -223,6 +226,11 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSaveAs(String args)  {
-        return null;
+        final Matcher matcher = SAVE_DIRECTORY_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    SaveAsCommand.MESSAGE_USAGE));
+        }
+        return new SaveAsCommand(matcher.group("filePath"));
     }
 }
