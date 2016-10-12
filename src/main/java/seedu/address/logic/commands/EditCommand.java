@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import java.util.Optional;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -56,7 +58,7 @@ public class EditCommand extends Command {
         try {
         	// TODO: use getStatus from TMReadOnlyTask instead
         	Status oldStatus = taskToEdit.getStatus();
-        	Task postEdit = new Task(toEdit, new TaskType("someday"), oldStatus, null, null, new UniqueTagList());
+        	Task postEdit = new Task(toEdit, new TaskType("someday"), oldStatus, Optional.empty(), Optional.empty(), new UniqueTagList());
         	if(lastShownList.contains(postEdit)) {
         		return new CommandResult(MESSAGE_DUPLICATE_TASK);
         	}
