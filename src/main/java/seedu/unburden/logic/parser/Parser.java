@@ -118,12 +118,14 @@ public class Parser {
         		return new AddCommand(
                         matcher2.group("name"),
                         matcher2.group("date"),
-                        getTagsFromArgs(matcher2.group("tagArguments"));
+                        getTagsFromArgs(matcher2.group("tagArguments"))
+            );
         	}
         	else{
         		return new AddCommand(
         				matcher3.group("name"),
-        				getTagsFromArgs(matcher3.group("tagArguments"));
+        				getTagsFromArgs(matcher3.group("tagArguments"))
+        	);
         	}
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

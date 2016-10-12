@@ -36,7 +36,20 @@ public class Task implements ReadOnlyTask {
         this(source.getName(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
 
-    @Override
+    public Task(Name name, UniqueTagList tags) {
+		assert !CollectionUtil.isAnyNull(name, tags);
+		this.name = name;
+		this.tags = new UniqueTagList(tags);
+	}
+
+	public Task(Name name, Date date, UniqueTagList tags) {
+		assert!CollectionUtil.isAnyNull(name,date, tags);
+		this.name = name;
+		this.date = date;
+		this.tags = new UniqueTagList(tags);
+	}
+
+	@Override
     public Name getName() {
         return name;
     }
