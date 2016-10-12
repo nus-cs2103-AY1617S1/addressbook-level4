@@ -4,7 +4,7 @@ import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable floating task object. For testing only.
  */
 public class TestFloatingTask implements ReadOnlyTask {
 
@@ -49,5 +49,24 @@ public class TestFloatingTask implements ReadOnlyTask {
     @Override
     public boolean isCompleted() {
         return false;
+    }
+
+    @Override
+    public String getAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+               .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    @Override
+    public boolean isSameStateAs(ReadOnlyTask other) {
+        return other == this // short circuit if same object
+                || (other instanceof TestFloatingTask // instanceof handles nulls
+                && (other).getName().equals(this.getName()) // state checks here onwards
+                && (other).isCompleted() == this.isCompleted()
+                );
+
     }
 }
