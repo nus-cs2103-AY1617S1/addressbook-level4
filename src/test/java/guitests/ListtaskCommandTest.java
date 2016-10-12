@@ -8,11 +8,9 @@ import seedu.taskmanager.commons.core.Messages;
 
 public class ListtaskCommandTest extends TaskManagerGuiTest {
 	
-	
+	//verify ListTaskCommand works by checking size
 	@Test
 	public void ListTaskCommand() {
-		
-		//verify ListTaskCommand works by checking size
 		commandBox.runCommand("listtask");
 		assertListSize(2); 
 	}

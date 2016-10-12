@@ -11,8 +11,6 @@ public class ListdeadlineCommandTest extends TaskManagerGuiTest {
 	
 	@Test
 	public void ListDeadlineCommand() {
-		
-		//verify ListTaskCommand works by checking size
 		commandBox.runCommand("listdeadline");
 		assertListSize(2);
 		
