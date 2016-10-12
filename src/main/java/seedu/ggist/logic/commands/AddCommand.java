@@ -98,6 +98,10 @@ public class AddCommand extends Command {
         );
         taskType = TaskType.FLOATING;
     }
+    
+    public String getTaskType() {
+        return taskType.toString();
+    }
 
     @Override
     public CommandResult execute() {

@@ -168,10 +168,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid TaskName, abcd, 1800", TaskDate.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid TaskName, 12 oct, 1111", TaskTime.MESSAGE_TIME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid TaskName p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
+                "add Valid TaskName, 12 oct, 5555", TaskTime.MESSAGE_TIME_CONSTRAINTS);
     }
 
     @Test
@@ -184,7 +181,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS,"floating", toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -222,7 +219,7 @@ public class LogicManagerTest {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -316,13 +313,13 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
+    public void execute_search_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE);
-        assertCommandBehavior("find ", expectedMessage);
+        assertCommandBehavior("search ", expectedMessage);
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInTaskNames() throws Exception {
+    public void execute_search_onlyMatchesFullWordsInTaskNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task tTarget1 = helper.generateTaskWithTaskName("bla bla KEY bla");
         Task tTarget2 = helper.generateTaskWithTaskName("bla KEY bla bceofeia");
@@ -334,14 +331,14 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(tTarget1, tTarget2);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("search KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
 
     @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
+    public void execute_search_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task t1 = helper.generateTaskWithTaskName("bla bla KEY bla");
         Task p2 = helper.generateTaskWithTaskName("bla KEY bla bceofeia");
@@ -353,14 +350,14 @@ public class LogicManagerTest {
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("search KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
 
     @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+    public void execute_search_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task tTarget1 = helper.generateTaskWithTaskName("bla bla KEY bla");
         Task tTarget2 = helper.generateTaskWithTaskName("bla rAnDoM bla bceofeia");
@@ -372,7 +369,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(tTarget1, tTarget2, tTarget3);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find key rAnDoM",
+        assertCommandBehavior("search key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -386,7 +383,7 @@ public class LogicManagerTest {
 
         Task bungee() throws Exception {
             TaskName taskName = new TaskName("go bungee jumping");
-            TaskDate date = new TaskDate("Wed, 12 Oct 2016");
+            TaskDate date = new TaskDate("16 Oct");
             TaskTime startTime = new TaskTime("1800");
             TaskTime endTime = new TaskTime("2000");
             Tag tag1 = new Tag("tag1");
@@ -406,8 +403,8 @@ public class LogicManagerTest {
             return new Task(
                     new TaskName("Task " + seed),
                     new TaskDate("Oct 1" + Math.abs(seed)),
-                    new TaskTime(seed + "000"),
-                    new TaskTime("000" + seed),
+                    new TaskTime("123"+seed),
+                    new TaskTime("213" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -504,7 +501,7 @@ public class LogicManagerTest {
         Task generateTaskWithTaskName(String taskName) throws Exception {
             return new Task(
                     new TaskName(taskName),
-                    new TaskDate("Wed, 12 Oct 2016"),
+                    new TaskDate("12 Oct"),
                     new TaskTime("1800"),
                     new TaskTime("2000"),
                     new UniqueTagList(new Tag("tag"))
