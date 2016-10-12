@@ -14,54 +14,61 @@ import seedu.address.testutil.TestUtil;
 import seedu.address.model.task.*;
 
 public class UpdateCommandTest extends AddressBookGuiTest {
-
-	
 	@Test
     public void update() {
-      
-        TestTask[] currentList = td.getTypicalTasks();
+	    TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
-        /*TestTask taskToUpdate=td.hoon;
-        assertUpdateSuccess(targetIndex,taskToUpdate,currentList);
-        currentList[targetIndex-1]=taskToUpdate;
-        currentList=TestUtil.addTasksToList(currentList);*/
-       
-        //edit with duplicate task
-        targetIndex=3;
-        commandBox.runCommand("update "+targetIndex+td.alice.getArgs());
+        
+        // update first task
+        assertUpdateSuccess(targetIndex, td.hoon, currentList);
+
+        currentList = TestUtil.replaceTaskFromList(currentList, td.hoon, targetIndex);
+        targetIndex = currentList.length;
+        
+        // update last task
+        assertUpdateSuccess(targetIndex, td.ida, currentList);
+        
+        currentList = TestUtil.replaceTaskFromList(currentList, td.ida, targetIndex);
+        targetIndex = 1;
+        
+        // update only tags
+        commandBox.runCommand("update " + targetIndex + " t/urgent");
+        
+        // update with no changes
+        commandBox.runCommand("update " + targetIndex);
+        
+        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
+        assertMatching(td.hoon, updatedCard);
+        
+        // update own task without changing name
+        targetIndex = 3;
+        commandBox.runCommand("update " + targetIndex + td.carl.getArgs());
+        assertTrue(taskListPanel.isListMatching(currentList));
+        
+        // update task to a name that is duplicated
+        targetIndex = 2;
+        commandBox.runCommand("update " + targetIndex + td.carl.getArgs());
         assertResultMessage(UpdateCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));   
+        assertTrue(taskListPanel.isListMatching(currentList));
         
-       //invalid command
-        commandBox.runCommand("updatee "+td.ida.getArgs());
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
-        
-       //invalid index
+        // invalid index
         commandBox.runCommand("update " + (currentList.length+1) + td.ida.getArgs());
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-
-        //edit in an empty list
-        commandBox.runCommand("clear");
-        commandBox.runCommand("update "+targetIndex+td.ida.getArgs());
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        
-        //invalid command
-        commandBox.runCommand("updatee "+td.ida.getArgs());
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
-        
-  
     }
 	
-	private void assertUpdateSuccess(int targetIndex,TestTask taskToUpdate, TestTask... currentList) {
+	private void assertUpdateSuccess(int targetIndex, TestTask taskToUpdate, TestTask... currentList) {
 		commandBox.runCommand("update " + targetIndex + taskToUpdate.getArgs() );
 		
 		//confirm the new card contains the right data
         TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
         assertMatching(taskToUpdate, updatedCard);
 
-        //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList);
-        expectedList[targetIndex-1]=taskToUpdate;
+        
+        // merge tags
+        taskToUpdate.getTags().mergeFrom(expectedList[targetIndex - 1].getTags());
+        
+        expectedList[targetIndex - 1] = taskToUpdate;
         assertTrue(taskListPanel.isListMatching(expectedList));
         
         //confirm the result message is correct
