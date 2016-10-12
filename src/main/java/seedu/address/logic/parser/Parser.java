@@ -25,8 +25,8 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)"); // single number of index
-    private static final Pattern ITEM_INDEXES_ARGS_FORMAT = Pattern.compile("(?<targetIndex>(?:\\d[\\D]*)+)"); // variable number of indexes
+    private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[0-9]+)"); // single number of index delete\s+([0-9]+)
+    private static final Pattern ITEM_INDEXES_ARGS_FORMAT = Pattern.compile("(?<targetIndexes>([0-9]+)\\s+([0-9]+\\s*)+)"); // variable number of indexes
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -296,10 +296,19 @@ public class Parser {
         
         final Matcher itemIndexesMatcher = ITEM_INDEXES_ARGS_FORMAT.matcher(args.trim());
         final Matcher itemIndexMatcher = ITEM_INDEX_ARGS_FORMAT.matcher(args.trim());
-        
-        if(itemIndexesMatcher.matches()) {
+
+        if(itemIndexMatcher.matches()) {
+            Optional<Integer> index = parseIndex(args);
+            if(!index.isPresent()) {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
+            return new DeleteCommand(index.get());
+        }
+
+        else if(itemIndexesMatcher.matches()) {
             // separate into the different indexes
-            List<String> indexList = Arrays.asList(args.trim().split("[\\D]+"));
+            List<String> indexList = Arrays.asList(args.trim().split("[^0-9]+"));
             ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
             
             for(String indexInList: indexList) {
@@ -313,14 +322,6 @@ public class Parser {
                 }
             }
             return new DeleteCommand(indexesToDelete);
-        }
-        else if(itemIndexMatcher.matches()) {
-            Optional<Integer> index = parseIndex(args);
-            if(!index.isPresent()) {
-                return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-            }
-            return new DeleteCommand(index.get());
         }
         else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));

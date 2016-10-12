@@ -33,15 +33,18 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         targetIndex = currentList.length/2;
         assertDeleteSuccess(targetIndex, currentList);
 
-        //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
-        assertResultMessage(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
-        
         /* Delete multiple items */
         // delete first and last in the list
+        currentList = TestUtil.removeItemFromList(currentList, targetIndex);
         int[] targetIndexes = {1, currentList.length};
-        currentList = TestUtil.removeItemsFromList(currentList, targetIndexes);
+//        currentList = TestUtil.removeItemsFromList(currentList, targetIndexes);
         assertDeleteSuccess(targetIndexes, currentList);
+        
+        //invalid index
+        commandBox.runCommand("delete " + (currentList.length + 1));
+        assertResultMessage(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        
+
 
     }
 
@@ -75,7 +78,13 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         }
         TestItem[] expectedRemainder = TestUtil.removeItemsFromList(currentList, targetIndexes);
 
-        commandBox.runCommand("delete " + targetIndexes);
+        // format for deleting multiple indexes
+        StringBuilder targetIndexesStringFormat = new StringBuilder();
+        for(int index : targetIndexes) {
+            targetIndexesStringFormat.append(String.valueOf(index));
+            targetIndexesStringFormat.append(" ");
+        }
+        commandBox.runCommand("delete " + targetIndexesStringFormat);
 
         //confirm the list now contains all previous items except the deleted item
         assertTrue(personListPanel.isListMatching(expectedRemainder));

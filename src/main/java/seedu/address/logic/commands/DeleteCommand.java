@@ -49,28 +49,8 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
         
-        if(hasMultipleIndexes){
-            int numDeleted = 1;
-            for(int indexToDelete : targetIndexes) {
-                UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredPersonList();
-                if (lastShownList.size() < (indexToDelete - numDeleted + 1)) {
-                    indicateAttemptToExecuteIncorrectCommand();
-                    return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
-                }
+        if(!hasMultipleIndexes){
 
-                ReadOnlyItem personToDelete = lastShownList.get(indexToDelete - numDeleted);
-                numDeleted += 1;
-                deletedItems.add(personToDelete);
-                
-                try {
-                    model.deleteItem(personToDelete);
-                } catch (PersonNotFoundException pnfe) {
-                    assert false : "The target item cannot be missing";
-                }
-            }
-            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
-        }
-        else {
             UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredPersonList();
             if (lastShownList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
@@ -87,5 +67,27 @@ public class DeleteCommand extends Command {
             
             return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
         }
+
+        else {
+            int numDeleted = 1;
+            for(int indexToDelete : targetIndexes) {
+                UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredPersonList();
+                if (lastShownList.size() < (indexToDelete - numDeleted + 1)) {
+                    indicateAttemptToExecuteIncorrectCommand();
+                    return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+                }
+
+            ReadOnlyItem personToDelete = lastShownList.get(indexToDelete - numDeleted);
+            numDeleted += 1;
+            deletedItems.add(personToDelete);
+            
+            try {
+                model.deleteItem(personToDelete);
+            } catch (PersonNotFoundException pnfe) {
+                assert false : "The target item cannot be missing";
+            }
+        }
+        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
+    }
     }
 }
