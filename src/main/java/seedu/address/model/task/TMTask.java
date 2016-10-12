@@ -156,13 +156,11 @@ public class TMTask implements TMReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, taskType, status, startDate, endDate, tags);
     }
 
     @Override
     public String toString() {
         return getAsText();
-    }
-
-    
+    }   
 }
