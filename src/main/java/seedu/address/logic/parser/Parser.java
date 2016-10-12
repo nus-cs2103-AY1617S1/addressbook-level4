@@ -21,7 +21,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)(?<arguments>.*)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
@@ -157,6 +157,7 @@ public class Parser {
      */
     private Optional<Integer> parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
+
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -175,25 +176,22 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareUpdate(String args) {
-        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
+    private Command prepareUpdate(String args) {        
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(args.trim());
+        Optional<Integer> index = parseIndex(args);
         
-        if (!matcher.matches()) {
+        if (!matcher.matches() || !index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
-        int index=Integer.parseInt(matcher.group("commandWord"));
 
-        matcher = TASK_DATA_ARGS_FORMAT.matcher(matcher.group("arguments"));
-        if (!matcher.matches()) {
+        final Matcher argsMatcher = TASK_DATA_ARGS_FORMAT.matcher(matcher.group("arguments"));
+        
+        if (!argsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
+
         try {
-            if (matcher.group("tagArguments").isEmpty()) {
-                
-            }
-
-            return new UpdateCommand(index, matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")));
-
+            return new UpdateCommand(index.get(), argsMatcher.group("name"), getTagsFromArgs(argsMatcher.group("tagArguments")));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
