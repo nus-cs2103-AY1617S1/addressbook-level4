@@ -1,11 +1,14 @@
 package seedu.address.model.task;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Location;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Deadline;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -14,48 +17,82 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
-    private Description description;
-   
-    private Location location;
-
+	private Description descr;
+	private Location loc;
+	private LocalDateTime dueDate;
+	private Priority pri;
 
     private UniqueTagList tags;
+
+    
+	public Task(Description description, Object ... objects) throws IllegalValueException{
+		assert !CollectionUtil.isAnyNull(description, objects);
+		this.descr = description;
+		this.loc = null;
+		this.dueDate = null;
+		this.pri = new Priority(0);
+		for(int i = 0; i < objects.length; i++){
+    		Object o = objects[i];
+    		if(o instanceof String){
+    			this.loc = new Location((String)o);
+    		} else if(o instanceof LocalDateTime){
+    			this.dueDate = (LocalDateTime)o;
+    		} else if(o instanceof Integer){
+    			this.pri = new Priority((Integer)o);
+    		} else if(o instanceof UniqueTagList){
+    			this.tags = new UniqueTagList((UniqueTagList)o);
+    		}
+    	}
+	}
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Description description, Location location, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(description, location, tags);
-        this.description = description;
-     
-        this.location = location;
+
+    public Task(Description description, Location location, LocalDateTime due, Priority p, UniqueTagList tags) {
+    	assert !CollectionUtil.isAnyNull(description, location, due);
+    	this.descr = description;
+    	this.loc = location;
+    	this.dueDate = due;
+    	this.pri = p;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
-
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getLocation(), source.getTags());
+        this(source.getDescription(), source.getLocation(), source.getDate(), source.getPriority(), source.getTags());
     }
+   
 
     public Task(Description description, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(description, tags);
-        this.description = description;
+        this.descr = description;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        this.location = null;
+        this.loc = null;
     }
 
     @Override
     public Description getDescription() {
-        return description;
+        return this.descr;
     }
 
     @Override
     public Location getLocation() {
-        return location;
+        return this.loc;
     }
 
+	@Override
+	public LocalDateTime getDate() {
+		return this.dueDate;
+	}
+
+	@Override
+	public Priority getPriority() {
+		return this.pri;
+	}
+
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -78,7 +115,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, location, tags);
+        return Objects.hash(this.descr, this.loc, tags);
     }
 
     @Override
@@ -87,11 +124,6 @@ public class Task implements ReadOnlyTask {
     }
 
 
-    @Override
-    public Deadline getDeadline() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
 
 }

@@ -4,6 +4,8 @@ import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +30,7 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<description>[^/]+)"
+            		 + " (by)?\\s(?<deadline>[^/]+)"
 //                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
 //                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
 //                    + " (?<isAddressPrivate>p?)a/(?<location>[^/]+)"
@@ -92,10 +95,18 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        LocalDateTime ldt = null;
+        if(matcher.group("deadline") != null){
+        	String date = matcher.group("deadline").trim();
+        	date.replaceAll("\\n", "");
+        	System.out.println(date);
+        	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
+        	ldt = LocalDateTime.parse(date, formatter);
+        }
         try {
             return new AddCommand(
                     matcher.group("description"),
-    //                matcher.group("location"),
+                    ldt,
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {

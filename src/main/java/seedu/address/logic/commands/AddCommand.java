@@ -5,6 +5,7 @@ import seedu.address.model.task.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,6 +52,18 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Description(description),
+                new UniqueTagList(tagSet)
+        );
+    }
+    public AddCommand(String description, LocalDateTime deadline, Set<String> tags) throws IllegalValueException
+    {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Description(description),
+                deadline,
                 new UniqueTagList(tagSet)
         );
     }
