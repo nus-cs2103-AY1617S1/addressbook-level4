@@ -1,8 +1,8 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Task;
+import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -17,10 +17,12 @@ import java.util.stream.Collectors;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniquePersonList undatedList;
     private final UniqueTagList tags;
 
     {
         persons = new UniquePersonList();
+        undatedList = new UniquePersonList();
         tags = new UniqueTagList();
     }
 
@@ -30,14 +32,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Persons and Tags are copied into this addressbook
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueUndatedTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(UniquePersonList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public AddressBook(UniquePersonList persons, UniquePersonList undatedTasks, UniqueTagList tags) {
+        resetData(persons.getInternalList(), undatedTasks.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyAddressBook getEmptyAddressBook() {
@@ -46,25 +48,36 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 //// list overwrite operations
 
-    public ObservableList<Person> getPersons() {
+    public ObservableList<Task> getPersons() {
         return persons.getInternalList();
     }
+    
+    public ObservableList<Task> getUndatedTasks() {
+        return undatedList.getInternalList();
+    }
 
-    public void setPersons(List<Person> persons) {
+    public void setPersons(List<Task> persons) {
         this.persons.getInternalList().setAll(persons);
+    }
+    
+    public void setUndatedTaskList(List<Task> persons) {
+        this.undatedList.getInternalList().setAll(persons);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyPerson> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Person::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyTask> newPersons, 
+            Collection<? extends ReadOnlyTask> newUndatedTasks,
+            Collection<Tag> newTags) {
+        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+        setPersons(newUndatedTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyAddressBook newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getPersonList(), newData.getUndatedTaskList(), newData.getTagList());
     }
 
 //// person-level operations
@@ -76,9 +89,23 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
+    public void addPerson(Task p) throws UniquePersonList.DuplicatePersonException {
         syncTagsWithMasterList(p);
-        persons.add(p);
+        if (checkIfDated(p)){
+            persons.add(p);
+        }
+        else{
+            undatedList.add(p);
+        }
+    }
+    
+    private boolean checkIfDated(ReadOnlyTask d){
+        if(d.getDate().toString().equals("") && d.getTime().toString().equals("")){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     /**
@@ -86,7 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Person person) {
+    private void syncTagsWithMasterList(Task person) {
         final UniqueTagList personTags = person.getTags();
         tags.mergeFrom(personTags);
 
@@ -104,14 +131,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
+    public boolean removePerson(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {       
         if (persons.remove(key)) {
             return true;
-        } else {
+        } 
+        else if (undatedList.remove(key)){
+            return true;
+        }
+        else {
             throw new UniquePersonList.PersonNotFoundException();
         }
     }
-
+   
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
@@ -127,8 +158,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
+    public List<ReadOnlyTask> getPersonList() {
         return Collections.unmodifiableList(persons.getInternalList());
+    }
+    
+    @Override
+    public List<ReadOnlyTask> getUndatedTaskList() {
+        return Collections.unmodifiableList(undatedList.getInternalList());
     }
 
     @Override
@@ -139,6 +175,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public UniquePersonList getUniquePersonList() {
         return this.persons;
+    }
+    
+    @Override
+    public UniquePersonList getUniqueUndatedTaskList() {
+        return this.undatedList;
     }
 
     @Override
@@ -152,12 +193,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
+                && this.undatedList.equals(((AddressBook) other).undatedList)
                 && this.tags.equals(((AddressBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(persons, undatedList, tags);
     }
 }
