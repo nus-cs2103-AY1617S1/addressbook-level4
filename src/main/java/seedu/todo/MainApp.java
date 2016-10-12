@@ -60,7 +60,7 @@ public class MainApp extends Application {
         ui.start(primaryStage);
 
         IndexView view = UiManager.loadView(IndexView.class);
-        view.indexTextValue = "Hi there!";
+        view.tasks = TodoListDB.getInstance().getAllTasks();
         view.render();
     }
 
