@@ -12,7 +12,7 @@ import seedu.address.model.item.UniquePersonList.PersonNotFoundException;
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteByIndex";
+    public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by the index number used in the last item listing.\n"
@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
     private ArrayList<Integer> targetIndexes;
     private boolean hasMultipleIndexes = false;
 
-    private ArrayList<ReadOnlyItem> deletedItems;
+    private ArrayList<ReadOnlyItem> deletedItems = new ArrayList<ReadOnlyItem>();
     
     /*
      * Deletes deadline, task, or event by keyword.
@@ -47,10 +47,10 @@ public class DeleteCommand extends Command {
     public CommandResult execute() {
         
         if(hasMultipleIndexes){
-            int numDeleted = 0;
+            int numDeleted = 1;
             for(int indexToDelete : targetIndexes) {
                 UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredPersonList();
-                if (lastShownList.size() < indexToDelete) {
+                if (lastShownList.size() < (indexToDelete - numDeleted + 1)) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
                 }

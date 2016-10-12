@@ -325,7 +325,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("deleteByIndex");
+        assertIndexNotFoundBehaviorForCommand("delete");
     }
 
     @Test
@@ -337,7 +337,7 @@ public class LogicManagerTest {
         expectedAB.removePerson(threeItems.get(1));
         helper.addToModel(model, threeItems);
 
-        assertCommandBehavior("deleteByIndex 2",
+        assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, threeItems.get(1)),
                 expectedAB,
                 expectedAB.getPersonList());
