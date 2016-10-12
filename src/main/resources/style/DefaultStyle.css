@@ -2,7 +2,7 @@
     -fx-background-color: #2D2D2D;
     -fx-border-color: #00A4FF;
     -fx-border-width: 1px;
-    -fx-padding: 8, 8, 0, 8;
+    -fx-padding: 8;
     -fx-spacing: 4;
 }
 
@@ -11,6 +11,22 @@
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 12pt;
+}
+
+.spacing {
+    -fx-spacing: 8px;
+    -fx-hgap: 8px;
+    -fx-vgap: 8px;
+}
+
+.spacingSmall {
+    -fx-spacing: 2px;
+    -fx-hgap: 2px;
+    -fx-vgap: 2px;
+}
+
+.subheadingPadding {
+    -fx-padding: 0 0 0 2;
 }
 
 .commandInput {
@@ -55,14 +71,20 @@
 
 .taskCard .pinImage {
     -fx-image: url("../images/star_gold.png");
+    -fx-fit-to-width: 30px;
+    -fx-fit-to-height: 30px;
 }
 
 .taskCard .dateImage {
     -fx-image: url("../images/clock_black.png");
+    -fx-fit-to-width: 20px;
+    -fx-fit-to-height: 20px;
 }
 
 .taskCard .locationImage {
     -fx-image: url("../images/location_black.png");
+    -fx-fit-to-width: 20px;
+    -fx-fit-to-height: 20px;
 }
 
 /*Selected*/
