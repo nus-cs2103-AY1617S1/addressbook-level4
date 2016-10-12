@@ -1,15 +1,11 @@
-[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
-
 # Task Manager
 
 <img src="docs/images/1945556540.jpg" width="600"><br>
 
 * Taskmanager, is a desktop to-do list application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is written in Java programming language. 
-* The target user prefer typing over mouse
 * It provides a list of commands for user to manage their tasks and events, and tasks and events will be reflected by GUI
-* for developer, support for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
+* It supports for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 

@@ -259,7 +259,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a new task |
 `* * *` | user | delete a task | remove task that I have done
 `* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
 `*` | user with many tasks in the task manager | sort tasks by deadline | locate a task easily
 
 {More to be added}
@@ -293,7 +292,7 @@ Use case ends.
 
 **MSS**
 
-1. User type the correct command in the command box(search KEYWORD)
+1. User requests to search a task by a KEYWORD
 2. Task Manager shows a task or more tasks which match the KEYWORD.<br>
 Use case ends.
 
@@ -310,8 +309,6 @@ Use case ends.
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
 ## Appendix D : Glossary
 
 ##### Mainstream OS
@@ -328,6 +325,6 @@ Use case ends.
 -------- | :-------- | :--------- | :-----------
 `Platforms` | All platforms | iOS, Android, Google Chrome | iPhone, iPad, Android, Windows, Kindle, Web
 `Price` | Free / Premium ($28.99/year) | Free / Premium ($45/year or $5 per month) | Free / Pro ($59.88/year)
-`Pros` | Good user interface<br>Fastest task manager app Works offline<br> Can set priorities by choosing from 1 to 4. <br>Can drag and drop tasks <br>Can create a “Project” with emojis in its name  Supports text formatting| Minimalistic design Can “Star” a task to mark it as high priority Runs at high speed Has in-built speech recognition <br>Can drag and drop tasks <br>Can swipe a task to the right to mark it as complete<br> Can swipe a completed task to the left to add it again to the list. <br>Can attach files from your Dropbox and Google Drive  | Simple-to-use <br>Can “Star” a task to set a priority to a task Hashtags feature<br> Can add comments and attachments Supports email reminder Powerful search function Can restore deleted lists. <br>Can manually create backups and import data from your backups.<br> Can attach files from your Dropbox.
-`Cons` | The key features are all part of premium plan <br>Not compatible with Windows Phone Search function is limited in free plan <br>Doesn’t have a backup option for free users | Not intuitive to use Doesn’t hide a task when it’s marked as complete.<br> Doesn’t support email reminders Doesn’t have a Windows app.<br> Doesn’t have a backup option. Doesn’t support emojis in your list names. Doesn’t support markdown.| Slow to load <br>Doesn’t show last synced time <br>Doesn’t support text formatting
+`Pros` | Good user interface<br>Fastest task manager app Works offline<br>Can set priorities by choosing from 1 to 4. <br>Can drag and drop tasks <br>Can create a “Project” with emojis in its name  Supports text formatting| Minimalistic design Can “Star” a task to mark it as high priority Runs at high speed Has in-built speech recognition <br>Can drag and drop tasks <br>
+Can swipe a task to the right to mark it as complete<br> Can swipe a completed task to the left to add it again to the list. <br>Can attach files from your Dropbox and Google Drive  | Simple-to-use <br>Can “Star” a task to set a priority to a task Hashtags feature<br> Can add comments and attachments Supports email reminder Powerful search function Can restore deleted lists. <br>Can manually create backups and import data from your backups.<br> Can attach files from your Dropbox.`Cons` | The key features are all part of premium plan <br>Not compatible with Windows Phone Search function is limited in free plan <br>Doesn’t have a backup option for free users | Not intuitive to use Doesn’t hide a task when it’s marked as complete.<br> Doesn’t support email reminders Doesn’t have a Windows app.<br>  Doesn’t have a backup option. Doesn’t support emojis in your list names. Doesn’t support markdown.| Slow to load <br>Doesn’t show last synced time <br>Doesn’t support text formatting
 
