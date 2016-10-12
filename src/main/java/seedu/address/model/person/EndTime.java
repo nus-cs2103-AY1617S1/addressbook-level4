@@ -5,9 +5,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Person's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidEndTime(String)}
  */
-public class Address {
+public class EndTime {
     
     public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
     public static final String ADDRESS_VALIDATION_REGEX = ".+";
@@ -19,9 +19,9 @@ public class Address {
      *
      * @throws IllegalValueException if given address string is invalid.
      */
-    public Address(String address) throws IllegalValueException {
+    public EndTime(String address) throws IllegalValueException {
         assert address != null;
-        if (!isValidAddress(address)) {
+        if (!isValidEndTime(address)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
         this.value = address;
@@ -30,7 +30,7 @@ public class Address {
     /**
      * Returns true if a given string is a valid person start.
      */
-    public static boolean isValidAddress(String test) {
+    public static boolean isValidEndTime(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
@@ -42,8 +42,8 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && this.value.equals(((Address) other).value)); // state check
+                || (other instanceof EndTime // instanceof handles nulls
+                && this.value.equals(((EndTime) other).value)); // state check
     }
 
     @Override

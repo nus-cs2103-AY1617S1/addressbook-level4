@@ -30,7 +30,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isStartPrivate>p?)e/(?<start>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+                    + " (?<isEndTimePrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}

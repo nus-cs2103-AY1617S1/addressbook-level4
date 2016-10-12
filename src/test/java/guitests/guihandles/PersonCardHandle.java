@@ -29,7 +29,7 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
+    public String getEndTime() {
         return getTextFromLabel(ADDRESS_FIELD_ID);
     }
 
@@ -43,7 +43,7 @@ public class PersonCardHandle extends GuiHandle {
 
     public boolean isSamePerson(ReadOnlyPerson person){
         return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getPhone().value)
-                && getStart().equals(person.getStart().value) && getAddress().equals(person.getAddress().value);
+                && getStart().equals(person.getStart().value) && getEndTime().equals(person.getEndTime().value);
     }
 
     @Override
@@ -51,13 +51,13 @@ public class PersonCardHandle extends GuiHandle {
         if(obj instanceof PersonCardHandle) {
             PersonCardHandle handle = (PersonCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getEndTime().equals(handle.getEndTime()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName() + " " + getEndTime();
     }
 }

@@ -40,7 +40,7 @@ public class AddCommand extends Command {
                 new Name(name),
                 new Phone(phone),
                 new Start(start),
-                new Address(address),
+                new EndTime(address),
                 new UniqueTagList(tagSet)
         );
     }

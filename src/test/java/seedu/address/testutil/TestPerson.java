@@ -9,7 +9,7 @@ import seedu.address.model.person.*;
 public class TestPerson implements ReadOnlyPerson {
 
     private Name name;
-    private Address address;
+    private EndTime address;
     private Start start;
     private Phone phone;
     private UniqueTagList tags;
@@ -22,7 +22,7 @@ public class TestPerson implements ReadOnlyPerson {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
+    public void setEndTime(EndTime address) {
         this.address = address;
     }
 
@@ -50,7 +50,7 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public Address getAddress() {
+    public EndTime getEndTime() {
         return address;
     }
 
@@ -69,7 +69,7 @@ public class TestPerson implements ReadOnlyPerson {
         sb.append("add " + this.getName().fullName + " ");
         sb.append("p/" + this.getPhone().value + " ");
         sb.append("e/" + this.getStart().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("a/" + this.getEndTime().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
