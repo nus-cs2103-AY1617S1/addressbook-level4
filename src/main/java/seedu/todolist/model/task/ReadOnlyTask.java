@@ -9,6 +9,7 @@ import seedu.todolist.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
+    Interval getInterval();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
