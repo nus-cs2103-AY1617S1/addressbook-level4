@@ -56,13 +56,18 @@ public class DateUtilTest {
 		
 		assertNotEquals(DateUtil.floorDate(testDateTime1), DateUtil.floorDate(testDateTime2));
 	}
-
+	
 	@Test
 	public void formatDayTests() {
 		LocalDateTime now = LocalDateTime.now();
-		assertEquals(DateUtil.formatDay(now), "Today");
-		assertEquals(DateUtil.formatDay(now.plus(1, ChronoUnit.DAYS)), now.plus(1, ChronoUnit.DAYS).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US));
-		assertEquals(DateUtil.formatDay(now.plus(6, ChronoUnit.DAYS)), now.plus(6, ChronoUnit.DAYS).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US));
+		assertEquals(DateUtil.formatDay(now), "Today " + now.getDayOfMonth() + " " + now.getMonth());
+		assertEquals(DateUtil.formatDay(now.plus(1, ChronoUnit.DAYS)), "Tomorrow " + now.getDayOfMonth() + " " + now.getMonth());
+		assertEquals(DateUtil.formatDay(now.plus(2, ChronoUnit.DAYS)), 
+		        now.plus(2, ChronoUnit.DAYS).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US) + 
+		        " " + now.plus(2, ChronoUnit.DAYS).getDayOfMonth() + " " + now.plus(2, ChronoUnit.DAYS).getMonth());
+		assertEquals(DateUtil.formatDay(now.plus(6, ChronoUnit.DAYS)), 
+                now.plus(6, ChronoUnit.DAYS).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US) + 
+                " " + now.plus(6, ChronoUnit.DAYS).getDayOfMonth() + " " + now.plus(6, ChronoUnit.DAYS).getMonth());
 		assertEquals(DateUtil.formatDay(now.minus(1, ChronoUnit.DAYS)), "1 day ago");
 		assertEquals(DateUtil.formatDay(now.minus(6, ChronoUnit.DAYS)), "6 days ago");
 		assertEquals(DateUtil.formatDay(now.minus(14, ChronoUnit.DAYS)), "14 days ago");
