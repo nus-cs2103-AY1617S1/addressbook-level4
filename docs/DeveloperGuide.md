@@ -36,20 +36,24 @@ This developer guide will provide you with the necessary basic information to st
 
 #### Prerequisites
 
-1. **Install Java 8 Update 60 (JDK `1.8.0_60`)**  or later<br>
+1. **Install Java 8 Update 60 (JDK `1.8.0_60`) or higher** <br>
+    The latest version is available for download [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
-    > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
+    > Note that the application will not work with earlier versions of Java 8.
     
-2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+2. **Install Eclipse Integrated Development Environment (IDE)** <br>
+    The latest version is available for download [here](http://download.eclipse.org/eclipse/downloads/).
+    
+3. **Install e(fx)clipse plugin for Eclipse** <br>
+    Refer to this [guide](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious)for step-by-step instructions, start from         Step 2.
+   
+4. **Install Buildship Gradle Integration plugin from the Eclipse Marketplace**
 
 
-#### Importing the project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
+#### Importing existing project into Eclipse
+
+0. Fork this repository (repo), and clone the fork to your computer.
 1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
    in the prerequisites above)
 2. Click `File` > `Import`
