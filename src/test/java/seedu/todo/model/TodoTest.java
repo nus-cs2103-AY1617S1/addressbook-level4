@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.storage.MockStorage;
@@ -72,7 +73,7 @@ public class TodoTest {
     }
     
     @Test
-    public void testUpdate() throws IllegalValueException {
+    public void testUpdateStringFields() throws Exception {
         String description = "Really long description blah blah blah";
         String title = "New title";
         
@@ -87,6 +88,12 @@ public class TodoTest {
         assertEquals(title, getTask(0).getTitle());
         assertEquals(description, getTask(0).getDescription().get());
         storage.assertTodoListWasSaved();
+    }
+    
+    @Test
+    public void testUpdateBooleanFields() throws Exception {
+        todo.add("Test Task");
+        ImmutableTask task = getTask(0);
         
         // Check that updating boolean fields work
         todo.update(task, t -> t.setPinned(true));
@@ -99,7 +106,19 @@ public class TodoTest {
     }
     
     @Test
-    public void testSorting() throws IllegalValueException {
+    public void testUpdateDateFields() throws Exception {
+        todo.add("Test Task");
+        ImmutableTask task = getTask(0);
+        
+        todo.update(task, t -> {
+            t.setEndTime(LocalDateTime.now());
+            t.setEndTime(LocalDateTime.now().plusHours(4));
+        });
+        todo.update(task, t -> t.setEndTime(LocalDateTime.now()));
+    }
+
+    @Test
+    public void testSorting() throws Exception {
         LocalDateTime now = LocalDateTime.now();
         todo.add("Task 3", p -> p.setEndTime(now));
         todo.add("Task 2", p -> p.setEndTime(now.plusHours(2)));
@@ -143,7 +162,7 @@ public class TodoTest {
     }
     
     @Test
-    public void testDeleting() throws IllegalValueException {
+    public void testDeleting() throws Exception {
         todo.add("Foo");
         todo.add("FooBar");
         todo.add("Bar");
@@ -170,19 +189,19 @@ public class TodoTest {
     }
     
     @Test(expected=IllegalValueException.class)
-    public void testIllegalUpdate() throws IllegalValueException {
+    public void testIllegalUpdate() throws Exception {
         todo.add("Foo Bar Test");
         todo.update(new Task("Hello world"), t -> t.setTitle("Test 2"));
     }
     
     @Test(expected=IllegalValueException.class)
-    public void testIllegalDelete() throws IllegalValueException {
+    public void testIllegalDelete() throws Exception {
         todo.add("Foo Bar Test");
         todo.delete(new Task("Hello world"));
     }
     
     @Test
-    public void testPinning() throws IllegalValueException {
+    public void testPinning() throws Exception {
         todo.add("Task 1");
         todo.add("Task 2");
         todo.add("Task 3");
@@ -193,6 +212,60 @@ public class TodoTest {
         
         assertTrue(observableList.get(0).isPinned());
         assertEquals(lastTask.getTitle(), observableList.get(0).getTitle());
+    }
+    
+    @Test
+    public void testEditSetEmptyTitle() throws Exception {
+        boolean exceptionThrown = false;
+        todo.add("Task 1");
+        ImmutableTask task = getTask(0);
+        
+        try {
+            todo.update(task, t -> {
+                t.setTitle("");
+            });
+        } catch (ValidationException e) {
+            exceptionThrown = true;
+        }
+        
+        assertTrue(exceptionThrown);
+        
+        // Check that the bad update didn't go through
+        assertEquals("Task 1", getTask(0).getTitle());
+    }
+
+    @Test(expected = ValidationException.class)
+    public void testEdit() throws Exception {
+        boolean exceptionThrown = false;
+        todo.add("Task 1");
+        ImmutableTask task = getTask(0);
+
+        try {
+            todo.update(task, t -> {
+                t.setStartTime(LocalDateTime.now());
+                t.setTitle("Title change");
+            });
+        } catch (ValidationException e) {
+            exceptionThrown = true;
+        }
+
+        assertTrue(exceptionThrown);
+        assertEquals("Task 1", getTask(0).getTitle());
+    }
+
+    @Test(expected = ValidationException.class)
+    public void testAddOnlyStartDate() throws Exception {
+        todo.add("Task 1", t -> {
+            t.setStartTime(LocalDateTime.now());
+        });
+    }
+
+    @Test(expected = ValidationException.class)
+    public void testAddInvalidDateRange() throws Exception {
+        todo.add("Task 1", t -> {
+            t.setStartTime(LocalDateTime.now());
+            t.setEndTime(LocalDateTime.now().minusHours(2));
+        });
     }
     
     private ImmutableTask getTask(int index) {

@@ -1,6 +1,7 @@
 package seedu.todo.logic.commands;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.FlagArgument;
 import seedu.todo.logic.arguments.Parameter;
@@ -27,7 +28,7 @@ public class AddCommand extends BaseCommand {
     }
 
     @Override
-    public void execute() throws IllegalValueException {
+    public void execute() throws IllegalValueException, ValidationException {
         this.model.add(title.getValue(), task -> {
             task.setDescription(description.getValue());
             task.setPinned(pin.getValue());

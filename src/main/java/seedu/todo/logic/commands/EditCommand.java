@@ -1,6 +1,7 @@
 package seedu.todo.logic.commands;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.FlagArgument;
 import seedu.todo.logic.arguments.IntArgument;
@@ -27,7 +28,7 @@ public class EditCommand extends BaseCommand {
     }
 
     @Override
-    public void execute() throws IllegalValueException {
+    public void execute() throws IllegalValueException, ValidationException {
         ImmutableTask toEdit = this.getTaskAt(index.getValue());
         
         this.model.update(toEdit, task -> {

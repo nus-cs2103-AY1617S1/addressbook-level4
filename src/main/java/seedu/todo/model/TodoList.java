@@ -63,17 +63,13 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     }
 
     @Override
-    public void add(String title, Consumer<Task> update) {
+    public void add(String title, Consumer<Task> update) throws ValidationException {
         ValidationTask validationTask = new ValidationTask(title);
-        try {
-            Task task = validationTask.convertToTask();
-            update.accept(task);
-            tasks.add(task);
+        Task task = validationTask.convertToTask();
+        update.accept(task);
+        tasks.add(task);
 
-            storage.saveTodoList(this);
-        } catch (ValidationException e) {
-            // TODO: decide whether to keep throwing or process here
-        }
+        storage.saveTodoList(this);
     }
 
     @Override
@@ -86,7 +82,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     }
 
     @Override
-    public void update(ImmutableTask key, Consumer<Task> update) throws IllegalValueException {
+    public void update(ImmutableTask key, Consumer<Task> update) throws IllegalValueException, ValidationException {
         int index = tasks.indexOf(key);
 
         if (index < 0) {
@@ -96,11 +92,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
             update.accept(task);
 
             ValidationTask validationTask = new ValidationTask(task);
-            try {
-                validationTask.validate();
-            } catch (ValidationException e) {
-                // TODO: decide whether to keep throwing or process here
-            }
+            validationTask.validate();
 
             storage.saveTodoList(this);
         }

@@ -28,7 +28,7 @@ public abstract class BaseCommand {
     
     abstract protected Parameter[] getArguments();
     
-    abstract public void execute() throws IllegalValueException;
+    abstract public void execute() throws IllegalValueException, ValidationException;
     
     /**
      * Binds the data model to the command object
