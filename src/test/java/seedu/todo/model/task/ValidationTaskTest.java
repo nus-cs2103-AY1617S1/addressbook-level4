@@ -67,7 +67,7 @@ public class ValidationTaskTest {
         task.validate();
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
     public void testValidateTaskOnlyEndTime() throws ValidationException {
         LocalDateTime endTime = LocalDateTime.of(1, 1, 1, 1, 1);
         task.setEndTime(endTime);

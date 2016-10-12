@@ -1,5 +1,7 @@
 package seedu.todo.commons.util;
 
+import com.google.common.base.CharMatcher;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -32,5 +34,9 @@ public class StringUtil {
      */
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
+    }
+    
+    public static boolean isEmpty(String s) {
+        return s == null || s.length() == 0 || CharMatcher.whitespace().matchesAllOf(s);
     }
 }

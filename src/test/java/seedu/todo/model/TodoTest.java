@@ -122,18 +122,9 @@ public class TodoTest {
     @Test
     public void testSorting() throws Exception {
         LocalDateTime now = LocalDateTime.now();
-        todo.add("Task 3", p -> {
-            p.setStartTime(now);
-            p.setEndTime(now.plusMinutes(1));
-        });
-        todo.add("Task 2", p -> {
-            p.setStartTime(now);
-            p.setEndTime(now.plusHours(2));
-        });
-        todo.add("Task 1", p -> {
-            p.setStartTime(now);
-            p.setEndTime(now.plusHours(1));
-        });
+        todo.add("Task 3", p -> p.setEndTime(now));
+        todo.add("Task 2", p -> p.setEndTime(now.plusHours(2)));
+        todo.add("Task 1", p -> p.setEndTime(now.plusHours(1)));
 
         // Check that the items are sorted in lexicographical order by title
         todo.view(null, (a, b) -> a.getTitle().compareTo(b.getTitle()));
@@ -142,10 +133,7 @@ public class TodoTest {
         assertEquals(3, observableList.size());
 
         // Insert an item that comes before all others lexicographically
-        todo.add("Task 0", p -> {
-            p.setStartTime(now);
-            p.setEndTime(now.plusHours(3));
-        });
+        todo.add("Task 0", p -> p.setEndTime(now.plusHours(3)));
         ImmutableTask newTask = observableList.get(0);
         assertEquals("Task 0", observableList.get(0).getTitle());
 

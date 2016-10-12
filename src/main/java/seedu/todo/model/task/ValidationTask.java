@@ -8,15 +8,14 @@ import java.util.Set;
 import java.util.UUID;
 
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.tag.Tag;
 
 public class ValidationTask implements ImmutableTask, MutableTask {
+    private static final String END_TIME = "endTime";
     private static final String TITLE = "title";
-    private static final String START_TIME = "Starting time";
-    private static final String END_TIME = "Ending time";
-
-    private static final String ONLY_ONE_TIME_ERROR_MESSAGE = "Field=%s is not defined.";
+    private static final String ONLY_START_TIME_ERROR_MESSAGE = "You must define an ending time.";
     private static final String TITLE_EMPTY_ERROR_MESSAGE = "Your title should not be empty.";
     private static final String VALIDATION_ERROR_MESSAGE = "Your task is not in the correct format.";
     private static final String START_AFTER_END_ERROR_MESSAGE = "No time travelling allowed! You've finished before you even start.";
@@ -65,7 +64,7 @@ public class ValidationTask implements ImmutableTask, MutableTask {
     }
 
     private void isValidTitle() {
-        if (title.isEmpty()) {
+        if (StringUtil.isEmpty(title)) {
             errors.put(TITLE, TITLE_EMPTY_ERROR_MESSAGE);
         }
     }
@@ -73,19 +72,16 @@ public class ValidationTask implements ImmutableTask, MutableTask {
     /**
      * Validates time. Only valid when
      * 1) both time fields are not declared
-     * 2) start time is before end time
+     * 2) end time is present
+     * 3) start time is before end time
      */
     private void isValidTime() {
         if (startTime == null && endTime == null) {
             return;
-        } else if (startTime == null) {
-            String field = START_TIME;
-            errors.put(field, String.format(ONLY_ONE_TIME_ERROR_MESSAGE, field));
         } else if (endTime == null) {
-            String field = END_TIME;
-            errors.put(field, String.format(ONLY_ONE_TIME_ERROR_MESSAGE, field));
-        } else if (startTime.isAfter(endTime)) {
-            errors.put(START_TIME, START_AFTER_END_ERROR_MESSAGE);
+            errors.put(END_TIME, ONLY_START_TIME_ERROR_MESSAGE);
+        } else if (startTime != null && startTime.isAfter(endTime)) {
+            errors.put(END_TIME, START_AFTER_END_ERROR_MESSAGE);
         }
     }
 
