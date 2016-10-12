@@ -23,7 +23,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label tags;
 
-    private ReadOnlyTask person;
+    private ReadOnlyTask task;
     private int displayedIndex;
 
     public TaskCard(){
@@ -32,17 +32,17 @@ public class TaskCard extends UiPart{
 
     public static TaskCard load(ReadOnlyTask task, int displayedIndex){
         TaskCard card = new TaskCard();
-        card.person = task;
+        card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        description.setText(person.getDescription().fullName);
+        description.setText(task.getDescription().fullName);
         id.setText(displayedIndex + ". ");
-        dateTime.setText(person.getDateTime().value);
-        tags.setText(person.tagsString());
+        dateTime.setText(task.getDateTime().value);
+        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {

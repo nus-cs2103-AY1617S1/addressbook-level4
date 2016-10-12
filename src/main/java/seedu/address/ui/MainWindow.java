@@ -79,12 +79,12 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String emeraldoName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.emeraldoName = addressBookName;
+        this.emeraldoName = emeraldoName;
         this.config = config;
         this.userPrefs = prefs;
 

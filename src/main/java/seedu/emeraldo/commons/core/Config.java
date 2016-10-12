@@ -49,16 +49,16 @@ public class Config {
         return emeraldoFilePath;
     }
 
-    public void setEmeraldoFilePath(String addressBookFilePath) {
-        this.emeraldoFilePath = addressBookFilePath;
+    public void setEmeraldoFilePath(String emeraldoFilePath) {
+        this.emeraldoFilePath = emeraldoFilePath;
     }
 
     public String getEmeraldoName() {
         return emeraldoName;
     }
 
-    public void setEmeraldoName(String addressBookName) {
-        this.emeraldoName = addressBookName;
+    public void setEmeraldoName(String emeraldoName) {
+        this.emeraldoName = emeraldoName;
     }
 
 
