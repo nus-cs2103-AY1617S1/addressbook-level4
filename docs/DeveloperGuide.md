@@ -48,7 +48,7 @@ This developer guide will provide you with the necessary basic information to st
     The latest version is available for download [here](http://download.eclipse.org/eclipse/downloads/).
     
 3. **Install e(fx)clipse plugin for Eclipse** <br>
-    Refer to this [guide](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious)for step-by-step instructions, start from         Step 2.
+    Refer to this [guide](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious) for step-by-step instructions, begin at         Step 2.
    
 4. **Install Buildship Gradle Integration plugin from the Eclipse Marketplace**
 
