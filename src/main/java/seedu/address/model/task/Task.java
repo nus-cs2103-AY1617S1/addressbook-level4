@@ -19,50 +19,27 @@ public class Task implements ReadOnlyTask {
 	
 	
 	/**
-	 * Construct an 'event' task 
-	 * 
-	 * @param tags may be empty.
-	 * Every field must be present and not null.
-	 */
-    public Task(Name name, Status status, LocalDateTime startDate, LocalDateTime endDate, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, status, startDate, endDate, tags);
-        this.taskType = new TaskType("event");
-        this.name = name;
-        this.status = status;
-        this.startDate = Optional.of(startDate);
-        this.endDate = Optional.of(endDate);
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-	
-	/**
-	 * Construct a 'deadline' task 
-	 * 
-	 * @param tags may be empty.
-	 * Every field must be present and not null.
-	 */
-    public Task(Name name, Status status, LocalDateTime date, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, status, date, tags);
-        this.taskType = new TaskType("deadline");
-        this.name = name;
-        this.status = status;
-        this.startDate = Optional.empty();
-        this.endDate = Optional.of(date);
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-    
-    /**
-     * Construct a 'someday' task
+     * Constructor for events, deadlines and somedays.
      * 
-     * @param tags may be empty.
-     * Every field must be present and not null.
+     * @throws IllegalArgumentException if non-empty date optionals are passed in for the wrong task type.
      */
-    public Task(Name name, Status status, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, status, tags);
-        this.taskType = new TaskType("someday");
+    public Task(Name name, TaskType taskType, Status status, Optional<LocalDateTime> startDate, 
+    		Optional<LocalDateTime> endDate, UniqueTagList tags) throws IllegalArgumentException {
+    	
+    	assert !CollectionUtil.isAnyNull(name, status, tags);
+    	
+    	if (startDate.isPresent() && taskType.value != TaskType.Type.EVENT) {
+    		throw new IllegalArgumentException("Only events can have start dates");
+    	}
+    	if (endDate.isPresent() && taskType.value != TaskType.Type.SOMEDAY) {
+    		throw new IllegalArgumentException("Only events and deadlines can have end dates");
+    	}
+    	
+    	this.taskType = taskType;
         this.name = name;
         this.status = status;
-        this.startDate = Optional.empty();
-        this.endDate = Optional.empty();
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
@@ -72,21 +49,6 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTaskType(), source.getStatus(), source.getStartDate(), source.getEndDate(), source.getTags());
     }
-    
-    /**
-     * Copy constructor.
-     */
-    public Task(Name name, TaskType taskType, Status status, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, UniqueTagList tags) {
-    	assert !CollectionUtil.isAnyNull(name, status, tags);
-        this.taskType = taskType;
-        this.name = name;
-        this.status = status;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-
-    
     
     public Name getName() {
         return name;

@@ -63,6 +63,6 @@ public class XmlAdaptedTask {
         final TaskType taskType = new TaskType(this.taskType);
         final Status status = new Status(this.status);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, status, tags);
+        return new Task(name, taskType, status, tags);
     }
 }

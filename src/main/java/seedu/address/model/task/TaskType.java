@@ -1,7 +1,5 @@
 package seedu.address.model.task;
 
-import seedu.address.model.task.Status.DoneStatus;
-
 public class TaskType {
 	
 	public enum Type {

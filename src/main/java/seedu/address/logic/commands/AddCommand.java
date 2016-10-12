@@ -2,17 +2,14 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.*;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
- * Adds a task to the address book.
+ * Adds a task to the task manager.
  */
 public class AddCommand extends Command {
 
