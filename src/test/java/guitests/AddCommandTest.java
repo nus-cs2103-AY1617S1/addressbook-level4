@@ -16,14 +16,14 @@ public class AddCommandTest extends TaskManagerGuiTest {
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask TaskToAdd = td.hoon;
+        TestTask TaskToAdd = td.dance;
         assertAddSuccess(TaskToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, TaskToAdd);
+        currentList = TestUtil.addTasksToList(currentList, TaskToAdd);
 
         //add another task
-        TaskToAdd = td.ida;
+        TaskToAdd = td.milk;
         assertAddSuccess(TaskToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, TaskToAdd);
+        currentList = TestUtil.addTasksToList(currentList, TaskToAdd);
 
 
         //add duplicate person
