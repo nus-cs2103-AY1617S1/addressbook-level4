@@ -13,6 +13,7 @@ public class TestTask implements ReadOnlyTask {
     private TaskTime startTime;
     private TaskTime endTime;
     private UniqueTagList tags;
+    private boolean done;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -72,5 +73,15 @@ public class TestTask implements ReadOnlyTask {
         sb.append(this.getEndTime().value + ",");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
+    }
+
+    @Override
+    public boolean getDone() {
+        return done;
+    }
+
+    @Override
+    public void setDone() {
+        done = true;
     }
 }

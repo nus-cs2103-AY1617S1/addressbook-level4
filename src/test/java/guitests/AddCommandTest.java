@@ -25,7 +25,6 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertAddSuccess(TaskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, TaskToAdd);
 
-
         //add duplicate person
         commandBox.runCommand(td.dance.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);

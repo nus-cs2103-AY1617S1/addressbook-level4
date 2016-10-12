@@ -92,7 +92,7 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + taskManagerFilePath);
-        sb.append("\nAddressBook name : " + taskManagerName);
+        sb.append("\nTaskManager name : " + taskManagerName);
         return sb.toString();
     }
 

@@ -117,8 +117,8 @@ public class ModelManager extends ComponentManager implements Model {
     	default:
     		throw new TaskTypeNotFoundException();
     	}
-        indicateTaskManagerChanged();
         updateFilteredListToShowAll();
+    	indicateTaskManagerChanged();
     }
 
     @Override

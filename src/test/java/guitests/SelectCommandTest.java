@@ -10,16 +10,16 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
 
     @Test
-    public void selectPerson_nonEmptyList() {
+    public void selectTask_nonEmptyList() {
 
         assertSelectionInvalid(10); //invalid index
         assertNoTaskSelected();
 
-        assertSelectionSuccess(1); //first person in the list
+        assertSelectionSuccess(1); //first task in the list
         int taskCount = td.getTypicalTasks().length;
-        assertSelectionSuccess(taskCount); //last person in the list
+        assertSelectionSuccess(taskCount); //last task in the list
         int middleIndex = taskCount / 2;
-        assertSelectionSuccess(middleIndex); //a person in the middle of the list
+        assertSelectionSuccess(middleIndex); //a task in the middle of the list
 
         assertSelectionInvalid(taskCount + 1); //invalid index
         assertTaskSelected(middleIndex); //assert previous selection remains

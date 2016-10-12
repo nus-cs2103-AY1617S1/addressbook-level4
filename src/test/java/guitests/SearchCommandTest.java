@@ -4,25 +4,26 @@ import org.junit.Test;
 
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.testutil.TestTask;
+import seedu.ggist.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
 public class SearchCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
-        assertFindResult("find movie"); //no results
-        assertFindResult("find movie", td.jog, td.dinner); //multiple results
+    public void search_nonEmptyList() {
+        assertFindResult("search hello"); //no results
+        assertFindResult("search go", TypicalTestTasks.milk, TypicalTestTasks.jog); //multiple results
 
-        //find after deleting one result
+        //search after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find holiday",td.dance);
+        assertFindResult("search jog",TypicalTestTasks.milk);
     }
 
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find dance"); //no results
+        assertFindResult("search dance"); //no results
     }
 
     @Test
