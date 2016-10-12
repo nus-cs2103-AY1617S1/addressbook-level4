@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.ReadOnlySavvyTasker;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.TaskList;
@@ -15,17 +14,14 @@ import java.util.stream.Collectors;
 /**
  * An Immutable SavvyTasker that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "savvytasker")
 public class XmlSerializableSavvyTasker implements ReadOnlySavvyTasker {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-    @XmlElement
-    private List<Tag> tags;
 
     {
         tasks = new ArrayList<>();
-        tags = new ArrayList<>();
     }
 
     /**
