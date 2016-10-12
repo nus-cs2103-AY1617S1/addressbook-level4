@@ -92,6 +92,9 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+        this.completedTaskList = FXCollections.observableArrayList();
+        this.incompleteTaskList = FXCollections.observableArrayList();
+        
         updateFloatingTaskSize(taskList);
         updateCompletedAndIncompleteTaskList(taskList);
         
@@ -99,6 +102,8 @@ public class TaskListPanel extends UiPart {
         completedTaskListView.setItems(this.completedTaskList);
         incompleteTaskListView.setItems(this.incompleteTaskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
+        completedTaskListView.setCellFactory(listView -> new TaskListViewCell());
+        incompleteTaskListView.setCellFactory(listView -> new TaskListViewCell());
         
         setEventHandlerForSelectionChangeEvent();
     }
@@ -110,6 +115,20 @@ public class TaskListPanel extends UiPart {
 
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
+                raise(new TaskPanelSelectionChangedEvent(newValue));
+            }
+        });
+        
+        completedTaskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
+                raise(new TaskPanelSelectionChangedEvent(newValue));
+            }
+        });
+        
+        incompleteTaskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
@@ -141,18 +160,21 @@ public class TaskListPanel extends UiPart {
     }
     
     private void updateCompletedAndIncompleteTaskList(List<ReadOnlyTask> taskList) {
-        this.completedTaskList = FXCollections.observableArrayList();
-        this.incompleteTaskList = FXCollections.observableArrayList();
+        ObservableList<ReadOnlyTask> newCompletedTaskList = FXCollections.observableArrayList();
+        ObservableList<ReadOnlyTask> newIncompleteTaskList = FXCollections.observableArrayList();
         
         //populate complete and incomplete task lists
         for(ReadOnlyTask t : taskList){
             if(t.isCompleted()){
-                this.completedTaskList.add(t);
+                newCompletedTaskList.add(t);
             }
             else
-                this.incompleteTaskList.add(t);
+                newIncompleteTaskList.add(t);
         }
         
+        this.completedTaskList.setAll(newCompletedTaskList);
+        this.incompleteTaskList.setAll(newIncompleteTaskList);
+       
         this.titleCompletedTasks.setText("Completed Tasks (" + completedTaskList.size() + ")");
         this.titleIncompleteTasks.setText("Incomplete Tasks (" + incompleteTaskList.size() + ")");
     }
