@@ -164,7 +164,11 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add [];'() from 15 oct 2016 6pm to 16 oct 2016 12pm", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add [];'() from 15 oct 2016 6pm to 16 oct 2016 12pm at NUS remarks do smth", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehavior(
+                "add new task from 16 oct 2016 12pm to 15 oct 2016 6pm at NUS remarks do smth", Interval.MESSAGE_INTERVAL_CONSTRAINTS_DATE);
+        assertCommandBehavior(
+                "add new task from 16 oct 2016 6pm to 16 oct 2016 12pm at NUS remarks do smth", Interval.MESSAGE_INTERVAL_CONSTRAINTS_TIME);
     }
 
     @Test
