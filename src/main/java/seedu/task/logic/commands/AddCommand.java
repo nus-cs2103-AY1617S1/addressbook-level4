@@ -17,7 +17,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
-            + "Parameters: TITLE d/description sd/start_date dd/due_date i/interval ti/intervaltime [t/TAG]...\n"
+            + "Parameters: TITLE d/description sd/start_date dd/due_date i/interval ti/timeinterval [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " HOMEWORK d/dasdsad sd/11-01-2012 dd/11-01-2012 i/123 ti/12";
 

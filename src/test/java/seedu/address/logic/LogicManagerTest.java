@@ -23,9 +23,11 @@ import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.storage.StorageManager;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -49,7 +51,7 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
+    private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) throws ParseException {
         latestSavedTaskManager = new TaskManager(abce.data);
     }
 
@@ -64,7 +66,7 @@ public class LogicManagerTest {
     }
 
     @Before
-    public void setup() {
+    public void setup() throws ParseException {
         model = new ModelManager();
         String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
@@ -179,7 +181,7 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.homework();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
 
@@ -195,7 +197,7 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.homework();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
 
@@ -385,15 +387,17 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
-            Title name = new Title("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
+        Task homework() throws Exception {
+        	Title title = new Title("Homework");
+        	Description description= new Description("Database Tutorials.");
+        	StartDate startDate= new StartDate("11-01-2012");
+        	DueDate dueDate= new DueDate("11-01-2012");
+        	Interval interval= new Interval("7");
+        	TimeInterval timeInterval = new TimeInterval("4");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+            return new Task(title,description,startDate,dueDate,interval, timeInterval,tags);
         }
 
         /**
@@ -406,27 +410,30 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Title("Task " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Address("House of " + seed),
+                    new Description("" + Math.abs(seed)),
+                    new StartDate(seed + "@email"),
+                    new DueDate("House of " + seed),
+                    new Interval(new Date(Math.abs(seed)).toString()),
+                    new TimeInterval(new Date(Math.abs(seed)).toString()),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
         /** Generates the correct add command based on the task given */
-        String generateAddCommand(Task p) {
+        String generateAddCommand(Task t) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
-
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+            cmd.append(t.getTitle().toString());
+            cmd.append(" d/").append(t.getDescription());
+            cmd.append(" sd/").append(t.getStartDate());
+            cmd.append(" dd/").append(t.getDueDate());
+            cmd.append(" i/").append(t.getInterval());
+            cmd.append(" ti/").append(t.getTimeInterval());
+            UniqueTagList tags = t.getTags();
+            for(Tag tag: tags){
+                cmd.append(" t/").append(tag.tagName);
             }
 
             return cmd.toString();
@@ -504,10 +511,12 @@ public class LogicManagerTest {
          */
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
-                    new Title(name),
-                    new Phone("1"),
-                    new Email("1@email"),
-                    new Address("House of 1"),
+            		new Title(name),
+                    new Description("Description"),
+                    new StartDate("11-01-2012"),
+                    new DueDate("11-01-2012"),
+                    new Interval("7"),
+                    new TimeInterval("1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
