@@ -11,8 +11,7 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
-    private Description Description;
-    private Phone phone;
+    private Description description;
     private DateTime dateTime;
 
     private UniqueTagList tags;
@@ -20,10 +19,9 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Description Description, Phone phone, DateTime dateTime, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(Description, phone, dateTime, tags);
-        this.Description = Description;
-        this.phone = phone;
+    public Task(Description description, DateTime dateTime, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(description, dateTime, tags);
+        this.description = description;
         this.dateTime = dateTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -32,17 +30,12 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getPhone(), source.getDateTime(), source.getTags());
+        this(source.getDescription(), source.getDateTime(), source.getTags());
     }
 
     @Override
     public Description getDescription() {
-        return Description;
-    }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
+        return description;
     }
 
     @Override
@@ -72,7 +65,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(Description, phone, dateTime, tags);
+        return Objects.hash(description, dateTime, tags);
     }
 
     @Override

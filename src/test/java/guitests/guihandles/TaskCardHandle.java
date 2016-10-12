@@ -11,7 +11,6 @@ import seedu.emeraldo.model.task.ReadOnlyTask;
 public class TaskCardHandle extends GuiHandle {
     private static final String DESCRIPTION_FIELD_ID = "#description";
     private static final String DATETIME_FIELD_ID = "#dateTime";
-    private static final String PHONE_FIELD_ID = "#phone";
 
     private Node node;
 
@@ -32,14 +31,8 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(DATETIME_FIELD_ID);
     }
 
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
-    }
-
-
     public boolean isSameTask(ReadOnlyTask task){
         return getDescription().equals(task.getDescription().fullName) 
-                 && getPhone().equals(task.getPhone().value)
                  && getDateTime().equals(task.getDateTime().value);
     }
 

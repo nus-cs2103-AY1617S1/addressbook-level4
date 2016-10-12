@@ -3,13 +3,12 @@ package seedu.emeraldo.model.task;
 import seedu.emeraldo.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Person in the addressbook.
+ * A read-only immutable interface for a task in Emeraldo.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
 
     Description getDescription();
-    Phone getPhone();
     DateTime getDateTime();
 
     /**
@@ -25,7 +24,6 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getDescription().equals(this.getDescription()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
                 && other.getDateTime().equals(this.getDateTime()));
     }
 
@@ -35,8 +33,6 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getDescription())
-                .append(" Phone: ")
-                .append(getPhone())
                 .append(" DateTime: ")
                 .append(getDateTime())
                 .append(" Tags: ");

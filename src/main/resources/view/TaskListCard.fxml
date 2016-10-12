@@ -35,9 +35,8 @@
                                 </HBox>
                             </children>
                         </HBox>
-                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-                          <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                         <Label fx:id="dateTime" styleClass="cell_small_label" text="\$dateTime" />
+                          <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                     </children>
                 </VBox>
             </children>
