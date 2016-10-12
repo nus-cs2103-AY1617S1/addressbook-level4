@@ -32,18 +32,13 @@ public class TypicalTestTasks {
     }
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
-        try {
-            ab.addFloatingTask(new Task(alice));
-            ab.addFloatingTask(new Task(benson));
-            ab.addFloatingTask(new Task(carl));
-            ab.addFloatingTask(new Task(daniel));
-            ab.addFloatingTask(new Task(elle));
-            ab.addFloatingTask(new Task(fiona));
-            ab.addFloatingTask(new Task(george));
-        } catch (DuplicateTaskException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        ab.addFloatingTask(new Task(alice));
+        ab.addFloatingTask(new Task(benson));
+        ab.addFloatingTask(new Task(carl));
+        ab.addFloatingTask(new Task(daniel));
+        ab.addFloatingTask(new Task(elle));
+        ab.addFloatingTask(new Task(fiona));
+        ab.addFloatingTask(new Task(george));
     }
 
     public TestTask[] getTypicalTasks() {

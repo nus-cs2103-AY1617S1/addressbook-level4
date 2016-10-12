@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.TimePeriod;
 
 public class TaskCard extends UiPart{
 
@@ -82,9 +83,14 @@ public class TaskCard extends UiPart{
         endTime.setText(endTimeText);
         
         Integer recurrenceRateInteger = task.getRecurrenceRate().recurrenceRate;
-        if (recurrenceRateInteger.intValue() != 0)
-            recurrenceRateText = "every " + recurrenceRateInteger.toString() + " day" + (recurrenceRateInteger.intValue() > 1 ? "s" : "");
-            recurrenceRate.setText(recurrenceRateText);
+        TimePeriod timePeriod = task.getRecurrenceRate().timePeriod;
+        if (recurrenceRateInteger != null && timePeriod != null) {
+            recurrenceRateText = "every " + recurrenceRateInteger.toString() + " " + timePeriod.toString().toLowerCase() 
+                    + (recurrenceRateInteger.intValue() > 1 ? "s" : "");
+        } else if (recurrenceRateInteger == null && timePeriod != null) {
+            recurrenceRateText = "every " + timePeriod.toString().toLowerCase();
+        }
+        recurrenceRate.setText(recurrenceRateText);
     }
 
     public HBox getLayout() {

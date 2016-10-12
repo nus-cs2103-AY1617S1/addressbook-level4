@@ -81,7 +81,7 @@ public class XmlAdaptedTask {
         if (this.endDate != null){
             endDateForModel = dateParser.parse(this.endDate);
         }
-        recurrenceRateForModel = new RecurrenceRate(Integer.parseInt(this.recurrenceRate));
+        recurrenceRateForModel = new RecurrenceRate(recurrenceRate, "day");
     
         return new Task(new Name(name), startDateForModel, endDateForModel, recurrenceRateForModel, priority);
     }

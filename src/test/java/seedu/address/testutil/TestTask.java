@@ -24,7 +24,7 @@ public class TestTask implements ReadOnlyTask {
     public TestTask() {
         this.priorityValue = Priority.MEDIUM;
         try {
-            this.recurrenceRate = new RecurrenceRate(new Integer(0));
+            this.recurrenceRate = new RecurrenceRate(null, null);
         } catch (IllegalValueException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

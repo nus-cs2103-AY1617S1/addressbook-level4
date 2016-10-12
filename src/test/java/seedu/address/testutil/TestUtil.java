@@ -63,23 +63,17 @@ public class TestUtil {
     public static final Task[] sampleFloatingTaskData = getSampleFloatingTaskData();
 
     private static Task[] getSampleFloatingTaskData() {
-        try {
-            return new Task[]{
-                    new Task(new Name("Meet Ali Muster"), Priority.HIGH),
-                    new Task(new Name("Meet Boris Mueller"), Priority.HIGH),
-                    new Task(new Name("Meet Carl Kurz"), Priority.HIGH),
-                    new Task(new Name("Meet Daniel Meier"), Priority.MEDIUM),
-                    new Task(new Name("Meet Elle Meyer"), Priority.MEDIUM),
-                    new Task(new Name("Meet Fiona Kunz"), Priority.MEDIUM),
-                    new Task(new Name("Meet George Best"), Priority.LOW),
-                    new Task(new Name("Meet Hoon Meier"), Priority.LOW),
-                    new Task(new Name("Meet Ida Mueller"), Priority.LOW)
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            //not possible
-            return null;
-        }
+        return new Task[]{
+                new Task(new Name("Meet Ali Muster"), Priority.HIGH),
+                new Task(new Name("Meet Boris Mueller"), Priority.HIGH),
+                new Task(new Name("Meet Carl Kurz"), Priority.HIGH),
+                new Task(new Name("Meet Daniel Meier"), Priority.MEDIUM),
+                new Task(new Name("Meet Elle Meyer"), Priority.MEDIUM),
+                new Task(new Name("Meet Fiona Kunz"), Priority.MEDIUM),
+                new Task(new Name("Meet George Best"), Priority.LOW),
+                new Task(new Name("Meet Hoon Meier"), Priority.LOW),
+                new Task(new Name("Meet Ida Mueller"), Priority.LOW)
+        };
     }
 
     public static final Tag[] sampleTagData = getSampleTagData();

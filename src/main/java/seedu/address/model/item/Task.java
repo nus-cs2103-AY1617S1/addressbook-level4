@@ -22,7 +22,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.taskName = taskName;
         this.priority = Priority.MEDIUM;
         try {
-            this.recurrenceRate = new RecurrenceRate(new Integer(0));
+            this.recurrenceRate = new RecurrenceRate(null, null);
         } catch (IllegalValueException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -33,7 +33,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.taskName = taskName;
         this.priority = priorityValue;
         try {
-            this.recurrenceRate = new RecurrenceRate(new Integer(0));
+            this.recurrenceRate = new RecurrenceRate(null, null);
         } catch (IllegalValueException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
