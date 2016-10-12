@@ -72,7 +72,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             Collection<? extends ReadOnlyTask> newUndatedTasks,
             Collection<Tag> newTags) {
         setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
-        setPersons(newUndatedTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setUndatedTaskList(newUndatedTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 

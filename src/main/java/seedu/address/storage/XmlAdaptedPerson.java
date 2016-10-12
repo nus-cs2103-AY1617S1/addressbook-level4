@@ -18,9 +18,9 @@ public class XmlAdaptedPerson {
     private String name;
     @XmlElement(required = true)
     private String phone;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     private String email;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     private String address;
 
     @XmlElement
