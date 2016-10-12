@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.List;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -78,6 +79,13 @@ public class NavbarPanel extends UiPart {
 //                logger.fine("Selection in task navbar changed to : '" + newValue + "'");
 //                raise(new TaskPanelSelectionChangedEvent(newValue));
             }
+        });
+    }
+    
+    public void scrollTo(int index) {
+        Platform.runLater(() -> {
+        	navbarView.scrollTo(index);
+        	navbarView.getSelectionModel().clearAndSelect(index);
         });
     }
     

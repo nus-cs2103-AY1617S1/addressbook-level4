@@ -75,6 +75,44 @@
     -fx-background-color: -fx-focus-color;
 }
 
+.table-view {
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: #1d1d1d;
+    -fx-background-color: #1d1d1d;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color:
+        transparent
+        transparent
+        derive(-fx-base, 80%)
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+
 .split-pane:horizontal .split-pane-divider {
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
     -fx-background-color: transparent, derive(#1d1d1d, 10%);
@@ -104,19 +142,22 @@
 }
 #navBarView .list-cell .label {
     -fx-font-size: 20px;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: derive(#F0F0F0, 80%);
+    -fx-opacity: 2;
     -fx-text-alignment: center;
 }
 
-.cell_big_label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+#navBarView .list-cell:filled:selected:focused, #navBarView .list-cell:filled:selected {
+    -fx-background-color: derive(#003300, 50%);
+    -fx-text-fill: white;
 }
 
-.cell_big_label_for_nav {
-    -fx-font-size: 18px;
+
+
+
+.cell_big_label {
+    -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
 
@@ -133,6 +174,7 @@
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
+     -fx-text-alignment: center;
 }
 
 .status-bar {
@@ -141,11 +183,12 @@
 }
 
 .result-display {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #F0F0F0;
 }
 
 .result-display .label {
     -fx-text-fill: black !important;
+    -fx-text-alignment: center;
 }
 
 .status-bar .label {
@@ -308,7 +351,7 @@
 }
 
 #cardPaneNav {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
     -fx-border-color: derive(#1d1d1d, 10%);
     -fx-border-width: 0.5 0.5 0.5 0.5;
 }

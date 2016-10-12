@@ -34,11 +34,11 @@
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="245.0" spacing="5">
+                        <HBox alignment="CENTER" prefHeight="27.0" prefWidth="245.0" spacing="5">
                             <children>
-                                <HBox alignment="TOP_CENTER" minWidth="150.0" prefHeight="27.0" prefWidth="211.0" scaleShape="false">
+                                <HBox alignment="CENTER" minWidth="150.0" prefHeight="27.0" prefWidth="211.0" scaleShape="false">
                                    <children>
-                                       <Label fx:id="name" styleClass="cell_big_label_for_nav" text="\$first" textAlignment="CENTER">
+                                       <Label fx:id="name" styleClass="cell_big_label" text="\$first" textAlignment="CENTER">
                                  		</Label>
                                    </children>
                                 </HBox>
