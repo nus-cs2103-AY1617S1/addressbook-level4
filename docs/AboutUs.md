@@ -12,7 +12,7 @@ Responsibilities: Code Quality
 
 -----
 
-#### [Anniya Baskaran]()
+#### [Anniya Baskaran](https://github.com/AnniyaB)
 <img src="images/AnniyaB.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Integration 
