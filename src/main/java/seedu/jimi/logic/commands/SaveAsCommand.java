@@ -13,7 +13,7 @@ public class SaveAsCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set a new save directory for all your tasks and events in Jimi.\n"
             + "Parameters: FILEPATH/FILENAME.xml \n"
             + "Example: " + COMMAND_WORD
-            + " saveas C:/dropbox/taskbook.xml";
+            + " C:/dropbox/taskbook.xml";
 
     public static final String MESSAGE_SUCCESS = "Save directory changed: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This save directory is originally used in Jimi";
