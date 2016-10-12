@@ -76,6 +76,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case SaveAsCommand.COMMAND_WORD:
+            return prepareSaveAs(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -212,5 +215,14 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
-
+    
+    /**
+     * Parses arguments in the context of the save as command.
+     * 
+     * @param full command args string
+     * @return the prepared command
+     */
+    private Command prepareSaveAs(String args)  {
+        return null;
+    }
 }
