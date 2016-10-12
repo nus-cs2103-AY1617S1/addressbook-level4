@@ -5,7 +5,7 @@ Our project is a Task Manager for Jim.
 
 ## Project Team
 
-#### [Ong Li-Jen]() <br>
+#### [Ong Li-Jen](https://github.com/lijen1994) <br>
 <img src="images/OngLiJen.png" width="150"><br>
 Role: Project Lead <br>  
 Responsibilities: Code Quality
@@ -19,7 +19,7 @@ Responsibilities: Integration
 
 -----
 
-#### [Muhammad Arif Bin Syed Nasser](https://github.com/Halo3fanz) 
+#### [Muhammad Arif Bin Syed Nasser]() 
 <img src="images/M.Arif.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Documentation
