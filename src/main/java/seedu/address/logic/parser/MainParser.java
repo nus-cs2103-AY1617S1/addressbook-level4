@@ -82,6 +82,9 @@ public class MainParser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case DoneCommand.COMMAND_WORD:
+            return prepareDelete(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
