@@ -83,7 +83,7 @@ public class DateUtil {
      */
     private static String formatDateDisplay(LocalDate date, boolean withDaysOfWeek) {
         //return with the days of the week
-        if (withDaysOfWeek == true) {
+        if (withDaysOfWeek) {
             return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3) + SPACE + 
                     date.getDayOfMonth() + SPACE + 
                     date.getMonth().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3);
