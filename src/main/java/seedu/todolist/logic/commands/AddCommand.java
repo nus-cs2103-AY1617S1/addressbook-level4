@@ -22,7 +22,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to-do list";
-
+    
     private final Task toAdd;
 
     /**
@@ -30,14 +30,15 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, Set<String> tags)
-            throws IllegalValueException {
+    public AddCommand(String name, String startDate, String startTime, String endDate, 
+            String endTime, Set<String> tags)  throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new Task(
                 new Name(name),
+                new Interval(startDate, startTime, endDate, endTime),
                 new UniqueTagList(tagSet)
         );
     }

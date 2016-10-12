@@ -18,6 +18,18 @@ public class XmlAdaptedTask {
     private String name;
 
     @XmlElement
+    private String startDate;
+    
+    @XmlElement
+    private String startTime;
+    
+    @XmlElement
+    private String endDate;
+    
+    @XmlElement
+    private String endTime;
+    
+    @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -33,6 +45,10 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
+        startDate = source.getInterval().getStartDate().toString();
+        startTime = source.getInterval().getStartTime().toString();
+        endDate = source.getInterval().getEndDate().toString();
+        endTime = source.getInterval().getEndTime().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -50,7 +66,8 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
+        final Interval interval = new Interval(this.startDate, this.startTime, this.endDate, this.endTime);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, tags);
+        return new Task(name, interval, tags);
     }
 }
