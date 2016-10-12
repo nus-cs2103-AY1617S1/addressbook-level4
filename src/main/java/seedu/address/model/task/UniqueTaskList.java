@@ -68,15 +68,14 @@ public class UniqueTaskList implements Iterable<Task> {
     public void update(ReadOnlyTask toUpdate, Task updatedTask) throws DuplicateTaskException {
         assert toUpdate != null;
         assert updatedTask != null;
+        
+        int index = internalList.indexOf(toUpdate);
+        assert index >= 0;
 
-        if(contains(updatedTask))
+        if(contains(updatedTask) && !toUpdate.equals(updatedTask))
         {
             throw new DuplicateTaskException();
         }
-        
-        int index = internalList.indexOf(toUpdate);
-        
-        assert index >= 0;
         
         internalList.set(index, updatedTask);
     }
