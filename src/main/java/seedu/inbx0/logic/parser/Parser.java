@@ -102,7 +102,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -114,6 +114,7 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
+
 
     /**
      * Parses arguments in the context of the add task command.
@@ -371,6 +372,29 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the list task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+       
+    private Command prepareList(String arguments) {
+        if (arguments.length() == 0)
+            return new ListCommand();
+        else {
+            try {
+                return new ListCommand(arguments);
+            } catch (IllegalValueException e) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        ListCommand.MESSAGE_USAGE));
+            }
+        }
+            
+        
+        
     }
 
 }

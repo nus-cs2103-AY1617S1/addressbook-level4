@@ -100,6 +100,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    @Override
+    public void updateFilteredTaskList(String date){
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(date)));
+    }
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
@@ -156,5 +161,22 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    
+    private class DateQualifier implements Qualifier {
+        private String date;
+        
+        DateQualifier(String date) {
+            this.date = date;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return (date.equals(task.getStartDate().value));
+        }
+        
+        @Override
+        public String toString() {
+            return "date= " + date;
+        }
+    }
 }
