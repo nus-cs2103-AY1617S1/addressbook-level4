@@ -151,13 +151,14 @@ The `UI` component,
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
+ API call.<br>  
+ 
 <img src="images/DeleteTaskSequenceDiagramForLogic.PNG" width="800"><br>
 
 <br>
 ## Model Component
 
-<img src="images/ModelComponentClassDiagram.png" width="800"><br>
+<img src="images/ModelComponentClassDiagram.PNG" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -171,7 +172,7 @@ The `Model`,
 <br>
 ## Storage Component
 
-<img src="images/StorageComponentClassDiagram.png" width="800"><br>
+<img src="images/StorageComponentClassDiagram.PNG" width="800"><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
