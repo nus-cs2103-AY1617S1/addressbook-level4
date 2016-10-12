@@ -10,43 +10,35 @@ We are a team based in the [School of Computing, National University of Singapor
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+#### Chan Jun Wei
+<img src="images/ChanJunWei.jpg" width="150"><br>
+**Role**: Project Mentor  
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Shi Xiyue](https://github.com/shixiyue)
+<img src="images/ShiXiyue.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities:<br> 
+* ‘Storage' && 'Model' Component.
+* Code Quality I/c: Looks after code quality, ensures adherence to coding standards, etc.
+* Scheduling and tracking I/c: In charge of defining, assigning, and tracking project tasks.
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
+#### [Li Xiaowei](https://github.com/DongZaiEr)
+<img src="images/LiXiaowei.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Dev Ops
+Responsibilities:<br> 
+* Logic Component and Common Component I/c: ensure that the codes adhere to coding standards, and update documentation of any changes in the two components 
+* Testing I/c: Ensures the testing of the project is done properly and on time.
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
+#### [Angeline Neoh Xing Yii](https://github.com/angellineeee)
+<img src="images/AngelineNeoh.jpg" width="150"><br>
  Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+ Responsibilities:<br>
+* 'UI' Component.
+* Documentation I/c: Responsible for the quality of various project documents.
+* Integration I/c: In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
