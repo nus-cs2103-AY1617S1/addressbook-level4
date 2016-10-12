@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.jimi.model.task.DeadlineTask;
+import seedu.jimi.model.task.Event;
 import seedu.jimi.model.task.ReadOnlyTask;
 
 import java.util.List;
@@ -32,6 +34,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
     
     private Integer floatingTaskListSize; //size of current floatingTaskList
+    private ObservableList<ReadOnlyTask> floatingTaskList;
     private ObservableList<ReadOnlyTask> completedTaskList;
     private ObservableList<ReadOnlyTask> incompleteTaskList;
     
@@ -93,7 +96,7 @@ public class TaskListPanel extends UiPart {
         this.completedTaskList = FXCollections.observableArrayList();
         this.incompleteTaskList = FXCollections.observableArrayList();
         
-        updateFloatingTaskSize(taskList);
+        updateFloatingTaskList(taskList);
         updateCompletedAndIncompleteTaskList(taskList);
         
         setupListView(taskListView, taskList);
@@ -141,13 +144,27 @@ public class TaskListPanel extends UiPart {
      */
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        updateFloatingTaskSize(abce.data.getTaskList());
+        updateFloatingTaskList(abce.data.getTaskList());
         updateCompletedAndIncompleteTaskList(abce.data.getTaskList());
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
     }
     
-    private void updateFloatingTaskSize(List<ReadOnlyTask> taskList) {
+    private void updateFloatingTaskList(List<ReadOnlyTask> taskList) {
         floatingTaskListSize = taskList.size();
+        ObservableList<ReadOnlyTask> floatingTaskList = FXCollections.observableArrayList();
+        
+        for(ReadOnlyTask t : taskList) {
+            if(!(t instanceof DeadlineTask) && 
+                    !(t instanceof Event) && 
+                    !(t.isCompleted())){
+                floatingTaskList.add(t);
+            }
+        }
+        
+        updateFloatingTasksTitle();
+    }
+
+    private void updateFloatingTasksTitle() {
         titleFloatingTaskListSize.setText("Floating Tasks (" + floatingTaskListSize.toString() + ")");
     }
     
