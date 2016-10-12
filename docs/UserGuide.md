@@ -216,7 +216,7 @@ Format: `add-alias 'COMMAND_ALIAS'='COMMAND_PHRASE'`
 > If an alias is typed within quotes, however, it will _not_ be replaced.
 
 Examples:
-* `add-alias 'add-dl'='add deadline'`  <br>  
+* `add-alias 'add-dl'='add deadline'`  <br>
 The command input `add-dl 'Clean the garage' by 17:00 on 04-05-14` can now be used in place of `add deadline 'Clean the garage' by 17:00 on 04-05-1`. However, note that `add deadline 'buy add-dl a cake' by 4:00pm on 12-Oct-16` does not register as `add deadline 'buy add deadline a cake' by 4:00pm on 12-Oct-16`, since `add-dl` was enclosed by quotation marks.
 
 
@@ -248,7 +248,7 @@ Format: `exit`
 <br>
 ## 3. Command Summary
   
-|Command             | Format           |
+|Command             |Format           |
 |--------------------|:-----------------|
 |add event           |`add event 'NAME' from hh:mm to hh:mm on dd-mm-yy`|
 |add deadline        |`add deadline 'NAME' by hh:mm dd-mm-yy`|
