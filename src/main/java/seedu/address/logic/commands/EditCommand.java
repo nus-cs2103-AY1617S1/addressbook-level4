@@ -3,10 +3,12 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.SomedayTask;
 import seedu.address.model.task.Status;
+import seedu.address.model.task.TMTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -53,7 +55,7 @@ public class EditCommand extends Command {
 
         try {
         	// TODO: use getStatus from TMReadOnlyTask instead
-        	SomedayTask postEdit = new SomedayTask(toEdit, new Status());
+        	TMTask postEdit = new TMTask(toEdit, new Status(), new UniqueTagList());
         	if(lastShownList.contains(postEdit)) {
         		return new CommandResult(MESSAGE_DUPLICATE_TASK);
         	}

@@ -65,6 +65,7 @@ public class TMTask implements TMReadOnlyTask {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
+    
     public Name getName() {
         return name;
     }
