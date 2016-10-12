@@ -17,7 +17,7 @@ public class TestTask implements ReadOnlyTask {
     private DueByDate dueByDate;
     private DueByTime dueByTime;
     private Priority priority;
-    private Done done;
+    private Done done = new Done();
     private UniqueTagList tags;
 
     public TestTask() {
@@ -82,11 +82,10 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.getDetail() + " ");
-        sb.append(this.getDueByDate().value + " ");
-        sb.append(this.getDueByTime().value + " ");
-        sb.append(this.getPriority().value + " ");
-        sb.append(this.checkDone().value + " ");
+        sb.append("add " + this.getDetail().details + " ");
+        sb.append(this.getDueByDate().toString() + " ");
+        sb.append(this.getDueByTime().toString() + " ");
+        sb.append("/" + this.getPriority().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("-" + s.tagName + " "));
         return sb.toString();
     }

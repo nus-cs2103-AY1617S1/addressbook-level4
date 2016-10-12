@@ -15,7 +15,7 @@ public class AddCommandTest extends ToDoListGuiTest {
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.grocery;
+        TestTask taskToAdd = td.car;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
@@ -24,21 +24,6 @@ public class AddCommandTest extends ToDoListGuiTest {
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
-        //add another task
-        taskToAdd = td.family;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-        
-        //add another task
-        taskToAdd = td.car;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        //add duplicate task
-        commandBox.runCommand(td.dog.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
-
         //add to empty list
         commandBox.runCommand("clear");
         assertAddSuccess(td.house);

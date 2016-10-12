@@ -3,6 +3,9 @@ package seedu.address.ui;
 import seedu.address.MainApp;
 import seedu.address.model.task.Detail;
 import javafx.scene.layout.*;
+
+import java.util.logging.Logger;
+
 import javafx.fxml.*;
 import javafx.scene.control.Label;
 
@@ -16,6 +19,8 @@ import javafx.scene.control.Label;
 public class CMDoTaskBox extends HBox {
 	//private static final double ZERO_OPACITY = 0.0;
 	private static final String FXML = "CMDoTaskBox.fxml";
+	
+	private Logger logger;
 	
 	//FXML
 	@FXML	

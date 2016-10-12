@@ -20,6 +20,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -162,11 +164,11 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Detail.MESSAGE_DETAIL_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", DueByDate.MESSAGE_DUEBYDATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnEmail a/valid, address", DueByTime.MESSAGE_DUEBYTIME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -379,18 +381,20 @@ public class LogicManagerTest {
 
     /**
      * A utility class to generate test data.
+     * 
+     * The test task is set to expire in 2 days at noon by default.
      */
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
+        	Detail detail = new Detail("Complete test task 1");
+        	DueByDate dbd = new DueByDate(LocalDate.now().plusDays(2));
+        	DueByTime dbt = new DueByTime(LocalTime.of(12,00));
+        	Priority priority = new Priority(Priority.LOW);
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+            return new Task(detail, dbd, dbt, priority, tags);
         }
 
         /**
@@ -402,10 +406,10 @@ public class LogicManagerTest {
          */
         Task generateTask(int seed) throws Exception {
             return new Task(
-                    new Name("Task " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Address("House of " + seed),
+                    new Detail("Task " + seed),
+                    new DueByDate(LocalDate.now().plusDays(seed)),
+                    new DueByTime(LocalTime.of(seed%12, 00)),
+                    new Priority((seed%3 == 0) ? Priority.HIGH : (seed%3 == 1) ? Priority.MEDIUM : Priority.LOW),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -416,14 +420,14 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(p.getDetail().toString());
+            cmd.append(" by").append(p.getDueByDate().getFriendlyString());
+            cmd.append(" at").append(p.getDueByTime().getFriendlyString());
+            cmd.append(" /").append(p.getPriority());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" -").append(t.tagName);
             }
 
             return cmd.toString();
@@ -501,10 +505,10 @@ public class LogicManagerTest {
          */
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
-                    new Name(name),
-                    new Phone("1"),
-                    new Email("1@email"),
-                    new Address("House of 1"),
+                    new Detail(name),
+                    new DueByDate(LocalDate.now()),
+                    new DueByTime(LocalTime.MAX),
+                    new Priority(""),
                     new UniqueTagList(new Tag("tag"))
             );
         }
