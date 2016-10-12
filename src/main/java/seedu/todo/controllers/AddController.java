@@ -49,7 +49,7 @@ public class AddController implements Controller {
         
         // Create and persist task / event.
         TodoListDB db = TodoListDB.getInstance();
-        if (isTask = true) {
+        if (isTask) {
             Task newTask = db.createTask();
             newTask.setName(name);
             newTask.setDueDate(ldt);
