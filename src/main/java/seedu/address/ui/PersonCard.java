@@ -17,7 +17,7 @@ public class PersonCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label date;
     @FXML
     private Label address;
     @FXML
@@ -43,7 +43,7 @@ public class PersonCard extends UiPart{
     public void initialize() {
         name.setText(person.getName().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getPhone().value);
+        date.setText(person.getDate().value);
         address.setText(person.getAddress().value);
         start.setText(person.getStart().value);
         tags.setText(person.tagsString());

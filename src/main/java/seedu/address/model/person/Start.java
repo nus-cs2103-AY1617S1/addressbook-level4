@@ -4,7 +4,7 @@ package seedu.address.model.person;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Person's date number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
  */
 public class Start {
