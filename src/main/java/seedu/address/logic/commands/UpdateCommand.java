@@ -24,7 +24,7 @@ public class UpdateCommand extends Command{
             + ": Update the task identified by the index number used in the last task listing. \n"
             + "Prefix a - sign in front of optional fields you wished to remove.\n"
             + "Parameters: ID [NEW_NAME] [[-]on DATE [tTime]] [[-]by DATE [tTime]] [[-]; a line of new details]\n"
-            + "Example: " + COMMAND_WORD + " 2 on 14/10/17 by 18/10/17 ";
+            + "Example: " + COMMAND_WORD + " 2 on 14/10/2017 by 18/10/2017 ";
 
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Update Task: %1$s";
 
