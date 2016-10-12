@@ -13,13 +13,13 @@ import seedu.todo.model.tag.Tag;
 
 public class ValidationTask implements ImmutableTask, MutableTask {
     private static final String TITLE = "title";
-    private static final String START_TIME = "startTime";
-    private static final String END_TIME = "endTime";
+    private static final String START_TIME = "Starting time";
+    private static final String END_TIME = "Ending time";
 
-    private static final String ONLY_ONE_TIME_ERROR_MESSAGE = "Field=%s is not defined";
-    private static final String TITLE_EMPTY_ERROR_MESSAGE = "Title should not be a empty string.";
-    private static final String VALIDATION_ERROR_MESSAGE = "Model validation failed";
-    private static final String START_AFTER_END_ERROR_MESSAGE = "startTime is after endTime";
+    private static final String ONLY_ONE_TIME_ERROR_MESSAGE = "Field=%s is not defined.";
+    private static final String TITLE_EMPTY_ERROR_MESSAGE = "Your title should not be empty.";
+    private static final String VALIDATION_ERROR_MESSAGE = "Your task is not in the correct format.";
+    private static final String START_AFTER_END_ERROR_MESSAGE = "No time travelling allowed! You've finished before you even start.";
 
     private ErrorBag errors = new ErrorBag();
 

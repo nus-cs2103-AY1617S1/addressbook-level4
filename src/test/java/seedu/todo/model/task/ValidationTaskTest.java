@@ -143,16 +143,6 @@ public class ValidationTaskTest {
     }
 
     @Test
-    public void testTime() {
-        assertFalse(task.getStartTime().isPresent());
-        assertFalse(task.getEndTime().isPresent());
-
-        // TODO: Time definitely needs validation, for example task end time
-        // should come after start time. Issue #16 https://github.com/CS2103AUG2016-W10-C4/main/issues/16
-        // is blocking this though
-    }
-
-    @Test
     public void testPinned() {
         assertFalse(task.isPinned());
 
