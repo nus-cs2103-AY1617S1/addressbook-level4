@@ -93,15 +93,6 @@ public class AgendaPanel extends UiPart{
         this.eventsList = FXCollections.observableArrayList();
         
         updateTasksList(taskList);
-        
-        taskListView.setItems(taskList);
-        completedTaskListView.setItems(this.completedTaskList);
-        incompleteTaskListView.setItems(this.incompleteTaskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
-        completedTaskListView.setCellFactory(listView -> new TaskListViewCell());
-        incompleteTaskListView.setCellFactory(listView -> new TaskListViewCell());
-        
-        setEventHandlerForSelectionChangeEvent();
     }
     
     private void updateTasksList(ObservableList<ReadOnlyTask> taskList) {
@@ -116,36 +107,5 @@ public class AgendaPanel extends UiPart{
         SplitPane.setResizableWithParent(placeHolderPane, true);
         placeHolderPane.getChildren().add(panel);
     }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
-    }
-
-    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-    
-    /**
-     * Updates all the titles when taskBook is changed. Updates remaining tasks for each title.
-     * @param abce
-     */
-    @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        updateFloatingTaskSize(abce.data.getTaskList());
-        updateCompletedAndIncompleteTaskList(abce.data.getTaskList());
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
-    }
-    
-    private void updateFloatingTaskSize(List<ReadOnlyTask> taskList) {
-        floatingTaskListSize = taskList.size();
-        titleFloatingTaskListSize.setText("Floating Tasks (" + floatingTaskListSize.toString() + ")");
-    }
 }
+   
