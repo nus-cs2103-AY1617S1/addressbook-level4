@@ -351,8 +351,10 @@ public class TestUtil {
      *            An array of tasks.
      * @param indexToEdit
      *            Index of the task to edit.
-     * @param dataToEdit
-     *            An array of the data of the task to edit.
+     * @param nameToEdit
+     *            Name of the task to edit.
+     * @param priorityToEdit
+     *            Priority of the task to edit.            
      * @return The modified array of tasks.
      */
     public static TestTask[] editTask(final TestTask[] tasks, int indexToEdit, Name nameToEdit,
@@ -360,6 +362,26 @@ public class TestUtil {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.get(indexToEdit).setName(nameToEdit);
         listOfTasks.get(indexToEdit).setPriority(priorityToEdit);
+
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+    /**
+     * Marks the task as done with index 1 in the list of tasks.
+     * 
+     * @@author A0121533W
+     * 
+     * @param tasks
+     *            An array of tasks.
+     * @param indexes
+     *            An array of indexes to mark
+     * @return The modified array of marked tasks
+     */
+    public static TestTask[] markTaskDone(final TestTask[] tasks, int[] indexesToMark, Status status) {
+        List<TestTask> listOfTasks = asList(tasks);
+        for (int i = 0; i < indexesToMark.length; i++) {
+            listOfTasks.get(i).setStatus(status);
+        }
 
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
