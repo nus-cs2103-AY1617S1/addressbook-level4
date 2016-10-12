@@ -1,9 +1,11 @@
 package seedu.jimi.ui;
 
 import javafx.application.Platform;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -11,10 +13,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.jimi.commons.core.LogsCenter;
+import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.model.task.ReadOnlyTask;
 
+import java.util.List;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Panel containing the list of tasks.
@@ -24,12 +30,14 @@ public class TaskListPanel extends UiPart {
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    
+    private Integer floatingTaskListSize; //size of current floatingTaskList
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
     
     @FXML
-    private int floatingTaskListSize;
+    private Label labelFloatingTaskListSize;
 
     public TaskListPanel() {
         super();
@@ -61,12 +69,20 @@ public class TaskListPanel extends UiPart {
     private void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
+        registerAsAnEventHandler(this); //to update labels
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+        updateFloatingTaskSize(taskList);
+        
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
+    }
+
+    private void updateFloatingTaskSize(List<ReadOnlyTask> taskList) {
+        floatingTaskListSize = taskList.size();
+        labelFloatingTaskListSize.setText(floatingTaskListSize.toString());
     }
 
     private void addToPlaceholder() {
@@ -89,7 +105,13 @@ public class TaskListPanel extends UiPart {
             taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
-
+    
+    @Subscribe
+    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+        updateFloatingTaskSize(abce.data.getTaskList());
+        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
+    }
+    
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
         public TaskListViewCell() {

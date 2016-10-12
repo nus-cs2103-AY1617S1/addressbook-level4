@@ -13,11 +13,13 @@
          <children>
             <HBox>
                <children>
-                  <Label text="To Be Done Someday " />
-                  <Label fx:id="floatingTaskListSize" text="($)" />
+                  <Label text="To Be Done Someday" />
+                  <Label text=" (" />
+                  <Label fx:id="labelFloatingTaskListSize" text="\$" />
+                  <Label text=")" />
                </children>
             </HBox>
-              <ListView fx:id="taskListView" styleClass="container" VBox.vgrow="ALWAYS">
+              <ListView fx:id="taskListView" styleClass="left-container" VBox.vgrow="ALWAYS">
                <stylesheets>
                   <URL value="@Extensions.css" />
                   <URL value="@DarkTheme.css" />
