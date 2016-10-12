@@ -57,7 +57,7 @@ public class MasterParser {
      */
     public void registerCommandParser(CommandParser<? extends Command> commandParser) {
         assert commandParser != null;
-        assert commandParsers.get(commandParser.getHeader()) != null;
+        //assert commandParsers.get(commandParser.getHeader()) != null;
         
         commandParsers.put(commandParser.getHeader(), commandParser);        
     }
