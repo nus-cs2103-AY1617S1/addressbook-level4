@@ -1,10 +1,10 @@
 # User Guide
 
-* 1. [About the Task Manager](#about-the-task-manager)
-* 2. [Ouick Start Guide](#quick-start-guide)
-* 3. [Command Summary](#command-summary)
-* 4. [Features](#features)
-* 5. [FAQ](#faq)
+1. [About the Task Manager](#about-the-task-manager)
+2. [Ouick Start Guide](#quick-start-guide)
+3. [Command Summary](#command-summary)
+4. [Features](#features)
+5. [FAQ](#faq)
 
 
 ## About the Task Manager
@@ -18,8 +18,7 @@ This product is meant to address the concerns of users who wish to schedule thei
    
 1. Download the latest 'The Practical Task Manager' file (tptm.jar) from the [releases](../../../releases) tab.
 2. Copy the file to a suitable location on your computer. This location will serve as the home folder for the Task Manager.
-3. Double-click the file to start the application. The GUI below should appear in a few seconds.
-  ![Image of UI](https://github.com/Halo3fanz/main/blob/master/docs/images/Ui.png)
+3. Double-click the file to start the application. The GUI should appear in a few seconds (Figure 1). 
 4. Type a command in the command box and press <kbd>enter</kbd> to execute it. Depending on the command, the Task Manager will respond by displaying a message in the console window.
 5. Some example commands you can try:
    * **'list'** : lists all tasks
@@ -28,13 +27,16 @@ This product is meant to address the concerns of users who wish to schedule thei
    * **'exit'** : exits the application
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
+![Image of UI](https://github.com/Halo3fanz/main/blob/master/docs/images/Ui.png)
+Figure 1
+
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
 Add | `add <TASKNAME> d/<DEADLINE> p/<PRIORITY>`
 Clear | `clear`
-Edit | `edit <TASKNAME> d/<DEADLINE> p/<PRIORITY>`
+Edit | `edit <INDEX> <TASKNAME> d/<DEADLINE> p/<PRIORITY>`
 Delete | `delete <INDEX>`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
@@ -146,18 +148,17 @@ Format: `exit`
 
 #### Editing a task: `edit`
 Description: Edits the last task selected.<br>
-Format: `edit INPUT [INPUT] [INPUT]`
+Format: `edit INDEX INPUT [INPUT] [INPUT]`
 
 > * Edits the task by replacing the information stored with the input entered.
 > * Inputs are the same as specified in the `add` command function.
 
 Examples:
 * `list`<br>
-  `select 3`<br>
-  `edit Finish studying for EE2021 d/121116 p/4`<br>
+  `edit 3 Finish studying for EE2021 d/121116 p/4`<br>
   Edits the third task in the list of the task manager by replacing the description, changing the date nd the priority.
 * `find CS2101 meeting`<br>
-  `edit CS2101 meeting d/131016 p/5 t/John will be late`<br>
+  `edit 1 CS2101 meeting d/131016 p/5 t/John will be late`<br>
   Added in the tag `John will be late` and changed the priority.
   
 #### Saving the data 
