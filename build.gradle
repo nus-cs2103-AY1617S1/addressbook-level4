@@ -53,11 +53,15 @@ allprojects {
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
         
-        // https://mvnrepository.com/artifact/com.joestelmach/natty
-        compile group: 'com.joestelmach', name: 'natty', version: '0.12'
-        
         // https://mvnrepository.com/artifact/org.ocpsoft.prettytime/prettytime-nlp
         compile group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.0.Final'
+
+        // https://mvnrepository.com/artifact/org.atteo/evo-inflector
+        compile group: 'org.atteo', name: 'evo-inflector', version: '1.2.1'
+
+
+        testCompile group: 'com.github.javafaker', name: 'javafaker', version: '0.10'
+        testCompile "org.mockito:mockito-core:1.+"
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"

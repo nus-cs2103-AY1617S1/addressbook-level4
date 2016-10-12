@@ -84,12 +84,4 @@ public class FileUtil {
         return pathWithForwardSlash.replace("/", File.separator);
     }
 
-    public static <T> void serializeObjectToJsonFile(File jsonFile, T objectToSerialize) throws IOException {
-        FileUtil.writeToFile(jsonFile, JsonUtil.toJsonString(objectToSerialize));
-    }
-
-    public static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
-            throws IOException {
-        return JsonUtil.fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
-    }
 }
