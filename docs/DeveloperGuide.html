@@ -66,18 +66,16 @@
 <li><a href="#documentation">Documentation</a></li>
 <li><a href="#appendix-a-user-stories">Appendix A : User Stories</a></li>
 <li><a href="#appendix-b-use-cases">Appendix B : Use Cases</a><ul>
-<li><a href="#use-case-adding-an-event">Use case: Adding an event</a></li>
-<li><a href="#use-case-adding-a-task-with-deadline">Use case: Adding a task with deadline</a></li>
-<li><a href="#use-case-adding-a-recurring-task">Use case: Adding a recurring task</a></li>
-<li><a href="#use-case-marking-a-task-complete">Use case: Marking a task complete</a></li>
-<li><a href="#use-case-delete-task">Use case: Delete task</a></li>
-<li><a href="#use-case-viewing-a-specific-tab-ie-intelligent-views">Use case: Viewing a specific tab (i.e. intelligent views)</a></li>
-<li><a href="#use-case-finding-for-a-task">Use case: Finding for a task</a></li>
-<li><a href="#use-case-editing-a-task">Use case: Editing a task</a></li>
-<li><a href="#use-case-pinning-a-task">Use case: Pinning a task</a></li>
-<li><a href="#use-case-undoing-an-action">Use case: Undoing an action</a></li>
-<li><a href="#use-case-redoing-an-action">Use case: Redoing an action</a></li>
-<li><a href="#use-case">Use case:</a></li>
+<li><a href="#adding-an-event">Adding an event</a></li>
+<li><a href="#adding-a-task-with-deadline">Adding a task with deadline</a></li>
+<li><a href="#adding-a-recurring-task">Adding a recurring task</a></li>
+<li><a href="#marking-a-task-complete">Marking a task complete</a></li>
+<li><a href="#delete-task">Delete task</a></li>
+<li><a href="#viewing-a-specific-tab-ie-intelligent-views">Viewing a specific tab (i.e. intelligent views)</a></li>
+<li><a href="#finding-for-a-task">Finding for a task</a></li>
+<li><a href="#editing-a-task">Editing a task</a></li>
+<li><a href="#pinning-a-task">Pinning a task</a></li>
+<li><a href="#undoing-an-action">Undoing an action</a></li>
 </ul>
 </li>
 <li><a href="#appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements</a></li>
@@ -538,7 +536,7 @@ dependencies {
 </table>
 <h2 id="appendix-b-use-cases">Appendix B : Use Cases<a class="headerlink" href="#appendix-b-use-cases" title="Permanent link">#</a></h2>
 <p>(For all use cases below, the <strong>System</strong> is the <code>TodoApp</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
-<h3 id="use-case-adding-an-event">Use case: Adding an event<a class="headerlink" href="#use-case-adding-an-event" title="Permanent link">#</a></h3>
+<h3 id="adding-an-event">Adding an event<a class="headerlink" href="#adding-an-event" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
 <li>User types out an event with start time, end time and location</li>
@@ -566,7 +564,7 @@ dependencies {
 <p>1d1. TodoApp displays a warning to the user that he has another event at the same time<br />
   Use case resumes at step 2</p>
 </blockquote>
-<h3 id="use-case-adding-a-task-with-deadline">Use case: Adding a task with deadline<a class="headerlink" href="#use-case-adding-a-task-with-deadline" title="Permanent link">#</a></h3>
+<h3 id="adding-a-task-with-deadline">Adding a task with deadline<a class="headerlink" href="#adding-a-task-with-deadline" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
 <li>User enters a task while specifying a deadline for the task.</li>
@@ -584,7 +582,7 @@ dependencies {
 <p>1b1. TodoApp creates a task with no deadline<br />
   Use case ends</p>
 </blockquote>
-<h3 id="use-case-adding-a-recurring-task">Use case: Adding a recurring task<a class="headerlink" href="#use-case-adding-a-recurring-task" title="Permanent link">#</a></h3>
+<h3 id="adding-a-recurring-task">Adding a recurring task<a class="headerlink" href="#adding-a-recurring-task" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
 <li>User enters a task with a recurring time period </li>
@@ -598,7 +596,7 @@ dependencies {
 <p>2a1. TodoApp shows an error message<br />
   Use case resumes at step 1</p>
 </blockquote>
-<h3 id="use-case-marking-a-task-complete">Use case: Marking a task complete<a class="headerlink" href="#use-case-marking-a-task-complete" title="Permanent link">#</a></h3>
+<h3 id="marking-a-task-complete">Marking a task complete<a class="headerlink" href="#marking-a-task-complete" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
 <li>User requests to see a list of uncompleted tasks.</li>
@@ -628,7 +626,7 @@ dependencies {
 <p>3b1. TodoApp informs the user the task has already been completed 
   Use case ends</p>
 </blockquote>
-<h3 id="use-case-delete-task">Use case: Delete task<a class="headerlink" href="#use-case-delete-task" title="Permanent link">#</a></h3>
+<h3 id="delete-task">Delete task<a class="headerlink" href="#delete-task" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
 <li>User requests to delete a specific task from the list</li>
@@ -641,7 +639,7 @@ dependencies {
 <p>1a1. TodoApp shows an error message<br />
   Use case resumes at step 1</p>
 </blockquote>
-<h3 id="use-case-viewing-a-specific-tab-ie-intelligent-views">Use case: Viewing a specific tab (i.e. intelligent views)<a class="headerlink" href="#use-case-viewing-a-specific-tab-ie-intelligent-views" title="Permanent link">#</a></h3>
+<h3 id="viewing-a-specific-tab-ie-intelligent-views">Viewing a specific tab (i.e. intelligent views)<a class="headerlink" href="#viewing-a-specific-tab-ie-intelligent-views" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
 <li>User requests to view specific tab</li>
@@ -654,7 +652,7 @@ dependencies {
 <p>1a1. TodoApp shows an error message<br />
   Use case ends</p>
 </blockquote>
-<h3 id="use-case-finding-for-a-task">Use case: Finding for a task<a class="headerlink" href="#use-case-finding-for-a-task" title="Permanent link">#</a></h3>
+<h3 id="finding-for-a-task">Finding for a task<a class="headerlink" href="#finding-for-a-task" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
 <li>User searches for task with specific tag or fragmented title</li>
@@ -667,12 +665,12 @@ dependencies {
 <p>1a1. TodoApp returns an empty list<br />
   Use case ends</p>
 </blockquote>
-<h3 id="use-case-editing-a-task">Use case: Editing a task<a class="headerlink" href="#use-case-editing-a-task" title="Permanent link">#</a></h3>
+<h3 id="editing-a-task">Editing a task<a class="headerlink" href="#editing-a-task" title="Permanent link">#</a></h3>
 <ol>
 <li>User searches for specific task to edit</li>
 <li>TodoApp returns list of tasks matching search query</li>
 <li>User edits specific task on the list, changing any of its fields</li>
-<li>TodoApp accepts changes and reflects them on the task</li>
+<li>TodoApp accepts changes, reflects them on the task and </li>
 </ol>
 <p><strong>Extensions</strong></p>
 <p>2a. List returned is empty  </p>
@@ -689,7 +687,7 @@ Use case resumes at Step 2</p>
 <p>3b1. TodoApp shows error message indicating invalid fields<br />
 Use case resumes at Step 2</p>
 </blockquote>
-<h3 id="use-case-pinning-a-task">Use case: Pinning a task<a class="headerlink" href="#use-case-pinning-a-task" title="Permanent link">#</a></h3>
+<h3 id="pinning-a-task">Pinning a task<a class="headerlink" href="#pinning-a-task" title="Permanent link">#</a></h3>
 <p><strong>MSS</strong></p>
 <ol>
 <li>User searches for specific task to pin using the find command</li>
@@ -713,7 +711,7 @@ Use case resumes at Step 2</p>
 <p>3b1. TodoApp shows an error message<br />
 Use case resumes at Step 3</p>
 </blockquote>
-<h3 id="use-case-undoing-an-action">Use case: Undoing an action<a class="headerlink" href="#use-case-undoing-an-action" title="Permanent link">#</a></h3>
+<h3 id="undoing-an-action">Undoing an action<a class="headerlink" href="#undoing-an-action" title="Permanent link">#</a></h3>
 <ol>
 <li>User carries out a mutating command (see <a href="#appendix-d-glossary">glossary</a>)</li>
 <li>User finds they have made a mistake and instructs TodoApp to undo last action</li>
@@ -725,8 +723,6 @@ Use case resumes at Step 3</p>
 <p>2a1. TodoApp shows an error message<br />
 Use case ends </p>
 </blockquote>
-<h3 id="use-case-redoing-an-action">Use case: Redoing an action<a class="headerlink" href="#use-case-redoing-an-action" title="Permanent link">#</a></h3>
-<h3 id="use-case">Use case:<a class="headerlink" href="#use-case" title="Permanent link">#</a></h3>
 <h2 id="appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements<a class="headerlink" href="#appendix-c-non-functional-requirements" title="Permanent link">#</a></h2>
 <p>The project should -</p>
 <ol>
@@ -752,7 +748,7 @@ Use case ends </p>
 <dd>
 <p>Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. </p>
 </dd>
-<dt>Mutable Command</dt>
+<dt>Mutating Command</dt>
 <dd>
 <p>Any command which causes a change in the state of the the TodoApp (E.g. add, delete, edit, pin, complete)</p>
 </dd>

@@ -425,7 +425,7 @@ Priority | As a ...  | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TodoApp` and the **Actor** is the `user`, unless specified otherwise)
 
-### Use case: Adding an event
+### Adding an event
 
 **MSS**
 
@@ -456,7 +456,7 @@ Use case ends.
 > 1d1. TodoApp displays a warning to the user that he has another event at the same time  
   Use case resumes at step 2
   
-### Use case: Adding a task with deadline
+### Adding a task with deadline
 
 **MSS**
 
@@ -477,7 +477,7 @@ Use case ends.
 > 1b1. TodoApp creates a task with no deadline  
   Use case ends
 
-### Use case: Adding a recurring task
+### Adding a recurring task
 
 **MSS**
 
@@ -495,7 +495,7 @@ Use case ends.
 > 2a1. TodoApp shows an error message  
   Use case resumes at step 1
 
-### Use case: Marking a task complete
+### Marking a task complete
 
 **MSS**
 
@@ -528,7 +528,7 @@ Use case ends.
 > 3b1. TodoApp informs the user the task has already been completed 
   Use case ends
 
-### Use case: Delete task
+### Delete task
 
 **MSS**
 
@@ -544,7 +544,7 @@ Use case ends.
 > 1a1. TodoApp shows an error message  
   Use case resumes at step 1
 
-### Use case: Viewing a specific tab (i.e. intelligent views)
+### Viewing a specific tab (i.e. intelligent views)
 
 **MSS**
 
@@ -560,7 +560,7 @@ Use case ends.
 > 1a1. TodoApp shows an error message  
   Use case ends
 
-### Use case: Finding for a task
+### Finding for a task
 
 **MSS**
 
@@ -576,12 +576,12 @@ Use case ends.
 > 1a1. TodoApp returns an empty list  
   Use case ends
 
-### Use case: Editing a task
+### Editing a task
 
 1. User searches for specific task to edit
 2. TodoApp returns list of tasks matching search query
 3. User edits specific task on the list, changing any of its fields
-4. TodoApp accepts changes and reflects them on the task
+4. TodoApp accepts changes, reflects them on the task and 
 
 **Extensions**
 
@@ -598,7 +598,7 @@ Use case ends.
 > 3b1. TodoApp shows error message indicating invalid fields  
 > Use case resumes at Step 2
 
-### Use case: Pinning a task
+### Pinning a task
 
 **MSS**
 
@@ -626,7 +626,7 @@ Use case ends.
 > Use case resumes at Step 3
 
 
-### Use case: Undoing an action
+### Undoing an action
 
 1. User carries out a mutating command (see [glossary](#appendix-d-glossary))
 2. User finds they have made a mistake and instructs TodoApp to undo last action
@@ -639,11 +639,6 @@ Use case ends.
 > 2a1. TodoApp shows an error message  
 > Use case ends 
 
-### Use case: Redoing an action
-
-
-
-### Use case: 
 
 ## Appendix C : Non Functional Requirements
 
@@ -671,7 +666,7 @@ Pinning
 
 :   Marking a task with higher importance/priority than others. Pinned tasks will always appear first in any view. 
 
-Mutable Command
+Mutating Command
 
 :   Any command which causes a change in the state of the the TodoApp (E.g. add, delete, edit, pin, complete)
 

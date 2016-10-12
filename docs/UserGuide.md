@@ -28,7 +28,7 @@ Sounds exciting? Then let's get started!
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. 
 6. Some example commands you can try:
 
-     * **`add`**` Finish CS2103T homework -d next Friday` - 
+     * **`add`**` Finish CS2103T homework /d next Friday` - 
        adds a new task with the deadline set at next Friday
      * **`delete`**` 3` - deletes the 3<sup>rd</sup> task shown in the current list
      * **`exit`** - exits the app
@@ -56,7 +56,7 @@ Deadlines and events are equally important. However, most productivity apps only
 
 * Words in `UPPERCASE` are the parameters.
 * Items in `[SQUARE BRACKETS]` are optional.
-* To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. `-f`) for short flags and double dash for long flags (eg. `--all`)
+* To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. `/f`) for short flags and double dash for long flags (eg. `--all`)
 * Items with `...` within each parameter means you can add more items within the same parameters than specified.
 * Most commands that refer to a particular task or event in the list require an `INDEX`. This is a number indicated on the left of a task or event as shown in the screenshot below:
 
@@ -72,11 +72,11 @@ Shows you a help window, which contains a list of commands and their actions.
 
 Adds a new task or event.  
 Format:  
-**`add`**` TASK NAME [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]`  
-**`add`**` EVENT NAME -d START END [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]`
+**`add`**` TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]`  
+**`add`**` EVENT NAME /d START END [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]`
 
 Although there are many parameters, you are only required to provide a name of your task or event. 
-Tasks will be turned into events automatically if there are two dates specified under the `-d` flag. Here are some common scenarios:
+Tasks will be turned into events automatically if there are two dates specified under the `/d` flag. Here are some common scenarios:
 
 #### Adding a task
 
@@ -87,17 +87,17 @@ Adding a task can be simply giving a name.
 
 #### Adding an event
 
-Events normally will have include a start time, end time and a location and can be phrased as follows using the `-d` and `-l` flags.
+Events normally will have include a start time, end time and a location and can be phrased as follows using the `/d` and `/l` flags.
 
 !!! example
-    **`add`**` Music at the park -d 11 Dec 6pm to 8pm -l Botanic Gardens  -p`
+    **`add`**` Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens  /p`
 
 #### Adding a deadline
 
 If you need something done by a specific time, add a deadline to your task.
 
 !!! example
-    **`add`**` Submit V.0.0 -d 5 Oct 2359`
+    **`add`**` Submit V.0.0 /d 5 Oct 2359`
 
 #### Adding a recurring task
 
@@ -105,22 +105,22 @@ Recurring tasks only require the recurring time period. The task will be appear 
 of the specified day. If no date is specified, it will be added to today's list
 
 !!! example
-    **`add`**` CS2103T Tutorial -d 10am to 2pm -r every Wednesday`
+    **`add`**` CS2103T Tutorial /d 10am to 2pm /r every Wednesday`
 
 #### Adding descriptions to a task
 
-More details can be added to the task using the `-m` flag
+More details can be added to the task using the `/m` flag
 
 !!! example
-    **`add`**` Destroy the Earth -m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!`
+    **`add`**` Destroy the Earth /m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!`
 
 #### Pinning a task
 
-Important tasks can be pinned to the top of the list using the `-p` flag. See [the `pin` command](#pinning-a-task-pin) 
+Important tasks can be pinned to the top of the list using the `/p` flag. See [the `pin` command](#pinning-a-task-pin) 
 for more detail.
 
 !!! example
-    **`add`**` Meet Li Kai at Friday Hacks! -d 21 Oct 6pm to 8pm -p`
+    **`add`**` Meet Li Kai at Friday Hacks! /d 21 Oct 6pm to 8pm /p`
 
 #### Organizing tasks using tags
 
@@ -128,20 +128,20 @@ If you have a lot of tasks you can use tags to organize them. See [the `tag` com
 for more detail.
 
 !!! example
-    **`add`**` Finish tutorial 6 -d 10 Oct -t CS2106, School`
+    **`add`**` Finish tutorial 6 /d 10 Oct /t CS2106, School`
 
 
 #### Parameter reference
 
 Flag | Parameter        | Used to
 -----| ---------------- | ----------------------
-`-d` | `DEADLINE`       | Specify a deadline for the task
-`-d` | `START END`      | Specify the start and end time for the event
-`-m` | `DESCRIPTION`    | Add a long description to the task or event
-`-l` | `LOCATION`       | Add a location to the event 
-`-r` | `PERIOD`         | Create a recurring task
-`-p` | -                | Pins the task to the top of the list
-`-t` | `TAG 1, TAG 2, ...` | Tags to help organize your tasks 
+`/d` | `DEADLINE`       | Specify a deadline for the task
+`/d` | `START END`      | Specify the start and end time for the event
+`/m` | `DESCRIPTION`    | Add a long description to the task or event
+`/l` | `LOCATION`       | Add a location to the event 
+`/r` | `PERIOD`         | Create a recurring task
+`/p` | -                | Pins the task to the top of the list
+`/t` | `TAG 1, TAG 2, ...` | Tags to help organize your tasks 
 
 ### Deleting a task: **`delete`**
 
@@ -183,8 +183,8 @@ If a particular task or event is important, you can pin it to the top of every l
 
 Allows you to edit a specific task.  
 Format:  
-**`edit`**` INDEX [NAME] [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]`  
-**`edit`**` INDEX [NAME] [-d START END] [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]`
+**`edit`**` INDEX [NAME] [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]`  
+**`edit`**` INDEX [NAME] [/d START END] [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]`
 
 Use the `edit` command to make changes to the task specified by `INDEX`. The command accepts the same parameters as the `add` command. Any edit is immediately saved.
 
@@ -280,11 +280,11 @@ the save file by specifying the file path as the first argument when running the
 Command  | Format  
 -------- | :-------- 
 Help     | **`help`**
-Add      | **`add`**` NAME [-d DEADLINE or START END] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]` 
+Add      | **`add`**` NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]` 
 Delete   | **`delete`**` INDEX`
 Complete | **`complete`**` INDEX`
 Pin      | **`pin`**` INDEX`
-Edit     | **`edit`**` INDEX [NAME] [-d DEADLINE or START END] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]` 
+Edit     | **`edit`**` INDEX [NAME] [/d DEADLINE or START END] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]` 
 Find     | **`find`**` KEYWORD [MORE KEYWORDS...]`
 Undo     | **`undo`**
 Redo     | **`redo`**

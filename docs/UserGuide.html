@@ -82,7 +82,7 @@
 <li>
 <p>Some example commands you can try:</p>
 <ul>
-<li><strong><code>add</code></strong><code>Finish CS2103T homework -d next Friday</code> - 
+<li><strong><code>add</code></strong><code>Finish CS2103T homework /d next Friday</code> - 
    adds a new task with the deadline set at next Friday</li>
 <li><strong><code>delete</code></strong><code>3</code> - deletes the 3<sup>rd</sup> task shown in the current list</li>
 <li><strong><code>exit</code></strong> - exits the app</li>
@@ -104,7 +104,7 @@
 <ul>
 <li>Words in <code>UPPERCASE</code> are the parameters.</li>
 <li>Items in <code>[SQUARE BRACKETS]</code> are optional.</li>
-<li>To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. <code>-f</code>) for short flags and double dash for long flags (eg. <code>--all</code>)</li>
+<li>To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. <code>/f</code>) for short flags and double dash for long flags (eg. <code>--all</code>)</li>
 <li>Items with <code>...</code> within each parameter means you can add more items within the same parameters than specified.</li>
 <li>Most commands that refer to a particular task or event in the list require an <code>INDEX</code>. This is a number indicated on the left of a task or event as shown in the screenshot below:</li>
 </ul>
@@ -115,10 +115,10 @@
 <h3 id="adding-a-task-or-event-add">Adding a task or event: <strong><code>add</code></strong><a class="headerlink" href="#adding-a-task-or-event-add" title="Permanent link">#</a></h3>
 <p>Adds a new task or event.<br />
 Format:<br />
-<strong><code>add</code></strong><code>TASK NAME [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]</code><br />
-<strong><code>add</code></strong><code>EVENT NAME -d START END [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]</code></p>
+<strong><code>add</code></strong><code>TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]</code><br />
+<strong><code>add</code></strong><code>EVENT NAME /d START END [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]</code></p>
 <p>Although there are many parameters, you are only required to provide a name of your task or event. 
-Tasks will be turned into events automatically if there are two dates specified under the <code>-d</code> flag. Here are some common scenarios:</p>
+Tasks will be turned into events automatically if there are two dates specified under the <code>/d</code> flag. Here are some common scenarios:</p>
 <h4 id="adding-a-task">Adding a task<a class="headerlink" href="#adding-a-task" title="Permanent link">#</a></h4>
 <p>Adding a task can be simply giving a name.</p>
 <div class="admonition example">
@@ -126,43 +126,43 @@ Tasks will be turned into events automatically if there are two dates specified 
 <p><strong><code>add</code></strong><code>Finish up developer guide for CS2101</code> </p>
 </div>
 <h4 id="adding-an-event">Adding an event<a class="headerlink" href="#adding-an-event" title="Permanent link">#</a></h4>
-<p>Events normally will have include a start time, end time and a location and can be phrased as follows using the <code>-d</code> and <code>-l</code> flags.</p>
+<p>Events normally will have include a start time, end time and a location and can be phrased as follows using the <code>/d</code> and <code>/l</code> flags.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><strong><code>add</code></strong><code>Music at the park -d 11 Dec 6pm to 8pm -l Botanic Gardens  -p</code></p>
+<p><strong><code>add</code></strong><code>Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens  /p</code></p>
 </div>
 <h4 id="adding-a-deadline">Adding a deadline<a class="headerlink" href="#adding-a-deadline" title="Permanent link">#</a></h4>
 <p>If you need something done by a specific time, add a deadline to your task.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><strong><code>add</code></strong><code>Submit V.0.0 -d 5 Oct 2359</code></p>
+<p><strong><code>add</code></strong><code>Submit V.0.0 /d 5 Oct 2359</code></p>
 </div>
 <h4 id="adding-a-recurring-task">Adding a recurring task<a class="headerlink" href="#adding-a-recurring-task" title="Permanent link">#</a></h4>
 <p>Recurring tasks only require the recurring time period. The task will be appear from the first occurrence 
 of the specified day. If no date is specified, it will be added to today's list</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><strong><code>add</code></strong><code>CS2103T Tutorial -d 10am to 2pm -r every Wednesday</code></p>
+<p><strong><code>add</code></strong><code>CS2103T Tutorial /d 10am to 2pm /r every Wednesday</code></p>
 </div>
 <h4 id="adding-descriptions-to-a-task">Adding descriptions to a task<a class="headerlink" href="#adding-descriptions-to-a-task" title="Permanent link">#</a></h4>
-<p>More details can be added to the task using the <code>-m</code> flag</p>
+<p>More details can be added to the task using the <code>/m</code> flag</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><strong><code>add</code></strong><code>Destroy the Earth -m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!</code></p>
+<p><strong><code>add</code></strong><code>Destroy the Earth /m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!</code></p>
 </div>
 <h4 id="pinning-a-task">Pinning a task<a class="headerlink" href="#pinning-a-task" title="Permanent link">#</a></h4>
-<p>Important tasks can be pinned to the top of the list using the <code>-p</code> flag. See <a href="#pinning-a-task-pin">the <code>pin</code> command</a> 
+<p>Important tasks can be pinned to the top of the list using the <code>/p</code> flag. See <a href="#pinning-a-task-pin">the <code>pin</code> command</a> 
 for more detail.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><strong><code>add</code></strong><code>Meet Li Kai at Friday Hacks! -d 21 Oct 6pm to 8pm -p</code></p>
+<p><strong><code>add</code></strong><code>Meet Li Kai at Friday Hacks! /d 21 Oct 6pm to 8pm /p</code></p>
 </div>
 <h4 id="organizing-tasks-using-tags">Organizing tasks using tags<a class="headerlink" href="#organizing-tasks-using-tags" title="Permanent link">#</a></h4>
 <p>If you have a lot of tasks you can use tags to organize them. See <a href="#managing-tags-tag">the <code>tag</code> command</a> 
 for more detail.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><strong><code>add</code></strong><code>Finish tutorial 6 -d 10 Oct -t CS2106, School</code></p>
+<p><strong><code>add</code></strong><code>Finish tutorial 6 /d 10 Oct /t CS2106, School</code></p>
 </div>
 <h4 id="parameter-reference">Parameter reference<a class="headerlink" href="#parameter-reference" title="Permanent link">#</a></h4>
 <table>
@@ -175,37 +175,37 @@ for more detail.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>-d</code></td>
+<td><code>/d</code></td>
 <td><code>DEADLINE</code></td>
 <td>Specify a deadline for the task</td>
 </tr>
 <tr>
-<td><code>-d</code></td>
+<td><code>/d</code></td>
 <td><code>START END</code></td>
 <td>Specify the start and end time for the event</td>
 </tr>
 <tr>
-<td><code>-m</code></td>
+<td><code>/m</code></td>
 <td><code>DESCRIPTION</code></td>
 <td>Add a long description to the task or event</td>
 </tr>
 <tr>
-<td><code>-l</code></td>
+<td><code>/l</code></td>
 <td><code>LOCATION</code></td>
 <td>Add a location to the event</td>
 </tr>
 <tr>
-<td><code>-r</code></td>
+<td><code>/r</code></td>
 <td><code>PERIOD</code></td>
 <td>Create a recurring task</td>
 </tr>
 <tr>
-<td><code>-p</code></td>
+<td><code>/p</code></td>
 <td>-</td>
 <td>Pins the task to the top of the list</td>
 </tr>
 <tr>
-<td><code>-t</code></td>
+<td><code>/t</code></td>
 <td><code>TAG 1, TAG 2, ...</code></td>
 <td>Tags to help organize your tasks</td>
 </tr>
@@ -239,8 +239,8 @@ Format: <strong><code>delete</code></strong><code>INDEX</code></p>
 <h3 id="editing-a-task-edit">Editing a task: <strong><code>edit</code></strong><a class="headerlink" href="#editing-a-task-edit" title="Permanent link">#</a></h3>
 <p>Allows you to edit a specific task.<br />
 Format:<br />
-<strong><code>edit</code></strong><code>INDEX [NAME] [-d DEADLINE] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]</code><br />
-<strong><code>edit</code></strong><code>INDEX [NAME] [-d START END] [-m DESCRIPTION] [-l LOCATION] [-p] [-t TAG 1, TAG 2...]</code></p>
+<strong><code>edit</code></strong><code>INDEX [NAME] [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]</code><br />
+<strong><code>edit</code></strong><code>INDEX [NAME] [/d START END] [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]</code></p>
 <p>Use the <code>edit</code> command to make changes to the task specified by <code>INDEX</code>. The command accepts the same parameters as the <code>add</code> command. Any edit is immediately saved.</p>
 <h3 id="switch-views-view">Switch views : <strong><code>view</code></strong><a class="headerlink" href="#switch-views-view" title="Permanent link">#</a></h3>
 <p>Switch between different views.<br />
@@ -324,7 +324,7 @@ the save file by specifying the file path as the first argument when running the
 </tr>
 <tr>
 <td>Add</td>
-<td align="left"><strong><code>add</code></strong><code>NAME [-d DEADLINE or START END] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]</code></td>
+<td align="left"><strong><code>add</code></strong><code>NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]</code></td>
 </tr>
 <tr>
 <td>Delete</td>
@@ -340,7 +340,7 @@ the save file by specifying the file path as the first argument when running the
 </tr>
 <tr>
 <td>Edit</td>
-<td align="left"><strong><code>edit</code></strong><code>INDEX [NAME] [-d DEADLINE or START END] [-m DESCRIPTION] [-r TIME] [-p] [-t TAG 1, TAG 2...]</code></td>
+<td align="left"><strong><code>edit</code></strong><code>INDEX [NAME] [/d DEADLINE or START END] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]</code></td>
 </tr>
 <tr>
 <td>Find</td>
