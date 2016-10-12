@@ -16,14 +16,16 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " dog";
 
     private final Set<String> keywords;
+    private final boolean taskStatus;
 
-    public FindCommand(Set<String> keywords) {
+    public FindCommand(Set<String> keywords, boolean taskStatus) {
         this.keywords = keywords;
+        this.taskStatus = taskStatus;
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
+        model.updateFilteredTaskList(keywords, taskStatus);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 

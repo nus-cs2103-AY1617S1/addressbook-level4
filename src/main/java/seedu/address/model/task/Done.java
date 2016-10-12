@@ -11,13 +11,29 @@ public class Done {
     public static final String MESSAGE_DONE_CONSTRAINTS = "";
     public static final String DONE_VALIDATION_REGEX = "";
 
-    public final Boolean value;
+    public Boolean value;
 
     /**
      * Done is false by default.
      */
     public Done(){
         this.value = false;
+    }
+    
+    /**
+     * This is for the case where Done needs to take on a previously saved state
+     * 
+     * @author A0141128R
+     */
+    public Done(boolean value) {
+    	this.value = value;
+    }
+    
+    /*
+     * method to set Done as true upon completion
+     */
+    public void setDone(){
+    	value = true;
     }
 
     /**
