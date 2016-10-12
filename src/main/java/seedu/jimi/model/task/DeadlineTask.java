@@ -1,39 +1,21 @@
 package seedu.jimi.model.task;
 
-import java.util.Objects;
-
-import seedu.jimi.commons.util.CollectionUtil;
 import seedu.jimi.model.tag.UniqueTagList;
 
-public class DeadlineTask implements ReadOnlyTask {
+public class DeadlineTask extends FloatingTask implements ReadOnlyTask {
 
-    private Name name;
     private DateTime deadline;
-    private UniqueTagList tags;
-    private boolean isCompleted;
     
     public DeadlineTask(Name name, DateTime deadline, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, deadline, tags);
-        this.isCompleted = false;
-        this.name = name;
+        super(name, tags);
+        assert deadline != null;
         this.deadline = deadline;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-    
-    @Override
-    public Name getName() {
-        return name;
     }
     
     public DateTime getDeadline() {
         return deadline;
     }
 
-    @Override
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-    
     @Override
     public String getAsText() {
         final StringBuilder builder = new StringBuilder();
@@ -43,26 +25,12 @@ public class DeadlineTask implements ReadOnlyTask {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-    @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
     
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, deadline, tags);
     }
 
     @Override
