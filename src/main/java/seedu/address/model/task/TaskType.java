@@ -27,6 +27,7 @@ public class TaskType {
         }
     }
 	
+	
 	public Type value;
 	
 	public TaskType(Type type) {

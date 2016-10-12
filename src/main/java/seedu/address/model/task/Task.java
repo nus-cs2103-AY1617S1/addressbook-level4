@@ -26,7 +26,7 @@ public class Task implements ReadOnlyTask {
 	 */
     public Task(Name name, Status status, Date startDate, Date endDate, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, status, startDate, endDate, tags);
-        this.taskType = TaskType.EVENT;
+        this.taskType = new TaskType("event");
         this.name = name;
         this.status = status;
         this.startDate = Optional.of(startDate);
@@ -42,7 +42,7 @@ public class Task implements ReadOnlyTask {
 	 */
     public Task(Name name, Status status, Date date, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, status, date, tags);
-        this.taskType = TaskType.DEADLINE;
+        this.taskType = new TaskType("deadline");
         this.name = name;
         this.status = status;
         this.startDate = Optional.empty();
@@ -58,7 +58,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(Name name, Status status, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, status, tags);
-        this.taskType = TaskType.SOMEDAY;
+        this.taskType = new TaskType("someday");
         this.name = name;
         this.status = status;
         this.startDate = Optional.empty();
@@ -113,10 +113,10 @@ public class Task implements ReadOnlyTask {
     }
     
     public void setStartDate(Date date) throws UnsupportedOperationException {
-        if (taskType.equals(TaskType.DEADLINE)) {
+        if (taskType.value.equals(TaskType.Type.DEADLINE)) {
             throw new UnsupportedOperationException("Start date cannot be set on a deadline task");
         }
-        else if (taskType.equals(TaskType.SOMEDAY)) {
+        else if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
             throw new UnsupportedOperationException("Start date cannot be set on a someday task");
         }
         else {
@@ -129,7 +129,7 @@ public class Task implements ReadOnlyTask {
     }
 
     public void setEndDate(Date date) throws UnsupportedOperationException {
-        if (taskType.equals(TaskType.SOMEDAY)) {
+        if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
             throw new UnsupportedOperationException("End date cannot be set on a someday task");
         }
         else {

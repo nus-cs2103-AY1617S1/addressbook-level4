@@ -11,30 +11,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
-
-	public enum TaskType {
-        EVENT {
-            @Override
-            public String toString() {
-                return "Event";
-            }
-        }, 
-        
-        DEADLINE {
-            @Override
-            public String toString() {
-                return "Deadline";
-            }
-        }, 
-        
-        SOMEDAY {
-        	@Override
-        	public String toString() {
-        		return "Someday";
-        	}
-        }
-    }
-    
+  
     public Name getName();
     public TaskType getTaskType();
     public Status getStatus();
