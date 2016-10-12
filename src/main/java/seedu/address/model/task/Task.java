@@ -26,7 +26,7 @@ public class Task implements ReadOnlyTask {
         this.name = name;
         this.deadline = deadline;
         this.priority = priority;
-        this.tags = tags;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
     /**

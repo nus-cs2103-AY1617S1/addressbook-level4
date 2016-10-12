@@ -77,12 +77,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     
-    @Override
-	public void editTask(ReadOnlyTask taskToEdit) throws UniquePersonList.PersonNotFoundException {
-		addressBook.editTask(taskToEdit);
-		updateFilteredListToShowAll();
-		indicateAddressBookChanged();
-    }
 
     //=========== Filtered Person List Accessors ===============================================================
 
