@@ -37,19 +37,19 @@ Format: `help`
 #### Adding a task: `add`
 Adds a task to the MustDoList.<br>
 
-Format1: `add TASK_NAME`<br>
-Format2: `add TASK_NAME by ed/END_DATE`<br>
-Format3: `add TASK_NAME by [sd/START_DATE] ed/END_DATE [st/START_TIME] et/END_TIME`
+Format1: **`add`**`TASK_NAME`<br>
+Format2: **`add`**`TASK_NAME by ed/END_DATE`<br>
+Format3: **`add`**`TASK_NAME by [sd/START_DATE] ed/END_DATE [st/START_TIME] et/END_TIME`
 
-> * [parameter] are optional, with or without this parameter it will work.
-  * DATE Format: DDMMYY
-  * TIME Format: 12HR 
+> [parameter] are optional, with or without this parameter it will work.
+DATE Format: DDMMYY
+TIME Format: 12HR 
 
 Examples:<br> 
-1. `add Submission of CS2103 Project`<br>
-2. `add Submission of CS2103 Project by ed/11112016`<br>
-3. `add Submission of CS2103 Project by ed/11112016 et/0900`<br>
-4. `add Submission of CS2103 Project by sd/01102016 ed/11112016 st/0900 et/0900`<br>
+* **`add`**`Submission of CS2103 Project`<br>
+* **`add`**`Submission of CS2103 Project by ed/11112016`<br>
+* **`add`**`Submission of CS2103 Project by ed/11112016 et/0900`<br>
+* **`add`**`Submission of CS2103 Project by sd/01102016 ed/11112016 st/0900 et/0900`<br>
 
 #### Listing all tasks: `list`
 Shows a list of all tasks in the MustDoList.<br>
@@ -61,7 +61,7 @@ Finds a task by keywords.<br>
 
 Format: **`find`**`KEYWORD`
 
-> * KEYWORD refers to: task_name, location, date, time<br> 
+> KEYWORD refers to: task_name, location, date, time<br> 
 
 Examples:<br> 
 * **`find`**`CS2103`<br>
@@ -76,8 +76,8 @@ Selects a task from MustDoList by index.<br>
 
 Format: `select INDEX`
 
-> * Index refers to the index number shown in the most recent listing.<br>
-  * Selecting a task will open the web browser without clicking it with a mouse.<br>
+> Index refers to the index number shown in the most recent listing.<br>
+Selecting a task will open the web browser without clicking it with a mouse.<br>
 
 Examples:<br> 
 * `list`<br>
@@ -92,7 +92,7 @@ Deletes a task from the MustDoList by index. Irreversible.<br>
 
 Format: **`delete`**`INDEX`
 
-> * INDEX refers to the index number shown in the most recent listing.<br>
+> INDEX refers to the index number shown in the most recent listing.<br>
 
 Examples:<br>
 * `list`<br>
@@ -112,7 +112,7 @@ Edits a task parameter from the MustDoList by index.<br>
 
 Format: **`edit`**`INDEX PARAMETER`
 
-> * PARAMETER refers to:<br>
+> PARAMETER refers to:<br>
  ‘sd/START_DATE’ , ‘ed/END_DATE’ , ‘st/START_TIME’ , ‘et/END_TIME’ . <br>
 
 Examples:<br>
@@ -133,7 +133,7 @@ Marks a completed task by index.<br>
 
 Format: `mark INDEX`
 
-> * INDEX refers to the index number shown in the most recent listing.<br>
+> INDEX refers to the index number shown in the most recent listing.<br>
 
 Examples:<br>
 * `list`<br>
@@ -148,7 +148,7 @@ Changes the default storage path to user's preferred path.<br>
 
 Format: `setsavepath ADDRESS`
 
-> * ADDRESS refers to the address of user's preferred storage path.<br>
+> ADDRESS refers to the address of user's preferred storage path.<br>
 
 Examples:<br>
 * **`setsavepath`**`task`<br>
