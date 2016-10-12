@@ -183,7 +183,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
-            this.NAME_QUERY = Pattern.compile(getRegexFromString());
+            this.NAME_QUERY = Pattern.compile(getRegexFromString(), Pattern.CASE_INSENSITIVE);
         }
 
         private String getRegexFromString(){
