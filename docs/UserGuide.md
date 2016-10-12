@@ -12,7 +12,7 @@
 1. Download the latest `forgetmenot.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   > <img src="docs/images/ForgetMeNot.png" width="600"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -120,26 +120,12 @@ Example:
 * `edit s1 name CS2103T Tutorial`
 * `edit t2 date 21/11/2016`
 
-#### View all task: `home`
-Returns to the default view of the application when it is opened.<br>
-Format: `home`
-
 #### Mark as done: `done`
 Marks a task as done. <br>
 Format: `done <task index>`
 
 Example:
 * `done t1`
-
-##### Set alarms for tasks: `remind`
-There are 2 ways to set an alarm for tasks. The first is to set the alarm when creating the task, and the second is to set it manually for a task that is already present.<br>
-Format: 
-* To set an alarm while creating a task, `add <task index> by <date/time>priority(optional) <priority type> remind by <date>  at <time>`
-* To manually set an alarm for a currently present task, `remind <task index> by <date>  at <time>`
-
-Examples:
-* `add t2 by 21/09/2016 remind by 20/09/2016 at 5pm`
-* `remind t2 by 20/09/2016 at 5pm`
 
 #### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>

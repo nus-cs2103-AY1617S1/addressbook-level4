@@ -152,24 +152,19 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@time.butNoDatePrefix a/valid, address", expectedMessage);
+                "add Valid Name d/10/10/17 t/10:00pm to 11.:00pm", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@time.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@time.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name d/12/12/13 t/11:00pm", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] d/01/05/12 t/12:00am to 1:00pm", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Date.MESSAGE_DATE_CONSTRAINTS);
+                "add Valid Name d/15/14/1234 t/12:00pm", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnTime a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
+                "add Valid Name d/02/02/10 t/1530", Time.MESSAGE_TIME_CONSTRAINTS);
     }
 
     @Test
@@ -385,11 +380,7 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             Date privateDate = new Date("11/11/16");
-            Time time = new Time("3pm to 4pm");
-//            Address privateAddress = new Address("111, alpha street");
-//            Tag tag1 = new Tag("tag1");
-//            Tag tag2 = new Tag("tag2");
-//            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            Time time = new Time("3:00pm to 4:00pm");
             return new Task(name, privateDate, time); //, privateAddress, tags);
         }
 
@@ -405,8 +396,6 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new Date("" + Math.abs(seed)),
                     new Time(seed + "@time")
-//                    new Address("House of " + seed),
-//                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
@@ -419,12 +408,6 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append(" d/").append(p.getDate());
             cmd.append(" t/").append(p.getTime());
-//            cmd.append(" a/").append(p.getAddress());
-
-//            UniqueTagList tags = p.getTags();
-//            for(Tag t: tags){
-//                cmd.append(" t/").append(t.tagName);
-//            }
 
             return cmd.toString();
         }
@@ -433,34 +416,34 @@ public class LogicManagerTest {
          * Generates an TaskManager with auto-generated tasks.
          */
         TaskManager generateTaskManager(int numGenerated) throws Exception{
-            TaskManager addressBook = new TaskManager();
-            addToTaskManager(addressBook, numGenerated);
-            return addressBook;
+            TaskManager taskManager = new TaskManager();
+            addToTaskManager(taskManager, numGenerated);
+            return taskManager;
         }
 
         /**
          * Generates an TaskManager based on the list of Tasks given.
          */
         TaskManager generateTaskManager(List<Task> tasks) throws Exception{
-            TaskManager addressBook = new TaskManager();
-            addToTaskManager(addressBook, tasks);
-            return addressBook;
+            TaskManager taskManager = new TaskManager();
+            addToTaskManager(taskManager, tasks);
+            return taskManager;
         }
 
         /**
          * Adds auto-generated Task objects to the given TaskManager
-         * @param addressBook The TaskManager to which the Tasks will be added
+         * @param taskManager The TaskManager to which the Tasks will be added
          */
-        void addToTaskManager(TaskManager addressBook, int numGenerated) throws Exception{
-            addToTaskManager(addressBook, generateTaskList(numGenerated));
+        void addToTaskManager(TaskManager taskManager, int numGenerated) throws Exception{
+            addToTaskManager(taskManager, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given TaskManager
          */
-        void addToTaskManager(TaskManager addressBook, List<Task> tasksToAdd) throws Exception{
+        void addToTaskManager(TaskManager taskManager, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
-                addressBook.addTask(p);
+                taskManager.addTask(p);
             }
         }
 
