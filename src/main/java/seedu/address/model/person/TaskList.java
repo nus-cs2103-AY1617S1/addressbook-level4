@@ -55,7 +55,7 @@ public class TaskList implements Iterable<Task> {
      * Returns true if the list contains an equivalent task as the given argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
-        return false; // no requirements for duplicates at the moment.
+        return true; // no requirements for duplicates at the moment.
     }
 
     /**
@@ -65,9 +65,10 @@ public class TaskList implements Iterable<Task> {
      */
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
-        if (contains(toAdd)) {
-            throw new DuplicateTaskException();
-        }
+        //if (contains(toAdd)) {
+        //    throw new DuplicateTaskException();
+        //}
+        // no constraints on duplicate tasks
         internalList.add(toAdd);
     }
 
