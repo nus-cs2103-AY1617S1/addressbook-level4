@@ -29,6 +29,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    //private WelcomeMessage welcomeMessage;
     private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
@@ -43,6 +44,9 @@ public class MainWindow extends UiPart {
 
     private String addressBookName;
 
+   // @FXML
+   // private AnchorPane welcomeMessagePlaceholder;
+    
     @FXML
     private AnchorPane browserPlaceholder;
 
@@ -77,7 +81,7 @@ public class MainWindow extends UiPart {
     }
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
+    	
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
         mainWindow.configure(config.getAppTitle(), config.getToDoListName(), config, prefs, logic);
         return mainWindow;
@@ -108,6 +112,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
+    	//welcomeMessage = WelcomeMessage.load(welcomeMessagePlaceholder); 
         browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
