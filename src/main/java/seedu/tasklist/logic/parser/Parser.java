@@ -97,8 +97,8 @@ public class Parser {
         } else {
         	int targetIndex = Integer.valueOf(matcher.group("index"));
             String taskDetails = (matcher.group("name") == null) ? null : matcher.group("name");
-            String startTime = (matcher.group("start") == null) ? null : matcher.group("start");
-            String endTime = (matcher.group("end") == null) ? null : matcher.group("end");
+            String startTime = (matcher.group("start") == null) ? "" : matcher.group("start");
+            String endTime = (matcher.group("end") == null) ? "" : matcher.group("end");
             String priority = (matcher.group("priority") == null) ? null : matcher.group("priority");
             
             try {
