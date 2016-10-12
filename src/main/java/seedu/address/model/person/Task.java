@@ -76,6 +76,22 @@ public class Task implements ReadOnlyTask {
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setDescription(Description description) {
+        this.description = description;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
