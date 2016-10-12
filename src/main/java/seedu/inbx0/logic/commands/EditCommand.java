@@ -32,10 +32,12 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_INVALID_ARGUMENTS = "The arguments provided are invalid.";
     public static final int TOTAL_NUMBER_OF_ARGUMENTS = 6;
     
     public final int targetIndex;
-    public final Task toEditWith;
+    public String [] editArguments;
+    public UniqueTagList tags;
 
     public EditCommand(int targetIndex, String [] argumentsToEdit, Set<String> tags) throws IllegalValueException {
         
@@ -46,75 +48,43 @@ public class EditCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         
-        UniqueTagList editedTags;
+        UniqueTagList editedTags = null;
         
         if(!tagSet.isEmpty()) {
             editedTags = new UniqueTagList(tagSet);
         }
-        else {
-            editedTags = obtainUniqueTagList(targetIndex);
-            if(editedTags == null)
-                editedTags = new UniqueTagList();
-        }
+     
+        this.tags = editedTags;
        
-        
-        argumentsToEdit = obtainArguments(argumentsToEdit, targetIndex); 
-        
-        this.toEditWith = new Task(
-                new Name(argumentsToEdit[0]),
-                new Date(argumentsToEdit[1]),
-                new Time(argumentsToEdit[2]),
-                new Date(argumentsToEdit[3]),
-                new Time(argumentsToEdit[4]),
-                new Importance(argumentsToEdit[5]),
-                editedTags
-        );
-        
-        
+        this.editArguments = argumentsToEdit;    
     }
 
 
-    private UniqueTagList obtainUniqueTagList(int targetIndex) {
+    private UniqueTagList obtainUniqueTagList(ReadOnlyTask taskToEdit) {
         
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        if (lastShownList.size() < targetIndex) {
+      UniqueTagList original = taskToEdit.getTags();
             
-        }
-        else {
-            ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-            UniqueTagList original = taskToEdit.getTags();
-            
-            return original;
-        }
-        return null;
+      return original;
     }
 
 
-    private String[] obtainArguments(String[] argumentsToEdit, int targetIndex) {
-        
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+    private String[] obtainArguments(String[] editArguments, ReadOnlyTask taskToEdit) {
+       
         String [] originalArguments = new String[6];
-        
-        if (lastShownList.size() < targetIndex) {
+                    
+        originalArguments[0] = taskToEdit.getName().getName();
+        originalArguments[1] = taskToEdit.getStartDate().getDate();
+        originalArguments[2] = taskToEdit.getStartTime().getTime();
+        originalArguments[3] = taskToEdit.getEndDate().getDate();
+        originalArguments[4] = taskToEdit.getEndTime().getTime();
+        originalArguments[5] = taskToEdit.getLevel().getLevel();
             
-        }
-        else {
-            ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-            
-            originalArguments[0] = taskToEdit.getName().getName();
-            originalArguments[1] = taskToEdit.getStartDate().getDate();
-            originalArguments[2] = taskToEdit.getStartTime().getTime();
-            originalArguments[3] = taskToEdit.getEndDate().getDate();
-            originalArguments[4] = taskToEdit.getEndTime().getTime();
-            originalArguments[5] = taskToEdit.getLevel().getLevel();
-            
-            for(int i = 0; i < TOTAL_NUMBER_OF_ARGUMENTS; i++) {
-                if(argumentsToEdit[i] == null)
-                   argumentsToEdit[i] = originalArguments[i]; 
-            }           
+        for(int i = 0; i < TOTAL_NUMBER_OF_ARGUMENTS; i++) {
+            if(editArguments[i] == null)
+                editArguments[i] = originalArguments[i];                       
         }
         
-        return argumentsToEdit;
+        return editArguments;
     }
 
 
@@ -129,6 +99,17 @@ public class EditCommand extends Command {
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        this.editArguments = obtainArguments(editArguments, taskToEdit);
+        
+        if(tags == null)
+            this.tags = obtainUniqueTagList(taskToEdit);
+        
+        Task toEditWith = null;
+        try {
+            toEditWith = createToEditWithTask(editArguments, tags);
+        } catch (IllegalValueException e1) {
+            return new CommandResult(Task.MESSAGE_TIME_CONSTRAINTS);
+        }
 
         try {
             model.editTask(taskToEdit, toEditWith);
@@ -139,5 +120,19 @@ public class EditCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
+    }
+
+
+    private Task createToEditWithTask(String[] editArguments, UniqueTagList tags) throws IllegalValueException {
+        Task toEditWith = new Task (
+                new Name(editArguments[0]),
+                new Date(editArguments[1]),
+                new Time(editArguments[2]),
+                new Date(editArguments[3]),
+                new Time(editArguments[4]),
+                new Importance(editArguments[5]),
+                tags
+                );
+        return toEditWith;
     }
 }

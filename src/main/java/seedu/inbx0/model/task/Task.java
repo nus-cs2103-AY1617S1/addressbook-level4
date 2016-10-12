@@ -13,7 +13,7 @@ import seedu.inbx0.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
     
     public static final String MESSAGE_TIME_CONSTRAINTS = "The event is not possible as "
-                                                           + "the end of the event is earlier than the start of event.";
+                                                           + "the end of the event is earlier or same as the start of event.";
     private Name name;
     private Date startDate;
     private Time startTime;
