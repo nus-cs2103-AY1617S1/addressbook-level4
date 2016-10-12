@@ -124,8 +124,6 @@ Format: `delete TASK_INDEX`
 > * Jimi will delete the task specified by `TASK_INDEX`. 
 > * If you need to recover your deleted task, use the [`undo`](#undo) command.
 
-<br><br>
-
 Examples: 
 * `delete 2`<br>
   Deletes the 2nd task in the task manager.
@@ -135,6 +133,7 @@ Examples:
 
 > * The index refers to the index number shown in the most recent listing.<br>
 > * The index **must be a positive integer** 1, 2, 3.
+
 <br><br>
 
 #### <a id="edit"></a>Editing a detail: `edit`
