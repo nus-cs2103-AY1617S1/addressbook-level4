@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.TaskListPanel">
     <children>
@@ -13,7 +14,7 @@
          <children>
             <Accordion AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <panes>
-                <TitledPane fx:id="labelFloatingTaskListSize" animated="false" text="To Be Done Someday \$">
+                <TitledPane fx:id="labelFloatingTaskListSize" animated="false" text="Floating Tasks \$">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
@@ -26,17 +27,66 @@
                            </children>
                         </AnchorPane>
                   </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
                 </TitledPane>
-                <TitledPane animated="false" text="untitled 2">
+                <TitledPane animated="false" text="1st Day">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" />
                   </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
                 </TitledPane>
-                <TitledPane animated="false" text="untitled 3">
+                <TitledPane animated="false" text="2nd Day">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" />
                   </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
                 </TitledPane>
+                  <TitledPane animated="false" text="3rd Day">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane animated="false" text="4th Day">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane animated="false" text="5th Day">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane animated="false" text="6th Day">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane animated="false" text="7th Day">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" />
+                    </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
               </panes>
             </Accordion>
          </children>
