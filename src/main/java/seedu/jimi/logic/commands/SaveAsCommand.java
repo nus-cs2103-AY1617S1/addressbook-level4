@@ -56,7 +56,7 @@ public class SaveAsCommand extends Command {
             String newConfigFileDetails= config.toString();
             oldConfigJsonFile.delete();
             File newConfigJsonFile = new File(defaultConfigFilePathUsed);
-            FileUtil.writeToFile(newConfigJsonFile, newConfigFileDetails);
+            FileUtil.serializeObjectToJsonFile(newConfigJsonFile, config);
             
             StorageManager oldStorage = new StorageManager(oldTaskBookFilePath, config.getUserPrefsFilePath());
             StorageManager newStorage = new StorageManager(taskBookFilePath, config.getUserPrefsFilePath());
