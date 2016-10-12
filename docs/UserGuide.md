@@ -57,7 +57,7 @@ Adds a task to the address book. Three different types of tasks are supported.<b
 Format: `add event 'NAME from hh:mm to hh:mm on dd-mm-yy`
 ##### Deadlines
 Format: `add deadline 'NAME' by hh:mm on dd-mm-yy`
-##### Tasks to Be Done Someday
+##### Tasks to be done someday
 Format: `add someday 'NAME'`
 
 Valid Examples:
@@ -89,7 +89,7 @@ Example:
 <br>
 #### 2.4. Finding all tasks containing any keyword in their name: `find`
 Finds tasks in which the name contains any of the given keywords.<br>
-Format: `find KEYPHRASE_WORD_ONE [KEYPHRASE_MORE_WORDS] ..., [MORE_KEYPHRASES] ...`
+Format: `find KEYPHRASE_WORD_ONE KEYPHRASE_WORD_TWO [KEYPHRASE_MORE_WORDS] ..., [MORE_KEYPHRASES] ...`
 
 > * Keyphrases are separated by commas
 > * The search is _case-insensitive_. e.g `hANs bo` will match `Hans Bo`
@@ -219,7 +219,7 @@ Format: `exit`
 |add deadline        |`add deadline 'NAME' by hh:mm dd-mm-yy`|
 |add task to be done someday         |`add someday 'NAME'`|
 |list                |`list [dd-mm-yy] [TASK_TYPE] [done|not-done] [hh:mm]`|
-|find                |`find KEYPHRASE_WORD_ONE [KEYPHRASE_MORE_WORDS] ..., [MORE_KEYPHRASES] ...`|
+|find                |`find KEYPHRASE_WORD_ONE KEYPHRASE_WORD_TWO [KEYPHRASE_MORE_WORDS] ..., [MORE_KEYPHRASES] ...`|
 |delete              |`del INDEX [MORE_INDICES] ...`|
 |update              |`edit INDEX ['NEW_NAME'] [from hh:mm to hh:mm | by hh:mm] [dd-mm-yy] [done|not-done]` |
 |mark done           |`done INDEX [MORE_INDICES] ...`|
