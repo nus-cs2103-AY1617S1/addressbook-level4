@@ -112,7 +112,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
         }
     }
     
-    public boolean editTask(int targetIndex, ReadOnlyTask key, Task updatedTask) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+/*    public boolean editTask(int targetIndex, ReadOnlyTask key, Task updatedTask) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         if (tasks.remove(key)) {
             tasks.add(targetIndex, updatedTask);
             return true;
@@ -120,7 +120,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
+*/
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
@@ -131,7 +131,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " Tasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 

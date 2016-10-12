@@ -15,6 +15,12 @@ public class TaskCard extends UiPart{
     @FXML
     private Label name;
     @FXML
+    private Label date;
+    @FXML
+    private Label startTime;
+    @FXML
+    private Label endTime;
+    @FXML
     private Label id;
     @FXML
     private Label tags;
@@ -35,9 +41,32 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+    	if(person.getDate().fullDate != "NIL" && person.getStartTime().fullTime != "NIL"){
+        name.setText(
+        person.getName().fullName + "\n" 
+        + "Deadline : " + person.getDate().fullDate + "\n"
+        + "Start Time : " + person.getStartTime().fullTime + "\n"
+        + "End Time : " + person.getEndTime().fullTime + "\n"
+        );
         id.setText(displayedIndex + ". ");
-        tags.setText(person.tagsString());
+        //date.setText(person.getDate().fullDate);
+        //startTime.setText(person.getStartTime().fullTime);
+        //endTime.setText(person.getEndTime().fullTime);
+        tags.setText("      " + person.tagsString());
+    	}
+    	
+    	if(person.getStartTime().fullTime == "NIL" && person.getEndTime().fullTime == "NIL" && person.getDate().fullDate != "NIL"){
+    		name.setText(person.getName().fullName + "\n"
+    		+ "Deadline : " + person.getDate().fullDate + "\n");
+    		id.setText(displayedIndex + ". ");
+            tags.setText("      " + person.tagsString());
+    	}
+    	
+    	if(person.getStartTime().fullTime == "NIL" && person.getEndTime().fullTime == "NIL" && person.getDate().fullDate == "NIL"){
+    		name.setText(person.getName().fullName + "\n");
+    		id.setText(displayedIndex + ". ");
+            tags.setText("      " + person.tagsString());
+    	}
     }
 
     public HBox getLayout() {

@@ -26,9 +26,21 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern ADD_FORMAT_1 = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)" + 
+            				"(?<isDatePrivate>p?)d/(?<date>[^/]+)"+ 
+            				"(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"+
+            				"(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"+
+            				"(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern ADD_FORMAT_2 =
+    		Pattern.compile("(?<name>[^/]+)" +
+    						"(?<isDatePrivate>p?)d/(?<date>[^/]+)"+ 
+    						"(?<tagArguments>(?: t/[^/]+)*)");
+    
+    private static final Pattern ADD_FORMAT_3 = 
+    		Pattern.compile("(?<name>[^/]+)" +
+    						"(?<tagArguments>(?: t/[^/]+)*)");
 
     public Parser() {}
 
@@ -46,7 +58,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
@@ -84,16 +96,36 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher1 = ADD_FORMAT_1.matcher(args.trim());
+        final Matcher matcher2 = ADD_FORMAT_2.matcher(args.trim());
+        final Matcher matcher3 = ADD_FORMAT_3.matcher(args.trim());
         // Validate arg string format
-        if (!matcher.matches()) {
+        if (!matcher1.matches() & !matcher2.matches() & !matcher3.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
+        	if(matcher1.matches()){
             return new AddCommand(
-                    matcher.group("name"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    matcher1.group("name"),
+                    matcher1.group("date"),
+                    matcher1.group("startTimeArguments"),
+                    matcher1.group("endTimeArguments"),
+                    getTagsFromArgs(matcher1.group("tagArguments"))
             );
+        	}
+        	else if(matcher2.matches()){
+        		return new AddCommand(
+                        matcher2.group("name"),
+                        matcher2.group("date"),
+                        getTagsFromArgs(matcher2.group("tagArguments"))
+            );
+        	}
+        	else{
+        		return new AddCommand(
+        				matcher3.group("name"),
+        				getTagsFromArgs(matcher3.group("tagArguments"))
+        	);
+        	}
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

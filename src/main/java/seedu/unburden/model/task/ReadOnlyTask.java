@@ -9,6 +9,9 @@ import seedu.unburden.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
+    Date getDate();
+    Time getStartTime();
+    Time getEndTime();
     
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -30,9 +33,28 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ");
-        getTags().forEach(builder::append);
+        if(getDate().fullDate == "NIL" && getStartTime().fullTime == "NIL" && getEndTime().fullTime == "NIL"){
+        	builder.append(getName());
+        	getTags().forEach(builder::append);
+        }
+        
+        else if(getDate().fullDate != "NIL" && getStartTime().fullTime == "NIL" && getEndTime().fullTime == "NIL"){
+        	builder.append(getName());
+            builder.append("   Deadline : ");        
+            builder.append(getDate());
+            getTags().forEach(builder::append);
+        }
+        
+        else {       
+	        builder.append(getName());
+	        builder.append("   Deadline : ");        
+	        builder.append(getDate());
+	        builder.append("   Start Time - End time : ");  
+	        builder.append(getStartTime() + " - ");
+	        builder.append(getEndTime() + "   ");
+	        getTags().forEach(builder::append);
+        }
+        
         return builder.toString();
     }
 
