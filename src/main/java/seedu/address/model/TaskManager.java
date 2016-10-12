@@ -73,7 +73,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addFloatingTask(Task f) {
         floatingTasks.add(f);
     }
-
+    
     public boolean removeFloatingTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (floatingTasks.remove(key)) {
             return true;
@@ -82,10 +82,42 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
+	public void editFloatingTaskName(ReadOnlyTask floatTask, Name name) {
+	    //System.out.println("Line 88: " + name);
+		Task currTask = floatingTasks.getTask(floatTask);
+	    //System.out.println("Line 91: " + currTask.getName());
+		currTask.setName(name);
+	    //System.out.println("Line 91: " + currTask.getName());
+		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);
+	}
+	
+	public void editFloatingTaskStartDate(ReadOnlyTask floatTask, Date startDate) {
+		Task currTask = floatingTasks.getTask(floatTask);
+		currTask.setStartDate(startDate);
+		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);
+	}
+	
+	public void editFloatingTaskEndDate(ReadOnlyTask floatTask, Date endDate) {
+		Task currTask = floatingTasks.getTask(floatTask);
+		currTask.setEndDate(endDate);
+		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);
+	}
+	
+	public void editFloatingTaskpriority(ReadOnlyTask floatTask, Priority priority) {
+		Task currTask = floatingTasks.getTask(floatTask);
+		currTask.setPriority(priority);
+		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);	
+	}
 
+	public void editFloatingTaskRecurrence(ReadOnlyTask floatTask, RecurrenceRate recurrenceRate) {
+		Task currTask = floatingTasks.getTask(floatTask);
+		currTask.setRecurrence(recurrenceRate);
+		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);			
+	}
+	
 //// util methods
 
-    @Override
+	@Override
     public String toString() {
         return floatingTasks.getInternalList().size() + " floating tasks";
         // TODO: refine later
@@ -102,9 +134,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         return this.floatingTasks;
     }
 
-
-
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -117,5 +146,4 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(floatingTasks);
     }
-
 }

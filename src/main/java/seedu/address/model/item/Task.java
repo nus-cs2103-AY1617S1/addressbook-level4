@@ -21,23 +21,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public Task(Name taskName) {
         this.taskName = taskName;
         this.priority = Priority.MEDIUM;
-        try {
-            this.recurrenceRate = new RecurrenceRate(null, null);
-        } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     public Task(Name taskName, Priority priorityValue) {
         this.taskName = taskName;
         this.priority = priorityValue;
-        try {
-            this.recurrenceRate = new RecurrenceRate(null, null);
-        } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
     
     /**
@@ -56,7 +44,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.taskName = source.getName();
         this.startDate = tempStartDate;
         this.endDate = tempEndDate;
-        this.recurrenceRate = source.getRecurrenceRate();
+        if (source.getRecurrenceRate().isPresent())
+            this.recurrenceRate = source.getRecurrenceRate().get();
+        else
+            this.recurrenceRate = null;
         this.priority = source.getPriorityValue();
     }
     
@@ -77,9 +68,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName().name)
-                .append(", Priority: ")
-                .append(getPriorityValue());
+      
+        if (getName() != null){
+        	builder.append(getName().name);
+        }
+        if(getPriorityValue() != null){
+        	builder.append(", Priority: ")
+				   .append(getPriorityValue());
+        }
         if (getStartDate().isPresent()) {
             builder.append(", StartDate: ").append(getStartDate().get());
         }
@@ -139,12 +135,32 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private int compareByTaskName(Task other) {
         return this.taskName.name.compareTo(other.taskName.name);
     }
+
+	public void setName(Name name) {
+        this.taskName = name;
+	}
+
+	public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+	}
+	
+	public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+	}
+	
+	public void setPriority(Priority priorityValue) {
+        this.priority = priorityValue;
+	}
+
+	public void setRecurrence(RecurrenceRate recurrenceRate) {
+        this.recurrenceRate = recurrenceRate;		
+	}
     
     @Override
     public Name getName() {      
         return taskName;
     }
-
+    
     @Override
     public Priority getPriorityValue() {
         return priority;
@@ -167,9 +183,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     @Override
-    public RecurrenceRate getRecurrenceRate() {
-        assert recurrenceRate != null;
-        return recurrenceRate;
+    public Optional<RecurrenceRate> getRecurrenceRate() {
+        if (recurrenceRate != null){
+            return Optional.of(recurrenceRate);
+        }
+        return Optional.empty();
     }
     
 }

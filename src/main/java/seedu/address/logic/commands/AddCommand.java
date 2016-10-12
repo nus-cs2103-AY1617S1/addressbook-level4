@@ -46,7 +46,7 @@ public class AddCommand extends Command {
     public AddCommand(String taskNameString, String startDateString, String endDateString, String recurrenceRateString,
             String timePeriodString, String priorityString) throws IllegalValueException {
         com.joestelmach.natty.Parser dateParser = new com.joestelmach.natty.Parser();
-        Name taskName = new Name(taskNameString);
+    	Name taskName = new Name(taskNameString);
         Date startDate = null;
         Date endDate = null;
         RecurrenceRate recurrenceRate;
@@ -63,9 +63,9 @@ public class AddCommand extends Command {
         }
 
         if (recurrenceRateString == null && timePeriodString == null) {
-            recurrenceRate = new RecurrenceRate();
+            recurrenceRate = null;
         } else if (recurrenceRateString == null) {
-            recurrenceRate = new RecurrenceRate(timePeriodString);
+            recurrenceRate = new RecurrenceRate("1", timePeriodString);
         } else {
             recurrenceRate = new RecurrenceRate(recurrenceRateString, timePeriodString);
         }

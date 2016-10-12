@@ -9,7 +9,7 @@ public interface ReadOnlyTask {
     Priority getPriorityValue();
     Optional<Date> getStartDate();
     Optional<Date> getEndDate();
-    RecurrenceRate getRecurrenceRate();
+    Optional<RecurrenceRate> getRecurrenceRate();
     
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

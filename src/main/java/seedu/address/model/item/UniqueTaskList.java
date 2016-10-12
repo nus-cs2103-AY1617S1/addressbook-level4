@@ -72,6 +72,22 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return personFoundAndDeleted;
     }
+    
+    /**
+     * Setter method for use by edit command
+     * @return the element previously at the specified position
+     */
+    public Task set(int index, Task task){
+        return internalList.set(index, task);
+    }
+    
+    /**
+     * Index retrieval method for use by edit command
+     * @return the index of the specified task object, or -1 if not found
+     */
+    public int getIndex(Task task){
+        return internalList.indexOf(task);
+    }
 
     public ObservableList<Task> getInternalList() {
         return internalList;
@@ -94,4 +110,10 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+    
+    public Task getTask(ReadOnlyTask readTask){
+		int index = internalList.indexOf(readTask);
+		return internalList.get(index);    	
+    }
+    
 }

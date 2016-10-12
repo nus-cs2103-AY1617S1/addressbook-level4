@@ -2,9 +2,14 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.item.Task;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.UniqueTaskList;
+import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -32,6 +37,22 @@ public interface Model {
     /** Updates the filter of the filtered floating task list to filter by the given keywords*/
     void updateFilteredFloatingTaskList(Set<String> keywords);
 
+    /** Edits the name of the given floating task. */
+	void editName(ReadOnlyTask personToEdit, Name taskName) throws DuplicateTaskException;
+    
+	/** Edits the start date of the given floating task. */
+	void editStartDate(ReadOnlyTask personToEdit, Date startDate);
+
+	/** Edits the end date of the given floating task. */
+	void editEndDate(ReadOnlyTask personToEdit, Date endDate);
+	
+    /** Edits the priority of the given floating task. */
+	void editPriority(ReadOnlyTask personToEdit, Priority priority);
+
+    /** Edits the recurrence of the given floating task. */
+	void editRecurrence(ReadOnlyTask personToEdit, RecurrenceRate recurrenceRate);
+
+    
 
 
 }

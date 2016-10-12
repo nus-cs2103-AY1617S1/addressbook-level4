@@ -7,10 +7,14 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.item.Task;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.UniqueTaskList;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -72,6 +76,43 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task floatingTask) {
         taskManager.addFloatingTask(floatingTask);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void editName(ReadOnlyTask floatingTask, Name name) throws UniqueTaskList.DuplicateTaskException {
+        //System.out.println("Name at line 81 " + name);
+        taskManager.editFloatingTaskName(floatingTask, name);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void editStartDate(ReadOnlyTask floatingTask, Date startDate) {
+        taskManager.editFloatingTaskStartDate(floatingTask, startDate);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+
+    
+    @Override
+    public synchronized void editEndDate(ReadOnlyTask floatingTask, Date endDate) {
+        taskManager.editFloatingTaskEndDate(floatingTask, endDate);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void editPriority(ReadOnlyTask floatingTask, Priority priority) {
+        taskManager.editFloatingTaskpriority(floatingTask, priority);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void editRecurrence(ReadOnlyTask floatingTask, RecurrenceRate recurrenceRate) {
+        taskManager.editFloatingTaskRecurrence(floatingTask, recurrenceRate);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
