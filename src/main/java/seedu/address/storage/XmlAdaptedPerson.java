@@ -39,8 +39,8 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
         description = source.getDescription().fullDescription;
-        time = source.getTime().value;
-        venue = source.getVenue().value;
+        time = source.getTime().toString();
+        venue = source.getVenue().toString();
         priority = source.getPriority().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
