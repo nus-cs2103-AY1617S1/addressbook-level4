@@ -1,29 +1,43 @@
 package seedu.jimi.model.task;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+import seedu.jimi.commons.exceptions.IllegalValueException;
+
 public class DateTime implements Comparable<DateTime>{
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date and time must be in the format: "
+            + DateTimeFormatter.ISO_DATE_TIME.toString();
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String TIME_FORMAT = "HH:mm";
+    public static final String DATETIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
+    
     private LocalDateTime dtInstance;
     
     public DateTime() {
         dtInstance = LocalDateTime.now();
     }
     
-    public DateTime(String dateStr){        
-        DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        dtInstance = LocalDateTime.parse(dateStr, dtFormatter);      
+    public DateTime(String dateStr) throws IllegalValueException{        
+        DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
+        try {
+            dtInstance = LocalDateTime.parse(dateStr, dtFormatter);
+        } catch (DateTimeParseException e) {
+            throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
+        }      
     }
     
-    public LocalDate getDate() {
-        return dtInstance.toLocalDate();
+    
+    public String getDate() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        return dtInstance.format(dateFormatter).toString();
     }
     
-    public LocalTime getTime() {
-        return dtInstance.toLocalTime();
+    public String getTime() {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT);
+        return dtInstance.format(timeFormatter).toString();
     }
     
     
@@ -50,6 +64,7 @@ public class DateTime implements Comparable<DateTime>{
     
     @Override
     public String toString() {
-        return dtInstance.toString();
+        DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return dtInstance.format(dtFormatter);
     }
 }
