@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -18,7 +17,6 @@ import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.model.task.ReadOnlyTask;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -98,14 +96,16 @@ public class TaskListPanel extends UiPart {
         updateFloatingTaskSize(taskList);
         updateCompletedAndIncompleteTaskList(taskList);
         
-        taskListView.setItems(taskList);
-        completedTaskListView.setItems(this.completedTaskList);
-        incompleteTaskListView.setItems(this.incompleteTaskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
-        completedTaskListView.setCellFactory(listView -> new TaskListViewCell());
-        incompleteTaskListView.setCellFactory(listView -> new TaskListViewCell());
+        setupListView(taskListView, taskList);
+        setupListView(completedTaskListView, taskList);
+        setupListView(incompleteTaskListView, taskList);
         
         setEventHandlerForSelectionChangeEvent();
+    }
+
+    private void setupListView(ListView<ReadOnlyTask> listView, ObservableList<ReadOnlyTask> taskList) {
+        listView.setItems(taskList);
+        listView.setCellFactory(newListView -> new TaskListViewCell());
     }
 
     private void addToPlaceholder() {
@@ -114,21 +114,13 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
-        
-        completedTaskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
-        
-        incompleteTaskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        setEventHandlerForListView(taskListView);
+        setEventHandlerForListView(completedTaskListView);
+        setEventHandlerForListView(incompleteTaskListView);
+    }
+
+    private void setEventHandlerForListView(ListView<ReadOnlyTask> listView) {
+        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
@@ -175,8 +167,16 @@ public class TaskListPanel extends UiPart {
         this.completedTaskList.setAll(newCompletedTaskList);
         this.incompleteTaskList.setAll(newIncompleteTaskList);
        
-        this.titleCompletedTasks.setText("Completed Tasks (" + completedTaskList.size() + ")");
+        updateCompleteTasksTitle();
+        updateIncompleteTasksTitle();
+    }
+
+    private void updateIncompleteTasksTitle() {
         this.titleIncompleteTasks.setText("Incomplete Tasks (" + incompleteTaskList.size() + ")");
+    }
+
+    private void updateCompleteTasksTitle() {
+        this.titleCompletedTasks.setText("Completed Tasks (" + completedTaskList.size() + ")");
     }
     
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
