@@ -24,7 +24,7 @@ public class UpdateCommand extends Command{
             + "Parameters: INDEX (must be a positive integer) PROPERTY INFOMATION\n"
             + "Example: " + COMMAND_WORD + " 1" + " priority"+" high";
 
-    public static final String MESSAGE_EDIT_SUCCESS = "Edit successfully";
+    public static final String MESSAGE_EDIT_SUCCESS = "Edit successfully: %1$s";
     public static final String MESSAGE_EDIT_FAIL = "Editing failed";
 
     public final int targetIndex;
