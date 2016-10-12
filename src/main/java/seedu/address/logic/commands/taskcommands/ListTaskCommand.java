@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.taskcommands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ShowAliasListEvent;
 import seedu.address.logic.commands.CommandResult;
 
 /**
@@ -11,14 +13,29 @@ public class ListTaskCommand extends TaskCommand {
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     public static final String MESSAGE_NOTASKS = "No tasks to list";
+    public static final String MESSAGE_ALIAS_SUCCESS = "Listed all aliases";
+    public final String argument;
+    
+    public ListTaskCommand(String argument) {
+        this.argument = argument;
+    }
 
     @Override
     public CommandResult execute() {
-        model.clearTasksFilter();
-        if(model.getCurrentFilteredTasks().size() == 0) {
-            return new CommandResult(MESSAGE_NOTASKS);
+        if(argument.equals("alias")) {
+            EventsCenter.getInstance().post(new ShowAliasListEvent());
+            return new CommandResult(MESSAGE_ALIAS_SUCCESS);
+
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        else {
+
+            model.clearTasksFilter();
+            if(model.getCurrentFilteredTasks().size() == 0) {
+                return new CommandResult(MESSAGE_NOTASKS);
+            }
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
+
     }
 
 }

@@ -11,8 +11,7 @@ public class ListCommandParser extends CommandParser{
 
     @Override
     public TaskCommand prepareCommand(String arguments) {
-        
-        return new ListTaskCommand();
+        return new ListTaskCommand(arguments);
     }
 
 }

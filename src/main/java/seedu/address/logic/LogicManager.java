@@ -8,6 +8,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 import seedu.address.logic.parser.TaskCommandsParser;
+import seedu.address.model.Alias;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.model.task.Task;
 import seedu.address.storage.task.TaskStorage;
@@ -39,5 +40,10 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Task> getFilteredTaskList() {
     	return model.getCurrentFilteredTasks();
+    }
+
+    @Override
+    public ObservableList<Alias> getAlias() {
+        return model.getAlias();
     }
 }
