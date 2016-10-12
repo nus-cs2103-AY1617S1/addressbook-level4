@@ -10,19 +10,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="2.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <StackPane>
          <children>
-            <HBox alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="spacing">
                <children>
                   <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" styleClass="titleLabel" text="1. Tasking Title">
                      <font>
                         <Font name="Segoe UI Semibold" size="20.0" />
                      </font>
-                     <padding>
-                        <Insets bottom="4.0" />
-                     </padding>
                   </Label>
                   <Label fx:id="typeLabel" text="Event" textFill="WHITE">
                      <font>
@@ -32,7 +29,7 @@
                         <Insets left="8.0" right="8.0" />
                      </padding>
                      <HBox.margin>
-                        <Insets left="8.0" />
+                        <Insets />
                      </HBox.margin>
                      <styleClass>
                         <String fx:value="highlightedBackground" />
@@ -41,7 +38,7 @@
                   </Label>
                </children>
             </HBox>
-            <ImageView fx:id="pinImage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" StackPane.alignment="CENTER_RIGHT" />
+            <ImageView fx:id="pinImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" StackPane.alignment="CENTER_RIGHT" />
          </children>
          <VBox.margin>
             <Insets />
@@ -52,9 +49,9 @@
             <Insets />
          </opaqueInsets>
          <VBox.margin>
-            <Insets bottom="2.0" />
+            <Insets />
          </VBox.margin></FlowPane>
-      <HBox fx:id="descriptionBox" styleClass="collapsible">
+      <HBox fx:id="descriptionBox" spacing="8.0">
          <children>
             <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" minWidth="4.0">
                <styleClass>
@@ -63,7 +60,7 @@
                </styleClass></Label>
             <Label fx:id="descriptionLabel" lineSpacing="1.0" styleClass="descriptionLabel" text="Task description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id iaculis arcu. Curabitur at dapibus magna, at molestie diam. Integer posuere." wrapText="true">
                <HBox.margin>
-                  <Insets left="8.0" />
+                  <Insets />
                </HBox.margin>
                <font>
                   <Font name="Segoe UI" size="18.0" />
@@ -71,19 +68,24 @@
             </Label>
          </children>
          <VBox.margin>
-            <Insets bottom="2.0" left="2.0" right="2.0" />
+            <Insets bottom="2.0" />
          </VBox.margin>
+         <styleClass>
+            <String fx:value="collapsible" />
+            <String fx:value="spacing" />
+            <String fx:value="subheadingPadding" />
+         </styleClass>
          <padding>
-            <Insets left="2.0" right="2.0" />
+            <Insets left="2.0" />
          </padding>
       </HBox>
-      <FlowPane>
+      <FlowPane hgap="16.0" styleClass="spacing">
          <children>
-            <HBox fx:id="dateBox" maxWidth="-Infinity" minWidth="-Infinity">
+            <HBox fx:id="dateBox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" styleClass="spacingSmall">
                <children>
-                  <ImageView fx:id="dateImage" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" styleClass="dateImage">
+                  <ImageView fx:id="dateImage" fitHeight="2420.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="dateImage">
                      <HBox.margin>
-                        <Insets right="4.0" />
+                        <Insets />
                      </HBox.margin>
                   </ImageView>
                   <Label fx:id="dateLabel" maxHeight="1.7976931348623157E308" styleClass="footnoteLabel" text="from 31 October 2016 3:45 PM to 4:15 PM">
@@ -96,14 +98,14 @@
                   </Label>
                </children>
                <FlowPane.margin>
-                  <Insets right="16.0" />
+                  <Insets />
                </FlowPane.margin>
             </HBox>
-            <HBox fx:id="locationBox" maxWidth="-Infinity">
+            <HBox fx:id="locationBox" alignment="CENTER_LEFT" maxWidth="-Infinity" styleClass="spacingSmall">
                <children>
-                  <ImageView fx:id="locationImage" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" styleClass="locationImage">
+                  <ImageView fx:id="locationImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="locationImage">
                      <HBox.margin>
-                        <Insets right="4.0" />
+                        <Insets />
                      </HBox.margin>
                   </ImageView>
                   <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" styleClass="footnoteLabel" text="at Some Specific Location">
@@ -118,8 +120,11 @@
             </HBox>
          </children>
          <VBox.margin>
-            <Insets top="2.0" />
+            <Insets />
          </VBox.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </FlowPane>
       <HBox />
    </children>
@@ -127,6 +132,6 @@
       <Insets />
    </opaqueInsets>
    <padding>
-      <Insets bottom="15.0" left="20.0" right="20.0" top="10.0" />
+      <Insets bottom="6.0" left="12.0" right="12.0" top="6.0" />
    </padding>
 </VBox>

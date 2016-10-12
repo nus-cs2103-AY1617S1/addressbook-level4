@@ -20,8 +20,8 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/app_icon.png";
     private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final int MIN_HEIGHT = 400;
+    public static final int MIN_WIDTH = 580;
 
     private Logic logic;
 
@@ -30,7 +30,6 @@ public class MainWindow extends UiPart {
     private CommandFeedbackView commandFeedbackView;
     
     private TodoListPanel todoListPanel;
-    private StatusBarFooter statusBarFooter;
     private Config config;
     private UserPrefs userPrefs;
 
@@ -48,9 +47,6 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
-
-    @FXML
-    private AnchorPane statusbarPlaceholder;
 
 
     public MainWindow() {
@@ -94,16 +90,11 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getObservableTaskList());
         commandFeedbackView = CommandFeedbackView.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTodoListFilePath());
         commandInputView = CommandInputView.load(primaryStage, getCommandBoxPlaceholder(), commandFeedbackView, logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
-    }
-
-    private AnchorPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
     }
 
     private AnchorPane getResultDisplayPlaceholder() {
