@@ -34,10 +34,6 @@ public class TestPerson implements ReadOnlyTask {
         return name;
     }
 
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
 
     @Override
     public DateTime getDateTime() {
@@ -57,7 +53,6 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getDescription().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
         sb.append("a/" + this.getDateTime().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();

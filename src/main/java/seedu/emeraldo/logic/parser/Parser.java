@@ -27,8 +27,8 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<description>[^/]+)"
-                    + "(?<dateTime>[^/]+)"
+            Pattern.compile("(?<description>.+)"
+                    + " by (?<dateTime>.+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -93,8 +93,7 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("description"),
-                    matcher.group("phone"),
-                    matcher.group("address"),
+                    matcher.group("dateTime"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
