@@ -29,7 +29,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private AgendaPanel agendaPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -44,7 +44,7 @@ public class MainWindow extends UiPart {
     private String taskBookName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane agendaPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -108,7 +108,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        agendaPanel = AgendaPanel.load(agendaPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
@@ -187,10 +187,10 @@ public class MainWindow extends UiPart {
     }
 
     public void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
+        agendaPanel.loadPersonPage(person);
     }
 
     public void releaseResources() {
-        browserPanel.freeResources();
+        agendaPanel.freeResources();
     }
 }
