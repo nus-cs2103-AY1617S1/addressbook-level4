@@ -1,6 +1,9 @@
 package seedu.address.model.task;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateValidation;
@@ -12,6 +15,7 @@ import seedu.address.commons.util.DateValidation;
 public class Reminder {
 
     public static final String MESSAGE_REMINDER_CONSTRAINTS = "Task reminder can only be in date format";
+    public static final String MESSAGE_REMINDER_INVALID = "reminder time has passed";
     public final String value;
 
     /**
@@ -24,7 +28,7 @@ public class Reminder {
         assert date != null;
         String time;
         String[] parts;
-        if (date.contains("today")){
+        try{if (date.contains("today")){
             parts = date.split(" ");
             time = parts[1];
             date = DateValidation.TodayDate();
@@ -36,12 +40,16 @@ public class Reminder {
             date = DateValidation.TodayDate();
             date = date + " " + time;
             date = DateValidation.TomorrowDate();
-        }
-        if (!isValidReminder(date)) {
+        }        if (!isValidReminder(date)||!DateValidation.aftertoday(date)) {
             throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
         }
+        }catch (ParseException pe){
+            throw new IllegalValueException(MESSAGE_REMINDER_INVALID);
+        }        
+
         this.value = date;
     }
+        
 
     /**
      * Returns true if a given string is a valid task reminder.

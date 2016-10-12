@@ -1,10 +1,14 @@
 package seedu.address.commons.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 
 public class DateValidation {
 
@@ -97,6 +101,16 @@ public class DateValidation {
         
         return strDate;
         
+    }
+    
+    public static boolean aftertoday (String reminderdate) throws ParseException{
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+        Date date = format.parse(reminderdate);
+        Date today = new Date();
+        if(date.before(today))
+                return false;
+        return true;
+            
     }
 
 }

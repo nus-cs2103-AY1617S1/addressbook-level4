@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import java.text.ParseException;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateValidation;
 
@@ -10,7 +12,7 @@ import seedu.address.commons.util.DateValidation;
 public class DueDate {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task's DueDate should only contain valid date";
-
+    public static final String MESSAGE_DUEDATE_INVALID = "reminder time has passed";
     public final String value;
 
     /**
@@ -23,7 +25,7 @@ public class DueDate {
         assert date != null;
         String time;
         String[] parts;
-        if (date.contains("today")){
+        try{if (date.contains("today")){
             parts = date.split(" ");
             time = parts[1];
             date = DateValidation.TodayDate();
@@ -35,10 +37,12 @@ public class DueDate {
             date = DateValidation.TodayDate();
             date = date + " " + time;
             date = DateValidation.TomorrowDate();
-        }
-        if (!isValidDueDate(date)) {
+        }        if (!isValidDueDate(date)||!DateValidation.aftertoday(date)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
+        }catch (ParseException pe){
+            throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
+        }        
 
         this.value = date;
     }
