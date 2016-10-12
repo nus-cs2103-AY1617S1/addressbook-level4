@@ -294,7 +294,7 @@ public class Parser {
 		// the listcommand constructor must make null checks. Alternatively, the
 		// parameters can be encapsulated in an object
 		// and the constructor overloaded.
-		return null;
+		return new ListCommand();
 	}
 
 	/**
@@ -319,8 +319,8 @@ public class Parser {
 
 		System.out.println("indices: " + Arrays.toString(indices));
 
-		// return new TMDeleteCommand(indices);
-		return null;
+		// TODO return new TMDeleteCommand(indices);
+		return new DeleteCommand(indices[i]);
 	}
 
 	private Command prepareEdit(String arguments) {

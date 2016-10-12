@@ -7,7 +7,9 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.task.TaskType;
 
 
@@ -16,11 +18,15 @@ public class ParserTest {
 	private Parser parser;
 	private IncorrectCommand incorrectCommand;
 	private AddCommand addCommand;
+	private ListCommand listCommand;
+	private DeleteCommand deleteCommand;
 	
 	public ParserTest() throws IllegalValueException {
 		parser = new Parser();
 		incorrectCommand = new IncorrectCommand("test");
 		addCommand = new AddCommand("test adding someday");
+		listCommand = new ListCommand();
+		deleteCommand = new DeleteCommand(1);
 	}
 	
 	@Test
@@ -224,7 +230,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_listNoArgs_addCommandReturned() {
+	public void parseCommand_listNoArgs_listCommandReturned() {
 		String userInput = "list";
 		Command command = parser.parseCommand(userInput);
 
@@ -232,35 +238,35 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_listDone_addCommandReturned() {
+	public void parseCommand_listDone_listCommandReturned() {
 		String userInput = "list done";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(addCommand.getClass(), command.getClass());
+		assertEquals(listCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_listValidEvent_addCommandReturned() {
+	public void parseCommand_listValidEvent_listCommandReturned() {
 		String userInput = "list event";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(addCommand.getClass(), command.getClass());
+		assertEquals(listCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_listValidOrder_addCommandReturned() {
+	public void parseCommand_listValidOrder_listCommandReturned() {
 		String userInput = "list   deadline not-done";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(addCommand.getClass(), command.getClass());
+		assertEquals(listCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_listValidOrder2_addCommandReturned() {
+	public void parseCommand_listValidOrder2_listCommandReturned() {
 		String userInput = "list not-done	 someday";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(addCommand.getClass(), command.getClass());
+		assertEquals(listCommand.getClass(), command.getClass());
 	}
 	
 	/*
@@ -291,19 +297,19 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_delValidIndex_nullReturned() {
+	public void parseCommand_delValidIndex_deleteCommandReturned() {
 		String userInput = "delete 2";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(addCommand.getClass(), command.getClass());
+		assertEquals(deleteCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_delValidIndices_nullReturned() {
+	public void parseCommand_delValidIndices_deleteCommandReturned() {
 		String userInput = "delete 3 2";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(addCommand.getClass(), command.getClass());
+		assertEquals(deleteCommand.getClass(), command.getClass());
 	}
 	
 	/*
@@ -334,7 +340,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_editValid_addCommandReturned() {
+	public void parseCommand_editValid_editCommandReturned() {
 		String userInput = "edit 1 'new name'";
 		Command command = parser.parseCommand(userInput);
 
