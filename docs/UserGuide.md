@@ -10,20 +10,20 @@
 
 1. [Quick Start](#1-quick-start)  
 2. [Features](#2-features)  
-    2.1. [View help](#2-features)  
-    2.2. [Features](#2-features)  
-    2.3. [Features](#2-features)  
-    2.4. [Features](#2-features)  
-    2.5. [Features](#2-features)  
-    2.6. [Features](#2-features)  
-    2.7. [Features](#2-features)  
-    2.8. [Features](#2-features)  
-    2.9. [Features](#2-features)  
-    2.10. [Features](#2-features)  
-    2.11. [Features](#2-features)  
-    2.12. [Features](#2-features)  
-    2.13. [Features](#2-features)  
-    2.14. [Features](#2-features)  
+    2.1. [View help](#2-1-view-help)  
+    2.2. [Add a task](#2-feat)  
+    2.3. [List tasks](#2-features)  
+    2.4. [Find tasks containing particular keyword(s) in task name](#2-features)  
+    2.5. [Delete task(s)](#2-features)  
+    2.6. [Mark task(s) as done](#2-features)  
+    2.7. [Edit a task](#2-features)  
+    2.8. [Undo last operation](#2-features)  
+    2.9. [Clear all entries](#2-features)  
+    2.10. [Set data storage location](#2-features)  
+    2.11. [Set an alias for an exisiting command](#2-features)  
+    2.12. [List aliases](#2-features)  
+    2.13. [Delete alias(es)](#2-features)  
+    2.14. [Exit Amethyst](#2-features)  
 3. [Command Summary](#3-command-summary)
 
 <br>
@@ -64,7 +64,7 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 
 <br>
 #### 2.1. View help : `help`
-Opens help window to display program usage instructions and command summary.
+Opens help window to display program usage instructions and command summary.<br>
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
