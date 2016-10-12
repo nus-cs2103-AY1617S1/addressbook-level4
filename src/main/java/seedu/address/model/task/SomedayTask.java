@@ -2,11 +2,12 @@ package seedu.address.model.task;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
-public class SomedayTask implements TMReadOnlyTask {
+public class SomedayTask extends AbstractTask implements TMReadOnlyTask {
 	
 	private Name name;
     private Status status;
@@ -41,9 +42,37 @@ public class SomedayTask implements TMReadOnlyTask {
         return name;
     }
     
+    @Override
+	public void setName(Name name) {
+		this.name = name;
+	}
+    
+    
     @Override 
-    public Date getDate() {
-    	return new Date(0);
+    public Optional<Date> getStartDate() {
+    	return Optional.empty();
+    }
+    
+    /**
+     * @throws UnsupportedOperationException when called. Someday tasks do not support setting start date.
+     */
+    @Override
+    public void setStartDate(Date date) throws UnsupportedOperationException {
+    	throw new UnsupportedOperationException("Start date cannot be set on a someday task");
+    }
+    
+    @Override 
+    public Optional<Date> getEndDate() {
+    	return Optional.empty();
+    }
+    
+    
+    /**
+     * @throws UnsupportedOperationException when called. Someday tasks do not support setting end date.
+     */
+    @Override
+    public void setEndDate(Date date) throws UnsupportedOperationException {
+    	throw new UnsupportedOperationException("End date cannot be set on a someday task");
     }
     
     @Override
@@ -51,10 +80,17 @@ public class SomedayTask implements TMReadOnlyTask {
         return status;
     }
     
+    @Override
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+    
+    
 	@Override
 	public String getTaskType() {
 		return taskType;
 	}
+	
 
     @Override
     public UniqueTagList getTags() {
@@ -68,6 +104,7 @@ public class SomedayTask implements TMReadOnlyTask {
         tags.setTags(replacement);
     }
 
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -85,5 +122,4 @@ public class SomedayTask implements TMReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
 }

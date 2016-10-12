@@ -53,12 +53,6 @@ public class DeadlineTask extends AbstractTask implements TMReadOnlyTask {
     
     
     @Override
-	public String getTaskType() {
-		return taskType;
-	}
-    
-    
-    @Override
     public Optional<Date> getStartDate() {
         return Optional.empty();
     }
@@ -78,8 +72,7 @@ public class DeadlineTask extends AbstractTask implements TMReadOnlyTask {
     public void setEndDate(Date date) {
     	this.byDate = date;
     }
-    
-    
+
     
     @Override
     public Status getStatus() {
@@ -90,6 +83,13 @@ public class DeadlineTask extends AbstractTask implements TMReadOnlyTask {
     public void setStatus(Status status) {
     	this.status = status;
     }
+    
+    
+    @Override
+	public String getTaskType() {
+		return taskType;
+	}
+    
 
     @Override
     public UniqueTagList getTags() {
