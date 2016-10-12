@@ -267,7 +267,7 @@ new user | see usage instructions | I can refer to instructions when i use the T
 new user | view more information about a particular command | I can learn how to use various commands.<br>
 user | add a task by specifying a task description and the date and time | I can record tasks that need to be done by that date and time.<br>
 user | add a scheduled event by specifying the event name and duration and location | I can record events that I need to attend.<br>
-user | add a task by specifying a task description only | I can record tasks that need to be done ‘some day’.<br>
+user | add a task by specifying a task description only | I can record tasks that need to be done some day.<br>
 user | delete a task | I can remove entries that I no longer need.<br>
 user | list all tasks | I can see my tasks in a glance.<br>
 user | edit the task descriptions, date or time | I can update the details of my tasks.<br>
@@ -312,7 +312,7 @@ busy user | reserve time slots for one or more tasks that may not be confirmed |
 
 2a. The task has the exact same details as an existing task
 
-> TaskManager shows error message: “This task has already been created.”
+> TaskManager shows error message: “This task has already been created.
 	
 <br>
 #### Use case: Edit task
@@ -321,8 +321,14 @@ busy user | reserve time slots for one or more tasks that may not be confirmed |
 
 1. User requests to list task
 2. TaskManager shows a list of task
-3. User requests to edit a specific field of the task
-4. TaskManager edits the field
+3. User requests to edit a task
+4. TaskManager brings task to the center of the window and asks user which field they would like to edit
+5. User requests to edit a specific field eg. "Edit Title"
+6. TaskManager returns the title to the command line for editing and asks user to edit the title
+7. User edits title
+8. TaskManager edits title accordingly and asks user to exit edit or continue editing by typing "edit title" again
+9. User exits edit
+10. TaskManager returns back to list
 
 **Extensions**
 
@@ -330,16 +336,23 @@ busy user | reserve time slots for one or more tasks that may not be confirmed |
 
 > Use case ends
 
-3a. The given index is invalid
+4a. The given index is invalid
 
-> 3a1. TaskManager shows an error message
+> 4a1. TaskManager shows an error message
   Use case resumes at step 2
 
-3b. The given field tag is empty
+6a. The given field tag is empty
 
-> 3b1. TaskManager asks to add to the field instead
-> 3b2. User confirms addition
-> 3b3. TaskManager adds to the specified field
+> 6b1. TaskManager asks to add to the field instead
+> 6b2. User types new addition
+> 6b3. TaskManager adds to the specified field
+
+8a. User did not edit
+
+> 8a1. TaskManager asks user to edit
+> 8a2. User types edit
+> 8a3. TaskManager edits
+  Use case ends
 
 <br>
 #### Use case: Delete task
@@ -350,7 +363,7 @@ busy user | reserve time slots for one or more tasks that may not be confirmed |
 2. TaskManager shows a list of task
 3. User requests to delete a specific task in the list
 4. TaskManager display confirmation message
-5. User enters ‘Yes’ to confirm delete
+5. User enters "yes" to confirm delete
 6. TaskManager deletes the task 
 Use case ends.
 
@@ -419,7 +432,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
  **Strengths**
   * Able to add items to any list and assign deadlines and reminders
   * Requires few taps/interaction to create a simple to-do item
-  * Natural language feature lets user type simple due dates, such as “tomorrow”, and Wunderlist will interprets and assigns accordingly
+  * Natural language feature lets user type simple due dates, such "tomorrow", and Wunderlist will interprets and assigns accordingly
   * Available on multiple platforms, access easily from laptop or phone
   * Simple interface
   * Able to share lists with others for collaboration
@@ -427,8 +440,8 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
 
 #### Todoist
  **Strengths**
-  * Able to identify dates in tasks statements e.g 18oct, mon. Useful for Jim’s command line habits
-  * Has smartphone and desktop applications. Useful for Jim’s requirement for portability
+  * Able to identify dates in tasks statements e.g 18oct, mon. Useful for Jim's command line habits
+  * Has smartphone and desktop applications. Useful for Jim's requirement for portability
   * Has undo option
   * Allows the use of tags to classify different tasks e.g personal, school work.
   * Allows users to set priority levels to tasks
@@ -442,7 +455,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
  **Strengths**
   * Supports email forwarding from your personal mail into Centrallo
   * Allows the creation of list, notes and checklist, where the notes and checklist can be filed under a particular list
-  * Items can be tagged as priorities which is consolidated in a ‘priorities’ tab
+  * Items can be tagged as priorities which is consolidated in a priorities
   * Notes, lists and checklists can be given different colours (7 to choose from)
   * Supports attachment of files (up to 25mb) to the notes
   * Offers 3 methods to sort the notes i.e. alphabetically, by created date and by updated date
@@ -468,7 +481,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
   * Can share lists which Jim can tell his colleagues tasks he needs to do/the team needs to do
 
 **Weaknesses**
-  * Too many options, too troublesome for Jim’s need to use single line command
+  * Too many options, too troublesome for Jim's need to use single line command
   * Difficult to look for things Jim needs
   * No calendar view
   * More useful for teams than individuals

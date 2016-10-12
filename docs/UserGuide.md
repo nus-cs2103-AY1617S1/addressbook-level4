@@ -132,14 +132,14 @@ Examples:
   Restores task which had an index of 2 back to the list
 * `add do housework`<br>
   `undo`<br>
-  Deletes task of “add do housework”
+  Deletes task of "add do housework"
 
 <br>  
 #### Mark task as complete : `completed`
 Marks a task as completed as a normal tag
 Format: `completed INDEX`
 
-> Emeraldo will mark task as completed with a predefined tag “completed” 
+> Emeraldo will mark task as completed with a predefined tag "completed" 
 
 <br>
 #### Clearing all entries : `clear`
