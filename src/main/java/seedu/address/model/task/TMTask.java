@@ -66,6 +66,27 @@ public class TMTask implements TMReadOnlyTask {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
+    /**
+     * Copy constructor.
+     */
+    public TMTask(TMReadOnlyTask source) {
+        this(source.getName(), source.getTaskType(), source.getStatus(), source.getStartDate(), source.getEndDate(), source.getTags());
+    }
+    
+    /**
+     * Copy constructor.
+     */
+    public TMTask(Name name, TaskType taskType, Status status, Optional<Date> startDate, Optional<Date> endDate, UniqueTagList tags) {
+    	assert !CollectionUtil.isAnyNull(name, status, tags);
+        this.taskType = taskType;
+        this.name = name;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+
+    
     
     public Name getName() {
         return name;
@@ -128,8 +149,8 @@ public class TMTask implements TMReadOnlyTask {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                || (other instanceof TMReadOnlyTask // instanceof handles nulls
+                && this.isSameStateAs((TMReadOnlyTask) other));
     }
 
     @Override
