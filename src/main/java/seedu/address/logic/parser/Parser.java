@@ -299,7 +299,7 @@ public class Parser {
         
         if(itemIndexesMatcher.matches()) {
             // separate into the different indexes
-            List<String> indexList = Arrays.asList(args.trim().split("[^\\d*]"));
+            List<String> indexList = Arrays.asList(args.trim().split("[\\D]+"));
             ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
             
             for(String indexInList: indexList) {
