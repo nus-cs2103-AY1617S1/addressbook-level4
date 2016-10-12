@@ -34,8 +34,8 @@ public class MainWindow extends View {
     private static final String FXML_PATH = "MainWindow.fxml";
     private static final String ICON_PATH = "/images/logo-512x512.png";
     private static final String OPEN_HELP_KEY_COMBINATION = "F1";
-    public static final int MIN_HEIGHT = 800;
-    public static final int MIN_WIDTH = 1000;
+    public static final int MIN_HEIGHT = 600;
+    public static final int MIN_WIDTH = 600;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
