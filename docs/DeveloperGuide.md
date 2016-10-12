@@ -254,7 +254,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 ## Appendix A : User Stories
 
-Priorities: High - `* * *`, Medium - `* *`,  Low - `*`
+Priorities: High - `* * *` Medium - `* *`  Low - `*`
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
@@ -263,9 +263,9 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | view upcoming tasks | check what I need to do / have to do soon
 `* * *` | user | search for details on a task or event | view what needs to be done
 `* * *` | user | delete task that has been completed | I do not have to keep track of it	
-`* * *` | mark the task as completed upon completion | keep an archive of tasks that I have completed
+`* * *` | user | mark the task as completed upon completion | keep an archive of tasks that I have completed
 `* * *` | user | view tasks that I have completed | recall what I have completed
-`* * *` | call up the todo list with a simple keystroke | start the application anytime during my workflow
+`* * *` | user | call up the todo list with a simple keystroke | start the application anytime during my workflow
 `* *` | user | edit tasks | keep them up to date
 `* *` | user | undo my actions | reverse any mistakes that I have made
 `* *` | user | redo my undo | correct any accidental undo
