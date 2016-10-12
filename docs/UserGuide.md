@@ -14,7 +14,7 @@
 1. Download the latest `MESS.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your to-do list.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
-   <img src="images/mockup1.JPG" width="600"><br>
+   <img src="images/mockup pic.jpg" width="600"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -24,7 +24,7 @@
    * **`find`**`meeting `: searches the task named tutorial   
    * **`delete`**`presentation`: delete a task named Quiz
    * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
-   * **`undo`** : undo previous action
+   * **`undo`** : undo previous one action
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -42,6 +42,7 @@ Adds a task to the to-do list<br>
 Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 
 > Date format of START_DATE and CLOSE_DATE is DD-MM-YYYY:HHMM e.g. 01/10/2016:2100
+> This is only the standard date time format. There is flexibility on the datetime format. You can use both type of date time format.
 
 * `TASK_NAME` must be unique.
 * If there is no argument, the task will become floating.
@@ -56,9 +57,15 @@ Examples:
 * `add tutorial t/cs2103` <br> Adds a flaoting task named tutorial with a tag CS2013
 * `add quiz t/cs2102 t/easy` <br> Adds a flaoting task named tutorial with a tag CS2012 and easy
 
+Examples on date time flexibility:
+* `add project three days from now` <br> Adds a project task three days later from the time you input this command
+* `add meet with friends in three days` <br> Adds meet with friend as a task three days later from the time you input this command
+
 #### Deleting a task : `delete`
 Deletes a specific task by task name or index from the to-do list.<br>
 Format: `delete TASK_NAME` or `delete INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
 
 Examples:
 * `delete meeting`<br>
@@ -92,6 +99,7 @@ Examples:
 Update a specific task.<br>
 Format: `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 
+> * INDEX refers to the number appears on the list in front the task name.
 > * You can choose what to update. It depends on you whether you want to update only one information or update multiple information. 
 
 Examples:
@@ -101,8 +109,11 @@ Examples:
 * `update 1 t/cs2103`<br>
   update the tag of the first task on to-do list to cs2103
 
+* `update 3 c/three hours later` <br>
+  update the taks name of the third task on the list to a deadline three hours after you type this command
+
 #### Undo action : `undo`
-Undo the previous action.<br>
+Undo the previous one action.<br>
 Format: `undo`
 
 #### Viewing help : `help`
@@ -120,13 +131,13 @@ There is no need to save manually.
 ## FAQ
 **Q**: Can I add event which have a start date and time to my to-do list ?<br>
 
-**A**: Yes, you can create an event by typing command with a start and end date. For example, you have a trip from 10/10/2016 8:00 to 13/10/2016 21:00. You can type command like this: `add trip            s/10/10/2016:0800 c/13/10/2016:2100`.
+**A**: Yes, you can create an event by typing command with a start and end date. For example, you have a trip from 10/10/2016 8:00 to 13/10/2016 21:00. You can type command like this: `add trip s/10/10/2016:0800 c/13/10/2016:2100`.
        
 **Q**: If I don't know the deadline of my task yet, can I still add my task?<br>
 
 **A**: Yes, you can still add your task. You can create a floating task by only type in command `add TASK_NAME` if you don't know the deadline of your task.
 
-> <img src="images/mockup3.JPG" width="600"><br>
+> <img src="images/mockup pic2.jpg" width="600"><br>
 In this example, you can see shopping is a floating task without a start time and deadline. 
   	
 ## Command Summary
