@@ -1,5 +1,10 @@
 package seedu.jimi.logic.commands;
 
+import java.util.Optional;
+import seedu.jimi.commons.core.Config;
+import seedu.jimi.commons.exceptions.DataConversionException;
+import seedu.jimi.commons.util.ConfigUtil;
+
 /**
  *  
  * @author Wei Yin 
@@ -17,6 +22,7 @@ public class SaveAsCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Save directory changed: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This save directory is originally used in Jimi";
+    public static final String CONFIG_FILE_NOT_FOUND = "Config file is not found. Using default config file properties...";
 
     private String taskBookFilePath;
 
@@ -29,8 +35,17 @@ public class SaveAsCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        // TODO Auto-generated method stub
-        return null;
+        String defaultConfigFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+        try {
+            Optional<Config> configOptional = ConfigUtil.readConfig(defaultConfigFilePathUsed);
+            Config config = configOptional.orElse(new Config());
+            config.setTaskBookFilePath(taskBookFilePath);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskBookFilePath));
+        } catch (DataConversionException e) {
+            Config config = new Config();
+            config.setTaskBookFilePath(taskBookFilePath);
+            return new CommandResult(String.format(CONFIG_FILE_NOT_FOUND, MESSAGE_SUCCESS, taskBookFilePath));
+        }
     }
 
 }
