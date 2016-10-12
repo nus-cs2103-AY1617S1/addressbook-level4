@@ -82,8 +82,7 @@ public class Parser {
 
 		case ListCommand.COMMAND_WORD:
 			if (arguments.equals("")) {
-				// TODO return new listcommand()
-				return null;
+				return new ListCommand();
 			} else {
 				return prepareList(arguments);
 			}
@@ -295,6 +294,7 @@ public class Parser {
 		// the listcommand constructor must make null checks. Alternatively, the
 		// parameters can be encapsulated in an object
 		// and the constructor overloaded.
+		System.out.println("ack");
 		return new ListCommand();
 	}
 
@@ -321,7 +321,7 @@ public class Parser {
 		System.out.println("indices: " + Arrays.toString(indices));
 
 		// TODO return new TMDeleteCommand(indices);
-		return new DeleteCommand(indices[i]);
+		return new DeleteCommand(indices);
 	}
 
 	private Command prepareEdit(String arguments) {
@@ -362,7 +362,7 @@ public class Parser {
 	}
 
 	public static void main(String[] args) {
-		String userInput = "edit 5 'f'";
+		String userInput = "list";
 		Parser p = new Parser();
 		p.parseCommand(userInput);
 	}
