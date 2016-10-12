@@ -17,6 +17,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
  */
 
 public class EditCommand extends Command{
+	public static final String COMMAND_WORD = "edit";
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
 	public final String MESSAGE_DUPLICATE = "The edited task is a duplicate of an existing task.";

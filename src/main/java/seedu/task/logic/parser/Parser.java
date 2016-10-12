@@ -62,6 +62,9 @@ public class Parser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+            
+        case EditCommand.COMMAND_WORD:
+            return new EditCommand(arguments);
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
