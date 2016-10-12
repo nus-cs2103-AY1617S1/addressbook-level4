@@ -122,7 +122,7 @@ public class KeywordParser {
                 String finalValue = stringBuilder.toString().trim();
                 finalValue = stripOpenAndCloseQuotationMarks(finalValue);
 
-                entryPairs.put(currentKeyword, finalValue);
+                entryPairs.put(currentKeyword.toLowerCase(), finalValue);
                 i = nextPartToCheck - 1;
             }
         }
