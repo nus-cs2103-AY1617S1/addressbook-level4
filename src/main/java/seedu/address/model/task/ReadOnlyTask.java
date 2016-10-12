@@ -11,7 +11,7 @@ public interface ReadOnlyTask {
     Description getDescription();
     Time getTime();
     Priority getPriority();
-    Venue getVenue();
+    Date getDate();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -28,7 +28,7 @@ public interface ReadOnlyTask {
                 && other.getDescription().equals(this.getDescription()) // state checks here onwards
                 && other.getPriority().equals(this.getPriority())
                 && other.getTime().equals(this.getTime())
-                && other.getVenue().equals(this.getVenue()));
+                && other.getDate().equals(this.getDate()));
     }
 
     /**
@@ -38,11 +38,11 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getDescription())
                 .append(" Priority: ")
-                .append(getPriority())        
+                .append(getPriority())
                 .append(" Time: ")
                 .append(getTime())
-                .append(" Venue: ")
-                .append(getVenue())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
@@ -61,5 +61,10 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+
+    void setDescription(Description description);
+	void setTime(Time time);
+	void setPriority(Priority priority);
+	void setDate(Date date);
 
 }
