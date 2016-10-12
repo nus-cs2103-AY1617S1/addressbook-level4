@@ -8,12 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.commons.util.StringUtil;
 import seedu.tasklist.logic.commands.*;
-import seedu.tasklist.model.task.EndTime;
-import seedu.tasklist.model.task.Priority;
-import seedu.tasklist.model.task.StartTime;
-import seedu.tasklist.model.task.TaskDetails;
 
 /**
  * Parses user input.
@@ -25,7 +20,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    //private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 

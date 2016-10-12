@@ -5,24 +5,21 @@ import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
-import seedu.tasklist.commons.util.StringUtil;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
-import seedu.tasklist.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the task list data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -32,8 +29,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given TaskList
+     * TaskList and its variables should not be null
      */
     public ModelManager(TaskList src, UserPrefs userPrefs) {
         super();
@@ -58,7 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskList newData) {
         taskList.resetData(newData);
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -67,35 +64,35 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateTaskListChanged() {
         raise(new TaskListChangedEvent(taskList));
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws PersonNotFoundException {
-        taskList.removePerson(target);
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskList.removeTask(target);
         updateFilteredListToShowIncomplete();
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicatePersonException {
-        taskList.addPerson(task);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        taskList.addTask(task);
         updateFilteredListToShowIncomplete();
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
     
     @Override
-    public synchronized void markTaskAsComplete(ReadOnlyTask task) throws PersonNotFoundException {
+    public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
         taskList.markTaskAsComplete(task);
         updateFilteredListToShowIncomplete();
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
 
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
@@ -116,7 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     public void updateFilteredList(){
         updateFilteredListToShowIncomplete();
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -186,7 +183,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
-            this.NAME_QUERY = Pattern.compile(getRegexFromString());
+            this.NAME_QUERY = Pattern.compile(getRegexFromString(), Pattern.CASE_INSENSITIVE);
         }
 
         private String getRegexFromString(){

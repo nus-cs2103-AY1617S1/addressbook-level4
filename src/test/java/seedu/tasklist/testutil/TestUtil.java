@@ -119,7 +119,7 @@ public class TestUtil {
     }
 
     public static void createDataFileWithSampleData(String filePath) {
-        createDataFileWithData(generateSampleStorageAddressBook(), filePath);
+        createDataFileWithData(generateSampleStorageTaskList(), filePath);
     }
 
     public static <T> void createDataFileWithData(T data, String filePath) {
@@ -136,12 +136,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static TaskList generateEmptyAddressBook() {
+    public static TaskList generateEmptyTaskList() {
         return new TaskList(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableTaskList generateSampleStorageAddressBook() {
-        return new XmlSerializableTaskList(generateEmptyAddressBook());
+    public static XmlSerializableTaskList generateSampleStorageTaskList() {
+        return new XmlSerializableTaskList(generateEmptyTaskList());
     }
 
     /**
@@ -280,10 +280,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestTask[] removePersonsFromList(final TestTask[] persons, TestTask... personsToRemove) {
+        List<TestTask> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
 
@@ -292,7 +292,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
+    public static TestTask[] removePersonFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
@@ -303,7 +303,7 @@ public class TestUtil {
      * @param index The index of the person to be replaced.
      * @return
      */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
+    public static TestTask[] replacePersonFromList(TestTask[] persons, TestTask person, int index) {
         persons[index] = person;
         return persons;
     }
@@ -314,10 +314,10 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestTask[] addPersonsToList(final TestTask[] persons, TestTask... personsToAdd) {
+        List<TestTask> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {

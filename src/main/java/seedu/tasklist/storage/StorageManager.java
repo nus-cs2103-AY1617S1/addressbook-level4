@@ -44,7 +44,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ TaskList methods ==============================
 
     @Override
     public String getTaskListFilePath() {
@@ -59,8 +59,8 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveTaskList(ReadOnlyTaskList addressBook) throws IOException {
-        taskListStorage.saveTaskList(addressBook, taskListStorage.getTaskListFilePath());
+    public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
+        taskListStorage.saveTaskList(taskList, taskListStorage.getTaskListFilePath());
     }
 
 

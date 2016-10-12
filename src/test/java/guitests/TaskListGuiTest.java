@@ -14,7 +14,7 @@ import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.testutil.TestUtil;
-import seedu.tasklist.testutil.TypicalTestPersons;
+import seedu.tasklist.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -22,9 +22,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for TaskList.
  */
-public abstract class AddressBookGuiTest {
+public abstract class TaskListGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -32,7 +32,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -77,9 +77,9 @@ public abstract class AddressBookGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected TaskList getInitialData() {
-        TaskList ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
-        return ab;
+        TaskList tl = TestUtil.generateEmptyTaskList();
+        TypicalTestTasks.loadTaskListWithSampleData(tl);
+        return tl;
     }
 
     /**

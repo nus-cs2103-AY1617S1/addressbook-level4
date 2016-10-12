@@ -10,7 +10,7 @@ import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.UserPrefs;
 import seedu.tasklist.storage.StorageManager;
-import seedu.tasklist.testutil.TypicalTestPersons;
+import seedu.tasklist.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertEquals;
 
@@ -49,12 +49,12 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
-        TaskList original = new TypicalTestPersons().getTypicalAddressBook();
+    public void taskListReadSave() throws Exception {
+        TaskList original = new TypicalTestTasks().getTypicalTaskList();
         storageManager.saveTaskList(original);
         ReadOnlyTaskList retrieved = storageManager.readTaskList().get();
         assertEquals(original, new TaskList(retrieved));
-        //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
+        //More extensive testing of TaskList saving/reading is done in XmlTaskListStorageTest
     }
 
 

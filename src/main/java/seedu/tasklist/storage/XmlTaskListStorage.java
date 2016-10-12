@@ -12,7 +12,7 @@ import seedu.tasklist.commons.util.FileUtil;
 import seedu.tasklist.model.ReadOnlyTaskList;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access TaskList data stored as an xml file on the hard disk.
  */
 public class XmlTaskListStorage implements TaskListStorage {
 

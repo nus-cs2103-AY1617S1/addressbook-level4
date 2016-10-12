@@ -3,39 +3,39 @@ package seedu.tasklist.model.task;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Represents the start time of a task.
+ * Guarantees: immutable; is valid as declared in {@link #isValidStartTime(String)}
  */
 public class StartTime {
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
-    public static final String PHONE_VALIDATION_REGEX = ".*";
+    public static final String MESSAGE_START_TIME_CONSTRAINTS = "Start time should only be entered in 24 hrs format or 12 hrs format.";
+    public static final String START_TIME_VALIDATION_REGEX = ".*";
 
     public final String value;
 
     /**
-     * Validates given phone number.
+     * Validates given start time.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException if given start time is invalid.
      */
-    public StartTime(String phone) throws IllegalValueException {
+    public StartTime(String startTime) throws IllegalValueException {
      //  assert phone != null;
     	
-        if (!isValidPhone(phone)) {
-            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
+        if (!isValidStartTime(startTime)) {
+            throw new IllegalValueException(MESSAGE_START_TIME_CONSTRAINTS);
         }
 
-        this.value = phone;
+        this.value = startTime;
     }
 
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given string is a valid start time.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidStartTime(String test) {
     	if(test==null){
     		return true;
     	}
-    	return test.matches(PHONE_VALIDATION_REGEX);
+    	return test.matches(START_TIME_VALIDATION_REGEX);
     }
 
     @Override
