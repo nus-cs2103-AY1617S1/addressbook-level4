@@ -36,7 +36,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         String invalidTime = "46:99";
         String invalidDate = "12345679";
         
-        //edit the first in the list
+        //edit the first in the list which is an event
         TestItem[] currentList = td.getTypicalItems();
         int targetIndex = 1;
         TestItem itemToEdit = currentList[targetIndex-1];
@@ -47,25 +47,34 @@ public class EditCommandTest extends TaskManagerGuiTest {
         itemToEdit.setStartDate(new Date(validStartDate));
         currentList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndex-1);
 
-        //edit the last in the list
+        //edit the last in the list which is an event
         targetIndex = currentList.length;
         String secondTestName = "Survive the semester";
         itemToEdit = currentList[targetIndex-1];
+        assertEditSuccess(targetIndex, null, null, null, validEndDate, null, currentList);
+        assertEditSuccess(targetIndex, null, null, validStartTime, null, null, currentList);
         assertEditSuccess(targetIndex, secondTestName, null, null, null, null, currentList);
+        assertEditSuccess(targetIndex, null, validStartDate, null, null, null, currentList);
+        assertEditSuccess(targetIndex, null, null, null, null, validEndTime, currentList);        
         
         itemToEdit.setName(new Name(secondTestName));
         currentList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndex-1);
 
-        //edit from the middle of the list
+        //edit from the middle of the list which is a task
         targetIndex = currentList.length/2;
         String thirdTestName = "Survive university";
         itemToEdit = currentList[targetIndex-1];
-        assertEditSuccess(targetIndex, null, null, null, validEndDate, null, currentList);
-        assertEditSuccess(targetIndex, null, null, validStartTime, null, null, currentList);
         assertEditSuccess(targetIndex, thirdTestName, null, null, null, null, currentList);
-        assertEditSuccess(targetIndex, null, validStartDate, null, null, null, currentList);
-        assertEditSuccess(targetIndex, null, null, null, null, validEndTime, currentList);
+        itemToEdit.setName(new Name(thirdTestName));
+        currentList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndex-1);
 
+        //edit from the middle of the list which is a deadline
+        targetIndex = 5;
+        itemToEdit = currentList[targetIndex-1];
+        assertEditSuccess(targetIndex, null, null, null, validEndDate, null, currentList);
+        assertEditSuccess(targetIndex, thirdTestName, null, null, null, null, currentList);
+        assertEditSuccess(targetIndex, null, null, null, null, validEndTime, currentList);        
+        
         //invalid commands
         commandBox.runCommand("edit notAnIndex");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
@@ -76,6 +85,25 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("edit 1");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         
+        //invalid parameters for item type 
+        commandBox.runCommand("edit " + currentList.length/2 + " et/" + validEndTime);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+        commandBox.runCommand("edit " + currentList.length/2 + " st/" + validStartTime);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+        commandBox.runCommand("edit " + currentList.length/2 + " ed/" + validEndDate);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+        commandBox.runCommand("edit " + currentList.length/2 + " sd/" + validStartDate);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+        commandBox.runCommand("edit 2  st/" + validStartTime);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+        commandBox.runCommand("edit 2 sd/" + validStartDate);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+
         //invalid index
         commandBox.runCommand("edit " + currentList.length + 1 + " n/" + firstTestName);
         assertResultMessage(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);

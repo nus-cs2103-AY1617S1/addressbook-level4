@@ -1,11 +1,14 @@
 package seedu.taskmanager.logic.commands;
 
+import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.logging.*;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.model.item.Item;
+import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
@@ -70,6 +73,12 @@ public class EditCommand extends Command {
 
         ReadOnlyItem itemToEdit = lastShownList.get(targetIndex - 1);
         Item itemToReplace = new Item(itemToEdit);
+        
+        if (isInvalidInputForItemType(itemToReplace)) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        }
+        
         try {
             if (newName != null) {
                 itemToReplace.setName(newName);
@@ -98,6 +107,29 @@ public class EditCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE_ITEM);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
+    }
+
+    /**
+     * @param itemToReplace
+     * @return true if parameters input by user is not valid for the item that is being edited
+     */
+    private boolean isInvalidInputForItemType(Item itemToReplace) { 
+        String itemType = itemToReplace.getItemType().toString();
+        assert itemType.equals(ItemType.TASK_WORD) 
+               || itemType.equals(ItemType.DEADLINE_WORD) 
+               || itemType.equals(ItemType.EVENT_WORD);
+        
+        if (itemType.equals(ItemType.TASK_WORD)) {
+            return newStartDate != null || newStartTime != null || newEndDate != null || newEndTime != null;
+        }
+        if (itemType.equals(ItemType.DEADLINE_WORD)) {
+            return newStartDate != null || newStartTime != null;
+        }
+        if (itemType.equals(ItemType.EVENT_WORD)) {
+            return false;
+        }
+        
+        return true;
     }
 
 }
