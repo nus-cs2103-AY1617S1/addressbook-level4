@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefWidth="273.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.TaskListPanel">
+<VBox maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefWidth="273.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.TaskListPanel">
     <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1312.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT">
+      <ScrollPane fitToHeight="true" fitToWidth="true" nodeOrientation="LEFT_TO_RIGHT">
          <content>
             <AnchorPane>
                <children>
@@ -19,7 +19,7 @@
                     <panes>
                       <TitledPane fx:id="titleFloatingTaskListSize" animated="false" text="\\$ Floating Tasks">
                         <content>
-                          <AnchorPane minHeight="-Infinity">
+                          <AnchorPane>
                                  <children>
                                       <ListView fx:id="taskListView" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <stylesheets>
@@ -34,7 +34,7 @@
                               <Font size="13.0" />
                            </font>
                       </TitledPane>
-                        <TitledPane fx:id="titleIncompleteTasks" animated="false" layoutX="10.0" layoutY="10.0" text="\\\$ Incomplete Tasks">
+                        <TitledPane fx:id="titleIncompleteTasks" animated="false" text="\\\$ Incomplete Tasks">
                            <content>
                               <AnchorPane>
                                  <children>
@@ -51,7 +51,7 @@
                               <Font size="13.0" />
                            </font>
                         </TitledPane>
-                        <TitledPane fx:id="titleCompletedTasks" animated="false" layoutX="10.0" layoutY="10.0" text="\\\$ Completed Tasks">
+                        <TitledPane fx:id="titleCompletedTasks" animated="false" text="\\\$ Completed Tasks">
                            <content>
                               <AnchorPane>
                                  <children>
