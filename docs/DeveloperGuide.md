@@ -1,11 +1,13 @@
 # Developer Guide 
 
+<br>
 ## Introduction
 
 Amethyst is a command-line task manager targeted at power users, who would like to store, access and edit information about one's tasks efficiently.
 
 This developer guide will provide you with the necessary basic information to start programming work on Amethyst. This guide also describes the design and implementation of Amethyst, to help you understand how Amethyst works. Relevant information regarding implementation, testing and available developer tools/ resources has also been included in this guide to help you along as you work on Amethyst's future development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections. 
 
+<br>
 ## Table of Contents
 <!-- MarkdownTOC -->
 
@@ -32,6 +34,7 @@ This developer guide will provide you with the necessary basic information to st
 
 <!-- /MarkdownTOC -->
 
+<br>
 ## Setting Up
 
 #### Prerequisites
@@ -50,23 +53,22 @@ This developer guide will provide you with the necessary basic information to st
 4. **Install Buildship Gradle Integration plugin from the Eclipse Marketplace**
 
 
-
 #### Importing existing project into Eclipse
 
-0. Fork this repository (repo), and clone the fork to your computer.
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Fork this repository (repo), and clone the fork to your computer.
+2. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
    in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+3. Click `File` > `Import`
+4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
+5. Click `Browse`, then locate the project's directory
+6. Click `Finish`
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
-
+<br>
 ## Architecture
 
 <img src="images/Architecture.png" width="600"><br>
@@ -115,6 +117,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 The sections below give more details of each component.
 
+<br>
 ## UI Component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
@@ -135,6 +138,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly
 
+<br>
 ## Logic Component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -150,6 +154,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
+<br>
 ## Model Component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -163,6 +168,7 @@ The `Model`,
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+<br>
 ## Storage Component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -173,12 +179,13 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
 
+<br>
 ## Commons Component
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+<br>
 ## Implementation
-
 
 ### Logging
 
@@ -204,7 +211,7 @@ and logging destinations.
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
-
+<br>
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
@@ -243,7 +250,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
-
+<br>
 ## Dev Ops
 
 ### Build Automation
@@ -272,7 +279,7 @@ is better than the following alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-
+<br>
 ## Future Development
 
 There are several additions that can be made to Amethyst to further increase its usefulness and usability.
@@ -302,11 +309,11 @@ user wants to collate the source files in the same folder periodically.
 #### Ability to ignore specific files
 Currently, users can only specify certain file types to be collated.
 
-
+<br>
 ## Appendix A: User Stories
 
 Priority | As a ... | I want to ... | So that I can...
--------- | :--------| :------------ | :-----------
+:------- | :--------| :------------ | :-----------
 `* * *`  | new user | see usage instructions | refer to instructions when I forget how to use the application
 `* * *`  | user | add a new task |
 `* * *`  | user | list tasks that fulfil specific parameters | filter tasks according to specific parameters 
@@ -319,6 +326,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | set command aliases | type more efficiently
 `* *` | user | clear all tasks |
 
+<br>
 ## Appendix B: Use Cases
 
 #### Use case: Delete task
@@ -442,9 +450,10 @@ Use case ends
   4a2. Amethyst prompts user to input in correct format
   Use case ends
 
+<br>
 ## Appendix C: Non-Functional Requirements
 
-1. Amethyst should work on any [mainstream OS](#mainstream-os) given that Java `1.8.0_60` or higher has been installed.
+1. Amethyst should work on any [mainstream Operating Systems (OSs)](#mainstream-operating-systems) given that Java `1.8.0_60` or higher has been installed.
 2. Amethyst should work without network/internet connection
 3. Amethyst should be a standalone and not a plug-in for another software
 4. Amethyst should not make use of relational database
@@ -453,12 +462,14 @@ Use case ends
 7. Data should stored locally in human editable text
 8. Command Line Interface should be the primary mode of input
 
+<br>
 ## Appendix D: Glossary
 
-##### Mainstream OS
+##### Mainstream Operating Systems (OSs)
 
 > Windows, Linux, Unix, OS-X
 
+<br>
 ## Appendix E: Product Survey
 ###Any.do
 ####Any.do is a mobile and online task manager application (not a command-line application).
