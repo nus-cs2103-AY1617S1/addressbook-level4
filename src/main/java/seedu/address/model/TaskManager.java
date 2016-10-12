@@ -5,6 +5,7 @@ import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.UniqueTaskList;
 
 import java.util.*;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
+public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList floatingTasks;
 
@@ -117,27 +118,4 @@ public class TaskManager implements ReadOnlyTask, ReadOnlyTaskManager {
         return Objects.hash(floatingTasks);
     }
 
-    @Override
-    public Name getName() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Priority getPriorityValue() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Optional<Date> getStartDate() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Optional<Date> getEndDate() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

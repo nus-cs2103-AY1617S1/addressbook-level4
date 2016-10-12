@@ -3,37 +3,46 @@
     <tasks>
         <name>Meet Hans Muster</name>
         <priorityValue>high</priorityValue>
+		<recurrenceRate>0</recurrenceRate>
     </tasks>
     <tasks>
         <name>Meet Ruth Mueller</name>
         <priorityValue>high</priorityValue>
+		<recurrenceRate>0</recurrenceRate>
     </tasks>
     <tasks>
         <name>Meet Heinz Kurz</name>
         <priorityValue>high</priorityValue>
+		<recurrenceRate>0</recurrenceRate>
     </tasks>
     <tasks>
         <name>Meet Cornelia Meier</name>
         <priorityValue>medium</priorityValue>
+		<recurrenceRate>0</recurrenceRate>
     </tasks>
     <tasks>
         <name>Meet Werner Meyer</name>
         <priorityValue>medium</priorityValue>
+		<recurrenceRate>0</recurrenceRate>
     </tasks>
     <tasks>
         <name>Meet Lydia Kunz</name>
         <priorityValue>medium</priorityValue>
+		<recurrenceRate>0</recurrenceRate>
     </tasks>
     <tasks>
         <name>Meet Anna Best</name>
         <priorityValue>low</priorityValue>
+		<recurrenceRate>0</recurrenceRate>
     </tasks>
     <tasks>
         <name>Meet Stefan Meier</name>
         <priorityValue>low</priorityValue>
+		<recurrenceRate>0</recurrenceRate>
     </tasks>
     <tasks>
         <name>Meet Martin Mueller</name>
         <priorityValue>low</priorityValue>
+		<recurrenceRate>0</recurrenceRate>
     </tasks>
 </taskmanager>

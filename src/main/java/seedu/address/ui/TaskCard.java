@@ -29,6 +29,8 @@ public class TaskCard extends UiPart{
     @FXML
     private Label endTime;
     @FXML
+    private Label recurrenceRate;
+    @FXML
     private Label tags;
     
     // TODO: add in recurrence rate later
@@ -55,12 +57,13 @@ public class TaskCard extends UiPart{
         
         SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("h:mm a");
-        String startDateText, endDateText, startTimeText, endTimeText;
+        String startDateText, endDateText, startTimeText, endTimeText, recurrenceRateText;
         
         startDateText = "";
         startTimeText = "";
         endDateText = "";
         endTimeText = "";
+        recurrenceRateText = "";
         
         if (task.getStartDate().isPresent()){
             startDateText = dateFormatter.format(task.getStartDate().get());
@@ -71,11 +74,17 @@ public class TaskCard extends UiPart{
             endDateText = dateFormatter.format(task.getEndDate().get());
             endTimeText = timeFormatter.format(task.getEndDate().get());
         }
-                
+        
+        
         startDate.setText(startDateText);
         startTime.setText(startTimeText);
         endDate.setText(endDateText);
         endTime.setText(endTimeText);
+        
+        Integer recurrenceRateInteger = task.getRecurrenceRate().recurrenceRate;
+        if (recurrenceRateInteger.intValue() != 0)
+            recurrenceRateText = "every " + recurrenceRateInteger.toString() + " day" + (recurrenceRateInteger.intValue() > 1 ? "s" : "");
+            recurrenceRate.setText(recurrenceRateText);
     }
 
     public HBox getLayout() {
