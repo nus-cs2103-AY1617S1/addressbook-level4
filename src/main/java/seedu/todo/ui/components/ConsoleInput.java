@@ -11,12 +11,17 @@ import seedu.todo.ui.UiPartLoader;
 public class ConsoleInput extends Component {
 
     private static final String FXML_PATH = "components/ConsoleInput.fxml";
+    private static final String INVALID_COMMAND_RESPONSE = "Invalid command!";
 
     // Props
-    public String lastCommandEntered;
+    public String consoleOutput;
+    private String lastCommandEntered;
     
     // Input handler
     private InputHandler inputHandler = new InputHandler();
+    
+    // Components
+    Console console;
     
     // FXML
     @FXML
@@ -43,7 +48,8 @@ public class ConsoleInput extends Component {
     }
     
     private void loadConsole() {
-        Console console = Console.load(primaryStage, consolePlaceholder);
+        console = Console.load(primaryStage, consolePlaceholder);
+        console.consoleOutput = consoleOutput;
         console.render();
     }
 
@@ -54,7 +60,8 @@ public class ConsoleInput extends Component {
         boolean isValidCommand = inputHandler.processInput(lastCommandEntered);
         
         if (!isValidCommand) {
-            // TODO: Show message in console, change consoleInput style
+            console.consoleOutput = INVALID_COMMAND_RESPONSE;
+            console.render();
         } else {
             consoleInputTextField.clear();
         }
