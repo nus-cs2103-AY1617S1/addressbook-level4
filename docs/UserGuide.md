@@ -10,9 +10,9 @@
 
 1. [Quick Start](#1-quick-start)
 2. [Features](#2-features)
-    - 2.1 [View help](#2-features)
-    2.2 [Features](#2-features)
-    2.3 [Features](#2-features)
+        2.1. [View help](#2-features)
+        2.2. [Features](#2-features)
+        2.3. [Features](#2-features)
     2.4 [Features](#2-features)
     2.5 [Features](#2-features)
     2.6 [Features](#2-features)
