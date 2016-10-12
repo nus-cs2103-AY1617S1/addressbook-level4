@@ -91,7 +91,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `AddressBookChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -110,7 +110,7 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
@@ -132,7 +132,7 @@ The `UI` component,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
@@ -148,7 +148,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -160,7 +160,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Task Manager data in xml format and read it back.
 
 ### Common classes
 
@@ -258,7 +258,7 @@ Here are the steps to create a new release.
 
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Task Manager depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -271,13 +271,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 
 Priority | As a ... | I want to ... | So that I can...
--------- | :-------- | :--------- | :-----------
--`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
+-------- | :-------- | :--------- | :------------
+`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a task |
 `* * *` | user | edit a selected task |
 `* * *` | user | delete a selected task |
-`* * *` | user | add tags to a specific task/person |
-`* * *` | user | remove tags from a specific task/person |
+`* * *` | user | add tags to a specific task |
+`* * *` | user | remove tags from a specific task |
 `* * *` | user | list tasks that are due chronologically | see what tasks I have yet to complete
 `* * *` | user | list all tags used |
 `* *` | user | user with multiple tasks | search a task by name |
@@ -292,20 +292,18 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | see tasks on a calendar GUI |
 
 
-{More to be added}
-
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Delete task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to list tasks
+2. TaskManager shows a list of tasks
+3. User requests to delete a specific task in the list
+4. TaskManager deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -316,15 +314,36 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. TaskManager shows an error message <br>
   Use case resumes at step 2
+
+#### Use case: Add task
+
+**MSS**
+
+1. User enters command to add task along with task details
+2. TaskManager adds task with the details provided
+Use case ends.
+
+**Extensions**
+
+1a. No task description provided
+
+> 1a1. TaskManager shows an error message and asks user to enter the command again with task description <br>
+  Use case goes back to step 1
+
+1b. No task details provided
+
+> 1b1. TaskManager creates a task with description but no other details <br>
+  Use case ends
+
 
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
@@ -338,8 +357,7 @@ Use case ends.
 
 ##### Private contact detail
 
-> A contact detail that is not meant to be shared with othe
-rs
+> A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
 
