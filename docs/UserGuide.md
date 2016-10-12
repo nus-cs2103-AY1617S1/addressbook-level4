@@ -27,7 +27,7 @@ Unlike all the other task managers out there, Inbx\_0 is a simple program that r
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 6. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**:`add EE2020 Midterms s/10-11-2016, 0900 e/10-11-2016, 1100 i/red` :  adds a task called `EE2020 Midterms` to the Task Manager
+   * **`add`**:`add EE2020 Midterms s/next thursday st/0900 e/next thursday et/1100 i/red` :  adds a task called `EE2020 Midterms` to the Task Manager
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 7. Refer to the [Features](#features) section below for details of each command.<br>
@@ -57,9 +57,7 @@ Looking for help? If you ever need a reminder on how to input certain commands o
 To access the help command, type the following into the command line:
 > help
 
-This will show a list of available commands with detailed instructions on how to execute each command and any issues that you might face.
-
-> The Help command will be also activated if you enter an incorrect or invalid command repeatedly e.g. `abcd`
+This will open up a help window that will direct you back to this User Guide if you need a refresher.
 
 <br><br>
  
@@ -73,29 +71,31 @@ Examples:
 * `add Buy Groceries` <br>
 
 Adds a task with deadlines.<br>
-Format: `add TASK e/END_DATE, END_TIME i/IMPORTANCE, [t/TAGS]` 
+Format: `add TASK e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]` 
 
 Examples: 
-* `add Do CS2103 Homework e/tomorrow, 10am, i/red`
-* `add Finish Project Paper e/1 March, 12am i/green` <br>
+* `add Do CS2103 Homework e/tomorrow et/10am, i/red`
+* `add Finish Project Paper e/1 March et/12am i/green t/For GEH1027` <br>
 
 Adds an event.<br>
-Format: `add TASK s/START_DATE, START_TIME e/END_DATE, END_TIME i/IMPORTANCE`
+Format: `add TASK s/START_DATE st/START_TIME e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]`
+
+> Events are tasks with a starting and ending point.
 
 Parameters: <br>
 TASK: Name of the task <br>
 s/START_DATE: The date that the task will start on <br>
-START_TIME: The time of the start of the task <br>
+st/START_TIME: The time of the start of the task <br>
 e/END_DATE: The date of the task that the task will end on <br>
-END_TIME: The time of the end of the task <br>
+et/END_TIME: The time of the end of the task <br>
 i/IMPORTANCE: The priority of the task. Can be `green`, `yellow` or `red` <br>
 t/TAGS: Tags that are assigned to the task
 
 > Tasks can have any number of tags (including 0)
 
 Examples:
-* `add Doctor's appointment, s/2 July 2016, 5pm, e/2 July 2016, 7:30pm i/green`
-* `add SO’s Birthday, s/29 Feb, 12am e/1 March, 12am i/green, t/flowers chocolates`
+* `add Doctor's appointment s/2 July 2016 st/5pm, e/2 July 2016 et/7:30pm i/green t/painful`
+* `add SO’s Birthday s/29 Feb st/12am e/1 March et/12am i/green t/flowers t/chocolates`
 
 <br><br>
 
@@ -117,20 +117,20 @@ In order to shows a list of the tasks due today in the task manager, you have to
 This will bring up all your tasks in a list which is sorted accordingly to the time that the task will be starting. <br>
 
 Listing tasks due before a specific date. <br>
-Format: `list d/[DATE]`
+Format: `list DATE`
 
 By keying in the following, it will display a list of the tasks due before the input date in the task manager.
 
 > list d/[DATE]
 
 > acceptable formats of DATE input: 
->     today/tomorrow
+>     today/tomorrow/tmr
 >     this/next + MON/TUE/WED/THU/FRI/SAT/SUN
->     DD/MM/[YYYY]: YYYY refers to the year but it is optional, MM refers to month and DD refers to the  coming date in the most recent year
+>     next month, week, year
 
 Examples:
-* `list d/tomorrow` shows every task from now to the end of tomorrow
-* `list d/01/01/2017` shows every task from now till the end of 1st January 2017
+* `list tomorrow` shows every task from now to the end of tomorrow
+* `list 1st Jan` shows every task from now till the end of 1st January 2017
 
 Listing tasks with a certain importance. <br>
 Format: `list i/[IMPORTANT]`
@@ -194,7 +194,16 @@ Examples
 
 * `find meeting`<br> 
   `edit 1 n/Business Lunch st/1pm`<br>
-  Changes the name of 1st task in the results of the `find` command to ‘Business Lunch at 1 pm’ 
+  Changes the name of 1st task in the results of the `find` command to ‘Business Lunch at 1 pm’  
+
+Converting a task to a floating task. <br>
+Format: `edit INDEX float`
+
+Immediately makes a task a floating task by removing the starting and ending dates and times.
+
+This can be done by typing the following:
+
+> edit INDEX float
 
 <br><br>
 
@@ -258,11 +267,11 @@ Undos the previous action done in the task manager if you've made a mistake. <br
 #### <a id="clr"></a>Clearing all tasks : `clr`
 Format: `clr`
 
-Tasks can easily become obsolete and checking off tasks individually can be quite a hassle. The Clear command will help you to remove all selected tasks and can be accessed by typing the following:
+Tasks can easily become obsolete and checking off tasks individually can be quite a hassle. The Clear command will help you to remove all tasks and can be accessed by typing the following:
 
 > clr [DATE]
 
-Adding the date in the command line  is optional and by default it will clear the tasks that were scheduled today. By including the date, this will enable you to clear tasks from other days as well.
+Adding the date in the command line is optional and by default it will clear the whole task list. By including the date, this will enable you to clear tasks from specific dates.
 
 > Please ensure that the tasks are the ones that you want to clear before initiating the Clear Command.
 
@@ -324,9 +333,9 @@ Command | Format
 -------- | :-------- 
 [Help](#help) | `help`
 [Add](#add) | `add NAME`
-&nbsp; | `add NAME e/END_DATE, END_TIME i/IMPORTANCE, [t/TAGS]...`
-&nbsp; | `add NAME s/START_DATE, START_TIME e/END_DATE, END_TIME i/IMPORTANCE, [t/TAGS]...`
-[List](#list) | `list d/[DATE]`
+&nbsp; | `add NAME e/END_DATE et/END_TIME i/IMPORTANCE, [t/TAGS]...`
+&nbsp; | `add NAME s/START_DATE st/START_TIME e/END_DATE et/END_TIME i/IMPORTANCE, [t/TAGS]...`
+[List](#list) | `list [DATE]`
 &nbsp; | `list i/[IMPORTANCE]`
 [Find](#find) | `find KEYWORD [MORE_KEYWORDS]`
 [Edit](#edit) | `edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [et/END_TIME], [i/IMPORTANCE]`
