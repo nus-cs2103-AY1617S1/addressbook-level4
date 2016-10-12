@@ -20,8 +20,6 @@ import seedu.address.model.UserPrefs;
  */
 public class MainWindow extends UiPart {
 
-    public static final int DATED_DISPLAY_INDEX_OFFSET = 0;
-    public static final int UNDATED_DISPLAY_INDEX_OFFSET = 10;
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
@@ -31,7 +29,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     // private BrowserPanel browserPanel;
-    private PersonListPanel undatedListPanel;
+    private UndatedListPanel undatedListPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -111,10 +109,10 @@ public class MainWindow extends UiPart {
 */
     void fillInnerParts() {
         // browserPanel = BrowserPanel.load(browserPlaceholder);
-        undatedListPanel = PersonListPanel.load(primaryStage, browserPlaceholder,
-                logic.getFilteredPersonList(), PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(),
-                logic.getFilteredUndatedTaskList(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
+        undatedListPanel = UndatedListPanel.load(primaryStage, getUndatedListPlaceholder(),
+                logic.getFilteredUndatedTaskList(), UndatedListPanel.UNDATED_DISPLAY_INDEX_OFFSET);
+        personListPanel = PersonListPanel.load(primaryStage, getDatedListPlaceholder(),
+                logic.getFilteredPersonList(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -132,10 +130,14 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getPersonListPlaceholder() {
+    public AnchorPane getUndatedListPlaceholder() {
         return personListPanelPlaceholder;
     }
 
+    public AnchorPane getDatedListPlaceholder() {
+        return browserPlaceholder;
+    }
+    
     public void hide() {
         primaryStage.hide();
     }
@@ -189,6 +191,10 @@ public class MainWindow extends UiPart {
 */
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
+    }
+    
+    public UndatedListPanel getUndatedListPanel() {
+        return this.undatedListPanel;
     }
 /*
     public void loadPersonPage(ReadOnlyDatedTask person) {
