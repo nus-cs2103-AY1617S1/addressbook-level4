@@ -1,5 +1,6 @@
 # Developer Guide 
 
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -11,6 +12,11 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
+## Introduction
+
+TasKitty is an easy-to-use task manager targeted at the average computer or laptop user who wants to keep track of their busy schedules. It is a Java desktop application that is especially targeted at keyboard lovers, as it implements a command-line interface in its GUI.
+
+This guide describes the design and implementation of TasKitty. It will help you gain understanding on how TasKitty works and how you can further contribute to its development. We have organised this guide into the 4 major components that make up the core functionality of TasKitty, so that you can have an overview of how these essential components are linked before reading further into the parts that make up each component respectively.
 
 ## Setting up
 
