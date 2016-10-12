@@ -36,3 +36,8 @@ Role: Code Quality / Eclipse Expert <br>
 Responsibilities: Storage
 
 -----
+
+###Acknowledgements
+This product is morphed from [addressbook-level4](https://github.com/se-edu/addressbook-level4) <br>
+Libraries used: <br>
+[prettytime](https://github.com/ocpsoft/prettytime)
