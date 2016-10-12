@@ -302,26 +302,12 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+User intention | Steps | Extensions
+-------------- | :-----| :---------
+Add a task | Command line: add Format: add TASKNAME DEADLINE Example: add CS2103 23101026 | Invalid format: Error Message: Task is not added. Use case ends.
+Delete a task | Command line: delete Format: delete TASKNAME Example:delete CS2103 | Invalid Task: Error Message: Task does not exist. Use case ends.
+Attach a note | Command line: add Format: add TASKNAME note Example: add CS2103 exam_20/11/2016 | Invalid Task: Error Message: Task does not exist. Use case ends.
 
-**MSS**
-
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
 
 {More to be added}
 
