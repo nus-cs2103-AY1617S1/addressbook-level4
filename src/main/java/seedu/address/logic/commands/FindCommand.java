@@ -9,6 +9,8 @@ import java.util.Set;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
+    
+    public static final String TOOL_TIP = "find NAME";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
@@ -23,8 +25,8 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredPersonList(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+        model.updateFilteredFloatingTaskList(keywords);
+        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredFloatingTaskList().size()));
     }
 
 }

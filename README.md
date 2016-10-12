@@ -1,34 +1,28 @@
-[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
+[![Build Status](https://travis-ci.org/CS2103AUG2016-W13-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W13-C4/main)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W13-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W13-C4/main?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/80804481f4294e708f3ade895f7d930b)](https://www.codacy.com/app/edmundmok/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-W13-C4/main&amp;utm_campaign=Badge_Grade)
 
-# Address Book (Level 4)
+# DearJim
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/dearjim_initial.png" width="600"><br>
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
-  a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as 
-  the main programming language. 
-* It is **written in OOP fashion**. It provides a **reasonably well-written** code example that is 
-  **significantly bigger** (around 6 KLoC)than what students usually write in beginner-level SE modules. 
-* What's different from [level 3](https://github.com/se-edu/addressbook-level3):
-    * A more sophisticated GUI that includes a list panel and an in-built Browser.
-    * More test cases, including automated GUI testing.
-    * Support for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
+Introducing *DearJim* - a revolutionary task manager designed to help you organise your tasks that is simple and easy to use. *DearJim* is targeted at users who prefer to type and users who are more comfortable with keyboard based commands.
+
+*DearJim* functions purely through keyboard inputs - no more fumbling around trying to look for the right button to press, simply enter a command and press <kbd>Enter</kbd>! *DearJim* also supports different types of tasks, such as tasks with deadlines, tasks without deadlines, tasks with start and end time, recurring tasks, and can even block dates to support tasks without a confirmed date. 
 
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
 * [Developer Guide](docs/DeveloperGuide.md) 
-* [Learning Outcomes](docs/LearningOutcomes.md) 
 * [About Us](docs/AboutUs.md)
 * [Contact Us](docs/ContactUs.md)
 
 
 #### Acknowledgements
 
+* The code base behind this project was forked from 
+  [addressbook-level4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4)
+
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 
-
-#### Licence : [MIT](LICENSE)

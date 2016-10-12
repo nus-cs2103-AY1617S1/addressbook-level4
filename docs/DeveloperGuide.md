@@ -59,6 +59,7 @@
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
+
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -84,19 +85,21 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
+
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SDforDeleteTask.PNG" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+
+<img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -110,7 +113,7 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
@@ -137,7 +140,8 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+ 
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
 ### Model component
 
@@ -147,8 +151,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* stores the Task Manager data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -160,7 +164,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Task Manager data in xml format and read it back.
 
 ### Common classes
 
@@ -267,32 +271,59 @@ b. Require developers to download those libraries manually (this creates extra w
 
 ## Appendix A : User Stories
 
-Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
+Priorities: High - `* * *` Medium - `* *`  Low - `*`
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+`* * *` | user | add tasks to the todo list | remember what I have to do/what I have to attend
+`* * *` | user | view upcoming tasks | check what I need to do / have to do soon
+`* * *` | user | search for details on a task or event | view what needs to be done
+`* * *` | user | delete task that has been completed | I do not have to keep track of it	
+`* * *` | user | mark the task as completed upon completion | keep an archive of tasks that I have completed
+`* * *` | user | view tasks that I have completed | recall what I have completed
+`* * *` | user | call up the todo list with a simple keystroke | start the application anytime during my workflow
+`* *` | user | edit tasks | keep them up to date
+`* *` | user | undo my actions | reverse any mistakes that I have made
+`* *` | user | redo my undo | correct any accidental undo
+`*` | user | enter synonyms for the commands | use natural language to accomplish what I want
+`*` | user | tag tasks | classify them and search for them according to these tags
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to add task
+2. TaskManager adds task <br>
+Use case ends.
+
+
+#### Use case: List
+
+**MSS**
+
+1. User requests to add task
+2. TaskManager shows a list of tasks <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+#### Use case: Edit task
+
+**MSS**
+
+1. User requests to list tasks
+2. TaskManager shows a list of tasks
+3. User requests to edit a specific task in the list
+4. TaskManager edits the task <br>
 Use case ends.
 
 **Extensions**
@@ -303,19 +334,43 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. TaskManager shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+
+#### Use case: Delete task
+
+**MSS**
+
+1. User requests to list tasks
+2. TaskManager shows a list of tasks
+3. User requests to delete a specific task in the list
+4. TaskManager deletes the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. TaskManager shows an error message <br>
+  Use case resumes at step 2
+
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 10000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should have <1 second startup and processing times.
+6. Should be easy to learn and use
+7. Should be available without Internet connectiviy
+8. Should be scalable and maintainable
 
-{More to be added}
 
 ## Appendix D : Glossary
 
@@ -323,11 +378,25 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Scalable
 
-> A contact detail that is not meant to be shared with others
+> Open for extension, closed for modification
+
+##### Synonyms
+
+> Alternative names for a single command
+
+##### Maintainable
+
+> Readable and easy to edit code
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+Product | Pros | Cons |
+-------- | :-------- | :--------- 
+Wunderlist | <ol> <li> Beautiful background </li> <li> Cloud sync </li> <li> Able to create folders to group similar tasks </li> <li> Able to add tags to tasks to filter them </li> </ol>  | <ol> <li> No start date or repeat options for tasks </li> <li> No options for subtasks </li> </ol> 
+Todo.txt | <ol> <li> Works on many platforms, can be accessed on devices that support Dropbox </li> <li> Easily editable format, can be edited in plain text and then displayed with neat styles </li> <li> Can edit with any text editor </li> <li> Easy syncing - can sync through Dropbox </li> <li> Command line support - can edit using command line by a supplied bash script </li> </ol> | <ol> <li> No support for recurring tasks </li> <li> No options for subtasks </li> <li> Only supports Dropbox, not flexible </li> </ol> 
+Google Calendar | <ol> <li> Can be synced to mobile devices </li> <li> Alerts via notifications on phones </li> <li> Switches between day, week, month view easily </li> <li> Minimalistic interface </li>  </ol>  | <ol> <li> Requires an Internet connection to be used </li> <li> Cannot be brought up with a keyboard shortcut </li> </ol> 
+Remember the milk | <ol> <li> Email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Sync across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li>  </ol> | <ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol>
 
+<strong>Summary:</strong> We noticed that these products have very good features, but we realised that none of these products have the specific combination of products that Jim wants. Therefore, we are mixing in the good features that these products have to make a targeted product for Jim.

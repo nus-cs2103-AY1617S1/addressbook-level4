@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestPerson;
+import seedu.address.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
@@ -24,16 +24,18 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertFindResult("find Jean"); //no results
     }
 
+    /* Removing this test as well since we intrepret this as an add command, our default.
     @Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findgeorge");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
+    */
 
-    private void assertFindResult(String command, TestPerson... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " persons listed!");
+        assertResultMessage(expectedHits.length + " items listed!");
         assertTrue(personListPanel.isListMatching(expectedHits));
     }
 }
