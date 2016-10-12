@@ -201,6 +201,25 @@ public class Parser {
         
         String arguments = matcher.group("arguments");
         
+        if(arguments.trim().equals("float")) {
+            argumentsForEdit[1] = "";
+            argumentsForEdit[2] = "";
+            argumentsForEdit[3] = "";
+            argumentsForEdit[4] = "";
+            argumentsForEdit[5] = "";
+            
+            try {
+                return new EditCommand(
+                        index.get(),
+                        argumentsForEdit,
+                        null
+                );
+            } catch (IllegalValueException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
+        }
+        
+        
         Pattern editArguments = scanArgumentsAndBuildRegex(arguments);
         
         if(editArguments == null) {

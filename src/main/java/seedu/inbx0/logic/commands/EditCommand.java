@@ -43,19 +43,23 @@ public class EditCommand extends Command {
         
         this.targetIndex = targetIndex;
         
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
+        if(tags == null) {
+            this.tags = null;
         }
-        
-        UniqueTagList editedTags = null;
-        
-        if(!tagSet.isEmpty()) {
-            editedTags = new UniqueTagList(tagSet);
+        else {
+            final Set<Tag> tagSet = new HashSet<>();
+            for (String tagName : tags) {
+                tagSet.add(new Tag(tagName));
+            }
+            
+            UniqueTagList editedTags = null;
+            
+            if(!tagSet.isEmpty()) {
+                editedTags = new UniqueTagList(tagSet);
+            }
+         
+            this.tags = editedTags;
         }
-     
-        this.tags = editedTags;
-       
         this.editArguments = argumentsToEdit;    
     }
 
@@ -108,7 +112,7 @@ public class EditCommand extends Command {
         try {
             toEditWith = createToEditWithTask(editArguments, tags);
         } catch (IllegalValueException e1) {
-            return new CommandResult(Task.MESSAGE_TIME_CONSTRAINTS);
+            return new CommandResult(String.format(Messages.MESSAGE_INVALID_ARGUMENTS, MESSAGE_USAGE));
         }
 
         try {

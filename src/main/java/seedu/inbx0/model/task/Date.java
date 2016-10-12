@@ -6,6 +6,7 @@ import java.util.List;
 import com.joestelmach.natty.Parser;
 
 import seedu.inbx0.commons.exceptions.IllegalValueException;
+import seedu.inbx0.logic.commands.IncorrectCommand;
 
 /**
  * Represents Date of a Task Event in the address book.
@@ -75,7 +76,9 @@ public class Date {
             this.DDMMYYYYFormat = "";            
         }
         else {
-            List<java.util.Date> dates = new Parser().parse(date).get(0).getDates();             
+            try {
+            List<java.util.Date> dates = new Parser().parse(date).get(0).getDates(); 
+            
             SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy");
             SimpleDateFormat dayInWord = new SimpleDateFormat ("E, ");
             SimpleDateFormat nattyFormat = new SimpleDateFormat ("MM/dd/yyyy");
@@ -85,7 +88,11 @@ public class Date {
             this.day = digitsOnly / 1000000;
             this.month = (digitsOnly / 10000) % 100;
             this.year = digitsOnly % 10000;
-            this.dayWord = dayInWord.format(dates.get(0));            
+            this.dayWord = dayInWord.format(dates.get(0));   
+            } catch (IndexOutOfBoundsException e) {
+                throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+            }
+            
         }
         
        

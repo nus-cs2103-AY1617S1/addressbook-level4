@@ -87,8 +87,14 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
         
-        if (contains(toEditWith)) {
-            throw new DuplicateTaskException();
+        if (contains(toEditWith)) {           
+            if(internalList.indexOf(toEditWith) == editTaskIndex) {
+                if((toEdit.getLevel() != toEditWith.getLevel())| (toEdit.getTags() != toEditWith.getTags())) {
+              
+                }
+            }               
+            else
+                throw new DuplicateTaskException();
         }
         
         boolean taskEdited = false;

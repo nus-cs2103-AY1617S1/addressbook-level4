@@ -32,9 +32,13 @@ public class Time {
             this.value = "";
         }
         else {
-                List<java.util.Date> getTime = new Parser().parse(time).get(0).getDates();
-                SimpleDateFormat ft = new SimpleDateFormat ("HH:mm");
-                this.value = ft.format(getTime.get(0));          
+                try{
+                    List<java.util.Date> getTime = new Parser().parse(time).get(0).getDates();
+                    SimpleDateFormat ft = new SimpleDateFormat ("HH:mm");
+                    this.value = ft.format(getTime.get(0)); 
+                } catch (IndexOutOfBoundsException e) {
+                    throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
+                }
         }
        
     }
