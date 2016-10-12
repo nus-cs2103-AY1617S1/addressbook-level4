@@ -68,9 +68,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName().name)
-                .append(", Priority: ")
-                .append(getPriorityValue());
+      
+        if (getName() != null){
+        	builder.append(getName().name);
+        }
+        if(getPriorityValue() != null){
+        	builder.append(", Priority: ")
+				   .append(getPriorityValue());
+        }
         if (getStartDate().isPresent()) {
             builder.append(", StartDate: ").append(getStartDate().get());
         }
@@ -130,12 +135,32 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private int compareByTaskName(Task other) {
         return this.taskName.name.compareTo(other.taskName.name);
     }
+
+	public void setName(Name name) {
+        this.taskName = name;
+	}
+
+	public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+	}
+	
+	public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+	}
+	
+	public void setPriority(Priority priorityValue) {
+        this.priority = priorityValue;
+	}
+
+	public void setRecurrence(RecurrenceRate recurrenceRate) {
+        this.recurrenceRate = recurrenceRate;		
+	}
     
     @Override
     public Name getName() {      
         return taskName;
     }
-
+    
     @Override
     public Priority getPriorityValue() {
         return priority;

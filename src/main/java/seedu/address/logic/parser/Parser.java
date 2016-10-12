@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
@@ -39,6 +40,21 @@ public class Parser {
                                                         +")?"
                                                         +"(?: repeat every (?<recurrenceRate>.*?))?"
                                                         +"(?: -(?<priority>.*?))?)");
+
+    private static final Pattern EDIT_ARGS_FORMAT = Pattern.compile("(?i:"
+    													+"(?<taskName>.*?)?"
+            											+"(?:"
+            											+"(?:, by (?<endDateFormatOne>.*?))"
+            											+"|(?:, from (?<startDateFormatOne>.*?))"
+            											+"|(?:, at (?<startDateFormatTwo>.*?))"
+            											+"|(?:, start (?<startDateFormatThree>.*?))"
+            											+")?"
+            											+"(?:"
+            											+"(?:, to (?<endDateFormatTwo>.*?))?"
+            											+"(?:, end (?<endDateFormatThree>.*?))?"
+            											+")?"
+            											+"(?:, repeat every (?<recurrenceRate>.*?))?"
+            											+"(?:-(?<priority>.*?))?)");
     
     private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
 
@@ -84,12 +100,15 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
+
         default:
             return prepareAdd(commandWord + arguments);
         }
     }
 
-    /**
+	/**
      * Parses arguments in the context of the add person command.
      *
      * @param args full command args string
@@ -178,6 +197,91 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+    
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+		
+    	 //TODO parse the index and args
+    	 int index = 0;
+    	 
+    	 args = args.trim();
+    	 System.out.println(args);
+    	 
+    	 String[] parts = args.split(" ");
+    	 String indexNum = parts[0];
+
+    	 index = Integer.parseInt(indexNum);
+    	 
+    	 args = args.substring(2);
+    	 
+    	 //TODO
+    	 //Update parser to make NAME field optional.
+    	 final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
+         
+    	 String taskName = null;
+         String startDate = null;
+         String endDate = null;
+         String recurrenceRate = null;
+         String timePeriod = null;
+         String priority = null;  
+
+         if (!matcher.matches()) {
+             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+         }
+         
+         try {
+        	 
+        	 if(matcher.group("taskName") != null){
+        		 taskName = matcher.group("taskName");
+        	 }
+        	 
+             if (matcher.group("startDateFormatOne") != null) {
+                 startDate = matcher.group("startDateFormatOne");
+             } else if (matcher.group("startDateFormatTwo") != null) {
+                 startDate = matcher.group("startDateFormatTwo");
+             } else if (matcher.group("startDateFormatThree") != null) {
+                 startDate = matcher.group("startDateFormatThree");
+             }
+             
+             if (matcher.group("endDateFormatOne") != null) {
+                 endDate = matcher.group("endDateFormatOne"); 
+             } else if (matcher.group("endDateFormatTwo") != null) {
+                 endDate = matcher.group("endDateFormatTwo");
+             } else if (matcher.group("endDateFormatThree") != null) {
+                 endDate = matcher.group("endDateFormatThree");
+             }  
+
+             if (matcher.group("recurrenceRate") != null) {
+                 String recurrenceString = matcher.group("recurrenceRate");
+                 final Matcher recurrenceMatcher = RECURRENCE_RATE_ARGS_FORMAT.matcher(recurrenceString);
+                 
+                 //TODO: Won't reach here actually
+                 if (!recurrenceMatcher.matches()) {
+                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                 } 
+                 
+                 if (recurrenceMatcher.group("rate") != null) {
+                     recurrenceRate = recurrenceMatcher.group("rate");
+                 }
+                 
+                 timePeriod = recurrenceMatcher.group("timePeriod");
+             }  
+
+             if (matcher.group("priority") != null) {
+                 priority = matcher.group("priority");
+             }
+             
+             System.out.println(index + " " + taskName + " " + startDate + " " + endDate + " " + recurrenceRate + " " + timePeriod + " " + priority );
+             return new EditCommand(index, taskName, startDate, endDate, recurrenceRate, timePeriod, priority);
+         } catch (IllegalValueException ive) {
+             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+         }	
     }
 
     /**
@@ -305,6 +409,9 @@ public class Parser {
         }
         if (StringUtil.isSubstring(HelpCommand.COMMAND_WORD, commandWord)){
             toolTips.add(HelpCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstring(EditCommand.COMMAND_WORD, commandWord)){
+            toolTips.add(EditCommand.TOOL_TIP);
         }
     }
 
