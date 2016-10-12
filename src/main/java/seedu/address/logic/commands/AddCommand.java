@@ -63,9 +63,9 @@ public class AddCommand extends Command {
         }
 
         if (recurrenceRateString == null && timePeriodString == null) {
-            recurrenceRate = new RecurrenceRate();
+            recurrenceRate = null;
         } else if (recurrenceRateString == null) {
-            recurrenceRate = new RecurrenceRate(timePeriodString);
+            recurrenceRate = new RecurrenceRate("1", timePeriodString);
         } else {
             recurrenceRate = new RecurrenceRate(recurrenceRateString, timePeriodString);
         }

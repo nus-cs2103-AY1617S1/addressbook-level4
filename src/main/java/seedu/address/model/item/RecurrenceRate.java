@@ -1,5 +1,7 @@
 package seedu.address.model.item;
 
+import java.util.Date;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 public class RecurrenceRate {
@@ -27,6 +29,7 @@ public class RecurrenceRate {
             throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
         }
     }
+    
     
     //TODO: Anything better than null?
     public RecurrenceRate(String timePeriod) throws IllegalValueException {

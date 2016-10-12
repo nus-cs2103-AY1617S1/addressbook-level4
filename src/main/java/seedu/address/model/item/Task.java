@@ -21,23 +21,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public Task(Name taskName) {
         this.taskName = taskName;
         this.priority = Priority.MEDIUM;
-        try {
-            this.recurrenceRate = new RecurrenceRate(null, null);
-        } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     public Task(Name taskName, Priority priorityValue) {
         this.taskName = taskName;
         this.priority = priorityValue;
-        try {
-            this.recurrenceRate = new RecurrenceRate(null, null);
-        } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
     
     /**
@@ -56,7 +44,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.taskName = source.getName();
         this.startDate = tempStartDate;
         this.endDate = tempEndDate;
-        this.recurrenceRate = source.getRecurrenceRate();
+        if (source.getRecurrenceRate().isPresent())
+            this.recurrenceRate = source.getRecurrenceRate().get();
+        else
+            this.recurrenceRate = null;
         this.priority = source.getPriorityValue();
     }
     
@@ -167,9 +158,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     @Override
-    public RecurrenceRate getRecurrenceRate() {
-        assert recurrenceRate != null;
-        return recurrenceRate;
+    public Optional<RecurrenceRate> getRecurrenceRate() {
+        if (recurrenceRate != null){
+            return Optional.of(recurrenceRate);
+        }
+        return Optional.empty();
     }
     
 }

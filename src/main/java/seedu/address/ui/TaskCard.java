@@ -82,8 +82,8 @@ public class TaskCard extends UiPart{
         endDate.setText(endDateText);
         endTime.setText(endTimeText);
         
-        Integer recurrenceRateInteger = task.getRecurrenceRate().recurrenceRate;
-        TimePeriod timePeriod = task.getRecurrenceRate().timePeriod;
+        Integer recurrenceRateInteger = task.getRecurrenceRate().get().recurrenceRate;
+        TimePeriod timePeriod = task.getRecurrenceRate().get().timePeriod;
         if (recurrenceRateInteger != null && timePeriod != null) {
             recurrenceRateText = "every " + recurrenceRateInteger.toString() + " " + timePeriod.toString().toLowerCase() 
                     + (recurrenceRateInteger.intValue() > 1 ? "s" : "");
