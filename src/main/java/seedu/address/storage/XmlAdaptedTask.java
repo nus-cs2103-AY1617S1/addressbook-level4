@@ -40,7 +40,7 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        start = source.getStart().value;
+        start = source.getStartTime().value;
         address = source.getAddress().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -60,7 +60,7 @@ public class XmlAdaptedTask {
         }
         final Name name = new Name(this.name);
         final Phone phone = new Phone(this.phone);
-        final Start start = new Start(this.start);
+        final StartTime start = new StartTime(this.start);
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, phone, start, address, tags);

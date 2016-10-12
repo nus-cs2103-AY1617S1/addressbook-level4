@@ -37,13 +37,13 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(PHONE_FIELD_ID);
     }
 
-    public String getStart() {
+    public String getStartTime() {
         return getTextFromLabel(START_FIELD_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){
         return getFullName().equals(task.getName().fullName) && getPhone().equals(task.getPhone().value)
-                && getStart().equals(task.getStart().value) && getAddress().equals(task.getAddress().value);
+                && getStartTime().equals(task.getStartTime().value) && getAddress().equals(task.getAddress().value);
     }
 
     @Override

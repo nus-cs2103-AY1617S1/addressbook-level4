@@ -37,8 +37,8 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withStart(String start) throws IllegalValueException {
-        this.task.setStart(new Start(start));
+    public TaskBuilder withStartTime(String start) throws IllegalValueException {
+        this.task.setStartTime(new StartTime(start));
         return this;
     }
 

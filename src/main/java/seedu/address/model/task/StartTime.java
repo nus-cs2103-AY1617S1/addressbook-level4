@@ -5,9 +5,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidStartTime(String)}
  */
-public class Start {
+public class StartTime {
 
     public static final String MESSAGE_START_CONSTRAINTS =
             "Task starts should be 2 alphanumeric/period strings separated by '@'";
@@ -20,10 +20,10 @@ public class Start {
      *
      * @throws IllegalValueException if given start address string is invalid.
      */
-    public Start(String start) throws IllegalValueException {
+    public StartTime(String start) throws IllegalValueException {
         assert start != null;
         start = start.trim();
-        if (!isValidStart(start)) {
+        if (!isValidStartTime(start)) {
             throw new IllegalValueException(MESSAGE_START_CONSTRAINTS);
         }
         this.value = start;
@@ -32,7 +32,7 @@ public class Start {
     /**
      * Returns if a given string is a valid task start.
      */
-    public static boolean isValidStart(String test) {
+    public static boolean isValidStartTime(String test) {
         return test.matches(START_VALIDATION_REGEX);
     }
 
@@ -44,8 +44,8 @@ public class Start {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Start // instanceof handles nulls
-                && this.value.equals(((Start) other).value)); // state check
+                || (other instanceof StartTime // instanceof handles nulls
+                && this.value.equals(((StartTime) other).value)); // state check
     }
 
     @Override

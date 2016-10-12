@@ -10,7 +10,7 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Address address;
-    private Start start;
+    private StartTime start;
     private Phone phone;
     private UniqueTagList tags;
 
@@ -26,7 +26,7 @@ public class TestTask implements ReadOnlyTask {
         this.address = address;
     }
 
-    public void setStart(Start start) {
+    public void setStartTime(StartTime start) {
         this.start = start;
     }
 
@@ -45,7 +45,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Start getStart() {
+    public StartTime getStartTime() {
         return start;
     }
 
@@ -68,7 +68,7 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
         sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getStart().value + " ");
+        sb.append("e/" + this.getStartTime().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
