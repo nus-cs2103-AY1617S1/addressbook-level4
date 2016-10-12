@@ -43,7 +43,7 @@ All the features in Inbx_0 are performed by typing in commands in the command li
 <br>
 2. Items in `SQUARE_BRACKETS` are optional and will not be required in order to perform the command (e.g. [tags], [date]).
 <br>
-3. Items with `...` after them can have multiple instances. This means that there can be more than one occurrence of the particular item. For example, “[t/TAG]...” means that you can have multiple tags. 
+3. Items with `...` after them can have multiple instances. This means that there can be more than one occurrence of the particular item. For example, “[t/TAG]...�?means that you can have multiple tags. 
 <br>
 4.  The order of parameters is fixed and needs to be strictly followed.
 
@@ -52,7 +52,7 @@ The rest of the guide will be using the general command format to describe what 
 #### <a id="help"></a>Help Command
 Format: `help`
 
-Looking for help? If you ever need a reminder on how to input certain commands or have some troubleshooting issues, you can easily access the ‘help’ command which will guide you to the right direction.
+Looking for help? If you ever need a reminder on how to input certain commands or have some troubleshooting issues, you can easily access the ‘help�?command which will guide you to the right direction.
 
 To access the help command, type the following into the command line:
 > help
@@ -146,24 +146,31 @@ By keying in the following, it will display a list of the tasks associated with 
 <br><br>
 
 #### <a id="find"></a>Finding all tasks containing any keyword in their name: `find`
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find INDICATOR/KEYWORD [MORE_KEYWORDS]`
 
 The Find command will search all tasks which contain any of the given keywords.
 
-> find KEYWORD [MORE_KEYWORDS]
+> find [INDICATOR]/KEYWORD [MORE_KEYWORDS]
 
-> * The search is case sensitive. e.g `homework` will not match `Homework`
+> * Indicator refers to s/, e/, i/, t/, where stands for start time, end time, importance and tags respectively
+> * Indicator is optional. Without indicator, all tasks containing any keyword will be displayed
+	but it does not support natty library 
+> * The search is case non-sensitive. e.g `homework` will match `Homework`
 > * The order of the keywords does not matter. e.g. `Movie Night` will match `Night Movie`
-> * Only the name is searched.
+> * Only one type of information (name, start time, end time, importance or tag), is allowed per search. 
+	Natty library is available for input of start time and end time
 > * Only full words will be matched e.g. `visit` will not match `visiting`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Concert` will match `Michael Jackson Concert`
+    e.g. `meeting` will match `project meeting`
+> * To search task start or end at a specific date, keyword that has whitespace should be connected by "'", e.g. next'week
 
 Examples: 
 * `find meeting`<br>
   Returns `Lunch meeting` but not `Lunch Meeting`
 * `find Fish Friday`<br>
-  Returns Any task having containing `Fish`, or `Friday` (eg. ‘Visit Fish Market’ and ‘Listen to Rebecca Black’s Friday’)
+  Returns Any task having containing `Fish`, or `Friday` (eg. ‘Visit Fish Market� and ‘Listen to Rebecca Black’s Friday�)
+* `find s/Next'Monday Next'Wed`<br>
+  Returns Any task start at next Monday or next Wednesday.
 
 <br><br>
 
@@ -194,7 +201,7 @@ Examples
 
 * `find meeting`<br> 
   `edit 1 n/Business Lunch st/1pm`<br>
-  Changes the name of 1st task in the results of the `find` command to ‘Business Lunch at 1 pm’ 
+  Changes the name of 1st task in the results of the `find` command to ‘Business Lunch at 1 pm�?
 
 <br><br>
 
@@ -218,7 +225,7 @@ Examples:
 
 * `find meeting`<br> 
   `del 1`<br>
-  Deletes the 1st task in the results of the `find` command for ‘meeting’.
+  Deletes the 1st task in the results of the `find` command for ‘meeting�?
 
 <br><br>
 
