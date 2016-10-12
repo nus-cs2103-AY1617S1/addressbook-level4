@@ -75,6 +75,15 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
     }
     
     /**
+     * Sets the selected task to be complete/incomplete.
+     */
+    public void complete(ReadOnlyTask toComplete, boolean isComplete){
+        assert toComplete != null;
+        int targetIndex = internalList.indexOf(toComplete);
+        internalList.get(targetIndex).setCompleted(isComplete);
+    }
+    
+    /**
      * Replaces the floating task at the specified index with {@code toEdit}
      */
     public void edit(int targetIndex, FloatingTask toEdit) {
