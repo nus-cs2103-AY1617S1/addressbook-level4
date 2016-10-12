@@ -26,7 +26,7 @@ public class AddCommandParser extends TaskModelCommandParser<AddCommand> {
     private static final String REGEX_REF_DESCRIPTION = "Description";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "add\\s+(?<"+REGEX_REF_TASK_NAME+">[^/]+)(\\s+(" +
+            "add\\s+(?<"+REGEX_REF_TASK_NAME+">([^/]+?(\\s+|$))+)((?<=\\s)" +
             "(s/(?<"+REGEX_REF_START_DATE+">[^/]+)(?!.*\\ss/))|" +
             "(st/(?<"+REGEX_REF_START_TIME+">[^/]+)(?!.*\\sst/))|" +
             "(e/(?<"+REGEX_REF_END_DATE+">[^/]+)(?!.*\\se/))|" +
@@ -37,7 +37,7 @@ public class AddCommandParser extends TaskModelCommandParser<AddCommand> {
             "(n/(?<"+REGEX_REF_NUMBER_OF_RECURRENCE+">[^/]+)(?!.*\\sn/))|" +
             "(c/(?<"+REGEX_REF_CATEGORY+">[^/]+)(?!.*\\sc/))|" +
             "(d/(?<"+REGEX_REF_DESCRIPTION+">[^/]+)(?!.*\\sd/))" +
-            ")(?=\\s|$)){0,10}", Pattern.CASE_INSENSITIVE);
+            ")(\\s|$)){0,10}", Pattern.CASE_INSENSITIVE);
     
     @Override
     protected String getHeader() {
@@ -57,15 +57,15 @@ public class AddCommandParser extends TaskModelCommandParser<AddCommand> {
             //String startTime = matcher.group(REGEX_REF_START_TIME);
             //String endTime = matcher.group(REGEX_REF_END_TIME);
             
-            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE));
-            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE));
-            parseTaskName(matcher.group(REGEX_REF_TASK_NAME));
-            parseLocation(matcher.group(REGEX_REF_LOCATION));
-            parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL));
-            parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE));
-            parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
-            parseCategory(matcher.group(REGEX_REF_CATEGORY));
-            parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
+            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE).trim());
+            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE).trim());
+            parseTaskName(matcher.group(REGEX_REF_TASK_NAME).trim());
+            parseLocation(matcher.group(REGEX_REF_LOCATION).trim());
+            parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL).trim());
+            parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE).trim());
+            parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE).trim());
+            parseCategory(matcher.group(REGEX_REF_CATEGORY).trim());
+            parseDescription(matcher.group(REGEX_REF_DESCRIPTION).trim());
             
                
             // TODO: Create AddCommand here (require integration)
