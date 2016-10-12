@@ -11,6 +11,8 @@ import seedu.taskitty.model.tag.UniqueTagList;
 import seedu.taskitty.model.task.Name;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
+import seedu.taskitty.model.task.TaskDate;
+import seedu.taskitty.model.task.TaskTime;
 import seedu.taskitty.model.task.UniqueTaskList;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -49,6 +51,9 @@ public class EditCommand extends Command{
         }
         this.toEdit = new Task(
                 new Name(name),
+                new TaskDate("22011994"),
+                new TaskTime("11:11"),
+                new TaskTime("11:11"),
                 new UniqueTagList(tagSet)
         );
     }
