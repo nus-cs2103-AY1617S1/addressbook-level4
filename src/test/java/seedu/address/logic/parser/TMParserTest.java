@@ -62,7 +62,7 @@ public class TMParserTest {
 	
 	@Test
 	public void parseCommand_addEventNoEndTime_incorrectCommandReturned() {
-		String userInput = "add event ' party' from 8:00 on 12/12/12";
+		String userInput = "add event ' party hehehe yay' from 8:00 on 12/12/12";
 		Command command = parser.parseUserInput(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -130,7 +130,7 @@ public class TMParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineNoTime_incorrectCommandReturned() {
-		String userInput = "add deadline 'submission' by 36/2/";
+		String userInput = "add deadline 'submission all day' by 36/2/";
 		Command command = parser.parseUserInput(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -198,7 +198,7 @@ public class TMParserTest {
 	
 	@Test
 	public void parseCommand_addSomedayValidOrder2_nullReturned() {
-		String userInput = "add 'dance' someday";
+		String userInput = "add 'dance again' someday";
 		Command command = parser.parseUserInput(userInput);
 
 		assertEquals(null, command);
@@ -294,6 +294,41 @@ public class TMParserTest {
 	@Test
 	public void parseCommand_delValidIndices_nullReturned() {
 		String userInput = "delete 3 2";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(null, command);
+	}
+	
+	/*
+	 * Tests for the `edit` command
+	 */
+	@Test
+	public void parseCommand_editNoArgs_incorrectCommandReturned() {
+		String userInput = "edit";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_editNonIntIndex_incorrectCommandReturned() {
+		String userInput = "edit j 'new name'";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_editNegIndex_incorrectCommandReturned() {
+		String userInput = "edit -3 'new name'";
+		Command command = parser.parseUserInput(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_editValid_incorrectCommandReturned() {
+		String userInput = "edit 1 'new name'";
 		Command command = parser.parseUserInput(userInput);
 
 		assertEquals(null, command);
