@@ -11,18 +11,18 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+1. Download the latest `SuperbTodo.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your SuperbTodo.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`list`** : lists all undone tasks
+   * **`add`**` a task by 4pm today` : 
+     adds a timed task to the list.
+   * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -40,71 +40,225 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding a task: `add`
+Adds a timed task<br>
+Format: 
+*`add <task description> at/by <time> on <date>`
+*`add <task description> on <date> at/by <time>` 
+*`add <task description> on/at/by <date> <time>`
 
-> Persons can have any number of tags (including 0)
+> A timed task has a specified completion date and/or time. 
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `add finish homework by 4pm today`
+* `add buy shoes on Sep 16 6:30pm`
+* `add call grandmother at 15:00 on Oct 17`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+Adds an untimed task<br>
+Format: 
+*`add <task description>` 
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+> An untimed task doesn't have a specified completion date and time.
+
+Examples: 
+* `add buy grocery recently`
+* `add be careful across the road`
+
+Adds a recurring task<br>
+Format: 
+*`add <task description> each <calendar day> at/by <time> ^<no. of weeks the task recurs>` 
+
+> A recurring task takes place each calendar day(s) for the specified number of weeks. 
+
+Examples: 
+* `add watch movie each Friday ^5`
+* `add play basketball each Tue and each Sat at 5pm ^7`
+
+Adds hashtag<br>
+Format: 
+*`#<hashtag>` 
+
+> To add hashtag(s) to task entries. 
+
+Examples: 
+* `add buy grocery at 7pm #chore`
+
+
+#### Editing a task: `edit`
+Edits a task already in the list<br>
+Format: 
+*`edit <index> <new description> at/on/by <new date/time> #<new hashtags>`
+
+> New input will replace old task entry completely.   
+
+Examples: 
+* `edit 1 buy grocery at 5pm`
+
+
+#### Marking of a task as done: `done`
+Marks a completed task.<br>
+Format: `done INDEX`
+
+> Marks the task entry as done at the specified `INDEX`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
+Examples: 
+* `list`<br>
+  `done 2`<br>
+  Marks the 2nd task entry in all the undone tasks listed as done.
+* `find #grocery`<br> 
+  `done 1`<br>
+  Marks the 1st task entry in the results of the `find` command as done.
+  
+#### Marking of a task as undone: `undone`
+Unmark a completed task.<br>
+Format: `undone INDEX`
+
+> Marks a task entry as undone at the specified `INDEX`. 
+  The index refers to the index number shown in the completed task listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
+Examples: 
+* `done 2`<br>
+  Marks the 2nd task entry in the completed task listing as undone.
+   
+  
+#### Listing of tasks : `list`
+Lists all tasks<br>
+Format: 
+*`list all`
+*`list`
+
+> Lists all undone tasks. 
+
+
+Lists untimed tasks<br>
+Format: 
+*`list untimed` 
+
+> Lists all untimed tasks. 
+
+
+Lists timed tasks<br>
+Format: 
+*`list timed` 
+
+> Lists all timed tasks. 
+
+
+Lists tasks with hashtags<br>
+Format: 
+*`list #<keyword>` 
+
+> Lists all tasks with specified hashtags. 
+
+Examples: 
+* `list #impt`
+
+Lists overdue tasks<br>
+Format: 
+*`list overdue`
+
+> Lists tasks not finished by the specified completion date/time. 
+
+
+Lists tasks for a certain week<br>
+Format: 
+*`list week <no. of the certain week>`
+*`list this week`
+*`list next week` 
+
+> Lists tasks to be done in a specified week. 
+
+Examples: 
+* `list week 52`
+
+Lists tasks for today<br>
+Format: 
+*`list today`
+*`list tdy`
+
+> Lists tasks to be done today. 
+
+
+Lists tasks for tomorrow<br>
+Format: 
+*`list tomorrow`
+*`list tmr`
+*`list tmw`
+
+> Lists tasks to be done tomorrow. 
+
+Lists tasks for a certain timestamp<br>
+Format: 
+*`list <date>`
+*`list <time>`
+
+> Lists tasks to be done by the specified timestamp. 
+
+Examples: 
+*`list Sep 16`
+*`list 7pm`
+
+#### Search for a task: `find`
+Search for a task using a keyword.<br>
+Format: 
+*`find <keyword> [MORE_KEYWORDS]`
 
 > * The search is case sensitive. e.g `hans` will not match `Hans`
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
+> * Only the keyword is searched.
 > * Only full words will be matched e.g. `Han` will not match `Hans`
 > * Persons matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Hans` will match `Hans Bo`
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `find grocery`<br>
+  Returns `grocery bin` but not `Grocery`
+* `find call mother`<br>
+  Returns Any tasks with description `call`, or `mother`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
+#### Deleting a task : `remove`
+Deletes task entry with the specified number.<br>
+Format: `remove INDEX`
+
+> Deletes the task entry at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  `remove 2`<br>
+  Deletes the 2nd task entry among all the undone tasks listed.
+* `find #grocery`<br> 
+  `remove 1`<br>
+  Deletes the 1st task entry in the results of the `find` command.
+  
+#### Undo a command: `undo`
+Returns the system to the state before the execution of the last command.<br>
+Format: 
+*`undo`
+*`undo 1`
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+Returns the system to the state before the execution of the last few commands.<br>
+Format: 
+*`undo <no. of commands to retract>`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Undo the last few commands carried out and return the system to the then state. 
 
 Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+* `undo 2`
+
+#### Redo a command: `redo`
+Returns the system to the state before the execution of the last undo command.<br>
+Format: 
+*`redo`
+
 
 #### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+Clears current command line input.<br>
 Format: `clear`  
 
 #### Exiting the program : `exit`
@@ -112,7 +266,7 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+SuperbTodo data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
@@ -125,10 +279,15 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add <task description> at/by <time> on <date>`, `add <task description> on <date> at/by <time>`, `add <task description> on/at/by <date> <time>`
 Clear | `clear`
-Delete | `delete INDEX`
+Done | `done INDEX`
+Edit | `edit <index> <new description> at/on/by <new date/time> #<new hashtags>`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
-Select | `select INDEX`
+Redo | `redo`
+Remove | `remove INDEX`
+Undo | `undo`
+Undone | `undone INDEX`
+

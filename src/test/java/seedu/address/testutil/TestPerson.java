@@ -6,12 +6,12 @@ import seedu.address.model.person.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyPerson {
+public class TestPerson implements ReadOnlyTask {
 
     private Name name;
     private Address address;
-    private Email email;
-    private Phone phone;
+    private DueTime email;
+    private DueDate phone;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -26,11 +26,11 @@ public class TestPerson implements ReadOnlyPerson {
         this.address = address;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(DueTime email) {
         this.email = email;
     }
 
-    public void setPhone(Phone phone) {
+    public void setPhone(DueDate phone) {
         this.phone = phone;
     }
 
@@ -40,12 +40,12 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public Phone getPhone() {
+    public DueDate getDueDate() {
         return phone;
     }
 
     @Override
-    public Email getEmail() {
+    public DueTime getDueTime() {
         return email;
     }
 
@@ -67,8 +67,8 @@ public class TestPerson implements ReadOnlyPerson {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
+        sb.append("p/" + this.getDueDate().value + " ");
+        sb.append("e/" + this.getDueTime().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
