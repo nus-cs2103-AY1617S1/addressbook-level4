@@ -36,11 +36,13 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
-        this.toAdd = new FloatingTask(
-                new Name(name),
-                new UniqueTagList(tagSet)
-        );
+        if (dateTime == null) {
+            this.toAdd = 
+                    new FloatingTask(new Name(name), new UniqueTagList(tagSet));
+        } else {
+            this.toAdd = 
+                    new DeadlineTask(new Name(name), new DateTime(dateTime), new UniqueTagList(tagSet));
+        }
     }
 
     @Override
