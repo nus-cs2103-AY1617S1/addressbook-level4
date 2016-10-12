@@ -5,11 +5,11 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A : User Stories](#appendix-a--user-stories)
-* [Appendix B : Use Cases](#appendix-b--use-cases)
-* [Appendix C : Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D : Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e--product-survey)
+* [Appendix A : User Stories](#appendix-a-user-stories)
+* [Appendix B : Use Cases](#appendix-b-use-cases)
+* [Appendix C : Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D : Glossary](#appendix-d-glossary)
+* [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
 ## Setting up
@@ -51,7 +51,7 @@
   
 **Problem: Eclipse reports some required libraries missing**
 * Reason: Required libraries may not have been downloaded during the project import. 
-* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
+* Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
  
 
 ## Design
@@ -91,7 +91,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `SavvyTaskerChangedEvent` when the Savvy Tasker data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -147,7 +147,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Savvy Tasker data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -258,7 +258,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Savvy Tasker depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -293,26 +293,70 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `Savvy Tasker` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list tasks
-2. Savvy Tasker shows a list of tasks
-3. User requests to delete a specific task in the list
-4. Savvy Tasker deletes the task <br>
+1. Savvy Tasker waits for user command
+2. User enters command to add a task according to some parameters <br>
+3. Savvy Tasker adds the task to a list of tasks <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. At least one parameter entered by user is invalid
+
+> 2a1. Savvy Tasker shows an error message <br>
+  Use case resumes at step 1
+
+#### Use case: Modify task
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to list tasks
+3. Savvy Tasker shows a list of tasks
+4. User requests to modify a certain attribute of a specific task in the list
+5. Savvy Tasker modifies the task and saves it in memory <br>
+Use case ends.
+
+**Extensions**
+
+3a. The list is empty
 
 > Use case ends
 
-3a. The given index is invalid
+4a. The given index is invalid
 
-> 3a1. Savvy Tasker shows an error message <br>
-  Use case resumes at step 2
+> 4a1. Savvy Tasker shows an error message <br>
+  Use case resumes at step 3
+
+4a. At least one attribute entered by user is invalid
+
+> 4a1. Savvy Tasker shows an error message <br>
+  Use case resumes at step 3
+
+#### Use case: Delete task
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to list tasks
+3. Savvy Tasker shows a list of tasks
+4. User requests to delete a specific task in the list
+5. Savvy Tasker deletes the task <br>
+Use case ends.
+
+**Extensions**
+
+3a. The list is empty
+
+> Use case ends
+
+4a. The given index is invalid
+
+> 4a1. Savvy Tasker shows an error message <br>
+  Use case resumes at step 3
 
 {More to be added}
 
@@ -339,3 +383,22 @@ Use case ends.
 
 {TODO: Add a summary of competing products}
 
+#### Competing product: Todo
+
+**Features**
+
+1. Auto prioritization
+2. Unlimited contexts
+3. Reminders
+4. Auto sync with iCal, Toodledo, Outlook, Todo Online
+
+#### Competing product: Remember The Milk
+
+**Features**
+
+1. Unlimited contexts
+2. Reminders
+3. Calendar tasks
+4. Auto sync with Gmail (Firefox plugin), Google Calendar, Twitter (direct integration), Atom/RSS, IM (feed)
+5. Email notifications, autoprocess
+6. API
