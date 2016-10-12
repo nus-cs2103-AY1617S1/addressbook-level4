@@ -19,6 +19,10 @@ public class TestTask implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
+    
+    public void setInterval(Interval interval) {
+        this.interval = interval;
+    }
 
     @Override
     public Name getName() {
@@ -43,6 +47,8 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
+        sb.append("from " + this.getInterval().startDate + " " + this.getInterval().startTime 
+                + " to " + this.getInterval().endDate + " " + this.getInterval().endTime);
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Interval(null, "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Interval(null, "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Interval(null, "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Interval(null, "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Interval(null, "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Interval(null, "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Interval(null, "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Interval(null, "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Interval(null, "7pm", "12 oct 2016", "8pm"), new UniqueTagList())
+                    new Task(new Name("Ali Muster"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
+                    new Task(new Name("George Best"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

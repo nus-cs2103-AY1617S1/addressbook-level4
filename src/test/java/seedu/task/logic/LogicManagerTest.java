@@ -165,10 +165,7 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
+                "add [];'() from 15 oct 2016 6pm to 16 oct 2016 12pm", Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
@@ -182,26 +179,6 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
-
-    }
-
-    @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
-        expectedAB.addTask(toBeAdded);
-
-        // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
-
-        // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -382,11 +359,9 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Interval interval = new Interval(null, "7pm", "12 oct 2016", "8pm");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            Name name = new Name("Dinner");
+            Interval interval = new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm");
+            UniqueTagList tags = new UniqueTagList();
             return new Task(name, interval, tags);
         }
 
@@ -400,7 +375,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Interval(null, seed + "pm", seed + " oct 2016", (seed + 1) + "pm"),
+                    new Interval(seed + " oct 2016", seed + "pm", seed + " oct 2016", (seed + 1) + "pm"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -410,9 +385,11 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
-
             cmd.append(p.getName().toString());
-
+            cmd.append(" from ");
+            cmd.append(p.getInterval().startDate + " " + p.getInterval().startTime);
+            cmd.append(" to ");
+            cmd.append(p.getInterval().endDate + " " + p.getInterval().endTime);
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
@@ -494,7 +471,7 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Interval(null, "3pm", "21 oct 2016", "4pm"),
+                    new Interval("21 oct 2016", "3pm", "21 oct 2016", "4pm"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
