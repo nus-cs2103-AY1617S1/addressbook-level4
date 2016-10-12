@@ -20,6 +20,7 @@ public class UndoCommand extends Command {
 
 	public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo: Adding of new task: %1$s";
 	public static final String MESSAGE_UNDO_DELETE_SUCCESS = "Undo: Deleting task: %1$s";
+	   public static final String MESSAGE_UNDO_EDIT_SUCCESS = "Undo: Editting task from: %1$s, to: %1$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Lifekeeper";
 
 	@Override
@@ -35,6 +36,9 @@ public class UndoCommand extends Command {
 
 			case DeleteCommand.COMMAND_WORD:
 				return undoDelete(toUndo);
+				
+            case EditCommand.COMMAND_WORD:
+                return undoEdit(toUndo);
 			}
 
 		} else {
@@ -47,7 +51,7 @@ public class UndoCommand extends Command {
 	 * Undo Add command which was previously called
 	 */
 	private CommandResult undoAdd(PreviousCommand toUndo) {
-		Task taskToDelete = toUndo.getTask();
+		Task taskToDelete = toUndo.getUpdatedTask();
 
 		try {
 			model.deleteTask(taskToDelete);
@@ -62,7 +66,7 @@ public class UndoCommand extends Command {
 	 * Undo Delete command which was previously called
 	 */
 	private CommandResult undoDelete(PreviousCommand toUndo) {
-		Task taskToAdd = toUndo.getTask();
+		Task taskToAdd = toUndo.getUpdatedTask();
 
 		try {
 			model.addTask(taskToAdd);
@@ -74,4 +78,23 @@ public class UndoCommand extends Command {
 		return new CommandResult(String.format(MESSAGE_UNDO_DELETE_SUCCESS, taskToAdd));
 	}
 
+	/**
+     * Undo Edit command which was previously called
+     */
+    private CommandResult undoEdit(PreviousCommand toUndo) {
+        Task taskToEdit = toUndo.getUpdatedTask();
+        Task edittedTask = toUndo.getOldTask();
+
+        try {
+            model.editTask(taskToEdit,edittedTask);
+            
+        } catch (TaskNotFoundException tnfe) {
+            assert false : "The target task to be edited cannot be missing";
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        }
+
+        return new CommandResult(String.format(MESSAGE_UNDO_EDIT_SUCCESS, edittedTask, taskToEdit));
+    }
+	
 }

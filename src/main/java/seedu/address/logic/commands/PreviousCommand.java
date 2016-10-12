@@ -14,19 +14,22 @@ import seedu.address.model.task.TaskName;
 public class PreviousCommand {
 
 	public String COMMAND_WORD;
-	public Task Task;
+	public Task updatedTask;
+	public Task oldTask;
 
 	
 	public PreviousCommand(String command, Task task)
 	{
 		COMMAND_WORD = command;
-		Task = task;
+		updatedTask = task;
+		oldTask = null;
 	}
 	
 	public PreviousCommand(String command, ReadOnlyTask task) {
 		COMMAND_WORD = command;
+		oldTask = null;
 		try {
-		Task = new Task(
+		updatedTask = new Task(
                 new TaskName(task.getName().toString()),
                 new DueDate(task.getDueDate().toString()),
                 new Priority(task.getPriority().toString()),
@@ -37,14 +40,38 @@ public class PreviousCommand {
 			assert false: "Strings have to be all valid to be added in the first place";
 		}
 	}
+	
+	public PreviousCommand(String command, ReadOnlyTask originalTask, Task editedTask) {
+        COMMAND_WORD = command;
+        updatedTask = editedTask;
+        try {
+        oldTask = new Task(
+                new TaskName(originalTask.getName().toString()),
+                new DueDate(originalTask.getDueDate().toString()),
+                new Priority(originalTask.getPriority().toString()),
+                new Reminder(originalTask.getReminder().toString()),
+                new UniqueTagList(originalTask.getTags())
+        );
+        } catch (IllegalValueException ive) {
+            assert false: "Strings have to be all valid to be added in the first place";
+        }
+	
+	}
 
 	public String getCommand()
 	{
 		return COMMAND_WORD;
 	}
 	
-	public Task getTask()
+	public Task getUpdatedTask()
 	{
-		return Task;
+		return updatedTask;
 	}
+	  
+	public Task getOldTask()
+	{
+	    return oldTask;
+    }
+	   
+	
 }

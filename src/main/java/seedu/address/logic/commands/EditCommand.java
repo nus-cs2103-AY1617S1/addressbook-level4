@@ -24,7 +24,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the indexed task from Lifekeeper. \n"
             + "Parameters: INDEX (must be a positive integer) [n/TASK_NAME] [c/CATEGORY] [d/DEADLINE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + "1 CS2103 T8A2 d/15-10-2016 p/3 r/12-01-2016 t/CS t/project";
+            + " 1 n/CS2103 T8A2 d/15-10-2016 p/3 r/12-01-2016 t/CS t/project";
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     
@@ -69,6 +69,10 @@ public class EditCommand extends Command {
 
         try {
             model.editTask(taskToEdit, newParams);
+            
+            PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD,taskToEdit,newParams);
+            PreviousCommandsStack.push(editCommand);
+            
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task to be edited cannot be missing";
         } catch (DuplicateTaskException dte) {
