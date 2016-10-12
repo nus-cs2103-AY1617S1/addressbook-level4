@@ -18,15 +18,16 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the item identified by the index number used in the last item listing.\n"
-            + "Parameters: INDEX (must be a positive integer)" 
-            + " n/[NAME]"
-            + " sd/[START_DATE]"
-            + " st/[START_TIME]"
-            + " ed/[END_DATE]"
-            + " et/[END_TIME]"
-            + " (at least one field must be specifed)"
-            + "\n" + "Example: " + COMMAND_WORD + " 1" + " n/buy milk";
+                                               + ": Edits the item identified by the index number used in the last item listing.\n"
+                                               + "Editable parameters are restricted to those the item was created with. \n"
+                                               + "Parameters: INDEX (must be a positive integer)" 
+                                               + " n/[NAME]"
+                                               + " sd/[START_DATE]"
+                                               + " st/[START_TIME]"
+                                               + " ed/[END_DATE]"
+                                               + " et/[END_TIME]"
+                                               + " (at least one parameter must be specifed)"
+                                               + "\n" + "Example: " + COMMAND_WORD + " 1" + " n/buy milk";
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited %1$s";
     
