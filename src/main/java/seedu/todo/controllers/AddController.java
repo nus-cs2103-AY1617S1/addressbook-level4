@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import com.joestelmach.natty.*;
 
+import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
@@ -23,7 +24,17 @@ public class AddController implements Controller {
     public void process(String args) {
         // TODO: Example of last minute work
         
-        args = args.replaceFirst("add", "");
+        args = args.replaceFirst("add", "").trim();
+        
+        // Task or event
+        boolean isTask = true; // Default to task.
+        if (args.startsWith("task")) {
+            isTask = true;
+            args = args.replaceFirst("task", "").trim();
+        } else if (args.startsWith("event")) {
+            isTask = false;
+            args = args.replaceFirst("event", "").trim();
+        }
         
         // Parse name and date.
         String[] splitted = args.split("( at | by )", 2);
@@ -36,12 +47,20 @@ public class AddController implements Controller {
         Date date = groups.get(0).getDates().get(0);
         LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         
-        // Create and persist task.
+        // Create and persist task / event.
         TodoListDB db = TodoListDB.getInstance();
-        Task newTask = db.createTask();
-        newTask.setName(name);
-        newTask.setCalendarDT(ldt);
-        db.save();
+        if (isTask = true) {
+            Task newTask = db.createTask();
+            newTask.setName(name);
+            newTask.setDueDate(ldt);
+            db.save();
+        } else {
+            Event newEvent = db.createEvent();
+            newEvent.setName(name);
+            newEvent.setStartDate(ldt);
+            newEvent.setEndDate(ldt); // TODO
+            db.save();
+        }
         
         // Re-render
         IndexView view = UiManager.loadView(IndexView.class);
