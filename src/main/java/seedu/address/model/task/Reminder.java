@@ -31,7 +31,7 @@ public class Reminder {
      * Returns true if a given string is a valid task reminder.
      */
     public static boolean isValidReminder(String test) {
-        return test.matches(REMINDER_VALIDATION_REGEX);
+        return test.matches(REMINDER_VALIDATION_REGEX)|| test == "";
     }
 
     @Override

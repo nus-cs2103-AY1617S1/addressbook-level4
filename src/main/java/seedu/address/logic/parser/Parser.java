@@ -28,9 +28,9 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<task>[^/]+)"
-                    + " (?<isDuedatePrivate>p?)d/(?<duedate>[^/]+)"
+                    + "(?<isDuedatePrivate>p?)(?<duedate>(?: d/[^/]+)?)"
                     + "(?<isPriorityPrivate>p?)(?<priority>(?: p/[^/]+)?)"
-                    + " (?<isReminderPrivate>p?)r/(?<reminder>[^/]+)"
+                    + "(?<isReminderPrivate>p?)(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern PERSON_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -108,9 +108,9 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("task"),
-                    matcher.group("duedate"),
-                    getPriority(matcher.group("priority")),
-                    matcher.group("reminder"),
+                    getElement(matcher.group("duedate")," d/"),
+                    getElement(matcher.group("priority")," p/"),
+                    getElement(matcher.group("reminder")," r/"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
@@ -133,15 +133,15 @@ public class Parser {
     }   
     
     /**
-     * Extracts the new task's priority from the add command's priority string.
+     * Extracts the new task's element (e.g. DueDate, Priority) from the add command's argument string.
      */
-    private static String getPriority(String priority) {
+    private static String getElement(String argument, String prefix) {
         // no priority
-        if (priority.isEmpty()) {
+        if (argument.isEmpty()) {
             return "";
         }
         // replace first delimiter prefix, then return
-        String priorityValue = priority.replaceFirst(" p/", "");
+        String priorityValue = argument.replaceFirst(prefix, "");
         return priorityValue;
     }   
     

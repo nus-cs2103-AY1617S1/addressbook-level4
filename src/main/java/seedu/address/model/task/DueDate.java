@@ -31,7 +31,7 @@ public class DueDate {
      * Returns true if a given string is a valid person phone number.
      */
     public static boolean isValidDueDate(String test) {
-        return test.matches(DUEDATE_VALIDATION_REGEX);
+        return test.matches(DUEDATE_VALIDATION_REGEX)|| test == "";
     }
 
     @Override
