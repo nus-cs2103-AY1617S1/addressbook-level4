@@ -5,6 +5,9 @@ import javafx.collections.ObservableList;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import harmony.mastermind.logic.commands.FindCommand;
+import harmony.mastermind.logic.parser.ParserSearch;
+import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ArchiveTaskList;
@@ -202,5 +205,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
+    }
+
+    public void searchTask(String keyword, Memory memory) {
+        ParserSearch.run(keyword, memory);
+        
     }
 }

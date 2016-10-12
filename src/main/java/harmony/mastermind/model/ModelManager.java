@@ -13,6 +13,7 @@ import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.Command;
+import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
@@ -128,6 +129,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    private void searchTask(String keyword, Memory memory) { 
+        taskManager.searchTask(keyword, memory);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
