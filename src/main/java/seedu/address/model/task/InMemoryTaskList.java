@@ -47,8 +47,10 @@ public interface InMemoryTaskList {
 	 */
 	void deleteAlias(Alias toRemove) throws ItemNotFoundException;
 	
+	/*
+	 * Gets the list of alias
+	 */
 	UnmodifiableObservableList<Alias> getAlias();
-
 
 	
 	

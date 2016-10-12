@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import seedu.address.commons.collections.UniqueItemCollection;
-
 /*
  * A one-word alias for any sentence to be used as a command
  */
@@ -29,7 +27,7 @@ public class Alias {
 	@Override
 	public String toString() {
 		String s = new String(shortcut);
-		s.concat(sentence);
+		s = s.concat(sentence);
 		return s;
 	}
 	

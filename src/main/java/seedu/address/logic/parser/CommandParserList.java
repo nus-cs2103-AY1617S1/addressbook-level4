@@ -5,8 +5,12 @@ package seedu.address.logic.parser;
  */
 public class CommandParserList {
 	public static Class<?>[] getList(){
+	    
 		return new Class[]{AddCommandParser.class, DeleteCommandParser.class, FindCommandParser.class, 
-		        AliasCommandParser.class,
+		        AddAliasCommandParser.class,
+		        DeleteAliasCommandParser.class,
+		        IncorrectCommandParser.class,
 		        ListCommandParser.class};
+
 	}
 }

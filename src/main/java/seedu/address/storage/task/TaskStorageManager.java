@@ -113,7 +113,6 @@ public class TaskStorageManager extends ComponentManager implements TaskStorage 
     @Override
     public Optional<UniqueItemCollection<Alias>> readAlias(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        System.out.println("Attempt system read");
         return aliasStorage.readAlias(filePath);
     }
 

@@ -3,7 +3,6 @@ package seedu.address.storage.alias;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Alias;
-import seedu.address.model.task.Task;
 
 import java.io.IOException;
 import java.util.Optional;
