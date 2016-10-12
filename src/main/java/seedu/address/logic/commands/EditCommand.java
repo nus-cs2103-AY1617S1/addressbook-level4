@@ -21,10 +21,10 @@ public class EditCommand extends Command {
     
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the selected task from Lifekeeper. Irreversible. "
-            + "Parameters: INDEX (must be a positive integer) [n/TASK_NAME] [c/CATEGORY] [d/DEADLINE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...\n";
-            /*+ "Example: " + COMMAND_WORD
-            + " CS2103 T7A1 d/06-10-2016 p/1 r/05-01-2016 t/CS t/groupwork";*/
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the indexed task from Lifekeeper. \n"
+            + "Parameters: INDEX (must be a positive integer) [n/TASK_NAME] [c/CATEGORY] [d/DEADLINE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...\n"
+            + "Example: " + COMMAND_WORD
+            + "1 CS2103 T8A2 d/15-10-2016 p/3 r/12-01-2016 t/CS t/project";
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     
