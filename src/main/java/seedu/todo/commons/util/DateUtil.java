@@ -31,6 +31,9 @@ public class DateUtil {
      * @return           "Floored" LocalDateTime.
      */
     public static LocalDateTime floorDate(LocalDateTime dateTime) {
+        if (dateTime == null)
+            return null;
+        
         return dateTime.toLocalDate().atTime(0, 0);
     }
 
