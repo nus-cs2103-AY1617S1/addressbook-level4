@@ -68,7 +68,7 @@ public class EditCommand extends Command {
         try {
             toCopy.setTags(personToEdit.getTags());
             model.editTask(personToEdit, toCopy);
-            CommandHistory.addMutateCmd(new Undo(COMMAND_WORD, targetIndex, (Task)lastShownList.get(targetIndex - 1)));
+            CommandHistory.addMutateCmd(new Undo(COMMAND_WORD, targetIndex, (Task)personToEdit));
         } catch (DuplicateTaskException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
