@@ -4,6 +4,7 @@ import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -93,12 +94,11 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
+        	// TODO change
             return new AddCommand(
                     matcher.group("name"),
                     matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    matcher.group("email")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

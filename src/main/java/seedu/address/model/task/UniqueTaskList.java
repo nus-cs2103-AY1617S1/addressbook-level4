@@ -88,7 +88,10 @@ public class UniqueTaskList implements Iterable<Task> {
 		try {
 			stub = new Task(
 			        new Name("Travis"),
+			        new TaskType("someday"),
 			        new Status("not done"),
+			        Optional.empty(),
+			        Optional.empty(),
 			        new UniqueTagList()
 			);
 		} catch (IllegalValueException e) {

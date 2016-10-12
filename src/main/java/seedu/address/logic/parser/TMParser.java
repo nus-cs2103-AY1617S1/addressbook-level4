@@ -198,7 +198,7 @@ public class TMParser {
 
 		// TODO format date properly
 		try {
-			return new TMAddCommand(taskName, date + startTime, date + endTime);
+			return new AddCommand(taskName, date + startTime, date + endTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
@@ -240,7 +240,7 @@ public class TMParser {
 
 		// TODO format date properly
 		try {
-			return new TMAddCommand(taskName, date + time);
+			return new AddCommand(taskName, date + time);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
@@ -257,7 +257,7 @@ public class TMParser {
 
 		// TODO format date properly
 		try {
-			return new TMAddCommand(taskName);
+			return new AddCommand(taskName);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
