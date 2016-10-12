@@ -100,7 +100,8 @@ public class DateUtil {
 		String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
 		
     	for (String token : tokens) {
-    		if (token.equals(day)) {
+    		// Removes any 1st/2nd/3rd etc from the date input
+    		if (token.replaceAll("st|nd|rd|th", "").equals(day)) {
     			return date;
     		}
     	}

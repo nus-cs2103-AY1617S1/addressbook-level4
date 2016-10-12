@@ -128,6 +128,10 @@ public class DateUtilTest {
 		
 		dateString = "October 1 2016";
 		assertEquals(date, DateUtil.validateDateIsSensible(date, dateString));
+		
+		dateString = "October 1st 2016";
+		assertEquals(date, DateUtil.validateDateIsSensible(date, dateString));
+		
 	}
 	
 	@Test
