@@ -30,7 +30,7 @@ public class Emeraldo implements ReadOnlyEmeraldo {
      * Persons and Tags are copied into this task manager
      */
     public Emeraldo(ReadOnlyEmeraldo toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
@@ -64,7 +64,7 @@ public class Emeraldo implements ReadOnlyEmeraldo {
     }
 
     public void resetData(ReadOnlyEmeraldo newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTagList());
     }
 
 //// person-level operations
@@ -127,7 +127,7 @@ public class Emeraldo implements ReadOnlyEmeraldo {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 
@@ -137,7 +137,7 @@ public class Emeraldo implements ReadOnlyEmeraldo {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
+    public UniquePersonList getUniqueTaskList() {
         return this.tasks;
     }
 

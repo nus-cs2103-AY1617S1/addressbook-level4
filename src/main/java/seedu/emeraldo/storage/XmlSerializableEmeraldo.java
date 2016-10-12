@@ -39,7 +39,7 @@ public class XmlSerializableEmeraldo implements ReadOnlyEmeraldo {
      * Conversion
      */
     public XmlSerializableEmeraldo(ReadOnlyEmeraldo src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -55,7 +55,7 @@ public class XmlSerializableEmeraldo implements ReadOnlyEmeraldo {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
+    public UniquePersonList getUniqueTaskList() {
         UniquePersonList lists = new UniquePersonList();
         for (XmlAdaptedPerson p : persons) {
             try {
@@ -68,7 +68,7 @@ public class XmlSerializableEmeraldo implements ReadOnlyEmeraldo {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();
