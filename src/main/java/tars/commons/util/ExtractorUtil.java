@@ -66,15 +66,15 @@ public class ExtractorUtil {
      * 
      * @@author A0139924W
      */
-    public static HashMap<Flag, String> getArguments(String args, Flag[] prefixes, TreeMap<Integer, Flag> flagsPosMap) {
+    public static HashMap<Flag, String> getArguments(String args, Flag[] flags, TreeMap<Integer, Flag> flagsPosMap) {
         HashMap<Flag, String> flagsValueMap = new HashMap<Flag, String>();
 
-        if (args != null && args.length() > 0 && prefixes.length > 0 && flagsPosMap.size() > 0) {
+        if (args != null && args.length() > 0 && flags.length > 0) {
             args = args.trim();
 
             // initialize the flagsValueMap
-            for (int i = 0; i < prefixes.length; i++) {
-                flagsValueMap.put(prefixes[i], "");
+            for (int i = 0; i < flags.length; i++) {
+                flagsValueMap.put(flags[i], "");
             }
 
             int endPos = args.length();
