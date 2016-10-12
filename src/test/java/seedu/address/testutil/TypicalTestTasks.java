@@ -10,11 +10,12 @@ import seedu.address.model.person.TaskList.DuplicateTaskException;
  */
 public class TypicalTestTasks {
 
-    public static TestTask hello, meeting, assignment, tutorial, dinner, happy, haloween;
+    public static TestTask hello, hello2, meeting, assignment, tutorial, dinner, happy, haloween;
 
     public TypicalTestTasks() {
         try {
             hello =  new TaskBuilder().withTaskName("Hello Task").build();
+            hello2 =  new TaskBuilder().withTaskName("Hello Task").build();
             meeting =  new TaskBuilder().withTaskName("Meeting Task").build();
             assignment =  new TaskBuilder().withTaskName("Assignment Task").build();
             tutorial =  new TaskBuilder().withTaskName("Tutorial Task").build();
@@ -33,6 +34,7 @@ public class TypicalTestTasks {
 
         try {
             st.addTask(new Task(hello));
+            st.addTask(new Task(hello2));
             st.addTask(new Task(meeting));
             st.addTask(new Task(assignment));
             st.addTask(new Task(tutorial));
@@ -43,7 +45,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{hello, meeting, assignment, tutorial, dinner};
+        return new TestTask[]{hello, hello2, meeting, assignment, tutorial, dinner};
     }
 
     public SavvyTasker getTypicalSavvyTasker(){

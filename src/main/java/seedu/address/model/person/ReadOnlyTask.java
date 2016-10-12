@@ -25,7 +25,7 @@ public interface ReadOnlyTask {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-        return false; // no constraints on duplicate tasks
+        return getTaskName().equals(other.getTaskName()); // no constraints on duplicate tasks
     }
 
     /**

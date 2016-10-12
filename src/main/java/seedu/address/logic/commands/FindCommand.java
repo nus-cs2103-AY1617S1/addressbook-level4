@@ -11,6 +11,7 @@ import seedu.address.logic.commands.models.FindCommandModel;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_FORMAT = "find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"

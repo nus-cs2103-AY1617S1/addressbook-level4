@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<savvytasker>
+    <tasks>
+        <taskName>Hello World</taskName>
+        <numberOfRecurrence>0</numberOfRecurrence>
+        <description>A test description</description>
+    </tasks>
+    <tasks>
+        <taskName>Hello</taskName>
+        <startDateTime>277387621-03-16T04:42:25.152+08:00</startDateTime>
+        <endDateTime>277387608-03-17T04:42:25.152+08:00</endDateTime>
+        <numberOfRecurrence>0</numberOfRecurrence>
+        <description>I have a date</description>
+    </tasks>
+    <tasks>
+        <taskName>new task</taskName>
+        <numberOfRecurrence>0</numberOfRecurrence>
+    </tasks>
+</savvytasker>

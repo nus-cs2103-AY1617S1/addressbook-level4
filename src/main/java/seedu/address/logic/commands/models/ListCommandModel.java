@@ -1,21 +1,23 @@
 package seedu.address.logic.commands.models;
 
+import seedu.address.model.task.ListType;
+
 /**
  * Represents a model for use with the list command.
  */
 public class ListCommandModel extends CommandModel {
     
-    private String listType;
+    private ListType listType;
     
-    public ListCommandModel(String listType) {
+    public ListCommandModel(ListType listType) {
         this.listType = listType;
     }
     
-    public String getTargetIndex() {
+    public ListType getTargetIndex() {
         return listType;
     }
 
-    public void setListType(String listType) {
+    public void setListType(ListType listType) {
         this.listType = listType;
     }
 }

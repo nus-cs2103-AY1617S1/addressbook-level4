@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.models.DeleteCommandModel;
 
 public class DeleteCommandParser extends CommandParser<DeleteCommand> {
     private static final String HEADER = "delete";
@@ -30,8 +31,10 @@ public class DeleteCommandParser extends CommandParser<DeleteCommand> {
     protected DeleteCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            parseIndices(matcher.group(REGEX_REF_INDICES));
+            int[] indices = parseIndices(matcher.group(REGEX_REF_INDICES));
             // TODO: Create DeleteCommand
+            
+            return new DeleteCommand(new DeleteCommandModel(indices));
         }
 
         throw new ParseException(commandText, String.format(

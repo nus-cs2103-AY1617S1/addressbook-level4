@@ -9,7 +9,7 @@ import seedu.address.model.person.ReadOnlyTask;
  * Provides a handle to a person card in the person list panel.
  */
 public class TaskCardHandle extends GuiHandle {
-    private static final String TASKNAME_FIELD_ID = "#name";
+    private static final String TASKNAME_FIELD_ID = "#taskName";
 
     private Node node;
 

@@ -14,6 +14,7 @@ import seedu.address.model.person.TaskList.TaskNotFoundException;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_FORMAT = "delete INDEX [MORE_INDEX]";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the tasks identified by the index number used in the last task listing.\n"
@@ -37,7 +38,7 @@ public class DeleteCommand extends Command {
 
         LinkedList<ReadOnlyTask> tasksToDelete = new LinkedList<ReadOnlyTask>();
         for(int targetIndex : commandModel.getTargetIndex()) {
-            if (lastShownList.size() < targetIndex) {
+            if (lastShownList.size() < targetIndex || targetIndex <= 0) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }

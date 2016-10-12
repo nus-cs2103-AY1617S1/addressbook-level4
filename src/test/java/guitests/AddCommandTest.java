@@ -25,11 +25,6 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add duplicate person
-        commandBox.runCommand(td.hello.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
-
         //add to empty list
         commandBox.runCommand("clear");
         assertAddSuccess(td.hello);

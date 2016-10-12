@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.commands.models.ListCommandModel;
 
 /**
  * Lists all persons in the address book to the user.
@@ -15,7 +16,12 @@ public class ListCommand extends Command {
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
-    public ListCommand() {}
+    private final ListCommandModel commandModel;
+    
+    public ListCommand(ListCommandModel commandModel) {
+        assert commandModel != null;
+        this.commandModel = commandModel;
+    }
 
     @Override
     public CommandResult execute() {

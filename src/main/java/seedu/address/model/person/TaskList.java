@@ -115,8 +115,7 @@ public class TaskList implements Iterable<Task> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskList // instanceof handles nulls
-                && this.internalList.equals(
-                ((TaskList) other).internalList));
+                && this.internalList.equals( ((TaskList) other).internalList));
     }
 
     @Override

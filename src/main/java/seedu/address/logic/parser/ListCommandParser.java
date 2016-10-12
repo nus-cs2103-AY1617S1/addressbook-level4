@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.models.ListCommandModel;
 import seedu.address.model.task.ListType;
 
 public class ListCommandParser extends CommandParser<ListCommand> {
@@ -31,8 +32,9 @@ public class ListCommandParser extends CommandParser<ListCommand> {
     protected ListCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            parseListType(matcher.group(REGEX_REF_LIST_TYPE));
+            ListType listType = parseListType(matcher.group(REGEX_REF_LIST_TYPE));
             // TODO: return ListCommand
+            return new ListCommand(new ListCommandModel(listType));
         }
         
         throw new ParseException(commandText, String.format(
