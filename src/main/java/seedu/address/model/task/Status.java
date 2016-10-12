@@ -19,17 +19,17 @@ public class Status {
 	
 	public DoneStatus value;
 	
-	public Status() {
-		value = DoneStatus.NOT_DONE;
+	public Status(DoneStatus status) {
+		value = status;
 	}
 
 	
-	public DoneStatus fromString(String string) {
+	public Status(String string) {
 		switch (string.trim().toLowerCase()) {
 		case "done":
-			return DoneStatus.DONE;
+			value = DoneStatus.DONE;
 		case "not done":
-			return DoneStatus.NOT_DONE;
+			value = DoneStatus.NOT_DONE;
 		default:
 			throw new IllegalArgumentException("Invalid string input");
 		}
