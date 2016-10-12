@@ -20,7 +20,7 @@ This guide describes the design and implementation of TasKitty. It will help you
 
 ## Setting up
 
-#### Prerequisites
+### Prerequisites
 
 1. **JDK `1.8.0_60`**  or later<br>
 
@@ -33,7 +33,7 @@ This guide describes the design and implementation of TasKitty. It will help you
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 
-#### Importing the project into Eclipse
+### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
 1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
@@ -45,7 +45,7 @@ This guide describes the design and implementation of TasKitty. It will help you
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
+      (This is because Gradle downloads library files from servers during the project set up process).
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 ## Design
@@ -56,36 +56,36 @@ This guide describes the design and implementation of TasKitty. It will help you
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/taskitty/MainApp.java). It is responsible for,
+* initializing the components in the correct sequence, and connecting them with each other at app launch.
+* shutting down the components and invoking the cleanup method where necessary at shut down.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design).
+* `LogsCenter` : This class is used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
+* [**`UI`**](#ui-component) : Handles UI.
+* [**`Logic`**](#logic-component) : Executes commands.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its _API_ in an `interface` with the same name as the component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -102,16 +102,15 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/taskitty/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+* The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+* The `UI` component uses JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
- [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/taskitty/ui/MainWindow.java) is specified in
+ [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml).
 
 The `UI` component,
 * Executes user commands using the `Logic` component.
@@ -122,27 +121,27 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/taskitty/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+* `Logic` uses the `Parser` class to parse the user command.
+* This results in a `Command` object which is executed by the `LogicManager`.
+* The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+* The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeleteTaskSDForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/taskitty/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* stores the Task Manager data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -150,15 +149,15 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/taskitty/storage/Storage.java)
 
 The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Taskitty data in xml format and read it back.
+* saves `UserPref` objects in json format and reads it back.
+* saves the Task Manager data in xml format and reads it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.taskitty.commons` package.
 
 ## Implementation
 
@@ -209,14 +208,14 @@ We have two types of tests:
    These are in the `guitests` package.
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   1. _Unit tests_ that target the lowest level methods/classes. <br>
+      e.g. `seedu.taskitty.commons.UrlUtilTest`
+   2. _Integration tests_ that check the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+      e.g. `seedu.taskitty.storage.StorageManagerTest`
+   3. _Hybrids of unit and integration tests_ that check multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.taskitty.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -242,12 +241,12 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Task Manager depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -267,12 +266,13 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add new tasks with start and end time | keep track of tasks with start time and end time
 `* * *` | user | view all tasks today | keep track of my agenda for today
 `* * *` | user | view all tasks for a specific date | keep track of my tasks
+`* * *` | user | view all completed tasks | remember what I have completed
 `* * *` | user | find a task using keywords | find a specific task easily
 `* * *` | user | edit a task | update the details of specific tasks
 `* * *` | user | edit deadline/event timeslot | track the changes in my schedule accordingly
 `* * *` | user | delete a task | remove a task that is no longer required to be done
 `* * *` | user | undo the latest action | undo accidental mistakes
-`* * *` | user | mark a task as done | remember what I have completed
+`* * *` | user | mark a task as done | record what I have completed
 `* * *` | user | store all tasks in a file | share and sync the file on different computers
 `* *` | user | enter commands in any format | insert tasks more intuitively according to my own style
 
@@ -287,7 +287,7 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User creates new task with only name
-2. Program saves the task with given name as a todo
+2. Program saves the task with given name as a todo<br>
 Use case ends
 
 **Extensions**
@@ -395,6 +395,21 @@ Use case ends
 2b. There are neither deadlines before nor on the specified date
 
 > 2b1. Program returns a message, saying there are neither tasks due before nor on the specified date<br>
+  Use case ends
+  
+#### Use case: View completed tasks
+
+**MSS**
+
+1. User requests to view all completed tasks
+2. Program shows the list of completed todo tasks<br>
+Use case ends
+
+**Extensions**
+
+2a. There are no completed tasks
+
+> 2a1. Program returns a message, saying there are no completed tasks<br>
   Use case ends
   
 #### Use case: Find a specific task
@@ -521,25 +536,21 @@ Use case ends
 3. Should work stand-alone.
 4. Should not use relational databases.
 5. Should work without requiring an installer.
-6. Should be able to hold up to 1000 events.
-7. Should come with automated unit tests and open source code.
-8. Should favor DOS style commands over Unix-style commands.
-9. Should react to every command within 0.5 seconds.
-10. Should automatically remove tasks that are 3 months old.
-11. Should be able to create tasks as far into the future as the user requires.
-12. Should have intuitive commands for users.
-13. Should store data in a human editable file
+6. Should come with automated unit tests and open source code.
+7. Should favor DOS style commands over Unix-style commands.
+8. Should react to every command within 0.5 seconds.
+9. Should be able to create tasks as far into the future as the user requires.
+10. Should have intuitive commands for users.
+11. Should store data in a human editable file
 
 {More to be added}
 
 ## Appendix D : Glossary
 
-##### Mainstream OS
-
+#### Mainstream OS
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
+#### Private contact detail
 > A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
@@ -626,7 +637,7 @@ Use case ends
 **Cons**
 
 * Details have to be filled individually into the respective categories. There is no option to type everything in one line and the relevant sections will be filled up automatically.
-* There is no way to mark an item as done
+* There is no way to mark an item as done.
 * There is no automatic way to block of timings. An actual event has to be created and deleted should the event is not happening anymore.
 
 
