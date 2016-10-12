@@ -1,7 +1,6 @@
 package seedu.todo.logic.commands;
 
-import static org.junit.Assert.*;
-
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
@@ -12,57 +11,39 @@ import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 public class BaseCommandTest extends CommandTest {
-    private class MockCommand extends BaseCommand {
-        private Argument<String> required = new StringArgument("required").required();
-        
-        private Argument<Boolean> flag = new FlagArgument("flag")
-                .flag("f");
-        
-        private Argument<Integer> integer = new IntArgument("int")
-                .flag("i");
-        
-        private Argument<String> string = new StringArgument("string")
-                .flag("s");
-
-        @Override
-        protected Parameter[] getArguments() {
-            return new Parameter[]{ required, flag, integer, string };
-        }
-
-        @Override
-        public CommandResult execute() throws IllegalValueException {
-            // Does nothing
-            return null;
-        }
-        
-        public void accessInvalidIndex() throws IllegalValueException {
-            getTaskAt(100);
-        }
-        
-        public boolean getFlag() {
-            return flag.getValue();
-        }
-        
-        public int getInteger() {
-            return integer.getValue();
-        }
-        
-        public String getString() {
-            return string.getValue();
-        }
-    }
+    private Argument<String> requiredArgument = mock(StringArgument.class);
+    private Argument<Boolean> flagArgument = mock(FlagArgument.class);
+    private Argument<Integer> intArgument = mock(IntArgument.class);
+    private Argument<String> stringArgument = mock(StringArgument.class);
     
-    private MockCommand testCommand;
+    private StubCommand testCommand;
 
     @Override
     protected BaseCommand commandUnderTest() {
-        this.testCommand = new MockCommand(); 
+        this.testCommand = new StubCommand(); 
         return this.testCommand;
     }
     
+    @Before
+    public void setUp() throws Exception {
+        when(requiredArgument.isPositional()).thenReturn(true);
+        
+        when(flagArgument.isOptional()).thenReturn(true);
+        when(flagArgument.getFlag()).thenReturn("f");
+        
+        when(intArgument.isOptional()).thenReturn(true);
+        when(intArgument.getFlag()).thenReturn("i");
+        
+        when(stringArgument.isOptional()).thenReturn(true);
+        when(stringArgument.getFlag()).thenReturn("s");
+    }
+    
     @Test
-    public void testSetParameter() throws IllegalValueException, ValidationException {
+    public void testSetParameter() throws Exception {
         this.setParameter("required")
             .setParameter("f", "")
             .setParameter("i", "20")
@@ -70,21 +51,68 @@ public class BaseCommandTest extends CommandTest {
         
         execute();
         
-        assertEquals(20, testCommand.getInteger());
-        assertEquals("Hello World", testCommand.getString());
-        assertTrue(testCommand.getFlag());
+        verify(requiredArgument).setValue("required");
+        verify(flagArgument).setValue("");
+        verify(intArgument).setValue("20");
+        verify(stringArgument).setValue("Hello World");
+    }
+    
+    @Test
+    public void testCustomArgumentError() throws Exception {
+        command = new CommandWithOverrideMethods();
+        boolean exceptionThrown = false; 
+        
+        try {
+            execute();
+        } catch (ValidationException e) {
+            exceptionThrown = true;
+            assertEquals("Test error message", e.getMessage());
+            assertTrue(e.getErrors().getNonFieldErrors().contains("Test error"));
+        }
+        
+        assertTrue(exceptionThrown);
     }
 
     @Test(expected=ValidationException.class)
-    public void testMissingRequiredArgument() throws IllegalValueException, ValidationException {
+    public void testMissingRequiredArgument() throws Exception {
+        IllegalValueException e = mock(IllegalValueException.class);
+        doThrow(e).when(requiredArgument).checkRequired();
+        
         execute();
     }
     
     @Test(expected=IllegalValueException.class)
-    public void testInvalidGetTaskAt() throws IllegalValueException, ValidationException {
-        this.setParameter("required");
+    public void testInvalidGetTaskAt() throws Exception {
         execute();
         testCommand.accessInvalidIndex();
     }
 
+    private class StubCommand extends BaseCommand {
+        @Override
+        protected Parameter[] getArguments() {
+            return new Parameter[]{ requiredArgument, flagArgument, intArgument, stringArgument };
+        }
+
+        @Override
+        public CommandResult execute() throws IllegalValueException {
+            // Does nothing
+            return null;
+        }
+
+        public void accessInvalidIndex() throws IllegalValueException {
+            getTaskAt(100);
+        }
+    }
+    
+    private class CommandWithOverrideMethods extends StubCommand {
+        @Override
+        protected String getArgumentErrorMessage() {
+            return "Test error message";
+        }
+
+        @Override
+        protected void validateArguments() {
+            errors.put("Test error");
+        }
+    }
 }
