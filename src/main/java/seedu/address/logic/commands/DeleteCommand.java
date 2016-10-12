@@ -68,7 +68,7 @@ public class DeleteCommand extends Command {
                     assert false : "The target item cannot be missing";
                 }
             }
-            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems.toString()));
+            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
         }
         else {
             UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredPersonList();
