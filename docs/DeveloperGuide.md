@@ -262,6 +262,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | update a task | account for the possibility of change
 `* * *` | user | undo the last operation | go back to the previous version
 `* * *` | user | mark tasks as "finished" | view all completed tasks
+`* * *` | user | unmark finsihed tasks | change status of tasks
 `* *` | user | group tasks into similar categories | organise them well
 `* *` | user | view tasks by categories |
 `*` | user with many tasks in the to-do list | sort tasks by name | locate a task easily
