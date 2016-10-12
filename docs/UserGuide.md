@@ -140,12 +140,12 @@ Examples:
   Selects the 1st task in the results of the `find` command.
 
 #### Modifies a task : `modify`
-Marks the task identified by the index number used in the last task listing.<br>
+Modifies the task identified by the index number used in the last task listing.<br>
 Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
 
 > Selects the task and modifies the task as done at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+  The index **must be a positive integer** 1, 2, 3, ... <br>
 > Overwrites any of the specified fields ('LOCATION', 'DESCRIPTION'...) with the new values
 
 #### Mark a task as done : `mark`
