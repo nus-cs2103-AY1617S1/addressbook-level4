@@ -131,7 +131,7 @@ public class KeywordParser {
     }
 
     private boolean stringIsAKeyword(HashSet<String> allKeywords, String string) {
-        return allKeywords.contains(string);
+        return allKeywords.contains(string.toLowerCase());
     }
 
     private String stripOpenAndCloseQuotationMarks(String input) {
