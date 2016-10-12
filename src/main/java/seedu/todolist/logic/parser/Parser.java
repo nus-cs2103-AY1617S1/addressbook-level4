@@ -135,7 +135,6 @@ public class Parser {
      * Returns String[startDate, startTime, endDate, endTime].
      */
     private String[] parseInterval(String interval) {
-        System.out.println("ALL INTERVAL : " + interval);
         String[] intervalComponents = interval.split("to");
         String startDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_DATE];
         String startTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_TIME];
