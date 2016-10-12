@@ -19,6 +19,7 @@ We are a team of 4 Computer Engineering 2nd year students based in the [School o
 -----
 
 #### [Tan Jun Hao](https://github.com/e0003083)
+<img src="images/IMG_20161011_112004.jpg" width="150"><br>
 **Role**: Developer <br>  
 **Responsibilities**: Storage
 
