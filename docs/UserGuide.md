@@ -10,7 +10,7 @@
 
 1. [Quick Start](#1-quick-start)  
 2. [Features](#2-features)  
-    2.1. [View help](#2.1-view-help)  
+    2.1. [View help](#2.1.-view-help)  
     2.2. [Add a task](#2-feat)  
     2.3. [List tasks](#2-features)  
     2.4. [Find tasks containing particular keyword(s) in task name](#2-features)  
