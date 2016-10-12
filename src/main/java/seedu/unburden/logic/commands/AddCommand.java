@@ -16,7 +16,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the list of tasks. "
-            + "Parameters: NAME [d/DATE] [s/STARTTIME] [e/ENDTIME] [t/TAG]...\n"
+            + "Parameters: NAME d/DATE s/STARTTIME e/ENDTIME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " meeting with boss d/23-04-2003 s/1200 e/1300 t/important t/work";
 
