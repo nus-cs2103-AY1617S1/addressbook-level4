@@ -26,22 +26,20 @@ public class ShowCommand extends Command {
     	switch (keyword) {
     	
         case "all":
-    	    model.updateFilteredListToShowAll();
-    	    return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
+    	    model.updateFilteredListToShowAll(); break;
     	    
         case "incomplete":
-            model.updateFilteredListToShowIncomplete();
-            return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
+            model.updateFilteredListToShowIncomplete(); break;
     		
         case "complete":
-            model.updateFilteredListToShowComplete();
-            return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
+            model.updateFilteredListToShowComplete(); break;
     		
         case "p/high": case "p/med": case "p/low":
-            model.updateFilteredListToShowPriority(keyword);
-            return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
+            model.updateFilteredListToShowPriority(keyword); break;
     	
         default:
             return new CommandResult(String.format(MESSAGE_SHOW_FAILURE));
     	}
+        return new CommandResult(String.format(getMessageForPersonListShownSummary(model.getFilteredPersonList().size())));
+    }
 }
