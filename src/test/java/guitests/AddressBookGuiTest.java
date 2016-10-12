@@ -104,7 +104,7 @@ public abstract class AddressBookGuiTest {
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = personListPanel.getNumberOfPeople();
+        int numberOfPeople = personListPanel.getNumberOfTask();
         assertEquals(size, numberOfPeople);
     }
 
