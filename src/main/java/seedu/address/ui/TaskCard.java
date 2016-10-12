@@ -82,13 +82,15 @@ public class TaskCard extends UiPart{
         endDate.setText(endDateText);
         endTime.setText(endTimeText);
         
-        Integer recurrenceRateInteger = task.getRecurrenceRate().get().recurrenceRate;
-        TimePeriod timePeriod = task.getRecurrenceRate().get().timePeriod;
-        if (recurrenceRateInteger != null && timePeriod != null) {
-            recurrenceRateText = "every " + recurrenceRateInteger.toString() + " " + timePeriod.toString().toLowerCase() 
-                    + (recurrenceRateInteger.intValue() > 1 ? "s" : "");
-        } else if (recurrenceRateInteger == null && timePeriod != null) {
-            recurrenceRateText = "every " + timePeriod.toString().toLowerCase();
+        if (task.getRecurrenceRate().isPresent()){
+            Integer recurrenceRateInteger = task.getRecurrenceRate().get().recurrenceRate;
+            TimePeriod timePeriod = task.getRecurrenceRate().get().timePeriod;
+            if (recurrenceRateInteger != null && timePeriod != null) {
+                recurrenceRateText = "every " + recurrenceRateInteger.toString() + " " + timePeriod.toString().toLowerCase() 
+                        + (recurrenceRateInteger.intValue() > 1 ? "s" : "");
+            } else if (recurrenceRateInteger == null && timePeriod != null) {
+                recurrenceRateText = "every " + timePeriod.toString().toLowerCase();
+            }
         }
         recurrenceRate.setText(recurrenceRateText);
     }

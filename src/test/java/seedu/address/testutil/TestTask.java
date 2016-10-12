@@ -23,12 +23,7 @@ public class TestTask implements ReadOnlyTask {
 
     public TestTask() {
         this.priorityValue = Priority.MEDIUM;
-        try {
-            this.recurrenceRate = new RecurrenceRate(null, null);
-        } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        this.recurrenceRate = null;
         //tags = new UniqueTagList();
     }
 
@@ -79,8 +74,10 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public RecurrenceRate getRecurrenceRate() {
-        assert recurrenceRate != null;
-        return recurrenceRate;
+    public Optional<RecurrenceRate> getRecurrenceRate() {
+        if (recurrenceRate != null){
+            return Optional.of(recurrenceRate);
+        }
+        return Optional.empty();
     }
 }
