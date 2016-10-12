@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access SavvyTasker data stored as an xml file on the hard disk.
  */
 public class XmlSavvyTaskerStorage implements SavvyTaskerStorage {
 
@@ -30,7 +30,7 @@ public class XmlSavvyTaskerStorage implements SavvyTaskerStorage {
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readSavvyTasker()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -40,7 +40,7 @@ public class XmlSavvyTaskerStorage implements SavvyTaskerStorage {
         File savvyTaskerFile = new File(filePath);
 
         if (!savvyTaskerFile.exists()) {
-            logger.info("AddressBook file "  + savvyTaskerFile + " not found");
+            logger.info("SavvyTasker file "  + savvyTaskerFile + " not found");
             return Optional.empty();
         }
 

@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Date;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -9,19 +11,20 @@ import seedu.address.model.person.ReadOnlyTask;
 public class TaskCard extends UiPart{
 
     private static final String FXML = "PersonListCard.fxml";
+    private static final String EMPTY_FIELD = " - ";
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label taskName;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label startDate;
     @FXML
-    private Label address;
+    private Label endDate;
     @FXML
-    private Label email;
+    private Label description;
     @FXML
     private Label tags;
 
@@ -41,7 +44,25 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(task.getTaskName());
+        taskName.setText(task.getTaskName());
+        Date startDate = task.getStartDateTime();
+        if (startDate != null) {
+            this.startDate.setText(startDate.toString());
+        } else {
+            this.startDate.setText(EMPTY_FIELD);
+        }
+        Date endDate = task.getEndDateTime();
+        if (endDate != null) {
+            this.endDate.setText(endDate.toString());
+        } else {
+            this.endDate.setText(EMPTY_FIELD);
+        }
+        String description = task.getDescription();
+        if (description != null) {
+            this.description.setText(description);
+        } else {
+            this.description.setText(EMPTY_FIELD);
+        }
         id.setText(displayedIndex + ". ");
     }
 
