@@ -1,4 +1,4 @@
-package seedu.tasklist.logic;
+package guitests;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.Command;
