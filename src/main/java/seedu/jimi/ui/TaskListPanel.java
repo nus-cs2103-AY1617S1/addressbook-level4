@@ -1,7 +1,7 @@
 package seedu.jimi.ui;
 
 import javafx.application.Platform;
-
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -34,11 +34,19 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
     
     private Integer floatingTaskListSize; //size of current floatingTaskList
-    private List<ReadOnlyTask> completedTaskList;
-    private List<ReadOnlyTask> incompleteTaskList;
+    private ObservableList<ReadOnlyTask> completedTaskList;
+    private ObservableList<ReadOnlyTask> incompleteTaskList;
     
     @FXML
     private ListView<ReadOnlyTask> taskListView;
+    @FXML
+    private ListView<ReadOnlyTask> completedTaskListView;
+    @FXML
+    private ListView<ReadOnlyTask> incompleteTaskListView;
+    
+    //incomplete/complete title labels
+    @FXML private TitledPane titleCompletedTasks;
+    @FXML private TitledPane titleIncompleteTasks;
     
     //taskListPanel title labels
     @FXML private TitledPane titleFloatingTaskListSize;
@@ -85,9 +93,13 @@ public class TaskListPanel extends UiPart {
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         updateFloatingTaskSize(taskList);
+        updateCompletedAndIncompleteTaskList(taskList);
         
         taskListView.setItems(taskList);
+        completedTaskListView.setItems(this.completedTaskList);
+        incompleteTaskListView.setItems(this.incompleteTaskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
+        
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -129,9 +141,10 @@ public class TaskListPanel extends UiPart {
     }
     
     private void updateCompletedAndIncompleteTaskList(List<ReadOnlyTask> taskList) {
-        this.completedTaskList = new ArrayList<ReadOnlyTask>(taskList.size());
-        this.incompleteTaskList = new ArrayList<ReadOnlyTask>(taskList.size());
+        this.completedTaskList = FXCollections.observableArrayList();
+        this.incompleteTaskList = FXCollections.observableArrayList();
         
+        //populate complete and incomplete task lists
         for(ReadOnlyTask t : taskList){
             if(t.isCompleted()){
                 this.completedTaskList.add(t);
@@ -139,6 +152,9 @@ public class TaskListPanel extends UiPart {
             else
                 this.incompleteTaskList.add(t);
         }
+        
+        this.titleCompletedTasks.setText("Completed Tasks (" + completedTaskList.size() + ")");
+        this.titleIncompleteTasks.setText("Incomplete Tasks (" + incompleteTaskList.size() + ")");
     }
     
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
