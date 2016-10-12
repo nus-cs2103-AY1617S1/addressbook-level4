@@ -20,7 +20,8 @@ public class FindCommandTest extends AddressBookGuiTest {
     
     @Test
     public void find_Date() {
-        assertFindResult("find 14102016", td.benson, td.carl);
+        assertFindResult("find 14-Oct-2016", td.benson, td.carl);
+        assertTrue(true);
     }
     
     @Test

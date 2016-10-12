@@ -167,9 +167,9 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] s/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/not_numbers e/01012016 a/valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
+                "add Valid Name s/not_numbers e/010116 a/valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
         assertCommandBehavior(
-                "add Valid Name s/01012016 e/notAnEmail a/valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
+                "add Valid Name s/010116 e/notAnEmail a/valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
 //        assertCommandBehavior(
 //                "add Valid Name s/01012016 e/01012016 a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -387,13 +387,13 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Date startDate = DateFormatter.convertStringToDate("09092011");
-            Date endDate = DateFormatter.convertStringToDate("09092011");
+            TaskDateTime startDate = new TaskDateTime("090911");
+            TaskDateTime endDate = new TaskDateTime("090911");
             Location privateAddress = new Location("111, alpha street");
 //            Tag tag1 = new Tag("tag1");
 //            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList();
-            return new Task(name, startDate, endDate, privateAddress, tags);
+//            UniqueTagList tags = new UniqueTagList();
+            return new Task(name, startDate, endDate, privateAddress, "Reminder");
         }
 
         /**
@@ -406,11 +406,11 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Name("Person " + seed),
-                    new Date(DateFormatter.convertStringToDate("09092001").getTime()),
-                    new Date(DateFormatter.convertStringToDate("09092001").getTime()),
+                    new TaskDateTime("090901"),
+                    new TaskDateTime("090901"),
                     new Location("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
-            );
+                    "Event"
+                    );
         }
 
         /** Generates the correct add command based on the person given */
@@ -420,8 +420,8 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" s/").append(DateFormatter.convertDateToString(p.getStartDate()));
-            cmd.append(" e/").append(DateFormatter.convertDateToString(p.getEndDate()));
+            cmd.append(" s/").append(p.getStartDate());
+            cmd.append(" e/").append(p.getEndDate());
             cmd.append(" a/").append(p.getLocation().value);
 
 //            UniqueTagList tags = p.getTags();
@@ -505,10 +505,10 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Date(1346524199000l),
-                    new Date(1346524199000l),
+                    new TaskDateTime("161216"),
+                    new TaskDateTime("161216"),
                     new Location("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
+                    "Reminder"//new Tag("tag"))
             );
         }
     }

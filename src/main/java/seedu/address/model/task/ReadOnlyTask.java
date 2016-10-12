@@ -12,9 +12,10 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    Date getStartDate();
-    Date getEndDate();
+    TaskDateTime getStartDate();
+    TaskDateTime getEndDate();
     Location getLocation();
+    String getType();  
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -41,9 +42,9 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
 //                .append(" Start Date: ")
-                .append(" " + DateFormatter.convertDateToDisplayString(getStartDate()))
+                .append(" " + getStartDate().getDisplayString())
 //                .append(" Due Date: ")
-                .append(" " + DateFormatter.convertDateToDisplayString(getEndDate()))
+                .append(" " + getEndDate().getDisplayString())
 //                .append(" Location: ")
                 .append(" " + getLocation());
 //                .append(" Tags: ");
@@ -73,15 +74,15 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();  
         builder.append(getName())  
             .append(" ")  
-            .append(DateFormatter.convertDateToString(getStartDate()))  
+            .append(getStartDate().getDisplayString())  
             .append(" ")  
-            .append(DateFormatter.convertDateToString(getEndDate()))  
+            .append(getEndDate().getDisplayString())  
             .append(" ")  
             .append(getLocation())  
             .append(" ");  
         getTags().forEach(b -> builder.append(b.tagName + " "));  
         return builder.toString();  
-    }  
+    }
 
 
 }

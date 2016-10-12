@@ -35,7 +35,7 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
     }
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this task scheduler
      */
     public TaskScheduler(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
@@ -51,8 +51,8 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
         return tasks.getInternalList();
     }
 
-    public void setTasks(List<Task> persons) {
-        this.tasks.getInternalList().setAll(persons);
+    public void setTasks(List<Task> tasks) {
+        this.tasks.getInternalList().setAll(tasks);
     }
 
     public void setTags(Collection<Tag> tags) {

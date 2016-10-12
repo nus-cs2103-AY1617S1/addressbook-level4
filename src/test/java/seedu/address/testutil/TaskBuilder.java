@@ -36,12 +36,12 @@ public class TaskBuilder {
     }
 
     public TaskBuilder withStartDate(String startDate) throws IllegalValueException {
-        this.person.setStartDate(DateFormatter.convertStringToDate(startDate));
+        this.person.setStartDate(new TaskDateTime(startDate));
         return this;
     }
 
     public TaskBuilder withEndDate(String endDate) throws IllegalValueException {
-        this.person.setEndDate(DateFormatter.convertStringToDate(endDate));
+        this.person.setEndDate(new TaskDateTime(endDate));
         return this;
     }
 

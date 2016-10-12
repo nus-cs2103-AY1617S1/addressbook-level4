@@ -13,6 +13,7 @@ import seedu.address.model.task.Location;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDateTime;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -26,7 +27,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the scheduler. "
             + "Parameters: INDEX TASK s/START_DATE e/END_DATE a/LOCATION \n"
             + "Example: " + COMMAND_WORD
-            + " 1 MUST do CS2103 Pretut s/07102016 e/10102016 a/NUS COM1-B103";
+            + " 1 MUST do CS2103 Pretut s/071016 e/101016 a/NUS COM1-B103";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
     
@@ -45,10 +46,10 @@ public class EditCommand extends Command {
         final Set<Tag> tagSet = new HashSet<>();
         this.toCopy = new Task(
                 new Name(name),
-                DateFormatter.convertStringToDate(startDate),
-                DateFormatter.convertStringToDate(endDate),
+                new TaskDateTime(startDate),
+                new TaskDateTime(endDate),
                 new Location(address),
-                new UniqueTagList(tagSet)
+                "Reminder"
         );
     }
 

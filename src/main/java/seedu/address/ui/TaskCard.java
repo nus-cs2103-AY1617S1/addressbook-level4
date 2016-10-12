@@ -43,10 +43,12 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(person.getName().fullName);
+        hideFieldsAccordingToType(person);
         id.setText(displayedIndex + ". ");
-        phone.setText("Start Date: " + DateFormatter.convertDateToDisplayString(person.getStartDate()));
-        email.setText("Due Date: " + DateFormatter.convertDateToDisplayString(person.getEndDate()));
-        address.setText(person.getLocation().value);
+        address.setText(person.getLocation().value + "\n"
+              +  "Start Date: " + person.getStartDate().getDisplayString());
+       // phone.setText();
+        email.setText("Due Date: " + person.getEndDate().getDisplayString());
         tags.setText(person.tagsString());
     }
 
@@ -62,5 +64,16 @@ public class TaskCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    public void hideFieldsAccordingToType(ReadOnlyTask person) {
+        if (person.getType() == "Reminder") {
+            phone.setVisible(false);
+            address.setVisible(false);
+        } else if (person.getType() == "") {
+            phone.setVisible(false);
+            address.setVisible(false);
+            email.setVisible(false);
+        }
     }
 }

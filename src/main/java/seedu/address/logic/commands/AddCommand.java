@@ -20,7 +20,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the scheduler. "
             + "Parameters: TASK s/START_DATE e/END_DATE a/LOCATION  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Do CS2103 Pretut s/09092009 e/10102011 a/NUS COM1-B103";
+            + " Do CS2103 Pretut s/090909 e/101011 a/NUS COM1-B103";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 
@@ -39,10 +39,10 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Name(name),
-                DateFormatter.convertStringToDate(startDate),
-                DateFormatter.convertStringToDate(endDate),
+                new TaskDateTime(startDate),
+                new TaskDateTime(endDate),
                 new Location(address),
-                new UniqueTagList()
+                "Reminder"
         );
     }
 

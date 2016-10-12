@@ -14,26 +14,26 @@ public class TypicalTestPersons {
     public TypicalTestPersons() {
         try {
             alice =  new TaskBuilder().withName("Do CS2103 Pretut").withAddress("At Home")
-                    .withEndDate("07102016").withStartDate("01102016").build();
+                    .withEndDate("071016").withStartDate("011016").build();
             benson = new TaskBuilder().withName("Do CS2103 Project").withAddress("At School")
-                    .withEndDate("14102016").withStartDate("07102016").build();
+                    .withEndDate("141016").withStartDate("071016").build();
             carl = new TaskBuilder().withName("Eat Mcdonalds").withAddress("At Technoedge")
-                    .withEndDate("21102016").withStartDate("14102016").build();
+                    .withEndDate("211016").withStartDate("141016").build();
             daniel = new TaskBuilder().withName("Flunk CS2103").withAddress("In the exam hall")
-                    .withEndDate("21112016").withStartDate("21112016").build();
+                    .withEndDate("211116").withStartDate("211116").build();
             elle = new TaskBuilder().withName("Working at Mcdonalds").withAddress("At Mcdonalds")
-                    .withEndDate("31122047").withStartDate("01042017").build();
+                    .withEndDate("311247").withStartDate("010417").build();
             fiona = new TaskBuilder().withName("Send kids to NUS").withAddress("At NUS")
-                    .withEndDate("01042051").withStartDate("01082047").build();
+                    .withEndDate("010451").withStartDate("010847").build();
             elle = new TaskBuilder().withName("Make kids study CS2103").withAddress("At ICube Lecture Hall")
-                    .withEndDate("01122050").withStartDate("01082049").build();
+                    .withEndDate("011250").withStartDate("010849").build();
             george = new TaskBuilder().withName("Make kids work at Mcdonalds").withAddress("At the same workplace")
-                    .withEndDate("02042091").withStartDate("02042051").build();
+                    .withEndDate("020491").withStartDate("020451").build();
             //Manually added
             hoon = new TaskBuilder().withName("Regret working at Mcdonalds").withAddress("At the hospital")
-                    .withEndDate("03042052").withStartDate("02042052").build();
+                    .withEndDate("030452").withStartDate("020452").build();
             ida = new TaskBuilder().withName("Thinking about what happen if I fail CS2103").withAddress("At ICube Lecture Hall")
-                    .withEndDate("07102016").withStartDate("07102016").build();
+                    .withEndDate("071016").withStartDate("071016").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
