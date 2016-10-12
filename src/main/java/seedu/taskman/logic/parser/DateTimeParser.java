@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -32,6 +33,7 @@ public class DateTimeParser {
     private static final String GENERIC_ERROR_DATETIME = "Invalid date time";
     private static final String GENERIC_ERROR_DURATION = "Invalid duration";
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-YYYY HH:mm");
     private static final Parser parser = new Parser();
 
     /**
@@ -96,12 +98,17 @@ public class DateTimeParser {
 
     public static String epochSecondToDetailedDateTime(long epochSecond) {
         Instant instant = Instant.ofEpochSecond(epochSecond);
-        return ZonedDateTime.ofInstant(instant, ZoneId.systemDefault()).toString();
+        return ZonedDateTime
+        		.ofInstant(instant, ZoneId.systemDefault())
+        		.format(formatter)
+        		.toString();
     }
 
     public static String epochSecondToShortDateTime(long epochSecond) {
         Instant instant = Instant.ofEpochSecond(epochSecond);
-        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toString();
+        return LocalDateTime
+        		.ofInstant(instant, ZoneId.systemDefault())
+        		.format(formatter); // untidy because epochSecondToDetailedDateTime has toString but not here
     }
 
     public static class IllegalDateTimeException extends IllegalValueException {
