@@ -150,8 +150,6 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
                 "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
                 "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
@@ -162,13 +160,19 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+                "add []\\[;] pr/high time/11:11 a/valid, address", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/not_high time/11:11 a/valid, address", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Venue.MESSAGE_VENUE_CONSTRAINTS);
+                "add Valid Name pr/low time/111:11 a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name pr/low time/11:111 a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name pr/low time/111:111 a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name pr/low time/sum a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name pr/ time/mon a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -390,7 +394,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(description, time, venue, priority, tags);
+            return new Task(description, priority, time, venue, tags);
         }
 
         /**
@@ -403,9 +407,9 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Description("Person " + seed),
+                    new Priority(""),
                     new Time("" + Math.abs(seed) + ":" + Math.abs(seed) + Math.abs(seed)),
                     new Venue(seed + "Place"),
-                    new Priority(""),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -417,9 +421,10 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getDescription().toString());
-            cmd.append(" p/").append(p.getTime());
-            cmd.append(" e/").append(p.getVenue());
-            cmd.append(" a/").append(p.getPriority());
+            cmd.append(" pr/").append(p.getPriority());
+            cmd.append(" time/").append(p.getTime());
+            cmd.append(" a/").append(p.getVenue());
+            
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -502,9 +507,9 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Description(name),
+                    new Priority(""),
                     new Time("1:11"),
                     new Venue("Junct1"),
-                    new Priority(""),
                     new UniqueTagList(new Tag("tag"))
             );
         }
