@@ -1,12 +1,18 @@
 package seedu.address.model.item;
-
 import seedu.address.model.tag.UniqueTagList;
 
-public class FloatingTask extends Item implements ReadOnlyItem {
+public class FloatingTask extends Item {
 
 	public FloatingTask(Description desc) {
 		super(desc);
 	}
+	
+    /**
+     * Copy constructor.
+     */
+    public FloatingTask(ReadOnlyItem source) {
+        this(source.getDescription());
+    }
 
 
 	@Override
