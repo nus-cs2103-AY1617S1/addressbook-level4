@@ -54,6 +54,7 @@ public class Parser {
     private static final CharSequence END_DATE = "e/";
     private static final CharSequence END_TIME = "et/";
     private static final CharSequence IMPORTANCE = "i/";
+    private static final CharSequence TAG = "t/";
     
       /*      Pattern.compile("(?<targetIndex>[^/]+)"
                     + " n/(?<name>[^/]+)");
@@ -328,8 +329,28 @@ public class Parser {
 
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
+        final int type;
+        if(keywords[0].contains(START_DATE)) {
+        	type = 1;
+        	keywords[0] = keywords[0].replace(START_DATE, "");
+        }
+        else if(keywords[0].contains(END_DATE)) {
+        	type = 2;
+        	keywords[0] = keywords[0].replace(END_DATE, "");
+        }
+        else if(keywords[0].contains(IMPORTANCE)) {
+        	type = 3;
+        	keywords[0] = keywords[0].replace(IMPORTANCE, "");
+        }
+        else if(keywords[0].contains(TAG)) {
+        	type = 4;
+        	keywords[0] = keywords[0].replace(TAG, "");
+        }
+        else {
+        	type = 0;
+        }
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        return new FindCommand(type, keywordSet);
     }
 
 }

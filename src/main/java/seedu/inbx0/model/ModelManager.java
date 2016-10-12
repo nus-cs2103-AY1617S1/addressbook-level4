@@ -5,8 +5,10 @@ import seedu.inbx0.commons.core.ComponentManager;
 import seedu.inbx0.commons.core.LogsCenter;
 import seedu.inbx0.commons.core.UnmodifiableObservableList;
 import seedu.inbx0.commons.events.model.TaskListChangedEvent;
+import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.commons.util.StringUtil;
 import seedu.inbx0.model.task.Task;
+import seedu.inbx0.model.tag.Tag;
 import seedu.inbx0.model.task.ReadOnlyTask;
 import seedu.inbx0.model.task.UniqueTaskList;
 import seedu.inbx0.model.task.UniqueTaskList.DuplicateTaskException;
@@ -97,8 +99,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredTaskList(int type, Set<String> keywords){
+    	switch(type) {
+    		case 0: updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    				break;
+    		case 1: updateFilteredTaskList(new PredicateExpression(new StartDateQualifier(keywords)));
+					break;
+    		case 2: updateFilteredTaskList(new PredicateExpression(new EndDateQualifier(keywords)));
+    				break;
+    		case 3: updateFilteredTaskList(new PredicateExpression(new LevelQualifier(keywords)));
+    				break;
+    		case 4: updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));
+    				break;
+    		default: ;
+    	}
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -156,5 +170,90 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
+    private class StartDateQualifier implements Qualifier {
+        private Set<String> startDateKeyWords;
+
+        StartDateQualifier(Set<String> startDateKeyWords) {
+            this.startDateKeyWords = startDateKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return startDateKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getStartDate().value, keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "startDate=" + String.join(", ", startDateKeyWords);
+        }
+    }
+
+    private class EndDateQualifier implements Qualifier {
+        private Set<String> endDateKeyWords;
+
+        EndDateQualifier(Set<String> endDateKeyWords) {
+            this.endDateKeyWords = endDateKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return endDateKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getEndDate().value, keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "endDate=" + String.join(", ", endDateKeyWords);
+        }
+    }
+    
+    private class LevelQualifier implements Qualifier {
+        private Set<String> levelKeyWords;
+
+        LevelQualifier(Set<String> levelKeyWords) {
+            this.levelKeyWords = levelKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return levelKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getLevel().value, keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "level=" + String.join(", ", levelKeyWords);
+        }
+    }
+
+    private class TagQualifier implements Qualifier {
+        private Set<String> tagKeyWords;
+
+        TagQualifier(Set<String> tagKeyWords) {
+            this.tagKeyWords = tagKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return tagKeyWords.stream()
+                    .filter(keyword -> task.tagsString().contains(keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "tag=" + String.join(", ", tagKeyWords);
+        }
+    }
+
 
 }
