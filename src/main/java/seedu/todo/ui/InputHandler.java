@@ -30,10 +30,12 @@ public class InputHandler {
     }
     
     private Controller[] instantiateAllControllers() {
-        return new Controller[] { new AddController(),
-                                  new ListController(),
-                                  new DestroyController(),
-                                  new UpdateController() };
+        return new Controller[] { 
+                new AddController(),
+                new ListController(),
+                new DestroyController(),
+                new UpdateController() 
+                };
     }
 
 }
