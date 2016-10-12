@@ -26,6 +26,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.parser = new MasterParser();
         
         registerAllDefaultCommandParsers();
+
     }
 
     @Override
@@ -45,5 +46,7 @@ public class LogicManager extends ComponentManager implements Logic {
         parser.registerCommandParser(new AddCommandParser());
         parser.registerCommandParser(new DeleteCommandParser());
         parser.registerCommandParser(new FindCommandParser());
+        parser.registerCommandParser(new ListCommandParser());
+        parser.registerCommandParser(new ModifyCommandParser());
     }
 }

@@ -70,6 +70,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException {
+        savvyTasker.replaceTask(target, replacement);
+        indicateSavvyTaskerChanged();
+    }
+
+    @Override
     public synchronized void addTask(Task t) throws DuplicateTaskException {
         savvyTasker.addTask(t);
         updateFilteredListToShowAll();

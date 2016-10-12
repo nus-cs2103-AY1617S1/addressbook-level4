@@ -1,11 +1,15 @@
 package seedu.address.logic.parser;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.models.AddCommandModel;
 import seedu.address.logic.parser.DateParser.InferredDate;
+import seedu.address.model.task.PriorityLevel;
+import seedu.address.model.task.RecurrenceType;
 
 public class AddCommandParser extends TaskModelCommandParser<AddCommand> {
     private static final String HEADER = "add";
@@ -56,19 +60,28 @@ public class AddCommandParser extends TaskModelCommandParser<AddCommand> {
             /* Pending changes to startTime and endTime */
             //String startTime = matcher.group(REGEX_REF_START_TIME);
             //String endTime = matcher.group(REGEX_REF_END_TIME);
-            
+
             InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE).trim());
             InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE).trim());
-            parseTaskName(matcher.group(REGEX_REF_TASK_NAME).trim());
-            parseLocation(matcher.group(REGEX_REF_LOCATION).trim());
-            parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL).trim());
-            parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE).trim());
-            parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE).trim());
-            parseCategory(matcher.group(REGEX_REF_CATEGORY).trim());
-            parseDescription(matcher.group(REGEX_REF_DESCRIPTION).trim());
+            String taskName = parseTaskName(matcher.group(REGEX_REF_TASK_NAME).trim());
+            String location = parseLocation(matcher.group(REGEX_REF_LOCATION).trim());
+            PriorityLevel priority = parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL).trim());
+            RecurrenceType recurrence = parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE).trim());
+            Integer nrOfRecurrence = parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE).trim());
+            String category = parseCategory(matcher.group(REGEX_REF_CATEGORY).trim());
+            String description = parseDescription(matcher.group(REGEX_REF_DESCRIPTION).trim());
             
-               
             // TODO: Create AddCommand here (require integration)
+            Date startDateTime = null, endDateTime = null;
+            int numberOfRecurrence = 0;
+            if (nrOfRecurrence != null) numberOfRecurrence = nrOfRecurrence.intValue();
+            if (startDate != null) startDateTime = startDate.getInferredDateTime();
+            if (endDate != null) endDateTime = endDate.getInferredDateTime();
+            return new AddCommand(
+                    new AddCommandModel(taskName, startDateTime, 
+                            endDateTime, location, priority, 
+                            recurrence, numberOfRecurrence, 
+                            category, description));
         }
         
         throw new ParseException(commandText, String.format(

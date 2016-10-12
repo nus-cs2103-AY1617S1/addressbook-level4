@@ -83,6 +83,20 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
             throw new TaskList.TaskNotFoundException();
         }
     }
+    
+    /**
+     * Replaces a task from savvy tasker.
+     * @param key the task to be replaced
+     * @return true if the task is removed successfully
+     * @throws TaskNotFoundException if the task to be removed does not exist
+     */
+    public boolean replaceTask(ReadOnlyTask key, Task replacement) throws TaskNotFoundException {
+        if (tasks.contains(key)) {
+            return tasks.replace(key, replacement);
+        } else {
+            throw new TaskList.TaskNotFoundException();
+        }
+    }
 
 //// util methods
 

@@ -21,6 +21,9 @@ public interface Model {
     /** Deletes the given person. */
     void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
 
+    /** Modifies the given task. */
+    void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException;
+
     /** Adds the given person */
     void addTask(Task task) throws DuplicateTaskException;
 

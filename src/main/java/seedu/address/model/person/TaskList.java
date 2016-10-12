@@ -47,21 +47,21 @@ public class TaskList implements Iterable<Task> {
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
-     * Constructs empty PersonList.
+     * Constructs empty TaskList.
      */
     public TaskList() {}
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent task as the given argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
         return false; // no requirements for duplicates at the moment.
     }
 
     /**
-     * Adds a person to the list.
+     * Adds a task to the list.
      *
-     * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
+     * @throws DuplicateTaskException if the person to add is a duplicate of an existing task in the list.
      */
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
@@ -72,9 +72,9 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Removes the equivalent person from the list.
+     * Removes the equivalent task from the list.
      *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * @throws TaskNotFoundException if no such task could be found in the list.
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
@@ -83,6 +83,23 @@ public class TaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
+    }
+
+    /**
+     * Replaces the equivalent task from the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean replace(ReadOnlyTask toReplace, Task replacement) throws TaskNotFoundException {
+        assert toReplace != null;
+        assert replacement != null;
+        if (internalList.contains(toReplace)) {
+            internalList.set(internalList.indexOf(toReplace), replacement);
+            return true;
+        }
+        else {
+            throw new TaskNotFoundException();
+        }
     }
 
     public ObservableList<Task> getInternalList() {

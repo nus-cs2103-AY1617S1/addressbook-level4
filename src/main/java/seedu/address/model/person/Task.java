@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.address.logic.commands.models.ModifyCommandModel;
 import seedu.address.model.task.PriorityLevel;
 import seedu.address.model.task.RecurrenceType;
 
@@ -46,6 +47,26 @@ public class Task implements ReadOnlyTask {
         this(source.getTaskName(), source.getStartDateTime(), source.getEndDateTime(), 
                 source.getLocation(), source.getPriority(), source.getRecurringType(),
                 source.getNumberOfRecurrence(), source.getCategory(), source.getDescription());
+    }
+
+    /**
+     * Copy and modify constructor
+     */
+    public Task(ReadOnlyTask source, ModifyCommandModel commandModel) {
+        this(source.getTaskName(), source.getStartDateTime(), source.getEndDateTime(), 
+                source.getLocation(), source.getPriority(), source.getRecurringType(),
+                source.getNumberOfRecurrence(), source.getCategory(), source.getDescription());
+        
+        this.taskName = commandModel.getTaskName() == null ? this.taskName : commandModel.getTaskName();
+        this.startDateTime = commandModel.getStartDateTime() == null ? this.startDateTime : commandModel.getStartDateTime();
+        this.endDateTime = commandModel.getEndDateTime() == null ? this.endDateTime : commandModel.getEndDateTime();
+        this.location = commandModel.getLocation() == null ? this.location : commandModel.getLocation();
+        this.priority = commandModel.getPriority() == null ? this.priority : commandModel.getPriority();
+        this.recurringType = commandModel.getRecurringType() == null ? this.recurringType : commandModel.getRecurringType();
+        this.numberOfRecurrence = commandModel.getNumberOfRecurrence() == ModifyCommandModel.UNINITIALIZED_NR_RECURRENCE_VALUE ? 
+                this.numberOfRecurrence : commandModel.getNumberOfRecurrence();
+        this.category = commandModel.getCategory() == null ? this.category : commandModel.getCategory();
+        this.description = commandModel.getDescription() == null ? this.description : commandModel.getDescription();
     }
 
     @Override

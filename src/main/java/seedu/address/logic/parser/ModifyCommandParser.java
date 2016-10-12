@@ -1,10 +1,15 @@
 package seedu.address.logic.parser;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.ModifyCommand;
+import seedu.address.logic.commands.models.ModifyCommandModel;
 import seedu.address.logic.parser.DateParser.InferredDate;
+import seedu.address.model.task.PriorityLevel;
+import seedu.address.model.task.RecurrenceType;
 
 public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
     private static final String HEADER = "modify";
@@ -54,26 +59,38 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
     protected ModifyCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
+
+            int index = parseIndex(matcher.group(REGEX_REF_INDEX).trim());
             InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE).trim());
             InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE).trim());
-            parseIndex(matcher.group(REGEX_REF_INDEX).trim());
-            parseTaskName(matcher.group(REGEX_REF_TASK_NAME).trim());
-            parseLocation(matcher.group(REGEX_REF_LOCATION).trim());
-            parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL).trim());
-            parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE).trim());
-            parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE).trim());
-            parseCategory(matcher.group(REGEX_REF_CATEGORY).trim());
-            parseDescription(matcher.group(REGEX_REF_DESCRIPTION).trim());
+            String taskName = parseTaskName(matcher.group(REGEX_REF_TASK_NAME).trim());
+            String location = parseLocation(matcher.group(REGEX_REF_LOCATION).trim());
+            PriorityLevel priority = parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL).trim());
+            RecurrenceType recurrence = parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE).trim());
+            Integer nrOfRecurrence = parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE).trim());
+            String category = parseCategory(matcher.group(REGEX_REF_CATEGORY).trim());
+            String description = parseDescription(matcher.group(REGEX_REF_DESCRIPTION).trim());
             
                
             // TODO: Create ModifyCommand here (require integration)
+            Date startDateTime = null, endDateTime = null;
+            int numberOfRecurrence = 0;
+            if (nrOfRecurrence != null) numberOfRecurrence = nrOfRecurrence.intValue();
+            else numberOfRecurrence = ModifyCommandModel.UNINITIALIZED_NR_RECURRENCE_VALUE;
+            if (startDate != null) startDateTime = startDate.getInferredDateTime();
+            if (endDate != null) endDateTime = endDate.getInferredDateTime();
+            return new ModifyCommand(
+                    new ModifyCommandModel(index, taskName, startDateTime, 
+                            endDateTime, location, priority, 
+                            recurrence, numberOfRecurrence, 
+                            category, description));
         }
         
         throw new ParseException(commandText, String.format(
                 Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));
     }
 
-    private int parseIndex(String indexText) {
+    private int parseIndex(String indexText) throws ParseException {
         boolean parseError = false;
         
         int index = 0;
