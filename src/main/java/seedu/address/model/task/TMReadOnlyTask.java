@@ -11,29 +11,29 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public interface TMReadOnlyTask {
 	
-	public enum TaskType {
-		EVENT {
-			@Override
-			public String toString() {
-				return "Event";
-			}
-		}, 
-		
-		DEADLINE {
-			@Override
-			public String toString() {
-				return "Deadline";
-			}
-		}, 
-		
-		SOMEDAY {
-			@Override
-			public String toString() {
-				return "Someday";
-			}
-		}
-	}
-	
+    public enum TaskType {
+        EVENT {
+            @Override
+            public String toString() {
+                return "Event";
+            }
+        }, 
+        
+        DEADLINE {
+            @Override
+            public String toString() {
+                return "Deadline";
+            }
+        }, 
+        
+        SOMEDAY {
+        	@Override
+        	public String toString() {
+        		return "Someday";
+        	}
+        }
+    }
+    
     public Name getName();
     public TaskType getTaskType();
     public Status getStatus();
