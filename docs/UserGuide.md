@@ -78,7 +78,8 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 > **Tasks**<br>
 > Each task has a name, and belongs to one of these categories:
 > * **Normal Task** has a deadline
-> * **Task with Allocated Timeslot (Event)** has a starting time and ending time
+> * **Event** has a starting time and ending time
+> * **Task with Allocated Timeslot** has a deadline, starting time and ending time
 > * **Floating Task** has no associated time limitation
 
 
@@ -103,6 +104,7 @@ Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN 
 > Creates a new task with the specified name. The type of task may vary:
 > * For a normal task, set a deadline
 > * For an event, set a start time and end time
+> * For a task with an allocated timeslot, set a deadline, start time and end time
 > * For a floating task, no need to set deadline or start/end time <br>
 
 > The recurrence of a task can be set with the `repeat` keyword.<br>
