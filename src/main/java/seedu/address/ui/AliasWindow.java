@@ -19,24 +19,23 @@ import java.util.logging.Logger;
  */
 public class AliasWindow extends UiPart {
 
-    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
+    private static final Logger logger = LogsCenter.getLogger(AliasWindow.class);
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "AliasWindow.fxml";
     private static final String TITLE = "Alias List";
-    private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-W15-C2/main/blob/master/docs/UserGuide.md";
-
-    private AnchorPane mainPane;
+    
+    private VBox rootLayout;
+    private Scene scene;
     private AliasListPanel aliasPanel;
     private Stage dialogStage;
     
     @FXML
-    private AnchorPane aliasWindowRoot;
+    private AnchorPane aliasListPanelPlaceholder;
     
 
 
     public static AliasWindow load(Stage primaryStage, Logic logic) {
-        logger.fine("Showing help page about the application.");
+        logger.fine("Showing list of aliases.");
         AliasWindow aliasWindow = UiPartLoader.loadUiPart(primaryStage, new AliasWindow());
         aliasWindow.configure(logic);
         return aliasWindow;
@@ -44,7 +43,7 @@ public class AliasWindow extends UiPart {
 
     @Override
     public void setNode(Node node) {
-        mainPane = (AnchorPane) node;
+        rootLayout = (VBox) node;
     }
 
     @Override
@@ -53,12 +52,12 @@ public class AliasWindow extends UiPart {
     }
 
     private void configure(Logic logic){
-        Scene scene = new Scene(mainPane);
+        scene = new Scene(rootLayout);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+        //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
-        aliasPanel = AliasListPanel.load(primaryStage, aliasWindowRoot,logic.getAlias() );        
+        aliasPanel = AliasListPanel.load(dialogStage, aliasListPanelPlaceholder,logic.getAlias() );        
         
     }
 

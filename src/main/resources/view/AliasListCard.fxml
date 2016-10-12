@@ -31,11 +31,11 @@
                             <children>
                                 <HBox>
                                     <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="command" styleClass="cell_big_label" text="\$cardAlias" />
+                                    <Label fx:id="cardAlias" styleClass="cell_big_label" text="\$cardAlias" />
                                 </HBox>
                             </children>
                         </HBox>
-                        <Label fx:id="first_date" styleClass="cell_small_label" text="\$command" />
+                        <Label fx:id="command" styleClass="cell_small_label" text="\$command" />
                     </children>
                 </VBox>
             </children>
