@@ -21,6 +21,8 @@ public class ConsoleInput extends Component {
     // FXML
     @FXML
     private TextField consoleInputTextField;
+    @FXML
+    private Pane consolePlaceholder;
 
     public static ConsoleInput load(Stage primaryStage, Pane placeholderPane) {
         return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new ConsoleInput());
@@ -35,6 +37,14 @@ public class ConsoleInput extends Component {
     public void componentDidMount() {
         // Makes ConsoleInput full width wrt parent container.
         FxViewUtil.makeFullWidth(this.mainNode);
+        
+        // Load Console.
+        loadConsole();
+    }
+    
+    private void loadConsole() {
+        Console console = Console.load(primaryStage, consolePlaceholder);
+        console.render();
     }
 
     /** ================ ACTION HANDLERS ================== **/
