@@ -7,16 +7,16 @@
 * [Introduction](#Introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
-  * [Add Activity](#Adding an activity : `add`)
-  * [Delete Activities](Deleting a task / event : `delete`)
-  * [Edit Activities](Updating a task : `edit`)
-  * [List Activities](Listing all activities : `list all`)
-  * [Find](Finding all tasks or events containing any keyword in their name : `find task/event`)
+  * [Add Activity](#adding-an-activity)
+  * [Delete Activities](#deleting-an-activity)
+  * [Edit Activities](#editting-an-activity)
+  * [List Activities](#listing-all-activities)
+  * [Find](#finding-all-activities-containing-any-keyword-in-their-name)
   * [Undo]
   * [Mark Completed Activities]
-  * [Modify Storage Path](Modifying the storage path : `modify storage path`)
-  * [Help](Viewing help : `help`)
-  * [Exit](Exiting the program : `exit`)
+  * [Modify Storage Path](#modifying-the-storage-path)
+  * [Help](#viewing-help)
+  * [Exit](#exiting-the-program)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
@@ -59,7 +59,7 @@ Unlike other complicated task managers, Menion is simple and intuitive. It relie
 > The order of parameters is fixed.
 
  
-#### Adding an activity : `add`
+#### Adding an activity
 Adds an activity to Menion<br>
 Format : <br>
 `add TASK_NAME by TASK_DEADLINE [n:NOTES...]` <br>
@@ -73,7 +73,7 @@ Examples:
 * `add Upload CS3230 Programming Assignment 2 d/16-10-16 r/false p/low n/Upload it onto Coursemology Portal`
 * `add Dinner With Family d/21-11-16 t/1800-2000 r/true p/high n/Wear formal`
 
-#### Deleting a task / event : `delete`
+#### Deleting an activity
 Deletes the specified task/event  from the Menion. Irreversible.<br>
 Format : `delete INDEX`
 
@@ -85,9 +85,9 @@ Examples:
 * `delete 2`
 * `deletes the 2nd task/event in the Menion.`
 
-#### Updating a task : `edit`
+#### Editting an activity
 Updates a specified task from the Menion.
-<br>
+
 Format : `edit INDEX`
 > Edits the task at the specified `INDEX`. The index refers to the index number shown beside the task. The order of the tag to edit is not important.
 
@@ -101,11 +101,11 @@ Examples :
 * `edit 5`
 * `t/2030-2200`
 
-#### Listing all activities : `list all`
+#### Listing all activities
 Shows a list of all activities in the Menion.<br>
 Format : `list all`
 
-#### Listing all events/tasks/floating tasks : `list KEYWORD`
+#### Listing all events/tasks/floating tasks
 Shows a list of all events/tasks/floating tasks in the Menion for the day sorted according to the start date and time.<br>
 Format : <br> 
 `list event` <br>
@@ -114,7 +114,7 @@ Format : <br>
 
 > Displays an individual list consisting of either events, tasks, or floating tasks for the day.
 
-#### Listing all activities of the specified time period : `list TIMEPERIOD`
+#### Listing all activities of the specified time period
 Shows a list of all activities in the Menion for the specified time period: day, week, month, date.<br>
 Format : <br>
 `list DAY` <br>
@@ -128,7 +128,7 @@ Examples:
 * `list JANUARY`
 * `list 12/3/2016`
 
-#### Listing all events and tasks of the specified range of dates : `list day to day`
+#### Listing all events and tasks of the specified range of dates
 Shows a list of all tasks and events in the Menion for the range of days sorted according to date.<br>
 Format : `list day to day`
 
@@ -136,14 +136,14 @@ Examples:
 * `list 10-10-16 to 20-10-16`
 
 
-#### Finding all tasks or events containing any keyword in their name : `find task/event`
+#### Finding all activities containing any keyword in their name
 Finds all tasks whose names contain any of the given keywords.<br>
-Format : `list KEYWORD [MORE_KEYWORDS]`
+Format : `find KEYWORD [MORE_KEYWORDS]`
 >* The search is not case sensitive. e.g. `sleep` will match `Sleep`
->* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
->* Only the name of task is searched.
+>* The order of the keywords does not matter. e.g. `Pack Bag` will match `Bag Pack`
+>* Only the name of activity is searched.
 >* Only full words will be matched e.g. `sleep` will not match `sleeping`
->* Task name matching at least one keyword will be returned (i.e `OR` search). e.g. `sleep` will match `sleep for 8 hours`
+>* Activity name matching at least one keyword will be returned (i.e `OR` search). e.g. `sleep` will match `sleep for 8 hours`
 
 Examples
 * find `Sleep`
@@ -152,20 +152,20 @@ Examples
 * Displays: any task having the keywords go, to, gym
 
 
-#### Clearing all entries : `clear`
+#### Clearing all entries
 Clear all entries from the Menion.<br>
 Format : `clear`
 
-#### Modifying the storage path : `modify storage path`
-Modify the storage path that stores all the data.
+#### Modifying the storage path
+Modify the storage path that stores all the data.<br>
 Format : `modify storage path STORAGE_LOCATION`
 
-#### Viewing help : `help`
+#### Viewing help
 Format : `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-#### Exiting the program : `exit`
+#### Exiting the program
 Exits the program.
 Format : `exit`
 
