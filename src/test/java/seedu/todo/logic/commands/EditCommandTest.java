@@ -48,7 +48,8 @@ public class EditCommandTest extends CommandTest {
         setParameter("1");
         setParameter("p", null);
         execute();
-        
+
+        assertCommandSuccess();
         ImmutableTask task = getTaskAt(1);
         assertEquals("Task 1", task.getTitle());
         assertTrue(task.isPinned());
@@ -61,7 +62,8 @@ public class EditCommandTest extends CommandTest {
         setParameter("3");
         setParameter("l", "NTU");
         execute();
-        
+
+        assertCommandSuccess();
         ImmutableTask task = getTaskAt(3);
         assertEquals("Task 3", task.getTitle());
         assertEquals("NTU", task.getLocation().get());
@@ -74,7 +76,8 @@ public class EditCommandTest extends CommandTest {
         setParameter("2");
         setParameter("m", "Some other description");
         execute();
-        
+
+        assertCommandSuccess();
         ImmutableTask toEditDesc = getTaskAt(2);
         assertEquals("Task 2", toEditDesc.getTitle());
         assertFalse(toEditDesc.isPinned());
@@ -87,7 +90,8 @@ public class EditCommandTest extends CommandTest {
         setParameter("2");
         setParameter("m", "");
         execute();
-        
+
+        assertCommandSuccess();
         ImmutableTask toDeleteField = getTaskAt(2);
         assertEquals("Task 2", toDeleteField.getTitle());
         assertFalse(toDeleteField.isPinned());
@@ -101,7 +105,8 @@ public class EditCommandTest extends CommandTest {
         setParameter("1");
         setParameter("d", "tomorrow");
         execute();
-        
+
+        assertCommandSuccess();
         ImmutableTask task = getTaskAt(1);
         assertFalse(task.isEvent());
         assertFalse(task.getStartTime().isPresent());
@@ -114,6 +119,7 @@ public class EditCommandTest extends CommandTest {
         setParameter("d", "tomorrow 10 to 11pm");
         execute();
 
+        assertCommandSuccess();
         ImmutableTask task = getTaskAt(1);
         assertTrue(task.isEvent());
         assertEquals(TimeUtil.tomorrow().withHour(22), task.getStartTime().get());
@@ -125,7 +131,8 @@ public class EditCommandTest extends CommandTest {
         setParameter("2");
         setParameter("d", "");
         execute();
-        
+
+        assertCommandSuccess();
         ImmutableTask task = getTaskAt(2);
         assertFalse(task.getEndTime().isPresent());
     }
@@ -136,7 +143,8 @@ public class EditCommandTest extends CommandTest {
         setParameter("m", "New description");
         setParameter("l", "Singapura");
         execute();
-        
+
+        assertCommandSuccess();
         ImmutableTask toEditTwoThings = getTaskAt(1);
         assertEquals("Task 1", toEditTwoThings.getTitle());
         assertTrue(toEditTwoThings.isPinned());

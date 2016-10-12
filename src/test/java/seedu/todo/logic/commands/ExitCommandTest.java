@@ -19,6 +19,7 @@ public class ExitCommandTest extends CommandTest {
     public void testExecute() throws IllegalValueException, ValidationException {
         EventsCollector eventCollector = new EventsCollector();
         execute();
+        assertCommandSuccess();
         assertTrue(eventCollector.get(0) instanceof ExitAppRequestEvent);
     }
 

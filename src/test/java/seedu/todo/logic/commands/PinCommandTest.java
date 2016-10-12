@@ -26,6 +26,8 @@ public class PinCommandTest extends CommandTest {
         ImmutableTask toPin = getTaskAt(3);
         setParameter("3");
         execute();
+        
+        assertCommandSuccess();
         ImmutableTask currPinned = getTaskAt(2);
         assertEquals(currPinned, toPin);
         assertTrue(toPin.isPinned());
@@ -35,6 +37,8 @@ public class PinCommandTest extends CommandTest {
         ImmutableTask toUnpin = getTaskAt(1);
         setParameter("1");
         execute();
+
+        assertCommandSuccess();
         ImmutableTask currUnpinned = getTaskAt(1);
         assertEquals(currUnpinned, toUnpin);
         assertFalse(toUnpin.isPinned());
