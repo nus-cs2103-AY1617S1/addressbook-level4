@@ -22,7 +22,11 @@ public class TagList extends Component {
     private static final String EVENTS_ICON_PATH = "/images/icon-calendar.png";
     private static final String COMPLETED_LABEL = "Completed Tasks";
     private static final String COMPLETED_ICON_PATH = "/images/icon-tick.png";
-
+    private static final String TAG_LABEL = "Tags";
+    private static final String SPACE = " ";
+    private static final String LEFT_BRACKET  = "(";
+    private static final String RIGHT_BRACKET = ")";
+    
     // Props
     public List<String> tags; // stub
 
@@ -45,7 +49,7 @@ public class TagList extends Component {
 
     @Override
     public void componentDidMount() {
-        titleText.setText("Tags (" + tags.size() + ")");
+        titleText.setText(formatTagSize(tags.size()));
 
         // Load TagListLinks
         loadLinks();
@@ -53,7 +57,11 @@ public class TagList extends Component {
         // Load TagListItems
         loadTags();
     }
-
+    
+    private String formatTagSize(int size) {
+        return TAG_LABEL + SPACE + LEFT_BRACKET + size + RIGHT_BRACKET;
+    }
+    
     private void loadLinks() {
         TagListLink.reset(tagListLinksPlaceholder);
 

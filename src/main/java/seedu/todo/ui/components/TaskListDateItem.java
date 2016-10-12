@@ -18,6 +18,8 @@ public class TaskListDateItem extends MultiComponent {
 
     private static final String FXML_PATH = "components/TaskListDateItem.fxml";
     private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
+    private static final String SINGLE_TASK_LABEL = "task";
+    private static final String PURAL_TASK_LABEL = "tasks";
 
     // Props
     public LocalDateTime dateTime;
@@ -42,7 +44,7 @@ public class TaskListDateItem extends MultiComponent {
     public void componentDidMount() {
         // Set header for DateItem
         String dateHeader = String.format("%s (%d %s)", DateUtil.formatDay(dateTime), tasks.size(), 
-                                          StringUtil.pluralizer(tasks.size(), "task", "tasks"));
+                                          StringUtil.pluralizer(tasks.size(), SINGLE_TASK_LABEL, PURAL_TASK_LABEL));
         dateText.setText(dateHeader);
 
         // Load task items

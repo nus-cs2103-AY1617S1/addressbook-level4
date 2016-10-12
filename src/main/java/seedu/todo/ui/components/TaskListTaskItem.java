@@ -10,7 +10,9 @@ import seedu.todo.ui.UiPartLoader;
 public class TaskListTaskItem extends MultiComponent {
 
     private static final String FXML_PATH = "components/TaskListTaskItem.fxml";
-
+    private static final String DOT = ".";
+    private static final String SPACE = " ";
+    
     // Props
     public Task task;
     public int displayIndex;
@@ -30,7 +32,11 @@ public class TaskListTaskItem extends MultiComponent {
 
     @Override
     public void componentDidMount() {
-        taskText.setText(displayIndex + ". " + task.getName());
+        taskText.setText(formatTaskText(displayIndex, task.getName()));
+    }
+    
+    private String formatTaskText(int index, String taskName) {
+        return index + DOT + SPACE + taskName;
     }
 
 }
