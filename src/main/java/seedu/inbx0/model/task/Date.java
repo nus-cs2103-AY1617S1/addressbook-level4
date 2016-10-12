@@ -9,13 +9,14 @@ import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.logic.commands.IncorrectCommand;
 
 /**
- * Represents Date of a Task Event in the address book.
+ * Represents Date of a Task Event in the tasklist.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 
 public class Date {
 
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Date can either be a numeric string, alphanumeric string, or alphabet string";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Date can either be a numeric string, alphanumeric string, or alphabet string \n"
+                                                        + "Example: MM/DD/YYYY format OR 3rd Jan OR next year";
     public static final String DATE_NUMERIC_VALIDATION_REGEX = "\\d+";
 /*    public static final String DATE_ALPHANUMERIC_VALIDATION_REGEX = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)";
     public static final String DATE_ALPHABETICAL_VALIDATION_REGEX = "[\\p{Alpha} ]+";

@@ -9,19 +9,28 @@ import seedu.inbx0.model.tag.Tag;
 import seedu.inbx0.model.tag.UniqueTagList;
 
 /**
- * Adds a task to the address book.
+ * Adds a task to the tasklist.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the tasklist. \n"
+            + "1. Event Task \n"
+            + "Parameters: NAME s/STARTDATE st/STARTTIME e/ENDDATE et/ENDTIME [i/IMPORTANCE] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " homework s/tomorrow st/9a e/next week et/9a i/r t/CS2103 t/project \n \n"
+            + "2. Floating Task \n"
+            + "Parameters: NAME [i/IMPORTANCE] [t/TAG]...\n"
+            + "Example: " + COMMAND_WORD
+            + " read shakespeare i/r t/Hamlet t/Romeo and Juliet \n \n"
+            + "3. Deadline Task \n"
+            + "Parameters: NAME e/ENDDATE et/ENDTIME [i/IMPORTANCE] [t/TAG]...\n"
+            + "Example: " + COMMAND_WORD
+            + " complete project e/next month et/10a i/r t/Hamlet t/Romeo and Juliet \n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the tasklist";
 
     private final Task toAdd;
 

@@ -12,7 +12,8 @@ import com.joestelmach.natty.Parser;
  */
 public class Time {
 
-    public static final String MESSAGE_TIME_CONSTRAINTS = "Time has to be in 24 hour format";
+    public static final String MESSAGE_TIME_CONSTRAINTS = "Time can either be a numeric string, alphanumeric string, or alphabet string \n"
+                                                        + "Example: HH:MM format OR 3a (3am) OR 3 hours later";
     public static final String TIME_VALIDATION_REGEX = "\\d+";
     
     public final String value;

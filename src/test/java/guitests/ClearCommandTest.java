@@ -28,6 +28,6 @@ public class ClearCommandTest extends TaskListGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clr");
         assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage("Tasklist has been cleared!");
     }
 }

@@ -7,7 +7,7 @@ import seedu.inbx0.commons.events.ui.JumpToListRequestEvent;
 import seedu.inbx0.model.task.ReadOnlyTask;
 
 /**
- * Selects a task identified using it's last displayed index from the address book.
+ * Selects a task identified using it's last displayed index from the tasklist.
  */
 public class SelectCommand extends Command {
 

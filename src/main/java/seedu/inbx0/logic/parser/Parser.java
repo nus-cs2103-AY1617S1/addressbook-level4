@@ -311,6 +311,10 @@ public class Parser {
         
         String arguments = matcher.group("arguments");
         
+        if(arguments.length() == 0)
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
         if(arguments.trim().equals("float")) {
             argumentsForEdit[1] = "";
             argumentsForEdit[2] = "";
@@ -333,7 +337,7 @@ public class Parser {
         
         if(editArguments == null) {
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_INVALID_ARGUMENTS,EditCommand.MESSAGE_USAGE));
+                    String.format(EditCommand.MESSAGE_INVALID_ARGUMENTS, EditCommand.MESSAGE_USAGE));
         }
         
         Matcher matcher2 = editArguments.matcher(arguments);

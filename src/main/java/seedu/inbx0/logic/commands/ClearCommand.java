@@ -3,12 +3,12 @@ package seedu.inbx0.logic.commands;
 import seedu.inbx0.model.TaskList;
 
 /**
- * Clears the address book.
+ * Clears the tasklist.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clr";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Tasklist has been cleared!";
 
     public ClearCommand() {}
 

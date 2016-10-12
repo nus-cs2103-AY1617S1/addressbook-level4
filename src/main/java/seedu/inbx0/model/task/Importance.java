@@ -11,7 +11,8 @@ import seedu.inbx0.commons.exceptions.IllegalValueException;
 
 public class Importance {
     
-    public static final String MESSAGE_IMPORTANCE_CONSTRAINTS = "Importance has to be alphabetical format";
+    public static final String MESSAGE_IMPORTANCE_CONSTRAINTS = "Importance has to be alphabetical format and has three levels (green, yellow, red) \n"
+                                                            + "Example: G OR yellow OR r";;
     public static final String IMPORTANCE_VALIDATION_REGEX = "[a-zA-Z]+";
     public static final int NUM_OF_STRINGS_IN_ALLOWED_IMPORTANCE_NAMES = 12;
     public static final String [] ALLOWED_IMPORTANCE_NAMES = new String [] {

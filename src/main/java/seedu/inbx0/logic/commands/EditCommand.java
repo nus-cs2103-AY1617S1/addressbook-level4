@@ -19,7 +19,7 @@ import seedu.inbx0.model.task.UniqueTaskList.TaskNotFoundException;
 
 
 /**
- * Edits a task identified using it's last displayed index from the address book.
+ * Edits a task identified using it's last displayed index from the tasklist.
  */
 public class EditCommand extends Command {
     
@@ -27,11 +27,15 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX (must be a positive integer) [n/NAME] [s/STARTDATE] [st/STARTTIME] \n"
+            + "[e/ENDDATE] [et/ENDTIME] [i/IMPORTANCE] [t/TAG]... (one optional parameter is required)\n"
+            + "Example: " + COMMAND_WORD + " 1 s/tomorrow st/9a e/next week et/9a i/r t/CS2103 t/project \n \n"
+            + "You can also change an event or a deadline task to a floating task \n"
+            + "Parameters: INDEX (must be a positive integer) \n"
+            + "Example: " + COMMAND_WORD + " 1 float \n";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the tasklist";
     public static final String MESSAGE_INVALID_ARGUMENTS = "The arguments provided are invalid.";
     public static final int TOTAL_NUMBER_OF_ARGUMENTS = 6;
     
@@ -112,7 +116,7 @@ public class EditCommand extends Command {
         try {
             toEditWith = createToEditWithTask(editArguments, tags);
         } catch (IllegalValueException e1) {
-            return new CommandResult(String.format(Messages.MESSAGE_INVALID_ARGUMENTS, MESSAGE_USAGE));
+            return new CommandResult(String.format(MESSAGE_INVALID_ARGUMENTS, MESSAGE_USAGE));
         }
 
         try {
