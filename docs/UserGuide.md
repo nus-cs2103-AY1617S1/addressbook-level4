@@ -27,7 +27,7 @@ This product is meant to address the concerns of users who wish to schedule thei
    * **'exit'** : exits the application
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-![Image of UI](https://github.com/AnniyaB/main/blob/master/tptm.jpg)
+![Image of UI](https://github.com/AnniyaB/main/blob/master/tptm.png)
                                                               
 
 ## Command Summary
