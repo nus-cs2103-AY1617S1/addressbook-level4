@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -37,7 +38,7 @@ public class TaskListPanel extends UiPart {
     private ListView<ReadOnlyTask> taskListView;
     
     @FXML
-    private Label labelFloatingTaskListSize;
+    private TitledPane labelFloatingTaskListSize;
 
     public TaskListPanel() {
         super();
@@ -82,7 +83,7 @@ public class TaskListPanel extends UiPart {
 
     private void updateFloatingTaskSize(List<ReadOnlyTask> taskList) {
         floatingTaskListSize = taskList.size();
-        labelFloatingTaskListSize.setText(floatingTaskListSize.toString());
+        labelFloatingTaskListSize.setText("To Be Done Someday (" + floatingTaskListSize.toString() + ")");
     }
 
     private void addToPlaceholder() {
