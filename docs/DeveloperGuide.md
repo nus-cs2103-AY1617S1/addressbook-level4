@@ -43,9 +43,9 @@
 
 ## Introduction
 
-TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events with options such as deadline, recurrence, and tags. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
+TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events with options like deadline, recurrence, and tags. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
 
-This guide contains all necessary information for both new and experienced contributors to the development of TaSc. Each section provides an overview on the topic, which goes into further details in its subsections. Throughout your development of TaSc, as each subsection is relatively self-contained, you may revisit the topics that most interest you.
+This guide contains all necessary information for both new and experienced contributors to continue the development of TaSc. Each section provides an overview on a topic, which will then be explained in greater detail in the subsections. Each subsection is mostly self contained for ease of reference. Throughout your development of TaSc you may freely revisit the topics as and when you need to.
 
 ## Setting up
 
@@ -73,7 +73,7 @@ This guide contains all necessary information for both new and experienced contr
 5. Click `Finish`
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+  > * Depending on your connection speed and server load, it can take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
@@ -84,11 +84,11 @@ This guide contains all necessary information for both new and experienced contr
 <img src="images/Architecture.png" width="600"><br>
 
 The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
+A quick overview of each component is given below:
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It has two main responsibilities:
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
@@ -97,8 +97,8 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
+* [**`UI`**](#ui-component) : Accepts user inputs and displays command execution results
+* [**`Logic`**](#logic-component) : Executes commands
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
@@ -111,7 +111,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+The _Sequence Diagram_ below shows how the components interact when the user issues the
 command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
