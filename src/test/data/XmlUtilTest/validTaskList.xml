@@ -1,57 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <tasklist>
     <tasks>
-        <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@google.com</email>
-        <address isPrivate="false">4th street</address>
+        <name>Eat lunch</name>
+        <startDate>10/12/2016</startDate>
+        <startTime>123:00</startTime>
+        <endDate>10/13/2016</endDate>
+        <endTime>16:00</endTime>
+        <level>Green</level>
     </tasks>
     <tasks>
-        <name>Ruth Mueller</name>
-        <phone isPrivate="false">87249245</phone>
-        <email isPrivate="false">ruth@google.com</email>
-        <address isPrivate="false">81th street</address>
+        <name>Eat dinner</name>
+        <startDate>10/24/2016</startDate>
+        <startTime>14:00</startTime>
+        <endDate>10/26/2016</endDate>
+        <endTime>16:00</endTime>
+        <level>Red</level>
     </tasks>
     <tasks>
-        <name>Heinz Kurz</name>
-        <phone isPrivate="false">95352563</phone>
-        <email isPrivate="false">heinz@yahoo.com</email>
-        <address isPrivate="false">wall street</address>
+        <name>Do homework</name>
+        <startDate>06/12/2016</startDate>
+        <startTime>14:00</startTime>
+        <endDate>10/13/2016</endDate>
+        <endTime>16:00</endTime>
+        <level>Yellow</level>
     </tasks>
     <tasks>
-        <name>Cornelia Meier</name>
-        <phone isPrivate="false">87652533</phone>
-        <email isPrivate="false">cornelia@google.com</email>
-        <address isPrivate="false">10th street</address>
+        <name>Buy bunny</name>
+        <startDate>04/02/2016</startDate>
+        <startTime>00:00</startTime>
+        <endDate>05/13/2016</endDate>
+        <endTime>16:00</endTime>
+        <level>Red</level>
     </tasks>
     <tasks>
-        <name>Werner Meyer</name>
-        <phone isPrivate="false">9482224</phone>
-        <email isPrivate="false">werner@gmail.com</email>
-        <address isPrivate="false">michegan ave</address>
+        <name>Buy doggy</name>
+        <startDate>03/02/2016</startDate>
+        <startTime>11:00</startTime>
+        <endDate>10/13/2016</endDate>
+        <endTime>16:40</endTime>
+        <level>Green</level>
     </tasks>
     <tasks>
-        <name>Lydia Kunz</name>
-        <phone isPrivate="false">9482427</phone>
-        <email isPrivate="false">lydia@gmail.com</email>
-        <address isPrivate="false">little tokyo</address>
+        <name>Buy fish</name>
+        <startDate>01/16/2016</startDate>
+        <startTime>14:00</startTime>
+        <endDate>01/20/2016</endDate>
+        <endTime>10:00</endTime>
+        <level>Yellow</level>
     </tasks>
     <tasks>
-        <name>Anna Best</name>
-        <phone isPrivate="false">9482442</phone>
-        <email isPrivate="false">anna@google.com</email>
-        <address isPrivate="false">4th street</address>
+        <name>Buy flowers</name>
+        <startDate>10/21/2016</startDate>
+        <startTime>14:00</startTime>
+        <endDate>10/22/2016</endDate>
+        <endTime>16:00</endTime>
+        <level>Green</level>
     </tasks>
     <tasks>
-        <name>Stefan Meier</name>
-        <phone isPrivate="false">8482424</phone>
-        <email isPrivate="false">stefan@mail.com</email>
-        <address isPrivate="false">little india</address>
+        <name>Reply email</name>
+        <startDate>11/14/2016</startDate>
+        <startTime>14:00</startTime>
+        <endDate>11/27/2016</endDate>
+        <endTime>16:00</endTime>
+        <level>Red</level>
     </tasks>
     <tasks>
-        <name>Martin Mueller</name>
-        <phone isPrivate="false">8482131</phone>
-        <email isPrivate="false">hans@google.com</email>
-        <address isPrivate="false">chicago ave</address>
+        <name>Do report</name>
+        <startDate>10/12/2016</startDate>
+        <startTime>14:00</startTime>
+        <endDate>10/18/2016</endDate>
+        <endTime>11:00</endTime>
+        <level>Yellow</level>
     </tasks>
 </tasklist>

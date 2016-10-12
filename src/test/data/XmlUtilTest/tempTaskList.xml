@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <tasklist>
-    <persons>
+    <tasks>
         <id>1</id>
-        <firstName>John</firstName>
-        <lastName>Doe</lastName>
-        <githubUsername></githubUsername>
-        <street></street>
-        <postalCode></postalCode>
-        <city></city>
-    </persons>
+        <name>Buy bunny</name>
+        <startDate>04/02/2016</startDate>
+        <startTime>00:00</startTime>
+        <endDate>05/13/2016</endDate>
+        <endTime>16:00</endTime>
+        <level>Red</level>
+    </tasks>
     <tags>
         <name>Friends</name>
     </tags>
