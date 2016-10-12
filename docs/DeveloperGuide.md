@@ -275,13 +275,14 @@ Priority | As a ... | I want to ... | So that I can...
 Use case ends.
  
 **Extensions**
+
 1a. The input command format is wrong
-> MESS shows an error message with correct input format and prompts user to enter correct command
-Use case resumes on step 1.
+> MESS shows an error message with correct input format
+Use case ends.
 
 1b. The task name already exists on the list.
 > MESS shows a message to inform user that task already exists
-Use case resumes on step 1.
+Use case ends.
  
  
 #### Use case: Delete task by task name
@@ -319,7 +320,7 @@ Use case ends.
 3a. The given index is invalid
  
 >MESS shows an error message <br>
-   Use case resumes at step 2
+   Use case ends.
  
 #### Use case: Update task
  
@@ -340,7 +341,7 @@ Use case ends.
 3a. The given index is invalid
  
 >MESS shows an error message <br>
-   User case resumes at step 2
+   User case ends.
 
  #### Use case: Undo previous action
 
@@ -368,8 +369,8 @@ Use case ends.
 
 1a. The find command format is wrong
 
->MESS shows an error message and prompts user to type the correct format <br>
-   Use case resumes at step 1.
+>MESS shows an error message. r>
+   Use case ends.
 
 1b. There is no matched task
 
