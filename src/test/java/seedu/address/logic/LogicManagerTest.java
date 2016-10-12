@@ -162,13 +162,13 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] d/12345 date/11.11.11 time/1111", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/not_valid_date time/1111", Date.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Date.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/11.11.11 time/5678", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/11.11.11 time/1111 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -187,6 +187,8 @@ public class LogicManagerTest {
                 expectedAB.getPersonList());
 
     }
+    
+    
 
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
@@ -503,8 +505,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Description("1"),
-                    new Date("1@email"),
-                    new Time("House of 1"),
+                    new Date("11.11.11"),
+                    new Time("1111"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
