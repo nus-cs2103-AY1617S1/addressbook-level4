@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -16,9 +15,10 @@ import javafx.stage.Stage;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.jimi.model.task.DeadlineTask;
+import seedu.jimi.model.task.Event;
 import seedu.jimi.model.task.ReadOnlyTask;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -34,6 +34,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
     
     private Integer floatingTaskListSize; //size of current floatingTaskList
+    private ObservableList<ReadOnlyTask> floatingTaskList;
     private ObservableList<ReadOnlyTask> completedTaskList;
     private ObservableList<ReadOnlyTask> incompleteTaskList;
     
@@ -95,17 +96,19 @@ public class TaskListPanel extends UiPart {
         this.completedTaskList = FXCollections.observableArrayList();
         this.incompleteTaskList = FXCollections.observableArrayList();
         
-        updateFloatingTaskSize(taskList);
+        updateFloatingTaskList(taskList);
         updateCompletedAndIncompleteTaskList(taskList);
         
-        taskListView.setItems(taskList);
-        completedTaskListView.setItems(this.completedTaskList);
-        incompleteTaskListView.setItems(this.incompleteTaskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
-        completedTaskListView.setCellFactory(listView -> new TaskListViewCell());
-        incompleteTaskListView.setCellFactory(listView -> new TaskListViewCell());
+        setupListView(taskListView, taskList);
+        setupListView(completedTaskListView, taskList);
+        setupListView(incompleteTaskListView, taskList);
         
         setEventHandlerForSelectionChangeEvent();
+    }
+
+    private void setupListView(ListView<ReadOnlyTask> listView, ObservableList<ReadOnlyTask> taskList) {
+        listView.setItems(taskList);
+        listView.setCellFactory(newListView -> new TaskListViewCell());
     }
 
     private void addToPlaceholder() {
@@ -114,21 +117,13 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
-        
-        completedTaskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
-        
-        incompleteTaskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        setEventHandlerForListView(taskListView);
+        setEventHandlerForListView(completedTaskListView);
+        setEventHandlerForListView(incompleteTaskListView);
+    }
+
+    private void setEventHandlerForListView(ListView<ReadOnlyTask> listView) {
+        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
@@ -149,13 +144,27 @@ public class TaskListPanel extends UiPart {
      */
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        updateFloatingTaskSize(abce.data.getTaskList());
+        updateFloatingTaskList(abce.data.getTaskList());
         updateCompletedAndIncompleteTaskList(abce.data.getTaskList());
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
     }
     
-    private void updateFloatingTaskSize(List<ReadOnlyTask> taskList) {
+    private void updateFloatingTaskList(List<ReadOnlyTask> taskList) {
         floatingTaskListSize = taskList.size();
+        ObservableList<ReadOnlyTask> floatingTaskList = FXCollections.observableArrayList();
+        
+        for(ReadOnlyTask t : taskList) {
+            if(!(t instanceof DeadlineTask) && 
+                    !(t instanceof Event) && 
+                    !(t.isCompleted())){
+                floatingTaskList.add(t);
+            }
+        }
+        
+        updateFloatingTasksTitle();
+    }
+
+    private void updateFloatingTasksTitle() {
         titleFloatingTaskListSize.setText("Floating Tasks (" + floatingTaskListSize.toString() + ")");
     }
     
@@ -175,8 +184,16 @@ public class TaskListPanel extends UiPart {
         this.completedTaskList.setAll(newCompletedTaskList);
         this.incompleteTaskList.setAll(newIncompleteTaskList);
        
-        this.titleCompletedTasks.setText("Completed Tasks (" + completedTaskList.size() + ")");
+        updateCompleteTasksTitle();
+        updateIncompleteTasksTitle();
+    }
+
+    private void updateIncompleteTasksTitle() {
         this.titleIncompleteTasks.setText("Incomplete Tasks (" + incompleteTaskList.size() + ")");
+    }
+
+    private void updateCompleteTasksTitle() {
+        this.titleCompletedTasks.setText("Completed Tasks (" + completedTaskList.size() + ")");
     }
     
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
