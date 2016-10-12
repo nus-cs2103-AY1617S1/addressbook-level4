@@ -47,7 +47,7 @@ Example:
  
 ### Adding a task: `add`
 Adds a task into the task manager.<br>
-Format: `add NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Format: `[add] NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 >To make the command format more natural, we allow you to substitute `start` with `from/at`, `end` with `to/by`.
 
@@ -57,7 +57,7 @@ Format: `add NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INT
 
 You can assign your task a `PRIORITY` of `low`, `medium` or `high`. <br>
 Tasks have `medium` `PRIORITY` by default.<br>
-Format: `-PRIORITY`
+Keyword: `-PRIORITY`
 
 `PRIORITY` also accepts variations of `low`, `medium` and `high`.
 
@@ -126,7 +126,6 @@ Examples:
 * `Do project proposal, by 5pm tomorrow`
 * `eat lunch, by 1pm today -h`
 * `Buy coffee for boss, by 7am repeat every day`
-* 
 
 > Notice how the `end` keyword can be substituted with `by`.
 
@@ -273,7 +272,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Add | `[add] NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 Edit | `edit INDEX [NAME], [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 Delete | `delete INDEX`
 Undo | `undo`
