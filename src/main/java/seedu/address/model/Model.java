@@ -18,7 +18,7 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /** Deletes the given person. */
-    void deletePerson(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException;
 
     /** Adds the given person */
     void addPerson(Task person) throws UniquePersonList.DuplicatePersonException;
@@ -31,5 +31,7 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
+
+	void editTask(ReadOnlyTask taskToEdit) throws UniquePersonList.PersonNotFoundException;
 
 }

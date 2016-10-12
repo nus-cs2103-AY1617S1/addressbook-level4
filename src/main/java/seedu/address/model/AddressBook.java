@@ -111,6 +111,10 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new UniquePersonList.PersonNotFoundException();
         }
     }
+    
+    public void editTask(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {
+    	persons.edit(key);
+    }
 
 //// tag-level operations
 

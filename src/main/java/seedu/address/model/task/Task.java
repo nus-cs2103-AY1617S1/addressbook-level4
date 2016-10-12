@@ -55,6 +55,21 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    @Override
+    public void setName(Name name){
+    	this.name = name;
+    }
+    
+   @Override
+    public void setDeadline(Deadline deadline){
+    	this.deadline = deadline;
+    }
+   
+    @Override
+    public void setPriority(Priority priority){
+    	this.priority = priority;
+    }
 
     /**
      * Replaces this person's tags with the tags in the argument tag list.

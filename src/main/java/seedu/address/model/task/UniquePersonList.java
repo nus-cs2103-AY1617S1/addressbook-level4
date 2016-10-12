@@ -73,6 +73,21 @@ public class UniquePersonList implements Iterable<Task> {
         }
         return personFoundAndDeleted;
     }
+    
+    /**
+     * Edits the equivalent task in the list.
+     * 
+     * @param toEdit
+     * @return
+     * @throws PersonNotFoundException
+     */
+    public void edit(ReadOnlyTask toEdit) throws PersonNotFoundException {
+    	assert toEdit != null;
+    	if(!contains(toEdit)){
+    		throw new PersonNotFoundException();
+    	}
+    	//internalList.add(toEdit);
+    }
 
     public ObservableList<Task> getInternalList() {
         return internalList;

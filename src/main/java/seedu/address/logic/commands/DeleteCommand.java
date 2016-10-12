@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
         ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deletePerson(personToDelete);
+            model.deleteTask(personToDelete);
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
