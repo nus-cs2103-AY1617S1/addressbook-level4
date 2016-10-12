@@ -213,13 +213,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `seedu.inbx0.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `seedu.inbx0.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.inbx0.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -258,7 +258,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Inbx_0 depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -273,26 +273,51 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new task |
+`* * *` | user | edit details of a task | make changes to tasks
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | to mark tasks as done | keep track of completed tasks |
+`* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
+`* *`   | user | categorise my tasks by date | view which tasks are due on certain dates
+`* *`   | user | change storage location | access the file data easily
+`*`     | user | undo last action taken | rectify any accidental mistakes
+`*`     | user | be reminded of upcoming tasks | remember tasks
+`*`     | user | auto-complete my commands | be more efficient with typing commands
 
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Inbx_0` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to add a task
+2. Inbx_0 creates the task and saves it into the storage file
+Use case ends.
+
+**Extensions**
+
+1a. User requests to add a duplicate task
+> 1a1. Inbx_0 shows an error message <br>
+  Use case ends
+
+1b. Inbx_0 detects an error in the data entered
+ >   1b1. Inbx_0 requests for the correct data
+     1b2. User enters new data <br>
+     Steps 1b1-1b2 are repeated until data contains no errors
+     Use case resumes from step 2.
+
+#### Use case: Delete task
+
+**MSS**
+
+1. User requests to list tasks
+2. Inbx_0 shows a list of tasks
+3. User requests to delete a specific task in the list
+4. Inbx_0 deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -303,7 +328,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. Inbx_0 shows an error message <br>
   Use case resumes at step 2
 
 {More to be added}
@@ -311,7 +336,7 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 5000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 

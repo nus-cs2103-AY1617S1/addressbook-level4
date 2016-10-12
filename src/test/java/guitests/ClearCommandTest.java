@@ -2,21 +2,23 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.inbx0.commons.exceptions.IllegalValueException;
+
 import static org.junit.Assert.assertTrue;
 
-public class ClearCommandTest extends AddressBookGuiTest {
+public class ClearCommandTest extends TaskListGuiTest {
 
     @Test
-    public void clear() {
+    public void clear() throws IllegalArgumentException, IllegalValueException {
 
         //verify a non-empty list can be cleared
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
+        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
         commandBox.runCommand(td.hoon.getAddCommand());
-        assertTrue(personListPanel.isListMatching(td.hoon));
-        commandBox.runCommand("delete 1");
+        assertTrue(taskListPanel.isListMatching(td.hoon));
+        commandBox.runCommand("del 1");
         assertListSize(0);
 
         //verify clear command works when the list is empty
@@ -24,7 +26,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
     }
 
     private void assertClearCommandSuccess() {
-        commandBox.runCommand("clear");
+        commandBox.runCommand("clr");
         assertListSize(0);
         assertResultMessage("Address book has been cleared!");
     }
