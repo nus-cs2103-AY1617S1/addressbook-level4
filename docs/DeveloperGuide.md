@@ -259,7 +259,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a new task |
 `* * *` | user | delete a task | remove task that I have done
 `* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
 `*` | user with many tasks in the task manager | sort tasks by deadline | locate a task easily
 
 {More to be added}
@@ -293,7 +292,7 @@ Use case ends.
 
 **MSS**
 
-1. User type the correct command in the command box(search KEYWORD)
+1. User requests to search a task by a KEYWORD
 2. Task Manager shows a task or more tasks which match the KEYWORD.<br>
 Use case ends.
 
@@ -310,8 +309,6 @@ Use case ends.
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
-
 ## Appendix D : Glossary
 
 ##### Mainstream OS
