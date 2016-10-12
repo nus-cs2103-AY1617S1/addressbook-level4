@@ -50,24 +50,23 @@ public class TMAddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     // TODO allow tag list as params
-//    public TMAddCommand(String name, String startDate, String endDate)
-//            throws IllegalValueException {
-//        this.toAdd = new TMTask(
-//        		new Name(name), 
-//        		new Status(), 
-//        		new Date(startDate), 
-//        		new Date(endDate),
-//        		new UniqueTagList()
-//                );
-//    }
+    public TMAddCommand(String name, String startDate, String endDate)
+            throws IllegalValueException {
+        this.toAdd = new TMTask(
+        		new Name(name), 
+        		new Status(), 
+        		new Date(startDate), 
+        		new Date(endDate),
+        		new UniqueTagList()
+                );
+    }
     
     /**
      * constructors a deadline task
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public TMAddCommand(String name, String endDate)
-            throws IllegalValueException {
+    public TMAddCommand(String name, String endDate) throws IllegalValueException {
         this.toAdd = new TMTask(
         		new Name(name), 
         		new Status(), 
@@ -81,8 +80,7 @@ public class TMAddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public TMAddCommand(String name)
-            throws IllegalValueException {
+    public TMAddCommand(String name) throws IllegalValueException {
         this.toAdd = new TMTask(
                 new Name(name),
                 new Status(),

@@ -18,6 +18,22 @@ public class TMTask implements TMReadOnlyTask {
 	
 	
 	/**
+	 * Construct an 'event' task 
+	 * 
+	 * @param tags may be empty.
+	 * Every field must be present and not null.
+	 */
+    public TMTask(Name name, Status status, Date startDate, Date endDate, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, status, startDate, endDate, tags);
+        this.taskType = TaskType.EVENT;
+        this.name = name;
+        this.status = status;
+        this.startDate = Optional.of(startDate);
+        this.endDate = Optional.of(endDate);
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+	
+	/**
 	 * Construct a 'deadline' task 
 	 * 
 	 * @param tags may be empty.
