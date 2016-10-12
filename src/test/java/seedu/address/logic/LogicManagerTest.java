@@ -389,12 +389,12 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Description description = new Description("Adam Brown");
             Time time = new Time("15:30");
-            Venue venue = new Venue("NUS");
+            Date date = new Date("12.10.2016");
             Priority priority = new Priority("high");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(description, priority, time, venue, tags);
+            return new Task(description, priority, time, date, tags);
         }
 
         /**
@@ -409,7 +409,7 @@ public class LogicManagerTest {
                     new Description("Person " + seed),
                     new Priority(""),
                     new Time("" + Math.abs(seed) + ":" + Math.abs(seed) + Math.abs(seed)),
-                    new Venue(seed + "Place"),
+                    new Date(seed + "Date"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -423,8 +423,8 @@ public class LogicManagerTest {
             cmd.append(p.getDescription().toString());
             cmd.append(" pr/").append(p.getPriority());
             cmd.append(" time/").append(p.getTime());
-            cmd.append(" a/").append(p.getVenue());
-            
+            cmd.append(" a/").append(p.getDate());
+
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -509,7 +509,7 @@ public class LogicManagerTest {
                     new Description(name),
                     new Priority(""),
                     new Time("1:11"),
-                    new Venue("Junct1"),
+                    new Date("1.1.2016"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
