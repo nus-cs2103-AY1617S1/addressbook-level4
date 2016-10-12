@@ -6,7 +6,7 @@ import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a task identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the task manager.
  */
 public class DeleteCommand extends Command {
 
