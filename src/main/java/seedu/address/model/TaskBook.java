@@ -1,14 +1,24 @@
 package seedu.address.model;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-
-import java.util.*;
-import java.util.stream.Collectors;
+import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -111,6 +121,28 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.PersonNotFoundException();
         }
     }
+    
+    /*public boolean editPerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+        if (persons.edit(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.PersonNotFoundException();
+        }
+        
+    }*/
+    
+    public boolean changePerson(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException {
+        // TODO Auto-generated method stub
+        //System.out.println("dummy");
+        if (persons.edit(target, args)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.PersonNotFoundException();
+        }
+            
+            
+        
+    }
 
 //// tag-level operations
 
@@ -160,4 +192,5 @@ public class TaskBook implements ReadOnlyTaskBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags);
     }
+
 }

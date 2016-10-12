@@ -1,9 +1,11 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 
 import java.util.Set;
 
@@ -31,5 +33,10 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
+
+    /** Edits the given person 
+     * @throws IllegalValueException 
+     * @throws PersonNotFoundException */
+    void editPerson(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException;
 
 }
