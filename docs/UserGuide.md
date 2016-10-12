@@ -1,10 +1,11 @@
 # User Guide
 
 * 1. [About the Task Manager](#about-the-task-manager)
-* 2. [Ouick Start Guide](#quick-start-guide) 
-* 3. [Features](#features)
-* 4. [FAQ](#faq)
-* 5. [Command Summary](#command-summary)
+* 2. [Ouick Start Guide](#quick-start-guide)
+* 3. [Command Summary](#command-summary)
+* 4. [Features](#features)
+* 5. [FAQ](#faq)
+
 
 ## About the Task Manager
 
@@ -27,6 +28,19 @@ This product is meant to address the concerns of users who wish to schedule thei
    * **'exit'** : exits the application
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
+## Command Summary
+
+Command | Format  
+-------- | :-------- 
+Add | `add <TASKNAME> d/<DEADLINE> p/<PRIORITY>`
+Clear | `clear`
+Edit | `edit <TASKNAME> d/<DEADLINE> p/<PRIORITY>`
+Delete | `delete <INDEX>`
+Find | `find KEYWORD [MORE_KEYWORDS]`
+List | `list`
+Help | `help`
+Select | `select <INDEX>`
+View | `view <TASKNAME>`
 
 ## Features
 
@@ -156,17 +170,3 @@ There is no need to save manually.
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Task Manager folder.          
        
-## Command Summary
-
-Command | Format  
--------- | :-------- 
-Add | `add <TASKNAME> d/<DEADLINE> p/<PRIORITY>`
-Clear | `clear`
-Edit | `edit <TASKNAME> d/<DEADLINE> p/<PRIORITY>`
-Delete | `delete <INDEX>`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select <INDEX>`
-View | `view <TASKNAME>`
-
