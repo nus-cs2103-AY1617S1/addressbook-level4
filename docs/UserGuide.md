@@ -100,10 +100,10 @@ Format: `select INDEX`
 Examples: 
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd task in the address book.
+  Selects the 2nd task in the task manager.
 * `find CS2103T` <br> 
   `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+  Selects the 1st task in the results of the `find` command.
   
 #### Attaching a note to the task: `attach`  
 Description: Adds an additional note to that particular task
