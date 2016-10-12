@@ -35,9 +35,9 @@ public class Parser {
     
     private static final Pattern PERSON_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>.+)" + " n/(?<task>[^/]+)"
-                    + " (?<isDuedatePrivate>p?)d/(?<duedate>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
-                    + " (?<isReminderPrivate>p?)r/(?<reminder>[^/]+)"
+                    + "(?<isDuedatePrivate>p?)(?<duedate>(?: d/[^/]+)?)"
+                    + "(?<isPriorityPrivate>p?)(?<priority>(?: p/[^/]+)?)"
+                    + "(?<isReminderPrivate>p?)(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -186,10 +186,10 @@ public class Parser {
         
         try {
             return new EditCommand(index.get(), 
-                    matcher.group("task"),
-                    matcher.group("duedate"),
-                    matcher.group("priority"),
-                    matcher.group("reminder"),
+                    getElement(matcher.group("task"), "n/"),
+                    getElement(matcher.group("duedate")," d/"),
+                    getElement(matcher.group("priority")," p/"),
+                    getElement(matcher.group("reminder")," r/"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
