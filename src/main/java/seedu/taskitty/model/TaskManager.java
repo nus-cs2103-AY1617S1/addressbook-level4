@@ -93,6 +93,18 @@ public class TaskManager implements ReadOnlyTaskManager {
     		throw new UniqueTaskList.TaskNotFoundException();
     	}
     }
+    
+    /**
+     * Adds a task to the task manager.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.DuplicatePersonException if an equivalent person already exists.
+     */
+    public void addTask(Task p, int index) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList(p);
+        tasks.add(index, p);
+    }
 
     /**
      * Ensures that every tag in this task:
