@@ -13,6 +13,14 @@ import java.util.Locale;
  */
 public class DateUtil {
 
+    private static final String FROM_NOW = "later";
+    private static final String TILL_NOW = "ago";
+    private static final String SPACE  = " ";
+    private static final String TODAY = "Today";
+    private static final String TOMORROW = "Tomorrow";
+    private static final String DAY = "day";
+    private static final String DAYS = "days";
+    
     /**
      * Converts a LocalDateTime object to a legacy java.util.Date object.
      * 
@@ -46,21 +54,25 @@ public class DateUtil {
         LocalDate date = dateTime.toLocalDate();
         long daysDifference = LocalDate.now().until(date, ChronoUnit.DAYS);
 
-        String fromNow = "later";
-        String tillNow = "ago";
-
         // Consider today's date.
-        if (date.isEqual(LocalDate.now()))
-            return "Today";
+        if (date.isEqual(LocalDate.now())) {
+            return TODAY + SPACE + date.getDayOfMonth() + SPACE + date.getMonth();
+        }
+        
+        if (daysDifference == 1) {
+            return TOMORROW + SPACE + date.getDayOfMonth() + SPACE + date.getMonth();
+        }
 
         // Consider dates up to 6 days from today.
-        if (daysDifference > 0 && daysDifference <= 6)
-            return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US);
+        if (daysDifference > 1 && daysDifference <= 6) {
+            return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US) + SPACE + 
+                    date.getDayOfMonth() + SPACE + date.getMonthValue();
+        }
 
         // Otherwise, dates should be a relative days ago/from now format.
         return String.format("%d %s %s", Math.abs(daysDifference), 
-                StringUtil.pluralizer((int) Math.abs(daysDifference), "day", "days"), 
-                daysDifference > 0 ? fromNow : tillNow);
+                StringUtil.pluralizer((int) Math.abs(daysDifference), DAY, DAYS), 
+                daysDifference > 0 ? FROM_NOW : TILL_NOW);
     }
 
 }
