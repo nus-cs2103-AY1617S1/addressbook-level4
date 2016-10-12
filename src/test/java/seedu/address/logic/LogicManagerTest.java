@@ -152,23 +152,23 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@start.butNoDatePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 s/valid@start.butNoDatePrefix e/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@start.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Name d/12345 valid@start.butNoPrefix e/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@start.butNoEndTimePrefix valid, address", expectedMessage);
+                "add Valid Name d/12345 s/valid@start.butNoEndTimePrefix valid, address", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] d/12345 s/valid@e.mail e/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Date.MESSAGE_DATE_CONSTRAINTS);
+                "add Valid Name d/not_numbers s/valid@e.mail e/valid, address", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnStartTime a/valid, address", StartTime.MESSAGE_START_CONSTRAINTS);
+                "add Valid Name d/12345 s/notAnStartTime e/valid, address", StartTime.MESSAGE_START_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name d/12345 s/valid@e.mail e/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -417,9 +417,9 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getDate());
-            cmd.append(" e/").append(p.getStartTime());
-            cmd.append(" a/").append(p.getEndTime());
+            cmd.append(" d/").append(p.getDate());
+            cmd.append(" s/").append(p.getStartTime());
+            cmd.append(" e/").append(p.getEndTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
