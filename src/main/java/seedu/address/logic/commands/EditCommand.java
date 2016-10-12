@@ -14,9 +14,9 @@ public class EditCommand extends Command {
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the task identified using it's last displayed index. "
-            + "Parameters: INDEX PROPERTY NEW_INPUT"
+            + "Parameters: INDEX PROPERTY NEW_INPUT\n"
             + "Example: " + COMMAND_WORD 
-            + "edit s4 name oranges";
+            + " 1 name oranges";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Editted Task: %1$s";
     
     private int targetIndex;
