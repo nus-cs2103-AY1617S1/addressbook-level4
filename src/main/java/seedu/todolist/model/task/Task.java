@@ -5,23 +5,23 @@ import seedu.todolist.commons.util.CollectionUtil;
 import java.util.Objects;
 
 /**
- * Represents a Task in the address book.
+ * Represents a Task in the to do list.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    
+    private Interval interval;
     private LocationParameter locationParameter;
-    
     private RemarksParameter remarksParameter;
 
     /**
      * Only Name field must be present and not null. Other fields can be null.
      */
-    public Task(Name name, LocationParameter location, RemarksParameter remarks) {
-        assert !CollectionUtil.isAnyNull(name);
+    public Task(Name name, Interval interval, LocationParameter location, RemarksParameter remarks) {
+        assert !CollectionUtil.isAnyNull(name, interval, location, remarks);
         this.name = name;
+        this.interval = interval;
         this.locationParameter = location;
         this.remarksParameter = remarks;
     }
@@ -30,14 +30,18 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getLocationParameter(), source.getRemarksParameter());
+        this(source.getName(), source.getInterval(), source.getLocationParameter(), source.getRemarksParameter());
     }
 
     @Override
     public Name getName() {
         return name;
     }
-
+    
+    @Override
+    public Interval getInterval() {
+        return interval;
+    }
 
     @Override
     public LocationParameter getLocationParameter() {

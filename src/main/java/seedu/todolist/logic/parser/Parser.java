@@ -3,6 +3,8 @@ package seedu.todolist.logic.parser;
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.logic.commands.*;
+import seedu.todolist.model.task.TaskDate;
+import seedu.todolist.model.task.TaskTime;
 
 import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.todolist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -27,8 +29,24 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " at (?<locationParameter>[^/]+)" + " remarks (?<remarksParameter>[^/]+)");
+            Pattern.compile("(?<name>(.)+)"
+                    + "(?<interval>(?:\\bfrom\\b[\\p{Alnum}:/\\s]+))"
+                    + " at (?<locationParameter>[^/]+)" 
+                    + " remarks (?<remarksParameter>[^/]+)");
+    
+    public static final int INTERVAL_COMPONENT_TOTAL = 2;
+    public static final int INTERVAL_COMPONENT_FROM = 0;
+    public static final int INTERVAL_COMPONENT_TO = 1;
+    
+    public static final int DETAILED_INTERVAL_COMPONENT_TOTAL = 4;
+    public static final int INTERVAL_COMPONENT_STARTDATE = 0;
+    public static final int INTERVAL_COMPONENT_STARTTIME = 1;
+    public static final int INTERVAL_COMPONENT_ENDDATE = 2;
+    public static final int INTERVAL_COMPONENT_ENDTIME = 3;
+    
+    public static final int DATETIME_COMPONENT_TOTAL = 2; 
+    public static final int DATETIME_COMPONENT_DATE = 0;
+    public static final int DATETIME_COMPONENT_TIME = 1;
 
     public Parser() {}
 
@@ -90,8 +108,9 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            return new AddCommand(
+            return parseAddCommandWithInterval(
                     matcher.group("name"),
+                    parseInterval(matcher.group("interval")),
                     matcher.group("locationParameter"),
                     matcher.group("remarksParameter")
             );
@@ -99,12 +118,76 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    private AddCommand parseAddCommandWithInterval(String name, String[] interval, String location, String remarks) throws IllegalValueException {
+        return new AddCommand(
+                name, 
+                interval[INTERVAL_COMPONENT_STARTDATE], 
+                interval[INTERVAL_COMPONENT_STARTTIME], 
+                interval[INTERVAL_COMPONENT_ENDDATE], 
+                interval[INTERVAL_COMPONENT_ENDTIME],
+                location,
+                remarks);
+    }
+    
+    /**
+     * Extracts the new task's start date and time, and end date and time from the add command's interval arguments string.
+     * Returns String[startDate, startTime, endDate, endTime].
+     */
+    private String[] parseInterval(String interval) {
+        System.out.println("ALL INTERVAL : " + interval);
+        String[] intervalComponents = interval.split("to");
+        String startDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_DATE];
+        String startTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_TIME];
+        String endDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_TO])[DATETIME_COMPONENT_DATE];
+        String endTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_TO])[DATETIME_COMPONENT_TIME];
+        
+        //if only one date is provided, both startDate and endDate will be the same
+        if (startDate == null) {
+            startDate = endDate;
+        }
+        if (endDate == null) {
+            endDate = startDate;
+        }
+        
+        String[] detailedIntervalComponents = new String[DETAILED_INTERVAL_COMPONENT_TOTAL];
+        detailedIntervalComponents[INTERVAL_COMPONENT_STARTDATE] = startDate;
+        detailedIntervalComponents[INTERVAL_COMPONENT_STARTTIME] = startTime;
+        detailedIntervalComponents[INTERVAL_COMPONENT_ENDDATE] = endDate;
+        detailedIntervalComponents[INTERVAL_COMPONENT_ENDTIME] = endTime;
+        
+        return detailedIntervalComponents;
+    }
+    
+    /**
+     * Extracts the new task's date and time from the add command's datetime arguments string.
+     * Returns String[date, time];
+     */
+    private String[] parseDatetime(String datetime) {
+        String[] dateAndTime = new String[DATETIME_COMPONENT_TOTAL];
+        
+        //find date
+        Pattern datePattern = Pattern.compile(TaskDate.DATE_VALIDATION_REGEX_FORMAT);
+        Matcher dateMatcher = datePattern.matcher(datetime);
+        if (dateMatcher.find()) {
+            dateAndTime[DATETIME_COMPONENT_DATE] = dateMatcher.group();
+        }
+        
+        //find time
+        Pattern timePattern = Pattern.compile(TaskTime.TIME_VALIDATION_REGEX_FORMAT);
+        Matcher timeMatcher = timePattern.matcher(datetime);
+        if (timeMatcher.find()) {
+            dateAndTime[DATETIME_COMPONENT_TIME] = timeMatcher.group();
+        }
+        return dateAndTime;
+    }
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+        System.out.println("ALL TAGS : " + tagArguments);
         // no tags
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();

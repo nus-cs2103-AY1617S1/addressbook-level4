@@ -18,6 +18,11 @@ public class TaskBuilder {
         this.task.setName(new Name(name));
         return this;
     }
+    
+    public TaskBuilder withInterval(String startDate, String startTime, String endDate, String endTime) throws IllegalValueException {
+        this.task.setInterval(new Interval(startDate, startTime, endDate, endTime));
+        return this;
+    }
 
     public TaskBuilder withLocationParameter(String locationParameter) throws IllegalValueException {
     	this.task.setLocationParameter(new LocationParameter(locationParameter));
