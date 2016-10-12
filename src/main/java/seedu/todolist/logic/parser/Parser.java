@@ -186,7 +186,6 @@ public class Parser {
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        System.out.println("ALL TAGS : " + tagArguments);
         // no tags
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();

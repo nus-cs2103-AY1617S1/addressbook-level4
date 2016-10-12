@@ -395,7 +395,10 @@ public class LogicManagerTest {
             cmd.append(p.getInterval().startDate + " " + p.getInterval().startTime);
             cmd.append(" to ");
             cmd.append(p.getInterval().endDate + " " + p.getInterval().endTime);
+            cmd.append(" at ");
             cmd.append(p.getLocationParameter().toString());
+            cmd.append(" remarks ");
+            cmd.append(p.getRemarksParameter().toString());
 
             return cmd.toString();
         }

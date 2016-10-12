@@ -27,7 +27,7 @@ public class Interval {
         this.startTime = new TaskTime(startTime);
         this.endDate = new TaskDate(endDate);
         this.endTime = new TaskTime(endTime);
-        
+
         if (!isValidDateInterval(this.startDate, this.endDate)) {
             throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS_DATE);
         }

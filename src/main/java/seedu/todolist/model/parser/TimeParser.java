@@ -99,7 +99,6 @@ public class TimeParser {
         if (hour != TIME_COMPONENT_PERIOD_OFFSET) {
             hour = hour + TIME_COMPONENT_PERIOD_OFFSET;
         }
-        
         return LocalTime.of(hour, minute);
     }
     
