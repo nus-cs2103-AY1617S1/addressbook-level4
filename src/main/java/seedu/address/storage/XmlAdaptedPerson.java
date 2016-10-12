@@ -59,8 +59,8 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Date phone = new Date(this.phone);
-        final Email email = new Email(this.email);
+        final DueDate phone = new DueDate(this.phone);
+        final DueTime email = new DueTime(this.email);
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
         return new Task(name, phone, email, address, tags);

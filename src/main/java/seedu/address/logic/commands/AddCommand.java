@@ -30,7 +30,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, Set<String> tags)
+    public AddCommand(String name, String time, String date, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -38,8 +38,8 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Name(name),
-                new Date(date),
-                new Email("Dummy@dummy.com"),
+                new DueDate(date),
+                new DueTime(time),
                 new Address("Dummy"),
                 new UniqueTagList(tagSet)
         );

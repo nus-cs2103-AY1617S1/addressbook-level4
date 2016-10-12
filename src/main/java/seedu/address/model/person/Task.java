@@ -12,8 +12,8 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Date phone;
-    private Email email;
+    private DueDate dueDate;
+    private DueTime dueTime;
     private Address address;
 
     private UniqueTagList tags;
@@ -21,11 +21,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Date phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+    public Task(Name name, DueDate dueDate, DueTime dueTime, Address address, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, dueDate, dueTime, address, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
+        this.dueDate = dueDate;
+        this.dueTime = dueTime;
         this.address = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getDueDate(), source.getDueTime(), source.getAddress(), source.getTags());
     }
 
     @Override
@@ -43,13 +43,13 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Date getPhone() {
-        return phone;
+    public DueDate getDueDate() {
+        return dueDate;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public DueTime getDueTime() {
+        return dueTime;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, dueDate, dueTime, address, tags);
     }
 
     @Override

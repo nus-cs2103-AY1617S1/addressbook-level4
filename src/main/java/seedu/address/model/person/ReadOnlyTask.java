@@ -9,8 +9,8 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    Date getPhone();
-    Email getEmail();
+    DueDate getDueDate();
+    DueTime getDueTime();
     Address getAddress();
 
     /**
@@ -26,8 +26,8 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
+                && other.getDueDate().equals(this.getDueDate())
+                && other.getDueTime().equals(this.getDueTime())
                 && other.getAddress().equals(this.getAddress()));
     }
 
@@ -38,7 +38,7 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Date: ")
-                .append(getPhone())
+                .append(getDueDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

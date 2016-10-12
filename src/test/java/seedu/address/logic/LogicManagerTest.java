@@ -164,9 +164,9 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Date.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", DueDate.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnEmail a/valid, address", DueTime.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -384,8 +384,8 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Date privatePhone = new Date("111111");
-            Email email = new Email("adam@gmail.com");
+            DueDate privatePhone = new DueDate("111111");
+            DueTime email = new DueTime("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -403,8 +403,8 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Name("Person " + seed),
-                    new Date("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
+                    new DueDate("" + Math.abs(seed)),
+                    new DueTime(seed + "@email"),
                     new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -502,8 +502,8 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Date("1"),
-                    new Email("1@email"),
+                    new DueDate("1"),
+                    new DueTime("1@email"),
                     new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );

@@ -5,13 +5,13 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
-public class Email {
+public class DueTime {
 
-    public static final String MESSAGE_EMAIL_CONSTRAINTS =
+    public static final String MESSAGE_TIME_CONSTRAINTS =
             "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    public static final String TIME_VALIDATION_REGEX = "\\d+";
 
     public final String value;
 
@@ -20,11 +20,11 @@ public class Email {
      *
      * @throws IllegalValueException if given email address string is invalid.
      */
-    public Email(String email) throws IllegalValueException {
+    public DueTime(String email) throws IllegalValueException {
         assert email != null;
         email = email.trim();
-        if (!isValidEmail(email)) {
-            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
+        if (!isValidTime(email)) {
+            throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         this.value = email;
     }
@@ -32,8 +32,8 @@ public class Email {
     /**
      * Returns if a given string is a valid person email.
      */
-    public static boolean isValidEmail(String test) {
-        return test.matches(EMAIL_VALIDATION_REGEX);
+    public static boolean isValidTime(String test) {
+        return test.matches(TIME_VALIDATION_REGEX);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class Email {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && this.value.equals(((Email) other).value)); // state check
+                || (other instanceof DueTime // instanceof handles nulls
+                && this.value.equals(((DueTime) other).value)); // state check
     }
 
     @Override
