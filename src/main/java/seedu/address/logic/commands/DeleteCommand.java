@@ -43,6 +43,9 @@ public class DeleteCommand extends Command {
         hasMultipleIndexes = true;
     }
 
+    /**
+     * Deletes events, tasks, or deadlines by a single index or ascending multiple indexes.
+     */
     @Override
     public CommandResult execute() {
         
