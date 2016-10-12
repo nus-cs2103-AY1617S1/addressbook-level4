@@ -52,8 +52,8 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         detail = source.getDetail().details;
         done = source.checkDone().value.toString();
-        dueByDate = source.getDueByDate().getFriendlyString();
-        dueByTime = source.getDueByTime().getFriendlyString();
+        dueByDate = source.getDueByDate().toString();
+        dueByTime = source.getDueByTime().toString();
         priority = source.getPriority().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -73,8 +73,8 @@ public class XmlAdaptedTask {
         }
         
         final Detail detail = new Detail(this.detail);
-        final DueByDate dbd = new DueByDate(LocalDate.parse(this.dueByDate, DateTimeFormatter.ISO_LOCAL_DATE));
-        final DueByTime dbt = new DueByTime(LocalTime.parse(this.dueByTime, DateTimeFormatter.ISO_LOCAL_TIME));
+        final DueByDate dbd = new DueByDate(LocalDate.parse(this.dueByDate));
+        final DueByTime dbt = new DueByTime(LocalTime.parse(this.dueByTime));
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(detail, dbd, dbt, priority, tags);
