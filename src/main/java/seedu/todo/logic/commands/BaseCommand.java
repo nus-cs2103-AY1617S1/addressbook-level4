@@ -132,7 +132,10 @@ public abstract class BaseCommand {
     }
 
     /**
-     * Returns a generic CommandResult with a "{task} successfully {verbed}" success message   
+     * Returns a generic CommandResult with a "{task} successfully {verbed}" success message. 
+     * 
+     * @param title the title of the task that was verbed on 
+     * @param verb the action that was performed on the task, in past tense
      */
     protected CommandResult taskSuccessfulResult(String title, String verb) {
         return new CommandResult(String.format(BaseCommand.TASK_MODIFIED_SUCCESS_MESSAGE, title, verb));
