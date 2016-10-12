@@ -35,9 +35,7 @@ public class TaskDate {
      */
     public TaskDate(String date) throws IllegalValueException {
         assert date != null;
-        System.out.println("before trim:"+date);
         date = date.trim();
-        System.out.println("after trim:"+date);
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
@@ -54,7 +52,6 @@ public class TaskDate {
      */
     public static boolean isValidDate(String test) {
         if (test.matches(DATE_VALIDATION_REGEX_FORMAT)) {
-            System.out.println("regex passed");
             return true;
         }
         return false;

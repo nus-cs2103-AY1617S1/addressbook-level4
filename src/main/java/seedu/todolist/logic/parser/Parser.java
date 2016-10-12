@@ -29,9 +29,9 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[\\p{Alnum}\\s]+)"
+            Pattern.compile("(?<name>(.)+)"
                     + "(?<interval>(?:\\bfrom\\b[\\p{Alnum}:/\\s]+))"
-                    + "(?<tagArguments>(?: \\bt/\\b[\\p{Alnum}\\s]+)*)"); // variable number of tags
+                    + "(?<tagArguments>(?:\\btag\\b[\\p{Alnum}\\s]+)*)"); // variable number of tags
     
     public static final int INTERVAL_COMPONENT_TOTAL = 2;
     public static final int INTERVAL_COMPONENT_FROM = 0;
@@ -123,6 +123,10 @@ public class Parser {
         System.out.println("START TIME : " + interval[INTERVAL_COMPONENT_STARTTIME]);
         System.out.println("END DATE : " + interval[INTERVAL_COMPONENT_ENDDATE]);
         System.out.println("END TIME : " + interval[INTERVAL_COMPONENT_ENDTIME]);
+        System.out.println("TAG SIZE : " + tags.size());
+        for (String t : tags) {
+            System.out.println("TAG : " + t);
+        }
         return new AddCommand(
                 name, 
                 interval[INTERVAL_COMPONENT_STARTDATE], 
@@ -137,6 +141,7 @@ public class Parser {
      * Returns String[startDate, startTime, endDate, endTime].
      */
     private String[] parseInterval(String interval) {
+        System.out.println("ALL INTERVAL : " + interval);
         String[] intervalComponents = interval.split("to");
         String startDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_DATE];
         String startTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_TIME];
@@ -188,6 +193,7 @@ public class Parser {
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+        System.out.println("ALL TAGS : " + tagArguments);
         // no tags
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();
