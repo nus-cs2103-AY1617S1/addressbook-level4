@@ -30,7 +30,7 @@ Amethyst is a command-line task manager targeted at power users, who would like 
 ## 1. Quick Start
 
 1. **Install Java 8 Update 60**<br>
-The latest version is available [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+The latest version is available for download [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
 2. **Download Amethyst Task Manager**<br>
 Save the latest `.jar` file from the [releases](dummy link) tab to a folder of your choice.
@@ -42,11 +42,11 @@ Double-click the file to start Amethyst. You will see the Graphical User Interfa
 To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 
 5. **Try some commands**
-    - `add event dinner with wife on 25/12/16 from 7:00pm to 9:00pm`:
+    - `add event dinner with wife on 25/12/16 from 7:00pm to 9:00pm`  <br>
     Add an event with name 'dinner with wife' from 7 pm to 9 pm on 25th December 2016. 
-    - `list deadline`:  
+    - `list deadline`  <br>
     View all tasks that are deadlines arranged in chronological order.
-    - `find lab homework, boy`:
+    - `find lab homework, boy`  <br>
     View all tasks with keywords 'lab homework' or 'boy' in task names.
     
 
@@ -108,7 +108,7 @@ Format: `list [TASK_TYPE] [done|not-done] [dd-mm-yy] [hh:mm]`
 > - Deadlines that are due before the specified time
 
 Example:
-* `list someday not-done`:  
+* `list someday not-done`  <br>
 Lists all someday tasks that have not been completed.
 
 
@@ -126,9 +126,9 @@ Format: `find KEYPHRASE_WORD_ONE KEYPHRASE_WORD_TWO [KEYPHRASE_MORE_WORDS] ..., 
 > * Partial phrases will be matched e.g. `ns B` will match `Hans Bo`
 
 Examples:
-* `find meeting`:<br>
+* `find meeting` <br>
   Returns `Meeting with John` and `Skytok project meeting`.
-* `find Physics test, chemistry, biology`:<br>
+* `find Physics test, chemistry, biology` <br>
   Returns any task containing any of `Physics test`, `chemistry`, or `biology`.
 
 
@@ -144,10 +144,10 @@ Format: `del INDEX [MORE_INDICES] ...`
 
 Examples:
 * `list`<br>
-  `del 2 4`:<br>
+  `del 2 4`<br>
   Deletes the 2nd and 4th tasks in the task manager.
 * `find birthday`<br>
-  `del 1`:<br>
+  `del 1`<br>
   Deletes the 1st birthday task in the results of the `find` command.
 
 
@@ -172,7 +172,7 @@ Format: `edit INDEX ['NEW_NAME'] [from hh:mm to hh:mm|by hh:mm] [dd-mm-yy] [done
 
 Example:
 * `list event` <br>
-  `edit 1 'Hamlet at The Globe Theatre' from 08:00pm to 11:00pm`: <br>
+  `edit 1 'Hamlet at The Globe Theatre' from 08:00pm to 11:00pm` <br>
   Edits the name of first task listed to 'Hamlet at The Globe Theatre' and its time period to 08:00pm-11:00pm.
 
 
@@ -216,7 +216,7 @@ Format: `add-alias 'COMMAND_ALIAS'='COMMAND_PHRASE'`
 > If an alias is typed within quotes, however, it will _not_ be replaced.
 
 Examples:
-* `add-alias 'add-dl'='add deadline'`: <br>  
+* `add-alias 'add-dl'='add deadline'` <br>  
     The command input `add-dl 'Clean the garage' by 17:00 on 04-05-14` can now be used in place of `add deadline 'Clean the garage' by 17:00 on 04-05-1`. However, note that `add deadline 'buy add-dl a cake' by 4:00pm on 12-Oct-16` does not register as `add deadline 'buy add deadline a cake' by 4:00pm on 12-Oct-16`, since `add-dl` was enclosed by quotation marks.
 
 
@@ -235,7 +235,7 @@ Format: `(delete-alias | remove-alias) INDEX [MORE_INDICES] ...`
 
 Example:
 * `list-alias`
-* `remove-alias 2 3:` <br>
+* `remove-alias 2 3` <br>
   Deletes the second and third aliases given by the `list-alias` command.
 
 
