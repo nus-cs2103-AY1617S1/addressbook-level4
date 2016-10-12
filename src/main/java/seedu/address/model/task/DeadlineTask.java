@@ -2,14 +2,15 @@ package seedu.address.model.task;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
-public class DeadlineTask implements TMReadOnlyTask{
+public class DeadlineTask extends AbstractTask implements TMReadOnlyTask {
 	
 	private Name name;
-	private Date date;
+	private Date byDate;
     private Status status;
     public final String taskType = "Deadline";
     private UniqueTagList tags;
@@ -20,7 +21,7 @@ public class DeadlineTask implements TMReadOnlyTask{
     public DeadlineTask(Name name, Date date, Status status, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, date, status, tags);
         this.name = name;
-        this.date = date;
+        this.byDate = date;
         this.status = status;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -28,15 +29,16 @@ public class DeadlineTask implements TMReadOnlyTask{
     public DeadlineTask(Name name, Date date, Status status) {
         assert !CollectionUtil.isAnyNull(name, date, status);
         this.name = name;
-        this.date = date;
+        this.byDate = date;
         this.status = status;
     }
 
     /**
      * Copy constructor.
+     * @throws IllegalArgumentException if source.getEndDate() returns an empty optional
      */
     public DeadlineTask(TMReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getStatus(), source.getTags());
+        this(source.getName(), source.getEndDate().orElseThrow(IllegalArgumentException::new), source.getStatus(), source.getTags());
     }
     
     @Override
@@ -45,19 +47,49 @@ public class DeadlineTask implements TMReadOnlyTask{
     }
     
     @Override
-    public Date getDate() {
-        return date;
+	public void setName(Name name) {
+		this.name = name;
+	}
+    
+    
+    @Override
+    public Optional<Date> getStartDate() {
+        return Optional.empty();
     }
     
-	@Override
-	public String getTaskType() {
-		return taskType;
-	}
+    @Override
+    public void setStartDate(Date date) throws UnsupportedOperationException {
+    	throw new UnsupportedOperationException("Start date cannot be set on a deadline task");
+    }
+    
+    
+    @Override
+    public Optional<Date> getEndDate() {
+        return Optional.of(byDate);
+    }
+    
+    @Override
+    public void setEndDate(Date date) {
+    	this.byDate = date;
+    }
+
     
     @Override
     public Status getStatus() {
         return status;
     }
+    
+    @Override
+    public void setStatus(Status status) {
+    	this.status = status;
+    }
+    
+    
+    @Override
+	public String getTaskType() {
+		return taskType;
+	}
+    
 
     @Override
     public UniqueTagList getTags() {
@@ -81,7 +113,7 @@ public class DeadlineTask implements TMReadOnlyTask{
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, status, tags);
+        return Objects.hash(name, byDate, status, tags);
     }
 
     @Override
