@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.UniqueItemList;
 import seedu.address.model.item.ReadOnlyItem;
+import seedu.address.model.item.FloatingTask;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -35,7 +37,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         resetData(items.getInternalList());
     }
 
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
+    public static ReadOnlyTaskBook getEmptyAddressBook() {
         return new TaskBook();
     }
 
@@ -50,7 +52,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void resetData(Collection<? extends ReadOnlyItem> newItems) {
-        setItems(newItems.stream().map(Item::new).collect(Collectors.toList()));
+        setItems(newItems.stream().map(FloatingTask::new).collect(Collectors.toList()));
     }
 
     public void resetData(ReadOnlyTaskBook newData) {
