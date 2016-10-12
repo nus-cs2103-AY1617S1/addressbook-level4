@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -9,15 +15,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane HBox.hgrow="ALWAYS">
+        <GridPane prefHeight="71.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="118.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="132.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="0.0" prefWidth="0.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="150.0" prefWidth="73.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="53.0" prefHeight="73.0" prefWidth="250.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -27,10 +33,22 @@
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="0.0" spacing="5">
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="194.0" spacing="5">
                             <children>
-                                <HBox minWidth="150.0">
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                <HBox alignment="TOP_CENTER" minWidth="150.0" prefHeight="25.0" prefWidth="200.0" scaleShape="false">
+                                   <children>
+                                       <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                   </children>
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#ababab" />
+                                 </light>
+                              </Lighting>
+                           </effect>
                                 </HBox>
                             </children>
                         </HBox>
