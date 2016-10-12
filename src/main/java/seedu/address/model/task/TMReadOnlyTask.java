@@ -11,7 +11,7 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public interface TMReadOnlyTask {
 
-    public Optional<Name> getName();
+    public Name getName();
     public Optional<Date> getStartDate();
     public Optional<Date> getEndDate();
     public Status getStatus();
@@ -42,7 +42,7 @@ public interface TMReadOnlyTask {
     default String getAsText() {
     	final StringBuilder builder = new StringBuilder();
     	
-    	getName().ifPresent(name -> builder.append(name.toString()));
+    	builder.append(getName().toString());
     	builder.append(" Task type: " + getTaskType());
     	getStartDate().ifPresent(startDate -> builder.append(" Start date: " + startDate.toString()));
     	getEndDate().ifPresent(endDate -> builder.append(" End date: " + endDate.toString()));
