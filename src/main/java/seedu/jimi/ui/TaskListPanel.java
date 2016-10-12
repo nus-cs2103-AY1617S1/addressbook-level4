@@ -18,6 +18,7 @@ import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.model.task.ReadOnlyTask;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -33,12 +34,21 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
     
     private Integer floatingTaskListSize; //size of current floatingTaskList
-
+    private List<ReadOnlyTask> completedTaskList;
+    private List<ReadOnlyTask> incompleteTaskList;
+    
     @FXML
     private ListView<ReadOnlyTask> taskListView;
     
-    @FXML
-    private TitledPane labelFloatingTaskListSize;
+    //taskListPanel title labels
+    @FXML private TitledPane titleFloatingTaskListSize;
+    @FXML private TitledPane titleTaskDay1;
+    @FXML private TitledPane titleTaskDay2;
+    @FXML private TitledPane titleTaskDay3;
+    @FXML private TitledPane titleTaskDay4;
+    @FXML private TitledPane titleTaskDay5;
+    @FXML private TitledPane titleTaskDay6;
+    @FXML private TitledPane titleTaskDay7;
 
     public TaskListPanel() {
         super();
@@ -81,11 +91,6 @@ public class TaskListPanel extends UiPart {
         setEventHandlerForSelectionChangeEvent();
     }
 
-    private void updateFloatingTaskSize(List<ReadOnlyTask> taskList) {
-        floatingTaskListSize = taskList.size();
-        labelFloatingTaskListSize.setText("Floating Tasks (" + floatingTaskListSize.toString() + ")");
-    }
-
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
@@ -107,10 +112,33 @@ public class TaskListPanel extends UiPart {
         });
     }
     
+    /**
+     * Updates all the titles when taskBook is changed. Updates remaining tasks for each title.
+     * @param abce
+     */
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
         updateFloatingTaskSize(abce.data.getTaskList());
+        updateCompletedAndIncompleteTaskList(abce.data.getTaskList());
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
+    }
+    
+    private void updateFloatingTaskSize(List<ReadOnlyTask> taskList) {
+        floatingTaskListSize = taskList.size();
+        titleFloatingTaskListSize.setText("Floating Tasks (" + floatingTaskListSize.toString() + ")");
+    }
+    
+    private void updateCompletedAndIncompleteTaskList(List<ReadOnlyTask> taskList) {
+        this.completedTaskList = new ArrayList<ReadOnlyTask>(taskList.size());
+        this.incompleteTaskList = new ArrayList<ReadOnlyTask>(taskList.size());
+        
+        for(ReadOnlyTask t : taskList){
+            if(t.isCompleted()){
+                this.completedTaskList.add(t);
+            }
+            else
+                this.incompleteTaskList.add(t);
+        }
     }
     
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
