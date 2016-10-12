@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
-    <persons>
+<taskManager>
+    <taskss>
         <id>1</id>
-        <firstName>John</firstName>
-        <lastName>Doe</lastName>
-        <githubUsername></githubUsername>
-        <street></street>
-        <postalCode></postalCode>
-        <city></city>
-    </persons>
+        <taskName>buy milk</taskName>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+    </tasks>
     <tags>
-        <name>Friends</name>
+        <name></name>
     </tags>
-</addressbook>
+</taskManager>
