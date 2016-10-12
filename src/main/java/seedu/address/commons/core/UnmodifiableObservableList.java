@@ -28,7 +28,8 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         }
         this.backingList = backingList;
     }
-    
+
+
     @Override
     public final void addListener(ListChangeListener<? super E> listener) {
         backingList.addListener(listener);
@@ -63,12 +64,12 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final boolean setAll(Collection<? extends E> col) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
-    
+
     @Override
     public final boolean removeAll(Object... elements) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
-    
+
     @Override
     public final boolean retainAll(Object... elements) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
@@ -110,12 +111,12 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final boolean isEmpty() {
         return backingList.isEmpty();
     }
-    
+
     @Override
     public final boolean contains(Object o) {
         return backingList.contains(o);
     }
-    
+
     @Override
     public final Iterator<E> iterator() {
         return new Iterator<E>() {
@@ -152,7 +153,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final boolean add(E o) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
-    
+
     @Override
     public final boolean remove(Object o) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
@@ -172,12 +173,12 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final boolean addAll(int index, Collection<? extends E> c) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
-    
+
     @Override
     public final boolean removeAll(Collection<?> c) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
-    
+
     @Override
     public final boolean retainAll(Collection<?> c) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
@@ -192,13 +193,13 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final void sort(Comparator<? super E> c) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
-    
+
     @Override
     public final void clear() {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
-    
+
     @Override
     public final boolean equals(Object o) {
         return o == this || backingList.equals(o);
@@ -209,7 +210,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         return backingList.hashCode();
     }
 
-    
+
     @Override
     public final E get(int index) {
         return backingList.get(index);
@@ -230,12 +231,12 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final E remove(int index) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
-    
+
     @Override
     public final int indexOf(Object o) {
         return backingList.indexOf(o);
     }
-    
+
     @Override
     public final int lastIndexOf(Object o) {
         return backingList.lastIndexOf(o);
@@ -245,7 +246,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final ListIterator<E> listIterator() {
         return listIterator(0);
     }
-    
+
     @Override
     public final ListIterator<E> listIterator(int index) {
         return new ListIterator<E>() {
@@ -302,7 +303,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final Stream<E> stream() {
         return (Stream<E>) backingList.stream();
     }
-    
+
     @Override
     public final void forEach(Consumer<? super E> action) {
         backingList.forEach(action);

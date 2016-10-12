@@ -45,6 +45,17 @@ public class AddCommand extends Command {
         );
     }
 
+    public AddCommand(String description, String priority, String time, String date, UniqueTagList tags)
+            throws IllegalValueException {
+        this.toAdd = new Task(
+                new Description(description),
+                new Priority(priority),
+                new Time(time),
+                new Date(date),
+                tags
+        );
+    }
+
     @Override
     public CommandResult execute() {
         assert model != null;
