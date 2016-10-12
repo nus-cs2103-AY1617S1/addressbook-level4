@@ -28,8 +28,10 @@ public class Status {
 		switch (string.trim().toLowerCase()) {
 		case "done":
 			value = DoneStatus.DONE;
+			break;
 		case "not done":
 			value = DoneStatus.NOT_DONE;
+			break;
 		default:
 			throw new IllegalArgumentException("Invalid string input");
 		}

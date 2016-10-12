@@ -32,7 +32,7 @@ public class Task implements ReadOnlyTask {
     	if (startDate.isPresent() && taskType.value != TaskType.Type.EVENT) {
     		throw new IllegalArgumentException("Only events can have start dates");
     	}
-    	if (endDate.isPresent() && taskType.value != TaskType.Type.SOMEDAY) {
+    	if (endDate.isPresent() && taskType.value == TaskType.Type.SOMEDAY) {
     		throw new IllegalArgumentException("Only events and deadlines can have end dates");
     	}
     	
