@@ -53,6 +53,7 @@ This guide describes the design and implementation of TasKitty. It will help you
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
+
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -76,21 +77,29 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 1`.
+_Logic Class Diagram_
+
+For example, the `Logic` component (see the class diagram given above) defines its API in the `Logic.java`
+interface and exposes its functionality using the `LogicManager.java` class.<br>
 
 <img src="images\SDforDeleteTask.png" width="800">
+
+_Sequence Diagram for Delete Task_
+
+The _Sequence Diagram_ above shows how the components interact for the scenario where the user issues the
+command `delete 1`.
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
+<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+
+_Sequence Diagram for Delete Task Event Handling_
+
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -101,6 +110,8 @@ The sections below give more details of each component.
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
+
+_UI Class Diagram_
 
 **API** : [`Ui.java`](../src/main/java/seedu/taskitty/ui/Ui.java)
 
@@ -121,20 +132,27 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
+_Logic Class Diagram_
+
 **API** : [`Logic.java`](../src/main/java/seedu/taskitty/logic/Logic.java)
 
 * `Logic` uses the `Parser` class to parse the user command.
 * This results in a `Command` object which is executed by the `LogicManager`.
 * The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 * The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
+ 
 <img src="images/DeleteTaskSDforLogic.png" width="800"><br>
+
+_Delete Task Sequence Diagram for Logic_
+
+Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+API call.<br>
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
+
+_Model Class Diagram_
 
 **API** : [`Model.java`](../src/main/java/seedu/taskitty/model/Model.java)
 
@@ -148,6 +166,8 @@ The `Model`,
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
+
+_Storage Class Diagram_
 
 **API** : [`Storage.java`](../src/main/java/seedu/taskitty/storage/Storage.java)
 
