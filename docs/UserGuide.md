@@ -106,7 +106,7 @@ Examples:
 **_Adding a task with deadline_**
 
 Nobody likes deadlines. What is worse, is missing them. <br>
-Format: `NAME, end DATE_TIME [repeat every RECURRING_INTERVAL][-PRIORITY]`
+Format: `NAME, end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 > The `end` keyword denotes a deadline. 
 > Take note of the `,` after the `NAME`, it is used to mark the end of your task's name, and start of the dates. `,` is not needed if you only specify the task's name and priority, as shown above.
 
@@ -135,7 +135,7 @@ Examples:
 
 Having that company meeting? Planning to have lunch with a friend next week? <br> 
 Format:
-`NAME, start DATE_TIME [end DATE_TIME] [repeat every RECURRING_INTERVAL][-PRIORITY]` 
+`NAME, start DATE_TIME [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]` 
 > We accept `from` and `at` to indicate the start time and `to` and `by` to indicate the end time.
 > Take note of the `,` after the `NAME`, it is use to mark the end of your task's name.
 > `end DATE_TIME` can be unspecified.
@@ -150,7 +150,7 @@ Example:
 
 ### Editing a task: `edit`
 Edits an existing task in the task manager. Just in case you need to change any details, or add in missing ones! <br>
-Format: `edit INDEX NAME, [start DATE_TIME][end DATE_TIME][-PRIORITY][repeat every RECURRING_INTERVAL]`
+Format: `edit INDEX NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 > `INDEX` refers to the task number in the current displayed list.<br>
 > Notice that this is similar to the `add` command format!  
 
