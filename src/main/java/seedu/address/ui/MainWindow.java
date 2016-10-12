@@ -171,12 +171,12 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
-/*   @FXML
+   @FXML
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
     }
-*/
+
     public void show() {
         primaryStage.show();
     }
@@ -184,11 +184,11 @@ public class MainWindow extends UiPart {
     /**
      * Closes the application.
      */
-/*    @FXML
+    @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
-*/
+
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
     }
