@@ -2,8 +2,6 @@ package seedu.todo.logic.commands;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
@@ -33,8 +31,9 @@ public class BaseCommandTest extends CommandTest {
         }
 
         @Override
-        public void execute() throws IllegalValueException {
+        public CommandResult execute() throws IllegalValueException {
             // Does nothing
+            return null;
         }
         
         public void accessInvalidIndex() throws IllegalValueException {
