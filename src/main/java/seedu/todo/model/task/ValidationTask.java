@@ -65,26 +65,26 @@ public class ValidationTask implements ImmutableTask {
     }
 
     private void isValidTitle() {
-        if (title.equals("")) {
+        if (title.isEmpty()) {
             errors.put(TITLE, TITLE_EMPTY_ERROR_MESSAGE);
         }
     }
 
+    /**
+     * Validates time. Only valid when
+     * 1) both time fields are not declared
+     * 2) start time is before end time
+     */
     private void isValidTime() {
         if (startTime == null && endTime == null) {
             return;
-        }
-        // Both time fields must be declared
-        if (startTime == null) {
+        } else if (startTime == null) {
             String field = START_TIME;
             errors.put(field, String.format(ONLY_ONE_TIME_ERROR_MESSAGE, field));
-        }
-        if (endTime == null) {
+        } else if (endTime == null) {
             String field = END_TIME;
             errors.put(field, String.format(ONLY_ONE_TIME_ERROR_MESSAGE, field));
-        }
-
-        if (startTime.isAfter(endTime)) {
+        } else if (startTime.isAfter(endTime)) {
             errors.put(START_TIME, START_AFTER_END_ERROR_MESSAGE);
         }
     }

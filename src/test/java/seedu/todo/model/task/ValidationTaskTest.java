@@ -42,6 +42,14 @@ public class ValidationTaskTest {
     }
 
     @Test
+    public void testValidateTitle() throws ValidationException {
+        String testTitle = "test";
+        task.setTitle(testTitle);
+        task.validate();
+        assertEquals(task.getTitle(), testTitle);
+    }
+
+    @Test
     public void testValidateTaskTime() throws ValidationException {
         LocalDateTime startTime = LocalDateTime.of(1, 1, 1, 1, 1);
         LocalDateTime endTime = LocalDateTime.of(1, 1, 1, 1, 2);
@@ -49,6 +57,20 @@ public class ValidationTaskTest {
         task.setStartTime(startTime);
         task.setEndTime(endTime);
 
+        task.validate();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void testValidateTaskOnlyStartTime() throws ValidationException {
+        LocalDateTime startTime = LocalDateTime.of(1, 1, 1, 1, 1);
+        task.setStartTime(startTime);
+        task.validate();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void testValidateTaskOnlyEndTime() throws ValidationException {
+        LocalDateTime endTime = LocalDateTime.of(1, 1, 1, 1, 1);
+        task.setEndTime(endTime);
         task.validate();
     }
 
