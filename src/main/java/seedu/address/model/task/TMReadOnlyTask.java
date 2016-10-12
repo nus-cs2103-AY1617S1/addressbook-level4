@@ -12,7 +12,26 @@ import seedu.address.model.tag.UniqueTagList;
 public interface TMReadOnlyTask {
 	
 	public enum TaskType {
-		EVENT, DEADLINE, SOMEDAY
+		EVENT {
+			@Override
+			public String toString() {
+				return "Event";
+			}
+		}, 
+		
+		DEADLINE {
+			@Override
+			public String toString() {
+				return "Deadline";
+			}
+		}, 
+		
+		SOMEDAY {
+			@Override
+			public String toString() {
+				return "Someday";
+			}
+		}
 	}
 	
     public Name getName();
@@ -48,7 +67,7 @@ public interface TMReadOnlyTask {
     	final StringBuilder builder = new StringBuilder();
     	
     	builder.append(getName().toString());
-    	builder.append(" Task type: " + getTaskType().name());
+    	builder.append(" Task type: " + getTaskType().toString());
     	getStartDate().ifPresent(startDate -> builder.append(" Start date: " + startDate.toString()));
     	getEndDate().ifPresent(endDate -> builder.append(" End date: " + endDate.toString()));
     	builder.append(" Status: " + getStatus().toString());

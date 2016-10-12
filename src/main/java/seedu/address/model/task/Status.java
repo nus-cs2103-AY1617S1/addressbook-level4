@@ -2,7 +2,19 @@ package seedu.address.model.task;
 
 public class Status {
 	public enum DoneStatus {
-		DONE, NOT_DONE
+		DONE {
+			@Override
+			public String toString() {
+				return "Done";
+			}
+		}, 
+		
+		NOT_DONE {
+			@Override
+			public String toString() {
+				return "Not done";
+			}
+		}
 	}
 	
 	private DoneStatus status;
@@ -21,12 +33,7 @@ public class Status {
 	
 	@Override
 	public String toString() {
-		if (status.equals(DoneStatus.DONE)) {
-			return "done";
-		}
-		else {
-			return "not done";
-		}
+		return status.toString();
 	}
 	
 }
