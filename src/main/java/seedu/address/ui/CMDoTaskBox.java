@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import seedu.address.MainApp;
+import seedu.address.model.task.Detail;
 import javafx.scene.layout.*;
 import javafx.fxml.*;
 import javafx.scene.control.Label;
@@ -69,7 +70,6 @@ public class CMDoTaskBox extends HBox {
 			cmdoLoader.setController(this);
 			cmdoLoader.load();
 		} catch(Exception e) {
-			MainApp.getLogger().severe("Cannot load task box.");
 			e.printStackTrace();
 		}
 	}
