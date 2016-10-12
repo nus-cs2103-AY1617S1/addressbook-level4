@@ -10,19 +10,24 @@ import seedu.address.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface TMReadOnlyTask {
-
+	
+	public enum TaskType {
+		EVENT, DEADLINE, SOMEDAY
+	}
+	
     public Name getName();
-    public Optional<Date> getStartDate();
-    public Date getEndDate();
+    public TaskType getTaskType();
     public Status getStatus();
-    public String getTaskType();
-
+    public Optional<Date> getStartDate();
+    public Optional<Date> getEndDate();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
      */
     public UniqueTagList getTags();
 
+    
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
@@ -43,7 +48,7 @@ public interface TMReadOnlyTask {
     	final StringBuilder builder = new StringBuilder();
     	
     	builder.append(getName().toString());
-    	builder.append(" Task type: " + getTaskType());
+    	builder.append(" Task type: " + getTaskType().name());
     	getStartDate().ifPresent(startDate -> builder.append(" Start date: " + startDate.toString()));
     	getEndDate().ifPresent(endDate -> builder.append(" End date: " + endDate.toString()));
     	builder.append(" Status: " + getStatus().toString());
