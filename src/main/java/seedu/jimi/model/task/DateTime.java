@@ -7,9 +7,9 @@ import java.util.Objects;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
 
-public class DateTime implements Comparable<DateTime>{
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date and time must be in the format: "
-            + DateTimeFormatter.ISO_DATE_TIME.toString();
+public class DateTime implements Comparable<DateTime> {
+    public static final String MESSAGE_DATETIME_CONSTRAINTS =
+            "Date and time must be in the format: " + DateTimeFormatter.ISO_DATE_TIME.toString();
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String TIME_FORMAT = "HH:mm";
     public static final String DATETIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
@@ -20,15 +20,14 @@ public class DateTime implements Comparable<DateTime>{
         dtInstance = LocalDateTime.now();
     }
     
-    public DateTime(String dateStr) throws IllegalValueException{        
+    public DateTime(String dateStr) throws IllegalValueException {
         DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
         try {
             dtInstance = LocalDateTime.parse(dateStr, dtFormatter);
         } catch (DateTimeParseException e) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
-        }      
+        }
     }
-    
     
     public String getDate() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
@@ -39,7 +38,6 @@ public class DateTime implements Comparable<DateTime>{
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT);
         return dtInstance.format(timeFormatter).toString();
     }
-    
     
     private LocalDateTime getLocalDateTime() {
         return dtInstance;
@@ -60,7 +58,7 @@ public class DateTime implements Comparable<DateTime>{
     @Override
     public int hashCode() {
         return Objects.hash(dtInstance);
-    }   
+    }
     
     @Override
     public String toString() {

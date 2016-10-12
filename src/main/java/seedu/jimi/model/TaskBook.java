@@ -111,6 +111,10 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public void editTask(int targetIndex, FloatingTask newTask) {
+        tasks.edit(targetIndex, newTask);
+    }
 
 //// tag-level operations
 
