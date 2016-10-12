@@ -46,6 +46,9 @@ public class AddCommand extends Command {
         Period period = new Period();
         if((startTime != null)&&(endTime != null)){
             List<Date> dates = CommandHelper.convertStringToMultipleDates(startTime + " and " + endTime);
+            if(dates.size() < 2){
+                throw new IllegalValueException("Invalid Dates");
+            }
             period = new Period(dates.get(0), dates.get(1));
         }
         Recurrence deadRecurrence = new Recurrence();
