@@ -1,29 +1,29 @@
 # User Guide
 
-## About
+<br>
+## About Amethyst
 
-
-
+Amethyst is a command-line task manager targeted at power users, who would like to store, access and edit information about given tasks efficiently.
 
 <br>
 ## Table of Contents
 
 1. [Quick Start](#1-quick-start)  
 2. [Features](#2-features)  
-    2.1. [View help](#2.1.-view-help)  
-    2.2. [Add a task](#2-feat)  
-    2.3. [List tasks](#2-features)  
-    2.4. [Find tasks containing particular keyword(s) in task name](#2-features)  
-    2.5. [Delete task(s)](#2-features)  
-    2.6. [Mark task(s) as done](#2-features)  
-    2.7. [Edit a task](#2-features)  
-    2.8. [Undo last operation](#2-features)  
-    2.9. [Clear all entries](#2-features)  
-    2.10. [Set data storage location](#2-features)  
-    2.11. [Set an alias for an exisiting command](#2-features)  
-    2.12. [List aliases](#2-features)  
-    2.13. [Delete alias(es)](#2-features)  
-    2.14. [Exit Amethyst](#2-features)  
+    2.1. [View help](#21-view-help--help)  
+    2.2. [Add a task](#22-add-a-task-add)  
+    2.3. [List tasks](#23-list-tasks-list)  
+    2.4. [Find tasks containing particular keyword(s) in task name](#24-find-tasks-containing-particular-keywords-in-task-name-find)  
+    2.5. [Delete task(s)](#25-delete-tasks-del)  
+    2.6. [Mark task(s) as done](#26-mark-tasks-as-done-done)  
+    2.7. [Edit a task](#27-edit-a-task-edit)  
+    2.8. [Undo last operation](#28-undo-last-operation-undo)  
+    2.9. [Clear all entries](#29-clear-all-entries-clear)  
+    2.10. [Set data storage location](#210-set-data-storage-location-set-storage)  
+    2.11. [Set an alias for an exisiting command](#211-set-an-alias-for-an-existing-command-add-alias)  
+    2.12. [List aliases](#212-list-aliases-list-alias)  
+    2.13. [Delete alias(es)](#213-delete-aliases-delete-alias--remove-alias)  
+    2.14. [Exit Amethyst](#214-exit-amethyst-exit)  
 3. [Command Summary](#3-command-summary)
 
 <br>
