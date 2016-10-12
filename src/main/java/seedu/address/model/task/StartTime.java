@@ -11,8 +11,7 @@ public class StartTime {
 
     public static final String MESSAGE_START_CONSTRAINTS =
             "Task starts should be 2 alphanumeric/period strings separated by '@'";
-    public static final String START_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
-
+    public static final String TIME_VALIDATION_REGEX = "(1[012]|[1-9]|0[1-9]):([0-5][0-9])(?i)(am|pm)";
     public final String value;
 
     /**
@@ -33,7 +32,7 @@ public class StartTime {
      * Returns if a given string is a valid task start.
      */
     public static boolean isValidStartTime(String test) {
-        return test.matches(START_VALIDATION_REGEX);
+        return test.matches(TIME_VALIDATION_REGEX);
     }
 
     @Override
