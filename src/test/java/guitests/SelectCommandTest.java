@@ -5,7 +5,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends TaskManagerGuiTest {
 
 
     @Test

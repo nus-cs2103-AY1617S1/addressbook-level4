@@ -11,7 +11,7 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
+1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
@@ -42,7 +42,7 @@ Format: `help`
  
 #### Adding a person: `add`
 Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+Format: `add NAME p/PHONE_NUMBER e/START a/ADDRESS [t/TAG]...` 
 
 > Persons can have any number of tags (including 0)
 
@@ -125,7 +125,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add | `add NAME p/PHONE_NUMBER e/START a/ADDRESS [t/TAG]...`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`

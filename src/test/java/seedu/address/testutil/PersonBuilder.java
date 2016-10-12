@@ -37,8 +37,8 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Email(email));
+    public PersonBuilder withStart(String start) throws IllegalValueException {
+        this.person.setStart(new Start(start));
         return this;
     }
 

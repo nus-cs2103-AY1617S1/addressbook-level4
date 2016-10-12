@@ -3,14 +3,14 @@ package seedu.address.model.person;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Person in the addressbook.
+ * A read-only immutable interface for a Person in the taskmanager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyPerson {
 
     Name getName();
     Phone getPhone();
-    Email getEmail();
+    Start getStart();
     Address getAddress();
 
     /**
@@ -27,7 +27,7 @@ public interface ReadOnlyPerson {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
+                && other.getStart().equals(this.getStart())
                 && other.getAddress().equals(this.getAddress()));
     }
 
@@ -39,8 +39,8 @@ public interface ReadOnlyPerson {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" Start: ")
+                .append(getStart())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
