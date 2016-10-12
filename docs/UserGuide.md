@@ -21,32 +21,31 @@ Remindaroo is a customized to-do list application that can help you manage your 
    This app will not work with earlier versions of Java 8.
 
 2. Download the latest `remindaroo.jar` from the [releases](../../../releases) tab.
-3. Copy the file to the folder you want to use as the home folder for your Address Book.
+3. Copy the file to the folder you want to use as the home folder for Remindaroo.
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
-5. Some example commands you can try:
-   * **`add`**`buy bread` :
-     adds a task named `buy bread` to Remindaroo
+   e.g. type **`help`** and press <kbd>Enter</kbd> to open the help window.
+5. Some examples of commands you can try:
+   * **`add`**`buy bread` : adds a task named `buy bread` to Remindaroo
    * **`exit`** : exits the app
 6. Refer to the [Commands](#32-commands) section below for details of each command.<br>
 
-### 3.2 Commands
+### <br> 3.2 Commands
 
 > Format notations:
 >
 > * Words in `UPPER_CASE` are the parameters
 > * Items in `[SQUARE_BRACKETS]` are optional
-> * Keywords with `|` in between means either one can be used.
-> * Order of parameters are fixed.
+> * Keywords with `|` in between indicates that either one can be used
+> * Order of parameters are fixed
 
 <br>
 
 > Special note on Date and Time parameters:
 >
 > `DATE_TIME`, `START_DATE_TIME` and `END_DATE_TIME` are parameters that can accept various inputs indicating a specific date or time. Some examples are as follows
-> * A date, e.g. `29 Oct`
+> * Date, e.g. `29 Oct`
 > * Date and time, e.g. `10 Nov 0900`
 > * Relative day, e.g. `tomorrow`
 > * Specific weekday, e.g. `wednesday`
@@ -59,89 +58,88 @@ Adds an activity into Remindaroo. 3 types of activities are available:
 * _deadline_ : one with just a specific time
 * _event_ : one with a start time and end time
 
-##### Formats:
-- `add FLOATING_TASK`<br><br>
-  Example:<br>
-  `add buy milk`
+##### Formats:<br>
+-  `add FLOATING_TASK`<br><br>
+	> Example:
+	> `add buy milk`
+-  `add DEADLINE on|by DATE_TIME`<br><br>
+	> Example:
+	> `add Submit Assignment 1 on 23 Oct`
+	> `add Submit Assignment 1 by 23 Oct 0900`
 
-- `add DEADLINE on|by DATE_TIME`<br><br>
-  Examples:<br>
-  `add Submit Assignment 1 on 23 Oct`<br>
-  `add Submit Assignment 1 by 23 Oct 0900`
+- `add EVENT from START_DATE_TIME to END_DATE_TIME`<br><br>
+	> Example:
+	> `add Football Tournament from 21 Oct 0800 to 23 Oct 2200`
+	> `add Football Tournament from 21 Oct to 23 Oct`
 
-- `add EVENT from START_DATE_TIME to END_DATE_TIME` <br><br>
-  Examples: <br>
-  `add Football Tournament from 21 Oct 0800 to 23 Oct 2200`<br>
-  `add Football Tournament from 21 Oct to 23 Oct`<br>
-
-<br>
-
-#### 3.2.2 View Activities : **`view`**
-Displays the details of an activity / activities<br>
+#### <br>3.2.2 View Activities : **`view`**
+Displays the details of the activity / activities<br><br>
 
 ##### _View an Activity_
-Displays the details the activity, i.e. date(s), starting time, ending time
+Displays the details of the activity, i.e. date(s), starting time, ending time
 
-##### Format:
-- `view ACTIVITY_ID` <br><br>
-  Example: `view 1` <br>
-  Activity with ID 1 (e.g. Football Practice) will be displayed
+##### Format:<br><br>
+- `view ACTIVITY_ID`<br><br>
+	> Example:
+	> `view 1`
+	> Activity with ID 1 (e.g. `Football Practice`) will be displayed
 
-<br>
-
-##### _View Activities on given dates_
-Displays details of activities on a given date or period
+##### <br>_View Activities on given dates_
+Displays details of activities on a given date or  over a given period
 
 ##### Formats:
-- `view DATE_TIME [END_DATE_TIME]` <br><br>
-  Examples:<br>
-  `view 23 Oct`<br>
-  `view 23 Oct 30 Oct`<br><br>
-- `view today` <br><br>
-  Displays all activities for current day <br><br>
-- `view tomorrow` <br><br>
-  Displays all activities for next day <br><br>
-- `view week` <br><br>
-  Displays all activities for current week <br><br>
-- `view month` <br><br>
-  Displays all activites for current month
+- `view DATE_TIME [END_DATE_TIME]`<br><br>
+	> Example:
+	> `view 23 Oct`
+	> `view 23 Oct 30 Oct`
+- `view today`<br><br>
+	> Displays all activities for current day
+- `view tomorrow`<br><br>
+	> Displays all activities for next day
+- `view week`<br><br>
+	> Displays all activities for current week
+- `view month`<br><br>
+	> Displays all activites for current month
 
 #### <br>3.2.3 Delete Activity **`delete`**
 Deletes a specific activity from Remindaroo
 
 ##### Format:<br><br>
 - `delete ACTIVITY_ID`<br><br>
-  Example: `delete 1` <br>
-  Activity with ID 1 (e.g. Football Practice) is deleted from the Remindaroo
+	> Example:
+	> `delete 1`
+	> Activity with ID 1 (e.g. `Football Practice`) is deleted from the Remindaroo
 
 #### <br>3.2.4 Update Activity **`update`**
 Updates name, date and/or time of specific activity to specified name, date and/or time.
 **Note**: Activity type (_floating task_, _deadline_ or _event_) cannot be changed
 
 ##### Format:<br><br>
-- `update ACTIVITY_ID to [NEW_NAME] [DATE_TIME] [END_DATE_TIME]`<br><br>
-  Examples:<br>
-  `update 1 to buy bread`<br>
-  Activity with ID 1 is updated to `buy bread`<br>
+-  `update ACTIVITY_ID to [NEW_NAME] [DATE_TIME] [END_DATE_TIME]`<br><br>
 
-  `update 2 to 10 Oct 1000`<br>
-  Activity with ID 2 is updated to be on / due by 10 October, 1000<br>
-
-  `update 3 to 11 Oct 1300 11 Oct 1400`<br>
-  Activity with ID 3 is rescheduled to 11 October, 1300 to 1400<br><br>
+	> Examples:
+	> `update 1 to buy bread`
+	> Activity with ID 1 is updated to `buy bread`
+	>
+	> `update 2 to 10 Oct 1000`
+	> Activity with ID 2 is updated to be on / due by 10 October, 1000
+	>
+	> `update 3 to 11 Oct 1300 11 Oct 1400`
+	> Activity with ID 3 is updated to be on 11 October, 1300 to 1400
 
 
 #### <br>3.2.5 Mark Activity : **`mark`**
 Marks an activity with status. If the activity already has a status, it will be overwritten by the status in this command.
+
 Status has to be one of the following (case-insensitive):
 * **pending**
 * **completed**
 
 ##### Format:<br><br>
 - `mark ACTIVITY_ID as STATUS`<br><br>
-  Example: <br>
-  `mark 1 as completed` <br>
-  Activity with ID 1 (e.g. `do assignment 1`) is marked as completed
+	> Example:
+	> `mark 1 as completed`
+	> Activity with ID 1 (e.g. `do assignment 1`) is marked as completed
 
 #### <br>3.2.6 Find Next Activity : **`next`**
 Displays the activity that is scheduled next (closest to current time)
@@ -150,42 +148,42 @@ Displays the activity that is scheduled next (closest to current time)
 - `next`
 
 #### <br>3.2.7 Search for Activities : **`search`**
-Displays list of activities that match description (Keyword / date / activity category / status)
+Displays list of activities that match description (keyword / date / activity category / status)
 
 ##### Formats:<br><br>
 - `search KEYWORDS`<br><br>
-  Example: <br>
-  `search CS2101 tutorial` <br><br>
+	> Example:
+	> `search CS2101 tutorial`
 - `search DATE`<br><br>
-  Example: <br>
-  `search 23 Oct` <br><br>
+	> Example:
+	> `search 23 Oct`
 - `search ACTIVITY_CATEGORY`<br><br>
-  Example: <br>
-  `search events` <br><br>
+	> Example:
+	> `search events`
 - `search STATUS`<br><br>
-  Example: <br>
-  `search completed`
+    > Example:
+    > `search completed`
 
 #### <br>3.2.8 Undo last command : **`undo`**
 Undo last command entered
 
 ##### Format:<br><br>
 - `undo`<br><br>
-  Example:<br>
-  `add CS2101 Tutorial` <br>
-  `undo`<br>
-  CS2101 tutorial is removed from Remindaroo
+	>  Example:
+	>  `add CS2101 Tutorial`
+	>  `undo`
+	>  CS2101 tutorial is removed from Remindaroo
 
 #### <br>3.2.9 Redo last command: **`redo`**
 
 Redo last undo command
 ##### Format:<br><br>
 - `redo`<br><br>
-  Example:<br>
-  `add CS2101 Tutorial` <br>
-  `undo` <br>
-  `redo`<br>
-  CS2101 tutorial is re-added into Remindaroo
+	>  Example:
+	>  `add CS2101 Tutorial`
+	>  `undo`
+	>  `redo`
+	>  CS2101 tutorial is re-added into Remindaroo
 
 #### <br>3.2.10 Change Data Storage Location : **`store`**
 
@@ -193,24 +191,30 @@ Specify the path of a new folder for storing the data file of Remindaroo. The us
 
 ##### Format:<br><br>
 - `store DATA_FILE_LOCATION`<br><br>
-  Example: <br>
-  `store /User/Jim/Documents` <br>
-  The Data file now resides in the folder `/User/Jim/Documents`
+	> Example:
+	> `store /User/Jim/Documents`
+	> The Data file now resides in the folder `/User/Jim/Documents`
 
 #### <br>3.2.11 Show Help Menu : **`help`**
 Displays the instruction for using each command
 
 ##### Format:<br><br>
 - `help [COMMAND]`<br><br>
-  Examples: <br>
-  `help | help SOME_INVALID_COMMAND`<br>
-  Displays instruction for all commands<br>
+	> Example:
+	>
+	> `help | help SOME_INVALID_COMMAND`
+	> Displays instruction for all commands<br>
+	> `help add`
+	> Displays instruction for add command
 
-  `help add`<br>
-  Displays instruction for add command
+#### <br>3.2.12 Exit Remindaroo : **`exit`**
+Exits the program
 
-#### <br>3.2.12 Saving the data
-Address book data are saved in the hard disk automatically after any command that changes the data.
+##### Format:<br><br>
+- `exit`
+
+#### <br>3.2.13 Saving the data
+ActivityManager data is saved in the hard disk automatically after any command changes the data.
 There is no need to save manually.
 <br>
 ## 4. Summary of Commands
@@ -231,10 +235,11 @@ There is no need to save manually.
 | Redo            | `redo` |
 | Change data storage location | `store DATA FILE LOCATION` |
 | Help            | `help [COMMAND]` |
+| Exit            | `exit` |
 
 
 
 ## 5. Troubleshooting
 
-**Q:** How do I transfer my data to another Computer? <br>
+**Q:** How do I transfer my data to another Computer?
 **A:** Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Remindaroo folder.
