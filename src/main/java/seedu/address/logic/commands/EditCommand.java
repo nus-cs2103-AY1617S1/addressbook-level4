@@ -25,10 +25,17 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
 
     public final int targetIndex;
+    public final Name name;
+    public final Deadline deadline;
+    public final Priority priority;
     
-    public EditCommand(int targetIndex) 
+    
+    public EditCommand(String targetIndex, String name, String deadline, String priority) 
     		throws IllegalValueException{
     	this.targetIndex = targetIndex;
+    	this.name = new Name(name);
+    	this.deadline = new Deadline(deadline);
+    	this.priority = new Priority(priority);
     }
 
 	@Override
@@ -46,6 +53,9 @@ public class EditCommand extends Command {
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
+        taskToEdit.setName(name);
+        taskToEdit.setDeadline(deadline);
+        taskToEdit.setPriority(priority);
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
 	}

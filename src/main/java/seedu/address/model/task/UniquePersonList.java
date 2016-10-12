@@ -81,10 +81,11 @@ public class UniquePersonList implements Iterable<Task> {
      * @return
      * @throws PersonNotFoundException
      */
-    public boolean edit(ReadOnlyTask toEdit) throws PersonNotFoundException {
+    public void edit(ReadOnlyTask toEdit) throws PersonNotFoundException {
     	assert toEdit != null;
-    	
-    	return true;
+    	if(!contains(toEdit)){
+    		throw new PersonNotFoundException();
+    	}
     }
 
     public ObservableList<Task> getInternalList() {
