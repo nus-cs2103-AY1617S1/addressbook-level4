@@ -12,6 +12,7 @@ public class ConsoleInput extends Component {
 
     private static final String FXML_PATH = "components/ConsoleInput.fxml";
     private static final String INVALID_COMMAND_RESPONSE = "Invalid command!";
+    private static final String INVALID_COMMAND_STYLECLASS = "invalid";
 
     // Props
     public String consoleOutput;
@@ -63,10 +64,16 @@ public class ConsoleInput extends Component {
             // Show invalid response in Console
             console.consoleOutput = INVALID_COMMAND_RESPONSE;
             console.render();
+            
+            // Set CSS
+            consoleInputTextField.getStyleClass().add(INVALID_COMMAND_STYLECLASS);
         } else {
             // Remove console output
             console.consoleOutput = "";
             console.render();
+            
+            // Remove CSS
+            consoleInputTextField.getStyleClass().remove(INVALID_COMMAND_STYLECLASS);
             
             // Clear input text
             consoleInputTextField.clear();
