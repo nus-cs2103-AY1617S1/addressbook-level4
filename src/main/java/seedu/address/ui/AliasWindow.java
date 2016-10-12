@@ -27,13 +27,18 @@ public class AliasWindow extends UiPart {
             "https://github.com/CS2103AUG2016-W15-C2/main/blob/master/docs/UserGuide.md";
 
     private AnchorPane mainPane;
-
+    private AliasListPanel aliasPanel;
     private Stage dialogStage;
+    
+    @FXML
+    private AnchorPane aliasWindowRoot;
+    
 
-    public static AliasWindow load(Stage primaryStage) {
+
+    public static AliasWindow load(Stage primaryStage, Logic logic) {
         logger.fine("Showing help page about the application.");
         AliasWindow aliasWindow = UiPartLoader.loadUiPart(primaryStage, new AliasWindow());
-        aliasWindow.configure();
+        aliasWindow.configure(logic);
         return aliasWindow;
     }
 
@@ -47,16 +52,14 @@ public class AliasWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(){
+    private void configure(Logic logic){
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
+        aliasPanel = AliasListPanel.load(primaryStage, aliasWindowRoot,logic.getAlias() );        
         
-        Text t = new Text("Hello world");
-        FxViewUtil.applyAnchorBoundaryParameters(t, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(t);
     }
 
     public void show() {

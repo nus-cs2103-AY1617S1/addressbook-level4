@@ -22,7 +22,6 @@ public class ListTaskCommand extends TaskCommand {
 
     @Override
     public CommandResult execute() {
-        System.out.println(argument);
         if(argument.equals("alias")) {
             EventsCenter.getInstance().post(new ShowAliasListEvent());
             return new CommandResult(MESSAGE_ALIAS_SUCCESS);
