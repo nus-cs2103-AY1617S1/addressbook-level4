@@ -39,7 +39,6 @@ public class UpdateCommand extends Command{
 
 	@Override
     public CommandResult execute() {
-
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -49,27 +48,57 @@ public class UpdateCommand extends Command{
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
 
-        try {
+        String description;
+        String time;
+        String priority;
+        String date;
+        UniqueTagList tags;
+
 			switch(property){
 				case "description":
-					taskToUpdate.setDescription(new Description(info));
+					description = info;
+					time = taskToUpdate.getTime().toString();
+					date = taskToUpdate.getDate().toString();
+					priority = taskToUpdate.getPriority().toString();
+					tags =taskToUpdate.getTags();
 					break;
 				case "time":
-					taskToUpdate.setTime(new Time(info));
+					time = info;
+					description = taskToUpdate.getDescription().toString();
+					date = taskToUpdate.getDate().toString();
+					priority = taskToUpdate.getPriority().toString();
+					tags =taskToUpdate.getTags();
+					new DeleteCommand(targetIndex).execute();
 					break;
 				case "priority":
-					taskToUpdate.setPriority(new Priority(info));
+					priority = info;
+					description = taskToUpdate.getDescription().toString();
+					date = taskToUpdate.getDate().toString();
+					time = taskToUpdate.getTime().toString();
+					tags =taskToUpdate.getTags();
 					break;
 				case "date":
-					taskToUpdate.setDate(new Date(info));
+					date = info;
+					description = taskToUpdate.getDescription().toString();
+					priority = taskToUpdate.getPriority().toString();
+					time = taskToUpdate.getTime().toString();
+					tags =taskToUpdate.getTags();
 					break;
 				default: return new CommandResult(MESSAGE_EDIT_FAIL);
-			}
-        }catch (IllegalValueException e) {
-        	return new CommandResult(MESSAGE_EDIT_FAIL);
+		}
+
+		DeleteCommand delete = new DeleteCommand(targetIndex);
+        delete.model = model;
+		delete.execute();
+		AddCommand add;
+		try {
+			add = new AddCommand(description, priority, time, date, tags);
+			add.model = model;
+			add.execute();
+		} catch (IllegalValueException e) {
+			return new CommandResult(String.format(MESSAGE_EDIT_FAIL));
 		}
 
         return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, taskToUpdate));
-    }
-
+	}
 }
