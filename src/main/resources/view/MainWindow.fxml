@@ -42,7 +42,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <AnchorPane fx:id="statusbarPlaceholder" />
-                  <AnchorPane fx:id="browserPlaceholder">
+                  <AnchorPane fx:id="agendaPlaceholder">
                       <padding>
                           <Insets bottom="10" left="10" right="10" top="10" />
                       </padding>
