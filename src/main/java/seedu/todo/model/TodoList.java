@@ -93,15 +93,14 @@ public class TodoList implements ImmutableTodoList, TodoModel {
             throw new IllegalValueException("Task not found in todo list");
         } else {
             Task task = tasks.get(index);
+            update.accept(task);
+
             ValidationTask validationTask = new ValidationTask(task);
             try {
                 validationTask.validate();
             } catch (ValidationException e) {
                 // TODO: decide whether to keep throwing or process here
             }
-
-            update.accept(task);
-            tasks.add(task);
 
             storage.saveTodoList(this);
         }
