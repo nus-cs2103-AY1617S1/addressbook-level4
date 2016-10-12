@@ -18,6 +18,7 @@ import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.ValidationTask;
 import seedu.todo.storage.Storage;
@@ -63,14 +64,12 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     }
 
     @Override
-    public void add(String title, Consumer<Task> update) throws ValidationException {
-        Task task = new Task(title);
-        update.accept(task);
-
-        ValidationTask validationTask = new ValidationTask(task);
+    public void add(String title, Consumer<MutableTask> update) throws ValidationException {
+        ValidationTask validationTask = new ValidationTask(title);
+        update.accept(validationTask);
         validationTask.validate();
 
-        tasks.add(task);
+        tasks.add(validationTask.convertToTask());
 
         storage.saveTodoList(this);
     }
@@ -85,18 +84,19 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     }
 
     @Override
-    public void update(ImmutableTask key, Consumer<Task> update) throws IllegalValueException, ValidationException {
+    public void update(ImmutableTask key, Consumer<MutableTask> update) throws IllegalValueException, ValidationException {
         int index = tasks.indexOf(key);
 
         if (index < 0) {
             throw new IllegalValueException("Task not found in todo list");
         } else {
             Task task = tasks.get(index);
-            update.accept(task);
-
             ValidationTask validationTask = new ValidationTask(task);
+            update.accept(validationTask);
             validationTask.validate();
 
+            // changes are validated and accepted
+            update.accept(task);
             storage.saveTodoList(this);
         }
     }
