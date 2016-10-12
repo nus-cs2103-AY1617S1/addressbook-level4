@@ -40,9 +40,9 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, UniqueTagList tags) throws IllegalValueException {
 		assert !CollectionUtil.isAnyNull(name, tags);
 		this.name = name;
-		this.date = new Date("00-00-0000");
-		this.startTime = new Time("0000");
-		this.endTime = new Time("0000");
+		this.date = new Date("NIL");
+		this.startTime = new Time("NIL");
+		this.endTime = new Time("NIL");
 		this.tags = new UniqueTagList(tags);
 	}
 
@@ -50,8 +50,8 @@ public class Task implements ReadOnlyTask {
 		assert!CollectionUtil.isAnyNull(name,date, tags);
 		this.name = name;
 		this.date = date;
-		this.startTime = new Time("0000");
-		this.endTime = new Time("0000");
+		this.startTime = new Time("NIL");
+		this.endTime = new Time("NIL");
 		this.tags = new UniqueTagList(tags);
 	}
 
