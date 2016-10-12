@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
@@ -123,5 +124,24 @@ public class TMTask implements TMReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyTask) other));
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, phone, email, address, tags);
+    }
+
+    @Override
+    public String toString() {
+        return getAsText();
+    }
+
     
 }
