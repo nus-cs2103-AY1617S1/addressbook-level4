@@ -26,7 +26,7 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
     private static final String REGEX_REF_DESCRIPTION = "Description";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "modify\\s+(?<"+REGEX_REF_INDEX+">[^/]+)(\\s+(" +
+            "modify\\s+(?<"+REGEX_REF_INDEX+">([^/]+?(\\s+|$))+)((?<=\\s)(" +
             "(t/(?<"+REGEX_REF_TASK_NAME+">[^/]+)(?!.*\\st/))|" +
             "(s/(?<"+REGEX_REF_START_DATE+">[^/]+)(?!.*\\ss/))|" +
             "(st/(?<"+REGEX_REF_START_TIME+">[^/]+)(?!.*\\sst/))|" +
@@ -38,7 +38,7 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
             "(n/(?<"+REGEX_REF_NUMBER_OF_RECURRENCE+">[^/]+?)(?!.*\\sn/))|" +
             "(c/(?<"+REGEX_REF_CATEGORY+">[^/]+)(?!.*\\sc/))|" +
             "(d/(?<"+REGEX_REF_DESCRIPTION+">[^/]+)(?!.*\\sd/))" +
-            ")(?=\\s|$)){0,11}", Pattern.CASE_INSENSITIVE);
+            ")(\\s|$)){0,11}", Pattern.CASE_INSENSITIVE);
 
     @Override
     protected String getHeader() {
@@ -54,16 +54,16 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
     protected ModifyCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE));
-            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE));
-            parseIndex(matcher.group(REGEX_REF_INDEX));
-            parseTaskName(matcher.group(REGEX_REF_TASK_NAME));
-            parseLocation(matcher.group(REGEX_REF_LOCATION));
-            parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL));
-            parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE));
-            parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
-            parseCategory(matcher.group(REGEX_REF_CATEGORY));
-            parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
+            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE).trim());
+            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE).trim());
+            parseIndex(matcher.group(REGEX_REF_INDEX).trim());
+            parseTaskName(matcher.group(REGEX_REF_TASK_NAME).trim());
+            parseLocation(matcher.group(REGEX_REF_LOCATION).trim());
+            parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL).trim());
+            parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE).trim());
+            parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE).trim());
+            parseCategory(matcher.group(REGEX_REF_CATEGORY).trim());
+            parseDescription(matcher.group(REGEX_REF_DESCRIPTION).trim());
             
                
             // TODO: Create ModifyCommand here (require integration)
