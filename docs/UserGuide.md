@@ -62,12 +62,13 @@ Format (floating): `add TASK`
 Format (deadline): `add TASK by DATE`
 Format (event): `add TASK from START_DATE to/- END_DATE`
 
-> Note that `DATE` and all other dates follow the following format:
-> 1) `DAY MONTH` or `MONTH DAY`
-> 2) `DAY MONTH YEAR` or `MONTH DAY YEAR`
-> `MONTH` should be in alphabets instead of numbers.
-> `MONTH` can either be in the long-form ('October') or the short-form ('Oct'), and it is case-insensitive.
-> Any deviations from the above format may not be interpreted correctly.
+> **Date Format**
+> * Note that `DATE` and all other dates follow the following format: 
+> * 1) `DAY MONTH` or `MONTH DAY`
+> * 2) `DAY MONTH YEAR` or `MONTH DAY YEAR`
+> * `MONTH` should be in alphabets instead of numbers.
+> * `MONTH` can either be in the long-form ('October') or the short-form ('Oct'), and it is case-insensitive.
+> * Any deviations from the above format may not be interpreted correctly.
 
 Examples (floating):
 * `add Project meeting`
@@ -82,18 +83,18 @@ Examples (event):
 * `add Project meeting from 5pm to 6pm`
 * `add Overseas work from 1 Aug 2016 to 31 Aug 2017`
 * `add Overseas work from 1 August 2016 - 31 August 2017`
-> For event tasks, make sure that `START_DATE` is earlier than `END_DATE` or it will be rejected.
+  For event tasks, make sure that `START_DATE` is earlier than `END_DATE` or it will be rejected.
 
 <br>
 #### Adding a recurring task: `add daily/weekly/monthly/yearly`
 Adds a recurring task to the task manager.<br>
-Format (daily): `add daily, TASK`
-Format (weekly): `add weekly [on] DAY_OF_WEEK[s], TASK`
-Format (monthly): `add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK`
-Format (yearly): `add yearly [on] DATE, TASK`
+Format (daily): `add daily, TASK` <br> 
+Format (weekly): `add weekly [on] DAY_OF_WEEK[s], TASK` <br>
+Format (monthly): `add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK` <br>
+Format (yearly): `add yearly [on] DATE, TASK` <br>
 
-> Note that a comma `,` is needed after every `add daily/weekly/monthly/yearly`
-> For `add monthly`, if the DAY_OF_MONTH is too large for certain months (E.g. 31 is too large for February), it will be ignored on those months.
+> Note that a comma `,` is needed after every `add daily/weekly/monthly/yearly` <br>
+> For `add monthly`, if the `DAY_OF_MONTH` is too large for certain months (E.g. 31 is too large for February), it will be ignored on those months.
 
 Examples:
 * `add daily, Morning exercise`
@@ -131,11 +132,11 @@ Examples:
 <br>
 #### Updating a task: `update`
 Updates the description or date of the specified task.<br>
-Format (description): `update INDEX task/description UPDATED_VALUE`
+Format (description): `update INDEX task/description UPDATED_VALUE` <br>
 Format (date): `update INDEX date UPDATED_VALUE`
 
-> Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3…
-> `task/description`: Updates the description of the task with `UPDATED_VALUE`
+> Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> `task/description`: Updates the description of the task with `UPDATED_VALUE` <br>
 > `date`: Updates the date of the task with `UPDATED_VALUE` if it is already has a date
 
 Examples:
@@ -155,7 +156,7 @@ Examples:
 Deletes the specified task.<br>
 Format: `delete INDEX`
 
-> Deletes the task at the specific index. The index refers to the index shown in the most recent listing.
+> Deletes the task at the specific index. The index refers to the index shown in the most recent listing. <br>
 > The index must be a positive integer 1, 2, 3… If the task selected is a recurring task, user will be prompted to delete all instances of the task or only the next instance of the task.
 
 Examples:
@@ -193,7 +194,7 @@ Examples:
 <br>
 #### Listing favorites: `list favorite[s]`
 List all the tasks that you have favorited. <br>
-Format: `list favorite[s]`
+Format: `list favorite[s]` 
 
 > You can type either `favorite` or its plural form, `favorites`
 
@@ -313,14 +314,15 @@ Add monthly | `add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK`
 Add yearly | `add yearly [on] DATE, TASK`
 List | `list`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-Update | `update INDEX TASK/DATE/TIME/DEADLINE`
+Update description | `update INDEX task/description UPDATED_VALUE`
+Update date | `update INDEX date UPDATED_VALUE`
 Delete | `delete INDEX`
 Favorite | `favorite INDEX`
 Unfavorite | `unfavorite INDEX`
-List favorites | `list favorite(s)`
+List favorites | `list favorite[s]`
 Alias | `alias SHORTCUT ANY_SENTENCE`
 Unalias | `unalias SHORTCUT`
-List aliases | `list alias(es)`
+List aliases | `list alias[es]`
 Undo | `undo`
 Clear | `clear`
 Sync | `sync`
