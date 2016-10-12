@@ -36,6 +36,11 @@ public class Parser {
     private static final Pattern TAG_ADD_ARGS_FORMAT =
     		Pattern.compile("(?<targetIndex>.+)" + "(?<tag>([^/]+)?)");
 
+    private static final Pattern TASK_UPDATE_ARGS_FORMAT =
+    		Pattern.compile("(?<targetIndex>.+)"
+    				+ "(?<arguments>.*)"
+                    + "(?<info>.*)");
+
     public Parser() {}
 
     /**
@@ -65,6 +70,9 @@ public class Parser {
 
         case AddTagCommand.COMMAND_WORD:
         	return prepareAddTag(arguments);
+
+        case UpdateCommand.COMMAND_WORD:
+        	return prepareUpdate(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -215,6 +223,28 @@ public class Parser {
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(e.getMessage());
 		}
+    }
+
+    private Command prepareUpdate(String args){
+        final Matcher matcher = TASK_UPDATE_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+
+        String[] command = args.trim().split(" ");
+        Optional<Integer> index = parseIndex(command[0]);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+
+
+        try {
+            	return new UpdateCommand(Integer.parseInt(command[0]),command[1],command[2]);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
 }

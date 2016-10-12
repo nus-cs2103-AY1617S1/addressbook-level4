@@ -42,9 +42,17 @@ public class Task implements ReadOnlyTask {
         return description;
     }
 
+    public void setDescription(Description description){
+    	this.description = description;
+    }
+
     @Override
     public Time getTime() {
         return time;
+    }
+
+    public void setTime(Time time){
+    	this.time = time;
     }
 
     @Override
@@ -52,14 +60,22 @@ public class Task implements ReadOnlyTask {
         return date;
     }
 
+    public void setDate(Date date){
+    	this.date = date;
+    }
+
     @Override
     public Priority getPriority() {
         return priority;
     }
 
+    public void setPriority(Priority priority){
+    	this.priority = priority;
+    }
+
     @Override
     public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
+        return this.tags;
     }
 
     /**

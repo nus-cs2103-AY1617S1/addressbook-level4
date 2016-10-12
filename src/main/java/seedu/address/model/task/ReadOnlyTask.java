@@ -62,4 +62,9 @@ public interface ReadOnlyTask {
         }
     }
 
+    void setDescription(Description description);
+	void setTime(Time time);
+	void setPriority(Priority priority);
+	void setDate(Date date);
+
 }
