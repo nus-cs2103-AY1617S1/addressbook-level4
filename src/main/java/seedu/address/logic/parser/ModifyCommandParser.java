@@ -54,16 +54,16 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
     protected ModifyCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE).trim());
-            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE).trim());
-            parseIndex(matcher.group(REGEX_REF_INDEX).trim());
-            parseTaskName(matcher.group(REGEX_REF_TASK_NAME).trim());
-            parseLocation(matcher.group(REGEX_REF_LOCATION).trim());
-            parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL).trim());
-            parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE).trim());
-            parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE).trim());
-            parseCategory(matcher.group(REGEX_REF_CATEGORY).trim());
-            parseDescription(matcher.group(REGEX_REF_DESCRIPTION).trim());
+            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE));
+            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE));
+            parseIndex(matcher.group(REGEX_REF_INDEX));
+            parseTaskName(matcher.group(REGEX_REF_TASK_NAME));
+            parseLocation(matcher.group(REGEX_REF_LOCATION));
+            parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL));
+            parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE));
+            parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
+            parseCategory(matcher.group(REGEX_REF_CATEGORY));
+            parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
             
                
             // TODO: Create ModifyCommand here (require integration)
@@ -78,6 +78,7 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
         
         int index = 0;
         try {
+            indexText = indexText.trim();
             index = Integer.parseInt(indexText);
             
             if (index < 0)
