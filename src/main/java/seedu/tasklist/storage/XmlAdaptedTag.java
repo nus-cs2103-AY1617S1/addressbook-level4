@@ -3,7 +3,6 @@ package seedu.tasklist.storage;
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.commons.util.CollectionUtil;
 import seedu.tasklist.model.tag.Tag;
 
 /**

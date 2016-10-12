@@ -6,9 +6,9 @@ import seedu.tasklist.model.task.*;
 /**
  * A mutable Task object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
-    private TaskDetails name;
+    private TaskDetails taskDetails;
     private int uniqueID;
     private EndTime endTime;
     private StartTime startTime;
@@ -16,23 +16,23 @@ public class TestPerson implements ReadOnlyTask {
     private UniqueTagList tags;
     private boolean isComplete;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
-    public void setName(TaskDetails name) {
-        this.name = name;
+    public void setTaskDetails(TaskDetails taskDetails) {
+        this.taskDetails = taskDetails;
     }
 
     public void setUniqueID(int uniqueID) {
         this.uniqueID = uniqueID;
     }
 
-    public void setEmail(EndTime endTime) {
+    public void setEndTime(EndTime endTime) {
         this.endTime = endTime;
     }
 
-    public void setPhone(StartTime startTime) {
+    public void setStartTime(StartTime startTime) {
         this.startTime = startTime;
     }
     
@@ -42,7 +42,7 @@ public class TestPerson implements ReadOnlyTask {
 
     @Override
     public TaskDetails getTaskDetails() {
-        return name;
+        return taskDetails;
     }
 
     @Override

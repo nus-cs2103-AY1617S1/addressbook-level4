@@ -5,38 +5,38 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidEndTime(String)}
  */
 public class EndTime {
 
-    public static final String MESSAGE_EMAIL_CONSTRAINTS =
-            "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = ".*";
+    public static final String MESSAGE_END_TIME_CONSTRAINTS =
+            "End time should only be entered in 24 hrs format or 12 hrs format.";
+    public static final String END_TIME_VALIDATION_REGEX = ".*";
 
     public final String value;
 
     /**
-     * Validates given email.
+     * Validates given end time.
      *
-     * @throws IllegalValueException if given email address string is invalid.
+     * @throws IllegalValueException if given end time is invalid.
      */
-    public EndTime(String email) throws IllegalValueException {
+    public EndTime(String endTime) throws IllegalValueException {
         //assert email != null;
-        if (!isValidEmail(email)) {
-            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
+        if (!isValidEndTime(endTime)) {
+            throw new IllegalValueException(MESSAGE_END_TIME_CONSTRAINTS);
         }
 
-        this.value = email;
+        this.value = endTime;
     }
 
     /**
      * Returns if a given string is a valid person email.
      */
-    public static boolean isValidEmail(String test) {
+    public static boolean isValidEndTime(String test) {
     	if(test==null){
     		return true;
     	}
-        return test.matches(EMAIL_VALIDATION_REGEX);
+        return test.matches(END_TIME_VALIDATION_REGEX);
     }
 
     @Override

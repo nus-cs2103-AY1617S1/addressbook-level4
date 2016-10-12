@@ -5,11 +5,9 @@ import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
-import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.TaskDetails;
-import seedu.tasklist.model.task.UniqueTaskList.PersonNotFoundException;
 
 public class UpdateCommand extends Command {
 
@@ -57,6 +55,12 @@ public class UpdateCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } else {
             Task taskToUpdate = lastShownList.get(targetIndex);
+/*
+            if (!(startTime==null && endTime==null)) {
+                taskToUpdate.setStartTime(null);
+                taskToUpdate.setEndTime(null);
+            }
+            */
             if (taskDetails != null)
                 taskToUpdate.setTaskDetails(taskDetails);
             if (startTime != null)

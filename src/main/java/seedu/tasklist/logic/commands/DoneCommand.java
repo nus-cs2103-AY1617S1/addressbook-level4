@@ -6,7 +6,7 @@ import java.util.Set;
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.model.task.ReadOnlyTask;
-import seedu.tasklist.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 
 public class DoneCommand extends Command {
@@ -49,7 +49,7 @@ public class DoneCommand extends Command {
     }
     
     private CommandResult doneUsingIndex(){
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if(targetIndex >= lastShownList.size()){
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
@@ -58,7 +58,7 @@ public class DoneCommand extends Command {
             try{
                 model.markTaskAsComplete(taskToMark);
             }
-            catch (PersonNotFoundException e){
+            catch (TaskNotFoundException e){
                 assert false: "The target task cannot be missing";
             }
             return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getTaskDetails()));
@@ -69,7 +69,7 @@ public class DoneCommand extends Command {
     	Set<String> taskNameSet = new HashSet<String>();
     	taskNameSet.add(taskName);
     	model.updateFilteredTaskList(taskNameSet);
-    	UnmodifiableObservableList<ReadOnlyTask> matchingTasks = model.getFilteredPersonList();
+    	UnmodifiableObservableList<ReadOnlyTask> matchingTasks = model.getFilteredTaskList();
     	
     	// No tasks match string
     	if (matchingTasks.isEmpty()){
@@ -83,7 +83,7 @@ public class DoneCommand extends Command {
     		try {
 				model.deleteTask(taskToMark);
 			}
-    		catch (PersonNotFoundException e) {
+    		catch (TaskNotFoundException e) {
 				assert false: "The target task cannot be missing";
 			}
     		model.updateFilteredListToShowAll();

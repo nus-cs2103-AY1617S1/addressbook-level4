@@ -3,7 +3,7 @@ package seedu.tasklist.commons.events.model;
 import seedu.tasklist.commons.events.BaseEvent;
 import seedu.tasklist.model.ReadOnlyTaskList;
 
-/** Indicates the AddressBook in the model has changed*/
+/** Indicates the TaskList in the model has changed*/
 public class TaskListChangedEvent extends BaseEvent {
 
     public final ReadOnlyTaskList data;

@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the task-list level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TaskList implements ReadOnlyTaskList {
@@ -27,20 +27,20 @@ public class TaskList implements ReadOnlyTaskList {
     public TaskList() {}
 
     /**
-     * tasks and Tags are copied into this addressbook
+     * tasks and Tags are copied into this task list
      */
     public TaskList(ReadOnlyTaskList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * tasks and Tags are copied into this addressbook
+     * tasks and Tags are copied into this task list
      */
     public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskList getEmptyAddressBook() {
+    public static ReadOnlyTaskList getEmptyTaskList() {
         return new TaskList();
     }
 
@@ -70,13 +70,11 @@ public class TaskList implements ReadOnlyTaskList {
 //// person-level operations
 
     /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds a task to the to-do list.
      *
-     * @throws UniqueTaskList.DuplicatePersonException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
      */
-    public void addPerson(Task p) throws UniqueTaskList.DuplicatePersonException {
+    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
@@ -104,11 +102,11 @@ public class TaskList implements ReadOnlyTaskList {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public void removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+    public void removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         tasks.remove(key);
     }
     
-    public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+    public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
     	tasks.setComplete(key);
     }
 

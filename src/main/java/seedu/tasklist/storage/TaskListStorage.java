@@ -17,7 +17,7 @@ public interface TaskListStorage {
     String getTaskListFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyTaskList}.
+     * Returns TaskList data as a {@link ReadOnlyTaskList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -26,9 +26,9 @@ public interface TaskListStorage {
 
     /**
      * Saves the given {@link ReadOnlyTaskList} to the storage.
-     * @param addressBook cannot be null.
+     * @param taskList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTaskList(ReadOnlyTaskList addressBook) throws IOException;
+    void saveTaskList(ReadOnlyTaskList taskList) throws IOException;
 
 }

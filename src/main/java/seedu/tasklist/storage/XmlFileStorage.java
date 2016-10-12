@@ -9,23 +9,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores tasklist data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given tasklist data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableTaskList addressBook)
+    public static void saveDataToFile(File file, XmlSerializableTaskList taskList)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, taskList);
         } catch (JAXBException e) {
             assert false : "Unexpected exception " + e.getMessage();
         }
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns task list in the file or an empty task list
      */
     public static XmlSerializableTaskList loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {

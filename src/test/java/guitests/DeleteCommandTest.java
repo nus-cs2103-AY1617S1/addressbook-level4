@@ -2,19 +2,19 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.tasklist.testutil.TestPerson;
+import seedu.tasklist.testutil.TestTask;
 import seedu.tasklist.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.tasklist.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends TaskListGuiTest {
 
     @Test
     public void delete() {
 
         //delete the first in the list
-        TestPerson[] currentList = td.getTypicalPersons();
+        TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -39,9 +39,9 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of persons (before deletion).
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestPerson[] currentList) {
-        TestPerson personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestPerson[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
+    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+        TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 

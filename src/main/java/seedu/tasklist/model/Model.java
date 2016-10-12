@@ -15,20 +15,20 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskList newData);
 
-    /** Returns the AddressBook */
+    /** Returns the TaskList */
     ReadOnlyTaskList getTaskList();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicatePersonException;
+    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
     /** Marks the given task as complete */
-    void markTaskAsComplete(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
+    void markTaskAsComplete(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all persons */
     void updateFilteredListToShowAll();
