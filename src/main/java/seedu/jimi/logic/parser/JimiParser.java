@@ -64,13 +64,13 @@ public class JimiParser {
             return new ClearCommand();
         } else if (FindCommand.isCommandWord(commandWord)) {
             return prepareFind(arguments);
-        } else if (ListCommand.isCommandWord(commandWord)) {     
+        } else if (ListCommand.isCommandWord(commandWord)) {
             return new ListCommand();
-        } else if (ExitCommand.COMMAND_WORD.equals(commandWord)) {        
+        } else if (ExitCommand.COMMAND_WORD.equals(commandWord)) {
             return new ExitCommand();
-        } else if (HelpCommand.isCommandWord(commandWord)) {       
+        } else if (HelpCommand.isCommandWord(commandWord)) {
             return new HelpCommand();
-        } else {        
+        } else {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
