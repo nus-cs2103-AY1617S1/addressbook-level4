@@ -47,6 +47,6 @@ public class FindCommandTest extends TaskListGuiTest {
         if (expectedHits.length==0)
             assertResultMessage("No such task was found.");
         else assertResultMessage(expectedHits.length + " task(s) listed!");
-        assertTrue(personListPanel.isListMatching(expectedHits));
+        assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }
