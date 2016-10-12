@@ -18,7 +18,15 @@ public class SaveAsCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Save directory changed: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This save directory is originally used in Jimi";
 
+    private String taskBookFilePath;
 
+    /**
+     * Convenience constructor using raw values.
+     */
+    public SaveAsCommand(String filePath)  {
+        this.taskBookFilePath = filePath;
+    }
+    
     @Override
     public CommandResult execute() {
         // TODO Auto-generated method stub
