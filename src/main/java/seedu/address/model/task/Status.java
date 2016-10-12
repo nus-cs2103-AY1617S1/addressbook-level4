@@ -17,26 +17,38 @@ public class Status {
         }
     }
 	
-	public DoneStatus status;
+	public DoneStatus value;
 	
 	public Status() {
-		this.status = DoneStatus.NOT_DONE;
+		value = DoneStatus.NOT_DONE;
 	}
 
+	
+	public DoneStatus fromString(String string) {
+		switch (string.trim().toLowerCase()) {
+		case "done":
+			return DoneStatus.DONE;
+		case "not done":
+			return DoneStatus.NOT_DONE;
+		default:
+			throw new IllegalArgumentException("Invalid string input");
+		}
+	}
+	
     @Override
     public String toString() {
-        return status.toString();
+        return value.toString();
     }
     
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Status // instanceof handles nulls
-        	    && this.status.equals(((Status) other).status)); // state check
+        	    && this.value.equals(((Status) other).value)); // state check
     }
     
     @Override
     public int hashCode() {
-        return status.hashCode();
+        return value.hashCode();
     }
 }
