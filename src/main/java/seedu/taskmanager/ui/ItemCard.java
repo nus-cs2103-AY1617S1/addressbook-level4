@@ -6,6 +6,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.ocpsoft.prettytime.PrettyTime;
+
 public class ItemCard extends UiPart{
 
     private static final String FXML = "ItemListCard.fxml";
@@ -22,6 +29,8 @@ public class ItemCard extends UiPart{
     private Label endTime;
     @FXML
     private Label endDate;
+    @FXML
+    private Label endFromNow;
     @FXML
     private Label startTime;
     @FXML
@@ -50,6 +59,19 @@ public class ItemCard extends UiPart{
         itemType.setText(item.getItemType().value);
         endTime.setText(item.getEndTime().value);
         endDate.setText(item.getEndDate().value);
+        String endDateString = item.getEndDate().value + " " + item.getEndTime().value;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm"); 
+        Date endFromNowDate;
+        String endFromNowText = "";
+        try {
+            endFromNowDate = df.parse(endDateString);
+            PrettyTime p = new PrettyTime();
+            endFromNowText = p.format(endFromNowDate);
+            endFromNow.setText("Ends " + endFromNowText);
+        } catch (ParseException e) {
+            endFromNow.setText(endFromNowText);
+            e.printStackTrace();
+        }
         startTime.setText(item.getStartTime().value);
         startDate.setText(item.getStartDate().value);
         tags.setText(item.tagsString());

@@ -42,6 +42,9 @@
                             <Label fx:id="endDateSpace" styleClass="cell_small_label" text=" " />
                             <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
                         </HBox>
+                        <HBox>
+                            <Label fx:id="endFromNow" styleClass="cell_small_label" text="\$endFromNow" />
+                        </HBox>
                     </children>
                 </VBox>
             </children>
