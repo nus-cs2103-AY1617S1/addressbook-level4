@@ -32,6 +32,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name, String date, String start, String address, Set<String> tags)
             throws IllegalValueException {
+    	System.out.println("start");
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -43,6 +44,7 @@ public class AddCommand extends Command {
                 new EndTime(address),
                 new UniqueTagList(tagSet)
         );
+        System.out.println("end");
     }
 
     @Override

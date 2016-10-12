@@ -28,14 +28,14 @@ public class Parser {
 
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isDatePrivate>p?)d/(?<date>[^/]+)"
+                    + " (?<isDatePrivate>p?)d/(?<date>[^@]+)"
                     + " (?<isStartTimePrivate>p?)s/(?<start>[^/]+)"
                     + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isDatePrivate>p?)d/(?<date>[^/]+)"
+                    + " (?<isDatePrivate>p?)d/(?<date>[^@]+)"
                     + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
             		);
     
@@ -63,6 +63,7 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+        	System.out.println(arguments);
             return prepareAdd(arguments);
 
         case SelectCommand.COMMAND_WORD:
@@ -107,28 +108,29 @@ public class Parser {
         }
         try {
         	if(event_matcher.matches()) {
+        		System.out.println("Event");
 	            return new AddCommand(
 	                    event_matcher.group("name"),
 	                    event_matcher.group("date"),
+	                    event_matcher.group("end"), // start and end are swapped to match ui
 	                    event_matcher.group("start"),
-	                    event_matcher.group("end"),
 	                    getTagsFromArgs(event_matcher.group("tagArguments"))
 	            );
         	}else if(deadline_matcher.matches()) {
+        		System.out.println("Deadline");
         		return new AddCommand(
-	                    event_matcher.group("name"),
-	                    event_matcher.group("date"),
-	                    event_matcher.group("end"),
-	                    event_matcher.group(" "),
-	                    getTagsFromArgs(event_matcher.group("tagArguments"))
+	                    deadline_matcher.group("name"),
+	                    deadline_matcher.group("date"),
+	                    "",
+	                    deadline_matcher.group("end"),
+	                    new HashSet<>()
 	            );
         	}else {
+        		System.out.println("Floating");
+        		System.out.println(floating_matcher.group("name"));
         		return new AddCommand(
-	                    event_matcher.group("name"),
-	                    event_matcher.group(" "),
-	                    event_matcher.group(" "),
-	                    event_matcher.group(" "),
-	                    getTagsFromArgs(event_matcher.group("tagArguments"))
+	                    floating_matcher.group("name"),
+	                    "", "", "", new HashSet<>()
 	            );
         	}
         } catch (IllegalValueException ive) {
