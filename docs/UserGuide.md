@@ -27,7 +27,9 @@ This product is meant to address the concerns of users who wish to schedule thei
    * **'exit'** : exits the application
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-![Image of UI](https://github.com/Halo3fanz/main/blob/master/docs/images/Ui.png)
+(https://github.com/Halo3fanz/main/blob/master/docs/images/Ui.png)
+Figure 1
+![Image of UI]
 
 ## Command Summary
 
