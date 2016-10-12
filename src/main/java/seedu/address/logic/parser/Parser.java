@@ -29,7 +29,7 @@ public class Parser {
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<task>[^/]+)"
                     + " (?<isDuedatePrivate>p?)d/(?<duedate>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
+                    + "(?<isPriorityPrivate>p?)(?<priority>(?: p/[^/]+)?)"
                     + " (?<isReminderPrivate>p?)r/(?<reminder>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
@@ -109,7 +109,7 @@ public class Parser {
             return new AddCommand(
                     matcher.group("task"),
                     matcher.group("duedate"),
-                    matcher.group("priority"),
+                    getPriority(matcher.group("priority")),
                     matcher.group("reminder"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
@@ -130,8 +130,21 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
-    }
-
+    }   
+    
+    /**
+     * Extracts the new task's priority from the add command's priority string.
+     */
+    private static String getPriority(String priority) {
+        // no priority
+        if (priority.isEmpty()) {
+            return "";
+        }
+        // replace first delimiter prefix, then return
+        String priorityValue = priority.replaceFirst(" p/", "");
+        return priorityValue;
+    }   
+    
     /**
      * Parses arguments in the context of the delete person command.
      *
