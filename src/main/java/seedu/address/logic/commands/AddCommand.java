@@ -19,7 +19,7 @@ public class AddCommand extends Command {
     		//add <task description> at/by <time> on <date>
             + "Format: <task description> at/by <time> on <date> [t/TAG]\n"
             + "Example: " + COMMAND_WORD
-            + " Sample Task at 23:59 on 11 Oct t/friends t/owesMoney";
+            + " Finish homework by 23:59 on 11 Oct t/school t/important";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the address book";

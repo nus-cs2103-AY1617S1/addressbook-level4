@@ -40,12 +40,12 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public DueDate getPhone() {
+    public DueDate getDueDate() {
         return phone;
     }
 
     @Override
-    public DueTime getEmail() {
+    public DueTime getDueTime() {
         return email;
     }
 
@@ -67,8 +67,8 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
+        sb.append("p/" + this.getDueDate().value + " ");
+        sb.append("e/" + this.getDueTime().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
