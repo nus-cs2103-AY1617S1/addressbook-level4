@@ -62,6 +62,7 @@ public class EditCommand extends Command {
         	if(lastShownList.contains(postEdit)) {
         		return new CommandResult(MESSAGE_DUPLICATE_TASK);
         	}
+        	System.out.println(postEdit);
             model.editTask(targetIndex, postEdit);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
