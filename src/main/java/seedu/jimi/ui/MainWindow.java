@@ -185,12 +185,4 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-
-    public void loadPersonPage(ReadOnlyTask person) {
-        agendaPanel.loadPersonPage(person);
-    }
-
-    public void releaseResources() {
-        agendaPanel.freeResources();
-    }
 }
