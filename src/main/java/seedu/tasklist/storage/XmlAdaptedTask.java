@@ -42,8 +42,8 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getTaskDetails().taskDetails;
-        startTime = source.getStartTime().startDate.toString();
-        endTime = source.getEndTime().value;
+        startTime = source.getStartTime().toString();
+        endTime = source.getEndTime().toString();
         priority = source.getPriority().priorityLevel;
         uniqueID = source.getUniqueID();
         tagged = new ArrayList<>();
@@ -66,7 +66,6 @@ public class XmlAdaptedTask {
         final StartTime startTime = new StartTime(this.startTime);
         final EndTime endTime = new EndTime(this.endTime);
         final Priority priority = new Priority(this.priority);
-        final int uniqueID = this.uniqueID;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, startTime, endTime, priority, tags);
     }
