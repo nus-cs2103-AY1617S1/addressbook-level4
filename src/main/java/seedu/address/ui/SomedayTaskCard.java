@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.address.model.task.TMReadOnlyTask;
+import seedu.address.model.task.ReadOnlyTask;
 
 public class SomedayTaskCard extends UiPart{
 
@@ -19,14 +19,14 @@ public class SomedayTaskCard extends UiPart{
     @FXML
     private Label type;
 
-    private TMReadOnlyTask task;
+    private ReadOnlyTask task;
     private int displayedIndex;
 
     public SomedayTaskCard(){
 
     }
 
-    public static SomedayTaskCard load(TMReadOnlyTask task, int displayedIndex){
+    public static SomedayTaskCard load(ReadOnlyTask task, int displayedIndex){
     	SomedayTaskCard card = new SomedayTaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
@@ -37,7 +37,7 @@ public class SomedayTaskCard extends UiPart{
     public void initialize() {
         taskName.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        type.setText(task.getTaskType().name());
+        type.setText(task.getTaskType().toString());
     }
 
     public HBox getLayout() {
