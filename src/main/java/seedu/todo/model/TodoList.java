@@ -64,9 +64,12 @@ public class TodoList implements ImmutableTodoList, TodoModel {
 
     @Override
     public void add(String title, Consumer<Task> update) throws ValidationException {
-        ValidationTask validationTask = new ValidationTask(title);
-        Task task = validationTask.convertToTask();
+        Task task = new Task(title);
         update.accept(task);
+
+        ValidationTask validationTask = new ValidationTask(task);
+        validationTask.validate();
+
         tasks.add(task);
 
         storage.saveTodoList(this);
