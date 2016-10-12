@@ -37,7 +37,7 @@ public class SomedayTaskCard extends UiPart{
     public void initialize() {
         taskName.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        type.setText(task.getTaskType());
+        type.setText(task.getTaskType().name());
     }
 
     public HBox getLayout() {
