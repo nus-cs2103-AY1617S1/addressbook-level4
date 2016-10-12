@@ -79,8 +79,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void editTask(ReadOnlyTask task, String property, String newInfo) throws TaskNotFoundException {
-     //   if(property.trim().toLowerCase().equals("name"))
+        if(property.toLowerCase().equals("name"))
             addressBook.editName(task, newInfo);
+            updateFilteredListToShowAll();
+            indicateTaskManagerChanged();
     }
 
 

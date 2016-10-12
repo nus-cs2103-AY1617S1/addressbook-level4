@@ -24,9 +24,9 @@ public class Parser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     
     private static final Pattern EDIT_ARGS_FORMAT = 
-            Pattern.compile("(?<index>[//d]+)"
-                    + " (?<property>[//w]+)"
-                    + " (?<newInfo>[.]+)");
+            Pattern.compile("(?<index>\\d+)"
+                    + " (?<property>\\w+)"
+                    + " (?<newInfo>.*)");
     
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
