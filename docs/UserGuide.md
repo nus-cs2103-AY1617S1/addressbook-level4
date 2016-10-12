@@ -42,16 +42,11 @@ Double-click the file to start Amethyst. You will see the Graphical User Interfa
 To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 
 5. **Try some commands**
-    - `add event dinner with wife on 25/12/16 from 7:00pm to 9:00pm`:  
-        
-        Add an event with name 'dinner with wife' from 7 pm to 9 pm on 25th December 2016.
-    
+    - `add event dinner with wife on 25/12/16 from 7:00pm to 9:00pm`:
+    Add an event with name 'dinner with wife' from 7 pm to 9 pm on 25th December 2016. 
     - `list deadline`:  
-    
     View all tasks that are deadlines arranged in chronological order.
-    
-    - `find lab homework, boy`:  
-    
+    - `find lab homework, boy`:
     View all tasks with keywords 'lab homework' or 'boy' in task names.
     
 
@@ -132,9 +127,9 @@ Format: `find KEYPHRASE_WORD_ONE KEYPHRASE_WORD_TWO [KEYPHRASE_MORE_WORDS] ..., 
 
 Examples:
 * `find meeting`:<br>
-  Returns `Meeting with John` and `Skytok project meeting`
+  Returns `Meeting with John` and `Skytok project meeting`.
 * `find Physics test, chemistry, biology`:<br>
-  Returns any task containing any of `Physics test`, `chemistry`, or `biology`
+  Returns any task containing any of `Physics test`, `chemistry`, or `biology`.
 
 
 <br>
@@ -173,12 +168,12 @@ Format: `edit INDEX ['NEW_NAME'] [from hh:mm to hh:mm|by hh:mm] [dd-mm-yy] [done
 
 > The `from` and `to` edits are only valid for events.
 > The `by` edit is only valid for deadlines.
-> The date edit is valid for bothe events and deadlines, but not somedays.
+> The date edit is valid for both events and deadlines, but not somedays.
 
 Example:
 * `list event` <br>
   `edit 1 'Hamlet at The Globe Theatre' from 08:00pm to 11:00pm`: <br>
-  Edits the name of 1st task listed to 'Hamlet at The Globe Theatre' and its time period to 08:00pm-11:00pm.
+  Edits the name of first task listed to 'Hamlet at The Globe Theatre' and its time period to 08:00pm-11:00pm.
 
 
 <br>
@@ -228,6 +223,7 @@ Examples:
 <br>
 #### 2.12. List aliases: `list-alias`
 Shows a numbered list of all configured aliases. <br>
+
 Format: `list-alias`
 
 
