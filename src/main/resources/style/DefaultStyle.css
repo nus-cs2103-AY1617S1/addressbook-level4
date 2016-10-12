@@ -2,7 +2,20 @@
     -fx-background-color: #2D2D2D;
     -fx-border-color: #00A4FF;
     -fx-border-width: 1px;
-    -fx-padding: 2px;
+    -fx-padding: 8, 8, 0, 8;
+    -fx-spacing: 4;
+}
+
+.commandFeedback{
+    -fx-fill: #ffffff;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12pt;
+}
+
+.commandInput {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14pt;
 }
 
 .roundLabel {
