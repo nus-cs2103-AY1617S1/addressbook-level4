@@ -4,16 +4,25 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.model.task.TaskType;
 
 
 public class ParserTest {
 
-	private Parser parser = new Parser();
-	private IncorrectCommand incorrectCommand = new IncorrectCommand("test");
+	private Parser parser;
+	private IncorrectCommand incorrectCommand;
+	private AddCommand addCommand;
 	
-
+	public ParserTest() throws IllegalValueException {
+		parser = new Parser();
+		incorrectCommand = new IncorrectCommand("test");
+		addCommand = new AddCommand("test adding someday");
+	}
+	
 	@Test
 	public void parseCommand_whitespaceInput_incorrectCommandReturned() {
 		String userInput = "       ";
@@ -83,27 +92,27 @@ public class ParserTest {
 	}
 
 	@Test
-	public void parseCommand_addEventValidOrder_nullReturned() {
+	public void parseCommand_addEventValidOrder_addCommandReturned() {
 		String userInput = "add event 'party' from 5:00 to 27:00 on 12/12/12";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_addEventValidOrder2_nullReturned() {
+	public void parseCommand_addEventValidOrder2_addCommandReturned() {
 		String userInput = "add event from 8:00 to 10:00 'party' on 12/190/12";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_addEventValidOrder3_nullReturned() {
+	public void parseCommand_addEventValidOrder3_addCommandReturned() {
 		String userInput = "add event on 12/12/12 from 8:00 to 10:00 'party'";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	
@@ -143,27 +152,27 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_addDeadlineValidOrder_nullReturned() {
+	public void parseCommand_addDeadlineValidOrder_addCommandReturned() {
 		String userInput = "add deadline 'submission' by 04:00 25/12/16";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_addDeadlineValidOrder2_nullReturned() {
+	public void parseCommand_addDeadlineValidOrder2_addCommandReturned() {
 		String userInput = "add deadline 'submission' by 25/12/16 04:00";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_addDeadlineValidOrder4_nullReturned() {
+	public void parseCommand_addDeadlineValidOrder3_addCommandReturned() {
 		String userInput = "add deadline by 25/12/16 04:00 'submission' ";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	
@@ -187,19 +196,19 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_addSomedayValidOrder_nullReturned() {
+	public void parseCommand_addSomedayValidOrder_addCommandReturned() {
 		String userInput = "add someday 'dance'";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_addSomedayValidOrder2_nullReturned() {
+	public void parseCommand_addSomedayValidOrder2_addCommandReturned() {
 		String userInput = "add 'dance again' someday";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	
@@ -215,43 +224,43 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_listNoArgs_nullReturned() {
+	public void parseCommand_listNoArgs_addCommandReturned() {
 		String userInput = "list";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_listDone_nullReturned() {
+	public void parseCommand_listDone_addCommandReturned() {
 		String userInput = "list done";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_listValidEvent_nullReturned() {
+	public void parseCommand_listValidEvent_addCommandReturned() {
 		String userInput = "list event";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_listValidOrder_nullReturned() {
+	public void parseCommand_listValidOrder_addCommandReturned() {
 		String userInput = "list   deadline not-done";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_listValidOrder2_nullReturned() {
+	public void parseCommand_listValidOrder2_addCommandReturned() {
 		String userInput = "list not-done	 someday";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	/*
@@ -286,7 +295,7 @@ public class ParserTest {
 		String userInput = "delete 2";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
@@ -294,7 +303,7 @@ public class ParserTest {
 		String userInput = "delete 3 2";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	/*
@@ -325,10 +334,10 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_editValid_incorrectCommandReturned() {
+	public void parseCommand_editValid_addCommandReturned() {
 		String userInput = "edit 1 'new name'";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(null, command);
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 }
