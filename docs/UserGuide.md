@@ -23,7 +23,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try: 
    * **`list`** : lists all contacts
-   * **`add`**` do laundry `**`by`**` tomorrow` : 
+   * **`add`**` "do laundry" `**`by`**` tomorrow` : 
      adds a task named `do laundry` due `tomorrow` to Jimi.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
@@ -44,9 +44,9 @@
 Command | Format  
 -------- | :-------- 
 [Help](#help) | `help`
-[Add](#add) | `add TASK_DETAILS`
-&nbsp;| `add TASK_DETAILS by DATE [at TIME]`
-&nbsp;| `add EVENT_DETAILS on DATE [to END_DATE, START_TIME to END_TIME]`
+[Add](#add) | `add "TASK_DETAILS"`
+&nbsp;| `add "TASK_DETAILS" by DATE/TIME`
+&nbsp;| `add "EVENT_DETAILS" on START DATE/TIME [to END DATE/TIME]`
 [Complete](#com)| `complete TASK_INDEX`
 [Delete](#del) | `delete TASK_INDEX`
 [Edit](#edit) | `edit INDEX DETAIL_MODIFIER EDITS`
@@ -71,37 +71,38 @@ Format: `help`
 
 #### <a id="add"></a> Adding a task: `add`
 Adds a floating task to Jimi.<br>
-Format: `add TASK_DETAILS` 
+Format: `add "TASK_DETAILS"` 
 
 > * Floating tasks are tasks without any deadlines.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add â€œSend Jimmy to school on the way to work from homeâ€�`
+> * Remember to put your `TASK_DETAILS` in quotation marks!
 
 Examples: 
-* `add Buy groceries`
+* `add "Buy groceries"`
 
 <br>
 Adds a task with a deadline to Jimi.<br>
-Format: `add TASK_DETAILS by DATE [at TIME]`
+Format: `add "TASK_DETAILS" by DATE/TIME`
 
 > * You can include time as an optional detail.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add â€œSend Jimmy to school on the way to work from homeâ€�`
+> * Remember to put your `TASK_DETAILS` in quotation marks!
+
 
 Examples:
-* `add Get a haircut by Tuesday`
-* `add Pick up Jimmy by Monday at 2pm`
+* `add "Get a haircut" by Tuesday`
+* `add "Pick up Jimmy" by Monday at 2pm`
 
 <br>
 Adds an event to Jimi.<br>
-Format: `add EVENT_DETAILS on DATE [to END_DATE, START TIME to END_TIME]`
+Format: `add "EVENT_DETAILS" on START DATE/TIME [to END DATE/TIME]`
 
-> * If the event is more than a day long, you may include the end date. <br>
+> * If the event is more than a day long, you may include the end date/time. <br>
 > * You may define the start and end time of the event if you wish.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add â€œSend Jimmy to school on the way to work from homeâ€�`
+> * Remember to put your `EVENT_DETAILS` in quotation marks!
 
 Examples:
-* `add Attend Timmyâ€™s orchestra on 5th July`
-* `add Show up for dentist appointment on 8/7/2016, 5:00pm to 7:30pm`
-* `add Have school camp on 10 October to 18 October, 10am to 5pm`
+* `add "Attend Timmy's" orchestra on 5th July`
+* `add "Show up for dentist appointment" on 8/7/2016, 5:00pm to 7:30pm`
+* `add "Have school camp" on 10 October to 18 October, 10am to 5pm`
 
 <br><br>
 
@@ -112,7 +113,7 @@ Format: `complete TASK_INDEX`
 > * Jimi will note the task as completed at the specified `TASK_INDEX`. 
 > * If you want to revert the task back as incomplete, use the [`undo`](#undo) command.
 > * The index refers to the index number shown in the most recent listing.<br>
-> * The index **must be a positive integer** 1, 2, 3, â€¦
+> * The index **must be a positive integer** e.g. 1, 2, 3.
 
 <br><br>
 
@@ -131,8 +132,7 @@ Examples:
   Deletes the 1st task in the results of the [`find`](#find) command.
 
 > * The index refers to the index number shown in the most recent listing.<br>
-> * The index **must be a positive integer** 1, 2, 3, â€¦
-
+> * The index **must be a positive integer** 1, 2, 3.
 <br><br>
 
 #### <a id="edit"></a>Editing a detail: `edit`
@@ -147,9 +147,8 @@ Format: `edit TASK_INDEX DETAIL_MODIFIER EDITS`
 >     * `/sd` and `/ed`: start date and end date
 >     * `/st` and `/et` : start time and end time <br><br>
 > * If you want to undo your edit, use the [`undo`](#undo) command.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add â€œSend Jimmy to school on the way to work from homeâ€�`
 > * The index refers to the index number shown in the most recent listing.
-> * The index **must be a positive integer** 1, 2, 3, â€¦
+> * The index **must be a positive integer** 1, 2, 3.
 
 Examples:
 * `edit 2 /n buy food`
@@ -194,7 +193,7 @@ Example:
 Clears all entries from the task manager.<br>
 Format: `clear`  
 
-> * You will also receive a confirmation notice to confirm that you are sure about this action.
+> * You will receive a confirmation notice before Jimi clears its database.
 > * This action is irreversible.
 
 <br><br>
@@ -220,7 +219,7 @@ There is no need to save manually.
        the file that contains the data of your previous Address Book folder.
 
 **Q**: Is there a way to be notified of upcoming tasks or events that are due soon?
-**A**: Jimi will display all overdue tasks, upcoming tasks and events at the top â€˜Agendaâ€™ box, so you will always be notified of the most important details first.
+**A**: Jimi will display all overdue tasks, upcoming tasks and events at the top Agenda box, so you will always be notified of the most important details first.
        
 
 
