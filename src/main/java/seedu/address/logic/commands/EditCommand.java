@@ -22,7 +22,7 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the selected task from Lifekeeper. Irreversible. "
-            + "Parameters: INDEX (must be a positive integer) [TASK_NAME] [c/CATEGORY] [d/DEADLINE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...\n";
+            + "Parameters: INDEX (must be a positive integer) [n/TASK_NAME] [c/CATEGORY] [d/DEADLINE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...\n";
             /*+ "Example: " + COMMAND_WORD
             + " CS2103 T7A1 d/06-10-2016 p/1 r/05-01-2016 t/CS t/groupwork";*/
     
@@ -74,9 +74,9 @@ public class EditCommand extends Command {
         } catch (DuplicateTaskException dte) {
             return new CommandResult(MESSAGE_TASK_EXISTS);
         } catch (IllegalValueException ive) {
-            return new CommandResult(ive.getMessage());
+            //Code won't reach here
         } catch (Exception e) {
-            //I'm pretty sure the code will not reach here.
+            //Code won't reach here
         }
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
