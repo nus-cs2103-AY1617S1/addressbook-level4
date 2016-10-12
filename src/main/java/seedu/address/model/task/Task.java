@@ -1,6 +1,6 @@
 package seedu.address.model.task;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -13,8 +13,8 @@ public class Task implements ReadOnlyTask {
 	public final TaskType taskType;
 	private Name name;
 	private Status status;
-	private Optional<Date> startDate;
-	private Optional<Date> endDate;
+	private Optional<LocalDateTime> startDate;
+	private Optional<LocalDateTime> endDate;
 	private UniqueTagList tags;
 	
 	
@@ -24,7 +24,7 @@ public class Task implements ReadOnlyTask {
 	 * @param tags may be empty.
 	 * Every field must be present and not null.
 	 */
-    public Task(Name name, Status status, Date startDate, Date endDate, UniqueTagList tags) {
+    public Task(Name name, Status status, LocalDateTime startDate, LocalDateTime endDate, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, status, startDate, endDate, tags);
         this.taskType = new TaskType("event");
         this.name = name;
@@ -40,7 +40,7 @@ public class Task implements ReadOnlyTask {
 	 * @param tags may be empty.
 	 * Every field must be present and not null.
 	 */
-    public Task(Name name, Status status, Date date, UniqueTagList tags) {
+    public Task(Name name, Status status, LocalDateTime date, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, status, date, tags);
         this.taskType = new TaskType("deadline");
         this.name = name;
@@ -76,7 +76,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Copy constructor.
      */
-    public Task(Name name, TaskType taskType, Status status, Optional<Date> startDate, Optional<Date> endDate, UniqueTagList tags) {
+    public Task(Name name, TaskType taskType, Status status, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, UniqueTagList tags) {
     	assert !CollectionUtil.isAnyNull(name, status, tags);
         this.taskType = taskType;
         this.name = name;
@@ -108,11 +108,11 @@ public class Task implements ReadOnlyTask {
         this.status = status;
     }
     
-    public Optional<Date> getStartDate() {
+    public Optional<LocalDateTime> getStartDate() {
         return startDate;
     }
     
-    public void setStartDate(Date date) throws UnsupportedOperationException {
+    public void setStartDate(LocalDateTime date) throws UnsupportedOperationException {
         if (taskType.value.equals(TaskType.Type.DEADLINE)) {
             throw new UnsupportedOperationException("Start date cannot be set on a deadline task");
         }
@@ -124,11 +124,11 @@ public class Task implements ReadOnlyTask {
         }
     }
 
-    public Optional<Date> getEndDate() {
+    public Optional<LocalDateTime> getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date date) throws UnsupportedOperationException {
+    public void setEndDate(LocalDateTime date) throws UnsupportedOperationException {
         if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
             throw new UnsupportedOperationException("End date cannot be set on a someday task");
         }
