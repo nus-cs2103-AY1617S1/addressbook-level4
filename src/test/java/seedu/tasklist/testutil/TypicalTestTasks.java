@@ -19,7 +19,7 @@ public class TypicalTestTasks {
             task2 = new TaskBuilder().withTaskDetails("Study for Midterms").withUniqueID(2)
                     .withEndTime("9pm").withStartTime("6pm")
                     .withPriority("high").build();
-            task3 = new TaskBuilder().withTaskDetails("Do laundry").withStartTime(null).withEndTime("7pm").withUniqueID(3).withPriority("high").build();
+            task3 = new TaskBuilder().withTaskDetails("Do laundry").withStartTime(null).withEndTime(null).withUniqueID(3).withPriority("high").build();
             task4 = new TaskBuilder().withTaskDetails("Complete Project Manual").withStartTime(null).withEndTime("11pm").withUniqueID(4).withPriority("low").build();
             task5 = new TaskBuilder().withTaskDetails("Visit Singapore Zoo").withStartTime("12pm").withEndTime("2pm").withUniqueID(5).withPriority("med").build();
             task6 = new TaskBuilder().withTaskDetails("Complete PC1432 Lab Assignment").withStartTime(null).withEndTime("10pm").withUniqueID(6).withPriority("high").build();

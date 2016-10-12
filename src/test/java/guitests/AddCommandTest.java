@@ -7,6 +7,7 @@ import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.logic.commands.AddCommand;
 import seedu.tasklist.testutil.TestTask;
 import seedu.tasklist.testutil.TestUtil;
+import seedu.tasklist.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -16,17 +17,17 @@ public class AddCommandTest extends TaskListGuiTest {
     public void add() {
         //add one person
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask personToAdd = td.task8;
+        TestTask personToAdd = TypicalTestTasks.task8;
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, personToAdd);
 
         //add another person
-        personToAdd = td.task9;
+        personToAdd = TypicalTestTasks.task9;
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, personToAdd);
 
         //add duplicate person
-        personToAdd = td.task8;
+        personToAdd = TypicalTestTasks.task8;
         commandBox.runCommand(personToAdd.getAddCommand());
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, personToAdd.toString()));
         currentList = TestUtil.addTasksToList(currentList, personToAdd);
@@ -34,7 +35,7 @@ public class AddCommandTest extends TaskListGuiTest {
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.task1);
+        assertAddSuccess(TypicalTestTasks.task1);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
