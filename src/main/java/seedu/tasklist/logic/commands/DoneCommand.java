@@ -81,7 +81,7 @@ public class DoneCommand extends Command {
     	else if (matchingTasks.size() == 1) {
     		ReadOnlyTask taskToMark = matchingTasks.get(0);
     		try {
-				model.deleteTask(taskToMark);
+				model.markTaskAsComplete(taskToMark);
 			}
     		catch (TaskNotFoundException e) {
 				assert false: "The target task cannot be missing";
