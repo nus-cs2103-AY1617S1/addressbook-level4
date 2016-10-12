@@ -17,6 +17,8 @@ import com.joestelmach.natty.*;
  */
 public class AddCommand extends Command {
 
+    private static final int BASE_INDEX = 0;
+
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List. "
@@ -52,12 +54,12 @@ public class AddCommand extends Command {
 
         if (startDateString != null) {
             List<DateGroup> startDateGroup = dateParser.parse(startDateString);
-            startDate = startDateGroup.get(0).getDates().get(0);
+            startDate = startDateGroup.get(BASE_INDEX).getDates().get(BASE_INDEX);
         }
 
         if (endDateString != null) {
             List<DateGroup> endDateGroup = dateParser.parse(endDateString);
-            endDate = endDateGroup.get(0).getDates().get(0);
+            endDate = endDateGroup.get(BASE_INDEX).getDates().get(BASE_INDEX);
         }
 
         if (recurrenceRateString == null && timePeriodString == null) {
