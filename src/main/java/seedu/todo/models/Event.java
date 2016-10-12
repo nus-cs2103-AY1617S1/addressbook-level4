@@ -5,8 +5,25 @@ import java.time.LocalDateTime;
 public class Event implements CalendarEvent {
     
     private String name;
-    private LocalDateTime calendarDT;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public String getName() {
         return this.name;
@@ -19,12 +36,12 @@ public class Event implements CalendarEvent {
 
     @Override
     public LocalDateTime getCalendarDT() {
-        return this.calendarDT; 
+        return getStartDate(); 
     }
 
     @Override
     public void setCalendarDT(LocalDateTime datetime) {
-        this.calendarDT = datetime;
+        setStartDate(datetime);
     }
 
 }
