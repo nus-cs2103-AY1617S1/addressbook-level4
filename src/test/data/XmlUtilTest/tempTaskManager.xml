@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskManager>
-    <tasks>
+    <taskss>
         <id>1</id>
-        <firstTask>milk</firstTask>
-        <lastTask>Dance</lastTask>
-        <githubUsername></githubUsername>
-        <TaskDate></TaskDate>
-        <TaskTime></TaskTime>
-        <TaskTime></TaskTime>
+        <taskName>buy milk</taskName>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
     </tasks>
     <tags>
-        <type>Misc</type>
+        <name></name>
     </tags>
 </taskManager>
