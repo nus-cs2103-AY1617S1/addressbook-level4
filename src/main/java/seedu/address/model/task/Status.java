@@ -17,23 +17,27 @@ public class Status {
 		}
 	}
 	
-	private DoneStatus status;
+	public DoneStatus status;
 	
 	public Status() {
 		this.status = DoneStatus.NOT_DONE;
 	}
 	
-	public DoneStatus getStatus() {
-		return status;
-	}
-	
-	public void setStatus(DoneStatus status) {
-		this.status = status;
-	}
 	
 	@Override
 	public String toString() {
 		return status.toString();
 	}
 	
+	@Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Status // instanceof handles nulls
+                && this.status.equals(((Status) other).status)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return status.hashCode();
+    }
 }
