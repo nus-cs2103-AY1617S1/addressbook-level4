@@ -44,7 +44,7 @@
                     </children>
                 </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="type" style="-fx-background-color: green;" text="\$type" textAlignment="RIGHT" textFill="WHITE" textOverrun="CLIP">
+            <Label fx:id="type" style="-fx-background-color: green;" text="\$type" textAlignment="RIGHT" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font>
