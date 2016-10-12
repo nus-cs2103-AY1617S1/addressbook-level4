@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 
@@ -29,8 +30,9 @@ public interface TodoModel {
      *                should be set from inside this lambda. 
      *  
      * @throws IllegalValueException if the values set in the update predicate is invalid
+     * @throws ValidationException   if the fields in the task to be updated are not valid
      */
-    public void add(String title, Consumer<Task> update)  throws IllegalValueException;
+    public void add(String title, Consumer<Task> update)  throws IllegalValueException, ValidationException;
     
     /**
      * Deletes the given task from the todo list. This change is also propagated to the 
@@ -54,8 +56,9 @@ public interface TodoModel {
      * 
      * @throws IllegalValueException  if the task does not exist or if the values set in the 
      *                                update predicate is invalid
+     * @throws ValidationException    if the fields in the task to be updated are not valid
      */
-    public void update(ImmutableTask task, Consumer<Task> update) throws IllegalValueException;
+    public void update(ImmutableTask task, Consumer<Task> update) throws IllegalValueException, ValidationException;
     
     /**
      * Changes the filter predicate and sort comparator used to display the tasks. A null

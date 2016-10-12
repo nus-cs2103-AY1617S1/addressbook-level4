@@ -13,34 +13,35 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
+import seedu.todo.model.task.ValidationTask;
 import seedu.todo.storage.Storage;
 
 /**
- * Represents the data layer of the application. Implements TodoModel interface so that it can provide 
- * data to other parts of the logic layer, and the ImmutableTodoList interface so that it can be 
+ * Represents the data layer of the application. Implements TodoModel interface so that it can provide
+ * data to other parts of the logic layer, and the ImmutableTodoList interface so that it can be
  * serialized and persisted directly
  */
 public class TodoList implements ImmutableTodoList, TodoModel {
     private ObservableList<Task> tasks = FXCollections.observableArrayList(t -> t.getObservableProperties());
     private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
     private SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
-    
+
     private Storage storage;
-    
+
     private static final Logger logger = LogsCenter.getLogger(TodoList.class);
-    
+
     public TodoList(Storage storage) {
         this.storage = storage;
-        
+
         Optional<ImmutableTodoList> todoListOptional = storage.readTodoList();
-        
-        if (todoListOptional.isPresent()){
+
+        if (todoListOptional.isPresent()) {
             initTodoList(todoListOptional.get());
         } else {
             logger.info("Data file not found. Will be starting with an empty TodoList");
@@ -49,7 +50,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         // Set the default comparators
         view(null, null);
     }
-    
+
     private void initTodoList(ImmutableTodoList initialData) {
         tasks.setAll(initialData.getTasks().stream().map(Task::new).collect(Collectors.toList()));
     }
@@ -57,16 +58,17 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     @Override
     public void add(String title) {
         tasks.add(new Task(title));
-        
+
         storage.saveTodoList(this);
     }
-    
+
     @Override
-    public void add(String title, Consumer<Task> update) {
-        Task task = new Task(title);
+    public void add(String title, Consumer<Task> update) throws ValidationException {
+        ValidationTask validationTask = new ValidationTask(title);
+        Task task = validationTask.convertToTask();
         update.accept(task);
         tasks.add(task);
-        
+
         storage.saveTodoList(this);
     }
 
@@ -75,20 +77,24 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         if (!tasks.remove(task)) {
             throw new IllegalValueException("Task not found in todo list");
         }
-        
+
         storage.saveTodoList(this);
     }
 
     @Override
-    public void update(ImmutableTask key, Consumer<Task> update) throws IllegalValueException {
+    public void update(ImmutableTask key, Consumer<Task> update) throws IllegalValueException, ValidationException {
         int index = tasks.indexOf(key);
-        
+
         if (index < 0) {
             throw new IllegalValueException("Task not found in todo list");
         } else {
             Task task = tasks.get(index);
+            ValidationTask validationTask = new ValidationTask(task);
+            validationTask.validate();
+
             update.accept(task);
-            
+            tasks.add(task);
+
             storage.saveTodoList(this);
         }
     }
@@ -96,7 +102,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     @Override
     public void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> comparator) {
         filteredTasks.setPredicate(filter);
-        
+
         sortedTasks.setComparator((a, b) -> {
             int pin = Boolean.compare(b.isPinned(), a.isPinned());
             return pin != 0 || comparator == null ? pin : comparator.compare(a, b);
