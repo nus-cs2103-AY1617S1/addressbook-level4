@@ -29,7 +29,7 @@ public class AddTaskCommandTest {
 		command.setData(model);
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(String.format(AddTaskCommand.MESSAGE_SUCCESS, "Meeting")));
+		assertTrue(feedback.equals(String.format(AddTaskCommand.MESSAGE_SUCCESS, "[Floating Task][Description: Meeting]")));
 	}
 	
 	@Test(expected=IllegalValueException.class)

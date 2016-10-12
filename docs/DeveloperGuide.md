@@ -265,16 +265,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a task with a deadline | record tasks that need to be done by a deadline
-`* * *` | user | add a task without a deadline | have a general to-do list with not deadlines
+`* * *` | user | add a task with a simple description | record general tasks
+`* * *` | user | add a task with a simple description and a deadline | record tasks that need to be done by a deadline
+`* * *` | user | add a task with a simple description, a start date and an end date | record tasks that have a date range
 `* * *` | user | search for tasks using their descriptions | look up a task quickly
 `* * *` | user | delete a task | get rid of tasks that I no longer care to track
 `* * *` | user | update tasks | change details of a task if they change or if I added wrongly
-`* * *` | user | have multiple ways of executing a command | have flexibility
 `* * *` | user | view all the tasks that I have created on a GUI | have a good overall picture of the tasks
 `* * *` | user | specify the location of the file containing my task data | choose to store the data locally or in the cloud
-`* * *` | user who has just executed a wrong command | undo the command | easily rectify my mistakes
-`* *` | user | add recurring tasks | add the task once and not have to do it many times
+`* * *` | user who has just executed a wrong command | undo the command | rectify my mistakes easily
+`* *` | user | add recurring tasks | add repeating tasks once and not have to do so repeatedly
 `* *` | user | set aliases for certain keywords | type commands faster
 `* *` | user | set a particular task as favorite | see the tasks that have a higher priority
 `* *` | user who uses Google Calendar | sync the tasks between Google Calendar and the App | switch between the two freely
@@ -289,7 +289,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. User adds a floating task
+1. User adds a task
 2. TaskManager adds the task
 Use case ends.
 

@@ -18,6 +18,7 @@ public class TaskConfigTest {
                 "Current log level : INFO\n" +
                 "Preference file Location : task-userpreferences.json\n" +
                 "Local data file location : data/tasks.xml\n" +
+                "Local alias file location : " + "data/alias.xml\n" +
                 "AddressBook name : TaskManager";
 
         assertEquals(defaultConfigAsString, new TaskConfig().toString());

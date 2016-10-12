@@ -1,39 +1,30 @@
 package seedu.address.testutil;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
-
-import org.loadui.testfx.GuiTest;
-import org.testfx.api.FxToolkit;
-
-import com.google.common.io.Files;
-
-import guitests.guihandles.PersonCardHandle;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import junit.framework.AssertionFailedError;
-import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.XmlUtil;
+import seedu.address.logic.commands.taskcommands.AddTaskCommand;
+import seedu.address.model.task.InMemoryTaskList;
+import seedu.address.model.task.TaskManager;
 
 /**
  * A utility class for test cases.
  */
 public class TestUtil {
+
+	public static InMemoryTaskList setupEmptyTaskList() {
+		return new TaskManager();
+	}
+	
+	// Setting up tasks in the TaskList in order to find them in the tests
+	public static InMemoryTaskList setupSomeTasksInTaskList(int n) throws IllegalValueException {
+		InMemoryTaskList newTaskList = new TaskManager();
+		// Add 3 tasks into the task manager
+		for (int i = 0; i < n; i++) {
+			AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
+			command.setData(newTaskList);
+			command.execute();
+		}
+		return newTaskList;
+	}
 // TODO: DISABLED TESTUTIL
 //    public static String LS = System.lineSeparator();
 //

@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.model.Alias;
 import seedu.address.model.task.Task;
 
 /**
@@ -17,5 +18,7 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */ 
     ObservableList<Task> getFilteredTaskList();
+    
+    ObservableList<Alias> getAlias();
 
 }

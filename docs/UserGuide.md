@@ -42,8 +42,8 @@ With our task manager, you can add, delete and edit tasks without a fuss. Throug
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `/` imply that only one of them is chosen.
+> * Items surrounded by open(`[`) and closed(`]`) square brackets are optional.
 > * Items surrounded by open(`(`) and closed(`)`) brackets are grouped together.
 > * The order of parameters is fixed.
 
@@ -54,24 +54,122 @@ Format: `help`
 
 <br>
 #### Adding a task: `add`
-Adds a task to the task manager.<br>
-Format: `add TASK, (DATE,TIME) / DEADLINE`
+Adds a task to the task manager. <br>
+The task can be a floating task with only a description, or <br>
+it can be a deadline task with a description and a deadline, or <br>
+it can be an event task with a description, a start date and an end date.<br>
+Format (floating): `add TASK` <br>
+Format (deadline): `add TASK by DATE` <br>
+Format (event): `add TASK from START_DATE to/- END_DATE`
 
-Examples:
-* `add Project meeting, Oct 10, 5pm-6pm`
+> **Date Format**
+> * Note that `DATE` and all other dates follow the following format: 
+> * 1) `DAY MONTH` or `MONTH DAY`
+> * 2) `DAY MONTH YEAR` or `MONTH DAY YEAR`
+> * `MONTH` should be in alphabets instead of numbers.
+> * `MONTH` can either be in the long-form ('October') or the short-form ('Oct'), and it is case-insensitive.
+> * Any deviations from the above format may not be interpreted correctly.
+
+Examples (floating):
+* `add Project meeting`
+
+Examples (deadline):
+* `add Project meeting by Oct 10`
+* `add Project meeting by 10 October 2016`
+* `add Project meeting by OcToBeR 10 2017`
+
+Examples (event):
+* `add Project meeting from 5pm-6pm`
+* `add Project meeting from 5pm to 6pm`
+* `add Overseas work from 1 Aug 2016 to 31 Aug 2017`
+* `add Overseas work from 1 August 2016 - 31 August 2017`
+  For event tasks, make sure that `START_DATE` is earlier than `END_DATE` or it will be rejected.
 
 <br>
 #### Adding a recurring task: `add daily/weekly/monthly/yearly`
 Adds a recurring task to the task manager.<br>
-Format: `add daily/weekly/monthly/yearly TASK, (DATE,TIME) / DEADLINE`
+Format (daily): `add daily, TASK` <br> 
+Format (weekly): `add weekly [on] DAY_OF_WEEK[s], TASK` <br>
+Format (monthly): `add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK` <br>
+Format (yearly): `add yearly [on] DATE, TASK` <br>
+
+> Note that a comma `,` is needed after every `add daily/weekly/monthly/yearly` <br>
+> For `add monthly`, if the `DAY_OF_MONTH` is too large for certain months (E.g. 31 is too large for February), it will be ignored on those months.
 
 Examples:
-* `add weekly dance lesson, Wednesday, 3pm-4pm`
-* `add monthly bill payment, Nov 30`
+* `add daily, Morning exercise`
+* `add weekly on Monday, dance lesson Wednesday from 3pm-4pm`
+* `add weekly on Mondays, dance lesson Wednesday from 3pm-4pm`
+* `add monthly 20, Project review with colleagues`
+* `add monthly on 20, Project review with colleagues`
+* `add monthly on 21st, Project review with colleagues`
+* `add monthly on 22nd, Project review with colleagues`
+* `add monthly on 23rd, Project review with colleagues`
+* `add monthly on 24th, Project review with colleagues`
+* `add yearly 21 Oct, Mom's birthday`
+* `add yearly on 21 Oct, Mom's birthday`
+
+<br>
+#### Listing all tasks : `list`
+Shows a list of all the tasks.<br>
+Format: `list`
+
+<br>
+#### Searching for tasks using keywords: `find`
+Finds tasks that contain any of the given keywords.<br>
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+> Finds all the tasks with the keywords. <br>
+> Only full words will be matched e.g. meeting will not match meetings
+> Tasks matching at least one keyword will be returned (i.e. OR search).
+
+Examples:
+* `find meeting` <br>
+  Returns all tasks with the keyword meeting.
+* `find lunch dinner` <br>
+  Returns any task with lunch or dinner.
+
+<br>
+#### Updating a task: `update`
+Updates the description or date of the specified task.<br>
+Format (description): `update INDEX task/description UPDATED_VALUE` <br>
+Format (date): `update INDEX date UPDATED_VALUE`
+
+> Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> `task/description`: Updates the description of the task with `UPDATED_VALUE` <br>
+> `date`: Updates the date of the task with `UPDATED_VALUE` if it is already has a date
+
+Examples:
+* `list`
+* `update 2 task project discussion` or
+* `update 2 description project discussion` <br>
+  Updates the description of the 2nd task on the list with `project discussion`
+* `list`
+* `update 1 date 31 October 2016` <br>
+  Updates the date of the 1st task on the list to `31 October 2016`
+* `find dinner`
+* `update 1 date 6pm-7pm` <br>
+  Updates the 1st task in the results of the `find` command with the new start time and end time if the task has a start date and an end date (event task)
+
+<br>
+#### Deleting a task: `delete`
+Deletes the specified task.<br>
+Format: `delete INDEX`
+
+> Deletes the task at the specific index. The index refers to the index shown in the most recent listing. <br>
+> The index must be a positive integer 1, 2, 3… If the task selected is a recurring task, user will be prompted to delete all instances of the task or only the next instance of the task.
+
+Examples:
+* `list`
+* `delete 2` <br>
+  Deletes the 2nd task on the list
+* `find dinner`
+* `delete 1` <br>
+  Deletes the 1st task in the results of the `find` command
 
 <br>
 #### Favoriting a task: `favorite`
-Favorites the person at the specified INDEX. The index refers to the index number shown in the most recent listing.<br>
+Favorites the task at the specified INDEX. The index refers to the index number shown in the most recent listing.<br>
 The favorited task will appear at the top of any lists that include it. <br>
 Format: `favorite INDEX`
 
@@ -85,7 +183,7 @@ Examples:
 
 <br>
 #### Unfavoriting a task: `unfavorite`
-Unfavorites the person at the specified INDEX. The index refers to the index number shown in the most recent listing. <br>
+Unfavorites the task at the specified INDEX. The index refers to the index number shown in the most recent listing. <br>
 Format: `unfavorite INDEX`
 
 Examples:
@@ -94,57 +192,22 @@ Examples:
   Unfavorites the 2nd task in the task list.
 
 <br>
-#### Searching for tasks using keywords: `find`
-Finds tasks that contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+#### Listing favorites: `list favorite[s]`
+List all the tasks that you have favorited. <br>
+Format: `list favorite[s]` 
 
-> Finds all the tasks with the keywords. <br>
-> Only full words will be matched e.g. meeting will not match meetings
-> Persons matching at least one keyword will be returned (i.e. OR search).
+> You can type either `favorite` or its plural form, `favorites`
 
 Examples:
-* `find meeting` <br>
-  Returns all tasks with the keyword meeting.
-* `find lunch dinner` <br>
-  Returns any task with lunch or dinner.
-
-<br>
-#### Updating a task: `update`
-Updates the specified task.<br>
-Format: `update INDEX TASK/DATE/TIME/DEADLINE`
-
-> Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3…
-
-Examples:
-* `list`
-* `update 2 project discussion` <br>
-  Updates the 2nd task on the list with taskname project discussion
-* `find dinner`
-* `update 1 6pm-7pm` <br>
-  Updates the 1st task in the results of the `find` command with the new task time
-
-<br>
-#### Deleting a task: `delete`
-Deletes the specified task.<br>
-Format: `delete INDEX`
-
-> Deletes the task at the specific index. The index refers to the index shown in the most recent listing.
-> The index must be a positive integer 1, 2, 3… If the task selected is a recurring task, user will be prompted to delete all instances of the task or only the next instance of the task.
-
-Examples:
-* `list`
-* `delete 2` <br>
-  Deletes the 2nd task on the list
-* `find dinner`
-* `delete 1` <br>
-  Deletes the 1st task in the results of the `find` command
+* `list favorite`
+* `list favorites` <br>
 
 <br>
 #### Setting an alias: `alias`
 Sets a one-word alias for any sentence to be used as a command.<br>
 Format: `alias SHORTCUT [ANY_SENTENCE]`
 
-> `ANY_SENTENCE` is tagged to `SHORTCUT` so that if `SHORTCUT` is used as the first command, `ANY_SENTENCE` will be inserted in it's place instead.
+> `ANY_SENTENCE` is tagged to `SHORTCUT` so that if `SHORTCUT` is used as the first command, `ANY_SENTENCE` will be inserted in it's place instead. <br>
 > `SHORTCUT` can only consist of one word.
 
 Examples:
@@ -154,6 +217,31 @@ Examples:
 * `alias s search Dinner`
 * `s` <br>
   Typing `s` is the same as `search Dinner`
+
+<br>
+#### Deleting an alias: `unalias`
+Deletes the alias that you have created previously.<br>
+Format: `unalias SHORTCUT`
+
+> If you have created `SHORTCUT` as an alias previously, it will be removed. <br>
+> `SHORTCUT` must be an aliased command.
+
+Examples:
+* `alias am add Meeting` <br>
+  Typing `am, July 10, 5-6` is the same as `add Meeting, July 10, 5-6`
+* `unalias am` <br>
+  Typing `am` no longer translates into `add Meeting`
+
+<br>
+#### Listing aliases: `list alias[es]`
+List all the aliases that you have created. <br>
+Format: `list alias[es]`
+
+> You can type either `alias` or its plural form, `aliases`
+
+Examples:
+* `list alias`
+* `list aliases` <br>
 
 <br>
 #### Undoing an action: `undo`
@@ -166,10 +254,7 @@ Examples:
 * `undo` <br>
   Undoes your latest `delete` command
 
-<br>
-#### Listing all persons : `list`
-Shows a list of all the tasks.<br>
-Format: `list`
+> Only 1 consecutive `undo` command is allowed. Therefore, typing `undo` twice will only undo the previous command and not the one before.
 
 <br>
 #### Clearing all entries : `clear`
@@ -198,7 +283,7 @@ Examples:
 * `cl`<kbd>TAB</kbd><br>
   `clear` completed for you.
 * `un`<kbd>TAB</kbd><br>
-  `unfavorite` and `undo` displayed on the screen as possible commands.
+  `unfavorite`, `unalias` and `undo` displayed on the screen as possible commands.
 * `unf`<kbd>TAB</kbd><br>
   `unfavorite` completed for you.
 
@@ -222,16 +307,25 @@ Any of your present and future tasks will be synchronized bidirectionally and au
 Command | Format
 -------- | :--------
 Help | `help`
-Add | `add TASK, (DATE, TIME) / DEADLINE`
-Add daily/weekly/monthly/yearly | `add daily/weekly/monthly/yearly TASK, (DATE, TIME) / DEADLINE`
+Add floating tasks | `add TASK`
+Add deadline tasks | `add TASK by DATE`
+Add event tasks | `add TASK from START_DATE to/- END_DATE`
+Add daily | `add daily, TASK`
+Add weekly | `add weekly [on] DAY_OF_WEEK[s], TASK`
+Add monthly | `add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK`
+Add yearly | `add yearly [on] DATE, TASK`
+List | `list`
+Find | `find KEYWORD [MORE_KEYWORDS]`
+Update description | `update INDEX task/description UPDATED_VALUE`
+Update date | `update INDEX date UPDATED_VALUE`
+Delete | `delete INDEX`
 Favorite | `favorite INDEX`
 Unfavorite | `unfavorite INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-Update | `update INDEX TASK/DATE/TIME/DEADLINE`
-Delete | `delete INDEX`
+List favorites | `list favorite[s]`
 Alias | `alias SHORTCUT ANY_SENTENCE`
+Unalias | `unalias SHORTCUT`
+List aliases | `list alias[es]`
 Undo | `undo`
-List | `list`
 Clear | `clear`
 Sync | `sync`
 

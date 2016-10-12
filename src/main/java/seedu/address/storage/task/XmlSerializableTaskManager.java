@@ -1,6 +1,7 @@
 package seedu.address.storage.task;
 
 import seedu.address.commons.collections.UniqueItemCollection;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Task;
 import seedu.address.storage.task.XmlAdaptedTask;
@@ -10,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 @XmlRootElement(name = "taskmanager")
 public class XmlSerializableTaskManager extends UniqueItemCollection<Task>{ 
 
+	 private static final Logger logger = LogsCenter.getLogger(XmlSerializableTaskManager.class);
+	
     @XmlElement
     private List<XmlAdaptedTask> tasks;
     {
@@ -47,6 +51,7 @@ public class XmlSerializableTaskManager extends UniqueItemCollection<Task>{
                 this.add(t.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
+            	logger.severe(e.getMessage());
             }
         }
     };

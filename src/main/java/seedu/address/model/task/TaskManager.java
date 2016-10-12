@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import java.util.Set;
 
+import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
@@ -49,8 +50,29 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	    indicateTaskManagerChanged();
 	}
 	
-    /** Raises an event to indicate the model has changed */
+	@Override
+	public void favoriteTask(Task toFavorite) {
+		assert tasks.contains(toFavorite);
+		
+		toFavorite.setAsFavorite();
+		indicateTaskManagerChanged();
+		
+	}
+
+	@Override
+	public void unfavoriteTask(Task toUnfavorite) {
+		assert tasks.contains(toUnfavorite);
+		
+		toUnfavorite.setAsNotFavorite();
+		indicateTaskManagerChanged();
+		
+	}
+	
+    /** Keeps the internal ObservableList sorted.
+     * Raises an event to indicate the model has changed.
+     */
     private void indicateTaskManagerChanged() {
+    	FXCollections.sort(tasks.getInternalList());
         raise(new TaskManagerChangedEvent(tasks));
     }
 
@@ -145,6 +167,8 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
+
 
 	
 }

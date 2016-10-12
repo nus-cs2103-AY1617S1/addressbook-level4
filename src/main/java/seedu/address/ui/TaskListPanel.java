@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -100,7 +101,19 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+            	TaskCard currentCard = TaskCard.load(task, getIndex() + 1);
+            	HBox cardPane = currentCard.getLayout();
+               
+            	setGraphic(cardPane);
+            	
+            	// Set the color of the card based on whether it's favorited
+                if (task.isFavorite()) {
+                	cardPane.setStyle("-fx-background-color: yellow;");
+                } else {
+                	cardPane.setStyle(null);
+                }
+                
+                
             }
         }
     }

@@ -4,6 +4,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 /**
  * Helper functions for handling strings.
@@ -32,5 +35,33 @@ public class StringUtil {
      */
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
+    }
+    
+    /*
+     * Returns a string where spaces are added between
+     * word-character and character-word boundaries
+     * E.g. 31Oct2016 -> 31 Oct 2016
+     */
+    public static String addSpacesBetweenNumbersAndWords(String s) {
+    	if (s == null) return null;
+    	
+    	s = s.replaceAll("(\\d+)(?!st|nd|rd)([a-zA-Z]+)", "$1 $2");
+    	s = s.replaceAll("([a-zA-Z]+)(\\d+)(?!st|nd|rd)", "$1 $2");
+    	return s;
+    	/*
+    	if (s.length() <= 1) return s;
+    	
+    	StringBuilder outString = new StringBuilder();
+    	
+    	char isPre3
+    	char current = s.charAt(1);
+    	
+    	outString.append(prev);
+    	
+    	for (int i = 1; i < s.length(); i++) {
+    		
+    	}
+    	*/
+
     }
 }
