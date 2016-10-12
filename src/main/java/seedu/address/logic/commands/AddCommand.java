@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import java.util.Date;
+import java.util.List;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.DateParser;
@@ -8,6 +9,8 @@ import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.RecurrenceRate;
+
+import com.joestelmach.natty.*;
 
 /**
  * Adds a person to the address book.
@@ -40,6 +43,7 @@ public class AddCommand extends Command {
 
     public AddCommand(String taskNameString, String startDateString, String endDateString, String recurrenceRateString,
             String timePeriodString, String priorityString) throws IllegalValueException {
+        com.joestelmach.natty.Parser dateParser = new com.joestelmach.natty.Parser();
         Name taskName = new Name(taskNameString);
         Date startDate = null;
         Date endDate = null;
@@ -47,13 +51,13 @@ public class AddCommand extends Command {
         Priority priority;
 
         if (startDateString != null) {
-            DateParser dp = new DateParser(startDateString);
-            startDate = dp.parseDate();
+            List<DateGroup> startDateGroup = dateParser.parse(startDateString);
+            startDate = startDateGroup.get(0).getDates().get(0);
         }
 
         if (endDateString != null) {
-            DateParser dp = new DateParser(endDateString);
-            endDate = dp.parseDate();
+            List<DateGroup> endDateGroup = dateParser.parse(endDateString);
+            endDate = endDateGroup.get(0).getDates().get(0);
         }
 
         if (recurrenceRateString == null && timePeriodString == null) {
