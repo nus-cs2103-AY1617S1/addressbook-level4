@@ -5,9 +5,9 @@
         <firstTask>milk</firstTask>
         <lastTask>Dance</lastTask>
         <githubUsername></githubUsername>
-        <date></date>
-        <start></start>
-        <end></end>
+        <TaskDate></TaskDate>
+        <TaskTime></TaskTime>
+        <TaskTime></TaskTime>
     </tasks>
     <tags>
         <type>Misc</type>
