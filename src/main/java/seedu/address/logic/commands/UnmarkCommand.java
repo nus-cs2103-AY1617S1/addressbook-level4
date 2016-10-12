@@ -43,6 +43,6 @@ public class UnmarkCommand extends Command {
             assert false : "The target task cannot be found";
         }
         
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
+        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark.getName()));
     }
 }

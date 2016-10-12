@@ -79,7 +79,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `ToDoListChangedEvent` when the To Do List data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -135,7 +135,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the To Do List data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -148,7 +148,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the To Do List data in xml format and read it back.
 
 ### Common classes
 
@@ -241,7 +241,7 @@ Here are the steps to create a new release.
 
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, To Do List depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -332,4 +332,13 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+Google Keep : SWOT
+> Google Keep is an easy to use note taking application. It allows users to create different kinds of notes for different purposes. It also has some sort of a checklist which mimics the basic function of a to-do application. The user can also set reminders for a list but not for a specific task. 
+
+> A noticeable point about Google Keep is that there is no other way than a list to view the to-dos. Probably this is because Google has other forms of to-dos tracking application and Keep is just meant to be a lightweight option for users who do not need that much functionality.
+
+Wunderlist : SWOT
+
+> Wunderlist is a web and mobile application that allows user to keep track of their tasks. It has a very nice UI where user can change the background image of the application. Wunderlist also allows users to categorise their tasks into different groups which helps with organisation. Furthermore the application will hide all completed tasks by default from the users so the users will only see those that remain to be done.
+
+> Wunderlist is a great application but one issue is that it does not allot tasks to belong to more than one categories. Another problem is that wunderlist as the name suggest, only allows users to view their tasks in a linear list format.

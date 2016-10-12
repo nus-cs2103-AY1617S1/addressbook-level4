@@ -157,7 +157,7 @@ public class Parser {
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
         }
 
         return new UnmarkCommand(index.get());
@@ -176,7 +176,7 @@ public class Parser {
 
             Optional<Integer> index = parseIndex(indexString);
             if (!index.isPresent()) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
             }
 
             String tagNames = args.substring(1);
@@ -201,14 +201,14 @@ public class Parser {
 
             Optional<Integer> index = parseIndex(indexString);
             if (!index.isPresent()) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE));
             }
 
             String tagNames = args.substring(1);
 
             return new UntagCommand(index.get(), tagNames);
         } catch (Exception e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE));
         }
 
     }
@@ -241,6 +241,9 @@ public class Parser {
     private Command prepareUpdate(String args) {
 
         args = args.trim();
+        if (args.length() < 1) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
         String indexString = args.substring(0, 1);
 
         Optional<Integer> index = parseIndex(indexString);
@@ -256,15 +259,9 @@ public class Parser {
         matcher = ParserFormats.UPDATE_TASK_ARGS_FORMAT.matcher(args.trim());
         if (matcher.matches()) {
             
-            System.out.println(matcher.group("name"));
-            System.out.println(matcher.group("onDateTime"));
-            System.out.println(matcher.group("byDateTime"));
-            System.out.println(matcher.group("detail"));
             return new UpdateCommand(index.get(), matcher.group("name"), matcher.group("onDateTime"), 
                     matcher.group("byDateTime"), matcher.group("detail"));
         } else {
-            System.out.println("YAY FAILED");
-            System.out.println(args);
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }  
         

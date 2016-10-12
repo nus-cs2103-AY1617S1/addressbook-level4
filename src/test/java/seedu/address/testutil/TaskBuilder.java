@@ -32,12 +32,12 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withFromDate(String dateString) throws IllegalValueException {
+    public TaskBuilder withOnDate(String dateString) throws IllegalValueException {
         this.task.setOnDate(new TaskDate(dateString));
         return this;
     }
 
-    public TaskBuilder withTillDate(String dateString) throws IllegalValueException {
+    public TaskBuilder withByDate(String dateString) throws IllegalValueException {
         this.task.setByDate(new TaskDate(dateString));
         return this;
     }
