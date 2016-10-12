@@ -7,7 +7,7 @@ import seedu.address.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 /*
- * Successful testing for delete command, 12/10/16, A0141128R
+ * done command, 12/10/16, @author A0141128R
  */
 
 public class DoneCommandTest extends ToDoListGuiTest {
@@ -15,17 +15,17 @@ public class DoneCommandTest extends ToDoListGuiTest {
     @Test
     public void done() {
 
-        //done the first in the list
+        //done the first task in the list
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         assertdoneSuccess(targetIndex, currentList);
 
-        //delete the last in the list
+        //done a task that is the last in the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
         assertdoneSuccess(targetIndex, currentList);
 
-        //delete from the middle of the list
+        //done task from the middle of the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertdoneSuccess(targetIndex, currentList);
@@ -37,9 +37,9 @@ public class DoneCommandTest extends ToDoListGuiTest {
     }
 
     /**
-     * Runs the delete command to delete the task at specified index and confirms the result is correct.
-     * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of tasks (before deletion).
+     * Runs the done command to change the task done status at specified index and confirms the result is correct.
+     * @param targetIndexOneIndexed e.g. to done the first task in the list, 1 should be given as the target index.
+     * @param currentList A copy of the current list of tasks (before done).
      */
     private void assertdoneSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask taskToDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
@@ -51,7 +51,7 @@ public class DoneCommandTest extends ToDoListGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDone));
+        assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
     }
 
 }
