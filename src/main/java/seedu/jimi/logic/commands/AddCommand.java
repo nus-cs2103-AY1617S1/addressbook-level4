@@ -1,6 +1,8 @@
 package seedu.jimi.logic.commands;
 
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
@@ -25,11 +27,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
 
     private final ReadOnlyTask toAdd;
-    
-    public AddCommand() {
-        toAdd = null;
-    }
-    
+
     /**
      * Convenience constructor using raw values.
      *
@@ -48,7 +46,22 @@ public class AddCommand extends Command {
                     new DeadlineTask(new Name(name), new DateTime(dateTime), new UniqueTagList(tagSet));
         }
     }
-    
+
+    public AddCommand(String name, List<Date> dates, Set<String> tags) throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        if (dates.size() == 0) {
+            this.toAdd = 
+                    new FloatingTask(new Name(name), new UniqueTagList(tagSet));
+        } else {
+            this.toAdd = 
+                    new DeadlineTask(new Name(name), new DateTime(dates.get(0)), new UniqueTagList(tagSet));
+        }
+
+    }
+
     @Override
     public CommandResult execute() {
         assert model != null;
@@ -58,21 +71,7 @@ public class AddCommand extends Command {
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-        
-    }
-    
-    @Override
-    public boolean isValidCommandWord(String commandWord) {
-        for (int i = 1; i <= COMMAND_WORD.length(); i++) {
-            if (commandWord.equals(COMMAND_WORD.substring(0, i))) {
-                return true;
-            }
-        }
-        return false;
+
     }
 
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }

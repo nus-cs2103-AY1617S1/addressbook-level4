@@ -2,14 +2,18 @@ package seedu.jimi.logic.parser;
 
 import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jimi.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_DATE;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.jimi.commons.exceptions.DateNotParsableException;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.logic.commands.*;
+
+import com.joestelmach.natty.*;
 
 /**
  * Parses user input.
@@ -119,15 +123,33 @@ public class JimiParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
+        List<Date> dates;
+        try {
+            dates = parseStringToDate(detailsMatcher.group("dateTime"));
+        } catch (DateNotParsableException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+        
         try {
             return new AddCommand(
                     detailsMatcher.group("taskDetails"),
-                    detailsMatcher.group("dateTime"),
+                    dates,
                     getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    private static List<Date> parseStringToDate(final String str) throws DateNotParsableException {
+        if(str == null)
+            return new ArrayList<Date>();
+        final Parser dateParser = new Parser();
+        final List<DateGroup> groups = dateParser.parse(str);
+        if(!groups.isEmpty())
+            return groups.get(0).getDates();
+        else
+            throw new DateNotParsableException(MESSAGE_INVALID_DATE);
     }
 
     /**
