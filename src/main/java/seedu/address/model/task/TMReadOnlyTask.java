@@ -21,7 +21,7 @@ public interface TMReadOnlyTask {
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
      */
-    UniqueTagList getTags();
+    public UniqueTagList getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -40,16 +40,16 @@ public interface TMReadOnlyTask {
      * Formats the task as text, showing all contact details.
      */
     default String getAsText() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Task Type: ")
-                .append(getTaskType())
-                .append(" Date: ")
-                .append(getStartDate().toString())
-                .append(" Status: ")
-                .append(getStatus().toString())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+    	final StringBuilder builder = new StringBuilder();
+    	
+    	getName().ifPresent(name -> builder.append(name.toString()));
+    	builder.append(" Task type: " + getTaskType());
+    	getStartDate().ifPresent(startDate -> builder.append(" Start date: " + startDate.toString()));
+    	getEndDate().ifPresent(endDate -> builder.append(" End date: " + endDate.toString()));
+    	builder.append(" Status: " + getStatus().toString());
+    	builder.append(" Tags: ");
+    	getTags().forEach(builder::append);
+
         return builder.toString();
     }
 
