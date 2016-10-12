@@ -1,11 +1,11 @@
 [![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
 [![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
 
-# Address Book (Level 4)
+# Task Manager
 
 <img src="docs/images/Ui.png" width="600"><br>
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
+* This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as 
   the main programming language. 
