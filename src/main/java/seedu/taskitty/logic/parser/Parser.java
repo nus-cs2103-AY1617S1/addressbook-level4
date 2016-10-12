@@ -136,14 +136,23 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
+        String[] splitArgs = args.trim().split(" ");
+        if (splitArgs.length == 0 || splitArgs.length > 2) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        //takes the last argument given for parsing index
+        Optional<Integer> index = parseIndex(splitArgs[splitArgs.length - 1]);
+        
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
-        return new DeleteCommand(index.get());
+        if (splitArgs.length == 1) {
+            return new DeleteCommand(index.get());
+        } else {
+            return new DeleteCommand(index.get(), StringUtil.getCategoryIndex(splitArgs[0]));
+        }
     }
     
     /**
@@ -227,8 +236,8 @@ public class Parser {
         }
         return Optional.of(Integer.parseInt(index));
 
-    }
-
+    }    
+    
     /**
      * Parses arguments in the context of the find person command.
      *

@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -49,5 +50,12 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
-
+    @Test
+    public void getCategoryIndex(){
+        assertEquals(StringUtil.getCategoryIndex("t") , 0);
+        assertEquals(StringUtil.getCategoryIndex("d") , 1);        
+        assertEquals(StringUtil.getCategoryIndex("e") , 2);
+        assertEquals(StringUtil.getCategoryIndex("a") , 0);
+        assertEquals(StringUtil.getCategoryIndex("random") , 0);
+    }
 }
