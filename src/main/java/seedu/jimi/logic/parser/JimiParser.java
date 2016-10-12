@@ -32,6 +32,9 @@ public class JimiParser {
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
             Pattern.compile("(?<targetIndex>\\d+\\s)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
     
+    private static final Pattern DETAILS_ARGS_FORMAT = 
+            Pattern.compile("(\"(?<taskDetails>.+)\")( by (?<dateTime>.+))?");
+    
     public JimiParser() {}
 
     /**
@@ -89,15 +92,24 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
+        final Matcher detailsAndTagsMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate entire args string format
+        if (!detailsAndTagsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        
+        final Matcher detailsMatcher =
+                DETAILS_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
+        // Validate details args format
+        if (!detailsMatcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        
         try {
             return new AddCommand(
-                    matcher.group("detailsArguments"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    detailsMatcher.group("taskDetails"),
+                    detailsMatcher.group("dateTime"),
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

@@ -57,10 +57,10 @@ public class Event implements ReadOnlyTask {
     public boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other instanceof Event // instanceof handles nulls
-                && (other).getName().equals(this.getName()) // state checks here onwards
-                && (other).isCompleted() == this.isCompleted()
-                && ((Event)other).getStart().equals(this.getStart())
-                && ((Event)other).getEnd().equals(this.getEnd())
+                    && (other).getName().equals(this.getName()) // state checks here onwards
+                    && (other).isCompleted() == this.isCompleted()
+                    && ((Event)other).getStart().equals(this.getStart())
+                    && ((Event)other).getEnd().equals(this.getEnd())
                 );
     }
     
