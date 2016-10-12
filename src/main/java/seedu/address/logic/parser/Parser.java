@@ -33,6 +33,9 @@ public class Parser {
                     + "( a/)?(?<venue>([^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    private static final Pattern TAG_ADD_ARGS_FORMAT =
+    		Pattern.compile("(?<targetIndex>.+)" + "(?<tag>([^/]+)?)");
+
     public Parser() {}
 
     /**
@@ -59,6 +62,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+
+        case AddTagCommand.COMMAND_WORD:
+        	return prepareAddTag(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -187,6 +193,28 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+
+    private Command prepareAddTag(String args){
+    	final Matcher matcher = TAG_ADD_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddTagCommand.MESSAGE_USAGE));
+        }
+
+
+		String[] command = args.trim().split(" ");
+        Optional<Integer> index = parseIndex(command[0]);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+        }
+
+		try {
+			return new AddTagCommand(index.get(),command[1]);
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(e.getMessage());
+		}
     }
 
 }
