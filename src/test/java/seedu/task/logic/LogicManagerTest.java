@@ -536,7 +536,7 @@ public class LogicManagerTest {
         Event computingEvent() throws Exception {
             Name name = new Name("Attend CS2103 Workshop");
             Description des = new Description("post on Github");
-            Duration dur = new Duration("12-12-12 13-12-12");
+            EventDuration dur = new EventDuration("13 Oct 3pm > 14 Oct 4pm");
             
             return new Event(name, des, dur);
         }

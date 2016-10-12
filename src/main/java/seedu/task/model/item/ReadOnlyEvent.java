@@ -11,7 +11,7 @@ public interface ReadOnlyEvent {
 
     Name getEvent();
     Description getDescription();
-    Duration getDuration();
+    EventDuration getDuration();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

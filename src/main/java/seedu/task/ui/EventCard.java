@@ -40,7 +40,7 @@ public class EventCard extends UiPart {
         name.setText(event.getEvent().fullName);
         index.setText(displayedIndex + ". ");
         description.setText(event.getDescription().value);
-        duration.setText(event.getDuration().value);
+        duration.setText(event.getDuration().toString());
     }
 
     public HBox getLayout() {

@@ -1,7 +1,6 @@
 build/
 .gradle/
 .idea/
-lib/*
 *.iml
 *.log
 *.log.*
@@ -14,4 +13,5 @@ preferences.json
 classes/
 /data/
 /bin/
-.settings/
+.settings/gradle.prefs
+

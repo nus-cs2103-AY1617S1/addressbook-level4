@@ -14,7 +14,7 @@ public class Event implements ReadOnlyEvent {
 
     private Name name;
     private Description description;
-    private Duration duration;
+    private EventDuration eventDuration;
 
     /**
      * Every field must be present and not null.
@@ -23,11 +23,11 @@ public class Event implements ReadOnlyEvent {
     	this(name, description, null);    
     }
     
-    public Event(Name name, Description description, Duration duration) {
+    public Event(Name name, Description description, EventDuration eventDuration) {
         assert !CollectionUtil.isAnyNull(name, description);
         this.name = name;
         this.description = description;
-        this.duration = duration;
+        this.eventDuration = eventDuration;
     }
 
     /**
@@ -48,8 +48,8 @@ public class Event implements ReadOnlyEvent {
     }
     
     @Override
-    public Duration getDuration() {
-        return duration;
+    public EventDuration getDuration() {
+        return eventDuration;
     }
 
 

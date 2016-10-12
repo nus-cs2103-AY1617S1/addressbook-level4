@@ -2,7 +2,7 @@ package seedu.task.logic.commands;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Description;
-import seedu.task.model.item.Duration;
+import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.UniqueEventList;
@@ -34,7 +34,7 @@ public class AddEventCommand extends Command {
      *             if any of the raw values are invalid
      */
     public AddEventCommand(String name, String description, String duration) throws IllegalValueException {
-        this.toAddEvent = new Event(new Name(name), new Description(description), new Duration(duration)); //TODO: more flexible of events type
+        this.toAddEvent = new Event(new Name(name), new Description(description), new EventDuration(duration)); //TODO: more flexible of events type
     }
 
     @Override
