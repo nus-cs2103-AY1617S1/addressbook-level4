@@ -17,7 +17,7 @@ public class TestTask implements ReadOnlyTask {
     private DueByDate dueByDate;
     private DueByTime dueByTime;
     private Priority priority;
-    private Done done;
+    private Done done = new Done();
     private UniqueTagList tags;
 
     public TestTask() {
