@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -30,11 +29,11 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
     
     public final int targetIndex;
-    private final Task toUpdate;
+    private final Task newTask;
     
     public String task_name;
     
-    public UpdateCommand(int targetIndex,String name,Set<String> tags) throws IllegalValueException{ 
+    public UpdateCommand(int targetIndex, String name, Set<String> tags) throws IllegalValueException { 
         this.targetIndex = targetIndex;
         
         final Set<Tag> tagSet = new HashSet<>();
@@ -42,7 +41,7 @@ public class UpdateCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
        
-        this.toUpdate = new Task(
+        this.newTask = new Task(
                 new Name(name),
                 new UniqueTagList(tagSet)
         );
@@ -59,14 +58,17 @@ public class UpdateCommand extends Command {
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
         
+        UniqueTagList addedTags = newTask.getTags();
+        addedTags.mergeFrom(taskToUpdate.getTags());
+        newTask.setTags(addedTags);
+        
         assert model != null;
         try {
-            model.updateTask(taskToUpdate, toUpdate);
+            model.updateTask(taskToUpdate, newTask);
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        } 
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, toUpdate));
+        }
+
+        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
     }
 }
