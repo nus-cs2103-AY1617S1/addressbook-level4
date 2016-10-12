@@ -3,7 +3,6 @@ package seedu.address.model.task;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -50,13 +49,13 @@ public class ReadOnlyTaskTest {
 
     @Test
     public void someday_getStartDate() {
-        Optional<Date> expected = Optional.empty();
+        Optional<LocalDateTime> expected = Optional.empty();
         assertEquals(expected, someday.getStartDate());
     }
 
     @Test
     public void someday_getEndDate() {
-        Optional<Date> expected = Optional.empty();
+        Optional<LocalDateTime> expected = Optional.empty();
         assertEquals(expected, someday.getEndDate());
     }
 
@@ -71,13 +70,13 @@ public class ReadOnlyTaskTest {
 
     @Test
     public void deadline_getStartDate() {
-        Optional<Date> expected = Optional.empty();
+        Optional<LocalDateTime> expected = Optional.empty();
         assertEquals(expected, deadline.getStartDate());
     }
 
     @Test
     public void deadline_getEndDate() {
-        Optional<Date> expected = Optional.of(new Date(0));
+        Optional<LocalDateTime> expected = Optional.of(LocalDateTime.parse("2016-12-25T12:13:14"));
         assertEquals(expected, deadline.getEndDate());
     }
 }
