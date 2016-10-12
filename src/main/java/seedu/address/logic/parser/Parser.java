@@ -44,6 +44,11 @@ public class Parser {
             Pattern.compile("(?<name>[^#]+)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
     
+    private static final Pattern EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    		Pattern.compile("\\d+ "
+    				+ "(des|date|start|end) "
+    				+ ".+");
+    
     public Parser() {}
 
     /**
@@ -229,6 +234,11 @@ public class Parser {
     }
     
     private Command prepareEdit(String args) {
+    	final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE));
+        }
         /*final Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ",  ""));
         Iterator<String> itr = indexes.iterator();
         ArrayList<Integer> pass = new ArrayList<Integer>(); //by right arraylist is redundant cause 1 value only, leave here first in case next time want use
