@@ -36,10 +36,13 @@ public class TaskType {
 		switch (type.trim().toLowerCase()) {
 		case "event":
 			value = Type.EVENT;
+			break;
 		case "deadline":
 			value = Type.DEADLINE;
+			break;
 		case "someday":
 			value = Type.SOMEDAY;
+			break;
 		default:
 			throw new IllegalArgumentException("Invalid string input");
 		}

@@ -2,23 +2,23 @@ package seedu.address.model.task;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Test;
 
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.TMReadOnlyTask.TaskType;
 
 
-public class TMReadOnlyTaskTest {
+public class ReadOnlyTaskTest {
 	
-    private TMReadOnlyTask someday;
-    private TMReadOnlyTask deadline;
+    private ReadOnlyTask someday;
+    private ReadOnlyTask deadline;
 
-    public TMReadOnlyTaskTest() throws Exception {
-        someday = new TMTask(new Name("Read 50 shades of grey"), new Status(), new UniqueTagList());
-        deadline = new TMTask(new Name("Read 50 shades of grey"), new Status(), new Date(0), new UniqueTagList());
+    public ReadOnlyTaskTest() throws Exception {
+        someday = new Task(new Name("Read 50 shades of grey"), new TaskType("someday"), new Status("not done"), Optional.empty(),  Optional.empty(), new UniqueTagList());
+        deadline = new Task(new Name("Read 50 shades of grey"), new TaskType("deadline"), new Status("not done"), Optional.empty(), Optional.of(LocalDateTime.parse("2016-12-25T12:13:14")), new UniqueTagList());
     }
     
     /*
@@ -38,13 +38,13 @@ public class TMReadOnlyTaskTest {
 
     @Test
     public void someday_getStatus() {
-        Status expected = new Status();
+        Status expected = new Status("not done");
         assertEquals(expected, someday.getStatus());
     }
 
     @Test
     public void someday_getTaskType() {
-        TaskType expected = TaskType.SOMEDAY;
+        TaskType expected = new TaskType("someday");
         assertEquals(expected, someday.getTaskType());
     }
 
@@ -65,7 +65,7 @@ public class TMReadOnlyTaskTest {
      */
     @Test
     public void deadline_getTaskType() {
-        TaskType expected = TaskType.DEADLINE;
+        TaskType expected = new TaskType("deadline");
         assertEquals(expected, deadline.getTaskType());
     }
 
