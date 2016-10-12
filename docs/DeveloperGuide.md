@@ -272,7 +272,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `MustDoList` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Help
+#### Use case 1: Help
 
 **MSS**
 
@@ -280,7 +280,7 @@ Priority | As a ... | I want to ... | So that I can...
 2. MustDoList shows the user guide through a html file <br>
 Use case ends.
 
-#### Use case: Add task
+#### Use case 2: Add task
 
 **MSS**
 
@@ -291,12 +291,17 @@ Use case ends.
 
 **Extensions**
 
-2a. The task name is duplicate
+1a. The add task request has invalid format
 
-> 2a1. MustDoList shows an error message <br>
-  Use case resumes at step 2
+> 1a1. MustDoList shows an error message <br>
+  Use case resumes at step 1
 
-#### Use case: List task
+1b. The add task request has a duplicate task name
+
+> 1b1. MustDoList shows an error message <br>
+  Use case resumes at step 1
+
+#### Use case 3: List task
 
 **MSS**
 
@@ -310,7 +315,7 @@ Use case ends.
 
 > Use case ends
 
-#### Use case: Find task
+#### Use case 4: Find task
 
 **MSS**
 
@@ -320,11 +325,16 @@ Use case ends.
 
 **Extensions**
 
+1a. The find task request has an invalid parameter
+
+> 1a1. MustDoList shows an error message <br>
+  Use case resumes at step 1
+
 2a. The list is empty
 
 > Use case ends
 
-#### Use case: Select task
+#### Use case 5: Select task
 
 **MSS**
 
@@ -347,7 +357,7 @@ Use case ends.
   Use case resumes at step 2
 
 
-#### Use case: Delete task
+#### Use case 6: Delete task
 
 **MSS**
 
@@ -368,7 +378,7 @@ Use case ends.
 > 3a1. MustDoList shows an error message <br>
   Use case resumes at step 2
 
-#### Use case: Clear task
+#### Use case 7: Clear task
 
 **MSS**
 
@@ -376,7 +386,7 @@ Use case ends.
 2. MustDoList clears all entries of tasks <br>
 Use case ends.
 
-#### Use case: Edit task
+#### Use case 8: Edit task
 
 **MSS**
 
@@ -397,7 +407,7 @@ Use case ends.
 > 3a1. MustDoList shows an error message <br>
   Use case resumes at step 2
 
-#### Use case: Undo task
+#### Use case 9: Undo task
 
 **MSS**
 
@@ -412,7 +422,7 @@ Use case ends.
 > 2a1. MustDoList shows an error message <br>
   Use case resumes at step 2
   
-#### Use case: Mark task
+#### Use case 10: Mark task
 
 **MSS**
 
@@ -433,7 +443,7 @@ Use case ends.
 > 3a1. MustDoList shows an error message <br>
   Use case resumes at step 2
 
-#### Use case: Change default storage path
+#### Use case 11: Change default storage path
 
 **MSS**
 
@@ -441,7 +451,7 @@ Use case ends.
 2. MustDoList changes the path of default storage <br>
 Use case ends.
 
-#### Use case: Exit task list
+#### Use case 12: Exit task list
 
 **MSS**
 
@@ -475,14 +485,30 @@ Use case ends.
 
 #### Todoist
 
-> Pros <br>
-Todoist can access task everywhere (on mobile, web browser), can collaborate on shared task in real-time and has powerful recurring dates by creating repeating due dates. <br>
-Cons<br>
-However, a few important features not available to free users. For instance, its search function is limited in the free plan and it does not have a backup option for free users. Premium level is available at $29-per-year.
+> Summary
+* Todoist is a online task management application and to do list.
 
-#### Google calendar
+> Strength
+* Access task everywhere (on mobile, web browser)
+* Collaborate on shared task in real-time
+* Powerful recurring dates by creating repeating due dates.
 
-> Pros <br>
-Google calendar supports multiple calendars for a single user, can schedule meeting using keyword like “Suggested Time” or “Find a Time” and can share calendar with others.
-Cons <br>
-However, user must sign up for the service, offline version is available for viewing only and it cannot categorize calendar events based on “event type”.
+> Weakness
+* A few important features not available to free user
+* Search function is limited in the free plan
+* Does not have a backup option for free users. Premium level is available at $29-per-year.
+
+#### Google Calendar
+
+> Summary
+* Google Calendar is an 0nline calendar that keep track of life's important events all in one place.
+
+> Strength
+* Supports multiple calendars for a single user
+* Schedule meeting using keyword like Suggested Time or Find a Time 
+* Share calendar with others.
+
+> Weakness
+* User must sign up for the service
+* Offline version is available for viewing only
+* Cannot categorize calendar events based on event type.
