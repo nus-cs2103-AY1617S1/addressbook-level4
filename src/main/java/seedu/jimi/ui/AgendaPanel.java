@@ -7,12 +7,14 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -40,12 +42,21 @@ public class AgendaPanel extends UiPart{
     
     //main agenda views
     @FXML
-    private TreeTableView<ReadOnlyTask> treeTableView;
+    private TreeTableView<ReadOnlyTask> tasksTreeTableView;
     @FXML
     private TreeTableColumn<ReadOnlyTask, String> tasksTableColumnLeft;
     @FXML
     private TreeTableColumn<ReadOnlyTask, String> tasksTableColumnRight;
+    @FXML
+    private TreeTableView<ReadOnlyTask> eventsTreeTableView;
+    @FXML
+    private TreeTableColumn<ReadOnlyTask, String> eventsTableColumnLeft;
+    @FXML
+    private TreeTableColumn<ReadOnlyTask, String> eventsTableColumnRight;
     
+    public AgendaPanel(){
+        super();
+    }
     
     @Override
     public void setNode(Node node) {
@@ -68,11 +79,17 @@ public class AgendaPanel extends UiPart{
     @FXML
     private void initialize() {
         // Initialize the tasks table with the two columns.
-        this.treeTableView = new TreeTableView<>();
+        this.tasksTreeTableView = new TreeTableView<>();
         this.tasksTableColumnLeft = new TreeTableColumn("Name");
         this.tasksTableColumnRight = new TreeTableColumn("Details");
         
-        treeTableView.getColumns().setAll(tasksTableColumnLeft, tasksTableColumnRight);
+        tasksTableColumnLeft.setCellValueFactory((TreeTableColumn.CellDataFeatures<ReadOnlyTask, String> p) -> new ReadOnlyStringWrapper(
+                p.getValue().getValue().getName().toString()));
+        
+        tasksTableColumnRight.setCellValueFactory((TreeTableColumn.CellDataFeatures<ReadOnlyTask, String> p) -> new ReadOnlyStringWrapper(
+                p.getValue().getValue().getTags().toString()));
+        
+        tasksTreeTableView.getColumns().setAll(tasksTableColumnLeft, tasksTableColumnRight);
     }
     
     public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder, ObservableList<ReadOnlyTask> taskList) {
