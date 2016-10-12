@@ -339,7 +339,12 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
+    
+    @Test
+    public void execute_show_InvalidArgsFormat() throws Exception {
+    	String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE);
+        assertCommandBehavior("show ", expectedMessage);
+    }
 
     /**
      * A utility class to generate test data.

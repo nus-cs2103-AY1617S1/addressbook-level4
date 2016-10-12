@@ -77,6 +77,9 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
+        
+        case ShowCommand.COMMAND_WORD:
+        	return prepareShow(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -200,6 +203,23 @@ public class Parser {
         args = args.trim();
         args = '*' + args + '*';
         return new FindCommand(args);
+    }
+    
+    /**
+     * Parses arguments in the context of the show task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    private Command prepareShow(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+        }
+        args = args.trim();
+
+        return new ShowCommand(args);
     }
 
 }
