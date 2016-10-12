@@ -1,12 +1,10 @@
 # Developer Guide 
 
 ## Introduction
-Amethyst is a simple tool for developers to consolidate the contributions of a project's authors into separate files. 
-It is a Java desktop application that has both **a Text UI and a GUI**.
 
-This guide describes the design and implementation of Collate. It will help you understand how Amethyst works 
-and how you can further contribute to its development. We have organised this guide in a top-down manner 
-so that you can understand the big picture before moving on to the more detailed sections.
+Amethyst is a command-line task manager targeted at power users, who would like to store, access and edit information about one's tasks efficiently.
+
+This developer guide will provide you with the necessary basic information to start programming work on Amethyst. This guide also describes the design and implementation of Amethyst, to help you understand how Amethyst works. Relevant information regarding implementation, testing and available developer tools/ resources has also been included in this guide to help you along as you work on Amethyst's future development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections. 
 
 ## Table of Contents
 <!-- MarkdownTOC -->
@@ -38,7 +36,7 @@ so that you can understand the big picture before moving on to the more detailed
 
 #### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later<br>
+1. **Install Java 8 Update 60 (JDK `1.8.0_60`)**  or later<br>
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
@@ -246,16 +244,15 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
 
 ### Build Automation
 
-See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+Refer to [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
 ### Continuous Integration
 
-We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
+Refer to [UsingTravis.md](UsingTravis.md) to learn how to use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on your project.
 
 ### Making a Release
 
-Here are the steps to create a new release.
+To create a new release:
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
@@ -264,18 +261,17 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Task Manager depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
+is better than the following alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 
 ## Future Development
 
-
-There are several additions that can be made to Collate to further increase its usefulness and usability.
+There are several additions that can be made to Amethyst to further increase its usefulness and usability.
 
 #### GUI testing
 The current implementation does not perform any tests on the GUI component and relies solely on visual 
