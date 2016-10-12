@@ -54,12 +54,12 @@ Format: `help`
 
 <br>
 #### Adding a task: `add`
-Adds a task to the task manager.
-The task can be a floating task with only a description, or 
-it can be a deadline task with a description and a deadline, or
+Adds a task to the task manager. <br>
+The task can be a floating task with only a description, or <br>
+it can be a deadline task with a description and a deadline, or <br>
 it can be an event task with a description, a start date and an end date.<br>
-Format (floating): `add TASK`
-Format (deadline): `add TASK by DATE`
+Format (floating): `add TASK` <br>
+Format (deadline): `add TASK by DATE` <br>
 Format (event): `add TASK from START_DATE to/- END_DATE`
 
 > **Date Format**
@@ -207,7 +207,7 @@ Examples:
 Sets a one-word alias for any sentence to be used as a command.<br>
 Format: `alias SHORTCUT [ANY_SENTENCE]`
 
-> `ANY_SENTENCE` is tagged to `SHORTCUT` so that if `SHORTCUT` is used as the first command, `ANY_SENTENCE` will be inserted in it's place instead.
+> `ANY_SENTENCE` is tagged to `SHORTCUT` so that if `SHORTCUT` is used as the first command, `ANY_SENTENCE` will be inserted in it's place instead. <br>
 > `SHORTCUT` can only consist of one word.
 
 Examples:
@@ -223,7 +223,7 @@ Examples:
 Deletes the alias that you have created previously.<br>
 Format: `unalias SHORTCUT`
 
-> If you have created `SHORTCUT` as an alias previously, it will be removed.
+> If you have created `SHORTCUT` as an alias previously, it will be removed. <br>
 > `SHORTCUT` must be an aliased command.
 
 Examples:
