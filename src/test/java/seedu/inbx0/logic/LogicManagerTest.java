@@ -386,9 +386,9 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Do CS2103");
-            Date startDate = new Date("12/10/2016");
+            Date startDate = new Date("12 Nov");
             Time startTime = new Time("9am");
-            Date endDate = new Date("13/10/2016");
+            Date endDate = new Date("13 Nov");
             Time endTime = new Time("10am");
             Importance level = new Importance("G");
             Tag tag1 = new Tag("tag1");
