@@ -73,10 +73,6 @@ public class EditCommand extends Command {
             assert false : "The target task to be edited cannot be missing";
         } catch (DuplicateTaskException dte) {
             return new CommandResult(MESSAGE_TASK_EXISTS);
-        } catch (IllegalValueException ive) {
-            //Code won't reach here
-        } catch (Exception e) {
-            //Code won't reach here
         }
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
