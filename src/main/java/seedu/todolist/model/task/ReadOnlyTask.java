@@ -26,6 +26,8 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" from ").append(getInterval().startDate + " ").append(getInterval().startTime)
+                .append(" to ").append(getInterval().endDate + " ").append(getInterval().endTime)
                 .append(" at ").append(getLocationParameter())
                 .append(" remarks ").append(getRemarksParameter());
         return builder.toString();
