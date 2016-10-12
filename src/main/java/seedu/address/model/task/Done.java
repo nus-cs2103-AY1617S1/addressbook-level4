@@ -20,6 +20,15 @@ public class Done {
         this.value = false;
     }
     
+    /**
+     * This is for the case where Done needs to take on a previously saved state
+     * 
+     * @author A0141128R
+     */
+    public Done(boolean value) {
+    	this.value = value;
+    }
+    
     /*
      * method to set Done as true upon completion
      */
