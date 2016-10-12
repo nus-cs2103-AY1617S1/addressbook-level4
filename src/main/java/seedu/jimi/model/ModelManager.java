@@ -95,7 +95,19 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
-
+    
+    /**
+     * 
+     * @param taskToComplete Task to set to complete/incomplete.
+     * @param isComplete True, if task is to be set to completed.
+     */
+    @Override
+    public synchronized void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) {
+        taskBook.completeTask(taskToComplete, isComplete);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+    
     //=========== Filtered FloatingTask List Accessors ===============================================================
 
     @Override
