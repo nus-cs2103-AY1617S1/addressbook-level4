@@ -11,7 +11,7 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.tag.Tag;
 
-public class ValidationTask implements ImmutableTask {
+public class ValidationTask implements ImmutableTask, MutableTask {
     private static final String TITLE = "title";
     private static final String START_TIME = "startTime";
     private static final String END_TIME = "endTime";
@@ -144,34 +144,42 @@ public class ValidationTask implements ImmutableTask {
         return uuid;
     }
 
+    @Override
     public void setTitle(String title) {
         this.title = title;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Override
     public void setLocation(String location) {
         this.location = location;
     }
 
+    @Override
     public void setPinned(boolean pinned) {
         this.pinned = pinned;
     }
 
+    @Override
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
+    @Override
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
+    @Override
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
+    @Override
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
