@@ -29,10 +29,13 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
-    /** Updates the filter of the filtered task list to show all tasks */
+    /** Updates the filter of the filtered task list to show all undone tasks by default **/
     void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show all done tasks */
+    void updateFilteredListToShowAll(boolean taskStatus);
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredTaskList(Set<String> keywords, boolean taskStatus);
 
 }
