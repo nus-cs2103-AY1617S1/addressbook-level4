@@ -51,9 +51,9 @@ public class EditCommand extends Command{
         }
         this.toEdit = new Task(
                 new Name(name),
-                new TaskDate("22011994"),
-                new TaskTime("11:11"),
-                new TaskTime("11:11"),
+                null,
+                null,
+                null,
                 new UniqueTagList(tagSet)
         );
     }
