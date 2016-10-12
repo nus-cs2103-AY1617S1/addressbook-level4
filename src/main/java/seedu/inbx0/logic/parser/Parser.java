@@ -42,7 +42,18 @@ public class Parser {
                     + " et/(?<endTime>[^/]+)"
                     + " i/(?<level>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
-    
+    private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " e/(?<endDate>[^/]+)"
+                    + " et/(?<endTime>[^/]+)"
+                    + " i/(?<level>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)");
+    private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT_2 = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " e/(?<endDate>[^.]+)"
+                    + " et/(?<endTime>[^/]+)"
+                    + " i/(?<level>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)");
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -126,9 +137,11 @@ public class Parser {
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher2 = TASK_DATA_ARGS_FORMAT_2.matcher(args.trim());
         final Matcher matcher3 = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher4 = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher5 = DEADLINE_TASK_DATA_ARGS_FORMAT_2.matcher(args.trim());
         
         // Validate arg string format
-        if (!matcher.matches() && !matcher2.matches() && !matcher3.matches()) {
+        if (!matcher.matches() && !matcher2.matches() && !matcher3.matches() && !matcher4.matches() && !matcher5.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
@@ -141,7 +154,7 @@ public class Parser {
                     matcher.group("endTime"),
                     matcher.group("level"),
                     getTagsFromArgs(matcher.group("tagArguments"))
-            );
+                    );
             } 
             else if(matcher2.matches()) {
                 return new AddCommand(
@@ -152,8 +165,24 @@ public class Parser {
                         matcher2.group("endTime"),
                         matcher2.group("level"),
                         getTagsFromArgs(matcher2.group("tagArguments"))
-            );
+                        );
             }
+            else if(matcher4.matches()) {
+                return new AddCommand(matcher4.group("name"),
+                        matcher4.group("endDate"),
+                        matcher4.group("endTime"),
+                        matcher4.group("level"),
+                        getTagsFromArgs(matcher4.group("tagArguments"))
+                        );
+            }
+            else if(matcher5.matches()) {
+                return new AddCommand(matcher5.group("name"),
+                        matcher5.group("endDate"),
+                        matcher5.group("endTime"),
+                        matcher5.group("level"),
+                        getTagsFromArgs(matcher4.group("tagArguments"))
+                        );
+            }           
             else {
                 return new AddCommand(
                         matcher3.group("name"),
