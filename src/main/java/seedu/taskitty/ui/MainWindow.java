@@ -1,5 +1,6 @@
 package seedu.taskitty.ui;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -30,7 +31,8 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private TaskListPanel personListPanel;
+    private TaskListPanel taskListPanel;
+    private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -41,7 +43,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String taskManagerName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -54,6 +56,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane personListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane deadlineListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -61,7 +66,9 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-
+    // Placeholder for deadline section of UI
+    ObservableList<ReadOnlyTask> dummyPersonList = null;
+    
     public MainWindow() {
         super();
     }
@@ -88,7 +95,7 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.taskManagerName = addressBookName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -109,7 +116,8 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
+        deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -129,6 +137,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getPersonListPlaceholder() {
         return personListPanelPlaceholder;
+    }
+    
+    public AnchorPane getDeadlineListPlaceholder() {
+        return deadlineListPanelPlaceholder;
     }
 
     public void hide() {
@@ -183,7 +195,11 @@ public class MainWindow extends UiPart {
     }
 
     public TaskListPanel getPersonListPanel() {
-        return this.personListPanel;
+        return this.taskListPanel;
+    }
+    
+    public DeadlineListPanel getDeadlineListPanel() {
+        return this.deadlineListPanel;
     }
 
     public void loadPersonPage(ReadOnlyTask person) {
