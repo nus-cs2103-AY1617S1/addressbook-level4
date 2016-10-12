@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/CS2103AUG2016-W10-C1/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W10-C1/main)
-[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W10-C1/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W10-C1/main?branch=master)
+[![Build Status](https://travis-ci.org/CS2103AUG2016-W10-C1/TaskMan.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W10-C1/TaskMan)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W10-C1/TaskMan/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W10-C1/TaskMan?branch=master)
 
 
 # TaskMan
