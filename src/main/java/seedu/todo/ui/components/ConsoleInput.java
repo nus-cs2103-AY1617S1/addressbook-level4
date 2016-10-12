@@ -41,7 +41,12 @@ public class ConsoleInput extends Component {
     @FXML
     public void handleConsoleInputChanged() {
         lastCommandEntered = consoleInputTextField.getText();
-        inputHandler.processInput(lastCommandEntered);
-        consoleInputTextField.clear();
+        boolean isValidCommand = inputHandler.processInput(lastCommandEntered);
+        
+        if (!isValidCommand) {
+            // TODO: Show message in console, change consoleInput style
+        } else {
+            consoleInputTextField.clear();
+        }
     }
 }
