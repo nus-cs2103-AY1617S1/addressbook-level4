@@ -27,7 +27,7 @@ Well, you're right... you don't. **NOT UNLESS YOU'RE SOMEONE LIKE** [**JIM.**](h
 
 #### Acknowledgements
 
-* Some parts of this application were inspired by the [sample project](https://github.com/se-edu/addressbook-level4) created by [SE-EDU initiative](https://github.com/se-edu/).
+* Some parts of this application were inspired by the [sample project](https://github.com/se-edu/addressbook-level4) created by the [SE-EDU initiative](https://github.com/se-edu/).
 
 
 #### Licence : [MIT](LICENSE)
