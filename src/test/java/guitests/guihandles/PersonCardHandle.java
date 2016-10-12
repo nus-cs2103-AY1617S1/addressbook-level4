@@ -37,13 +37,13 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(PHONE_FIELD_ID);
     }
 
-    public String getStart() {
+    public String getStartTime() {
         return getTextFromLabel(START_FIELD_ID);
     }
 
     public boolean isSamePerson(ReadOnlyPerson person){
         return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getPhone().value)
-                && getStart().equals(person.getStart().value) && getEndTime().equals(person.getEndTime().value);
+                && getStartTime().equals(person.getStartTime().value) && getEndTime().equals(person.getEndTime().value);
     }
 
     @Override

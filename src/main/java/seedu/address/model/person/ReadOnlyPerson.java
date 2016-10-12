@@ -10,7 +10,7 @@ public interface ReadOnlyPerson {
 
     Name getName();
     Phone getPhone();
-    Start getStart();
+    StartTime getStartTime();
     EndTime getEndTime();
 
     /**
@@ -27,7 +27,7 @@ public interface ReadOnlyPerson {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
-                && other.getStart().equals(this.getStart())
+                && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime()));
     }
 
@@ -39,8 +39,8 @@ public interface ReadOnlyPerson {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Start: ")
-                .append(getStart())
+                .append(" StartTime: ")
+                .append(getStartTime())
                 .append(" EndTime: ")
                 .append(getEndTime())
                 .append(" Tags: ");

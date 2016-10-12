@@ -40,7 +40,7 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson(ReadOnlyPerson source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        start = source.getStart().value;
+        start = source.getStartTime().value;
         address = source.getEndTime().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -60,7 +60,7 @@ public class XmlAdaptedPerson {
         }
         final Name name = new Name(this.name);
         final Phone phone = new Phone(this.phone);
-        final Start start = new Start(this.start);
+        final StartTime start = new StartTime(this.start);
         final EndTime address = new EndTime(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
         return new Person(name, phone, start, address, tags);

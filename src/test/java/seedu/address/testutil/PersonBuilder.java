@@ -37,8 +37,8 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withStart(String start) throws IllegalValueException {
-        this.person.setStart(new Start(start));
+    public PersonBuilder withStartTime(String start) throws IllegalValueException {
+        this.person.setStartTime(new StartTime(start));
         return this;
     }
 
