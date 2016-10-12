@@ -63,9 +63,9 @@ public class AddTagCommand extends Command{
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description, priority, time, date, tags);
+			add = new AddCommand(description, priority, time, date, tags, targetIndex-1);
 			add.model = model;
-			add.execute();
+			add.insert();
 		} catch (IllegalValueException e){
 			return new CommandResult("re-adding failed");
 		};
