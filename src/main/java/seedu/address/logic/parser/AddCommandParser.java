@@ -26,7 +26,7 @@ public class AddCommandParser extends TaskModelCommandParser<AddCommand> {
     private static final String REGEX_REF_DESCRIPTION = "Description";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "add\\s+(?<"+REGEX_REF_TASK_NAME+">([^/]+?(\\s+|$))+)((?<=\\s)" +
+            "add\\s+(?<"+REGEX_REF_TASK_NAME+">([^/]+?(\\s+|$))+)((?<=\\s)(" +
             "(s/(?<"+REGEX_REF_START_DATE+">[^/]+)(?!.*\\ss/))|" +
             "(st/(?<"+REGEX_REF_START_TIME+">[^/]+)(?!.*\\sst/))|" +
             "(e/(?<"+REGEX_REF_END_DATE+">[^/]+)(?!.*\\se/))|" +
