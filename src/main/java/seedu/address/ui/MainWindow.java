@@ -30,9 +30,9 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     
-    /*
-    private DeadlineListPanel deadlineListPanel;
-    private TodoListPanel todoListPanel; */
+    
+    //private DeadlineListPanel deadlineListPanel;
+    //private TodoListPanel todoListPanel; 
      
     
     private BrowserPanel browserPanel;
@@ -67,11 +67,11 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-    /*@FXML
+    @FXML
     private AnchorPane deadlineListPanelPlaceholder;
     
     @FXML
-    private AnchorPane todoListPanelPlaceholder;*/
+    private AnchorPane todoListPanelPlaceholder;
 
 
 
@@ -126,6 +126,17 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        
+        //deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredPersonList());
+        //todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredPersonList());
+    }
+
+    private AnchorPane getDeadlineListPlaceHolder() {
+        return deadlineListPanelPlaceholder;
+    }
+    
+    private AnchorPane getTodoListPlaceholder() {
+        return todoListPanelPlaceholder;
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -198,6 +209,14 @@ public class MainWindow extends UiPart {
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
     }
+    
+    //public DeadlineListPanel getDeadlineListPanel() {
+    //    return this.deadlineListPanel;
+    //}
+    
+   // public TodoListPanel getTodoListPanel() {
+    //    return this.todoListPanel;
+    //}
 
     public void loadPersonPage(ReadOnlyTask person) {
         browserPanel.loadPersonPage(person);
