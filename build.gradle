@@ -77,7 +77,7 @@ allprojects {
         archiveName = "addressbook.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
+            attributes "Main-Class": "seedu.todo.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")
