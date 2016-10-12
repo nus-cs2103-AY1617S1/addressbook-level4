@@ -29,7 +29,7 @@ Amethyst is a command-line task manager targeted at power users, who would like 
 <br>
 ## 1. Quick Start
 
-1. **Install Java 8 Update 60**<br>
+1. **Install Java 8 Update 60 or higher**<br>
 The latest version is available for download [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
 2. **Download Amethyst Task Manager**<br>
