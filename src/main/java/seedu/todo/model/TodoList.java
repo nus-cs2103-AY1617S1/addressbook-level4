@@ -65,17 +65,15 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     @Override
     public void add(String title, Consumer<Task> update) {
         ValidationTask validationTask = new ValidationTask(title);
-        Task task = null;
         try {
-            task = validationTask.convertToTask();
-        } catch (ValidationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        update.accept(task);
-        tasks.add(task);
+            Task task = validationTask.convertToTask();
+            update.accept(task);
+            tasks.add(task);
 
-        storage.saveTodoList(this);
+            storage.saveTodoList(this);
+        } catch (ValidationException e) {
+            // TODO: decide whether to keep throwing or process here
+        }
     }
 
     @Override
@@ -99,8 +97,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
             try {
                 validationTask.validate();
             } catch (ValidationException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                // TODO: decide whether to keep throwing or process here
             }
 
             update.accept(task);
