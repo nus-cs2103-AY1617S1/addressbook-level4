@@ -3,6 +3,7 @@ package seedu.unburden.model;
 import java.util.Set;
 
 import seedu.unburden.commons.core.UnmodifiableObservableList;
+import seedu.unburden.commons.exceptions.*;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
 import seedu.unburden.model.task.UniqueTaskList;
@@ -22,6 +23,8 @@ public interface Model {
 
     /** Adds the given person */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

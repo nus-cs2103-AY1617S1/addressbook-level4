@@ -6,6 +6,7 @@ import seedu.unburden.commons.core.LogsCenter;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
 import seedu.unburden.commons.util.StringUtil;
+import seedu.unburden.commons.exceptions.*;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
 import seedu.unburden.model.task.UniqueTaskList;
@@ -75,6 +76,13 @@ public class ModelManager extends ComponentManager implements Model {
         listOfTask.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
+    }
+    
+    public synchronized void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
+        listOfTask.editTask(target, args);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+
     }
 
     //=========== Filtered Task List Accessors ===============================================================

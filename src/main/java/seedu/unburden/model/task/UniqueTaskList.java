@@ -2,7 +2,7 @@ package seedu.unburden.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.unburden.commons.exceptions.DuplicateDataException;
+import seedu.unburden.commons.exceptions.*;
 import seedu.unburden.commons.util.CollectionUtil;
 
 import java.util.*;
@@ -31,8 +31,6 @@ public class UniqueTaskList implements Iterable<Task> {
      * there is no such matching person in the list.
      */
     public static class TaskNotFoundException extends Exception {}
-    
-    public static class EmptyListException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
@@ -61,6 +59,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
+    
 
     /**
      * Removes the equivalent person from the list.
@@ -75,8 +74,31 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+    
+    public boolean edit(ReadOnlyTask key, String args) throws TaskNotFoundException, IllegalValueException {
+        String[] newArgs = args.split(" ");
+        
+        int taskIndex = internalList.indexOf(key);
+        
+        Task newTask = internalList.get(taskIndex);
+        for (int i = 0; i < newArgs.length; i++) {
+            switch (newArgs[i].substring(0, 2)) {
+                case ("d/") : newTask.setDate(new Date(newArgs[i].substring(2, newArgs[i].length())));
+                              internalList.set(taskIndex, newTask);
+                              break;
+                case ("s/") : newTask.setStartTime(new Time(newArgs[i].substring(2, newArgs[i].length())));
+                              internalList.set(taskIndex, newTask);
+                              break;
+                case ("e/") : newTask.setEndTime(new Time(newArgs[i].substring(2, newArgs[i].length())));
+                              internalList.set(taskIndex, newTask);
+                              break;
+            }
+        }
+        return true;
+    }
 
     public ObservableList<Task> getInternalList() {
+        
         return internalList;
     }
 

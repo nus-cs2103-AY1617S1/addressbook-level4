@@ -41,7 +41,13 @@ public class Parser {
     private static final Pattern ADD_FORMAT_3 = 
     		Pattern.compile("(?<name>[^/]+)" +
     						"(?<tagArguments>(?: t/[^/]+)*)");
-
+    
+    private static final Pattern EDIT_FORMAT = 
+            Pattern.compile("(?<index>[^/]+)(?!$)" + 
+                            "(d/(?<date>[^/]+))?" + 
+                            "(s/(?<startTimeArguments>[^/]+))?" + 
+                            "(e/(?<endTimeArguments>[^/]+))?");
+    
     public Parser() {}
 
     /**
@@ -65,6 +71,9 @@ public class Parser {
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -161,6 +170,27 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
+    
+    
+    private Command prepareEdit(String args) {
+        
+        final Matcher matcher = EDIT_FORMAT.matcher(args);
+        if (!matcher.matches())
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+        String tempArgs = args.trim();
+        
+        String[] newArgs = tempArgs.split(" ", 2);
+        
+        Optional<Integer> index = parseIndex(newArgs[0]);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        
+        return new EditCommand(index.get(), newArgs[1].trim());
+    }
 
     /**
      * Parses arguments in the context of the select person command.
@@ -169,6 +199,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
+        
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(

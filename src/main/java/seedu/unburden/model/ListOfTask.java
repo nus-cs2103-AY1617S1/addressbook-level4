@@ -2,6 +2,7 @@ package seedu.unburden.model;
 
 import javafx.collections.ObservableList;
 import seedu.unburden.model.tag.Tag;
+import seedu.unburden.commons.exceptions.*;
 import seedu.unburden.model.tag.UniqueTagList;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
@@ -112,15 +113,14 @@ public class ListOfTask implements ReadOnlyListOfTask {
         }
     }
     
-/*    public boolean editTask(int targetIndex, ReadOnlyTask key, Task updatedTask) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
-        if (tasks.remove(key)) {
-            tasks.add(targetIndex, updatedTask);
+    public boolean editTask(ReadOnlyTask key, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException{
+        if (tasks.edit(key, args))
             return true;
-        } else {
+        else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
+                    
     }
-*/
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
