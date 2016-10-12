@@ -116,6 +116,9 @@ public class TaskBook implements ReadOnlyTaskBook {
         tasks.edit(targetIndex, newTask);
     }
 
+    public void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) {
+        tasks.complete(taskToComplete, isComplete);
+    }
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
