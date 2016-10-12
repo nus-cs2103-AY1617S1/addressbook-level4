@@ -86,6 +86,7 @@ public class UniquePersonList implements Iterable<Task> {
     	if(!contains(toEdit)){
     		throw new PersonNotFoundException();
     	}
+    	//internalList.add(toEdit);
     }
 
     public ObservableList<Task> getInternalList() {

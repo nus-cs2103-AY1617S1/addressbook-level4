@@ -80,6 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
 	public void editTask(ReadOnlyTask taskToEdit) throws UniquePersonList.PersonNotFoundException {
 		addressBook.editTask(taskToEdit);
+		updateFilteredListToShowAll();
 		indicateAddressBookChanged();
     }
 

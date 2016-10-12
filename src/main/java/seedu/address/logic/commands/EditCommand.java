@@ -19,7 +19,7 @@ public class EditCommand extends Command {
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the task manager. "
             + "Parameters: NAME d/DEADLINE p/PRIORITY" 
             + " Example: " + COMMAND_WORD
-            + " CS2103T Software Engineeringv0.1 d/131016 p/1";
+            + " 1 Task Name to be Changed d/121016 p/3";
 	
 	public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task edited: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
@@ -28,37 +28,53 @@ public class EditCommand extends Command {
     public final Name name;
     public final Deadline deadline;
     public final Priority priority;
+    public final UniqueTagList tagSet;
+    private Task toAdd;
     
     
-    public EditCommand(String targetIndex, String name, String deadline, String priority) 
+    public EditCommand(String targetIndex, String name, String deadline, String priority, Set<String> tags) 
     		throws IllegalValueException{
-    	this.targetIndex = targetIndex;
+    	final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+    	this.targetIndex = Integer.parseInt(targetIndex);
     	this.name = new Name(name);
     	this.deadline = new Deadline(deadline);
-    	this.priority = new Priority(priority);
+    	this.priority = new Priority (priority);
+    	this.tagSet = new UniqueTagList(tagSet);
     }
 
 	@Override
-	public CommandResult execute() {
+	public CommandResult execute()  {
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+
+        ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.editTask(taskToEdit);
+            model.deleteTask(personToDelete);
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-        taskToEdit.setName(name);
-        taskToEdit.setDeadline(deadline);
-        taskToEdit.setPriority(priority);
-
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
+        
+        toAdd = new Task(this.name, this.deadline, this.priority, this.tagSet); //null for now
+        
+        assert model != null;
+        try {
+            model.addPerson(toAdd);
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
+        } catch (UniquePersonList.DuplicatePersonException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        }
+ 
+        
 	}
     
     
 }
+;
