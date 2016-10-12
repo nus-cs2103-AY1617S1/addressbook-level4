@@ -14,6 +14,7 @@ import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
+import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 
 /**
  * Wraps all data at the task-manager level
@@ -58,12 +59,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
-
+    
+    //@@author A0124797R
+    public ObservableList<Task> getArchives() {
+        return archivedTasks.getInternalList();
+    }
+    
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
     //@@author A0124797R
-    public void setArchiveTasks(Collection<ReadOnlyTask> archiveTasks) {
+    public void setArchiveTasks(Collection<Task> archiveTasks) {
         this.archivedTasks.getInternalList().setAll(archiveTasks);
     }
 
@@ -73,10 +79,10 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     //@@author A0124797R
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags,
-            Collection<ReadOnlyTask> newArchiveTasks) {
+            Collection<? extends ReadOnlyTask> newArchiveTasks) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
-        setArchiveTasks(newArchiveTasks);
+        setArchiveTasks(newArchiveTasks.stream().map(Task::new).map(Task::mark).collect(Collectors.toList()));
     }
 
     //@@author A0124797R
@@ -131,17 +137,35 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     /**
      * marks task as completed by
-     * removing the task from TaskManager and adds into Archive list
+     * removing the task from tasks and adds into archivedtasks
+     * throws TaskNotFoundException
      */
     //@@author A0124797R
-    public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean markTask(Task key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
-            archivedTasks.add(key);
+            archivedTasks.add(key.mark());
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    /**
+     * marks task as not completed by
+     * removing the task from archivedTasks and adds into tasks
+     * throws TaskNotFoundException, DuplicateTaskException 
+     */
+    //@@author A0124797R
+    public boolean unmarkTask(Task key) throws ArchiveTaskList.TaskNotFoundException,
+    UniqueTaskList.DuplicateTaskException {
+        if (archivedTasks.remove(key)) {
+            tasks.add(key.unmark());
+            return true;
+        } else {
+            throw new ArchiveTaskList.TaskNotFoundException();
+        }
+    }
+
 
 //// tag-level operations
 
@@ -168,7 +192,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author A0124797R
     @Override
     public List<ReadOnlyTask> getArchiveList() {
-        return archivedTasks.getInternalList();
+        return Collections.unmodifiableList(archivedTasks.getInternalList());
     }
 
     @Override

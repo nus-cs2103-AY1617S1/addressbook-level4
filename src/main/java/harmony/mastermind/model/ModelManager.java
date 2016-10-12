@@ -1,5 +1,6 @@
 package harmony.mastermind.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.util.Collections;
@@ -15,9 +16,11 @@ import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.tag.Tag;
+import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
+import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -93,8 +96,16 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@author A0124797R
     @Override
-    public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void markTask(Task target) throws TaskNotFoundException {
         taskManager.markTask(target);
+        indicateTaskManagerChanged();
+    }
+    
+    //@author A0124797R
+    @Override
+    public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException,
+    UniqueTaskList.DuplicateTaskException {
+        taskManager.unmarkTask((Task)target);
         indicateTaskManagerChanged();
     }
     
@@ -103,12 +114,25 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.relocateSaveLocation(target);
         indicateTaskManagerChanged();
     }
+    
+    //=========== Filtered Archived List Accessors ===============================================================
+    //@@author A0124797R
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList() {
+        return new UnmodifiableObservableList<>(taskManager.getArchives());
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    //@@author A0124797R
+    @Override
+    public ObservableList<Task> getListToMark() {
+        return filteredTasks;
     }
 
     @Override
@@ -206,6 +230,11 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "tags=" + String.join(", ", tagKeyWords.toString());
         }
+    }
+
+    @Override
+    public void searchTask(String input) {
+        // implementing next milestone        
     }
 
 }
