@@ -42,7 +42,7 @@ public class ValidationTask implements ImmutableTask {
     }
 
     /**
-     * Constructs a Task from a ReadOnlyTask
+     * Constructs a ValidationTask from an ImmutableTask
      */
     public ValidationTask(ImmutableTask task) {
         this.setTitle(task.getTitle());

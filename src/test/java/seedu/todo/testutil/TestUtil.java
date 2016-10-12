@@ -88,7 +88,7 @@ public class TestUtil {
         }
     }
     
-    public void assertAllPropertiesEqual(ImmutableTask a, ImmutableTask b) {
+    public static void assertAllPropertiesEqual(ImmutableTask a, ImmutableTask b) {
         assertEquals(a.getTitle(), b.getTitle());
         assertEquals(a.getDescription(), b.getDescription());
         assertEquals(a.getLocation(), b.getLocation());

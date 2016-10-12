@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static seedu.todo.testutil.TestUtil.assertAllPropertiesEqual;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -18,18 +19,6 @@ import seedu.todo.model.tag.Tag;
 
 public class ValidationTaskTest {
     private ValidationTask task;
-
-    private void assertAllPropertiesEqual(ImmutableTask a, ImmutableTask b) {
-        assertEquals(a.getTitle(), b.getTitle());
-        assertEquals(a.getDescription(), b.getDescription());
-        assertEquals(a.getLocation(), b.getLocation());
-        assertEquals(a.getStartTime(), b.getStartTime());
-        assertEquals(a.getEndTime(), b.getEndTime());
-        assertEquals(a.isPinned(), b.isPinned());
-        assertEquals(a.isCompleted(), b.isCompleted());
-        assertEquals(a.getTags(), b.getTags());
-        assertEquals(a.getUUID(), b.getUUID());
-    }
 
     @Before
     public void setUp() throws Exception {
