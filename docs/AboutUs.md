@@ -26,7 +26,7 @@ Responsibilities: Documentation
 
 -----
 
-#### [Zhang Hao]()
+#### [Zhang Hao](https://github.com/e0008233)
 <img src="images/ZhangHao.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Dev Ops
