@@ -2,7 +2,7 @@ package seedu.menion.logic;
 
 import javafx.collections.ObservableList;
 import seedu.menion.logic.commands.CommandResult;
-import seedu.menion.model.task.ReadOnlyTask;
+import seedu.menion.model.activity.ReadOnlyActivity;
 
 /**
  * API of the Logic component
@@ -16,6 +16,6 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of activities */
-    ObservableList<ReadOnlyTask> getFilteredActivityList();
+    ObservableList<ReadOnlyActivity> getFilteredActivityList();
 
 }

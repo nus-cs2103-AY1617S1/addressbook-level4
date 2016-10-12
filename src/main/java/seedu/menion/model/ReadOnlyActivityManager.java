@@ -1,10 +1,10 @@
 package seedu.menion.model;
 
 
+import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.model.activity.UniqueActivityList;
 import seedu.menion.model.tag.Tag;
 import seedu.menion.model.tag.UniqueTagList;
-import seedu.menion.model.task.ReadOnlyTask;
-import seedu.menion.model.task.UniqueTaskList;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ public interface ReadOnlyActivityManager {
 
     UniqueTagList getUniqueTagList();
 
-    UniqueTaskList getUniqueTaskList();
+    UniqueActivityList getUniqueTaskList();
 
     /**
      * Returns an unmodifiable view of tasks list
      */
-    List<ReadOnlyTask> getTaskList();
+    List<ReadOnlyActivity> getTaskList();
 
     /**
      * Returns an unmodifiable view of tags list

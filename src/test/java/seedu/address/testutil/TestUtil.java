@@ -17,9 +17,9 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.FileUtil;
 import seedu.menion.commons.util.XmlUtil;
 import seedu.menion.model.ActivityManager;
+import seedu.menion.model.activity.*;
 import seedu.menion.model.tag.Tag;
 import seedu.menion.model.tag.UniqueTagList;
-import seedu.menion.model.task.*;
 import seedu.menion.storage.XmlSerializableActivityManager;
 
 import java.io.File;
@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Task[] samplePersonData = getSamplePersonData();
+    public static final Activity[] samplePersonData = getSamplePersonData();
 
-    private static Task[] getSamplePersonData() {
+    private static Activity[] getSamplePersonData() {
         try {
-            return new Task[]{
-                    new Task(new Name("Ali Muster"), new Deadline("9482424"), new Reminder("hans@google.com"), new Priority("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Deadline("87249245"), new Reminder("ruth@google.com"), new Priority("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Deadline("95352563"), new Reminder("heinz@yahoo.com"), new Priority("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Deadline("87652533"), new Reminder("cornelia@google.com"), new Priority("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Reminder("werner@gmail.com"), new Priority("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Reminder("lydia@gmail.com"), new Priority("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Deadline("9482442"), new Reminder("anna@google.com"), new Priority("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Reminder("stefan@mail.com"), new Priority("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Reminder("hans@google.com"), new Priority("chicago ave"), new UniqueTagList())
+            return new Activity[]{
+                    new Activity("task", new ActivityName("cs2101"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
+                    new Activity("task", new ActivityName("cs2103t"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
+                    new Activity("task", new ActivityName("cs2010"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
+                    new Activity("task", new ActivityName("cs2020"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
+                    new Activity("task", new ActivityName("cs1010"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
+                    new Activity("task", new ActivityName("cs1101s"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
+                    new Activity("task", new ActivityName("cs1010s"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
+                    new Activity("task", new ActivityName("cs1020"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
+                    new Activity("task", new ActivityName("cs1231"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359"))
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,7 +97,7 @@ public class TestUtil {
         }
     }
 
-    public static List<Task> generateSamplePersonData() {
+    public static List<Activity> generateSamplePersonData() {
         return Arrays.asList(samplePersonData);
     }
 
@@ -135,7 +135,7 @@ public class TestUtil {
     }
 
     public static ActivityManager generateEmptyAddressBook() {
-        return new ActivityManager(new UniqueTaskList(), new UniqueTagList());
+        return new ActivityManager(new UniqueActivityList(), new UniqueTagList());
     }
 
     public static XmlSerializableActivityManager generateSampleStorageAddressBook() {
@@ -278,10 +278,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestTask[] removePersonsFromList(final TestTask[] persons, TestTask... personsToRemove) {
+        List<TestTask> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
 
@@ -290,7 +290,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
+    public static TestTask[] removePersonFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
@@ -301,7 +301,7 @@ public class TestUtil {
      * @param index The index of the person to be replaced.
      * @return
      */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
+    public static TestTask[] replacePersonFromList(TestTask[] persons, TestTask person, int index) {
         persons[index] = person;
         return persons;
     }
@@ -312,10 +312,10 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestTask[] addPersonsToList(final TestTask[] persons, TestTask... personsToAdd) {
+        List<TestTask> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
+    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyActivity person) {
         return card.isSamePerson(person);
     }
 

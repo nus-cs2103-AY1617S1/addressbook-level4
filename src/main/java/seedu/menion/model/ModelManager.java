@@ -6,23 +6,23 @@ import seedu.menion.commons.core.LogsCenter;
 import seedu.menion.commons.core.UnmodifiableObservableList;
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.util.StringUtil;
-import seedu.menion.model.task.ReadOnlyTask;
-import seedu.menion.model.task.Task;
-import seedu.menion.model.task.UniqueTaskList;
-import seedu.menion.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.model.activity.Activity;
+import seedu.menion.model.activity.UniqueActivityList;
+import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the activity manager data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the activity manager data. All changes to
+ * any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final ActivityManager activityManager;
-    private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Activity> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given Activity Manager
@@ -65,22 +65,23 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
         activityManager.removeTask(target);
         indicateActivityManagerChanged();
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        activityManager.addTask(task);
+    public synchronized void addTask(Activity activity) throws UniqueActivityList.DuplicateTaskException {
+        activityManager.addTask(activity);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
 
-    //=========== Filtered Task List Accessors ===============================================================
+    // =========== Filtered activity List Accessors
+    // ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+    public UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
@@ -90,7 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
@@ -98,10 +99,12 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+    // ========== Inner classes/interfaces used for filtering
+    // ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyTask task);
+        boolean satisfies(ReadOnlyActivity activity);
+
         String toString();
     }
 
@@ -114,8 +117,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask task) {
-            return qualifier.run(task);
+        public boolean satisfies(ReadOnlyActivity activity) {
+            return qualifier.run(activity);
         }
 
         @Override
@@ -125,7 +128,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask task);
+        boolean run(ReadOnlyActivity activity);
+
         String toString();
     }
 
@@ -137,10 +141,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask task) {
+        public boolean run(ReadOnlyActivity activity) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(activity.getActivityName().fullName, keyword)).findAny()
                     .isPresent();
         }
 

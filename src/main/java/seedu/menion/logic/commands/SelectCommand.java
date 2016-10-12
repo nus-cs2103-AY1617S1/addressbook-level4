@@ -4,7 +4,7 @@ import seedu.menion.commons.core.EventsCenter;
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
 import seedu.menion.commons.events.ui.JumpToListRequestEvent;
-import seedu.menion.model.task.ReadOnlyTask;
+import seedu.menion.model.activity.ReadOnlyActivity;
 
 /**
  * Selects a task identified using it's last displayed index from the task manager.
@@ -29,7 +29,7 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyActivity> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

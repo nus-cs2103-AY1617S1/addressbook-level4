@@ -1,11 +1,11 @@
 package seedu.menion.model;
 
 import javafx.collections.ObservableList;
+import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.model.activity.Activity;
+import seedu.menion.model.activity.UniqueActivityList;
 import seedu.menion.model.tag.Tag;
 import seedu.menion.model.tag.UniqueTagList;
-import seedu.menion.model.task.ReadOnlyTask;
-import seedu.menion.model.task.Task;
-import seedu.menion.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
  */
 public class ActivityManager implements ReadOnlyActivityManager {
 
-    private final UniqueTaskList tasks;
+    private final UniqueActivityList tasks;
     private final UniqueTagList tags;
 
     {
-        tasks = new UniqueTaskList();
+        tasks = new UniqueActivityList();
         tags = new UniqueTagList();
     }
 
@@ -36,7 +36,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     /**
      * Tasks and Tags are copied into this task manager
      */
-    public ActivityManager(UniqueTaskList tasks, UniqueTagList tags) {
+    public ActivityManager(UniqueActivityList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
@@ -46,11 +46,11 @@ public class ActivityManager implements ReadOnlyActivityManager {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
+    public ObservableList<Activity> getTasks() {
         return tasks.getInternalList();
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(List<Activity> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -58,8 +58,8 @@ public class ActivityManager implements ReadOnlyActivityManager {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyActivity> newTasks, Collection<Tag> newTags) {
+        setTasks(newTasks.stream().map(Activity::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -74,10 +74,10 @@ public class ActivityManager implements ReadOnlyActivityManager {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent tasks already exists.
+     * @throws UniqueActivityList.DuplicateTaskException if an equivalent tasks already exists.
      */
-    public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(t);
+    public void addTask(Activity t) throws UniqueActivityList.DuplicateTaskException {
+        //syncTagsWithMasterList(t);
         tasks.add(t);
     }
 
@@ -86,7 +86,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task task) {
+    private void syncTagsWithMasterList(Activity task) {
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 
@@ -104,11 +104,11 @@ public class ActivityManager implements ReadOnlyActivityManager {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.TaskNotFoundException();
+            throw new UniqueActivityList.TaskNotFoundException();
         }
     }
 
@@ -127,7 +127,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
+    public List<ReadOnlyActivity> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 
@@ -137,7 +137,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
+    public UniqueActivityList getUniqueTaskList() {
         return this.tasks;
     }
 
