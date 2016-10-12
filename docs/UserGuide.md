@@ -41,9 +41,9 @@ Format1: **`add`**`TASK_NAME`<br>
 Format2: **`add`**`TASK_NAME by ed/END_DATE`<br>
 Format3: **`add`**`TASK_NAME by [sd/START_DATE] ed/END_DATE [st/START_TIME] et/END_TIME`
 
-> [parameter] are optional, with or without this parameter it will work.
-DATE Format: DDMMYY
-TIME Format: 12HR 
+> [parameter] are optional, with or without this parameter it will work.<br>
+DATE Format: DDMMYY<br>
+TIME Format: 12HR<br>
 
 Examples:<br> 
 * **`add`**`Submission of CS2103 Project`<br>
@@ -112,8 +112,7 @@ Edits a task parameter from the MustDoList by index.<br>
 
 Format: **`edit`**`INDEX PARAMETER`
 
-> PARAMETER refers to:<br>
- ‘sd/START_DATE’ , ‘ed/END_DATE’ , ‘st/START_TIME’ , ‘et/END_TIME’ . <br>
+> PARAMETER refers to: ‘sd/START_DATE’ , ‘ed/END_DATE’ , ‘st/START_TIME’ , ‘et/END_TIME’ . <br>
 
 Examples:<br>
 * `list`<br>
