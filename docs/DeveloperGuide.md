@@ -256,29 +256,40 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+`* * *` | user | add a task by specifying a task description only | record that need to be done ‘some day’
+`* * *` | user | add a task with the deadline specified | record the task which needs to be done by a specified deadline
+`* * *` | user | add an event by specifying the starting and ending time | record the exact details of the event 
+`* * *` | user | edit  a task | update my tasks
+`* * *` | user | delete a task | get rid of tasks that I no longer care to track
+`* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
+`* * *` | user | specify a specific folder as the data storage location | choose to store the data file in a local folder controlled by a cloud syncing service, allowing me to access task data from multiple computers
+`* *` | user | undo operation | recover from mistakes
+`* *` | user | have some flexibility in the command format | do operations in an intuitively way
+`* * ` | user | add tags to a task | categorize my tasks better
+`* * ` | user with many tasks | filter tasks by attributes such as start time, deadline, tag, and priority | locate some tasks easily
+`*` | user with many tasks in the address book | sort tasks by date or priority level  | know my most important upcoming tasks or know what needs to be done soon. 
+`* ` | user | mark a task as done | monitor my task progression
+`* ` | user | add a recurring task | save my troubles to retype my tasks
+`* ` | user | add priority level to a task| focus on more important tasks
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Delete task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to list tasks
+2. Task Manager shows a list of tasks
+3. User requests to delete a specific task in the list
+4. Task Manager deletes the task <br>
 Use case ends.
 
 **Extensions**
+
+1a. User requests to delete a specific file
+Use case resumes at step 4
 
 2a. The list is empty
 
@@ -286,17 +297,26 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. Task Manager shows an error message <br>
   Use case resumes at step 2
+
+#### Use case: Find task
+
+**MSS**
+
+1. User requests to find tasks by keyword
+2. Task Manager shows a list of tasks
+Use case ends.
 
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should have a clean GUI.
 
 {More to be added}
 
@@ -306,11 +326,32 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+**Todo.txt**<br>
+* Strength<br>
+  * It is offline and easy to start.
+  * Users can quickly add a task by typing a command. 
+  * Users can add context to a task.
+  * Users can add priority to a task. Prioritized tasks are shown in different colors.
+  * Users can mark a task as complete.<br>
+* Weakness<br>
+  * It does not support for events and deadlines.  
+  * It does not support for undo operations. 
+  * The UI is too simple.<br>
 
+**Wunderlist**<br>
+* Strength<br>
+  * It is offline.
+  * It can sync to any android, ios or windows phone. 
+  * Users can quickly add a task through the text box at the home page.
+  * Users can add context to a task like alarm as remainder.
+  * Users can add priority to a task. 
+  * Users can mark a task as complete.
+  * Users can create folder and save different tasks under specific folder.
+  * It display tasks in different deadline folder. eg. This week, This month<br>
+* Weakness<br>
+  * It does not support for events.  
+  * It does not support for undo operations. 
+  * No calendar view of tasks.
+  * Unable to design the colour theme or changing of background image.
