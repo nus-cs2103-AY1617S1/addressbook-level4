@@ -95,17 +95,9 @@ public class Parser {
             case MarkCommand.COMMAND_WORD:
                 return prepareMark(arguments);
 
-<<<<<<< HEAD
-        case RelocateCommand.COMMAND_WORD:
-            return new RelocateCommand(arguments);
-            
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-=======
             case EditCommand.COMMAND_KEYWORD_EDIT:
             case EditCommand.COMMAND_KEYWORD_UPDATE:
                 return prepareEdit(arguments);
->>>>>>> master
 
             case UndoCommand.COMMAND_WORD:
                 return new UndoCommand();
