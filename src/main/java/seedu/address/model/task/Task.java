@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a Person in the end book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, ModifyTask {
 
     private Name name;
     private Date date;
@@ -83,6 +83,30 @@ public class Task implements ReadOnlyTask {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+    
+    /**
+     * This section contains the setter methods
+     */
+    
+    @Override 
+    public void setName(Name name) {
+        this.name = name;
+    }
+    
+    @Override 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    @Override
+    public void setStart(Start start) {
+        this.start = start;
+    }
+    
+    @Override
+    public void setEnd(End end) {
+        this.end = end;
     }
 
     /**

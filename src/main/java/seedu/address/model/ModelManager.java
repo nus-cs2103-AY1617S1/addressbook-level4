@@ -9,6 +9,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
 
 import java.util.Set;
@@ -67,6 +68,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
         addressBook.removePerson(target);
+        indicateAddressBookChanged();
+    }
+    
+    @Override 
+    public synchronized void editPerson(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException {
+        addressBook.changePerson(target, args);
+        //updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 

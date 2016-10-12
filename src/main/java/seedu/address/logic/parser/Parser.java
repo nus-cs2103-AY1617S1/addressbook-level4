@@ -43,7 +43,12 @@ public class Parser {
     private static final Pattern TODO_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^#]+)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
- 
+    
+    private static final Pattern EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    		Pattern.compile("\\d+ "
+    				+ "(des|date|start|end|tag) "
+    				+ ".+");
+    
     public Parser() {}
 
     /**
@@ -77,6 +82,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+        
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -196,7 +204,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {       
-        final Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ", "").split(","));
+        final Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ", "").split(",")); //might need to change split regex to ; instead of ,
         Iterator<String> itr = indexes.iterator();
         ArrayList<Integer> pass = new ArrayList<Integer>();
         
@@ -218,11 +226,41 @@ public class Parser {
                 return new IncorrectCommand(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));             
             }           
-            if(!pass.contains(index.get()))
+            if(!pass.contains(index.get())) //for duplicate indexes
                 pass.add(index.get());
         }
 
         return new DeleteCommand(pass);
+    }
+    
+    private Command prepareEdit(String args) {
+    	final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE));
+        }
+        /*final Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ",  ""));
+        Iterator<String> itr = indexes.iterator();
+        ArrayList<Integer> pass = new ArrayList<Integer>(); //by right arraylist is redundant cause 1 value only, leave here first in case next time want use
+        
+        Optional<Integer> index = parseIndex(itr.next()); */
+        
+        args = args.trim();
+        
+        Optional<Integer> index = parseIndex(args.substring(0, args.indexOf(' ')));
+        
+        args = args.substring(args.indexOf(' ') + 1);
+        
+        if(!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        //pass.add(index.get());
+        
+        Integer pass = index.get();
+        
+        return new EditCommand(pass, args);
     }
 
     /**

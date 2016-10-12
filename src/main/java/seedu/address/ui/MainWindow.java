@@ -29,6 +29,12 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    
+    /*
+    private DeadlineListPanel deadlineListPanel;
+    private TodoListPanel todoListPanel; */
+     
+    
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
@@ -58,8 +64,15 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
-    //@FXML
-    //private AnchorPane statusbarPlaceholder;
+    @FXML
+    private AnchorPane statusbarPlaceholder;
+
+    /*@FXML
+    private AnchorPane deadlineListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane todoListPanelPlaceholder;*/
+
 
 
     public MainWindow() {
@@ -108,7 +121,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        //browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
