@@ -1,11 +1,10 @@
 package seedu.taskman.model.event;
 
 import com.google.common.base.Objects;
-import org.apache.commons.lang.time.DurationFormatUtils;
+
 import seedu.taskman.commons.exceptions.IllegalValueException;
 import seedu.taskman.logic.parser.DateTimeParser;
 
-import java.time.Duration;
 import java.time.Instant;
 
 public class Frequency {
@@ -37,6 +36,8 @@ public class Frequency {
 
     @Override
     public String toString() {
+    	// TODO: the long solution shows 17, 000 days even though frequency is 1 year, maybe didn't subtract somewhere
+    	/*
         String[] temporalUnits = {"year", "month", "day", "hour", "min"};
         String duration = DurationFormatUtils.formatDuration(seconds * 1000, "y:M:d:H:m");
         String[] split = duration.split(":");
@@ -64,6 +65,9 @@ public class Frequency {
         return parsedDuration.isEmpty()
                 ? "0 mins"
                 : parsedDuration;
+        */
+    	// TODO: the solution below does not give exactly 1 year, and shows the next time the schedule begins
+        return DateTimeParser.epochSecondToShortDateTime(seconds);
     }
 
     @Override

@@ -108,7 +108,8 @@ public class DateTimeParser {
         Instant instant = Instant.ofEpochSecond(epochSecond);
         return LocalDateTime
         		.ofInstant(instant, ZoneId.systemDefault())
-        		.format(formatter); // untidy because epochSecondToDetailedDateTime has toString but not here
+        		.format(formatter)
+        		.toString();
     }
 
     public static class IllegalDateTimeException extends IllegalValueException {
