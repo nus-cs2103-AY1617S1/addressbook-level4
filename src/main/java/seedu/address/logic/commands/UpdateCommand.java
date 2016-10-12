@@ -20,7 +20,7 @@ public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update a task in the task list.\n "
-            + "Parameters: INDEX (must be a positive integer) NAME \n"
+            + "Parameters: INDEX (must be a positive integer) [NAME t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " 1 cs2103 t/quiz";
     
@@ -29,22 +29,20 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
     
     public final int targetIndex;
-    private final Task newTask;
     
-    public String task_name;
+    private final Name newTaskName;
+    private final UniqueTagList newTaskTags;
     
     public UpdateCommand(int targetIndex, String name, Set<String> tags) throws IllegalValueException { 
         this.targetIndex = targetIndex;
+        this.newTaskName = (name.isEmpty()) ? null : new Name(name);
         
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-       
-        this.newTask = new Task(
-                new Name(name),
-                new UniqueTagList(tagSet)
-        );
+        
+        this.newTaskTags = new UniqueTagList(tagSet);
     }
     
     @Override
@@ -57,10 +55,14 @@ public class UpdateCommand extends Command {
         }
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
+
+        Name updatedTaskName = (newTaskName == null) ? taskToUpdate.getName() : newTaskName;
+        newTaskTags.mergeFrom(taskToUpdate.getTags());
         
-        UniqueTagList addedTags = newTask.getTags();
-        addedTags.mergeFrom(taskToUpdate.getTags());
-        newTask.setTags(addedTags);
+        Task newTask = new Task(
+                updatedTaskName,
+                newTaskTags
+        );
         
         assert model != null;
         try {
