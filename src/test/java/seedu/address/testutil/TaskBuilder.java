@@ -32,8 +32,8 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withPhone(String phone) throws IllegalValueException {
-        this.task.setPhone(new Phone(phone));
+    public TaskBuilder withPhone(String date) throws IllegalValueException {
+        this.task.setDate(new Date(date));
         return this;
     }
 

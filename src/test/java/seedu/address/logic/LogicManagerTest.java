@@ -390,7 +390,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Person(name, privateDate, start, privateAddress, tags);
+            return new Task(name, privateDate, start, privateAddress, tags);
         }
 
         /**
