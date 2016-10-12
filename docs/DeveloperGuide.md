@@ -272,12 +272,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
+`* * * * ` | user | add a new task with a deadline and priority level | sort by urgency and importance
+`* * * * ` | user | know if any events clash | reschedule
+`* * * * ` | user | see all current tasks on the calendar | know what I have to do
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | modify a task’s deadline or priority level | account for changes in deadlines and importance
+`* * *` | user | find a task by name | locate details of persons without having to go through the entire list
+`* * *` | user | know the most urgent and important task | do it first
+`* * *` | user | be reminded when a deadline is approaching | not forget to complete the task
+`* * *` | user | schedule my free time | work on tasks
+`* * *` | user | set tasks to autorepeat | not have to reschedule repeating tasks
+`* * *` | user | see a weekly view of tasks | know what is ahead of me
+`* * *` | user | see the list of overdue tasks if there is any at the start of the day | get things done still
+`* *` | user | group all relevant tasks | manage them in groups
+`* *` | user | outline procedures needed to complete a task | remember how to approach said tasks
+`*` | user with many tasks in the task manager | sort tasks by name | locate a task easily
+`*` | user with friends | share a task with my friends | delegate tasks in a group
+`*` | user | store all necessary contacts | bring up contact details when I need them
+`*` | user | delegate a task to my friends | lessen the workload
+`*` | user | attach relevant files or notes to the task | keep project data in one place
+`*` | user | track the amount of time spend on a task | detect and manage time wasters
+`*` | user | keep track of ideas and history | not forget ideas
+`*` | user | see the number of tasks completed at the end of the day | have a sense of accomplishment. If 0 tasks though there is at least one task to be completed for that day, encourage the user to work harder
 
 {More to be added}
 
