@@ -2,14 +2,15 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.*;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.Optional;
+
 
 /**
- * Adds a task to the address book.
+ * Adds a task to the task manager.
  */
 public class AddCommand extends Command {
 
@@ -32,24 +33,54 @@ public class AddCommand extends Command {
     private final Task toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructor for event task using raw values
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd = new Task(
-                new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
-                new UniqueTagList(tagSet)
-        );
+    // TODO allow tag list as params
+    public AddCommand(String name, String startDate, String endDate) throws IllegalValueException, DateTimeParseException {
+       	this.toAdd = new Task(
+        		new Name(name),
+        		new TaskType("event"),
+        		new Status("not done"), 
+        		Optional.of(LocalDateTime.parse(startDate)), 
+        		Optional.of(LocalDateTime.parse(endDate)),
+        		new UniqueTagList()
+                );
     }
+    
+    /**
+     * Convenience constructor for deadline task using raw values
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, String endDate) throws IllegalValueException, DateTimeParseException {
+    	this.toAdd = new Task(
+        		new Name(name),
+        		new TaskType("event"),
+        		new Status("not done"), 
+        		Optional.empty(), 
+        		Optional.of(LocalDateTime.parse(endDate)),
+        		new UniqueTagList()
+                );
+    }
+    
+    /**
+     * Convenience constructor for someday task using raw values
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name) throws IllegalValueException {
+    	this.toAdd = new Task(
+        		new Name(name),
+        		new TaskType("someday"),
+        		new Status("not done"), 
+        		Optional.empty(), 
+        		Optional.empty(),
+        		new UniqueTagList()
+                );
+    }
+
 
     @Override
     public CommandResult execute() {

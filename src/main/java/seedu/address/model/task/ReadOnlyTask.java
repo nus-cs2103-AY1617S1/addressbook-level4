@@ -1,24 +1,30 @@
 package seedu.address.model.task;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import seedu.address.model.tag.UniqueTagList;
 
+
 /**
- * A read-only immutable interface for a Task in the addressbook.
+ * A read-only immutable interface for a Task in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
-
-    Name getName();
-    Phone getPhone();
-    Email getEmail();
-    Address getAddress();
-
+  
+    public Name getName();
+    public TaskType getTaskType();
+    public Status getStatus();
+    public Optional<LocalDateTime> getStartDate();
+    public Optional<LocalDateTime> getEndDate();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
      */
-    UniqueTagList getTags();
+    public UniqueTagList getTags();
 
+    
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
@@ -26,25 +32,26 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getStartDate().equals(this.getStartDate())
+                && other.getEndDate().equals(this.getEndDate())
+                && other.getTaskType().equals(this.getTaskType())
+                && other.getStatus().equals(getStatus()));
     }
 
     /**
      * Formats the task as text, showing all contact details.
      */
     default String getAsText() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+    	final StringBuilder builder = new StringBuilder();
+    	
+    	builder.append(getName().toString());
+    	builder.append(" Task type: " + getTaskType().toString());
+    	getStartDate().ifPresent(startDate -> builder.append(" Start date: " + startDate.toString()));
+    	getEndDate().ifPresent(endDate -> builder.append(" End date: " + endDate.toString()));
+    	builder.append(" Status: " + getStatus().toString());
+    	builder.append(" Tags: ");
+    	getTags().forEach(builder::append);
+
         return builder.toString();
     }
 

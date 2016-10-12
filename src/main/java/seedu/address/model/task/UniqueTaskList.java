@@ -3,7 +3,6 @@ package seedu.address.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -81,7 +80,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * set the equivalent task to the specified index of the list
      * @throws TaskNotFoundException if no such task could be found in the list.
      */ 			
-    public boolean set(int key, SomedayTask Task) throws TaskNotFoundException {
+    public boolean set(int key, Task Task) throws TaskNotFoundException {
         assert Task != null;
         boolean isFound = false;
 		// TODO: settle 'Task' data type. stub will be changed to SomedayTask
@@ -89,10 +88,11 @@ public class UniqueTaskList implements Iterable<Task> {
 		try {
 			stub = new Task(
 			        new Name("Travis"),
-			        new Phone("38"),
-			        new Email("travisucks@gmail.com"),
-			        new Address("no where good"),
-			        new UniqueTagList(new Tag())
+			        new TaskType("someday"),
+			        new Status("not done"),
+			        Optional.empty(),
+			        Optional.empty(),
+			        new UniqueTagList()
 			);
 		} catch (IllegalValueException e) {
 			// TODO Auto-generated catch block
