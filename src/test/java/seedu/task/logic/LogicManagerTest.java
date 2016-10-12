@@ -280,11 +280,11 @@ public class LogicManagerTest {
         Task tTarget3 = helper.completedTask();
         
         List<Task> threeTasks = helper.generateTaskList(tTarget1, tTarget2, tTarget3);
-        TaskBook expectedTB = helper.generateTaskBook(threeTasks);
+        TaskBook expectedTB = helper.generateTaskBook_Tasks(threeTasks);
         List<Task> expectedList = helper.generateTaskList(tTarget1, tTarget2);
 
         // prepare address book state
-        helper.addToModel(model, threeTasks);
+        helper.addTaskToModel(model, threeTasks);
 
         assertTaskCommandBehavior("list -t",
                 ListTaskCommand.MESSAGE_INCOMPLETED_SUCCESS,
@@ -301,11 +301,11 @@ public class LogicManagerTest {
         Task tTarget3 = helper.completedTask();
         
         List<Task> threeTasks = helper.generateTaskList(tTarget1, tTarget2, tTarget3);
-        TaskBook expectedTB = helper.generateTaskBook(threeTasks);
+        TaskBook expectedTB = helper.generateTaskBook_Tasks(threeTasks);
         List<Task> expectedList = helper.generateTaskList(tTarget1, tTarget2,tTarget3);
 
         // prepare address book state
-        helper.addToModel(model, threeTasks);
+        helper.addTaskToModel(model, threeTasks);
 
         assertTaskCommandBehavior("list -t -a",
                 ListTaskCommand.MESSAGE_ALL_SUCCESS,
@@ -331,7 +331,7 @@ public class LogicManagerTest {
      * targeting a single task in the shown list, using visible index.
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
-    private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
+    private void assertTaskIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
@@ -345,6 +345,25 @@ public class LogicManagerTest {
         assertTaskCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), taskList);
     }
     
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     */
+    private void assertEventIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
+        String expectedMessage = MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        List<Event> eventList = helper.generateEventList(2);
+
+        // set AB state to 2 tasks
+        model.resetData(new TaskBook());
+        for (Event t : eventList) {
+            model.addEvent(t);
+        }
+
+        assertEventCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), eventList);
+    }
+    
     @Ignore
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -354,7 +373,7 @@ public class LogicManagerTest {
     @Ignore
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
+        assertTaskIndexNotFoundBehaviorForCommand("select");
     }
 
     @Ignore
@@ -363,8 +382,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
-        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
-        helper.addToModel(model, threeTasks);
+        TaskBook expectedAB = helper.generateTaskBook_Tasks(threeTasks);
+        helper.addTaskToModel(model, threeTasks);
 
         assertTaskCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
@@ -375,14 +394,25 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+    public void execute_deleteTaskInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTaskCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
     @Test
-    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("delete");
+    public void execute_deleteTaskIndexNotFound_errorMessageShown() throws Exception {
+        assertTaskIndexNotFoundBehaviorForCommand("delete -t");
+    }
+    
+    @Test
+    public void execute_deleteEventInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+    }
+
+    @Test
+    public void execute_deleteEventIndexNotFound_errorMessageShown() throws Exception {
+        assertEventIndexNotFoundBehaviorForCommand("delete -e");
     }
 
     @Test
@@ -390,16 +420,31 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
-        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
+        TaskBook expectedAB = helper.generateTaskBook_Tasks(threeTasks);
         expectedAB.removeTask(threeTasks.get(1));
-        helper.addToModel(model, threeTasks);
+        helper.addTaskToModel(model, threeTasks);
 
-        assertTaskCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
+        assertTaskCommandBehavior("delete -t 2",
+                String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
 
+    @Test
+    public void execute_delete_removesCorrectEvent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Event> threeEvents = helper.generateEventList(3);
+
+        TaskBook expectedAB = helper.generateTaskBook_Events(threeEvents);
+        expectedAB.removeEvent(threeEvents.get(1));
+        helper.addEventToModel(model, threeEvents);
+
+        assertTaskCommandBehavior("delete -e 2",
+                String.format(DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS, threeEvents.get(1)),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
     @Ignore
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
@@ -417,9 +462,9 @@ public class LogicManagerTest {
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
+        TaskBook expectedAB = helper.generateTaskBook_Tasks(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourTasks);
+        helper.addTaskToModel(model, fourTasks);
 
         assertTaskCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -437,9 +482,9 @@ public class LogicManagerTest {
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
+        TaskBook expectedAB = helper.generateTaskBook_Tasks(fourTasks);
         List<Task> expectedList = fourTasks;
-        helper.addToModel(model, fourTasks);
+        helper.addTaskToModel(model, fourTasks);
 
         assertTaskCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -457,9 +502,9 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
+        TaskBook expectedAB = helper.generateTaskBook_Tasks(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourTasks);
+        helper.addTaskToModel(model, fourTasks);
 
         assertTaskCommandBehavior("find key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -511,6 +556,20 @@ public class LogicManagerTest {
                    );
         }
 
+        /**
+         * Generates a valid event using the given seed.
+         * Running this function with the same parameter values guarantees the returned task will have the same state.
+         * Each unique seed will generate a unique Event object.
+         *
+         * @param seed used to generate the event data field values
+         */
+        Event generateEvent(int seed) throws Exception {
+            return new Event(
+                    new Name("Event " + seed),
+                    new Description("Description" + Math.abs(seed))
+                   );
+        }
+        
         /** Generates the correct add task command based on the task given */
         String generateAddTaskCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
@@ -539,35 +598,70 @@ public class LogicManagerTest {
         /**
          * Generates an TaskBook with auto-generated tasks.
          */
-        TaskBook generateTaskBook(int numGenerated) throws Exception{
+        TaskBook generateTaskBook_Tasks(int numGenerated) throws Exception{
             TaskBook taskBook = new TaskBook();
-            addToTaskBook(taskBook, numGenerated);
+            addTasksToTaskBook(taskBook, numGenerated);
             return taskBook;
         }
 
         /**
          * Generates TaskBookook based on the list of tasks given.
          */
-        TaskBook generateTaskBook(List<Task> tasks) throws Exception{
+        TaskBook generateTaskBook_Tasks(List<Task> tasks) throws Exception{
             TaskBook taskBook = new TaskBook();
-            addToTaskBook(taskBook, tasks);
+            addTasksToTaskBook(taskBook, tasks);
             return taskBook;
         }
 
         /**
+         * Generates an TaskBook with auto-generated tasks.
+         */
+        TaskBook generateTaskBook_Events(int numGenerated) throws Exception{
+            TaskBook taskBook = new TaskBook();
+            addEventsToTaskBook(taskBook, numGenerated);
+            return taskBook;
+        }
+
+        /**
+         * Generates TaskBookook based on the list of tasks given.
+         */
+        TaskBook generateTaskBook_Events(List<Event> events) throws Exception{
+            TaskBook taskBook = new TaskBook();
+            addEventsToTaskBook(taskBook, events);
+            return taskBook;
+        }
+        
+        /**
          * Adds auto-generated Task objects to the given TaskBook
          * @param taskBook The TaskBook to which the Tasks will be added
          */
-        void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception{
-            addToTaskBook(taskBook, generateTaskList(numGenerated));
+        void addTasksToTaskBook(TaskBook taskBook, int numGenerated) throws Exception{
+            addTasksToTaskBook(taskBook, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given TaskBook
          */
-        void addToTaskBook(TaskBook taskBook, List<Task> tasksToAdd) throws Exception{
+        void addTasksToTaskBook(TaskBook taskBook, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 taskBook.addTask(p);
+            }
+        }
+        
+        /**
+         * Adds auto-generated Event objects to the given TaskBook
+         * @param taskBook The TaskBook to which the Events will be added
+         */
+        void addEventsToTaskBook(TaskBook taskBook, int numGenerated) throws Exception{
+            addEventsToTaskBook(taskBook, generateEventList(numGenerated));
+        }
+        
+        /**
+         * Adds the given list of Events to the given TaskBook
+         */
+        void addEventsToTaskBook(TaskBook taskBook, List<Event> eventsToAdd) throws Exception{
+            for(Event p: eventsToAdd){
+                taskBook.addEvent(p);
             }
         }
 
@@ -575,19 +669,36 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given model
          * @param model The model to which the Tasks will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
-            addToModel(model, generateTaskList(numGenerated));
+        void addTaskToModel(Model model, int numGenerated) throws Exception{
+            addTaskToModel(model, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+        void addTaskToModel(Model model, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 model.addTask(p);
             }
         }
 
+        /**
+         * Adds auto-generated Task objects to the given model
+         * @param model The model to which the Tasks will be added
+         */
+        void addEventToModel(Model model, int numGenerated) throws Exception{
+            addEventToModel(model, generateEventList(numGenerated));
+        }
+
+        /**
+         * Adds the given list of Tasks to the given model
+         */
+        void addEventToModel(Model model, List<Event> eventsToAdd) throws Exception{
+            for(Event p: eventsToAdd){
+                model.addEvent(p);
+            }
+        }
+        
         /**
          * Generates a list of Tasks based on the flags.
          */
@@ -603,6 +714,21 @@ public class LogicManagerTest {
             return Arrays.asList(tasks);
         }
 
+        /**
+         * Generates a list of Events based on the flags.
+         */
+        List<Event> generateEventList(int numGenerated) throws Exception{
+            List<Event> events = new ArrayList<>();
+            for(int i = 1; i <= numGenerated; i++){
+                events.add(generateEvent(i));
+            }
+            return events;
+        }
+
+        List<Event> generateEventList(Event... events) {
+            return Arrays.asList(events);
+        }
+        
         /**
          * Generates a Task object with given name. Other fields will have some dummy values.
          */

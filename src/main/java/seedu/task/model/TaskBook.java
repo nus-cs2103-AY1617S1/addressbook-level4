@@ -103,6 +103,14 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
 
+    public boolean removeEvent(ReadOnlyEvent key) throws UniqueEventList.EventNotFoundException {
+        if (events.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueEventList.EventNotFoundException();
+        }
+    }
+    
 //// util methods
 
     @Override

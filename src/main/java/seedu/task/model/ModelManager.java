@@ -8,6 +8,7 @@ import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList.DuplicateEventException;
+import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.taskcommons.core.ComponentManager;
@@ -75,6 +76,12 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.removeTask(target);
         indicateTaskBookChanged();
     }
+    
+    @Override
+    public synchronized void deleteEvent(ReadOnlyEvent target) throws EventNotFoundException {
+        taskBook.removeEvent(target);
+        indicateTaskBookChanged();
+    }    
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {

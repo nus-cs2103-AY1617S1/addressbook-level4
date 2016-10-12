@@ -1,50 +1,22 @@
 package seedu.task.logic.commands;
 
-import seedu.task.model.item.ReadOnlyTask;
-import seedu.task.model.item.UniqueTaskList.*;
-import seedu.taskcommons.core.Messages;
-import seedu.taskcommons.core.UnmodifiableObservableList;
-
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes an item identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public abstract class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes an existing task/event in the TaskBook.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "-t : Deletes an existing task in the TaskBook.\n"
+            + COMMAND_WORD + "-e : Deletes an existing event in the TaskBook.\n"
+            + "Parameters: DELETE_TYPE + INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " -e" + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-
-    public final int targetIndex;
-
-    public DeleteCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
-    }
+    public int targetIndex;
 
 
     @Override
-    public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
-        try {
-            model.deleteTask(taskToDelete);
-        } catch (TaskNotFoundException tnfe) {
-            assert false : "The target task cannot be missing";
-        }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
-    }
+    public abstract CommandResult execute();
 
 }
