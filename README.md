@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/CS2103AUG2016-T14-C2/main.svg?branch=V0.1)](https://travis-ci.org/CS2103AUG2016-T14-C2/main)
-[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T14-C2/main/badge.svg?branch=V0.1)](https://coveralls.io/github/CS2103AUG2016-T14-C2/main?branch=V0.1)
+[![Build Status](https://travis-ci.org/CS2103AUG2016-T14-C2/main.svg?branch=V0.2)](https://travis-ci.org/CS2103AUG2016-T14-C2/main)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T14-C2/main/badge.svg?branch=V0.2)](https://coveralls.io/github/CS2103AUG2016-T14-C2/main?branch=V0.2)
 
 # Savvy Tasker
 
