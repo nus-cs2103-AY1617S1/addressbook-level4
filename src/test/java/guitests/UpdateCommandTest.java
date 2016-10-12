@@ -15,39 +15,44 @@ import seedu.address.model.task.*;
 
 public class UpdateCommandTest extends AddressBookGuiTest {
 
+	
 	@Test
     public void update() {
-
       
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
-        TestTask taskToUpdate=td.hoon;
-        assertUpdateSuccess(targetIndex,taskToUpdate,currentList);
-        currentList[targetIndex-1]=taskToUpdate;
-        currentList=TestUtil.addTasksToList(currentList);
-        
-        /*taskToUpdate=td.benson;
-        targetIndex=3;
+        /*TestTask taskToUpdate=td.hoon;
         assertUpdateSuccess(targetIndex,taskToUpdate,currentList);
         currentList[targetIndex-1]=taskToUpdate;
         currentList=TestUtil.addTasksToList(currentList);*/
- 
-       // commandBox.runCommand(td.hoon.getArgs());
-        //assertResultMessage(UpdateCommand.MESSAGE_DUPLICATE_TASK);
-        //assertTrue(taskListPanel.isListMatching(currentList));
-/*
-        //delete from the middle of the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
-        targetIndex = currentList.length/2;
-        assertUpdateSuccess(targetIndex, currentList);
+       
+        //edit with duplicate task
+        targetIndex=3;
+        commandBox.runCommand("update "+targetIndex+td.alice.getArgs());
+        assertResultMessage(UpdateCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(taskListPanel.isListMatching(currentList));   
+        
+       //invalid command
+        commandBox.runCommand("updatee "+td.ida.getArgs());
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+       //invalid index
+        commandBox.runCommand("update " + (currentList.length+1) + td.ida.getArgs());
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 
-        //invalid index
-        commandBox.runCommand("update " + currentList.length + 1);
-        assertResultMessage("The task index provided is invalid");*/
-
+        //edit in an empty list
+        commandBox.runCommand("clear");
+        commandBox.runCommand("update "+targetIndex+td.ida.getArgs());
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        
+        //invalid command
+        commandBox.runCommand("updatee "+td.ida.getArgs());
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+  
     }
 	
-	private void assertUpdateSuccess(int targetIndex, TestTask taskToUpdate, TestTask... currentList) {
+	private void assertUpdateSuccess(int targetIndex,TestTask taskToUpdate, TestTask... currentList) {
 		commandBox.runCommand("update " + targetIndex + taskToUpdate.getArgs() );
 		
 		//confirm the new card contains the right data
