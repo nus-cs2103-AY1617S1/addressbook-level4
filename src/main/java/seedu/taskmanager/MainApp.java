@@ -4,21 +4,21 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Version;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
+import seedu.taskmanager.commons.core.Config;
+import seedu.taskmanager.commons.core.EventsCenter;
+import seedu.taskmanager.commons.core.LogsCenter;
+import seedu.taskmanager.commons.core.Version;
+import seedu.taskmanager.commons.events.ui.ExitAppRequestEvent;
+import seedu.taskmanager.commons.exceptions.DataConversionException;
+import seedu.taskmanager.commons.util.ConfigUtil;
+import seedu.taskmanager.commons.util.StringUtil;
+import seedu.taskmanager.logic.Logic;
+import seedu.taskmanager.logic.LogicManager;
+import seedu.taskmanager.model.*;
+import seedu.taskmanager.storage.Storage;
+import seedu.taskmanager.storage.StorageManager;
+import seedu.taskmanager.ui.Ui;
+import seedu.taskmanager.ui.UiManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -70,20 +70,20 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyTaskManager> addressBookOptional;
+        ReadOnlyTaskManager initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
             }
-            initialData = addressBookOptional.orElse(new AddressBook());
+            initialData = addressBookOptional.orElse(new TaskManager());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new TaskManager();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new TaskManager();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -165,7 +165,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping The Practical Task Manager ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
