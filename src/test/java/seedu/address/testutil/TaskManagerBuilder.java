@@ -3,13 +3,13 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.TaskManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Taskmanager objects.
  * Example usage: <br>
- *     {@code TaskManager ab = new TaskManagerBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code TaskManager ab = new TaskManagerBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
 public class TaskManagerBuilder {
 
@@ -19,8 +19,8 @@ public class TaskManagerBuilder {
         this.addressBook = addressBook;
     }
 
-    public TaskManagerBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public TaskManagerBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.addTask(task);
         return this;
     }
 

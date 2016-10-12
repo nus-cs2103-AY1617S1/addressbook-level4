@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
-    <persons>
+    <tasks>
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
         <start isPrivate="false">hans@google.com</start>
         <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Ruth Mueller</name>
         <phone isPrivate="false">87249245</phone>
         <start isPrivate="false">ruth@google.com</start>
         <address isPrivate="false">81th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Heinz Kurz</name>
         <phone isPrivate="false">95352563</phone>
         <start isPrivate="false">heinz@yahoo.com</start>
         <address isPrivate="false">wall street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Cornelia Meier</name>
         <phone isPrivate="false">87652533</phone>
         <start isPrivate="false">cornelia@google.com</start>
         <address isPrivate="false">10th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Werner Meyer</name>
         <phone isPrivate="false">9482224</phone>
         <start isPrivate="false">werner@gmail.com</start>
         <address isPrivate="false">michegan ave</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Lydia Kunz</name>
         <phone isPrivate="false">9482427</phone>
         <start isPrivate="false">lydia@gmail.com</start>
         <address isPrivate="false">little tokyo</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Anna Best</name>
         <phone isPrivate="false">9482442</phone>
         <start isPrivate="false">anna@google.com</start>
         <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Stefan Meier</name>
         <phone isPrivate="false">8482424</phone>
         <start isPrivate="false">stefan@mail.com</start>
         <address isPrivate="false">little india</address>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Martin Mueller</name>
         <phone isPrivate="false">8482131</phone>
         <start isPrivate="false">hans@google.com</start>
         <address isPrivate="false">chicago ave</address>
-    </persons>
+    </tasks>
 </taskmanager>
