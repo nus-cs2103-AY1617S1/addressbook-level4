@@ -253,29 +253,32 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | find a task by task name | locate details of tasks without having to go through the entire task list
 `* * *` | user | find a task by task date | locate details of tasks without having to go through the entire task list
 `* * *` | user | find a task by task time| locate details of tasks without having to go through the entire task list
-`* * *` | user | select a task | delete or edit or add additional information
+`* * *` | user | select a task | open the browser without using the mouse 
 `* * *` | user | delete a task | remove entries that I no longer need
-`* * *` | user | delete a specified information in its task | remove the parameter that I no longer need
-`* * *` | user | edit a Task | edit details without re-entry
-`* * *` | user | add red colour code to indicate an overdue task | easily to track overdue task
-`* * *` | user | add green colour code to indicate a done task | easily to track done task
-`* *` | user | use tab to switch between UI elements | change to next elements without typing out the whole commands 
-`* *` | user | use up arrow or down arrow to select task list | navigate through the task list
+`* * *` | user | clear all tasks | start a fresh task list 
+`* * *` | user | edit a task | edit details without re-entry
+`* * *` | user | undo a task | return to the previous action without re-entry
+`* * *` | user | mark a task as complete | manage my Task list easily
+`* * *` | user | have flexibility in the command format | type a few natural variations of the command format 
+`* * *` | user | change the default storage path | sync the cloud services to access data from multiple computers
+`* * *` | user | exit the task list | close the task list 
+`* *` | user | input natural date and time | make sense of the command(s)
 `* *` | user | use up arrow or down arrow to reuse previous command(s) | reduce typing
-`* *` | user | use keyboard shortcut <ctrl z> to return to previous action | reduce typing
-`* *` | user | sort task by task name | able to track the task asap
-`* *` | user | sort task by date | able to track the task asap
-`* *` | user | sort task by time | able to track the task asap
-`* *` | user | add pink colour code to indicate a priority task | easily to track important task
-`*` | user with many tasks in the scheduler | sort task by task name | locate a task easily
-`*` | user with many tasks in the scheduler | sort task by task date | locate a task easily
-`*` | user with many tasks in the scheduler | sort task by task time | locate a task easily
-`*` | user | toggle the UI between dark and light mode | use the ToDoList under different lighting environment
+`* *` | user | indicate an overdue task with color code (red) | easily to track overdue task
+`* *` | user | indicate a completed task with color code (green) | easily to track done task  
 `*` | user | lock task(with a password) | prevent unauthorized access/modification 
 
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `MustDoList` and the **Actor** is the `user`, unless specified otherwise)
+
+#### Use case: Help
+
+**MSS**
+
+1. User requests for help
+2. MustDoList shows the user guide through a html file <br>
+Use case ends.
 
 #### Use case: Add task
 
@@ -288,6 +291,61 @@ Use case ends.
 
 **Extensions**
 
+2a. The task name is duplicate
+
+> 2a1. MustDoList shows an error message <br>
+  Use case resumes at step 2
+
+#### Use case: List task
+
+**MSS**
+
+1. User requests to list tasks
+2. MustDoList shows a list of tasks <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+#### Use case: Find task
+
+**MSS**
+
+1. User requests to find tasks
+2. MustDoList shows a list of found tasks <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+#### Use case: Select task
+
+**MSS**
+
+1. User requests to list tasks
+2. MustDoList shows a list of tasks
+3. User requests to select the index of a specific task in the list
+4. MustDoList highlight the selected task in the list
+5. MustDoList open the browser and search for task name <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invaild
+
+> 3a1. MustDoList shows an error message <br>
+  Use case resumes at step 2
+
 
 #### Use case: Delete task
 
@@ -295,7 +353,7 @@ Use case ends.
 
 1. User requests to list tasks
 2. MustDoList shows a list of tasks
-3. User requests to delete a specific task in the list
+3. User requests to delete a specific task in the list by the task's index
 4. MustDoList deletes the task <br>
 Use case ends.
 
@@ -310,16 +368,22 @@ Use case ends.
 > 3a1. MustDoList shows an error message <br>
   Use case resumes at step 2
 
-#### Use case: Edit a task
+#### Use case: Clear task
+
+**MSS**
+
+1. User requests to clear tasks
+2. MustDoList clears all entries of tasks <br>
+Use case ends.
+
+#### Use case: Edit task
 
 **MSS**
 
 1. User requests to list task
 2. MustDoList shows a list of tasks
-3. User requests to edit a specific task in the list
-4. MustDoList confirms the change with user
-5. User confirmed the changes
-6. MustDoList edits the task <br>
+3. User requests to edit a specific task in the list by the task's index
+4. MustDoList edits the task <br>
 Use case ends.
 
 **Extensions**
@@ -333,10 +397,57 @@ Use case ends.
 > 3a1. MustDoList shows an error message <br>
   Use case resumes at step 2
 
+#### Use case: Undo task
 
-5a. User cancel the changes
+**MSS**
+
+1. User requests to undo task
+2. MustDoList undo the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The task list returns to initial stage
+
+> 2a1. MustDoList shows an error message <br>
+  Use case resumes at step 2
+  
+#### Use case: Mark task
+
+**MSS**
+
+1. User requests to list task
+2. MustDoList shows a list of tasks
+3. User requests to mark a specific task as completed in the list by the task's index
+4. MustDoList marks the task as completed <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
 
 > Use case ends
+
+3a. The given index is invalid
+
+> 3a1. MustDoList shows an error message <br>
+  Use case resumes at step 2
+
+#### Use case: Change default storage path
+
+**MSS**
+
+1. User requests to change default storage path
+2. MustDoList changes the path of default storage <br>
+Use case ends.
+
+#### Use case: Exit task list
+
+**MSS**
+
+1. User requests to exit task list
+2. MustDoList closes the task list <br>
+Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
@@ -362,28 +473,16 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-#### TodoList
+#### Todoist
 
-> Pros
-Access task everywhere (on mobile, web browser)
-Collaborate on shared task (in real-time)
-Powerful recurring dates (Create repeating due dates)
-
-> Cons
-
-A few important features not available to free users. (at $29-per-year Premium level)
-Its search function is limited in the free plan
-It doesn’t have a backup option for free users
+> Pros <br>
+Todoist can access task everywhere (on mobile, web browser), can collaborate on shared task in real-time and has powerful recurring dates by creating repeating due dates. <br>
+Cons<br>
+However, a few important features not available to free users. For instance, its search function is limited in the free plan and it does not have a backup option for free users. Premium level is available at $29-per-year.
 
 #### Google calendar
 
-> Pros
-
-Multiple calendars
-Schedule meeting using “Suggested Time” or “Find a Time”
-Share your calendar with others
-
-> Cons
-Must sign up for the service
-Offline version only for viewing
-Cannot categorize calendar events based on “event type”
+> Pros <br>
+Google calendar supports multiple calendars for a single user, can schedule meeting using keyword like “Suggested Time” or “Find a Time” and can share calendar with others.
+Cons <br>
+However, user must sign up for the service, offline version is available for viewing only and it cannot categorize calendar events based on “event type”.
