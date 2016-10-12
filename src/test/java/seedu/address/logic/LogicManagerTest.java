@@ -152,7 +152,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@start.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 e/valid@start.butNoDatePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
                 "add Valid Name p/12345 valid@start.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
@@ -164,7 +164,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/notAnStartTime a/valid, address", StartTime.MESSAGE_START_CONSTRAINTS);
         assertCommandBehavior(
@@ -384,13 +384,13 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
+            Date privateDate = new Date("111111");
             StartTime start = new StartTime("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, start, privateAddress, tags);
+            return new Person(name, privateDate, start, privateAddress, tags);
         }
 
         /**
@@ -403,7 +403,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Phone("" + Math.abs(seed)),
+                    new Date("" + Math.abs(seed)),
                     new StartTime(seed + "@start"),
                     new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -417,7 +417,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
+            cmd.append(" p/").append(p.getDate());
             cmd.append(" e/").append(p.getStartTime());
             cmd.append(" a/").append(p.getAddress());
 
@@ -502,7 +502,7 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Phone("1"),
+                    new Date("1"),
                     new StartTime("1@start"),
                     new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))

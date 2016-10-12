@@ -31,7 +31,7 @@
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+                        <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
                         <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
                         <Label fx:id="start" styleClass="cell_small_label" text="\$start" />
                     </children>
