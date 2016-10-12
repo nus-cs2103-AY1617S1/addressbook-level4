@@ -1,10 +1,29 @@
 # User Guide
 
+## About
+
+
+
+
 <br>
 ## Table of Contents
 
 1. [Quick Start](#1-quick-start)
 2. [Features](#2-features)
+    2.1 [View help](#2-features)
+    2.2 [Features](#2-features)
+    2.3 [Features](#2-features)
+    2.4 [Features](#2-features)
+    2.5 [Features](#2-features)
+    2.6 [Features](#2-features)
+    2.7 [Features](#2-features)
+    2.8 [Features](#2-features)
+    2.9 [Features](#2-features)
+    2.10 [Features](#2-features)
+    2.11 [Features](#2-features)
+    2.12 [Features](#2-features)
+    2.13 [Features](#2-features)
+    2.14 [Features](#2-features)
 3. [Command Summary](#3-command-summary)
 
 <br>
@@ -44,15 +63,16 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 
 
 <br>
-#### 2.1. Viewing help : `help`
+#### 2.1. View help : `help`
+Opens help window to display program usage instructions and command summary.
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 
 <br>
-#### 2.2. Adding a task: `add`
-Adds a task to the address book. Three different types of tasks are supported.<br>
+#### 2.2. Add a task: `add`
+Adds a task to the address book. Three different types of tasks, namely events, deadlines and tasks to be done someday, are supported.<br>
 ##### Events
 Format: `add event 'NAME from hh:mm to hh:mm on dd-mm-yy`
 ##### Deadlines
@@ -72,7 +92,7 @@ Invalid Examples:
 
 
 <br>
-#### 2.3. Listing tasks: `list`
+#### 2.3. List tasks: `list`
 Shows a numbered list of tasks, filtered by optional parameters.<br>
 Format: `list [TASK_TYPE] [done|not-done] [dd-mm-yy] [hh:mm]`
 
@@ -87,8 +107,8 @@ Example:
 
 
 <br>
-#### 2.4. Finding all tasks containing any keyword in their name: `find`
-Finds tasks in which the name contains any of the given keywords.<br>
+#### 2.4. Find tasks containing particular keyword(s) in task name: `find`
+Finds all tasks containing any of the specified keywords in task name, displays identified tasks in a numbered list.<br>
 Format: `find KEYPHRASE_WORD_ONE KEYPHRASE_WORD_TWO [KEYPHRASE_MORE_WORDS] ..., [MORE_KEYPHRASES] ...`
 
 > * Keyphrases are separated by commas
@@ -106,8 +126,8 @@ Examples:
 
 
 <br>
-#### 2.5. Deleting a task: `del`
-Deletes the specified tasks from the task manager. <br>
+#### 2.5. Delete task(s): `del`
+Deletes the specified task(s) from the task manager. <br>
 Format: `del INDEX [MORE_INDICES] ...`
 
 > Deletes the task at the specified INDICES.
@@ -124,8 +144,8 @@ Examples:
 
 
 <br>
-#### 2.6. Marking a task as done: `done`
-Marks the specified tasks as done. <br>
+#### 2.6. Mark task(s) as done: `done`
+Marks the specified task(s) as done. <br>
 Format: `done INDEX [MORE_INDICES] ...`
 
 Examples:
@@ -133,7 +153,7 @@ See 'Deleting a task'.
 
 
 <br>
-#### 2.7. Editing a task: `edit`
+#### 2.7. Edit a task: `edit`
 Overwrites specified attributes of the specified task. <br>
 Format: `edit INDEX ['NEW_NAME'] [from hh:mm to hh:mm|by hh:mm] [dd-mm-yy] [done|not-done]`
 
@@ -148,8 +168,8 @@ Example:
 
 
 <br>
-#### 2.8. Undoing the last operation: `undo`
-Takes the program to a state where the last operation performed did not occur. <br>
+#### 2.8. Undo last operation: `undo`
+Returns the program to a state where the last operation performed did not occur. <br>
 Format: `undo`
 
 > The command can be called repeatedly and will undo all operations up to
@@ -158,13 +178,13 @@ Format: `undo`
 
 
 <br>
-#### 2.9. Clearing all entries: `clear`
+#### 2.9. Clear all entries: `clear`
 Clears all entries from the task manager. <br>
 Format: `clear`
 
 
 <br>
-#### 2.10. Setting the data storage location: `set-storage`
+#### 2.10. Set data storage location: `set-storage`
 Saves all task data to the specified folder. <br>
 Format: `set-storage FILEPATH`
 
@@ -175,8 +195,8 @@ Example:
 
 
 <br>
-#### 2.11. Setting an alias for existing commands: `add-alias`
-Adds a new shortcut for existing commands. <br>
+#### 2.11. Set an alias for an existing command: `add-alias`
+Adds a new shortcut for an existing command. <br>
 Format: `add-alias 'COMMAND_ALIAS'='COMMAND_PHRASE'`
 
 > On pressing enter, the entire string specified on the right-hand side of the equals sign will replace the alias.
@@ -189,13 +209,13 @@ Examples:
 
 
 <br>
-#### 2.12. Listing aliases: `list-alias`
+#### 2.12. List aliases: `list-alias`
 Shows a numbered list of all configured aliases. <br>
 Format: `list-alias`
 
 
 <br>
-#### 2.13. Deleting an alias: `delete-alias | remove-alias`
+#### 2.13. Delete alias(es): `delete-alias | remove-alias`
 Removes previously set aliases. <br>
 Format: `(delete-alias | remove-alias) INDEX [MORE_INDICES] ...`
 
@@ -206,7 +226,7 @@ Example:
 
 
 <br>
-#### 2.14. Exiting the program: `exit`
+#### 2.14. Exit Amethyst: `exit`
 Exits the program. <br>
 Format: `exit`
 
