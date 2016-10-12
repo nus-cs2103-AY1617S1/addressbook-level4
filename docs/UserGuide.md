@@ -64,7 +64,7 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 
 <br>
 #### 2.1. View help : `help`
-Opens help window to display program usage instructions and command summary.
+Opens help window to display program usage instructions and command summary.<br>
 
 Format: `help`
 
@@ -97,6 +97,7 @@ Note that the above is invalid since only one pair of single quotes should be us
 <br>
 #### 2.3. List tasks: `list`
 Shows a numbered list of tasks, filtered by optional parameters.<br>
+
 Format: `list [TASK_TYPE] [done|not-done] [dd-mm-yy] [hh:mm]`
 
 > The three valid task types are "event", "deadline" and "someday".
@@ -106,12 +107,14 @@ Format: `list [TASK_TYPE] [done|not-done] [dd-mm-yy] [hh:mm]`
 > - Deadlines that are due before the specified time
 
 Example:
-* `list someday not-done` lists all someday tasks that have not been completed.
+* `list someday not-done:`  
+Lists all someday tasks that have not been completed.
 
 
 <br>
 #### 2.4. Find tasks containing particular keyword(s) in task name: `find`
 Finds all tasks containing any of the specified keywords in task name, displays identified tasks in a numbered list.<br>
+
 Format: `find KEYPHRASE_WORD_ONE KEYPHRASE_WORD_TWO [KEYPHRASE_MORE_WORDS] ..., [MORE_KEYPHRASES] ...`
 
 > * Keyphrases are separated by commas
@@ -122,15 +125,16 @@ Format: `find KEYPHRASE_WORD_ONE KEYPHRASE_WORD_TWO [KEYPHRASE_MORE_WORDS] ..., 
 > * Partial phrases will be matched e.g. `ns B` will match `Hans Bo`
 
 Examples:
-* `find meeting`<br>
+* `find meeting:`<br>
   Returns `Meeting with John` and `Skytok project meeting`
-* `find Physics test, chemistry, biology`<br>
+* `find Physics test, chemistry, biology:`<br>
   Returns any task containing any of `Physics test`, `chemistry`, or `biology`
 
 
 <br>
 #### 2.5. Delete task(s): `del`
 Deletes the specified task(s) from the task manager. <br>
+
 Format: `del INDEX [MORE_INDICES] ...`
 
 > Deletes the task at the specified INDICES.
@@ -139,20 +143,21 @@ Format: `del INDEX [MORE_INDICES] ...`
 
 Examples:
 * `list`<br>
-  `del 2 4`<br>
+  `del 2 4:`<br>
   Deletes the 2nd and 4th tasks in the task manager.
 * `find birthday`<br>
-  `del 1`<br>
+  `del 1:`<br>
   Deletes the 1st birthday task in the results of the `find` command.
 
 
 <br>
 #### 2.6. Mark task(s) as done: `done`
 Marks the specified task(s) as done. <br>
+
 Format: `done INDEX [MORE_INDICES] ...`
 
 Examples:
-See 'Deleting a task'.
+* Refer to 2.5. [Delete task(s)](#25-delete-tasks-del) <br>
 
 
 <br>
@@ -173,6 +178,7 @@ Example:
 <br>
 #### 2.8. Undo last operation: `undo`
 Returns the program to a state where the last operation performed did not occur. <br>
+
 Format: `undo`
 
 > The command can be called repeatedly and will undo all operations up to
@@ -183,12 +189,14 @@ Format: `undo`
 <br>
 #### 2.9. Clear all entries: `clear`
 Clears all entries from the task manager. <br>
+
 Format: `clear`
 
 
 <br>
 #### 2.10. Set data storage location: `set-storage`
 Saves all task data to the specified folder. <br>
+
 Format: `set-storage FILEPATH`
 
 > Existing data will be moved to the new folder.
@@ -200,15 +208,15 @@ Example:
 <br>
 #### 2.11. Set an alias for an existing command: `add-alias`
 Adds a new shortcut for an existing command. <br>
+
 Format: `add-alias 'COMMAND_ALIAS'='COMMAND_PHRASE'`
 
 > On pressing enter, the entire string specified on the right-hand side of the equals sign will replace the alias.
 > If an alias is typed within quotes, however, it will _not_ be replaced.
 
 Examples:
-* `add-alias 'add-dl'='add deadline'` <br>
-  The command `add-dl 'Clean the garage'` can be used in place of `add someday='Clean the garage'`. <br>
-  However, `add deadline 'buy add-dl a cake' by 4:00pm on 12-Oct-16` does not become `add deadline 'buy add deadline a cake' by 4:00pm on 12-Oct-16`, since `add-dl` was enclosed by quotation marks.
+* `add-alias 'add-dl'='add deadline:'` <br>  
+    The command input `add-dl 'Clean the garage' by 17:00 on 04-05-14` can now be used in place of `add deadline 'Clean the garage' by 17:00 on 04-05-1`. However, note that `add deadline 'buy add-dl a cake' by 4:00pm on 12-Oct-16` does not register as `add deadline 'buy add deadline a cake' by 4:00pm on 12-Oct-16`, since `add-dl` was enclosed by quotation marks.
 
 
 <br>
@@ -220,17 +228,19 @@ Format: `list-alias`
 <br>
 #### 2.13. Delete alias(es): `delete-alias | remove-alias`
 Removes previously set aliases. <br>
+
 Format: `(delete-alias | remove-alias) INDEX [MORE_INDICES] ...`
 
 Example:
 * `list-alias`
-* `remove-alias 2 3` <br>
-  Deletes the 2nd and 3rd aliases output by the `list-alias` command.
+* `remove-alias 2 3:` <br>
+  Deletes the second and third aliases given by the `list-alias` command.
 
 
 <br>
 #### 2.14. Exit Amethyst: `exit`
 Exits the program. <br>
+
 Format: `exit`
 
 <br>
