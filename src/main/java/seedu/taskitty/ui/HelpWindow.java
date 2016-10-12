@@ -1,10 +1,12 @@
 package seedu.taskitty.ui;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.util.AppUtil;
@@ -47,12 +49,20 @@ public class HelpWindow extends UiPart {
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        dialogStage.setX(bounds.getMinX());
+        dialogStage.setY(bounds.getMinY());
+        dialogStage.setWidth(bounds.getWidth());
+        dialogStage.setHeight(bounds.getHeight());
         setIcon(dialogStage, ICON);
         
         Image helpImage = AppUtil.getImage(HELPIMAGE);
         ImageView helpImageView = new ImageView(helpImage);        
         FxViewUtil.applyAnchorBoundaryParameters(helpImageView, 0.0, 0.0, 0.0, 0.0);
+        helpImageView.fitWidthProperty().bind(dialogStage.widthProperty()); 
+        helpImageView.fitHeightProperty().bind(dialogStage.heightProperty());
         mainPane.getChildren().add(helpImageView);
     }
 
