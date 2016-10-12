@@ -26,12 +26,23 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isDatePrivate>p?)p/(?<date>[^@]+)"
-                    + " (?<isStartTimePrivate>p?)e/(?<start>[^/]+)"
-                    + " (?<isEndTimePrivate>p?)a/(?<address>[^/]+)"
+                    + " (?<isDatePrivate>p?)d/(?<date>[^@]+)"
+                    + " (?<isStartTimePrivate>p?)s/(?<start>[^/]+)"
+                    + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<name>[^/]+)"
+                    + " (?<isDatePrivate>p?)d/(?<date>[^@]+)"
+                    + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
+            		);
+    
+    private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<name>[^/]+)");
+
+
 
     public Parser() {}
 
@@ -52,6 +63,7 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+        	System.out.println(arguments);
             return prepareAdd(arguments);
 
         case SelectCommand.COMMAND_WORD:
@@ -87,19 +99,40 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher event_matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher deadline_matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher floating_matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        if (!matcher.matches()) {
+        if (!event_matcher.matches() && !deadline_matcher.matches() && !floating_matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("date"),
-                    matcher.group("start"),
-                    matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
+        	if(event_matcher.matches()) {
+        		System.out.println("Event");
+	            return new AddCommand(
+	                    event_matcher.group("name"),
+	                    event_matcher.group("date"),
+	                    event_matcher.group("end"), // start and end are swapped to match ui
+	                    event_matcher.group("start"),
+	                    getTagsFromArgs(event_matcher.group("tagArguments"))
+	            );
+        	}else if(deadline_matcher.matches()) {
+        		System.out.println("Deadline");
+        		return new AddCommand(
+	                    deadline_matcher.group("name"),
+	                    deadline_matcher.group("date"),
+	                    "",
+	                    deadline_matcher.group("end"),
+	                    new HashSet<>()
+	            );
+        	}else {
+        		System.out.println("Floating");
+        		System.out.println(floating_matcher.group("name"));
+        		return new AddCommand(
+	                    floating_matcher.group("name"),
+	                    "", "", "", new HashSet<>()
+	            );
+        	}
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

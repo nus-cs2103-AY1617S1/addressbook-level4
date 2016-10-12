@@ -152,24 +152,24 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/5:00pm a/5:00am", expectedMessage);
+                "add Valid Name 12345 s/5:00pm e/5:00am", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/01/01/10 valid@start.butNoPrefix a/5:00am", expectedMessage);
+                "add Valid Name d/01/01/10 valid@start.butNoPrefix e/5:00am", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/01/01/10 e/5:00pm valid, address", expectedMessage);
+                "add Valid Name d/01/01/10 s/5:00pm valid, address", expectedMessage);
+
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/01/01/10 e/5:00pm a/5:00am", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] d/01/01/10 s/5:00pm e/5:00am", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/5:00pm a/5:00am", Date.MESSAGE_DATE_CONSTRAINTS);
+                "add Valid Name d/not_numbers s/5:00pm e/5:00am", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/01/01/10 e/notAnStartTime a/5:00pm", StartTime.MESSAGE_START_CONSTRAINTS);
+                "add Valid Name d/01/01/10 s/notAnStartTime e/5:00pm", StartTime.MESSAGE_START_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/01/01/10 e/5:00pm a/5:00am t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
+                "add Valid Name d/01/01/10 s/5:00pm a/5:00am e/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
@@ -417,9 +417,9 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getDate());
-            cmd.append(" e/").append(p.getStartTime());
-            cmd.append(" a/").append(p.getEndTime());
+            cmd.append(" d/").append(p.getDate());
+            cmd.append(" s/").append(p.getStartTime());
+            cmd.append(" e/").append(p.getEndTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){

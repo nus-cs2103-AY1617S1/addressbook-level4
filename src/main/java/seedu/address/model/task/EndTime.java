@@ -9,8 +9,10 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class EndTime {
     
-    public static final String MESSAGE_ENDTIME_CONSTRAINTS = "Person addresses can be in any format";
-    public static final String TIME_VALIDATION_REGEX = "(1[012]|[1-9]|0[1-9]):([0-5][0-9])(?i)(am|pm)";
+
+    public static final String MESSAGE_TIME_CONSTRAINTS = "End Time should follow the format hh:mm am/pm(or h:mm am/pm)";
+    public static final String TIME_VALIDATION_REGEX = "((1[012]|0[1-9]|[1-9]):[0-5][0-9](?i)(am|pm)\\sto\\s)?(1[012]|[1-9]|0[1-9]):[0-5][0-9](?i)(am|pm)";
+
 
     public final String value;
 
@@ -21,8 +23,10 @@ public class EndTime {
      */
     public EndTime(String address) throws IllegalValueException {
         assert address != null;
-        if (!isValidEndTime(address)) {
-            throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
+
+        if (!isValidEndTime(address) && !address.equals("")) {
+            throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
+
         }
         this.value = address;
     }
@@ -31,7 +35,9 @@ public class EndTime {
      * Returns true if a given string is a valid person start.
      */
     public static boolean isValidEndTime(String test) {
+
         return test.matches(TIME_VALIDATION_REGEX);
+
     }
 
     @Override

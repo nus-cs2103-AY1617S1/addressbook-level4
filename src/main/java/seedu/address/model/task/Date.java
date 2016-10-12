@@ -8,7 +8,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Date {
 
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Person date numbers should only contain numbers";
+
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Date numbers should follow the format dd/mm/yy";
     public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][\\d]|3[01])/(0?[1-9]|1[012])/(\\d\\d)";
 
     public final String value;
@@ -21,7 +22,9 @@ public class Date {
     public Date(String date) throws IllegalValueException {
         assert date != null;
         date = date.trim();
-        if (!isValidDate(date)) {
+
+        if (!isValidDate(date) && !date.equals("")) {
+
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         this.value = date;
