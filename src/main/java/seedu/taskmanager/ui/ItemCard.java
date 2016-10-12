@@ -62,12 +62,17 @@ public class ItemCard extends UiPart{
         String endDateString = item.getEndDate().value + " " + item.getEndTime().value;
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm"); 
         Date endFromNowDate;
+        Date currentDate = new Date();
         String endFromNowText = "";
         try {
             endFromNowDate = df.parse(endDateString);
             PrettyTime p = new PrettyTime();
             endFromNowText = p.format(endFromNowDate);
-            endFromNow.setText("Ends " + endFromNowText);
+            if (currentDate.before(endFromNowDate)) { // Future Deadline
+                endFromNow.setText("Ends " + endFromNowText);
+            } else { // Past Deadline
+            	endFromNow.setText("Ended " + endFromNowText);
+            }
         } catch (ParseException e) {
             endFromNow.setText(endFromNowText);
             e.printStackTrace();
