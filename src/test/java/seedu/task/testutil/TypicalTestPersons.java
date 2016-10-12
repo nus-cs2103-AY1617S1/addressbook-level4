@@ -9,25 +9,25 @@ import seedu.task.model.person.*;
  */
 public class TypicalTestPersons {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestPerson taskA, taskB, taskC, taskD, taskE, taskF, taskG, taskH, taskI;
 
     public TypicalTestPersons() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
-                    .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withAddress("little tokyo").build();
-            george = new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
+            taskA =  new PersonBuilder().withName("Accompany mom to the doctor").withAddress("Khoo Teck Puat Hospital")
+                    .withEmail("1200hrs").withPhone("1000hrs")
+                    .withTags("gwsMum").build();
+            taskB = new PersonBuilder().withName("Borrow software engineering book").withAddress("National Library")
+                    .withEmail("1400hrs").withPhone("1300hrs")
+                    .withTags("study", "seRocks").build();
+            taskC = new PersonBuilder().withName("Call Jim").withPhone("1200hrs").withEmail("1300hrs").withAddress("NUS").build();
+            taskD = new PersonBuilder().withName("Do homework").withPhone("1400hrs").withEmail("1500hrs").withAddress("Home").build();
+            taskE = new PersonBuilder().withName("Edit AddressBook file").withPhone("1500hrs").withEmail("1600hrs").withAddress("Home").build();
+            taskF = new PersonBuilder().withName("Finish up the project").withPhone("1600hrs").withEmail("1700hrs").withAddress("Home").build();
+            taskG = new PersonBuilder().withName("Go for a jog").withPhone("1700hrs").withEmail("1800hrs").withAddress("Botanic Gardens").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
+            taskH = new PersonBuilder().withName("Help Jim with his task").withPhone("1800hrs").withEmail("1900hrs").withAddress("Jim house").build();
+            taskI = new PersonBuilder().withName("Iron new clothes").withPhone("1900hrs").withEmail("2000hrs").withAddress("Home").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -37,20 +37,20 @@ public class TypicalTestPersons {
     public static void loadAddressBookWithSampleData(TaskManager ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
+            ab.addTask(new Task(taskA));
+            ab.addTask(new Task(taskB));
+            ab.addTask(new Task(taskC));
+            ab.addTask(new Task(taskD));
+            ab.addTask(new Task(taskE));
+            ab.addTask(new Task(taskF));
+            ab.addTask(new Task(taskG));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestPerson[] getTypicalPersons() {
-        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestPerson[]{taskA, taskB, taskC, taskD, taskE, taskF, taskG};
     }
 
     public TaskManager getTypicalAddressBook(){

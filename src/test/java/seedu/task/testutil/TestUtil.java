@@ -66,16 +66,18 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new StartTime("9482424"), new EndTime("hans@google.com"), new Location("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new StartTime("87249245"), new EndTime("ruth@google.com"), new Location("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new StartTime("95352563"), new EndTime("heinz@yahoo.com"), new Location("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new StartTime("87652533"), new EndTime("cornelia@google.com"), new Location("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new StartTime("9482224"), new EndTime("werner@gmail.com"), new Location("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new StartTime("9482427"), new EndTime("lydia@gmail.com"), new Location("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new StartTime("9482442"), new EndTime("anna@google.com"), new Location("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new StartTime("8482424"), new EndTime("stefan@mail.com"), new Location("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new StartTime("8482131"), new EndTime("hans@google.com"), new Location("chicago ave"), new UniqueTagList())
+                    new Task(new Name("Accompany mom to the doctor"), new StartTime("1000hrs"), new EndTime("1200hrs"), new Location("Khoo Teck Puat Hospital"), new UniqueTagList()),
+                    new Task(new Name("Borrow software engineering book"), new StartTime("1300hrs"), new EndTime("1400hrs"), new Location("81th street"), new UniqueTagList()),
+                    new Task(new Name("Call Jim"), new StartTime("1200hrs"), new EndTime("1300hrs"), new Location("wall street"), new UniqueTagList()),
+                    new Task(new Name("Do homework"), new StartTime("1400hrs"), new EndTime("1500hrs"), new Location("10th street"), new UniqueTagList()),
+                    new Task(new Name("Edit AddressBook file"), new StartTime("1500hrs"), new EndTime("1600hrs"), new Location("michegan ave"), new UniqueTagList()),
+                    new Task(new Name("Finish up the project"), new StartTime("1600hrs"), new EndTime("1700hrs"), new Location("little tokyo"), new UniqueTagList()),
+                    new Task(new Name("Go for a jog"), new StartTime("1700hrs"), new EndTime("1800hrs"), new Location("4th street"), new UniqueTagList()),
+                    new Task(new Name("Help Jim with his task"), new StartTime("1800hrs"), new EndTime("1900hrs"), new Location("little india"), new UniqueTagList()),
+                    new Task(new Name("Iron new clothes"), new StartTime("1900hrs"), new EndTime("2000hrs"), new Location("chicago ave"), new UniqueTagList())
             };
+            
+            
         } catch (IllegalValueException e) {
             assert false;
             //not possible

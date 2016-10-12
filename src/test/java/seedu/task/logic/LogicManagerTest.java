@@ -155,23 +155,23 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix l/valid, address", expectedMessage);
+                "add Valid Name 0000hrs e/1111hrs.butNoStartTimePrefix l/valid, location", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name s/12345 valid@email.butNoPrefix l/valid, address", expectedMessage);
+                "add Valid Name s/0000hrs 1111hrs.butNoPrefix l/valid, location", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name s/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name s/0000hrs e/1111hrs.butNoLocationPrefix valid, location", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] s/12345 e/valid@e.mail l/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] s/0000hrs e/1111hrs l/valid, location", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/not_numbers e/valid@e.mail l/valid, address", StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
+                "add Valid Name s/not_startTime e/1111hrs l/valid, location", StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/12345 e/notAnEmail l/valid, address", EndTime.MESSAGE_ENDTIME_CONSTRAINTS);
+                "add Valid Name s/0000hrs e/not_endTime l/valid, location", EndTime.MESSAGE_ENDTIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/12345 e/valid@e.mail l/valid, address #/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name s/0000hrs e/1111hrs l/valid, location #/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -386,10 +386,10 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            StartTime privatePhone = new StartTime("111111");
-            EndTime email = new EndTime("adam@gmail.com");
-            Location privateAddress = new Location("111, alpha street");
+            Name name = new Name("Revise CS1111");
+            StartTime privatePhone = new StartTime("1111hrs");
+            EndTime email = new EndTime("2222hrs");
+            Location privateAddress = new Location("111, NUS street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -405,9 +405,9 @@ public class LogicManagerTest {
          */
         Task generatePerson(int seed) throws Exception {
             return new Task(
-                    new Name("Person " + seed),
-                    new StartTime("" + Math.abs(seed)),
-                    new EndTime(seed + "@email"),
+                    new Name("Task " + seed),
+                    new StartTime(seed + "111hrs"),
+                    new EndTime(seed + "111hrs"),
                     new Location("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -505,8 +505,8 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new StartTime("1"),
-                    new EndTime("1@email"),
+                    new StartTime("1111hrs"),
+                    new EndTime("1234hrs"),
                     new Location("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );

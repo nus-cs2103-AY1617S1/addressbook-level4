@@ -1,57 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <tasks>
-        <name>Hans Muster</name>
-        <startTime isPrivate="false">9482424</startTime>
-        <endTime isPrivate="false">hans@google.com</endTime>
-        <location isPrivate="false">4th street</location>
+        <name>Watch world news</name>
+        <startTime isPrivate="false">2100hrs</startTime>
+        <endTime isPrivate="false">2200hrs</endTime>
+        <location isPrivate="false">Living Room</location>
     </tasks>
     <tasks>
-        <name>Ruth Mueller</name>
-        <startTime isPrivate="false">87249245</startTime>
-        <endTime isPrivate="false">ruth@google.com</endTime>
-        <location isPrivate="false">81th street</location>
+        <name>Play soccer</name>
+        <startTime isPrivate="false">1800hrs</startTime>
+        <endTime isPrivate="false">1900hrs</endTime>
+        <location isPrivate="false">Bedok Stadium</location>
     </tasks>
     <tasks>
-        <name>Heinz Kurz</name>
-        <startTime isPrivate="false">95352563</startTime>
-        <endTime isPrivate="false">heinz@yahoo.com</endTime>
-        <location isPrivate="false">wall street</location>
+        <name>Train for IPPT</name>
+        <startTime isPrivate="false">0900hrs</startTime>
+        <endTime isPrivate="false">1100hrs</endTime>
+        <location isPrivate="false">Tekong Park</location>
     </tasks>
     <tasks>
-        <name>Cornelia Meier</name>
-        <startTime isPrivate="false">87652533</startTime>
-        <endTime isPrivate="false">cornelia@google.com</endTime>
-        <location isPrivate="false">10th street</location>
+        <name>Buy pizza</name>
+        <startTime isPrivate="false">1500hrs</startTime>
+        <endTime isPrivate="false">1500hrs</endTime>
+        <location isPrivate="false">Pizza hut</location>
     </tasks>
-    <tasks>
-        <name>Werner Meyer</name>
-        <startTime isPrivate="false">9482224</startTime>
-        <endTime isPrivate="false">werner@gmail.com</endTime>
-        <location isPrivate="false">michegan ave</location>
-    </tasks>
-    <tasks>
-        <name>Lydia Kunz</name>
-        <startTime isPrivate="false">9482427</startTime>
-        <endTime isPrivate="false">lydia@gmail.com</endTime>
-        <location isPrivate="false">little tokyo</location>
-    </tasks>
-    <tasks>
-        <name>Anna Best</name>
-        <startTime isPrivate="false">9482442</startTime>
-        <endTime isPrivate="false">anna@google.com</endTime>
-        <location isPrivate="false">4th street</location>
-    </tasks>
-    <tasks>
-        <name>Stefan Meier</name>
-        <startTime isPrivate="false">8482424</startTime>
-        <endTime isPrivate="false">stefan@mail.com</endTime>
-        <location isPrivate="false">little india</location>
-    </tasks>
-    <tasks>
-        <name>Martin Mueller</name>
-        <startTime isPrivate="false">8482131</startTime>
-        <endTime isPrivate="false">hans@google.com</endTime>
-        <location isPrivate="false">chicago ave</location>
-    </tasks>
+    
+    
 </taskmanager>
