@@ -11,16 +11,24 @@ import seedu.todo.ui.UiPartLoader;
 public class ConsoleInput extends Component {
 
     private static final String FXML_PATH = "components/ConsoleInput.fxml";
+    private static final String INVALID_COMMAND_RESPONSE = "Invalid command!";
+    private static final String INVALID_COMMAND_STYLECLASS = "invalid";
 
     // Props
-    public String lastCommandEntered;
+    public String consoleOutput;
+    private String lastCommandEntered;
     
     // Input handler
     private InputHandler inputHandler = new InputHandler();
     
+    // Components
+    Console console;
+    
     // FXML
     @FXML
     private TextField consoleInputTextField;
+    @FXML
+    private Pane consolePlaceholder;
 
     public static ConsoleInput load(Stage primaryStage, Pane placeholderPane) {
         return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new ConsoleInput());
@@ -35,13 +43,40 @@ public class ConsoleInput extends Component {
     public void componentDidMount() {
         // Makes ConsoleInput full width wrt parent container.
         FxViewUtil.makeFullWidth(this.mainNode);
+        
+        // Load Console.
+        loadConsole();
+    }
+    
+    private void loadConsole() {
+        console = Console.load(primaryStage, consolePlaceholder);
+        console.consoleOutput = consoleOutput;
+        console.render();
     }
 
     /** ================ ACTION HANDLERS ================== **/
     @FXML
     public void handleConsoleInputChanged() {
         lastCommandEntered = consoleInputTextField.getText();
-        inputHandler.processInput(lastCommandEntered);
-        consoleInputTextField.clear();
+        boolean isValidCommand = inputHandler.processInput(lastCommandEntered);
+        
+        if (!isValidCommand) {
+            // Show invalid response in Console
+            console.consoleOutput = INVALID_COMMAND_RESPONSE;
+            console.render();
+            
+            // Set CSS
+            consoleInputTextField.getStyleClass().add(INVALID_COMMAND_STYLECLASS);
+        } else {
+            // Remove console output
+            console.consoleOutput = "";
+            console.render();
+            
+            // Remove CSS
+            consoleInputTextField.getStyleClass().remove(INVALID_COMMAND_STYLECLASS);
+            
+            // Clear input text
+            consoleInputTextField.clear();
+        }
     }
 }

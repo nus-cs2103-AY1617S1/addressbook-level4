@@ -31,8 +31,7 @@
       <Text layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." textAlignment="CENTER" />
     </AnchorPane>
     
-    <AnchorPane fx:id="consolePlaceholder" minHeight="100.0" VBox.vgrow="NEVER" />
-    <AnchorPane fx:id="consoleInputPlaceholder" minHeight="30.0" VBox.vgrow="NEVER" />
+    <AnchorPane fx:id="consoleInputPlaceholder" minHeight="130.0" VBox.vgrow="NEVER" />
   </children>
   <stylesheets>
     <URL value="@css/bootstrap3.css" />
