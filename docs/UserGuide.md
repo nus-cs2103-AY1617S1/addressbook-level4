@@ -11,18 +11,16 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
-
+1. Download the latest `KeyboardWarrior.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your KeyboardWarrior.
+3. Double-click the file to start the app. The GUI should appear in a few seconds.
+   > <img src="images/Keyboard Warrior UI.jpg" width="600" height="350">
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`add`**` Do CS2103 Tutorial` : 
+     adds a todo task `Do CS2103 Tutorial` KeyboardWarrior.
+   * **`remove`**` 3` : deletes the 3rd task shown
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -40,72 +38,83 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
-
-> Persons can have any number of tags (including 0)
+#### Adding a todo: `add`
+Adds a todo task to the KeyboardWarrior<br>
+Format: `TASK`
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `add Buy Chocolate`
+* `add Download Github`
+* `add Download Eclipse`
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
-
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+#### Adding a Deadline: `add`
+Adds a deadline to the KeyboardWarrior<br>
+Format: `TASK by [DATE] [TIME]`
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `add Do CS2103 Tutorial by Thursday`
+* `add Submit Lab report by 020314 2030`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+#### Adding a calendar task: `add`
+Adds a specific task to the KeyboardWarrior that will be able to show any combinations of the following parameters:<br>
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+Format: `add DATE TIME [to TIME] TASK [@VENUE]`
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+* `add 010116 1810 Go to the mall`
+* `add Sunday 0210 to 0300 Group Meeting @I3 MR9`
+* `add Fri 1410 to 1600 Basketball Tryouts @13 Computing Dr 117417`
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
-
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+#### Find a task: `find`
+Find all task in the KeyboardWarrior that contains a phrase, time, date or venue<br>
+Format: `find [KEYWORD] [@VENUE]`
 
 Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+* `find baskebtall`
+* `find @I3`
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+#### Show Calendar : `show`
+Shows a calendar in the KeyboardWarrior.<br>
+Format: `show [TIMEFRAME]`
+
+Examples: 
+* `show week`
+* `show month`
+* `show Saturday`
+* `show 0405`
+* `show Feb`
+
+#### Complete a Todo or Deadline : `complete`
+Mark a todo as complete and delete it from the KeyboardWarrior. Irreversible.<br>
+Format: `complete INDEX`
+
+> Complete the calendar task at the specified `INDEX`
+  The index refers to the index number shown on the calendar<br>
+  The index **must be a positive integer or a letter followed by a number** 1, D2, T3, ...
+
+Example: 
+* `complete T1`<br>
+   Mark todo 1 as complete and delete it from the keep in viewfinder.
+* `complete D2`<br>
+   Mark deadline 2 as complete and delete it from the keep in viewfinder.
+* `complete 3`<br>
+   Mark task 3 as complete and delete it from the todo.
+
+#### Remove a task from the calendar : `remove`
+Remove a specified calendar task from the KeyboardWarrior. Irreversible.<br>
+Format: `remove INDEX`
+
+> Complete the calendar task at the specified `INDEX`
+  The index refers to the index number shown on the calendar<br>
+  The index **must be a positive integer or a letter followed by a number** 1, D2, T3, ...
+
+Example: 
+* `remove T1`<br>
+   remove todo 1 from the keep in viewfinder.
+* `remove D2`<br>
+   remove deadline 2 from the keep in viewfinder.
+* `remove 3`<br>
+   remove task 3 it from the viewfinder.
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -119,16 +128,18 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous KeyboardWarrior folder.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
-Select | `select INDEX`
+(Todo)| `TASK`
+(Deadline)| `TASK by [DATE] [TIME]`
+Add | `add DATE TIME to [TIME] TASK @ [VENUE]`
+Complete | `complete INDEX`
+Remove | `remove INDEX`
+Find | `find [DATE] [TIME] [KEYWORD] @[VENUE]`
+Show | `show`
+Exit | `exit`
