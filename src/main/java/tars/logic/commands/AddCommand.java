@@ -14,6 +14,8 @@ import java.util.Set;
 
 /**
  * Adds a task to tars.
+ * 
+ * @@author A0139924W
  */
 public class AddCommand extends UndoableCommand {
 
@@ -44,8 +46,13 @@ public class AddCommand extends UndoableCommand {
             tagSet.add(new Tag(tagName));
         }
         
-        this.toAdd = new Task(new Name(name), new DateTime(dateTime[0], dateTime[1]), new Priority(priority),
-                new Status(), new UniqueTagList(tagSet));
+        this.toAdd = new Task(
+                new Name(name),
+                new DateTime(dateTime[0], dateTime[1]),
+                new Priority(priority),
+                new Status(),
+                new UniqueTagList(tagSet)
+        );
 
     }
 
@@ -63,6 +70,7 @@ public class AddCommand extends UndoableCommand {
     
     @Override
     public CommandResult undo() {
+        assert model != null;
         try {
             model.deleteTask(toAdd);
             return new CommandResult(String.format(MESSAGE_UNDO, toAdd));

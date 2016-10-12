@@ -12,12 +12,11 @@ import java.util.TreeMap;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
 
-
 /**
  * Container for methods which extract data from string
- *
  */
 public class ExtractorUtil {
+    private static final int INVALID_POS = -1;
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
@@ -36,24 +35,26 @@ public class ExtractorUtil {
     }
 
     /**
-     * Gets all flag position from arguments string
+     * Gets all flag positions from arguments string
+     * 
+     * @@author A0139924W
      */
     public static TreeMap<Integer, Flag> getFlagPositon(String args, Flag[] prefixes) {
-        args = args.trim();
         TreeMap<Integer, Flag> flagsPosMap = new TreeMap<Integer, Flag>();
 
         if (args != null && args.length() > 0 && prefixes.length > 0) {
+            args = args.trim();
             for (int i = 0; i < prefixes.length; i++) {
-                int indexOf = -1;
+                int curIndexPos = INVALID_POS;
                 do {
-                    indexOf = args.indexOf(prefixes[i].prefix, indexOf + 1);
-                    if (indexOf >= 0) {
-                        flagsPosMap.put(indexOf, prefixes[i]);
+                    curIndexPos = args.indexOf(prefixes[i].prefix, curIndexPos + 1);
+                    if (curIndexPos >= 0) {
+                        flagsPosMap.put(curIndexPos, prefixes[i]);
                     }
                     if (!prefixes[i].hasMultiple) {
                         break;
                     }
-                } while (indexOf >= 0);
+                } while (curIndexPos >= 0);
             }
         }
 
@@ -62,15 +63,18 @@ public class ExtractorUtil {
 
     /**
      * Extracts the option's flag and arg from arguments string.
+     * 
+     * @@author A0139924W
      */
-    public static HashMap<Flag, String> getArguments(String args, Flag[] prefixes, TreeMap<Integer, Flag> flagsPosMap) {
-        args = args.trim();
+    public static HashMap<Flag, String> getArguments(String args, Flag[] flags, TreeMap<Integer, Flag> flagsPosMap) {
         HashMap<Flag, String> flagsValueMap = new HashMap<Flag, String>();
 
-        if (args != null && args.length() > 0 && prefixes.length > 0) {
+        if (args != null && args.length() > 0 && flags.length > 0) {
+            args = args.trim();
+
             // initialize the flagsValueMap
-            for (int i = 0; i < prefixes.length; i++) {
-                flagsValueMap.put(prefixes[i], "");
+            for (int i = 0; i < flags.length; i++) {
+                flagsValueMap.put(flags[i], "");
             }
 
             int endPos = args.length();
@@ -78,7 +82,7 @@ public class ExtractorUtil {
                 Flag prefix = entry.getValue();
                 Integer pos = entry.getKey();
 
-                if(pos == -1) {
+                if (pos == INVALID_POS) {
                     continue;
                 }
 
