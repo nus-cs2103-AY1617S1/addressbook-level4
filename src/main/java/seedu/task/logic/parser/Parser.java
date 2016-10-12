@@ -1,15 +1,15 @@
 package seedu.task.logic.parser;
 
-import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.commands.*;
-
-import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.task.commons.util.StringUtil;
+import seedu.task.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
@@ -19,7 +19,7 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
@@ -33,6 +33,16 @@ public class Parser {
                     + " l/(?<location>[^/]+)"
                     + "(?<tagArguments>(?: #/[^/]+)*)"); // variable number of tags
 
+    public static final Pattern EDIT_PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    		             Pattern.compile("(?<targetIndex>.)"
+    		             		+ "(?<name>[^/]+)"
+    		             		+ " s/(?<startTime>[^/]+)"
+    		                    + " e/(?<endTime>[^/]+)"
+    		                    + " l/(?<location>[^/]+)"    		                     
+    		                  + "(?<tagArguments>(?: #/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern TASK_DATA_ARGS_FOMAT = 
+    		Pattern.compile("(?<name>[^/]+)");
     public Parser() {}
 
     /**
@@ -53,6 +63,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+         
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -81,11 +94,12 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add task command.
+     * Parses arguments in the context of the add person command.
      *
      * @param args full command args string
      * @return the prepared command
      */
+ 
     private Command prepareAdd(String args){
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -94,7 +108,7 @@ public class Parser {
         }
         try {
             return new AddCommand(
-                    matcher.group("name"),
+            		matcher.group("name"),
                     matcher.group("startTime"),
                     matcher.group("endTime"),
                     matcher.group("location"),
@@ -106,7 +120,7 @@ public class Parser {
     }
 
     /**
-     * Extracts the new task tags from the add command's tag arguments string.
+     * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -118,9 +132,38 @@ public class Parser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" #/", "").split(" #/"));
         return new HashSet<>(tagStrings);
     }
+    
+    
+    private Command prepareEdit(String args){
+    	        final Matcher matcher = EDIT_PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+    	         // Validate arg string format
+    	         if (!matcher.matches()) {
+    	             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    	         }
+    	         try {
+    	             return new EditCommand(
+    	             		Integer.parseInt(matcher.group("targetIndex")),
+    	             		matcher.group("name"),
+    	                    matcher.group("startTime"),
+    	                    matcher.group("endTime"),
+    	                    matcher.group("location"),
+    	                
+    	 
+    	                     getTagsFromArgs(matcher.group("tagArguments"))
+    	             );
+    	         } catch (IllegalValueException ive) {
+    	             return new IncorrectCommand(ive.getMessage());
+    	         }
+    	     }
+    
+    
+    
+    
+    
+    
 
     /**
-     * Parses arguments in the context of the delete task command.
+     * Parses arguments in the context of the delete person command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -137,7 +180,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the select task command.
+     * Parses arguments in the context of the select person command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -171,7 +214,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find task command.
+     * Parses arguments in the context of the find person command.
      *
      * @param args full command args string
      * @return the prepared command
