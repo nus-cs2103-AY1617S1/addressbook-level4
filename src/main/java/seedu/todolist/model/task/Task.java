@@ -6,21 +6,22 @@ import seedu.todolist.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Task in the address book.
+ * Represents a Task in the to do list.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
-
+    private Interval interval;
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, tags);
+    public Task(Name name, Interval interval, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, interval, tags);
         this.name = name;
+        this.interval = interval;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -28,14 +29,18 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getInterval(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
     }
-
+    
+    @Override
+    public Interval getInterval() {
+        return interval;
+    }
 
     @Override
     public UniqueTagList getTags() {
