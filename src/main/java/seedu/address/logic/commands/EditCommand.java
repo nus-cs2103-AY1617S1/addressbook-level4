@@ -76,13 +76,13 @@ public class EditCommand extends Command {
         
         System.out.print(lastShownList.size());
 
-        if (targetIndex <= PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET 
+        if (targetIndex <= PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
                 && lastUndatedTaskList.size() >= targetIndex){
             toEdit = lastUndatedTaskList.get(targetIndex - 1);
         }
-        else if (targetIndex > PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET 
-                   && lastShownList.size() >= targetIndex - PersonListPanel.UNDATED_DISPLAY_INDEX_OFFSET){
-            toEdit = lastShownList.get(targetIndex - 11);
+        else if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
+                   && lastShownList.size() >= targetIndex - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET){
+            toEdit = lastShownList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
         }
         else {
             indicateAttemptToExecuteIncorrectCommand();

@@ -60,8 +60,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.getInternalList().setAll(persons);
     }
     
-    public void setUndatedTaskList(List<Task> persons) {
-        this.undatedList.getInternalList().setAll(persons);
+    public void setUndatedTasks(List<Task> undatedTasks) {
+        this.undatedList.getInternalList().setAll(undatedTasks);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -72,7 +72,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             Collection<? extends ReadOnlyTask> newUndatedTasks,
             Collection<Tag> newTags) {
         setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
-        setPersons(newUndatedTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setUndatedTasks(newUndatedTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -132,10 +132,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public boolean removePerson(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {       
-        if (persons.remove(key)) {
+        if (persons.contains(key)) {
+            persons.remove(key);
             return true;
         } 
-        else if (undatedList.remove(key)){
+        else if (undatedList.contains(key)){
+            undatedList.remove(key);
             return true;
         }
         else {

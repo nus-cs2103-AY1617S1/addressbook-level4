@@ -35,7 +35,7 @@ public class Time {
      * Returns true if a given string is a valid time
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(TIME_VALIDATION_REGEX);
+        return test.equals("") || test.matches(TIME_VALIDATION_REGEX);
     }
 
     @Override

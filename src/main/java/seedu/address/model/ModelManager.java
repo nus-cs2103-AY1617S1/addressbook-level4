@@ -68,7 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
+    public synchronized void deletePerson(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }

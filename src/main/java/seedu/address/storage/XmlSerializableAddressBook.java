@@ -23,10 +23,13 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     @XmlElement
     private List<XmlAdaptedPerson> persons;
     @XmlElement
+    private List<XmlAdaptedPerson> undatedTasks;
+    @XmlElement
     private List<Tag> tags;
 
     {
         persons = new ArrayList<>();
+        undatedTasks = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -40,6 +43,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        undatedTasks.addAll(src.getUndatedTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -88,7 +92,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     @Override
     public UniquePersonList getUniqueUndatedTaskList() {
         UniquePersonList lists = new UniquePersonList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedPerson p : undatedTasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -100,7 +104,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
 
     @Override
     public List<ReadOnlyTask> getUndatedTaskList() {
-        return persons.stream().map(p -> {
+        return undatedTasks.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {

@@ -10,7 +10,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.UndatedPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.commons.core.LogsCenter;
 
@@ -19,9 +19,9 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+public class UndatedListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(UndatedListPanel.class);
+    private static final String FXML = "UndatedListPanel.fxml";
     public static final int DATED_DISPLAY_INDEX_OFFSET = 10;
     public static final int UNDATED_DISPLAY_INDEX_OFFSET = 0;
     private VBox panel;
@@ -29,9 +29,9 @@ public class PersonListPanel extends UiPart {
     private int indexOffset;
 
     @FXML
-    private ListView<ReadOnlyTask> personListView;
+    private ListView<ReadOnlyTask> undatedListView;
 
-    public PersonListPanel() {
+    public UndatedListPanel() {
         super();
     }
 
@@ -50,10 +50,10 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+    public static UndatedListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
                                        ObservableList<ReadOnlyTask> personList, int indexStart) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
+        UndatedListPanel personListPanel =
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new UndatedListPanel());
         personListPanel.configure(personList, indexStart); 
         return personListPanel;
     }
@@ -65,8 +65,8 @@ public class PersonListPanel extends UiPart {
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        undatedListView.setItems(personList);
+        undatedListView.setCellFactory(listView -> new UndatedListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -76,24 +76,24 @@ public class PersonListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        undatedListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                raise(new PersonPanelSelectionChangedEvent(newValue));
+                raise(new UndatedPanelSelectionChangedEvent(newValue));
             }
         });
     }
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            undatedListView.scrollTo(index);
+            undatedListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyTask> {
+    class UndatedListViewCell extends ListCell<ReadOnlyTask> {
 
-        public PersonListViewCell() {
+        public UndatedListViewCell() {
         }
 
         @Override
