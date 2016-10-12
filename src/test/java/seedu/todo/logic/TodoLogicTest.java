@@ -1,8 +1,13 @@
 package seedu.todo.logic;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+import org.mockito.Mock;
+
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.commands.BaseCommand;
 import seedu.todo.logic.commands.CommandResult;
@@ -16,13 +21,17 @@ import static org.junit.Assert.*;
 
 public class TodoLogicTest {
     private static final String INPUT = "input";
+
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
     
-    private Parser parser = mock(Parser.class); 
-    private Dispatcher dispatcher = mock(Dispatcher.class);
-    private ParseResult parseResult = mock(ParseResult.class);
-    private TodoModel model = mock(TodoModel.class);
-    private BaseCommand command = mock(BaseCommand.class);
-    private Logic logic = new TodoLogic(parser, model, dispatcher);
+    @Mock private Parser parser; 
+    @Mock private Dispatcher dispatcher;
+    @Mock private ParseResult parseResult;
+    @Mock private TodoModel model;
+    @Mock private BaseCommand command;
+    
+    private Logic logic;
 
     @Before
     public void setUp() throws Exception {
@@ -31,6 +40,8 @@ public class TodoLogicTest {
             .thenReturn(parseResult);
         when(dispatcher.dispatch(parseResult))
             .thenReturn(command);
+
+        logic = new TodoLogic(parser, model, dispatcher);
     }
     
     private CommandResult execute() throws Exception {
