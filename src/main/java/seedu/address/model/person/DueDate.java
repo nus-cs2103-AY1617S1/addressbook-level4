@@ -3,12 +3,12 @@ package seedu.address.model.person;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Represents a Task's due date in SuperbTodo.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class DueDate {
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Task's due date should only contain numbers";
     public static final String PHONE_VALIDATION_REGEX = "\\d+";
 
     public final String value;
@@ -21,8 +21,8 @@ public class DueDate {
     public DueDate(String phone) throws IllegalValueException {
         assert phone != null;
         phone = phone.trim();
-        if (!isValidPhone(phone)) {
-            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
+        if (!isValidDate(phone)) {
+            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         this.value = phone;
     }
@@ -30,7 +30,7 @@ public class DueDate {
     /**
      * Returns true if a given string is a valid person phone number.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidDate(String test) {
         return test.matches(PHONE_VALIDATION_REGEX);
     }
 

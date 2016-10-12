@@ -10,8 +10,10 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class DueTime {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String TIME_VALIDATION_REGEX = "\\d+";
+            "Invalid/Unsupported time format. Recommended format: (HH:MM)";
+    public static final String TIME_VALIDATION_REGEX = "(^([0-9]|0[0-9]|1[0-9]|2[0-3]):?[0-5][0-9]"
+            										+"(\\s*(hrs|HRS|hRs|HRs|HrS|Hrs|hRS))*$)|"
+            										+ "(^([0-9]|1[0-2])(:[0-5][0-9])?\\s*(PM|AM|pm|am|Pm|Am|aM|pM))$";
 
     public final String value;
 

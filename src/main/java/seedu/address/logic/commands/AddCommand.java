@@ -16,9 +16,10 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to SuperbTodo. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    		//add <task description> at/by <time> on <date>
+            + "Format: <task description> at/by <time> on <date> [t/TAG]\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " Sample Task at 23:59 on 11 Oct t/friends t/owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the address book";
