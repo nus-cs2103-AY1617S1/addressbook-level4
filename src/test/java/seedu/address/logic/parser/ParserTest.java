@@ -26,7 +26,7 @@ public class ParserTest {
 		incorrectCommand = new IncorrectCommand("test");
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
-		deleteCommand = new DeleteCommand(1);
+		deleteCommand = new DeleteCommand(new int[]{1});
 	}
 	
 	@Test
@@ -234,7 +234,7 @@ public class ParserTest {
 		String userInput = "list";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(addCommand.getClass(), command.getClass());
+		assertEquals(listCommand.getClass(), command.getClass());
 	}
 	
 	@Test
