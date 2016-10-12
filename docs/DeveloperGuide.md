@@ -324,9 +324,7 @@ Use case ends.
    | Todoist| Any.Do | Wunderlist
 -------- | :-------- | :--------- | :-----------
 `Platforms` | All platforms | iOS, Android, Google Chrome | iPhone, iPad, Android, Windows, Kindle, Web
-
 `Price` | Free / Premium ($28.99/year) | Free / Premium ($45/year or $5 per month) | Free / Pro ($59.88/year)
-
 `Pros` | Good user interface<br>
 Fastest task manager app Works offline<br>
 Can set priorities by choosing from 1 to 4. <br>
@@ -340,7 +338,6 @@ Can “Star” a task to set a priority to a task Hashtags feature<br>
 Can add comments and attachments Supports email reminder Powerful search function Can restore deleted lists. <br>
 Can manually create backups and import data from your backups.<br> 
 Can attach files from your Dropbox.
-
 `Cons` | The key features are all part of premium plan <br>
 Not compatible with Windows Phone Search function is limited in free plan <br>
 Doesn’t have a backup option for free users | Not intuitive to use Doesn’t hide a task when it’s marked as complete.<br> 
