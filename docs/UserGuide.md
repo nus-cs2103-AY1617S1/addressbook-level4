@@ -43,8 +43,8 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 
 5. **Try some commands**
     - `add event dinner with wife on 25/12/16 from 7:00pm to 9:00pm`:  
-    
-    Add an event with name 'dinner with wife' from 7 pm to 9 pm on 25th December 2016.
+        
+        Add an event with name 'dinner with wife' from 7 pm to 9 pm on 25th December 2016.
     
     - `list deadline`:  
     
