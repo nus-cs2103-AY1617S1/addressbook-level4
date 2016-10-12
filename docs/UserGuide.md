@@ -12,7 +12,7 @@
 
 DoMePlease manages the different types of tasks that you will encounter in your daily life, be it a deadline for submission, or even a date with your significant other, this application can show you what all the tasks you have in a month in one glance, or even a list of tasks for a specific day. DoMePlease also manages your list of ad-hoc tasks, these are non-dated tasks such as "Read the new Harry Potter book!", and displays them beautifully and neatly at the side of the application, so you can refer to them any time you have some free time.
 
-Love typing? You will love DoMePlease, as you only need to use the keyboard to ype simple commands to manage your tasks.
+Love typing? You will love DoMePlease, as you only need to use the keyboard to type simple commands to manage your tasks.
 
 #### 
 
