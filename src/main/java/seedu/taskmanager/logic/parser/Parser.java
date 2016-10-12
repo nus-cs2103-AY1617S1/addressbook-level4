@@ -236,6 +236,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
+        assert args != null;
         final Matcher matcher = EDIT_COMMAND_ARGS_FORMAT.matcher(args.trim());
         if (matcher.matches()) {
             Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
