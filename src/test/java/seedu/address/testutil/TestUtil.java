@@ -75,7 +75,7 @@ public class TestUtil {
                     new Task(new Detail("Fiona Kunz"), new DueByDate(LocalDate.MIN), new DueByTime(LocalTime.NOON), new Priority("medium"), new UniqueTagList()),
                     new Task(new Detail("George Best"), new DueByDate(LocalDate.MIN), new DueByTime(LocalTime.of(6,00)), new Priority("high"), new UniqueTagList()),
                     new Task(new Detail("Hoon Meier"), new DueByDate(LocalDate.now().plusDays(1)), new DueByTime(LocalTime.MAX), new Priority("low"), new UniqueTagList()),
-                    new Task(new Detail("Ida Mueller"), new DueByDate(LocalDate.MIN), new DueByTime(LocalTime.MAX), new Priority("default"), new UniqueTagList()) 
+                    new Task(new Detail("Ida Mueller"), new DueByDate(LocalDate.MIN), new DueByTime(LocalTime.MAX), new Priority(""), new UniqueTagList()) 
             };
         } catch (IllegalValueException e) {
             assert false;
