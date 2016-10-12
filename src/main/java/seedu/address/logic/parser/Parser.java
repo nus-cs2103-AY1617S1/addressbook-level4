@@ -336,7 +336,13 @@ public class Parser {
 		System.out.println("index: " + index);
 		System.out.println("new name: " + newName);
 
-		return null;
+		try {
+			return new EditCommand(Integer.parseInt(index), newName);
+		} catch (NumberFormatException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		}
 	}
 
 	/**
