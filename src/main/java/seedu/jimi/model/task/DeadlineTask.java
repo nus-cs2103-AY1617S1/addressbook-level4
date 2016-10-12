@@ -5,14 +5,14 @@ import java.util.Objects;
 import seedu.jimi.commons.util.CollectionUtil;
 import seedu.jimi.model.tag.UniqueTagList;
 
-public class Task implements ReadOnlyTask {
+public class DeadlineTask implements ReadOnlyTask {
 
     private Name name;
     private DateTime deadline;
     private UniqueTagList tags;
     private boolean isCompleted;
     
-    public Task(Name name, DateTime deadline, UniqueTagList tags) {
+    public DeadlineTask(Name name, DateTime deadline, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, deadline, tags);
         this.isCompleted = false;
         this.name = name;

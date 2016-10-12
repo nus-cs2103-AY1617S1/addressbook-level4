@@ -36,7 +36,7 @@ public class EditCommand extends Command {
     
     /**
      * Convenience constructor using raw values.
-     * //TODO: change to support FloatingTask, Task and Events types as well
+     * //TODO: change to support FloatingTask, DeadlineTask and Events types as well
      * 
      * @throws IllegalValueException if any of the raw values are invalid
      */
