@@ -267,12 +267,19 @@ public class Parser {
 		}
 	}
 	
-	
+	/**
+	 * Uses Natty to parse the date/time contained in the input string.
+	 * If no time is specified, time at instant of parsing is taken.
+	 * 
+	 * @param string that contains date/time to be parsed
+	 * @return LocalDateTime
+	 * @throws ParseException if 0, or more than one date is found
+	 */
 	private LocalDateTime parseDate(String string) throws ParseException {
 		List<DateGroup> groups = nattyParser.parse(string);
 		List<Date> dates = groups.get(0).getDates();
 		
-		if (groups.size() > 1 || dates.size() > 1) {
+		if (groups.size() > 1 || groups.size() == 0 || dates.size() > 1 || dates.size() == 0) {
 			System.out.println("parsing error");
 			//TODO better err msg
 			throw new ParseException("Error while parsing date and time. Trying entering the date in yyyy-mm-dd instead", 0);
