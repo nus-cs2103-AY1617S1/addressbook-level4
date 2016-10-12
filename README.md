@@ -8,8 +8,9 @@
 
 
 #### About Uncle Jim's Discount To-do List
+
 * This is a command-based to-do list app for users who relies a lot on keyboards, just like [Jim](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/).
-* It features a UNIX-like command line interface as the main form of input, and a graphical user interface (GUI) as the primary output to display your list of tasks and events.
+* It features a DOS-like command line interface as the main form of input, and a graphical user interface (GUI) as the primary output to display your list of tasks and events.
 * It is a Java 8 application built with JavaFX.
 
   
