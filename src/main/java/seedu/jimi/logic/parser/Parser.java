@@ -33,7 +33,7 @@ public class Parser {
             Pattern.compile("(?<targetIndex>\\d+\\s)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
     
     private static final Pattern SAVE_DIRECTORY_ARGS_FORMAT = 
-            Pattern.compile("(?<filePath>\\S.+)");
+            Pattern.compile("(?<filePath>\\S.+).xml");
     
     public Parser() {}
 
