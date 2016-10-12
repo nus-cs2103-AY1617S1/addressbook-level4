@@ -17,6 +17,27 @@ public class DeadlineTask extends FloatingTask implements ReadOnlyTask {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyTask) other));
+    }
+
+    @Override
+    public boolean isSameStateAs(ReadOnlyTask other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeadlineTask // instanceof handles nulls
+                && super.isSameStateAs(other)
+                && ((DeadlineTask)other).getDeadline().equals(this.getDeadline())
+                );
+    }
+    
+    @Override
+    public String toString() {
+        return getAsText();
+    }
+
+    @Override
     public String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
@@ -26,17 +47,5 @@ public class DeadlineTask extends FloatingTask implements ReadOnlyTask {
         return builder.toString();
     }
     
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
-    }
-
-    @Override
-    public String toString() {
-        return getAsText();
-    }
-
 
 }
