@@ -1,9 +1,10 @@
-# User Guide *needs further refinement*
+# User Guide 
 
 * [Quick Start](#quick-start)
 * [Features](#features)
-* [FAQ] (#faq) - not done 
-* [Command Summary] (#command-summary) - not done 
+* [FAQ] (#faq)  
+* [Command Summary] (#command-summary)  
+* [Credits] (#credits)
 
 ## Quick Start
 
@@ -32,7 +33,7 @@
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
-### Features
+## Features
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
@@ -40,7 +41,7 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
-## Getting Started
+### Getting Started
 
 1. Open the Application 
 <br>
@@ -87,9 +88,9 @@ Add an event
 
 1. Add an event by typing `add event n/NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME`.
 
-2. If st is empty, st is assumed to be 00:00:00.
+2. If st is empty, st is assumed to be 00:00.
 
-3. If et is empty, et is assumed to be 23:59:59.
+3. If et is empty, et is assumed to be 23:59.
 
 4. If sd or ed is empty, sd or ed is assumed to be the current system date.
 
@@ -97,7 +98,7 @@ Add an event
 
 ##When you need to edit a deadline, task or event 
 
-####Edit a task’s name 
+###Edit a task’s name 
 For tasks, you can only edit the name.
 
 If you know a keyword in the task's name
@@ -159,37 +160,28 @@ If you know the index of the event in the displayed list
 
 View all deadlines, tasks and events
 
-1. View the entire todo list by typing ‘viewAll’. 
+1. View the entire task manager by typing `list`. 
 
 2. Press Enter.
 
-View undone deadlines, tasks and events
+View all tasks 
 
-1. View only undone items by typing ‘viewUndone’. 
-
-2. Press Enter.
-
-##When you can’t find a specific deadline, task or event
-
-1. Search for a task or event by typing ‘search [keyword]’. 
+1. View the entire task list by typing `listtask`. 
 
 2. Press Enter.
 
-3. A list of corresponding deadlines, tasks, and events will be shown.
+View all deadlines
 
-##When you have finished a task
+1. View the entire deadline list by typing `listdeadline`. 
 
-If you know the name of the task
+2. Press Enter.
 
-1. Type ‘done [taskname]’.
+View all events
 
-If you know the keyword of the task
+1. View the entire event list by typing `listevent`. 
 
-1. Type ‘searchAndDone [keyword]’.
+2. Press Enter.
 
-If you know the index of the task 
-
-1. Type ‘doneByIndex [index]’.
 
 ##When you want to delete a deadline, task or event
 
@@ -206,23 +198,30 @@ If you know the keyword of the task
 If you know the index of the task
 1. Type ‘deleteByIndex [index]’.
 
-##When you need to undo your last action
-1. Type ‘undo’.
-2. Press Enter.
+# FAQ
 
-## When you need to specify a different data storage location
+# Command Summary
 
-To store in an absolute path
+Command | Format  
+-------- | :-------- 
+Add Task | `add n/NAME`
+Add Deadline | `n/NAME ed/DATE et/TIME`
+Add Event | `add n/NAME sd/DATE st/TIME ed/DATE et/TIME`
+Clear | `clear`
+Delete | `delete INDEX`
+Find | `find KEYWORD [MORE_KEYWORDS]`
+List Tasks | `listtask`
+List Deadlines | `listdeadline`
+List Events | `listevent`
+List all items | `list`
+Help | `help`
+Select | `select INDEX`
+Edit Task | `edit INDEX n/[NEW_NAME]`
+Edit Deadline | `edit INDEX n/[NEW_NAME] ed/[NEW_END_DATE] et/[NEW_END_TIME]``
+Edit Event | `edit INDEX n/[NEW_NAME] sd/[NEW_START_DATE] st/[NEW_START_TIME]  ed/[NEW_END_DATE] et/[NEW_END_TIME]`
 
-1. Type ‘store /path/to/storage/folder’.
-<br>
+#Credits
 
-2. Press Enter.
+This application makes use of the addressbook-level4 code provided by the NUS SoC CS2103 Teaching Team.
 
-To store in a relative path
-
-1. Type ‘store path/to/storage/folder’
-<br>
-
-2. Press Enter.
 
