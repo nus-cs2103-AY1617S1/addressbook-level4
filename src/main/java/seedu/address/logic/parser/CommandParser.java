@@ -9,12 +9,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
  */
-public class Parser {
+public class CommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -58,7 +57,7 @@ public class Parser {
     
     private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
 
-    public Parser() {}
+    public CommandParser() {}
 
     /**
      * Parses user input into command for execution.
@@ -115,6 +114,12 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
+        
+        //TODO: Test for "add"
+        if(args.trim().isEmpty()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        
         final Matcher matcher = TASK_ARGS_FORMAT.matcher(args.trim());
 
         String taskName = null;
@@ -151,7 +156,6 @@ public class Parser {
                 String recurrenceString = matcher.group("recurrenceRate");
                 final Matcher recurrenceMatcher = RECURRENCE_RATE_ARGS_FORMAT.matcher(recurrenceString);
                 
-                //TODO: Won't reach here actually
                 if (!recurrenceMatcher.matches()) {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 } 
