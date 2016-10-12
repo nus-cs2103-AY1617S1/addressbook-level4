@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import seedu.address.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -47,6 +48,7 @@ public class TaskCard extends UiPart{
         dbt.setText(task.getDueByTime().getFriendlyString());
         priority.setText(task.getPriority().value);
         tags.setText(task.tagsString());
+        tags.setTextFill(Color.GOLD);        
     }
 
     public HBox getLayout() {
