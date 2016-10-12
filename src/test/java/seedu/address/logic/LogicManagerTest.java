@@ -156,7 +156,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name p/12345 valid@start.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@start.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name p/12345 e/valid@start.butNoEndTimePrefix valid, address", expectedMessage);
     }
 
     @Test
@@ -386,11 +386,11 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             Date privateDate = new Date("111111");
             StartTime start = new StartTime("adam@gmail.com");
-            Address privateAddress = new Address("111, alpha street");
+            Address privateEndTime = new EndTime("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privateDate, start, privateAddress, tags);
+            return new Task(name, privateDate, start, privateEndTime, tags);
         }
 
         /**
@@ -405,7 +405,7 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new Date("" + Math.abs(seed)),
                     new StartTime(seed + "@start"),
-                    new Address("House of " + seed),
+                    new EndTime("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -419,7 +419,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append(" p/").append(p.getDate());
             cmd.append(" e/").append(p.getStartTime());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" a/").append(p.getEndTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -504,7 +504,7 @@ public class LogicManagerTest {
                     new Name(name),
                     new Date("1"),
                     new StartTime("1@start"),
-                    new Address("House of 1"),
+                    new EndTime("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

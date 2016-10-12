@@ -41,7 +41,7 @@ public class XmlAdaptedTask {
         name = source.getName().fullName;
         date = source.getDate().value;
         start = source.getStartTime().value;
-        address = source.getAddress().value;
+        address = source.getEndTime().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -61,8 +61,8 @@ public class XmlAdaptedTask {
         final Name name = new Name(this.name);
         final Date date = new Date(this.date);
         final StartTime start = new StartTime(this.start);
-        final Address address = new Address(this.address);
-        final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, date, start, address, tags);
+        final EndTime address = new EndTime(this.address);
+        final UniqueTagList tags = new UniqueTagList(personTags);
+        return new Person(name, phone, start, address, tags);
     }
 }
