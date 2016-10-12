@@ -66,7 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        listOfTask.removePerson(target);
+        listOfTask.removeTask(target);
         indicateAddressBookChanged();
     }
 
