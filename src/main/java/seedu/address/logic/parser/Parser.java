@@ -363,6 +363,6 @@ public class Parser {
 	public static void main(String[] args) {
 		String userInput = "edit 5 'f'";
 		Parser p = new Parser();
-		p.parseCommandt(userInput);
+		p.parseCommand(userInput);
 	}
 }
