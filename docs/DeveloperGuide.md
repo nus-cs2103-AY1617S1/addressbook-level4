@@ -273,26 +273,106 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add an event, a task and a floating task | so that I can record tasks that need to be done some day
+`* * *` | user | list all items | view all entries and dates that are due sorted by date and time and know what needs to be done next
+`* * *` | user | edit an item | update entries that are outdated
+`* * *` | user | delete an item | remove entries that I no longer need
+`* * *` | user | undo an operation | have read-consistency and data changes should not be visible to queries that started running before committing them
+`* * *` | advanced user | use flexible commands | type a command faster
+`* * *` | user | find an item by name | locate details of item without having to go through the entire list
+`* * *` | user | track items | keep track of items that have been completed/uncompleted to filter items based on completion
+`* * *` | user | path items | save my files on shared folders for accessibility on other devices
+`* *` | user | clear all items | clear all my list in the scheduler 
+`*` | user | exit the program | exit the program conveniently
 
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Scheduler` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Open Help documentation
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests for help documentation
+2. Scheduler opens window displaying all program commands and its functionality <br>
+Use case ends.
+
+**Extensions**
+
+#### Use case: Add item
+
+**MSS**
+
+1. User calls the add function
+2. Scheduler displays added item <br>
+Use case ends.
+
+**Extensions**
+
+2a. The user adds an events
+
+> 2a1. Scheduler displays item as a calendar <br>
+
+2b. The user adds a task with a deadline
+
+> 2b1. Scheduler displays item in a list with a date <br>
+
+2c. The user adds a task
+
+> 2c1. Scheduler displays item in a list <br>
+
+> Use case ends
+
+#### Use case: List items
+
+**MSS**
+
+1. User calls the list function
+2. Scheduler displays all items as a list <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. Scheduler displays empty list <br>
+
+#### Use case: Edit items
+
+**MSS**
+
+1. User requests to list items or find item
+2. Scheduler shows a list of items or the item
+3. User calls the edit function
+4. User types in index of item and inputs new values for the item
+5. Scheduler displays updated list of items <br>
+Use case ends.
+
+**Extensions**
+
+4a. The item is an event 
+
+> 4a1. The function requires an input “'NAME OF EVENT' 'START DATE AND TIME' 'END DATE AND TIME'" <br>
+
+4b. The item is a task with a deadline 
+
+> 4b1. The function requires an input “'NAME OF TASK' 'DEADLINE'” <br>
+
+4c. The item is a floating task
+
+> 4c1. The function requires an input “'NAME OF TASK'” <br>
+
+#### Use case: Delete item
+
+**MSS**
+
+1. User requests to list items or find item
+2. Scheduler shows a list of items or the item
+3. User requests to delete a specific item in the list based on the index
+4. Scheduler deletes the item 
+5. Scheduler displays updated list of items <br>
 Use case ends.
 
 **Extensions**
@@ -301,12 +381,90 @@ Use case ends.
 
 > Use case ends
 
-3a. The given index is invalid
+5a. The list is empty
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+> Use case ends
 
-{More to be added}
+#### Use case: Undo action
+
+**MSS**
+
+1. User requests to undo most recently executed action
+2. System reverts back to previous state in history
+3. Scheduler displays updated list <br>
+Use case ends.
+
+**Extensions**
+
+1a. The scheduler is new and no previous actions were executed
+
+> Use case ends
+
+#### Use case: Find item
+
+**MSS**
+
+1. User calls the find function
+2. Scheduler displays the items that are word related with no case sensitive
+ <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. Scheduler displays empty list <br>
+
+#### Use case: Track items
+
+**MSS**
+
+1. User calls the track function
+2. Scheduler displays the items which are done and yet to be done <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. Scheduler displays empty list <br>
+
+#### Use case: Path item
+
+**MSS**
+
+1. User calls the path function
+2. Scheduler creates a folder in specified path <br>
+Use case ends.
+
+**Extensions**
+
+2a. The folder does not exist
+
+> 2a1. Scheduler will create a folder <br>
+
+#### Use case: Clear items
+
+**MSS**
+
+1. User requests to clear items
+2. Scheduler deletes all items
+3. Scheduler displays empty list <br>
+Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> Use case ends
+
+#### Use case: Exit
+
+**MSS**
+
+1. User requests to exit program
+2. Scheduler exits program <br>
+Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
@@ -314,6 +472,10 @@ Use case ends.
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Synchronization capability to other task management sites (ex: Google calendar)
+6. Back-up data that can be used to recover if original copy gets deleted
+7. Able to migrate all items into .txt file
+
 
 {More to be added}
 

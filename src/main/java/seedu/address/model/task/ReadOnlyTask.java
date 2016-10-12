@@ -1,55 +1,55 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Person in the addressbook.
+ * A read-only immutable interface for a Task in the addressbook.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyPerson {
+public interface ReadOnlyTask {
 
     Name getName();
-    Phone getPhone();
-    Email getEmail();
-    Address getAddress();
+    StartDateTime getStartDateTime();
+    EndDateTime getEndDateTime();
+    Date getDate();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the person's internal tags.
+     * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyPerson other) {
+    default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getStartDateTime().equals(this.getStartDateTime())
+                && other.getEndDateTime().equals(this.getEndDateTime())
+                && other.getDate().equals(this.getDate()));
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the task as text, showing all contact details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" StartDateTime: ")
+                .append(getStartDateTime())
+                .append(" EndDateTime: ")
+                .append(getEndDateTime())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
 
     /**
-     * Returns a string representation of this Person's tags
+     * Returns a string representation of this Task's tags
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();

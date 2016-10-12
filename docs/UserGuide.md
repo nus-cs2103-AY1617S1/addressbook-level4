@@ -12,17 +12,17 @@
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+2. Copy the file to the folder you want to use as the home folder for your Scheduler.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`list`** : lists all items
+   * **`add`**` `add Meeting st/ 19-02-12 13:00 et/19-02-12 14:00` : 
+     adds an item named `Meeting` to the scheduler.
+   * **`delete`**` 3` : deletes the 3rd item shown in the scheduler
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -40,95 +40,98 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding an item: `add`
+Adds an event to the scheduler<br>
+Format: `add NAME st/START_DATE_TIME et/END_DATE_TIME` 
 
-> Persons can have any number of tags (including 0)
+Adds a task to the scheduler<br>
+Format: `add NAME d/DATE` 
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
-
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
-
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+Adds a floating task to the scheduler<br>
+Format: `add NAME` 
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `add Meeting st/20-03-12 13:00 et/20-03-12 14:00`
+* `add Do Homework1 d/19-02-12`
+* `add Do Homework2`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+#### Listing all items: `list`
+Shows a list of all items in the scheduler.<br>
+Format: `list [by/SORT_CATEGORY]`
+Examples: 
+* `list`
+* `list by/date`
+
+#### Editing an item : `edit`
+Edits an event to the scheduler specified by the index <br>
+Format: `edit INDEX NAME st/START_DATE_TIME et/END_DATE_TIME` 
+
+Edits a task to the scheduler specified by the index <br>
+Format: `edit INDEX NAME d/DATE` 
+
+Edits a floating task to the scheduler specified by the index <br>
+Format: `edit INDEX NAME` 
+
+Examples: 
+* `edit 1 Meeting st/20-03-12 13:00 et/20-03-12 14:00`
+* `edit 3 Do Homework1 d/19-02-12`
+* `edit 2 Do Homework2`
+
+#### Deleting an item: `delete`
+Delete the item selected by the user.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> * The user needs to view Scheduler in a list to find index of item
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+* `delete 23`
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+#### Finding all items containing any keyword in their name: `find`
+Finds items where their item names contain any of the given keywords.<br>
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> * The search is non-case sensitive. e.g `homework` will match `Homework`
+> * Only the name is searched.
+> * Only full words will be matched e.g. `CS` will not match `CS2103`
+> * Persons matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `Midterm` will match `Midterm Review`
 
 Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
-
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+* `find Tutorial`<br>
+  Returns `CS2103 Tutorial` and words related to `tutorial`
+* `find CS Assignment Errand`<br>
+  Returns Any item having names `CS`, `Assignment`, or `Errand`
 
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+#### Saving the data: `save`
+Scheduler data are saved in the hard disk automatically after any command that changes the data. Data is saved at path previously assigned by the user.<br>
+Format: `save FILE_SAVE`
+
+#### Changing the file save path: `path`
+File path can be manually changed to a user-specified location.<br>
+Format: `path FILE_PATH`
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Scheduler folder.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
+Add | `add NAME st/START_DATE_TIME et/END_DATE_TIME`
+Add | `add NAME d/DATE`  
+Add | `add NAME`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
+Edit | `edit INDEX NAME st/START_DATE_TIME et/END_DATE_TIME`
+Edit | `edit INDEX NAME d/DATE` 
+Edit | `edit INDEX NAME` 
+List | `list [by/SORT_CATEGORY]`
+Path | `path FILE_PATH`
 Help | `help`
-Select | `select INDEX`

@@ -1,46 +1,45 @@
+
+
 # About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Ang Kiang Siang](https://docs.google.com/document/u/1/d/1O3HF7qsh6KVeLesPmcQ0nPxSqhrkJxvS-OA_g-k-two/pub?embedded=true) <br>
+<img src="images/angkiangsiang.png" width="150"><br>
+Role: Project Mentor<br>  
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+
+#### [Chankyu Oh](github.com/chankyuoh) <br>
+<img src="images/profilePicture.jpg" width="150"><br>
+Role: Code Quality Manager <br>  
+Responsibilities: Look after code quality, ensures adherence to coding standards, etc.
+Deliverables and deadlines: Ensure project deliverables are done on time and in the right format.
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+#### [Leow Zheng Yu](http://github.com/zhengyu92)
+<img src="images/ZhengYu.jpg" width="150"><br>
+Role: Integration Manager <br>  
+Responsibilities: In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+#### [Niveetha](http://github.com/niveetha)
+<img src="images/PD1.jpg" width="150"><br>
+Role: Team Lead<br>  
+Responsibilities: Responsible for overall project coordination.
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
+#### [Henderson](http://github.com/takukou)
+<img src="images/hendersenlam.jpg" width="150"><br>
+Role: Testing Manager <br>  
+Responsibilities: Ensures the testing of the project is done properly and on time.
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
  
  -----
 
@@ -48,5 +47,4 @@ Responsibilities: Dev Ops
 
 We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
 
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+
