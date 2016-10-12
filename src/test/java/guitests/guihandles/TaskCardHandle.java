@@ -9,10 +9,10 @@ import seedu.address.model.task.ReadOnlyTask;
  * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String NAME_FIELD_ID = "#detail";
+    private static final String PRIORITY_FIELD_ID = "#priority";
+    private static final String DATE_FIELD_ID = "#dbd";
+    private static final String TIME_FIELD_ID = "#dbt";
 
     private Node node;
 
@@ -30,19 +30,19 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getPriority() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+        return getTextFromLabel(PRIORITY_FIELD_ID);
     }
 
     public String getDueByDate() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+        return getTextFromLabel(DATE_FIELD_ID);
     }
 
     public String getDueByTime() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+        return getTextFromLabel(TIME_FIELD_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getDetail().equals(task.getDetail()) && getDueByDate().equals(task.getDueByDate().value)
+        return getDetail().equals(task.getDetail().details) && getDueByDate().equals(task.getDueByDate().value)
                 && getDueByTime().equals(task.getDueByTime().value) && getPriority().equals(task.getPriority().value);
     }
 

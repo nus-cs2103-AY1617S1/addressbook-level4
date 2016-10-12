@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ToDoList;
 import seedu.address.model.task.*;
@@ -13,11 +16,11 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            grocery = new TaskBuilder().withDetail("Buy more milk").build();
-            house = new TaskBuilder().withDetail("Paint the house").withDueByDate("12/31/2016").build();
-            family = new TaskBuilder().withDetail("Give Kelly a bath").withDueByDate("12/31/2016").withDueByTime("2:00").build();
-            car = new TaskBuilder().withDetail("Add gas").withPriority("high").build();
-            dog = new TaskBuilder().withDetail("Invent automatic dog toilet").withTags("dog").build();
+            grocery = new TaskBuilder().withDetail("Buy more milk").withDueByDate(LocalDate.of(2012, 07, 13)).withDueByTime(LocalTime.of(13, 20)).withPriority("high").build();
+            house = new TaskBuilder().withDetail("Paint the house").withDueByDate(LocalDate.of(2010, 06, 20)).withDueByTime(LocalTime.of(10, 20)).withPriority("high").build();
+            family = new TaskBuilder().withDetail("Give Kelly a bath").withDueByDate(LocalDate.of(2012,11,20)).withDueByTime(LocalTime.of(11, 20)).withPriority("low").build();
+            car = new TaskBuilder().withDetail("Add gas").withDueByDate(LocalDate.of(2014,11,20)).withDueByTime(LocalTime.of(9, 20)).withPriority("high").build();
+            dog = new TaskBuilder().withDetail("Invent automatic dog toilet").withDueByDate(LocalDate.of(2016,10,10)).withDueByTime(LocalTime.of(16, 10)).withPriority("low").withTags("dog").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
