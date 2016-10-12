@@ -16,8 +16,8 @@ public class FindCommandParser extends CommandParser<FindCommand> {
     private static final String REGEX_REF_KEYWORDS_AFTER_TYPE = "After";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "find\\s+(?<"+REGEX_REF_KEYWORDS_BEFORE_TYPE+">([^/]+\\s+)*)" +
-            "t/(?<"+REGEX_REF_FIND_TYPE+">[^/]+?)(?!.*\\st/)(\\s+|$)" +
+            "find\\s+(?<"+REGEX_REF_KEYWORDS_BEFORE_TYPE+">([^/]+(\\s+|$))*)" +
+            "(t/(?<"+REGEX_REF_FIND_TYPE+">[^/]+?)(?!.*\\st/)(\\s+|$))?" +
             "(?<"+REGEX_REF_KEYWORDS_AFTER_TYPE+">([^/]+(\\s+|$))*)"
             , Pattern.CASE_INSENSITIVE);
     
@@ -47,6 +47,8 @@ public class FindCommandParser extends CommandParser<FindCommand> {
     
     private FindType parseFindType(String findTypeText) throws ParseException {
         try {
+            if (findTypeText == null)
+                return null;
             return FindType.valueOfIgnoreCase(findTypeText);
         } catch (IllegalArgumentException ex) {
             throw new ParseException(findTypeText, "FIND_TYPE: Unknown type '" + findTypeText + "'");
