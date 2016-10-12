@@ -33,13 +33,13 @@ public class TypicalTestFloatingTasks {
     public static void loadTaskBookWithSampleData(TaskBook ab) {
 
         try {
-            ab.addFloatingTask(new FloatingTask(water));
-            ab.addFloatingTask(new FloatingTask(ideas));
-            ab.addFloatingTask(new FloatingTask(car));
-            ab.addFloatingTask(new FloatingTask(airport));
-            ab.addFloatingTask(new FloatingTask(lunch));
-            ab.addFloatingTask(new FloatingTask(flight));
-            ab.addFloatingTask(new FloatingTask(beach));
+            ab.addTask(new FloatingTask(water));
+            ab.addTask(new FloatingTask(ideas));
+            ab.addTask(new FloatingTask(car));
+            ab.addTask(new FloatingTask(airport));
+            ab.addTask(new FloatingTask(lunch));
+            ab.addTask(new FloatingTask(flight));
+            ab.addTask(new FloatingTask(beach));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }

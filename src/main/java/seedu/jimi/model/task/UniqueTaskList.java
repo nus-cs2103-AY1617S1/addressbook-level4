@@ -52,12 +52,12 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(FloatingTask toAdd) throws DuplicateTaskException {
+    public void add(ReadOnlyTask toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
-        internalList.add(toAdd);
+        internalList.add((FloatingTask) toAdd);
     }
 
     /**
@@ -88,7 +88,8 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
 
     @Override
     public Iterator<FloatingTask> iterator() {
-        return internalList.iterator();
+        Iterator<FloatingTask> i = internalList.iterator();
+        return i;
     }
 
     @Override

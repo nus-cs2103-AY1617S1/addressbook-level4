@@ -76,8 +76,8 @@ public class TaskBook implements ReadOnlyTaskBook {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addFloatingTask(FloatingTask p) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
+    public void addTask(ReadOnlyTask p) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList((FloatingTask) p);
         tasks.add(p);
     }
 

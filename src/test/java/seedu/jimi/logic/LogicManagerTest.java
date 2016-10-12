@@ -142,9 +142,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addFloatingTask(helper.generateFloatingTask(1));
-        model.addFloatingTask(helper.generateFloatingTask(2));
-        model.addFloatingTask(helper.generateFloatingTask(3));
+        model.addTask(helper.generateFloatingTask(1));
+        model.addTask(helper.generateFloatingTask(2));
+        model.addTask(helper.generateFloatingTask(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
     }
@@ -171,7 +171,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         FloatingTask toBeAdded = helper.adam();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addFloatingTask(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
@@ -187,10 +187,10 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         FloatingTask toBeAdded = helper.adam();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addFloatingTask(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addFloatingTask(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // person already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -245,7 +245,7 @@ public class LogicManagerTest {
         // set AB state to 2 persons
         model.resetData(new TaskBook());
         for (FloatingTask p : floatingTaskList) {
-            model.addFloatingTask(p);
+            model.addTask(p);
         }
 
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), floatingTaskList);
@@ -443,7 +443,7 @@ public class LogicManagerTest {
          */
         void addToFloatingTaskBook(TaskBook taskBook, List<FloatingTask> floatingTasksToAdd) throws Exception{
             for(FloatingTask p: floatingTasksToAdd){
-                taskBook.addFloatingTask(p);
+                taskBook.addTask(p);
             }
         }
 
@@ -460,7 +460,7 @@ public class LogicManagerTest {
          */
         void addToModel(Model model, List<FloatingTask> floatingTasksToAdd) throws Exception{
             for(FloatingTask p: floatingTasksToAdd){
-                model.addFloatingTask(p);
+                model.addTask(p);
             }
         }
 

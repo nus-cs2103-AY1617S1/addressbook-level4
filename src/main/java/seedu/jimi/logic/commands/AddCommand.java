@@ -24,7 +24,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
 
-    private final FloatingTask toAdd;
+    private final ReadOnlyTask toAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -36,17 +36,20 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new FloatingTask(
-                new Name(name),
-                new UniqueTagList(tagSet)
-        );
+        if (dateTime == null) {
+            this.toAdd = 
+                    new FloatingTask(new Name(name), new UniqueTagList(tagSet));
+        } else {
+            this.toAdd = 
+                    new DeadlineTask(new Name(name), new DateTime(dateTime), new UniqueTagList(tagSet));
+        }
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addFloatingTask(toAdd);
+            model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

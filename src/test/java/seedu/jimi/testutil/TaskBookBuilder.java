@@ -20,7 +20,7 @@ public class TaskBookBuilder {
     }
 
     public TaskBookBuilder withFloatingTask(FloatingTask floatingTask) throws UniqueTaskList.DuplicateTaskException {
-        taskBook.addFloatingTask(floatingTask);
+        taskBook.addTask(floatingTask);
         return this;
     }
 
