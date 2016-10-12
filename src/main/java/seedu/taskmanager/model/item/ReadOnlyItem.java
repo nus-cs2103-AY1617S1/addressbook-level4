@@ -42,21 +42,24 @@ public interface ReadOnlyItem {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getItemType())
-                .append(" Name: ")
-                .append(getName());
+               .append("\n")
+               .append("Name: ")
+               .append(getName());
         if (getItemType().toString().equals(ItemType.EVENT_WORD)) {
-            builder.append(" Start Date: ")
+            builder.append("\n")
+                   .append("Start Date: ")
                    .append(getStartDate())
                    .append(" Start time: ")
                    .append(getStartTime());
         }
         if (getItemType().toString().equals(ItemType.DEADLINE_WORD) || getItemType().toString().equals(ItemType.EVENT_WORD)) {
-            builder.append(" End Date: ")
+            builder.append("\n")
+                   .append("End Date: ")
                    .append(getEndDate())
                    .append(" End time: ")
                    .append(getEndTime());
         }
-        builder.append(" Tags: ");
+        builder.append("\n").append("Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
