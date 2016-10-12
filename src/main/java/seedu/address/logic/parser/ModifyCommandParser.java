@@ -60,16 +60,16 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
 
-            int index = parseIndex(matcher.group(REGEX_REF_INDEX).trim());
-            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE).trim());
-            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE).trim());
-            String taskName = parseTaskName(matcher.group(REGEX_REF_TASK_NAME).trim());
-            String location = parseLocation(matcher.group(REGEX_REF_LOCATION).trim());
-            PriorityLevel priority = parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL).trim());
-            RecurrenceType recurrence = parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE).trim());
-            Integer nrOfRecurrence = parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE).trim());
-            String category = parseCategory(matcher.group(REGEX_REF_CATEGORY).trim());
-            String description = parseDescription(matcher.group(REGEX_REF_DESCRIPTION).trim());
+            int index = parseIndex(matcher.group(REGEX_REF_INDEX));
+            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE));
+            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE));
+            String taskName = parseTaskName(matcher.group(REGEX_REF_TASK_NAME));
+            String location = parseLocation(matcher.group(REGEX_REF_LOCATION));
+            PriorityLevel priority = parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL));
+            RecurrenceType recurrence = parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE));
+            Integer nrOfRecurrence = parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
+            String category = parseCategory(matcher.group(REGEX_REF_CATEGORY));
+            String description = parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
             
                
             // TODO: Create ModifyCommand here (require integration)
@@ -95,6 +95,7 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
         
         int index = 0;
         try {
+            indexText = indexText.trim();
             index = Integer.parseInt(indexText);
             
             if (index < 0)

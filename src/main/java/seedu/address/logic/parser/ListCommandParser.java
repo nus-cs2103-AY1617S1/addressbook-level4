@@ -40,7 +40,11 @@ public class ListCommandParser extends CommandParser<ListCommand> {
     }
 
     private ListType parseListType(String listTypeText) throws ParseException {
+        if (listTypeText == null)
+            return null;
+        
         try {
+            listTypeText = listTypeText.trim();
             return ListType.valueOfIgnoreCase(listTypeText.replaceAll("\\s", ""));
         } catch (IllegalArgumentException ex) {
             throw new ParseException(listTypeText, "LIST_TYPE: Unknown type '" + listTypeText + "'");

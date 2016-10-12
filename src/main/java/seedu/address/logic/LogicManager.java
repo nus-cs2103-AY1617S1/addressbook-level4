@@ -48,5 +48,8 @@ public class LogicManager extends ComponentManager implements Logic {
         parser.registerCommandParser(new FindCommandParser());
         parser.registerCommandParser(new ListCommandParser());
         parser.registerCommandParser(new ModifyCommandParser());
+        parser.registerCommandParser(new HelpCommandParser());
+        parser.registerCommandParser(new ClearCommandParser());
+        parser.registerCommandParser(new ExitCommandParser());
     }
 }
