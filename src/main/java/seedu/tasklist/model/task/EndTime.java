@@ -1,6 +1,11 @@
 package seedu.tasklist.model.task;
 
 
+import java.util.Date;
+import java.util.List;
+
+import com.joestelmach.natty.*;
+
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 
 /**
@@ -13,7 +18,7 @@ public class EndTime {
             "End time should only be entered in 24 hrs format or 12 hrs format.";
     public static final String END_TIME_VALIDATION_REGEX = ".*";
 
-    public final String value;
+    public final Date endTime;
 
     /**
      * Validates given end time.
@@ -21,39 +26,52 @@ public class EndTime {
      * @throws IllegalValueException if given end time is invalid.
      */
     public EndTime(String endTime) throws IllegalValueException {
-        //assert email != null;
-        if (!isValidEndTime(endTime)) {
-            throw new IllegalValueException(MESSAGE_END_TIME_CONSTRAINTS);
-        }
-
-        this.value = endTime;
-    }
-
-    /**
-     * Returns if a given string is a valid person email.
-     */
-    public static boolean isValidEndTime(String test) {
-    	if(test==null){
-    		return true;
+    	if(endTime != "" && !endTime.equals(new Date(0).toString())){
+    		List<DateGroup> dates = new Parser().parse(endTime);
+    		if(dates.isEmpty()){
+    			throw new IllegalValueException("Start time is invalid!");
+    		}
+    		else if(dates.get(0).getDates().isEmpty()){
+    			throw new IllegalValueException("Start time is invalid!");
+    		}
+    		else{
+    			this.endTime = dates.get(0).getDates().get(0);
+    		}
     	}
-        return test.matches(END_TIME_VALIDATION_REGEX);
+    	else{
+    		this.endTime = new Date(0);
+    	}
     }
 
     @Override
     public String toString() {
-        return value;
+    	if(endTime.equals(new Date(0))){
+    		return (new Date(0)).toString();
+    	}
+    	else{
+    		return endTime.toString();
+    	}
+    }
+    
+    public String toCardString() {
+    	if(endTime.equals(new Date(0))){
+    		return "-";
+    	}
+    	else{
+    		return endTime.toString();
+    	}
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EndTime // instanceof handles nulls
-                && this.value.equals(((EndTime) other).value)); // state check
+                && this.endTime.equals(((EndTime) other).endTime)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return endTime.hashCode();
     }
 
 }
