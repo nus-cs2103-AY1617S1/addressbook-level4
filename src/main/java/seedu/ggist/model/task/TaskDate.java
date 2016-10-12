@@ -4,7 +4,6 @@ package seedu.ggist.model.task;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 /**
