@@ -30,7 +30,7 @@ public class Parser {
             Pattern.compile("(?<description>[^/]+)"
                     + "( pr/)?(?<priority>([^/]+)?)"
                     + "( time/)?(?<time>([^/]+)?)"
-                    + "( a/)?(?<venue>([^/]+)?)"
+                    + "( d/)?(?<date>([^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern TAG_ADD_ARGS_FORMAT =
@@ -111,7 +111,7 @@ public class Parser {
                     matcher.group("description"),
                     matcher.group("priority"),
                     matcher.group("time"),
-                    matcher.group("venue"),
+                    matcher.group("date"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
