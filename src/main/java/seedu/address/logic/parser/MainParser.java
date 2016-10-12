@@ -82,6 +82,9 @@ public class MainParser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -258,6 +261,25 @@ public class MainParser {
 
         return new DeleteCommand(index.get());
     }
+    
+    /**
+     * Parses arguments in the context of the done task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     * 
+     * @author A0141128R
+     */
+    private Command prepareDone(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(index.get());
+    }
 
     /**
      * Parses arguments in the context of the select task command.
@@ -300,7 +322,8 @@ public class MainParser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        boolean taskStatus = false; // we assume the user is searching for undone tasks
+    	final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
@@ -309,7 +332,11 @@ public class MainParser {
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        if (keywordSet.contains("done")) {
+        	taskStatus = true;
+        	keywordSet.remove("done");
+        }
+        return new FindCommand(keywordSet, taskStatus);
     }
     
     /**
