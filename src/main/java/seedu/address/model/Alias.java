@@ -27,7 +27,7 @@ public class Alias {
 	@Override
 	public String toString() {
 		String s = new String(shortcut);
-		s = s.concat(sentence);
+		s = s.concat(" " + sentence);
 		return s;
 	}
 	

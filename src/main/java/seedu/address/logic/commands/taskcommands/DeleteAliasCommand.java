@@ -46,7 +46,6 @@ public class DeleteAliasCommand extends TaskCommand {
 	        model.deleteAlias(aliasToDelete);   
 	        return new CommandResult(String.format(MESSAGE_DELETE_ALIAS_SUCCESS, aliasToDelete));
 	    } catch (ItemNotFoundException tnfe) {
-	        assert false : "The target item cannot be missing";
         	return new CommandResult(MESSAGE_ALIAS_NOT_FOUND);
 	    }
 
