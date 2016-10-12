@@ -45,8 +45,8 @@ public class StringUtil {
     public static String addSpacesBetweenNumbersAndWords(String s) {
     	if (s == null) return null;
     	
-    	s = s.replaceAll("(\\d+)(?!st|nd|rd)([a-zA-Z]+)", "$1 $2");
-    	s = s.replaceAll("([a-zA-Z]+)(\\d+)(?!st|nd|rd)", "$1 $2");
+    	s = s.replaceAll("(\\d+)(?!st|nd|rd|th)([a-zA-Z]+)", "$1 $2");
+    	s = s.replaceAll("([a-zA-Z]+)(\\d+)(?!st|nd|rd|th)", "$1 $2");
     	return s;
     	/*
     	if (s.length() <= 1) return s;

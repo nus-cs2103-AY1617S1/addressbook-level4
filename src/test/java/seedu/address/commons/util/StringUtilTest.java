@@ -54,18 +54,21 @@ public class StringUtilTest {
     }
     
     @Test
-    public void addSpacesBetweenNumbersAndWords_withStNdRd() {
+    public void addSpacesBetweenNumbersAndWords_withStNdRdTh() {
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("1st"), "1st");
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("2nd"), "2nd");
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("3rd"), "3rd");
+    	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("4th"), "4th");
     	
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("1st31Oct2016"), "1st 31 Oct 2016");
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("2ndOct312016"), "2ndOct 312016");
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("3rdOct201631"), "3rdOct 201631");
+    	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("4thOct201631"), "4thOct 201631");
     	
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("31Oct20161st"), "31 Oct 20161st");
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("Oct3120162nd"), "Oct 3120162nd");
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("Oct2016313rd"), "Oct 2016313rd");
+    	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("Oct2016314th"), "Oct 2016314th");
     }
     
     
