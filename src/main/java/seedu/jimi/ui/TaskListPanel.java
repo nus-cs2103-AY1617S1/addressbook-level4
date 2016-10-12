@@ -83,7 +83,7 @@ public class TaskListPanel extends UiPart {
 
     private void updateFloatingTaskSize(List<ReadOnlyTask> taskList) {
         floatingTaskListSize = taskList.size();
-        labelFloatingTaskListSize.setText("To Be Done Someday (" + floatingTaskListSize.toString() + ")");
+        labelFloatingTaskListSize.setText("Floating Tasks (" + floatingTaskListSize.toString() + ")");
     }
 
     private void addToPlaceholder() {
