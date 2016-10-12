@@ -15,10 +15,10 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to Malitio. "
-            + "Parameters: NAME [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to Malitio.\n"
+            + "Parameters: NAME [by DEADLINE] [start STARTTIME end ENDTIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Pay back John $100 t/oweMoney";
+            + " Pay John $100 by 10112016 2359 t/oweMoney";
 
     public static final String MESSAGE_SUCCESS = "New floating task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Malitio";
