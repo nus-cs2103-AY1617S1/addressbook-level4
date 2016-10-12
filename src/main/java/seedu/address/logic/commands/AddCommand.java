@@ -6,6 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 
 /**
@@ -38,25 +39,28 @@ public class AddCommand extends Command {
      */
     // TODO allow tag list as params
     public AddCommand(String name, String startDate, String endDate) throws IllegalValueException, DateTimeParseException {
-        this.toAdd = new Task(
-        		new Name(name), 
+       	this.toAdd = new Task(
+        		new Name(name),
+        		new TaskType("event"),
         		new Status("not done"), 
-        		LocalDateTime.parse(startDate), 
-        		LocalDateTime.parse(endDate),
+        		Optional.of(LocalDateTime.parse(startDate)), 
+        		Optional.of(LocalDateTime.parse(endDate)),
         		new UniqueTagList()
                 );
     }
     
     /**
-     * Convenience constructor for deadeline task using raw values
+     * Convenience constructor for deadline task using raw values
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String name, String endDate) throws IllegalValueException, DateTimeParseException {
-        this.toAdd = new Task(
-        		new Name(name), 
+    	this.toAdd = new Task(
+        		new Name(name),
+        		new TaskType("event"),
         		new Status("not done"), 
-        		LocalDateTime.parse(endDate),
+        		Optional.empty(), 
+        		Optional.of(LocalDateTime.parse(endDate)),
         		new UniqueTagList()
                 );
     }
@@ -67,12 +71,16 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String name) throws IllegalValueException {
-        this.toAdd = new Task(
-                new Name(name),
-                new Status("not done"),
-                new UniqueTagList()
-        );
+    	this.toAdd = new Task(
+        		new Name(name),
+        		new TaskType("someday"),
+        		new Status("not done"), 
+        		Optional.empty(), 
+        		Optional.empty(),
+        		new UniqueTagList()
+                );
     }
+
 
     @Override
     public CommandResult execute() {
