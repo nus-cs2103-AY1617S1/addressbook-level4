@@ -14,9 +14,9 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-        <ListView fx:id="navbarView" VBox.vgrow="ALWAYS">
+        <ListView id="navBarView" fx:id="navbarView" editable="true" VBox.vgrow="ALWAYS">
          <effect>
-            <Glow />
+            <Glow level="0.0" />
          </effect>
          <contextMenu>
             <ContextMenu>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
@@ -15,9 +16,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPaneNav" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane prefHeight="71.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+        <GridPane id="navBarGrid" prefHeight="71.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="0.0" prefWidth="0.0" />
@@ -33,22 +34,13 @@
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="194.0" spacing="5">
+                        <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="245.0" spacing="5">
                             <children>
-                                <HBox alignment="TOP_CENTER" minWidth="150.0" prefHeight="25.0" prefWidth="200.0" scaleShape="false">
+                                <HBox alignment="TOP_CENTER" minWidth="150.0" prefHeight="27.0" prefWidth="211.0" scaleShape="false">
                                    <children>
-                                       <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                       <Label fx:id="name" styleClass="cell_big_label_for_nav" text="\$first" textAlignment="CENTER">
+                                 		</Label>
                                    </children>
-                           <effect>
-                              <Lighting>
-                                 <bumpInput>
-                                    <Shadow />
-                                 </bumpInput>
-                                 <light>
-                                    <Light.Distant color="#ababab" />
-                                 </light>
-                              </Lighting>
-                           </effect>
                                 </HBox>
                             </children>
                         </HBox>

@@ -96,8 +96,27 @@
     -fx-text-fill: #010504;
 }
 
+#navBarView .list-cell {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+    -fx-background-color : derive(#1d1d1d, 20%);
+}
+#navBarView .list-cell .label {
+    -fx-font-size: 20px;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+    -fx-text-alignment: center;
+}
+
 .cell_big_label {
     -fx-font-size: 16px;
+    -fx-text-fill: #010504;
+}
+
+.cell_big_label_for_nav {
+    -fx-font-size: 18px;
     -fx-text-fill: #010504;
 }
 
@@ -151,6 +170,16 @@
 
 .grid-pane .anchor-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
+}
+
+#navBarGrid .grid-pane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 20%);
+    -fx-border-width: 1px;
+}
+
+#navBarGrid .grid-pane .anchor-pane {
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .context-menu {
@@ -276,6 +305,12 @@
     -fx-background-color: transparent;
     -fx-border-color: #d6d6d6;
     -fx-border-width: 1 1 1 1;
+}
+
+#cardPaneNav {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-width: 0.5 0.5 0.5 0.5;
 }
 
 #commandTypeLabel {
