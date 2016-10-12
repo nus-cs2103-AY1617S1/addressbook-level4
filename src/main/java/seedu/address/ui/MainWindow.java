@@ -29,6 +29,15 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+<<<<<<< HEAD
+=======
+    
+    
+    //private DeadlineListPanel deadlineListPanel;
+    //private TodoListPanel todoListPanel; 
+     
+    
+>>>>>>> c4a7d1cc83574791cb03126171176ffe43645d8d
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
@@ -58,8 +67,20 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
+<<<<<<< HEAD
     //@FXML
     //private AnchorPane statusbarPlaceholder;
+=======
+    @FXML
+    private AnchorPane statusbarPlaceholder;
+
+    @FXML
+    private AnchorPane deadlineListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane todoListPanelPlaceholder;
+
+>>>>>>> c4a7d1cc83574791cb03126171176ffe43645d8d
 
 
     public MainWindow() {
@@ -113,6 +134,17 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        
+        //deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredPersonList());
+        //todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredPersonList());
+    }
+
+    private AnchorPane getDeadlineListPlaceHolder() {
+        return deadlineListPanelPlaceholder;
+    }
+    
+    private AnchorPane getTodoListPlaceholder() {
+        return todoListPanelPlaceholder;
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -185,6 +217,14 @@ public class MainWindow extends UiPart {
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
     }
+    
+    //public DeadlineListPanel getDeadlineListPanel() {
+    //    return this.deadlineListPanel;
+    //}
+    
+   // public TodoListPanel getTodoListPanel() {
+    //    return this.todoListPanel;
+    //}
 
     public void loadPersonPage(ReadOnlyTask person) {
         browserPanel.loadPersonPage(person);

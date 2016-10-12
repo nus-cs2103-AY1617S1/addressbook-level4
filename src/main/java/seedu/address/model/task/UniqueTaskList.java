@@ -9,6 +9,8 @@ import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -105,36 +107,42 @@ public class UniqueTaskList implements Iterable<Task> {
         args = args.substring(args.indexOf(' ') + 1);
         
         int editIndex = internalList.indexOf(key);
+        Task toEdit = new Task(internalList.get(editIndex));
         //System.out.println(keyword);
         //System.out.println(args);
         //System.out.println(keyword.equals(EditCommand.DESCRIPTION_WORD));
         if (keyword.equals(EditCommand.DESCRIPTION_WORD)) {
             //internalList.get(editIndex).setName(new Name(args));
-            Task toEdit = new Task(internalList.get(editIndex));
+            //Task toEdit = new Task(internalList.get(editIndex));
             toEdit.setName(new Name(args));
             internalList.set(editIndex, toEdit);
-            System.out.println("dummy2");
+            //System.out.println("dummy2");
             return true;
         } else if (keyword.equals(EditCommand.DATE_WORD)) {
             //internalList.get(editIndex).setDate(new Date(args));
-            Task toEdit = new Task(internalList.get(editIndex));
+            //Task toEdit = new Task(internalList.get(editIndex));
             toEdit.setDate(new Date(args));
             internalList.set(editIndex, toEdit);
             return true;
         } else if (keyword.equals(EditCommand.START_WORD)) {
             //internalList.get(editIndex).setStart(new Start(args));
-            Task toEdit = new Task(internalList.get(editIndex));
+            //Task toEdit = new Task(internalList.get(editIndex));
             toEdit.setStart(new Start(args));
             internalList.set(editIndex, toEdit);
             return true;
         } else if (keyword.equals(EditCommand.END_WORD)) {
             //internalList.get(editIndex).setEnd(new End(args));
-            Task toEdit = new Task(internalList.get(editIndex));
+            //Task toEdit = new Task(internalList.get(editIndex));
             toEdit.setEnd(new End(args));
             internalList.set(editIndex, toEdit);
             return true;
-        } /*else if (keyword.equals(EditCommand.TAG_WORD)) {
-            internalList.get(editIndex).setTag(new Tag(args));*/
+        } else if (keyword.equals(EditCommand.TAG_WORD)) {
+            //internalList.get(editIndex).setTags(new UniqueTagList(new Tag(args)));
+            //Task toEdit = new Task(internalList.get(editIndex));
+            toEdit.setTags(new UniqueTagList(new Tag(args)));;
+            internalList.set(editIndex, toEdit);
+        	return true;
+        }
         else {
             return false;
         }

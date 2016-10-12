@@ -168,7 +168,7 @@ When you are done with tasks, enter this command to mark them as done and hide t
 
 > Format: Done &lt;index&gt;-&lt;index&gt;
 
-> Format: Done &lt;index&gt;; &lt;index&gt;
+> Format: Done &lt;index&gt;, &lt;index&gt;
     
     
 Example: 
@@ -177,7 +177,7 @@ Done T1
 
 Done T1-T3
 
-Done T1; T3
+Done T1, T3
 
 
 >Note: if you want to select more than one task to complete, you can separated the task by a - to complete all tasks that are within the range. In addition, you also need to separate the task by a ; to individually delete them.
@@ -241,7 +241,7 @@ The delete command enables you to delete the tasks that you no longer need.
 
 > Format: Delete &lt;index&gt;-&lt;index&gt;
 
-> Format: Delete &lt;index&gt;; &lt;index&gt; 
+> Format: Delete &lt;index&gt;, &lt;index&gt; 
 
 
 Example: 
@@ -250,7 +250,7 @@ Delete T3
 
 Delete T1-T3
 
-Delete T1; T3
+Delete T1, T3
 
 
 >Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a -, Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a , Simply will delete the tasks entered individually. 
@@ -293,9 +293,9 @@ Example : Help
 4| Add with tags and priorities | add [event_description, date, start_time, end_time] #tag !
 5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
 6| Search | search &lt;keywords&gt; 
-7| Done | done &lt;index&gt;&lt;index&gt;... 
+7| Done | done &lt;index&gt;, &lt;index&gt;... 
 8| Undo | undo &lt;number of times to undo, up to 5&gt;
 9| Redo | redo &lt;number of times to redo, up to 5&gt;
-10| Delete | delete &lt;index&gt; ; &lt;index&gt; 
+10| Delete | delete &lt;index&gt;, &lt;index&gt; 
 11| Exit | exit 
 12| help | help 

@@ -26,8 +26,13 @@ public class EditCommand extends Command{
     public static final String END_WORD = "end";
     public static final String TAG_WORD = "tag";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "Edits an existing task in Simply."
-            +"Parameters: ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task in Simply. "
+            +"Parameters: INDEX <section to delete> <edited information>\n" 
+            +"Example: " + COMMAND_WORD + " 1 " + DESCRIPTION_WORD + " beach party\t\t"
+            +"Example: " + COMMAND_WORD + " 1 " + DATE_WORD + " 120516\n"
+            +"Example: " + COMMAND_WORD + " 1 " + START_WORD + " 1600\t\t\t"
+            +"Example: " + COMMAND_WORD + " 1 " + END_WORD + " 2300\n"
+    		+"Example: " + COMMAND_WORD + " 1 " + TAG_WORD + " sentosa";
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
     
