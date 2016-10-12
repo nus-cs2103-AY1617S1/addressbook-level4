@@ -2,7 +2,7 @@
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
-  "addressBookFilePath" : "addressbook.xml",
-  "addressBookName" : "TypicalAddressBookName",
+  "addressBookFilePath" : "data/tasklist.xml",
+  "addressBookName" : "MyTaskList",
   "extra" : "extra value"
 }
