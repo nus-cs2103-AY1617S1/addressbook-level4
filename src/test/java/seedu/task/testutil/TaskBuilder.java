@@ -28,6 +28,11 @@ public class TaskBuilder {
     	this.task.setLocationParameter(new LocationParameter(locationParameter));
         return this;
     }
+    
+    public TaskBuilder withRemarksParameter(String remarksParameter) throws IllegalValueException {
+        this.task.setRemarksParameter(new RemarksParameter(remarksParameter));
+        return this;
+    }
 
     public TestTask build() {
         return this.task;
