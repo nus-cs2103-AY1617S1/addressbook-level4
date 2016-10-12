@@ -11,7 +11,7 @@ public class Time {
     
     public static final String MESSAGE_TIME_CONSTRAINTS = 
             "Time should be in 24hr format. Eg. 2359";
-    public static final String TIME_VALIDATION_REGEX = "[0-2][0-3][0-5][0-9]";
+    public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
 
     public final String value;
 
