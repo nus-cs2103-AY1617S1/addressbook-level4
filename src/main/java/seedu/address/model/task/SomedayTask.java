@@ -7,7 +7,7 @@ import java.util.Optional;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
-public class SomedayTask extends AbstractTask implements TMReadOnlyTask {
+public class SomedayTask extends TMTask implements TMReadOnlyTask {
 	
 	private Name name;
     private Status status;
