@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
@@ -8,30 +11,45 @@ import seedu.address.model.task.*;
  */
 public class TestTask implements ReadOnlyTask {
 
-    private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
-    private UniqueTagList tags;
-
+	public final TaskType taskType;
+	private Name name;
+	private Status status;
+	private Optional<LocalDateTime> startDate;
+	private Optional<LocalDateTime> endDate;
+	private UniqueTagList tags;
+	
     public TestTask() {
-        tags = new UniqueTagList();
+        taskType = new TaskType("someday");
+    	tags = new UniqueTagList();
     }
 
     public void setName(Name name) {
         this.name = name;
     }
-
-    public void setAddress(Address address) {
-        this.address = address;
+    
+    public void setStatus(Status status) {
+        this.status = status;
     }
-
-    public void setEmail(Email email) {
-        this.email = email;
+    
+    public void setStartDate(LocalDateTime date) throws UnsupportedOperationException {
+        if (taskType.value.equals(TaskType.Type.DEADLINE)) {
+            throw new UnsupportedOperationException("Start date cannot be set on a deadline task");
+        }
+        else if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
+            throw new UnsupportedOperationException("Start date cannot be set on a someday task");
+        }
+        else {
+            startDate = Optional.of(date);
+        }
     }
-
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    
+    public void setEndDate(LocalDateTime date) throws UnsupportedOperationException {
+        if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
+            throw new UnsupportedOperationException("End date cannot be set on a someday task");
+        }
+        else {
+            endDate = Optional.of(date);
+        }
     }
 
     @Override
@@ -40,23 +58,28 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
-    }
-
-    @Override
     public UniqueTagList getTags() {
         return tags;
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return taskType;
+    }
+    
+    @Override
+    public Status getStatus() {
+        return status;
+    }
+    
+    @Override
+    public Optional<LocalDateTime> getStartDate() {
+        return startDate;
+    }
+    
+    @Override
+    public Optional<LocalDateTime> getEndDate() {
+        return endDate;
     }
 
     @Override
@@ -67,10 +90,11 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append( this.getTaskType().value + " ");
+        //sb.append("e/" + this.getEmail().value + " ");
+        //sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
 }

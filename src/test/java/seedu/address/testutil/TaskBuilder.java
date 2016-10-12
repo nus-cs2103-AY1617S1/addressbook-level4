@@ -27,11 +27,11 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withAddress(String address) throws IllegalValueException {
-        this.task.setAddress(new Address(address));
+    public TaskBuilder withStatus(String status) throws IllegalValueException {
+        this.task.setStatus(new Status(status));
         return this;
     }
-
+/*
     public TaskBuilder withPhone(String phone) throws IllegalValueException {
         this.task.setPhone(new Phone(phone));
         return this;
@@ -41,7 +41,7 @@ public class TaskBuilder {
         this.task.setEmail(new Email(email));
         return this;
     }
-
+*/
     public TestTask build() {
         return this.task;
     }
