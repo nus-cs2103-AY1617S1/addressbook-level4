@@ -42,12 +42,12 @@ Double-click the file to start Amethyst. You will see the Graphical User Interfa
 To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 
 5. **Try some commands**
-    - `add event dinner with wife on 25/12/16 from 7:00pm to 9:00pm`
+    - `add event dinner with wife on 25/12/16 from 7:00pm to 9:00pm:`  
     Add an event with name 'dinner with wife' from 7 pm to 9 pm on 25th December 2016.
-    - `list deadline`
-    See all tasks that are deadlines arranged earliest first.
-    - `find lab homework, boy`
-    See all tasks with keywords 'lab homework' or 'boy' in their names.
+    - `list deadline:`  
+    View all tasks that are deadlines arranged in chronological order.
+    - `find lab homework, boy:`  
+    View all tasks with keywords 'lab homework' or 'boy' in task names.
 
 <br>
 ## 2. Features
@@ -64,7 +64,8 @@ To see a list of all available commands, type `help` and press <kbd>Enter</kbd>.
 
 <br>
 #### 2.1. View help : `help`
-Opens help window to display program usage instructions and command summary.<br>
+Opens help window to display program usage instructions and command summary.
+
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
@@ -72,7 +73,7 @@ Format: `help`
 
 <br>
 #### 2.2. Add a task: `add`
-Adds a task to the address book. Three different types of tasks, namely events, deadlines and tasks to be done someday, are supported.<br>
+Adds a task to the task manager. Three different types of tasks, namely events, deadlines and tasks to be done someday, are supported.<br>
 ##### Events
 Format: `add event 'NAME from hh:mm to hh:mm on dd-mm-yy`
 ##### Deadlines
@@ -87,8 +88,10 @@ Note that the time and date parameters can be entered in any order.
 Note that the following time and date formats (hh:mmam/hh:mmpm and dd-MMM-yy) are supported too.
 
 Invalid Examples:
-* `add someday 'Learn "artistic" sarcasm'` is invalid since double quotes should not be used.
-* `add someday 'Read EL James' book 50 Shades of Grey'` is invalid since single quotes are used both to enclose the task name and indicate apostrophe.
+* `add someday 'Learn "artistic" sarcasm'`
+Note that the above is invalid since double quotes should not be used.
+* `add someday 'Read EL James' book 50 Shades of Grey'`
+Note that the above is invalid since only one pair of single quotes should be used when indicating the task name. In this case, there is an additional single quote used to indicate apostrophe.
 
 
 <br>
@@ -96,7 +99,7 @@ Invalid Examples:
 Shows a numbered list of tasks, filtered by optional parameters.<br>
 Format: `list [TASK_TYPE] [done|not-done] [dd-mm-yy] [hh:mm]`
 
-> The 3 valid task types are "event", "deadline" and "someday".
+> The three valid task types are "event", "deadline" and "someday".
 > Tasks are listed in chronological order.
 > If a time is provided, tasks will be filtered as follows:
 > - Events that are occuring at the specified time, start and end time inclusive
