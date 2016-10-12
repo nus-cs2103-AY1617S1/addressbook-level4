@@ -60,7 +60,7 @@ public class TaskList extends Component {
             List<Task> tasksForDate = tasksByDate.get(dateTime);
 
             item.dateTime = dateTime;
-            item.tasks = tasksForDate;
+            item.tasks = tasksForDate;            
 
             // Finally, can render into the placeholder.
             item.render();
@@ -74,9 +74,9 @@ public class TaskList extends Component {
             LocalDateTime taskDate = DateUtil.floorDate(task.getCalendarDT());
 
             // Creates ArrayList if not already exists.
-            if (!tasksByDate.containsKey(taskDate)) 
+            if (!tasksByDate.containsKey(taskDate)) {
                 tasksByDate.put(taskDate, new ArrayList<Task>());
-
+            }
             // Adds to the ArrayList.
             tasksByDate.get(taskDate).add(task);
         }
