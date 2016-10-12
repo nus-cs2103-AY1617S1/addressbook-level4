@@ -33,13 +33,28 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
-        builder.append("   Deadline : ");        
-        builder.append(getDate());
-        builder.append("   Start Time - End time : ");  
-        builder.append(getStartTime() + " - ");
-        builder.append(getEndTime() + "   ");
-        getTags().forEach(builder::append);
+        if(getDate().fullDate == "NIL" && getStartTime().fullTime == "NIL" && getEndTime().fullTime == "NIL"){
+        	builder.append(getName());
+        	getTags().forEach(builder::append);
+        }
+        
+        else if(getDate().fullDate != "NIL" && getStartTime().fullTime == "NIL" && getEndTime().fullTime == "NIL"){
+        	builder.append(getName());
+            builder.append("   Deadline : ");        
+            builder.append(getDate());
+            getTags().forEach(builder::append);
+        }
+        
+        else {       
+	        builder.append(getName());
+	        builder.append("   Deadline : ");        
+	        builder.append(getDate());
+	        builder.append("   Start Time - End time : ");  
+	        builder.append(getStartTime() + " - ");
+	        builder.append(getEndTime() + "   ");
+	        getTags().forEach(builder::append);
+        }
+        
         return builder.toString();
     }
 
