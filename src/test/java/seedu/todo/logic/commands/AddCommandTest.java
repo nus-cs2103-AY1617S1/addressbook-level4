@@ -17,7 +17,8 @@ public class AddCommandTest extends CommandTest {
     public void testAddTask() throws Exception {
         setParameter("Hello World");
         execute();
-        
+
+        assertCommandSuccess();
         assertTotalTaskCount(1);
         ImmutableTask addedTask = getTaskAt(1);
         assertEquals("Hello World", addedTask.getTitle());
@@ -38,6 +39,8 @@ public class AddCommandTest extends CommandTest {
         assertFalse(taskWithLocation.isPinned());
         assertFalse(taskWithLocation.getDescription().isPresent());
         assertEquals("NUS", taskWithLocation.getLocation().get());
+
+        assertCommandSuccess();
     }
     
     @Test
@@ -52,6 +55,8 @@ public class AddCommandTest extends CommandTest {
         assertEquals("Remember to get Dynamites on sale!", taskWithDescription.getDescription().get());
         assertFalse(taskWithDescription.isPinned());
         assertFalse(taskWithDescription.getLocation().isPresent());
+
+        assertCommandSuccess();
     }
     
     @Test
@@ -66,6 +71,8 @@ public class AddCommandTest extends CommandTest {
         assertTrue(pinnedAddedTask.isPinned());
         assertFalse(pinnedAddedTask.getDescription().isPresent());
         assertFalse(pinnedAddedTask.getLocation().isPresent());
+
+        assertCommandSuccess();
     }
     
     @Test
@@ -77,6 +84,8 @@ public class AddCommandTest extends CommandTest {
         ImmutableTask task = getTaskAt(1);
         assertFalse(task.isEvent());
         assertEquals(TimeUtil.tomorrow().withHour(9), task.getEndTime().get());
+
+        assertCommandSuccess();
     }
 
     @Test
@@ -89,6 +98,8 @@ public class AddCommandTest extends CommandTest {
         assertTrue(task.isEvent());
         assertEquals(TimeUtil.tomorrow().withHour(18), task.getStartTime().get());
         assertEquals(TimeUtil.tomorrow().withHour(20), task.getEndTime().get());
+        
+        assertCommandSuccess();
     }
     
     @Test
@@ -105,5 +116,7 @@ public class AddCommandTest extends CommandTest {
         assertTrue(taskWithParams.isPinned());
         assertEquals("COM1", taskWithParams.getLocation().get());
         assertEquals("Useless task", taskWithParams.getDescription().get());
+        
+        assertCommandSuccess();
     }
 }
