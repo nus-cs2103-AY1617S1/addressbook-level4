@@ -46,7 +46,7 @@ public class Parser {
     
     private static final Pattern EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
     		Pattern.compile("\\d+ "
-    				+ "(des|date|start|end) "
+    				+ "(des|date|start|end|tag) "
     				+ ".+");
     
     public Parser() {}
