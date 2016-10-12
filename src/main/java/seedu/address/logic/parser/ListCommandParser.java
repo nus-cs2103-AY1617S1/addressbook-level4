@@ -14,7 +14,7 @@ public class ListCommandParser extends CommandParser<ListCommand> {
     private static final String REGEX_REF_LIST_TYPE = "ListType";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "list\\s*((?<=\s)t/(?<"+REGEX_REF_LIST_TYPE+">[^/]+))?",
+            "list\\s*((?<=\\s)t/(?<"+REGEX_REF_LIST_TYPE+">[^/]+))?",
             Pattern.CASE_INSENSITIVE);
     
     @Override
