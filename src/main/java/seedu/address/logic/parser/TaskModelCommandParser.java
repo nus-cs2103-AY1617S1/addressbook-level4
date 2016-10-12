@@ -19,13 +19,16 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
     }
     
     protected String parseTaskName(String taskNameText) throws ParseException {
-        return taskNameText;
+        if (taskNameText == null)
+            return null;
+        return taskNameText.trim();
     }
     
     protected InferredDate parseStartDate(String dateText) throws ParseException {
         try {
             if (dateText == null)
                 return null;
+            dateText = dateText.trim();
             return dateParser.parseSingle(dateText);
         } catch (ParseException ex) {
             throw new ParseException(dateText, "START_DATE: " + ex.getFailureDetails());
@@ -36,6 +39,7 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
         try {
             if (dateText == null)
                 return null;
+            dateText = dateText.trim();
             return dateParser.parseSingle(dateText);
         } catch (ParseException ex) {
             throw new ParseException(dateText, "END_DATE: " + ex.getFailureDetails());
@@ -43,13 +47,16 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
     }
     
     protected String parseLocation(String locationText) throws ParseException {
-        return locationText;
+        if (locationText == null)
+            return null;
+        return locationText.trim();
     }
     
     protected PriorityLevel parsePriorityLevel(String priorityLevelText) throws ParseException {
         try {
             if (priorityLevelText == null)
                 return null;
+            priorityLevelText = priorityLevelText.trim();
             return PriorityLevel.valueOfIgnoreCase(priorityLevelText);
         } catch (IllegalArgumentException ex) {
             throw new ParseException(priorityLevelText, "PRIORITY_LEVEL: Unknown type '" + priorityLevelText + "'");
@@ -60,6 +67,7 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
         try {
             if (recurrenceTypeText == null)
                 return null;
+            recurrenceTypeText = recurrenceTypeText.trim()
             return RecurrenceType.valueOfIgnoreCase(recurrenceTypeText);
         } catch (IllegalArgumentException ex) {
             throw new ParseException(recurrenceTypeText, "RECURRING_TYPE: Unknown type '" + recurrenceTypeText + "'");
@@ -74,6 +82,7 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
         boolean parseError = false;
         
         try {
+            numRecurrenceText = numRecurrenceText.trim()
             numRecurrence = Integer.parseInt(numRecurrenceText);
             if (numRecurrence < 0)
                 parseError = true;
@@ -88,10 +97,14 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
     }
 
     protected String parseCategory(String categoryText) throws ParseException {
-        return categoryText;
+        if (categoryText == null)
+            return null;
+        return categoryText.trim();
     }
     
     protected String parseDescription(String descriptionText) throws ParseException {
-        return descriptionText;
+        if (descriptionText == null)
+            return null;
+        return descriptionText.trim();
     }
 }
