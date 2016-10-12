@@ -7,11 +7,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlySavvyTasker;
 import seedu.address.model.SavvyTasker;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Task;
 import seedu.address.testutil.TypicalTestTasks;
 
@@ -20,7 +17,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class XmlSavvyTaskerStorageTest {
+public class XmlAddressBookStorageTest {
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
 
     @Rule
@@ -30,7 +27,7 @@ public class XmlSavvyTaskerStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_assertionFailure() throws Exception {
+    public void readSavvyTasker_nullFilePath_assertionFailure() throws Exception {
         thrown.expect(AssertionError.class);
         readSavvyTasker(null);
     }
@@ -75,13 +72,13 @@ public class XmlSavvyTaskerStorageTest {
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.happy));
-        original.removeTask(new Task(TypicalTestTasks.hello));
+        original.removeTask(new Task(TypicalTestTasks.happy));
         xmlSavvyTaskerStorage.saveSavvyTasker(original, filePath);
         readBack = xmlSavvyTaskerStorage.readSavvyTasker(filePath).get();
         assertEquals(original, new SavvyTasker(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTasks.hello));
+        original.addTask(new Task(TypicalTestTasks.happy));
         xmlSavvyTaskerStorage.saveSavvyTasker(original); //file path not specified
         readBack = xmlSavvyTaskerStorage.readSavvyTasker().get(); //file path not specified
         assertEquals(original, new SavvyTasker(readBack));
@@ -89,13 +86,13 @@ public class XmlSavvyTaskerStorageTest {
     }
 
     @Test
-    public void saveSavvyTasker_nullAddressBook_assertionFailure() throws IOException {
+    public void saveSavvyTasker_nullSavvyTasker_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         saveSavvyTasker(null, "SomeFile.xml");
     }
 
-    private void saveSavvyTasker(ReadOnlySavvyTasker savvyTasker, String filePath) throws IOException {
-        new XmlSavvyTaskerStorage(filePath).saveSavvyTasker(savvyTasker, addToTestDataPathIfNotNull(filePath));
+    private void saveSavvyTasker(ReadOnlySavvyTasker addressBook, String filePath) throws IOException {
+        new XmlSavvyTaskerStorage(filePath).saveSavvyTasker(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

@@ -11,6 +11,7 @@ import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.SavvyTasker;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
@@ -76,7 +77,7 @@ public abstract class AddressBookGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected SavvyTasker getInitialData() {
-        SavvyTasker st = TestUtil.generateEmptyAddressBook();
+        SavvyTasker st = TestUtil.generateEmptySavvyTasker();
         TypicalTestTasks.loadSavvyTaskerWithSampleData(st);
         return st;
     }
@@ -104,8 +105,8 @@ public abstract class AddressBookGuiTest {
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfTasks = taskListPanel.getNumberOfTasks();
-        assertEquals(size, numberOfTasks);
+        int numberOfTask = taskListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTask);
     }
 
     /**

@@ -133,7 +133,7 @@ public class TestUtil {
     }
 
     public static void createDataFileWithSampleData(String filePath) {
-        createDataFileWithData(generateSampleStorageAddressBook(), filePath);
+        createDataFileWithData(generateSampleStorageSavvyTasker(), filePath);
     }
 
     public static <T> void createDataFileWithData(T data, String filePath) {
@@ -150,12 +150,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static SavvyTasker generateEmptyAddressBook() {
+    public static SavvyTasker generateEmptySavvyTasker() {
         return new SavvyTasker(new TaskList());
     }
 
-    public static XmlSerializableSavvyTasker generateSampleStorageAddressBook() {
-        return new XmlSerializableSavvyTasker(generateEmptyAddressBook());
+    public static XmlSerializableSavvyTasker generateSampleStorageSavvyTasker() {
+        return new XmlSerializableSavvyTasker(generateEmptySavvyTasker());
     }
 
     /**

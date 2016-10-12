@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -19,7 +19,7 @@ public class AddressBookBuilder {
         this.addressBook = addressBook;
     }
 
-    public AddressBookBuilder withPerson(Person person) throws DuplicatePersonException {
+    public AddressBookBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         return this;
     }

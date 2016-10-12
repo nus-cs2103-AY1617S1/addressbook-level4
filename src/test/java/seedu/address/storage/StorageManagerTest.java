@@ -5,11 +5,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlySavvyTasker;
 import seedu.address.model.SavvyTasker;
 import seedu.address.model.UserPrefs;
@@ -57,7 +54,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void savvyTaskerReadSave() throws Exception {
         SavvyTasker original = new TypicalTestTasks().getTypicalSavvyTasker();
         storageManager.saveSavvyTasker(original);
         ReadOnlySavvyTasker retrieved = storageManager.readSavvyTasker().get();
@@ -71,9 +68,9 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
+    public void handleSavvyTaskerChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlSavvyTaskerStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleSavvyTaskerChangedEvent(new SavvyTaskerChangedEvent(new SavvyTasker()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
@@ -83,9 +80,9 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlSavvyTaskerStorageExceptionThrowingStub extends XmlSavvyTaskerStorage{
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlSavvyTaskerStorage{
 
-        public XmlSavvyTaskerStorageExceptionThrowingStub(String filePath) {
+        public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 
