@@ -27,12 +27,12 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withAddress(String address) throws IllegalValueException {
-        this.task.setAddress(new Address(address));
+    public TaskBuilder withEndTime(String address) throws IllegalValueException {
+        this.task.setEndTime(new EndTime(address));
         return this;
     }
 
-    public TaskBuilder withPhone(String date) throws IllegalValueException {
+    public TaskBuilder withDate(String date) throws IllegalValueException {
         this.task.setDate(new Date(date));
         return this;
     }
