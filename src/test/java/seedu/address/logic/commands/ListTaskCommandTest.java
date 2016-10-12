@@ -18,7 +18,7 @@ public class ListTaskCommandTest {
          */
         InMemoryTaskList model;
         model = TestUtil.setupEmptyTaskList();
-        ListTaskCommand command = new ListTaskCommand();
+        ListTaskCommand command = new ListTaskCommand("");
         command.setData(model);
         CommandResult result = command.execute();
         String feedback = result.feedbackToUser;
@@ -28,11 +28,11 @@ public class ListTaskCommandTest {
     @Test
     public void listCommand_oneTask() throws IllegalValueException {
         /* CommandResult should return a string that denotes that 
-         * one task has been listed.
+         * all tasks have been listed.
          */
         InMemoryTaskList model;
         model = TestUtil.setupSomeTasksInTaskList(1);
-        ListTaskCommand command = new ListTaskCommand();
+        ListTaskCommand command = new ListTaskCommand("");
         command.setData(model);
         CommandResult result = command.execute();
         String feedback = result.feedbackToUser;
@@ -42,15 +42,29 @@ public class ListTaskCommandTest {
     @Test
     public void listCommand_multipleTasks() throws IllegalValueException {
         /* CommandResult should return a string that denotes that 
-         * one task has been listed.
+         * all tasks have been listed.
          */
         InMemoryTaskList model;
         model = TestUtil.setupSomeTasksInTaskList(3);
-        ListTaskCommand command = new ListTaskCommand();
+        ListTaskCommand command = new ListTaskCommand("");
         command.setData(model);
         CommandResult result = command.execute();
         String feedback = result.feedbackToUser;
         assertTrue(feedback.equals(ListTaskCommand.MESSAGE_SUCCESS));
+    }
+    
+    @Test
+    public void listCommand_alias() throws IllegalValueException {
+        /* CommandResult should return a string that denotes that 
+         * the aliases have been listed.
+         */
+        InMemoryTaskList model;
+        model = TestUtil.setupSomeTasksInTaskList(3);
+        ListTaskCommand command = new ListTaskCommand("alias");
+        command.setData(model);
+        CommandResult result = command.execute();
+        String feedback = result.feedbackToUser;
+        assertTrue(feedback.equals(ListTaskCommand.MESSAGE_ALIAS_SUCCESS));
     }
     
 
