@@ -8,69 +8,75 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 public class TaskManager {
     public TaskManager() {
     }
-    
-    public static Task changeParams(ReadOnlyTask oldTask, Task newParams) throws IllegalValueException {
-        Task newTask = new Task(
-                updateTaskName(oldTask, newParams), 
-                updateDueDate(oldTask, newParams), 
-                updatePriority(oldTask, newParams), 
-                updateReminder(oldTask, newParams), 
-                updateTags(oldTask, newParams));
+
+    public static Task mapUnaffectedParams(ReadOnlyTask oldTask, Task newParams) {
+        Task newTask = null;
+        try {
+            newTask = new Task(
+                    updateTaskName(oldTask, newParams),
+                    updateDueDate(oldTask, newParams),
+                    updatePriority(oldTask, newParams),
+                    updateReminder(oldTask, newParams),
+                    updateTags(oldTask, newParams)
+                    );
+        } catch (IllegalValueException ive) {
+            assert false : "There should not be any illegal value at this point";
+        }
         
         return newTask;
     }
 
     private static TaskName updateTaskName(ReadOnlyTask oldTask, Task newParams) throws IllegalValueException {
         TaskName newTaskName;
-        
+
         if (newParams.getName() == null) {
             newTaskName = new TaskName(oldTask.getName().toString());
         } else {
             newTaskName = new TaskName(newParams.getName().toString());
         }
-        
+
         return newTaskName;
     }
-    
+
     private static DueDate updateDueDate(ReadOnlyTask oldTask, Task newParams) throws IllegalValueException {
         DueDate newDueDate;
-        
+
         if (newParams.getDueDate() == null) {
             newDueDate = new DueDate(oldTask.getDueDate().toString());
         } else {
             newDueDate = new DueDate(newParams.getDueDate().toString());
         }
-        
+
         return newDueDate;
     }
-    
+
     private static Priority updatePriority(ReadOnlyTask oldTask, Task newParams) throws IllegalValueException {
         Priority newPriority;
-        
+
         if (newParams.getPriority() == null) {
             newPriority = new Priority(oldTask.getPriority().toString());
         } else {
             newPriority = new Priority(newParams.getPriority().toString());
         }
-        
+
         return newPriority;
     }
 
     private static Reminder updateReminder(ReadOnlyTask oldTask, Task newParams) throws IllegalValueException {
         Reminder newReminder;
-    
+
         if (newParams.getReminder() == null) {
             newReminder = new Reminder(oldTask.getReminder().toString());
         } else {
             newReminder = new Reminder(newParams.getReminder().toString());
         }
-        
+
         return newReminder;
     }
-    
+
     private static UniqueTagList updateTags(ReadOnlyTask oldTask, Task newParams) {
         UniqueTagList newTags = new UniqueTagList(oldTask.getTags());
-        
+
         for (Tag toAdd : newParams.getTags()) {
             try {
                 newTags.add(toAdd);
@@ -78,7 +84,7 @@ public class TaskManager {
                 continue;
             }
         }
-        
+
         return newTags;
     }
 }

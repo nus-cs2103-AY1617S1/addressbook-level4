@@ -115,7 +115,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
     
     public boolean editTask(ReadOnlyTask task, Task newParams) throws Exception {
         if (tasks.contains(task)) {
-            Task newTask = TaskManager.changeParams(task, newParams);
+            Task newTask = TaskManager.mapUnaffectedParams(task, newParams);
             tasks.remove(task);
             tasks.add(newTask);
             return true;
