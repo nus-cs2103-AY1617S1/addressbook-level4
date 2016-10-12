@@ -26,3 +26,30 @@ h3, h4 {
 h3 {
   margin-top: 3rem;
 }
+
+h2:before, h3:before, h4:before {
+  color: #ccc;
+}
+
+abbr[title] {
+  border-bottom: 0;
+}
+
+code {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 90%;
+}
+
+a {
+  color: inherit;
+}
+
+/*
+a[href^='http']:after {
+  content: ' (' attr(href) ')';
+  font-weight: normal;
+  color: #ccc;
+}
+*/
