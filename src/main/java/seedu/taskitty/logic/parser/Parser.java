@@ -223,8 +223,12 @@ public class Parser {
         Pattern datePattern = Pattern.compile(TaskDate.DATE_VALIDATION_REGEX_FORMAT);
         Pattern timePattern = Pattern.compile(TaskTime.TIME_VALIDATION_REGEX_FORMAT);
         
-        //default name is the entire argument up til the first tag
-        int nameLastIndex = args.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
+        //default name is the entire argument up til the first tag unless there are no tags
+        int startOfTags = args.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
+        int nameLastIndex = args.length();
+        if (startOfTags != -1) { //What should this -1 be called?
+            nameLastIndex = args.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
+        }
         
         Matcher dateMatcher = datePattern.matcher(args);
         //Max only have 1 date
