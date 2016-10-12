@@ -154,15 +154,15 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add do dishes t/impt t/asd", expectedMessage);
+                "add \"do dishes\" t/impt t/asd", expectedMessage);
         assertCommandBehavior(
-                "add wash //plates", expectedMessage);
+                "add \"wash //plates\"", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add Valid task t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add \"Valid task\" t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
@@ -401,9 +401,9 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
-
+            cmd.append("\"");
             cmd.append(p.getName().toString());
-
+            cmd.append("\"");
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
