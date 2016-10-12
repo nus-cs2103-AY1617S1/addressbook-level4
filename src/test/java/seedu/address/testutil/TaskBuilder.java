@@ -2,47 +2,47 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.person.*;
+import seedu.address.model.task.*;
 
 /**
  *
  */
-public class PersonBuilder {
+public class TaskBuilder {
 
-    private TestPerson person;
+    private TestTask person;
 
-    public PersonBuilder() {
-        this.person = new TestPerson();
+    public TaskBuilder() {
+        this.person = new TestTask();
     }
 
-    public PersonBuilder withName(String description) throws IllegalValueException {
+    public TaskBuilder withName(String description) throws IllegalValueException {
         this.person.setDescription(new Description(description));
         return this;
     }
 
-    public PersonBuilder withTags(String ... tags) throws IllegalValueException {
+    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             person.getTags().add(new Tag(tag));
         }
         return this;
     }
 
-    public PersonBuilder withAddress(String priority) throws IllegalValueException {
+    public TaskBuilder withAddress(String priority) throws IllegalValueException {
         this.person.setPriority(new Priority(priority));
         return this;
     }
 
-    public PersonBuilder withPhone(String time) throws IllegalValueException {
+    public TaskBuilder withPhone(String time) throws IllegalValueException {
         this.person.setTime(new Time(time));
         return this;
     }
 
-    public PersonBuilder withEmail(String venue) throws IllegalValueException {
+    public TaskBuilder withEmail(String venue) throws IllegalValueException {
         this.person.setVenue(new Venue(venue));
         return this;
     }
 
-    public TestPerson build() {
+    public TestTask build() {
         return this.person;
     }
 

@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,10 +18,10 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
             + "Parameters: DESCRIPTION [pr/PRIORITY] [time/TIME] [a/VENUE] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Lose Sleep pr/ high time/23:35 a/311, Clementi Ave 2, #02-25 t/CS2103 t/WhatIsSleep";
+            + "Lose Sleep pr/high time/23:35 a/311, Clementi Ave 2, #02-25 t/CS2103 t/WhatIsSleep";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task manager";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
 
@@ -49,10 +49,10 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addPerson(toAdd);
+            model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniquePersonList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }

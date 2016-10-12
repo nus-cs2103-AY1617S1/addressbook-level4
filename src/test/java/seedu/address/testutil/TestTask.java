@@ -1,12 +1,12 @@
 package seedu.address.testutil;
 
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.person.*;
+import seedu.address.model.task.*;
 
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
     private Description description;
     private Priority priority;
@@ -14,7 +14,7 @@ public class TestPerson implements ReadOnlyTask {
     private Time time;
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
@@ -67,9 +67,9 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getDescription().fullDescription + " ");
-        sb.append("p/" + this.getTime().value + " ");
-        sb.append("e/" + this.getVenue().value + " ");
-        sb.append("a/" + this.getPriority().value + " ");
+        sb.append("pr/" + this.getPriority().toString() + " ");
+        sb.append("time/" + this.getTime().toString() + " ");
+        sb.append("a/" + this.getVenue().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
