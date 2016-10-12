@@ -1,6 +1,10 @@
 package seedu.tasklist.model.task;
 
+import java.util.Date;
+import java.util.List;
+
 import seedu.tasklist.commons.exceptions.IllegalValueException;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 /**
  * Represents the start time of a task.
@@ -8,10 +12,9 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
  */
 public class StartTime {
 
-    public static final String MESSAGE_START_TIME_CONSTRAINTS = "Start time should only be entered in 24 hrs format or 12 hrs format.";
-    public static final String START_TIME_VALIDATION_REGEX = ".*";
+    public static final String MESSAGE_START_TIME_CONSTRAINTS = "Start time is invalid!";
 
-    public final String value;
+    public final Date startDate;
 
     /**
      * Validates given start time.
@@ -19,40 +22,35 @@ public class StartTime {
      * @throws IllegalValueException if given start time is invalid.
      */
     public StartTime(String startTime) throws IllegalValueException {
-     //  assert phone != null;
-    	
-        if (!isValidStartTime(startTime)) {
-            throw new IllegalValueException(MESSAGE_START_TIME_CONSTRAINTS);
-        }
-
-        this.value = startTime;
-    }
-
-    /**
-     * Returns true if a given string is a valid start time.
-     */
-    public static boolean isValidStartTime(String test) {
-    	if(test==null){
-    		return true;
+    	if(startTime != null){
+    		List<Date> dates = new PrettyTimeParser().parse(startTime);
+    		if(dates.isEmpty()){
+    			throw new IllegalValueException("Start time is invalid!");
+    		}
+    		else{
+    			this.startDate = dates.get(0);
+    		}
     	}
-    	return test.matches(START_TIME_VALIDATION_REGEX);
+    	else{
+    		this.startDate = null;
+    	}
     }
 
     @Override
     public String toString() {
-        return value;
+        return startDate.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (this.value != null && ((StartTime) other).value != null ) && (other instanceof StartTime // instanceof handles nulls
-                && this.value.equals(((StartTime) other).value)); // state check
+                || (this.startDate != null && ((StartTime) other).startDate != null ) && (other instanceof StartTime // instanceof handles nulls
+                && this.startDate.equals(((StartTime) other).startDate)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return startDate.hashCode();
     }
 
 }
