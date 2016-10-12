@@ -26,7 +26,7 @@ public class EditCommand extends BaseCommand {
     }
 
     @Override
-    public void execute() throws IllegalValueException {
+    public CommandResult execute() throws IllegalValueException {
         ImmutableTask toEdit = this.getTaskAt(index.getValue());
         
         this.model.update(toEdit, task -> {
@@ -47,6 +47,8 @@ public class EditCommand extends BaseCommand {
                 task.setEndTime(date.getValue().getEndTime());
             }
         });
-	}
+        
+        return null;
+    }
 
 }

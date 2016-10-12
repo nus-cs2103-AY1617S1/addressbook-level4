@@ -4,6 +4,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.arguments.*;
 
 public class AddCommand extends BaseCommand {
+    private static final String VERB = "added";
     
     private Argument<String> title = new StringArgument("title").required();
     
@@ -27,7 +28,7 @@ public class AddCommand extends BaseCommand {
     }
 
     @Override
-    public void execute() throws IllegalValueException {
+    public CommandResult execute() throws IllegalValueException {
         this.model.add(title.getValue(), task -> {
             task.setDescription(description.getValue());
             task.setPinned(pin.getValue());
@@ -35,6 +36,8 @@ public class AddCommand extends BaseCommand {
             task.setStartTime(date.getValue().getStartTime());
             task.setEndTime(date.getValue().getEndTime());
         });
+        
+        return taskSuccessfulResult(title.getValue(), AddCommand.VERB);
     }
 
 }

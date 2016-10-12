@@ -7,6 +7,7 @@ import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.model.task.ImmutableTask;
 
 public class CompleteCommand extends BaseCommand {
+    private static final String VERB = "completed";
 
     private Argument<Integer> index = new IntArgument("index").required();
 
@@ -16,10 +17,12 @@ public class CompleteCommand extends BaseCommand {
     }
 
     @Override
-    public void execute() throws IllegalValueException {
+    public CommandResult execute() throws IllegalValueException {
         ImmutableTask toComplete = this.getTaskAt(index.getValue());
         boolean result = !toComplete.isCompleted();
         this.model.update(toComplete, task-> task.setCompleted(result));
+        
+        return taskSuccessfulResult(toComplete.getTitle(), CompleteCommand.VERB);
     }
 
 }

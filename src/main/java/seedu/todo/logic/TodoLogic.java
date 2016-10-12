@@ -7,6 +7,7 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.commands.BaseCommand;
+import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.logic.parser.Parser;
 import seedu.todo.model.TodoModel;
@@ -32,7 +33,7 @@ public class TodoLogic implements Logic {
         this.dispatcher = dispatcher;
     }
     
-    public void execute(String input) {
+    public CommandResult execute(String input) {
         ParseResult parseResult = parser.parse(input);
         logger.info("Parsed command: " + parseResult.toString());
         
@@ -40,13 +41,14 @@ public class TodoLogic implements Logic {
             BaseCommand command = dispatcher.dispatch(parseResult);
             command.setArguments(parseResult);
             command.setModel(model);
-            command.execute();
+            return command.execute();
         } catch (IllegalValueException e) {
-            // TODO: Do something about incorrect input
-            logger.info(e.getMessage());
+            // TODO: This branch should be removed when model validation lands
+            logger.warning("Remove this branch from TodoLogic when model validation lands");
+            return new CommandResult(e.getMessage());
         } catch (ValidationException e) {
-            // TODO: Do something about incorrect input
             logger.info(e.getMessage());
+            return new CommandResult(e.getMessage(), e.getErrors());
         }
     }
     

@@ -16,10 +16,11 @@ public class PinCommand extends BaseCommand {
     }
 
     @Override
-    public void execute() throws IllegalValueException {
+    public CommandResult execute() throws IllegalValueException {
         ImmutableTask toPin = this.getTaskAt(index.getValue());
         boolean isPinned = !toPin.isPinned();
         this.model.update(toPin, task-> task.setPinned(isPinned));
+        return null;
     }
 
 }

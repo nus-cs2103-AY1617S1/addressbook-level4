@@ -9,8 +9,9 @@ import seedu.todo.logic.arguments.Parameter;
  */
 public class ExitCommand extends BaseCommand {
     @Override
-    public void execute() {
+    public CommandResult execute() {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
+        return null;
     }
 
     @Override

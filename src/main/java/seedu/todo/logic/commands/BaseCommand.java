@@ -17,18 +17,22 @@ import seedu.todo.model.task.ImmutableTask;
  * 
  * To perform additional validation on incoming arguments, override the validateArguments 
  * function.
- *
  */
 public abstract class BaseCommand {
+    /**
+     * The default message that accompanies argument errors
+     */
+    private static final String DEFAULT_ARGUMENT_ERROR_MESSAGE = ""; 
+    
+    private static final String TASK_MODIFIED_SUCCESS_MESSAGE = "'%s' successfully %s!";
+
     protected TodoModel model;
     
     protected ErrorBag errors = new ErrorBag(); 
     
-    private static final String DEFAULT_ARGUMENT_ERROR_MESSAGE = ""; 
-    
     abstract protected Parameter[] getArguments();
     
-    abstract public void execute() throws IllegalValueException;
+    abstract public CommandResult execute() throws IllegalValueException;
     
     /**
      * Binds the data model to the command object
@@ -56,7 +60,7 @@ public abstract class BaseCommand {
      * Binds the both positional and named command arguments from the parse results 
      * to the command object itself 
      * 
-     * @throws ValidationException 
+     * @throws ValidationException if the arguments are invalid
      */
     public void setArguments(ParseResult arguments) throws ValidationException {
         if (arguments.getPositionalArgument().isPresent()) {
@@ -79,10 +83,6 @@ public abstract class BaseCommand {
      */
     protected void validateArguments() {
         // Does no additional validation by default 
-    }
-    
-    protected String getArgumentErrorMessage() {
-        return BaseCommand.DEFAULT_ARGUMENT_ERROR_MESSAGE;
     }
     
     private void setPositionalArgument(String argument) {
@@ -121,5 +121,20 @@ public abstract class BaseCommand {
                 errors.put(p.getName(), e.getMessage());
             }
         }
+    }
+
+    /**
+     * Override this function if the command should return some other error 
+     * message on argument validation error 
+     */
+    protected String getArgumentErrorMessage() {
+        return BaseCommand.DEFAULT_ARGUMENT_ERROR_MESSAGE;
+    }
+
+    /**
+     * Returns a generic CommandResult with a "{task} successfully {verbed}" success message   
+     */
+    protected CommandResult taskSuccessfulResult(String title, String verb) {
+        return new CommandResult(String.format(BaseCommand.TASK_MODIFIED_SUCCESS_MESSAGE, title, verb));
     }
 }
