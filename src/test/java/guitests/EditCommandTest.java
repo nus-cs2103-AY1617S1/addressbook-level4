@@ -4,10 +4,8 @@ package guitests;
  * @@author A0124333U
  */
 
-import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
-import tars.commons.core.Messages;
 import tars.commons.exceptions.IllegalValueException;
 import tars.logic.commands.EditCommand;
 import tars.model.task.Name;
@@ -18,7 +16,6 @@ import tars.testutil.TestUtil;
 import static org.junit.Assert.*;
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import org.junit.Test;
 
 public class EditCommandTest extends TarsGuiTest {
 
