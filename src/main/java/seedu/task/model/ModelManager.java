@@ -95,6 +95,12 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.addEvent(event);
         
     }
+    
+    @Override
+    public void markTask(int index){
+        taskBook.markTask(index);
+        indicateTaskBookChanged();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 

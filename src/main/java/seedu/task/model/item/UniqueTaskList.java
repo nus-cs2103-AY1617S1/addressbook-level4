@@ -59,6 +59,15 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
+    
+    /**
+     * Marks a task in the list
+     */
+    public void mark(int toMark){
+        Task targetTask = internalList.get(toMark);
+        targetTask.setCompleted();
+        internalList.set(toMark, targetTask);
+    }
 
     /**
      * Removes the equivalent task from the list.

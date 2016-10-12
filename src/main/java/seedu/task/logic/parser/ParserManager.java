@@ -46,6 +46,9 @@ public class ParserManager {
         case AddTaskCommand.COMMAND_WORD:
             return new AddParser().prepare(arguments);
 
+        case MarkCommand.COMMAND_WORD:
+            return new MarkParser().prepare(arguments);
+            
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
