@@ -46,4 +46,13 @@ public class DueByTime {
         return value.hashCode();
     }
 
+    /*
+     * Produces a friendly string of values in the format HH:MM
+     * 
+     * @author A0139661Y
+     */
+    public String getFriendlyString() {
+		return new StringBuilder(value.getHour() +":"+ value.getMinute()).toString();
+	}
+
 }

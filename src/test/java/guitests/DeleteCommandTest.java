@@ -6,6 +6,9 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+/*
+ * Successful testing for delete command, 12/10/16, A0141128R
+ */
 
 public class DeleteCommandTest extends ToDoListGuiTest {
 

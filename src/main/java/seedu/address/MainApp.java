@@ -1,6 +1,6 @@
 package seedu.address;
 
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.Subscribe;//don't need
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -43,7 +43,8 @@ public class MainApp extends Application {
 
     public MainApp() {}
 
-    @Override
+
+	@Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing ToDoList ]===========================");
         super.init();

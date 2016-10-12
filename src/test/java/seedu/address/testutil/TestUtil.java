@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,15 +67,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Detail("Ali Muster"), new Done("9482424"), new DueByDate("hans@google.com"), new DueByTime("4th street"), new Priority("high"), new UniqueTagList()),
-                    new Task(new Detail("Boris Mueller"), new Done("87249245"), new DueByDate("ruth@google.com"), new DueByTime("81th street"), new Priority("medium"), new UniqueTagList()),
-                    new Task(new Detail("Carl Kurz"), new Done("95352563"), new DueByDate("heinz@yahoo.com"), new DueByTime("wall street"), new Priority("low"), new UniqueTagList()),
-                    new Task(new Detail("Daniel Meier"), new Done("87652533"), new DueByDate("cornelia@google.com"), new DueByTime("10th street"), new Priority("medium"), new UniqueTagList()),
-                    new Task(new Detail("Elle Meyer"), new Done("9482224"), new DueByDate("werner@gmail.com"), new DueByTime("michegan ave"), new Priority("low"), new UniqueTagList()),
-                    new Task(new Detail("Fiona Kunz"), new Done("9482427"), new DueByDate("lydia@gmail.com"), new DueByTime("little tokyo"), new Priority("medium"), new UniqueTagList()),
-                    new Task(new Detail("George Best"), new Done("9482442"), new DueByDate("anna@google.com"), new DueByTime("4th street"), new Priority("high"), new UniqueTagList()),
-                    new Task(new Detail("Hoon Meier"), new Done("8482424"), new DueByDate("stefan@mail.com"), new DueByTime("little india"), new Priority("low"), new UniqueTagList()),
-                    new Task(new Detail("Ida Mueller"), new Done("8482131"), new DueByDate("hans@google.com"), new DueByTime("chicago ave"), new Priority("default"), new UniqueTagList()) 
+                    new Task(new Detail("Ali Muster"), new DueByDate(LocalDate.now()), new DueByTime(LocalTime.now().plusHours(2)), new Priority("high"), new UniqueTagList()),
+                    new Task(new Detail("Boris Mueller"), new DueByDate(LocalDate.of(2016, 12, 31)), new DueByTime(LocalTime.of(2,55)), new Priority("medium"), new UniqueTagList()),
+                    new Task(new Detail("Carl Kurz"), new DueByDate(LocalDate.of(2016,11,30)), new DueByTime(LocalTime.now()), new Priority("low"), new UniqueTagList()),
+                    new Task(new Detail("Daniel Meier"), new DueByDate(LocalDate.now()), new DueByTime(LocalTime.of(5, 55)), new Priority("medium"), new UniqueTagList()),
+                    new Task(new Detail("Elle Meyer"), new DueByDate(LocalDate.now()), new DueByTime(LocalTime.NOON), new Priority("low"), new UniqueTagList()),
+                    new Task(new Detail("Fiona Kunz"), new DueByDate(LocalDate.MIN), new DueByTime(LocalTime.NOON), new Priority("medium"), new UniqueTagList()),
+                    new Task(new Detail("George Best"), new DueByDate(LocalDate.MIN), new DueByTime(LocalTime.of(6,00)), new Priority("high"), new UniqueTagList()),
+                    new Task(new Detail("Hoon Meier"), new DueByDate(LocalDate.now().plusDays(1)), new DueByTime(LocalTime.MAX), new Priority("low"), new UniqueTagList()),
+                    new Task(new Detail("Ida Mueller"), new DueByDate(LocalDate.MIN), new DueByTime(LocalTime.MAX), new Priority("low"), new UniqueTagList()) 
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -327,7 +329,7 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
-        return card.isSameTask(task);
+    	return card.isSameTask(task);
     }
 
     public static Tag[] getTagList(String tags) {

@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.sun.media.jfxmedia.logging.Logger;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -25,8 +27,8 @@ public class TaskListPanelHandle extends GuiHandle {
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String PERSON_LIST_VIEW_ID = "#taskListView";
-
+    private static final String TASK_LIST_VIEW_ID = "#taskListView";
+    
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
@@ -37,7 +39,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     public ListView<ReadOnlyTask> getListView() {
-        return (ListView<ReadOnlyTask>) getNode(PERSON_LIST_VIEW_ID);
+        return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
     }
 
     /**
@@ -85,7 +87,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " tasks");
+                    "Expected " + (getListView().getItems().size() - 1) + " tasks but was " + (tasks.length+startPosition));
         }
         assertTrue(this.containsInOrder(startPosition, tasks));
         for (int i = 0; i < tasks.length; i++) {
@@ -166,7 +168,7 @@ public class TaskListPanelHandle extends GuiHandle {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
-    public int getNumberOfPeople() {
+    public int getNumberOfTasks() {
         return getListView().getItems().size();
     }
 }

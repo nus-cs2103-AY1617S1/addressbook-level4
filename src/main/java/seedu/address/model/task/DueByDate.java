@@ -43,5 +43,14 @@ public class DueByDate {
     public int hashCode() {
         return value.hashCode();
     }
+    
+    /*
+     * Produces a friendly string of values in the format MM/DD/YYYY
+     * 
+     * @author A0139661Y
+     */
+	public String getFriendlyString() {
+		return new StringBuilder(value.getMonthValue() +"/"+ value.getDayOfMonth() +"/"+ value.getYear()).toString();
+	}
 
 }

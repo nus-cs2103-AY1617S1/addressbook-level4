@@ -12,11 +12,15 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Task.
  */
 public class XmlAdaptedTask {
 
@@ -41,15 +45,15 @@ public class XmlAdaptedTask {
 
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         detail = source.getDetail().details;
-        done = source.checkDone().value;
-        dueByDate = source.getDueByDate().value;
-        dueByTime = source.getDueByTime().value;
+        done = source.checkDone().value.toString();
+        dueByDate = source.getDueByDate().toString();
+        dueByTime = source.getDueByTime().toString();
         priority = source.getPriority().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -58,22 +62,21 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person object.
+     * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            taskTags.add(tag.toModelType());
         }
         
         final Detail detail = new Detail(this.detail);
-        final Done done = new Done(this.done);
-        final DueByDate dbd = new DueByDate(this.dueByDate);
-        final DueByTime dbt = new DueByTime(this.dueByTime);
+        final DueByDate dbd = new DueByDate(LocalDate.parse(this.dueByDate));
+        final DueByTime dbt = new DueByTime(LocalTime.parse(this.dueByTime));
         final Priority priority = new Priority(this.priority);
-        final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(detail, done, dbd, dbt, priority, tags);
+        final UniqueTagList tags = new UniqueTagList(taskTags);
+        return new Task(detail, dbd, dbt, priority, tags);
     }
 }
