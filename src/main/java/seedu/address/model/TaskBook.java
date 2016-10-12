@@ -133,6 +133,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     
     public boolean changePerson(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
+        //System.out.println("dummy");
         if (persons.edit(target, args)) {
             return true;
         } else {

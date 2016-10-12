@@ -105,9 +105,12 @@ public class UniqueTaskList implements Iterable<Task> {
         args = args.substring(args.indexOf(' ') + 1);
         
         int editIndex = internalList.indexOf(key);
-        
+        //System.out.println(keyword);
+        //System.out.println(args);
+        //System.out.println(keyword.equals(EditCommand.DESCRIPTION_WORD));
         if (keyword.equals(EditCommand.DESCRIPTION_WORD)) {
             internalList.get(editIndex).setName(new Name(args));
+            System.out.println("dummy2");
             return true;
         } else if (keyword.equals(EditCommand.DATE_WORD)) {
             internalList.get(editIndex).setDate(new Date(args));
