@@ -2,6 +2,7 @@ package seedu.unburden.model.task;
 
 import java.util.Objects;
 
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.CollectionUtil;
 import seedu.unburden.model.tag.UniqueTagList;
 
@@ -36,16 +37,21 @@ public class Task implements ReadOnlyTask {
         this(source.getName(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
 
-    public Task(Name name, UniqueTagList tags) {
+    public Task(Name name, UniqueTagList tags) throws IllegalValueException {
 		assert !CollectionUtil.isAnyNull(name, tags);
 		this.name = name;
+		this.date = new Date("00-00-0000");
+		this.startTime = new Time("0000");
+		this.endTime = new Time("0000");
 		this.tags = new UniqueTagList(tags);
 	}
 
-	public Task(Name name, Date date, UniqueTagList tags) {
+	public Task(Name name, Date date, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name,date, tags);
 		this.name = name;
 		this.date = date;
+		this.startTime = new Time("0000");
+		this.endTime = new Time("0000");
 		this.tags = new UniqueTagList(tags);
 	}
 
