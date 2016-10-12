@@ -71,7 +71,7 @@ This developer guide will provide you with the necessary basic information to st
 <br>
 ## Architecture
 
-<img src="images/ArchitectureClassDiagram.PNG" width="600"><br>
+<img src="images/ArchitectureClassDiagram.PNG" width="800"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
