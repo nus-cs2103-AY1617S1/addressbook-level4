@@ -9,6 +9,7 @@ import seedu.todolist.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private Interval interval;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -22,6 +23,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Name getName() {
         return name;
+    }
+    
+    @Override
+    public Interval getInterval() {
+        return interval;
     }
 
     @Override

@@ -383,10 +383,11 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
+            Interval interval = new Interval(null, "7pm", "12 oct 2016", "8pm");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags);
+            return new Task(name, interval, tags);
         }
 
         /**
@@ -399,6 +400,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
+                    new Interval(null, seed + "pm", seed + " oct 2016", (seed + 1) + "pm"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -492,6 +494,7 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
+                    new Interval(null, "3pm", "21 oct 2016", "4pm"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
