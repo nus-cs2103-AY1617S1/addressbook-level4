@@ -49,6 +49,7 @@ public class XmlAdaptedTask {
         endDate = source.getInterval().getEndDate().toString();
         endTime = source.getInterval().getEndTime().toString();
         locationParameter = source.getLocationParameter().toString();
+        remarksParameter = source.getRemarksParameter().toString();
     }
 
     /**
