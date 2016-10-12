@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
+import seedu.address.model.task.TaskType;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
