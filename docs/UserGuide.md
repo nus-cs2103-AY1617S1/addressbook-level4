@@ -81,9 +81,9 @@ Format: `list`
 Description: Finds task whose names contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is case sensitive. e.g `cs2103t` will not match `CS2103T`
+> * The search is not case sensitive. e.g `cs2103t` will match `CS2103T`
 > * The order of the keywords does not matter. e.g. `Software Engineering` will match `Engineering Software`
-> * Only the name is searched.
+> * Only the task name is searched.
 > * Only full words will be matched e.g. `CS2103` will not match `CS2103T`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Software` will match `Software Engineering`
