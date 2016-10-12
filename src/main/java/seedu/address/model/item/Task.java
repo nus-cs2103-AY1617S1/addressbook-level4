@@ -65,9 +65,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName().name)
-                .append(", Priority: ")
-                .append(getPriorityValue());
+      
+        if (getName() != null){
+        	builder.append(getName().name);
+        }
+        if(getPriorityValue() != null){
+        	builder.append(" Priority: ")
+				   .append(getPriorityValue());
+        }
         if (getStartDate().isPresent()) {
             builder.append(", StartDate: ").append(getStartDate().get());
         }

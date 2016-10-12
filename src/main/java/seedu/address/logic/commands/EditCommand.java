@@ -46,11 +46,16 @@ public class EditCommand extends Command{
         endDate = null;
         priority = null;
         
-        //System.out.println(taskNameString);
-        if (taskNameString != null) {
+        if ( taskNameString!=null && !taskNameString.trim().equals("")) {
     		taskName = new Name(taskNameString);
+        } else {
+            System.out.println("TaskName is " + taskNameString);
         }
-        
+       /* 
+        if(taskName == null){
+            System.out.println("TaskName = null");
+        }
+        */
         if (startDateString != null) {
             DateParser dp = new DateParser(startDateString);
             startDate = dp.parseDate();
@@ -74,7 +79,7 @@ public class EditCommand extends Command{
         	switch (priorityString) {
             	case ("low"): case ("l"): priority = Priority.LOW; break; 
             	case ("high"): case ("h"): priority = Priority.HIGH; break;
-            	case ("medium"): case ("m"): priority = Priority.MEDIUM; break;
+            	case ("medium"): case ("m"): case ("med"): priority = Priority.MEDIUM; break;
         	}
         } 
 

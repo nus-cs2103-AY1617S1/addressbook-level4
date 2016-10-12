@@ -41,6 +41,21 @@ public class Parser {
                                                         +"(?: repeat every (?<recurrenceRate>.*?))?"
                                                         +"(?: -(?<priority>.*?))?)");
 
+    private static final Pattern EDIT_ARGS_FORMAT = Pattern.compile("(?i:"
+    													+"(?<taskName>.*?)?"
+            											+"(?:"
+            											+"(?:, by (?<endDateFormatOne>.*?))"
+            											+"|(?:, from (?<startDateFormatOne>.*?))"
+            											+"|(?:, at (?<startDateFormatTwo>.*?))"
+            											+"|(?:, start (?<startDateFormatThree>.*?))"
+            											+")?"
+            											+"(?:"
+            											+"(?:, to (?<endDateFormatTwo>.*?))?"
+            											+"(?:, end (?<endDateFormatThree>.*?))?"
+            											+")?"
+            											+"(?:, repeat every (?<recurrenceRate>.*?))?"
+            											+"(?:-(?<priority>.*?))?)");
+    
     private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
 
     public Parser() {}
@@ -197,7 +212,7 @@ public class Parser {
     	 
     	 //TODO
     	 //Update parser to make NAME field optional.
-    	 final Matcher matcher = TASK_ARGS_FORMAT.matcher(args.trim());
+    	 final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
          
     	 String taskName = null;
          String startDate = null;
@@ -205,14 +220,17 @@ public class Parser {
          String recurrenceRate = null;
          String timePeriod = null;
          String priority = null;  
-         
+
          if (!matcher.matches()) {
              return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
          }
          
          try {
-             taskName = matcher.group("taskName");
-             
+        	 
+        	 if(matcher.group("taskName") != null){
+        		 taskName = matcher.group("taskName");
+        	 }
+        	 
              if (matcher.group("startDateFormatOne") != null) {
                  startDate = matcher.group("startDateFormatOne");
              } else if (matcher.group("startDateFormatTwo") != null) {
@@ -249,7 +267,7 @@ public class Parser {
                  priority = matcher.group("priority");
              }
              
-             //System.out.println(index + " " + taskName + " " + startDate + " " + endDate + " " + recurrenceRate + " " + priority );
+             System.out.println(index + " " + taskName + " " + startDate + " " + endDate + " " + recurrenceRate + " " + timePeriod + " " + priority );
              return new EditCommand(index, taskName, startDate, endDate, recurrenceRate, timePeriod, priority);
          } catch (IllegalValueException ive) {
              return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
