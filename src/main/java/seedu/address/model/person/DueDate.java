@@ -1,6 +1,10 @@
 package seedu.address.model.person;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import com.joestelmach.natty.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Date;
 
 /**
  * Represents a Task's due date in SuperbTodo.
@@ -9,29 +13,35 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class DueDate {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task's due date should only contain numbers";
-    public static final String PHONE_VALIDATION_REGEX = "\\d+";
 
     public final String value;
 
     /**
-     * Validates given phone number.
+     * Validates given date number.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException if given date string is invalid.
      */
-    public DueDate(String phone) throws IllegalValueException {
-        assert phone != null;
-        phone = phone.trim();
-        if (!isValidDate(phone)) {
+    public DueDate(String date) throws IllegalValueException {
+        assert date != null;
+        date = date.trim();
+        Parser parser = new Parser();
+    	List<DateGroup> dateParser = parser.parse(date);
+        if (!isValidDate(dateParser)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        this.value = phone;
+        String dateString = dateParser.get(0).getDates().toString();
+        this.value = dateString.substring(1, dateString.length()-1);
     }
 
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given string is a valid date.
      */
-    public static boolean isValidDate(String test) {
-        return test.matches(PHONE_VALIDATION_REGEX);
+    public static boolean isValidDate(List<DateGroup> test) {
+    	if (!test.isEmpty()) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
     @Override
