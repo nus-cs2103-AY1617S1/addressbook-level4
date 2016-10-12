@@ -10,8 +10,8 @@ import seedu.task.commons.exceptions.IllegalValueException;
 public class EndTime {
 
     public static final String MESSAGE_ENDTIME_CONSTRAINTS =
-            "Task end times should be 2 alphanumeric/period strings separated by '@'";
-    public static final String ENDTIME_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+            "Task start times should be in hhmm hrs format";
+    public static final String ENDTIME_VALIDATION_REGEX = "^([0-9]{4})+(hrs)";
 
     public final String value;
 
