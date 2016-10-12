@@ -7,7 +7,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 
-public abstract class TMTask implements TMReadOnlyTask {
+public class TMTask implements TMReadOnlyTask {
 
 	public final TaskType taskType;
 	private Name name;

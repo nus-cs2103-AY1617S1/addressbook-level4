@@ -19,4 +19,14 @@ public class Status {
 		this.status = status;
 	}
 	
+	@Override
+	public String toString() {
+		if (status.equals(DoneStatus.DONE)) {
+			return "done";
+		}
+		else {
+			return "not done";
+		}
+	}
+	
 }
