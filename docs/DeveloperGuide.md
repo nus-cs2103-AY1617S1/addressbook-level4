@@ -97,13 +97,13 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : Accepts user inputs and displays command execution results
+* [**`UI`**](#ui-component) : Allows users to interact with the program
 * [**`Logic`**](#logic-component) : Executes commands
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+* [**`Storage`**](#storage-component) : Reads data from and writes data to the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its _API_ in an `interface` with the same name.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the **`Logic`** component (see the class diagram given below) defines it's API in the `Logic.java`
@@ -138,7 +138,7 @@ The sections below give more details of each component.
 
 The UI consists of a `MainWindow` that is made up of parts, e.g. `CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+and can be loaded using the `UiPartLoader`.
 
 The **`UI`** component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
@@ -153,7 +153,7 @@ The **`UI`** component
 <img src="images/UiComponentParts.png" width="600"><br>
 Figure 1. UI component parts
 
-Figure 1 shows where each `UiPart` is attached to the `MainWindow`. The `TaskListPanel` class shows the list of tasks, where each task is contained in a `TaskCard` object.
+Figure 1 shows where each `UiPart` is attached to the `MainWindow`. The `TaskListPanel` class shows the list of tasks. Each task is contained in a `TaskCard` object.
 
 **`TaskCard` Class:**
 
@@ -161,7 +161,7 @@ Figure 1 shows where each `UiPart` is attached to the `MainWindow`. The `TaskLis
 
 **`HelpWindow` Class:**
 
-The `HelpWindow` is a window separate from the `MainWindow`. It shows our product's User Guide from *https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md*, which requires an active Internet connection. 
+The `HelpWindow` is a window separate from the `MainWindow`. It shows our product's User Guide from *https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md*. Accessing this User Guide requires an active Internet connection. 
 
 
 ### Logic component
@@ -199,16 +199,16 @@ The `Command` class takes input arguments from the `Parser`class, and produces a
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
 The **`Model`**
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* Stores a `UserPref` object that contains the user's preferences.
+* Stores task list's data.
+* Exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-    * but other components are heavily dependent on this component.
+* Does not depend on any of the other three components.
+    * However, other components are heavily dependent on this component.
 
 ****`Model`** Interface:**
 
-The **`Model`** interface allows you to request for any model-related operations, such as retrieving and modifying task
+The **`Model`** interface allows you to request for any model-related operations, such as retrieving and modifying tasks
 in the task list, without having to know anything about the implementation of the `ModelManager` class.
 
 Notable APIs
@@ -218,9 +218,9 @@ Return type | Method and Description
 void | `resetData(ReadOnlyTaskList newData)`: Replaces the entire task list with the one provided by `newData`.
 ReadOnlyTaskList | `getTaskList()`: Retrieves the entire task list.
 void | `addTask(Task task)`: Adds a task to the list.
-void | `updateTask(ReadOnlyTask oldTask, Task newTask)`: Update the details of the old task with the new task given.
+void | `updateTask(ReadOnlyTask oldTask, Task newTask)`: Updates the details of the old task with the new task given.
 void | `deleteTask(ReadOnlyTask target)`: Deletes the `target` task.
-void | `resetTaskListFilter()`: Resets all filters that was utilized to view only a certain subset of the task list.
+void | `resetTaskListFilter()`: Resets all filters that was used to view only a certain subset of the task list.
 
 **`ModelManager` Class:**
 
@@ -238,7 +238,7 @@ and tags used in the entire task list.
 **`TaskList` Class:**
 
 The `TaskList` class is responsible for maintaining the task list required by the program. You should not call
-any methods of this class directly. Instead, you should request for retrieval and modification via the
+any method of this class directly. Instead, you should request for retrieval and modification via the
 `ModelManager`. The `ModelManager` will return a `ReadOnlyTaskList` when requesting for tasks in the task list.
 
 **`UserPrefs` Class:**
@@ -293,13 +293,13 @@ The `UniqueTaskList` class provides a task list with no duplicate tasks.
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
 The **`Storage`** component
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
-* depends on **`Model`** component, but **`Logic`** and **`UI`** components depend on it.
+* Saves `UserPref` objects in json format and read it back.
+* Saves the task list data in xml format and read it back.
+* Depends on the **`Model`** component, but the **`Logic`** and **`UI`** components depend on it.
 
 ****`Storage`** Interface:**
 
-The **`Storage`** interface allows you to request for any storage-related operations, such as reading and saving user's preferences and tasklist.
+The **`Storage`** interface allows you to request for any storage-related operations, such as reading and saving the user's preferences and tasklist.
 
 Notable APIs
 
@@ -358,7 +358,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+We are using the `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
@@ -369,21 +369,21 @@ and logging destinations.
 
 **Logging Levels**
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `SEVERE` : Critical problems detected, which may cause the application to terminate
 * `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
+* `INFO` : Information showing noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+You can control certain properties of the application (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
 
 ## Testing
 
-Tests can be found in the `./src/test/java` folder.
+You can find the tests in the `./src/test/java` folder.
 
 **In Eclipse**:
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
@@ -405,18 +405,18 @@ We have two types of tests:
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   3. Hybrids of unit and integration tests. These tests check multiple code units as well as 
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode. 
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ In headless mode, GUI tests do not show up on the screen.
+ That means you can do other things on the computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
 ## Dev Ops
@@ -444,7 +444,7 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. For example, Address Book depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
+is better than these alternatives:<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
