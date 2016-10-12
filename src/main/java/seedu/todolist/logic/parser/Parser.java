@@ -30,9 +30,9 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>(.)+)"
-                    + "(?<interval>(?:\\bfrom\\b[\\p{Alnum}:/\\s]+))"
-                    + " at (?<locationParameter>[^/]+)" 
-                    + " remarks (?<remarksParameter>[^/]+)");
+                    + "from (?<interval>[\\p{Alnum}:/\\s]+)"
+                    + " at (?<locationParameter>[\\p{Alnum}:/\\s]+)" 
+                    + " remarks (?<remarksParameter>[\\p{Alnum}:/\\s]+)");
     
     public static final int INTERVAL_COMPONENT_TOTAL = 2;
     public static final int INTERVAL_COMPONENT_FROM = 0;
