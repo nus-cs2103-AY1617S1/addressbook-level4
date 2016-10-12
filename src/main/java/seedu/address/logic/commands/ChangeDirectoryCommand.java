@@ -19,7 +19,7 @@ public class ChangeDirectoryCommand extends Command{
 
     public static final String MESSAGE_SUCCESS = "Alert: This operation is irreversible. File path successfully changed to : %1$s";
     public static final String MESSAGE_IO_ERROR = "Error when saving/reading file...";
-    public static final String MESSAGE_CONVENSION_ERROR = "Wrong file type detected.";
+    public static final String MESSAGE_CONVENSION_ERROR = "Wrong file type/In valid file path detected.";
 
     private final String filePath;
     
