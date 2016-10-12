@@ -99,8 +99,8 @@ public class Parser {
 		// case FindCommand.COMMAND_WORD:
 		// return prepareFind(arguments);
 		//
-		// case ExitCommand.COMMAND_WORD:
-		// return new ExitCommand();
+		case ExitCommand.COMMAND_WORD:
+			return new ExitCommand();
 		//
 		// case HelpCommand.COMMAND_WORD:
 		// return new HelpCommand();
