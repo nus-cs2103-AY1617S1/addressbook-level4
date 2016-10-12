@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <TaskManager>
     <tasks>
-        <id>1</id>
-        <firstName>John</firstName>
-        <lastName>Doe</lastName>
-        <githubUsername></githubUsername>
-        <street></street>
-        <postalCode></postalCode>
-        <city></city>
+        <title>HOMEWORK</title>
+        <description>HOMEWORK</description>
+        <startDate>01-01-2012</startDate>
+        <dueDate>01-01-2012</dueDate>
+        <interval>1</interval>
+        <timeInterval>1</timeInterval>
     </tasks>
     <tags>
         <name>Friends</name>

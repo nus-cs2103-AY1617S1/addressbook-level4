@@ -24,6 +24,7 @@ import seedu.task.model.tag.UniqueTagList;
 import seedu.task.storage.StorageManager;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -410,11 +411,11 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Title("Task " + seed),
-                    new Description("" + Math.abs(seed)),
-                    new StartDate(seed + "@email"),
-                    new DueDate("House of " + seed),
-                    new Interval(new Date(Math.abs(seed)).toString()),
-                    new TimeInterval(new Date(Math.abs(seed)).toString()),
+                    new Description("Description" + seed),
+                    new StartDate("01-01-2016"),
+                    new DueDate("01-01-2016"),
+                    new Interval(""+seed),
+                    new TimeInterval(""+seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
