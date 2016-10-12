@@ -62,19 +62,19 @@ Command | Format
 ## Features
 
 
-#### <a id="help"></a>Viewing help : `help`
+#### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 <br><br>
 
-#### <a id="add"></a>Adding a task: `add`
+#### <a id="add"></a> Adding a task: `add`
 Adds a floating task to Jimi.<br>
 Format: `add TASK_DETAILS` 
 
 > * Floating tasks are tasks without any deadlines.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add “Send Jimmy to school on the way to work from home”`
+> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add â€œSend Jimmy to school on the way to work from homeâ€�`
 
 Examples: 
 * `add Buy groceries`
@@ -84,7 +84,7 @@ Adds a task with a deadline to Jimi.<br>
 Format: `add TASK_DETAILS by DATE [at TIME]`
 
 > * You can include time as an optional detail.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add “Send Jimmy to school on the way to work from home”`
+> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add â€œSend Jimmy to school on the way to work from homeâ€�`
 
 Examples:
 * `add Get a haircut by Tuesday`
@@ -96,10 +96,10 @@ Format: `add EVENT_DETAILS on DATE [to END_DATE, START TIME to END_TIME]`
 
 > * If the event is more than a day long, you may include the end date. <br>
 > * You may define the start and end time of the event if you wish.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add “Send Jimmy to school on the way to work from home”`
+> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add â€œSend Jimmy to school on the way to work from homeâ€�`
 
 Examples:
-* `add Attend Timmy’s orchestra on 5th July`
+* `add Attend Timmyâ€™s orchestra on 5th July`
 * `add Show up for dentist appointment on 8/7/2016, 5:00pm to 7:30pm`
 * `add Have school camp on 10 October to 18 October, 10am to 5pm`
 
@@ -112,7 +112,7 @@ Format: `complete TASK_INDEX`
 > * Jimi will note the task as completed at the specified `TASK_INDEX`. 
 > * If you want to revert the task back as incomplete, use the [`undo`](#undo) command.
 > * The index refers to the index number shown in the most recent listing.<br>
-> * The index **must be a positive integer** 1, 2, 3, …
+> * The index **must be a positive integer** 1, 2, 3, â€¦
 
 <br><br>
 
@@ -131,7 +131,7 @@ Examples:
   Deletes the 1st task in the results of the [`find`](#find) command.
 
 > * The index refers to the index number shown in the most recent listing.<br>
-> * The index **must be a positive integer** 1, 2, 3, …
+> * The index **must be a positive integer** 1, 2, 3, â€¦
 
 <br><br>
 
@@ -147,9 +147,9 @@ Format: `edit TASK_INDEX DETAIL_MODIFIER EDITS`
 >     * `/sd` and `/ed`: start date and end date
 >     * `/st` and `/et` : start time and end time <br><br>
 > * If you want to undo your edit, use the [`undo`](#undo) command.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add “Send Jimmy to school on the way to work from home”`
+> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add â€œSend Jimmy to school on the way to work from homeâ€�`
 > * The index refers to the index number shown in the most recent listing.
-> * The index **must be a positive integer** 1, 2, 3, …
+> * The index **must be a positive integer** 1, 2, 3, â€¦
 
 Examples:
 * `edit 2 /n buy food`
@@ -179,14 +179,14 @@ Examples:
 
 <br><br>
 
-#### <a id="set"></a>Setting save directory : `setdir`
+#### <a id="set"></a>Setting save directory : `saveas`
 Set a new save path for all your tasks.
-Format: `setdir NEW_DIRECTORY`
+Format: `saveas NEW_DIRECTORY`
 
-> * `NEW_DIRECTORY` should be in the format: `[desired_path]/[file_name].txt`
+> * `NEW_DIRECTORY` should be in the format: `[desired_path]/[file_name].xml`
 
 Example:
-* `setdir C:\Users\jimmy\Desktop\my_tasks.txt`
+* `saveas C:\Users\jimmy\Desktop\my_tasks.xml`
 
 <br><br>
 
@@ -220,7 +220,7 @@ There is no need to save manually.
        the file that contains the data of your previous Address Book folder.
 
 **Q**: Is there a way to be notified of upcoming tasks or events that are due soon?
-**A**: Jimi will display all overdue tasks, upcoming tasks and events at the top ‘Agenda’ box, so you will always be notified of the most important details first.
+**A**: Jimi will display all overdue tasks, upcoming tasks and events at the top â€˜Agendaâ€™ box, so you will always be notified of the most important details first.
        
 
 
