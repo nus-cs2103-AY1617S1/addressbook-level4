@@ -87,7 +87,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the TaskMan data are changed,
+>Note how the `Model` simply raises a `TaskManChangedEvent` when the TaskMan data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -274,6 +274,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user with many tasks | sort tasks by deadline | locate an urgent task easily
 `* * *` | user | have similar functional support for "variations" of tasks | manage events
 `* *` | user | select tasks from the list of tasks | conduct bulk actions on them conveniently
+`* *` | user | type (shorter) variations of my commands | type my commands more efficiently
 `* *` | user | undo my action | return to the previous state(s) after I have done something undesirable
 `*` | user | redo my action | return to any state within the capacity of the log during the application session
 `*` | user | tab-complete my commands | type my commands more efficiently
