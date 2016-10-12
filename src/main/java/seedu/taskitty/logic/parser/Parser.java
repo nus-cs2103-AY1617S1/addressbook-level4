@@ -3,6 +3,7 @@ package seedu.taskitty.logic.parser;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.logic.commands.*;
+import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
@@ -29,9 +30,8 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<data>[\\p{Alnum}: ]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern PERSON_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<data>[\\p{Alnum}/: ]+)");
 
     public Parser() {}
 
@@ -100,7 +100,7 @@ public class Parser {
             
             return new AddCommand(
                     extractTaskDetails(data),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    getTagsFromArgs(data)
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -108,16 +108,20 @@ public class Parser {
     }
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
+     * Extracts the new person's tags from the add command's data string.
      * Merges duplicate tag strings.
      */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
+    private static Set<String> getTagsFromArgs(String data) throws IllegalValueException {
+        Pattern tagPattern = Pattern.compile(Tag.TAG_VALIDATION_REGEX_FORMAT); //Does this name make sense?
+        Matcher tagMatcher = tagPattern.matcher(data);
+        ArrayList<String> tagStrings = new ArrayList<String>();
+        
+        while (tagMatcher.find()) {
+            String tag = tagMatcher.group().replaceFirst("t/", "");
+            System.out.println(tag);
+            tagStrings.add(tag);
         }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        
         return new HashSet<>(tagStrings);
     }
 
@@ -219,8 +223,8 @@ public class Parser {
         Pattern datePattern = Pattern.compile(TaskDate.DATE_VALIDATION_REGEX_FORMAT);
         Pattern timePattern = Pattern.compile(TaskTime.TIME_VALIDATION_REGEX_FORMAT);
         
-        //default name is the entire argument
-        int nameLastIndex = args.length();
+        //default name is the entire argument up til the first tag
+        int nameLastIndex = args.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
         
         Matcher dateMatcher = datePattern.matcher(args);
         //Max only have 1 date
