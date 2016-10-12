@@ -5,10 +5,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.parser.AddCommandParser;
-import seedu.address.logic.parser.MasterParser;
+import seedu.address.logic.parser.*;
 import seedu.address.model.Model;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.storage.Storage;
 
@@ -45,5 +43,7 @@ public class LogicManager extends ComponentManager implements Logic {
     
     private void registerAllDefaultCommandParsers() {
         parser.registerCommandParser(new AddCommandParser());
+        parser.registerCommandParser(new DeleteCommandParser());
+        parser.registerCommandParser(new FindCommandParser());
     }
 }

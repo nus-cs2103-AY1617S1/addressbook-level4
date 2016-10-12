@@ -2,6 +2,9 @@ package seedu.address.logic.commands.models;
 
 import java.util.Date;
 
+import seedu.address.model.task.PriorityLevel;
+import seedu.address.model.task.RecurrenceType;
+
 /**
  * Represents a model for use with the add command.
  */
@@ -11,14 +14,15 @@ public class AddCommandModel extends CommandModel {
     private Date startDateTime;
     private Date endDateTime;
     private String location;
-    private int priority;
-    private int recurringType;
+    private PriorityLevel priority;
+    private RecurrenceType recurringType;
     private int numberOfRecurrence;
-    private int category;
+    private String category;
     private String description;
     
     public AddCommandModel(String taskName, Date startDateTime, Date endDateTime, String location,
-            int priority, int recurringType, int numberOfRecurrence, int category, String description) {
+            PriorityLevel priority, RecurrenceType recurringType, int numberOfRecurrence, String category, 
+            String description) {
         this.taskName = taskName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -66,19 +70,19 @@ public class AddCommandModel extends CommandModel {
         this.location = location;
     }
 
-    public int getPriority() {
+    public PriorityLevel getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(PriorityLevel priority) {
         this.priority = priority;
     }
 
-    public int getRecurringType() {
+    public RecurrenceType getRecurringType() {
         return recurringType;
     }
 
-    public void setRecurringType(int recurringType) {
+    public void setRecurringType(RecurrenceType recurringType) {
         this.recurringType = recurringType;
     }
 
@@ -90,11 +94,11 @@ public class AddCommandModel extends CommandModel {
         this.numberOfRecurrence = numberOfRecurrence;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

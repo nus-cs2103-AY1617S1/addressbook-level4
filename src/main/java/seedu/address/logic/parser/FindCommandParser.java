@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.models.FindCommandModel;
 import seedu.address.model.task.FindType;
 
 public class FindCommandParser extends CommandParser<FindCommand> {
@@ -35,12 +36,14 @@ public class FindCommandParser extends CommandParser<FindCommand> {
     protected FindCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            parseFindType(commandText, matcher.group(REGEX_REF_FIND_TYPE));
-            parseKeywords(commandText,
+            FindType findType = parseFindType(commandText, matcher.group(REGEX_REF_FIND_TYPE));
+            String[] keywords = parseKeywords(commandText,
                     matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE),
                     matcher.group(REGEX_REF_KEYWORDS_AFTER_TYPE));
             
             // TODO: Return FindCommand here (require integration).
+            
+            return new FindCommand(new FindCommandModel(findType, keywords));
         }
         
         throw new ParseException(commandText, getRequiredFormat());

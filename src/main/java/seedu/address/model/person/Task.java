@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.address.model.task.PriorityLevel;
+import seedu.address.model.task.RecurrenceType;
+
 /**
  * Represents a Task in the task list.
  */
@@ -12,15 +15,15 @@ public class Task implements ReadOnlyTask {
     private Date startDateTime;
     private Date endDateTime;
     private String location;
-    private int priority;
-    private int recurringType;
+    private PriorityLevel priority;
+    private RecurrenceType recurringType;
     private int numberOfRecurrence;
-    private int category;
+    private String category;
     private String description;
 
     public Task(String taskName, Date startDateTime, Date endDateTime, String location,
-            int priority, int recurringType, int numberOfRecurrence, int category, String description) {
-        //assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+            PriorityLevel priority, RecurrenceType recurringType, int numberOfRecurrence, 
+            String category, String description) {
         this.taskName = taskName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -66,12 +69,12 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public int getPriority() {
+    public PriorityLevel getPriority() {
         return priority;
     }
 
     @Override
-    public int getRecurringType() {
+    public RecurrenceType getRecurringType() {
         return recurringType;
     }
 
@@ -81,7 +84,7 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -106,11 +109,11 @@ public class Task implements ReadOnlyTask {
         this.location = location;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(PriorityLevel priority) {
         this.priority = priority;
     }
 
-    public void setRecurringType(int recurringType) {
+    public void setRecurringType(RecurrenceType recurringType) {
         this.recurringType = recurringType;
     }
 
@@ -118,7 +121,7 @@ public class Task implements ReadOnlyTask {
         this.numberOfRecurrence = numberOfRecurrence;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

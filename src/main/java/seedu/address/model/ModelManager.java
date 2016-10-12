@@ -90,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new TaskNameExactMatchQualifier(keywords)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -128,10 +128,10 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
-    private class NameQualifier implements Qualifier {
+    private class TaskNameExactMatchQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
-        NameQualifier(Set<String> nameKeyWords) {
+        TaskNameExactMatchQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
         }
 

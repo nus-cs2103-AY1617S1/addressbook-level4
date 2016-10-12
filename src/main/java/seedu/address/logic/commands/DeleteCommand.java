@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
+import java.util.LinkedList;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.logic.commands.models.DeleteCommandModel;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.TaskList.TaskNotFoundException;
 
@@ -17,12 +20,13 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
-    public final int targetIndex;
+    public final DeleteCommandModel commandModel;
 
-    public DeleteCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(DeleteCommandModel commandModel) {
+        assert (commandModel != null);
+        this.commandModel = commandModel;
     }
 
 
@@ -31,20 +35,26 @@ public class DeleteCommand extends Command {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        LinkedList<ReadOnlyTask> tasksToDelete = new LinkedList<ReadOnlyTask>();
+        for(int targetIndex : commandModel.getTargetIndex()) {
+            if (lastShownList.size() < targetIndex) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            tasksToDelete.add(lastShownList.get(targetIndex - 1));
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
+        StringBuilder resultSb = new StringBuilder();
         try {
-            model.deleteTask(taskToDelete);
+            for(ReadOnlyTask taskToDelete : tasksToDelete) {
+                model.deleteTask(taskToDelete);
+                resultSb.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+            }
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
+            assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
+        return new CommandResult(resultSb.toString());
     }
     
     @Override

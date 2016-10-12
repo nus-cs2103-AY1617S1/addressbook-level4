@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import java.util.Set;
 
+import seedu.address.logic.commands.models.FindCommandModel;
+
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -15,16 +17,17 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final Set<String> keywords;
+    private final FindCommandModel commandModel;
 
-    public FindCommand(Set<String> keywords) {
-        this.keywords = keywords;
+    public FindCommand(FindCommandModel commandModel) {
+        assert (commandModel != null);
+        this.commandModel = commandModel;
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredTaskList().size()));
+        model.updateFilteredTaskList(commandModel.getKeywords());
+        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
     
     @Override

@@ -2,6 +2,8 @@ package seedu.address.testutil;
 
 import java.util.Date;
 import seedu.address.model.person.*;
+import seedu.address.model.task.PriorityLevel;
+import seedu.address.model.task.RecurrenceType;
 
 /**
  * A mutable task object. For testing only.
@@ -12,10 +14,10 @@ public class TestTask implements ReadOnlyTask {
     private Date startDateTime;
     private Date endDateTime;
     private String location;
-    private int priority;
-    private int recurringType;
+    private PriorityLevel priority;
+    private RecurrenceType recurringType;
     private int numberOfRecurrence;
-    private int category;
+    private String category;
     private String description;
 
     public TestTask() {
@@ -42,12 +44,12 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public int getPriority() {
+    public PriorityLevel getPriority() {
         return priority;
     }
 
     @Override
-    public int getRecurringType() {
+    public RecurrenceType getRecurringType() {
         return recurringType;
     }
 
@@ -57,7 +59,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -82,11 +84,11 @@ public class TestTask implements ReadOnlyTask {
         this.location = location;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(PriorityLevel priority) {
         this.priority = priority;
     }
 
-    public void setRecurringType(int recurringType) {
+    public void setRecurringType(RecurrenceType recurringType) {
         this.recurringType = recurringType;
     }
 
@@ -94,7 +96,7 @@ public class TestTask implements ReadOnlyTask {
         this.numberOfRecurrence = numberOfRecurrence;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

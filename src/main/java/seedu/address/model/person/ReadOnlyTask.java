@@ -2,6 +2,9 @@ package seedu.address.model.person;
 
 import java.util.Date;
 
+import seedu.address.model.task.PriorityLevel;
+import seedu.address.model.task.RecurrenceType;
+
 /**
  * A read-only immutable interface for a Task in the TaskList.
  * Implementations should guarantee: details are present and not null, field values are validated.
@@ -12,10 +15,10 @@ public interface ReadOnlyTask {
     Date getStartDateTime();
     Date getEndDateTime();
     String getLocation();
-    int getPriority();
-    int getRecurringType();
+    PriorityLevel getPriority();
+    RecurrenceType getRecurringType();
     int getNumberOfRecurrence();
-    int getCategory();
+    String getCategory();
     String getDescription();
 
     /**
