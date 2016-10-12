@@ -100,7 +100,7 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(SomedayTaskCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }
