@@ -24,8 +24,6 @@ public class TagList extends Component {
     private static final String COMPLETED_ICON_PATH = "/images/icon-tick.png";
     private static final String TAG_LABEL = "Tags";
     private static final String SPACE = " ";
-    private static final String LEFT_BRACKET  = "(";
-    private static final String RIGHT_BRACKET = ")";
     
     // Props
     public List<String> tags; // stub
@@ -59,7 +57,7 @@ public class TagList extends Component {
     }
     
     private String formatTagSize(int size) {
-        return TAG_LABEL + SPACE + LEFT_BRACKET + size + RIGHT_BRACKET;
+        return TAG_LABEL + SPACE + String.format("(%s)", size);
     }
     
     private void loadLinks() {
