@@ -84,7 +84,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean set(int key, SomedayTask Task) throws TaskNotFoundException {
         assert Task != null;
         boolean isFound = false;
-		// TODO: settle 'Task' data type
+		// TODO: settle 'Task' data type. stub will be changed to SomedayTask
         Task stub;
 		try {
 			stub = new Task(
@@ -98,7 +98,8 @@ public class UniqueTaskList implements Iterable<Task> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-		}
+		}//end of stub
+		
         if (internalList.size()-1 < key) {
             throw new TaskNotFoundException();
         } else {
