@@ -5,8 +5,8 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-## Quick Start
 
+## Quick Start
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
@@ -27,20 +27,20 @@
 
 
 ## Features
-
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+
 #### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-#### Adding a task/tag
 
+#### Adding a task/tag
 ##### Adding a task: `add`
 Adds a task to the task manager.<br>
 Format: `add DESCRIPTION [pr/RANK] [time/TIME] [a/VENUE] [t/TAG]...`
@@ -65,7 +65,6 @@ Example:
 
 
 #### Listing all tasks/tags
-
 ##### Listing all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
 Format: `list [-pr] [-t/TAGS]...`
@@ -103,8 +102,8 @@ Examples:
 * `find Return lunch Meeting`<br>
   Returns Any tasks having description containing `Return`, `lunch`, or `Meeting`
 
-#### Deleting a task/tag
 
+#### Deleting a task/tag
 ##### Delete a task: `delete`
 Deletes the specified task from the task manager.<br>
 Format: `delete INDEX`
@@ -137,6 +136,7 @@ Examples:
   `edit 3 Complete tutorial 7 pr/ time/`<br>
   Edits the 3rd task in the task manager by replacing the description, resetting the priority and removing the deadline
 
+
 #### Completing a task: `complete`
 Tag the task last selected as 'Complete' and remove it from the calendar.<br>
 Format: `complete INDEX`
@@ -146,27 +146,33 @@ Examples:
   `complete 2`<br>
   Add a tag `COMPLETE` the 2nd task in the task manager.
 
+
 #### Undo action: `undo`
 Undoes the most recent change from the task manager.<br>
 Format: `undo`
+
 
 #### Clearing entries: `clear`
 Clears all entries from the task manager.<br>
 Format: `clear`
 
+
 #### Exiting the program: `exit`
 Exits the program.<br>
 Format: `exit`
 
+
 #### Saving the data
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with
        the file that contains the data of your previous Task Manager folder.
+
 
 ## Command Summary
 
