@@ -8,10 +8,12 @@ import seedu.todo.logic.arguments.Parameter;
  * Terminates the program.
  */
 public class ExitCommand extends BaseCommand {
+    private final static String EXIT_MESSAGE = "Goodbye!";
+    
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
-        return null;
+        return new CommandResult(ExitCommand.EXIT_MESSAGE);
     }
 
     @Override

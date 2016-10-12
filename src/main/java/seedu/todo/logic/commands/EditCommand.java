@@ -5,6 +5,7 @@ import seedu.todo.logic.arguments.*;
 import seedu.todo.model.task.ImmutableTask;
 
 public class EditCommand extends BaseCommand {
+    private static final String VERB = "edited";
     
     private Argument<Integer> index = new IntArgument("index").required();
     
@@ -48,7 +49,7 @@ public class EditCommand extends BaseCommand {
             }
         });
         
-        return null;
+        return taskSuccessfulResult(toEdit.getTitle(), EditCommand.VERB);
     }
 
 }
