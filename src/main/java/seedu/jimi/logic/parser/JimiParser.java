@@ -14,7 +14,7 @@ import seedu.jimi.logic.commands.*;
 /**
  * Parses user input.
  */
-public class Parser {
+public class JimiParser {
     
     /**
      * Used for initial separation of command word and args.
@@ -32,7 +32,7 @@ public class Parser {
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
             Pattern.compile("(?<targetIndex>\\d+\\s)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
     
-    public Parser() {}
+    public JimiParser() {}
 
     /**
      * Parses user input into command for execution.
