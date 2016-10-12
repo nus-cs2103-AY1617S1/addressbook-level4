@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import javafx.application.Platform;
@@ -14,9 +15,14 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.NavigationSelectionChangedEvent;
+import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.address.logic.commands.ListCommand;
 
 public class NavbarPanel extends UiPart {
 	// private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+	private final Logger logger = LogsCenter.getLogger(NavbarPanel.class);
     private static final String FXML = "NavbarPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -76,8 +82,8 @@ public class NavbarPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         navbarView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-//                logger.fine("Selection in task navbar changed to : '" + newValue + "'");
-//                raise(new TaskPanelSelectionChangedEvent(newValue));
+            	logger.fine("Selection in navigation bar panel changed to : '" + newValue + "'");
+                raise(new NavigationSelectionChangedEvent(newValue));
             }
         });
     }
@@ -88,7 +94,16 @@ public class NavbarPanel extends UiPart {
         	navbarView.getSelectionModel().clearAndSelect(index);
         });
     }
-    
+    public String getNavigationCommand(String navigation){
+    	switch(navigation){
+    		case NAVBAR_TASKS:
+    		case NAVBAR_DEADLINES:
+    		case NAVBAR_INCOMING_DEADLINES:
+    		case NAVBAR_FLOATING_TASKS:
+    		default:
+    			return ListCommand.COMMAND_WORD;
+    	}    	  
+	}
     class NavbarViewCell extends ListCell<String> {
     	
     	public NavbarViewCell() {

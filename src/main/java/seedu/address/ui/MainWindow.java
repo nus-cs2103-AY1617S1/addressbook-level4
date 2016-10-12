@@ -194,6 +194,10 @@ public class MainWindow extends UiPart {
     public NavbarPanel getNavbarPanel() {
     	return this.navbarPanel;
     }
+    
+    public ResultDisplay getResultDisplay() {
+    	return this.resultDisplay;
+    }
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
@@ -206,4 +210,6 @@ public class MainWindow extends UiPart {
     public void releaseResources() {
         browserPanel.freeResources();
     }
+    
+    
 }
