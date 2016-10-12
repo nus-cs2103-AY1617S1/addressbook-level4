@@ -5,10 +5,10 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
@@ -269,44 +269,268 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | new user | list all commands | see all the functionalities of the application
+`* * *` | user | add a new task |
+`* * *` | user | add an event | be reminded of upcoming events to attend
+`* * *` | user | add a floating task | keep track of things I want to complete without a dateline
+`* * *` | user | edit an existing task | modify the details in case a task changes
+`* * *` | user | remove an existing task | delete a task I no longer care to track
+`* * *` | user | search for a particular task | view the description of the task and to check if the task is completed or not
+`* * *` | user | search for tasks with keywords | view all tasks relevant to the keyword easily
+`* * *` | user | view all incomplete tasks | see all tasks that I need to complete
+`* * *` | user | view all completed tasks | refer to all tasks that I have completed
+`* * *` | user | reminded of upcoming tasks | be reminded of incomplete tasks that are due soon
+`* * *` | user | specify a storage location for a file to save the tasks | access it from my own personal location within my system
+`* * *` | user | undo my previous action | easily undo an unwanted action
+`* *` | user | prioritize my tasks | see which tasks are of higher importance/urgency than others
+`* *` | user | set repeating tasks | be reminded of repeated tasks on a timely basis
+`* *` | user | view all tasks due within a specific period of time | know tasks that are required to be completed within set period of time
+`* *` | user | check if I am free at a certain time | know if I can add additional tasks/events to the timeslot
+`* *` | user | do a near-match search | find the tasks I require more conveniently
+`* *` | user | filter out tasks or events with certain characteristics | find all tasks that match the attributes I require
+`*` | user | let the software automatically predict my required command | do what I need more conveniently and quickly
+`*`` | advanced user | assign custom command shortcuts | suit my preferences for better accessibility and convenience
+`*` | user | view current output of the input command in real time | check whether its the expected result of the command
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TaskBook` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: List all commands
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests a list of all commands.
+2. App shows list of all commands with guides on how to use the different commands.
+Use case ends.
+
+#### Use case: Add task/event
+
+**MSS**
+
+1. User requests to add a task/event.
+2. App saves task/event and task/event details to the TaskBook, registers the task/event for future notification/reminders and shows confirmation of successful addition.
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. User enters command in invalid format.
 
-> Use case ends
+> 1a1. App shows user an error message with correct format needed.
+> Use case resumes at step 1.
 
-3a. The given index is invalid
+1b. User enters a event with overlapping time with another event.
+> 1b1. App shows user a notification and continues with the addition.
+> Use case ends.
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+####Use case: Complete task 
 
-{More to be added}
+**MSS**
+
+1. App shows a list of days/categories. 
+2. User requests to list tasks/events from a selected day/category.
+3. App shows a list of tasks/events from that day/category.
+4. User requests to complete a specific task in the list.
+5. App marks the task as completed and shows confirmation to the user.
+Use case ends.
+
+**Extensions**
+
+1a. App shows daily agenda and user requests to complete a specific task in the daily agenda.
+
+> Use case jumps to step 5.
+
+3a. The list is empty.
+
+> Use case ends.
+
+4a. The given index is invalid.
+
+> 4a1. App shows an error message.
+> Use case resumes at step 3.
+
+####Use case: Delete task/event
+
+**MSS**
+
+1. App shows a list of days/categories. 
+2. User requests to list tasks/events from a selected day/category.
+3. App shows a list of tasks/events from that day/category.
+4. User requests to delete a specific task/event in the list.
+5. App deletes the task/event and shows confirmation to the user.
+Use case ends.
+
+**Extensions**
+
+1a. App shows daily agenda and user requests to delete a specific task/event in the daily agenda.
+
+> Use case jumps to step 5.
+
+3a. The list is empty.
+
+> Use case ends.
+
+4a. The given index is invalid.
+
+> 4a1. App shows an error message to user.
+> Use case resumes at step 3.
+
+####Use case: Edit task/event.
+
+**MSS** 
+1. App shows a list of days/categories. 
+2. User requests to list tasks/events from a selected day/category.
+3. App shows a list of tasks/events from that day/category.
+4. User requests to edit a specific task/event in the list.
+5. App edits the details of the task/event and shows confirmation to the user. 
+Use case ends.
+
+**Extensions**
+
+1a. App shows daily agenda and user requests to edit a specific task/event in the daily agenda.
+
+> Use case jumps to step 5.
+
+3a. The list is empty.
+
+> Use case ends.
+
+4a. The given index is invalid.
+
+>4a1. App shows an error message to user.
+> Use case resumes at step 3.
+
+4b. User enters command in invalid format.
+
+> 4b1. App shows an error message to user with correct format needed.
+> Use case resumes at step 3.
+
+4c. User enters new details that are the same as the original details. 
+
+> 4c1. App shows an error message to user.
+> Use case resumes at step 3.
+
+4d. User enters new time details that overlap with another event’s time details.
+
+> 4d1. App shows notification and continues the editing of the details.
+> Use case ends.
+
+####Use case: Undo action
+
+**MSS** 
+
+1. User requests to undo previous action.
+2. App undos the previous action and shows confirmation to user.
+Use case ends.
+
+**Extensions**
+
+1a. No previous action was done before.
+
+>1a1. App shows an error message to user.
+> Use case ends.
+
+1b. Previous action is an invalid action to be undone.
+
+>1b1. App shows an error message to user.
+> Use case ends.
+
+####Use case: Find task/event
+
+**MSS** 
+
+1. User requests to find a particular task/event using a particular keyword used in the details.
+2. App shows a list of tasks/events matching that keyword.
+Use case ends.
+
+**Extensions**
+
+2a. No such keyword was used before in any task details.
+
+>2a1. App shows message to user and displays an empty list to user.
+> Use case ends.
+
+####Use case: View all incomplete tasks
+
+**MSS** 
+
+1. User requests to view all incomplete tasks.
+2. App shows a list of all the incomplete tasks.
+Use case ends.
+
+**Extensions**
+
+2a. There are no incomplete tasks.
+> 2a1. App shows message to user and displays an empty list to user.
+> Use case ends.
+
+####Use case: View all completed tasks
+
+**MSS** 
+
+1. User requests to view all completed tasks.
+2. App shows a list of all the completed tasks.
+Use case ends.
+
+**Extensions**
+
+2a. There are no completed tasks.
+> 2a1. App shows message to user and displays an empty list to user.
+> Use case ends.
+
+####Use case: Set save directory
+
+**MSS**
+
+1. User requests to set a new save directory for all the tasks and events.
+2. App switches the save directory to the new save directory given and shows confirmation message to user.
+Use case ends.
+
+**Extensions**
+
+1a. The input new save directory is invalid.
+
+>1a1. App shows error message to user.
+> Use case ends.
+
+1b. The input new save directory is the same as the original save directory.
+
+>1b1. App shows error message to user.
+> Use case ends.
+
+####Use case: Clear TaskBook
+
+**MSS**
+
+1. User requests to clear the TaskBook of all tasks and events.
+2. App requests for confirmation with user to clear the TaskBook.
+3. User confirms.
+4. App clears the TaskBook of all tasks and events and show a confirmation message to user.
+Use case ends.
+
+**Extensions**
+
+1a. The TaskBook is already empty.
+
+>1a1. App shows error message to user.
+> Use case ends.
+
+3a. User rejects the confirmation.
+
+>3a1. App shows message to user.
+> Use case ends.
+
+####Use case: Exit application
+
+**MSS**
+
+1. User requests to exit the application.
+2. Application closes itself.
+Use case ends.
+
 
 ## Appendix C : Non Functional Requirements
 
@@ -314,20 +538,42 @@ Use case ends.
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should support [natural language processing](#natural-language-processing) with [natural language commands](#natural-language-commands).
+6. Should be able to do all functions through the [command-line interface](command-line interface).
+7. Should ensure reminders for overlapping tasks do not overwrite each other.
+8. Should be able to be accessed offline.
+9. Should load within 1 second of opening the program.
+10. Should be able to display full list of tasks within 1 second.
+11. Should be able to save and backup tasks into a file for recovery or portability.
+12. Should not cause data corruption when program is closed abruptly.
+13. Should be able to hold tasks up to one year onwards.
+14. Should recover from major errors efficiently.
 
-{More to be added}
 
 ## Appendix D : Glossary
 
-##### Mainstream OS
-
-> Windows, Linux, Unix, OS-X
 
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
 
+##### Mainstream OS
+> Windows, Linux, OS-X
+
+##### Natural Language Commands
+> Commands formatted in a language that has developed naturally in use and is intuitive for humans to understand. (as contrasted with an artificial language or computer code).
+
+##### Natural Language Processing
+> A branch of artificial intelligence that deals with analyzing, understanding and generating the languages that humans use naturally in order to interface with computers in both written and spoken contexts using natural human languages instead of computer languages
+
+##### Command-line interface
+> User interface to a computer's operating system or an application in which the user responds to a visual prompt by typing in a command on a specified line, receives a response back from the system, and then enters another command, and so forth.
+
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+| Task Managers | Strengths | Weaknesses |
+| :------------ | :-------- | :--------- |
+| Todoist |  Has a very simple design. <br>Offers a mobile app. <br>Has a feature where	users are encouraged to earn “Todoist Karma”, to track their	productivity trends as they finish their tasks.| Free version is limited in its capabilities and  is not well-encrypted. <br>Some of the mobile apps have design issues (like being unable to sort tasks). <br>Free version does not come up with some features like reminders, filters, labels, and templates. |
+| Trello |Can divide projects up by tasks, and then edit those tasks with descriptions, labels, checklists, and even attachments. <br>Is particularly helpful for teams working on separate tasks toward a greater project goal, where the tasks are in need of a pipeline. | Has no good way to use this system to prioritize tasks between projects. |
+| Google Keep | Easy on the eyes. <br>Easy to use. <br>Integrates with desktop/mobile very well. <br>As expected from google, it integrates well with other google products too. <br>Voice memos feature. <br>Images feature. <br>Able to retrieve deleted items in archive. <br>Has reminders. <br>Can share lists. | No chronological representation of reminders. |
 
