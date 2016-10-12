@@ -249,7 +249,7 @@ Format: `exit`
 ## 3. Command Summary
   
 |Command             |Format           |
-|--------------------|:-----------------|
+|:-------------------|:-----------------|
 |add event           |`add event 'NAME' from hh:mm to hh:mm on dd-mm-yy`|
 |add deadline        |`add deadline 'NAME' by hh:mm dd-mm-yy`|
 |add task to be done someday         |`add someday 'NAME'`|
