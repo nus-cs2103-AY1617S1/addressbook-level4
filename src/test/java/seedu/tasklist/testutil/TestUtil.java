@@ -292,7 +292,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestTask[] removePersonFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
+    public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
@@ -314,7 +314,7 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestTask[] addPersonsToList(final TestTask[] persons, TestTask... personsToAdd) {
+    public static TestTask[] addTasksToList(final TestTask[] persons, TestTask... personsToAdd) {
         List<TestTask> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
         return listOfPersons.toArray(new TestTask[listOfPersons.size()]);

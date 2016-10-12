@@ -19,7 +19,7 @@ public class UpdateCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 at 13/09/2016 5pm";
 
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Task successfully updated: %1$s";
-
+    
     private int targetIndex;
     private TaskDetails taskDetails;
     private StartTime startTime;
