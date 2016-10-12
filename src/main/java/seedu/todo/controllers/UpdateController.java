@@ -61,8 +61,7 @@ public class UpdateController implements Controller {
         }
         
         // Re-render
-        UiManager ui = UiManager.getInstance();
-        IndexView view = ui.loadView(IndexView.class);
+        IndexView view = UiManager.loadView(IndexView.class);
         view.tasks = db.getAllTasks();
         view.render();
         

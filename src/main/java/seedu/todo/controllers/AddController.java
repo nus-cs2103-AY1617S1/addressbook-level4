@@ -44,8 +44,7 @@ public class AddController implements Controller {
         db.save();
         
         // Re-render
-        UiManager ui = UiManager.getInstance();
-        IndexView view = ui.loadView(IndexView.class);
+        IndexView view = UiManager.loadView(IndexView.class);
         view.tasks = db.getAllTasks();
         view.render();
         
