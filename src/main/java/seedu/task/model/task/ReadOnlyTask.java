@@ -14,6 +14,7 @@ public interface ReadOnlyTask {
     DueDate getDueDate();
     Interval getInterval();
     TimeInterval getTimeInterval();
+    Status getStatus();
     
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -32,7 +33,8 @@ public interface ReadOnlyTask {
                 && other.getStartDate().equals(this.getStartDate())
                 && other.getDueDate().equals(this.getDueDate())
                 && other.getInterval().equals(this.getInterval())
-                && other.getTimeInterval().equals(this.getTimeInterval()));
+                && other.getTimeInterval().equals(this.getTimeInterval())
+                && other.getStatus().equals(this.getStatus()));
     }
 
     /**
@@ -51,6 +53,8 @@ public interface ReadOnlyTask {
                 .append(getInterval())
                 .append(" Time Interval: ")
                 .append(getTimeInterval())
+                .append(" Status: ")
+                .append(getStatus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

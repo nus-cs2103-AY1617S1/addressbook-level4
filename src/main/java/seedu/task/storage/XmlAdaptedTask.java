@@ -28,6 +28,8 @@ public class XmlAdaptedTask {
     private String interval;
     @XmlElement(required = true)
     private String timeInterval;
+    @XmlElement(required = true)
+    private String status;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -50,6 +52,7 @@ public class XmlAdaptedTask {
         dueDate = source.getDueDate().toString();
         interval = source.getInterval().value;
         timeInterval = source.getTimeInterval().value;
+        status = source.getStatus().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -74,7 +77,8 @@ public class XmlAdaptedTask {
         final DueDate dueDate = new DueDate(this.dueDate);
         final Interval interval = new Interval(this.interval);
         final TimeInterval timeInterval = new TimeInterval(this.timeInterval);
+        final Status status = new Status(this.status);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(title,description,startDate, dueDate,interval,timeInterval, tags);
+        return new Task(title,description,startDate, dueDate,interval,timeInterval, status, tags);
     }
 }
