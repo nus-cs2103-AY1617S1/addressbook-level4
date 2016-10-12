@@ -7,11 +7,11 @@
 <li><a href="#command-summary">Command Summary</a></li>
 </ul>
 <h2><a id="Quick_Start_7"></a>Quick Start</h2>
-<ol start="0">
+<ol>
 <li>
-<p>Ensure you have Java version <code>1.8.0_60</code> or later installed in your Computer.&lt;br&gt;</p>
+<p>Ensure you have Java version <code>1.8.0_60</code> or later installed in your Computer.</p>
 <blockquote>
-<p>Having any Java 8 version is not enough. &lt;br&gt;
+<p>Having any Java 8 version is not enough.<br>
 This app will not work with earlier versions of Java 8.</p>
 </blockquote>
 <p>Click <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">here</a> to download the latest Java version.</p>
@@ -26,8 +26,8 @@ This app will not work with earlier versions of Java 8.</p>
 <p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
 </li>
 <li>
-<p>Type the command in the command box and press &lt;kbd&gt;Enter&lt;/kbd&gt; to execute it. &lt;br&gt;
-e.g. typing <strong><code>help</code></strong> and pressing &lt;kbd&gt;Enter&lt;/kbd&gt; will open the help window.</p>
+<p>Type the command in the command box and press <code>Enter</code> to execute it.<br>
+e.g. typing <strong><code>help</code></strong> and pressing <code>Enter</code> will open the help window.</p>
 </li>
 <li>
 <p>Some example commands you can try:</p>
@@ -40,18 +40,18 @@ adds a task <code>Complete CS2103 Quiz 3</code> to TARS.</li>
 </ul>
 </li>
 <li>
-<p>Refer to the <a href="#features">Features</a> section below for details of each command.&lt;br&gt;</p>
+<p>Refer to the <a href="#features">Features</a> section below for details of each command.</p>
 </li>
 </ol>
 <h2><a id="Features_29"></a>Features</h2>
 <h4><a id="Displaying_a_list_of_available_commands__help_31"></a>Displaying a list of available commands : <code>help</code></h4>
-<p>Displays a list of available commands with their individual usage information &lt;br&gt;
+<p>Displays a list of available commands with their individual usage information<br>
 Format: <code>help</code></p>
 <blockquote>
 <p>Help is also shown if you enter an incorrect command e.g. <code>abcd</code></p>
 </blockquote>
 <h4><a id="Adding_a_task__add_37"></a>Adding a task : <code>add</code></h4>
-<p>Adds a task to TARS&lt;br&gt;
+<p>Adds a task to TARS<br>
 Format: <code>add &lt;TASK&gt; -dt &lt;START_DATE/TIME&gt; to &lt;END_DATE/TIME&gt; -p &lt;PRIORITY&gt; -t &lt;TAG&gt;[, &lt;TAG&gt;, &lt;TAG&gt;,...] -r &lt;NUM_TIMES&gt; &lt;FREQUENCY&gt;</code></p>
 <blockquote>
 <p>Words in <code>UPPER_CASE</code> are the parameters. Other than <code>&lt;TASK&gt;</code>, all parameters are optional.
@@ -67,7 +67,7 @@ Order of parameters are not fixed.</p>
 <li><code>add Floating Task</code></li>
 </ul>
 <h4><a id="Reserving_timeslots_for_a_task__rsv_54"></a>Reserving timeslots for a task : <code>rsv</code></h4>
-<p><em>[Under Development]</em> &lt;br&gt;
+<p><em>[Under Development]</em><br>
 Reserves one or more timeslot for a task&lt;br&gt;
 Format: <code>rsv &lt;TASK&gt; -dt &lt;START_DATE/TIME&gt; to &lt;END_DATE/TIME&gt; [, &lt;START_DATE/TIME&gt; to &lt;END_DATE/TIME&gt;, …]</code></p>
 <blockquote>
@@ -79,15 +79,15 @@ Format: <code>rsv &lt;TASK&gt; -dt &lt;START_DATE/TIME&gt; to &lt;END_DATE/TIME&
 <li><code>rsv Meet John Doe -dt 26/09/2016 0900 to 1030, 28/09/2016 1000 to 1130</code></li>
 </ul>
 <h4><a id="Editing_a_reserved_timeslot__rsv_e_66"></a>Editing a reserved timeslot : <code>rsv -e</code></h4>
-<p><em>[Under Development]</em> &lt;br&gt;
-Renames a task with reserved time slots or Adds/Deletes a reserved timeslot for a task &lt;br&gt;
+<p><em>[Under Development]</em><br>
+Renames a task with reserved time slots or Adds/Deletes a reserved timeslot for a task<br>
 Format: <code>rsv -e &lt;INDEX&gt; -n &lt;TASK&gt; -dta &lt;START_DATE/TIME&gt; to &lt;END_DATE/TIME&gt; -dtr &lt;START_DATE/TIME&gt; to &lt;END_DATE/TIME&gt;</code></p>
 <blockquote>
 <p>Words in <code>UPPER_CASE</code> are the parameters.</p>
 <p>Time is in 24-hr format. More than one date/time can be edited.</p>
-<p>Use -n to rename the task &lt;br&gt;
-Use -dta to add a timeslot &lt;br&gt;
-Use -dtr to remove a timeslot &lt;br&gt;</p>
+<p>Use -n to rename the task<br>
+Use -dta to add a timeslot<br>
+Use -dtr to remove a timeslot</p>
 </blockquote>
 <p>Examples:</p>
 <ul>
@@ -95,8 +95,8 @@ Use -dtr to remove a timeslot &lt;br&gt;</p>
 <li><code>rsv -e 1 -n -dta 09/10/2016 1100 to 1230 -dtr 05/10/2016 1000 to 1200</code></li>
 </ul>
 <h4><a id="Deleting_a_task_with_reserved_timeslots__rsv_d_83"></a>Deleting a task with reserved timeslots : <code>rsv -d</code></h4>
-<p><em>[Under Development]</em> &lt;br&gt;
-Deletes a task with all its reserved time slots &lt;br&gt;
+<p><em>[Under Development]</em><br>
+Deletes a task with all its reserved time slots<br>
 Format: <code>rsv -d &lt;INDEX&gt;</code></p>
 <blockquote>
 <p>Deletes the task at the specific <code>&lt;INDEX&gt;</code>.
@@ -108,13 +108,13 @@ The index <strong>must be a positive integer</strong> 1, 2, 3, …</p>
 <li><code>rsv -d 5</code></li>
 </ul>
 <h4><a id="Confirming_a_reserved_timeslot__confirm_95"></a>Confirming a reserved timeslot : <code>confirm</code></h4>
-<p><em>[Under Development]</em> &lt;br&gt;
-Confirms a reserved timeslot for a particular tasks and removed all the other reserved time slots. &lt;br&gt;
+<p><em>[Under Development]</em><br>
+Confirms a reserved timeslot for a particular tasks and removed all the other reserved time slots.<br>
 Format: <code>confirm &lt;INDEX_TASK&gt; &lt;INDEX_TIMESLOT&gt;</code></p>
 <blockquote>
-<p>Confirm the task of a specific <code>&lt;INDEX_TASK&gt;</code> at a timeslot of a specific <code>&lt;INDEX_TIMESLOT&gt;</code> &lt;br&gt;
-The <code>&lt;INDEX_TASK&gt;</code> refers to the index number shown in the task list. &lt;br&gt;
-The <code>&lt;INDEX_TIMESLOT&gt;</code> refers to the index number of the timeslot shown under each task. &lt;br&gt;
+<p>Confirm the task of a specific <code>&lt;INDEX_TASK&gt;</code> at a timeslot of a specific <code>&lt;INDEX_TIMESLOT&gt;</code><br>
+The <code>&lt;INDEX_TASK&gt;</code> refers to the index number shown in the task list.<br>
+The <code>&lt;INDEX_TIMESLOT&gt;</code> refers to the index number of the timeslot shown under each task.<br>
 Both indexes <strong>must be a positive integer</strong> 1, 2, 3, …</p>
 </blockquote>
 <p>Examples:</p>
@@ -122,13 +122,13 @@ Both indexes <strong>must be a positive integer</strong> 1, 2, 3, …</p>
 <li><code>confirm 3 2</code></li>
 </ul>
 <h4><a id="Editing_a_task__edit_108"></a>Editing a task : <code>edit</code></h4>
-<p>Edits any component of a particular task &lt;br&gt;
+<p>Edits any component of a particular task<br>
 Format: <code>edit &lt;INDEX&gt; -n &lt;TASK&gt; -dt &lt;START_DATE/TIME&gt; to &lt;END_DATE/TIME&gt; -p &lt;PRIORITY&gt; -t &lt;TAG(s)</code></p>
 <blockquote>
 <p>Edits the task at the specific <code>&lt;INDEX&gt;</code>.
 The index refers to the index number shown in the task list.
 The index <strong>must be a positive integer</strong> 1, 2, 3, …</p>
-<p>Words in <code>UPPER_CASE</code> are the parameters. Other than <code>&lt;INDEX&gt;</code>, all parameters are optional. &lt;br&gt;
+<p>Words in <code>UPPER_CASE</code> are the parameters. Other than <code>&lt;INDEX&gt;</code>, all parameters are optional.<br>
 Order of parameters are <strong>not</strong> fixed.</p>
 <p>Time is in 24-hr format (e.g. 1330)</p>
 </blockquote>
@@ -137,8 +137,8 @@ Order of parameters are <strong>not</strong> fixed.</p>
 <li><code>edit 3 -n Meet John Tan -dt 08/10/2016 1000 to 1200 -p H -t friend</code></li>
 </ul>
 <h4><a id="Editing_a_task_by_appending_details_to_a_task__edit_ap_124"></a>Editing a task by appending details to a task : <code>edit -ap</code></h4>
-<p><em>[Under Development]</em> &lt;br&gt;
-Edits a task by appending details to a particular task name &lt;br&gt;
+<p><em>[Under Development]</em><br>
+Edits a task by appending details to a particular task name<br>
 Format: <code>edit &lt;INDEX&gt; -ap &lt;DETAILS_TO_APPEND_TO_TASK&gt;</code></p>
 <blockquote>
 <p>Appends details to the task at the specific <code>&lt;INDEX&gt;</code>.
@@ -151,8 +151,8 @@ The index <strong>must be a positive integer</strong> 1, 2, 3, …</p>
 <li><code>edit 3 -ap At UTown</code> edits <code>3. Meet John Doe</code> to <code>3. Meet John Doe At UTown</code></li>
 </ul>
 <h4><a id="Editing_a_tags_name__tag_e_138"></a>Editing a tag’s name : <code>tag -e</code></h4>
-<p><em>[Under Development]</em> &lt;br&gt;
-Edits a tag’s name &lt;br&gt;
+<p><em>[Under Development]</em><br>
+Edits a tag’s name<br>
 Format: <code>tag -e &lt;INDEX&gt; &lt;TAG&gt;</code></p>
 <blockquote>
 <p>Edits the name of the tag at the specific <code>&lt;INDEX&gt;</code>.
@@ -164,8 +164,8 @@ The index <strong>must be a positive integer</strong> 1, 2, 3, …</p>
 <li><code>tag -e 5 Assignment</code></li>
 </ul>
 <h4><a id="Deleting_a_tag__tag_d_150"></a>Deleting a tag : <code>tag -d</code></h4>
-<p><em>[Under Development]</em> &lt;br&gt;
-Deletes a particular tag &lt;br&gt;
+<p><em>[Under Development]</em><br>
+Deletes a particular tag<br>
 Format: <code>tag -d &lt;INDEX&gt;</code></p>
 <blockquote>
 <p>Deletes the tag at the specific <code>&lt;INDEX&gt;</code>
@@ -177,11 +177,11 @@ The index <strong>must be a positive integer</strong> 1, 2, 3, …</p>
 <li><code>tag -d 4</code> deletes the tag at Index 4</li>
 </ul>
 <h4><a id="Listing_all_tags__tag_ls_162"></a>Listing all tags : <code>tag -ls</code></h4>
-<p><em>[Under Development]</em> &lt;br&gt;
-Lists all tags in TARS &lt;br&gt;
+<p><em>[Under Development]</em><br>
+Lists all tags in TARS<br>
 Format: <code>tag -ls</code></p>
 <h4><a id="Finding_tags__tag_f_167"></a>Finding tags : <code>tag -f</code></h4>
-<p>Finds all tags by keywords (i.e. AND search) &lt;br&gt;
+<p>Finds all tags by keywords (i.e. AND search)<br>
 Format: <code>tag -f &lt;KEYWORD&gt;[ , &lt;KEYWORD&gt;, &lt;KEYWORD&gt;, ...]</code></p>
 <blockquote>
 <p><code>&lt;KEYWORD&gt;</code> are <strong>case-insensitive</strong>. The order of the <code>&lt;KEYWORD&gt;</code> does not matter.</p>
@@ -192,13 +192,13 @@ Format: <code>tag -f &lt;KEYWORD&gt;[ , &lt;KEYWORD&gt;, &lt;KEYWORD&gt;, ...]</
 <li><code>tag -f cs2103 assignment</code> returns all tags with both the words “cs2103” and “assignment&quot; (e.g. CS2103 assignment)</li>
 </ul>
 <h4><a id="Marking_tasks__mark_177"></a>Marking tasks : <code>mark</code></h4>
-<p>Marks a particular task(s) with the status <code>done</code> or <code>undone</code> &lt;br&gt;
+<p>Marks a particular task(s) with the status <code>done</code> or <code>undone</code><br>
 Format: <code>mark -do &lt;INDEX&gt;[ , &lt;INDEX&gt;, &lt;INDEX&gt;, ...] -ud &lt;INDEX&gt;[, &lt;INDEX&gt;, &lt;INDEX&gt;, …]</code></p>
 <blockquote>
 <p>Marks the task at the specific <code>&lt;INDEX&gt;</code>
 The index refers to the index number shown in the tag list.
 The index <strong>must be a positive integer</strong> 1, 2, 3, …</p>
-<p>Use -do to mark a task(s) as <code>done</code> &lt;br&gt;
+<p>Use -do to mark a task(s) as <code>done</code><br>
 Use -ud to mark a task(s) as <code>undone</code></p>
 </blockquote>
 <p>Examples:</p>
@@ -207,7 +207,7 @@ Use -ud to mark a task(s) as <code>undone</code></p>
 <li><code>mark -ud 2, 3</code></li>
 </ul>
 <h4><a id="Deleting_a_task__del_192"></a>Deleting a task : <code>del</code></h4>
-<p>Deletes a particular task, or a list of task based on a specific criteria (i.e. INDEX, done/undone status, date, tags, priority) &lt;br&gt;
+<p>Deletes a particular task, or a list of task based on a specific criteria (i.e. INDEX, done/undone status, date, tags, priority)<br>
 Formats:</p>
 <ul>
 <li><code>del &lt;INDEX&gt; [, &lt;INDEX&gt;, &lt;INDEX&gt;, …]</code></li>
@@ -217,9 +217,9 @@ Formats:</p>
 <li><code>del -p [PRIORITY] &lt;INDEX&gt; [, &lt;INDEX&gt;, &lt;INDEX&gt;, …]</code> <em>[Under Development]</em></li>
 </ul>
 <blockquote>
-<p>use -all to delete selected undone and done tasks &lt;br&gt;
-use -dt to delete selected undone tasks in that date range &lt;br&gt;
-use -t to delete selected undone tasks with a searched tag(s) &lt;br&gt;
+<p>use -all to delete selected undone and done tasks<br>
+use -dt to delete selected undone tasks in that date range<br>
+use -t to delete selected undone tasks with a searched tag(s)<br>
 use -p to delete selected undone tasks with that particular priority level</p>
 </blockquote>
 <p>Examples:</p>
@@ -231,7 +231,7 @@ use -p to delete selected undone tasks with that particular priority level</p>
 <li><code>del -p high 3, 5, 6</code></li>
 </ul>
 <h4><a id="Listing_tasks__ls_213"></a>Listing tasks : <code>ls</code></h4>
-<p>Lists all tasks in TARS with available list filters.&lt;br&gt;
+<p>Lists all tasks in TARS with available list filters.<br>
 Format:</p>
 <ul>
 <li><code>ls</code></li>
@@ -242,11 +242,11 @@ Format:</p>
 <li><code>ls -p [PRIORITY]</code> <em>[Under Development]</em></li>
 </ul>
 <blockquote>
-<p>default is to list all undone task &lt;br&gt;
-use -do to list all done task &lt;br&gt;
-use -all to list all done and undone tasks &lt;br&gt;
-use -dt to list all undone tasks in that date range &lt;br&gt;
-use -t to list all undone tasks with a searched tag(s) &lt;br&gt;
+<p>default is to list all undone task<br>
+use -do to list all done task<br>
+use -all to list all done and undone tasks<br>
+use -dt to list all undone tasks in that date range<br>
+use -t to list all undone tasks with a searched tag(s)<br>
 use -p to list all undone tasks with that particular priority level</p>
 </blockquote>
 <p>Examples:</p>
@@ -259,7 +259,7 @@ use -p to list all undone tasks with that particular priority level</p>
 <li><code>ls -p high</code></li>
 </ul>
 <h4><a id="Finding_tasks__find_239"></a>Finding tasks : <code>find</code></h4>
-<p>Finds all tasks containing a list of keywords (i.e. AND search).&lt;br&gt;
+<p>Finds all tasks containing a list of keywords (i.e. AND search).<br>
 Format: <code>find &lt;KEYWORD&gt;[, KEYWORD, KEYWORD]</code></p>
 <blockquote>
 <p><code>&lt;KEYWORD&gt;</code> are <strong>case-insensitive</strong>. The order of the <code>&lt;KEYWORD&gt;</code> does not matter.</p>
@@ -269,22 +269,22 @@ Format: <code>find &lt;KEYWORD&gt;[, KEYWORD, KEYWORD]</code></p>
 <li><code>find meet John</code> returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)</li>
 </ul>
 <h4><a id="Undoing_a_command__undo_248"></a>Undoing a command : <code>undo</code></h4>
-<p>Undo a command executed by the user. &lt;br&gt;
+<p>Undo a command executed by the user.<br>
 Format: <code>undo</code></p>
 <blockquote>
 <p>Able to undo all <code>add</code> and <code>delete</code> commands from the time the app starts running.</p>
 </blockquote>
 <h4><a id="Clearing_the_data_storage_file__clear_254"></a>Clearing the data storage file : <code>clear</code></h4>
-<p>Clears the whole To-Do List storage file.&lt;br&gt;
+<p>Clears the whole To-Do List storage file.<br>
 Format: <code>clear</code></p>
 <h4><a id="Exiting_the_program__exit_258"></a>Exiting the program : <code>exit</code></h4>
-<p>Exits the program.&lt;br&gt;
+<p>Exits the program.<br>
 Format: <code>exit</code></p>
 <h4><a id="Changing_data_storage_location__cd_262"></a>Changing data storage location : <code>cd</code></h4>
-<p>Changes the directory of which the data storage file is saved in. &lt;br&gt;
+<p>Changes the directory of which the data storage file is saved in.<br>
 Format: <code>cd &lt;FILE_PATH&gt;</code></p>
 <blockquote>
-<p>Returns an error if the there is an error in the directory chosen &lt;br&gt;
+<p>Returns an error if the there is an error in the directory chosen<br>
 Note: <code>&lt;FILE_PATH&gt;</code> must end with the file type extension, <code>.xml</code>.</p>
 </blockquote>
 <p>Examples:</p>
@@ -292,10 +292,10 @@ Note: <code>&lt;FILE_PATH&gt;</code> must end with the file type extension, <cod
 <li><code>cd C:\Users\John_Doe\Documents\tars.xml</code></li>
 </ul>
 <h4><a id="Saving_the_data_272"></a>Saving the data</h4>
-<p>TARS data are saved in the hard disk automatically after any command that changes the data.&lt;br&gt;
+<p>TARS data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 <h2><a id="FAQ_276"></a>FAQ</h2>
-<p><strong>Q</strong>: How do I transfer my data to another Computer?&lt;br&gt;
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
 <strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with
 the file that contains the data of your previous TARS app.</p>
 <h2><a id="Command_Summary_282"></a>Command Summary</h2>
