@@ -25,7 +25,7 @@ public class AddCommand extends Command {
             + " deadline 'lab report' by 16:00 03-03-15\n"
             + "Task to Be Done Someday Parameters: someday 'NAME'\n"
             + "Task to Be Done Someday Example: " + COMMAND_WORD
-            + " someday 'read EL James' book 50 Shades of Grey'";
+            + " someday 'water the plants'";
     
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
