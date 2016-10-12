@@ -52,7 +52,6 @@
 **Problem: Eclipse reports some required libraries missing**
 * Reason: Required libraries may not have been downloaded during the project import. 
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
- 
 
 ## Design
 
@@ -91,7 +90,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `malitioChangedEvent` when the malitio data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -132,7 +131,7 @@ The `UI` component,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
@@ -147,7 +146,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the malitio data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -160,11 +159,11 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the malitio data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.malitio.commons` package.
 
 ## Implementation
 
@@ -258,7 +257,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, malitio depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -273,26 +272,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | new user | view more information about a particular command | learn how to use various commands
+`* * *` | user | add a new floating task |
+`* * *` | user | add a new event |
+`* * *` | user | add a new deadline |
+`* * *` | user | delete a floating task | remove an entry that I no longer need or have completed
+`* * *` | user | delete an event | remove an event that has passed or has been cancelled
+`* * *` | user | delete a deadline | remove a deadline that has passed or been removed
+`* * *` | user | find a(n) event/deadline/floating task by name | locate details of the event/deadline/task without having to go through the entire list
+`* * *` | user | edit a(n) event/deadline/floating task | update it or correct any errors
+`* * *` | user | set a(n) event/deadlines/floating task as a priority | know which one should be completed first
+`* * *` | user | view all tasks | plan ahead depending on availablity
+`* * *` | user | view all tasks on specified day(s) | plan ahead 
+`* * *` | user | undo my last action | rectify any mistakes I made
+`* *` | user | be notified of upcoming events | remember important events
+`* *` | user | be warned of clashing events | avoid a clash in my schedule
+`* *` | advanced user | use shorter version of a commands | type a command faster
+`*` | advanced user | switch between light/dark mode | Enhance visibility or save power
+`*` | user | know the weather forecast on days with events | be prepared in case of wet weather
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Molitio` and the **Actor** is the `User`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Delete a floating task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to list floating tasks
+2. Molitio shows a list of floating tasks
+3. User requests to delete a specific floating task in the list
+4. Molitio deletes the floating task <br>
 Use case ends.
 
 **Extensions**
@@ -303,15 +314,43 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. Molitio shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+#### Use case: Edit a floating task
+
+**MSS**
+
+1. User requests to list floating tasks
+2. Molitio shows a list of floating tasks
+3. User requests to edit a specific floating task
+4. Molitio prompt user to confirm he wants to edit that specific task
+5. User confirmed and input data that he want to change
+6. Molitio shows the changes and prompt for confirmation
+7. User confirms the change <br>
+Use case ends.
+
+**Extensions**
+2a. The list is empty
+> Use case ends.
+
+3a. The given index is invalid
+
+> 3a1. Molitio shows an error message <br>
+  Use case resumes at step 2
+  
+5a. User decline the confirmation
+
+> 5a1. Molitio prompt user whether to continue edit or exit
+>>5a11. User choose to continue <br>
+    Use case resumes at step 2 <br><br>
+>>5a12. User choose to exit <br>
+    Use case ends
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 floating tasks, events and deadlines combined.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
@@ -323,11 +362,18 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Floating task
 
-> A contact detail that is not meant to be shared with others
+> A task that has no deadline
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+**Desktop Reminder**<br>
+Desktop Reminder is a desktop application and can be run in offline mode. It has an alert system which will ring at a specified time (determined by user) to alert the user of upcoming tasks. However, the drawback of this application is that it does not minimize to the system tray when user clicked on the 'X' button but instead, gets minimized as a window which will hover on top of the taskbar.
+
+**Google Calendar and Google Task**<br>
+Google Calender displays the event and on the right side, Google Task shows the tasks which needs completion. This view enables user to see what task they have on which days easily. However, a drawback is that google task is rather simple and does not have a lot of features.
+
+**Remember The Milk**<br>
+Remember The Milk (RTM) allows users to categorize task which is useful if users want to group related task together. However, a drawback of RTM is that it does not allow users to input specific reminders before the events (e.g. 10minutes before, 1 day before, etc) but only have a general reminder which will be through email to the task. Since there is a mobile app for this, the inability to generate mobile reminders (e.g. alarm or notification) is a potential hindrance especially to users who do not check their emails often.
 

@@ -1,0 +1,7 @@
+{
+  "appTitle" : "Malitio",
+  "logLevel" : "INFO",
+  "userPrefsFilePath" : "preferences.json",
+  "malitioFilePath" : "data/malitio.xml",
+  "malitioName" : "Malitio"
+}
