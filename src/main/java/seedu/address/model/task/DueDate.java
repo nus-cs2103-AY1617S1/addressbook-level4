@@ -21,10 +21,21 @@ public class DueDate {
      */
     public DueDate(String date) throws IllegalValueException {
         assert date != null;
-        if (date.equals("today"))
+        String time;
+        String[] parts;
+        if (date.contains("today")){
+            parts = date.split(" ");
+            time = parts[1];
             date = DateValidation.TodayDate();
-        else if (date.equals("tomorrow"))
+            date = date + " " + time;
+            }
+        else if (date.contains("tomorrow")){
+            parts = date.split(" ");
+            time = parts[1];
+            date = DateValidation.TodayDate();
+            date = date + " " + time;
             date = DateValidation.TomorrowDate();
+        }
         if (!isValidDueDate(date)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
