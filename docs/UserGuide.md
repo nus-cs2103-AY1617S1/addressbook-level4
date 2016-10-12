@@ -48,11 +48,11 @@ Format: `add TASK d/DESCRIPTION sd/START_DATE dd/DUE_DATE i/INTERVAL ti/TIME_INT
 Examples: 
 * `add Homework d/ProgrammingEx1 dd/06102016 i/7`
 
-#### Finding task : `find`
+#### Finding task : `view`
 Shows a list of upcoming task in the task management tool.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `view KEYWORD [MORE_KEYWORDS]`
 Examples: 
-* `find Homework`<br>
+* `view Homework`<br>
   Returns `Homework` but not `homework`
 
 
@@ -80,6 +80,13 @@ Format: `Assign TASKID c/CATEGORY`
 
 Example:
 * `Assign 1 c/Work`
+
+#### Complete Task: `Complete`
+Set Task as completed
+Format: `Complete TASKID`
+
+Example: `Complete 0`
+ 
 
 #### Adding task details: `editdetails`
 Edit details to the existing task 

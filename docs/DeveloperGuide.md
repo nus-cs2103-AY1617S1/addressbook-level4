@@ -271,10 +271,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *`| user | add a task | record tasks that need to be done �some day�. 
-`* * *`| user |find upcoming tasks | decide what needs to be done soon. 
+`* * *`| user | add a task | record tasks that need to be done 'some day'. 
+`* * *`| user |view upcoming tasks | decide what needs to be done soon. 
 `* * *`| user | delete a task | get rid of tasks that I no longer care to track. 
-`* * *`| new user | view more information about a particular command, so that I can learn how to use various commands 
+`* * *`| new user | view more information about a particular command | learn how to use various commands 
+`* * *`| user | keep track my task | check which task have completed or on going
+`* * *`| user | specify which folder path to save my file | organise my task manager easily
 `* *`| advanced user |  use shorter versions of a command | that can type a command faster.
 `* *`|user | set reminder for my task | can complete the task on time. 
 `* *` |user | view task that is due today when I launch the application | verify what is done and what is to be done. 
@@ -300,18 +302,20 @@ Preconditions: User is logged in
 1.User requests to add new task description.
 2.System will update the database of the newly created task.
 Use Case end.
+
 **Extension**
+
     1a. User enter invalid text.
     >1a1. System shows an error message
     Use case resume at step 1.
 
-Use case: UC02 find upcoming task
+Use case: UC02 view upcoming task
 Actor: User
 Preconditions: User is logged in
 
 **MSS**
 
-1.User requests to find upcoming task
+1.User requests to view upcoming task
 2.System will show the list of upcoming task
 Use Case end.
 
@@ -340,14 +344,7 @@ Use Case ends
        >1a1. System will show message task cannot be found
        4a. System is unable to delete due to failed to connect to database.
        >4a1. System shows connection has failed message.
-Use case resume at step 1.
-
-
-
-
-
-
-
+       Use case resume at step 1.
 
 Use case: UC04 Information of the a particular command.
 Actor: User
@@ -355,7 +352,7 @@ Precondition: User is logged in
 
 **MSS**
 
-1.User enter �help� a particular command
+1.User enter help a particular command
 2.System show the user guide of the particular command
 3.Use Case ends
 
@@ -363,9 +360,7 @@ Precondition: User is logged in
  
        1a.User enter an invalid command
        >1a1. System show error message
-Use case ends.
-
-
+       Use case ends.
 
 Use case: UC05 use shorter version of a command
 Actor: Advance user
@@ -379,15 +374,13 @@ Use case ends.
 
 **Extension** 
 
-1a. User enter invalid command
-> 1a1. System shows an error message
-Use case ends
+    1a. User enter invalid command
+    > 1a1. System shows an error message
+    Use case ends
 
-2a. System could not connect with the database
-> 2a1. System shows connection failed message.
-Use case ends
-
-
+    2a. System could not connect with the database
+    > 2a1. System shows connection failed message.
+    Use case ends
 
 Use case UC06 set reminder for tasks
 Actor: User
@@ -437,6 +430,7 @@ Preconditions: User have not launch application
 4.System prompt for category to set with
 5.User enter category
 6.System set category for the selected task and display action successful message
+Use case ends
 
 **Extension**
 
@@ -450,7 +444,9 @@ Preconditions: User have not launch application
 Use case: UC09 edit task details
 Actor: User
 Preconditions: User is logged in.
-MSS: 
+
+**MSS**
+
 1.User requests to list all tasks
 2.System shows a list of tasks
 3.User chooses one task to edit its details
@@ -459,26 +455,27 @@ MSS:
 6.System requests for confirmation
 7.User confirms changes 
 8.System updates the details of the task in file and displays the changed task
+Use Case ends
+
+**Extension**
+
+    2a. System detects an error with retrieving data from file
+    > 2a1. System displays the information about the problem with a file
     Use Case ends
 
-Exceptions: 
-2a. System detects an error with retrieving data from file
-2a1. System displays the information about the problem with a file
-Use Case ends
-
-4a. System detects an error with retrieving data from file
-4a1. System displays the information about the problem with a file
-Use Case ends
+    4a. System detects an error with retrieving data from file
+    >4a1. System displays the information about the problem with a file
+    Use Case ends
 
     7a. User does not confirm changes 
         7a1. System displays the information about not saved changes
         Use case resumes from step 5.
 
-8a. System detects an error with retrieving data from file
-8a1. System displays the information about the problem with a file
-Use Case ends
+    8a. System detects an error with retrieving data from file
+    > 8a1. System displays the information about the problem with a file
+    Use Case ends
 
-*a. At any time, User can cancel editing the task
+    *a. At any time, User can cancel editing the task
     *a1. System requests for confirmation
     *a2. User confirms the cancellation 
     Use Case ends. 
@@ -486,7 +483,9 @@ Use Case ends
 Use case: UC10 set priority to tasks
 Actor: User
 Preconditions: User is logged in.
-MSS: 
+
+**MSS**
+
 1.User requests to list all tasks
 2.System shows a list of tasks
 3.User chooses to set priority of tasks 
@@ -497,20 +496,21 @@ MSS:
 8.System updates prioritizing for tasks in database and displays current prioritizing for tasks
     Use Case ends
 
-Exceptions: 
-2a. System detects an error with retrieving data from file
-2a1. System displays the information about the problem with a file
-Use Case ends
+**Extensions**
+
+    2a. System detects an error with retrieving data from file
+    > 2a1. System displays the information about the problem with a file
+    Use Case ends
 
     7a. User does not confirm changes 
-        5a1. System displays the information about not saved changes
-        Use case resumes from step 5.
+    5a1. System displays the information about not saved changes
+    Use case resumes from step 5.
 
-8a. System detects an error with retrieving data from file
-6a1. System displays the information about the problem with a file
-Use Case ends
+    8a. System detects an error with retrieving data from file
+    6a1. System displays the information about the problem with a file
+    Use Case ends
 
-*a. At any time, User can cancel setting priority for tasks
+    *a. At any time, User can cancel setting priority for tasks
     *a1. System requests for confirmation
     *a2. User confirms the cancellation 
     Use Case ends. 
@@ -518,23 +518,29 @@ Use Case ends
 Use case: UC11 create a task that happens repeatedly by specifying an interval
 Actor: User
 Preconditions: User is logged in.
-MSS:
+
+**MSS**
+
 1.User requests to add task with specified start date and interval
 2.System updates the database with information.
 Use Case ends
 
-Extensions:
-1a1. User enters invalid command
-1a1. System displays the error message.
-Use Case resumes at step 1.
-2a1. System detects an error in the connection with database
-2a1. System displays the information about the connection problem with database
-Use Case ends
+**Extensions**
+
+    1a. User enters invalid command
+    > 1a1. System displays the error message.
+    Use Case resumes at step 1.
+    
+    2a. System detects an error in the connection with database
+    > 2a1. System displays the information about the connection problem with database
+    Use Case ends
 
 Use case: UC12 Color coding a task
 Actor: User
 Preconditions: User is logged in, tasks are created.
-MSS:
+
+**MSS**
+
 1.User requests to list all tasks.
 2.System displays a list of all created tasks.
 3.User selects a task to edit
@@ -542,13 +548,16 @@ MSS:
 5.System updates the database with the changed details.
 Use Case ends
 
-Extensions:
-2a1. System detects an error in the connection with database
-2a1. System displays the information about the connection problem with database
-Use Case ends
-4a1. User does not confirm the color change
-    4a1. System displays message about cancellation 
+**Extensions**
+
+    2a. System detects an error in the connection with database
+    > 2a1. System displays the information about the connection problem with database
+    Use Case ends
+        
+    4a. User does not confirm the color change
+    > 4a1. System displays message about cancellation 
     Use Case resumes from step 1.
+    
     *a. At any time, User can cancel color coding
     *a1. System requests for confirmation 
     *a2. User cancels color coding
