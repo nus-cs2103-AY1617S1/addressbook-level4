@@ -4,9 +4,8 @@
 
 * Taskmanager, is a desktop to-do list application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is written in Java programming language. 
-* The target user prefer typing over mouse
 * It provides a list of commands for user to manage their tasks and events, and tasks and events will be reflected by GUI
-* for developer, support for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
+* It supports for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
