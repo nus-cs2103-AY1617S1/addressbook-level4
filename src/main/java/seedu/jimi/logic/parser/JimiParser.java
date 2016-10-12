@@ -51,36 +51,26 @@ public class JimiParser {
         
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
         
-        case AddCommand.COMMAND_WORD :
+        if (AddCommand.isCommandWord(commandWord)) {
             return prepareAdd(arguments);
-        
-        case EditCommand.COMMAND_WORD :
+        } else if (EditCommand.isCommandWord(commandWord)) {
             return prepareEdit(arguments);
-        
-        case SelectCommand.COMMAND_WORD :
+        } else if (SelectCommand.isCommandWord(commandWord)) {
             return prepareSelect(arguments);
-        
-        case DeleteCommand.COMMAND_WORD :
+        } else if (DeleteCommand.isCommandWord(commandWord)) {
             return prepareDelete(arguments);
-        
-        case ClearCommand.COMMAND_WORD :
+        } else if (ClearCommand.isCommandWord(commandWord)) {
             return new ClearCommand();
-        
-        case FindCommand.COMMAND_WORD :
+        } else if (FindCommand.isCommandWord(commandWord)) {
             return prepareFind(arguments);
-        
-        case ListCommand.COMMAND_WORD :
+        } else if (ListCommand.isCommandWord(commandWord)) {     
             return new ListCommand();
-        
-        case ExitCommand.COMMAND_WORD :
+        } else if (ExitCommand.COMMAND_WORD.equals(commandWord)) {        
             return new ExitCommand();
-        
-        case HelpCommand.COMMAND_WORD :
+        } else if (HelpCommand.isCommandWord(commandWord)) {       
             return new HelpCommand();
-        
-        default :
+        } else {        
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
