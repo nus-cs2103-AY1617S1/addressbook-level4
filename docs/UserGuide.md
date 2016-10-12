@@ -254,6 +254,8 @@ Examples:
 * `undo` <br>
   Undoes your latest `delete` command
 
+> Only 1 consecutive `undo` command is allowed. Therefore, typing `undo` twice will only undo the previous command and not the one before.
+
 <br>
 #### Clearing all entries : `clear`
 Clears all entries from the Task Manager.<br>
