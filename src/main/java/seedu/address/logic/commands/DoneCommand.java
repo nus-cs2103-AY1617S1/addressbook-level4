@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /*
@@ -15,7 +16,7 @@ public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the task identified by the index number used in the last task listing as complete and deletes it.\n"
+            + ": Marks the task identified by the index number used in the last task listing as complete and deletes it from the list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -38,15 +39,15 @@ public class DoneCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        Task taskToComplete = (Task) lastShownList.get(targetIndex - 1);
 
         try {
-            model.deleteTask(taskToDelete);
+            model.doneTask(taskToComplete);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
         
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToComplete));
     }
 
 }
