@@ -101,6 +101,9 @@ public class Parser {
 
             case UndoCommand.COMMAND_WORD:
                 return new UndoCommand();
+                
+            case RelocateCommand.COMMAND_WORD:
+                return new RelocateCommand(arguments);
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
