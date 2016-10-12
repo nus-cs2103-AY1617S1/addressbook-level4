@@ -22,7 +22,12 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
+    
+    private static final Pattern EDIT_ARGS_FORMAT = 
+            Pattern.compile("(?<index>+)"
+                    + "//s(?<property>+)"
+                    + "//s(?<newInfo>+)");
+    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
@@ -30,7 +35,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + " (?<isDatePrivate>p?)p/(?<date>[^/]+)"
                     + " (?<isStartTimePrivate>p?)e/(?<start>[^/]+)"
-                    + " (?<isEndTimePrivate>p?)a/(?<address>[^/]+)"
+                    + " (?<isEndTimePrivate>p?)a/(?<end>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -53,6 +58,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -80,6 +88,19 @@ public class Parser {
         }
     }
 
+    private Command prepareEdit(String args) {
+        final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        return new EditCommand(
+                matcher.group("index"),
+                matcher.group("property"),
+                matcher.group("newInfo")
+        );
+    }
+
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -97,7 +118,7 @@ public class Parser {
                     matcher.group("name"),
                     matcher.group("date"),
                     matcher.group("start"),
-                    matcher.group("address"),
+                    matcher.group("end"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {

@@ -11,7 +11,7 @@ public class Name {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String fullName;
+    public String fullName;
 
     /**
      * Validates given name.
@@ -51,5 +51,10 @@ public class Name {
     public int hashCode() {
         return fullName.hashCode();
     }
+    
+    public void setName(String name) {
+        this.fullName = name;
+    }
+
 
 }

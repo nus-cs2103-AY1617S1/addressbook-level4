@@ -76,6 +76,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public void editTask(ReadOnlyTask task, String property, String newInfo) throws TaskNotFoundException {
+        if(property.equals("name"))
+            addressBook.editName(task, newInfo);
+    }
+
 
     //=========== Filtered Task List Accessors ===============================================================
 
