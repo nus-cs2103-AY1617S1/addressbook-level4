@@ -96,7 +96,7 @@ The sections below give more details of each component.
 
 ### 2.3 UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/UiClassDiagramTD.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -127,7 +127,7 @@ The `UI` component,
 
 ### 2.5 Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/ModelClassDiagramTD.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -140,7 +140,7 @@ The `Model`,
 
 ### 2.6 Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<img src="images/StorageClassDiagramTD.png" width="800"><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
