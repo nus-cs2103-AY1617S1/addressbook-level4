@@ -66,7 +66,7 @@ public class DateUtil {
         // Consider dates up to 6 days from today.
         if (daysDifference > 1 && daysDifference <= 6) {
             return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US) + SPACE + 
-                    date.getDayOfMonth() + SPACE + date.getMonthValue();
+                    date.getDayOfMonth() + SPACE + date.getMonth();
         }
 
         // Otherwise, dates should be a relative days ago/from now format.
