@@ -114,14 +114,14 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * @@author A0121533W
      */
-    public synchronized void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
+    public synchronized void mark(ArrayList<ReadOnlyTask> toMarkList, String status)
+            throws DuplicateTaskException {
         tars.mark(toMarkList, status);
         indicateTarsChanged();
 
     }
 
-    // =========== Filtered Task List Accessors
-    // ===============================================================
+    // =========== Filtered Task List Accessors ===========
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
@@ -146,8 +146,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
-    // ========== Inner classes/interfaces used for filtering
-    // ==================================================
+    // ========== Inner classes/interfaces used for filtering ==========
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
@@ -189,9 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         /**
          * @@author A0124333U
-         * 
          * @param task
-         * 
          * @return true if ALL keywords are found in the task name
          */
         @Override
