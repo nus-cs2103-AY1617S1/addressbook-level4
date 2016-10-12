@@ -198,18 +198,20 @@ public class Parser {
         }
         
         String [] argumentsForEdit = new String [6];
-        System.out.println("Stop 1");
+        
         String arguments = matcher.group("arguments");
-        System.out.println("Stop 2 " + arguments);
-        String regex = scanArguments(arguments);
-        System.out.println("Stop 3 " + regex);
-        Pattern editArguments = Pattern.compile(regex);
-        System.out.println("Stop 4: Compile Success");
+        
+        Pattern editArguments = scanArgumentsAndBuildRegex(arguments);
+        
+        if(editArguments == null) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_INVALID_ARGUMENTS,EditCommand.MESSAGE_USAGE));
+        }
+        
         Matcher matcher2 = editArguments.matcher(arguments);
-        System.out.println("Stop 5 " + matcher2.matches());
+        if(matcher2.matches()) {
         if(arguments.contains(NAME)) 
             argumentsForEdit[0] = matcher2.group("name");
-            System.out.println("Stop 4 " + argumentsForEdit[0]);
         if(arguments.contains(START_DATE))
              argumentsForEdit[1] = matcher2.group("startDate");
         if(arguments.contains(START_TIME))
@@ -220,7 +222,7 @@ public class Parser {
              argumentsForEdit[4] = matcher2.group("endTime");
         if(arguments.contains(IMPORTANCE))
              argumentsForEdit[5] = matcher2.group("level");
-            
+        }  
           try{   
              return new EditCommand(
                     index.get(),
@@ -233,33 +235,53 @@ public class Parser {
     }
     
 
-    private String scanArguments(String arguments) {
-        String regex = "";
+    private Pattern scanArgumentsAndBuildRegex(String arguments) {
+        String regex1 = "";
+        String regex2 = "";
         
         if (arguments.contains(NAME)) {
-            regex += " n/(?<name>[^/]+)";
+            regex1 += " n/(?<name>[^/]+)";
+            regex2 += " n/(?<name>[^/]+)";
         }
         if(arguments.contains(START_DATE)) {
-            regex += " s/(?<startDate>[^/]+)";
+            regex1 += " s/(?<startDate>[^/]+)";
+            regex2 += " s/(?<startDate>[^.]+)";
         }
         if(arguments.contains(START_TIME)) {
-            regex += " st/(?<startTime>[^/]+)";
+            regex1 += " st/(?<startTime>[^/]+)";
+            regex2 += " st/(?<startTime>[^/]+)";
         }
         if(arguments.contains(END_DATE)) {
-            regex += " e/(?<endDate>[^/]+)";
+            regex1 += " e/(?<endDate>[^/]+)";
+            regex2 += " e/(?<endDate>[^.]+)";
         }
         
         if(arguments.contains(END_TIME)) {
-            regex += " et/(?<endTime>[^/]+)";
+            regex1 += " et/(?<endTime>[^/]+)";
+            regex2 += " et/(?<endTime>[^/]+)";
         }
         
         if(arguments.contains(IMPORTANCE)) {
-            regex += " i/(?<level>[^/]+)";
+            regex1 += " i/(?<level>[^/]+)";
+            regex2 += " i/(?<level>[^/]+)";
+            
         }
                 
-        regex += "(?<tagArguments>(?: t/[^/]+)*)";
+        regex1 += "(?<tagArguments>(?: t/[^/]+)*)";
+        regex2 += "(?<tagArguments>(?: t/[^/]+)*)";
         
-        return regex;            
+        Pattern editArguments1 = Pattern.compile(regex1);
+        Pattern editArguments2 = Pattern.compile(regex2);
+        
+        Matcher matcher1 = editArguments1.matcher(arguments);
+        Matcher matcher2 = editArguments2.matcher(arguments);
+        
+        if(matcher1.matches())
+            return editArguments1;
+        else if(matcher2.matches())
+            return editArguments2;
+        else
+            return null;                
     }
 
     /**
