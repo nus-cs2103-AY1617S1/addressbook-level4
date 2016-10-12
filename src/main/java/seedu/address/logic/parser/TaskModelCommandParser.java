@@ -67,7 +67,7 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
         try {
             if (recurrenceTypeText == null)
                 return null;
-            recurrenceTypeText = recurrenceTypeText.trim()
+            recurrenceTypeText = recurrenceTypeText.trim();
             return RecurrenceType.valueOfIgnoreCase(recurrenceTypeText);
         } catch (IllegalArgumentException ex) {
             throw new ParseException(recurrenceTypeText, "RECURRING_TYPE: Unknown type '" + recurrenceTypeText + "'");
@@ -82,7 +82,7 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
         boolean parseError = false;
         
         try {
-            numRecurrenceText = numRecurrenceText.trim()
+            numRecurrenceText = numRecurrenceText.trim();
             numRecurrence = Integer.parseInt(numRecurrenceText);
             if (numRecurrence < 0)
                 parseError = true;
