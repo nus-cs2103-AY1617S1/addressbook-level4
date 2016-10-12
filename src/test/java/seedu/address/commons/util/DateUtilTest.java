@@ -61,7 +61,8 @@ public class DateUtilTest {
 	public void formatDayTests() {
 		LocalDateTime now = LocalDateTime.now();
 		assertEquals(DateUtil.formatDay(now), "Today " + now.getDayOfMonth() + " " + now.getMonth());
-		assertEquals(DateUtil.formatDay(now.plus(1, ChronoUnit.DAYS)), "Tomorrow " + now.getDayOfMonth() + " " + now.getMonth());
+		assertEquals(DateUtil.formatDay(now.plus(1, ChronoUnit.DAYS)), 
+		        "Tomorrow " + now.plus(1, ChronoUnit.DAYS).getDayOfMonth() + " " + now.plus(1, ChronoUnit.DAYS).getMonth());
 		assertEquals(DateUtil.formatDay(now.plus(2, ChronoUnit.DAYS)), 
 		        now.plus(2, ChronoUnit.DAYS).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US) + 
 		        " " + now.plus(2, ChronoUnit.DAYS).getDayOfMonth() + " " + now.plus(2, ChronoUnit.DAYS).getMonth());
