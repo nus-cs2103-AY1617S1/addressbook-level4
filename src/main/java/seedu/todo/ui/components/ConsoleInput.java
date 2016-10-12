@@ -60,9 +60,15 @@ public class ConsoleInput extends Component {
         boolean isValidCommand = inputHandler.processInput(lastCommandEntered);
         
         if (!isValidCommand) {
+            // Show invalid response in Console
             console.consoleOutput = INVALID_COMMAND_RESPONSE;
             console.render();
         } else {
+            // Remove console output
+            console.consoleOutput = "";
+            console.render();
+            
+            // Clear input text
             consoleInputTextField.clear();
         }
     }
