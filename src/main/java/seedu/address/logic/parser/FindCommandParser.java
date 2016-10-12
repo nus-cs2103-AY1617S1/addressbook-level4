@@ -35,9 +35,9 @@ public class FindCommandParser extends CommandParser<FindCommand> {
     protected FindCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            parseFindType(matcher.group(REGEX_REF_FIND_TYPE).trim());
-            parseKeywords(matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE).trim(),
-                    matcher.group(REGEX_REF_KEYWORDS_AFTER_TYPE).trim());
+            parseFindType(matcher.group(REGEX_REF_FIND_TYPE));
+            parseKeywords(matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE),
+                    matcher.group(REGEX_REF_KEYWORDS_AFTER_TYPE));
             
             // TODO: Return FindCommand here (require integration).
         }
@@ -49,6 +49,7 @@ public class FindCommandParser extends CommandParser<FindCommand> {
         try {
             if (findTypeText == null)
                 return null;
+            findTypeText = findTypeText.trim();
             return FindType.valueOfIgnoreCase(findTypeText);
         } catch (IllegalArgumentException ex) {
             throw new ParseException(findTypeText, "FIND_TYPE: Unknown type '" + findTypeText + "'");
@@ -56,8 +57,8 @@ public class FindCommandParser extends CommandParser<FindCommand> {
     }
     
     private String[] parseKeywords(String keywordsBefore, String keywordsAfter) throws ParseException {
-        String[] keywordsArr1 = keywordsBefore.split("\\s+");
-        String[] keywordsArr2 = keywordsAfter.split("\\s+");
+        String[] keywordsArr1 = keywordsBefore.trim().split("\\s+");
+        String[] keywordsArr2 = keywordsAfter.trim().split("\\s+");
 
         if (keywordsArr1.length == 0 && keywordsArr2.length == 0)
             throw new ParseException(keywordsBefore + " ... " + keywordsAfter,
