@@ -1,12 +1,13 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestItem;
-import seedu.address.testutil.TestUtil;
+
+import seedu.taskmanager.testutil.TestItem;
+import seedu.taskmanager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteByIndexCommand.MESSAGE_DELETE_PERSON_SUCCESS;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
+import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
+import static seedu.taskmanager.logic.commands.DeleteByIndexCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
@@ -14,7 +15,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     public void delete() {
 
         //delete the first in the list
-        TestItem[] currentList = td.getTypicalPersons();
+        TestItem[] currentList = td.getTypicalItems();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 

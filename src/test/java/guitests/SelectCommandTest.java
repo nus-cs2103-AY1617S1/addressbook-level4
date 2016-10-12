@@ -2,10 +2,10 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.item.ReadOnlyItem;
+import seedu.taskmanager.model.item.ReadOnlyItem;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
+import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 
 
 public class SelectCommandTest extends TaskManagerGuiTest {
@@ -18,7 +18,7 @@ public class SelectCommandTest extends TaskManagerGuiTest {
         assertNoPersonSelected();
 
         assertSelectionSuccess(1); //first person in the list
-        int personCount = td.getTypicalPersons().length;
+        int personCount = td.getTypicalItems().length;
         assertSelectionSuccess(personCount); //last person in the list
         int middleIndex = personCount / 2;
         assertSelectionSuccess(middleIndex); //a person in the middle of the list
