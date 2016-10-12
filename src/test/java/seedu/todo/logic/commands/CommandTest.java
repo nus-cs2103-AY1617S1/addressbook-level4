@@ -127,14 +127,6 @@ public abstract class CommandTest {
     }
 
     /**
-     * Asserts that the command result indicates the command has been 
-     * called successfully 
-     */
-    protected void assertCommandSuccess() {
-        assertTrue(result.isSuccessful());
-    }
-    
-    /**
      * Sets the positional parameter for command execution. Can be chained. 
      */
     protected CommandTest setParameter(String positional) {
@@ -155,9 +147,11 @@ public abstract class CommandTest {
      * @throws IllegalValueException
      * @throws ValidationException 
      */
-    protected void execute() throws IllegalValueException, ValidationException {
+    protected void execute(boolean expectSuccess) throws IllegalValueException, ValidationException {
         command.setArguments(params);
         command.setModel(model);
         result = command.execute();
+        
+        assertEquals(expectSuccess, result.isSuccessful());
     }
 }

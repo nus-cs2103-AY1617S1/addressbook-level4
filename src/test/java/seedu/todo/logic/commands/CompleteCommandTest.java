@@ -26,7 +26,7 @@ public class CompleteCommandTest extends CommandTest {
     public void testMarkComplete() throws Exception {
         ImmutableTask toMarkComplete = getTaskAt(3);
         setParameter("3");
-        execute();
+        execute(true);
         ImmutableTask markedComplete = getTaskAt(3);
         assertEquals(markedComplete, toMarkComplete);
         assertTrue(toMarkComplete.isCompleted());
@@ -36,7 +36,7 @@ public class CompleteCommandTest extends CommandTest {
     public void testMarkIncomplete() throws Exception {
         ImmutableTask toMarkIncomplete = getTaskAt(1);
         setParameter("1");
-        execute();
+        execute(true);
         ImmutableTask markedIncomplete = getTaskAt(1);
         assertEquals(markedIncomplete, toMarkIncomplete);
         assertFalse(toMarkIncomplete.isCompleted());

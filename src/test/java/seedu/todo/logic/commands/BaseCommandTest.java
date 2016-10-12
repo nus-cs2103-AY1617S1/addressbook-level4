@@ -49,7 +49,7 @@ public class BaseCommandTest extends CommandTest {
             .setParameter("i", "20")
             .setParameter("s", "Hello World");
         
-        execute();
+        execute(true);
         
         verify(requiredArgument).setValue("required");
         verify(flagArgument).setValue("");
@@ -63,7 +63,7 @@ public class BaseCommandTest extends CommandTest {
         boolean exceptionThrown = false; 
         
         try {
-            execute();
+            execute(false);
         } catch (ValidationException e) {
             exceptionThrown = true;
             assertEquals("Test error message", e.getMessage());
@@ -78,12 +78,12 @@ public class BaseCommandTest extends CommandTest {
         IllegalValueException e = mock(IllegalValueException.class);
         doThrow(e).when(requiredArgument).checkRequired();
         
-        execute();
+        execute(false);
     }
     
     @Test(expected=IllegalValueException.class)
     public void testInvalidGetTaskAt() throws Exception {
-        execute();
+        execute(true);
         testCommand.accessInvalidIndex();
     }
 
@@ -96,7 +96,7 @@ public class BaseCommandTest extends CommandTest {
         @Override
         public CommandResult execute() throws IllegalValueException {
             // Does nothing
-            return null;
+            return new CommandResult("Great Success!");
         }
 
         public void accessInvalidIndex() throws IllegalValueException {

@@ -16,9 +16,8 @@ public class AddCommandTest extends CommandTest {
     @Test
     public void testAddTask() throws Exception {
         setParameter("Hello World");
-        execute();
+        execute(true);
 
-        assertCommandSuccess();
         assertTotalTaskCount(1);
         ImmutableTask addedTask = getTaskAt(1);
         assertEquals("Hello World", addedTask.getTitle());
@@ -31,7 +30,7 @@ public class AddCommandTest extends CommandTest {
     public void testAddTaskWithLocation() throws Exception {
         setParameter("Hello NUS");
         setParameter("l", "NUS");
-        execute();
+        execute(true);
         
         ImmutableTask taskWithLocation = getTaskAt(1);
         assertTotalTaskCount(1);
@@ -39,15 +38,13 @@ public class AddCommandTest extends CommandTest {
         assertFalse(taskWithLocation.isPinned());
         assertFalse(taskWithLocation.getDescription().isPresent());
         assertEquals("NUS", taskWithLocation.getLocation().get());
-
-        assertCommandSuccess();
     }
     
     @Test
     public void testAddTaskWithDescription() throws Exception {
         setParameter("Destroy World");
         setParameter("m", "Remember to get Dynamites on sale!");
-        execute();
+        execute(true);
         
         ImmutableTask taskWithDescription = getTaskAt(1);
         assertTotalTaskCount(1);
@@ -55,15 +52,13 @@ public class AddCommandTest extends CommandTest {
         assertEquals("Remember to get Dynamites on sale!", taskWithDescription.getDescription().get());
         assertFalse(taskWithDescription.isPinned());
         assertFalse(taskWithDescription.getLocation().isPresent());
-
-        assertCommandSuccess();
     }
     
     @Test
     public void testAddPinnedTask() throws Exception {
         setParameter("Li Kai's Presentation");
         setParameter("p", null);
-        execute();
+        execute(true);
         
         ImmutableTask pinnedAddedTask = getTaskAt(1);
         assertTotalTaskCount(1);
@@ -71,35 +66,29 @@ public class AddCommandTest extends CommandTest {
         assertTrue(pinnedAddedTask.isPinned());
         assertFalse(pinnedAddedTask.getDescription().isPresent());
         assertFalse(pinnedAddedTask.getLocation().isPresent());
-
-        assertCommandSuccess();
     }
     
     @Test
     public void testAddSingleDate() throws Exception {
         setParameter("Test Task");
         setParameter("d", "tomorrow 9am");
-        execute();
+        execute(true);
         
         ImmutableTask task = getTaskAt(1);
         assertFalse(task.isEvent());
         assertEquals(TimeUtil.tomorrow().withHour(9), task.getEndTime().get());
-
-        assertCommandSuccess();
     }
 
     @Test
     public void testAddDateRange() throws Exception {
         setParameter("Test Event");
         setParameter("d", "tomorrow 6 to 8pm");
-        execute();
+        execute(true);
 
         ImmutableTask task = getTaskAt(1);
         assertTrue(task.isEvent());
         assertEquals(TimeUtil.tomorrow().withHour(18), task.getStartTime().get());
         assertEquals(TimeUtil.tomorrow().withHour(20), task.getEndTime().get());
-        
-        assertCommandSuccess();
     }
     
     @Test
@@ -108,7 +97,7 @@ public class AddCommandTest extends CommandTest {
         setParameter("p", null);
         setParameter("l", "COM1");
         setParameter("m", "Useless task");
-        execute();
+        execute(true);
         
         ImmutableTask taskWithParams = getTaskAt(1);
         assertTotalTaskCount(1);
@@ -116,7 +105,5 @@ public class AddCommandTest extends CommandTest {
         assertTrue(taskWithParams.isPinned());
         assertEquals("COM1", taskWithParams.getLocation().get());
         assertEquals("Useless task", taskWithParams.getDescription().get());
-        
-        assertCommandSuccess();
     }
 }

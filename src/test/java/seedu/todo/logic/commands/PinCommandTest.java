@@ -19,15 +19,14 @@ public class PinCommandTest extends CommandTest {
     public void setUp() throws Exception {
         model.add("Task 3");
         model.add("Task 2");
-        model.add("Task 1", task-> task.setPinned(true));
+        model.add("Task 1", task -> task.setPinned(true));
     }
     @Test
     public void testPinFirst() throws Exception {
         ImmutableTask toPin = getTaskAt(3);
         setParameter("3");
-        execute();
+        execute(true);
         
-        assertCommandSuccess();
         ImmutableTask currPinned = getTaskAt(2);
         assertEquals(currPinned, toPin);
         assertTrue(toPin.isPinned());
@@ -36,9 +35,8 @@ public class PinCommandTest extends CommandTest {
     public void testUnpinFirst() throws Exception {
         ImmutableTask toUnpin = getTaskAt(1);
         setParameter("1");
-        execute();
+        execute(true);
 
-        assertCommandSuccess();
         ImmutableTask currUnpinned = getTaskAt(1);
         assertEquals(currUnpinned, toUnpin);
         assertFalse(toUnpin.isPinned());
