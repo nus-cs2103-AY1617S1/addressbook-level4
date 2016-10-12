@@ -1,4 +1,7 @@
-## Contents
+# User Guide
+
+<br>
+## Table of Contents
 
 1. [Quick Start](#1-quick-start)
 2. [Features](#2-features)
@@ -10,7 +13,7 @@
 1. **Install Java 8 Update 60**<br>
 The latest version is available [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
-2. **Download Amethyst task manager**<br>
+2. **Download Amethyst Task Manager**<br>
 Save the latest `.jar` file from the [releases](dummy link) tab to a folder of your choice.
 
 3. **Launch the program**<br>
@@ -54,13 +57,16 @@ Adds a task to the address book. Three different types of tasks are supported.<b
 Format: `add event 'NAME from hh:mm to hh:mm on dd-mm-yy`
 ##### Deadlines
 Format: `add deadline 'NAME' by hh:mm on dd-mm-yy`
-##### Tasks to be completed someday
+##### Tasks to Be Done Someday
 Format: `add someday 'NAME'`
 
-Examples:
-* `add event 'dinner with wife' on 25-12-16 from 7:00pm to 9:00pm` <br>
-Note that the date and time can be written in any order.
-* `add deadline 'Lab Report' by 16:00 on 03-Mar-15`
+Valid Examples:
+* `add event 'dinner with wife' on 25-12-16 from 19:00 to 21:00pm` <br>
+Note that the time and date parameters can be entered in any order.
+* `add deadline 'Lab Report' by 4:00pm on 03-Mar-15` <br>
+Note that the following time and date formats (hh:mmam/hh:mmpm and dd-MMM-yy) are supported too.
+
+Invalid Examples:
 * `add someday 'Learn "artistic" sarcasm'` is invalid since double quotes should not be used.
 * `add someday 'Read EL James' book 50 Shades of Grey'` is invalid since single quotes are used both to enclose the task name and indicate apostrophe.
 
@@ -83,7 +89,7 @@ Example:
 <br>
 #### 2.4. Finding all tasks containing any keyword in their name: `find`
 Finds tasks in which the name contains any of the given keywords.<br>
-Format: `find KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2 [KEYPHRASE_ONLY_ONE_WORD, MORE, ...]`
+Format: `find KEYPHRASE_WORD_ONE [KEYPHRASE_MORE_WORDS] ..., [MORE_KEYPHRASES] ...`
 
 > * Keyphrases are separated by commas
 > * The search is _case-insensitive_. e.g `hANs bo` will match `Hans Bo`
@@ -102,7 +108,7 @@ Examples:
 <br>
 #### 2.5. Deleting a task: `del`
 Deletes the specified tasks from the task manager. <br>
-Format: `del INDEX [MORE_INDICES...]`
+Format: `del INDEX [MORE_INDICES] ...`
 
 > Deletes the task at the specified INDICES.
   The indices refers to the index numbers shown in the most recent listing.<br>
@@ -120,7 +126,7 @@ Examples:
 <br>
 #### 2.6. Marking a task as done: `done`
 Marks the specified tasks as done. <br>
-Format: `done INDEX [MORE_INDICES...]`
+Format: `done INDEX [MORE_INDICES] ...`
 
 Examples:
 See 'Deleting a task'.
@@ -129,7 +135,7 @@ See 'Deleting a task'.
 <br>
 #### 2.7. Editing a task: `edit`
 Overwrites specified attributes of the specified task. <br>
-Format: `edit INDEX ['NEWNAME'] [from hh:mm to hh:mm|by hh:mm] [dd-mm-yy] [done|not-done]`
+Format: `edit INDEX ['NEW_NAME'] [from hh:mm to hh:mm|by hh:mm] [dd-mm-yy] [done|not-done]`
 
 > The `from` and `to` edits are only valid for events.
 > The `by` edit is only valid for deadlines.
@@ -191,7 +197,7 @@ Format: `list-alias`
 <br>
 #### 2.13. Deleting an alias: `delete-alias | remove-alias`
 Removes previously set aliases. <br>
-Format: `(delete-alias | remove-alias) INDEX [MORE_INDICES...]`
+Format: `(delete-alias | remove-alias) INDEX [MORE_INDICES] ...`
 
 Example:
 * `list-alias`
@@ -213,15 +219,15 @@ Format: `exit`
 |add deadline        |`add deadline 'NAME' by hh:mm dd-mm-yy`|
 |add task to be done someday         |`add someday 'NAME'`|
 |list                |`list [dd-mm-yy] [TASK_TYPE] [done|not-done] [hh:mm]`|
-|find                |`find KEYPHRASE_WORD_1 KEY_PHRASE_WORD_2 [KEYPHRASE_ONLY_ONE_WORD, MORE, ...]`|
-|delete              |`del INDEX [MORE_INDICES...]`|
-|update              |`edit INDEX ['NEWNAME'] [from hh:mm to hh:mm | by hh:mm] [dd-mm-yy] [done|not-done]` |
-|mark done           |`done INDEX [MORE_INDICES...]`|
+|find                |`find KEYPHRASE_WORD_ONE [KEYPHRASE_MORE_WORDS] ..., [MORE_KEYPHRASES] ...`|
+|delete              |`del INDEX [MORE_INDICES] ...`|
+|update              |`edit INDEX ['NEW_NAME'] [from hh:mm to hh:mm | by hh:mm] [dd-mm-yy] [done|not-done]` |
+|mark done           |`done INDEX [MORE_INDICES] ...`|
 |undo                |`undo` |
 |clear               |`clear`|
 |set storage location|`set-storage FILEPATH`|
 |add command alias   |`add-alias 'COMMAND_ALIAS'='COMMAND_PHRASE'`|
 |list command aliases|`list-alias`|
-|delete command alias|`(delete-alias | remove-alias) INDEX [MORE_INDICES...]`|
+|delete command alias|`(delete-alias | remove-alias) INDEX [MORE_INDICES] ...`|
 |help                |`help`|
 |exit                |`exit`|
