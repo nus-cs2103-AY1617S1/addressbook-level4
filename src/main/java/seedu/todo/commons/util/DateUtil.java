@@ -56,23 +56,42 @@ public class DateUtil {
 
         // Consider today's date.
         if (date.isEqual(LocalDate.now())) {
-            return TODAY + SPACE + date.getDayOfMonth() + SPACE + date.getMonth();
+            return TODAY + SPACE + formatDateDisplay(date, true);
         }
         
         if (daysDifference == 1) {
-            return TOMORROW + SPACE + date.getDayOfMonth() + SPACE + date.getMonth();
+            return TOMORROW + SPACE + formatDateDisplay(date, true);
         }
 
         // Consider dates up to 6 days from today.
         if (daysDifference > 1 && daysDifference <= 6) {
             return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US) + SPACE + 
-                    date.getDayOfMonth() + SPACE + date.getMonth();
+                    formatDateDisplay(date, false);
         }
 
         // Otherwise, dates should be a relative days ago/from now format.
         return String.format("%d %s %s", Math.abs(daysDifference), 
                 StringUtil.pluralizer((int) Math.abs(daysDifference), DAY, DAYS), 
                 daysDifference > 0 ? FROM_NOW : TILL_NOW);
+    }
+    
+    /**
+     * Formats a LocalDateTime to a shorten date. 
+     * 
+     * @param dateTime   LocalDateTime to format, withDaysOfWeek.
+     * @return           Formatted shorten day.
+     */
+    private static String formatDateDisplay(LocalDate date, boolean withDaysOfWeek) {
+        //return with the days of the week
+        if (withDaysOfWeek == true) {
+            return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3) + SPACE + 
+                    date.getDayOfMonth() + SPACE + 
+                    date.getMonth().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3);
+        }
+        else {
+            return date.getDayOfMonth() + SPACE + 
+                    date.getMonth().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3);
+        }
     }
 
 }
