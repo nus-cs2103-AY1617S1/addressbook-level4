@@ -42,6 +42,20 @@ public class Parser {
                     + " et/(?<endTime>[^/]+)"
                     + " i/(?<level>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
+    private static final Pattern TASK_DATA_ARGS_FORMAT_3 = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " s/(?<startDate>[^.]+)"
+                    + " st/(?<startTime>[^/]+)"
+                    + " e/(?<endDate>[^.]+)"
+                    + " et/(?<endTime>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)");
+    private static final Pattern TASK_DATA_ARGS_FORMAT_4 = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " s/(?<startDate>[^.]+)"
+                    + " st/(?<startTime>[^/]+)"
+                    + " e/(?<endDate>[^.]+)"
+                    + " et/(?<endTime>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)");
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " e/(?<endDate>[^/]+)"
@@ -54,7 +68,21 @@ public class Parser {
                     + " et/(?<endTime>[^/]+)"
                     + " i/(?<level>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
+    private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT_3 = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " e/(?<endDate>[^/]+)"
+                    + " et/(?<endTime>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)");
+    private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT_4 = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " e/(?<endDate>[^/]+)"
+                    + " et/(?<endTime>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)");
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " i/(?<level>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT_2 = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
@@ -136,12 +164,19 @@ public class Parser {
     private Command prepareAdd(String args){
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher2 = TASK_DATA_ARGS_FORMAT_2.matcher(args.trim());
-        final Matcher matcher3 = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcher4 = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcher5 = DEADLINE_TASK_DATA_ARGS_FORMAT_2.matcher(args.trim());
+        final Matcher matcher3 = TASK_DATA_ARGS_FORMAT_3.matcher(args.trim());
+        final Matcher matcher4 = TASK_DATA_ARGS_FORMAT_4.matcher(args.trim());
+        final Matcher matcher5 = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher6 = DEADLINE_TASK_DATA_ARGS_FORMAT_2.matcher(args.trim());
+        final Matcher matcher7 = DEADLINE_TASK_DATA_ARGS_FORMAT_3.matcher(args.trim());
+        final Matcher matcher8 = DEADLINE_TASK_DATA_ARGS_FORMAT_4.matcher(args.trim());
+        final Matcher matcher9 = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher10 = FLOATING_TASK_DATA_ARGS_FORMAT_2.matcher(args.trim());
+        
         
         // Validate arg string format
-        if (!matcher.matches() && !matcher2.matches() && !matcher3.matches() && !matcher4.matches() && !matcher5.matches()) {
+        if (!matcher.matches() && !matcher2.matches() && !matcher3.matches() && !matcher4.matches() && !matcher5.matches()
+            && !matcher6.matches() && !matcher7.matches() && !matcher8.matches() && !matcher9.matches() && !matcher10.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
@@ -167,26 +202,71 @@ public class Parser {
                         getTagsFromArgs(matcher2.group("tagArguments"))
                         );
             }
+            else if(matcher3.matches()) {
+                return new AddCommand(
+                        matcher3.group("name"),
+                        matcher3.group("startDate"),
+                        matcher3.group("startTime"),
+                        matcher3.group("endDate"),
+                        matcher3.group("endTime"),
+                        getTagsFromArgs(matcher3.group("tagArguments"))
+                        );
+            }
             else if(matcher4.matches()) {
-                return new AddCommand(matcher4.group("name"),
+                return new AddCommand(
+                        matcher4.group("name"),
+                        matcher4.group("startDate"),
+                        matcher4.group("startTime"),
                         matcher4.group("endDate"),
                         matcher4.group("endTime"),
-                        matcher4.group("level"),
                         getTagsFromArgs(matcher4.group("tagArguments"))
                         );
             }
             else if(matcher5.matches()) {
-                return new AddCommand(matcher5.group("name"),
+                return new AddCommand(
+                        matcher5.group("name"),
                         matcher5.group("endDate"),
                         matcher5.group("endTime"),
                         matcher5.group("level"),
-                        getTagsFromArgs(matcher4.group("tagArguments"))
+                        getTagsFromArgs(matcher5.group("tagArguments"))
                         );
-            }           
+            }
+            else if(matcher6.matches()) {
+                return new AddCommand(
+                        matcher6.group("name"),
+                        matcher6.group("endDate"),
+                        matcher6.group("endTime"),
+                        matcher6.group("level"),
+                        getTagsFromArgs(matcher6.group("tagArguments"))
+                        );
+            }
+            else if(matcher7.matches()) {
+                return new AddCommand(
+                        matcher7.group("name"),
+                        matcher7.group("endDate"),
+                        matcher7.group("endTime"),
+                        getTagsFromArgs(matcher7.group("tagArguments"))
+                        );
+            }
+            else if(matcher8.matches()) {
+                return new AddCommand(
+                        matcher8.group("name"),
+                        matcher8.group("endDate"),
+                        matcher8.group("endTime"),
+                        getTagsFromArgs(matcher8.group("tagArguments"))
+                        );
+            }
+            else if(matcher9.matches()) {
+                return new AddCommand(
+                        matcher9.group("name"),
+                        matcher9.group("level"),
+                        getTagsFromArgs(matcher9.group("tagArguments"))
+                        );
+            }
             else {
                 return new AddCommand(
-                        matcher3.group("name"),
-                        getTagsFromArgs(matcher3.group("tagArguments"))
+                        matcher10.group("name"),
+                        getTagsFromArgs(matcher10.group("tagArguments"))
                         );
             }
                        
@@ -236,7 +316,6 @@ public class Parser {
             argumentsForEdit[2] = "";
             argumentsForEdit[3] = "";
             argumentsForEdit[4] = "";
-            argumentsForEdit[5] = "";
             
             try {
                 return new EditCommand(

@@ -46,6 +46,23 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
+    
+    public AddCommand(String name, String startDate, String startTime, String endDate, String endTime, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Name(name),
+                new Date(startDate),
+                new Time(startTime),
+                new Date(endDate),
+                new Time(endTime),
+                new Importance(""),
+                new UniqueTagList(tagSet)
+        );
+    }
 
     public AddCommand(String name, Set<String> tags)
             throws IllegalValueException {
@@ -64,6 +81,23 @@ public class AddCommand extends Command {
         );
     }
     
+    public AddCommand(String name, String level, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Name(name),
+                new Date(""),
+                new Time(""),
+                new Date(""),
+                new Time(""),
+                new Importance(level),
+                new UniqueTagList(tagSet)
+        );
+    }
+    
     public AddCommand(String name, String endDate, String endTime, String level, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
@@ -77,6 +111,23 @@ public class AddCommand extends Command {
                 new Date(endDate),
                 new Time(endTime),
                 new Importance(level),
+                new UniqueTagList(tagSet)
+        );
+    }
+    
+    public AddCommand(String name, String endDate, String endTime, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Name(name),
+                new Date(""),
+                new Time(""),
+                new Date(endDate),
+                new Time(endTime),
+                new Importance(""),
                 new UniqueTagList(tagSet)
         );
     }
