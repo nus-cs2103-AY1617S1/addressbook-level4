@@ -273,13 +273,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new task with a description |
+`* * *` | user | add a dealdine to a task I am creating or to a entered task |
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | find a task by name | see whether it has been completed or if it is upcoming
+`* * *` | user | I can edit a task | so that I can easily update my task list when changes arise.
+`*`     | 
 
-{More to be added}
+
 
 ## Appendix B : Use Cases
 
@@ -311,7 +312,7 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
@@ -323,11 +324,26 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+Reminders for Mac: Simple, clean white interface that is close to a text editor. Mouse use for interaction only required for tags, adding and deleting.
+Features:
+a) tags can be added to items on the list like date due and priority
+b) schedule tab can arrange the reminders by due date
+c) iCloud sync allows use on laptop and phone
+d) periodic tasks can be set such that a reminder alert is displayed every time it is due.
 
+Drawbacks:
+a) Need to refer to calendar to set due dates. 
+
+Asana: Collaborative GTD, a team can set up project tasks and subgroups that divide people into smaller groups based on tasks (Marketing, Engineering, etc).
+a) Can setup individual tasks on personal dashboard, so it also works well for         individual use.
+b) Can hold conversations with team members.
+c) Can set up team tasks.
+d) Can divide members into smaller groups for better organisation.
+
+Taskwarrior: feature-rich software that allows the user to manage his todo list from the command line.
+Uses a natural and expressive syntax
+Allows user to perform CRUD functions and prioritising of tasks in a fast manner
+Support for creating deadlines, searching of tasks
+However, it does not support Jim’s need for “blocking” and “unblocking” timeslots
