@@ -18,18 +18,13 @@ Responsibilities: Storage and Testing
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
+#### [Tan Shao Yun](http://github.com/shaocloud)
+<img src="images/ShaoYun.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Dev Ops
+Responsibilities: UI
+
 
 -----
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
 
 #### [You Liang](http://github.com/yl-coder) 
 <img src="images/YouLiang.jpg" width="150"><br>
