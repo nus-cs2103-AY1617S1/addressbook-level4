@@ -13,6 +13,17 @@ import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
 public class AddController implements Controller {
+    
+    private static String NAME = "Add";
+    private static String DESCRIPTION = "Adds a task / event to the to-do list.";
+    private static String COMMAND_SYNTAX = "add <task> by <deadline> || add <event> at <time>";
+    
+    private static CommandDefinition commandDefinition =
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+
+    public static CommandDefinition getCommandDefinition() {
+        return commandDefinition;
+    }
 
     @Override
     public float inputConfidence(String input) {
