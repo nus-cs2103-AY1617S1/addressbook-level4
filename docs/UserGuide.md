@@ -43,17 +43,17 @@ Just type in your command, and hit enter. Let us handle the rest - you have more
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
-   
+
 1. Download the latest `tasc.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your TaSc.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+3. Double-click the file to start the app. The GUI should appear in a few seconds.
    > <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. You can try some of these example commands:
    * **`list`** : lists all uncompleted tasks and upcoming events
-   * **`new`**` "Do Research" by 21 Sep 5pm` : 
+   * **`new`**` "Do Research" by 21 Sep 5pm` :
      adds a new task named "Do Research" with the deadline on 21 September, 5pm
    * **`complete`**` 3` : marks the 3rd task shown in the current list as complete
    * **`exit`** : exits the app
@@ -110,7 +110,7 @@ Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN 
 > The recurrence of a task can be set with the `repeat` keyword.<br>
 > The repeat pattern can be `daily`, `weekly`, or `monthly`.<br>
 > The repeat frequency will represent how many times the recurrence will occur.<br>
-> 
+>
 > Tags allow you to organize your tasks by different categories (for example,
 > you may use tags to prioritize certain tasks over others).
 >
@@ -138,8 +138,8 @@ Format: `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [r
 >
 > To remove any details for the task, prefix the argument keyword with `remove`.<br>
 > For example: `update 1 removeby` will remove the deadline.
-  
-Examples: 
+
+Examples:
 * `list`<br>
   `update 1 name "Submit Proposal" by 23 Sep 3pm.`<br>
   Update the details of the first task in the list.<br>
@@ -196,8 +196,8 @@ Lists all tasks/events.<br>
 
 Format: `list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...] [sort SORTING_ORDER]`
 
-> * Types include `uncompleted`, `completed`, `floating`, `recurring`, `events`, `tasks`, and/or `free time`. 
-> * Sorting order includes `earliest first`, `latest first` for date and time, 
+> * Types include `uncompleted`, `completed`, `floating`, `recurring`, `events`, `tasks`, and/or `free time`.
+> * Sorting order includes `earliest first`, `latest first` for date and time,
 > and `a-z`, `z-a` for task descriptions.
 > * Defaults to `earliest first` for dates in the future, and `latest first` for dates in the past
 >
@@ -217,21 +217,21 @@ Examples:
 * `list free time from 20 Sep 10am to 8pm`
 
 #### Finding tasks/events which match keywords: `find`
-Lists all tasks/events whose name, type, date or tags partially match the entered keywords.<br> 
+Lists all tasks/events whose name, type, date or tags partially match the entered keywords.<br>
 Format: `find KEYWORD...`
 
-> * KEYWORDs enclosed in quotation marks `" "` use exact match. 
-> * KEYWORDs not enclosed in `" "` are not case-sensitive. 
-> * The task list results are shown in an order which prioritizes the closest match, followed by completion status and date. 
+> * KEYWORDs enclosed in quotation marks `" "` use exact match.
+> * KEYWORDs not enclosed in `" "` are not case-sensitive.
+> * The task list results are shown in an order which prioritizes the closest match, followed by completion status and date.
 
 Examples:
-* `find grad`<br> 
-  Shows tasks with names such as "Up**grad**e myself", and tags such as "**Grad**ed". 
-* `find "V0.0 Deliverables" sep`<br> 
-  Shows the task named "**V0.0 Deliverables**" in **Sep**tember. 
+* `find grad`<br>
+  Shows tasks with names such as "Up**grad**e myself", and tags such as "**Grad**ed".
+* `find "V0.0 Deliverables" sep`<br>
+  Shows the task named "**V0.0 Deliverables**" in **Sep**tember.
 
 #### Show only listing results with specified type, date or tags: `show`
-Shows only tasks/events with specified type, date or tags from 
+Shows only tasks/events with specified type, date or tags from
 the current task list results.<br>
 
 Format: `show [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...]`
@@ -271,7 +271,7 @@ Removes all tasks from the data storage file.<br>
 
 Format: `clear`
 
-> Since this is a potentially destructive action, a confirmation would be shown 
+> Since this is a potentially destructive action, a confirmation would be shown
 > before the tasks are removed.
 
 #### Switch to a different task list: `switchlist`
@@ -279,7 +279,7 @@ Switches to a different task list.<br>
 
 Format: `switchlist FILENAME`
 
-> If the file does not exist, TaSc will assume that you want to create a new 
+> If the file does not exist, TaSc will assume that you want to create a new
 > task list, and will create an empty file for you automatically.
 
 #### Relocate the data storage location: `relocate`
@@ -298,7 +298,7 @@ TaSc saves automatically after each command that changes the data.
 No manual saving is required.
 
 #### Multiple Storage Files
-You can store different schedules on different storage files. Just pass the file name into the program arguments 
+You can store different schedules on different storage files. Just pass the file name into the program arguments
 when running the program.
 
 ## FAQ
@@ -309,7 +309,7 @@ when running the program.
 ## Command Summary
 
 Command | Format  
--------- | :-------- 
+-------- | :--------
 Help | `help`
 Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
 List | `list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...] [sort SORTING_ORDER]`
