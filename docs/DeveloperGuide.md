@@ -678,6 +678,7 @@ Strengths:
 * Integrated with Gmail, requires just one-click to add event from inbox
 * Offline support with Chrome
 * Mini-calendar at sidebar
+* Multiple calendar views (monthly/weekly/daily)
 * Multiple calendars (can show/hide all)
 * Email/Chrome/mobile notifications
 * Syncs to cloud when online
@@ -691,11 +692,14 @@ Weaknesses:
 * Only color tags
 * Keyboard shortcuts “has to be discovered”
 * Unable to delete/edit event using one command
-* Event time must be specific
+* Unable to add floating tasks
 * No tasks view with priority/deadlines
 * Unable to reserve multiple slots
 * Unable to mark event with statuses such as 'completed', 'canceled'
 
+Summary: 
+
+The calendar view is a useful feature to help users visualize their schedules. On the other hand, the lack of ability to add floating tasks may cause inconvenience to users.
 
 #### Todoist
 
