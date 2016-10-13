@@ -3,9 +3,11 @@ package tars.storage;
 import com.google.common.eventbus.Subscribe;
 
 import tars.commons.core.ComponentManager;
+import tars.commons.core.Config;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.events.storage.DataSavingExceptionEvent;
+import tars.commons.events.storage.TarsStorageDirectoryChangedEvent;
 import tars.commons.exceptions.DataConversionException;
 import tars.model.ReadOnlyTars;
 import tars.model.UserPrefs;
@@ -27,11 +29,14 @@ public class StorageManager extends ComponentManager implements Storage {
 
     public StorageManager(String tarsFilePath, String userPrefsFilePath) {
         super();
-        this.tarsStorage = new XmlTarsStorage(tarsFilePath);
+        tarsStorage = new XmlTarsStorage(tarsFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
     // ================ UserPrefs methods ==============================
+
+    public StorageManager() {
+    }
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
@@ -62,7 +67,17 @@ public class StorageManager extends ComponentManager implements Storage {
     public void saveTars(ReadOnlyTars tars) throws IOException {
         tarsStorage.saveTars(tars, tarsStorage.getTarsFilePath());
     }
-
+    
+    //@@author A0124333U
+    public void updateTarsStorageDirectory(String newFilePath, Config newConfig) {
+        tarsStorage = new XmlTarsStorage(newFilePath);
+        indicateTarsStorageDirectoryChanged(newFilePath, newConfig);
+    }
+    
+    //Raise an event that the tars storage directory has changed
+    private void indicateTarsStorageDirectoryChanged(String newFilePath, Config newConfig) {
+        raise(new TarsStorageDirectoryChangedEvent(newFilePath, newConfig));
+    }
 
     @Override
     @Subscribe
