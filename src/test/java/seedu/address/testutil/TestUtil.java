@@ -302,7 +302,7 @@ public class TestUtil {
      * @return
      */
     public static TestTask[] replaceTaskFromList(TestTask[] Tasks, TestTask Task, int index) {
-        Tasks[index - 1] = Task;
+        Tasks[index] = Task;
         return Tasks;
     }
 

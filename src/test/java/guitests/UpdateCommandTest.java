@@ -21,13 +21,13 @@ public class UpdateCommandTest extends AddressBookGuiTest {
         // update first task
         assertUpdateSuccess(targetIndex, td.hoon, currentList);
 
-        currentList = TestUtil.replaceTaskFromList(currentList, td.hoon, targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList, td.hoon, targetIndex - 1);
         targetIndex = currentList.length;
         
         // update last task
         assertUpdateSuccess(targetIndex, td.ida, currentList);
         
-        currentList = TestUtil.replaceTaskFromList(currentList, td.ida, targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList, td.ida, targetIndex - 1);
         targetIndex = 1;
 
         // add new tags
@@ -43,7 +43,7 @@ public class UpdateCommandTest extends AddressBookGuiTest {
         
         // update with no changes
         commandBox.runCommand("update " + targetIndex);
-        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
+        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex - 1);
         assertMatching(td.hoon, updatedCard);
         
         // update own task without changing name
@@ -67,7 +67,7 @@ public class UpdateCommandTest extends AddressBookGuiTest {
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //invalid command
-        commandBox.runCommand("updates "+ currentList.length);
+        commandBox.runCommand("updates " + currentList.length);
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         assertTrue(taskListPanel.isListMatching(currentList));
     }
