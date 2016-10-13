@@ -80,6 +80,13 @@ public class AddCommand extends Command implements UndoableCommand {
         		new UniqueTagList()
                 );
     }
+    
+    /**
+     * Copy constructor.
+     */
+    public AddCommand(ReadOnlyTask source) {
+        this.toAdd = new Task(source);
+    }
 
 
     @Override
@@ -96,7 +103,7 @@ public class AddCommand extends Command implements UndoableCommand {
 
 	@Override
 	public CommandResult undo() {
-		// TODO Auto-generated method stub
+		// TODO
 		return null;
 	}
 }

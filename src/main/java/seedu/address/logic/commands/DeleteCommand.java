@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -19,9 +20,11 @@ public class DeleteCommand extends Command implements UndoableCommand {
             + "Parameters: INDEX (positive integer) [MORE_INDICES] ... \n"
             + "Example: " + COMMAND_WORD + " 1 3";
  
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted tasks: %1$s";
+    public static final String MESSAGE_UNDO_DELETE_SUCCESS = "Undid deletion of tasks: %1$s";
 
-    public final int[] targetIndices;
+    private final int[] targetIndices;
+    private ArrayList<Task> recentDeletedTasks;
 
     public DeleteCommand(int[] targetIndices) {
         this.targetIndices = targetIndices;
@@ -30,7 +33,6 @@ public class DeleteCommand extends Command implements UndoableCommand {
 
     @Override
     public CommandResult execute() {
-
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         ArrayList<ReadOnlyTask> tasksToDelete = new ArrayList<>();
@@ -49,15 +51,26 @@ public class DeleteCommand extends Command implements UndoableCommand {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-
+        
+        recentDeletedTasks = new ArrayList<>();
+        for (ReadOnlyTask task : tasksToDelete) {
+        	recentDeletedTasks.add(new Task(task));
+        }
+        
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete));
     }
 
 
 	@Override
 	public CommandResult undo() {
-		// TODO Auto-generated method stub
-		return null;
+		AddCommand addCommand;
+		
+		for (Task task : recentDeletedTasks) {
+			addCommand = new AddCommand(task);
+			addCommand.execute();
+		}
+		
+		return new CommandResult(String.format(MESSAGE_UNDO_DELETE_SUCCESS, recentDeletedTasks));
 	}
 
 }
