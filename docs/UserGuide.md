@@ -53,7 +53,7 @@ Command | Format
 [Help](#help) | `help`
 [Add](#add) | `add "TASK_DETAILS"`
 &nbsp;| `add "TASK_DETAILS" by DATE/TIME`
-&nbsp;| `add "EVENT_DETAILS" on START DATE/TIME [to END DATE/TIME]`
+&nbsp;| `add "EVENT_DETAILS" on START_DATE/TIME [to END_DATE/TIME]`
 [Complete](#com)| `complete TASK_INDEX`
 [Delete](#del) | `delete TASK_INDEX`
 [Edit](#edit) | `edit INDEX DETAIL_MODIFIER EDITS`
@@ -100,7 +100,7 @@ Examples:
 
 <br>
 Adds an event to Jimi.<br>
-Format: `add "EVENT_DETAILS" on START DATE/TIME [to END DATE/TIME]`
+Format: `add "EVENT_DETAILS" on START_DATE/TIME [to END_DATE/TIME]`
 
 > * If the event is more than a day long, you may include the end date/time. <br>
 > * You may define the start and end time of the event if you wish.
