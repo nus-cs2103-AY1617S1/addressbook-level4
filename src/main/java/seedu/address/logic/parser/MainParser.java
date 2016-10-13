@@ -92,9 +92,12 @@ public class MainParser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
+        case ListCommand.COMMAND_WORD:        	
+        case ListCommand.COMMAND_WORD_SHORT_ALL:
+        	return prepareList(arguments);
+        case ListCommand.COMMAND_WORD_SHORT_DONE:
+            return prepareList("--done");
+            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -332,11 +335,27 @@ public class MainParser {
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        if (keywordSet.contains("done")) {
+        if (keywordSet.contains("--done")) {
         	taskStatus = true;
-        	keywordSet.remove("done");
+        	keywordSet.remove("--done");
         }
         return new FindCommand(keywordSet, taskStatus);
+    }
+    
+    /**
+     * Parses arguments in the context of the list task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     * 
+     * @author A0139661Y
+     */
+    private Command prepareList(String args) {
+        boolean taskStatus = false; // we assume the user is searching for undone tasks
+        if (args.contains("--done")) {
+        	taskStatus = true;
+        }
+        return new ListCommand(taskStatus);
     }
     
     /**
