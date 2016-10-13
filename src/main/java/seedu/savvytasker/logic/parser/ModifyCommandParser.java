@@ -98,7 +98,7 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
             indexText = indexText.trim();
             index = Integer.parseInt(indexText);
             
-            if (index < 0)
+            if (index <= 0)
                 parseError = true;
         } catch (NumberFormatException ex) {
             parseError = true;

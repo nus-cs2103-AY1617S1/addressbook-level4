@@ -52,7 +52,7 @@ public class DeleteCommandParser extends CommandParser<DeleteCommand> {
                 .toArray();
             
             for(int index : indices) {
-                if (index < 0) {
+                if (index <= 0) {
                     parseError = true;
                     break;
                 }

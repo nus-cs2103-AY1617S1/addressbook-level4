@@ -59,9 +59,14 @@ public class FindCommandParser extends CommandParser<FindCommand> {
     }
     
     private String[] parseKeywords(String keywordsBefore, String keywordsAfter) throws ParseException {
-        String[] keywordsArr1 = keywordsBefore.trim().split("\\s+");
-        String[] keywordsArr2 = keywordsAfter.trim().split("\\s+");
-
+        keywordsBefore = keywordsBefore.trim();
+        keywordsAfter = keywordsAfter.trim();
+        
+        String[] keywordsArr1 = new String[0];
+        String[] keywordsArr2 = new String[0];
+        if (!keywordsBefore.isEmpty()) keywordsArr1 = keywordsBefore.split("\\s+");
+        if (!keywordsAfter.isEmpty()) keywordsArr2 = keywordsAfter.split("\\s+");
+        
         if (keywordsArr1.length == 0 && keywordsArr2.length == 0)
             throw new ParseException(keywordsBefore + " ... " + keywordsAfter,
                     "KEYWORD: Need to specify at least one keyword!");
