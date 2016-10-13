@@ -5,18 +5,22 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a-user-stories)
-* [Appendix B: Use Cases](#appendix-b-use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d-glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix A: User Stories](#app-a)
+* [Appendix B: Use Cases](#app-b)
+* [Appendix C: Non Functional Requirements](#app-c)
+* [Appendix D: Glossary](#app-d)
+* [Appendix E : Product Survey](#app-e)
 
+<br>
+<br>
 ## Introduction
 
 Jimi is a simple task manager specifically catered for people like [Jim](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-product). It is a Java desktop application that has both a Text UI and a GUI. Jimi handles most, if not all, input via the command line interface (CLI).
 
 This guide describes the design and implementation of Jimi. It will help you understand how Jimi works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
 
+<br>
+<br>
 ## Setting up
 
 #### Prerequisites
@@ -31,7 +35,7 @@ This guide describes the design and implementation of Jimi. It will help you und
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
-
+<br>
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
@@ -46,7 +50,8 @@ This guide describes the design and implementation of Jimi. It will help you und
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-  
+
+<br>
 #### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
@@ -58,7 +63,8 @@ This guide describes the design and implementation of Jimi. It will help you und
 * Reason: Required libraries may not have been downloaded during the project import. 
 * Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
  
-
+<br>
+<br>
 ## Design
 
 ### Architecture
@@ -67,7 +73,7 @@ This guide describes the design and implementation of Jimi. It will help you und
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/jimi/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -89,6 +95,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
+<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
@@ -96,7 +103,7 @@ command `delete 3`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -270,7 +277,8 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-## Appendix A : User Stories
+<a id="app-a"></a>
+## Appendix A : User Stories 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -300,7 +308,8 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | view current output of the input command in real time | check whether its the expected result of the command
 
 
-## Appendix B : Use Cases
+<a id="app-b"></a>
+## Appendix B : Use Cases 
 
 (For all use cases below, the **System** is the `TaskBook` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -538,7 +547,8 @@ Use case ends.
 Use case ends.
 
 
-## Appendix C : Non Functional Requirements
+<a id="app-c"></a>
+## Appendix C : Non Functional Requirements 
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 persons.
@@ -556,7 +566,8 @@ Use case ends.
 14. Should recover from major errors efficiently.
 
 
-## Appendix D : Glossary
+<a id="app-d"></a>
+## Appendix D : Glossary 
 
 
 ##### Private contact detail
@@ -575,7 +586,8 @@ Use case ends.
 ##### Command-line interface
 > User interface to a computer's operating system or an application in which the user responds to a visual prompt by typing in a command on a specified line, receives a response back from the system, and then enters another command, and so forth.
 
-## Appendix E : Product Survey
+<a id="app-e"></a>
+## Appendix E : Product Survey 
 
 | Task Managers | Strengths | Weaknesses |
 | :------------ | :-------- | :--------- |
