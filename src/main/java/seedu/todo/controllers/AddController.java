@@ -32,7 +32,7 @@ public class AddController implements Controller {
                 indexOfFrom = -1;
                 indexOfTo = -1;
             } else {
-                // to be updated to supported pair value of from and to
+                // To do : to support event keyword "from" and "to"
                 return indexOfFrom;
             }
         }
@@ -59,14 +59,12 @@ public class AddController implements Controller {
         
         // Parse name and date.
         int splitValue = splitByKeyword(args, isTask);
-        String naturalDate = "Today";
+        String naturalDate = "Today"; //Default to Today for floating task.
         String name = args;
         if (splitValue != -1) {
             name = args.substring(0, splitValue);
             naturalDate = args.substring(splitValue);
         }
-        
-        
         
         // Parse natural date using Natty.
         Parser parser = new Parser();
