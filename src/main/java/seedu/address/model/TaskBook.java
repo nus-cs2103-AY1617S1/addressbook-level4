@@ -31,7 +31,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     /**
-     * Persons and Tags are copied into this taskbook
+     * Items and Tags are copied into this taskbook
      */
     public TaskBook(UniqueItemList items) {
         resetData(items.getInternalList());
@@ -59,20 +59,25 @@ public class TaskBook implements ReadOnlyTaskBook {
         resetData(newData.getItemList());
     }
 
-//// person-level operations
+    /**************************** ITEM-LEVEL OPERATIONS *****************************************/
 
     /**
-     * Adds a person to the task book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds an item to the task book.
+     * Also checks the new item's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the item to point to those in {@link #tags}.
      *
-     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
+     * @throws UniqueItemList.DuplicateItemException if an equivalent person already exists.
      */
     public void addItem(Item i) throws UniqueItemList.DuplicateItemException {
         items.add(i);
     }
 
-
+    /**
+     * Removes the item given by key.
+     * 
+     * @param key gives the item's 
+     * @throws UniqueItemList.ItemNotFoundException if the item cannot be found.
+     */
     public boolean removeItem(ReadOnlyItem key) throws UniqueItemList.ItemNotFoundException {
         if (items.remove(key)) {
             return true;
