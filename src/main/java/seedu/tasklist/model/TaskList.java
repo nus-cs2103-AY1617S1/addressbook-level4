@@ -7,6 +7,7 @@ import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.tasklist.model.task.UniqueTaskList.TaskCompletionException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -122,6 +123,22 @@ public class TaskList implements ReadOnlyTaskList {
     public void editTask(Task taskToEdit, ReadOnlyTask key) throws TaskNotFoundException {
         syncTagsWithMasterList(taskToEdit);
         task.edit(taskToEdit, key);
+    }
+
+    public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException, TaskCompletionException {
+        if (task.mark(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean unmarkTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException, TaskCompletionException {
+        if (task.unmark(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
     }
 
 //// tag-level operations

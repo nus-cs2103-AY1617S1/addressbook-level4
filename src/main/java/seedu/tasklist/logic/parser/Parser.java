@@ -16,9 +16,6 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public Parser() {
-    }
-
     /**
      * Parses user input into command for execution.
      *
@@ -39,7 +36,7 @@ public class Parser {
             Class<?> classDefinition = Class.forName("seedu.tasklist.logic.commands."
                     + commandWord.substring(0, 1).toUpperCase() + commandWord.substring(1).toLowerCase() + "Command");
             object = classDefinition.newInstance();
-            
+
             return ((CommandParser) object).prepare(arguments);
         } catch (Exception e) {
             System.out.println(e);

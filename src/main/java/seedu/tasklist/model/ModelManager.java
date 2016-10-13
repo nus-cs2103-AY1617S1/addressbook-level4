@@ -9,6 +9,7 @@ import seedu.tasklist.commons.util.StringUtil;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
+import seedu.tasklist.model.task.UniqueTaskList.TaskCompletionException;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -67,6 +68,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
+        indicateTaskListChanged();
+    }
+    
+    @Override
+    public void markTask(ReadOnlyTask target) throws TaskNotFoundException, TaskCompletionException {
+        taskList.markTask(target);
+        indicateTaskListChanged();
+    }
+    
+    @Override
+    public void unmarkTask(ReadOnlyTask target) throws TaskNotFoundException, TaskCompletionException {
+        taskList.unmarkTask(target);
         indicateTaskListChanged();
     }
 
