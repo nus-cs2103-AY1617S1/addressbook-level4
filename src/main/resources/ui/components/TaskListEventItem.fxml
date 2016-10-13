@@ -6,7 +6,7 @@
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" 
   xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
-  fx:controller="seedu.todo.ui.components.TaskListTaskItem">
+  fx:controller="seedu.todo.ui.components.TaskListEventItem">
   <children>
   
     <Text fx:id="eventText" styleClass="tasklist-eventitem-label" />
