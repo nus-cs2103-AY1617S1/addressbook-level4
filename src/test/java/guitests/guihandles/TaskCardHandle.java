@@ -8,15 +8,15 @@ import seedu.task.model.person.ReadOnlyTask;
 /**
  * Provides a handle to a person card in the person list panel.
  */
-public class PersonCardHandle extends GuiHandle {
+public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#locationLabel";
-    private static final String PHONE_FIELD_ID = "#startTimeLabel";
-    private static final String EMAIL_FIELD_ID = "#endTimeLabel";
+    private static final String LOCATION_FIELD_ID = "#locationLabel";
+    private static final String STARTTIME_FIELD_ID = "#startTimeLabel";
+    private static final String ENDTIME_FIELD_ID = "#endTimeLabel";
 
     private Node node;
 
-    public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -30,26 +30,26 @@ public class PersonCardHandle extends GuiHandle {
     }
 
     public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+        return getTextFromLabel(LOCATION_FIELD_ID).replace(" at ", "");
     }
 
     public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+        return getTextFromLabel(STARTTIME_FIELD_ID).replace(" from ", "");
     }
 
     public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+        return getTextFromLabel(ENDTIME_FIELD_ID).replace(" to ", "");
     }
 
-    public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getStartTime().value)
-                && getEmail().equals(person.getEndTime().value) && getAddress().equals(person.getLocation().value);
+    public boolean isSameTask(ReadOnlyTask task){
+        return getFullName().equals(task.getName().fullName) && getPhone().equals(task.getStartTime().value)
+                && getEmail().equals(task.getEndTime().value) && getAddress().equals(task.getLocation().value);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
+        if(obj instanceof TaskCardHandle) {
+            TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName())
                     && getAddress().equals(handle.getAddress()); //TODO: compare the rest
         }
