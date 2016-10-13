@@ -68,7 +68,7 @@ public class TaskList extends Component {
         java.util.Collections.sort(sortedUniqueDates);
 
         // For each dateTime, individually render a single TaskListDateItem.
-        for (LocalDateTime dateTime : uniqueDateSet) {
+        for (LocalDateTime dateTime : sortedUniqueDates) {
             List<Task> tasksForDate = tasksByDate.get(dateTime);
             List<Event> eventsForDate = eventsByDate.get(dateTime);
             
